@@ -284,3 +284,56 @@ The panel started at 2026-11-12T18:23:42Z, and no row has been read.
   success becomes CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN by design.
 - Thomas's note on the wrapper test: span (ii) fails closed if a later `rec[...]` assignment is added. Do not loosen
   the comparison.
+
+## Amendment F: owner decision (orchestrator 23:28 UTC) and revised G5 memory rule, written before code and runs
+
+**Decision.** KEEP check isolation (F4 + F3). Memory is measured by **PSS** (proportional set size: each shared page
+counted once, split between the processes sharing it). A labelled **no-isolation comparison arm** is kept to compare
+against baseline. It is not a second product.
+
+### F1. What changes in the kit
+1. **Controller guard on family PSS** (v2 overlay of `runner/wfg_controller.py`).
+   - At the existing 0.1 s sampling, the controller sums `Pss` from `/proc/<pid>/smaps_rollup` over the same verified
+     process family it uses today. The ownership and lineage rules are unchanged.
+   - The guard trips when family PSS > guard.
+   - The receipt records both peaks, `sampled_family_peak_pss_bytes` and `sampled_family_peak_rss_bytes`, plus the PSS
+     sampling cost.
+   - Where `smaps_rollup` is unavailable (non-Linux), the guard falls back to RSS and records
+     `guard_measure: rss_fallback`. It is never silent.
+2. **Comparison switch.**
+   - A job field `v2_check_isolation`, default **true**, is recorded in JOB.json and in RESULT.
+   - `false` runs the whole-road check in-process, exactly as the parent does (no fork, no cgroup). The resource budget
+     is then `not_proven` by design, so the journey is reported as CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN.
+   - Only the panel harness sets `false`, and only under the arm label **V2_NOISO**. Every result from it carries
+     `comparison_arm: no_check_isolation`.
+
+### F2. Measurement for G5 memory (all arms alike)
+- The panel harness samples **family PSS and family RSS** for every job of every arm (FROZEN, V2, V2_NOISO) every 10 ms
+  (`tools/family_pss.py` logic). The same measure is used for all arms. The frozen kit's own controller keeps its RSS
+  guard, unchanged.
+- Recorded per job: PSS peak, RSS peak, PSS at the RSS peak, and the number of processes at the peak.
+
+### F3. Pass criteria (Step 2 passes iff all hold, together with G1–G3 and G2/G2b as before)
+- **M1, absolute:** every V2 mission's median family-PSS peak ≤ 3,072 MiB.
+- **M2, cost:**
+  - reported per mission: V2 ÷ V2_NOISO and V2 ÷ FROZEN PSS peak, in MiB and as ratios;
+  - **tripwire (fails if exceeded on any mission): an increase over V2_NOISO of more than 50% AND more than 300 MiB.**
+  - Stated plainly: the tripwire was set **after** seeing two diagnostic measurements (+23% / +42 MiB on Uljin FW2,
+    +38% / +249 MiB on Yeongdeok FW1). It guards against a regression beyond the accepted cost; it was not tuned to pass.
+- **M3, guard correctness (tests, written first):**
+  - (a) a forked child sharing a touched 1 GiB parent array, guard 1,536 MiB: the RSS sum (about 2 GiB) would trip; the
+    PSS-based guard must **not** trip;
+  - (b) a child that allocates its own 1 GiB on top, guard 1,536 MiB: the PSS-based guard **must** trip;
+  - (c) the RSS fallback path is labelled.
+  - (d) On F-DYN Yeongdeok …166 (300 s, guard 12,288 MiB): the controller's recorded PSS peak is within 5% of the
+    harness PSS maximum, and below the harness RSS-sum peak during the check (previously 5,083 vs 9,352 MiB).
+- **M4, verdict identity of the comparison arm:** V2_NOISO's pre-memory-map status and arrival equal FROZEN's on every
+  mission, under the G1 rule including FL2. This is evidence that isolation does not change verdicts.
+- **G5 wall:** V2 ≤ 1.10 × FROZEN (summed medians), including the PSS sampling cost, which is reported. V2_NOISO's wall
+  is reported beside it.
+
+### F4. Panel
+20 missions × 2 reps, the three arms interleaved per mission (order rotating by rep), 81 s, alone on the host,
+checkpointed per job, restarts logged.
+
+The comparison row in every report is labelled "**baseline comparison: same kit without check isolation**".
