@@ -222,14 +222,19 @@ The hourly conditional estimator should cost the same as hourly plain: it reuses
 
 **Notes.**
 - Pass 1 (hash clocks) is now frontier-restricted, bitwise-tested against its full-grid version. It went from 6.4–6.8 to 0.72–1.24 ms.
-- Pass 2 replays every trajectory and repairs the flagged cells.
+- Pass 2 replays every trajectory and repairs the flagged cells. Its 0.23/0.43 ms is the repair's EXTRA cost only (Owen).
+- Unflagged cells keep the lower value, which can be up to 5% relatively low by construction (the threshold).
 - **Sampler cost on this host:**
   - plain first-passage: 0.33 / 0.53 ms (c651 / fast);
   - CMC without repair: 0.64 / 1.2 ms;
   - CMC with exact repair: 0.95 / 1.67 ms.
 - Flagged cells are tail cells, with median p 0.004 (c651) and 3e-4 (fast). So the repair matters exactly where the sampler is meant to earn its place.
 
-## 8b. Drop-in conditional estimator for the EXISTING rollout (standalone result, orchestrator decision 1)
+## 8b. Conditional estimator for the EXISTING rollout (standalone result, orchestrator decision 1)
+
+**SCOPE (Owen, dd5d1f2): this is NOT yet a drop-in for the scored c651 held-out configuration.** forecast-v2 scored `c651_mc` through simulate's private fractional-endpoint path (`step_durations`) with `cache_environment_kernels=True` (research/forecast-v2/RESULTS.json `mc_path`). `cond_rollout` supports neither: it covers whole-hour horizons with uncached transitions only. A `c651_mc_cond` variant for scoring needs both added, plus bit-identity tests on that path, before it is declared.
+
+**Owen's independent probe.** 3 cutoffs, hourly `environmental_forecast` through an environment-dependent stub, a partial final block, zero/unknown boundary, 4 seeds. The plain output is bit-identical to `simulate` in 8/8 cases.
 
 `cond_rollout.simulate_with_conditional` re-implements the trajectory loop of `wildfire.rollout.simulate` for:
 - a single non-Bayesian predictor;
