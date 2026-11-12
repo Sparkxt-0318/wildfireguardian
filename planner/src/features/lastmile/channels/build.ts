@@ -20,7 +20,7 @@
 import { FORBIDDEN, MODEL_NOT_LIVE, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS, MODEL_NOT_LIVE_SMS, NOT_REAL, DEPARTURE_INSTRUCTION, RESIDENT_119_NOW } from '../strings';
 import { clockTimes, maskData } from '../checks';
 import { eucKrBytes, gsm7Length, spokenSeconds, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
-import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts } from '../compose';
+import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
 import type { LmLang } from '../types';
 
@@ -137,8 +137,27 @@ let AGE_KO = '';
 let AGE_EN = '';
 
 /** Spoken leave-by time, in the selected style (the only place a spoken leave-by time is worded). */
+/** Days between the data date and the date of input + offset (KST). */
+function dayShift(p: MessagePlan, offsetS: number): number {
+  const a = kstParts(iso(p)), b = kstParts(iso(p), offsetS);
+  return Math.round((Date.UTC(b.y, b.mo - 1, b.d) - Date.UTC(a.y, a.mo - 1, a.d)) / 86400000);
+}
+
+/** A clock time that names the day when it is not the data date (Mira N2: midnight crossing). */
+function dayMarked(p: MessagePlan, offsetS: number, lang: LmLang, t: string): string {
+  const d = dayShift(p, offsetS);
+  if (d === 0) return t;
+  if (lang === 'ko') return d === 1 ? `다음날 ${t}` : `${ymd(iso(p), offsetS)} ${t}`;
+  return d === 1 ? `${t} (next day)` : `${t} (${ymd(iso(p), offsetS)})`;
+}
+
+/** Written HH:MM with the day marked when it crosses midnight. */
+function hmDay(p: MessagePlan, offsetS: number, lang: LmLang): string {
+  return dayMarked(p, offsetS, lang, hm(iso(p), offsetS));
+}
+
 function spokenLeaveBy(p: MessagePlan, lang: LmLang): string {
-  const t = lang === 'ko' ? koSpokenTime(iso(p), p.leaveByS!) : enSpokenTime(iso(p), p.leaveByS!);
+  const t = dayMarked(p, p.leaveByS!, lang, lang === 'ko' ? koSpokenTime(iso(p), p.leaveByS!) : enSpokenTime(iso(p), p.leaveByS!));
   if (STYLE === 'clock') return t;
   const m = Math.floor(p.leaveByS! / 60);
   return lang === 'ko' ? `자료 시각부터 ${m}분 뒤인 ${t}` : `${t}, ${m} minutes after the data time`;
@@ -274,11 +293,11 @@ function familyText(p: MessagePlan, lang: LmLang): string {
 function familyTextWith(p: MessagePlan, lang: LmLang, v: string | null): string {
   if (lang === 'ko') {
     const head = `${tag(p, 'ko')}${v ?? '마을'} 산불`;
-    const body = p.kind === 'leave_by' && p.leaveByS !== null ? `모델상 ${hm(iso(p), p.leaveByS)}까지 차로 출발` : p.kind === 'no_route' ? '모델상 경로 없음, 위급 시 119' : '모델 미확인, 공식안내 따름';
+    const body = p.kind === 'leave_by' && p.leaveByS !== null ? `모델상 ${hmDay(p, p.leaveByS, 'ko')}까지 차로 출발` : p.kind === 'no_route' ? '모델상 경로 없음, 위급 시 119' : '모델 미확인, 공식안내 따름';
     return `${head}\n${body}\n${OFFICIAL_FIRST_SMS.ko}·${MODEL_NOT_LIVE_SMS.ko}`;
   }
   const head = `${tag(p, 'en')} ${v && /^[\x20-\x7E]+$/.test(v) ? v : 'Village'} wildfire`.trim();
-  const body = p.kind === 'leave_by' && p.leaveByS !== null ? `Model: leave by car by ${hm(iso(p), p.leaveByS)}` : p.kind === 'no_route' ? 'Model: no route. Emergency: 119' : 'Model: not checked. Follow official guidance';
+  const body = p.kind === 'leave_by' && p.leaveByS !== null ? `Model: leave by car by ${hmDay(p, p.leaveByS, 'en')}` : p.kind === 'no_route' ? 'Model: no route. Emergency: 119' : 'Model: not checked. Follow official guidance';
   return `${head}\n${body}\n${OFFICIAL_FIRST_SMS.en} ${MODEL_NOT_LIVE_SMS.en}`;
 }
 
@@ -326,7 +345,7 @@ function noOrder(p: MessagePlan, lang: LmLang, opt: ChannelOptions): string | nu
   if (lang === 'ko') {
     const body =
       p.kind === 'leave_by' && p.leaveByS !== null
-        ? `모델 계산으로는 ${hm(iso(p), p.leaveByS)}까지 출발해야 하는 곳입니다.`
+        ? `모델 계산으로는 ${hmDay(p, p.leaveByS, 'ko')}까지 출발해야 하는 곳입니다.`
         : p.kind === 'no_route'
           ? '모델 계산으로는 확인된 대피 길이 없는 곳입니다.'
           : '모델 계산으로 확인하지 못한 곳입니다.';
@@ -341,7 +360,7 @@ function noOrder(p: MessagePlan, lang: LmLang, opt: ChannelOptions): string | nu
   }
   const body =
     p.kind === 'leave_by' && p.leaveByS !== null
-      ? `Model: this place must leave by ${hm(iso(p), p.leaveByS)}.`
+      ? `Model: this place must leave by ${hmDay(p, p.leaveByS, 'en')}.`
       : p.kind === 'no_route'
         ? 'Model: no checked road out.'
         : 'Model: not checked.';
@@ -384,8 +403,13 @@ export function issueOrderByText(p: MessagePlan, v: IssueOrderBy | null | undefi
     return lang === 'ko' ? `${head}: 모델상 확인된 경로 없음 — 시한 없음, 명령을 미루지 마십시오` : `${head}: no checked route in the model — no deadline; do not delay the order`;
   }
   if (p.kind !== 'leave_by' || !v.issueByS) return lang === 'ko' ? `${head}: 플래너 결과와 불일치 — 산출되지 않음` : `${head}: disagrees with the planner — not computed`;
-  const show = (x: number) => (x < 0 ? (lang === 'ko' ? '이미 지남' : 'already past') : hm(iso(p), x));
   const { low, median, high } = v.issueByS;
+  const H = p.input.scenario.horizonS;
+  const valid = (x: number) => Number.isInteger(x) && x <= v.leaveByS!;
+  if (!Number.isInteger(v.leaveByS) || v.leaveByS < 0 || v.leaveByS > H || ![low, median, high].every(valid)) {
+    return lang === 'ko' ? `${head}: 입력값 범위 오류 — 산출되지 않음` : `${head}: input out of range — not computed`;
+  }
+  const show = (x: number) => (x < 0 ? (lang === 'ko' ? '이미 지남' : 'already past') : hmDay(p, x, lang));
   return lang === 'ko'
     ? `${head}: 지연 짧음 ${show(low)} · 중간 ${show(median)} · 김 ${show(high)}`
     : `${head}: short latency ${show(low)} · median ${show(median)} · long ${show(high)}`;

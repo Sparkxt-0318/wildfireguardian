@@ -1,8 +1,8 @@
-# W-KIT checkpoint 2 (measured; not fit for live use; comprehension untested)
+# W-KIT checkpoint 3 (measured; not fit for live use; comprehension untested)
 
-Code: `planner/src/features/lastmile/channels/build.ts` · tests: `tests/planner/wkit.channels.test.ts` (17 tests).
+Code: `planner/src/features/lastmile/channels/build.ts` · tests: `tests/planner/wkit.channels.test.ts` (19 tests).
 Run: `cd planner && npm ci && npx vitest run ../tests/planner/wkit.channels.test.ts`; full suite `npx vitest run` →
-22 files, 382 tests passed (this container, Node 22, Linux x86_64).
+22 files, 384 tests passed (this container, Node 22, Linux x86_64).
 
 ## Claim boundary
 The outputs are well-formed and mutually consistent under the kit's rules. Nothing here shows that anyone understands
@@ -29,7 +29,17 @@ or acts on them; comprehension is untested. Inputs are replayed planner results;
 - At 2.5 syll/s the same scripts fit for only 197/531 cores (≤ 20 s) and 182/531 full scripts (≤ 35 s); the
   same texts take up to 24 s core / 39 s full. Withholding at 2.5 would leave most villages without a script, so the
   checks stay at the kit's 3.0 rate and the 2.5 figures are reported. Decision on the budget returned to Iris.
-- 600 synthetic cases: only violations are 18 Korean full scripts > 35 s (long names / markers) — withheld.
+- 600 synthetic cases: only violations are 19 Korean full scripts > 35 s (long names / markers; one more since the
+  midnight day marker) — flagged for withholding.
+
+## Verifier notes folded in (Mira, PASS WITH NOTES on 6ac1bc62)
+- N1: issue-order-by records are range-checked (integer; 0 ≤ leaveBy ≤ H; every issue-by ≤ leaveBy); otherwise
+  "input out of range — not computed".
+- N2: any time on another KST date than the data date is marked ("다음날 …" / "(next day)", or the date).
+- N3: the destination-swap fault test now uses a named second destination and always runs.
+- N4: the Python euc_kr oracle fails the test if python3 is missing (no silent skip).
+- N5: "withheld" means the violation list is non-empty; no consumer enforces it yet (not wired into UI/CSV). The
+  enforcement claim applies only once wired, mirroring the kit's `outputOk`.
 
 ## Source notes (Sofia, 2026-11-12)
 - 행정안전부예규 제361호 「재난문자방송 기준 및 운영규정」: limits are 90 / 157 CHARACTERS (annex labels), no byte

@@ -74,7 +74,8 @@ describe('booth caches: every real origin', () => {
   it('independent oracles: Python euc_kr ≤ 90 bytes for the Korean family text; no NEVER word; no departure instruction or extra clock time unless leave_by', () => {
     const sets = real.map(build);
     const bytes = pythonEucKr(sets.map((s) => s.text.ko.familyText));
-    if (bytes) for (const b of bytes) expect(typeof b === 'number' && b <= 90).toBe(true);
+    expect(bytes, 'python3 with the euc_kr codec is required for this oracle').not.toBeNull();
+    for (const b of bytes!) expect(typeof b === 'number' && b <= 90).toBe(true);
     sets.forEach((s, i) => {
       const p = real[i]!;
       for (const t of residentTexts(s)) {
@@ -98,7 +99,7 @@ describe('600 synthetic cases (all kinds, markers, long and unnamed places)', ()
     const viol = syn.flatMap((p) => build(p).violations);
     const kinds = new Set(viol.map((v) => v.replace(/[\d.]+ s/g, 'N s')));
     expect([...kinds].sort()).toEqual(['ko.head: N s > N s']);
-    expect(viol.length).toBe(18);
+    expect(viol.length).toBe(19);
   });
 
   it('cores always ≤ 20 s with five elements; unresolved / no_route / partial never name a destination or a time', () => {
@@ -156,6 +157,29 @@ describe('rules, one by one', () => {
     expect(buildChannels(u, { nowIso: NOW, issueOrderBy: ISSUE }).text.ko.staff.issueOrderBy).toContain('산출되지 않음');
   });
 
+  it('issue-order-by rejects out-of-range records (Mira N1): issue after leave-by, leave-by beyond the horizon, non-integers', () => {
+    const p = leave();
+    const T = (r: object) => buildChannels(p, { nowIso: NOW, issueOrderBy: r as never }).text.ko.staff.issueOrderBy;
+    expect(T({ leaveByS: 1800, issueByS: { low: 1860, median: 600, high: 0 } })).toContain('범위 오류');
+    expect(T({ leaveByS: 99999, issueByS: { low: 600, median: 600, high: 600 } })).toContain('범위 오류');
+    expect(T({ leaveByS: -5, issueByS: { low: -600, median: -600, high: -600 } })).toContain('범위 오류');
+    expect(T({ leaveByS: 1800, issueByS: { low: 600.5, median: 600, high: 600 } })).toContain('범위 오류');
+    expect(T({ leaveByS: 1800, issueByS: { low: -600, median: 600, high: 1800 } })).toMatch(/이미 지남 .* \d\d:\d\d .* \d\d:\d\d/);
+  });
+
+  it('midnight crossing names the day (Mira N2): data 23:45 KST, leave-by after midnight', () => {
+    const p = messagePlan(synInput({ scenario: { ...synInput().scenario, inputTimeIso: '2025-03-24T14:45:00Z' } }), null);
+    expect(p.kind).toBe('leave_by');
+    const s = buildChannels(p, { nowIso: NOW, orderStatus: ORDER });
+    const crosses = new Date(Date.parse('2025-03-24T14:45:00Z') + p.leaveByS! * 1000 + 9 * 3600e3).getUTCDate() !== 24;
+    expect(crosses).toBe(true);
+    expect(s.text.ko.head.core).toContain('다음날 ');
+    expect(s.text.ko.familyText).toContain('다음날 ');
+    expect(s.text.ko.staff.noOrder).toContain('다음날 ');
+    expect(s.text.en.head.core).toContain('(next day)');
+    expect(s.violations).toEqual([]);
+  });
+
   it('data age: replay says so; live states minutes; a future data time is "unknown"', () => {
     const p = leave();
     expect(buildChannels(p, { nowIso: NOW }).text.ko.staff.dataAge).toMatch(/기록 재현 자료/);
@@ -181,11 +205,10 @@ describe('rules, one by one', () => {
     const s = buildChannels(p, { nowIso: NOW });
     const bad1 = structuredClone(s); bad1.text.ko.voice += ' 안심하십시오.';
     expect(checkChannels(p, bad1).some((v) => v.startsWith('ko.voice: forbidden word'))).toBe(true);
-    const other = Object.values(p.input.destinations).find((d) => d.name && d.name.ko !== s.destinationName?.ko);
-    if (other?.name) {
-      const bad2 = structuredClone(s); bad2.text.ko.familyScript[1] += ` ${other.name.ko} 쪽입니다.`;
-      expect(checkChannels(p, bad2).some((v) => v.includes('names destination'))).toBe(true);
-    }
+    const p2: MessagePlan = { ...p, input: { ...p.input, destinations: { ...p.input.destinations, 'syn:dest:named-other': { id: 'syn:dest:named-other', name: { ko: '합성 다른 학교', en: 'Synthetic Other School' }, display: { ko: '합성 다른 학교', en: 'Synthetic Other School' }, category: { ko: '학교', en: 'school' } } } } };
+    const bad2 = structuredClone(s); bad2.text.ko.familyScript[1] += ' 합성 다른 학교 쪽입니다.';
+    expect(checkChannels(p2, bad2).some((v) => v.includes('names destination "합성 다른 학교"'))).toBe(true);
+    expect(checkChannels(p2, s).some((v) => v.includes('names destination'))).toBe(false);
     const u = unresolved();
     const su = buildChannels(u, { nowIso: NOW });
     const bad3 = structuredClone(su); bad3.text.ko.familyText += '\n18:40까지 차로 출발';
