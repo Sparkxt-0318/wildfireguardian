@@ -68,3 +68,13 @@ probability) are blocked from ceil(d / v).
 
 * I have **no primary source**. The value came into `unknown.py` from Iris and Leo as a scenario speed.
 * It is to be confirmed by Sofia.
+
+## Addition 2026-11-12 (committed before the B16.4 runs start)
+
+* **B16.4 added at Iris's request (via Clara).** Tier B at 16.4 km/h (U_state blocked from 0, U_q from d / v) is run
+  as an extra sensitivity point. It uses the same code path and is counted the same way as the rate-assumed variants.
+* **Source of the speeds (Sofia).**
+  * 8.2 km/h is an oral figure from the NIFoS satellite centre head (2025-03-27), with no interval or distance given.
+  * The documented KFS figure is 51 km in ≤ 12 h, Uiseong to Yeongdeok, mainly by spotting, which is about 4.25 km/h
+    mean front displacement.
+  * Neither is a contiguous-surface rate of spread.
