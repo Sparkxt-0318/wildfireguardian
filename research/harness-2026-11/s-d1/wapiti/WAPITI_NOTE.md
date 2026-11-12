@@ -1,6 +1,12 @@
 # Wapiti reconciliation note: why c651 beats no-new-burn in the preprint but not in the six-fire evaluation
 
-**DEVELOPMENT-ONLY, exposed fire (Wapiti, cohort R). Existing outputs only, no new fits. Verifier: Owen.**
+**DEVELOPMENT-ONLY, exposed fire (Wapiti, cohort R). Existing outputs only, no new fits.**
+**Owen: PASS WITH NOTES** (ledger row 42, 7ebb615a). He reproduced RESULTS_wapiti.json identically and confirmed
+every number with an independent recomputation. The matching rule is not a free choice: no (S) interval lies within
+1 h of an (M) interval without matching it exactly, so any tolerance up to 1 h gives the same 24.
+
+*Plan erratum (Owen, note 3):* the plan's check value "Brier(zero) 0.0084025" is M548's Brier, not Brier(zero). The
+script checks entries, positives and BSS, so this has no effect.
 The step list was committed before any number (`WAPITI_PLAN.md`, 117932f2), and so was the script
 (`wapiti_reconcile.py`). Results: `RESULTS_wapiti.json`. The preprint numbers are Victor's exact reproduction
 (`S-D9/derive/M548_REPRO.*`, PR #125 at 86550a33; Hannah PASS WITH NOTES, ledger row 32).
@@ -32,18 +38,20 @@ The step list was committed before any number (`WAPITI_PLAN.md`, 117932f2), and 
   burned at the cutoff.
 - So the mask (band versus full rectangle), the label source, the crop and the prediction run are **not** the cause
   here. All four coincide on the common intervals.
+- The plan expected (M) predictions from a different run. In fact the archive's stored-validation cases and the
+  six-fire set hold the **same c651 output** on the common intervals, bit for bit.
 
 ## Which intervals (post-plan, descriptive)
 
 - **The preprint's 25 intervals** have cutoffs from 2 to 30 August 2024 and lengths of 12.8–35.7 h.
-  - One of them, 2–5 August (73 h), is not in (S), because the frozen six-fire rule takes only intervals of 48 h or
+  - One of them, 2 August 03:48 → 5 August 06:37 UTC (74.8 h), is not in (S), because the frozen six-fire rule takes only intervals of 48 h or
     less.
 - **The 28 intervals only in (S)** have cutoffs from 24 August to 15 October 2024 and lengths of 19.1–47.7 h.
   - They hold 229,814 cells with only 1,224 positives (base rate 0.53%).
   - c651 is worse than no-new-burn on **26 of 28**.
   - Pooled excess Brier is +0.0081 per cell.
-  - Five late-season intervals carry 55% of that excess, led by 28 September (47.7 h, 3 positives on 7,968 cells),
-    2 September (44.6 h, 70 positives) and 5 September.
+  - Five intervals between 2 September and 11 October carry 55% of that excess, led by 28 September (47.7 h,
+    3 positives on 7,968 cells) and 2 September (44.6 h, 70 positives).
 - **Reading, a hypothesis that was not tested:** the six-fire set adds the later, slower, longer intervals of the
   fire. There c651's spread probabilities over-predict against very few new burns. The preprint window (the August
   growth phase) is where c651 helps.
