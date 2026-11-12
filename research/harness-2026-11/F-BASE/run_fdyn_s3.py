@@ -47,7 +47,9 @@ def main():
     a.out_dir.mkdir(parents=True, exist_ok=True)
     out = a.out_dir / cfile.name
     with out.open("w") as fh:
-        fh.write(json.dumps(dict(header=True, packet=a.packet, soundness=head["soundness"], rule="DESIGN.md (e)")) + "\n")
+        fh.write(json.dumps(dict(header=True, packet=a.packet, soundness=head["soundness"], rule="DESIGN.md (e)",
+                                 started_utc=__import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
+                                 script_sha256=__import__("hashlib").sha256(Path(__file__).read_bytes()).hexdigest())) + "\n")
         for r in rows:
             if "status" in r:
                 continue
