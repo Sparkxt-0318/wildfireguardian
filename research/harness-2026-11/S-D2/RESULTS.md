@@ -413,3 +413,10 @@ from branch `daniel/data-fetch`.
 - **Shape recovery** (780cbabe): PASS. **Step check** (8b0fde65): PASS WITH NOTES (synthetic only).
 - **Covariates:** previous-interval growth shows no clear association. All covariate results are marginal
   associations.
+- **Reach slope** (`reach_slope.py` at 560a64d6) and **real far share** (`real_far_share.py` at 28540968):
+  **PASS WITH NOTES** (Owen, rerun on his independently regenerated inputs).
+  - Only the overall slope (0.381), the non-length slope (0.38) and the between-fire slope (0.359) are well
+    determined. The length-part and within-fire intervals are wide.
+  - A slope below 1 is a **calibration slope, not a mechanism**. It may be partly attenuation: the simulated median
+    comes from 64 simulations and is quantised to the cell size.
+  - The no-GOFER subset (b7cb892f) is unverified.
