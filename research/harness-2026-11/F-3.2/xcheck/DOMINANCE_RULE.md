@@ -61,3 +61,19 @@ relaxation blocks, this argument is refuted and the item fails.
 - Until Mira verifies, every job stays UNRESOLVED, and nothing in the planner or kit changes. A supplied refusal
   certificate must carry the bundle sha and both checkers' verdicts: the kit's `_valid_refusal_certificate` records
   declared fields only and does not re-verify.
+
+## Status (2026-11-12 ~15:55 UTC, orchestrator, superseding the scope above; the rule text above is unchanged)
+
+- **At-issue jobs:** nothing is relabelled. The planner already shows "already over a limit at departure". No at-issue
+  check is needed from this item.
+- **Priority: LOW at 1 h.** Only the cheap per-job steps — (i), (ii), (iii), (v), (vii) and the sampled (vi) — run on the
+  genuine timeout jobs, when the CPU is free. There is no further review of the kit checker for these jobs. §1 is
+  already written, from the code read done for this rule.
+- **Field.** A refusal claim uses Richard's ROUTER-only field under the recorded forecast: the same flame rule, graph,
+  turns, admission, opening windows, horizon and departure, with peak and dose dropped. It never uses CERT alone or a
+  pessimistic tier.
+- **Count to reconcile.** Clara's 8 TIMEOUT jobs vs Richard's 98 TIMEOUT rows (all Yeongdeok): distinct jobs vs rows,
+  or a different field. Richard and Clara reconcile this before any run, and the reconciled set is the one checked.
+- **A wider review** of the kit's whole-road checker is decided by Richard's count of UNRESOLVED multi-hour (F-DYN 5 h /
+  8 h) jobs that are infeasible in the ROUTER-only field.
+- **Any result** is an OFFLINE checked refusal. The kit's 30 s behaviour claim is unchanged.
