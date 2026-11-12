@@ -44,3 +44,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # own-module decisions per kit (see redecide.py: run_profile caches the first kit's decision module by name)
+    import subprocess
+    subprocess.run([sys.executable, '-B', str(Path(__file__).with_name('redecide.py')), str(Path(sys.argv[sys.argv.index('--out') + 1]).resolve())], check=True)

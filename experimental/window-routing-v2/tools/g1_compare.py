@@ -30,7 +30,9 @@ def shares(run, r):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run', type=Path); ap.add_argument('--json', type=Path)
     a = ap.parse_args()
-    rows = [json.loads(l) for l in (a.run / 'ROWS.jsonl').read_text().splitlines() if l.strip()]
+    src = a.run / 'ROWS_REDECIDED.jsonl'   # own-module decisions (redecide.py) when present; else the recorded rows
+    rows = [json.loads(l) for l in (src if src.exists() else a.run / 'ROWS.jsonl').read_text().splitlines() if l.strip()]
+    print('rows from', src.name if src.exists() else 'ROWS.jsonl')
     for r in rows:
         r['dose_share'], r['peak_share'], r['kit_identity'] = shares(a.run, r)
     key = lambda r: '%s/%s' % (r['region'], r['case_id'])
