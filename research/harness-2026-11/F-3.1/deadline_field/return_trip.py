@@ -38,33 +38,42 @@ def run(graph, packet, instance):
     H = pm.H
     dests = sorted({(d["node"], d["dwell_s"]) for o in instance["origins"] for d in o["destinations"]})
     entries = sorted({o["entry_node"] for o in instance["origins"]})
-    flds = {}
-    for dn, dw in dests:
-        flds[(dn, dw)] = backward(pm.instance("cert", [{"node": dn, "dwell": dw, "window": [0, H]}], entries))
+    # one destination field at a time (memory): earliest outbound arrival per (origin, own destination)
     soft, hard = resource.getrlimit(resource.RLIMIT_AS)
     resource.setrlimit(resource.RLIMIT_AS, (_vmsize() + CAP, hard))
-    out_rows, need_return = {}, {}
+    best, nc = {}, set()
+    by_dest = {}
     for o in instance["origins"]:
-        e = o["entry_node"]
-        best, nc = None, False
-        for d in sorted(o["destinations"], key=lambda d: d["node"]):
-            k = (d["node"], d["dwell_s"])
-            if not iv.contains(issue_set(flds[k], pm.nidx[e]), 0):
+        for d in o["destinations"]:
+            by_dest.setdefault((d["node"], d["dwell_s"]), []).append(o)
+    for (dn, dw), os_ in sorted(by_dest.items()):
+        fld = backward(pm.instance("cert", [{"node": dn, "dwell": dw, "window": [0, H]}], entries))
+        for o in sorted(os_, key=lambda o: o["origin_id"]):
+            e = o["entry_node"]
+            if not iv.contains(issue_set(fld, pm.nidx[e]), 0):
                 continue
             try:
-                w = witness(flds[k], pm.nidx[e], 0)
+                w = witness(fld, pm.nidx[e], 0)
             except MemoryError:
-                nc = True
+                nc.add(o["origin_id"])
                 continue
-            if w is not None and (best is None or w[0] < best[0]):
-                best = (w[0], d["node"], d["dwell_s"])
-        r = {"entry_node": e, "outbound_checked": best is not None or nc, "outbound_arrival_not_computed": best is None and nc}
-        if best:
-            r.update(outbound_dest=best[1], arrival=best[0], dwell=best[2])
-            need_return.setdefault(e, set()).add(best[1])
-        out_rows[o["origin_id"]] = r
+            if w is not None:
+                cand = (w[0], dn, dw)
+                cur = best.get(o["origin_id"])
+                if cur is None or cand < cur:     # earliest arrival; ties -> lowest node id
+                    best[o["origin_id"]] = cand
+        del fld
+    out_rows, need_return = {}, {}
+    for o in instance["origins"]:
+        e, oid = o["entry_node"], o["origin_id"]
+        b = best.get(oid)
+        r = {"entry_node": e, "outbound_checked": b is not None or oid in nc,
+             "outbound_arrival_not_computed": b is None and oid in nc}
+        if b:
+            r.update(outbound_dest=b[1], arrival=b[0], dwell=b[2])
+            need_return.setdefault(e, set()).add(b[1])
+        out_rows[oid] = r
     resource.setrlimit(resource.RLIMIT_AS, (soft, hard))
-    flds.clear()
     t_out = time.perf_counter() - t0
     ret = {}
     for e, srcs in sorted(need_return.items()):
