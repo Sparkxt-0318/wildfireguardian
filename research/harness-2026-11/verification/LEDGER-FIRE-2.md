@@ -76,6 +76,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 68 | 2026-11-12 | Erratum PR #145 wording fix | Thomas | 5a2c628 | README only; header limits my confirmation to the v3 Yeongdeok packet; nothing else changed | diff | READY |
 | 69 | 2026-11-12 | P-PROTO jsdom test under the Pages base path | Clara | 2b594dc | old test with /wildfireguardian/: 4 failed in 274 s (base '': 14/14); new: 14/14 in about 5 s under '', '/wildfireguardian/', './'; fail-fast mutation fires; workflow env 446/446, build OK; no assertion changed | reproduce before/after + mutation | PASS |
 | 70 | 2026-11-12 | F-3.4 REQUEST 11 F-DYN A3(a)/(b) | Priya | 7e88cfc | plan before runs; (a) 4/4 CERTIFIED_ADMISSIBLE + 4/4 independent ok, checker hashes = fresh unmodified kit; (b) 5/9 Yeongdeok proven, Uiseong 0/4; non-adoption of the pre-registered reading supported by A1 rows (same LO finished, only the checker gate failed) | rows/STAGES/hashes + fresh kit | PASS WITH NOTES |
+| 71 | 2026-11-12 | Phone tidy + symmetric provenance guard | Clara | 2776a4f | phone allowlist identical to ccbee1a; unresolved_proven_no_route kept only on unresolved (178), reported not established on leave_by 791 / no_route 84 / partial 78; violations unchanged; guard removal caught; 449/449 | own forced probe + mutation | PASS |
 
 ## Notes
 
@@ -354,4 +355,3 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - No envelope packet was certified. The #145 erratum's "confirmed by Mira" should be limited to the v3 Yeongdeok packet.
 
 **70.** N1: firms …168 was FEASIBLE (not unresolved) in A1. N2: the Uiseong LO cap is inferred, not recorded. The per-route re-run was not possible (ORIGINAL_REQUEST.json not committed).
-
