@@ -18,3 +18,7 @@ The run took about 11 min and downloaded about 1 GB of raw files, streamed and d
 - **Saturation:** band 7 saturates near **400.1 K** in 174 of 576 scans, spanning 2025-03-25 05:50–14:35 UTC. Treat B07 ≥ 399.9 K as saturated (a lower bound).
 - **Geolocation:** pixel centres are the nominal AHI fixed grid (about 2 km at nadir, coarser at 36° N). There is no parallax or terrain correction.
 - No hotspot thresholding has been applied; that is left to the consumers.
+- **Harmless traceback:** satpy 0.54 prints `AttributeError: 'NoneType' object has no attribute 'path'` from `AHIHSDFileHandler.__del__` after each run.
+  It comes from object cleanup and does not affect the output; check for the final `DONE scans … missing 0` line instead.
+- **Verification:** Hannah (verifier) reported PASS at d791bf5a. She reproduced two 4-scan windows from the public bucket (2025-03-24 18:00 and 2025-03-25 10:00, the latter inside
+  the saturation span). Pixel identities were identical, and B07 and B14 matched exactly (max |Δ| = 0). The full 24 h fetch was not rerun.
