@@ -28,6 +28,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import p1_check as P1  # noqa: E402
 import cases  # noqa: E402
 import unknown_support as U  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
@@ -41,6 +42,7 @@ EVENT_DAYS = {"KFS_01": ("2025-03-21", "2025-04-01"), "KFS_02": ("2022-03-03", "
 
 def native_masks(packet):
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
+        P1.require_routable_arrays(a, packet)          # refuse HAZARD-only packets loudly (Leo 588f74e)
         g = lambda k: a["mask__" + k].astype(bool)
         u_state = g("unknown_cumulative_state")
         u_q = g("policy_assigned_zero") & ~g("known_burned") & ~u_state
