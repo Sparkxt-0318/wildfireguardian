@@ -1,0 +1,591 @@
+{
+ "schema": "wfg.f93.support-writer.regression/1",
+ "design": "research/harness-2026-11/F-9.3/support_mask/DESIGN.md",
+ "python": "3.13.18",
+ "numpy": "2.5.3",
+ "scipy": "1.18.1",
+ "platform": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
+ "source_sha256": {
+  "packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+  "bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+  "build_packet.py": "5cc8cc2eaa169ccaabd588521719d158fbf9c2b1965ff0abc83a2cdfd2765268",
+  "packets_f93.py": "befd94bcd695becb3b039595934a68bdd7ef6f3d5f2857081b8302b132a7c7c5",
+  "build_packet_f93.py": "24f918cc44ce7982887a5d88a3189f32b76a2fe99b2b6737806fad207147036f"
+ },
+ "recorded_packets": 15,
+ "rebuilt": 15,
+ "not_rebuilt": [],
+ "all_ok": false,
+ "rows": [
+  {
+   "packet": "hongseong_2023/20230402T070000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 2.1429872559693852e-12,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 269,
+    "cells": 324,
+    "u_state": 171,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "hongseong_2023/20230402T140000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 6.051413174911803e-12,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 247,
+    "cells": 324,
+    "u_state": 171,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "hongseong_2023/20230402T230000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 8.716435856741408e-12,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 214,
+    "cells": 324,
+    "u_state": 171,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "miryang_2022/20220531T100000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 4.225300649184619e-12,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 175,
+    "cells": 187,
+    "u_state": 107,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "miryang_2022/20220601T020000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 6.851666730235025e-12,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 153,
+    "cells": 187,
+    "u_state": 107,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "miryang_2022/20220601T080000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 4.4841393912051374e-12,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 142,
+    "cells": 187,
+    "u_state": 107,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "uiseong_andong_2025/20250323T010000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 3.572742658756924e-10,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 1582,
+    "cells": 4745,
+    "u_state": 953,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "uiseong_andong_2025/20250324T090000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": false,
+    "flux_max_relative_diff": 4.112770362590214e-09,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 1491,
+    "cells": 4745,
+    "u_state": 953,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": false
+  },
+  {
+   "packet": "uiseong_andong_2025/20250325T170000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 5.3591867570655514e-11,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 1267,
+    "cells": 4745,
+    "u_state": 953,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "uljin_2022/20220304T030000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 7.453163403069778e-10,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 2529,
+    "cells": 3596,
+    "u_state": 1659,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "uljin_2022/20220304T060000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 1.4158564613850468e-10,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 2529,
+    "cells": 3596,
+    "u_state": 1659,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "uljin_2022/20220304T120000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 6.012410360609746e-10,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 2527,
+    "cells": 3596,
+    "u_state": 1659,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T190000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 9.109868404819346e-11,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 2885,
+    "cells": 4757,
+    "u_state": 2570,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T230000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 2.724487091001264e-10,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 2735,
+    "cells": 4757,
+    "u_state": 2570,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "packet": "yeongdeok_2025/20250326T080000Z",
+   "A_rc": 0,
+   "A2_rc": 0,
+   "B_rc": 0,
+   "C_rc": 0,
+   "B_eq_A_bytes": {
+    "HAZARD.json": true,
+    "REPORT.json": true,
+    "NATIVE_METADATA.json": true
+   },
+   "B_eq_A_npz_arrays": true,
+   "B_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_bytes": true,
+   "A2_eq_A_npz_arrays": true,
+   "B_eq_A_build_summary_except_wall_out_npz_hash": true,
+   "B_packet_writer_is_frozen": true,
+   "A_vs_frozen_stored": {
+    "ok": true,
+    "flux_max_relative_diff": 5.152009525220271e-10,
+    "hazard_bytes_identical": false
+   },
+   "C": {
+    "unsupported_cells": 2599,
+    "cells": 4757,
+    "u_state": 2570,
+    "writer_identity_differs": true,
+    "base_writer_recorded": true,
+    "ids_breakpoints_flame_flux_equal_A": true,
+    "support_equals_rule": true,
+    "npz_support": true,
+    "other_arrays_equal_A": true,
+    "array_law_consistent": true,
+    "identity_stamped_in_report_and_metadata": true,
+    "ok": true
+   },
+   "ok": true
+  }
+ ]
+}

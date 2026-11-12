@@ -1,6 +1,7 @@
 /**
  * Display helpers shared by components (names, categories, hosts, error texts).
  */
+import { splitReasonCode } from '../api/supportGate';
 import type { TFunction, Lang } from '../i18n';
 import type { HostInfo, Place } from '../domain/types';
 import { kstClock, kstDateTime, parseUtc } from '../domain/clock';
@@ -59,6 +60,13 @@ export function errorText(e: { code: string; message?: string } | null | undefin
 
 export function reasonText(code: string | null | undefined, t: TFunction): string | null {
   if (!code) return null;
+  // "<CODE>@<sha8>": a support-masked result carries its packet writer's identity (api/supportGate.ts)
+  const split = splitReasonCode(code);
+  if (split.writer) {
+    const l = t(`reason.${split.code}`);
+    const label = l !== `reason.${split.code}` ? ` · ${l}` : '';
+    return `${split.code}${label} · ${t('reason.writer', { writer: split.writer })}`;
+  }
   const s = t(`reason.${code}`);
   if (s !== `reason.${code}`) return `${code} · ${s}`;
   // a request the API refused carries the API's error code (e.g. NODE_NOT_ALLOWED)
