@@ -191,15 +191,19 @@ const AGENCY_WORDS_MAX = 8;
 export type IssuerCheck = 'none' | 'bad_name' | 'bad_number' | 'not_in_registry' | 'ok';
 
 /**
- * A Korean phone number as an agency publishes it (hyphenated): landline 0AA-BBB(B)-CCCC or a representative number
- * 1XXX-XXXX. Mobile numbers (010/011/016–019) are refused: they are personal data, and an official contact is a landline
- * or a representative number (Mira note, orchestrator). Times, dates and bare digit runs ("18-30", "2025-03-25", "1830")
- * never match. Emergency numbers are refused. The number is a supplied input: staff are told it is unverified.
+ * An official agency phone number as published (hyphenated), allowlist of shapes (tidy-up after Mira's note on #140):
+ * - landline: Seoul 02 or a regional area code (031–033, 041–044, 051–055, 061–064), local number starting 2–9;
+ * - representative number: 15XX / 16XX / 18XX-XXXX;
+ * - the all-zero placeholder (000-000(0)-0000), undiallable, used only by drills and tests.
+ * Refused: mobiles (010/011/016–019, personal data), 050 personal safe numbers, 070 VoIP (often personal), unassigned
+ * prefixes (012/013, other 1XXX), emergency numbers, and every time-, date- or digit-run-shaped string. The number is a
+ * supplied input: staff are told it is unverified.
  */
 export function phoneShaped(n: string): boolean {
-  if (!/^(0\d{1,2}-\d{3,4}-\d{4}|1\d{3}-\d{4})$/.test(n)) return false;
-  if (/^01[016789]-/.test(n)) return false;
-  return !['112', '119', '110'].includes(n.replace(/-/g, ''));
+  if (/^0{2,3}-0{3,4}-0{4}$/.test(n)) return true;
+  if (/^02-[2-9]\d{2,3}-\d{4}$/.test(n)) return true;
+  if (/^0(3[1-3]|4[1-4]|5[1-5]|6[1-4])-[2-9]\d{2,3}-\d{4}$/.test(n)) return true;
+  return /^1(5|6|8)\d{2}-\d{4}$/.test(n);
 }
 
 /** The exact-match key: Unicode NFC and surrounding whitespace only (Iris); nothing that widens the match. */
@@ -803,8 +807,8 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       if (checked.status === 'bad_number')
         extra.push(
           lang === 'ko'
-            ? '문의처 없음 — 고칠 항목: 연락처. 기관 전화번호 형식(예: 0XX-XXX-XXXX, 1XXX-XXXX)이 아니거나, 휴대전화 또는 긴급번호입니다.'
-            : 'No contact line — field to fix: contact number. It is not an agency phone-number shape (e.g. 0XX-XXX-XXXX, 1XXX-XXXX), or it is a mobile or emergency number.',
+            ? '문의처 없음 — 고칠 항목: 연락처. 기관 전화번호(지역번호 유선전화 또는 15XX·16XX·18XX 대표번호) 형식이 아닙니다. 휴대전화·050·070·긴급번호는 쓸 수 없습니다.'
+            : 'No contact line — field to fix: contact number. It is not an agency number (an area-code landline or a 15XX/16XX/18XX representative number); mobile, 050, 070 and emergency numbers are not accepted.',
         );
       if (checked.status === 'ok' && iss && contact[lang].voice === 'included')
         extra.push(lang === 'ko' ? `문의처 번호 ${iss.contact}는 입력값이며 확인되지 않았습니다.` : `Contact number ${iss.contact} is a supplied input and is not verified.`);
