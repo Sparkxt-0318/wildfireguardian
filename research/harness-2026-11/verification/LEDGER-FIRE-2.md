@@ -77,6 +77,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 69 | 2026-11-12 | P-PROTO jsdom test under the Pages base path | Clara | 2b594dc | old test with /wildfireguardian/: 4 failed in 274 s (base '': 14/14); new: 14/14 in about 5 s under '', '/wildfireguardian/', './'; fail-fast mutation fires; workflow env 446/446, build OK; no assertion changed | reproduce before/after + mutation | PASS |
 | 70 | 2026-11-12 | F-3.4 REQUEST 11 F-DYN A3(a)/(b) | Priya | 7e88cfc | plan before runs; (a) 4/4 CERTIFIED_ADMISSIBLE + 4/4 independent ok, checker hashes = fresh unmodified kit; (b) 5/9 Yeongdeok proven, Uiseong 0/4; non-adoption of the pre-registered reading supported by A1 rows (same LO finished, only the checker gate failed) | rows/STAGES/hashes + fresh kit | PASS WITH NOTES |
 | 71 | 2026-11-12 | Phone tidy + symmetric provenance guard | Clara | 2776a4f | phone allowlist identical to ccbee1a; unresolved_proven_no_route kept only on unresolved (178), reported not established on leave_by 791 / no_route 84 / partial 78; violations unchanged; guard removal caught; 449/449 | own forced probe + mutation | PASS |
+| 72 | 2026-11-12 | P-PROTO empty public page (one no-data line) | Clara | eccec7f | 18/18; mutation (old PublicView) fails all 4 new tests; 453/453; build OK; 0 public-view files and no no-data strings in dist; wording regexes pass the shipped ko/en and catch the earlier draft | fresh npm ci, mutation, dist grep, independent regex check | PASS |
 
 ## Notes
 
