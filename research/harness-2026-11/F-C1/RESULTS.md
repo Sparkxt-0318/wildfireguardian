@@ -1,5 +1,7 @@
 # F-C1 on the 2025 planner cache: short negative result
 
+> **F-C1 is closed.** See `CLOSING.md` for all three analyses and what data would decide the question.
+
 **Verification.** Hannah: PASS WITH NOTES at 0f7db4b. Her rerun's SUMMARY is identical to `SUMMARY_v2.json`; her
 notes are applied.
 
