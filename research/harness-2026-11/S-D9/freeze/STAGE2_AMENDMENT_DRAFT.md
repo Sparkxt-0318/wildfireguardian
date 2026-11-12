@@ -72,6 +72,8 @@
 ## 7. Wording updates to A1
 - **Line ~113:** "Open-Meteo, day 2" becomes "Open-Meteo, the 13 Nov 00:12 UTC fetch" for the AlderCreek weather.
 
+- **Erratum (orchestrator, 16:05Z):** A1's status line still reads "DRAFT revision 24 (amendment 1 to the revision-23 freeze candidate), not frozen". It should read: "Frozen at stage 1 (`FREEZE.json`, with amendment 1, A1 item 30); stage 2 by this amendment." This changes no rule, number or membership. The frozen file is not edited in place, so the stage-2 record carries the correction.
+
 ## 9. Outcome-to-claim table, parts c and b (written before part c opens; changes no criterion)
 Each row fixes the sentence the paper may write for one possible result.
 - The rows apply to **part c** (headline candidate) and, word for word, to **part b** (the one combined candidate of §11). For part b, "headline" means that candidate.
