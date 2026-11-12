@@ -81,3 +81,60 @@ Labels: WebFetch returned ENOTFOUND for arxiv.org, link.springer.com, content.cs
 **Avoid:** a new latest-departure or backward-search algorithm; the first per-household evacuation deadline; the first fire plus routing coupling; the first probabilistic timing; any complexity better than Foschini et al.; exactness under cumulative exposure without a proof.
 
 **Read in full before publishing:** the CSA profile section, Li et al. 2015, WiSE 2.0 PSAM18, arXiv:2608.05413.
+
+### Mission A, accessed 2026-11-12
+
+See `MISSION_A.md`: 15 Korean and 18 international findings, plus a village-level timeline for 25-26 March 2025. All are SNIPPET-ONLY.
+
+### Queue item 3: F-3.2 certificates (Thomas), accessed 2026-11-12. Abstract/metadata level
+
+| Source | ID | Finding |
+|---|---|---|
+| McConnell, Mehlhorn, Näher & Schweitzer 2011, CS Review 5(2):119 | doi:10.1016/j.cosrev.2010.09.009 | Certifying-algorithms framework; static shortest-path certificates via potentials |
+| Alkassar, Böhme, Mehlhorn & Rizkallah, CAV 2011 / JAR 52(3) 2014 | doi:10.1007/978-3-642-22110-1_7 ; arXiv:1301.7462 | Verified checkers (VCC plus Isabelle); static graphs |
+| Rizkallah PhD 2015, Saarland | https://publikationen.sulb.uni-saarland.de/handle/20.500.11880/26674 | Shortest-path checker chapter |
+| Shokry et al. 2024 | arXiv:2412.06121 | Linear-time static SSSP verifier |
+| Eriksson, Röger & Helmert, ICAPS 2017 / 2018 | doi:10.1609/icaps.v27i1.13818 ; doi:10.1609/icaps.v28i1.13899 | Unsolvability certificates checked by an independent validator; untimed |
+| Wimmer & von Mutius, TACAS 2020 | doi:10.1007/978-3-030-45190-5_24 | Verified certificate checker for timed-automata unreachability. **Novelty risk** |
+| Wang & Abdulaziz 2025 | arXiv:2510.10189 | Verified unsolvability certificates for temporal planning. **Novelty risk** |
+| Cheung, Gleixner & Steffy, IPCO 2017 (VIPR) | doi:10.1007/978-3-319-59250-3_13 | Exact MIP certificates |
+| Phillips & Likhachev, ICRA 2011 (SIPP) | n/a | Safe-interval search; no certificate output |
+| Orda & Rom 1990, JACM 37(3) | doi:10.1145/79147.214078 | Waiting policies (unrestricted, forbidden, source) |
+| Zeitz 2023, IPL 179:106287 | n/a | Earliest arrival is NP-hard for non-FIFO networks with waiting disallowed. This implies a single-label certificate cannot work in general (inference) |
+| Basch et al. ICRA 2001; Varava et al. arXiv:2002.02715; Marcucci et al. T-RO 2024 | n/a | Motion-planning disconnection and infeasibility proofs; static |
+
+**Verdict: incremental new combination (~65%).** No source claims that a single earliest-arrival label is a sound dual under forbidden waiting. Certificates should use (node, safe-interval) states.
+
+### Queue item 4: F-4.2 margin routing (Priya), accessed 2026-11-12. Snippet level
+
+| Source | ID | Finding |
+|---|---|---|
+| US Patent 9,530,304 "Distributed sensor network" | https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9530304 | Ranks routes by "safe time remaining" (minimum fire arrival over waypoints); shelter if none is safe. **Must cite** |
+| WiSE, PSAM16 MH163 | https://www.iapsam.org/PSAM16/papers/MH163-PSAM16.pdf | ASET/RSET margin from 500 FlamMap runs; evaluation only |
+| Sheng et al. 2024, IJWF 33(3) WF23166; Wang, Sheng et al. 2024, Fire 7(12):459 | https://www.publish.csiro.au/WF/WF23166 ; https://mdpi.com/2571-6255/7/12/459 | Firefighter escape routes with safety windows; weighted-sum objectives |
+| Yu & Yang 1998; Bertsimas & Sim 2003; Montemanni & Gambardella 2004; Nikolova et al. ESA 2006 | n/a | Robust and reliable shortest paths; uncertainty in travel time |
+| Lindemann et al. 2023 (arXiv:2210.10254); Dixit et al. 2023 (arXiv:2212.00278) | n/a | Conformal prediction in MPC planning |
+| Liang et al. CP-SIPP, L4DC 2026 | arXiv:2511.18170 | Conformal safe intervals on space-time graphs. **Closest for (b)** |
+| Dayan 2026 | arXiv:2603.22331 | Conformal risk control on wildfire spread maps; no routing |
+| Fan, Kalaba & Moore 2005 | n/a | **Not located**; do not cite its details |
+
+**Verdicts:** (a) margin-maximizing routing is incremental (~65%); (b) conformal margins are novel in this application (~60%).
+
+### Queue item 5: F-C1 viewshed and see-before-leave (Leo), accessed 2026-11-12. Abstract/snippet level
+
+| Source | ID | Finding |
+|---|---|---|
+| Li, Cova & Dennison 2017, Appl. Geog. 87:14 | doi:10.1016/j.apgeog.2017.05.008 | Viewshed used to rank trigger landmarks. **Closest prior work** |
+| Larsen, Dennison, Cova & Jones 2011, Appl. Geog. 31:12 | n/a | "Evaluating dynamic wildfire evacuation trigger buffers using the 2003 Cedar Fire" |
+| Cova et al. 2017, Risk Analysis 37(4):601 | doi:10.1111/risa.12651 | Observed cues used as triggers |
+| Mistick et al. 2022, Fire 5(5):151 | n/a | Coarse DEMs overestimate visibility by up to 223%; use a DSM |
+| IJWF 15(2):197 (2006) | doi:10.1071/WF04016 | Lookout effective detection radius 13.4-20.6 km |
+| Kuligowski et al., NIST TN 2103 (2020); IJWF doi:10.1071/WF20038 | https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.2103.pdf | 81.4% of Gatlinburg evacuees decided after fire cues |
+| McCaffrey, Wilson & Konar 2018, Risk Analysis 38(7):1390 | doi:10.1111/risa.12944 | Reliance on cues raised the odds of wait-and-see by 158% |
+| Lindell & Perry 2012 PADM; Strahan & Gilbert 2021, Fire 4(1):4; Strahan, Whittaker & Handmer 2018 | n/a | Decision-model and wait-and-see literature |
+| Marshall Fire 2021, Travel Behaviour & Society | n/a | Cues not significant: a counterexample |
+
+- Night-glow visibility distance: none found.
+- Korean study of cue-driven delay: none found.
+
+**Verdict: novel, moderate (~65-70%).**
