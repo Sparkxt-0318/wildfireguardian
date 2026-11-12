@@ -32,6 +32,24 @@ export const HEAD_FULL_MAX_S = 35;
  * it is not sent as a 재난문자 and no 157 limit is enforced on it.
  */
 export const STANDARD_MAX_CHARS = 157;
+/**
+ * 재난문자 limits per message class, in CHARACTERS (행정안전부예규 제361호, 2026-02-04, annex labels; Sofia): 위급·긴급
+ * (incl. evacuation orders) 90, 안전안내 (incl. advance-evacuation advice) 157. The kit's older assumption was 90 BYTES of
+ * EUC-KR, which is stricter (every character is ≥ 1 byte, so ≤ 90 bytes ⇒ ≤ 90 characters; 45 Hangul fit in 90 bytes,
+ * 90 in 90 characters). Kit outputs keep the stricter byte rule. None of these outputs is a 재난문자: if one were ever
+ * sent as one, the issuing agency name is mandatory (제10조②) and goes last.
+ */
+export type CbsClass = 'emergency' | 'urgent' | 'safety_guidance';
+export const CBS_CHAR_LIMIT: Record<CbsClass, number> = { emergency: 90, urgent: 90, safety_guidance: 157 };
+/** Characters as the regulation counts them (Unicode code points; a line break counts as one). */
+export function cbsChars(text: string): number {
+  return [...text].length;
+}
+/** The class a message of this kind would take: an order-like no-route warning is urgent; a leave-by is advance advice. */
+export function cbsClassFor(kind: MessagePlan['kind']): CbsClass {
+  return kind === 'leave_by' ? 'safety_guidance' : 'urgent';
+}
+
 /** Slower reading rate also reported for older listeners (Iris): seconds scale by 3.0 / 2.5. */
 export const SLOW_SYLLABLES_PER_S = 2.5;
 

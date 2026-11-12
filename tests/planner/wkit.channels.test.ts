@@ -16,6 +16,9 @@ import {
   HEAD_CORE_MAX_S,
   HEAD_FULL_MAX_S,
   orderNotIssued,
+  CBS_CHAR_LIMIT,
+  cbsChars,
+  cbsClassFor,
   transportNeedList,
   type ChannelSet,
   type Reply,
@@ -238,6 +241,26 @@ describe('head script: inseparable framing, both reading rates', () => {
     expect(hs.filter((h) => h.coreSlowS <= 20).length).toBe(197);
     expect(hs.filter((h) => h.fullSlowS <= 35).length).toBe(182);
     for (const h of hs) expect(h.coreSlowS).toBeCloseTo(h.coreS * 1.2, 9);
+  });
+});
+
+describe('재난문자 character limits per message class (행안부예규 361)', () => {
+  it('every kit SMS and every family text fits the STRICTEST class (90 characters) and its own class; bytes stay ≤ 90', () => {
+    let maxKit = 0, maxFam = 0;
+    realInputs.forEach((input, i) => {
+      const p = real[i]!;
+      const fm = buildFieldMessages(input, null);
+      for (const t of [fm.text.ko.sms, build(p).text.ko.familyText]) {
+        expect(cbsChars(t)).toBeLessThanOrEqual(CBS_CHAR_LIMIT.urgent);
+        expect(cbsChars(t)).toBeLessThanOrEqual(CBS_CHAR_LIMIT[cbsClassFor(p.kind)]);
+      }
+      maxKit = Math.max(maxKit, cbsChars(fm.text.ko.sms));
+      maxFam = Math.max(maxFam, cbsChars(build(p).text.ko.familyText));
+    });
+    expect(maxKit).toBeLessThanOrEqual(90);
+    expect(maxFam).toBeLessThanOrEqual(90);
+    expect(cbsClassFor('leave_by')).toBe('safety_guidance');
+    expect(cbsClassFor('no_route')).toBe('urgent');
   });
 });
 

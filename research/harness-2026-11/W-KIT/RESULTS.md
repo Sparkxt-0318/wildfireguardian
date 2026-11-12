@@ -1,8 +1,8 @@
 # W-KIT checkpoint 3 (measured; not fit for live use; comprehension untested)
 
-Code: `planner/src/features/lastmile/channels/build.ts` · tests: `tests/planner/wkit.channels.test.ts` (19 tests).
+Code: `planner/src/features/lastmile/channels/build.ts` · tests: `tests/planner/wkit.channels.test.ts` (20 tests).
 Run: `cd planner && npm ci && npx vitest run ../tests/planner/wkit.channels.test.ts`; full suite `npx vitest run` →
-22 files, 384 tests passed (this container, Node 22, Linux x86_64).
+22 files, 385 tests passed (this container, Node 22, Linux x86_64).
 
 ## Claim boundary
 The outputs are well-formed and mutually consistent under the kit's rules. Nothing here shows that anyone understands
@@ -51,6 +51,12 @@ or acts on them; comprehension is untested. Inputs are replayed planner results;
   Orders stay at 90 characters; 157 applies to 안전안내문자 only.
 - No official guidance found on 마을방송 length; the 20 s target is an assumption. No real evacuation ARS script
   found; the key-press design is ours. "Do not reverse destinations" has no official basis found; it is our rule.
+
+## Message-class character limits (orchestrator relay of Sofia's reading of 행안부예규 361)
+`CBS_CHAR_LIMIT` (characters: 위급·긴급 90, 안전안내 157) and `cbsClassFor` (leave_by → 안전안내 advance advice;
+no_route/unresolved → 긴급). The kit's older 90-BYTE EUC-KR rule is stricter (≤ 90 bytes ⇒ ≤ 90 characters) and is
+kept; a test asserts every kit SMS and family text fits 90 characters and its own class. None of these is a 재난문자;
+if sent as one, the agency name is mandatory and goes last (제10조②).
 
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
