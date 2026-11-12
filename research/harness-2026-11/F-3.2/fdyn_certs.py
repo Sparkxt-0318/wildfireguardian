@@ -28,6 +28,7 @@ import derive_instance as DI  # noqa: E402
 import generate as G  # noqa: E402
 import p1_check as P  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance, prepared  # noqa: E402
 
 
@@ -76,7 +77,7 @@ def main():
         hz_bytes = (pk / "HAZARD.json").read_bytes()
         hz = json.loads(hz_bytes)
         Hs = F(float(hz["valid_until"]))
-        model = ContactModel.from_packet(pk)
+        model = routable_contact_model(pk)
         A = {k: v for k, v in P.from_hazard(hz, Hs).items() if v}
         B = {k: v for k, v in P.from_raw(pk, Hs).items() if v}
         C = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in model.cell_intervals.items()) if v}

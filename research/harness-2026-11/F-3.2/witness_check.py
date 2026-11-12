@@ -6,6 +6,7 @@ HERE = Path(os.path.abspath(__file__)).parent
 sys.path.insert(0, str(HERE))
 import cases
 from wfg_scenario_members.contact import ContactModel
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import sipp_plan
 from wfg_synthetic_truth.frozen_checker import check_route
 
@@ -13,7 +14,7 @@ rows = []
 for c in cases.korean_cases():
     g = json.loads(Path(c["graph"]).read_text()); r = json.loads(Path(c["request"]).read_text())
     hz = json.loads((Path(c["packet"]) / "HAZARD.json").read_text())
-    res = sipp_plan(g, r, ContactModel.from_packet(c["packet"]), wall_s=120)
+    res = sipp_plan(g, r, routable_contact_model(c["packet"]), wall_s=120)
     if res["status"] != "ROUTE":
         continue
     chk = check_route(g, hz, r, res["legs"], res["destination"])

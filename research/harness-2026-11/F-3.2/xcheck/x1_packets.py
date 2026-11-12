@@ -22,6 +22,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import p1_check as P  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance, prepared  # noqa: E402
 
 US = F(1, 10**6)
@@ -69,7 +70,7 @@ def main(argv=None):
         try:
             with np.load(pk / "constructed_arrays.npz", allow_pickle=False) as arr:
                 P.require_routable_arrays(arr, pk)
-            con = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in ContactModel.from_packet(pk).cell_intervals.items()) if v}
+            con = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in routable_contact_model(pk).cell_intervals.items()) if v}
             raw = {k: v for k, v in P.from_raw(pk, Hs).items() if v}
         except Exception as e:                          # HAZARD-only packet: refused by design, reported, never read
             row = dict(packet=rel, variant=variant, region=region, start=start, writer=P.writer_identity(hz),

@@ -74,6 +74,14 @@ def require_routable_arrays(a, packet):
                              % (Path(packet).name, int(np.isnan(ign).sum()), int(np.isneginf(ign).sum())))
 
 
+def routable_contact_model(packet, **kw):
+    """ContactModel.from_packet behind require_routable_arrays. contact.py is hash-pinned (SOURCE_SHA256.json and frozen
+    evidence bundles), so the HAZARD-only marker guard lives here: every F-3.2 reader goes through this wrapper."""
+    with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
+        require_routable_arrays(a, packet)
+    return ContactModel.from_packet(packet, **kw)
+
+
 def from_raw(packet, Hs):
     rep = json.loads((Path(packet) / "REPORT.json").read_text())
     asm = rep["native_metadata"]["construction"]["assumptions"]
@@ -105,7 +113,7 @@ def main():
         Hs = F(float(hz["valid_until"]))
         A = from_hazard(hz, Hs)
         B = from_raw(c["packet"], Hs)
-        Cm = ContactModel.from_packet(c["packet"]).cell_intervals
+        Cm = routable_contact_model(c["packet"]).cell_intervals
         C = {k: merge(v, F(0), Hs) for k, v in Cm.items()}
         A = {k: v for k, v in A.items() if v}; B = {k: v for k, v in B.items() if v}; C = {k: v for k, v in C.items() if v}
         diff = lambda X, Y: sorted(k for k in set(X) | set(Y) if X.get(k) != Y.get(k))

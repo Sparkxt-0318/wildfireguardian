@@ -12,7 +12,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import p1_check as P  # noqa: E402
 
-REAL = os.environ.get("WFG_REAL_PACKET")  # a real packet dir; argv is not used, so pytest and unittest both work
+REAL = os.environ.get("WFG_REAL_PACKET")  # a real ROUTABLE packet dir (not a HAZARD-only one, which from_raw refuses by design); argv is not used
 
 
 def npz(**arrs):
@@ -48,7 +48,7 @@ class Guard(unittest.TestCase):
         self._ok(ignition_time_s=np.array([[[0.0]]]), per_cell_law_HAZARD_only=np.array(False))
 
 
-@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real packet directory to run the end-to-end check")
+@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real routable (non-HAZARD-only) packet directory to run the end-to-end check")
 class EndToEnd(unittest.TestCase):
     def test_from_raw_refuses_marker_and_nan_but_reads_the_real_packet(self):
         n = len(P.from_raw(REAL, 18000))
@@ -64,6 +64,12 @@ class EndToEnd(unittest.TestCase):
                 np.savez(d / "constructed_arrays.npz", **z)
                 with self.assertRaises(ValueError):
                     P.from_raw(d, 18000)
+                with self.assertRaises(ValueError):
+                    P.routable_contact_model(d)
+                if mutate == "marker":
+                    # Mira: ContactModel itself does not read the marker (contact.py is hash-pinned); the wrapper must
+                    from wfg_scenario_members.contact import ContactModel
+                    self.assertGreater(len(ContactModel.from_packet(d).cell_intervals), 0)
 
 
 if __name__ == "__main__":

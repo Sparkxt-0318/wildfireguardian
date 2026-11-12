@@ -64,12 +64,13 @@ def packet_gate(pk, H):
     import p1_check as P
     from x1_packets import classify
     from wfg_scenario_members.contact import ContactModel
+    from p1_check import routable_contact_model  # noqa: E402
     hz = json.loads((pk / "HAZARD.json").read_text())
     try:
         with np.load(pk / "constructed_arrays.npz", allow_pickle=False) as arr:
             P.require_routable_arrays(arr, pk)
         haz = {k: v for k, v in P.from_hazard(hz, F(H)).items() if v}
-        con = {k: v for k, v in ((k, P.merge(v, F(0), F(H))) for k, v in ContactModel.from_packet(pk).cell_intervals.items()) if v}
+        con = {k: v for k, v in ((k, P.merge(v, F(0), F(H))) for k, v in routable_contact_model(pk).cell_intervals.items()) if v}
     except Exception as e:
         return False, "refused: %s" % str(e)[:160], P.writer_identity(hz)
     c = classify(haz, con)
@@ -80,8 +81,9 @@ def packet_gate(pk, H):
 def relaxation(graph, request, pk, c_checker):
     import generate as G
     from wfg_scenario_members.contact import ContactModel
+    from p1_check import routable_contact_model  # noqa: E402
     from wfg_sipp.frontend import build_instance
-    inst, _ = build_instance(graph, request, ContactModel.from_packet(pk))
+    inst, _ = build_instance(graph, request, routable_contact_model(pk))
     claim, T, text, ih, _ = G.certify(inst)
     with tempfile.TemporaryDirectory() as t:
         p = Path(t) / "r.wfgc"; p.write_text(text)
