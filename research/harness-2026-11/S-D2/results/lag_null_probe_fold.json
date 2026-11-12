@@ -1,0 +1,53 @@
+{
+ "command": "python lag_null_probe.py --input results/displacement_fold_mcem.json --out results/lag_null_probe_fold.json",
+ "results": {
+  "lag1": {
+   "fires": 25,
+   "excess_mean": 0.004343463491428144,
+   "excess_sd": 0.06841571529477969,
+   "se_of_mean": 0.003949983164224184
+  },
+  "lag2": {
+   "fires": 25,
+   "excess_mean": 0.005628089967715747,
+   "excess_sd": 0.07787019742925495,
+   "se_of_mean": 0.004495837944762965
+  },
+  "lag3": {
+   "fires": 25,
+   "excess_mean": -0.005118360620653171,
+   "excess_sd": 0.08384589972699699,
+   "se_of_mean": 0.004840845277782808
+  },
+  "lag1_detrended": {
+   "fires": 25,
+   "excess_mean": -0.002084552120007754,
+   "excess_sd": 0.07221485930881477,
+   "se_of_mean": 0.004169326846143516
+  },
+  "no_detached|lag1": {
+   "fires": 25,
+   "excess_mean": 0.006435792021590907,
+   "excess_sd": 0.07252546543357234,
+   "se_of_mean": 0.004187259699117589
+  },
+  "no_detached|lag2": {
+   "fires": 22,
+   "excess_mean": -0.0036925536376420606,
+   "excess_sd": 0.08615638684119731,
+   "se_of_mean": 0.004974241313517079
+  },
+  "no_detached|lag3": {
+   "fires": 22,
+   "excess_mean": -0.0008192918772671701,
+   "excess_sd": 0.11087789711374273,
+   "se_of_mean": 0.006401538374579898
+  },
+  "no_detached|lag1_detrended": {
+   "fires": 25,
+   "excess_mean": 0.0011483279016895553,
+   "excess_sd": 0.07758416173226046,
+   "se_of_mean": 0.004479323666097204
+  }
+ }
+}
