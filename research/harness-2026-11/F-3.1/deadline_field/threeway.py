@@ -25,7 +25,8 @@ from deadline_field.core import backward, issue_set  # noqa: E402
 from deadline_field.real import PacketModel  # noqa: E402
 from deadline_field.unknown import extra_blocks, summary  # noqa: E402
 
-TIERS = (("optimistic", None, None), ("A", "A", None), ("B1.5", "B", 1.5), ("B8.2", "B", 8.2))
+TIERS = (("optimistic", None, None), ("A", "A", None), ("B1.5", "B", 1.5), ("B8.2", "B", 8.2),
+         ("R1.5", "R", 1.5), ("R8.2", "R", 8.2))
 
 
 def run(cache_path: Path, data_root: Path):
@@ -63,7 +64,7 @@ def run(cache_path: Path, data_root: Path):
         spec = (j["dest"], j["dwell"], j["window"])
         opt = iv.contains(feas[("optimistic", spec, j["start"])], j["offset"])
         r = {"job": j["job"], "recorded": j["recorded"], "raw": j["raw"], "optimistic": opt}
-        for name in ("A", "B1.5", "B8.2"):
+        for name in ("A", "B1.5", "B8.2", "R1.5", "R8.2"):
             pes = iv.contains(feas[(name, spec, j["start"])], j["offset"])
             label = "checked(contact)" if pes else ("no_route" if not opt else "unresolved")
             r[name] = label
