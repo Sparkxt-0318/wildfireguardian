@@ -754,3 +754,28 @@ All sources below were opened.
 - OSMnx graph_from_polygon adds no real buffer: it buffers 0.5 km only for intersection counts, then truncates back to the polygon.
 - Not opened: Intini 2019, Beloglazov 2016.
 - Suggestion for Leo: extend the network per road to safe ground or a named destination, make those nodes sinks, and add refuge nodes where no exit works.
+
+## Batch 9 (2026-11-12): sources for the Uiseong spread rate (Iris, Richard)
+
+**"8.2 km/h" for the Uiseong fire**
+
+- Source: oral briefing on 2025-03-27 by 원명수, head of the 국립산림과학원 국가산림위성정보활용센터 (Money Today, mt.co.kr 2025032716355753806).
+- Stated basis: "미국 위성의 열탐지 결과".
+- No interval, distance or method was given. I found no KFS or 국립산림과학원 written report with this figure; forest.go.kr is blocked from here.
+
+**KFS written figure**
+
+- Newsis NISX20250327_0003115850 and _0003116059.
+- The fire-line moved 50-51 km in 12 h or less, from 25 Mar 14:00 to 26 Mar 02:00 KST, by spotting. Methods: VIIRS, drones, IR aircraft.
+- KFS deputy head 이미라: "시간대 평균 속도를 낼 수 없지만".
+- This works out to about 4.25 km/h mean front displacement including spotting (my arithmetic).
+
+**Recommendation**
+
+- Cite 51 km in 12 h or less, i.e. 4.25 km/h or more, from KFS.
+- Quote 8.2 km/h only as an oral figure whose method is unpublished.
+- Neither figure is a contiguous rate of spread.
+
+**Data hold**
+
+- Under the orchestrator's 2026-11-12 standing rule: no fetching of fire incident data products (perimeters, IR deliveries, incident folders) for any year without the orchestrator's explicit go.
