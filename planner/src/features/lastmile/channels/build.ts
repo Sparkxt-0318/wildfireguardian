@@ -848,8 +848,9 @@ function inserted(p: MessagePlan, iss: Issuer | null = null): string[] {
 function staffProvenanceLine(p: StaffProvenance | null, lang: LmLang, plan: MessagePlan): string | null {
   if (!p) return null;
   const timed = p.kind === 'window' || p.kind === 'present_fire' || p.kind === 'forecast_dependent';
-  // fail closed in the kit itself (Mira N1): a label about a deadline is dropped where the kit gives no checked time
-  if (timed && (plan.kind !== 'leave_by' || plan.leaveByS === null)) return null;
+  // fail closed in the kit itself (Mira N1): a label about a deadline where the kit gives no checked time is refused
+  // and REPORTED as "not established", the same in both languages
+  if (timed && (plan.kind !== 'leave_by' || plan.leaveByS === null)) return staffProvenanceLine({ kind: 'not_established', why: 'no_record_time' }, lang, plan);
   const text = provenanceText(p, lang);
   if (!text || p.kind === 'none') return null;
   const head = lang === 'ko' ? '[직원용] 마감 근거(모델)' : '[Staff] Deadline set by (model)';

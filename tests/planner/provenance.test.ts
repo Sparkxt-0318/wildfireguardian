@@ -214,7 +214,7 @@ describe('message-kit staff block (W-KIT): the provenance line goes to staff onl
 });
 
 describe('kit staff line fails closed on a mismatched label (Mira N1)', () => {
-  it('a deadline label (window / present_fire / forecast_dependent) on a place without a checked time gives no line and no new violation, in ko and en', () => {
+  it('a deadline label (window / present_fire / forecast_dependent) on a place without a checked time is refused and reported as not established, with no new violation, in ko and en', () => {
     let n = 0;
     for (const b of booth) for (const i of b.inputs) {
       const mp = messagePlan(i, null);
@@ -222,8 +222,11 @@ describe('kit staff line fails closed on a mismatched label (Mira N1)', () => {
       for (const prov of [{ kind: 'window', horizonS: 3600 }, { kind: 'present_fire', horizonS: 3600 }, { kind: 'forecast_dependent', laterMin: 7, horizonS: 3600 }] as const) {
         const a = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z' });
         const s = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z', deadlineProvenance: prov });
-        expect(s.text.ko.staff.provenance ?? null).toBeNull();
-        expect(s.text.en.staff.provenance ?? null).toBeNull();
+        // refused and reported as "not established", the same in both languages; never the deadline wording
+        expect(s.text.ko.staff.provenance).toMatch(/근거 확인 안 됨/);
+        expect(s.text.en.staff.provenance).toMatch(/Provenance not established/);
+        expect(s.text.ko.staff.provenance).not.toMatch(/출발 마감|시간창|예측에 따라/);
+        expect(s.text.en.staff.provenance).not.toMatch(/window|burning|forecast/i);
         expect(s.violations).toEqual(a.violations);
         n += 1;
       }
