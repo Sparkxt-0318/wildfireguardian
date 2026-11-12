@@ -138,10 +138,10 @@
       "filename": "feds_2020_lf_perimeter.fgb",
       "size": 418436008,
       "md5": "3ad4b0842915dfff5b0e8ea00176bb44",
-      "sha256": null,
+      "sha256": "d9f84cc7b15b1479c193d1769fac0c83ebd4e50b9d7669f011bcd46c706cb429",
       "licence": "CC-BY-4.0",
-      "fetched_utc": null,
-      "notes": "Not downloaded; same format as 2021."
+      "fetched_utc": "2026-11-12",
+      "notes": "Downloaded; publisher md5 matches. Same format as 2021. Used for feds_overlap.csv."
     },
     {
       "name": "feds_mtbs_readme",
@@ -254,6 +254,149 @@
       "licence": "CC-BY-4.0 (Zenodo 24148495)",
       "fetched_utc": null,
       "notes": "Not downloaded. 304,143 fireline units, 381 fires 2020-2024, NIFC firelines linked to NIROPS timing. Not the Arkowitz 2025 dataset."
+    },
+    {
+      "name": "nirops_2020_2024_perimeters",
+      "streams": [
+        "S-D9",
+        "S-D2",
+        "S-D1"
+      ],
+      "url": "https://data.mendeley.com/public-files/datasets/95rj5d379g/files/e9caf5e3-dcd1-4633-98a9-7f857d110b29/file_downloaded",
+      "filename": "NIROPS_2020_2024_R1_R6.zip",
+      "size": 1387524228,
+      "md5": null,
+      "sha256": "b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
+      "licence": "CC-BY-4.0 (Magstadt et al., Mendeley Data 10.17632/95rj5d379g.1)",
+      "fetched_utc": "2026-11-12",
+      "notes": "One shapefile (.shp 2.07 GB unpacked), EPSG:4326, 12,706 perimeters, 737 incidents (692 IRWIN IDs), UTC 2020-05-12 to 2024-12-17. Fields: Incident_C, UTC, DateUTC, Acres, IRWINID, Inc Name, Inc Number. No flight-footprint or coverage fields. Same sha256 as forecast-v2 SPLIT.json. Per-incident table: nirops_incidents.csv."
+    },
+    {
+      "name": "nirops_area_progression_png",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://data.mendeley.com/public-files/datasets/95rj5d379g/files/db9aa54e-f530-4f5e-b343-1ea91f665c51/file_downloaded",
+      "filename": "Area_Progression_TimeSeries.zip",
+      "size": 78086022,
+      "md5": null,
+      "sha256": "dd7eed2587eb15aeccaaa547e47935613b0131a076901384499377639c96be1e",
+      "licence": "CC-BY-4.0 (Magstadt et al., Mendeley Data 10.17632/95rj5d379g.1)",
+      "fetched_utc": "2026-11-12",
+      "notes": "709 PNG area-vs-time plots, one per incident, in 7 GACC folders. Images only."
+    },
+    {
+      "name": "nirops_supplementary_maps_png",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://data.mendeley.com/public-files/datasets/95rj5d379g/files/252fbb8f-b84b-4095-8831-d85dc8c9855a/file_downloaded",
+      "filename": "Supplementary_Maps.zip",
+      "size": 271120622,
+      "md5": null,
+      "sha256": "2ffee355e2562bf7ad5fe2a0914ad1c53a2c0421d580b6f51003dd0f6c76b917",
+      "licence": "CC-BY-4.0 (Magstadt et al., Mendeley Data 10.17632/95rj5d379g.1)",
+      "fetched_utc": "2026-11-12",
+      "notes": "709 PNG perimeter maps. Images only, no footprints."
+    },
+    {
+      "name": "nirops_code",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://data.mendeley.com/public-files/datasets/95rj5d379g/files/6b744f72-9ea9-4547-bd05-d2111e824f6d/file_downloaded",
+      "filename": "NIROPS_Code.zip",
+      "size": 19543,
+      "md5": null,
+      "sha256": "5b6a2cdcfcec85d203e79add9dd5152fd1b7d52eab43e3e647605c4eaf9f4d85",
+      "licence": "CC-BY-4.0 (Magstadt et al., Mendeley Data 10.17632/95rj5d379g.1)",
+      "fetched_utc": "2026-11-12",
+      "notes": "One notebook NIROPS.ipynb: scraping the NIFC FTP, QA checks, merging, plots. Windows paths."
+    },
+    {
+      "name": "kfs_fire_status_history",
+      "streams": [
+        "F-C1",
+        "KR"
+      ],
+      "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003518464&fileDetailSn=1",
+      "filename": "kfs_fire_status_history.csv",
+      "size": 274225,
+      "md5": null,
+      "sha256": "2e94ab963feeb9ad998761537a397e4d5912ac7f90e147487ef43aafc1512c00",
+      "licence": "data.go.kr, 이용허락범위 제한 없음 (no usage restriction); provider Korea Forest Service",
+      "fetched_utc": "2026-11-12",
+      "notes": "Also committed at small/kfs/. CP949 CSV, 2,030 rows, report dates 2022-01-01 to 2025-11-10 (file version 20251110, page updated 2026-08-13). Columns: fire id (matches Choi kfs_situation_map_id, e.g. 359264 = KFS_01), report date, address, suppression start/end (local KST), agency, SMS flag, sunrise, sunset. No coordinates or area. atchFileId may change when the portal publishes a new version."
+    },
+    {
+      "name": "ics209plus_wildfire",
+      "streams": [
+        "D8"
+      ],
+      "url": "https://ndownloader.figshare.com/files/38766504",
+      "filename": "ics209plus-wildfire.zip",
+      "size": 48717736,
+      "md5": "564b028f2c724ab7855f95bbaca74683",
+      "sha256": "a17c08ede2824e9002fcda112301793c9e59ce1f7ed7eb1e16a762be85ade30f",
+      "licence": "CC BY 4.0 (St. Denis et al., figshare 10.6084/m9.figshare.19858927.v3)",
+      "fetched_utc": "2026-11-12",
+      "notes": "Incidents CSV 34,622 x 87, 1999-2020; sitreps CSV 308 MB; county and CBG links. Other files in the record: allhazards 40 MB, source 427 MB, reference 88 KB."
+    },
+    {
+      "name": "feds_ca_largefire_chen2022",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://ndownloader.figshare.com/files/34062368",
+      "filename": "feds_ca_Largefire.tar.gz",
+      "size": 98667168,
+      "md5": "fdb5f5130194b2d12e544d9672a1a43c",
+      "sha256": "a47307826497d2750dc9c36298693eab052b198863481d270ccc20c5a06b287c",
+      "licence": "CC0 per figshare record (readme: free for research use); Chen et al. 2022 Sci Data",
+      "fetched_utc": "2026-11-12",
+      "notes": "Original California FEDS 2012-2020 (superseded by the FEDS CONUS Zenodo archive). LargeFires_2012-2020.gpkg: layers perimeter, fireline, newfirepix, each 12,801 features, EPSG:4326."
+    },
+    {
+      "name": "arkowitz_fireline_qaqc_2025",
+      "streams": [
+        "D8"
+      ],
+      "url": "https://www.fs.usda.gov/rds/archive/products/RDS-2025-0011/RDS-2025-0011.zip",
+      "filename": "RDS-2025-0011.zip",
+      "size": null,
+      "md5": null,
+      "sha256": null,
+      "licence": "USFS Research Data Archive terms (check the metadata file)",
+      "fetched_utc": null,
+      "notes": "Not downloaded (about 365 MB; low priority, D8 inactive). Arkowitz et al. 2025 Sci Data 10.1038/s41597-025-05208-0, data DOI 10.2737/RDS-2025-0011, firelines 2017-2024. Code: github.com/aarkow/NIFC-QAQC-FLE @ 1cfd339a2d8f1eaf2b00eb1f9b8a2d076b1a0b0b (ArcGIS Pro tool)."
+    },
+    {
+      "name": "feds_conus_2022_lf_perimeter",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/22921773/files/feds_2022_lf_perimeter.fgb/content",
+      "filename": "feds_2022_lf_perimeter.fgb",
+      "size": 369619864,
+      "md5": "98e5d090147637c05b5d2782a44a15ae",
+      "sha256": "646cac723030011e893a7fc86a2161c1f1af66515b7085f844c43fcefd1f65f6",
+      "licence": "CC-BY-4.0",
+      "fetched_utc": "2026-11-12",
+      "notes": "Downloaded; publisher md5 matches. Used for feds_overlap.csv."
+    },
+    {
+      "name": "feds_conus_2024_lf_perimeter",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/22921773/files/feds_2024_lf_perimeter.fgb/content",
+      "filename": "feds_2024_lf_perimeter.fgb",
+      "size": 354233904,
+      "md5": "d5508cd4b7c6ef7e839e62d1d1e990e6",
+      "sha256": "b708ff772d81486b9742fc1f864d3570121317cc28fb3d5b164edebed69eaf9c",
+      "licence": "CC-BY-4.0",
+      "fetched_utc": "2026-11-12",
+      "notes": "Downloaded; publisher md5 matches. Used for feds_overlap.csv."
     }
   ]
 }

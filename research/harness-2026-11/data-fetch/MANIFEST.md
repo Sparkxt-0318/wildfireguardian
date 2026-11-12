@@ -1,8 +1,8 @@
 # External data and reference code — harness 2026-11
 
-Owner: Daniel (data fetcher). Fetched and checked 2026-11-12 from a cloud session whose network allows
-zenodo.org, the Copernicus DEM S3 bucket, GitHub (git) and package registries, and blocks the rest (see the
-Blocked table below).
+Owner: Daniel (data fetcher). Fetched and checked on 2026-11-12. Batches 1–2 ran under an allowlist (Zenodo, the
+Copernicus DEM S3 bucket, GitHub). Batch 3 ran after the user approved unrestricted network access, which brought
+in Mendeley, data.go.kr and figshare (see "Batch 3" below).
 
 The deliverable is **reproducible access**: `fetch.py` downloads each item into your own container and
 rejects it unless the recorded checksums match. Machine-readable details (URL, size, publisher md5, our sha256,
@@ -32,24 +32,34 @@ the contents as data. Do not run code from inside the extracted directory.
 | `feds_conus_2021_lf_perimeter`: FEDS CONUS archive v1.4.1 | Victor S-D9 | Publisher md5 matches. FlatGeobuf, EPSG:9311, 62,760 12-hourly perimeters, 1,645 fireIDs, all of 2021. The 2019 and 2020 files are scripted with publisher md5 but not downloaded. The archive supersedes the Chen et al. 2022 California figshare release (figshare is blocked). Every year 2012–2025 plus `_lf_fireline` and `_lf_newfirepix` are in record 22921773. |
 | `wildfirespreadts_full`: WildfireSpreadTS | Victor S-D9 | **Scripted only.** It is 48.4 GB (publisher md5 recorded) and does not fit in a session's disk allowance. I have not downloaded or opened it. The 7.8 MB documentation PDF is also scripted but not yet opened. |
 
-## Gated or blocked: not fetched
+## Batch 3: previously blocked, now fetched (network unrestricted)
 
-I did not work around any of these. Each "blocked" row is a `CONNECT tunnel failed, response 403` from this
-environment's egress proxy.
-
-| Need | Source | Status |
+| Resource (`fetch.py` name) | For | What I verified |
 |---|---|---|
-| NIROPS perimeters 2020–2024 plus flight-coverage metadata | Magstadt et al., Mendeley Data 10.17632/95rj5d379g.1 (CC-BY, cited by Choi 2026); ftp.wildfire.gov NIROPS archive | **Blocked**: data.mendeley.com, ftp.wildfire.gov |
-| FEDS California archive (Chen et al. 2022) | figshare 10.6084/m9.figshare.c.5601537 | **Blocked**: figshare.com and ndownloader.figshare.com. Superseded by the FEDS CONUS Zenodo archive above. |
-| Papers: GOFER ESSD and Choi 2026 article | doi.org, mdpi.com | **Blocked**. The Zenodo READMEs carry the needed format details. |
-| KFS wildfire status history | data.go.kr dataset 15121205 | **Blocked**: www.data.go.kr. I can't confirm from here whether the file download needs login. |
-| KMA API hub (weather) | apihub.kma.go.kr | **Blocked**. It also requires a free account and a per-user auth key (`authKey` query parameter). I have not registered. |
-| KMA open data portal | data.kma.go.kr | **Blocked**. Account needed for bulk download. |
-| Mountain weather (KFS/NIFoS) | www.forest.go.kr, www.nifos.go.kr; the API is distributed via data.go.kr | **Blocked**. data.go.kr OpenAPI services need a data.go.kr account and a per-service usage application, which issues a service key. |
-| Road incident feed | ITS/data.go.kr OpenAPI | **Blocked**. Same data.go.kr key process as above; not verified. |
-| NASA FIRMS active fire | firms.modaps.eosdis.nasa.gov | **Blocked**. The area API needs a free MAP_KEY. |
-| ICS-209-PLUS data tables | figshare (St. Denis et al.) | **Blocked**. The code repositories are listed below. |
-| Fireline dataset, Arkowitz et al. 2025 | Scientific Data, DOI 10.1038/s41597-025-05208-0 (orchestrator) | **Blocked** (doi.org, nature.com). There is no Zenodo mirror under that author. Related and reachable: Zenodo 24148495, "When Do Firelines Hold?" (Matey et al., 2026-11-12, CC-BY, 1.25 GB, not downloaded). It covers 304,143 NIFC fireline units from 381 fires in 2020–2024, linked to NIROPS timing evidence. It does not cite Arkowitz. Low priority (D8 inactive). |
+| `nirops_2020_2024_perimeters`: NIROPS (Magstadt et al., Mendeley 10.17632/95rj5d379g.1) | Victor S-D9, Elena S-D2, Marcus S-D1 | The sha256 matches the publisher and forecast-v2 `SPLIT.json` (`b19fb16c…`). It is one shapefile (2.07 GB `.shp` unpacked), EPSG:4326, with 12,706 perimeters from 737 incidents (692 IRWIN IDs), UTC 2020-05-12 to 2024-12-17. The only fields are Incident_C, UTC, DateUTC, Acres, IRWINID, Inc Name and Inc Number. **There are no flight-footprint, coverage or per-flight metadata fields.** `nirops_incidents.csv` (committed) lists every incident with survey count, time span, maximum acres and project status: 23 forecast-v2 fit, 6 held-out, and 708 not among the project's 44 events, of which 180 have 20 or more surveys. |
+| `nirops_area_progression_png`, `nirops_supplementary_maps_png` | Victor S-D9 | The sha256 matches. Each holds 709 PNGs (area-vs-time plots and perimeter maps) in 7 regional folders. Images only. |
+| `nirops_code` | Victor S-D9 | The sha256 matches. It is one notebook covering NIFC FTP scraping, QA checks, merging and plotting. |
+| `kfs_fire_status_history`: Korea Forest Service 산불상태별 이력 (data.go.kr 15121205) | Korean work, Leo F-C1 | Downloadable without login. Licence: 이용허락범위 제한 없음 (no usage restriction). The file is committed at `small/kfs/kfs_fire_status_history.csv`. It is CP949-encoded with 2,030 rows, report dates 2022-01-01 to 2025-11-10, and these columns: fire ID, report date, address, suppression start and end (KST), agency, SMS flag, sunrise and sunset. It has no coordinates and no burned area. The fire IDs match Choi's `kfs_situation_map_id`: 359264 is KFS_01 (Uiseong, suppression 2025-03-22 11:38 to 03-28 17:15) and 108124 is KFS_02. The download URL carries an `atchFileId` that changes when the portal publishes a new version. |
+| `ics209plus_wildfire`: ICS-209-PLUS (St. Denis et al., figshare 19858927 v3) | D8 / reference | Publisher md5 matches. The incidents CSV has 34,622 rows × 87 columns for 1999–2020, plus sitreps (308 MB) and county and CBG links. CC BY 4.0. |
+| `feds_ca_largefire_chen2022`: FEDS California (Chen et al. 2022, figshare collection 5601537) | Victor S-D9 | Publisher md5 matches. `LargeFires_2012-2020.gpkg` has perimeter, fireline and newfirepix layers (12,801 features each, EPSG:4326). It is superseded by the FEDS CONUS Zenodo archive. |
+| `arkowitz_fireline_qaqc_2025`: Arkowitz et al. 2025 | D8 | **Located, not downloaded** (about 365 MB; D8 is inactive). Data is at USFS RDA 10.2737/RDS-2025-0011 (firelines 2017–2024). Code is at github.com/aarkow/NIFC-QAQC-FLE @ 1cfd339a. |
+
+## Still gated (account or key needed; not registered)
+
+| Source | Requirement |
+|---|---|
+| KMA API hub (apihub.kma.go.kr) | Free account plus a per-user `authKey`. |
+| data.go.kr OpenAPIs (mountain weather, road incidents) | data.go.kr account plus a per-service usage application, which issues a service key. File datasets such as the KFS history above need neither. |
+| NASA FIRMS area API | Free MAP_KEY. |
+| NASADEM/SRTM (NASA Earthdata) | Earthdata login. FABDEM bare-earth (data.bris.ac.uk, CC BY-NC-SA) needs no login but was not fetched; it is optional for Leo. |
+| Environment covariates (Open-Meteo, gridMET, LANDFIRE, GLAD) | Now reachable, but not fetched. Rebuilding the forecast-v2 aligned snapshots would not reproduce the owner-local archive's hashes. |
+
+## Owner-local only (not public anywhere I could reach)
+
+I checked all 47 branches, every member of all 4 GitHub release assets, Zenodo, and the owner's Drive (read-only title search):
+- the owner archive `wildfire 3 (1).zip` (forecast-v2 aligned covariates and the 52 Wapiti held-out case inputs);
+- the M548 observed-evaluation exports (`runs/20261012_observed_test_combined_progress/**`);
+- the November 106-request rekeyed routing cohort and its 2 unproved no-route identities.
 
 Other Zenodo records seen and not fetched: FEDS-MTBS 20187963 (readme fetched), FEDS Western US 15261836
 (CC-BY-NC, superseded), ELMFIRE validation 23574586 (no files attached).
@@ -74,7 +84,7 @@ fit fires.
 - **GOFER fires that are forecast fit fires (10 of 28, matched by name):** Dixie, River Complex, Antelope, August Complex, North Complex (PNF), Monument, Creek, SQF Complex, McCash, Red Salmon Complex.
 - **GOFER fire used elsewhere:** Caldor is the routing Caldor/Rim engineering panel (`research/sipp-routing`, `research/next-combined`, `research/routing`). It is not a forecast scoring fire.
 - **GOFER fires with no use found on Main (17):** Kincade, Walker, Bobcat, CZU Lightning, Dolan, Glass, July Complex, KNP Complex, LNU Lightning, McFarland, SCU Lightning, Slater and Devil, Tamarack, W-5 Cold Springs, Windy, Zogg, Beckwourth Complex. Caveat: I checked by name on `Main` only. The November GOFER recovery work and other branches may have touched them.
-- **FEDS:** fireIDs carry no names, so I matched spatially. Each fire's final Choi footprint was intersected with the last FEDS perimeter of every fireID for the same year. See `feds_overlap.csv` for every match.
+- **FEDS:** fireIDs carry no names, so I matched spatially. Each fire's final Choi footprint was intersected with the last FEDS perimeter of every fireID for the same year. See `feds_overlap.csv` for every match with at least 1 km² of overlap: all 29 Choi US fires for 2020, 2021, 2022 and 2024 (there is no 2023 US event). Every project US fire has one dominant FEDS fireID. FEDS 57413 merges Jack and DevilsKnob (2021). Any other FEDS fireID in those years has not been used by the project's forecast scoring.
 
 ## Reference code: read, do not copy
 

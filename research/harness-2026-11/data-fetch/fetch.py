@@ -117,7 +117,7 @@ def main():
     if a.cmd == "list":
         for r in resources:
             if r.get("url"):
-                print(f"{r['name']:<34} {r.get('size', 0) / 1e6:>10.1f} MB  {','.join(r['streams'])}")
+                print(f"{r['name']:<34} {(r.get('size') or 0) / 1e6:>10.1f} MB  {','.join(r['streams'])}")
         return
     if a.cmd == "get":
         names = list(a.names)
