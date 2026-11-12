@@ -24,6 +24,7 @@ import { provenanceText, PROVENANCE_FOOTER, PROVENANCE_HELP, PROVENANCE_TAG, typ
 import { eucKrBytes, gsm7Length, spokenSeconds, KO_SYLLABLES_PER_S, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
 import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
+import type { PlaceSigungu, SigunguReason } from '../../../domain/types';
 import type { LmLang, LmText } from '../types';
 
 export const HEAD_CORE_MAX_S = 20;
@@ -237,6 +238,45 @@ export function checkIssuer(raw: IssuerInput | null | undefined): { status: Issu
   return { status: 'ok', issuer: { agency: { ko: entry.ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true } };
 }
 
+/** Whether a registered issuer may be named at this place (DESIGN.md, JURISDICTION: fail closed). */
+export type JurisdictionCheck = 'ok' | 'mismatch' | 'not_established';
+
+/**
+ * The issuer's 시·군 must be the place's own 시·군, as established from the boundary file. An absent, malformed or
+ * not-established label never admits an issuer; an entry node in another 시·군 never reassigns the place.
+ */
+export function checkJurisdiction(iss: Issuer, sigungu: PlaceSigungu | null | undefined): JurisdictionCheck {
+  if (!sigungu || sigungu.status !== 'established' || !sigungu.ko) return 'not_established';
+  return registryKey(sigungu.ko) === registryKey(iss.agency.ko) ? 'ok' : 'mismatch';
+}
+
+const SIGUNGU_REASON_TEXT: Record<SigunguReason | 'none', LmText> = {
+  outside_all: { ko: '어느 시·군 경계 안에도 들지 않음', en: 'inside no 시·군 boundary' },
+  multiple: { ko: '두 시·군 경계에 함께 걸림', en: 'inside more than one 시·군 boundary' },
+  near_boundary: { ko: '시·군 경계에서 50 m 이내', en: 'within 50 m of a 시·군 boundary' },
+  entry_differs: { ko: '도로 진입 지점이 다른 시·군에 있음', en: 'its road entry point lies in another 시·군' },
+  none: { ko: '행정구역 자료 없음', en: 'no boundary label for this place' },
+};
+
+/** Staff line for a withheld contact line (substance by Iris; Korean by Sofia, 2026-11-12; including the residents sentence). */
+export function jurisdictionStaffLine(j: JurisdictionCheck, iss: Issuer, sigungu: PlaceSigungu | null | undefined, lang: LmLang): string | null {
+  if (j === 'ok') return null;
+  // Iris: the line states where the 시·군 comes from (a boundary file with a base date), never that the entry is wrong
+  // (영덕군 staff producing messages for a 청송군 place entered the right name), and tells staff what residents get
+  const resident = lang === 'ko' ? ' 주민 안내는 문의처 줄만 빠지고 나머지는 그대로 나갑니다.' : ' Residents get the same message without the contact line.';
+  const date = sigungu ? /BASE_DATE (\d{4}-\d{2}-\d{2})/.exec(sigungu.source)?.[1] ?? null : null;
+  if (j === 'mismatch') {
+    const y = sigungu!.ko;
+    return lang === 'ko'
+      ? `문의처 없음 — 입력한 기관(${iss.agency.ko})이 행정구역 경계 자료${date ? `(${date} 기준)` : ''}로는 이 장소의 시·군(${y})과 다릅니다. 이 장소의 문의처는 ${y}에 확인하십시오. 기관명을 잘못 입력했을 때만 고치십시오.${resident}`
+      : `No contact line — the issuer entered (${iss.agency.ko}) is not the 시·군 this place lies in (${y}), by the boundary file${date ? ` dated ${date}` : ''}. Check this place's contact with ${y}. Correct the issuer name only if it was entered wrongly.${resident}`;
+  }
+  const why = SIGUNGU_REASON_TEXT[sigungu && sigungu.status === 'not_established' && sigungu.reason ? sigungu.reason : 'none'][lang];
+  return lang === 'ko'
+    ? `문의처 없음 — 행정구역 경계 자료${date ? `(${date} 기준)` : ''}로 이 장소의 시·군을 확인하지 못했습니다(${why}). 문의처를 넣지 않았습니다. 담당 시·군을 직접 확인하십시오.${resident}`
+    : `No contact line — this place's 시·군 could not be read from the boundary file${date ? ` dated ${date}` : ''} (${why}). No contact line was added. Check which 시·군 is responsible.${resident}`;
+}
+
 export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null {
   return checkIssuer(raw).issuer;
 }
@@ -247,7 +287,7 @@ export const DECREE_FIELDS: readonly DecreeField[] = ['area_people', 'reason_tim
 export type ResidentOutput = 'head' | 'voice' | 'familyText' | 'familyScript';
 export const RESIDENT_OUTPUTS: readonly ResidentOutput[] = ['head', 'voice', 'familyText', 'familyScript'];
 /** Why an output has no agency/contact field. */
-export type ContactStatus = 'included' | 'not_supplied' | 'not_in_registry' | 'no_english_name' | 'replay_not_marked' | 'over_length' | 'no_output';
+export type ContactStatus = 'included' | 'not_supplied' | 'not_in_registry' | 'jurisdiction_mismatch' | 'jurisdiction_not_established' | 'no_english_name' | 'replay_not_marked' | 'over_length' | 'no_output';
 /**
  * Why a decree field is missing (Iris): not_applicable = no checked departure time, so no timing can be given;
  * not_supplied = the input lacks it (no issuer, no English name, no drill/replay mark, no nameable place or shelter);
@@ -392,7 +432,7 @@ export interface ChannelTexts {
   familyText: string;
   familyScript: [string, string, string];
   /** staff / village-head only (never resident-facing) */
-  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null; provenance?: string | null };
+  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null; provenance?: string | null; jurisdiction?: string | null };
 }
 
 export interface ChannelSet {
@@ -778,13 +818,18 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
     };
   }
   const checked = checkIssuer(opt.issuer);
-  const iss = checked.issuer;
+  // jurisdiction (fail closed): a registered issuer is named only at a place established in its own 시·군
+  const jur: JurisdictionCheck | null = checked.issuer ? checkJurisdiction(checked.issuer, p.input.origin.sigungu) : null;
+  const iss = jur === 'ok' ? checked.issuer : null;
+  for (const lang of ['ko', 'en'] as LmLang[]) {
+    if (checked.issuer && jur) text[lang].staff.jurisdiction = jurisdictionStaffLine(jur, checked.issuer, p.input.origin.sigungu, lang);
+  }
   const contact = {} as Record<LmLang, Record<ResidentOutput, ContactStatus>>;
   for (const lang of ['ko', 'en'] as LmLang[]) {
     const t = text[lang];
     const line = iss ? contactLine(iss, lang) : null;
     const nonLive = p.input.replay || p.input.mock || p.input.testData;
-    const base: ContactStatus = !iss ? (checked.status === 'not_in_registry' ? 'not_in_registry' : 'not_supplied') : nonLive && !iss.forDrillOrReplay ? 'replay_not_marked' : line === null ? 'no_english_name' : 'included';
+    const base: ContactStatus = !iss ? (jur === 'mismatch' ? 'jurisdiction_mismatch' : jur === 'not_established' ? 'jurisdiction_not_established' : checked.status === 'not_in_registry' ? 'not_in_registry' : 'not_supplied') : nonLive && !iss.forDrillOrReplay ? 'replay_not_marked' : line === null ? 'no_english_name' : 'included';
     const c: Record<ResidentOutput, ContactStatus> = { head: base, voice: t.voice === null ? 'no_output' : base, familyText: base, familyScript: base };
     if (iss && line !== null && base === 'included') {
       const h = t.head;
@@ -837,6 +882,7 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
             ? '문의처 없음 — 고칠 항목: 기관명. 입력한 기관명이 등록된 공식 발령 기관(시·군) 목록에 없습니다. 목록은 아직 일부만 담고 있으며, 기관을 추가하려면 공식 명칭과 출처가 필요합니다.'
             : 'No contact line — field to fix: issuer name. It is not in the registry of official issuing bodies (시·군). The registry is incomplete; adding a body needs its exact official name and a source.',
         );
+      if (t.staff.jurisdiction) extra.push(t.staff.jurisdiction);
       if (checked.status === 'bad_name')
         extra.push(lang === 'ko' ? '문의처 없음 — 고칠 항목: 기관명 (비어 있거나 한 줄이 아닙니다).' : 'No contact line — field to fix: issuer name (empty or not a single line).');
       if (checked.status === 'bad_number')

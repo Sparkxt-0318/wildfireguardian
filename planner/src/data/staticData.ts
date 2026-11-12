@@ -6,7 +6,7 @@
  */
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon } from 'geojson';
 import { appPath } from '../config/paths';
-import type { Place, PlaceCategory, PlaceRole, RecordedMission, RegionIndexEntry, ScenarioSet } from '../domain/types';
+import type { Place, PlaceCategory, PlaceRole, PlaceSigungu, RecordedMission, RegionIndexEntry, ScenarioSet, SigunguReason } from '../domain/types';
 
 const ROLES: readonly PlaceRole[] = ['origin', 'destination', 'research_origin', 'research_destination'];
 const CATEGORIES: readonly PlaceCategory[] = [
@@ -81,6 +81,23 @@ function parseRecorded(v: unknown): RecordedMission | null {
   };
 }
 
+const SIGUNGU_REASONS: readonly SigunguReason[] = ['outside_all', 'multiple', 'near_boundary', 'entry_differs'];
+
+/** A 시·군 label, or null when absent or malformed in any way (malformed is never read as established). */
+export function parseSigungu(raw: unknown): PlaceSigungu | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const r = raw as Record<string, unknown>;
+  const source = str(r.source);
+  if (!source) return null;
+  if (r.status === 'established') {
+    const ko = str(r.ko);
+    return ko && ko.trim() === ko && r.reason === null ? { ko, status: 'established', reason: null, source } : null;
+  }
+  if (r.status === 'not_established' && SIGUNGU_REASONS.includes(r.reason as SigunguReason) && r.ko === null)
+    return { ko: null, status: 'not_established', reason: r.reason as SigunguReason, source };
+  return null;
+}
+
 export function parsePlaces(raw: unknown): Place[] {
   const fc = raw as FeatureCollection<Point, Record<string, unknown>> | null;
   if (!fc || !Array.isArray(fc.features)) return [];
@@ -125,6 +142,7 @@ export function parsePlaces(raw: unknown): Place[] {
       inputTime: str(p.input_time),
       caseId: str(p.case_id),
       recorded: parseRecorded(p.recorded),
+      sigungu: parseSigungu(p.sigungu),
     });
   }
   return out;

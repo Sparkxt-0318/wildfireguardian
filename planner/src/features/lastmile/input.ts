@@ -179,6 +179,7 @@ export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
         vulnerable: o.vulnerable,
         entryDistanceM: o.entry?.distanceM ?? o.snapDistanceM ?? null,
         sourceTag: o.sourceTag,
+        sigungu: o.sigungu ?? null,
       },
       plan: lmPlan,
       destinations,

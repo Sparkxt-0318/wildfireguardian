@@ -117,6 +117,22 @@ export interface RecordedMission {
   horizonS: number | null;
 }
 
+/** Why a place's 시·군 is not established (research/harness-2026-11/W-KIT/JURISDICTION/DESIGN.md, checked in this order). */
+export type SigunguReason = 'outside_all' | 'multiple' | 'near_boundary' | 'entry_differs';
+
+/**
+ * The place's 시·군 from an official 시군구 boundary file by point-in-polygon (label_sigungu.py, pre-registered rule:
+ * inside exactly one polygon, at least 50 m from its boundary, road-entry node in the same polygon; never snapped).
+ */
+export interface PlaceSigungu {
+  /** the 시·군 name; null unless established */
+  ko: string | null;
+  status: 'established' | 'not_established';
+  reason: SigunguReason | null;
+  /** which boundary file, as established */
+  source: string;
+}
+
 export interface Place {
   id: string;
   role: PlaceRole;
@@ -143,6 +159,8 @@ export interface Place {
   inputTime: string | null;
   caseId: string | null;
   recorded: RecordedMission | null;
+  /** 시·군 label of a real origin; absent or null = not labelled (the issuer contact line then fails closed) */
+  sigungu?: PlaceSigungu | null;
 }
 
 export interface ScenarioSet {
