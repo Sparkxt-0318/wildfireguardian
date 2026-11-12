@@ -141,3 +141,15 @@ python3 research/harness-2026-11/F-9.3/support_mask/regress.py --work WORKDIR --
 - Wiring into the F-DYN child and the F-9.3 `build()`. That happens on PR #105 after the verdict.
 - Option C.
 - Richard's and Thomas's tools keep the three-way rule downstream until Hannah passes this.
+
+## Rerun on the current CLI (after Hannah's note 1)
+
+**Result:** every wrapper check passes on the current code (`REGRESSION_numpy2.5.3_v2.json`).
+- **Code.** `build_packet_f93.py` is now sha256 `01a3012f…`. `packets_f93.py` is unchanged (`befd94bc…`).
+- **Run.** `regress.py` was rerun under numpy 2.5.3 / Py 3.13, rebuilding all 15 packets.
+- **Item 1 (mask unused):** 15/15 byte-identical to the frozen CLI. This covers the HAZARD, REPORT and NATIVE_METADATA
+  bytes, the npz arrays and bytes, and BUILD_SUMMARY except wall time; the writer identity is still the frozen one.
+- **Item 3 (masked):** 15/15 pass, with the same unsupported counts as the first run.
+- **Item 2:** unchanged. Uiseong 03-24 09Z fails the existing rule, which was in force at run time, and passes A1.
+  That is why `all_ok` is false in the file.
+- The earlier `REGRESSION_numpy*.json` files are kept. They record `build_packet_f93.py` `24f918cc…`.
