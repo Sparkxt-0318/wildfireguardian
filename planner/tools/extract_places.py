@@ -11,6 +11,12 @@ Outputs:
   planner/public/data/regions/<region>/places_report.json   every excluded / dropped / merged element
   planner/public/data/regions/index.json
 
+AFTER RUNNING THIS TOOL, re-apply the 시·군 labels. This tool writes places.geojson without the `sigungu` property, and
+without it every issuer contact line fails closed (no line; npm test fails 8 tests). Re-apply them with:
+  python3.12 research/harness-2026-11/W-KIT/JURISDICTION/apply_sigungu.py research/harness-2026-11/W-KIT/JURISDICTION/labels.json
+The labels are keyed by origin id. If the set of origins changes, apply_sigungu.py stops, and the labels must be made
+again (label_sigungu.py; see JURISDICTION/DESIGN.md).
+
 Usage:
   python3 planner/tools/extract_places.py                 # build everything (fetch only missing extracts)
   python3 planner/tools/extract_places.py --fetch-only    # only make sure every raw extract exists
