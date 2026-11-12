@@ -71,3 +71,40 @@ belongs to the AHI pixel nearest to it.
 - `AHI_VALIDATION.json`.
 
 The 06–10 UTC reading of the coastal run is **not reported as a finding** until this rule passes validation.
+
+## Amendment 1 (Elena's and Iris's reviews; committed before any computation)
+
+This amendment supersedes the corresponding parts above.
+
+1. **Baseline.** Per pixel and time-of-day slot: the **median over all pre-ignition scans at that slot**.
+   - Windows: 20 Mar 06:00–18:00, 20 Mar 18:00 – 21 Mar 06:00, and 21 Mar 18:00 – 22 Mar 02:00 UTC (Daniel,
+     `5f384555`: SHA 8942f1ee…, 88179935…; plus 675d5b43…).
+   - Scans failing the cloud test (item 2) are excluded from the median.
+   - Slots with fewer than 2 valid baseline scans are flagged `weak_baseline`. The 02:00–06:00 UTC slots have one
+     pre-ignition night (20–21 Mar).
+2. **Cold-cloud test.** A scan with `B14 < 265 K` at a pixel is **unknown**: neither fire nor a valid non-detection.
+   Saturated B07 overrides it (fire).
+3. **Terrain parallax** is corrected deterministically before any pixel-to-cell assignment.
+   - Each pixel centre is moved toward the sub-satellite point (Himawari-9 at 140.7°E, 0°N) by z·tan(VZA). z is the
+     GLO-30 surface elevation at the pixel centre (F-C1 surface); VZA is the satellite view zenith at the pixel.
+   - Plume-height parallax stays uncorrected and is stated: about 0.5–1 km for a 0.5–1 km source height.
+4. **Lower bound.** t_lo = the **last valid scan** (not cloud-masked, not missing) before t_f.
+   - It means only "no *detectable* fire". It is **not a sound lower bound on arrival**, and is reported as such.
+   - Elena's likelihood uses only the upper side (min τ ≤ t_f) unless a detection-probability model is added.
+5. **Outputs and meaning** (Iris and Elena):
+   - **Pixel-level observation:** `ahi_first_fire.npz`, per pixel (t_lo, t_f], plus flags and the corrected centre.
+     Its meaning is "the earliest arrival among this pixel's burned cells is ≤ t_f".
+   - **Membership tables:** cell → pixel, nearest-centre after parallax correction; and pixel → cells within its
+     footprint plus a 1 km buffer (point-spread function and residual parallax).
+   - **`ahi_bounded` (F-DYN):** a **routing envelope only, labelled "not for training"**. Every burned cell of a firing
+     pixel gets min(firms hi, t_f). It can only move fire earlier, which makes deadlines conservative. It is not a
+     per-cell bracket.
+   - **Timing statements (F-C1b):** the AHI time bounds a quantity only when that quantity is a minimum over a set
+     containing **all** burned cells of the pixel (buffered set). Otherwise the FIRMS bracket is kept.
+6. **Validation additions** (criteria unchanged otherwise, still fixed in advance):
+   - V1 is scored and reported **by fire intensity class**, using the FIRMS FRP of the cell's first polar detection
+     (FRP < 10, 10–50, ≥ 50 MW). The pass criterion (≥ 80% caught within +10 min) applies to the **≥ 50 MW** class,
+     the fires a geostationary sensor can plausibly see. Other classes are reported.
+   - V3 is split **day and night** (06:00–09:50 UTC on 25 Mar counts as day).
+   - **V5, point-spread bleed:** the false-alarm share in pixels **adjacent** to a firing pixel that have no polar
+     detection within their own buffered footprint during 24–26 Mar. Reported; no pass criterion.
