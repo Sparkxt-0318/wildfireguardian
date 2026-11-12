@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 19, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 21, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -17,6 +17,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 28 | Warning-zone size at fixed miss levels (conformal risk control) becomes a named **secondary** on part c for every predictor, calibrated on cohort R only, with feasible-fold reporting. The cohort-R evidence that zone size and Brier rank d4_wind and logistic in opposite orders is recorded as development evidence; c651's uninformative result is added to its limitations (item 27, §5.3–§5.4, is in PR #121) | §6.2, §4.1 | Orchestrator decision on Iris's proposal, **before the freeze and before any part-c opening**. Never a decision criterion |
 | 26 | c651 arm: the trainer is corrected to `MultiscaleSearch`, candidate stage only (c651 was not a finalist, so there is no 4,096-epoch extension); the wrapper is pinned; the full 44-event catalog is kept | §3.2 | Correction from Marcus's reading of the search code, made before any run |
 | 25 | GOFER fires matched to a kept part-a incident are assigned to **H-dev, never H-test** (forced H-dev set F: 12 GOFER fires, 10 of them H survivors, since Creek and River Complex are FIT fires); H-test is drawn only from the other survivors. Elena's real-bracket comparison must state its 42 → 25 filter before results | §2.1 | **Correction made after Owen's finding** (5 GOFER fires among Elena's 42 part-a fits). Decided by a rule on committed metadata (GOFER_MATCH.csv, COHORT_FINAL.csv), not by results. H membership was not yet computed, and nothing was scored on H |
 | 24 | §4.1 rule 5 resolved for US kriged rasters: the arrival-valid set equals the final NIROPS union cell for cell on all 29 exposed US fires (Daniel); Korea stays an assumption | §4.1 rule 5 | Result received after the rule was written; no threshold was set. No b/c/d or H-test fire was opened |
@@ -407,6 +408,8 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
 
 *Hypothesis only (Iris), not tested here.* A model trained without true far-field negatives has no reason to be calibrated on cells far from the front. This may bear on c651's tail behaviour. It does not explain d4_wind's tail, because d4_wind was trained on perimeter states (§4.1 table; `derive/LOGISTIC_DEV.md`).
 
+**Statement of c651's limitations (revision 28).** c651_mc was trained only on interior patches of final kriged footprints (table above). On full-rectangle perimeter labels (cohort R, development) it is worse than d4_wind, the logistic and persistence on Brier, with the deficit off the final footprint (`derive/C651_DEV.md`). It is **uninformative for warning zones** at α = 0.2: conformal risk control finds no threshold below the whole domain, because its exact Monte Carlo zeros cover about 10% of positives (`derive/CRC_DEV.md`, PR #121). It is a descriptive comparator only.
+
 ## 5. Metrics
 
 Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselines.py` where one exists:
@@ -443,6 +446,29 @@ Superiority requires **all** of the following:
 - The **equal-fire mean** of per-fire Brier differences, with its own whole-fire interval (revision 4).
 - Per-fire and per-horizon paired Brier differences. These are tested, meaning an interval is reported, only in fire × horizon cells with **at least 10 positives**. Below that they are reported without an interval.
 - Skill ratios (BSS) are **descriptors, never test statistics**.
+- **Warning-zone size at fixed miss levels (revision 28; secondary, never a decision criterion).**
+  - **Procedure.** Conformal risk control with the fire as the exchangeable unit (the same procedure as the development analysis of §5.4, code `sd9bench/crc.py`):
+    - The zone for threshold t is {scored cells with p ≥ t}.
+    - A fire's loss is its FNR(t) = #positives with p < t ÷ #positives, pooled over its intervals and scored cells.
+    - On n calibration fires, t̂ = max{t ∈ {0} ∪ calibration positives' p : n/(n+1) · mean FNR(t) + 1/(n+1) ≤ α}.
+    - If no t > 0 qualifies, the predictor is **infeasible** at that α, and the result is stated as infeasible, not as a zone.
+  - **Calibration set, fixed now: cohort R only** (the 6 exposed US2024 fires, n = 6).
+    - The predictions are made by the **same frozen model on the same rebuilt inputs** as on part c.
+    - Part a is excluded from calibration: every rebuilt model is trained on part a, so its part-a predictions are in-sample, and an in-sample FNR would understate the held-out FNR.
+    - R is out-of-sample for every A1 model, since §3.1 excludes US2024 from training.
+  - **α ∈ {0.2, 0.3}.**
+    - At n = 6, a non-trivial zone needs mean calibration FNR ≤ (α·7 − 1)/6: 0.067 at α = 0.2 and 0.183 at α = 0.3.
+    - α = 0.1 is reported as **infeasible** for every predictor, by arithmetic.
+  - **Reported on part c, per predictor and per α:**
+    - t̂ and feasibility;
+    - the held-out FNR, pooled over part-c positives and as the mean over part-c fires;
+    - the zone share of scored cells and the zone's mean cells per interval.
+    - Full rectangle is primary, with the 4 km band as a secondary.
+    - With a single calibration on R, there are no folds on part c. Feasibility is a single yes or no per predictor and α, and an infeasible predictor gets no zone or FNR average.
+  - **What it is not.** The guarantee is a marginal expectation over exchangeable fires. R (NIROPS 2024) and part c (NIROPS 2020–2024) are assumed exchangeable, and that assumption is stated, not tested.
+  - **Development evidence, recorded beside it and not a claim (cohort R, leave one fire out, 6 fires, no guarantee; `derive/CRC_DEV.md` in PR #121).**
+    - At α = 0.2, full rectangle, d4_wind_seed0 needs a zone of **29%** of scored cells and the logistic **38%**, while pooled Brier puts the logistic slightly ahead. **Zone size and Brier rank the perimeter-trained model and the logistic in opposite orders.**
+    - c651_mc is **uninformative** on this measure at α = 0.2: infeasible in every fold, because its exact Monte Carlo zeros cover about 10% of positives.
 
 ### 6.3 Power (revision 5; measured on R, `derive/POWER.json`)
 
