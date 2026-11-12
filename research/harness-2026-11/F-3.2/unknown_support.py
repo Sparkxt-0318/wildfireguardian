@@ -112,7 +112,7 @@ def main():
     rows, packets = [], {}
     for c in cases.korean_cases():
         g = json.loads(Path(c["graph"]).read_text()); r = json.loads(Path(c["request"]).read_text())
-        model = routable_contact_model(c["packet"])
+        model = routable_contact_model(c["packet"], allow_unsupported=True)  # decides unknown cells itself
         u_state, u_q, s0 = masks(c["packet"])
         if u_state.shape != (g["grid"]["height"], g["grid"]["width"]):
             raise RuntimeError("GRID_MISMATCH " + c["mission"])

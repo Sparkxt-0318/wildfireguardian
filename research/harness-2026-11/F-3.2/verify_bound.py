@@ -131,7 +131,10 @@ def verify(bundle, graph_path, packet, request_path, c_checker=C_BIN):
     rec["t7a_diffs"] = [list(map(str, x)) for x in sd[:20]]
     if sd:
         return dict(rec, verdict="NOT_BOUND", step="T7a", detail="%d structure differences, first %s" % (len(sd), sd[0][0]))
-    model = routable_contact_model(packet)
+    try:
+        model = routable_contact_model(packet)
+    except ValueError as exc:   # unroutable or unsupported packet (p1_check guards): no certificate can be bound to it
+        return dict(rec, verdict="NOT_BOUND", step="T7b", detail="packet not routable/supported: %s" % exc)
     o2 = derive_instance.compare_semantic(inst, derive_instance.derive(graph, request, model.cell_intervals))
     rec["t7b_o2_diffs"] = len(o2)
     if o2:
