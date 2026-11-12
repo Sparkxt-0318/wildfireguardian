@@ -19,8 +19,8 @@ Categories:
   gofer     tool calls reading raw GOFER files (GOFER zip, fireProg, fireLine, GOFERC_fireIg)
   wildfire_gov  every occurrence of 'wildfire.gov' in an input, result or text, whatever the year
   web/net   WebSearch/WebFetch/agent web calls; curl/wget/rsync/scp/lftp/git clone; requests/urllib/urllib3/http.client/
-            httpx/aiohttp/ftplib/fsspec//vsicurl; read_*('http…'); fetch.py and remote_zip.py. Hosts are listed from every
-            URL (http, https, ftp, s3, gs) in any tool input
+            httpx/aiohttp/ftplib/fsspec//vsicurl; read_*('http…'); fetch.py and remote_zip.py. Hosts MENTIONED in any URL (http, https, ftp, s3, gs)
+            in any tool input are listed (mentioned, not necessarily fetched)
   ftp2526   a wildfire.gov URL with a 2025/2026 segment, or a tool input naming wildfire.gov and 2025/2026 anywhere
             (covers hosts in variables and ftplib cwd)
   net_result_2025_2026  the result of a net or wildfire.gov call that contains 2025 or 2026 (directory listings)
@@ -264,7 +264,7 @@ def main():
         name_sets[label] = {l.strip() for l in open(path) if re.fullmatch(r'[0-9a-f]{64}', l.strip())}
     S = audit(a.paths, name_sets)
     keys = sorted({k for s in S.values() for k in s['counts']})
-    print('\t'.join(['session'] + [f'{k}(n|first)' for k in keys] + ['external_hosts']))
+    print('\t'.join(['session'] + [f'{k}(n|first)' for k in keys] + ['mentioned_hosts_in_tool_inputs']))
     for sess in sorted(S):
         s = S[sess]
         cells = [f"{s['counts'][k]}|{s['first'].get(k, '')}" if s['counts'][k] else '' for k in keys]
