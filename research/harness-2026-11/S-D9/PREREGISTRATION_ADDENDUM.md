@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 12, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 13, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -15,6 +15,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 18 | Rebuilt-pipeline refits of d4_wind and logistic on the training pool: the confirmatory comparators for part c (orchestrator decision; Iris option b) | §3.1 | Recipe frozen here **before any refit runs**. Archive-trained models become labelled descriptive rows |
 | 17 | Filters applied (`cohort/RUN_FILTERS.md`). The script now enforces §1.1 ledger exclusion by incident ID, including NIROPS incidents matching GOFER fires. Clarification: an incident that is an item-10 duplicate of an opened incident counts as opened | §1.2 items 8–12 | Clarification written after the first filter run showed Caldor and a pilot sibling in test parts. Only metadata was viewed |
 | 16 | Pre-declared plan for a non-burnable secondary; provenance of the H tolerance rule; H disclosure note on every H result (Iris) | §4, §2.1 | Added. **The secondary was added after a development finding on R** (`derive/LOGISTIC_DEV.md`, follow-up 2) |
 | 15 | H refinements: Chebyshev reach, one-pixel tolerance, resolution labels per lead, H-dev open to D1 and D2, half-step comparator; Marcus's GOFER disclosure (Marcus, Iris) | §2.1 | Added before any H score |
@@ -163,6 +164,36 @@ Every predictor is declared by SHA-256 before the manifest.
 - **Reachable:** copernicus-dem-30m.s3.amazonaws.com and zenodo.org.
 
 **Update:** the user has since approved unrestricted network access for this environment, and Daniel is rebuilding the covariates (a pilot on part-a fires, §1.2). The covariates are rebuilt rather than taken from the owner archive; see the consistency check required in §1.2.
+
+### 3.1 Rebuilt-pipeline refits (revision 18; recipe frozen before any refit runs)
+
+**Why.** Slope and tree cover cannot be checked against the archive (§1.2 item 14), so any model trained on archive covariates and scored on rebuilt inputs is descriptive. To give part c a confirmatory comparison, **every model scored on part c is trained and scored on one input pipeline**: rebuilt covariates from `rebuild_env.sh` (daniel/data-fetch; its exact commit is pinned in FREEZE.json).
+- The archive-trained `d4_wind_seed0`, `c651_mc` and `logistic` stay as **labelled descriptive rows**.
+- If the owner supplies archive values and item 14 passes, they can be promoted by amendment before part c opens.
+
+**Training data, identical for every refit and for every D1/D2 candidate.** It is the union of:
+- The 23 forecast-v2 US fit fires, rebuilt. They are already exposed as FIT.
+- The **part-a training pool** (`cohort/PART_A_ALLOWLIST_FINAL.csv`, sha 801acdd8…). An incident is used only if it has at least 2 surveys and a buildable grid.
+- Intervals follow §2's rule (0 < Δ ≤ 48 h, timestamp-only), with all eligible intervals per fire. Build failures are logged, never replaced.
+- No US2024, KR2025, part b/c/d or H-test fire is used.
+
+**`d4_wind_rebuilt`** follows the forecast-v2 recipe exactly; only the training fires and the covariate pipeline change.
+- Source: `research/forecast-v2/scripts/pipeline.py` (sha256 88d376d2…2d67), invoked as forecast-v2 invoked its final stage (`run_campaign.py` sha256 7d089b86…b74d): `pipeline.py final --variant d4_wind --max-fit-intervals-per-fire 0 --intervals-per-epoch 0`.
+- Hyperparameters: the `fitting` block of `research/forecast-v2/RUN_PROTOCOL.json` (sha256 c2dce7f7…8243). That is epochs 3, seed 0, hidden_channels 16, kernel_size 9, learning_rate 0.003, weight_decay 1e-4, samples_per_step 1, training crop = cutoff initial extent + 10 cells with zero exterior, biome emphasis training-only inverse-sqrt, threads 2. Variant d4_wind: prior free, frame wind, d4 true.
+- There is **no development-fold selection**: the variant is fixed, so nothing is selected. There is one seed.
+- The checkpoint SHA is recorded in FREEZE.json before part c opens.
+
+**`logistic_rebuilt`** uses `forecast/wildfire/baselines.py` (sha256 325abbe7…afbb1f):
+- Features: `hand_features` with an elevation-gradient directional slope and the same 14 biome codes (the feature list in `forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.json`).
+- Fit: `fit_logistic(C=1.0, seed=0)`, negatives subsampled at 0.05 and inverse-weighted.
+
+**`d4_wind_recal`** (§3) is redefined on top of `d4_wind_rebuilt`: a one-feature logistic recalibration fit on the same training data.
+
+**`dilation_8h`** has no fitted weights, so it is unchanged.
+
+**Rate-mixture candidate** (development first, per Iris; added as a part-c comparator only if it performs in leave-one-fire-out development on R): `d4_wind_rebuilt` run at global rate multipliers m ∈ {1, 2, 4, 8, 16}, with mixture weights fit on the training data. Once weather covariates exist, a development check also tests whether the fast tail intervals are predictable from wind; if they are, one wind-dependent weight parameter is allowed. The final form is frozen by amendment before part c opens.
+
+**Who runs it.** Marcus (S-D1) runs the baseline refits, and Elena's D2 refit uses the identical training data and pipeline. Every refit writes a receipt with input hashes, code SHA, seed and wall time.
 
 ## 4. Scoring population and strata
 
