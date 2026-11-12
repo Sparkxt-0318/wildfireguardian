@@ -419,4 +419,5 @@ from branch `daniel/data-fetch`.
     determined. The length-part and within-fire intervals are wide.
   - A slope below 1 is a **calibration slope, not a mechanism**. It may be partly attenuation: the simulated median
     comes from 64 simulations and is quantised to the cell size.
-  - The no-GOFER subset (b7cb892f) is unverified.
+  - **No-GOFER subset** (b7cb892f): **PASS** (Owen). Dropping the 4 GOFER-matched (H-dev) fires, which use NIROPS brackets
+    like all the others, leaves every main result in place.
