@@ -1,0 +1,249 @@
+{
+ "manifest": "MANIFEST_v3_6.json @ ff3c031c",
+ "manifest_sha256": "b9b1e8533766f37923b6b4a653bf72f03b41ce76c04f9354239054256cd2ed23",
+ "transform": "no_reentry/1",
+ "label": "no_reentry/1 (labelled variant; not the default)",
+ "builder_python": "sd1venv",
+ "packets": [
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "409cf8b4e831154fb973365ae4c2ee32d8f084886d88e743b3853dd4ff12b557",
+   "constructed_arrays": "f66e3e87a76ef15b92e0d0d5f99e5061c97a4d392bfa58d45ff1efecb1657d24",
+   "REPORT": "a175e1b21dd672d94f7c17f3a9a5f2925916df62432f8436bd460c8248d78276"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "dad0e93ae230d6274a497642e35f95905014d7b15b1e48c236a5c4e11fa0fe49",
+   "constructed_arrays": "036daf352d416b7b7d60aebff7b415e1fdee97b8fab1ddcf94eaae68cbf48e27",
+   "REPORT": "e49988a0bed857adc41287b7eeedd6f362ca97ec9df01c7589b18db8ffbf4a8a"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "55c0ee9eb8e71b8b435ac050f26cc11fb6a0f04e8ef55ce05d38952f7af419b8",
+   "constructed_arrays": "357ab88c149c0c8641371bfa93afcd2557b62f045149abcd4b4c3fc974080c91",
+   "REPORT": "7521061ce1e486e32f20bcaf622e0ffcc35b40991cf48e873a3c7693d2424ddb"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "0ae635ba1bcbe88923fdb55e60c71d9177d89d83fb23093325c32db4e9f264b1",
+   "constructed_arrays": "f5d532c6c753fa8c87f19cbd42be7f7b46c2725eb57fede2ed93ae6e7d016abd",
+   "REPORT": "c51d30e3537756ee4c1d2a20305aefde131d9cdc57940319aaf402806be43344"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "b6da50afd814974923bf9042268b251f2312a9333a8d357ee125b3a4fdeff628",
+   "constructed_arrays": "4a83878273723d2393e865783d245bb96d4cc99979784a4e12f61126f4bb8b63",
+   "REPORT": "3dc176f7fc74af4775bc2a241525b529275dc5d978da60a1842ddf8be72875ae"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "edeaf5ed43e280af3a4d72e945b3047110d31cbd3ebf3d4c07d6b72685407be7",
+   "constructed_arrays": "af9d20577f82b0302023940c3adf78de717c57dae35e8a810023d71d24d4e184",
+   "REPORT": "cc42c47bcb5e4fdcc6564a5ca62cae23506b330cb944936a21eb1eaef193f946"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "ed5f24d639b3c562fdc00a9ccbf572dd26c6f9a066dd55447e3e83515a302e79",
+   "constructed_arrays": "cb697851c0cdba4873ad83314933917437fafcb183254f74a04ec6f5b92a1445",
+   "REPORT": "2f994ee7f4e884dc18ff12c1e7bca10333eae89ea85f68fe7bdebfd876f975cb"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "34b318589560ec6dd552a5cc47d99b734ec4477d2312d65d0a60b859db6de2fd",
+   "constructed_arrays": "c524e3e5aa5398c5a9f6581f12c1b9fd04fb8f63c8e018e73b7c71e2db422a02",
+   "REPORT": "cad20133085a1b6eebe3289a3ab515e1b81e97127716d0c624483cf90eff61c9"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "e02e51350dc6c0070e79d69c243cf75211cf8835c6220d129a8e03fb1dd99bf8",
+   "constructed_arrays": "4dc9e58a9db1b2b77a45bef60e9a418c08f72968fe3442d4c11fc24277e387f3",
+   "REPORT": "95515d1b245f69b4751223328106af40753cdbee9dca71b51459645e6685bcef"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "955e85a31a58c4b55720b21d782e1a26d61623d54e9e537be01e66dc8d3b10aa",
+   "constructed_arrays": "df81509f4f2ab7289d6d917bdcd4645e5897695c843a90a96763bfc83b22e883",
+   "REPORT": "f4ba0118e4242b6463dfef92f1cf959184dc1e8663661d8ee071b0dd1bd02baa"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "6a9022c987c0c18b5fcb52fe53554fe564be3cd4a190be1b96fc6cf00e24593e",
+   "constructed_arrays": "33abaa74c464d3e82ee7ee68f57493f7de910e01dad026d681016d7b0bd4c8d0",
+   "REPORT": "f7798ddcad8f3b6f023bf77c47ce80cf3ca61b73dc7117cbe234c8df09bda49c"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "7a4f410aa87cde89f0f6787c75127a8bb103d91f3fa9ec1b7ed996770e9c0202",
+   "constructed_arrays": "43b6a17207f8ca685b6fb043a032ee4d6f78aacca0adabadb471c82ac8260d2c",
+   "REPORT": "ab018d2452fc603a0bce552ecfc4a59817969f90b80531bbdaa50a4157080938"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "f9bce8366a2d40f01453bbb6fdb0eb9edfd24f2303ab4fb9cda20091771469a0",
+   "constructed_arrays": "6663b99f8366957b45f76298f48b30266c4a66df9b9e2e344ac37d72589c59a4",
+   "REPORT": "55161d75ff71d1053eb9f7356cda14179ba1684257c1be7353a5cfc29905fb05"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "a0362d6ccc361aceb916768b90339d13a2f7063bebf5035e4fd772ce42dc443a",
+   "constructed_arrays": "791d7c5f88cd7f7d339a32421aea3ad1e9f04fd8763488f3d01e564a04358f87",
+   "REPORT": "5db99d64f4a4db22f7788200add3b1472e64f4f4184efa5918f25359b313ecae"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "d76fc09b2c1b02c9f900fd6beca218ec9588e979a36a31a0274f3957c1213276",
+   "constructed_arrays": "59690d4908db1c39628d6ed9ba4baa101a2e681ab725db80f6a246325d6a2ca6",
+   "REPORT": "555b84a61fbfafcdcfd431c131ce1a46391057ced316f70fc69c943ec69c8d74"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "93ed2d404734bcb92b7bf941def7648c867bcbdafefbfcce35365ecd4b590c34",
+   "constructed_arrays": "f844ffd9f446535157fb6a21bcd179074811fd83cdb0a58dc5807973d2ce0bd1",
+   "REPORT": "04ed9859e65b9bfa8167f8fdf74f23d27095d89cf4311f4341243a7a5d915023"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "44f4f7a4e43fbed68f7a8552d6a07019a921b6dd4ccc2e98066cc6889b1a0ac3",
+   "constructed_arrays": "c7a741dc20c7f7acbf9879097240006ab6ac11eac17d5dcaf5be77863a219ee6",
+   "REPORT": "62b7c8b8ac190394c30d84e28c38123eeba0a840ae0d73c45edeeac1578e089d"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "d3a891b4658702cc1e3b1006df80efaf9959f3eae195392a0b89b536e654c2d0",
+   "constructed_arrays": "77ce405e8a3f9bc8e03a79d4f86869144880ee3c56cf95be05547b79864e2853",
+   "REPORT": "99eb2c81e8a020b1fd465a0d838980bc2114de42fc156d8a0a1cc10ce7424c69"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "c883baa04959372b9ccb2253f2d59141aa5eea42511cf87ff31dab6e6cd9c7af",
+   "constructed_arrays": "51355307c7c183420fc5ed6377914d926df36e9e033e14ff5282d4315f987110",
+   "REPORT": "183403d4c8949d30244f6adf4305a9c8d2463dafeebbabf525cbe2b00c4497d1"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "ff91548d0464acf479fb798a1e78241366a98dc8f36b9656689372b5ef4c6544",
+   "constructed_arrays": "572fc4a0411ea4150490100eaaaca8827cb410fa0ef5e8aa749484ee6334e5e1",
+   "REPORT": "ad69f57b0ca639e0c0711881efc12289dbc6f2543e772c6c3a02f2f20a5493b8"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "d72b1b87dacb914fe9b85f9456d683bac05ce7adb79294dc5b5b9a8737b2b7e9",
+   "constructed_arrays": "25ee1dccc64079ecd0f031b877681814f076c16c9ec76adb8714779830ce2881",
+   "REPORT": "7d6ba1d84c16ae03b6e88011dd36334928eec15694c4bda7ceaf2c94125fb664"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "b1b1981c2f285db16e120dae0a01cc481679489bee5ba0d26d6440dd0359fdcd",
+   "constructed_arrays": "f080f916524e5cfd89b29126f7947cbfdb414f1530e22702dd392b69bd0a1088",
+   "REPORT": "2cde0ae86d655da15f23ca214ef331b89a247e9622f08df64c338d254b2ea378"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "rc": 0,
+   "HAZARD": "6c30e68cb5fe2a1006295eca4ea398bded76974d7e64cc6b8e5818b97476de29",
+   "constructed_arrays": "7d99dac7fd71ec23d2a62623b8c8e4379fb8126c44704ba25bd924e0f98c637b",
+   "REPORT": "570fa205e262bf3731486a8c6fcc530d77543ad6a2569f46478c3c41da667c70"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "rc": 0,
+   "HAZARD": "3e9c78a4dd09ee35e94daeff08417e9482f6cdbc57939e1456094e8688e9310e",
+   "constructed_arrays": "b547ac2906253751bff15b33895e0c413b99efaa4efe880c194be5f9dbb19ea7",
+   "REPORT": "ae00fe869a6a86e35fbe12c9ebb00aa0a6c9484f3c632cc147c55c3c921da57e"
+  }
+ ]
+}
