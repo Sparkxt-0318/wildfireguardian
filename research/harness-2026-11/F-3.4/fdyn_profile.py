@@ -9,6 +9,7 @@ Each request goes through run_profile.run_one (instrumented phase worker; kit co
 memory guard and outer deadline).
 
   python fdyn_profile.py --kit KIT --leo LEO_WORKTREE --out OUT --budget 30 [--mode phase|plain] [--memory-guard-mib 3072]
+                         [--rss-limit-mb N]   # sets request limits.rss_limit_mb (solver gate; FDYN_PLAN amendment A1)
 """
 import argparse, json, sys
 from pathlib import Path
@@ -25,7 +26,7 @@ H_HOURS = 5
 N_ORIGINS = 3
 
 
-def requests(leo, out):
+def requests(leo, out, rss_limit_mb=None):
     F = Path(leo) / 'research/harness-2026-11/F-DYN/_data'
     inst = json.loads((F / 'INSTANCE.json').read_text())['instances']
     jobs = []
@@ -41,6 +42,8 @@ def requests(leo, out):
                                 window=I['destination_window_s'], limits={'peak_kw_m2': 10, 'dose_kj_m2': 100, 'incurred_dose_kj_m2': 0},
                                 scenario_ids=ids, horizon_s=hz['valid_until'], valid_from=hz['valid_from'],
                                 hazard_version=hz['version'], as_of_iso=hz['issued_at'])
+            if rss_limit_mb is not None:
+                req['limits']['rss_limit_mb'] = rss_limit_mb
             tag = '%s__%s_%s__%s' % (region, start, variant, o['origin_id'].replace('/', '_').replace(':', '_'))
             rp = out / 'requests' / (tag + '.json'); rp.parent.mkdir(parents=True, exist_ok=True)
             rp.write_text(json.dumps(req))
@@ -54,6 +57,7 @@ def main():
     ap.add_argument('--out', type=Path, required=True); ap.add_argument('--budget', type=float, required=True)
     ap.add_argument('--mode', choices=['phase', 'plain'], default='phase')
     ap.add_argument('--memory-guard-mib', type=float, default=3072)
+    ap.add_argument('--rss-limit-mb', type=int, default=None)
     ap.add_argument('--only', default=None)
     ap.add_argument('--python', default=sys.executable)
     a = ap.parse_args()
@@ -61,7 +65,7 @@ def main():
     if out.exists():
         raise SystemExit('Output exists: %s' % out)
     out.mkdir(parents=True)
-    for tag, region, graph, pk, rp, origin, dest in requests(a.leo, out):
+    for tag, region, graph, pk, rp, origin, dest in requests(a.leo, out, a.rss_limit_mb):
         if a.only and tag not in a.only.split(','):
             continue
         row = RP.run_one(a.kit.resolve(), None, region, tag, out / 'runs' / tag, a.budget, a.mode, a.python,

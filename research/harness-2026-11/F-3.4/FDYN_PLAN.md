@@ -49,3 +49,52 @@ The plan runs on **v3.1**: `MANIFEST_v3_1.json` (sha `1c2e73db…`) at `3f1fa15`
 `_data/packets_v31/`. The 4 packets and 12 requests are unchanged in definition. The v3.1 data changes touch only the
 23T23, 24T02 and 24T05 starts, not this plan's 0325T17 and 0325T23 starts; identity digests change. Each manifest
 command is run as an argv list. Every packet hash is recorded in `fdyn_prepare.log`.
+
+## Amendment A1 — 12 Nov 2026, written ~13:05 UTC, committed before the run it describes
+
+**Deviation 1: the 900 s / 12,288 MiB controller-only repeat was stopped** at 12:59:06 UTC, after 1 of 12 rows
+(orchestrator decision). It cannot show search behaviour, for the reason below. The one completed row (Uiseong
+kriged …323: UNRESOLVED, 151.9 s, 9,766 MiB) is kept and labelled "stopped repeat".
+
+**Why.** The plan's memory repeat raised only the controller's guard. The kit's solver has a second memory gate,
+which the plan did not cover: `phaseB/road_core.py:751-757`, the same code as `routing/core.py:605-611` in the
+routing package. Every 64 expansions it compares the **process-lifetime maximum RSS** (`getrusage ru_maxrss`) with
+`limits.rss_limit_mb`. The default is 3,072 because the requests do not set it.
+
+On these packets, bound construction has already raised the lifetime maximum above 3 GiB, so the LO and HI stages
+stop with `RSS_LIMIT` at 0 expansions. In the 300 s / 12,288 MiB repeat, 9 of 9 unresolved requests did this.
+
+**Deviation 2: one more repeat.** It is labelled **non-evaluated, amendment A1**.
+- The request carries `limits.rss_limit_mb = 12288`, a field the kit validates (`routing/validation.py:421`).
+- So both gates are at 12,288 MiB: controller `--memory-guard-mib 12288`, and the solver via the request.
+- Budget 300 s; the same 12 requests; one repetition; quiet host.
+- Command: `fdyn_profile.py --budget 300 --memory-guard-mib 12288 --rss-limit-mb 12288`, output `fdyn_b300_g12k_rss12k`.
+
+**Reported, descriptive only (no pass/fail threshold, per the orchestrator):** per request,
+- outcome and terminal reason;
+- per stage (Z, LO, LO2, HI): wall cap, elapsed, status, reason, labels and expansions;
+- complete wall;
+- family peak RSS, and resident vs lifetime-peak RSS at the end of the bound model, the EA bound and search.
+
+Also reported beside it: the count of the 9 requests unresolved in the 300 s / 12,288 MiB repeat that reach
+FEASIBLE or OPTIMUM_PROVEN with a completed whole-road check (Iris's question), as a number, not a pass rule.
+
+**Findings recorded with this amendment (from existing rows; measured).**
+1. **The gate measures lifetime peak, not current use.** Any large transient precompute therefore disables every
+   later search stage for the rest of the process, even when resident memory has fallen back. On Uiseong:
+   - RoadBoundModel construction peaks at 9.0–9.5 GiB, but resident RSS at its end is 0.40 GiB;
+   - resident RSS at the end of `road_core.solve` is 2.09 GiB, below 3 GiB;
+   - search was nevertheless stopped by the gate.
+   On Yeongdeok the EarliestArrivalBound stays resident (4.4 GiB at its end and during search), so that memory is
+   genuinely held.
+2. **The terminal reason under-reports memory.** Gate-stopped runs end as `UNRESOLVED / SEARCH_TIMEOUT`, with
+   search status `TIMEOUT`. `RSS_LIMIT` appears only in the per-stage records of `SEARCH_RESULT.json`. This is a
+   reporting defect in the kit's terminal reason (observation; the frozen kit is not changed).
+3. **Open item: Z overran its 6 s cap on Uiseong** (Z elapsed 20.0–22.4 s, wall cap 6 s). Not investigated.
+4. **The 2 feasible results at 900 s / 3,072 MiB** (Yeongdeok firms_early, origins …207 and …168) came from **Z**:
+   - Z timed out at its 6 s cap with a checked incumbent (`WALL_CLOCK_AFTER_CHECK`);
+   - the whole-road check certified that incumbent, and it was published (`WHOLE_ROAD_CERTIFIED_NO_OPTIMALITY_CLAIM`);
+   - so the EA bound was never built and the peak stayed at 2.3 GiB.
+   At 300 s / 3,072 MiB, the same requests reached EA, which needs 4.4 GiB, and were stopped by the guard. The
+   difference is whether Z had a certified incumbent when its fixed 6 s cap expired. That is a run-to-run timing
+   effect at the Z cap, not an effect of the larger budget (hypothesis; 1 repetition each).
