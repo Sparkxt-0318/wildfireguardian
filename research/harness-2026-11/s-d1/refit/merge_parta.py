@@ -55,6 +55,22 @@ def main():
         for z, ii, d in zip(zs[1:], idx[1:], a.producers[1:]):
             if not np.array_equal(z["y"][ii], y) or not np.array_equal(z["dist_m"][ii], dist):
                 raise SystemExit(f"y or dist_m differ on shared cells: {fire} ({d})")
+        # Iris/Victor pin: recal columns may only appear on cells inside d4_wind_rebuilt's own producer support.
+        has = [{k for k in z if k.startswith("p_")} for z in zs]
+        recal_i = [i for i, h in enumerate(has) if h & {"p_d4_wind_recal", "p_d4_wind_recal_band"}]
+        support_check = None
+        if recal_i:
+            d4_i = [i for i, h in enumerate(has) if "p_d4_wind_rebuilt" in h]
+            if not d4_i:
+                raise SystemExit(f"{fire}: recal present without the d4_wind_rebuilt producer")
+            d4keys = set(ks[d4_i[0]])
+            inside = sum(k in d4keys for k in order)
+            if inside != len(order):
+                raise SystemExit(f"{fire}: {len(order) - inside} merged cells outside d4_wind_rebuilt support")
+            for i in recal_i:
+                if set(ks[i]) != d4keys:
+                    raise SystemExit(f"{fire}: recal producer entries differ from d4_wind_rebuilt entries")
+            support_check = dict(merged_cells=len(order), inside_d4_support=inside, share=1.0)
         t1s = sorted({k.split("|")[0] for k in order})
         t1_index = {t: i for i, t in enumerate(t1s)}
         hours_by_t1 = {}
@@ -75,6 +91,7 @@ def main():
         np.savez_compressed(a.out / f"{fire}.npz", **out)
         log["per_fire"][fire] = dict(shared_cells=len(order), positives=int(y.sum()),
                                      dropped_by_intersection={str(d): int(len(k) - len(order)) for d, k in zip(a.producers, ks)},
+                                     recal_inside_d4_support=support_check,
                                      sha256=sha(a.out / f"{fire}.npz"))
     preds = {tuple(sorted(k for k in np.load(a.out / f"{f}.npz").files if k.startswith("p_"))) for f in common_fires}
     if len(preds) > 1:
