@@ -1,6 +1,6 @@
 # Pre-stated rule: between-fire rate arm on the MCEM kernel (Iris item 2; orchestrator)
 
-**Timing.** Written at about 19:55 UTC on 2026-11-12, before any code for this arm exists and before any run. The git
+**Timing.** Written at about 19:51 UTC on 2026-11-12, before any code for this arm exists and before any run. The git
 timestamp of this commit is the record. The baselines and banded Brier (7cc21f47) were already known when this was
 written: MCEM 0.0660, plug-in 0.0569, logistic_cf 0.0566, persistence 0.0646.
 
