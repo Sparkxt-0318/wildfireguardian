@@ -16,6 +16,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 8 | 2026-11-12 | F-3.2 claim 9, departure-sweep cohort | Thomas | 560ad1a (checked at e28c4aff) | 140 requests, 75 ROUTE / 65 NO_ROUTE, both checkers accept all, sweep agrees 0 disagreements | `cohort.py --offsets 900 --c-checker checker_c/wfgc_check` + per-row compare | PASS WITH NOTES |
 | 9 | 2026-11-12 | F-3.2 claim 10, P1 flame sets | Thomas | 421637f | 15 packets with hazard/raw/contact unions identical | `python3 F-3.2/p1_check.py` | PASS |
 | 10 | 2026-11-12 | F-4.2 spatial clearance | Priya | 0e6f7db | 15 published clearances; trade-offs; 90 witnesses certified | `clearance_panel.py --only FW2,FN1,FX2`; `analyze_clearance.py`; `verify_witnesses.py`; own independent geometry on all 15 | PASS WITH NOTES |
+| 11 | 2026-11-12 | W-KIT (N6/N7 fix) | Thomas | 01292ca | issue-by <= planner leave-by and field leave-by; latency order low >= median >= high | `cd planner && npx vitest run ../tests/planner/wkit.channels.test.ts && npx vitest run` + 10 probes | PASS |
 
 ## Notes
 
@@ -71,3 +72,13 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 - best_radius reviewed: the upper bound is sound when blocks are up-sets before D (τ_max 258 s < T-H; † rule D > R_max exact), up to PAD_M 1e-6 m.
 - Notes: horizon columns for uiseong 0324 / uljin 1200 need † (R_max < H). The Yeongdeok FW1 bracket is written with lower above upper.
 - Not verified: the other 12 missions' searches and the other 75 witnesses.
+
+**11. W-KIT @ 01292ca**: 19/19 and 384/384. The 10 probes on planner leave-by 1800:
+- field 3000 {3000,2700,2400} gives out of range; {1800,1500,1200} is rendered;
+- field 1200 gives "disagrees";
+- the reversed order {900,1200,1500} is refused;
+- 1801 gives out of range, as does field 3601 > H;
+- all-negative values give "already past".
+No time is ever rendered after the planner's leave-by. N7 example withdrawn: issue_by = leave_by - latency, so the original order was correct.
+
+**Amendment to 10 (F-4.2)**: N1 is withdrawn. The horizon deadline is D = H - dwell = 3480 s, which is below R_max for uiseong 0324 (3495.3) and uljin 1200 (3595.4). Present-fire standing blocks are [0, R), so an earlier dwell is never worse. The remaining note: in the RESULTS.md §2 hand table, the uljin FD1 "≤ +600" cell carries a † that belongs to the horizon entry (results/TABLE.md is correct).
