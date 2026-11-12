@@ -371,7 +371,7 @@ CO-PSF-000779_OakRidge,a,kept,
 MT-LG29-000428_RichardSpring,a,kept,
 CA-TNF-000855_Royal,a,kept,
 MT-FHA-000106_Elmo,a,kept,
-CA-KNF-007035_Slater,a,excluded,item 9 near test incident CA-KNF-007084_Devil
+CA-KNF-007035_Slater,a,kept,
 CA-KNF-007022_Lake,a,excluded,item 10 duplicate of CA-KNF-007022_HappyCampWest
 NM-N6S-000234_CerroBandera,a,kept,
 OR-WWF-000400_DoubleCreek,a,kept,
@@ -526,7 +526,7 @@ CA-ENF-024030_Caldor,d,excluded,§1.1 in exposure ledger
 ID-SIS-000452_Copeland,a,kept,
 AZ-ASF-000416_Pius,a,kept,
 OR-WIF-240214_MossMountain_MossMountain,d,excluded,item 8 exposed: duplicate of opened incident OR-WIF-240214_MossMountain_Chalk
-CA-KNF-007084_Devil,c,kept,replacement into c from d
+CA-KNF-007084_Devil,d,excluded,§1.1 in exposure ledger
 AZ-PHD-000455_Tussock,a,kept,
 ID-EIS-000311_Chimney,a,kept,
 OR-UPF-000234_Windigo,d,excluded,§1.3 near reference fire OR-WIF-220180_CedarCreek
@@ -561,7 +561,7 @@ ID-SCF-021230_Boundary,c,kept,replacement into c from d
 CA-INF-001695_Dexter,a,kept,
 NM-MEA-000382_SouthFork,a,kept,
 WA-OWF-000397_Meander,a,excluded,item 9 near test incident WA-NWS-000150_Bolt
-ID-SCF-022091_WolfFang,d,kept,
+ID-SCF-022091_WolfFang,c,kept,replacement into c from d
 MT-FHA-000094_BigKnife,a,kept,
 NV-EKD-010185_Lost,a,kept,
 MT-BDF-006305_Goat,a,kept,

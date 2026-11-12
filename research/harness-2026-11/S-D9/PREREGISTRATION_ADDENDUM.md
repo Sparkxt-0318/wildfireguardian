@@ -230,7 +230,8 @@ Every predictor is declared by SHA-256 before the manifest.
 
   The band is itself a dilation and favours dilation baselines near its radius. All widths are shown side by side.
 - **Non-burnable secondary (revision 16).** The band score is also reported **excluding cells classed non-burnable or covariate-missing**, with the count and share of positives removed, per fire.
-  - The class is defined **from covariates only** (fuel / land-cover code and validity flags), never from the endpoint or from enclosure, because enclosure uses the outcome.
+  - The class is defined **from covariates only** (fuel / land-cover code and validity flags), never from the endpoint or from enclosure, because enclosure uses the outcome. **Proposed and accepted by Iris: FBFM40 codes 91–99.**
+  - **Vintage:** LANDFIRE 2016 FBFM40, as used by the archive and the rebuilt builder. It predates every 2020–2024 NIROPS fire, so "non-burnable" describes the pre-fire landscape and not post-fire reclassification. A later LANDFIRE version would need an amendment.
   - The exact code list is fixed in an amendment once Daniel's US2024 fuel layers exist, and **before** any untouched score.
   - **The primary population is unchanged.**
   - This secondary was added after a development finding on R.
