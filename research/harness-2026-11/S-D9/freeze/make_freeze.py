@@ -95,7 +95,7 @@ def main() -> None:
     ap.add_argument("--allow-dirty", action="store_true", help="dry run on a modified tree (never for a freeze)")
     args = ap.parse_args()
     dirty = git("status", "--porcelain", "--", str(HERE)).decode().split("\n")
-    dirty = [ln for ln in dirty if ln.strip() and not ln.rstrip().endswith("FREEZE.json")]
+    dirty = [ln for ln in dirty if ln.strip() and not ln.rstrip().rsplit("/", 1)[-1].startswith("FREEZE")]
     if dirty and not args.allow_dirty:
         raise SystemExit("refusing: uncommitted changes under S-D9 (other than FREEZE.json); commit first or pass "
                          "--allow-dirty for a dry run:\n" + "\n".join(dirty))
