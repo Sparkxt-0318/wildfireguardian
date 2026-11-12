@@ -204,12 +204,24 @@ def stencil_rate(K_seg: np.ndarray, offs: np.ndarray, states: np.ndarray) -> np.
 
 
 def cellular_automaton(K, initial, horizons, *, dt, n_samples, seed, seg_len=1.0,
-                       batch=500, return_totals=False):
+                       batch=500, return_totals=False, half_step=False, return_cmc=False):
     """Synchronous CA with step ``dt`` (hours) and link P = 1 - exp(-dt * lambda).
 
     ``dt`` must divide ``seg_len`` and every horizon. dt = 1 reproduces the semantics of
     ``wildfire.rollout.simulate`` (cumulative absorbing sources, synchronous update).
+
+    ``half_step=True`` (Iris's lag-correction arm, an approximation): after each step's draws, cells
+    that ignited in this step also act as sources for half a step (the expected remaining fraction of
+    the step for an ignition time uniform in it), giving still-unburned targets an extra ignition
+    probability 1 - exp(-dt/2 * lambda_new). No further cascade within the step.
+
+    ``return_cmc=True`` (standard CA only): also return the conditional estimator
+    Y_i(t) = sum_{steps k <= t} 1{i unburned before k} q_i(k) per trajectory, whose mean is P(i burned
+    by t) exactly (each term has expectation P(i ignites at step k)). Returned as a dict with
+    ``counts``, ``totals``, ``cmc_mean`` and ``cmc_var`` (per-trajectory variance).
     """
+    if half_step and return_cmc:
+        raise ValueError("return_cmc is defined for the standard CA only")
     K, initial, offs = _check(K, initial)
     S = K.shape[0]
     horizons = np.asarray(horizons, dtype=np.float64)
@@ -227,20 +239,36 @@ def cellular_automaton(K, initial, horizons, *, dt, n_samples, seed, seg_len=1.0
     H, W = initial.shape
     counts = np.zeros((len(horizons), H, W), dtype=np.int64)
     totals = np.zeros((len(horizons), n_samples), dtype=np.int64)
+    cmc1 = np.zeros((len(horizons), H, W))
+    cmc2 = np.zeros((len(horizons), H, W))
     rng = np.random.default_rng(seed)
     for start in range(0, n_samples, batch):
         size = min(batch, n_samples - start)
         states = np.broadcast_to(initial, (size, H, W)).copy()
+        Y = np.zeros((size, H, W)) if return_cmc else None
         for step in range(total_steps):
             seg = min(step // steps_per_seg, S - 1)
             lam = stencil_rate(K[seg], offs, states)
             q = -np.expm1(-dt * lam)
+            if return_cmc:
+                Y += np.where(states, 0.0, q)
             ignite = (~states) & (rng.random((size, H, W)) < q)
             states |= ignite
+            if half_step and ignite.any():
+                lam_new = stencil_rate(K[seg], offs, ignite)
+                q2 = -np.expm1(-0.5 * dt * lam_new)
+                states |= (~states) & (rng.random((size, H, W)) < q2)
             if step + 1 in record:
                 new = states & ~initial
-                counts[record[step + 1]] += new.sum(axis=0)
-                totals[record[step + 1], start:start + size] = new.sum(axis=(1, 2))
+                r = record[step + 1]
+                counts[r] += new.sum(axis=0)
+                totals[r, start:start + size] = new.sum(axis=(1, 2))
+                if return_cmc:
+                    cmc1[r] += Y.sum(axis=0)
+                    cmc2[r] += (Y ** 2).sum(axis=0)
+    if return_cmc:
+        mean = cmc1 / n_samples
+        return dict(counts=counts, totals=totals, cmc_mean=mean, cmc_var=cmc2 / n_samples - mean ** 2)
     return (counts, totals) if return_totals else counts
 
 

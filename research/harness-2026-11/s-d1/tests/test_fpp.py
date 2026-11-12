@@ -297,3 +297,32 @@ def test_cmc_matches_plain_on_random_grid_and_gap_only_on_burned():
     assert np.all(out["cmc_lo"] <= out["cmc_hi"] + 1e-12)
     assert out["cmc_hi"].mean() >= p.mean() - 5 * se.mean()
     assert np.all(out["gap_fraction"] < 0.5)
+
+
+def test_ca_conditional_estimator_exact_on_two_hop_hourly_chain():
+    a, b = 1.3, 0.9
+    K = chain_kernel(1, 3, [((0, 1), (0, 0), a), ((0, 2), (0, 1), b)])
+    init = np.array([[True, False, False]])
+    n = 20000
+    out = cellular_automaton(K, init, [1.0, 2.0], dt=1.0, n_samples=n, seed=31, return_cmc=True)
+    exact = {(0, 1): 1 - math.exp(-a), (1, 1): 1 - math.exp(-2 * a),
+             (0, 2): 0.0, (1, 2): (1 - math.exp(-a)) * (1 - math.exp(-b))}
+    for (h, j), e in exact.items():
+        est = out["cmc_mean"][h, 0, j]
+        se = math.sqrt(max(out["cmc_var"][h, 0, j], 1e-300) / n)
+        assert abs(est - e) <= 5 * se + 1e-12
+        assert abs(out["counts"][h, 0, j] / n - e) <= 5 * math.sqrt(max(e * (1 - e), 1e-12) / n)
+    # first-hop cell: conditional estimator is deterministic (zero variance)
+    assert out["cmc_var"][0, 0, 1] < 1e-12
+
+
+def test_half_step_ca_between_hourly_and_fine():
+    K = np.full((25, 20, 20), 1.0 / 24)
+    K[12] = 0
+    init = np.zeros((20, 20), bool)
+    init[10, 10] = True
+    n = 3000
+    hourly = cellular_automaton(K, init, [4.0], dt=1.0, n_samples=n, seed=1)[0].sum() / n
+    half = cellular_automaton(K, init, [4.0], dt=1.0, n_samples=n, seed=2, half_step=True)[0].sum() / n
+    fine = cellular_automaton(K, init, [4.0], dt=1 / 8, n_samples=n, seed=3)[0].sum() / n
+    assert hourly < half

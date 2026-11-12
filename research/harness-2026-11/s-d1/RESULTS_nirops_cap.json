@@ -1,0 +1,3584 @@
+{
+ "source": "NIROPS 2020-2024 R1-R6 (Mendeley 10.17632/95rj5d379g.1), archive sha256 b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
+ "grid": "incident UTM, 375 m, cell-centre inclusion, cumulative",
+ "cap": "chessboard distance > 4 * ceil(gap_hours)",
+ "max_gap_h": 48.0,
+ "incidents_allowed": {
+  "part_a": 586,
+  "fit23": 23
+ },
+ "all_pairs": {
+  "incidents": 500,
+  "pairs": 3725,
+  "new_cells": 254658,
+  "share_cells_beyond_cap": 0.0021676130339514173,
+  "pairs_with_any_beyond_cap": 1,
+  "gap_h_q10_q50_q90": [
+   21.016666666666666,
+   24.033333333333335,
+   30.569999999999997
+  ],
+  "pair_max_rate_cells_per_h_q50_q90_q99_max": [
+   0.08264462809917356,
+   0.3293808177571677,
+   1.2649371092647403,
+   20.0
+  ]
+ },
+ "fit23": {
+  "incidents": 23,
+  "pairs": 1165,
+  "new_cells": 118545,
+  "share_cells_beyond_cap": 0.004656459572314311,
+  "pairs_with_any_beyond_cap": 1,
+  "gap_h_q10_q50_q90": [
+   21.5,
+   24.0,
+   28.03000000000001
+  ],
+  "pair_max_rate_cells_per_h_q50_q90_q99_max": [
+   0.1,
+   0.38814816535876734,
+   1.2946132339235783,
+   6.758620689655173
+  ]
+ },
+ "part_a": {
+  "incidents": 477,
+  "pairs": 2560,
+  "new_cells": 136113,
+  "share_cells_beyond_cap": 0.0,
+  "pairs_with_any_beyond_cap": 0,
+  "gap_h_q10_q50_q90": [
+   20.883333333333333,
+   24.083333333333332,
+   36.31166666666661
+  ],
+  "pair_max_rate_cells_per_h_q50_q90_q99_max": [
+   0.07407407407407407,
+   0.29294843118163555,
+   1.1849124030332028,
+   20.0
+  ]
+ },
+ "short_gaps_le_12h": {
+  "incidents": 59,
+  "pairs": 73,
+  "new_cells": 4133,
+  "share_cells_beyond_cap": 0.0,
+  "pairs_with_any_beyond_cap": 0,
+  "gap_h_q10_q50_q90": [
+   3.0,
+   7.2,
+   11.209999999999999
+  ],
+  "pair_max_rate_cells_per_h_q50_q90_q99_max": [
+   0.3,
+   1.5731605886116435,
+   8.579310344827604,
+   20.0
+  ]
+ },
+ "per_incident": {
+  "AZ-A1S-001211_Monument": {
+   "pairs": 3,
+   "new_cells": 40,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17172295363480253
+  },
+  "AZ-A3S-001033_Walnut": {
+   "pairs": 2,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08327550312283137
+  },
+  "AZ-A4S-000950_Central": {
+   "pairs": 1,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.22698612862547288
+  },
+  "AZ-A5S-230970_Pilot": {
+   "pairs": 2,
+   "new_cells": 79,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08333333333333333
+  },
+  "AZ-ASD-000097_Basin": {
+   "pairs": 2,
+   "new_cells": 86,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19230769230769232
+  },
+  "AZ-ASF-000264_Foote": {
+   "pairs": 4,
+   "new_cells": 94,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.18004501125281322
+  },
+  "AZ-ASF-000416_Pius": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.043891733723482075
+  },
+  "AZ-ASF-000447_Campbell": {
+   "pairs": 4,
+   "new_cells": 30,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12056262558606833
+  },
+  "AZ-ASF-000519_Guzzler": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0453857791225416
+  },
+  "AZ-ASF-000613_Horton": {
+   "pairs": 6,
+   "new_cells": 233,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.24291497975708504
+  },
+  "AZ-ASF-000624_Bear": {
+   "pairs": 4,
+   "new_cells": 346,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2496532593619972
+  },
+  "AZ-ASF-000627_Moore": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041637751561415685
+  },
+  "AZ-ASF-000662_WestChev": {
+   "pairs": 2,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09345794392523366
+  },
+  "AZ-ASF-00083_Bringham": {
+   "pairs": 15,
+   "new_cells": 573,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5360824742268041
+  },
+  "AZ-CNF-000401_Foster": {
+   "pairs": 2,
+   "new_cells": 22,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17857142857142858
+  },
+  "AZ-CNF-000427_Pinnacle": {
+   "pairs": 12,
+   "new_cells": 905,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2884615384615385
+  },
+  "AZ-CNF-000552_Beehive": {
+   "pairs": 6,
+   "new_cells": 255,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4667609618104668
+  },
+  "AZ-COF-000159_Tunnel": {
+   "pairs": 1,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1553398058252427
+  },
+  "AZ-COF-000176_Wolf": {
+   "pairs": 4,
+   "new_cells": 277,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5714285714285714
+  },
+  "AZ-COF-000272_Wilbur": {
+   "pairs": 3,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12088650100738751
+  },
+  "AZ-COF-000523_Pipeline": {
+   "pairs": 5,
+   "new_cells": 184,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2809364548494983
+  },
+  "AZ-COF-000536_Haywire": {
+   "pairs": 4,
+   "new_cells": 41,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12040133779264213
+  },
+  "AZ-COF-000642_Backbone": {
+   "pairs": 5,
+   "new_cells": 683,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6812842599843383
+  },
+  "AZ-COF-000642_Snake": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03586371787208607
+  },
+  "AZ-CRD-000996_PinePeak": {
+   "pairs": 4,
+   "new_cells": 47,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.11764705882352941
+  },
+  "AZ-CRD-001644_Ridge": {
+   "pairs": 1,
+   "new_cells": 19,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08333333333333333
+  },
+  "AZ-FTA-000336_McDonaldTank": {
+   "pairs": 2,
+   "new_cells": 56,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.22208513263417645
+  },
+  "AZ-FTA-000574_Spoon": {
+   "pairs": 3,
+   "new_cells": 117,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.36635006784260515
+  },
+  "AZ-FTA-000867_Lofer": {
+   "pairs": 5,
+   "new_cells": 16,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07905138339920949
+  },
+  "AZ-GID-000387_Mescal": {
+   "pairs": 4,
+   "new_cells": 977,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6451612903225806
+  },
+  "AZ-KNF-000336_Hull": {
+   "pairs": 7,
+   "new_cells": 31,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12903225806451613
+  },
+  "AZ-KNF-000391_ThreeLakes": {
+   "pairs": 2,
+   "new_cells": 48,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08
+  },
+  "AZ-NAA-000156_WoodSprings2": {
+   "pairs": 5,
+   "new_cells": 112,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.32064128256513025
+  },
+  "AZ-PHD-000455_Tussock": {
+   "pairs": 2,
+   "new_cells": 36,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.125
+  },
+  "AZ-PNF-000863_Rafael": {
+   "pairs": 8,
+   "new_cells": 1583,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.0843373493975903
+  },
+  "AZ-PNF-001008_Tiger": {
+   "pairs": 9,
+   "new_cells": 273,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3404255319148936
+  },
+  "AZ-PNF-002178_Horse": {
+   "pairs": 5,
+   "new_cells": 235,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5124555160142349
+  },
+  "AZ-PPA-000327_SycamoreCanyon": {
+   "pairs": 2,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07453416149068323
+  },
+  "AZ-PPA-000453_Contreras": {
+   "pairs": 9,
+   "new_cells": 810,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.2080536912751678
+  },
+  "AZ-SCA-001110_Buckhorn": {
+   "pairs": 3,
+   "new_cells": 16,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23166023166023167
+  },
+  "AZ-SCA-001403_BlueRiver": {
+   "pairs": 5,
+   "new_cells": 870,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.0833333333333333
+  },
+  "AZ-SCA-001418_DryLake": {
+   "pairs": 5,
+   "new_cells": 110,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25
+  },
+  "AZ-SCA-002036_BlueRiver2": {
+   "pairs": 4,
+   "new_cells": 346,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 2.5974025974025974
+  },
+  "AZ-SCA-002036_Valley": {
+   "pairs": 2,
+   "new_cells": 84,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.20618556701030927
+  },
+  "AZ-SCA-002339_CassadoreSprings": {
+   "pairs": 6,
+   "new_cells": 119,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1355421686746988
+  },
+  "AZ-TCA-000773_C3": {
+   "pairs": 3,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07863695937090433
+  },
+  "AZ-TNF-000705_Spring": {
+   "pairs": 1,
+   "new_cells": 63,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.41739130434782606
+  },
+  "AZ-TNF-001046_Diamond": {
+   "pairs": 8,
+   "new_cells": 145,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23809523809523808
+  },
+  "AZ-TNF-001130_Black": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.082930200414651
+  },
+  "AZ-TNF-001306_Sawtooth": {
+   "pairs": 3,
+   "new_cells": 133,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17179670722977808
+  },
+  "AZ-TNF-001581_Bush": {
+   "pairs": 13,
+   "new_cells": 5210,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.5330021291696239
+  },
+  "AZ-TNF-001594_West": {
+   "pairs": 10,
+   "new_cells": 309,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4316546762589928
+  },
+  "AZ-TNF-001699_Middle": {
+   "pairs": 2,
+   "new_cells": 12,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17777777777777778
+  },
+  "AZ-TNF-001830_Polles": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08450704225352113
+  },
+  "AZ-TNF-002510_Griffin": {
+   "pairs": 1,
+   "new_cells": 65,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4592901878914405
+  },
+  "AZ-TNF-002616_Hidden": {
+   "pairs": 1,
+   "new_cells": 24,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08882309400444116
+  },
+  "CA-AEU-017769_Electra": {
+   "pairs": 4,
+   "new_cells": 101,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 2.1011673151750974
+  },
+  "CA-AEU-022341_Crozier": {
+   "pairs": 5,
+   "new_cells": 53,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1628222523744912
+  },
+  "CA-ANF-003273_Lake": {
+   "pairs": 10,
+   "new_cells": 556,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4166666666666667
+  },
+  "CA-ANF-003289_Ranch2": {
+   "pairs": 5,
+   "new_cells": 84,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25
+  },
+  "CA-ANF-003687_Bobcat": {
+   "pairs": 29,
+   "new_cells": 3239,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.8725761772853186
+  },
+  "CA-ANF-243334_Bridge": {
+   "pairs": 11,
+   "new_cells": 1617,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.2515337423312884
+  },
+  "CA-BDF-009908_Vista": {
+   "pairs": 5,
+   "new_cells": 68,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.22770398481973436
+  },
+  "CA-BDF-012520_Line": {
+   "pairs": 15,
+   "new_cells": 771,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4307692307692308
+  },
+  "CA-BDF-012958_Radford": {
+   "pairs": 2,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04562737642585551
+  },
+  "CA-BEU-004024_River": {
+   "pairs": 10,
+   "new_cells": 1477,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.8444444444444444
+  },
+  "CA-BEU-004081_Carmel": {
+   "pairs": 2,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04691164972634871
+  },
+  "CA-BTU-009205_Dixie": {
+   "pairs": 65,
+   "new_cells": 28020,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.8650492797573919
+  },
+  "CA-BTU-012090_Thompson": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.040622884224779957
+  },
+  "CA-BTU-013761_Park": {
+   "pairs": 24,
+   "new_cells": 7674,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 2.7634660421545667
+  },
+  "CA-CND-002309_Stagecoach": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04175365344467641
+  },
+  "CA-CND-002796_French": {
+   "pairs": 14,
+   "new_cells": 388,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.32967032967032966
+  },
+  "CA-CNF-002833_Valley": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.038986354775828465
+  },
+  "CA-CZU-005205_CZULightning": {
+   "pairs": 14,
+   "new_cells": 767,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25992779783393505
+  },
+  "CA-FKU-010219_Mineral": {
+   "pairs": 9,
+   "new_cells": 616,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4972375690607735
+  },
+  "CA-FKU-019190_Boone": {
+   "pairs": 2,
+   "new_cells": 322,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2587220697765582
+  },
+  "CA-INF-001299_InyoCreek": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03947368421052632
+  },
+  "CA-INF-001695_Dexter": {
+   "pairs": 3,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12949640287769784
+  },
+  "CA-KNF-005169_Tennant": {
+   "pairs": 7,
+   "new_cells": 72,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12903225806451613
+  },
+  "CA-KNF-006385_RiverComplex_RiverComplex": {
+   "pairs": 63,
+   "new_cells": 5072,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.6185567010309279
+  },
+  "CA-KNF-006454_Antelope": {
+   "pairs": 33,
+   "new_cells": 3466,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.154518950437318
+  },
+  "CA-KNF-007035_Slater": {
+   "pairs": 11,
+   "new_cells": 732,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1762114537444934
+  },
+  "CA-KNF-007241_Fox": {
+   "pairs": 4,
+   "new_cells": 32,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09090909090909091
+  },
+  "CA-KNF-6177_McKinney": {
+   "pairs": 3,
+   "new_cells": 179,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.18912529550827425
+  },
+  "CA-KNP-000088_CoffeePot": {
+   "pairs": 23,
+   "new_cells": 294,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25806451612903225
+  },
+  "CA-KNP-000116_Colony": {
+   "pairs": 8,
+   "new_cells": 695,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.587792012057272
+  },
+  "CA-KNP-000122_KNPComplex": {
+   "pairs": 33,
+   "new_cells": 2455,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.9197080291970804
+  },
+  "CA-LAC-020523_Post": {
+   "pairs": 5,
+   "new_cells": 151,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6578947368421053
+  },
+  "CA-LAC-434928_Franklin": {
+   "pairs": 2,
+   "new_cells": 42,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3333333333333333
+  },
+  "CA-LMU-003874_Hog": {
+   "pairs": 5,
+   "new_cells": 263,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6276150627615064
+  },
+  "CA-LMU-003917_Gold": {
+   "pairs": 4,
+   "new_cells": 346,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6528835690968444
+  },
+  "CA-LNF-004290_Stump": {
+   "pairs": 1,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04192872117400419
+  },
+  "CA-LNU-011083_Sites": {
+   "pairs": 1,
+   "new_cells": 62,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.11734028683181226
+  },
+  "CA-LNU-013407_LNULightningComplex_Meyers": {
+   "pairs": 4,
+   "new_cells": 65,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1637107776261937
+  },
+  "CA-LNU-013725_Ridge": {
+   "pairs": 3,
+   "new_cells": 80,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.6713091922005572
+  },
+  "CA-LNU-015947_Glass": {
+   "pairs": 8,
+   "new_cells": 1571,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4631578947368421
+  },
+  "CA-LPF-001493_Willow": {
+   "pairs": 2,
+   "new_cells": 23,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17391304347826086
+  },
+  "CA-LPF-001542_Lake": {
+   "pairs": 7,
+   "new_cells": 532,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2058319039451115
+  },
+  "CA-LPF-002759_Alisal": {
+   "pairs": 6,
+   "new_cells": 287,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.37894736842105264
+  },
+  "CA-MDF-000486_Allen": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04338394793926247
+  },
+  "CA-MDF-000486_Caldwell": {
+   "pairs": 9,
+   "new_cells": 2125,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.3212435233160622
+  },
+  "CA-MDF-000896_Barnes": {
+   "pairs": 3,
+   "new_cells": 85,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1680672268907563
+  },
+  "CA-MMU-014714_River": {
+   "pairs": 3,
+   "new_cells": 23,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.125
+  },
+  "CA-MMU-016149_Oak": {
+   "pairs": 6,
+   "new_cells": 208,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5042016806722689
+  },
+  "CA-MNF-000753_AugustComplex": {
+   "pairs": 45,
+   "new_cells": 13372,
+   "beyond_cap": 552,
+   "group": "fit23",
+   "max_rate_cells_per_h": 6.758620689655173
+  },
+  "CA-MNP-010701_York": {
+   "pairs": 4,
+   "new_cells": 859,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5869565217391304
+  },
+  "CA-MVU-013233_Border13": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0456968773800457
+  },
+  "CA-MVU-018864_Border32": {
+   "pairs": 2,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0425531914893617
+  },
+  "CA-NOD-004137_S4": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08316008316008315
+  },
+  "CA-ORC-121364_Silverado": {
+   "pairs": 2,
+   "new_cells": 351,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.391304347826087
+  },
+  "CA-ORC-121612_BlueRidge": {
+   "pairs": 1,
+   "new_cells": 299,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2857142857142857
+  },
+  "CA-ORC-136890_Bond": {
+   "pairs": 3,
+   "new_cells": 39,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07547169811320754
+  },
+  "CA-PNF-001064_Beckwourth": {
+   "pairs": 10,
+   "new_cells": 2996,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.997229916897507
+  },
+  "CA-PNF-001299_Sheep": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04562737642585551
+  },
+  "CA-PNF-001308_PNFNorthComplex": {
+   "pairs": 50,
+   "new_cells": 9456,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 3.02803738317757
+  },
+  "CA-RNP-012009_Woodward": {
+   "pairs": 3,
+   "new_cells": 16,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.054298642533936646
+  },
+  "CA-RRU-096640_Apple": {
+   "pairs": 7,
+   "new_cells": 263,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2906574394463668
+  },
+  "CA-RRU-102458_RiversideSupport_Rabbit": {
+   "pairs": 2,
+   "new_cells": 36,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.4557377049180327
+  },
+  "CA-RRU-119353_Snow": {
+   "pairs": 1,
+   "new_cells": 158,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23566378633150042
+  },
+  "CA-RRU-129712_Fairview": {
+   "pairs": 2,
+   "new_cells": 73,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1749271137026239
+  },
+  "CA-RRU-160976_Highland": {
+   "pairs": 2,
+   "new_cells": 43,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4583333333333333
+  },
+  "CA-SCU-004686_Crews": {
+   "pairs": 3,
+   "new_cells": 85,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23076923076923078
+  },
+  "CA-SHF-000949_Lava": {
+   "pairs": 15,
+   "new_cells": 731,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.4
+  },
+  "CA-SHF-000973_Deep": {
+   "pairs": 3,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08385744234800838
+  },
+  "CA-SHF-000982_Salt": {
+   "pairs": 7,
+   "new_cells": 280,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.34782608695652173
+  },
+  "CA-SHF-000996_Shoe": {
+   "pairs": 13,
+   "new_cells": 142,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17053529133112272
+  },
+  "CA-SHF-001004_Pilot": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04207573632538569
+  },
+  "CA-SHF-001004_ThreeNine": {
+   "pairs": 5,
+   "new_cells": 30,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25893958076448825
+  },
+  "CA-SHF-001187_Knob": {
+   "pairs": 4,
+   "new_cells": 49,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.10638297872340426
+  },
+  "CA-SHF-001187_Monument": {
+   "pairs": 55,
+   "new_cells": 6343,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.7032967032967034
+  },
+  "CA-SHU-009978_Zogg": {
+   "pairs": 6,
+   "new_cells": 855,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.758364312267658
+  },
+  "CA-SHU-010480_Fawn": {
+   "pairs": 6,
+   "new_cells": 102,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.45801526717557256
+  },
+  "CA-SKU-007586_Mountain": {
+   "pairs": 8,
+   "new_cells": 204,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.29288702928870297
+  },
+  "CA-SNF-001391_Creek": {
+   "pairs": 54,
+   "new_cells": 9784,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.2972972972972974
+  },
+  "CA-SNF-001402_Bullfrog": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.022962112514351322
+  },
+  "CA-SQF-001285_Happy": {
+   "pairs": 2,
+   "new_cells": 30,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1819560272934041
+  },
+  "CA-SQF-001362_Borel": {
+   "pairs": 10,
+   "new_cells": 1624,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.3132075471698115
+  },
+  "CA-SQF-002622_SQFComplex": {
+   "pairs": 70,
+   "new_cells": 5002,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.32
+  },
+  "CA-SQF-002758_Walkers": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04
+  },
+  "CA-SRF-000614_Charlie": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0407055630936228
+  },
+  "CA-SRF-000651_McCash": {
+   "pairs": 52,
+   "new_cells": 2322,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.3717201166180758
+  },
+  "CA-SRF-000656_RedSalmonComplex": {
+   "pairs": 81,
+   "new_cells": 3485,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.8222222222222222
+  },
+  "CA-SRF-000986_Hancock": {
+   "pairs": 6,
+   "new_cells": 38,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12866333095067906
+  },
+  "CA-SRF-000986_LonePine": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0411522633744856
+  },
+  "CA-SRF-000986_Lost": {
+   "pairs": 2,
+   "new_cells": 8,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07537688442211055
+  },
+  "CA-SRF-000986_Pearch": {
+   "pairs": 17,
+   "new_cells": 203,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1948051948051948
+  },
+  "CA-TCU-007675_Aero": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04078857919782461
+  },
+  "CA-TNF-000855_Royal": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04437869822485207
+  },
+  "CA-TNF-00137_Mosquito": {
+   "pairs": 15,
+   "new_cells": 1921,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6666666666666666
+  },
+  "CA-TNF-001600_Loyalton": {
+   "pairs": 6,
+   "new_cells": 496,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.6122840690978886
+  },
+  "CA-YNP-000056_Red": {
+   "pairs": 10,
+   "new_cells": 160,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.125
+  },
+  "CA-YNP-000058_Rodgers": {
+   "pairs": 8,
+   "new_cells": 44,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0625
+  },
+  "CA_SLU_009866_Pond": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1
+  },
+  "CO-ARF-000636_CameronPeak": {
+   "pairs": 54,
+   "new_cells": 4686,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.125
+  },
+  "CO-ARF-000683_AlexanderMountain": {
+   "pairs": 4,
+   "new_cells": 54,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.16326530612244897
+  },
+  "CO-BLX-001036_Calwood": {
+   "pairs": 5,
+   "new_cells": 38,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08275862068965517
+  },
+  "CO-GFX-000348_GrizzlyCreek": {
+   "pairs": 10,
+   "new_cells": 754,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 20.0
+  },
+  "CO-GFX-230097_SpringCreek": {
+   "pairs": 5,
+   "new_cells": 17,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.10109519797809603
+  },
+  "CO-GMF-000176_Lowline": {
+   "pairs": 4,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04234297812279464
+  },
+  "CO-MRX-000086_Bucktail": {
+   "pairs": 3,
+   "new_cells": 106,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3902439024390244
+  },
+  "CO-PSF-000779_OakRidge": {
+   "pairs": 2,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05
+  },
+  "CO-PSF-001717_SaintCharles": {
+   "pairs": 2,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08350730688935282
+  },
+  "CO-RTF-000363_MiddleFork": {
+   "pairs": 7,
+   "new_cells": 162,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.21660649819494585
+  },
+  "CO-SJD-000416_EastCanyon": {
+   "pairs": 2,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1309090909090909
+  },
+  "CO-SJF-000348_ChrisMountain": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04291845493562232
+  },
+  "CO-SJF-000570_BearCreek": {
+   "pairs": 3,
+   "new_cells": 12,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07272727272727272
+  },
+  "CO-SJF-000678_QuartzRidge": {
+   "pairs": 7,
+   "new_cells": 31,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12903225806451613
+  },
+  "CO-SJF-001184_TrailSprings": {
+   "pairs": 5,
+   "new_cells": 22,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08339124391938846
+  },
+  "CO-SJF-001214_Ice": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "CO-TLX-000722_HighPark": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "CO-UPD-000186_LittleMesa": {
+   "pairs": 7,
+   "new_cells": 102,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23715415019762848
+  },
+  "CO-WRD-000166_FawnCreek": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04395604395604396
+  },
+  "ID-BOF-000212_BlackMountain": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08258774948382658
+  },
+  "ID-BOF-000488_Golden": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "ID-BOF-000714_Buck": {
+   "pairs": 9,
+   "new_cells": 182,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.21067415730337077
+  },
+  "ID-BOF-000740_East": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04129387474191329
+  },
+  "ID-BOF-000777_Grouse": {
+   "pairs": 1,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04878048780487805
+  },
+  "ID-BOF-001073_Sheep": {
+   "pairs": 2,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07657945118059988
+  },
+  "ID-CMS-000470_ShovelCreek": {
+   "pairs": 11,
+   "new_cells": 2689,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5172413793103449
+  },
+  "ID-CTS-000550_JohnsonCreek": {
+   "pairs": 8,
+   "new_cells": 17,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09090909090909091
+  },
+  "ID-CTS-000623_Scott": {
+   "pairs": 5,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09202453987730061
+  },
+  "ID-CTS-000714_Sunnyside_IronGate": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "ID-EIS-000311_Chimney": {
+   "pairs": 5,
+   "new_cells": 94,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.20327498588368154
+  },
+  "ID-IPF-0000415_Columbus": {
+   "pairs": 3,
+   "new_cells": 23,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041768186564566656
+  },
+  "ID-IPF-000212_DiamondWatch": {
+   "pairs": 13,
+   "new_cells": 24,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04329004329004329
+  },
+  "ID-IPF-000234_Consalus": {
+   "pairs": 4,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0453857791225416
+  },
+  "ID-IPF-000385_EneasPeak": {
+   "pairs": 9,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12295081967213116
+  },
+  "ID-IPF-000424_BlackBurn": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042134831460674156
+  },
+  "ID-IPF-000447_RidgeCreek": {
+   "pairs": 8,
+   "new_cells": 50,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17991004497751123
+  },
+  "ID-IPF-000452_TrestleCreek": {
+   "pairs": 8,
+   "new_cells": 101,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1674808094905792
+  },
+  "ID-IPF-000504_StateLineComplex": {
+   "pairs": 7,
+   "new_cells": 55,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.7489597780859917
+  },
+  "ID-IPF-000533_Bernard": {
+   "pairs": 7,
+   "new_cells": 29,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08695652173913043
+  },
+  "ID-IPF-000653_KootenaiRiverComplex_Katka": {
+   "pairs": 7,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04294917680744452
+  },
+  "ID-IPF-000653_KootenaiRiverComplex_Russell": {
+   "pairs": 23,
+   "new_cells": 338,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.45993031358885017
+  },
+  "ID-MCS-000404_TooKush2": {
+   "pairs": 2,
+   "new_cells": 16,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.16107382550335572
+  },
+  "ID-NCF-000321_LittleBear": {
+   "pairs": 6,
+   "new_cells": 12,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0436046511627907
+  },
+  "ID-NCF-000321b_WestFork": {
+   "pairs": 2,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04120879120879121
+  },
+  "ID-NCF-000412_AceButte": {
+   "pairs": 1,
+   "new_cells": 20,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.15463917525773196
+  },
+  "ID-NCF-000463_Jumbo": {
+   "pairs": 17,
+   "new_cells": 50,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19023462270133162
+  },
+  "ID-NCF-000515_Anchor": {
+   "pairs": 1,
+   "new_cells": 13,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19329896907216496
+  },
+  "ID-NCF-000548_StormCreek": {
+   "pairs": 13,
+   "new_cells": 306,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2097902097902098
+  },
+  "ID-NCF-000552_Beaver": {
+   "pairs": 2,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.125
+  },
+  "ID-NCF-000581_SnowCreek": {
+   "pairs": 5,
+   "new_cells": 18,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.06722689075630252
+  },
+  "ID-NCF-000616_ArmyMule": {
+   "pairs": 2,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05263157894736842
+  },
+  "ID-NCF-000628_Sponge": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041637751561415685
+  },
+  "ID-NCF-000732_TwinLakes": {
+   "pairs": 4,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08258774948382658
+  },
+  "ID-NCF-000742_StormTheatreComplex_Ashpile": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.021015761821366025
+  },
+  "ID-NCF-000742_StormTheatreComplex_Lonesome": {
+   "pairs": 5,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1147227533460803
+  },
+  "ID-NCF-000742_StormTheatreComplex_SaddleCamp": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17699115044247787
+  },
+  "ID-NCF-000763_SwansonCreek": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03926701570680628
+  },
+  "ID-NCF-000774_WilliamsCreek": {
+   "pairs": 10,
+   "new_cells": 448,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.8073654390934843
+  },
+  "ID-NCF-000819_MooseCreek_Halfway": {
+   "pairs": 6,
+   "new_cells": 34,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.11904761904761905
+  },
+  "ID-NCF-000819_MooseCreek_Monument": {
+   "pairs": 5,
+   "new_cells": 22,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07936507936507936
+  },
+  "ID-NCF-000819_MooseCreek_Wye": {
+   "pairs": 6,
+   "new_cells": 132,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25
+  },
+  "ID-NCF-00472_Shissler": {
+   "pairs": 5,
+   "new_cells": 51,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08438818565400844
+  },
+  "ID-NCF-00505_MocusPoint": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08310249307479224
+  },
+  "ID-NCF-00508_Marion": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0407055630936228
+  },
+  "ID-NCF-00563_WarmSprings": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0418702023726448
+  },
+  "ID-PAF-000422_RushCreek": {
+   "pairs": 10,
+   "new_cells": 67,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.14218009478672985
+  },
+  "ID-PAF-000427_Club": {
+   "pairs": 7,
+   "new_cells": 56,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.20134228187919465
+  },
+  "ID-PAF-000433_Vinegar": {
+   "pairs": 5,
+   "new_cells": 25,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07692307692307693
+  },
+  "ID-PAF-000495_Porphyry": {
+   "pairs": 3,
+   "new_cells": 131,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2924791086350975
+  },
+  "ID-PAF-000570_Woodhead": {
+   "pairs": 3,
+   "new_cells": 228,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1497326203208556
+  },
+  "ID-PAF-000673_French": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12569832402234637
+  },
+  "ID-PAF-002673_ElkHorn": {
+   "pairs": 5,
+   "new_cells": 62,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.14095536413469067
+  },
+  "ID-PAF-005464_Limepoint": {
+   "pairs": 22,
+   "new_cells": 503,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.39697542533081287
+  },
+  "ID-PAF-005567_Farrow": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04265908282971916
+  },
+  "ID-PAF-005567_Tenmile": {
+   "pairs": 4,
+   "new_cells": 34,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0636717368234878
+  },
+  "ID-PAF-005597_Parks": {
+   "pairs": 2,
+   "new_cells": 31,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08492569002123142
+  },
+  "ID-PAF-005658_Lemhi": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0400266844563042
+  },
+  "ID-PAF-00567_WolfCreek": {
+   "pairs": 2,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04484304932735426
+  },
+  "ID-PAF-005791_Logan": {
+   "pairs": 7,
+   "new_cells": 149,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.21826118588577664
+  },
+  "ID-PAF-5433_PatrolPoint": {
+   "pairs": 12,
+   "new_cells": 199,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.21505376344086022
+  },
+  "ID-PDS-000614_LelandComplex": {
+   "pairs": 4,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04189944134078212
+  },
+  "ID-PDS-000892_Bedrock": {
+   "pairs": 5,
+   "new_cells": 148,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5616224648985959
+  },
+  "ID-POS-000512_Hunter2": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.02677376171352075
+  },
+  "ID-SCF-021130_MudLick": {
+   "pairs": 17,
+   "new_cells": 498,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3747397640527412
+  },
+  "ID-SCF-021154_Haynes": {
+   "pairs": 3,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.043010752688172046
+  },
+  "ID-SCF-021157_Iron": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0425531914893617
+  },
+  "ID-SCF-021158_Tango": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.040540540540540536
+  },
+  "ID-SCF-022105_Moose": {
+   "pairs": 51,
+   "new_cells": 2817,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.37209302325581395
+  },
+  "ID-SCF-022250_Owl": {
+   "pairs": 2,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08739985433357611
+  },
+  "ID-SCF-023084_Hayden": {
+   "pairs": 6,
+   "new_cells": 255,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3333333333333333
+  },
+  "ID-SCF-240169_Birch": {
+   "pairs": 9,
+   "new_cells": 452,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.36441586280814575
+  },
+  "ID-SCF-240235_Nugget": {
+   "pairs": 4,
+   "new_cells": 18,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09868421052631579
+  },
+  "ID-SIS-000452_Copeland": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04225352112676056
+  },
+  "ID-STF-000180_BenchLake": {
+   "pairs": 2,
+   "new_cells": 22,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.11650485436893204
+  },
+  "ID-STF-000331_Frog": {
+   "pairs": 1,
+   "new_cells": 40,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1740391588107324
+  },
+  "ID-STF-000351_Badger": {
+   "pairs": 8,
+   "new_cells": 1162,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4583333333333333
+  },
+  "ID-STF-000353_JakesGulch": {
+   "pairs": 4,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.047619047619047616
+  },
+  "ID-STF-000353_Trap": {
+   "pairs": 3,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.043010752688172046
+  },
+  "ID-SWS-000558_Pumpkin": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05847953216374269
+  },
+  "ID-SWS-000920_Flat": {
+   "pairs": 10,
+   "new_cells": 80,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19623875715453803
+  },
+  "MT-BDF-006132_Clover": {
+   "pairs": 2,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04491017964071856
+  },
+  "MT-BDF-006210_BowlesCreek": {
+   "pairs": 10,
+   "new_cells": 108,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.14475271411338964
+  },
+  "MT-BDF-006269_AlderCreek": {
+   "pairs": 46,
+   "new_cells": 940,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.1337868480725624
+  },
+  "MT-BDF-006272_TrailCreek": {
+   "pairs": 43,
+   "new_cells": 1253,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.5
+  },
+  "MT-BDF-006286_TrailRidge": {
+   "pairs": 9,
+   "new_cells": 185,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.16551724137931034
+  },
+  "MT-BDF-006305_Goat": {
+   "pairs": 1,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03908794788273616
+  },
+  "MT-BDF-006341_Haystack": {
+   "pairs": 12,
+   "new_cells": 381,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.27255029201817
+  },
+  "MT-BDF-006386_SandLake": {
+   "pairs": 3,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04129387474191329
+  },
+  "MT-BDF-006388_Placer": {
+   "pairs": 3,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03715170278637771
+  },
+  "MT-BDF-006610_BearCreek": {
+   "pairs": 12,
+   "new_cells": 163,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.28767123287671237
+  },
+  "MT-BDF-006645_StateCreek": {
+   "pairs": 1,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.040622884224779957
+  },
+  "MT-BDF-246327_Grouse": {
+   "pairs": 1,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.044166359955833644
+  },
+  "MT-BDF-246437_RatioMountain": {
+   "pairs": 2,
+   "new_cells": 15,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.21849963583394028
+  },
+  "MT-BDF-246666_Meridian": {
+   "pairs": 1,
+   "new_cells": 35,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.43636363636363634
+  },
+  "MT-BDF-6306_BlackMountain": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04395604395604396
+  },
+  "MT-BID-210154_CrookedCreek": {
+   "pairs": 4,
+   "new_cells": 8,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04415011037527594
+  },
+  "MT-BRF-022252_BlodgettLake": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.047281323877068564
+  },
+  "MT-BRF-024418_SharrottCreek": {
+   "pairs": 10,
+   "new_cells": 47,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08504606661941885
+  },
+  "MT-CGF-21048_RobertsonDraw": {
+   "pairs": 5,
+   "new_cells": 266,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2156721782890007
+  },
+  "MT-FHA-000070_MagpieRock": {
+   "pairs": 3,
+   "new_cells": 30,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08426966292134831
+  },
+  "MT-FHA-000094_BigKnife": {
+   "pairs": 10,
+   "new_cells": 149,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23715415019762848
+  },
+  "MT-FHA-000098_MiddleRidge": {
+   "pairs": 1,
+   "new_cells": 45,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.32193158953722334
+  },
+  "MT-FHA-000100_Niarada": {
+   "pairs": 5,
+   "new_cells": 280,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3670972127804215
+  },
+  "MT-FHA-000106_Elmo": {
+   "pairs": 7,
+   "new_cells": 295,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.34838709677419355
+  },
+  "MT-FHA-000109_Redhorn": {
+   "pairs": 4,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042826552462526764
+  },
+  "MT-FHA-000130_Garceau": {
+   "pairs": 3,
+   "new_cells": 157,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.27944111776447106
+  },
+  "MT-FHA-000130_LittleMoney2": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042105263157894736
+  },
+  "MT-FHA-000157_Boulder2700": {
+   "pairs": 5,
+   "new_cells": 32,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09230769230769231
+  },
+  "MT-FHF-000000_TinSoldierComplex": {
+   "pairs": 10,
+   "new_cells": 161,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2734375
+  },
+  "MT-FNF-000496_DorisPoint": {
+   "pairs": 3,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08714596949891068
+  },
+  "MT-FNF-000518_Ridge": {
+   "pairs": 15,
+   "new_cells": 98,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12552301255230125
+  },
+  "MT-FNF-000651_Lemonade": {
+   "pairs": 4,
+   "new_cells": 8,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04
+  },
+  "MT-GNP-000462_Quartz": {
+   "pairs": 3,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1276595744680851
+  },
+  "MT-HLF-000154_DeepCreekCanyon": {
+   "pairs": 2,
+   "new_cells": 84,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.43243243243243246
+  },
+  "MT-HLF-000367_HorseGulch": {
+   "pairs": 5,
+   "new_cells": 129,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.15384615384615385
+  },
+  "MT-HLF-005079_Balsinger": {
+   "pairs": 10,
+   "new_cells": 212,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.24390243902439024
+  },
+  "MT-HLF-005079_Ellis": {
+   "pairs": 3,
+   "new_cells": 23,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08642419877565719
+  },
+  "MT-KNF-000167_BurntPeak": {
+   "pairs": 25,
+   "new_cells": 106,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08961911874533234
+  },
+  "MT-KNF-000176_Sutton": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042105263157894736
+  },
+  "MT-KNF-000201_SouthYaak": {
+   "pairs": 18,
+   "new_cells": 312,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3576158940397351
+  },
+  "MT-KNF-000262_EastFork": {
+   "pairs": 6,
+   "new_cells": 29,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1254355400696864
+  },
+  "MT-LG02-000351_HarrisMountain": {
+   "pairs": 6,
+   "new_cells": 444,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.42486231313926043
+  },
+  "MT-LG23-200899_Bobcat": {
+   "pairs": 3,
+   "new_cells": 451,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4962095106822881
+  },
+  "MT-LG29-000236_Deadman": {
+   "pairs": 1,
+   "new_cells": 83,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.27586206896551724
+  },
+  "MT-LG29-000428_RichardSpring": {
+   "pairs": 3,
+   "new_cells": 198,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.47129909365558914
+  },
+  "MT-LNF-000883_DeepLookoutMtn": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08421052631578947
+  },
+  "MT-LNF-000893_WestLolo": {
+   "pairs": 21,
+   "new_cells": 699,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.391304347826087
+  },
+  "MT-LNF-000951_DryCabin": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04665629860031104
+  },
+  "MT-LNF-200730_RiverRoadEast": {
+   "pairs": 4,
+   "new_cells": 52,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3
+  },
+  "MT-LNF-240427_MillerPeak": {
+   "pairs": 8,
+   "new_cells": 24,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.11764705882352941
+  },
+  "MT-SOS-210281_Peterson": {
+   "pairs": 2,
+   "new_cells": 67,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3409090909090909
+  },
+  "MT-SWS-200549_Colt": {
+   "pairs": 10,
+   "new_cells": 108,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19062748212867353
+  },
+  "MT_BDF_006227_Goose": {
+   "pairs": 11,
+   "new_cells": 162,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.31690140845070425
+  },
+  "NM-CAF-000136_Comanche": {
+   "pairs": 1,
+   "new_cells": 17,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09132420091324202
+  },
+  "NM-CAF-000200_Midnight": {
+   "pairs": 3,
+   "new_cells": 45,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.14218009478672985
+  },
+  "NM-CAF-000631_Luna": {
+   "pairs": 6,
+   "new_cells": 119,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.20935101186322402
+  },
+  "NM-EMP-000234_Encerrita": {
+   "pairs": 2,
+   "new_cells": 26,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17738359201773835
+  },
+  "NM-GNF-000226_Cub": {
+   "pairs": 8,
+   "new_cells": 454,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2031144211238998
+  },
+  "NM-GNF-000226_Good": {
+   "pairs": 12,
+   "new_cells": 219,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 4.137931034482759
+  },
+  "NM-GNF-000227_Turkey": {
+   "pairs": 3,
+   "new_cells": 132,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12379642365887207
+  },
+  "NM-GNF-000276_Johnson": {
+   "pairs": 18,
+   "new_cells": 1348,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4353562005277045
+  },
+  "NM-GNF-000318_Ridge": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04092769440654843
+  },
+  "NM-GNF-000357_Dark": {
+   "pairs": 11,
+   "new_cells": 71,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3032490974729242
+  },
+  "NM-GNF-000360_Divide": {
+   "pairs": 13,
+   "new_cells": 469,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3944485025566107
+  },
+  "NM-GNF-000382_Davis": {
+   "pairs": 5,
+   "new_cells": 171,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3078896728672226
+  },
+  "NM-GNF-000423_Noonday": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04143646408839779
+  },
+  "NM-GNF-000428_Pasture": {
+   "pairs": 7,
+   "new_cells": 119,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2608695652173913
+  },
+  "NM-GNF-000447_Prior": {
+   "pairs": 4,
+   "new_cells": 138,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1267605633802817
+  },
+  "NM-LCD-000234_UVAS": {
+   "pairs": 2,
+   "new_cells": 18,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2037351443123939
+  },
+  "NM-LNF-000130_ThreeRivers": {
+   "pairs": 5,
+   "new_cells": 72,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17647058823529413
+  },
+  "NM-LNF-000227_Blue2": {
+   "pairs": 9,
+   "new_cells": 217,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.40157480314960625
+  },
+  "NM-LNF-000552_BlueFront": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0870195794053662
+  },
+  "NM-MEA-000382_SouthFork": {
+   "pairs": 1,
+   "new_cells": 76,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19749835418038184
+  },
+  "NM-MEA-000385_Salt": {
+   "pairs": 1,
+   "new_cells": 62,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.19749835418038184
+  },
+  "NM-N4S-000034_CooksPeak": {
+   "pairs": 14,
+   "new_cells": 1654,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6885245901639344
+  },
+  "NM-N5S-000114_NogalCanyon": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08620689655172414
+  },
+  "NM-N5S-000115_McBride": {
+   "pairs": 3,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4669260700389105
+  },
+  "NM-SNF-000027_HermitsPeak": {
+   "pairs": 65,
+   "new_cells": 9618,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.2
+  },
+  "NM-SNF-000091_Indios": {
+   "pairs": 14,
+   "new_cells": 321,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.04
+  },
+  "NM-SNF-000150_WolfDraw": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "NM-SNF-000532_Medio": {
+   "pairs": 5,
+   "new_cells": 25,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "NV-CCD-030406_Numbers": {
+   "pairs": 2,
+   "new_cells": 32,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.20833333333333334
+  },
+  "NV-EKD-010089_Goshute": {
+   "pairs": 2,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04189944134078212
+  },
+  "NV-ELD-040026_WilsonCreek": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04240282685512368
+  },
+  "NV-ELD-040076_MeadowValley": {
+   "pairs": 2,
+   "new_cells": 231,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.35820895522388063
+  },
+  "NV-ELD-040078_BigSummit": {
+   "pairs": 3,
+   "new_cells": 176,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4875
+  },
+  "NV-ELD-040082_StewartCanyon": {
+   "pairs": 2,
+   "new_cells": 218,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4489795918367347
+  },
+  "NV-ELD-040123_Baldy": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.033444816053511704
+  },
+  "NV-ELD-040152_DodgeSprings": {
+   "pairs": 2,
+   "new_cells": 15,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12987012987012986
+  },
+  "NV-ELD-040155_HeathCanyon": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.027958993476234855
+  },
+  "NV-HTF-010139_Wildcat": {
+   "pairs": 1,
+   "new_cells": 207,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6976744186046512
+  },
+  "NV-HTF-030419_Tamarack": {
+   "pairs": 10,
+   "new_cells": 890,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5106382978723404
+  },
+  "NV-HTF-030684_Slink": {
+   "pairs": 15,
+   "new_cells": 675,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5416666666666666
+  },
+  "NV-HTF-040163_BroomCanyon": {
+   "pairs": 3,
+   "new_cells": 34,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08492569002123142
+  },
+  "NV-HTF-500736_Mahogany": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.021505376344086023
+  },
+  "NV-HTF-500917_Cottonwood": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041666666666666664
+  },
+  "NV-SND-501554_VirginMountain": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05263157894736842
+  },
+  "NV-TMFX_031010_Davis": {
+   "pairs": 3,
+   "new_cells": 19,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07079646017699115
+  },
+  "OR-0732S-00174_SkylineRidgeComplex": {
+   "pairs": 8,
+   "new_cells": 106,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6981519507186857
+  },
+  "OR-553S-553018_EchoMountainComplex": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4
+  },
+  "OR-711S-00037_SaltCreek": {
+   "pairs": 3,
+   "new_cells": 17,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05199306759098787
+  },
+  "OR-711S-000382_UpperApplegate3900": {
+   "pairs": 4,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2857142857142857
+  },
+  "OR-711S-026621_SObenchain": {
+   "pairs": 6,
+   "new_cells": 551,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4647887323943662
+  },
+  "OR-731-S0314_TyeeComplex": {
+   "pairs": 9,
+   "new_cells": 124,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17179670722977808
+  },
+  "OR-771S-000028_Lane1": {
+   "pairs": 25,
+   "new_cells": 577,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.3843351548269582
+  },
+  "OR-781S-000037_SweetCreekMP2": {
+   "pairs": 1,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041637751561415685
+  },
+  "OR-781S-000115_7k": {
+   "pairs": 3,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.44776119402985076
+  },
+  "OR-952S-020279_SteetMountain_SteetEast": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.17582417582417584
+  },
+  "OR-953S-000766_Shoefly": {
+   "pairs": 8,
+   "new_cells": 187,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2638190954773869
+  },
+  "OR-953S-024122_CourtRock": {
+   "pairs": 8,
+   "new_cells": 382,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5952380952380952
+  },
+  "OR-953S-024272_FossilComplex_Service": {
+   "pairs": 7,
+   "new_cells": 530,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.47777040477770405
+  },
+  "OR-954S-000022_MosierCreek": {
+   "pairs": 2,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0425531914893617
+  },
+  "OR-954S-000514_LarchCreek": {
+   "pairs": 3,
+   "new_cells": 98,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.21505376344086022
+  },
+  "OR-955S-001022_Grandview": {
+   "pairs": 4,
+   "new_cells": 53,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08069939475453934
+  },
+  "OR-973S-000250_BattleMountain_NFOwens": {
+   "pairs": 2,
+   "new_cells": 29,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04175365344467641
+  },
+  "OR-981S-230203_Golden": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03841229193341869
+  },
+  "OR-981S-240314_Copperfield": {
+   "pairs": 2,
+   "new_cells": 24,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3082191780821918
+  },
+  "OR-DEF-000845_FlatTop": {
+   "pairs": 6,
+   "new_cells": 87,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1637107776261937
+  },
+  "OR-DEF-000851_Firestone": {
+   "pairs": 3,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04938271604938271
+  },
+  "OR-FWF-200404_242": {
+   "pairs": 5,
+   "new_cells": 114,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2127659574468085
+  },
+  "OR-FWF-210422_PattonMeadow": {
+   "pairs": 9,
+   "new_cells": 167,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.20833333333333334
+  },
+  "OR-FWF-210422_WillowValley": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0421644413211525
+  },
+  "OR-FWF-210452_CougarPeak": {
+   "pairs": 11,
+   "new_cells": 201,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1729106628242075
+  },
+  "OR-FWF-240332_BuckCreek": {
+   "pairs": 6,
+   "new_cells": 51,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25884383088869717
+  },
+  "OR-LAD-220351_VanMeter": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04204625087596356
+  },
+  "OR-MAF-002502_Falls": {
+   "pairs": 25,
+   "new_cells": 2808,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.8130081300813008
+  },
+  "OR-MAF-002523_Telephone": {
+   "pairs": 12,
+   "new_cells": 819,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.6494845360824744
+  },
+  "OR-MAF-002549_PoisonCreek": {
+   "pairs": 3,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.10879419764279238
+  },
+  "OR-MAF-022199_CrocketsKnob": {
+   "pairs": 11,
+   "new_cells": 122,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1863354037267081
+  },
+  "OR-MHF-000681_WhiteRiver": {
+   "pairs": 12,
+   "new_cells": 483,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.9261744966442953
+  },
+  "OR-MHF-001199_CampCreek": {
+   "pairs": 2,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08614501076812635
+  },
+  "OR-OCF-000772_WileyFlat": {
+   "pairs": 9,
+   "new_cells": 434,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6737120211360634
+  },
+  "OR-ORC-000008_NorthCascade_Dowty": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04854368932038835
+  },
+  "OR-ORC-000008_NorthCascade_Unger": {
+   "pairs": 3,
+   "new_cells": 13,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0970873786407767
+  },
+  "OR-PRD-000289_Darlene": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07371007371007371
+  },
+  "OR-PRD-000404_RVLoneRock": {
+   "pairs": 12,
+   "new_cells": 1546,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.8937034529451591
+  },
+  "OR-RSF-000209_Flat": {
+   "pairs": 18,
+   "new_cells": 714,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5
+  },
+  "OR-SHR-240269_WarnerPeak": {
+   "pairs": 7,
+   "new_cells": 1459,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.972972972972973
+  },
+  "OR-UMF-000479_SlickEar": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.038986354775828465
+  },
+  "OR-UMF-000658_LickCreek": {
+   "pairs": 15,
+   "new_cells": 1749,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.49113233287858116
+  },
+  "OR-UMF-000659_GreenRidge": {
+   "pairs": 61,
+   "new_cells": 1260,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.0
+  },
+  "OR-UMF-000745_ElbowCreek": {
+   "pairs": 11,
+   "new_cells": 268,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.18604651162790697
+  },
+  "OR-UMF-000830_TigerCreek_West": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05084745762711864
+  },
+  "OR-UMP-000373_RoughPatchCpx": {
+   "pairs": 41,
+   "new_cells": 1035,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.3341288782816229
+  },
+  "OR-UPF-000265_Jack": {
+   "pairs": 53,
+   "new_cells": 870,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.5954198473282443
+  },
+  "OR-UPF-000303_DiamondComplex_Loafer": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.032188841201716736
+  },
+  "OR-UPF-000345_Chilcoot": {
+   "pairs": 6,
+   "new_cells": 30,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.044676098287416234
+  },
+  "OR-UPF-000436_ArchieCreek": {
+   "pairs": 11,
+   "new_cells": 1022,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5874125874125874
+  },
+  "OR-UPF-000441_Thielsen": {
+   "pairs": 6,
+   "new_cells": 66,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08086253369272237
+  },
+  "OR-UPF-000450_DevilsKnob": {
+   "pairs": 43,
+   "new_cells": 1916,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.3341135166764189
+  },
+  "OR-UPF-240311_Homestead_Salmon33": {
+   "pairs": 6,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.06263048016701461
+  },
+  "OR-UPF-240402_DevilsKnob": {
+   "pairs": 4,
+   "new_cells": 42,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.10371650821089022
+  },
+  "OR-VAD-000153_IndianCreek": {
+   "pairs": 1,
+   "new_cells": 247,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5909090909090909
+  },
+  "OR-VAD-240129_CowValley": {
+   "pairs": 1,
+   "new_cells": 28,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1021566401816118
+  },
+  "OR-VAD-240141_Durkee": {
+   "pairs": 6,
+   "new_cells": 8243,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 3.965665236051502
+  },
+  "OR-VAD-240166_BadlandComplex_Coyote": {
+   "pairs": 2,
+   "new_cells": 536,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.46198267564966317
+  },
+  "OR-VAD-240166_BadlandComplex_Thompson": {
+   "pairs": 2,
+   "new_cells": 561,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.46198267564966317
+  },
+  "OR-WIF-200299_BeachieCreek": {
+   "pairs": 25,
+   "new_cells": 5593,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 2.58974358974359
+  },
+  "OR-WIF-200430_HolidayFarm": {
+   "pairs": 5,
+   "new_cells": 1761,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5921052631578948
+  },
+  "OR-WIF-210362_Knoll": {
+   "pairs": 2,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04341534008683068
+  },
+  "OR-WIF-220180_CedarCreek": {
+   "pairs": 55,
+   "new_cells": 3145,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 1.293103448275862
+  },
+  "OR-WIF-230266_Bedrock": {
+   "pairs": 17,
+   "new_cells": 590,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3181818181818182
+  },
+  "OR-WIF-230338_Wiley": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.043478260869565216
+  },
+  "OR-WIF-230409_PetesLake": {
+   "pairs": 6,
+   "new_cells": 82,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.27540983606557373
+  },
+  "OR-WIF-240208_208MF": {
+   "pairs": 30,
+   "new_cells": 316,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.3655352480417755
+  },
+  "OR-WIF-240210_Pyramid": {
+   "pairs": 3,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.058027079303675046
+  },
+  "OR-WIF-240214_MossMountain_Chalk": {
+   "pairs": 26,
+   "new_cells": 106,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.24291497975708504
+  },
+  "OR-WIF-240237_CoffeePot": {
+   "pairs": 17,
+   "new_cells": 159,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1566579634464752
+  },
+  "OR-WIF-240365_Hiyu": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.046296296296296294
+  },
+  "OR-WIF-240371_LintonCreek": {
+   "pairs": 2,
+   "new_cells": 15,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.18867924528301888
+  },
+  "OR-WIF-240373_BoulderCreek": {
+   "pairs": 2,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09654062751407885
+  },
+  "OR-WIF-240374_374MR": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.038510911424903725
+  },
+  "OR-WSA-000026_S503": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.021937842778793418
+  },
+  "OR-WSA-000075_P515": {
+   "pairs": 5,
+   "new_cells": 65,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.18181818181818182
+  },
+  "OR-WWF-000353_GoatMountain2": {
+   "pairs": 5,
+   "new_cells": 8,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07802340702210664
+  },
+  "OR-WWF-000400_DoubleCreek": {
+   "pairs": 19,
+   "new_cells": 4829,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 2.6666666666666665
+  },
+  "OR-WWF-000413_JonesCreek": {
+   "pairs": 1,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042105263157894736
+  },
+  "OR-WWF-000431_TownGulch": {
+   "pairs": 4,
+   "new_cells": 8,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042583392476934
+  },
+  "UT-ASF-100340_EastFork": {
+   "pairs": 31,
+   "new_cells": 1312,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.8421052631578947
+  },
+  "UT-CCD-000315_Flatt": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042583392476934
+  },
+  "UT-CPD-000347_DeerSprings": {
+   "pairs": 4,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.048661800486618
+  },
+  "UT-DIF-000133_LeftFork": {
+   "pairs": 3,
+   "new_cells": 39,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.13043478260869565
+  },
+  "UT-DIF-000270_Mammoth": {
+   "pairs": 2,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08602150537634409
+  },
+  "UT-FIF-200493_Cowboy": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05560704355885079
+  },
+  "UT-FIF-240112_LittleTwist": {
+   "pairs": 5,
+   "new_cells": 66,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.13343217197924387
+  },
+  "UT-FIF-240206_SilverKing": {
+   "pairs": 10,
+   "new_cells": 227,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.23529411764705882
+  },
+  "UT-MLF-000115_BennionCreek": {
+   "pairs": 8,
+   "new_cells": 219,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4855023600809171
+  },
+  "UT-MLF-000131_PackCreek": {
+   "pairs": 4,
+   "new_cells": 87,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.33126293995859213
+  },
+  "UT-NWS-000342_JacobCity": {
+   "pairs": 1,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03843689942344651
+  },
+  "UT-NWS-001080_Range": {
+   "pairs": 2,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03184713375796178
+  },
+  "UT-SCS-200223_Canal": {
+   "pairs": 5,
+   "new_cells": 258,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.422237860661506
+  },
+  "UT-SCS-220216_HalfwayHill": {
+   "pairs": 6,
+   "new_cells": 89,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.41637751561415687
+  },
+  "UT-SWS-000431_TurkeyFarmRoad": {
+   "pairs": 1,
+   "new_cells": 7,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07407407407407407
+  },
+  "UT-UWF-000303_MorganCanyon": {
+   "pairs": 1,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1264933239634575
+  },
+  "UT-UWF-000615_UpperProvo": {
+   "pairs": 1,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04195804195804196
+  },
+  "UT-VLD-000127_Bear": {
+   "pairs": 8,
+   "new_cells": 295,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.2027027027027027
+  },
+  "WA-COA-0200084_Chuweah": {
+   "pairs": 9,
+   "new_cells": 140,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.10810810810810811
+  },
+  "WA-COA-021087_SummitTrail": {
+   "pairs": 33,
+   "new_cells": 909,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.6582278481012658
+  },
+  "WA-COA-200106_Whitmore": {
+   "pairs": 3,
+   "new_cells": 24,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04129387474191329
+  },
+  "WA-COA-240089_Swawilla": {
+   "pairs": 8,
+   "new_cells": 995,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.5306122448979592
+  },
+  "WA-COF-002290_Muckamuck": {
+   "pairs": 4,
+   "new_cells": 180,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.34782608695652173
+  },
+  "WA-COF-002348_BulldogMtn": {
+   "pairs": 5,
+   "new_cells": 18,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08275862068965517
+  },
+  "WA-GPF-000813_WilliamsMine": {
+   "pairs": 16,
+   "new_cells": 281,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.375
+  },
+  "WA-GPF-000864_BigHollow": {
+   "pairs": 1,
+   "new_cells": 21,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0625
+  },
+  "WA-GPF-001028_Kalama": {
+   "pairs": 3,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.0436046511627907
+  },
+  "WA-GPF-001208_Siouxon": {
+   "pairs": 7,
+   "new_cells": 47,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.29871977240398295
+  },
+  "WA-MSF-000267_MurphyLake": {
+   "pairs": 5,
+   "new_cells": 10,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08333333333333333
+  },
+  "WA-MSF-000334_SuiattleRiver": {
+   "pairs": 5,
+   "new_cells": 128,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.12137559002022927
+  },
+  "WA-MSF-000348_LochKatrine": {
+   "pairs": 4,
+   "new_cells": 51,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.47379755922469496
+  },
+  "WA-NCP-000262_Sourdough": {
+   "pairs": 6,
+   "new_cells": 38,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09385999217833399
+  },
+  "WA-NCP-000285_Ruby_RedMountain": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.043010752688172046
+  },
+  "WA-NCP-000285_Ruby_Ruby": {
+   "pairs": 2,
+   "new_cells": 11,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.06593406593406594
+  },
+  "WA-NES-001858_BoulderMountain": {
+   "pairs": 8,
+   "new_cells": 32,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1948051948051948
+  },
+  "WA-NES-001974_Gray": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.044642857142857144
+  },
+  "WA-NES-002246_FordCorkscrew": {
+   "pairs": 3,
+   "new_cells": 83,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.043165467625899276
+  },
+  "WA-NES-01491_WilliamsLake": {
+   "pairs": 1,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.15665796344647517
+  },
+  "WA-NES-240099_BridgeCreek": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04597701149425287
+  },
+  "WA-OLP-000412_Hurricane": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.09195402298850575
+  },
+  "WA-OLS-000079_Road2620": {
+   "pairs": 3,
+   "new_cells": 6,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08032128514056225
+  },
+  "WA-OWF-000315_IrvingPeak": {
+   "pairs": 12,
+   "new_cells": 55,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.262582056892779
+  },
+  "WA-OWF-000319_WhiteRiver": {
+   "pairs": 27,
+   "new_cells": 171,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.2940330697340043
+  },
+  "WA-OWF-000374_AirplaneLake": {
+   "pairs": 3,
+   "new_cells": 40,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.27686222808174027
+  },
+  "WA-OWF-000397_Meander": {
+   "pairs": 2,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07792207792207792
+  },
+  "WA-OWF-000407_Chikamin": {
+   "pairs": 5,
+   "new_cells": 14,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.047430830039525695
+  },
+  "WA-OWF-000453_SchneiderSprings": {
+   "pairs": 33,
+   "new_cells": 2672,
+   "beyond_cap": 0,
+   "group": "fit23",
+   "max_rate_cells_per_h": 0.5901639344262295
+  },
+  "WA-OWF-000454_WindyPass": {
+   "pairs": 1,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.03571428571428571
+  },
+  "WA-OWF-000456_Nason": {
+   "pairs": 7,
+   "new_cells": 15,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08333333333333333
+  },
+  "WA-OWF-000563_BlueLake": {
+   "pairs": 3,
+   "new_cells": 15,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08048289738430583
+  },
+  "WA-OWF-000639_ColdCreek": {
+   "pairs": 1,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.05555555555555555
+  },
+  "WA-PCS-0220_NakiaCreek": {
+   "pairs": 3,
+   "new_cells": 12,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.041637751561415685
+  },
+  "WA-SES-000263_VantageHighway": {
+   "pairs": 6,
+   "new_cells": 761,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.8809891808346213
+  },
+  "WA-SES-000277_CowCanyon": {
+   "pairs": 3,
+   "new_cells": 55,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1527689369828135
+  },
+  "WA-SES-000336_TunnelFive": {
+   "pairs": 1,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.08080808080808081
+  },
+  "WA-SES-000360_RedApple": {
+   "pairs": 3,
+   "new_cells": 61,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.13382899628252787
+  },
+  "WA-SES-000464_NewellRoad": {
+   "pairs": 5,
+   "new_cells": 931,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.4766107678729038
+  },
+  "WA-SES-000477_Retreat": {
+   "pairs": 5,
+   "new_cells": 795,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.3284132841328413
+  },
+  "WA-SES-000565_EvansCanyon": {
+   "pairs": 3,
+   "new_cells": 693,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.44
+  },
+  "WA-SES-020209_CougarCreek": {
+   "pairs": 9,
+   "new_cells": 119,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.24489795918367346
+  },
+  "WA-SPA-002124_Sherwood": {
+   "pairs": 3,
+   "new_cells": 12,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1276595744680851
+  },
+  "WA-SPD-001947_Palmer_Palmer": {
+   "pairs": 6,
+   "new_cells": 158,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.25
+  },
+  "WA-WFS-000594_PearlHill": {
+   "pairs": 2,
+   "new_cells": 1491,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.7241379310344828
+  },
+  "WY-BHF-000399_Elk": {
+   "pairs": 13,
+   "new_cells": 996,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.4165261382799326
+  },
+  "WY-MRF-000408_EastTroublesome": {
+   "pairs": 5,
+   "new_cells": 3461,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 2.574018126888218
+  },
+  "WY-MRF-000514_BlackMountain": {
+   "pairs": 1,
+   "new_cells": 5,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.07421150278293136
+  },
+  "WY-MRF-200752_Mullen": {
+   "pairs": 16,
+   "new_cells": 3828,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 1.8217821782178218
+  },
+  "WY-MRF-220267_Sugarloaf": {
+   "pairs": 2,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.04285714285714286
+  },
+  "WY-YNP-002006_LoneStar": {
+   "pairs": 2,
+   "new_cells": 3,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.042134831460674156
+  }
+ }
+}
