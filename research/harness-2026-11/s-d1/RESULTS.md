@@ -1,98 +1,179 @@
 # S-D1: continuous-time first-passage formulation of the SMOKE forecast
 
-Owner: Marcus. Status: **checkpoint 1**, covering steps 1 and 2: the mapping, an independent toy check, and convergence tests. Step 3, the real Wapiti comparison, is blocked on input data (see Blockers). Nothing here changes `forecast/` or any frozen artifact.
+Owner: Marcus. Status: **checkpoint 2**.
+
+Plan changes adopted on the orchestrator's decision, following Iris:
+- Running the first-passage sampler on c651 kernels without a refit gives a different, faster model. Any result from it is a labelled diagnostic, never an accuracy claim.
+- Gate 1 is the convergence of the sub-stepped CA to the sampler.
+- The accuracy comparison waits for a refit (with Elena) and for Victor's frozen protocol.
+
+Nothing here changes `forecast/` or any frozen artifact. Every numerical result is synthetic or descriptive unless stated otherwise.
+
+Reproduce: Python ≥ 3.12, `pip install numpy scipy numba pytest torch pandas geopandas pyogrio rasterio pyproj`. Run commands from the repository root.
 
 ## 1. Mapping from the hourly recursion to continuous-time rates
 
 **What the fitted model is.** This is read from the code, not taken from the direction document.
 
 - c651 is `MixedNonnegativeKernel`: 19 channels, branches of size 3, 5, 7 and 9 (`forecast/wildfire/models.py:559-720`).
-- At each target `i` it generates nonnegative offset coefficients `K[i, δ]` from the environment only. They are a softplus of each branch, mixed with nonnegative global weights. Units are 1/h; the centre coefficient is 0.
-- The hazard is linear in the sources: `λ_i = Σ_δ K[i,δ] · B[i+δ]`.
-- The link is `P(new burn in dt) = 1 − exp(−dt · λ_i)` (`new_burn_probability`, `models.py:104-190`).
-- Offsets follow the PyTorch cross-correlation convention: coefficient (dy, dx) at target (y, x) multiplies the source at (y+dy, x+dx).
-- The recursion (`wildfire/rollout.py`) is synchronous with dt = 1 h. Burning is absorbing, and every cumulatively burned cell keeps emitting: there is no burnout in this model.
+- At each target `i` it generates nonnegative offset coefficients `K[i, δ]` (1/h) from the environment only.
+- The hazard is `λ_i = Σ_δ K[i,δ] · B[i+δ]`.
+- The link is `P = 1 − exp(−dt · λ_i)` (`models.py:104-190`).
+- The rollout (`wildfire/rollout.py`) is synchronous with dt = 1 h, absorbing, with no burnout: burned cells emit forever.
 
-**Mapping.** The pair rate for source `s = i+δ` → target `i` is **`K[i,δ]` itself**, with no transformation.
+**Mapping: the pair rate is `K[i,δ]` itself.**
 
-- The hourly link already factorises over sources: `1 − exp(−Σ_δ K_δ) = 1 − Π_δ (1 − p_δ)`, where `p_δ = 1 − exp(−K_δ)`. So the "per-step probability p vs rate −log(1−p)" question resolves to `−log(1−p_δ) = K_δ` exactly. Using the coefficient as the rate *is* the −log(1−p) choice.
-- The only incorrect option is to treat `p_δ` itself as a rate. That would bias every pair rate down by the factor `p/K` (0.63 at K = 1/h; about 1 − K/2 for small K).
-- The hourly CA is exactly the continuous-time Markov jump process with the burned set **frozen for each hour**. Its dt → 0 limit is that process. Because sources never stop emitting and hazards are additive, the process equals first-passage percolation with independent `Exp(rate)` clocks per (source, target) pair. Time-dependent Dijkstra is exact for hourly-varying weather, since edge delays are FIFO.
+- With `p_δ = 1 − exp(−K_δ)`, the hourly link is `1 − Π(1 − p_δ)`, and `−log(1 − p_δ) = K_δ` exactly. So "use the coefficient as the rate" is the −log(1−p) choice. Only "rate = p" would be wrong.
+- The hourly CA is the continuous-time jump process with the burned set frozen for each hour.
+- Its dt → 0 limit is first-passage percolation with independent `Exp(K)` clocks per (source, target) pair. Additive hazards plus never-ending emission make this exact.
+- Time-varying weather is handled exactly by time-dependent Dijkstra on integrated hazard, because edge delays are FIFO.
 
-**The decision that actually matters (labelled; needs Iris).** c651 was fitted **one step ahead with teacher forcing**:
+**Fit caveat (agreed with Iris).** c651 was fitted one hour ahead with teacher forcing:
 
-- target = "currently unburned cell is burned at the exact next-hour snapshot";
-- loss = weighted Brier;
-- `dt_hours = 1.0` is enforced (`wildfire/train.py:323-367`).
+- target = "burned at the next-hour snapshot";
+- Brier loss;
+- `dt_hours = 1` enforced (`wildfire/train.py:323-367`).
 
-Any multi-hop spread inside one hour in the training labels was therefore explained by the fitted kernels, mostly the long-range 7×7 and 9×9 branches. Plugging the same `K` into the continuous-time sampler adds within-hour multi-hop spread *on top*. My hypothesis is that it double-counts and over-spreads in fast regimes. So the "plug-in" continuous-time forecast is a **different model** from c651, not a better solver for the same model. The clean comparison needs coefficients refitted under a continuous-time likelihood (Elena, S-D2).
+Within-hour relay is therefore already inside the kernels. Rolling the model out hour by hour is self-consistent with its labels; a continuous-time reading of the same kernels spreads faster. So the plug-in result is a different model.
 
-The plug-in result is still informative. It bounds how much of the hourly scheme's speed deficit is discretisation rather than fit.
+## 2. Sampler and tests
 
-## 2. Independent toy check
+`fpp.py` contains:
 
-Code: `fpp.py` contains:
+- `first_passage`: numba time-dependent Dijkstra, with no step and no reach cap; records arrival times and the shortest-path tree;
+- `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
+- `first_passage_cmc`: the conditional estimator (§6).
 
-- `first_passage`: numba time-dependent Dijkstra, one pass per trajectory, with no step and no reach cap;
-- `cellular_automaton`: an independent re-implementation of the hourly recursion with any dt.
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **14 passed** in about 5 min, most of it the rollout-parity test. They cover:
 
-### Tests
+- analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
+- an arrival-field consistency check;
+- per-cell agreement with the dt = 1/32 CA under hourly-varying kernels;
+- rate and offset parity with `wildfire.models.new_burn_probability` (K = 3, 5, 9; rtol 1e-12);
+- **per-cell marginals of the reference CA equal to the real `wildfire.rollout.simulate`** (stub predictor with fixed kernels, 5σ);
+- the conditional estimators: exact on an analytic chain including a ~1e-4 tail cell; equal to plain counting on a random grid; the hourly conditional estimator exact on the hourly chain;
+- the half-step arm lying above the hourly CA.
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **9 passed** (8.5 s). The tests cover:
+## 3. Gate 1: the sub-stepped CA converges to first-passage
 
-- single edge, constant and piecewise-constant rate vs `1 − exp(−∫k)` (exact for both samplers);
-- competing sources superposing;
-- a two-hop chain vs the analytic hypoexponential CDF: the sampler is exact; the hourly CA equals its own analytic value `(1−e^{−a})(1−e^{−b})` and is biased low; the dt-CA converges;
-- the sampler vs CA at dt = 1/32 with **hourly-varying** random 3×3 kernels, per cell;
-- arrival-field consistency: every burned cell has an earlier-burned in-neighbour;
-- seed reproducibility;
-- **offset convention and rate equal to `wildfire.models.new_burn_probability`** for K = 3, 5, 9 (rtol 1e-12);
-- source → target direction checked against the forecast code.
+Command: `python research/harness-2026-11/s-d1/gate1.py` (≈25 min) → `RESULTS_gate1.json`. R5 was run separately with `--regimes R5_c651_magnitude_heterogeneous9 --out …/RESULTS_gate1_R5.json`.
 
-### Toy, my own specification
+Setup: 40×40 grid, 3×3 centre ignition, n = 2,000 per arm. Distances are measured to first-passage at every whole hour:
 
-The direction document's exact toy specification was not in the repository, so I chose one:
+- L1 = mean |ΔF| over cells and hours, where F = P(burned by t);
+- W1rel = Wasserstein-1 distance of burned area at T, divided by first-passage's mean burned area.
 
-- 40×40 grid;
-- 5×5 uniform off-centre kernel, with the stated coefficient sums;
-- 3×3 centre ignition;
-- zero boundary;
-- 12 h;
-- 2,000 trajectories.
+The noise floor is the same distance between two independent first-passage runs.
 
-Expected number of new cells (± MC SE) and wall time. Command: `python research/harness-2026-11/s-d1/toy_check.py --out …/RESULTS_toy.json`; the output is in `RESULTS_toy.json`.
+| regime | first-passage area | floor L1 / W1rel | hourly L1 / W1rel | dt = 1/32 L1 / W1rel |
+|---|---:|---|---|---|
+| R1 slow uniform 5×5, Σ = 0.043/h, 12 h | 3.6 | 0.0002 / 0.031 | 0.0001 / 0.028 | 0.0002 / 0.019 |
+| R2 fast uniform 5×5, Σ = 1/h, 8 h | 323.7 | 0.0024 / 0.005 | 0.0398 / 0.528 | 0.0033 / 0.031 |
+| R3 heterogeneous 9×9 (wind, fuel), Σ ≈ 0.6/h, 8 h | 121.5 | 0.0014 / 0.011 | 0.0102 / 0.326 | 0.0015 / 0.008 |
+| R4 as R3 with wind rotating 45°/h (8 hourly kernels) | 82.5 | 0.0013 / 0.031 | 0.0097 / 0.556 | 0.0012 / 0.021 |
+| R5 heterogeneous 9×9 at c651 magnitude, 12 h | 31.0 | 0.0006 / 0.016 | 0.0018 / 0.234 | 0.0006 / 0.018 |
 
-| method | slow (Σ = 0.043/h) | fast (Σ = 1.0/h) | wall time, fast |
-|---|---:|---:|---:|
-| hourly CA (dt = 1) | 3.48 ± 0.05 | **349.8 ± 1.0** | 2.4 s |
-| CA dt = 1/4 | 3.59 ± 0.05 | 610.2 ± 1.9 | 10.0 s |
-| CA dt = 1/16 | 3.60 ± 0.05 | 728.0 ± 2.3 | 39.0 s |
-| CA dt = 1/32 | 3.69 ± 0.05 | 743.9 ± 2.4 | 78.6 s |
-| Richardson extrapolation (1/16, 1/32) | 3.79 | 759.8 | — |
-| **first-passage** | 3.63 ± 0.05 | **771.0 ± 2.4** | **1.2 s** |
+- **R1, R3, R4, R5:** dt = 1/32 is at the noise floor.
+- **R2 (fastest):** still converging at about first order; W1rel 0.108 → 0.055 → 0.031 for dt = 1/8 → 1/16 → 1/32.
+- **R1:** the slow regime reproduces the hourly marginals within MC error (Iris's acceptance criterion 2).
+- **Small analytic case** (`convergence_check.py`): the gap shrinks 14.1 → 0.34 for dt = 1 → 1/64, i.e. first order.
+- **Original toy** (`toy_check.py`, 3×3 ignition, 12 h): hourly CA 349.8 ± 1.0 vs first-passage 771.0 ± 2.4 expected new cells at Σ = 1/h (55% fewer); 3.48 vs 3.63 at Σ = 0.043/h.
 
-- **Slow regime:** all methods agree within about 4%. The hourly CA is 0.15 lower, about 2 combined SE.
-- **Fast regime:** the hourly CA gives **55% fewer** expected new cells than the first-passage sampler. The direction document reported 38% on its own, unknown specification; the qualitative claim reproduces but the size depends on the specification.
-- **Wall time:** the first-passage sampler is about 2× faster than the *hourly* CA here and 60× faster than CA at dt = 1/32. In the slow regime it takes 0.04 s against 2.6 s, because its cost scales with the burned cells, not with grid × steps.
+## 4. Is the gap just synchronous-update lag? (Iris's arm)
 
-### Convergence order
+Command: `python research/harness-2026-11/s-d1/lag_check.py` (≈4 min) → `RESULTS_lag.json`. Setup: n = 2,000, same kernels and ignition as Gate 1.
 
-`convergence_check.py` → `RESULTS_convergence.json`. Setup: 20×20 grid, Σ = 1/h, single ignition, 4 h, n = 8,000.
+The half-step arm treats cells ignited in a step as sources for half a step, with no further cascade within the step.
 
-- First-passage: 25.49 ± 0.20.
-- The CA gap shrinks with dt: 14.13, 9.45, 5.79, 3.13, 2.06, 0.82, 0.34 for dt = 1 down to 1/64.
-- The gap × m stays in 14–33, i.e. **first-order convergence**.
-- At dt = 1/64 the gap is 0.34, about 1.2 combined SE.
+Mean new cells at T (± SE), and the share of the hourly → first-passage gap closed:
 
-## Blockers
+| regime | first-passage | hourly | **hourly + half-step** | m = 2 | m = 4 | m = 8 |
+|---|---:|---:|---:|---:|---:|---:|
+| R5 (c651 magnitude, 12 h) | 31.02 ± 0.42 | 24.12 | **30.92 (98.6%)** | 50.7% | 78.5% | 84.2% |
+| R3 (Σ ≈ 0.6/h, 8 h) | 121.50 ± 0.62 | 82.15 | **114.28 (81.6%)** | 42.8% | 68.7% | 84.9% |
+| R2 (Σ = 1/h, 8 h) | 323.67 ± 1.42 | 152.90 | **269.71 (68.4%)** | 33.9% | 61.7% | 78.6% |
 
-- **Step 3 needs data.** Re-running c651 on the 52 Wapiti held-out cases needs each case's initial burned raster, its 19-channel environmental snapshot and its reference mask. The receipts in `forecast/runs/20261030_perimeter_trained/execution_v3/heldout/cases/` give only SHA-256 hashes. The inputs came from the owner's local archive (`research/forecast-v2/DATA_PROVENANCE.md`). I have asked Daniel whether any of it can be fetched.
-- The saved hourly-recursion predictions (`p_c651_mc`) and labels are in the repository, so the baseline side of the comparison is available.
+**What it shows.** At c651-like rates the hourly vs continuous gap is almost entirely synchronous-update lag. A one-line correction removes it at 2× stencil cost.
+
+**Over-correction caveat.** The 98.6% partly reflects a lucky over-correction relative to m = 8. Per-cell L1 to first-passage is 0.0006 for half-step against 0.0007 for m = 8, i.e. similar, not better. In fast regimes 18–32% of the gap remains, so the sampler's role is fast regimes and tails.
+
+**What it does not show (Iris).** Half-step makes the fitted model faster. Whether that is *more accurate* on real fires is untested. The no-refit test is the existing rollout ± half-step on US2024 through S-D9. It is blocked here because no US2024 inputs are available to me; I have asked Victor.
+
+## 5. Sizing: where does the hourly cap bind, and where does c651 sit?
+
+### Cap binding on observed perimeters (descriptive)
+
+| data | pairs | new 375 m cells | share beyond 4 cells per gap-hour | notes |
+|---|---:|---:|---:|---|
+| GOFER v0.2 hourly perimeters, 28 CA fires (`gofer_cap.py`) | 4,071 hourly | 185,278 | **8.9%** (1.25% with one GOES-pixel tolerance, d > 4g + 6) | per-fire median 7.5%, range 0.7–22%; 804 intervals with any |
+| NIROPS survey pairs, S-D9 part-a allowlist + 23 fit fires (`nirops_cap.py`) | 3,725 (median gap 24 h) | 254,658 | 0.22% (part-a 0%; fit-23 0.47%) | the one binding pair: August Complex 2020-08-20, 14.5 h, max 98 cells (a complex merging units) |
+| VIIRS overpasses, Korea 2025 Gyeongbuk (`firms_korea_cap.py`) | 28 | 2,889 | 12.0% | 326 of 642 cells on 25 Mar 16:09 UTC beyond the 11-step reach, max 45 km in 10.7 h |
+
+- **GOFER:** all 28 fires were read before S-D9 set its GOFER membership rule. This is recorded in the S-D9 ledger as aggregate label-only inspection, and per-fire stats of H-test fires must not tune a candidate. GOFER boundaries come from ~2 km GOES pixels, hence the tolerance column.
+- **NIROPS:** parts b–d and held-out fires were never read.
+- **Korea VIIRS:** KFS_01 is held out in forecast-v2, so this is descriptive only. The jump envelope (`RESULTS_firms_korea_cap.json`) is an **upper** envelope, inflated by omission. For gaps of 0.5–3 h, 21% of new cells are > 0.5 km from earlier detections, 7.4% > 1 km and 1.2% > 2 km.
+
+**Reading (agreed with Iris and Victor).** The cap binds for roughly 1–9% of new cells per hourly interval on GOFER. It essentially never binds over ~24 h survey brackets, and it binds strongly in the 25 March Korean run. Victor's US2024 diagnostic: all 1,651 tail positives where d4 gives p < 1e-5 are within hourly reach. So the continuous-time step alone does not fix that tail. **D1's case is short horizons and fast events** (S-D9 A1 §2.1 stratum r = d_cheb / (4·lead) ≥ 1, counted only under the one-pixel tolerance) **plus tail estimation**.
+
+### c651 rate magnitude (`c651_rates.py` → `RESULTS_c651_rates.json`)
+
+- **Real, one snapshot** (c651 Fish Creek demo): rate −log(1−q) at cells adjacent to the burned set has median 0.011/h and max 0.024/h. At cells 2–4 away the median is 0.0008/h. This is the slow regime.
+- **Proxy** (c651 kernel generator on spatially uniform synthetic patches over a covariate grid; not real environments): total coefficient sum has median 0.075, q90 0.45, q99 1.19, max 5.4 /h. In 75% of patches it is above 0.043, in 1.8% above 1.
+
+## 6. Conditional Monte Carlo tail estimator
+
+- **Estimator.** `P(T_i ≤ t | T^{−i}) = 1 − exp(−Σ_s [Λ_si(t) − Λ_si(T_s^{−i})]⁺)`.
+  - This is exact: a first passage to `i` never passes through `i`, and its in-edges form a cut (Sofia: L'Ecuyer et al., conditioning on a uniformly directed cut).
+  - From one Dijkstra, `T_s^{−i} = T_s` for every in-neighbour that is not a shortest-path-tree descendant of `i`. Dropping the descendants gives the lower value `lo`; using their full-graph times gives the upper value `hi` (Iris's bounds).
+- **Exactness on unburned cells.** If `T_i ≥ t`, every descendant has `T_s > t` and contributes nothing. So **lo = hi exactly on every cell not burned by t** in that trajectory.
+- **40×40 at equal wall time** (`cmc_check.py` → `RESULTS_cmc.json`, n = 4,000; CMC costs 4–6× per trajectory). Median efficiency gain over plain counting, by probability bin:
+
+  | p bin | median gain |
+  |---|---:|
+  | p ≥ 0.1 | 1.4–20× |
+  | 1e-2 – 1e-1 | 1.9–3.6× |
+  | 1e-3 – 1e-2 | 3.7–6.3× |
+  | 1e-4 – 1e-3 | 6.0–12× |
+  | 1e-6 – 1e-4 | 20–35× |
+
+  In the 1e-6 – 1e-4 bin most cells get zero plain hits.
+- **Caveat.** (hi − lo)/p reaches 0.4–2.1 on a few tail cells, so the local repair is needed there. The repair re-runs the subtree with `i` deleted, reusing the per-edge clocks; the threshold must be fixed in advance.
+- **Real-size grid with peak memory and the fair hourly-conditioning baseline** (`cmc_real.py` → `RESULTS_cmc_real.json`): see §8, filled in when the run completes.
+
+## 7. Performance against the real hourly rollout (`perf.py` → `RESULTS_perf_*.json`)
+
+R3 kernels, 40×40, n = 2,000, one thread, each arm in its own process:
+
+- **first-passage:** 0.27 ms/trajectory, peak RSS 941 MiB;
+- **`wildfire.rollout.simulate`** (torch, with its coverage probes): 29.5 ms/trajectory, 1,735 MiB;
+- **imports only:** 848 MiB.
+
+On top of imports, that is about 93 MiB for first-passage against 887 MiB for the rollout. They are different models (mean new cells 121.5 vs 82.5).
+
+R5 kernels (c651 magnitude, 12 h):
+
+- **first-passage:** 0.086 ms/trajectory, 941 MiB;
+- **rollout:** 43.2 ms/trajectory, 1,732 MiB;
+- mean new cells 31.0 vs 24.0.
+
+First-passage cost scales with the burned cells, not with grid × steps. The rollout's batch size (500) and its coverage-probe pass are part of its measured cost.
+
+## 8. Real-size conditional estimator
+
+Pending: `RESULTS_cmc_real.json`.
+
+## Blockers and dependencies
+
+- **Refit / step-size ablation (Iris's main experiment)** needs full-grid per-event inputs (`forecast/data/environment/regions/*`, `biome_classes.json`). These are owner-only. The c651 patch cache is insufficient for m > 1, because the receptive field grows to 4m cells. The orchestrator has asked the user.
+- **Wapiti / US2024 runs** need the case rasters, which are owner-only. Daniel's covariate rebuild is partial and not byte-identical.
+- **S-D9:** the scoring interface is agreed. Candidates emit native cumulative marginals at survey times, so they are eligible for the arrival RPS. The D1 training pool is part-a + fit-23 (not frozen yet). H-dev and H-test GOFER membership is pending.
 
 ## Ideas and gaps
 
-1. **Teacher-forced one-step fit + plug-in continuous-time = double counting.** See section 1. Flagged to Iris. Elena's continuous-time likelihood is the remedy. Under teacher forcing, the CT one-step likelihood for a target is not `1 − exp(−λ)` with the hour-start sources: it must integrate over within-hour ignitions of neighbours, so it is no longer a closed form per cell. One option is a survival likelihood on reconstructed arrival times, which the Choi kriging reconstructions provide (`forecast/wildfire/survival.py` exists; to check).
-2. **Zero-probability positives are structural in the hourly CA.** A cell more than 4 × h cells from every burned source has P = 0 at horizon h. The first-passage sampler gives positive probability wherever a path exists. To be measured on Wapiti.
-3. **Tail probabilities from arrival times (hypothesis).** A conditional Monte Carlo estimator, `P(T_i ≤ t | T^{−i}) = 1 − exp(−Σ_s Λ_si(T_s^{−i}, t))`, is exact if `T^{−i}` is computed with `i` removed. With the full-graph `T_s` it is biased for sources reached through `i`. A cheap correction, or a proof that the bias vanishes for the min, is open. It would give nonzero, low-variance tail estimates where trajectory counts give 0.
-4. **The coverage/unknown-cell envelope is not ported.** The sampler implements only the zero boundary. The forecast's conservative coverage, where unknown sources invalidate dependants, must be reproduced before any scored comparison.
-5. **Burnout.** The present c651 has no burnout, so the Kenah–Robins finite emitting window is not needed to match it. It is needed for the burnout variants (`burnout_seed0`, etc.).
+1. The half-step correction is the cheapest candidate improvement. It has to be tested on real labels before it is credited (§4).
+2. For a fair continuous-time vs hourly comparison: a CT-likelihood refit (Elena) or Iris's step-size ablation refit (m = 1, 2, 4, 8 plus the sampler) on identical labels.
+3. Victor's tail (p ≈ 1e-6 cells burning at 0.3–0.6%) is a magnitude/calibration failure, not reach. The conditional estimator gives low-variance tail values once a model is calibrated there. It does not fix calibration.
+4. Not done:
+   - the conservative coverage/unknown-cell envelope (the sampler implements the zero boundary only);
+   - Kenah–Robins burnout windows, needed for burnout variants. Per Sofia, a shared per-cell window correlates out-edges and changes the variance of burned area.
+5. FPP shape diagnostics (Sofia): limit shape vs observed length-to-breadth; arrival SD growing like distance^{1/3}. Untested.
