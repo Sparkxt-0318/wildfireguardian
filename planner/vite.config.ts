@@ -212,7 +212,14 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), plannerCache(cacheDir, base, { preview: apiMode !== 'static' }), ...(apiMode === 'static' ? [staticCsp(), staticBasemaps(cacheDir)] : [])],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
-    build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+      chunkSizeWarningLimit: 1700,
+      sourcemap: false,
+      // P-PROTO: a second page (replay-only public prototype); built in the repo, not published anywhere
+      rollupOptions: { input: { main: resolve(here, 'index.html'), publicView: resolve(here, 'public-view.html') } },
+    },
     test: {
       dir: resolve(here, '../tests/planner'),
       include: ['**/*.test.ts'],

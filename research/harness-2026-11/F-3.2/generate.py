@@ -195,6 +195,8 @@ def coreachable(inst, T):
     while queue:
         j = queue.popleft()
         delta = pending.pop(j)
+        if j == E:      # the issue sentinel has no predecessors (an origin that is itself a destination enqueues it)
+            continue
         Dj = inst.D[j]
         eb = inst.edge_block.get(j, [])
         dep_times = []
