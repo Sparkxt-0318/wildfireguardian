@@ -491,7 +491,7 @@ numpy 1.26.4, scipy 1.13.1, pandas 2.2.3, scikit-learn 1.5.2, torch 2.5.1. `chec
 The verified results earlier today (Hannah and Owen) were run and rerun in E1 or in verifiers' own environments. Their
 verdicts stand as recorded. Environment sensitivity is under review by Owen.
 
-### Owen's verdicts, ledger rows 46–48 (verification/owen-smoke-2 at 4e3f1b4e)
+### Owen's verdicts, ledger rows 46–48 (verification/owen-smoke-2 at 6d06ca02)
 
 - **Row 46, cv_part_a 96f99bf6: SPLIT.**
   - **Composite: FAIL** (optimizer collapse). Void until the pinned rerun.
