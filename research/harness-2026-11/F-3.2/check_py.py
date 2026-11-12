@@ -1,10 +1,16 @@
 """Checker 1 (Python): verifies a .wfgc bundle against CERTIFICATE_SPEC.md / FORMAT.md.
 
-Standard library only; imports nothing from the solver, the generator or wfg_sipp. Usage: check_py.py FILE
+Standard library only; imports nothing from the solver, the generator or wfg_sipp.
+Usage: check_py.py FILE [--expect G=<hex>,A=<hex>,W=<hex>,Q=<hex>]
+Format 2 (BINDING_RULE.md): the BIND section's I digest is recomputed over the instance bytes and must match; with
+--expect, G A W Q must match too and the line ends " BOUND <first 16 hex of I>"; without it " UNBOUND". A format-1
+bundle given --expect is rejected (BIND_MISSING).
 """
 from __future__ import annotations
 
 import bisect
+import hashlib
+import re
 import sys
 
 
@@ -16,7 +22,10 @@ class Tokens:
     def __init__(self, text):
         if any(not (32 <= ord(ch) < 127 or ch in "\t\n") for ch in text):
             raise Reject("BAD_BYTE")
-        self.t = text.split()
+        spans = [(m.start(), m.end()) for m in re.finditer(r"[^ \t\n]+", text)]
+        self.t = [text[a:b] for a, b in spans]
+        self.spans = spans
+        self.text = text
         self.i = 0
 
     def word(self, expected=None):
@@ -97,9 +106,38 @@ def intersects(a, b):
     return False
 
 
-def check(text):
+BIND_FIELDS = ("I", "G", "A", "W", "Q")
+
+
+def read_bind(tk, inst_start):
+    """Format 2: END_INSTANCE directly followed by a newline; I covers text[inst_start : that newline + 1]."""
+    end_tok = tk.spans[tk.i - 1][1]
+    if end_tok >= len(tk.text) or tk.text[end_tok] != "\n":
+        raise Reject("BIND_LAYOUT")
+    inst_digest = hashlib.sha256(tk.text[inst_start:end_tok + 1].encode("ascii")).hexdigest()
+    tk.word("BIND")
+    got = {}
+    for f in BIND_FIELDS:
+        tk.word(f)
+        ws = []
+        for _ in range(8):
+            v = tk.int()
+            if not 0 <= v <= 0xFFFFFFFF:
+                raise Reject("BIND_WORD_RANGE")
+            ws.append(v)
+        got[f] = "".join("%08x" % v for v in ws)
+    tk.word("END_BIND")
+    if got["I"] != inst_digest:
+        raise Reject("BIND_INSTANCE_DIGEST")
+    return got
+
+
+def check(text, expect=None):
+    """Returns (claim, T, binding); binding is None for format 1, else the BIND digests (hex) and whether --expect
+    was checked."""
     tk = Tokens(text)
-    tk.word("WFGC"); tk.int(1, 1); tk.word("INSTANCE")
+    tk.word("WFGC"); version = tk.int(1, 2); tk.word("INSTANCE")
+    inst_start = tk.spans[tk.i - 1][0]
     tk.word("V"); nV = tk.int(1); tk.word("E"); nE = tk.int(0)
     tk.word("DEP"); dep = tk.int(0); tk.word("HOR"); H = tk.int(dep)
     tk.word("ORIGIN"); origin = tk.int(0, nV - 1); tk.word("START"); s0 = tk.int(0, nE)
@@ -137,6 +175,13 @@ def check(text):
         tables[key] = tab
     EB, WB, AC = tables["EB"], tables["WB"], tables["AC"]
     tk.word("END_INSTANCE")
+    bind = read_bind(tk, inst_start) if version == 2 else None
+    if expect is not None:
+        if bind is None:
+            raise Reject("BIND_MISSING")
+        for f in ("G", "A", "W", "Q"):
+            if bind[f] != expect[f]:
+                raise Reject("BIND_" + f)
     tk.word("CLAIM")
     claim = tk.word()
     if claim == "ROUTE":
@@ -230,12 +275,24 @@ def check(text):
     for s, As in A.items():
         if intersects([(a, min(b, lim)) for a, b in As if a <= lim], AC.get(hd[s], [])):
             raise Reject("C4_GOAL_REACHED")
-    return claim, T
+    return claim, T, (None if bind is None else dict(bind, bound=expect is not None))
+
+
+def parse_expect(arg):
+    """G=<64 hex>,A=<64 hex>,W=<64 hex>,Q=<64 hex>, exactly this order, lowercase hex; None if malformed."""
+    m = re.fullmatch(r"G=([0-9a-f]{64}),A=([0-9a-f]{64}),W=([0-9a-f]{64}),Q=([0-9a-f]{64})", arg)
+    return None if m is None else dict(zip("GAWQ", m.groups()))
 
 
 def main(argv):
-    if len(argv) != 2:
-        print("usage: check_py.py FILE", file=sys.stderr)
+    expect = None
+    if len(argv) == 4 and argv[2] == "--expect":
+        expect = parse_expect(argv[3])
+        if expect is None:
+            print("REJECT BAD_EXPECT")
+            return 2
+    elif len(argv) != 2:
+        print("usage: check_py.py FILE [--expect G=..,A=..,W=..,Q=..]", file=sys.stderr)
         return 2
     try:
         text = sys.stdin.read() if argv[1] == "-" else open(argv[1], encoding="ascii", newline="").read()
@@ -243,11 +300,16 @@ def main(argv):
         print("REJECT IO:%s" % type(exc).__name__)
         return 2
     try:
-        claim, T = check(text)
+        claim, T, bind = check(text, expect)
     except Reject as exc:
         print("REJECT %s" % exc)
         return 1
-    print("ACCEPT %s %d" % (claim, T))
+    if bind is None:
+        print("ACCEPT %s %d" % (claim, T))
+    elif bind["bound"]:
+        print("ACCEPT %s %d BOUND %s" % (claim, T, bind["I"][:16]))
+    else:
+        print("ACCEPT %s %d UNBOUND" % (claim, T))
     return 0
 
 

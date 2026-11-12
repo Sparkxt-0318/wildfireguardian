@@ -3,10 +3,13 @@
  *
  * Written only from CERTIFICATE_SPEC.md and FORMAT.md. C99, integer arithmetic only (int64_t).
  *
- * Usage: wfgc_check <file.wfgc | ->
+ * Usage: wfgc_check <file.wfgc | -> [--expect G=<hex>,A=<hex>,W=<hex>,Q=<hex>]
  * Output: exactly one line.
  *   ACCEPT ROUTE <T>     exit 0
  *   ACCEPT NO_ROUTE <T>  exit 0   (T = H + 1)
+ *   Format 2 (BINDING_RULE.md): the BIND section's I digest is recomputed over the instance bytes and must match;
+ *   with --expect, G A W Q must match too and the line ends " BOUND <first 16 hex of I>"; without it, " UNBOUND".
+ *   A format-1 bundle given --expect is rejected (bind_missing).
  *   REJECT <reason>      exit 1   (certificate / format rejected)
  *   REJECT <reason>      exit 2   (unreadable input, usage error, resource exhaustion)
  *
@@ -17,6 +20,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <inttypes.h>
+#include "sha256.h"
 
 /* Resource limit on node count: per-node adjacency offsets are allocated (counting sort). */
 #define MAX_NODES ((int64_t)1 << 27)
@@ -67,6 +71,14 @@ static int64_t *state_rec = NULL; /* size nE+1, index into cert arrays or -1 */
 
 /* COCERT (complement form, format 1.1): parsed NR/NA lists live in cert_R/cert_A until materialised. */
 static int cocert = 0;
+
+/* ---------------------------------------------------------------- binding (format 2) */
+static int64_t g_version = 0;
+static size_t inst_start = 0, inst_end = 0;      /* byte span: 'I' of INSTANCE .. newline after END_INSTANCE */
+static unsigned char bind_d[5][32];              /* I G A W Q, as read from BIND */
+static unsigned char inst_d[32];                 /* recomputed I */
+static int have_expect = 0;
+static unsigned char expect_d[4][32];            /* G A W Q from --expect */
 static int64_t *co_pool = NULL;
 static int64_t *co_s = NULL;
 static IList *co_R = NULL, *co_A = NULL;
@@ -314,6 +326,76 @@ static void read_node_records(Rec **out, int64_t *count)
     *count = k;
 }
 
+/* BIND section (format 2): END_INSTANCE must be followed directly by a newline; the instance digest covers the bytes
+ * from the 'I' of INSTANCE through that newline. Then BIND, five records "<field> w1 .. w8" in the fixed order
+ * I G A W Q (words in [0, 2^32 - 1], big-endian), END_BIND. */
+static void read_bind(void)
+{
+    static const char *fields[5] = {"I", "G", "A", "W", "Q"};
+    int f, w;
+    sha256_ctx c;
+    if (g_pos >= g_len || g_buf[g_pos] != '\n') rej("bind_layout");
+    inst_end = g_pos + 1;
+    sha256_init(&c);
+    sha256_update(&c, (const unsigned char *)g_buf + inst_start, inst_end - inst_start);
+    sha256_final(&c, inst_d);
+    expect_kw("BIND");
+    for (f = 0; f < 5; f++) {
+        expect_kw(fields[f]);
+        for (w = 0; w < 8; w++) {
+            int64_t v = read_int();
+            if (v < 0 || v > (int64_t)0xffffffff) rej("bind_word_range");
+            bind_d[f][4 * w] = (unsigned char)(v >> 24);
+            bind_d[f][4 * w + 1] = (unsigned char)(v >> 16);
+            bind_d[f][4 * w + 2] = (unsigned char)(v >> 8);
+            bind_d[f][4 * w + 3] = (unsigned char)v;
+        }
+    }
+    expect_kw("END_BIND");
+    if (memcmp(bind_d[0], inst_d, 32) != 0) rej("bind_instance_digest");
+}
+
+static int hexval(char ch)
+{
+    if (ch >= '0' && ch <= '9') return ch - '0';
+    if (ch >= 'a' && ch <= 'f') return ch - 'a' + 10;
+    return -1;
+}
+
+/* --expect G=<64 hex>,A=<64 hex>,W=<64 hex>,Q=<64 hex>, exactly this order, lowercase hex. */
+static void parse_expect(const char *arg)
+{
+    static const char names[4] = {'G', 'A', 'W', 'Q'};
+    size_t pos = 0;
+    int f, i;
+    if (strlen(arg) != 4 * 67 - 1) die(2, "bad_expect");
+    for (f = 0; f < 4; f++) {
+        if (arg[pos] != names[f] || arg[pos + 1] != '=') die(2, "bad_expect");
+        pos += 2;
+        for (i = 0; i < 32; i++) {
+            int hi = hexval(arg[pos + 2 * i]), lo = hexval(arg[pos + 2 * i + 1]);
+            if (hi < 0 || lo < 0) die(2, "bad_expect");
+            expect_d[f][i] = (unsigned char)(hi * 16 + lo);
+        }
+        pos += 64;
+        if (f < 3) {
+            if (arg[pos] != ',') die(2, "bad_expect");
+            pos++;
+        }
+    }
+    have_expect = 1;
+}
+
+static void check_bind_expect(void)
+{
+    static const char *reason[4] = {"bind_G", "bind_A", "bind_W", "bind_Q"};
+    int f;
+    if (!have_expect) return;
+    if (g_version != 2) rej("bind_missing");
+    for (f = 0; f < 4; f++)
+        if (memcmp(bind_d[f + 1], expect_d[f], 32) != 0) rej(reason[f]);
+}
+
 static void parse(void)
 {
     int64_t i, k, prev;
@@ -321,8 +403,10 @@ static void parse(void)
     size_t len;
 
     expect_kw("WFGC");
-    if (read_int() != 1) rej("bad_version");
+    g_version = read_int();
+    if (g_version != 1 && g_version != 2) rej("bad_version");
     expect_kw("INSTANCE");
+    inst_start = g_pos - 8;                      /* next_tok left g_pos just after "INSTANCE" (8 bytes) */
     expect_kw("V");
     nV = read_int();
     expect_kw("E");
@@ -396,6 +480,7 @@ static void parse(void)
     expect_kw("AC");
     read_node_records(&ac, &n_ac);
     expect_kw("END_INSTANCE");
+    if (g_version == 2) read_bind();
 
     expect_kw("CLAIM");
     if (!next_tok(&s, &len)) rej("unexpected_eof");
@@ -703,7 +788,8 @@ static void check_witness(void)
 int main(int argc, char **argv)
 {
     FILE *f;
-    if (argc != 2) die(2, "usage");
+    if (argc == 4 && strcmp(argv[2], "--expect") == 0) parse_expect(argv[3]);
+    else if (argc != 2) die(2, "usage");
     if (strcmp(argv[1], "-") == 0) {
         f = stdin;
     } else {
@@ -719,6 +805,7 @@ int main(int argc, char **argv)
     g_pool = (int64_t *)xalloc(g_pool_cap, sizeof(int64_t));
 
     parse();
+    check_bind_expect();
     check_claim();
     if (cocert) materialise_cocert();
     build_index();
@@ -729,6 +816,16 @@ int main(int argc, char **argv)
     check_c4();
     check_witness();
 
-    printf("ACCEPT %s %" PRId64 "\n", claim_route ? "ROUTE" : "NO_ROUTE", cert_T);
+    printf("ACCEPT %s %" PRId64, claim_route ? "ROUTE" : "NO_ROUTE", cert_T);
+    if (g_version == 2) {
+        if (have_expect) {
+            int i;
+            printf(" BOUND ");
+            for (i = 0; i < 8; i++) printf("%02x", inst_d[i]);
+        } else {
+            printf(" UNBOUND");
+        }
+    }
+    printf("\n");
     return 0;
 }
