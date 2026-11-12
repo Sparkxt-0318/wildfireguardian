@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CacheEntry } from '../../domain/types';
 import { coordsOf, loadEntries, loadScenario, readSaved, writeSaved, type ReplayScenario } from './load';
-import { BANNER, cardFor, DEVICE_NOTE, exampleIds, OFFICIAL_SLOT, pick, QUESTION, type PublicCard } from './model';
+import { BANNER, cardFor, DEVICE_NOTE, exampleIds, linkFor, OFFICIAL_SLOT, parseLink, pick, QUESTION, validPlace, type PublicCard } from './model';
 import type { LmLang } from '../lastmile/types';
 
 const ICON: Record<PublicCard['icon'], string> = { clock: '⏱', stop: '⛔', question: '?' };
@@ -78,13 +78,16 @@ export function PublicView() {
   const [scenario, setScenario] = useState<ReplayScenario | null>(null);
   const [saved, setSaved] = useState<string[]>(() => readSaved());
   const [error, setError] = useState<string | null>(null);
+  const [linkPlace, setLinkPlace] = useState<string | null>(null);
 
   useEffect(() => {
     const ac = new AbortController();
     loadEntries(ac.signal)
       .then((es) => {
         setEntries(es);
-        setEntryPath((p) => p ?? es[0]?.path ?? null);
+        const link = parseLink(typeof location !== 'undefined' ? location.search : '', es.map((e) => e.path));
+        setLinkPlace(link.place);
+        setEntryPath((p) => p ?? link.scenario ?? es[0]?.path ?? null);
       })
       .catch((e) => setError(String(e)));
     return () => ac.abort();
@@ -98,7 +101,8 @@ export function PublicView() {
     return () => ac.abort();
   }, [entries, entryPath]);
 
-  const inScenario = scenario ? saved.filter((id) => scenario.inputs.some((i) => i.origin.id === id)) : [];
+  const fromLink = scenario ? validPlace(linkPlace, scenario.inputs) : null;
+  const inScenario = scenario ? [...new Set([...(fromLink ? [fromLink] : []), ...saved.filter((id) => scenario.inputs.some((i) => i.origin.id === id))])] : [];
   const showing = scenario ? (inScenario.length ? inScenario : exampleIds(scenario.inputs)) : [];
   const coords = scenario ? coordsOf(scenario.places) : () => null;
   const cards = scenario ? showing.map((id) => cardFor(scenario.inputs.find((i) => i.origin.id === id)!, coords)) : [];
@@ -140,6 +144,7 @@ export function PublicView() {
       {scenario ? (
         <section className="pv-places">
           <h2>{lang === 'ko' ? '내 장소 고르기' : 'Choose my places'}</h2>
+          <p>{lang === 'ko' ? '예: 우리 집, 부모님 댁, 마을회관. 링크를 공유하면 고른 장소가 함께 전달됩니다.' : 'e.g. home, parents\u2019 home, village hall. Sharing a link reveals the chosen place.'}</p>
           <ul>
             {[...scenario.inputs]
               .sort((a, b) => pick(a.origin.display, lang).localeCompare(pick(b.origin.display, lang)))
@@ -147,7 +152,12 @@ export function PublicView() {
                 <li key={i.origin.id}>
                   <label>
                     <input type="checkbox" checked={saved.includes(i.origin.id)} onChange={() => toggle(i.origin.id)} /> {pick(i.origin.display, lang)}
-                  </label>
+                  </label>{' '}
+                  {entryPath ? (
+                    <a className="pv-link" href={linkFor(entryPath, i.origin.id)}>
+                      {lang === 'ko' ? '링크' : 'link'}
+                    </a>
+                  ) : null}
                 </li>
               ))}
           </ul>

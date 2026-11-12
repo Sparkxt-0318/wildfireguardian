@@ -38,3 +38,46 @@ has not been made. Comprehension by older adults is untested; the tests show con
 ## Not done
 Screen-reader and real-device testing; English native review; waypoint hand-off (destination only by decision);
 comprehension testing; any deployment.
+
+## Checkpoint 2 (on thomas/fire-next; UNVERIFIED) — Iris's accepted design delta
+- Ladder level 1 worded descriptively ("모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었고, 그 뒤 출발에는 확인된 길이
+  없습니다"; when nothing later was requested: "그 뒤 출발은 점검하지 않았습니다"); no official 대피 준비/즉시대피 vocabulary.
+- Every replay stamp carries the hedge "모델 추정 / model estimate".
+- Places by URL `?scenario=<cache index path>&place=<origin id>`: both untrusted; scenario must equal a committed index
+  path (matched, never fetched as given), place must be an origin of that scenario; otherwise the empty state. A shared
+  link shows the banner and the in-card stamp. Helper text and the "sharing reveals the place" note.
+- Tests (`pproto.test.ts` 13, `pproto.layout.test.ts` 4): parseLink rejects path-like, absolute, unknown, upper-cased and
+  markup values; hostile links render three examples, fetch nothing they name, inject no markup; a 320 px Chromium
+  layout with the longest place names, longest time string and a cross-midnight time (Pretendard and fallback fonts,
+  ko/en): no horizontal scroll, every stamp/time/data age inside the viewport and its card. That test first FAILED
+  (scroll width 364–380 px); fixed with `overflow-wrap: anywhere` on the page and break-all in the hand-off text.
+
+## Checkpoint 2 on Main + verifier note (branch clara/pproto-followup)
+- Checkpoint 2 was verified PASS WITH NOTES at 75189d9 on thomas/fire-next. Only its P-PROTO files were ported onto Main
+  (`publicview/{PublicView.tsx,model.ts,publicview.css}`, `pproto.test.ts`, `pproto.layout.test.ts`, this file). The
+  W-KIT, F-3.2 and other work carried on fire-next did not come across. Main's 90 s jsdom wait (53233ab) now lives in the
+  shared `mount()` helper. Each page mount stops early on `.pv-error` and fails with that text.
+- Verifier note: the leave-by sentence said "none after" (그 뒤 출발에는 확인된 길이 없습니다) also where the
+  model found a checked road again after a gap. That description was false. There are now three sentences
+  (`LEAVE_BY_WORDS` in `model.ts`), one per kind of what follows T in the sweep:
+  - horizon: no later departure was requested → "later departures were not checked";
+  - none_checked: every later requested departure has no checked road → "none after";
+  - gap (new): the first requested departure after T has no checked road, but a later one has one → "Model: a checked
+    road out by car existed for every departure up to this time; right after it, some departures have no checked road"
+    / "모델 계산: 이 시각 출발까지는 차로 나가는 확인된 길이 계속 있었고, 바로 그 뒤 출발 중에는 확인된 길이 없는 때가 있습니다".
+    The sentence does not mention the later road, so it cannot be read as "leaving later is also fine". The time shown
+    stays T. A leave-by plan without an `after` kind fails closed to the time-less card.
+- Property test (`pproto.test.ts`, "the leave-by sentence is true of the sweep it describes"): it recomputes each
+  sentence's claims from the sweep itself (requested = not window_closed), not from the plan's classification. It
+  covers every real and synthetic origin and requires the synthetic set to exercise all three sentences. Measured, with
+  the seed and the 600 cases as before:
+
+  | sentence | real (531 origins, 501 leave-by) | synthetic (600) |
+  |---|---|---|
+  | horizon | 354 | 59 |
+  | none_checked | 147 | 178 |
+  | gap | 0 | 53 |
+
+  With the old two-way wording the test fails (first failure: `syn:gen:4:origin`).
+- Planner suite: 24 files, 403 tests pass. `npm run build:static` passes; the default build ships no public-view file.
+- Pending: Iris's review of the gap wording and Sofia's check of the Korean. Comprehension is untested.

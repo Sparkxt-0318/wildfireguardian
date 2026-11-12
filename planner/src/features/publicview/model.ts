@@ -69,7 +69,7 @@ function stamp(input: LastMileInput): LmText {
   const t = input.scenario.inputTimeIso;
   const k = kstParts(t);
   const d = `${k.y}-${p2(k.mo)}-${p2(k.d)}`;
-  return { ko: `${d} ${REPLAY_MARK.ko}`, en: `${d} ${REPLAY_MARK.en}` };
+  return { ko: `${d} ${REPLAY_MARK.ko} · 모델 추정`, en: `${d} ${REPLAY_MARK.en} · model estimate` };
 }
 
 function age(input: LastMileInput): LmText {
@@ -117,16 +117,31 @@ export function handoffFor(p: MessagePlan, coords: (destinationId: string) => { 
   return { name, lat: c.lat, lon: c.lon, text, gpxFileName: `REPLAY-${ymd(iso(p))}-NOT-REAL-${p.destination.id.replace(/[^A-Za-z0-9]+/g, '_')}.gpx`, gpx };
 }
 
+/**
+ * The descriptive leave-by sentence, one per AfterKind (Iris: what the model found, not an instruction). Each must be
+ * true of the sweep it describes (property test in tests/planner/pproto.test.ts):
+ * - horizon: no departure after T was requested (only window-closed times or none) — later ones were not checked;
+ * - none_checked: every requested departure after T has no checked road;
+ * - gap: the first requested departure after T has no checked road, yet a later one has one again. The sentence says
+ *   only the first part; it never mentions the later road, so it cannot be read as "leaving later is also fine".
+ */
+export const LEAVE_BY_WORDS: Record<'horizon' | 'none_checked' | 'gap', LmText> = {
+  horizon: { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었습니다. 그 뒤 출발은 점검하지 않았습니다', en: 'Model: a checked road out by car existed for departures up to this time; later departures were not checked' },
+  none_checked: { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었고, 그 뒤 출발에는 확인된 길이 없습니다', en: 'Model: a checked road out by car existed for departures up to this time; none after' },
+  gap: { ko: '모델 계산: 이 시각 출발까지는 차로 나가는 확인된 길이 계속 있었고, 바로 그 뒤 출발 중에는 확인된 길이 없는 때가 있습니다', en: 'Model: a checked road out by car existed for every departure up to this time; right after it, some departures have no checked road' },
+};
+
 export function cardFor(input: LastMileInput, coords: (destinationId: string) => { lat: number; lon: number } | null = () => null): PublicCard {
   const p = messagePlan(input, null);
   const base = { originId: input.origin.id, place: placeName(input), kind: p.kind, replayStamp: stamp(input), dataAge: age(input) };
-  if (p.kind === 'leave_by' && p.leaveByS !== null) {
+  if (p.kind === 'leave_by' && p.leaveByS !== null && p.after !== null) {
     const t = dayMarked(p, p.leaveByS);
     return {
       ...base,
       tone: 'leave',
       icon: 'clock',
-      words: { ko: '모델 계산: 이 시각까지 차로 출발', en: 'Model: leave by car by this time' },
+      // Iris: descriptive mood — what the model found, not an instruction
+      words: LEAVE_BY_WORDS[p.after],
       time: t,
       guidance: { ko: '공식 대피 명령이 우선합니다. 차가 없으면 이장에게 바로 알리십시오.', en: 'Official evacuation orders come first. No car? Tell the village head now.' },
       handoff: handoffFor(p, coords),
@@ -167,4 +182,33 @@ export function exampleIds(inputs: LastMileInput[]): string[] {
 
 export function pick(t: LmText, lang: LmLang): string {
   return t[lang] || t.ko;
+}
+
+/**
+ * Places by URL (?scenario=<cache index path>&place=<origin id>). Both parameters are UNTRUSTED: the scenario must equal
+ * one of the committed cache index paths exactly (it is matched, never fetched as given) and the place must be an origin
+ * of that scenario; anything else yields nulls (the page then shows its empty state).
+ */
+export function parseLink(search: string, entryPaths: string[]): { scenario: string | null; place: string | null } {
+  let q: URLSearchParams;
+  try {
+    q = new URLSearchParams(search);
+  } catch {
+    return { scenario: null, place: null };
+  }
+  const sc = q.get('scenario');
+  const scenario = sc !== null && entryPaths.includes(sc) ? sc : null;
+  const pl = q.get('place');
+  const place = scenario && pl !== null && /^[A-Za-z0-9:/._-]{1,120}$/.test(pl) ? pl : null;
+  return { scenario, place };
+}
+
+/** The place id only if it is an origin of the loaded scenario. */
+export function validPlace(place: string | null, inputs: LastMileInput[]): string | null {
+  return place !== null && inputs.some((i) => i.origin.id === place) ? place : null;
+}
+
+/** A shareable link for a place (sharing it reveals the chosen place). */
+export function linkFor(scenario: string, place: string): string {
+  return `?${new URLSearchParams({ scenario, place }).toString()}`;
 }
