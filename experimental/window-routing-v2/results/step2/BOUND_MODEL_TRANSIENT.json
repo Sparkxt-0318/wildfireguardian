@@ -1,0 +1,58 @@
+{
+ "what": "RoadBoundModel construction memory on the 4 F-DYN packets (active window 0-18000 s), kit-v2-step1b, tools/bm_mem.py; RSS sampled every 2 ms by a thread; ru_maxrss is the lifetime peak",
+ "measured_utc": "2026-11-12 ~18:00-18:10",
+ "rows": [
+  {
+   "packet": "yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300",
+   "base_mb": 184.16796875,
+   "peak_sampled_mb": 1992.72265625,
+   "peak_at_frac": 0.9541819446479217,
+   "after_mb": 253.29296875,
+   "ru_maxrss_mb": 1992.21484375,
+   "edges": 111924,
+   "full_pot": 513,
+   "P": 513,
+   "gx_mib_each": 438.0570373535156,
+   "construct_s": 7.1482701630000065
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300",
+   "base_mb": 184.19140625,
+   "peak_sampled_mb": 2381.171875,
+   "peak_at_frac": 0.9424690521509629,
+   "after_mb": 256.67578125,
+   "ru_maxrss_mb": 2380.9140625,
+   "edges": 111924,
+   "full_pot": 625,
+   "P": 625,
+   "gx_mib_each": 533.6952209472656,
+   "construct_s": 7.660069032000024
+  },
+  {
+   "packet": "uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300",
+   "base_mb": 90.875,
+   "peak_sampled_mb": 9070.84765625,
+   "peak_at_frac": 0.954974507705225,
+   "after_mb": 384.37890625,
+   "ru_maxrss_mb": 9070.5234375,
+   "edges": 43826,
+   "full_pot": 6443,
+   "P": 6443,
+   "gx_mib_each": 2154.319137573242,
+   "construct_s": 31.22317006100002
+  },
+  {
+   "packet": "uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300",
+   "base_mb": 90.921875,
+   "peak_sampled_mb": 9617.7890625,
+   "peak_at_frac": 0.9489975136712205,
+   "after_mb": 398.4296875,
+   "ru_maxrss_mb": 9617.52734375,
+   "edges": 43826,
+   "full_pot": 6837,
+   "P": 6837,
+   "gx_mib_each": 2286.059280395508,
+   "construct_s": 32.11594968999998
+  }
+ ]
+}

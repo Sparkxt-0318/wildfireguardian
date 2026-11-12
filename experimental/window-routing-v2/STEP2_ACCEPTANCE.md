@@ -163,3 +163,45 @@ expected with swap off.
   before and after. A failed move-back raises, so it cannot silently charge later parent work to a check.
 
 (Thomas did not verify PROBE_CGROUP_V1.json itself. Mira verifies it with Step 2.)
+
+## Amendment E (18:15 UTC, before any bound-model code): the transient is one expression, so chunk it, don't spawn
+
+**Measured** (`tools/bm_mem.py` → `results/step2/BOUND_MODEL_TRANSIENT.json`): RoadBoundModel construction alone, on
+the four F-DYN packets, active window 0–18,000 s, with RSS sampled every 2 ms.
+
+| Packet | Edges E | Potential sources P | One E×P float64 block | Lifetime peak | RSS after build | Peak at |
+|---|---|---|---|---|---|---|
+| Yeongdeok firms_early | 111,924 | 513 | 438 MiB | 1,992 MiB | 253 MiB | 95% of build |
+| Yeongdeok kriged_mean | 111,924 | 625 | 534 MiB | 2,381 MiB | 257 MiB | 94% |
+| Uiseong firms_early | 43,826 | 6,443 | 2,154 MiB | **9,071 MiB** | 384 MiB | 95% |
+| Uiseong kriged_mean | 43,826 | 6,837 | 2,286 MiB | **9,618 MiB** | 398 MiB | 95% |
+
+**Hypothesis, to be confirmed by the chunked build's measured peak.** The peak is 4.2–4.6 × one E×P block and occurs
+at about 95% of the build. That matches the edge-to-source distance block in `road_bounds.RoadBoundModel.__init__`
+(`gx`, `gy` and their temporaries, of which only the length-E `self.dist` is kept). It is a pure element-wise
+expression followed by a row-wise `min`.
+
+**Change of design (replaces (a)'s spawned bound-model build; everything else in this file stands):**
+- `self.dist` is computed in **row blocks of edges**. Each block's temporaries are capped at 64 MiB:
+  `rows = max(1, 64 MiB / (8 · P))`.
+  - Every element is computed by the identical numpy expression on identical inputs.
+  - `min` over a row does not depend on how the rows are blocked: it is a selection, not an accumulation.
+  - So the array is **byte-identical by construction**. The test checks it rather than assuming it.
+- **No spawned child, no array transfer, no pickled state.** Thomas's guards 3(a)–(c) (code identity across processes,
+  hash at the source, thread environment) protected that transfer, so they no longer apply. Nothing crosses a process
+  boundary for the bound model.
+- **Certificate relevance.** `dist` only sets `n_default`, the sub-box counts per edge: "graph geometry (floats; only
+  selects sub-box counts)". It is still certificate-relevant through the bound arrays. Hence:
+- **Test 4 (replaced): byte identity.**
+  - Chunked `dist` == unchunked `dist` byte for byte (`tobytes()`), and so is `n_default`.
+  - This is checked on the 1-hour Yeongdeok and Uiseong packets and on all four F-DYN packets.
+  - It is also checked at three block sizes: 1 row, the production cap, and E rows (unchunked).
+  - **Recorded per result:** `bound_model.dist_sha256` and `dist_block_rows`, so a refusal ties to its bound arrays.
+- **Acceptance addition:** the chunked build's measured lifetime peak on the four F-DYN packets is reported. The
+  expectation (hypothesis) is ≤ RSS after build + 2 × 64 MiB + 200 MiB.
+- **Memory caveat, stated:** the parent's lifetime peak still includes the EarliestArrivalBound array (Yeongdeok
+  4.4 GiB resident). That stays Step 5/6 work, as already written, and the current-RSS solver gate is unchanged by this
+  amendment.
+
+Code for this amendment waits for Thomas's review. The check-isolation code (fork + cgroup v1) and the current-RSS
+solver gate are as already cleared, and proceed now.
