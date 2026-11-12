@@ -51,7 +51,7 @@ Consequences:
 * **Declared use (ledger):** the US2024 held-out NIROPS brackets were used for this calibration only (no training, no
   model choice). Per Victor (S-D9), US2024 is a descriptive reference for D2, not a test set, and D2 is scored on
   part c. Recorded in S-D9 ledger/ACCESS_CONTROL.md.
-* On three fires the mean is also shifted by about two days (+53 to +57 h). Soft labels built on the raw SD inherit this.
+* On three fires the mean is also shifted by about two days (+53 to +57 h). Any soft target built on the raw SD inherits this.
 * The SD is **large relative to an hour**. The US medians are 27–96 h. The Korean training rasters have medians of
   5–21 h (KFS_01, the largest training event: 17 h). Hourly hard labels therefore claim timing precision the
   reconstruction does not have. A calibrated soft hourly label is nearly flat, with a peak of about `1/(2.5·c·sd)`, so
@@ -83,7 +83,7 @@ Consequences:
   needs independent Korean brackets (the 2025 FIRMS detections now exist, which allows a first detection-bracket
   check). Mapped extent is not flame arrival.
 
-## 2. Soft labels (step 2)
+## 2. Soft window labels (step 2: the label utility, not a candidate)
 
 `soft_labels.py` computes `P(a < tau <= b)` under `N(mu, sd)`, optionally truncated to a support window and optionally
 conditional on `tau > a`. It uses the loader's `(t-1, t]` convention and reproduces the hard label exactly at `sd = 0`.
@@ -140,7 +140,11 @@ soft_risk_softfeat beats it on held-out NLL.
 
 Findings (synthetic, conditional on this generator):
 
-1. **The low-cost step as specified is harmful.** It replaces the hard label by `P(t<tau<=t+1)` but keeps the hard risk
+1. **The soft-hourly variant (the low-cost step as specified) is harmful, and it is not a candidate.** This is the
+   kriged soft-hourly arm with a hard risk set (total_rate_ratio 0.530, held-out excess NLL 0.195; the worst kriged
+   arm in results/synthetic.json). The finding concerns that variant only, not "soft labels" in general: the soft
+   risk set with soft source features (soft_risk_softfeat, 0.033) has the best NLL after the oracle. The supported
+   path is the bracket likelihood on survey perimeters. It replaces the hard label by `P(t<tau<=t+1)` but keeps the hard risk
    set, so all probability mass after the kriged mean falls on rows that do not exist. The total rate is halved
    (0.53), and the held-out NLL is the worst of all estimators. MCEM beats it in 16/16 replicates. The corrected version
    is a soft risk set with soft source features, i.e. a fixed-q expected complete-data likelihood. It has the best
