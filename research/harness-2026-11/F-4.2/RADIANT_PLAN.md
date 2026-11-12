@@ -121,3 +121,29 @@ policy is adopted.
 The frozen 1-hour requests each name exactly **one** destination, so outcome 2 cannot arise there; the panel is
 reported with outcomes 1 and 3. On F-DYN, each origin has **3** candidate destinations (`INSTANCE.json`), so the
 search runs once per candidate and outcome 2 is reported there.
+
+## 6. Literature-based flame set (Sofia 11:26 UTC), added after §3; plan committed before results
+
+The §3 grid used E 50–100 kW/m² and H 5–20 m. Sofia's reading (sources in her message to Iris and the orchestrator)
+puts that range on the low side for crown fires.
+
+**Model check.** My model reproduces her three published distances (100 m front) to within 1 m. For E76/H5,
+E112/H20 and E200/H30, it gives 102.5/58.2, 263.8/163.8 and 434.9/273.1 m, against her 103/58, 264/164 and 435/273.
+The receiver height (ground level or flame centre) changes these by less than 1 m.
+
+**Second set of cases, stated as assumptions:**
+- E ∈ {76 (AS 3959 surface), 112 (1200 K crown), 200 (measured crown, sensitivity)} kW/m²;
+- H ∈ {5, 10, 20, 30, 40} m;
+- W ∈ {100 m (rule-setting front), 3,750 m};
+- receiver at flame-centre height;
+- window factor 1.0 (default) and 0.5 (sensitivity);
+- τ = 1;
+- no convection allowance; Zárate's +20% is stated, not applied.
+
+**Counting rule** as §3. Routes with published clearance strictly below the standoff are counted. The result is a
+sensitivity range, **not a count of unsafe routes**.
+
+**Not modelled** (Sofia's 2025 Korean cases):
+- ember ignition of slow or stopped vehicles before the front arrives;
+- smoke and visibility loss (road-departure deaths at Yeongyang).
+A flux-only standoff does not cover either.
