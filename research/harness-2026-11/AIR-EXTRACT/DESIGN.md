@@ -46,11 +46,13 @@ checked route: kriged_mean, firms_early and envelope.
   has a route.
 - It is **never** reported as a bare "no route".
 
-**Cause label**, exactly one per place, in this precedence:
-1. **at-issue.** The origin point is in flame at the departure.
-2. **fire-limited.** Inside the loaded graph, every exit is blocked by fire.
-3. **road-limited.** There is no checked route here, but a route off the clipped graph is not excluded. These places
-   are listed separately as "graph window too small to decide", and they are not air candidates.
+**Cause label**, exactly one per place, in this precedence. Agency wording is Iris's, and every label says
+"modelled" because these are statements about a fire reconstruction, not observations.
+1. **"origin already inside the modelled fire area at that departure time"** (internally: at-issue).
+2. **"every road exit in the mapped area is blocked by modelled fire"** (internally: fire-limited).
+3. **"undetermined: map window too small"** (internally: road-limited). There is no checked route inside the loaded
+   graph, but a route off the clipped graph is not excluded. These places are **kept out of every count of
+   no-escape places**, and they are not air candidates.
 
 **Dependence on the waiting rule.**
 - The supplied rule is that waiting is allowed only at graph dead-end nodes. It is undocumented, and the owner has
@@ -60,17 +62,27 @@ checked route: kriged_mean, firms_early and envelope.
 
 ## 2. EARLY-ACTION LIST (main output; no new data)
 
-**What it gives.** For each place that is in the §1 set at some departure, the **latest departure time at which a
-checked road route still exists**, per timing variant.
-- **Shown as a range across variants, with the earliest edge first.** The earliest variant is the one staff should
-  plan to.
+**What it gives.** For each place that is in the §1 set at some departure, the last computed departure time with a
+checked road route, per timing variant.
+- **Shown as a range across variants, with the earliest edge first.** The earliest edge is labelled: "earliest of the
+  three variants computed; the fire may close roads earlier than any of them." All three variants treat cells with no
+  fire information as not burning, so the earliest variant is **not** a safe bound (Iris).
+- **Grid times, not deadlines.** The checker runs on a 30-min departure grid, so the route may have closed at any time
+  in the following 30 minutes. Each value is shown as a pair: **"last computed time with a route / next computed
+  time, none"**. It is never shown as a single clock time, and never called a deadline.
+- **Origin already inside the modelled fire area.** Such a place has no latest departure. It is shown as "none at any
+  computed time", never as a blank or a time.
+- **Header of every list:**
+  - the checker (Richard's full checker, with its commit);
+  - the packet version (MANIFEST_v3_7 `no_reentry/2`, with its sha256).
+- **Not built until Nora passes `no_reentry/2`.**
 - **Purpose.** Staff can prioritise early warning and assisted transport *before* the roads close.
 
 **Columns:**
 - the place;
 - the cause label (§1);
-- the latest checked-route departure under kriged_mean, firms_early and envelope;
-- the earliest of those;
+- the (last computed time with a route / next computed time, none) pair under kriged_mean, firms_early and envelope;
+- the earliest of those pairs, with the label above;
 - the envelope_burnset row, which is static;
 - whether the result depends on the waiting rule;
 - the departure grid step.
@@ -80,14 +92,17 @@ needed.
 
 **Pre-season version.** The same list from the March 2025 replay, per region:
 - which places lost their last checked route;
-- how long before they were reached.
+- how long before they were reached **by the modelled fire**.
 
-It is a planning list for next season, labelled "replay of March 2025; not a forecast".
+It is a planning list for next season, labelled: "replay of March 2025; not a forecast. One fire, March 2025, that
+day's wind. A place not on this list has not been shown to have a road escape." Without the last sentence it reads as
+a list of the villages at risk, and absence reads as safe (Iris).
 
 **Official link.** 행정안전부 고립예상지역대책 (data.go.kr 15139647; it has a field 헬기구조가능여부).
 - It is cross-referenced **only if Sofia confirms** that it is public, what it covers, and whether it has coordinates.
 - If it is public and has coordinates: a column "listed as an expected-isolation area (행안부)", with the
-  helicopter-rescue field quoted as is.
+  helicopter-rescue field quoted as is. **Its source and date go in the same cell**, so it does not read as our
+  assessment.
 
 ## 3. AIR TABLE (secondary; staff-only)
 
@@ -103,20 +118,31 @@ One research row per place in the §1 set, and per unresolved origin.
 - 경북 has 48 rows. **의성 has 0 registered sites**, and every 의성 row says so.
 - These are forest-aviation operating sites, **not pickup points**, and every row is labelled that way.
 
-**Flight gate at that time.** It is stated per row, from Sofia's sources:
+**Flight gate at that time.** It is stated per row, from Sofia's sources. Only daylight and wind can be evaluated:
+there is no source for smoke, and none yet for visibility at the time.
 - **Daylight.** Night needs NVG and lit sites (119항공대 운영 규정, 소방청훈령 제478호, 제22조). PMS 510 prohibits
   carrying passengers at night in a single-engine helicopter.
-- **Wind** under the published type limits:
+- **Wind** under the published type limits. These are labelled **"US interagency reference (NWCG PMS 510)"**. The
+  Korean rule (119항공대 운영 규정) defers to each aircraft's manual ("기종별 교범").
   - 40 kt (≈20.6 m/s) for Type 1-2;
   - 30 kt for Type 3;
   - with a 15 kt gust spread (NWCG PMS 510, May 2023, Exhibit 6.2).
-  - The 119 rule refers to "기종별 교범".
-  - The wind source at the time is to be named; nothing is computed until it is.
-- **Visibility** at least 3,200 m over land (119항공대 운영 규정 제21조).
-- **Smoke: UNSOURCED.** No published numeric limit was found.
+  - **The wind source is named before anything is computed, with whether it carries gusts.** Hourly mean wind from a
+    reanalysis understates gusts, and the limits are gust-sensitive, so a mean-wind gate errs towards "not
+    excluded". If only mean wind is available, every row says so.
+- **Visibility** at least 3,200 m over land (119항공대 운영 규정 제21조). **Not evaluated:** no source for visibility
+  at the time.
+- **Smoke: UNSOURCED.** No published numeric limit was found. **Not evaluated.**
 
-**Label on every row:** "possible only if flyable; flight feasibility is the pilot's and agency's decision". A row
-**never counts as resolving a place**.
+**Two statuses only.** A row may never say "flyable" or "possible":
+- **"excluded (night, or wind over the published limit)"**;
+- **"not excluded by the gates evaluated (smoke and visibility not evaluated)"**.
+
+Every row also carries "flight feasibility is the pilot's and agency's decision". A row **never counts as resolving a
+place**.
+
+**Summary count, reported with the table.** Of the rows, how many are excluded by daylight or by wind alone. Iris
+expects most of them, as a hypothesis; that count is the finding.
 
 ### 3.2 D1: open-ground candidates (later extension; only if the owner asks again after D0)
 
@@ -158,8 +184,12 @@ The same gates and label apply as in 3.1.
 **Can be checked:**
 - **The §1 set against the breakwater rescues.** Are 경정3리, 석리 etc. in NO_CHECKED_ROUTE on the matching
   Yeongdeok starts, and with which cause label?
-  - This needs a sourced mapping from each village to its origin node(s), and the incident time from the source.
-  - Without both, nothing is validated.
+  - **This is fixed in this note BEFORE it is run** (Iris). The villages are already known, so the comparison could
+    otherwise be fitted. Three things are written here first:
+    - the village-to-node mapping source;
+    - the incident times, with their sources;
+    - what counts as agreement.
+  - Until they are, this check is not run, and nothing is validated.
 - **The §2 early-action times against reported evacuation-order and road-closure times,** where a source gives them.
 - **The §3.1 flight gate against the record:**
   - 25 Mar: gusts about 27 m/s, 4 helicopters landed;
@@ -172,6 +202,21 @@ The same gates and label apply as in 3.1.
 - Any landing-site suitability.
 - Smoke limits.
 
+## Iris's reading (2026-11-12, at 860aebea; applied in this revision)
+
+**Verdict.** The restructure is right. Go ahead with §2 after the changes, and with D0 after its own.
+
+**Applied:**
+- §2: the earliest edge is not a safe bound; grid-time pairs, never deadlines; "none at any computed time"; the
+  absence line on the replay list; checker and packet version named; not built until Nora passes `/2`.
+- D0: two statuses only, never "flyable" or "possible"; the wind source named, with gusts or the mean-wind caveat;
+  the US interagency label on the limits; the summary count of rows excluded by daylight or wind.
+- §1: agency wording with "modelled"; "undetermined: map window too small" kept out of all counts.
+- §5: the breakwater check fixed in the note before it is run.
+
+**Priority unchanged.** Plan and staff-only. This must not delay the multi-hour gate, the benchmark, or Richard's
+16.4 km/h runs.
+
 ## Inputs
 
 | Who | What | Status |
@@ -180,4 +225,4 @@ The same gates and label apply as in 3.1.
 | Sofia | 행안부 고립예상지역 (15139647): public? coverage? coordinates? | asked |
 | Daniel | 산림청 CSV (15069465), one file, after the road extract | in fetch plan (cca4e27a) |
 | Priya | radiant stand-off rows (D1 only) | requested via the orchestrator |
-| Iris | reading of this note before any build | sent |
+| Iris | reading of this note before any build | read 860aebea; changes applied; §2 may proceed after Nora's /2 pass, D0 after these changes |
