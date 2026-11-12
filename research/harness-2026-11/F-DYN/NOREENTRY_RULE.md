@@ -154,3 +154,28 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
 - **Why.** `routing-package`'s validator rejects RESEARCH_CONSTRUCTION packets (`EVIDENCE_CLASS`), and its full-grid
   graph validation takes 190 s per call.
 - **Meanwhile the F1 label stands:** integrated flux × 1.6–2.6; peak unchanged at 0.70 kW/m²; dose may flip.
+
+### Nora: PASS WITH NOTES, ledger row 56 (@1fa85140)
+
+- **Her checker:** `verification/nora_nr_check.py` on `verification/nora-fire`.
+- **Inputs:** built from `MANIFEST_v3_6.json` (sha `b9b1e853`) under numpy 2.5.4: Yeongdeok 25T11Z h5 × 4 variants
+  in both transforms, plus Uiseong 25T17Z h5 kriged_mean in both.
+- **Her results:**
+  - **(a)** The reopening builds are byte-identical to her v3.5 builds, in all 5 files.
+  - **(b)** `consistency.check` is True on all 5 no-re-entry packets.
+  - **(c)** Her own derivation finds 0 mismatches in all 5. No birth falls strictly inside a no-re-entry bin, no cell
+    leaves flame before H, and the no-re-entry flame cells equal the reopening ever-flame cells.
+  - **(d)** The no-re-entry envelope passes all 5 readers she probed; its v3.5 twin is still refused by all 5.
+  - Identity, flux and commands match ours; 24 tests pass.
+- **Notes, recorded here:**
+  1. **Wording correction.** The reopening entries keep their **commands verbatim**; each entry gains two keys
+     (`transform`, `transform_label`). "Entries verbatim", in STATUS above and in the manifest's superseded reason,
+     is inaccurate. The manifest file is not edited, because its sha `b9b1e853` is in use. This note is the
+     correction.
+  2. **Envelope certification label.** The kit checker now accepts the no-re-entry `envelope`. Any
+     INDEPENDENTLY_CERTIFIED result on it is relative to the bracket-start envelope, which is **not a lower bound**,
+     and that label stays attached to every such result.
+  3. **Exposure label.** Acceptance 7 is open and delegated to Richard. Peak cannot flip; dose can (integral
+     × 1.6–2.6). Exposure results stay F1-labelled until the count exists.
+  4. **Coverage.** Byte identity of the reopening path was checked on Yeongdeok 25T11Z only. Nora's Uiseong sample
+     covered consistency and derivation.
