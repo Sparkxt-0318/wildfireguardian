@@ -1,0 +1,21 @@
+case,channel,handout_code,file
+C1,sms,자료-366,print/handouts/item-366.html
+C1,card,자료-226,print/handouts/item-226.html
+C1,headline,자료-695,print/handouts/item-695.html
+C1,a4,자료-735,items/C1/a4.ko.pdf (print as is; write the code 자료-735 on the back)
+C1,broadcast,자료-627,print/RECORDING_SCRIPT.html → one audio file per code
+C2,sms,자료-414,print/handouts/item-414.html
+C2,card,자료-269,print/handouts/item-269.html
+C2,headline,자료-565,print/handouts/item-565.html
+C2,a4,자료-829,items/C2/a4.ko.pdf (print as is; write the code 자료-829 on the back)
+C2,broadcast,자료-375,print/RECORDING_SCRIPT.html → one audio file per code
+C4,sms,자료-928,print/handouts/item-928.html
+C4,card,자료-856,print/handouts/item-856.html
+C4,headline,자료-545,print/handouts/item-545.html
+C4,a4,자료-591,items/C4/a4.ko.pdf (print as is; write the code 자료-591 on the back)
+C4,broadcast,자료-178,print/RECORDING_SCRIPT.html → one audio file per code
+C5,sms,자료-340,print/handouts/item-340.html
+C5,card,자료-834,print/handouts/item-834.html
+C5,headline,자료-584,print/handouts/item-584.html
+C5,a4,자료-480,items/C5/a4.ko.pdf (print as is; write the code 자료-480 on the back)
+C5,broadcast,자료-207,print/RECORDING_SCRIPT.html → one audio file per code

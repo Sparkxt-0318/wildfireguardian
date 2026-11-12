@@ -11,7 +11,8 @@ import { createRequire } from 'node:module';
 import { deadlineHeadline } from '../../planner/src/domain/plan';
 import { messagePlan, type MessagePlan } from '../../planner/src/features/lastmile/plan';
 import { buildChannels } from '../../planner/src/features/lastmile/channels/build';
-import { cardFor } from '../../planner/src/features/publicview/model';
+import { cardFor, pick, QUESTION, sweepStepMin } from '../../planner/src/features/publicview/model';
+import { hm } from '../../planner/src/features/lastmile/compose';
 import { coordsOf } from '../../planner/src/features/publicview/load';
 import { loadBoothCaches } from './lastmile.cachedata';
 
@@ -25,19 +26,19 @@ const WRITE = process.env.KIT_WRITE === '1';
 /** when the outputs are produced; replay inputs show the replay data time, not an age, so this does not reach any text */
 const NOW = '2026-11-12T10:00:00Z';
 
-type CaseId = 'C1' | 'C2' | 'C3' | 'C4' | 'C5';
+type CaseId = 'C1' | 'C2' | 'C4' | 'C5';
 const RULE: Record<CaseId, string> = {
   C1: 'leave_by, after = horizon ("later departures not checked")',
-  C2: 'leave_by, after = gap, and the staff headline carries a later window',
-  C3: 'partial',
+  // PROTOCOL v2.2 (orchestrator decision (a)): the replay has no gap and no partial origin; C2 is the first
+  // leave_by/none_checked origin ("every later departure time computed has no checked road") and C3 is dropped
+  C2: 'leave_by, after = none_checked ("every later departure time computed has no checked road")',
   C4: 'no_route',
   C5: 'unresolved',
 };
 
-function state(p: MessagePlan, laterWindow: boolean): CaseId | null {
+function state(p: MessagePlan): CaseId | null {
   if (p.kind === 'leave_by' && p.after === 'horizon') return 'C1';
-  if (p.kind === 'leave_by' && p.after === 'gap' && laterWindow) return 'C2';
-  if (p.kind === 'partial') return 'C3';
+  if (p.kind === 'leave_by' && p.after === 'none_checked') return 'C2';
   if (p.kind === 'no_route') return 'C4';
   if (p.kind === 'unresolved') return 'C5';
   return null;
@@ -48,7 +49,7 @@ const sha = (s: string | Buffer) => createHash('sha256').update(s).digest('hex')
 describe('comprehension kit items', () => {
   it('selects the five cases and every item is the production output', async () => {
     const pvPath = '../../planner/src/features/publicview/PublicView';
-    const { Card } = (await import(/* @vite-ignore */ pvPath)) as { Card: unknown };
+    const { Card, Banner, OfficialSlot } = (await import(/* @vite-ignore */ pvPath)) as { Card: unknown; Banner: unknown; OfficialSlot: unknown };
     const caches = loadBoothCaches();
     const picked = new Map<CaseId, { cache: (typeof caches)[number]; inputIdx: number }>();
     // fixed rule: caches in planner/cache/INDEX.json order; within a cache, origins by ascending origin id
@@ -57,7 +58,7 @@ describe('comprehension kit items', () => {
       for (const [, k] of order) {
         const i = c.inputs[k]!;
         const p = messagePlan(i, null);
-        const s = state(p, deadlineHeadline(c.plans[i.origin.id]).laterWindowS !== null);
+        const s = state(p);
         if (s && !picked.has(s)) picked.set(s, { cache: c, inputIdx: k });
       }
     }
@@ -73,7 +74,7 @@ describe('comprehension kit items', () => {
     }
     const files: Record<string, string> = {};
     const cases: unknown[] = [];
-    for (const id of ['C1', 'C2', 'C3', 'C4', 'C5'] as CaseId[]) {
+    for (const id of ['C1', 'C2', 'C4', 'C5'] as CaseId[]) {
       const hit = picked.get(id);
       if (!hit) {
         cases.push({ case: id, rule: RULE[id], found: false, note: 'no origin of the six booth caches is in this state' });
@@ -92,6 +93,13 @@ describe('comprehension kit items', () => {
       URL.createObjectURL = () => 'blob:replay-gpx';
       try {
         files[`items/${id}/card.ko.html`] = renderToStaticMarkup(createElement(Card, { card, lang: 'ko', example: false }));
+        // the top of the page as a saved place shows it, in the page's fixed order: banner, official-orders slot,
+        // question, card (the language button, scenario picker, place list and footer are below or beside it)
+        files[`items/${id}/page.ko.html`] =
+          renderToStaticMarkup(createElement(Banner, { lang: 'ko' })) +
+          renderToStaticMarkup(createElement(OfficialSlot, { lang: 'ko' })) +
+          `<h1 class="pv-question">${pick(QUESTION, 'ko')}</h1>` +
+          files[`items/${id}/card.ko.html`];
       } finally {
         URL.createObjectURL = realObjectUrl;
       }
@@ -106,13 +114,19 @@ describe('comprehension kit items', () => {
         origin_id: input.origin.id,
         kit_kind: p.kind,
         kit_after: p.after,
+        // what a reader must find (Q1) and the time Q2 asks about: the next computed departure after it
+        leave_by_kst: p.leaveByS !== null ? hm(input.scenario.inputTimeIso, p.leaveByS) : null,
+        card_time: card.time ? card.time.ko : null,
+        next_computed_kst: p.leaveByS !== null && sweepStepMin(input) ? hm(input.scenario.inputTimeIso, p.leaveByS + sweepStepMin(input)! * 60) : null,
+        // the case on which Q2 (a later / next time read as usable) is asked as a closed question
+        q2_case: id === 'C2',
         staff_headline_kind: h.kind,
         staff_later_window: h.laterWindowS !== null,
         head_seconds: { core: set.text.ko.head.coreS, full: set.text.ko.head.fullS, core_slow: set.text.ko.head.coreSlowS, full_slow: set.text.ko.head.fullSlowS },
         violations: set.violations,
       });
     }
-    files['CASES.json'] = JSON.stringify({ schema: 'wfg.comprehension.cases/1', rule: 'first origin id (ascending) of each state, caches in planner/cache/INDEX.json order', now_iso: NOW, options: 'buildChannels(plan, { nowIso }) — no order status, issuer or issue-order-by supplied', origins_by_state: Object.fromEntries(Object.entries(tally).sort()), cases }, null, 2) + '\n';
+    files['CASES.json'] = JSON.stringify({ schema: 'wfg.comprehension.cases/1', protocol: 'v2.2', untested: 'the gap wording, the partial message and the staff later-window line do not occur in the replay and are NOT tested by this pilot', rule: 'first origin id (ascending) of each state, caches in planner/cache/INDEX.json order', now_iso: NOW, options: 'buildChannels(plan, { nowIso }) — no order status, issuer or issue-order-by supplied', origins_by_state: Object.fromEntries(Object.entries(tally).sort()), cases }, null, 2) + '\n';
     const manifest: Record<string, string> = {};
     for (const [rel, body] of Object.entries(files)) {
       const url = new URL(rel, KIT);

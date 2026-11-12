@@ -1,6 +1,6 @@
 # Comprehension test of the leave-by outputs — protocol (PLAN ONLY)
 
-Status: v2.1, after Iris's readings of v1 (bbbb640) and v2 (ffd541c). Ready for the owner from Iris's side. Plan only: no recruitment, no publication, no data collected. The
+Status: v2.2. v2.1 followed Iris's readings of v1 (bbbb640) and v2 (ffd541c). v2.2 (2026-11-12, orchestrator decision (a)) replaces C2 and drops C3, because the replay has no case of either (see "Cases not in the replay"). Iris confirms the revised decision cells before the kit is final. Plan only: no recruitment, no publication, no data collected. The
 owner arranges participants, consent and any ethics review. Written 2026-11-12 after the orchestrator paused new
 wording until one comprehension test with real readers has run.
 
@@ -8,12 +8,33 @@ wording until one comprehension test with real readers has run.
 miss is decisive. A clean result at this size is weak: 0 misses of 8 does not show that misses are rare. A pass allows
 paused wording work to resume. It supports **no statement about comprehension in public material**.
 
+## Cases not in the replay (v2.2, measured)
+Field origins by state, over all six booth caches (531), counted by `tests/planner/comprehension.kit.test.ts`:
+
+| State | Origins |
+|---|---|
+| leave_by, later departures not checked (horizon) | 354 |
+| leave_by, every later computed time has no checked road (none_checked) | 147 |
+| no route | 11 |
+| unresolved | 19 |
+| gap | 0 |
+| partial | 0 |
+| staff later window | 0 |
+
+**The following remain UNTESTED by this pilot, and may not be described as tested:**
+- the gap wording ("Leaving at the next computed time has no checked road");
+- the partial message;
+- the staff later-window line ("…this is not the deadline; do not plan on it").
+
+No synthetic case is shown to participants.
+
 ## Questions
 1. **Find the time.** Can a reader find the leave-by time from each channel? Report every time; 30 s is the stated
    cut.
-2. **"Not the deadline".** Is a later or next time ever read as usable?
-   - Staff headline: "…this is not the deadline; do not plan on it".
-   - Resident card, gap case: "Leaving at the next computed time has no checked road".
+2. **Later is not usable.** Is a later or next time ever read as usable? (v2.2: tested on C2, where the card says
+   "그 뒤의 출발 시각은 계산한 시각 모두 확인된 길이 없습니다", and in every open answer. The broadcast and SMS of
+   C2 read like those of C1, so on those channels Q2 tests only whether a reader infers a usable later time. The gap
+   wording and the staff later-window line are untested: see above.)
 3. **Never safe, never "stay".** Is an unresolved or no-route result ever read as "safe" or as "stay where you are"?
 4. **Official first.** Do readers name the official orders as coming first?
 
@@ -26,15 +47,18 @@ paused wording work to resume. It supports **no statement about comprehension in
   and the English call is not produced at 373 of 531 places.)
 
 ## Materials (existing replay only, unchanged, every item carries its replay mark)
-Five fixed cases, chosen by a fixed rule (the first origin id of each state in INDEX order) and listed with their ids
-before any session:
-- C1: leave-by, "later departures not checked";
-- C2: leave-by, gap (with the staff later window);
-- C3: partial;
-- C4: no route;
-- C5: unresolved.
+Four fixed cases (v2.2), chosen by a fixed rule and listed with their ids before any session. The rule: caches in
+`planner/cache/INDEX.json` order; within a cache, origin ids ascending; the first origin in each state. All four
+come from `uiseong_andong_2025/20250323T010000Z`:
 
-Only C1 and C2 carry a leave-by time.
+| Case | State | Origin | Place | Leave-by time |
+|---|---|---|---|---|
+| C1 | leave-by, "later departures not checked" | osm:node/415158323 | 신석리 | 10:50 |
+| C2 | leave-by, "every later departure time computed has no checked road" (v2.2; was: gap) | osm:node/415158416 | 하아리 | 10:30; next computed time 10:40 |
+| C4 | no route | osm:node/415160353 | 구암리 | none |
+| C5 | unresolved (not checkable: more than 2 km from the road graph) | osm:node/415160364 | 고곡리 | none |
+
+C3 (partial) is dropped (v2.2). Only C1 and C2 carry a leave-by time. C3–C5 below means C4 and C5.
 
 Channels:
 - **A:** the village-head broadcast, as ONE fixed audio recording of the script played to everyone (not a live
@@ -49,9 +73,14 @@ table"**, the best case: a miss counts, and a pass does not transfer to an outdo
 - **Facilitator:** follows a fixed script, gives no feedback, and is not someone who wrote the wording, if the owner can
   arrange it.
 - **Exposures:**
-  - A: 5 cases × 3 channels = 15 items, about 35–40 min with a break;
-  - B: 5 × 2 = 10 items, about 25 min.
-  - Order follows a Latin square over case × channel.
+  - A: 4 cases × 3 channels = 12 items, about 30–35 min with a break;
+  - B: 4 × 2 = 8 items, about 20 min.
+  - Order follows a Latin square over case × channel (kit `SCHEDULE.csv`):
+    - participant slot p (0-based) sees 3 (A) or 2 (B) rounds;
+    - round r shows every case once, in the case order rotated by p + r;
+    - case i is shown in channel (i + p + r) mod (number of channels).
+    - Each case is seen in every channel once per participant. Its first exposure (round 0) rotates over the
+      channels from one participant to the next.
 - **Primary analysis = the FIRST exposure of each case** (a reading). Later exposures of the same case in other
   channels are recall, and are reported as secondary.
 - **For each item, in this order:**
@@ -75,7 +104,10 @@ table"**, the best case: a miss counts, and a pass does not transfer to an outdo
 ## Pre-stated targets (fixed before any session, as counts)
 - **Which count decides (fixed now, so no count can be picked afterwards):**
   - **Q1** is decided on the **first exposure per group × leave-by case (C1, C2), pooled over channels.** Each
-    participant sees each case first exactly once, so N is the group size.
+    participant sees each case first exactly once, so N is the group size. v2.2 decision cells:
+    - group A × C1 and group A × C2;
+    - group B × C1 and group B × C2.
+    - That is four cells, each with its own allowance ⌊0.2·N⌋.
   - The per-channel breakdown and the all-exposure counts are reported beside it as descriptive, with no target.
   - **Q2 and Q3** are decided on **every exposure, open or closed**: zero misses allowed anywhere.
   - **Q4** is decided on each participant's first item, so its count pools over cases and channels.
@@ -100,6 +132,8 @@ Every miss is reported verbatim with its case, channel, group and exposure order
 ## Limits
 - Small samples, not representative, a table setting with no time pressure, smoke or stress.
 - A miss is decisive; a clean result is weak. The 30 s cut has no published basis; it is a stated cut.
-- First-exposure cells are small: about N/3 per case and channel in group A. That is why they are reported with counts
-  only.
+- First-exposure cells are small: about N/3 per case and channel in group A, and N/2 in group B. That is why they are
+  reported with counts only.
+- v2.2: the gap wording, the partial message and the staff later-window line are not tested (they do not occur in the
+  replay). C5 is a not-checkable origin, chosen by the fixed rule.
 - No hearing-impaired subgroup unless the owner recruits one. English is not tested.

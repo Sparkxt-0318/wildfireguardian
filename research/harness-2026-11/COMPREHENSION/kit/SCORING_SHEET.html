@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scoring sheet</title>
+<style>
+@page { size: A4; margin: 16mm; }
+body { font-family: Pretendard, "Noto Sans KR", system-ui, sans-serif; font-size: 14px; line-height: 1.55; color: #111; max-width: 46rem; margin: 0 auto; padding: 0 16px; }
+h1 { font-size: 20px; } h2 { font-size: 16px; border-top: 2px solid #111; padding-top: 3mm; margin-top: 6mm; }
+table { border-collapse: collapse; width: 100%; } td, th { border: 1px solid #999; padding: 4px 6px; vertical-align: top; text-align: left; }
+code { font-size: 13px; } .badge { display: inline-block; border: 2px solid #111; padding: 2px 8px; font-weight: 700; }
+</style>
+</head>
+<body>
+<p class="badge">Fixed before any session · PROTOCOL.md v2.2 · plan only</p>
+<h1>Scoring sheet: coding rules and miss definitions</h1>
+<p>These rules come from PROTOCOL.md v2.2 and do not change once sessions begin. Two coders each code every open answer and every Q4 answer, without seeing each other's codes or the facilitator's impressions. Each coder writes their codes in their own column of <code>results_template.csv</code>: coder 1 in <code>*_code_1</code>, coder 2 in <code>*_code_2</code>. An answer may get several codes, separated by <code>;</code>.</p>
+
+<h2>Codes for open answers (column <code>open_code_*</code>)</h2>
+<table>
+<tr><th>Code</th><th>Give it when…</th><th>Examples (invented, for coder training only)</th></tr>
+<tr><td><b>USABLE-LATER</b></td><td>The reader describes the later or next time as one at which they could still leave or get out.</td><td>"11시에 나가도 된대요" · "늦어도 다음 시간엔 갈 수 있다는 거죠"</td></tr>
+<tr><td><b>STAY</b></td><td>The answer to C4–C5 (C3 dropped in v2.2) implies staying put ("stay", "wait", "no need to go", "it's safe here").</td><td>"그냥 집에 있으라는 거네" · "길이 없으니 기다리래요" · "여긴 괜찮대요"</td></tr>
+<tr><td><b>TIME-INVENTED</b></td><td>The reader gives a clock time for C4–C5, where no time is shown.</td><td>"10시까지 가라는 거요" (on a no-route item)</td></tr>
+<tr><td><b>OFFICIAL</b></td><td>The reader names an official source as coming first: orders, 재난문자, the 이장, or the 읍·면사무소 / 시·군.</td><td>"이장님 말을 먼저 들어야죠" · "공식 명령이 우선이래요"</td></tr>
+<tr><td><b>NEUTRAL</b></td><td>None of the above.</td><td>"산불 안내네요"</td></tr>
+</table>
+<p>The verbatim text is always kept. For Q4, code the answer in <code>q4_verbatim</code> into <code>q4_code_*</code> with the same table; only OFFICIAL matters there.</p>
+<p><b>Kit rule (fixed before any session):</b> an answer counts as a miss when <b>either</b> coder gives it a miss code. For Q4, a miss is any answer that is not coded OFFICIAL by <b>both</b> coders. Disagreements are reported beside the result. They are not resolved, and the coders do not discuss them before scoring.</p>
+
+<h2>Miss definitions and targets (as counts, per group; groups are never pooled)</h2>
+<table>
+<tr><th>Question</th><th>What is counted</th><th>Miss</th><th>Allowed</th></tr>
+<tr><td>Q1: find the time</td><td>The <b>first exposure</b> of each leave-by case (C1, C2), pooled over channels. N = the group size.</td><td>A wrong time; the correct time after more than 30 s; or no time where one is shown.</td><td>≤ ⌊0.2·N⌋: 1 at N = 6–9, 2 at N = 10–12</td></tr>
+<tr><td>Q1 critical</td><td>Every exposure of C4–C5</td><td>TIME-INVENTED</td><td>0</td></tr>
+<tr><td>Q2: later is not usable</td><td>Every exposure, open or closed</td><td>USABLE-LATER on any open answer; closed Q2 answered "yes"</td><td>0</td></tr>
+<tr><td>Q3: never safe, never stay</td><td>Every exposure of C4–C5, open or closed</td><td>STAY; closed Q3 answered "yes"</td><td>0</td></tr>
+<tr><td>Q4: official first</td><td>Each participant's <b>first item</b>, pooled over cases and channels</td><td>Not coded OFFICIAL by both coders</td><td>≤ ⌊0.1·N⌋: 0 at N ≤ 9, 1 at N = 10–12</td></tr>
+</table>
+<p>"Unsure" on Q2 or Q3 is not a miss. It is counted and reported. The per-channel breakdown and the all-exposure counts of Q1 are descriptive and have no target. Every miss is reported verbatim with its case, channel, group and exposure order. No percentage is given without its n/N.</p>
+
+<h2>Scoring</h2>
+<p><code>python3.12 tools/score.py results.csv --out RESULTS.md</code> applies exactly these rules. Exit code 0 means every target was met; 1 means a target was missed or a critical miss occurred; 2 means the sheet is malformed.</p>
+<p><b>Decision.</b> If every target is met, the paused wording work may resume, scoped by the results. No public statement about comprehension is made. If any target is missed, or any critical miss occurs, the failing wording is revised first, with Iris and Sofia, and re-tested on new participants before any new wording is added.</p>
+</body>
+</html>
