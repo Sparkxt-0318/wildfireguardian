@@ -76,12 +76,13 @@
 
 ## 9. Outcome-to-claim table, parts c and b (written before part c opens; changes no criterion)
 Each row fixes the sentence the paper may write for one possible result.
-- The rows apply to **part c** (headline candidate) and, word for word, to **part b** (the one combined candidate of §11). For part b, "headline" means that candidate.
+- The rows apply to **part c** (headline candidate) and, word for word, to **part b** (the later named candidate of §11, if one is ever named). For part b, "headline" means that candidate.
 - **Neither part c nor part b is the clean confirmation.** Both carry the same exposure label, and the clean confirmation is **CR1 Tier 2** (fires from 2027-01-01). Every b or c sentence ends: "This test set is not the clean confirmation; that is CR1 Tier 2." 
 - "Superior" means **all six** §6.1 criteria pass for that candidate, on ≥ 20 analysable fires.
 - The headline is `d2_bracket_rebuilt`. If it is not admitted, the headline is `d2_nll_rebuilt`. If neither is admitted, there is none (§6.1, revision 29).
 - Every part-b and part-c sentence carries the survey-timing limitation (§1; b's membership changes are among the 18): "labels, perimeters and growth sealed; survey-timing metadata exposed before the split; membership rules used it".
 - Any other admitted candidate is **secondary**, with its own verdict and **no multiplicity adjustment**. Any statement about it says so.
+- **Part-a evidence before part c opened (dated 2026-11-12; UNVERIFIED until Owen's ledger row exists).** Elena's part-a fire-level cross-validation (96f99bf6) used a covariate-free analogue of the bracket arm, not `d2_bracket_rebuilt` itself. Out of sample in the 4 km band, the bracket/MCEM kernel was the worst of four: MCEM minus plug-in Brier was +0.0091 [+0.0057, +0.0124], and MCEM was better on 5 of 25 fires. This was recorded before part c opened. **A negative part-c result for the headline is therefore the expected one, and a positive one would run against the training-set evidence.** Any part-c sentence about the headline cites this line once it is verified. The headline and fallback stay exactly as registered.
 
 | # | part-c outcome (headline candidate) | what the paper may write | what it may not write |
 |---|---|---|---|
@@ -93,6 +94,8 @@ Each row fixes the sentence the paper may write for one possible result.
 | O6 | **< 20 analysable fires** (criterion 6) | "INCONCLUSIVE: too few analysable fires; results descriptive." | Any verdict. |
 | O7 | Headline `d2_bracket_rebuilt` **not admitted**; fallback `d2_nll_rebuilt` scored | The O1–O6 sentence for `d2_nll_rebuilt`, preceded by: "The pre-registered headline candidate was not admitted (reason); the pre-registered fallback is reported as the headline." | That the bracket model was tested on part c. |
 | O8 | **No headline** (neither admitted) | "No candidate met the admission rules, so there is no headline part-c decision. Secondary candidates are reported individually, without multiplicity adjustment." | Promoting a secondary result to headline. |
+| O10 | Headline **worse than, or not better than, `d4_wind_recal` or `logistic_rebuilt`** (criterion 3 or 4 fails, whatever the direction of the interval) | "Handling the survey gaps correctly in the likelihood did not improve forecasts over [the reference]; P-D2 is not supported." Add the dated part-a cross-validation line above. If the interval lies wholly above 0, also say the candidate was worse. | That the bracket likelihood helps forecasts. That the result is unexpected or anomalous. |
+| O11 | The **fallback or a secondary candidate beats the headline** (or passes criteria the headline fails) | "[Candidate] scored better than the pre-registered headline on [criteria]. It is reported as secondary, without multiplicity adjustment; the pre-registered decision rests on the headline." | Promoting the fallback or a secondary to headline, or any superiority claim for it. |
 | O9 | **Material leak bound** (§1; `LEAK_BOUND_PLAN.md`) | Whatever row applies, plus: "A part-a measurement found that survey-timing information could improve the reference model detectably. Criteria that depend on constants not shown independent of sealed survey timing are reported as descriptive." | Omitting the leak-bound result. |
 
 **Preprint wording (Wapiti).** Marcus's reconciliation note (1c3c4270) finds that the sign change is entirely due to the interval set: on the preprint's 25-interval cohort the BSS is +8.17%; on all 52 eligible intervals it is −44.5%; and the 24 common intervals have bit-identical predictions. It is **UNVERIFIED** until Owen passes it. Once he does, any text about the preprint's Wapiti figure says it is **"specific to its 25-interval August cohort"**, and no row of this table cites the preprint figure as evidence for any candidate.
@@ -103,22 +106,21 @@ For **secondary candidates and comparator rows** (d4_wind vs logistic on part c,
 - A1 has **30 change items** in its revision log as of this draft. Once stage 2 is frozen and verified, **A1 accepts no new change items**.
 - **One stated exception:** the amendment that names the part-b candidate by SHA (§11).
 - Also allowed: errata that change no rule, number or membership, each logged as an erratum, and the separately named `c651_fullvalid_rebuilt` amendment (§13), which is part-a development and an admission under existing rules.
-- **Later ideas go to CR1** (`clean_replication/`), before its freeze. Part b is reserved (§11) and takes no other idea.
+- **Later ideas go to CR1** (`clean_replication/`), before its freeze. Part b stays held for a later named candidate (§11); it is opened only by the excepted naming amendment, under §11's conditions.
 - A proposal that needs an A1 change after the freeze is recorded as "not adopted: A1 closed" and is redirected to one of these two places.
 
-## 11. Part b: reserved for ONE combined candidate (Iris's conditions, adopted 16:03Z)
-- **Consistent with A1 as frozen.** A1 §1.2 item 4 reads: "a confirmatory test set held for a later named candidate… opened only when a named candidate is declared by SHA in an amendment committed before the opening". §9 step 5 and §6.1 say the same. This section adds a reservation and removes nothing.
-- **The reservation.** Part b (ranks 1–30) is reserved for exactly **one** candidate, developed on part a: the combination of the bracket likelihood (`d2_bracket`) and the rate-mixture form.
-  - Recalibration is applied **or** not applied, decided in the declaration. It is one object, never two arms on b.
-  - The candidate is declared by commit hash in the excepted amendment (§10), committed before part b opens.
-  - The part-c headline (`d2_bracket_rebuilt`; fallback `d2_nll_rebuilt`) is unchanged.
+## 11. Part b: held for a later named candidate; conditions for naming one (revised 2026-11-12)
+- **No reservation at this freeze.** An earlier draft reserved part b for one combined candidate (bracket likelihood plus the rate-mixture form). That reservation is **withdrawn**: part-a cross-validation on the covariate-free analogue pointed against the bracket arm out of sample (§9, dated line; UNVERIFIED until Owen).
+- **A1's wording stands unchanged.** A1 §1.2 item 4 reads: "a confirmatory test set held for a later named candidate… opened only when a named candidate is declared by SHA in an amendment committed before the opening". §9 step 5 and §6.1 say the same. This section adds conditions for naming a candidate and removes nothing.
+- **Conditions for naming a candidate.** All of the following must hold, and each is recorded in the naming amendment (the one exception of §10):
+  1. **Beats plug-in and the logistic out of sample on part a.** In fire-level cross-validation on part a (whole-fire folds, 4 km band, paired Brier), the candidate beats both the plug-in model and `logistic_rebuilt`, each by at least a margin.
+  2. **The margin is stated beforehand.** The margin, the fold assignment and the scoring command are committed **before** that cross-validation is run for the candidate, and the naming amendment cites that commit.
+  3. **Power supports opening b.** The power of the candidate against `logistic_rebuilt` is estimated on **part a only**, using the §6.3 method on part-a folds. If it is below **0.50 at 30 fires**, part b is not opened; it stays held, and this is reported. The threshold is fixed here, before any estimate.
+  4. **One object.** The candidate is a single declared model. Recalibration is applied or not applied, decided in the declaration, never two arms on b. It is declared by commit hash before part b opens.
 - **Same criteria.** §6.1 criteria 1–6 apply, including the ≥ 20 analysable-fire rule. Outcome sentences follow §9.
 - **Same exposure label as c.** b's membership is among the 18 b/c/d changes made by timing-dependent rules. **b is not the clean confirmation**; that is CR1 Tier 2.
-- **Power before b is spent.**
-  - Before the declaration, the power of the combined candidate against `logistic_rebuilt` is estimated on **part a only**, using the §6.3 method on part-a folds.
-  - **If it is low (below 0.50 at 30 fires), part b is not opened.** It stays reserved, and this is reported.
-  - The threshold is fixed here, before any estimate.
-- **Timing disclosure.** If the candidate is designed, or any of its choices are made, **after part-c results are seen**, the amendment says so explicitly and lists which choices came after.
+- **Timing disclosure.** If the candidate is designed, or any of its choices are made, **after part-c results are seen**, the naming amendment says so explicitly and lists which choices came after.
+- The part-c headline (`d2_bracket_rebuilt`; fallback `d2_nll_rebuilt`) is unchanged.
 
 **`d4_wind_recal` recipe (pin, not a criterion change).** The details A1 leaves open (the subsample draw, the fit population, clipping, the estimator, and the frozen coefficient file with a reproduction tolerance) are pinned in `STAGE2_PINS.md`. Iris assessed them. The *recipe* is identical to the development recalibration behind item 13. The *fitting entries* differ: they use the per-model producer rule, not the development set's common support. A descriptive part-a-only companion, `d4_wind_recal_band`, shows how much the full-grid fit matters in the band. It has no role in any criterion and is never run on b or c. Limitation, disclosed: the full-grid fit may calibrate worse in the band, which would make criterion 4 easier to pass.
 
