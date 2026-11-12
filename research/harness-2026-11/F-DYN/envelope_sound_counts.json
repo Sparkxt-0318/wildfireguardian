@@ -1,0 +1,17 @@
+{
+ "burn_set_cells": 16176,
+ "of_which_kriged_footprint": 10955,
+ "of_which_only_via_ahi_buffer": 4940,
+ "detected_cells": 3228,
+ "detected_with_latest_previous_viirs_pass_confirmed_clear": 1575,
+ "burn_set_with_any_confirmed_clear_view": 2662,
+ "burn_set_lo_at_ignition": 13514,
+ "viirs_passes_with_detections": 62,
+ "viirs_passes_inside_ahi_coverage": 16,
+ "untestable": [
+  "thick smoke",
+  "warm low cloud",
+  "sub-threshold fire",
+  "day/night sensitivity"
+ ]
+}

@@ -115,6 +115,10 @@ def main():
             s['source_law_version'] = 'wfg.fdyn.envelope-per-cell/1'
             s['fdyn']['envelope'] = ('per-cell law: burning [floor_Q(lo), floor_Q(hi) + T + Q); NOT the scalar law, so '
                                      'the kit independent checker scalar recomputation does not apply')
+            if meta.get('arrival_variant') == 'envelope_sound':
+                s['fdyn']['soundness'] = ('SOUND conservative envelope (SOUND_ENVELOPE_RULE.md + amendment 1): burning '
+                                          'from last confirmed-clear VIIRS view (detected cells) else ignition, to '
+                                          'beyond the horizon')
             if meta.get('arrival_variant') == 'envelope':
                 s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
                                           'fire arrived before that overpass (use envelope_sound)')

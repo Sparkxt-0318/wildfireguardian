@@ -17,10 +17,13 @@ VARIANTS = {
     'firms_early': ['--arrival', f'{D}/variants/firms_early.npz', '--arrival-variant', 'firms_early'],
     'envelope': ['--arrival', f'{D}/variants/firms_early.npz', '--arrival-hi', f'{D}/variants/firms_constrained.npz',
                  '--arrival-variant', 'envelope'],
+    'envelope_sound': ['--arrival', f'{D}/variants/envelope_sound_lo.npz', '--arrival-hi',
+                       f'{D}/variants/envelope_sound_hi.npz', '--arrival-variant', 'envelope_sound'],
 }
 SOUNDNESS = {'kriged_mean': 'kriged mean (not a bound; sd ~17 h; late for the coastal run)',
              'firms_early': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)',
-             'envelope': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check'}
+             'envelope': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check',
+             'envelope_sound': 'SOUND conservative envelope; per-cell law, no independent check'}
 RECORDED = {'uiseong_andong_2025': {'20250323T010000Z', '20250324T090000Z', '20250325T170000Z'},
             'yeongdeok_2025': {'20250325T190000Z', '20250325T230000Z', '20250326T080000Z'}}
 

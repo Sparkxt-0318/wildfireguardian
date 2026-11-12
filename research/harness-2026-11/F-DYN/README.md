@@ -14,7 +14,16 @@
   non-detection is not absence of fire, and documented accounts fall before it (F-C1b).
   - `firms_early` is therefore **not guaranteed early enough**, and `envelope` is **not guaranteed conservative**,
     wherever fire arrived before that overpass. Results on them keep this label and are never called conservative.
-  - A sound envelope (`envelope_sound`) is defined in `SOUND_ENVELOPE_RULE.md`.
+  - A sound envelope (`envelope_sound`) is defined in `SOUND_ENVELOPE_RULE.md` (with amendment 1) and computed by
+    `fdyn/sound.py`. Counts are in `envelope_sound_counts.json`:
+    - 1,575 of 3,228 detected cells have a confirmed-clear latest previous VIIRS view.
+    - 13,514 of 16,176 burn-set cells keep the ignition time as their lower bound. 4,940 of these are only in AHI
+      buffers.
+  - **Outcome, as stated in advance.** The sound envelope blocks about 46–75% of road cells for whole horizons,
+    including Yeongdeok starts on 23–24 Mar, before the fire reached it (`REACH_rule_envelope_sound.json`). It is
+    the honest conservative envelope from these data, and it is **nearly uninformative for routing**.
+  - **Effect on the build criterion.** Every start becomes built: 61 unique region-starts, with 20 newly built.
+    `MANIFEST_v3.json` now lists 488 packets with 4 variants, each entry carrying a `soundness` label.
   - Only "burning by first detection" (`firms_constrained`) is a fact.
 
 - **v1** (`3ced668`, 4 members, recorded window) and **v2-window** (`035681a`, packets under `packets_v2/`) are

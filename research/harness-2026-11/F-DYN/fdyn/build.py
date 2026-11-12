@@ -121,8 +121,8 @@ def main(argv=None):
                        member_set=a.member_set, region=a.region, window=win,
                        burned_at_start=burned_at_start, burn_duration_s=burn_T,
                        arrival_hi_h=read_raster(a.arrival_hi) if a.arrival_hi else None)
-    if (a.arrival_variant == 'envelope') != (a.arrival_hi is not None):
-        raise SystemExit('--arrival-variant envelope requires --arrival-hi (and only it)')
+    if a.arrival_variant.startswith('envelope') != (a.arrival_hi is not None):
+        raise SystemExit('--arrival-variant envelope* requires --arrival-hi (and only it)')
     if a.arrival_hi is not None and a.domain != 'full_grid':
         raise SystemExit('the envelope is built on the full grid only')
     a.out.parent.mkdir(parents=True, exist_ok=True)

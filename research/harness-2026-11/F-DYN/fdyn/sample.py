@@ -53,7 +53,7 @@ def main():
             'valid_until_ok': hz['valid_until'] == e['horizon_h'] * 3600.0,
             'synthetic_marker_ok': str(ident['checkpoint_sha256']).startswith('SYNTHETIC-fdyn-present-fire-from-TOA:') == synth,
             'envelope_law_ok': (md['settings']['source_law_version'] == 'wfg.fdyn.envelope-per-cell/1') ==
-                               (e['variant'] == 'envelope'),
+                               e['variant'].startswith('envelope'),
             'ignitions': b['ignitions_per_member'], 'present_fire_cells': b['present_fire_cells'],
             'max_flux_kW_m2': b['max_flux_kW_m2'], 'scenario_ids': ident['scenario_ids'],
             'hazard_sha256': hashlib.sha256(hz_path.read_bytes()).hexdigest(), 'hazard_mb': round(hz_path.stat().st_size / 2**20, 1)})
