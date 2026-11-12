@@ -779,3 +779,62 @@ All sources below were opened.
 **Data hold**
 
 - Under the orchestrator's 2026-11-12 standing rule: no fetching of fire incident data products (perimeters, IR deliveries, incident folders) for any year without the orchestrator's explicit go.
+
+## Batch 10 (2026-11-12): helicopter extraction, documentation only (Leo, Richard, Iris)
+
+Sources were opened by research agents, and the key figures were re-checked in the downloaded text. No incident data products were used.
+
+**Landing-zone criteria, Korea**
+
+- 국토부고시 2022-350 (공항·비행장시설 및 이착륙장 설치기준):
+  - 제80조 TLOF: 0.83 × aircraft size.
+  - Slope: 2% or less.
+- 공항시설법 시행규칙 별표 1-2:
+  - Landing area: 1.2 × size, at least 15 m.
+  - Approach surface: 1/8.
+- 건축물 피난·방화구조 규칙 제13조 (rooftop heliport): 22 m; no obstacles within a 12 m radius.
+- 119항공대 운영 규정 (소방청훈령 478) 제21-22조:
+  - Day, over land: visibility 3,200 m, ceiling 300 m.
+  - Night: visibility 4,800 m and ceiling 600 m; 수색구조 needs 야간투시경 (NVG); landing sites must be lit.
+  - Improvised sites are allowed when judged safe; no size is given.
+
+**Landing-zone criteria, abroad**
+
+- NWCG PMS 510 (2023):
+  - Safety circle 110/90/75 ft (Type 1/2/3).
+  - Slope 6° or less.
+  - Approach path about 1:8.
+  - Wind below 500 ft AGL: 40/15 kt for Type 1-2.
+  - Smoke limit not quantified.
+- ICAO Annex 14 Vol II: FATO 1.5 D; TLOF 0.83 D.
+
+**Not found**
+
+- A numeric smoke limit.
+- A 산림청 helispot standard.
+- Hoist operating limits, and how many people per lift or how long per lift (only the 119 equipment spec: 270 kg, cable 70/80 m).
+
+**March 2025 Gyeongbuk fires**
+
+- No helicopter evacuation of residents was found.
+- 104 residents were taken off the 영덕 breakwaters by 해경 boats (YTN 0134_202503260822402725).
+- Flights were stopped by:
+  - gusts of about 27 m/s, with emergency landings (Newsis NISX20250327_0003115424);
+  - wind of 15 m/s and smoke/haze (Yonhap via Daum 20250325121416274);
+  - night, when only ground crews worked.
+- After the S-76 crash on 26 Mar, all fire helicopters nationwide were grounded until about 15:30 (Newsis NISX20250326_0003114128).
+
+**Registers**
+
+- 산림청 이착륙장 (data.go.kr 15069465 CSV / 15134224 API):
+  - 627 sites, with coordinates; licence "제한 없음".
+  - 경북: 48 sites; 의성: 0.
+- 행안부 고립예상지역대책 (15139647): has a "헬기구조가능여부" field.
+- Not found: a 경북 소방 or 닥터헬기 landing-site list.
+
+**Model idea**
+
+- Landing-zone candidates: 산림청 sites plus open cells that pass the size, slope and approach-path tests.
+- Remove candidates exposed to the forecast fire or smoke.
+- Gate the whole option on daylight, wind and visibility.
+- Label it "possible if flyable"; never present it as a route.
