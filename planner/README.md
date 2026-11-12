@@ -32,8 +32,14 @@ contract is [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
   checked route, there is no 출발 마감 ("출발 마감 없음", grey).
 - **CSV column change (2026-11-12):** "출발 마감 KST" now holds the contiguous time. The former "연속 확인 기준" column
   is now "빈 구간 뒤 점검된 출발 KST (마감 아님)". It holds the later checked departure only when there is one after a
-  gap, and is otherwise empty. On the six booth caches the deadline column and every other column are unchanged; the
-  renamed column is empty where it used to repeat the deadline.
+  gap, and is otherwise empty. **For anyone parsing the CSV:**
+  - In a gap row, the deadline column now holds the contiguous time, not the latest checked departure.
+  - In a gap row, the 대피소 (shelter) and 도착 KST (arrival) columns are now EMPTY. They belonged to the route at the
+    later departure, so exporting them against the earlier deadline would pair a time with the wrong route. A note in
+    비고 says so.
+  - A place whose first departure time computed has no checked route gets "없음" in the deadline column.
+  - On the six booth caches the deadline, shelter and arrival columns are unchanged (0 gap rows); only the renamed
+    column changed, and it is now empty where it used to repeat the deadline.
   The urgency list sorts model_no_route first, then unresolved, then checked origins by the
   contiguous deadline ascending (contract `latest_contiguous_checked_depart_offset_s`, as the API
   sorts): a checked origin whose earliest departure time has no checked route ranks first among
