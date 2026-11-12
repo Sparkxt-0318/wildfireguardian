@@ -59,13 +59,51 @@ ArrivalScenario {
 - **Present fire stays exactly as recorded.** No source re-ignites a present or burned export cell. A source that
   places a cell before the start, although the export has it unburned, ignites it at 0 if it is still burning,
   otherwise it counts as burned out. Counts are recorded.
-- **Unknown stays unknown.** Cells with `known = False` must be written with `support = false`. The router
-  (`routing/core.py`) then rejects any route through them (UNSUPPORTED) and withholds every global optimality or
-  no-route claim (`_globally_supported`). That is the honest consequence: a packet with unknown cells can give checked
-  routes but never "no route" or optimality certificates.
+- **Unknown cells: sound three-way rule** (Iris, adopted by the orchestrator; supersedes "support = false withholds
+  every claim").
 
-  **Writer change needed:** the writer currently writes support all-true. This is the one place the superset needs a
-  writer change: an optional `support_mask` argument, default all-true, so existing packets are unchanged.
+  1. **Optimistic instance** = the packet as written: unknown cells are not hazards. For existing frozen packets this
+     is the frozen packet itself, so nothing frozen is rewritten and the support channel stays all-true.
+  2. **Pessimistic instance** = the optimistic blocked intervals plus extra blocks on UNKNOWN cells, with the same
+     cell-to-road footprint rule as flame contact.
+  3. **Label:**
+     - **checked**: feasible in the pessimistic instance *and* passing the unchanged checker.
+     - **no-route**: infeasible in the optimistic instance (adding hazard can only remove routes).
+     - **unresolved**: otherwise.
+  4. **UNKNOWN for c651 packets** (two flags, both from `constructed_arrays.npz`):
+     - `U_state = mask__unknown_cumulative_state`
+     - `U_q = mask__policy_assigned_zero & ~mask__known_burned & ~U_state`
+     - **Caution:** the masks are window-shaped in native **north-up** row order. HAZARD flame and support flat arrays
+       have row 0 at the **south**, so flip rows before mapping to router cells.
+     - Measured: Yeongdeok 03-25 19Z has U_state 2,570 and U_q 315 of 4,757 cells; Uiseong 03-25 17Z has 953 and 314
+       of 4,745.
+  5. **What unknown blocks** (both tiers reported):
+     - **Tier A, strict:** every UNKNOWN cell blocked on [0, H].
+     - **Tier B, speed-bounded:** let S0 = present fire ∪ U_state ∪ positive-probability cells. A U_q cell at distance
+       d from S0 is blocked on [d/v, H], with v = 1.5 and 8.2 km/h stated with every result.
+     - U_state cells count as possible radiation sources in the pessimistic dose and peak precondition, not in the
+       optimistic one.
+  6. **Arrival rasters (F-DYN).** Cells outside the final perimeter but inside the mapped grid are **observed no-fire**,
+     not unknown. In the kriged TOA these are exactly the c651 `U_state` cells (NaN TOA), so the two sources disagree
+     on purpose: a forecast does not know them, while a reconstruction has observed them unburned. The packet records
+     which reading applies. Cells outside the grid are unknown and are not in the packet.
+  7. **Report per packet:** the cell counts per flag, and the number of requests per label under each tier.
+- **Envelope member for interval sources** (Iris, adopted). A cell with arrival in [lo, hi] is **one member** burning
+  on [lo, hi + T). This is the default for zones, perimeter sequences and rasters with uncertainty. Sampled members
+  remain an option, labelled. The envelope is conservative by construction and avoids the non-monotone burn-out case,
+  where an early sample also ends early.
+  - **Law.** The envelope needs per-cell burning ends. The unchanged writer and the kit's independent checker
+    implement one scalar duration T per packet.
+  - **F-DYN now** (`_packet_child.py`, option B): the envelope HAZARD is assembled with the writer's own member loop
+    and per-cell ends. A self-check proves that loop reproduces the writer exactly with scalar ends. The packets declare
+    `source_law_version = wfg.fdyn.envelope-per-cell/1`, and the kit's independent checker is not applicable to them.
+  - **Proper home (option C):** a per-cell law in the writer and the independent checker, with the scalar law as the
+    special case.
+- **Perimeter sequences** (Iris's question):
+  - For the **first polygon** P_1 (time t_1, issued at t_0): `lo = t_0` (issue time); present-fire cells are kept as
+    recorded.
+  - **Cells in no polygon:** no fire up to t_n (the last forecast time), unknown after t_n, i.e. `known = False` for
+    t > t_n.
 - **Labels.** Every packet carries the source type and a label: "agency product as supplied", "scenario built from a
   reconstruction", and so on. It never says "the fire".
 
@@ -80,8 +118,11 @@ ArrivalScenario {
      |Δ| ≤ 1e-12 kW/m², where 1.1e-15 is measured for numpy 2.5 vs the macOS build. Identity is equal except
      `radiation_operator.module` (an absolute path).
 4. **Environment:** the test pins numpy to `constraints-routing.txt` (1.26.4) and records the numpy and scipy
-   versions in the test report. It fails, not skips, when they differ, unless run with an explicit `--cross-env` flag
-   that switches to the tolerance comparison.
+   versions. Across environments (Iris), the hard checks are on what matters:
+   - The **integer instance** (blocked departure seconds per edge; Thomas's format) must be identical.
+   - **Verdicts and arrival seconds** on the 20 frozen missions must be identical.
+   - Flux tolerance is **relative 1e-9** (Priya measured about 1e-10 relative across platforms), not 1e-12 absolute.
+   Byte identity is required only within one environment.
 5. **Third source:** a `perimeter_sequence` from a synthetic or archived KFS-style product is ingested with no routing
    code change. Its cells outside the declared domain carry `support = false`.
 
