@@ -1,0 +1,126 @@
+{
+ "label": "DEVELOPMENT-ONLY on exposed cohort R, 4 km band, rebuilt static layers (daniel/data-fetch 7d430806)",
+ "tail": {
+  "positives": 1310,
+  "nonburnable_share": 0.10763358778625955,
+  "all_static_valid_share": 1.0,
+  "family_shares": {
+   "grass_10x": 0.08702290076335878,
+   "grass_shrub_12x": 0.30916030534351147,
+   "nonburnable_9x": 0.10763358778625955,
+   "shrub_14x": 0.03435114503816794,
+   "timber_litter_18x": 0.21221374045801528,
+   "timber_understory_16x": 0.24961832061068703
+  },
+  "top_codes": {
+   "98": 5,
+   "99": 136,
+   "101": 2,
+   "102": 112,
+   "121": 92,
+   "122": 313,
+   "142": 45,
+   "161": 39,
+   "165": 288,
+   "181": 6,
+   "183": 246,
+   "184": 3,
+   "185": 1,
+   "186": 14,
+   "188": 8
+  }
+ },
+ "nontail": {
+  "positives": 6869,
+  "nonburnable_share": 0.07089823846265832,
+  "all_static_valid_share": 1.0,
+  "family_shares": {
+   "grass_10x": 0.05430193623525986,
+   "grass_shrub_12x": 0.31067113116902023,
+   "nonburnable_9x": 0.07089823846265832,
+   "shrub_14x": 0.029989809288105983,
+   "timber_litter_18x": 0.19362352598631533,
+   "timber_understory_16x": 0.34051535885864026
+  },
+  "top_codes": {
+   "98": 23,
+   "99": 464,
+   "101": 10,
+   "102": 363,
+   "121": 237,
+   "122": 1897,
+   "142": 206,
+   "161": 100,
+   "162": 2,
+   "165": 2237,
+   "181": 10,
+   "183": 814,
+   "184": 145,
+   "185": 2,
+   "186": 207,
+   "188": 152
+  }
+ },
+ "per_fire": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "tail": {
+    "positives": 695,
+    "nonburnable": 134
+   },
+   "nontail": {
+    "positives": 2794,
+    "nonburnable": 437
+   }
+  },
+  "ID-BOF-000904_Goat": {
+   "tail": {
+    "positives": 4,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 434,
+    "nonburnable": 0
+   }
+  },
+  "ID-BOF-001080_Lava": {
+   "tail": {
+    "positives": 113,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 522,
+    "nonburnable": 0
+   }
+  },
+  "ID-SCF-240202_RedRock": {
+   "tail": {
+    "positives": 63,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 899,
+    "nonburnable": 7
+   }
+  },
+  "WA-SES-000173_Pioneer": {
+   "tail": {
+    "positives": 67,
+    "nonburnable": 7
+   },
+   "nontail": {
+    "positives": 889,
+    "nonburnable": 43
+   }
+  },
+  "WY-BTF-002416_FishCreek": {
+   "tail": {
+    "positives": 368,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 1331,
+    "nonburnable": 0
+   }
+  }
+ }
+}

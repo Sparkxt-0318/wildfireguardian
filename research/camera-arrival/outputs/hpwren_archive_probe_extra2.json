@@ -1,0 +1,98 @@
+[
+ {
+  "tag": "list-bisect",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2023/20230115/20230115_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "status": 200,
+  "storage": null,
+  "bytes": "9369"
+ },
+ {
+  "tag": "list-bisect",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2023/20230201/20230201_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "status": 200,
+  "storage": null,
+  "bytes": "8502"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2018/20181001/Q5.mp4",
+  "method": "HEAD",
+  "status": 403,
+  "storage": null,
+  "bytes": null
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2018/20181201/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "33865583"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2020/20200801/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "55300069"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2020/20201203/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "39561799"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/69bravo-e-mobo-c/2020/20201203/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "63501637"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/lp-e-mobo-c/2020/20201203/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "62274240"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/sm-e-mobo-c/2020/20201203/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "63770248"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2018/20180115/Q5.mp4",
+  "method": "HEAD",
+  "status": 403,
+  "storage": null,
+  "bytes": null
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/lp-e-mobo-c/2019/20190115/Q5.mp4",
+  "method": "HEAD",
+  "status": 403,
+  "storage": null,
+  "bytes": null
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/sm-e-mobo-c/2019/20191010/Q5.mp4",
+  "method": "HEAD",
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "59296690"
+ }
+]

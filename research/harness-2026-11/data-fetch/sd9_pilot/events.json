@@ -1,0 +1,110 @@
+[
+ {
+  "id": "NM-LNF-000227_Blue2",
+  "name": "Blue2",
+  "country": "US",
+  "year": 2024,
+  "t0_utc": "2024-05-19T17:00:00+00:00",
+  "start_utc": "2024-05-19T17:00:00+00:00",
+  "end_utc": "2024-06-16T07:00:00+00:00",
+  "acquisition_window_basis": "S-D9 A1: floor_hour(first NIROPS survey) to ceil_hour(last survey)",
+  "rain_history_start_utc": "2024-04-19T17:00:00+00:00",
+  "arrival_path": "regions/NM-LNF-000227_Blue2/arrival_time_hours.tif",
+  "source_arrival_path": "NIROPS cumulative unions",
+  "width": 35,
+  "height": 29,
+  "epsg": 5070,
+  "transform": [
+   375.0,
+   0.0,
+   -905625.0,
+   0.0,
+   -375.0,
+   1204500.0
+  ],
+  "bounds_wgs84": [
+   -105.82955197104248,
+   33.389768207397424,
+   -105.67610889405792,
+   33.49867693519361
+  ],
+  "resolution_m": [
+   375,
+   375
+  ],
+  "burned_label": "NIROPS cumulative mapped extent at cell centres",
+  "valid_arrival_pixels": 211
+ },
+ {
+  "id": "CA-BDF-012520_Line",
+  "name": "Line",
+  "country": "US",
+  "year": 2024,
+  "t0_utc": "2024-09-08T06:00:00+00:00",
+  "start_utc": "2024-09-08T06:00:00+00:00",
+  "end_utc": "2024-11-13T08:00:00+00:00",
+  "acquisition_window_basis": "S-D9 A1: floor_hour(first NIROPS survey) to ceil_hour(last survey)",
+  "rain_history_start_utc": "2024-08-09T06:00:00+00:00",
+  "arrival_path": "regions/CA-BDF-012520_Line/arrival_time_hours.tif",
+  "source_arrival_path": "NIROPS cumulative unions",
+  "width": 72,
+  "height": 50,
+  "epsg": 5070,
+  "transform": [
+   375.0,
+   0.0,
+   -1924875.0,
+   0.0,
+   -375.0,
+   1454250.0
+  ],
+  "bounds_wgs84": [
+   -117.22500477647948,
+   34.04595951500189,
+   -116.89214544186386,
+   34.26268603834007
+  ],
+  "resolution_m": [
+   375,
+   375
+  ],
+  "burned_label": "NIROPS cumulative mapped extent at cell centres",
+  "valid_arrival_pixels": 1275
+ },
+ {
+  "id": "CA-SHF-001004_ThreeNine",
+  "name": "ThreeNine",
+  "country": "US",
+  "year": 2023,
+  "t0_utc": "2023-08-20T06:00:00+00:00",
+  "start_utc": "2023-08-20T06:00:00+00:00",
+  "end_utc": "2023-11-09T05:00:00+00:00",
+  "acquisition_window_basis": "S-D9 A1: floor_hour(first NIROPS survey) to ceil_hour(last survey)",
+  "rain_history_start_utc": "2023-07-21T06:00:00+00:00",
+  "arrival_path": "regions/CA-SHF-001004_ThreeNine/arrival_time_hours.tif",
+  "source_arrival_path": "NIROPS cumulative unions",
+  "width": 24,
+  "height": 37,
+  "epsg": 5070,
+  "transform": [
+   375.0,
+   0.0,
+   -2284875.0,
+   0.0,
+   -375.0,
+   2297625.0
+  ],
+  "bounds_wgs84": [
+   -123.64643923081594,
+   40.559138553486335,
+   -123.49630683401902,
+   40.70082647798392
+  ],
+  "resolution_m": [
+   375,
+   375
+  ],
+  "burned_label": "NIROPS cumulative mapped extent at cell centres",
+  "valid_arrival_pixels": 88
+ }
+]
