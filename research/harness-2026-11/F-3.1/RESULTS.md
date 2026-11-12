@@ -504,6 +504,22 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
     lower median there is 231 s.
   * **R16.4 is close to Tier A.** At 16.4 km/h every unknown cell is blocked within the hour in 5 of 6 caches (YD
     03-26 08Z: 2,548 of 2,599 cells). In effect, R16.4 is Tier A with a ramp of up to 1 h.
+* **Addendum: B16.4 (Iris).** Tier B at 16.4 km/h blocks U_state from 0 and U_q from d / v. File
+  `results/RATE_ASSUMED_SENSITIVITY_1h_with_B16p4.json`; the A / R entries are unchanged from the verified file. Not yet
+  verified.
+
+  | cache | B16.4 removed / moved (median / max s) |
+  |---|---|
+  | UA 03-23 01Z | 28 / 7 (2,369 / 3,218) |
+  | UA 03-24 09Z | 28 / 5 (686 / 2,369) |
+  | UA 03-25 17Z | 23 / 1 (2,369 / 2,369) |
+  | YD 03-25 19Z | 56 / 2 (107 / 107) |
+  | YD 03-25 23Z | 56 / 3 (107 / 673) |
+  | YD 03-26 08Z | 55 / 3 (107 / 673) |
+
+  * In Yeongdeok, B16.4 equals Tier A on every count. In Uiseong it removes 23–28 deadlines, against 24–34 under
+    Tier A.
+  * Reason: U_state is blocked from 0 under B, and it dominates the unknown cells.
 * **One-hour tool only.** At 8.2 km/h a rate bound reaches 41 km in 5 h. These tiers are not extended to 5 h or 8 h
   (MULTIHOUR_HEADLINE_RULE §4).
 
