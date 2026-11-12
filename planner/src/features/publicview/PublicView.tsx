@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CacheEntry } from '../../domain/types';
 import { coordsOf, loadEntries, loadScenario, readSaved, writeSaved, type ReplayScenario } from './load';
-import { BANNER, cardFor, DEVICE_NOTE, exampleIds, linkFor, NOT_IN_MODEL, OFFICIAL_SLOT, parseLink, pick, QUESTION, validPlace, type PublicCard } from './model';
+import { BANNER, cardFor, DEVICE_NOTE, exampleIds, linkFor, NO_DATA, NOT_IN_MODEL, OFFICIAL_SLOT, parseLink, pick, QUESTION, validPlace, type PublicCard } from './model';
 import type { LmLang } from '../lastmile/types';
 
 const ICON: Record<PublicCard['icon'], string> = { clock: '⏱', stop: '⛔', question: '?' };
@@ -85,6 +85,7 @@ export function PublicView() {
   const [saved, setSaved] = useState<string[]>(() => readSaved());
   const [error, setError] = useState<string | null>(null);
   const [linkPlace, setLinkPlace] = useState<string | null>(null);
+  const [indexLoaded, setIndexLoaded] = useState(false);
 
   useEffect(() => {
     const ac = new AbortController();
@@ -94,8 +95,10 @@ export function PublicView() {
         const link = parseLink(typeof location !== 'undefined' ? location.search : '', es.map((e) => e.path));
         setLinkPlace(link.place);
         setEntryPath((p) => p ?? link.scenario ?? es[0]?.path ?? null);
+        if (!es.length) console.warn('[public view] no replay cache index entries (missing or unreadable index)');
       })
-      .catch((e) => setError(String(e)));
+      .catch((e) => setError(String(e)))
+      .finally(() => setIndexLoaded(true));
     return () => ac.abort();
   }, []);
   useEffect(() => {
@@ -107,11 +110,18 @@ export function PublicView() {
     return () => ac.abort();
   }, [entries, entryPath]);
 
-  const fromLink = scenario ? validPlace(linkPlace, scenario.inputs) : null;
+  // no replay data on this page (no index, an unreadable index, or a failed load): one line for every cause; the
+  // cause goes to the console for staff, never onto the page (Iris)
+  const noData = error !== null || (indexLoaded && entries.length === 0);
+  useEffect(() => {
+    if (error !== null) console.warn(`[public view] replay data failed to load: ${error}`);
+  }, [error]);
+
+  const fromLink = !noData && scenario ? validPlace(linkPlace, scenario.inputs) : null;
   const inScenario = scenario ? [...new Set([...(fromLink ? [fromLink] : []), ...saved.filter((id) => scenario.inputs.some((i) => i.origin.id === id))])] : [];
   const showing = scenario ? (inScenario.length ? inScenario : exampleIds(scenario.inputs)) : [];
   const coords = scenario ? coordsOf(scenario.places) : () => null;
-  const cards = scenario ? showing.map((id) => cardFor(scenario.inputs.find((i) => i.origin.id === id)!, coords)) : [];
+  const cards = !noData && scenario ? showing.map((id) => cardFor(scenario.inputs.find((i) => i.origin.id === id)!, coords)) : [];
   const toggle = (id: string) => {
     const next = saved.includes(id) ? saved.filter((x) => x !== id) : [...saved, id];
     setSaved(next);
@@ -123,11 +133,17 @@ export function PublicView() {
       <Banner lang={lang} />
       <OfficialSlot lang={lang} />
       <header className="pv-header">
-        <h1 className="pv-question">{pick(QUESTION, lang)}</h1>
+        {noData ? null : <h1 className="pv-question">{pick(QUESTION, lang)}</h1>}
         <button className="pv-lang" onClick={() => setLang(lang === 'ko' ? 'en' : 'ko')}>
           {lang === 'ko' ? 'English' : '한국어'}
         </button>
       </header>
+      {noData ? (
+        <p className="pv-nodata" data-pv="no-data">
+          {pick(NO_DATA, lang)}
+        </p>
+      ) : null}
+      {noData ? null : (
       <label className="pv-scenario">
         {lang === 'ko' ? '재현할 기록: ' : 'Replayed record: '}
         <select value={entryPath ?? ''} onChange={(e) => setEntryPath(e.target.value)}>
@@ -138,8 +154,8 @@ export function PublicView() {
           ))}
         </select>
       </label>
-      {error ? <p className="pv-error">{error}</p> : null}
-      {!inScenario.length && scenario ? (
+      )}
+      {!noData && !inScenario.length && scenario ? (
         <p className="pv-examples">{lang === 'ko' ? '저장한 장소가 없어 예시 세 곳을 보여 드립니다(각 상태 하나씩).' : 'No saved places: three examples, one of each state.'}</p>
       ) : null}
       <main className="pv-cards">
@@ -147,7 +163,7 @@ export function PublicView() {
           <Card key={c.originId} card={c} lang={lang} example={!inScenario.length} />
         ))}
       </main>
-      {scenario ? (
+      {!noData && scenario ? (
         <section className="pv-places">
           <h2>{lang === 'ko' ? '내 장소 고르기' : 'Choose my places'}</h2>
           <p>{lang === 'ko' ? '예: 우리 집, 부모님 댁, 마을회관. 링크를 공유하면 고른 장소가 함께 전달됩니다.' : 'e.g. home, parents\u2019 home, village hall. Sharing a link reveals the chosen place.'}</p>

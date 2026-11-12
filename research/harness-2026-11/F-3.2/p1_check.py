@@ -50,11 +50,29 @@ def from_hazard(hz, Hs):
     return {c: merge(v, F(0), Hs) for c, v in out.items()}
 
 
+HAZARD_ONLY_MARKER = "per_cell_law_HAZARD_only"
+
+
+def require_routable_arrays(a, packet):
+    """Refuse a packet whose constructed_arrays are not a routable hazard (Leo 588f74e / PACKET_CONSISTENCY_RULE.md):
+    the per-cell-law marker, or a NaN / -inf birth. +inf is the valid "never ignites" value and is accepted.
+    Raises ValueError: fail loudly, never skip cells."""
+    if HAZARD_ONLY_MARKER in a.files and bool(np.asarray(a[HAZARD_ONLY_MARKER]).any()):
+        raise ValueError("%s: %s set; the per-cell law is in HAZARD.json only, the arrays are not a routable hazard"
+                         % (Path(packet).name, HAZARD_ONLY_MARKER))
+    if "ignition_time_s" in a.files:
+        ign = a["ignition_time_s"]
+        if np.isnan(ign).any() or np.isneginf(ign).any():
+            raise ValueError("%s: %d NaN and %d -inf ignition_time_s; the arrays are not a routable hazard"
+                             % (Path(packet).name, int(np.isnan(ign).sum()), int(np.isneginf(ign).sum())))
+
+
 def from_raw(packet, Hs):
     rep = json.loads((Path(packet) / "REPORT.json").read_text())
     asm = rep["native_metadata"]["construction"]["assumptions"]
     T, R = F(float(asm["burning_duration_s"])), F(float(asm["initial_remaining_s"]))
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
+        require_routable_arrays(a, packet)
         ign, cur = a["ignition_time_s"], a["current_active"].astype(bool)
     S, Hn, W = ign.shape
     g = lambda r, c: (Hn - 1 - int(r)) * W + int(c)

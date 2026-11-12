@@ -1,0 +1,830 @@
+{
+ "n_cases": 522,
+ "n_places": 174,
+ "settings": {
+  "optimistic": {
+   "variant": "best9_eye2",
+   "flame": 10.0,
+   "smoke": 1000.0,
+   "cap_m": null
+  },
+  "pessimistic": {
+   "variant": "centre_eye2_cellcentre",
+   "flame": 2.0,
+   "smoke": 300.0,
+   "cap_m": 15000.0
+  }
+ },
+ "observer_nonground_places": 137,
+ "deadline_set_by": {
+  "grid_end": 354,
+  "window": 132,
+  "None": 21,
+  "fire_or_limits": 15
+ },
+ "by_tag": {
+  "flame@optimistic": {
+   "class": {
+    "nonneg_visible_now": 279,
+    "indeterminate_censored_deadline": 219,
+    "no_route": 21,
+    "indeterminate_mixed": 3
+   },
+   "class_ground_observers_only": {
+    "indeterminate_censored_deadline": 43,
+    "nonneg_visible_now": 66,
+    "indeterminate_mixed": 1,
+    "no_route": 1
+   },
+   "by_deadline_set_by": {
+    "grid_end": {
+     "nonneg_visible_now": 191,
+     "indeterminate_censored_deadline": 163
+    },
+    "window": {
+     "indeterminate_censored_deadline": 56,
+     "nonneg_visible_now": 76
+    },
+    "None": {
+     "no_route": 21
+    },
+    "fire_or_limits": {
+     "nonneg_visible_now": 12,
+     "indeterminate_mixed": 3
+    }
+   },
+   "places_with_negative": 0
+  },
+  "flame@pessimistic": {
+   "class": {
+    "indeterminate_censored_deadline": 415,
+    "nonneg_visible_now": 76,
+    "no_route": 21,
+    "negative": 10
+   },
+   "class_ground_observers_only": {
+    "indeterminate_censored_deadline": 88,
+    "nonneg_visible_now": 20,
+    "negative": 2,
+    "no_route": 1
+   },
+   "by_deadline_set_by": {
+    "grid_end": {
+     "indeterminate_censored_deadline": 296,
+     "nonneg_visible_now": 58
+    },
+    "window": {
+     "indeterminate_censored_deadline": 119,
+     "nonneg_visible_now": 13
+    },
+    "None": {
+     "no_route": 21
+    },
+    "fire_or_limits": {
+     "nonneg_visible_now": 5,
+     "negative": 10
+    }
+   },
+   "places_with_negative": 8
+  },
+  "flame@robust": {
+   "class": {
+    "indeterminate": 425,
+    "robust_nonneg": 76,
+    "no_route": 21
+   },
+   "class_ground_observers_only": {
+    "indeterminate": 90,
+    "robust_nonneg": 20,
+    "no_route": 1
+   },
+   "by_deadline_set_by": {
+    "grid_end": {
+     "indeterminate": 296,
+     "robust_nonneg": 58
+    },
+    "window": {
+     "indeterminate": 119,
+     "robust_nonneg": 13
+    },
+    "None": {
+     "no_route": 21
+    },
+    "fire_or_limits": {
+     "robust_nonneg": 5,
+     "indeterminate": 10
+    }
+   },
+   "places_with_negative": 0
+  },
+  "smoke@optimistic": {
+   "class": {
+    "nonneg_visible_now": 490,
+    "indeterminate_censored_deadline": 11,
+    "no_route": 21
+   },
+   "class_ground_observers_only": {
+    "indeterminate_censored_deadline": 2,
+    "nonneg_visible_now": 108,
+    "no_route": 1
+   },
+   "by_deadline_set_by": {
+    "grid_end": {
+     "nonneg_visible_now": 345,
+     "indeterminate_censored_deadline": 9
+    },
+    "window": {
+     "nonneg_visible_now": 130,
+     "indeterminate_censored_deadline": 2
+    },
+    "None": {
+     "no_route": 21
+    },
+    "fire_or_limits": {
+     "nonneg_visible_now": 15
+    }
+   },
+   "places_with_negative": 0
+  },
+  "smoke@pessimistic": {
+   "class": {
+    "nonneg_visible_now": 262,
+    "indeterminate_censored_deadline": 237,
+    "no_route": 21,
+    "indeterminate_mixed": 1,
+    "negative": 1
+   },
+   "class_ground_observers_only": {
+    "indeterminate_censored_deadline": 54,
+    "nonneg_visible_now": 56,
+    "no_route": 1
+   },
+   "by_deadline_set_by": {
+    "grid_end": {
+     "nonneg_visible_now": 185,
+     "indeterminate_censored_deadline": 169
+    },
+    "window": {
+     "indeterminate_censored_deadline": 68,
+     "nonneg_visible_now": 64
+    },
+    "None": {
+     "no_route": 21
+    },
+    "fire_or_limits": {
+     "nonneg_visible_now": 13,
+     "indeterminate_mixed": 1,
+     "negative": 1
+    }
+   },
+   "places_with_negative": 1
+  },
+  "smoke@robust": {
+   "class": {
+    "robust_nonneg": 262,
+    "indeterminate": 239,
+    "no_route": 21
+   },
+   "class_ground_observers_only": {
+    "indeterminate": 54,
+    "robust_nonneg": 56,
+    "no_route": 1
+   },
+   "by_deadline_set_by": {
+    "grid_end": {
+     "robust_nonneg": 185,
+     "indeterminate": 169
+    },
+    "window": {
+     "indeterminate": 68,
+     "robust_nonneg": 64
+    },
+    "None": {
+     "no_route": 21
+    },
+    "fire_or_limits": {
+     "robust_nonneg": 13,
+     "indeterminate": 2
+    }
+   },
+   "places_with_negative": 0
+  }
+ },
+ "fire_set_cases": [
+  {
+   "scope": "uiseong_andong_2025/20250323T010000Z",
+   "origin_id": "osm:node/415160438",
+   "name": "기도리",
+   "latest_s": 1200,
+   "light": "day",
+   "nearest_present_fire_km": 3.808482587233009,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "robust_nonneg",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "nonneg_visible_now",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "robust_nonneg",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250323T010000Z",
+   "origin_id": "osm:node/415160424",
+   "name": "박곡리",
+   "latest_s": 1800,
+   "light": "day",
+   "nearest_present_fire_km": 2.386001274714078,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250323T010000Z",
+   "origin_id": "osm:node/415160476",
+   "name": "업리",
+   "latest_s": 1800,
+   "light": "day",
+   "nearest_present_fire_km": 0.8342742801174783,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "robust_nonneg",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "nonneg_visible_now",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "robust_nonneg",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250323T010000Z",
+   "origin_id": "osm:node/415160435",
+   "name": "창길리",
+   "latest_s": 1200,
+   "light": "day",
+   "nearest_present_fire_km": 3.2122407509419078,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250323T010000Z",
+   "origin_id": "osm:node/415160436",
+   "name": "하령리",
+   "latest_s": 1200,
+   "light": "day",
+   "nearest_present_fire_km": 4.5908882762113326,
+   "observer_nonground": false,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160438",
+   "name": "기도리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 2.2285406404868637,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160361",
+   "name": "동변리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 3.7228016246106503,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "robust_nonneg",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "nonneg_visible_now",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "robust_nonneg",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160434",
+   "name": "방하리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 2.2055263178252704,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    2316.513803870344
+   ],
+   "smoke@pessimistic": [
+    null,
+    478.6543950297372,
+    null,
+    2316.513803870344
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "indeterminate",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "indeterminate_mixed",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "indeterminate"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160428",
+   "name": "석탑리",
+   "latest_s": 600,
+   "light": "dusk",
+   "nearest_present_fire_km": 0.433026803277266,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "robust_nonneg",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "nonneg_visible_now",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "robust_nonneg",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160362",
+   "name": "신계리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 3.6541928914241133,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    null,
+    null,
+    1462.870147174069,
+    null
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "indeterminate_mixed",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160355",
+   "name": "윤암리",
+   "latest_s": 1800,
+   "light": "dusk",
+   "nearest_present_fire_km": 1.2619792646568433,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160433",
+   "name": "장림리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 2.9118418486553352,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    null,
+    478.6543950297372,
+    1290.6245936088148,
+    2083.21656022843
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    1965.4344313080576,
+    null,
+    null,
+    null
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "indeterminate",
+   "flame@optimistic:class": "indeterminate_mixed",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "negative",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "indeterminate"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160435",
+   "name": "창길리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 2.05738801765275,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250324T090000Z",
+   "origin_id": "osm:node/415160436",
+   "name": "하령리",
+   "latest_s": 1200,
+   "light": "dusk",
+   "nearest_present_fire_km": 1.976260713609716,
+   "observer_nonground": false,
+   "flame@optimistic": [
+    1965.4344313080576,
+    null,
+    1614.7350557514212,
+    null
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "indeterminate",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "indeterminate_mixed",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "negative",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "indeterminate",
+   "smoke@robust:class": "robust_nonneg"
+  },
+  {
+   "scope": "uiseong_andong_2025/20250325T170000Z",
+   "origin_id": "osm:node/415160460",
+   "name": "명진리",
+   "latest_s": 1800,
+   "light": "night",
+   "nearest_present_fire_km": 0.6478009166215749,
+   "observer_nonground": true,
+   "flame@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@optimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "smoke@pessimistic": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "flame@robust": "robust_nonneg",
+   "smoke@robust": "robust_nonneg",
+   "flame@optimistic:class": "nonneg_visible_now",
+   "smoke@optimistic:class": "nonneg_visible_now",
+   "flame@pessimistic:class": "nonneg_visible_now",
+   "smoke@pessimistic:class": "nonneg_visible_now",
+   "flame@robust:class": "robust_nonneg",
+   "smoke@robust:class": "robust_nonneg"
+  }
+ ]
+}

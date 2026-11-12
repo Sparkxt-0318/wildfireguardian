@@ -4,6 +4,7 @@
 .pv-official { background: var(--pv-official-bg); color: var(--pv-official-text); font-weight: 600; padding: 12px 16px; margin: 12px 0; border-radius: 8px; }
 .pv-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .pv-question { font-size: var(--pv-question); margin: 12px 0; }
+.pv-nodata { border: 3px solid var(--pv-text); border-radius: 10px; padding: 12px 16px; margin: 16px 0; font-weight: 600; }
 .pv-lang, .pv-scenario select { font-size: var(--pv-base); min-height: 44px; }
 .pv-card { border: 3px solid var(--pv-text); border-left-width: 14px; border-radius: 10px; padding: 12px 16px; margin: 16px 0; }
 .pv-leave { border-left-color: var(--pv-leave); }
