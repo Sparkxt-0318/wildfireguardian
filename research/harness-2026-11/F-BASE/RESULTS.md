@@ -166,8 +166,16 @@ Richard's own command, unchanged: `claude/f31-deadline-field` at 25352cad, `pyth
 13:57 (8b99a06c) and the results at 16:14 (6f0925fa). The per-request records carry no timestamps; runs from S3
 onward stamp started_utc in their header rows.
 
-**Where the waitable rule comes from:** [pending one line each from Richard and Thomas on which OSM tags or which file
-define the waitable nodes]. Any "routes into fire" or "no route" headline from this table carries this dependence.
+**Where the waitable rule comes from (Thomas, 2026-11-12 20:07 UTC; Richard's line pending):** Waiting is permitted
+only at nodes flagged `waitable` in the supplied OSM-derived graph.json (data/routing/graphs/<region>/graph.json, shas
+in data/routing/INPUT_FILES.json; read verbatim at wfg_sipp/frontend.py:51; F-DYN's regrid_graph.py copies it
+unchanged). The generating rule is undocumented (graph provenance: "no … wait-location field validation"), and as far
+as recorded it is not derived from OSM tags. Empirically, on all 5 graphs the flag equals "node is a graph dead end (one
+distinct neighbour)", with 0 exceptions (Thomas). Re-checked here on the two graphs used, both the fetched and the
+F-DYN interim copies: Uiseong 554/23,158 and Yeongdeok 1,527/56,369 waitable = dead-end, 0 mismatches.
+So every NO_ROUTE that depends on the non-waitable rule rests on that dead-end convention, not on field-validated wait
+locations. The graph-build owner should confirm the intended rule. Any "routes into fire" or "no route" headline from
+this table, and every S1/S2/S3 NO_ROUTE or REFUSED count, carries this dependence.
 
 **Verification:** Nora, **PASS WITH NOTES** (ledger row 55).
 - She recounted every number and re-ran 6 packets (108 requests, including all 7 distinct failures), which came out
