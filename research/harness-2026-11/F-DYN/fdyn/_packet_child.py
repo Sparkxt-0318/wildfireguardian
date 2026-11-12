@@ -1,6 +1,7 @@
 """Child process: write one F-DYN packet with the UNCHANGED packet writer (wfg_latest.packets.write_regional_packet).
 
-Two injections at the writer's own extension points, as api/adapters/_zone_packet_child.py does:
+Injections at the writer's own extension points, as api/adapters/_zone_packet_child.py does (plus bridge.construct
+for the per-cell variants, and bridge.radiation_operator_identity for a repo-relative module path, IDENTITY_PATH_RULE.md):
   * bridge.draw_ignitions returns the F-DYN schedule (full event grid) instead of random draws;
   * bridge.settings_for sets horizon_s to the F-DYN horizon and adds an ``fdyn`` entry, so the settings digest, the
     construction id and the scenario ids identify the F-DYN output.
@@ -19,6 +20,20 @@ WFG = REPO / 'integration' / 'src' / 'wfg_latest'
 
 def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def repo_relative_radiation_identity(ident, pinned_sha):
+    """IDENTITY_PATH_RULE.md: the frozen bridge's {module: absolute path, sha256} with the module path made
+    repo-relative (POSIX); refuses a module outside the repository or with a sha other than the vendored pin."""
+    mod = Path(ident['module']).resolve()
+    try:
+        rel = mod.relative_to(REPO.resolve())
+    except ValueError:
+        raise SystemExit(f'RADIATION_MODULE_OUTSIDE_REPO {mod}')
+    if ident['sha256'] != pinned_sha or sha(mod) != pinned_sha:
+        raise SystemExit('RADIATION_MODULE_NOT_PINNED')
+    return {'module': rel.as_posix(), 'sha256': ident['sha256'],
+            'module_path_form': 'repo-relative (F-DYN IDENTITY_PATH_RULE.md)'}
 
 
 def rebuild_members(B, np, built, epsg, ext_of):
@@ -158,6 +173,14 @@ def main():
 
     B.draw_ignitions = fdyn_draws
     B.settings_for = fdyn_settings
+    rad_calls = []
+    orig_rad = B.radiation_operator_identity
+
+    def fdyn_radiation_identity():          # IDENTITY_PATH_RULE.md: host-independent module path, same sha
+        rad_calls.append(1)
+        return repo_relative_radiation_identity(orig_rad(), BP.RADIATION_SHA256['heat.py'])
+
+    B.radiation_operator_identity = fdyn_radiation_identity
     envelope_checks = []
     if hi_rel is not None:
         orig_construct = B.construct
@@ -213,6 +236,8 @@ def main():
                                             event_id=a.event, region_id=a.region, window=win)
     if len(calls) != 1:
         raise SystemExit('DRAW_INJECTION_NOT_USED_EXACTLY_ONCE')
+    if len(rad_calls) != 1:
+        raise SystemExit('RADIATION_IDENTITY_INJECTION_NOT_USED')
     if hi_rel is not None and len(envelope_checks) != 1:
         raise SystemExit('ENVELOPE_NOT_APPLIED_EXACTLY_ONCE')
     sub = times if win is None else times[:, win['r0']:win['r1'] + 1, win['c0']:win['c1'] + 1]

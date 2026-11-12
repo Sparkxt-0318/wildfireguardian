@@ -187,3 +187,20 @@ def test_hazard_only_arrays_are_refused_by_contactmodel():
         ContactModel.from_arrays(ign, cur, 4270.0, 0.0)
     ok = np.full((1, 3, 4), np.inf); ok[0, 1, 1] = 0.0
     assert len(ContactModel.from_arrays(ok, cur, 18000.0, 0.0).cell_intervals) == 1
+
+
+def test_repo_relative_radiation_identity():
+    """IDENTITY_PATH_RULE.md (c): the injected identity is repo-relative with the vendored pin; outside-repo or
+    unpinned modules are refused."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('fdyn_packet_child', Path(__file__).resolve().parents[1] / 'fdyn' / '_packet_child.py')
+    child = importlib.util.module_from_spec(spec); spec.loader.exec_module(child)
+    heat = child.WFG / 'radiation' / 'heat.py'
+    pin = 'f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb'
+    got = child.repo_relative_radiation_identity({'module': str(heat), 'sha256': pin}, pin)
+    assert got == {'module': 'integration/src/wfg_latest/radiation/heat.py', 'sha256': pin,
+                   'module_path_form': 'repo-relative (F-DYN IDENTITY_PATH_RULE.md)'}
+    with pytest.raises(SystemExit, match='RADIATION_MODULE_OUTSIDE_REPO'):
+        child.repo_relative_radiation_identity({'module': '/usr/lib/heat.py', 'sha256': pin}, pin)
+    with pytest.raises(SystemExit, match='RADIATION_MODULE_NOT_PINNED'):
+        child.repo_relative_radiation_identity({'module': str(heat), 'sha256': '0' * 64}, '0' * 64)
