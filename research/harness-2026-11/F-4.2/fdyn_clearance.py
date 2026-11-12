@@ -37,6 +37,8 @@ def main():
             res = json.loads((d / 'RESULT.json').read_text()) if (d / 'RESULT.json').exists() else {}
             dec = (res.get('decision') or {}).get('authoritative_status') or ''
             route = res.get('result') or {}
+            if not route.get('legs'):        # published from Z after its cap: the route is the checked incumbent
+                route = route.get('checked_incumbent') or {}
             if not dec.startswith('CHECKED_JOURNEY') or not route.get('legs'):
                 continue
             job = json.loads((d / 'JOB.json').read_text())
