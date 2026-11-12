@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **29 passed** in about 20 s (py3.13, torch 2.15, numba 0.68). They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **32 passed** in about 35 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -232,7 +232,11 @@ The hourly conditional estimator should cost the same as hourly plain: it reuses
 
 ## 8b. Conditional estimator for the EXISTING rollout (standalone result, orchestrator decision 1)
 
-**SCOPE (Owen, dd5d1f2): this is NOT yet a drop-in for the scored c651 held-out configuration.** forecast-v2 scored `c651_mc` through simulate's private fractional-endpoint path (`step_durations`) with `cache_environment_kernels=True` (research/forecast-v2/RESULTS.json `mc_path`). `cond_rollout` supports neither: it covers whole-hour horizons with uncached transitions only. A `c651_mc_cond` variant for scoring needs both added, plus bit-identity tests on that path, before it is declared.
+**SCOPE (Owen, dd5d1f2; addressed after it).** forecast-v2 scored `c651_mc` through simulate's private fractional-endpoint path (`step_durations`) with `cache_environment_kernels=True` (research/forecast-v2/RESULTS.json `mc_path`). Owen found `cond_rollout` lacked both. Both are now implemented with the same rules and cache key as `simulate`.
+
+`test_bit_identical_to_simulate_on_c651_with_fractional_endpoint_and_cache` checks the **real c651 checkpoint** (MixedNonnegativeKernel) on a synthetic 18×17 environment, with `step_durations` [1, 1, 1, 0.4], horizons 2.0 and 3.4 h, n = 203 in batches of 64, cache off and on. The plain output and coverage are bit-identical to `simulate`. A separate test confirms the prepared cache path is actually taken.
+
+**Not covered:** Bayesian mixtures (`BayesianBurnModel`). A `c651_mc_cond` variant still has to be declared to S-D9, with its pilot rule, before scored use.
 
 **Owen's independent probe.** 3 cutoffs, hourly `environmental_forecast` through an environment-dependent stub, a partial final block, zero/unknown boundary, 4 seeds. The plain output is bit-identical to `simulate` in 8/8 cases.
 

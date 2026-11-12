@@ -141,3 +141,52 @@ def test_pilot_weighted_combination_unbiased_and_never_much_worse():
     assert lo.sum() >= 5
     assert np.median(s[lo] / sp[lo]) < 1.0
     assert float(clipped.min()) >= 0 and float(clipped.max()) <= 1
+
+
+def _c651_case(seed=0, H=18, W=17):
+    from wildfire.inference import load_trained_model
+    ckpt = REPO / ("forecast/runs/20261010_categorical_balanced_benchmark/candidates/"
+                   "mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt")
+    model = load_trained_model(ckpt)
+    names = model.channel_names
+    rng = np.random.default_rng(seed)
+    env = np.zeros((len(names), H, W), dtype=np.float32)
+    env[0] = rng.normal(25, 5, (H, W))           # temperature_2m
+    env[1] = rng.normal(4, 2, (H, W))            # wind eastward (strong, so spread is non-trivial)
+    env[2] = rng.normal(-2, 2, (H, W))           # wind northward
+    env[3] = rng.uniform(0, 30, (H, W))          # slope
+    env[4] = rng.uniform(20, 90, (H, W))         # tree cover
+    biome = rng.integers(0, 14, (H, W))
+    for c in range(14):
+        env[5 + c] = (biome == c)
+    init = np.zeros((H, W), bool)
+    init[8:10, 7:9] = True
+    e = torch.tensor(env, dtype=model.mean.dtype)[None]
+    b = torch.tensor(init, dtype=e.dtype)[None, None]
+    kw = dict(channel_names=names, burned_area_valid=torch.ones_like(b, dtype=torch.bool),
+              feature_valid=torch.ones_like(e, dtype=torch.bool))
+    return model, b, e, kw
+
+
+@pytest.mark.parametrize("cache", [False, True])
+def test_bit_identical_to_simulate_on_c651_with_fractional_endpoint_and_cache(cache):
+    """Owen's scope gap: the scored forecast-v2 path uses step_durations (fractional final interval) and
+    cache_environment_kernels=True with the real MixedNonnegativeKernel checkpoint."""
+    model, b, e, kw = _c651_case()
+    common = dict(hours=[2.0, 3.4], n_samples=203, seed=11, trajectory_batch_size=64, boundary="zero",
+                  step_durations=[1.0, 1.0, 1.0, 0.4], cache_environment_kernels=cache, **kw)
+    ref = simulate(model, b, e, **common)
+    mine = simulate_with_conditional(model, b, e, **common)
+    for r, m in zip(ref, mine):
+        assert torch.equal(r["details"].valid, m["valid"])
+        assert torch.equal(torch.nan_to_num(r["details"].probability, nan=-1.0),
+                           torch.nan_to_num(m["probability"], nan=-1.0))
+    assert float(torch.nan_to_num(ref[-1]["details"].probability).sum()) > 0  # something spread
+
+
+def test_cache_path_is_actually_taken_for_c651():
+    from wildfire.rollout_cache import prepare_transition
+    model, b, e, kw = _c651_case()
+    prepared = prepare_transition(model, e[0], kw["feature_valid"][0], channel_names=kw["channel_names"],
+                                  batch_size=4, boundary="zero")
+    assert prepared is not None

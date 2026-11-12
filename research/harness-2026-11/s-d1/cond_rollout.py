@@ -10,9 +10,11 @@ the same quantity the existing Monte Carlo output estimates by counting hits. It
 q_i(k) is already evaluated. Unlike hit counting it is non-zero wherever any trajectory gives the cell
 a positive hazard, so it resolves probabilities far below 1/n.
 
-This module re-implements the trajectory loop of ``wildfire.rollout.simulate`` for the supported case
-(single non-Bayesian predictor, whole-hour horizons, repeated-current or hourly-forecast environment,
-uncached transitions). It uses the SAME random streams (``wildfire.rollout._generator``), coverage
+This module re-implements the trajectory loop of ``wildfire.rollout.simulate`` for a single non-Bayesian
+predictor, with repeated-current or hourly-forecast environment, whole-hour horizons OR simulate's
+private ``step_durations`` (full hours then one exact fractional final interval, as forecast-v2 used for
+survey endpoints), and uncached OR ``cache_environment_kernels=True`` transitions (the prepared path of
+``wildfire.rollout_cache``, used by forecast-v2's scored c651 heldout runs). It uses the SAME random streams (``wildfire.rollout._generator``), coverage
 envelopes and ignition rule. Its plain hit-count probabilities are therefore bit-identical to
 ``simulate``'s, which a test asserts. The frozen predictors (for example ``c651_mc``) are untouched. The
 conditional output is meant to be declared as a NEW named predictor variant (for example
@@ -33,12 +35,13 @@ from wildfire.rollout import _check_transition, _generator, validate_controls
 def simulate_with_conditional(predictor, burned_area, environmental_data, *, channel_names,
                               burned_area_valid, feature_valid, hours, n_samples, seed,
                               trajectory_batch_size, boundary, environmental_forecast=None,
-                              forecast_valid=None):
+                              forecast_valid=None, step_durations=None, cache_environment_kernels=False):
     """Return one dict per horizon: ``probability`` (plain, identical to simulate's ``details``),
     ``conditional`` (mean of Y) and ``conditional_se`` (MC standard error of that mean), plus ``valid``
     (the conservative coverage of ``simulate``). Arrays are shaped like ``burned_area``."""
     hours = [float(h) for h in hours]
-    validate_controls(hours, n_samples, seed, trajectory_batch_size)
+    if step_durations is None:
+        validate_controls(hours, n_samples, seed, trajectory_batch_size)
     if isinstance(predictor, BayesianBurnModel):
         raise NotImplementedError("Bayesian mixtures are not supported by this companion")
     predictor.eval()
@@ -52,8 +55,22 @@ def simulate_with_conditional(predictor, burned_area, environmental_data, *, cha
     known = known.reshape(-1, 1, h, w)
     current_environment = environmental_data.reshape(-1, channels, h, w)
     current_feature_valid = feature_valid.reshape(-1, channels, h, w)
-    steps = int(max(hours))
-    requested = {int(hour): index for index, hour in enumerate(hours)}
+    if step_durations is None:
+        durations = [1.0] * int(max(hours))
+        requested = {int(hour): index for index, hour in enumerate(hours)}
+    else:  # identical rule to wildfire.rollout.simulate's private step_durations
+        durations = np.asarray(step_durations, dtype=np.float64)
+        if (durations.ndim != 1 or not len(durations) or not np.isfinite(durations).all()
+                or np.any((durations <= 0) | (durations > 1))):
+            raise ValueError("Private step_durations must be finite intervals in (0,1] hours")
+        elapsed = np.cumsum(durations)
+        requested = {}
+        for index, hour in enumerate(hours):
+            matched = np.flatnonzero(np.isclose(elapsed, hour, rtol=0, atol=1e-10))
+            if len(matched) != 1:
+                raise ValueError("Every requested horizon must equal an exact private step endpoint")
+            requested[int(matched[0]) + 1] = index
+    steps = len(durations)
     if environmental_forecast is not None:
         forecast = environmental_forecast.reshape(-1, initial.shape[0], channels, h, w)
         forecast_masks = forecast_valid.reshape_as(forecast)
@@ -77,17 +94,29 @@ def simulate_with_conditional(predictor, burned_area, environmental_data, *, cha
                 return current_environment[cutoff], current_feature_valid[cutoff]
             return forecast[k, cutoff], forecast_masks[k, cutoff]
 
-        def transition(states, masks, environment, available):
+        prepared_transitions = {}
+
+        def transition(states, masks, environment, available, duration):
             size = states.shape[0]
+            if cache_environment_kernels and forecast is None:  # same condition and key as simulate
+                key = (0, size)
+                if key not in prepared_transitions:
+                    from wildfire.rollout_cache import prepare_transition
+                    prepared_transitions[key] = prepare_transition(predictor, environment, available,
+                        channel_names=channel_names, batch_size=size, boundary=boundary)
+                prepared = prepared_transitions[key]
+                if prepared is not None:
+                    return prepared(states, masks, duration)
             return predictor(states, environment.unsqueeze(0).expand(size, -1, -1, -1),
                              channel_names=channel_names, burned_area_valid=masks,
                              feature_valid=available.unsqueeze(0).expand(size, -1, -1, -1),
-                             dt_hours=1.0, boundary=boundary)
+                             dt_hours=duration, boundary=boundary)
 
         masks = [base_known]
         for k in range(steps):
             environment, available = environment_at(k)
-            probe = transition(base.unsqueeze(0), masks[-1].unsqueeze(0), environment, available)
+            probe = transition(base.unsqueeze(0), masks[-1].unsqueeze(0), environment, available,
+                               float(durations[k]))
             following = masks[-1] & (observed_burns | probe.rate_valid[0])
             _check_transition(probe, following.unsqueeze(0), cutoff=cutoff, hour=k + 1, component=0)
             masks.append(following)
@@ -106,7 +135,8 @@ def simulate_with_conditional(predictor, burned_area, environmental_data, *, cha
                                       dtype=initial.dtype, device="cpu").to(initial.device)
                 environment, available = environment_at(k)
                 required = masks[k + 1].unsqueeze(0).expand_as(states)
-                tr = transition(states, masks[k].unsqueeze(0).expand_as(states), environment, available)
+                tr = transition(states, masks[k].unsqueeze(0).expand_as(states), environment, available,
+                                float(durations[k]))
                 _check_transition(tr, required, cutoff=cutoff, hour=k + 1, component=0)
                 safe_q = torch.where(required, tr.probability, 0)
                 Y += torch.where(states == 0, safe_q, 0).to(torch.float64)
