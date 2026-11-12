@@ -219,6 +219,10 @@ then `python real_bracket_fit.py --brackets B --hours 240 --workers 4` (2,071 s)
   * Treating survey brackets as exact times cuts the fitted spread rate about 2.2× on real NIROPS fires (up to 12×).
   * The mean-field endpoint fit, the existing perimeter regime, is also low on every fire. This fits the registered
     P-D2 ordering, under which `d2_bracket_rebuilt`, not `d2_nll_rebuilt`, should move the near-zero tail.
+* **GOFER overlap (ledger):** Bobcat, CZU, KNP, LNU-Meyers and Slater are GOFER fires. **Per A1 item 25** (Victor's
+  ruling) they are H-dev, not H-test, and may be used in all part-a development and the refit pool. Sensitivity
+  without the four that entered the fit (21 fires): plug-in 0.450 (21/21 below), composite 0.973, mean-field NLL 0.566
+  (21/21 below).
 * **Not shown:**
   * The model has no covariates and a constant rate, so day-to-day variability (Sofia: run days vs slow days) is
     folded into one rate.
