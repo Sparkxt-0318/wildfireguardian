@@ -236,6 +236,7 @@
      "smoke": "indeterminate"
     }
    },
+   "cells_evaluated": 7172,
    "v1_smoke_by_1630_kst": {
     "optimistic": "possibly",
     "pessimistic": "possibly"
@@ -459,6 +460,7 @@
      "smoke": "indeterminate"
     }
    },
+   "cells_evaluated": 7939,
    "v1_smoke_by_1630_kst": null
   },
   {
@@ -670,6 +672,7 @@
      "smoke": "indeterminate"
     }
    },
+   "cells_evaluated": 7820,
    "v1_smoke_by_1630_kst": null
   },
   {
@@ -890,6 +893,7 @@
      "smoke": "indeterminate"
     }
    },
+   "cells_evaluated": 7285,
    "v1_smoke_by_1630_kst": null
   },
   {
@@ -1104,226 +1108,7 @@
      "smoke": "indeterminate"
     }
    },
-   "v1_smoke_by_1630_kst": null
-  },
-  {
-   "set": "documented",
-   "village": "V3",
-   "observer": "경정3리마을회관",
-   "lat": 36.4744058,
-   "lon": 129.4335493,
-   "anchors": "as V3",
-   "x": 1173226.2189914146,
-   "y": 1832492.0084855992,
-   "leave_by_place": "osm:node/415160200",
-   "leave_by_place_name": "석리",
-   "trip_min_s": 50,
-   "entry_xy": [
-    1173141.911811877,
-    1831601.924226889
-   ],
-   "results": {
-    "bracket_detected_only": {
-     "arrival_h": {
-      "500": [
-       82.01666666666667,
-       85.75
-      ],
-      "250": [
-       82.01666666666667,
-       85.75
-      ],
-      "1000": [
-       75.56666666666666,
-       82.01666666666667
-      ]
-     },
-     "arrival_kst": {
-      "500": [
-       "03-25 21:25",
-       "03-26 01:09"
-      ],
-      "250": [
-       "03-25 21:25",
-       "03-26 01:09"
-      ],
-      "1000": [
-       "03-25 14:58",
-       "03-25 21:25"
-      ]
-     },
-     "leave_by_prelim_h": [
-      82.00277777777778,
-      85.73611111111111
-     ],
-     "leave_by_prelim_kst": [
-      "03-25 21:24",
-      "03-26 01:08"
-     ],
-     "flame@optimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       "03-25 21:25"
-      ],
-      "gap_min": [
-       -0.8333333333331439,
-       610.1666666666671
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       null
-      ],
-      "gap_min": [
-       -Infinity,
-       610.1666666666671
-      ],
-      "sign": "indeterminate"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       "03-25 21:25"
-      ],
-      "gap_min": [
-       -0.8333333333331439,
-       610.1666666666671
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       null
-      ],
-      "gap_min": [
-       -Infinity,
-       610.1666666666671
-      ],
-      "sign": "indeterminate"
-     }
-    },
-    "wide_bracket_all_burned": {
-     "arrival_h": {
-      "500": [
-       51.016666666666666,
-       85.75
-      ],
-      "250": [
-       82.01666666666667,
-       85.75
-      ],
-      "1000": [
-       51.016666666666666,
-       82.01666666666667
-      ]
-     },
-     "arrival_kst": {
-      "500": [
-       "03-24 14:25",
-       "03-26 01:09"
-      ],
-      "250": [
-       "03-25 21:25",
-       "03-26 01:09"
-      ],
-      "1000": [
-       "03-24 14:25",
-       "03-25 21:25"
-      ]
-     },
-     "leave_by_prelim_h": [
-      51.00277777777778,
-      85.73611111111111
-     ],
-     "leave_by_prelim_kst": [
-      "03-24 14:24",
-      "03-26 01:08"
-     ],
-     "flame@optimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       "03-25 21:25"
-      ],
-      "gap_min": [
-       -1860.833333333333,
-       2083.166666666667
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       null
-      ],
-      "gap_min": [
-       -Infinity,
-       2083.166666666667
-      ],
-      "sign": "indeterminate"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       "03-25 21:25"
-      ],
-      "gap_min": [
-       -1860.833333333333,
-       2083.166666666667
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       null
-      ],
-      "gap_min": [
-       -Infinity,
-       2083.166666666667
-      ],
-      "sign": "indeterminate"
-     }
-    },
-    "final": {
-     "flame": "indeterminate",
-     "smoke": "indeterminate"
-    }
-   },
+   "cells_evaluated": 7201,
    "v1_smoke_by_1630_kst": null
   },
   {
@@ -1544,6 +1329,228 @@
      "smoke": "indeterminate"
     }
    },
+   "cells_evaluated": 7122,
+   "v1_smoke_by_1630_kst": null
+  },
+  {
+   "set": "documented",
+   "village": "V3",
+   "observer": "경정3리마을회관",
+   "lat": 36.4744058,
+   "lon": 129.4335493,
+   "anchors": "as V3",
+   "x": 1173226.2189914146,
+   "y": 1832492.0084855992,
+   "leave_by_place": "osm:node/415160200",
+   "leave_by_place_name": "석리",
+   "trip_min_s": 50,
+   "entry_xy": [
+    1173141.911811877,
+    1831601.924226889
+   ],
+   "results": {
+    "bracket_detected_only": {
+     "arrival_h": {
+      "500": [
+       82.01666666666667,
+       85.75
+      ],
+      "250": [
+       82.01666666666667,
+       85.75
+      ],
+      "1000": [
+       75.56666666666666,
+       82.01666666666667
+      ]
+     },
+     "arrival_kst": {
+      "500": [
+       "03-25 21:25",
+       "03-26 01:09"
+      ],
+      "250": [
+       "03-25 21:25",
+       "03-26 01:09"
+      ],
+      "1000": [
+       "03-25 14:58",
+       "03-25 21:25"
+      ]
+     },
+     "leave_by_prelim_h": [
+      82.00277777777778,
+      85.73611111111111
+     ],
+     "leave_by_prelim_kst": [
+      "03-25 21:24",
+      "03-26 01:08"
+     ],
+     "flame@optimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       "03-25 21:25"
+      ],
+      "gap_min": [
+       -0.8333333333331439,
+       610.1666666666671
+      ],
+      "sign": "indeterminate"
+     },
+     "smoke@optimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       null
+      ],
+      "gap_min": [
+       -Infinity,
+       610.1666666666671
+      ],
+      "sign": "indeterminate"
+     },
+     "flame@pessimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       "03-25 21:25"
+      ],
+      "gap_min": [
+       -0.8333333333331439,
+       610.1666666666671
+      ],
+      "sign": "indeterminate"
+     },
+     "smoke@pessimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       null
+      ],
+      "gap_min": [
+       -Infinity,
+       610.1666666666671
+      ],
+      "sign": "indeterminate"
+     }
+    },
+    "wide_bracket_all_burned": {
+     "arrival_h": {
+      "500": [
+       51.016666666666666,
+       85.75
+      ],
+      "250": [
+       82.01666666666667,
+       85.75
+      ],
+      "1000": [
+       51.016666666666666,
+       82.01666666666667
+      ]
+     },
+     "arrival_kst": {
+      "500": [
+       "03-24 14:25",
+       "03-26 01:09"
+      ],
+      "250": [
+       "03-25 21:25",
+       "03-26 01:09"
+      ],
+      "1000": [
+       "03-24 14:25",
+       "03-25 21:25"
+      ]
+     },
+     "leave_by_prelim_h": [
+      51.00277777777778,
+      85.73611111111111
+     ],
+     "leave_by_prelim_kst": [
+      "03-24 14:24",
+      "03-26 01:08"
+     ],
+     "flame@optimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       "03-25 21:25"
+      ],
+      "gap_min": [
+       -1860.833333333333,
+       2083.166666666667
+      ],
+      "sign": "indeterminate"
+     },
+     "smoke@optimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       null
+      ],
+      "gap_min": [
+       -Infinity,
+       2083.166666666667
+      ],
+      "sign": "indeterminate"
+     },
+     "flame@pessimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       "03-25 21:25"
+      ],
+      "gap_min": [
+       -1860.833333333333,
+       2083.166666666667
+      ],
+      "sign": "indeterminate"
+     },
+     "smoke@pessimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       null
+      ],
+      "gap_min": [
+       -Infinity,
+       2083.166666666667
+      ],
+      "sign": "indeterminate"
+     }
+    },
+    "final": {
+     "flame": "indeterminate",
+     "smoke": "indeterminate"
+    }
+   },
+   "cells_evaluated": 7203,
    "v1_smoke_by_1630_kst": null
   },
   {
@@ -1764,6 +1771,281 @@
      "smoke": "indeterminate"
     }
    },
+   "cells_evaluated": 6624,
+   "v1_smoke_by_1630_kst": null
+  },
+  {
+   "set": "documented",
+   "village": "V5",
+   "observer": "강구2리마을회관",
+   "lat": 36.3669479,
+   "lon": 129.385317,
+   "anchors": "text 00:07 26 Mar; fire ~30 min later (SNIPPET)",
+   "x": 1169137.6130122954,
+   "y": 1820484.9490506856,
+   "leave_by_place": "osm:node/415160154",
+   "leave_by_place_name": "강구리",
+   "trip_min_s": 81,
+   "entry_xy": [
+    1168868.1168167915,
+    1819653.9470553112
+   ],
+   "results": {
+    "bracket_detected_only": {
+     "arrival_h": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "arrival_kst": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "leave_by_prelim_h": null,
+     "leave_by_prelim_kst": null,
+     "flame@optimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       "03-25 21:25"
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@optimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       null
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "flame@pessimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       "03-25 21:25"
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@pessimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       null
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     }
+    },
+    "wide_bracket_all_burned": {
+     "arrival_h": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "arrival_kst": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "leave_by_prelim_h": null,
+     "leave_by_prelim_kst": null,
+     "flame@optimistic": {
+      "first_visible_h": [
+       49.71666666666667,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-24 13:07",
+       "03-25 21:25"
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@optimistic": {
+      "first_visible_h": [
+       39.9,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-24 03:18",
+       null
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "flame@pessimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       82.01666666666667
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       "03-25 21:25"
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@pessimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       null
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     }
+    },
+    "final": {
+     "flame": "not_bracketed",
+     "smoke": "not_bracketed"
+    }
+   },
+   "cells_evaluated": 4295,
+   "v1_smoke_by_1630_kst": null
+  },
+  {
+   "set": "documented",
+   "village": "V5",
+   "observer": "강구4리마을회관",
+   "lat": 36.3612908,
+   "lon": 129.3922726,
+   "anchors": "as V5",
+   "x": 1169773.9831693438,
+   "y": 1819869.5565757155,
+   "leave_by_place": "osm:node/415160154",
+   "leave_by_place_name": "강구리",
+   "trip_min_s": 81,
+   "entry_xy": [
+    1168868.1168167915,
+    1819653.9470553112
+   ],
+   "results": {
+    "bracket_detected_only": {
+     "arrival_h": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "arrival_kst": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "leave_by_prelim_h": null,
+     "leave_by_prelim_kst": null,
+     "flame@optimistic": {
+      "first_visible_h": [
+       82.01666666666667,
+       85.75
+      ],
+      "first_visible_kst": [
+       "03-25 21:25",
+       "03-26 01:09"
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@optimistic": {
+      "first_visible_h": [
+       75.56666666666666,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-25 14:58",
+       null
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "flame@pessimistic": {
+      "first_visible_h": null,
+      "first_visible_kst": null,
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@pessimistic": {
+      "first_visible_h": null,
+      "first_visible_kst": null,
+      "gap_min": null,
+      "sign": "not_bracketed"
+     }
+    },
+    "wide_bracket_all_burned": {
+     "arrival_h": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "arrival_kst": {
+      "500": null,
+      "250": null,
+      "1000": null
+     },
+     "leave_by_prelim_h": null,
+     "leave_by_prelim_kst": null,
+     "flame@optimistic": {
+      "first_visible_h": [
+       51.016666666666666,
+       85.75
+      ],
+      "first_visible_kst": [
+       "03-24 14:25",
+       "03-26 01:09"
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@optimistic": {
+      "first_visible_h": [
+       39.9,
+       Infinity
+      ],
+      "first_visible_kst": [
+       "03-24 03:18",
+       null
+      ],
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "flame@pessimistic": {
+      "first_visible_h": null,
+      "first_visible_kst": null,
+      "gap_min": null,
+      "sign": "not_bracketed"
+     },
+     "smoke@pessimistic": {
+      "first_visible_h": null,
+      "first_visible_kst": null,
+      "gap_min": null,
+      "sign": "not_bracketed"
+     }
+    },
+    "final": {
+     "flame": "not_bracketed",
+     "smoke": "not_bracketed"
+    }
+   },
+   "cells_evaluated": 9618,
    "v1_smoke_by_1630_kst": null
   },
   {
@@ -1984,489 +2266,7 @@
      "smoke": "indeterminate"
     }
    },
-   "v1_smoke_by_1630_kst": null
-  },
-  {
-   "set": "all_places",
-   "region": "uiseong_andong_2025",
-   "origin_id": "osm:node/415158323",
-   "name": "신석리",
-   "x": 1114995.3492727033,
-   "y": 1836913.7208564777,
-   "leave_by_place": "osm:node/415158323",
-   "leave_by_place_name": "신석리",
-   "trip_min_s": 259,
-   "entry_xy": [
-    1115057.6093313603,
-    1836945.6185217157
-   ],
-   "results": {
-    "bracket_detected_only": {
-     "arrival_h": {
-      "500": [
-       85.75,
-       87.03333333333333
-      ],
-      "250": null,
-      "1000": [
-       85.75,
-       87.03333333333333
-      ]
-     },
-     "arrival_kst": {
-      "500": [
-       "03-26 01:09",
-       "03-26 02:26"
-      ],
-      "250": null,
-      "1000": [
-       "03-26 01:09",
-       "03-26 02:26"
-      ]
-     },
-     "leave_by_prelim_h": [
-      85.67805555555556,
-      86.96138888888889
-     ],
-     "leave_by_prelim_kst": [
-      "03-26 01:04",
-      "03-26 02:21"
-     ],
-     "flame@optimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       "03-25 21:25"
-      ],
-      "gap_min": [
-       219.68333333333362,
-       683.6833333333336
-      ],
-      "sign": "nonneg"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       39.9,
-       49.333333333333336
-      ],
-      "first_visible_kst": [
-       "03-24 03:18",
-       "03-24 12:44"
-      ],
-      "gap_min": [
-       2180.6833333333334,
-       2823.6833333333334
-      ],
-      "sign": "nonneg"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": [
-       85.75,
-       87.03333333333333
-      ],
-      "first_visible_kst": [
-       "03-26 01:09",
-       "03-26 02:26"
-      ],
-      "gap_min": [
-       -81.31666666666632,
-       72.68333333333345
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       null
-      ],
-      "gap_min": [
-       -Infinity,
-       683.6833333333336
-      ],
-      "sign": "indeterminate"
-     }
-    },
-    "wide_bracket_all_burned": {
-     "arrival_h": {
-      "500": [
-       51.016666666666666,
-       87.03333333333333
-      ],
-      "250": [
-       51.016666666666666,
-       122.9955062866211
-      ],
-      "1000": [
-       51.016666666666666,
-       87.03333333333333
-      ]
-     },
-     "arrival_kst": {
-      "500": [
-       "03-24 14:25",
-       "03-26 02:26"
-      ],
-      "250": [
-       "03-24 14:25",
-       "03-27 14:23"
-      ],
-      "1000": [
-       "03-24 14:25",
-       "03-26 02:26"
-      ]
-     },
-     "leave_by_prelim_h": [
-      50.94472222222222,
-      86.96138888888889
-     ],
-     "leave_by_prelim_kst": [
-      "03-24 14:20",
-      "03-26 02:21"
-     ],
-     "flame@optimistic": {
-      "first_visible_h": [
-       49.71666666666667,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-24 13:07",
-       "03-25 21:25"
-      ],
-      "gap_min": [
-       -1864.3166666666668,
-       2234.6833333333334
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       0.7189598083496094,
-       49.333333333333336
-      ],
-      "first_visible_kst": [
-       "03-22 12:07",
-       "03-24 12:44"
-      ],
-      "gap_min": [
-       96.68333333333294,
-       5174.545744832357
-      ],
-      "sign": "nonneg"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       87.03333333333333
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       "03-26 02:26"
-      ],
-      "gap_min": [
-       -2165.3166666666666,
-       2156.6833333333334
-      ],
-      "sign": "indeterminate"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": [
-       49.333333333333336,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-24 12:44",
-       null
-      ],
-      "gap_min": [
-       -Infinity,
-       2257.6833333333334
-      ],
-      "sign": "indeterminate"
-     }
-    },
-    "final": {
-     "flame": "indeterminate",
-     "smoke": "indeterminate"
-    }
-   }
-  },
-  {
-   "set": "documented",
-   "village": "V5",
-   "observer": "강구2리마을회관",
-   "lat": 36.3669479,
-   "lon": 129.385317,
-   "anchors": "text 00:07 26 Mar; fire ~30 min later (SNIPPET)",
-   "x": 1169137.6130122954,
-   "y": 1820484.9490506856,
-   "leave_by_place": "osm:node/415160154",
-   "leave_by_place_name": "강구리",
-   "trip_min_s": 81,
-   "entry_xy": [
-    1168868.1168167915,
-    1819653.9470553112
-   ],
-   "results": {
-    "bracket_detected_only": {
-     "arrival_h": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "arrival_kst": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "leave_by_prelim_h": null,
-     "leave_by_prelim_kst": null,
-     "flame@optimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       "03-25 21:25"
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       null
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       "03-25 21:25"
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       null
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     }
-    },
-    "wide_bracket_all_burned": {
-     "arrival_h": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "arrival_kst": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "leave_by_prelim_h": null,
-     "leave_by_prelim_kst": null,
-     "flame@optimistic": {
-      "first_visible_h": [
-       49.71666666666667,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-24 13:07",
-       "03-25 21:25"
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       39.9,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-24 03:18",
-       null
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       82.01666666666667
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       "03-25 21:25"
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       null
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     }
-    },
-    "final": {
-     "flame": "not_bracketed",
-     "smoke": "not_bracketed"
-    }
-   },
-   "v1_smoke_by_1630_kst": null
-  },
-  {
-   "set": "documented",
-   "village": "V5",
-   "observer": "강구4리마을회관",
-   "lat": 36.3612908,
-   "lon": 129.3922726,
-   "anchors": "as V5",
-   "x": 1169773.9831693438,
-   "y": 1819869.5565757155,
-   "leave_by_place": "osm:node/415160154",
-   "leave_by_place_name": "강구리",
-   "trip_min_s": 81,
-   "entry_xy": [
-    1168868.1168167915,
-    1819653.9470553112
-   ],
-   "results": {
-    "bracket_detected_only": {
-     "arrival_h": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "arrival_kst": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "leave_by_prelim_h": null,
-     "leave_by_prelim_kst": null,
-     "flame@optimistic": {
-      "first_visible_h": [
-       82.01666666666667,
-       85.75
-      ],
-      "first_visible_kst": [
-       "03-25 21:25",
-       "03-26 01:09"
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       75.56666666666666,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-25 14:58",
-       null
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": null,
-      "first_visible_kst": null,
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": null,
-      "first_visible_kst": null,
-      "gap_min": null,
-      "sign": "not_bracketed"
-     }
-    },
-    "wide_bracket_all_burned": {
-     "arrival_h": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "arrival_kst": {
-      "500": null,
-      "250": null,
-      "1000": null
-     },
-     "leave_by_prelim_h": null,
-     "leave_by_prelim_kst": null,
-     "flame@optimistic": {
-      "first_visible_h": [
-       51.016666666666666,
-       85.75
-      ],
-      "first_visible_kst": [
-       "03-24 14:25",
-       "03-26 01:09"
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@optimistic": {
-      "first_visible_h": [
-       39.9,
-       Infinity
-      ],
-      "first_visible_kst": [
-       "03-24 03:18",
-       null
-      ],
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "flame@pessimistic": {
-      "first_visible_h": null,
-      "first_visible_kst": null,
-      "gap_min": null,
-      "sign": "not_bracketed"
-     },
-     "smoke@pessimistic": {
-      "first_visible_h": null,
-      "first_visible_kst": null,
-      "gap_min": null,
-      "sign": "not_bracketed"
-     }
-    },
-    "final": {
-     "flame": "not_bracketed",
-     "smoke": "not_bracketed"
-    }
-   },
+   "cells_evaluated": 2519,
    "v1_smoke_by_1630_kst": null
   }
  ]

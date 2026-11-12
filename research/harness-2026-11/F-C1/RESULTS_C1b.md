@@ -5,6 +5,12 @@
 **Code.** `seebefore/c1b.py`. Documented points: full computation, `_data/C1B_documented_full.json`, copied to
 `C1B_documented.json`. Lazy evaluation is identical to full: checked on V1, all fields equal.
 
+**Provenance of `C1B_documented.json` (Hannah's notes 1–3).** The first committed file came from a run with
+then-uncommitted code: it had no `cells_evaluated`, a different row order, and one stray `all_places` regression
+row (신석리). It was **regenerated with committed code** (`c1b.py --doc-only` at 02c312d, rows sorted). All 11
+documented rows are identical apart from the added `cells_evaluated`. The stray row is gone. The account-based
+result (`C1B_accounts.json`) recomputed on it is identical.
+
 **Timing source.** FIRMS per-cell brackets, all times in **KST** (UTC+9). The AHI timing row is discussed below.
 
 > Retrospective research. Line of sight to modelled burning cells is necessary, not sufficient, for a resident to
