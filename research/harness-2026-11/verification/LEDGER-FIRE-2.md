@@ -42,6 +42,9 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 34 | 2026-11-12 | F-3.2 W3 v3.1 acceptance, samples a/b/c | Thomas | 45a8975 | integer equality 0 mismatches; boundary 102/17, 102 (b), 482/309; 10/10 instances each | own packets at Leo f40e2af (MANIFEST_v3_1 cmds); `--mode v31` (+ `--law scalar` for b); negative control | PASS |
 | 35 | 2026-11-12 | PR #127 scope check (research-scout batch 6) | Sofia | 43e418b | docs only, no private link, no footer | diff + body | READY |
 | 36 | 2026-11-12 | P-PROTO next cut (step-aware sentences, one-trip, not-in-model) | Clara | 33f672d | 6 files on Main 4e2d150; exclusive/exhaustive sentence property; 403/403; 0 public-view in default dist | fresh npm ci; full suite; -t leave-by; build:static; probes (step, window_closed ≤ T); mutation none_checked→horizon | PASS |
+| 37 | 2026-11-12 | F-3.2 W4: Tier R all events + F-DYN certificate batch | Thomas | b2d9eba | Tier R 20/20 identical, tier_r.json byte-identical, 80/80 accepted; F-DYN 3 packets / 528 rows py = c = claim/T, 0 diffs, all 69 NORUN rows ACCEPT by both | own rerun (Choi TOA, FIRMS 2022/23/25; packets rebuilt from MANIFEST_v3 at Leo 7eb3691) | PASS WITH NOTES |
+| 38 | 2026-11-12 | F-3.2 W5: Tier R FIRMS-coverage guard | Thomas | cc850f5 (at 25597ac) | 10/10; 3 mutations caught; labels equal the old ones whenever covered; all 4 events covered on all-events data; 2025-only refuses KFS_02/05/11 | tests + mutation + real-data coverage + synthetic wrong-region file | PASS WITH NOTES |
+| 39 | 2026-11-12 | sipp acceptance-window regression test (W6R) | Thomas | 25597ac | 6/6 on identity-checked inputs, 6 skip without data; my widening mutation reproduces naive 968/1032/573/1400/776 and FD1 2921; sipp suite 98 passed | pytest + own mutation script | PASS WITH NOTES |
 
 ## Notes
 
@@ -242,3 +245,21 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Probes: step uniform in 501/501 real timed cards (2 synthetic without a step omit the clause); 0 timed cards with a window_closed cell at or before T.
 - Mutation none_checked→horizon is caught at real osm:node/415160449.
 - DOM order and ONE_TRIP rely on her passing tests; Iris's E is not in this cut.
+
+
+**37. W4 @ b2d9eba**:
+- Tier R: all 20 missions are identical in label, T, cause, claim and accepted (optimistic, A, R1.5, R8.2), and packet info (a)/(b) is equal.
+- F-DYN: Yeongdeok 19Z kriged_mean 180 rows (54 NORUN), Uiseong 17Z firms_early 168 (6), Yeongdeok 19Z firms_early 180 (9). O2 diffs are 0 per packet.
+- N1: the empty-Python-output failure did not reproduce (0/528); its cause is still unknown.
+- N2: the other 1,200 rows were not re-run.
+- N3: v3 firms_early is superseded by v3.1 (W7 pending).
+
+**38. W5 @ cc850f5**:
+- N1: coverage ignores location; a synthetic US-only file spanning the window counts as covered for KFS_02. Today only Korea exports are supplied.
+- N2: tier_label receives b_available (which also needs the TOA raster), so FIRMS without a raster gives not_labelled_no_firms; the fallback cov dict has different keys.
+- N3: coverage is the span of detection dates, not the export period (conservative).
+
+**39. W6R @ 25597ac**:
+- The widening must use the request horizon: with H = the window end (2861), FD1 stays EXHAUSTED.
+- N1: CI never runs this test with data. verified-window-routing.yml:69 runs the tests without fetching; reproduce-linux.yml:92 fetches but runs only tests/api.
+- test_sipp_property.py was excluded because hypothesis is missing from my venv (not this change).
