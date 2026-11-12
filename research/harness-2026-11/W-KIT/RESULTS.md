@@ -58,6 +58,63 @@ no_route/unresolved → 긴급). The kit's older 90-BYTE EUC-KR rule is stricter
 kept; a test asserts every kit SMS and family text fits 90 characters and its own class. None of these is a 재난문자;
 if sent as one, the agency name is mandatory and goes last (제10조②).
 
+## W6 — draft decree four-field report (draft requirement, as of the notice date 2026-11-04)
+Source (Sofia, via Thomas): 재난 및 안전관리 기본법 시행령 일부개정령안 입법예고, 행정안전부공고 제2026-1391호, 2026-11-04,
+https://opinion.lawmaking.go.kr/gcom/ogLmPp/89332, 안 제49조②: 1. 대피 대상 지역 및 대피 대상자; 2. 대피의 사유 및 대피가 필요한
+시기; 3. 대피장소의 명칭ㆍ위치; 4. 안내를 실시하는 기관의 명칭 및 문의 연락처. This is a DRAFT; the check describes the draft as of
+that notice and nothing more.
+
+The first version (66e3e62, Thomas) FAILED verification: with any supplied issuer, every one of the 531 real channel
+sets was withheld. This version addresses the verifier's four points:
+1. **Supplied proper nouns are data.** The exact contact lines built from the supplied issuer (`issuerLines`) are masked
+   before the forbidden-word, departure, clock-time and destination scans, like place names. The agency name alone is
+   not masked, so the same word elsewhere in generated text is still caught, even when the agency is called exactly
+   "안전" / "Safe" (test). An issuer adds no violation to any of the 531 real or 600 synthetic sets (test).
+2. **Contact line length, decided by measurement.** The Korean village-head script (opener + core + closer) already runs
+   28.7–32.7 s (p50 32.0) of its 35 s budget over the 531 real places, so a contact line (5–11 s) cannot fit inside it.
+   The head therefore carries the line after the closer under its own budget, `HEAD_CONTACT_MAX_S` = 10 s. The 35 s budget
+   is unchanged. The number is read digit by digit, one syllable or word per digit. Measured Korean line length:
+   4.7 s (2-syllable agency, 10 digits) up to 11.0 s (20 syllables, 11 digits). With an 11-digit number the line fits
+   agencies of up to 16 syllables. Over budget, the head leaves out the FIELD and stays usable. The voice call and the
+   three-line family script have no length limit and always carry the line. The family text carries it only if it still
+   fits 90 bytes EUC-KR / 160 GSM-7. Measured with the synthetic issuer: Korean 0 of 531, English 509 of 531.
+3. **English never carries Hangul.** English outputs use only a supplied English or romanised agency name (GSM-7
+   printable ASCII, ≤ 60 characters). Without one, the English field is withheld (`no_english_name`) and never filled
+   from the Korean name. The GSM-7 check on the English family text is unchanged and passes.
+4. **Metric:** the share of resident outputs that are four-field complete AND not withheld (531 real origins). Same
+   measuring code on both commits. Synthetic issuer 합성군 재난안전과 / Synthetic County Disaster Safety Division /
+   000-0000-0000:
+
+   | output | no issuer (both) | 66e3e62 | this version |
+   |---|---|---|---|
+   | ko head | 0 | 0 (299 complete, 531 withheld) | **299** (0 withheld) |
+   | ko voice | 0 | 0 (299 complete, 531 withheld) | **299** |
+   | ko family text | 0 | 0 | 0 (contact does not fit 90 bytes) |
+   | ko family script | 0 | 0 (440 complete, 531 withheld) | **440** |
+   | en head | 0 | 64* | 64 |
+   | en voice | 0 | 64* | 64 |
+   | en family text | 0 | 0 (531 withheld: Hangul, not GSM-7) | 0 |
+   | en family script | 0 | 64* | 64 |
+
+   \* At 66e3e62 these counted the Hangul agency name inside English text as the field, which is the defect fixed here.
+   Now they count a supplied English name. With a Korean-only issuer the English rows are 0 and every English output
+   reports `no_english_name`. Withheld resident outputs with the issuer: 0 of 4,248, against 2,124 at 66e3e62.
+
+   What is still missing, and why (Korean, with the issuer): shelter in 1,086 of 2,124 outputs (the head drops its
+   optional destination block to stay within 20 s; varying or unnamed destinations are never named; the family text
+   has no room). Reason and timing are missing in 120, which are the 30 no-route/unresolved places × 4 outputs: by design
+   they carry no time. Area is missing in 24. English shelter is missing more often (1,923) because many destinations
+   have no English name and none is ever made up.
+5. **A report only (design change; sent to Iris).** `draftDecreeCheck` adds `set.decree[lang][output] = { present,
+   missing, contact }` and never a violation, so a missing decree field never withholds a message. Under a withholding
+   rule every no-route and unresolved message, and every message without a nameable shelter, would be suppressed. That
+   is a policy question for officials, not a template defect (test: with or without the check, identical outputs and
+   violations).
+
+Agency and contact are supplied inputs, validated by `validIssuer`: one line; Korean ≤ 40 characters; contact digits
+and hyphens, 3–12 digits, not 110/112/119. Anything else counts as not supplied, and nothing is invented or defaulted
+(test). Without an issuer, every output is as before (the existing W-KIT tests pass unchanged). Comprehension is untested.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.

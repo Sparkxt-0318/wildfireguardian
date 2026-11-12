@@ -20,6 +20,13 @@ import {
   cbsChars,
   cbsClassFor,
   transportNeedList,
+  validIssuer,
+  contactLine,
+  contactSeconds,
+  outputWithheld,
+  DECREE_FIELDS,
+  RESIDENT_OUTPUTS,
+  HEAD_CONTACT_MAX_S,
   type ChannelSet,
   type Reply,
 } from '../../planner/src/features/lastmile/channels/build';
@@ -305,5 +312,138 @@ describe('transport-need list (key 2)', () => {
     expect(rows.topSection.map((r) => `${r.originId}:${r.kind}`)).toEqual(['o:noroute:no_route', 'o:unres:unresolved', 'o:missing:unresolved']);
     expect(rows.byDeadline.map((r) => `${r.originId}:${r.code}`)).toEqual(['o:early:needs_help', 'o:early:unknown']);
     expect(rows.topSection.every((r) => r.leaveByS === null) && rows.byDeadline.every((r) => r.leaveByS !== null)).toBe(true);
+  });
+});
+
+describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04; draft requirement, as of the notice date)', () => {
+  // SYNTHETIC issuer: the Korean and English names both contain a kit-forbidden word (안전 / Safety); the number is fake
+  const ISS = { agency: { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division' }, contact: '000-0000-0000' };
+  const HANGUL = /[가-힣ㄱ-ㆎ]/;
+  const all = () => [...real, ...syn];
+
+  it('supplied proper nouns are data: an issuer adds no violation to any of the 531 real or 600 synthetic channel sets', () => {
+    for (const p of all()) {
+      const a = buildChannels(p, { nowIso: NOW }).violations;
+      const b = buildChannels(p, { nowIso: NOW, issuer: ISS }).violations;
+      expect(b, p.input.origin.id).toEqual(a);
+    }
+    // a rescue-unit name (구조) is data too
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    expect(buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '합성 119구조대', en: 'Synthetic Rescue Unit' }, contact: '000-000-0000' } }).violations).toEqual([]);
+  });
+
+  it('the scan still catches the same word in generated text, even when the agency name is exactly that word', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    for (const iss of [ISS, { agency: { ko: '안전', en: 'Safe' }, contact: '000-0000-0000' }]) {
+      const set = buildChannels(p, { nowIso: NOW, issuer: iss });
+      expect(set.violations).toEqual([]);
+      set.text.ko.voice = `${set.text.ko.voice}\n이제 안전합니다.`;
+      set.text.en.familyScript = [set.text.en.familyScript[0], set.text.en.familyScript[1], `${set.text.en.familyScript[2]} You are safe.`];
+      const v = checkChannels(p, set);
+      expect(v).toContain('ko.voice: forbidden word "안전"');
+      expect(v).toContain('en.familyScript: forbidden word "safe"');
+    }
+  });
+
+  it('agency and contact are never invented: no line without a valid supplied issuer; blank, multi-line, emergency or non-numeric input counts as none', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    const bad = [
+      null,
+      { agency: { ko: '' }, contact: '000-0000-0000' },
+      { agency: { ko: '  ' }, contact: '000-0000-0000' },
+      { agency: { ko: '합성군' }, contact: '' },
+      { agency: { ko: '합성군' }, contact: '119' },
+      { agency: { ko: '합성군' }, contact: '1-1-2' },
+      { agency: { ko: '합성군' }, contact: '000-CALL-NOW' },
+      { agency: { ko: '합성군\n즉시 대피' }, contact: '000-0000-0000' },
+      { agency: { ko: '가'.repeat(41) }, contact: '000-0000-0000' },
+    ];
+    for (const iss of bad) {
+      expect(validIssuer(iss as never)).toBeNull();
+      const s = buildChannels(p, { nowIso: NOW, issuer: iss as never, draftDecreeCheck: true });
+      expect(residentTexts(s).join('\n')).not.toMatch(/문의|Contact/);
+      for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) expect(s.decree![l][o].contact).toBe('not_supplied');
+    }
+  });
+
+  it('English outputs never carry Hangul: no English name => the English field is withheld, not filled; a Hangul "English" name is refused', () => {
+    expect(validIssuer({ agency: { ko: '합성군', en: '합성군' }, contact: '000-0000-0000' })!.agency.en).toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong-gun Café' }, contact: '000-0000-0000' })!.agency.en).toBeNull(); // é: not GSM-7 basic
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: ISS.agency.ko }, contact: ISS.contact }, draftDecreeCheck: true });
+      const en = s.text.en;
+      for (const t of [en.head.script, en.voice, en.familyText, en.familyScript.join('\n')]) expect(t).not.toContain(ISS.agency.ko);
+      for (const o of RESIDENT_OUTPUTS) expect(s.decree!.en[o].contact).toBe('no_english_name');
+      expect(s.violations.filter((v) => v.startsWith('en.familyText'))).toEqual([]); // GSM-7 check kept, and passes
+    }
+  });
+
+  it('the contact line has its own head budget; over it, the head leaves the FIELD out and the message stays usable', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    const long = { agency: { ko: `${'가'.repeat(19)}과`, en: 'X' }, contact: '000-0000-0000' };
+    const iss = validIssuer(long)!;
+    expect(contactSeconds(contactLine(iss, 'ko')!, iss, 'ko')).toBeGreaterThan(HEAD_CONTACT_MAX_S);
+    const s = buildChannels(p, { nowIso: NOW, issuer: long, draftDecreeCheck: true });
+    expect(s.text.ko.head.script).not.toContain('문의');
+    expect(s.decree!.ko.head.contact).toBe('over_length');
+    expect(outputWithheld(s, 'ko', 'head')).toBe(false);
+    expect(s.text.ko.voice).toContain(contactLine(iss, 'ko')!);
+    expect(s.text.ko.familyScript[2]).toContain(contactLine(iss, 'ko')!);
+    expect(s.text.ko.familyScript.length).toBe(3);
+    // within budget: the line is in the head, after the closer, and the 35 s opener+core+closer budget is unchanged
+    const ok = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+    expect(ok.text.ko.head.script.endsWith(contactLine(validIssuer(ISS)!, 'ko')!)).toBe(true);
+    expect(ok.text.ko.head.fullS).toBe(buildChannels(p, { nowIso: NOW }).text.ko.head.fullS);
+    expect(ok.text.ko.head.contactS!).toBeLessThanOrEqual(HEAD_CONTACT_MAX_S);
+  });
+
+  it('the family text carries the contact only if it still fits its byte / GSM-7 limit (measured: never in Korean at 90 bytes; English 509 of 531)', () => {
+    let koIn = 0, enIn = 0;
+    const koTexts: string[] = [];
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      koTexts.push(s.text.ko.familyText);
+      koIn += +(s.decree!.ko.familyText.contact === 'included');
+      enIn += +(s.decree!.en.familyText.contact === 'included');
+    }
+    expect([koIn, enIn]).toEqual([0, 509]);
+    const bytes = pythonEucKr(koTexts);
+    expect(bytes, 'python3 with the euc_kr codec is required for this oracle').not.toBeNull();
+    for (const b of bytes!) expect(typeof b === 'number' && b <= 90, String(b)).toBe(true);
+  });
+
+  it('pass metric — share of outputs four-field complete AND not withheld (531 real origins): 66e3e62 gave 0 in every Korean output and en family text; now', () => {
+    const share = (iss: typeof ISS | null) => {
+      const out: Record<string, number> = {};
+      for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) out[`${l}.${o}`] = 0;
+      let withheld = 0;
+      for (const p of real) {
+        const s = buildChannels(p, { nowIso: NOW, issuer: iss, draftDecreeCheck: true });
+        for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) {
+          const w = outputWithheld(s, l, o);
+          withheld += +w;
+          if (!w && s.decree![l][o].missing.length === 0) out[`${l}.${o}`]! += 1;
+          // the report agrees with an independent reading of the text for the agency field
+          const txt = o === 'head' ? s.text[l].head.script : o === 'familyScript' ? s.text[l].familyScript.join('\n') : s.text[l][o];
+          const name = iss ? (l === 'ko' ? iss.agency.ko : iss.agency.en) : null;
+          expect(s.decree![l][o].present.includes('agency_contact')).toBe(!!name && txt.includes(name) && txt.includes(iss!.contact));
+        }
+      }
+      return { out, withheld };
+    };
+    expect(share(null)).toEqual({ out: { 'ko.head': 0, 'ko.voice': 0, 'ko.familyText': 0, 'ko.familyScript': 0, 'en.head': 0, 'en.voice': 0, 'en.familyText': 0, 'en.familyScript': 0 }, withheld: 0 });
+    expect(share(ISS)).toEqual({ out: { 'ko.head': 299, 'ko.voice': 299, 'ko.familyText': 0, 'ko.familyScript': 440, 'en.head': 64, 'en.voice': 64, 'en.familyText': 0, 'en.familyScript': 64 }, withheld: 0 });
+    expect(DECREE_FIELDS.length).toBe(4);
+  });
+
+  it('a report only: with or without the check, the same outputs and the same violations', () => {
+    for (const p of real.slice(0, 120)) {
+      const a = buildChannels(p, { nowIso: NOW, issuer: ISS });
+      const b = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      expect(b.violations).toEqual(a.violations);
+      expect(b.text).toEqual(a.text);
+      expect(a.decree).toBeUndefined();
+    }
+    expect(HANGUL.test('Contact')).toBe(false);
   });
 });
