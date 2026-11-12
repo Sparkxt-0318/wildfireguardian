@@ -195,7 +195,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * **The 2 `upper_bound` rows are exact in effect.** The witness passes the full policy, and the contact field
     excludes departure + 1 s.
 
-## Burn-duration sensitivity of feasible-departure holes (Uiseong; rule committed before running)
+## Burn-duration sensitivity of feasible-departure holes (Uiseong; rule committed before running; VERIFIED: Nora request #5, PASS WITH NOTES, ledger row 35)
 
 * **Setup.**
   * The rule, `BURN_DURATION_SENSITIVITY_RULE.md`, was committed at `6cfab3e` before any number was computed.
@@ -238,6 +238,16 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Deadlines lost or gained.** Never-clears removes the contiguous deadline of 1 origin per 03-23 packet, and of 4
   (kriged_mean) or 15 (firms_early) per 03-25 packet. In these origins a present-fire cell that would have burned out
   stays burning. At f = 0.5, 2 firms_early origins at 03-25 gain one.
+* **Verifier notes (Nora, request #5).**
+  * **Order.** Commit times confirm the rule came before the result. The claim sha matches.
+  * **Reproduction.** Nora re-ran UA 25T17Z h5 kriged_mean (1 of 12 packets). Counts, per-origin deadline changes and
+    hole lists are all identical.
+  * **Never-clears.** All 84 unions are [0, x] or empty.
+  * **Baseline.** The f = 1 unions equal her own fdyn_run unions for 84 of 84 origins.
+  * **Nesting.** never ⊆ ×2 ⊆ ×1 ⊆ ×0.5 holds for every origin.
+  * **Not done.** The Oracle check on a small cut was not run; the nesting check covers the same direction.
+  * **Why the label stays.** With f ≠ 1 the router ends are no longer bin-aligned, so these fields remain contact
+    counterfactuals and are not policy-checked.
 * **Stated limit.** The sensitivity covers the scalar-law v3.1 packets only, not the per-cell envelope packets
   (v3.3 envelope and envelope_burnset). Yeongdeok gets the never-clears arm only, on its packets with holes at f = 1
   (rule addition dated 2026-11-12).
