@@ -196,7 +196,9 @@ export function deadlineCell(s: PlanSheetScenario, lang: Lang): DeadlineCell {
   if (s.bestVerdict !== 'checked_route' || s.latestSafeDepartureS === null) return { main: '—', sub: null };
   const t = headlineDepartureS(s);
   if (t === null) return { main: '—', sub: pick(SHEET.contiguousNone, lang) };
-  return { main: clockAt(base, t), sub: t === s.latestSafeDepartureS ? pick(SHEET.contiguousSame, lang) : pick(SHEET.laterWindowNoted, lang) };
+  // the main time IS the contiguous time (Iris E), so "same on contiguous basis" says nothing any more; the sub line
+  // is kept for the later-window note (and the provenance tag, which needs the room on the A4 page)
+  return { main: clockAt(base, t), sub: t === s.latestSafeDepartureS ? null : pick(SHEET.laterWindowNoted, lang) };
 }
 
 export function arrivalCell(s: PlanSheetScenario): string {

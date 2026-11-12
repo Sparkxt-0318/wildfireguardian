@@ -83,6 +83,8 @@ export interface PlanSheetScenario {
   rawStatus?: string | null;
   /** planner-side note when the API was never asked (e.g. no entry point within 2 km) */
   note?: 'not_checkable' | 'rejected' | 'not_computed' | null;
+  /** deadline provenance tag (stream 3, staff): the KIND only, never the later forecast-free value */
+  deadlineProvenance?: 'window' | 'present_fire' | 'forecast_dependent' | 'not_established' | 'not_computed' | 'unresolved_proven_no_route' | null;
 }
 
 export interface PlanSheetData {

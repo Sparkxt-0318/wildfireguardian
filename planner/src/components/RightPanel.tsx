@@ -2,11 +2,14 @@ import { CONFIG, STATIC_DEMO } from '../config/env';
 import { StaticNote } from './demo/StaticDemo';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets, headlineDepartureS } from '../domain/plan';
+import { findCacheEntry } from '../api/cache';
+import { provenanceText, PROVENANCE_FOOTER, PROVENANCE_TAG, staffProvenance } from '../features/provenance/model';
+import { useProvenanceFile } from '../features/provenance/load';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
 import { FieldMessagesEntry } from '../features/lastmile/FieldMessagesEntry';
 import { useLang, useT, type TFunction } from '../i18n';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { cancelRecompute, ensureRoute, ensureTravelOnly, originCheckCount, recomputeOrigin, selectOffset } from '../state/controller';
 import { drawnReadiness, routeById, travelOnlyDetail, useClockBase, useCurrentScenarioSet, useHorizon, useRoute, useRsgTags, useScenarioPlaces, useSelectedPlace, useSelectedPlan, useShownAttempt } from '../state/selectors';
 import { DRAWN_SCENARIO, getState, useStore } from '../state/store';
@@ -598,6 +601,29 @@ function ComputeList({ plan, inputTime }: { plan: OriginPlan; inputTime: string 
   );
 }
 
+/**
+ * Deadline provenance under the staff headline (stream 3; staff only). Never a clock time; the forecast-dependent gap
+ * is "N min later; that is not extra time". Fail closed to "not established" / "not computed".
+ */
+function ProvenanceLine({ originId, plan }: { originId: string; plan: OriginPlan | null }) {
+  const lang = useLang();
+  const regionId = useStore((s) => s.regionId);
+  const scenarioId = useStore((s) => s.scenarioId);
+  const cacheIndex = useStore((s) => s.cacheIndex);
+  const entry = useMemo(() => (regionId && scenarioId ? findCacheEntry(cacheIndex, regionId, scenarioId) : null), [cacheIndex, regionId, scenarioId]);
+  const file = useProvenanceFile(entry);
+  const p = staffProvenance(deadlineHeadline(plan), originId, file === undefined ? undefined : file, plan);
+  const text = provenanceText(p, lang);
+  if (!text) return null;
+  return (
+    <div className="caveat provenance" data-testid="provenance" data-provenance={p.kind}>
+      <span>
+        <strong>{PROVENANCE_TAG[p.kind as Exclude<typeof p.kind, 'none'>][lang]}</strong> — {text} <em>{PROVENANCE_FOOTER[lang]}</em>
+      </span>
+    </div>
+  );
+}
+
 /** Detail of the selected origin (recorded scenario or drawn zones). */
 function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inputTime: string; issuedAt: string | null; drawn: boolean }) {
   const t = useT();
@@ -681,6 +707,7 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
         <span className="small-note">{t('rsg.outside')}</span>
       ) : null}
       <Headline place={place} plan={plan} inputTime={inputTime} issuedAt={issuedAt} computing={Boolean(progress)} />
+      {!drawn ? <ProvenanceLine originId={place.id} plan={plan} /> : null}
       {!drawn ? <ExplainBlock regionId={regionId} inputTime={inputTime} originId={place.id} lang={lang} shown={plan ? { bestVerdict: plan.bestVerdict, deadlineS: plan.bestVerdict === 'checked_route' ? headlineDepartureS(plan) : plan.latestSafeDepartureS, bestDestinationId: plan.best?.destinationId ?? null, bestJobId: plan.best?.jobId ?? null } : null} /> : null}
       {drawn && notComputed && !progress ? <Recompute place={place} drawn /> : null}
       {plan && plan.sweep.length ? (

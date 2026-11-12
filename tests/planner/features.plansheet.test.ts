@@ -269,7 +269,8 @@ describe('sheet helpers', () => {
     expect(d.main).toBe('18:20');
     expect(d.sub).toBe('그 뒤 빈 구간 다음에 다시 확인된 출발이 있음 — 마감 아님, 계획에 넣지 말 것 (화면 참고)');
     expect(d.sub).not.toMatch(/18:30/);
-    expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: 1800 }), 'ko')).toEqual({ main: '18:30', sub: '연속 확인 기준 동일' });
+    // the main time is the contiguous time: no "same on contiguous basis" sub any more
+    expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: 1800 }), 'ko')).toEqual({ main: '18:30', sub: null });
     expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: null }), 'ko')).toEqual({ main: '—', sub: '첫 계산 출발 시각에 확인된 경로 없음 — 출발 마감 없음' });
     // unresolved never gets a deadline even if a number is passed by mistake
     expect(deadlineCell(scenario(0, { bestVerdict: 'unresolved', latestSafeDepartureS: 600 }), 'ko').main).toBe('—');

@@ -55,6 +55,8 @@ export interface ExportOrigin extends ExportPlace {
   rsgLabel?: string | null;
   /** drawn zones: the Ready-Set-Go tag itself (orders inside-zone origins first, as the list does) */
   rsg?: RsgTag | null;
+  /** deadline provenance (stream 3, staff): the kind, and for forecast_dependent both raw values (s after input) */
+  deadlineProvenance?: { kind: 'window' | 'present_fire' | 'forecast_dependent' | 'not_established' | 'not_computed' | 'unresolved_proven_no_route'; withForecastS: number | null; presentFireOnlyS: number | null } | null;
   /** 1-based urgency rank from the API / core; when absent the export sorts by the planner rule */
   urgencyRank?: number | null;
   /** null = no result at all (shown as unresolved, never safe) */
