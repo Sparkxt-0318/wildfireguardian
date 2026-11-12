@@ -73,7 +73,24 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - Korea is excluded: 2025 is exposed.
 - Canada, the EU and Australia are not feasible without new fuel sources; they are not declared.
 - **FEDS is a descriptive, non-pooled stratum** (orchestrator position, presented to the owner 12 Nov, no objection). It follows the same protocol, with its own ID-only reader.
-- **Expected volume.** The Magstadt archive averages about 147 incidents per season (737 over 2020–24). No part-a incident failed the ≥ 1 interval ≤ 48 h rule (Marcus, train-events build). The analysable count per season is therefore plausibly around 100, but it varies by year and is **unverified**. No CR1 count is taken before the freeze, since counting folders would be the listing itself.
+- **Expected volume (Daniel, 15:20Z, from the Magstadt base rate; no 2025+ data seen).**
+  - Non-project incidents per year ran from 101 to 171 in 2020–24.
+  - **Tier 1** (2025 plus 2026 to the freeze): about 200–300 incidents with IR.
+  - **Tier 2** (prospective): the rest of 2026 is about 0 after mid-November in the western US. The 2027 season is about 100–170.
+  - CR1 has no survey-count threshold, and no part-a incident failed the ≥ 1 interval ≤ 48 h rule (Marcus). So **N_target = 90 is plausibly reachable from Tier 1, and from Tier 2 in the single 2027 season**, after QA losses and E6.
+  - These are ranges. Real counts exist only after the custodian's run.
+  - No CR1 count is taken before the freeze.
+- **Reader details (agreed with Daniel).**
+  - The reader emits `HMAC-SHA256(salt, folder name)` per row. The salt comes only from an environment variable that Hannah sets.
+  - It emits **no GACC or year column**, because the split fields are `source` and `id_hash` only. The tier comes from Hannah's post-freeze reading.
+  - The raw-to-hash map is written only to a path Hannah names. Tests assert that no raw name appears in stdout, stderr or any output.
+- **Builder gaps (Daniel).**
+  - The Magstadt-equivalent builder must emit the NIROPS schema (`Incident_C`, `UTC`, geometry), so that the frozen `rebuild_env.sh` runs unchanged on an allowlist. That pipeline ran 490 incidents unattended with 0 failures.
+  - Raw FTP folders are messier: inconsistent names, and HeatPerimeter, IntenseHeat and ScatteredHeat layers. The builder's QA rules are frozen with it.
+  - Weather is limited by the 10k/day quota, so a tier spans days and needs a resumable re-run.
+  - `rebuild_env.sh` gets a `--quiet-ids` mode that logs only salted hashes.
+- **Custodian environment.** Hannah's session needs these hosts: Copernicus DEM S3, zenodo.org, the LANDFIRE host, the Open-Meteo archive, PyPI and the NIFC FTP. They are set up before the freeze and appear in the access log.
+- **FTP retention of 2025 is unverified.** If 2025 is gone, Tier 1 shrinks to 2026, and Tier 2 is unaffected.
 
 - **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
   - If NIROPS yields too few fires, the fallback is a **longer window**, never another product.
