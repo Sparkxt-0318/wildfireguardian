@@ -2,11 +2,13 @@
 
 Decided by the orchestrator, 2026-11-12, option (a). This file is committed before any synthetic start is computed.
 
-- **Starts:** every 3 h from t0 + 24 h to t0 + 108 h, with t0 = 2025-03-22 02:24 UTC. That is 29 starts:
-  2025-03-23 02:24 UTC, 05:24, …, 2025-03-26 14:24 UTC.
+- **Starts:** every 3 h from t0 + 24 h to t0 + 108 h, with t0 = 2025-03-22 02:24 UTC, **each floored to the whole
+  UTC hour**. That is 29 starts: 2025-03-23 02:00 UTC, 05:00, …, 2025-03-26 14:00 UTC.
+- **Amendment** (committed before any computation on these starts): the contract binding accepts only whole-hour
+  cutoffs (`contract.normalize_cutoff`: `CLOCK_CUTOFF_NOT_WHOLE_HOUR`), so the :24 times of the original text are
+  floored to the hour.
 - **Coverage check (by construction):** the Yeongdeok coastal run on the evening of 25 March KST (about 09–15 UTC
-  on 25 March, i.e. t0 + 78.6 h to t0 + 84.6 h) contains the rule starts t0 + 78 h (08:24 UTC), + 81 h (11:24 UTC)
-  and + 84 h (14:24 UTC).
+  on 25 March, i.e. t0 + 78.6 h to t0 + 84.6 h) contains the rule starts 2025-03-25 08:00, 11:00 and 14:00 UTC.
 - **Regions:** every start is built for both regions (uiseong_andong_2025, yeongdeok_2025).
 - **Horizons:** 5 h and 8 h.
 - **Arrival:** `kriged_mean`, central member, Q = 300 s. Other variants are run on the same starts.
