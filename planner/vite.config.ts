@@ -212,7 +212,20 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), plannerCache(cacheDir, base, { preview: apiMode !== 'static' }), ...(apiMode === 'static' ? [staticCsp(), staticBasemaps(cacheDir)] : [])],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
-    build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+      chunkSizeWarningLimit: 1700,
+      sourcemap: false,
+      // P-PROTO (replay-only public prototype) is built ONLY with WFG_BUILD_PUBLIC_VIEW=1, so the default static build
+      // (and the GitHub Pages deploy of Main) never ships it: publishing it is the owner's decision, not yet made.
+      rollupOptions: {
+        input: {
+          main: resolve(here, 'index.html'),
+          ...(process.env.WFG_BUILD_PUBLIC_VIEW === '1' ? { publicView: resolve(here, 'public-view.html') } : {}),
+        } as Record<string, string>,
+      },
+    },
     test: {
       dir: resolve(here, '../tests/planner'),
       include: ['**/*.test.ts'],
