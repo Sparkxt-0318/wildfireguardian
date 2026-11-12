@@ -5,7 +5,7 @@
 - Owner decision (relayed by the orchestrator, 2026-11-12): collect a fresh set of fires for a clean replication.
 - The current A1 parts b and c proceed, but are described as **"labels, perimeters and growth sealed; survey-timing metadata exposed; membership rules used it"**. H is descriptive. Neither is presented as the clean confirmation.
 
-Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Draft 4 resolves Hannah's custodian protocol review (15:23Z): blocking items B1–B5 and her smaller fixes. Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**:
+Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Draft 4 resolves Hannah's custodian protocol review (15:23Z): blocking items B1–B5 and her smaller fixes. Draft 5 answers her re-review of draft 4 (15:30Z): a canonical_id rule that survives archive moves, and the Tier-1 scope conflict with two earlier registrations, recorded as **[OPEN] owner decision**. Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**:
 - data availability (Daniel);
 - protocol review (Hannah).
 
@@ -27,7 +27,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 
 | tier | discovery window | snapshot ("data as of") | closing |
 |---|---|---|---|
-| Tier 1, unseen retrospective | 2024-12-18 to F | F + 14 days | F + 60 days |
+| Tier 1, unseen retrospective (**scope [OPEN]**, see §2) | 2024-12-18 to F, before the scope decision | F + 14 days | F + 60 days |
 | Tier 2, prospective (THE confirmation) | F + 1 day to 2027-12-31 | 2028-01-31 | 2028-03-31 |
 | Tier 2 extension (once, if < 90 analysable at closing) | to 2028-12-31 | 2029-01-31 | 2029-03-31 |
 
@@ -35,7 +35,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - **The NIROPS-type series builder.** Daniel may write and rehearse it now, on **exposed 2020–24 fires only**. There is no CR1 listing or fetch before the freeze.
 
 ## Timing, detail (provisional)
-- **Tier 1 (unseen retrospective).** It covers the 2025 season and 2026 up to the freeze, **if** the NIFC FTP still holds 2025 (unverified).
+- **Tier 1 (unseen retrospective).** Its scope is an **[OPEN] owner decision** (§2, "Tier-1 scope"). Before that decision it was drafted as the 2025 season plus 2026 up to the freeze, **if** the NIFC FTP still holds 2025 (unverified).
   - Expect about 200–300 incidents (Daniel). Listing, building and scoring take about 1–2 weeks after the freeze, and the custodian's covariate and weather fetch is the main cost.
   - Its weakness: these fires are public events. The declaration in §1 narrows this but cannot close it.
 - **Tier 2 (prospective, THE confirmation).** Its first fires are in summer 2027.
@@ -75,6 +75,16 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 
 ## 2. Source, window and tiers
 
+**Tier-1 scope: conflicts with two earlier registrations ([OPEN] owner decision; Hannah's B5 result, ledger row 43).**
+- **US 2026** is reserved by `forecast/documents/preregistration_blind_test.md` (owner, 2026-10-30). Any access before the owner's OSF registration of that test would block the test.
+- **US 2025** is earmarked by `firecast-lab/SPLITS.json` `fresh_holdout` (`us_2025_membership_rule`, pending).
+- The owner chooses one of the following:
+  - **(a)** Tier 1 = 2025 only, superseding or merging `fresh_holdout` explicitly, with 2026 excluded from Tier 1;
+  - **(b)** no Tier 1, so CR1 is Tier 2 only;
+  - **(c)** the blind test declared superseded, so Tier 1 stays 2025 plus 2026 to the freeze.
+- The decision, and which document it supersedes or merges with, is written here before the freeze. Until then, every Tier-1 count and date in this draft is conditional on it.
+- Tier 2 starts the day after the freeze. Under (a) or (b), Tier 2 would also take in late-2026 fires, which the blind test reserves; this is **[OPEN]** for the same decision.
+
 **Availability (Daniel, 2026-11-12 15:11Z; from documentation and his own manifests, nothing fetched; items marked (u) are unverified).**
 
 | source | latest held by any session | 2025+ available? | ID-only listing | covariates (US pipeline) |
@@ -94,7 +104,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - **FEDS is a descriptive, non-pooled stratum** (orchestrator position, presented to the owner 12 Nov, no objection). It follows the same protocol, with its own ID-only reader.
 - **Expected volume (Daniel, 15:20Z, from the Magstadt base rate; no 2025+ data seen).**
   - Non-project incidents per year ran from 101 to 171 in 2020–24.
-  - **Tier 1** (2025 plus 2026 to the freeze): about 200–300 incidents with IR.
+  - **Tier 1** (2025 plus 2026 to the freeze, as first drafted): about 200–300 incidents with IR. Under option (a) this drops to the 2025 share; under (b) it is zero.
   - **Tier 2** (prospective): the rest of 2026 is about 0 after mid-November in the western US. The 2027 season is about 100–170.
   - CR1 has no survey-count threshold, and no part-a incident failed the ≥ 1 interval ≤ 48 h rule (Marcus). So **N_target = 90 is plausibly reachable from Tier 1, and from Tier 2 in the single 2027 season**, after QA losses and E6.
   - These are ranges. Real counts exist only after the custodian's run.
@@ -109,7 +119,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
   - Weather is limited by the 10k/day quota, so a tier spans days and needs a resumable re-run.
   - `rebuild_env.sh` gets a `--quiet-ids` mode that logs only salted hashes.
 - **Custodian environment.** It is a dedicated environment, and the hash of its allowed-host list is in the freeze, so a host change after the freeze is visible. It needs these hosts: Copernicus DEM S3, zenodo.org, the LANDFIRE host, the Open-Meteo archive, PyPI and the NIFC FTP. They are set up before the freeze and appear in the access log.
-- **FTP retention of 2025 is unverified.** If 2025 is gone, Tier 1 shrinks to 2026, and Tier 2 is unaffected.
+- **FTP retention of 2025 is unverified.** If 2025 is gone: under (a) Tier 1 is empty; under (c) Tier 1 shrinks to 2026. Tier 2 is unaffected either way.
 
 - **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
   - If NIROPS yields too few fires, the fallback is a **longer window**, never another product.
@@ -134,7 +144,10 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
    - It discards every other attribute **in memory before any print or write**, and tests cover this, including redacted tracebacks.
    - **Hash, one definition (B3):** `id_hash = HMAC-SHA256(salt, source + "|" + canonical_id)`.
      - The salt is **256-bit random**.
-     - For the NIFC FTP, `canonical_id` is the `<GACC>/<year>_<fire>` folder path, normalised: lower case; spaces, hyphens and underscores collapsed to `_`; trailing qualifiers kept.
+     - For the NIFC FTP, `canonical_id` is `<GACC code>/<year>_<fire>`, taken from the **leaf incident folder**, not the full path. This matters because GACCs move old seasons into archive folders (`firecast-lab/docs/FRESH_HOLDOUT.md` §2.1, from web summaries), for example pacific_nw `Z_<year>_HISTORIC`, n_rockies `Historic_archived NIROPS/<year>_fires/` and great_basin `pre2015-...`. A full path would change between the Tier-1 snapshot and a later re-read or hand-over, and the same fire would hash twice.
+       - **Frozen stripping rule:** keep the GACC code (the first path segment, mapped to a frozen list of GACC codes) and the leaf incident folder name. Drop every intermediate segment: archive, historic, season and year folders. If the leaf name carries no year, take the year from the nearest stripped year or season segment.
+       - **Normalisation:** lower case; spaces, hyphens and underscores collapsed to `_`; trailing qualifiers kept.
+       - **Rehearsal requirement:** the reader's rehearsal on exposed fires must include at least one exposed fire listed under both a current and an archived path, and must show that both give one hash. If no such fire exists among the exposed fires, a synthetic fixture with both path forms is used instead, and that is disclosed.
      - **Renamed, merged or complex folders:** the frozen rule maps every folder that resolves to the same incident (by the IRWIN ID in its IR files, read by the custodian after the freeze) to the canonical folder with the **lowest `u`**. The others are logged as aliases.
      - Two incidents that collide on `canonical_id` are both listed and resolved by IRWIN ID after the freeze.
    - **Outputs:**
@@ -255,11 +268,12 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 | extension, new-candidate set, freeze order, FEDS stratum | owner | orchestrator positions, no objection; awaiting confirmation |
 | snapshot and closing dates | owner | proposed in draft 3 |
 | Magstadt-equivalent series builder | Daniel | may start the rehearsal on exposed 2020–24 fires only |
-| buffer B for the same-ground rule | Iris / Hannah | proposed 2 km |
+| buffer B for the same-ground rule | Iris / Hannah | B = 4 km in the text (draft 4); Iris to confirm |
 | power at the R effect and at half of it | Victor | provisional table in §7; `power_cr1.py` committed before the freeze |
 | second custodian | orchestrator | Nora |
-| access protocol review | Hannah | draft 3 reviewed (15:23Z): sound, not yet freezable. B1–B5 resolved in draft 4; re-review at draft 4 |
-| latest date held per source: 2025+ US fire check across committed and scratch files (B5) | Hannah | requested |
+| access protocol review | Hannah | draft 4 re-reviewed (15:30Z): B1–B5 resolved. Two items remained: the Tier-1 scope (owner) and canonical_id stability (fixed in draft 5). She would pass it for freeze once the scope is decided |
+| **Tier-1 scope vs the blind test (US 2026) and `fresh_holdout` (US 2025)** | owner | **[OPEN]**: option (a), (b) or (c) in §2 |
+| latest date held per source: 2025+ US fire check across committed and scratch files (B5) | Hannah | done for committed data (ledger row 43); per-session scratch declarations pending |
 | owner-held salt and key storage; dedicated custodian environment | owner / orchestrator | to set up before the freeze |
 | the custodian named by amendment (the role definition in §1.2) | orchestrator | Hannah and Nora as first holders |
 | section-by-section design assessment | Iris | draft 1 assessed (15:09Z); re-assess draft 2 |
