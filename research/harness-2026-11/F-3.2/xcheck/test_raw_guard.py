@@ -62,6 +62,43 @@ class PacketDir(unittest.TestCase):
 
 
 @unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real routable (non-HAZARD-only) packet directory to run the end-to-end check")
+class Support(unittest.TestCase):
+    """CERTIFICATE_SPEC 5.3 via require_full_support (F-9.3 masked packets differ only in `support`)."""
+    def _check(self, **arrs):
+        a, d = npz(**arrs)
+        try:
+            P.require_full_support(a, "pk")
+        finally:
+            a.close(); shutil.rmtree(d)
+
+    def test_full_support_accepted(self):
+        self._check(support=np.ones((2, 3, 3), dtype=bool))
+
+    def test_one_unsupported_cell_refused(self):
+        s = np.ones((2, 3, 3), dtype=bool); s[1, 2, 0] = False
+        with self.assertRaises(ValueError):
+            self._check(support=s)
+
+    def test_missing_support_refused(self):
+        with self.assertRaises(ValueError):
+            self._check(ignition_time_s=np.zeros((1, 2, 2)))
+
+    def test_non_boolean_support_refused(self):
+        with self.assertRaises(ValueError):
+            self._check(support=np.ones((3, 3), dtype=np.uint8))
+
+
+MASKED = os.environ.get("WFG_MASKED_PACKET")      # an F-9.3 support-masked packet dir (e.g. c651_unknown/1)
+
+
+@unittest.skipUnless(MASKED, "set WFG_MASKED_PACKET to an F-9.3 masked packet to run the masked-packet check")
+class MaskedPacket(unittest.TestCase):
+    def test_wrapper_refuses_masked_packet_but_opt_out_reads_it(self):
+        with self.assertRaises(ValueError):
+            P.routable_contact_model(MASKED)
+        self.assertGreater(len(P.routable_contact_model(MASKED, allow_unsupported=True).cell_intervals), 0)
+
+
 class EndToEnd(unittest.TestCase):
     def test_from_raw_refuses_marker_and_nan_but_reads_the_real_packet(self):
         n = len(P.from_raw(REAL, 18000))
