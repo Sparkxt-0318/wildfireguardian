@@ -32,7 +32,7 @@ import math
 from fractions import Fraction
 
 SCHEMA = "wfg.journey-decision/2.1"
-MODULE_VERSION = "wfg.journey-decision.module/2.1+kit-v2-step1"
+MODULE_VERSION = "wfg.journey-decision.module/2.1+kit-v2-step2"
 
 SUCCESS_STATUSES = ("CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN", "CHECKED_JOURNEY_CENTRE_OPTIMUM", "CHECKED_JOURNEY_FEASIBLE")
 AUTHORITATIVE_STATUSES = SUCCESS_STATUSES + (
@@ -632,7 +632,7 @@ def decision_from_worker_record(result_json, receipt_json, job_json, *, optimali
                   extra_diagnostics=extra, expected_request_sha256=req_canon, require_check_envelope=True,
                   extra_binding_evidence=extra_binding, refusal_required_identity_fields=refusal_fields)
 
-    return _v2_stop_reason(_v2_d, res, rc)
+    return _v2_memory_budget(_v2_stop_reason(_v2_d, res, rc), res)
 
 # ---------------------------------------------------------------- kit-v2 Step 1 (STEP1_ACCEPTANCE.md, amendment 26e12e4)
 # Honest terminal reasons: a final post-step on an UNRESOLVED decision that changes ONLY unresolved_reason /
@@ -687,4 +687,38 @@ def _v2_stop_reason(decision, result_json, receipt_json):
     out["unresolved_reason_text"] = UNRESOLVED_REASONS[new]
     out["unresolved_detail"] = {"frozen_reason": r0, "frozen_detail": d.get("unresolved_detail"), "evidence": ev}
     assert out["authoritative_status"] == d["authoritative_status"] == "UNRESOLVED"
+    return out
+
+
+# ---------------------------------------------------------------- kit-v2 Step 2 (STEP2_ACCEPTANCE.md (c), Thomas 17:21)
+# A completed check over its memory gate keeps its result, but a journey is reported as a within-budget success ONLY
+# when the published route's check proves within_budget True from an upper-bound measure. Otherwise the decision carries
+# a distinct reported status; the kit's internal certified status is kept beside it. Never counted with successes.
+MEMORY_BUDGET_STATUSES = ("CHECKED_JOURNEY_OUTSIDE_MEMORY_BUDGET", "CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN")
+CLAIM_SCOPES.update({
+    "CHECKED_JOURNEY_OUTSIDE_MEMORY_BUDGET": "The route's whole-road check completed and certified it, but the check's own "
+        "memory exceeded the declared gate. Reported apart from within-budget journeys; not a within-budget success.",
+    "CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN": "The route's whole-road check completed and certified it, but no upper-bound "
+        "memory measure proves it within the declared gate. Reported apart; counted in neither pool.",
+})
+
+
+def _v2_memory_budget(decision, result_json):
+    d = decision
+    if not isinstance(d, dict) or d.get("authoritative_status") not in SUCCESS_STATUSES:
+        return d
+    wr = (result_json or {}).get("whole_road_check") if isinstance(result_json, dict) else None
+    rb = (wr or {}).get("resource_budget") if isinstance(wr, dict) else None
+    within = (rb or {}).get("within_budget")
+    if within is True:
+        return d
+    new = "CHECKED_JOURNEY_OUTSIDE_MEMORY_BUDGET" if within is False else "CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN"
+    out = dict(d)
+    out["authoritative_status"] = new
+    out["is_successful_journey"] = False
+    out["certified_status_within_kit"] = d["authoritative_status"]
+    out["journey_outside_memory_budget"] = d.get("journey")
+    out["journey"] = None
+    out["claim_scope"] = CLAIM_SCOPES[new]
+    out["resource_budget"] = copy.deepcopy(rb)
     return out

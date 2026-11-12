@@ -244,9 +244,15 @@ def main():
             t0 = time.perf_counter()
             if checker['obj'] is None:
                 checker['obj'] = HybridChecker(packet)
-            rec = checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,
-                                       wall_s=max(0., deadline - time.perf_counter()),
-                                       expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)
+            def _v2_check():   # kit-v2 Step 2: runs in a forked child, own memory measured by a fresh cgroup v1 peak
+                return checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,
+                                            wall_s=max(0., deadline - time.perf_counter()),
+                                            expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)
+            import v2_memory, hybrid_checker as _v2_hc   # kit-v2 Step 2
+            rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)  # kit-v2 Step 2
+            if rec is None:   # kit-v2 Step 2: interrupted check (MemoryError, crash, kill) stays UNRESOLVED
+                rec = {'status': 'UNRESOLVED', 'reason': 'CHECK_CHILD_FAILED', 'check_child': _v2_child}   # kit-v2 Step 2
+            rec['resource_budget'] = _v2_budget; rec['check_child'] = _v2_child   # kit-v2 Step 2
             STATE['stages']['whole_road_check_' + label + '_s'] = time.perf_counter() - t0
         checks[key] = rec
         return rec, False
