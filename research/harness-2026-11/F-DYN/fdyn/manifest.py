@@ -25,7 +25,7 @@ VARIANTS = {
 SOUNDNESS = {'kriged_mean': 'kriged mean (not a bound; sd ~17 h; late for the coastal run)',
              'firms_early': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)',
              'envelope': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check',
-             'envelope_sound': 'SOUND conservative envelope; per-cell law, no independent check'}
+             'envelope_sound': 'WITHDRAWN AS A BOUND (Nora, ledger row 28): lo = last confirmed-clear view is NOT a lower bound (detection-to-cell attribution is pixel-level); bracket scenario only; do not score'}
 SUPERSEDED_V3 = 'c76b746d9a8131b2fec162177736fce72a76a43cba80f467ff63ae503d5da3fe'
 RECORDED = {'uiseong_andong_2025': {'20250323T010000Z', '20250324T090000Z', '20250325T170000Z'},
             'yeongdeok_2025': {'20250325T190000Z', '20250325T230000Z', '20250326T080000Z'}}

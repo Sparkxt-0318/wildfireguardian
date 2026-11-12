@@ -315,7 +315,8 @@ independent scalar-law checker **does not apply and was not run** on them. Never
 
 - `kriged_mean`
 - `firms_early` and `envelope`: both labelled bracket-start, not a lower bound.
-- `envelope_sound`: the only sound bound.
+- `envelope_sound`: **WITHDRAWN as a bound** (Nora FAIL, row 28; see `SOUND_ENVELOPE_RULE.md` status). Do not
+  score it. A fix is proposed in `ENVELOPE_FOOTPRINT_RULE.md`.
 
 All four use the v3.1 convention. `envelope_ahi_bounded` was **withdrawn** after its reach table: it applied a
 pixel time per cell, which burned cells early and burned them out before arrival. See `STARTS_RULE.md` and

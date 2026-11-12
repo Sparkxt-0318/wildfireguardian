@@ -80,3 +80,30 @@ detection the second case cannot be excluded.
 
 The first computation (1.2 s, counts only, no packet, no deadline) used the erroneous clause. It is superseded and
 not reported.
+
+## Status: WITHDRAWN as a bound (Nora FAIL on the soundness claim, ledger row 28; orchestrator checkpoint)
+
+**What passes.** The counts, the commit order, amendment 1 and the bracket-start relabels all pass. The claim
+**"sound" fails**.
+
+**The hole.** For a detected cell, the rule takes the first detection as fire *in that 375 m cell*. In fact a
+detection is attributed by the position of its centre, and the pixel is 375–800 m for VIIRS and 1 km for MODIS. A
+neighbour's fire can cause it. The cell may then have burned out before the clear view t_p, so lo = t_p is above its
+true arrival. This is the same footprint argument §2 uses against a finite hi.
+
+**Exposure, among the 2,662 cells with lo > 0:**
+
+- 400 are anchored by MODIS alone;
+- 397 have a kriged central arrival earlier than lo (299 by more than 1 h);
+- 1,401 have an adjacent cell detected before lo.
+
+**Consequences:**
+
+- `envelope_sound` is withdrawn as a bound as of this checkpoint.
+- The pinned `MANIFEST_v3_1.json` (sha 1c2e73db…) is **not edited**. Its `soundness` string for the 122
+  `envelope_sound` entries is superseded by this section. `fdyn/manifest.py` and `fdyn/_packet_child.py` now carry
+  the withdrawn label for any future build or manifest.
+- Nothing has been scored on it.
+- The name "sound" is used for nothing until a rebuilt variant passes.
+
+A fix is proposed in `ENVELOPE_FOOTPRINT_RULE.md`. It is not yet adopted.
