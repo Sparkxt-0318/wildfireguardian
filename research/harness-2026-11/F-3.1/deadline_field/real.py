@@ -168,10 +168,14 @@ class PacketModel:
     """Per (graph, packet): blocked start intervals of every edge, wait and issue point, per rule."""
 
     def __init__(self, graph_path, packet_dir, *, H: int | None = None, extra_blocks: dict | None = None,
-                 present_only: bool = False, duration_factor=None):
+                 present_only: bool = False, duration_factor=None, waitable_all: bool = False):
         """extra_blocks: {router cell: start second} adds a pseudo-phase [start, beyond H) to that cell under BOTH
         rules (pessimistic unknown-support instances); None = the frozen packet exactly."""
         self.raw = json.loads(Path(graph_path).read_text())
+        self.waitable_all = waitable_all
+        if waitable_all:      # WAITING_SENSITIVITY_RULE.md: field AND checker read the same modified graph
+            for n in self.raw["nodes"]:
+                n["waitable"] = True
         self.g = RoadGraph(self.raw)
         self.pk, self.per_cell_law = load_packet(packet_dir, self.g.grid)
         self.H = int(self.pk.horizon) if H is None else H
