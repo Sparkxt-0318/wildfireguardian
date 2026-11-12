@@ -10,6 +10,7 @@ import { createHash } from 'node:crypto';
 import { hm } from '../../planner/src/features/lastmile/compose';
 import { OFFICIAL_FIRST, OFFICIAL_FIRST_SMS } from '../../planner/src/features/lastmile/strings';
 import { smsSegments } from '../../planner/src/features/lastmile/encoding';
+import { AGENCY_REGISTRY, type RegistryEntry } from '../../planner/src/features/lastmile/channels/agencyRegistry';
 import { buildFieldMessages } from '../../planner/src/features/lastmile/messages';
 import { messagePlan, type MessagePlan } from '../../planner/src/features/lastmile/plan';
 import {
@@ -31,6 +32,7 @@ import {
   RESIDENT_OUTPUTS,
   HEAD_CONTACT_MAX_S,
   agencyLike,
+  checkIssuer,
   VOICE_EN_SHELTER_POINTER,
   namedDestination,
   type ChannelSet,
@@ -42,6 +44,14 @@ import { DEPART, NEVER, pythonEucKr } from './lastmile.oracle';
 import { synInput, cells } from './lastmile.fixture';
 
 const NOW = '2026-11-12T10:00:00Z';
+/** SYNTHETIC registry for the W6 tests (the committed AGENCY_REGISTRY holds only sourced real bodies) */
+const TEST_REG: RegistryEntry[] = [
+  { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division', source: 'synthetic test entry' },
+  { ko: '합성 119구조대', en: 'Synthetic Rescue Unit', source: 'synthetic test entry' },
+  { ko: '재난안전과', en: 'Safety Division', source: 'synthetic test entry' },
+  { ko: '합성군', en: 'Hapseong County', source: 'synthetic test entry' },
+  { ko: `${'가'.repeat(19)}과`, en: null, source: 'synthetic test entry (long name)' },
+];
 let real: MessagePlan[] = [];
 let syn: MessagePlan[] = [];
 const ORDER = { status: 'not_issued' as const, suppliedBy: '합성 읍사무소 담당자', suppliedAtIso: '2026-11-12T09:30:00Z', expiresAtIso: '2026-11-12T11:00:00Z' };
@@ -330,19 +340,19 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
   it('supplied proper nouns are data: an issuer adds no violation to any of the 531 real or 600 synthetic channel sets', () => {
     for (const p of all()) {
       const a = buildChannels(p, { nowIso: NOW }).violations;
-      const b = buildChannels(p, { nowIso: NOW, issuer: ISS }).violations;
+      const b = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS }).violations;
       expect(b, p.input.origin.id).toEqual(a);
     }
     // a rescue-unit name (구조) is data too
     const p = real.find((x) => x.kind === 'leave_by')!;
-    expect(buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '합성 119구조대', en: 'Synthetic Rescue Unit' }, contact: '000-000-0000', forDrillOrReplay: true } }).violations).toEqual([]);
+    expect(buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: { agency: { ko: '합성 119구조대', en: 'Synthetic Rescue Unit' }, contact: '000-000-0000', forDrillOrReplay: true } }).violations).toEqual([]);
   });
 
   it('the scan still catches the same word in generated text, even when the agency name is exactly that word', () => {
     const p = real.find((x) => x.kind === 'leave_by')!;
     for (const iss of [ISS, { agency: { ko: '재난안전과', en: 'Safety Division' }, contact: '000-0000-0000', forDrillOrReplay: true }]) {
-      expect(validIssuer(iss)).not.toBeNull();
-      const set = buildChannels(p, { nowIso: NOW, issuer: iss });
+      expect(validIssuer(iss, TEST_REG)).not.toBeNull();
+      const set = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: iss });
       expect(set.violations).toEqual([]);
       set.text.ko.voice = `${set.text.ko.voice}\n이제 안전합니다.`;
       set.text.en.familyScript = [set.text.en.familyScript[0], set.text.en.familyScript[1], `${set.text.en.familyScript[2]} You are safe.`];
@@ -366,19 +376,19 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
       { agency: { ko: '가'.repeat(41) }, contact: '000-0000-0000' },
     ];
     for (const iss of bad) {
-      expect(validIssuer(iss as never)).toBeNull();
-      const s = buildChannels(p, { nowIso: NOW, issuer: iss as never, draftDecreeCheck: true });
+      expect(validIssuer(iss as never, TEST_REG)).toBeNull();
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: iss as never, draftDecreeCheck: true });
       expect(residentTexts(s).join('\n')).not.toMatch(/문의|Contact/);
-      for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) expect(s.decree![l][o].contact).toBe('not_supplied');
+      for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) expect(['not_supplied', 'not_in_registry']).toContain(s.decree![l][o].contact);
     }
   });
 
   it('English outputs never carry Hangul: no English name => the English field is withheld, not filled; a Hangul "English" name is refused', () => {
-    expect(validIssuer({ agency: { ko: '합성군', en: '합성군' }, contact: '000-0000-0000' })!.agency.en).toBeNull();
-    expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong County' }, contact: '000-0000-0000' })!.agency.en).toBe('Hapseong County');
-    expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong-gun Café' }, contact: '000-0000-0000' })!.agency.en).toBeNull(); // é: not GSM-7 basic
+    expect(validIssuer({ agency: { ko: '합성군', en: '합성군' }, contact: '000-0000-0000' }, TEST_REG)!.agency.en).toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong County' }, contact: '000-0000-0000' }, TEST_REG)!.agency.en).toBe('Hapseong County');
+    expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong-gun Café' }, contact: '000-0000-0000' }, TEST_REG)!.agency.en).toBeNull(); // é: not GSM-7 basic
     for (const p of real) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: ISS.agency.ko }, contact: ISS.contact, forDrillOrReplay: true }, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: { agency: { ko: ISS.agency.ko }, contact: ISS.contact, forDrillOrReplay: true }, draftDecreeCheck: true });
       const en = s.text.en;
       for (const t of [en.head.script, en.voice, en.familyText, en.familyScript.join('\n')]) expect(t).not.toContain(ISS.agency.ko);
       for (const o of RESIDENT_OUTPUTS) expect(s.decree!.en[o].contact).toBe('no_english_name');
@@ -389,9 +399,9 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
   it('the contact line has its own head budget; over it, the head leaves the FIELD out and the message stays usable', () => {
     const p = real.find((x) => x.kind === 'leave_by')!;
     const long = { agency: { ko: `${'가'.repeat(19)}과`, en: 'X' }, contact: '000-0000-0000', forDrillOrReplay: true };
-    const iss = validIssuer(long)!;
+    const iss = validIssuer(long, TEST_REG)!;
     expect(contactSeconds(contactLine(iss, 'ko')!, iss, 'ko')).toBeGreaterThan(HEAD_CONTACT_MAX_S);
-    const s = buildChannels(p, { nowIso: NOW, issuer: long, draftDecreeCheck: true });
+    const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: long, draftDecreeCheck: true });
     expect(s.text.ko.head.script).not.toContain('문의');
     expect(s.decree!.ko.head.contact).toBe('over_length');
     expect(outputWithheld(s, 'ko', 'head')).toBe(false);
@@ -399,8 +409,8 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     expect(s.text.ko.familyScript[2]).toContain(contactLine(iss, 'ko')!);
     expect(s.text.ko.familyScript.length).toBe(3);
     // within budget: the line is in the head, after the closer, and the 35 s opener+core+closer budget is unchanged
-    const ok = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
-    expect(ok.text.ko.head.script.endsWith(contactLine(validIssuer(ISS)!, 'ko')!)).toBe(true);
+    const ok = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
+    expect(ok.text.ko.head.script.endsWith(contactLine(validIssuer(ISS, TEST_REG)!, 'ko')!)).toBe(true);
     expect(ok.text.ko.head.fullS).toBe(buildChannels(p, { nowIso: NOW }).text.ko.head.fullS);
     expect(ok.text.ko.head.contactS!).toBeLessThanOrEqual(HEAD_CONTACT_MAX_S);
   });
@@ -409,7 +419,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     let koIn = 0, enIn = 0;
     const koTexts: string[] = [];
     for (const p of real) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       koTexts.push(s.text.ko.familyText);
       koIn += +(s.decree!.ko.familyText.contact === 'included');
       enIn += +(s.decree!.en.familyText.contact === 'included');
@@ -428,7 +438,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
       let withheld = 0;
       for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) out[`${l}.${o}`] = { all: 0, allN: 0, app: 0, appN: 0 };
       for (const p of real) {
-        const s = buildChannels(p, { nowIso: NOW, issuer: iss, draftDecreeCheck: true });
+        const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: iss, draftDecreeCheck: true });
         const applicable = p.kind === 'leave_by';
         for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) {
           const r = s.decree![l][o];
@@ -472,18 +482,18 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     const p = real.find((x) => x.kind === 'leave_by')!;
     expect(p.input.replay).toBe(true);
     const unmarked = { ...ISS, forDrillOrReplay: undefined };
-    const s = buildChannels(p, { nowIso: NOW, issuer: unmarked, draftDecreeCheck: true });
+    const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: unmarked, draftDecreeCheck: true });
     expect(residentTexts(s).join('\n')).not.toContain(ISS.contact);
     for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) {
       expect(s.decree![l][o].contact).toBe('replay_not_marked');
       expect(s.decree![l][o].reasons.agency_contact).toBe('not_supplied');
     }
     const live = messagePlan(synInput({ replay: false, mock: false, testData: false }), null);
-    const sl = buildChannels(live, { nowIso: NOW, issuer: unmarked, draftDecreeCheck: true });
+    const sl = buildChannels(live, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: unmarked, draftDecreeCheck: true });
     expect(sl.decree!.ko.voice.contact).toBe('included');
     for (const flag of [{ mock: true }, { testData: true }]) {
       const q = messagePlan(synInput({ replay: false, mock: false, testData: false, ...flag }), null);
-      expect(buildChannels(q, { nowIso: NOW, issuer: unmarked, draftDecreeCheck: true }).decree!.ko.voice.contact).toBe('replay_not_marked');
+      expect(buildChannels(q, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: unmarked, draftDecreeCheck: true }).decree!.ko.voice.contact).toBe('replay_not_marked');
     }
   });
 
@@ -493,19 +503,19 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     expect(nums.length).toBeGreaterThan(5);
     for (const n of nums) {
       const zeros = /^[0-]+$/.test(n) && /0/.test(n);
-      expect(zeros || validIssuer({ agency: { ko: '합성군' }, contact: n }) === null, n).toBe(true);
+      expect(zeros || validIssuer({ agency: { ko: '합성군' }, contact: n }, TEST_REG) === null, n).toBe(true);
     }
   });
 
   it('the contact line never displaces "official orders first": opener, core and closer stay together and in order, the line comes after them, and every output keeps the official-first text', () => {
     for (const p of all()) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       for (const l of ['ko', 'en'] as const) {
         const t = s.text[l];
         const frame = [t.head.opener, t.head.core, t.head.closer].join('\n');
         expect(t.head.script.startsWith(frame)).toBe(true);
         expect(t.head.closer).toContain(OFFICIAL_FIRST[l]);
-        const line = contactLine(validIssuer(ISS)!, l)!;
+        const line = contactLine(validIssuer(ISS, TEST_REG)!, l)!;
         for (const [txt, first] of [[t.head.script, OFFICIAL_FIRST[l]], [t.voice, OFFICIAL_FIRST[l]], [t.familyScript.join('\n'), OFFICIAL_FIRST[l]]] as const) {
           expect(txt).toContain(first);
           if (txt.includes(line)) expect(txt.indexOf(line)).toBeGreaterThan(txt.indexOf(first));
@@ -517,7 +527,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
 
   it('staff outputs always show the report (Korean and English), name it a draft requirement, leave the send decision to officials, and pass the kit scans', () => {
     for (const p of real.slice(0, 200)) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       expect(s.text.ko.staff.decree).toMatch(/입법예고안\(2026-11-04 공고\)/);
       expect(s.text.ko.staff.decree).toMatch(/초안 기준/);
       expect(s.text.ko.staff.decree).toMatch(/담당 기관이 정합니다/);
@@ -532,8 +542,8 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
 
   it('a report only: with or without the check, the same outputs and the same violations', () => {
     for (const p of real.slice(0, 120)) {
-      const a = buildChannels(p, { nowIso: NOW, issuer: ISS });
-      const b = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const a = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS });
+      const b = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       expect(b.violations).toEqual(a.violations);
       for (const l of ['ko', 'en'] as const) {
         const { staff: sa, ...ra } = a.text[l];
@@ -556,24 +566,24 @@ describe('W6 follow-up: agency-name guard (Mira N2) and Korean shelter names in 
   it('an agency name must be a name: clock times, departure instructions, sentences and loose forbidden words are refused', () => {
     for (const bad of ['지금 출발하십시오 18:30 안전합니다', '합성군 18:30 재난과', '18시 합성군청', '17시까지 출발 합성군청', '안전합니다', '합성군청입니다', '합성군 안심센터', '합성군 구출과', '합성군']) {
       // '합성군' itself ends in 군 (a county) and is accepted; everything else is refused
-      if (bad === '합성군') expect(validIssuer({ agency: { ko: bad }, contact: '000-0000-0000' })).not.toBeNull();
-      else expect(validIssuer({ agency: { ko: bad }, contact: '000-0000-0000' }), bad).toBeNull();
+      // form lint only (secondary); the registry decides what renders
+      expect(agencyLike(bad, 'ko'), bad).toBe(bad === '합성군');
     }
     for (const bad of ['Leave now 18:30 you are safe', 'Safe Haven Office.', 'Hapseong County, depart by 6', 'We will send a bus Office']) {
-      expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: bad }, contact: '000-0000-0000' })!.agency.en, bad).toBeNull();
+      expect(agencyLike(bad, 'en'), bad).toBe(false);
     }
     for (const ok of ['합성군 재난안전과', '합성군 산림과', '합성군 119구조대', '합성읍 행정복지센터', '합성군청', '합성시 안전총괄과']) {
-      expect(validIssuer({ agency: { ko: ok }, contact: '000-0000-0000' }), ok).not.toBeNull();
+      expect(agencyLike(ok, 'ko'), ok).toBe(true);
     }
     for (const ok of ['Synthetic County Disaster Safety Division', 'Hapseong County Office', 'Synthetic Rescue Unit']) {
-      expect(validIssuer({ agency: { ko: '합성군청', en: ok }, contact: '000-0000-0000' })!.agency.en, ok).toBe(ok);
+      expect(agencyLike(ok, 'en'), ok).toBe(true);
     }
   });
 
   it('English outputs carry Hangul only as the plan\'s own shelter name (head and family script), never in the voice call or family text; nothing withheld', () => {
     let koNameShown = 0;
     for (const p of real) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       expect(s.violations).toEqual([]);
       const en = s.text.en;
       const ko = s.destinationName?.ko;
@@ -606,7 +616,7 @@ describe('W6 follow-up: agency-name guard (Mira N2) and Korean shelter names in 
     // the family text never names a destination, so the owner decision adds no Hangul to any SMS
     const seg: Record<string, number> = {};
     for (const p of real) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS });
       const m = smsSegments(s.text.en.familyText);
       seg[`${m.encoding}:${m.segments}`] = (seg[`${m.encoding}:${m.segments}`] ?? 0) + 1;
     }
@@ -620,7 +630,7 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
   it('the contact line is the last thing in the head, after the closer; the core stays within 20 s; per-message totals are reported (35 s + own 10 s)', () => {
     let max = 0, withLine = 0;
     for (const p of [...real, ...syn]) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       for (const l of ['ko', 'en'] as const) {
         const h = s.text[l].head;
         expect(h.coreS).toBeLessThanOrEqual(HEAD_CORE_MAX_S + 1e-9);
@@ -640,7 +650,7 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
   it('voice interim: the English call never reads a Korean-only shelter name, points to the Korean message, reports "not supplied", and the staff report records the gap; the human-read head gets a reader note', () => {
     let affected = 0, readerNotes = 0;
     for (const p of real) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       const d = namedDestination(p);
       const koOnly = !!d && !d.en;
       expect(s.text.en.voice.includes(VOICE_EN_SHELTER_POINTER)).toBe(koOnly);
@@ -695,7 +705,7 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
     let whole = 0, leaveBy = 0;
     const firstMissingDest: Record<string, number> = {};
     for (const p of real) {
-      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: ISS, draftDecreeCheck: true });
       const union = new Set(RESIDENT_OUTPUTS.flatMap((o) => s.decree!.ko[o].present));
       if (p.kind === 'leave_by') leaveBy += 1;
       if (DECREE_FIELDS.every((f) => union.has(f))) whole += 1;
@@ -708,21 +718,62 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
 });
 
 describe('W6 issuer guard after Mira FAIL @ 344657e: registry first, structure second; staff told when a name is refused; packed SMS segments', () => {
-  it('with an agency registry, only registry names are accepted (the stronger check); without one, the form rule', () => {
-    const registry = { ko: ['합성군 재난안전과'], en: ['Synthetic County Disaster Safety Division'] };
-    expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division' }, contact: '000-0000-0000' }, registry)).not.toBeNull();
-    expect(validIssuer({ agency: { ko: '합성군 산림과' }, contact: '000-0000-0000' }, registry)).toBeNull();
-    expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: 'Synthetic County Office' }, contact: '000-0000-0000' }, registry)!.agency.en).toBeNull();
-    expect(validIssuer({ agency: { ko: '합성군 산림과' }, contact: '000-0000-0000' })).not.toBeNull();
+  it('ALLOWLIST: only an exact registry name renders a contact line; the English name only when it is the entry\'s own; the committed registry has a source per entry and no numbers', () => {
+    const reg: RegistryEntry[] = [{ ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division', source: 'test' }];
+    expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division' }, contact: '000-0000-0000' }, reg)!.agency.en).toBe('Synthetic County Disaster Safety Division');
+    expect(validIssuer({ agency: { ko: '합성군 산림과' }, contact: '000-0000-0000' }, reg)).toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군 재난안전과 ' }, contact: '000-0000-0000' }, reg)).not.toBeNull(); // trimmed
+    expect(validIssuer({ agency: { ko: '합성군재난안전과' }, contact: '000-0000-0000' }, reg)).toBeNull(); // exact only
+    expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: 'Synthetic County Office' }, contact: '000-0000-0000' }, reg)!.agency.en).toBeNull();
+    expect(checkIssuer({ agency: { ko: '합성군 산림과' }, contact: '000-0000-0000' }, reg).status).toBe('not_in_registry');
+    // the committed registry: sourced, lint-clean, no digits that could be a number, no synthetic names
+    expect(AGENCY_REGISTRY.length).toBeGreaterThan(0);
+    for (const e of AGENCY_REGISTRY) {
+      expect(e.source.length, e.ko).toBeGreaterThan(5);
+      expect(agencyLike(e.ko, 'ko'), e.ko).toBe(true);
+      expect(e.ko).not.toMatch(/합성|\d/);
+      if (e.en) expect(agencyLike(e.en, 'en'), e.en).toBe(true);
+    }
+    // default registry in use when none is passed: a real body renders, a synthetic one does not
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    const yes = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '의성군' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+    expect(yes.text.ko.voice).toContain('문의: 의성군 000-0000-0000');
+    const no = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '합성군 재난안전과' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+    expect(residentTexts(no).join('\n')).not.toContain('000-0000-0000');
+    expect(no.decree!.ko.voice.contact).toBe('not_in_registry');
+    expect(no.decree!.ko.voice.reasons.agency_contact).toBe('not_supplied');
   });
 
-  it('an issuer refused by the name check adds no contact line, and both staff reports say why', () => {
+  it('property: no free-text issuer string reaches any output — Mira\'s 36 names, the adversarial lists and 2,000 fuzzed strings, with the default registry', () => {
     const p = real.find((x) => x.kind === 'leave_by')!;
-    const s = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '구조대 도착 예정 본부', en: 'Rescue is coming Unit' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+    const q = real.find((x) => x.kind !== 'leave_by')!;
+    const mira = ['구조대 도착 예정 본부', '119구조 출동 중 센터', '버스 배차 완료 상황실', '셔틀 운행 센터', '대피 불필요 상황실', '오늘 밤 대피 불필요 군', '대피 안 해도 됨 군', '대피명령 해제 상황실', '지금 바로 대피 동', '즉시 대피 대피소', '여섯시 출발 상황실', '30분 내 대피 본부', '반시간 후 출발 본부', '산불 진화 완료 본부', '지금 출발하십시오 18:30 안전합니다', '합성군 재난안전과', '의성군 ', ' 안동시청'];
+    let seed = 20261112;
+    const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
+    const parts = ['의성군', '안동시', '대피', '본부', '지금', ' ', '과', '센터', '안전', '18:30', '군', 'Office', 'safe', '출발', '산림청', '행정안전부', '청', '·'];
+    const fuzz = Array.from({ length: 2000 }, () => Array.from({ length: 1 + Math.floor(rnd() * 4) }, () => parts[Math.floor(rnd() * parts.length)]).join(''));
+    const reg = new Set(AGENCY_REGISTRY.map((e) => e.ko));
+    let tried = 0;
+    for (const name of [...mira, ...fuzz]) {
+      if (reg.has(name.trim())) continue; // an exact registry name is allowed by design
+      tried += 1;
+      for (const pl of [p, q]) {
+        const s = buildChannels(pl, { nowIso: NOW, issuer: { agency: { ko: name, en: 'Synthetic Office' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+        const texts = residentTexts(s).join('\n');
+        expect(texts.includes('000-0000-0000'), name).toBe(false);
+        expect(/문의:|Contact:/.test(texts), name).toBe(false);
+      }
+    }
+    expect(tried).toBeGreaterThan(1500);
+  });
+
+  it('an issuer not in the registry adds no contact line, and both staff reports say why', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    const s = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: { agency: { ko: '구조대 도착 예정 본부', en: 'Rescue is coming Unit' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
     expect(residentTexts(s).join('\n')).not.toMatch(/문의|Contact|도착 예정|coming/);
-    expect(s.text.ko.staff.decree).toMatch(/문의처 없음: 입력한 기관명이 기관명 형식 점검/);
-    expect(s.text.en.staff.decree).toMatch(/No contact line: the supplied agency name did not pass/);
-    const ok = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '합성군 재난안전과' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+    expect(s.text.ko.staff.decree).toMatch(/문의처 없음: 입력한 기관명이 등록된 공식 기관 목록에 없습니다/);
+    expect(s.text.en.staff.decree).toMatch(/No contact line: the issuer is not in the registry of official issuing bodies/);
+    const ok = buildChannels(p, { nowIso: NOW, agencyRegistry: TEST_REG, issuer: { agency: { ko: '합성군 재난안전과' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
     expect(ok.text.ko.staff.decree).not.toMatch(/문의처 없음/);
   });
 

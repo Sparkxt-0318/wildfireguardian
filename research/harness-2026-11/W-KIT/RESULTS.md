@@ -245,6 +245,34 @@ Also fixed (Mira's minor note): `smsSegments` packs segments, so an escape pair 
 boundary. 152 'a' + '{' + 152 'a' is 3 segments, not 2, and similarly for UCS-2 with an emoji.
 Suite 23 files / 418 tests; build:static OK.
 
+## W6 — issuer ALLOWLIST (orchestrator decision after Mira's FAIL at 344657e) (UNVERIFIED)
+The form guard is dropped as the safety mechanism. **A contact line renders only when the supplied agency name exactly
+matches an entry of a committed registry of official issuing bodies**
+(`planner/src/features/lastmile/channels/agencyRegistry.ts`, each entry {ko, en | null, source}).
+- **Not in the registry:** no contact line in any output. Contact status `not_in_registry`, reason "not supplied".
+  Both staff reports say: "문의처 없음: 입력한 기관명이 등록된 공식 기관 목록에 없습니다. 목록은 아직 일부만 담고 있으며,
+  기관을 추가하려면 공식 명칭과 출처가 필요합니다." / "No contact line: the issuer is not in the registry of official
+  issuing bodies. The registry is incomplete; adding a body needs its exact official name and a source."
+- **English:** the English name is used only when it equals the entry's own published English name. Every entry has
+  en = null today, so there is no English contact field until official English names are sourced. No romanisation.
+- **The registry is INCOMPLETE.** It holds 6 bodies whose exact names have a source: 의성군, 청송군, 안동시, 영양군 (2025
+  긴급재난문자 sender tags), 산림청 (산림재난방지법 제33조) and 행정안전부 (공고 제2026-1391호), all via Sofia. The other 11
+  names of the earlier "real" list (department names such as 의성군 안전재난과, 의성소방서, 119안전센터, …) were NOT added:
+  I had no source for their exact form. Sofia has been asked for official department names, English names and sources.
+  The file says how to extend it, and it never holds phone numbers.
+- **The form check (`agencyLike`) is a secondary lint only.** It never admits a name. A registry name that fails it
+  renders but gets a staff warning. A test asserts every committed entry passes it.
+- **Tests:**
+  - the exact-match rule (trimmed; no near-matches);
+  - every committed entry has a source, passes the lint, and holds no digits and no synthetic names;
+  - the default registry is used when none is passed (의성군 renders; a synthetic name does not);
+  - **property: no free-text issuer string reaches any output**. Mira's names, the adversarial lists and 2,000 seeded
+    fuzz strings built from agency parts, instruction words and real names; over 1,500 of them are non-registry,
+    checked on a leave-by and a no-time place. None renders a contact line or the number.
+  - The W6 tests that need a contact line use an explicit SYNTHETIC test registry. The committed one holds only real,
+    sourced bodies.
+- Suite 23 files / 419 tests; build:static OK.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.

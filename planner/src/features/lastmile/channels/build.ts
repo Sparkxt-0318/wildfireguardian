@@ -19,6 +19,7 @@
  */
 import { FORBIDDEN, MODEL_NOT_LIVE, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS, MODEL_NOT_LIVE_SMS, NOT_REAL, DEPARTURE_INSTRUCTION, RESIDENT_119_NOW } from '../strings';
 import { clockTimes, maskData } from '../checks';
+import { AGENCY_REGISTRY, type RegistryEntry } from './agencyRegistry';
 import { eucKrBytes, gsm7Length, spokenSeconds, KO_SYLLABLES_PER_S, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
 import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
@@ -90,8 +91,8 @@ export interface ChannelOptions {
    * English or romanised name); a Korean name is never put into an English output.
    */
   issuer?: IssuerInput | null;
-  /** official agency registry; when given, an issuer name outside it is refused (the stronger check) */
-  agencyRegistry?: AgencyRegistry | null;
+  /** registry of official issuing bodies (default: the committed AGENCY_REGISTRY); a name outside it renders no contact */
+  agencyRegistry?: readonly RegistryEntry[];
   /**
    * Report, per resident-facing output, which of the four fields of the DRAFT decree it carries (draft requirement, as
    * of the notice date 2026-11-04: 재난 및 안전관리 기본법 시행령 일부개정령안 안 제49조②, 행정안전부공고 제2026-1391호,
@@ -101,12 +102,6 @@ export interface ChannelOptions {
 }
 
 // ------------------------------------------------------------------------------------------------ issuer + draft decree
-
-/** Official agency names (Korean and English) a deployment trusts; when supplied, only these are accepted. */
-export interface AgencyRegistry {
-  ko: readonly string[];
-  en: readonly string[];
-}
 
 export interface IssuerInput {
   agency: { ko: string; en?: string | null };
@@ -136,7 +131,6 @@ export const AGENCY_EN_MAX_CHARS = 60;
 export const HEAD_CONTACT_MAX_S = 10;
 
 const ONE_LINE = /^[^\r\n\t\u0000-\u001f\u007f]+$/;
-const EN_NAME = /^[A-Za-z0-9 .,'()&/-]+$/;
 
 /**
  * Agency-name form rule (Mira N2, tightened after her FAIL at 344657e). An agency name is a sequence of PLACE and
@@ -165,9 +159,8 @@ const EN_CONNECTOR = /^(of|and|the|for|&)$/;
 const EN_LAST = /^(Division|Office|Center|Centre|Department|County|City|Province|Headquarters|Team|Bureau|Unit|Agency|Service|Station|Section|Ministry|Administration)$/;
 const EN_NOT_NAME = /^(now|go|going|gone|come|coming|way|clear|cleared|need|needed|needs|no|not|none|transport|transportation|provided|provide|providing|bus|buses|shuttle|cancel\w*|evacuat\w*|leave|leaving|left|help|arriv\w*|depart\w*|at|by|before|after|until|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|noon|midnight|minute\w*|hour\w*|tonight|today|tomorrow|morning|evening|is|are|was|were|will|be|been|you|your|we|our|all|safe|secure|stay|wait|ok|okay|done|finished|over|lifted|ended|called|sent|send|pick\w*|ride|car|cars|vehicle\w*)$/i;
 
-export function agencyLike(name: string, lang: LmLang, registry: readonly string[] | null = null): boolean {
+export function agencyLike(name: string, lang: LmLang): boolean {
   const n = name.trim();
-  if (registry) return registry.includes(n);
   if (n.length > AGENCY_NAME_MAX[lang]) return false;
   const words = n.split(/\s+/);
   if (words.length > AGENCY_WORDS_MAX) return false;
@@ -196,18 +189,32 @@ export function agencyLike(name: string, lang: LmLang, registry: readonly string
 const AGENCY_NAME_MAX: Record<LmLang, number> = { ko: 25, en: 60 };
 const AGENCY_WORDS_MAX = 8;
 
-/** The supplied issuer if usable, else null. Never fills in, guesses or transliterates anything. */
-export function validIssuer(raw: IssuerInput | null | undefined, registry: AgencyRegistry | null = null): Issuer | null {
-  if (!raw || typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return null;
+/** Why a supplied issuer is or is not used. */
+export type IssuerCheck = 'none' | 'invalid' | 'not_in_registry' | 'ok';
+
+/**
+ * The supplied issuer if usable, else null. Never fills in, guesses or transliterates anything. ALLOWLIST: the Korean
+ * name must exactly match a registry entry (orchestrator decision); the English name is used only when it equals that
+ * entry's own published English name. The name-form lint (`agencyLike`) is secondary and never admits a name.
+ */
+export function checkIssuer(raw: IssuerInput | null | undefined, registry: readonly RegistryEntry[] = AGENCY_REGISTRY): { status: IssuerCheck; issuer: Issuer | null; lint: boolean } {
+  if (!raw) return { status: 'none', issuer: null, lint: true };
+  if (typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return { status: 'invalid', issuer: null, lint: true };
   const ko = raw.agency.ko.trim();
   const contact = raw.contact.trim();
-  if (!ko || ko.length > AGENCY_MAX_CHARS || !ONE_LINE.test(ko) || !agencyLike(ko, 'ko', registry?.ko ?? null)) return null;
+  if (!ko || !ONE_LINE.test(ko)) return { status: 'invalid', issuer: null, lint: true };
   // a contact number is digits with optional hyphens; emergency numbers are not an agency's contact line
-  if (!/^[0-9]+(-[0-9]+)*$/.test(contact) || contact.replace(/-/g, '').length < 3 || contact.replace(/-/g, '').length > 12) return null;
-  if (['112', '119', '110'].includes(contact.replace(/-/g, ''))) return null;
+  if (!/^[0-9]+(-[0-9]+)*$/.test(contact) || contact.replace(/-/g, '').length < 3 || contact.replace(/-/g, '').length > 12) return { status: 'invalid', issuer: null, lint: true };
+  if (['112', '119', '110'].includes(contact.replace(/-/g, ''))) return { status: 'invalid', issuer: null, lint: true };
+  const entry = registry.find((e) => e.ko === ko);
+  if (!entry) return { status: 'not_in_registry', issuer: null, lint: agencyLike(ko, 'ko') };
   const enRaw = typeof raw.agency.en === 'string' ? raw.agency.en.trim() : '';
-  const en = enRaw && enRaw.length <= AGENCY_EN_MAX_CHARS && EN_NAME.test(enRaw) && gsm7Length(enRaw).nonGsm.length === 0 && agencyLike(enRaw, 'en', registry?.en ?? null) ? enRaw : null;
-  return { agency: { ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true };
+  const en = entry.en && enRaw === entry.en && gsm7Length(enRaw).nonGsm.length === 0 ? enRaw : null;
+  return { status: 'ok', issuer: { agency: { ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true }, lint: agencyLike(ko, 'ko') && (!en || agencyLike(en, 'en')) };
+}
+
+export function validIssuer(raw: IssuerInput | null | undefined, registry: readonly RegistryEntry[] = AGENCY_REGISTRY): Issuer | null {
+  return checkIssuer(raw, registry).issuer;
 }
 
 /** The four fields of the draft decree (안 제49조② 1–4). */
@@ -216,7 +223,7 @@ export const DECREE_FIELDS: readonly DecreeField[] = ['area_people', 'reason_tim
 export type ResidentOutput = 'head' | 'voice' | 'familyText' | 'familyScript';
 export const RESIDENT_OUTPUTS: readonly ResidentOutput[] = ['head', 'voice', 'familyText', 'familyScript'];
 /** Why an output has no agency/contact field. */
-export type ContactStatus = 'included' | 'not_supplied' | 'no_english_name' | 'replay_not_marked' | 'over_length';
+export type ContactStatus = 'included' | 'not_supplied' | 'not_in_registry' | 'no_english_name' | 'replay_not_marked' | 'over_length';
 /**
  * Why a decree field is missing (Iris): not_applicable = no checked departure time, so no timing can be given;
  * not_supplied = the input lacks it (no issuer, no English name, no drill/replay mark, no nameable place or shelter);
@@ -722,15 +729,14 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
     };
   }
-  const iss = validIssuer(opt.issuer, opt.agencyRegistry ?? null);
-  // an issuer was supplied but refused by the name check: staff are told why (never silent)
-  const issuerRefused = !!opt.issuer && !iss;
+  const checked = checkIssuer(opt.issuer, opt.agencyRegistry ?? AGENCY_REGISTRY);
+  const iss = checked.issuer;
   const contact = {} as Record<LmLang, Record<ResidentOutput, ContactStatus>>;
   for (const lang of ['ko', 'en'] as LmLang[]) {
     const t = text[lang];
     const line = iss ? contactLine(iss, lang) : null;
     const nonLive = p.input.replay || p.input.mock || p.input.testData;
-    const base: ContactStatus = !iss ? 'not_supplied' : nonLive && !iss.forDrillOrReplay ? 'replay_not_marked' : line === null ? 'no_english_name' : 'included';
+    const base: ContactStatus = !iss ? (checked.status === 'not_in_registry' ? 'not_in_registry' : 'not_supplied') : nonLive && !iss.forDrillOrReplay ? 'replay_not_marked' : line === null ? 'no_english_name' : 'included';
     const c: Record<ResidentOutput, ContactStatus> = { head: base, voice: base, familyText: base, familyScript: base };
     if (iss && line !== null && base === 'included') {
       const h = t.head;
@@ -772,12 +778,16 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
           ? `이장 방송 길이: 기본 ${h.fullS.toFixed(1)}초(한도 ${HEAD_FULL_MAX_S}초) + 문의 ${(h.contactS ?? 0).toFixed(1)}초(한도 ${HEAD_CONTACT_MAX_S}초) = ${(h.fullS + (h.contactS ?? 0)).toFixed(1)}초`
           : `Village-head script length: ${h.fullS.toFixed(1)} s (limit ${HEAD_FULL_MAX_S} s) + contact ${(h.contactS ?? 0).toFixed(1)} s (limit ${HEAD_CONTACT_MAX_S} s) = ${(h.fullS + (h.contactS ?? 0)).toFixed(1)} s`,
       ];
-      if (issuerRefused)
+      if (checked.status === 'not_in_registry')
         extra.push(
           lang === 'ko'
-            ? '문의처 없음: 입력한 기관명이 기관명 형식 점검(또는 등록 기관 목록)을 통과하지 못해 문의처를 넣지 않았습니다.'
-            : 'No contact line: the supplied agency name did not pass the agency-name check (or the agency registry), so no contact was added.',
+            ? '문의처 없음: 입력한 기관명이 등록된 공식 기관 목록에 없습니다. 목록은 아직 일부만 담고 있으며, 기관을 추가하려면 공식 명칭과 출처가 필요합니다.'
+            : 'No contact line: the issuer is not in the registry of official issuing bodies. The registry is incomplete; adding a body needs its exact official name and a source.',
         );
+      if (checked.status === 'invalid')
+        extra.push(lang === 'ko' ? '문의처 없음: 입력한 기관명 또는 연락처 형식이 올바르지 않습니다.' : 'No contact line: the supplied agency name or contact number is malformed.');
+      if (checked.status === 'ok' && !checked.lint)
+        extra.push(lang === 'ko' ? '주의: 등록 기관명이 기관명 형식 점검을 통과하지 못했습니다. 목록 항목을 확인하십시오.' : 'Warning: a registry name fails the agency-name form lint; check the registry entry.');
       const nd = namedDestination(p);
       if (nd && !nd.en && !EN_VOICE_KOREAN_SHELTER)
         extra.push(
