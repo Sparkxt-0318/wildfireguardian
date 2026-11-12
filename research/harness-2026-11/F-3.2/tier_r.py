@@ -8,11 +8,12 @@ Orchestrator decision (2026-11-12, from Iris):
           only (not from U_state). U_state cells with any FIRMS detection during the event are blocked on [0, H].
           Conditional on footprint completeness (step b) and on v.
 Steps reported per packet: (a) share of U_state cells outside the reconstruction footprint (KFS_01 raster, 2025
-packets only); (b) U_state cells with a FIRMS detection during the event (2025 only; other years' FIRMS not available
-here); side check: positive-probability cells inside U_state. Step (c): labels of the 20 missions under Tier A and
+packets only); (b) U_state cells with a FIRMS detection during the event; side check: positive-probability cells inside U_state. Step (c): labels of the 20 missions under Tier A and
 Tier R(1.5, 8.2 km/h), each unresolved one attributed by re-running with only the U_state extras and only the U_q
 extras. Contact relaxation only: the radiation precondition is NOT evaluated (reported as not computed).
-Usage: python tier_r.py --kfs01 TOA.tif --firms-dir DIR --out DIR --c-checker PATH
+Guard: an event counts only if one supplied FIRMS file spans its whole window (firms_coverage); otherwise a Tier R
+mission is 'not_labelled_no_firms' (never checked / unresolved); no_route stands (optimistic instance only).
+Usage: python tier_r.py --toa EVENT=TOA.tif ... --firms-dir DIR ... --out DIR --c-checker PATH
 """
 from __future__ import annotations
 
@@ -118,6 +119,35 @@ def extras(model, graph, cells_block_all, cells_ignite, s0, H, v):
     return out
 
 
+def firms_coverage(firms_dirs, days):
+    """Does the supplied FIRMS data cover the event window? True only if ONE file's acq_date span (any location)
+    reaches from on-or-before the window's first day to on-or-after its last. Each FIRMS export is one contiguous
+    period, so a single file spanning the window is evidence that a missing detection means no detection. Neither an
+    empty file, nor one that ends before or starts after the window, nor a gap between two files counts: an empty
+    FIRMS mask would then claim "no detections" where there is only missing data (the first Tier R run did exactly this
+    for 2022/23)."""
+    spans = []
+    for d in firms_dirs:
+        for p in sorted(Path(d).glob("*.csv")):
+            with open(p, newline="") as fh:
+                dates = [row["acq_date"] for row in csv.DictReader(fh) if row.get("acq_date")]
+            if dates:
+                spans.append((p.name, min(dates), max(dates)))
+    hit = [n for n, f, l in spans if f <= days[0] and l >= days[1]]
+    return dict(covered=bool(hit), files_spanning=hit, files_read=len(spans))
+
+
+def tier_label(tier, claim, accepted, opt_no_route, firms_covered):
+    """The three-way label, with the coverage guard. Tier A needs no FIRMS. A Tier R 'checked' or 'unresolved' rests on
+    the FIRMS mask, so without coverage it is refused ('not_labelled_no_firms'); 'no_route' comes from the optimistic
+    instance alone and stands either way."""
+    if claim == "ROUTE" and accepted and (tier == "A" or firms_covered):
+        return "checked"
+    if opt_no_route:
+        return "no_route"
+    return "unresolved" if (tier == "A" or firms_covered) else "not_labelled_no_firms"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--toa", nargs="+", required=True, help="EVENT=path/to/<event>_pswt_ok_toa.tif ...")
@@ -135,7 +165,8 @@ def main():
         u_state, u_q, cur, pos = native_masks(case["packet"])
         key = case["region"] + "/" + case["mission"].split("_")[0]
         toa = dict(x.split("=", 1) for x in a.toa)
-        if event in EVENT_DAYS and event in toa:
+        cov = firms_coverage(a.firms_dir, EVENT_DAYS[event]) if event in EVENT_DAYS else dict(covered=False, first=None, last=None, rows=0)
+        if event in EVENT_DAYS and event in toa and cov["covered"]:
             info = footprint_share(case["packet"], toa[event])
             hit, ndet = np.zeros_like(u_state), 0
             for fd in a.firms_dir:
@@ -147,7 +178,8 @@ def main():
             hit = np.zeros_like(u_state)
             info = dict(event=event, U_state=int(u_state.sum()), positive_prob=int(pos.sum()),
                         positive_prob_in_U_state=int((pos & u_state).sum()), b_available=False,
-                        note="no arrival raster / FIRMS for this event here: (a)/(b) not computed")
+                        note="no arrival raster or FIRMS coverage for this event here: (a)/(b) not computed")
+        info["firms_coverage"] = cov
         packets[key] = info
         H = int(F(r["horizon"]))
         unknown = u_state | u_q
@@ -165,7 +197,7 @@ def main():
             inst, _ = build_instance(g, r, U.Augmented(model, ex))
             res = U.certify_and_check(inst, out / ("%s__%s.wfgc" % (case["mission"], tier)), a.c_checker)
             res["extra_cells"] = len(ex)
-            label = "checked" if res["claim"] == "ROUTE" and res["accepted"] else "no_route" if opt_no_route else "unresolved"
+            label = tier_label(tier, res["claim"], res["accepted"], opt_no_route, info["b_available"])
             cause = None
             if label == "unresolved":
                 causes = []
