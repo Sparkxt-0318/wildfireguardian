@@ -161,10 +161,10 @@ needed.
   - numpy 1.26.4.
 - **Spotting:** under a clamped isotropic spotting dilation of 500–2,000 m (ledger row 77), no place's leave-by gets
   later. That is a research check, not a list column.
-- **Map-edge limit:** 0 of 1,680 headline route witnesses (and 0 of 162 static) touch the edge of the fire-data grid.
-  This is an upper bound and is 0, so no listed latest departure is shown to depend on "nothing burning just outside
-  the grid". 3 Yeongdeok places (including 축산리) have roads in the outermost grid ring but not on its edge. This
-  comes from F-3.1 results/BORDER_TOUCH_NR2.json (94795496); verification is pending.
+- **Map-edge limit:** no headline route touches the edge of the fire-data grid (0 of 1,680 witnesses, 0 of 162 static;
+  an upper bound). This is a contact test only. Three Yeongdeok places, 축산리, 옥계리 and 항리, are **"within one cell
+  of the grid edge; radiant heat from fire outside the grid is not modelled"**. Source: F-3.1
+  results/BORDER_TOUCH_NR2.json (94795496); verification pending.
 
 **Pre-season version.** The same list from the March 2025 replay, per region:
 - which places lost their last checked route;
