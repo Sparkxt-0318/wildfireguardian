@@ -146,6 +146,12 @@ Accepted limitation (per rule 6): a same-size content change is not detected. | 
 - newest object 2025-01-01T20:50:24Z, before the stated snapshot.
 **Independent content check** (Hannah, OSM API /history, 80 requests spaced 3 s): for a deterministic sample of 40 ways and 40 nodes, version and timestamp equal the latest version at or before 2025-01-01T21:21Z in 80/80 cases, none deleted at that time. 10 of the 80 were edited after the snapshot, so the file is specifically a 1 Jan 2025 state, not a later extract.
 Not verified: byte identity with Geofabrik's published file. download.geofabrik.de reset the connection from my container too, and archive.org answered 429. The md5 above allows that check later. | PASS WITH NOTES, **closed** (orchestrator 13 Nov). Genuine OSM data at the stated snapshot (sampled), with consistent header and hashes. Byte identity with Geofabrik: **not checkable**, because the publisher's .md5 was not found (the owner tried download.geofabrik.de/asia/south-korea-250101.osm.pbf.md5 in a browser on 13 Nov). The 80/80 OSM-history content check stands as the provenance evidence. No private link in any file. Not verified: the graph build itself (step 1, a separate review) |
+| 78 | A1 §5.2 native-marginal demo on cohort R (custody pre-check) | orchestrator (ruling), Elena (exporter), Daniel (runner), Hannah (custodian) | ruling 03:02Z; exporter refit/native_marginals.py @2c45d27a (blob 48825e3d); R = the 6 US2024 IDs (pins README @24d20770) | Custodian lists, counts only: R ∩ 118 sealed b/c/d IDs = 0 (by full Incident_C and by unit-number key); R ∩ H-test (7) / H-dev (10) = 0 (name-level, since H_MEMBERSHIP is GOFER-name-keyed); R ∩ part-a allowlist = 0. The exporter is a library with no I/O (states and survey hours come from the caller), so custody depends on the driver. | **APPROVED with conditions** (pre-run):
+1. a committed allowlist of exactly the 6 Incident_C + IRWIN IDs, re-checked by Hannah;
+2. the driver command, driver sha and nirops_access.py sha sent before the run; R is read ONLY through nirops_access.py; no direct NIROPS read and no F1–F5;
+3. an access log of every fid and Incident_C;
+4. R-only outputs.
+Post-run: the log, the output hashes and Daniel's audit TSV for the window. Not yet run |
 
 ## Baseline detail (5fa19a2)
 
