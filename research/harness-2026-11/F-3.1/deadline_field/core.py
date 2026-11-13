@@ -249,3 +249,47 @@ def check_fixed_point(fld: Field):
         if fld.G[s] != iv.normalize(fld.R[s] + inst.A[s]):
             raise AssertionError("G != R u A at state %d" % s)
     return E
+
+
+def witness_greedy(fld: Field, o: int, t: int):
+    """A feasible accepted journey from origin o departing at t, found by following the field (memory O(path)).
+    Never dead-ends: every entered state lies in G (a completion exists), and time strictly increases, so it stops
+    within H steps. Prefers acceptance, then the successor with the smallest (arrival + static lower bound). The
+    arrival is NOT necessarily the earliest; use ``witness`` for earliest arrival."""
+    inst = fld.inst
+    if iv.contains(iv.normalize(inst.IB.get(o, [])), t):
+        return None
+    if iv.contains(inst.AN.get(o, []), t):
+        return t, []
+    core = issue_core(fld, o, initial_admission=False)
+    if not iv.contains(core, t):
+        return None
+    if "h" not in fld.stats:
+        fld.stats["h"] = static_to_dest(inst)
+    h = fld.stats["h"]
+    s, time, admitted, legs = -1, t, False, []
+    while True:
+        if s != -1 and admitted and iv.contains(inst.A[s], time):
+            return time, legs
+        node = o if s == -1 else inst.head[s]
+        best = None
+        for j in inst.out[node]:
+            if s != -1 and (s, j) in inst.forbidden:
+                continue
+            arr = time + inst.D[j]
+            if arr > inst.H or iv.contains(inst.B[j], time) or not iv.contains(fld.G[j], arr):
+                continue
+            key = (0 if iv.contains(inst.A[j], arr) else 1, arr + h[inst.head[j]], j)
+            if best is None or key < best[0]:
+                best = (key, j, arr)
+        if best is not None:
+            _, j, arr = best
+            legs.append(("EDGE", j, time, arr))
+            s, time, admitted = j, arr, True
+            continue
+        nxt = core if s == -1 else fld.R[s]
+        if inst.waitable[node] and time + 1 <= inst.H and not iv.contains(inst.W[node], time) and iv.contains(nxt, time + 1):
+            legs.append(("WAIT", node, time, time + 1))
+            time, admitted = time + 1, False
+            continue
+        raise AssertionError("greedy witness dead end: field inconsistent at state %d time %d" % (s, time))
