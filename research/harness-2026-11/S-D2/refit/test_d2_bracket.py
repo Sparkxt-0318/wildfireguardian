@@ -99,3 +99,23 @@ def test_unscored_endpoint_cells_are_latent_sources_without_own_terms():
                            np.random.default_rng(k))
         draws.append(t2[cell])
     assert 0 < min(draws) and max(draws) <= s2.hours and abs(np.mean(draws) - s2.hours / 2) < 1.5
+
+
+def test_gibbs_sweep_rejects_nonzero_kernel_centre():
+    """Owen row 51: the conditional is exact only when K[delta = 0] == 0; a nonzero centre must raise."""
+    import pytest
+    H = W = 6
+    D = 9
+    offs = B.offsets(D)
+    src = B.source_index(H, W, offs)
+    tgt = B.source_index(H, W, -offs)
+    tau = np.full(H * W, np.inf)
+    tau[0] = 0.0
+    tau[7] = 3.0
+    scored = np.ones(H * W, bool)
+    K = np.full((D, H * W), 0.1)
+    K[D // 2] = 0.0
+    B.gibbs_sweep(K, tau.copy(), np.array([7]), src, tgt, scored, 10.0, 1.0, np.random.default_rng(0))   # ok
+    K[D // 2, 7] = 0.05
+    with pytest.raises(ValueError, match="zero kernel centre"):
+        B.gibbs_sweep(K, tau.copy(), np.array([7]), src, tgt, scored, 10.0, 1.0, np.random.default_rng(0))

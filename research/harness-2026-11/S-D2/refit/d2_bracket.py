@@ -101,7 +101,18 @@ def gibbs_sweep(K: np.ndarray, tau: np.ndarray, latent_idx: np.ndarray, src: np.
     """One random-order sweep; K [D, N] numpy (finite, >= 0); tau [N] float (inf = unburned).
 
     A latent cell that is not scored has no own term (uniform within its bracket); only its effect on scored
-    targets enters its conditional."""
+    targets enters its conditional.
+
+    Requires a zero kernel centre (K[delta = 0] == 0). Otherwise the own-source and own-target loops would treat
+    cell i as its own neighbour at its OLD tau_i, while complete_loglik excludes it (strict <). Every
+    StructuredKernelModel family multiplies by off_center, so this holds on real models; the assert guards
+    against a future kernel change (Owen, ledger row 51)."""
+    D = K.shape[0]
+    centre = D // 2
+    assert src.shape[0] == D and src[centre, 0] == 0 and np.all(src[centre] == np.arange(src.shape[1])), \
+        "offset layout: row D//2 must be delta = 0"
+    if np.any(K[centre] != 0):
+        raise ValueError("gibbs_sweep requires a zero kernel centre: K[delta = 0] != 0")
     x_all = np.arange(step / 2, hours, step)
     for i in rng.permutation(latent_idx):
         x = x_all
