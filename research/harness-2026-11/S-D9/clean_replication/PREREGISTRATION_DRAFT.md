@@ -470,6 +470,33 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
     - (ii) **Not yet shown, and blocked.** The committed copy of the deposit's code (`routing-review/.../sources/zenodo_21788344/extracted/code/`, 5 files, 406 lines) holds library functions only, with no end-to-end driver. Its Korean product (`produce_rasters.kr_product`) interpolates **only inside the event's final perimeter** (EPSG:5179) and selects detections inside that perimeter (`preprocess.select`). The deposit does not include Korean final perimeters (`forecast/documents/korean_observation_availability_20261012.md`). So option (a) needs a public source of KFS final damage perimeters, plus a pinned Himawari active-fire product, as well as VIIRS. Neither has been identified yet.
     - (iii) Not run. It depends on (ii).
   - Per the orchestrator's instruction, this goes back to the orchestrator before (b) or (c) is chosen.
+  - **Orchestrator (11:37Z):** (a1) first, as a time-boxed documentation check by the web-research session: are KFS final damage perimeters and a Himawari active-fire product publicly obtainable for 2025 events, and on what terms? If the perimeters are not obtainable, fall back to (b). The (b) rule set is drafted below in parallel. **It is NOT ADOPTED.**
+
+### 9.1 KR-P rule set under option (b): FALLBACK, NOT ADOPTED (draft for the custodian's verification)
+Each choice below is a proposal. It takes effect only if (b) is adopted, and only by a commit made before 2027-01-01.
+- **Label product.** MODIS MCD64A1 Collection 6.1 monthly burned area, tile(s) covering each event, at native 500 m (sinusoidal), pinned by granule ID and file sha256.
+  - Layers: `Burn Date` (ordinal day), `Burn Date Uncertainty` (days), `QA`, `First Day` and `Last Day`.
+  - **Continuity risk:** MODIS production for 2027 is not assured. The named successor is VIIRS VNP64A1 (500 m, same layers). If MCD64A1 is not produced for a 2027 event, VNP64A1 is used for that event, and the product is stated per event. Both are pinned by granule sha256. Confirming that either exists for 2027 is part of the documentation check, from product documentation only.
+- **Arrival definition.** A pixel's arrival is its burn day. This is an ordinal **day**, with no sub-day timing.
+  - The burn-date uncertainty is kept.
+  - Pixels with `Burn Date Uncertainty` > 2 days are **excluded** from scoring.
+  - A pixel is in scope only if its burn day lies within [`First Day`, `Last Day`], the reliable mapping period.
+- **Grid and scoring scale.** Scored on the **native 500 m grid**; no resampling of labels. Model outputs on the 375 m grid are aggregated to each 500 m pixel by the area-weighted mean of cumulative probability. The aggregation code is pinned before the season.
+- **Endpoints and intervals.** Daily endpoints at 24:00 local (KST).
+  - A forecast issued at the end of day d is scored at the ends of days d + 1 and d + 2. Those are the two leads within A1's 48 h.
+  - The initial burned state at cutoff is every pixel with burn day ≤ d.
+  - Intervals follow A1 §2 at daily resolution: consecutive endpoints, Δ ≤ 48 h.
+- **Scored population.** The full event rectangle, as in A1 K-full, using `full_rectangle` semantics.
+  - Rectangle: the KFS incident location buffered to the extent of mapped burn pixels plus 2 km, fixed from the final map. This hindsight is disclosed, as for cohort R.
+  - A pixel unburned at the end with valid QA counts as never burned. A pixel with invalid QA or excluded uncertainty is excluded, not counted as unburned.
+  - Every result is labelled "satellite burn-date labels, daily resolution; not comparable with NIROPS or cohort K".
+- **Event eligibility** (KFS incident records, applied by the custodian under the §3 protocol):
+  - KFS-reported burned area ≥ 100 ha (about 4 MCD64A1 pixels);
+  - at least 2 distinct burn days among mapped pixels, so the event yields at least one scorable interval;
+  - at least 10 mapped pixels with valid QA.
+- **Minimum event count.** If fewer than **5** events are eligible in the window, KR-P is reported as a count only, with no statistics.
+- **Comparators and statistics.** As in §9: the Tier-2 frozen candidates and the A1 Korean comparators, with no refit. Paired pooled Brier and the lowest-bin calibration gap at each lead, with whole-fire bootstrap intervals. Descriptive only, with no decision.
+- **Cross-check role.** If option (a) is adopted, this rule set becomes the descriptive cross-check: the same rules, reported beside the (a) results.
 - **Training.** KR-P is scored with the Tier-2 frozen candidates exactly as frozen, plus the A1 Korean comparators (persistence, `dilation_8h`, and the KR logistic reference, if one is frozen by then). There is no Korean refit after the declaration.
 
 ## Open items
