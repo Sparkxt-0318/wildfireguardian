@@ -1,0 +1,4461 @@
+{
+ "what": "ROUTER-only NO_ROUTE certificates (.wfgc, F-3.2 FORMAT v1) for the kit's TIMEOUT jobs on the six 1-h planner caches; checked with Thomas's check_py at origin/thomas/f-3.2-certificates 66e3e62. Certificates themselves are not committed (560 MB); regenerate with deadline_field/export_timeouts.py",
+ "checker": "research/harness-2026-11/F-3.2/check_py.py @ 66e3e62",
+ "counts": {
+  "timeout_jobs": 297,
+  "no_route_cert": 98,
+  "checker_accept": 98,
+  "feasible_in_router_field": 199
+ },
+ "rows": [
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0df638be337b4eadb1bd",
+   "start": "osm:7622147272",
+   "dest": "osm:11685183404",
+   "dwell": 120,
+   "window": [
+    0,
+    2981
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_0df638be337b4eadb1bd.wfgc",
+   "instance_sha256": "d55954f88db86d39547e349c327a1e3954d83925b0cd54c805cd0ada38d0ad66",
+   "bytes": 5708972,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "a4b32674c961837fda9cc7dca978690eead4c75bd9bfa3f212ee8def8d7a07c1"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_27b4f918f63d406bb192",
+   "start": "osm:7622147272",
+   "dest": "osm:11685183404",
+   "dwell": 120,
+   "window": [
+    0,
+    2981
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_27b4f918f63d406bb192.wfgc",
+   "instance_sha256": "2d19d900b8545c5b55a561fced5c4efafeda13d3680f43e128716abbc2d7ce68",
+   "bytes": 6021338,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "da7c932c35b595c9c9fc3540de757fc4fa879ef9fc32bda2991d8d463a959cba"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4240cb1480ca4593a5b1",
+   "start": "osm:7622147272",
+   "dest": "osm:11685183404",
+   "dwell": 120,
+   "window": [
+    0,
+    2981
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_4240cb1480ca4593a5b1.wfgc",
+   "instance_sha256": "43b5705f17534ae75cf9bac24be9215ecf9100816096ee0587026a8007b3b3a4",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "441b6c678354ba467da51f12988dd7a51d1a432f8efa4d4897e253930170eb44"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_64aadff879a64147879f",
+   "start": "osm:7622147272",
+   "dest": "osm:11685183404",
+   "dwell": 120,
+   "window": [
+    0,
+    2981
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_64aadff879a64147879f.wfgc",
+   "instance_sha256": "82662c0c23aa9822ca9d385d20223ea9cad546083a4e946fc8d8bba499076471",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "311a382f85889d6e4cea188e45973f220ef2282cd62a6d53ca8239775252f57a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e81bd7cd297743f8a601",
+   "start": "osm:7622147272",
+   "dest": "osm:11685183404",
+   "dwell": 120,
+   "window": [
+    0,
+    2981
+   ],
+   "departure": 2400,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e81bd7cd297743f8a601.wfgc",
+   "instance_sha256": "99a7ff4081c74f0c6804a221e3acb9f668fb3d4ee788b644777e4fbefd21d258",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "538970fac9f59a2bd2ea5fe3d42c836ba713f8618876466a8746b0080d8d567e"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0e807f923ae343369556",
+   "start": "osm:11707551937",
+   "dest": "osm:11707583292",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_0e807f923ae343369556.wfgc",
+   "instance_sha256": "67982864893b7278b6185a736e9489679cb956b2f2ab956a5d4cc3b3c8075cff",
+   "bytes": 5715441,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7f730cc85cc027af42d932cb95b8dbbc613c526aa53a53764fa00e2b1e191984"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_cbc8c21a4f3f4daa84a8",
+   "start": "osm:11707551937",
+   "dest": "osm:11707583292",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_cbc8c21a4f3f4daa84a8.wfgc",
+   "instance_sha256": "6af5ab8ed044014899c4ca9bf9cb6b4cdaa24432933f2a656562c0b0fea2bcde",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7e688125a29936b54aca85b43c4d24e6414c5a2063c4c82112ccb80e4ba7eefb"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_d09dbd57570e4407b799",
+   "start": "osm:11707551937",
+   "dest": "osm:11707583292",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_d09dbd57570e4407b799.wfgc",
+   "instance_sha256": "a5f215537441fc4f363082f29269d31d019636932fea4b984baf0e6eff8867b0",
+   "bytes": 6025741,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "6e9cd620a449f51bffab4c6490752af2c63f1da6abc5b4d7bab80a4c4cc7de1d"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0e6804fafe9542dca60c",
+   "start": "osm:4677110474",
+   "dest": "osm:11753489694",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_32b3c2f0fcd24e8e8f42",
+   "start": "osm:4677110474",
+   "dest": "osm:11753489694",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_35c8a591a2c340e3a628",
+   "start": "osm:4677110474",
+   "dest": "osm:11753489694",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_652834197e144fc8a91f",
+   "start": "osm:4677110474",
+   "dest": "osm:11753489694",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 3000,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b44e6ecb244f49f6906e",
+   "start": "osm:4677110474",
+   "dest": "osm:11753489694",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e0fe8aad99504b2cbf06",
+   "start": "osm:4677110474",
+   "dest": "osm:11753489694",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_30e78e1acb84411b8728",
+   "start": "osm:4677110474",
+   "dest": "osm:11754891200",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_656cb590b00a45ca8fff",
+   "start": "osm:4677110474",
+   "dest": "osm:11754891200",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_6857289c81f74b7ba2f0",
+   "start": "osm:4677110474",
+   "dest": "osm:11754891200",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c66ac99d634a47f0b73b",
+   "start": "osm:4677110474",
+   "dest": "osm:11754891200",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 3000,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f7ce35e2865c484c9e84",
+   "start": "osm:4677110474",
+   "dest": "osm:11754891200",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_fbce93f9ae244473bdaa",
+   "start": "osm:4677110474",
+   "dest": "osm:11754891200",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3b3e2461ffa741809856",
+   "start": "osm:4677110474",
+   "dest": "osm:11768210313",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 3000,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5c4623cb1a714a7a990a",
+   "start": "osm:4677110474",
+   "dest": "osm:11768210313",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c1c2494cfc9747c2bf19",
+   "start": "osm:4677110474",
+   "dest": "osm:11768210313",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_dc77463845c74983961d",
+   "start": "osm:4677110474",
+   "dest": "osm:11768210313",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_fac673818c9e4fc3ba8f",
+   "start": "osm:4677110474",
+   "dest": "osm:11768210313",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_443099f5007b44fea03d",
+   "start": "osm:5274434287",
+   "dest": "osm:11784514721",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_834490857ae347eebffe",
+   "start": "osm:5274434287",
+   "dest": "osm:11784514721",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_88e3003b651d4c919963",
+   "start": "osm:5274434287",
+   "dest": "osm:11784514721",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_ada1418489fb49139b9b",
+   "start": "osm:5274434287",
+   "dest": "osm:11784514721",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_d85a7bce04d042b192e2",
+   "start": "osm:5274434287",
+   "dest": "osm:11784514721",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_27bf3a16bf194279918d",
+   "start": "osm:11890615141",
+   "dest": "osm:11825802662",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_27bf3a16bf194279918d.wfgc",
+   "instance_sha256": "cc18d9e4ac8cf1e3ad1d617fd7071ee6162d45e55e894b4af354ce7df8318352",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "54592c31e7e9b87c1072f8992f5e5dfcd1743fbec3a5b6c55b3ebd2896a881c0"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_47eab42f77114cf68bc5",
+   "start": "osm:11890615141",
+   "dest": "osm:11825802662",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_47eab42f77114cf68bc5.wfgc",
+   "instance_sha256": "55578e8de2618c2b1256028fe25920646719d93fe48ee2736349fc8c7c1cd13e",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "8428ec545efd2060156cd1d71e733ddd1b9d39ae3b961a3d9cf6800e1d3798a1"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_ceade6341f904ecda868",
+   "start": "osm:11890615141",
+   "dest": "osm:11825802662",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_ceade6341f904ecda868.wfgc",
+   "instance_sha256": "dfcccb162b0cdc44f36e24ca61c4cb0f602d4d7cf6c5e01670fac73f32c470d2",
+   "bytes": 6094977,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "2f23946c584e168249dae2089e2975a83af58607fdcdcec3fd05ebcab27eb17a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e5a543b9a4f2414591be",
+   "start": "osm:11890615141",
+   "dest": "osm:11825802662",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e5a543b9a4f2414591be.wfgc",
+   "instance_sha256": "6969659ff3fc2a5a646d88cd4c2d19190af16d75a18cef0be165638fc60dbaba",
+   "bytes": 5925239,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "f419c4061a8f0179b2c5ba6b9691859d3e0be8a72cbfd0b5a68af2c2ae6db80b"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_69b1cf2f5b494224bceb",
+   "start": "osm:10258416038",
+   "dest": "osm:11830995069",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_69b1cf2f5b494224bceb.wfgc",
+   "instance_sha256": "2dd8d442c279bf00a1f540aa6ee632a1c14c1d8de55b055395f3325e6283c766",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "1c09a227b5f19fb90ad97e215fdfa261f064d2bbf32ebee68ce87d59c525f443"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_7bd873b1b5b14b27b5b0",
+   "start": "osm:10258416038",
+   "dest": "osm:11830995069",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_7bd873b1b5b14b27b5b0.wfgc",
+   "instance_sha256": "744b3d40819a298e6e7d0e22859621e180522b0a029dc9b98d1acd4b2442bfd4",
+   "bytes": 6036704,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "a2f8dadc18425a4156a89e5f739ee9a0e77b91ca3d4590db9c29bfec11c63b27"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f0cbff13e17f49cdb699",
+   "start": "osm:10258416038",
+   "dest": "osm:11830995069",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_f0cbff13e17f49cdb699.wfgc",
+   "instance_sha256": "1b3bb55074b5b0731919a701c9c14d1d1393ccee2eed54015be215ce841c0011",
+   "bytes": 5765072,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "866bd88caff66ff3149b8c53138319b86669053ff3055d559885648ed2b5c1ec"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3243dd4f0ee7485cbfb4",
+   "start": "osm:10258416038",
+   "dest": "osm:11835362645",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4cf5cc702b294a69b6b8",
+   "start": "osm:10258416038",
+   "dest": "osm:11835362645",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b5c40ca4951c4dca91e8",
+   "start": "osm:10258416038",
+   "dest": "osm:11835362645",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_fd6be28f8a484ea495e8",
+   "start": "osm:10258416038",
+   "dest": "osm:11835362645",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3a4140e04ca74c98b731",
+   "start": "osm:11890615141",
+   "dest": "osm:11835584681",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_3a4140e04ca74c98b731.wfgc",
+   "instance_sha256": "855f30e04e787f8e4130483a4ffc1d555a0ef9490bbf8de04094767cc50473ae",
+   "bytes": 6005451,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "1f779fd7954ceb643aac196623cb322286c728720b6ecd3893c8e37aecd3c70a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_7df1a1ab32634be8af51",
+   "start": "osm:11890615141",
+   "dest": "osm:11835584681",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_7df1a1ab32634be8af51.wfgc",
+   "instance_sha256": "6b7fb3c15c4d771d762feda4f9e4a666a7d1be4f1b836fec1676645008831ac6",
+   "bytes": 5568965,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "008b52caa2b576533a81f4ab114dc5fe743d39309ed11bb7a421cca9b7f6baf9"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e92c9d32961248e59e92",
+   "start": "osm:11890615141",
+   "dest": "osm:11835584681",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e92c9d32961248e59e92.wfgc",
+   "instance_sha256": "151868d01493cb5561e512556e9c411249d1f11c5b858bb451f538b2e119bc2b",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "aa6122655d17238561adc8d4ab6e91e13752f6460ac6a8abe41f71b2a4f88613"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_099341106c5a468393f0",
+   "start": "osm:11842157094",
+   "dest": "osm:11888500833",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4148a2f0799a4016aaff",
+   "start": "osm:11842157094",
+   "dest": "osm:11888500833",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4bc81e5596d74bdab2dd",
+   "start": "osm:11842157094",
+   "dest": "osm:11888500833",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c37badd378294d15a156",
+   "start": "osm:11842157094",
+   "dest": "osm:11888500833",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_edf2caf1560b4dab9902",
+   "start": "osm:11842157094",
+   "dest": "osm:11888500833",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_11baae815ba04417aabe",
+   "start": "osm:11890615141",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_11baae815ba04417aabe.wfgc",
+   "instance_sha256": "f283cb9c844d915a882f1a0bdfa2b0e6d8e2ba6bcb66f8e4220eba5f18c7fe4c",
+   "bytes": 5958715,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "b27f064a93fc4c2de638ed6a7ab3ccc91549eb88775dfa5e23b3ad123a5eefb0"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2d2d94d3694f4517885c",
+   "start": "osm:11933741139",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4a82444341a745b58c0e",
+   "start": "osm:11890615141",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_4a82444341a745b58c0e.wfgc",
+   "instance_sha256": "1c29ea4e895c66cdda43ba2a5977e5821b70c4e358c3c32f2a1f330381efa44c",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "a3057972e98378509a207ebafdf44fbd8f975a23aa4f1f4da1c44f0d9b19b43a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5f4d5fff05bb4bb88815",
+   "start": "osm:11933741139",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_6002a53fb32044ba87e2",
+   "start": "osm:11933741139",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_a9e6af3ff573423f98ae",
+   "start": "osm:11890615141",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_a9e6af3ff573423f98ae.wfgc",
+   "instance_sha256": "412b98b4825d86895763dcf7afd13b8dc47de6990b76b36e91e0b71af7e53780",
+   "bytes": 6120961,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "fdc2c9cf9cbbcdec2468294e25030a8611041512c6bde1f16fb150e95163e9ad"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e0eca2361a3a4f7fa640",
+   "start": "osm:11933741139",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f133e3a0202844b88e06",
+   "start": "osm:11890615141",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_f133e3a0202844b88e06.wfgc",
+   "instance_sha256": "28f0ac8d691d6e238dff985198a9c8215d7f13acc53c605063b6a6ccf5095924",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "e8696f39ea54368e2a399aa31d59155f6169466e4efdc5fdb59f16ac66c22767"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_fef79da43e714f34a475",
+   "start": "osm:11933741139",
+   "dest": "osm:11888501321",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2871ec6a0a9141929222",
+   "start": "osm:11877066511",
+   "dest": "osm:11933514452",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_56734295b95e41f48273",
+   "start": "osm:11877066511",
+   "dest": "osm:11933514452",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_64753218d1084dfe8398",
+   "start": "osm:11877066511",
+   "dest": "osm:11933514452",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_69b338a2f0c6419baa81",
+   "start": "osm:11877066511",
+   "dest": "osm:11933514452",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_186e48aceda4475e8403",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_bb8a9d1164bb4fac934f",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c763177100384196b04a",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5e54c6e9066f4a8a9f29",
+   "start": "osm:11976273415",
+   "dest": "osm:11976139026",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_5e54c6e9066f4a8a9f29.wfgc",
+   "instance_sha256": "b42b34c0c2ef44cb4f5e3836d731dba40d2ccbfdc959a04dc97c9391426b1101",
+   "bytes": 6148699,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "b5b91cd125ced10dfab632d7fe265cf52de97370d986fcb24ed3f722eef8a6f9"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_76f03d97a56e46aabe4e",
+   "start": "osm:11976273415",
+   "dest": "osm:11976139026",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_76f03d97a56e46aabe4e.wfgc",
+   "instance_sha256": "98b4b9b2e58349fe4b99ff32ac26ffef7e87b3f7ac56f6ab09b5909237cba9aa",
+   "bytes": 6046735,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "77415e30ba0a9ff01f12d6f4de35a4007041b4971352711348b25edd09cd5c3a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8cf54d98d7ca476ca7af",
+   "start": "osm:11976273415",
+   "dest": "osm:11976139026",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_8cf54d98d7ca476ca7af.wfgc",
+   "instance_sha256": "17039bfb53d6343109821ae943bb58ed06458453c085cee29a23a8fc9dfea383",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "83aaace0d5b1378a077d8c8aded6c5d3d700d5ccc641883d74b4ec7386fe3f0f"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f9185040e9c847c894b0",
+   "start": "osm:11976273415",
+   "dest": "osm:11976139026",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_f9185040e9c847c894b0.wfgc",
+   "instance_sha256": "4f274c1638dc46ac14eed3ba68b151bb6f39c4c24990b02e3ae22895f6651245",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "8c2bf7e650bfa3cf94ce92ef8a3499f13884a44edcb9fef1aadb97c4c4c940a3"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0fba2c6da080499f8b2c",
+   "start": "osm:11976273439",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_0fba2c6da080499f8b2c.wfgc",
+   "instance_sha256": "66e2640d8dea70300535dec60f8aaa2cc090d661c8223af4326472c08536e613",
+   "bytes": 5997386,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "dc89d32bc15f6c0201cf1c59921b5ac7a5950541f1939a706275f5afaa6f0881"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_34243d10d8c84df5acfb",
+   "start": "osm:11976273415",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_34243d10d8c84df5acfb.wfgc",
+   "instance_sha256": "6702a97f386c5c6786a4888332f3465f2849ad5745e787ce9d52fefef494bea0",
+   "bytes": 5997386,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "18521df5a0de6f562e182698b571abcff2ec0edc481f1dec3681cf2ef1c734e5"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_41e22789324f4ed4a6a9",
+   "start": "osm:11976273415",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_41e22789324f4ed4a6a9.wfgc",
+   "instance_sha256": "0ea66669b0f00299227f70201fb053d45f9032f58a912451e51e7af4778de2e8",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7f308b5a439741674699103ae025d86db4d8d914776e827072209969c4d5a64c"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_6855b4982ebf4b7cb06b",
+   "start": "osm:11976273439",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_6855b4982ebf4b7cb06b.wfgc",
+   "instance_sha256": "c8c7da7bc40243308542de43b360a12cd8415f91bc81a1c9e30b54c8dbcb08cc",
+   "bytes": 5544806,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "a631a27a64800c55975fe0e198830072fc4361f05c5e2d575392d4024f297aad"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_919a9c9dff194280a840",
+   "start": "osm:11976273439",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_919a9c9dff194280a840.wfgc",
+   "instance_sha256": "f7be6b99b1f4ff3e5fbbf9666bf52a188abf7bc2316c04db617f11183b2b8a7e",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "5e0c7cb363c2415f9fc0b9f2039e23b9c69b2e08b27110658808b9c73f66551e"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_939e3b15feb34cac8245",
+   "start": "osm:4714300283",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_939e3b15feb34cac8245.wfgc",
+   "instance_sha256": "5f4cb02bd14ce233874f3ca957d4d3dc95ea8d76e318c5bd466e7a7853f2ff21",
+   "bytes": 5544805,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "ee575aba3ea20ce414f3fa262e5bcfc5a0096e930c2b82b4ab9e893a0b4aafc7"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b564f3e013ae4139bfe1",
+   "start": "osm:11976273415",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_b564f3e013ae4139bfe1.wfgc",
+   "instance_sha256": "96019974810da124a989db442358294cc20f0276c5c830b5af663040f036efdf",
+   "bytes": 5544806,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "a1e317c588f5dde3596836817159c7fff7ac531c72067c8c5cd8b7ac60205166"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_bab3772307724a2b958c",
+   "start": "osm:4714300283",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_bab3772307724a2b958c.wfgc",
+   "instance_sha256": "1e802de0bc13b158ce2d0319d9b4cae261990b1cf5e0e64beefb56cbe6989413",
+   "bytes": 6223675,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "4e2a061e0207e3977891a9e563952acc952f96b316bac68329b480de51345b23"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e1182fb9664849d7ac69",
+   "start": "osm:11976273415",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e1182fb9664849d7ac69.wfgc",
+   "instance_sha256": "93881d5decae180502ff250f3a6c9a77c76ee3ab15d3b37301927bff9a5514e5",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "ffd3d7252d3c3a93ab33411e0014c61fae01a8d862dd77bc98a5270e691f9eec"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e3f9a5e97cec4c50a186",
+   "start": "osm:4714300283",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e3f9a5e97cec4c50a186.wfgc",
+   "instance_sha256": "b9aba2ccfb52276f27747f8a59198c62d7709f6fcc935a4bd694af8715150d62",
+   "bytes": 5997385,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "92e55fc95da2824a8bd64345c5dadd3d93270d4c99293615a35d2566314f2344"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e51a07071adb4191a02e",
+   "start": "osm:4714300283",
+   "dest": "osm:11976273231",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e51a07071adb4191a02e.wfgc",
+   "instance_sha256": "db61de3182b562257a4fb50be83b0fbbdd748462b5e76654412af2ec97e0c97d",
+   "bytes": 6223675,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "ecd3982525b0f5259c332c82fd75a4fbbe8c7db2fab444112153ffe3b269cf4b"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_1ec63329e3ea454ea414",
+   "start": "osm:4714300283",
+   "dest": "osm:11985895447",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4f4868449ee64052b4b8",
+   "start": "osm:4714300283",
+   "dest": "osm:11985895447",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_af5e011fc8c94aa5b8dc",
+   "start": "osm:4714300283",
+   "dest": "osm:11985895447",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b17fe17266544b15bd19",
+   "start": "osm:4714300283",
+   "dest": "osm:11985895447",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_d7ae37c583a14508b6a6",
+   "start": "osm:4714300283",
+   "dest": "osm:11985895447",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_10d2c844b8f04bc7ae60",
+   "start": "osm:11993125567",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_10d2c844b8f04bc7ae60.wfgc",
+   "instance_sha256": "0af6afe9d177dc47cf2715ecfa895bfa4431adc79c77c7567b976db0e7f38490",
+   "bytes": 5544806,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "dc4521e82de9859e1216ed71d0ccb0d1500e1afea733087282624ea1f619ad05"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_31db92ef3bdf4f298632",
+   "start": "osm:11999581504",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_31db92ef3bdf4f298632.wfgc",
+   "instance_sha256": "e9f3efde565ae123d7b3b827bee15e6601e179bcff23b1808628156828aff488",
+   "bytes": 5544806,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "421792131b6d0bb36d7ae8bd3496cf545c5a5b9d492426e1683c4889fc030810"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5dfec89a7d684f3e8c45",
+   "start": "osm:11999581504",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_5dfec89a7d684f3e8c45.wfgc",
+   "instance_sha256": "7ae780a077b139c8a4bff9ff4263a702748c7aaf6fa72f216dd961339660fecf",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "9fc126169bad48b3f59e268731e4375efd0f33f13efbcf91e8c4d50c14234ef7"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_85c94e736bc7456b89b2",
+   "start": "osm:11993125567",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_85c94e736bc7456b89b2.wfgc",
+   "instance_sha256": "91ed5c8cfb6b42fae066e6e0ca6053e9924807b02998dbff6603c2b516873dd6",
+   "bytes": 5997386,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "b622ad6e85397d05daff0f9213259f4e2238d9eb0e9fa73d4a87690eb0bed480"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8bbb40a6770945b2a964",
+   "start": "osm:11993125567",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_8bbb40a6770945b2a964.wfgc",
+   "instance_sha256": "cda5e87c516ccba2cca7c3d245431034e781fa8b381d3f7bca2105d81db1336a",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "2a64badad0d671d9a41d869a7c2dc4a1f97517d6371db9720e81c5d1b2b83df8"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_cfca1b851d1f419f9d81",
+   "start": "osm:11993125567",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_cfca1b851d1f419f9d81.wfgc",
+   "instance_sha256": "940c157d6302deb6fbccbabe7c9cd69a697b1185ce6676162e7ec7a01d47ed26",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "df95d983d0d7fad7b866bcb5b6f01465df1dd4d7eecaa6d22b72c7d418dd2399"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f06a26d08732496f9d45",
+   "start": "osm:11999581504",
+   "dest": "osm:11999581611",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_f06a26d08732496f9d45.wfgc",
+   "instance_sha256": "11bede86037f8ea383fa710a9b1b77c3e39f854b4d1b00147b30eb454e5927d8",
+   "bytes": 5997386,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "b070fa346199344b0e96dc1af3e698ee09003648082778b28dd483a1020bb58f"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_7b289311c894490c8d37",
+   "start": "osm:12031458606",
+   "dest": "osm:12029705267",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_7b289311c894490c8d37.wfgc",
+   "instance_sha256": "da1df10c2e7324361436ad0f927e52cbecaa3f97b4c3378335501de66c405d66",
+   "bytes": 5997386,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "81f60f979bd38f27862ddce768e4e0c54c74783b19cb3c17a5f856af69c02aa2"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_a8198a44100446bcaab4",
+   "start": "osm:12031458606",
+   "dest": "osm:12029705267",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_a8198a44100446bcaab4.wfgc",
+   "instance_sha256": "bba5661627d8018eee4b024aadcf7deef3f76141f331cbd471cfcb638648e5a9",
+   "bytes": 5544806,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "122d66d28b7cb9f90bb7c098842ad344476050ed5c822adf5e29d3b8b3281442"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b1bbcdf845db44d3883a",
+   "start": "osm:12031458606",
+   "dest": "osm:12029705267",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_b1bbcdf845db44d3883a.wfgc",
+   "instance_sha256": "1d002e308df6fc24444e84398bd1d71fede93667decce254e1c0e039923cc555",
+   "bytes": 6223676,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "1486dcefe1a2ca4d7103a3898d79282877f8fd7602849f2746aad42e34791766"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_1918aa63121c4f60ab60",
+   "start": "osm:4322859821",
+   "dest": "osm:12031151372",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_21e88192ec7a494ca662",
+   "start": "osm:4322859821",
+   "dest": "osm:12031151372",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5f516cd926a14c9997cf",
+   "start": "osm:4322859821",
+   "dest": "osm:12031151372",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_84a3925d07104d00966c",
+   "start": "osm:4322859821",
+   "dest": "osm:12031151372",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_96e5ba9f76d9468d92d8",
+   "start": "osm:4322859821",
+   "dest": "osm:12031151372",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_012fca0fd59c414c9a2a",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0ca78de2a43d4fcbbd65",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5bc099f928a74f81a30b",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_00f05e7bdd1c4a34ba3c",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_55e15d9ebe8749a49cef",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8e18f66e9be7493a9771",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_a2ee51bc6954433ea74c",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2db75916917e464b8844",
+   "start": "osm:12031458606",
+   "dest": "osm:12044831757",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_2db75916917e464b8844.wfgc",
+   "instance_sha256": "6c1276abdafc1c9b94917fb21738a43f3ea43551cd3892b7822208aff3fe8e14",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "d62cb24fccbf91f86753e2faa51ea740127250fb1c60905bef8f45e5b2a3c3a1"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3cfc03da803e455d80a7",
+   "start": "osm:12031458606",
+   "dest": "osm:12044831757",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_3cfc03da803e455d80a7.wfgc",
+   "instance_sha256": "a592c1d148e707c876223ade2f732f731e2acc1e9d99184c00b384a39c018fa2",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "30527bc35945c54900da7f55a36f5f58b3abde903897b74d8c30bafcdf397a1e"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_7a0894c5dd2a456b82c9",
+   "start": "osm:12031458606",
+   "dest": "osm:12044831757",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_7a0894c5dd2a456b82c9.wfgc",
+   "instance_sha256": "777038b15656b1aff02c8c92fa22de36eca668ad252a0912e1445a7208a47a2d",
+   "bytes": 6005451,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "c3f460858a25ac484be96b5a9c0ac68d61b1c3345d36f74646dd31569fdea3b9"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c549a251154548af960e",
+   "start": "osm:12031458606",
+   "dest": "osm:12044831757",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_c549a251154548af960e.wfgc",
+   "instance_sha256": "f8fa13e82ac56dc0338371601ea1af9e474731a355e635569d1222f66d95183c",
+   "bytes": 5568965,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "8ae90a92670e5cb31a62352bb628cae1535e0154873b25b15fb31ea5794618b4"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_41bada7363e64fe5abb0",
+   "start": "osm:12031458606",
+   "dest": "osm:12045046820",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_41bada7363e64fe5abb0.wfgc",
+   "instance_sha256": "6f342e49757064c76730b7de0041f9eefac382e77e8c9db488b9b67677d6c11d",
+   "bytes": 6005451,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "0989c3bd1d35532b028a7c26a21efe6e24f2a99c2dd4ff27f823f14de3663e82"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b014f1c118e5469e8b99",
+   "start": "osm:12031458606",
+   "dest": "osm:12045046820",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_b014f1c118e5469e8b99.wfgc",
+   "instance_sha256": "e9390868280f29c8dacd7d5c73047f069961c2d0665796477a7d32915065eedc",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "47faf39aceb03721d060a662e9bd1adf28c7e26eed632fb3bed03ce72a90053d"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e9bcb7d66e364706b8be",
+   "start": "osm:12031458606",
+   "dest": "osm:12045046820",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_e9bcb7d66e364706b8be.wfgc",
+   "instance_sha256": "3064ecb0718effc2d70b4f3f0b3e0d2041211e43d4cb326ee8b8b3cedce24e94",
+   "bytes": 5568965,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "560252d968233ec4f4bcd046610ebb3fe0469f0e4c0c1c86b877b64c5e1de5f5"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3618033c179b41bab3ce",
+   "start": "osm:4322859821",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_6fed8f078dfa4a33b09b",
+   "start": "osm:4322859821",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_a34125907885456598b9",
+   "start": "osm:4322859821",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_aba601f50c6e4d1696ef",
+   "start": "osm:4322859821",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_cedf192be4a844a8b45d",
+   "start": "osm:12068995030",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f762659ecbbf4ffbaa4e",
+   "start": "osm:12068995030",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0dd40f3644164c2f9ae4",
+   "start": "osm:437253108",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_1f553c5f005144a99055",
+   "start": "osm:12045201809",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4b2dee44b1964b2e9345",
+   "start": "osm:437253108",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_62a4d2c9113348dfbe10",
+   "start": "osm:437253108",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_7e7a0e0d10ad4be68dad",
+   "start": "osm:12045201809",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8e4c1d7afb9743aab9cc",
+   "start": "osm:12045201809",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_94babeef50f7458caf9b",
+   "start": "osm:437253108",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_a3f2a31500f34790afcb",
+   "start": "osm:12045201809",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_ba6307f7d80f4f1d8ca6",
+   "start": "osm:12045201809",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c72ddde67df3443689e7",
+   "start": "osm:437253108",
+   "dest": "osm:12045201936",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_372a06ffb54241d68fa5",
+   "start": "osm:11665087132",
+   "dest": "osm:12045202442",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 2400,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_372a06ffb54241d68fa5.wfgc",
+   "instance_sha256": "356af1451431e027463cf2a69fb7e5f112f93615c5863885401fee054c36071f",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "db4ea4be4271bfef27a22d2c0d68902ae328b528ff7036629813c9ae5ec9fb89"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8b0a59e255b942cfa41b",
+   "start": "osm:11665087132",
+   "dest": "osm:12045202442",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b8761cc1d62b465ab091",
+   "start": "osm:11665087132",
+   "dest": "osm:12045202442",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_b8761cc1d62b465ab091.wfgc",
+   "instance_sha256": "02ee2e95f5b4468edcbd5f4df9123d8c758dd994f2e7e4e7bb8b082c2f6b3fd0",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "d1e03cdaacd15ba20531953f3957b34693851476eb8e6b069a2f222f8fb73f91"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b8ec5e4b09854f6bbe93",
+   "start": "osm:11665087132",
+   "dest": "osm:12045202442",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_b8ec5e4b09854f6bbe93.wfgc",
+   "instance_sha256": "525a0d61272afa29cf39cf12335a917132a67becd38f2433a0240cf4806a81fe",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "29261077b94e86f1b5e3974365707b1be0119c74ad0c3a78e01bea6fc7aab5bb"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_bed93d32d000459a94d5",
+   "start": "osm:11665087132",
+   "dest": "osm:12045202442",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0b2e74fcb21349babd8f",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2c3e16911ded466abd85",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_d8167b86e9d743b687cc",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_dfb43d87a32a44fdbbd3",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_e4e3620a40034c04b25a",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_089a02efd8154fbea30c",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3e4ac618c34b4be3aafe",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_82550231bfc7430bad40",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_9e9a04977df04a22923d",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_fe3fbb27d62f4e478c86",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_032b2da42a8640edbf90",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_852c55768e3e46da8e88",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_89b361c55d2a4b24a714",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_defc4316fed548249c54",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_eb410bcb8d2944dfa6df",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_27c4e6ac5d064b518a32",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_27c4e6ac5d064b518a32.wfgc",
+   "instance_sha256": "47330c83a894729928e018c7c8380900fc4747a78ff2634c835b8826d72a223f",
+   "bytes": 6012180,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "66e8ef9066554aef565a080403998d487b11032f7c930c2e895e4e60cd80dfaa"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8dca90be527941859381",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_8dca90be527941859381.wfgc",
+   "instance_sha256": "e7a2d8e37ad97fa452f29a07799e958f39b17c9532bd484f4f728b2119e5810a",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "0413fcc1d3c82c857cbcf83922102e967f387f0c1f8a705c724360163e01479d"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_afd56222069641cc8cd7",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_afd56222069641cc8cd7.wfgc",
+   "instance_sha256": "6d01039a9be09af3422e5eacbaf7ba4bb7d9022270de02ff1ab7bf19677f2b6c",
+   "bytes": 5589154,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "95bc76884051474aa6f0cc850369d09661cba638d2d90dcac646dcf97a0ac9e0"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2a8864db97a547439c23",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_2a8864db97a547439c23.wfgc",
+   "instance_sha256": "626af04d6ea141c8e04f40400f260fed12da7122a85c7c267033c5c2bc405cd4",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "c958d3e6ef7f005ca840d1bd36d782b5594f46cfabb813d772250a8a0be65e3b"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2cb48282fd774eb3873a",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_2cffcebe0f434f959ff6",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5b829835fb6e4b9997cf",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_73bbaee54259477eba15",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_7a18ea3f90bb41eba002",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_a09f9dda37484f1da345",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4ce0e4c062fa40c3a85c",
+   "start": "osm:12136060226",
+   "dest": "osm:12120699559",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_55e61567b7714d08933b",
+   "start": "osm:12136060226",
+   "dest": "osm:12120699559",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_76e41cfea75d49d2ae7a",
+   "start": "osm:12136060226",
+   "dest": "osm:12120699559",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_ca97d6c98cd54acb8f23",
+   "start": "osm:12136060226",
+   "dest": "osm:12120699559",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_825422f7fdf34dcb9c57",
+   "start": "osm:437282643",
+   "dest": "osm:12125807797",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_939078f26be4443bac31",
+   "start": "osm:437282643",
+   "dest": "osm:12125807797",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_93d2012370734339b590",
+   "start": "osm:437282643",
+   "dest": "osm:12125807797",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_9e40d102871e4f64a099",
+   "start": "osm:437282643",
+   "dest": "osm:12125807797",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_aacd04b8d6d5488591e9",
+   "start": "osm:437282643",
+   "dest": "osm:12125807797",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3b505c51e3454fcbadad",
+   "start": "osm:12154357513",
+   "dest": "osm:12154357555",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_5b95c076c7cc42a2b45e",
+   "start": "osm:12154357513",
+   "dest": "osm:12154357555",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_896c72e6e31b4e1f8148",
+   "start": "osm:12154357513",
+   "dest": "osm:12154357555",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_af774c52de4b4367ac31",
+   "start": "osm:12154357513",
+   "dest": "osm:12154357555",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_f893fbcc630340698bfb",
+   "start": "osm:12154357513",
+   "dest": "osm:12154357555",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_046a65c89cb0423a9d53",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_59b283987f874f8197f0",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_690cd6f4fae4441ebfe4",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b3a82328d7284620afc3",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_423cfac1086649ddba97",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_423cfac1086649ddba97.wfgc",
+   "instance_sha256": "759b86423df68a74b8946aef1d1257f790ba2dd4aad84ebcf53f7b4de08b6756",
+   "bytes": 6029777,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "fdb3ee52c893f98c57f68bff3019010c2b59848e00b763ae8d41ee5eaee95ffa"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_4529ccca1a60465c9474",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_4529ccca1a60465c9474.wfgc",
+   "instance_sha256": "36413b15c21ee4ea7990800a8884e51d2d2750bab4da7a4e0a860579e37dd9fc",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "54d460f9480fbf11988aa874d3451af0a1c66d105bbdde3d40a1322bd3c199b4"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_6602e0408524451ea358",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_6602e0408524451ea358.wfgc",
+   "instance_sha256": "7094421193c5054e71d980ee389f6dea5aaf49c594a3683bdfb3c80679f2eeb3",
+   "bytes": 5753907,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "0ff390a7883d9e70b346c0e6f9fa2b61bc509758168b7a6bc58b64dce362548a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_b00e6e81776a4c06ad7a",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_b00e6e81776a4c06ad7a.wfgc",
+   "instance_sha256": "9cf1b2b97242eea37e9301be9101e6f2dac5241211245df458fbf98e8e326f7b",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7f0bae9d3f501e44f30163f82685bde49a769ab46e871caac7dd8f7daf7ce528"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_0f78292decaa4da8b3be",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838463",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_0f78292decaa4da8b3be.wfgc",
+   "instance_sha256": "4429b25b8066e63ef7c0cb5f5d8c649b627e27f11f1da7879e5741d14ba11989",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "6ca8e3c463780eb644f075a82b2d299a085b035f9693d6c83f38fa163a5fb96a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3ad73250613444a1ad0e",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838463",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_3ad73250613444a1ad0e.wfgc",
+   "instance_sha256": "69ea100948fa4bd867c2eea8426490a64714ea9a0082d6e63649184d45dc5533",
+   "bytes": 5753763,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7fc3958f10ef378d4ca896120ca1f1e1d42ebaa10350a4643598d4c269ab8ecb"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_3f4eb624083d415fa888",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838463",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_3f4eb624083d415fa888.wfgc",
+   "instance_sha256": "52ab07e35263516c34a6bc8f981eaf8fc2d3892703b68b2f6a31a3e78797437e",
+   "bytes": 6029725,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "07eed1dfeeb07260f731ed5b2ff5d505e4ba047776ae115458bb06a0a04000ef"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_bac6b6c4cbb74efb8d95",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838463",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_bac6b6c4cbb74efb8d95.wfgc",
+   "instance_sha256": "a523712f573a05b19aef793f36aade84058fb34695d318959d13060881dd1f87",
+   "bytes": 6223694,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "0ff9365b17ad0d66d452fcf373e8bd9020788119ebf0f7993b4e290a77347b2c"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_29e8a3f184d946459a91",
+   "start": "osm:12192410255",
+   "dest": "osm:12198094956",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_8647512a8bdb4979a672",
+   "start": "osm:12192410255",
+   "dest": "osm:12198094956",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_913bb586ecf640c7bea2",
+   "start": "osm:12192410255",
+   "dest": "osm:12198094956",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_929b47a739804f52bf59",
+   "start": "osm:12192410255",
+   "dest": "osm:12198094956",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_d597b5514bd648e485a8",
+   "start": "osm:12192410255",
+   "dest": "osm:12198094956",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 2400,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_64819480af1b4f469737",
+   "start": "osm:11976273415",
+   "dest": "osm:4778527800",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_64819480af1b4f469737.wfgc",
+   "instance_sha256": "7ee7a44c2fdda3dbcedc5b1ebe3d8c88afbe85fb4d53dc4895be7e437cbbe6e3",
+   "bytes": 6148452,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "3a281e9080eac257062b57ee79bbb2a9bd8f75c7e0a2c96093e50d4379a1a451"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_71bb171520ed4f7498ad",
+   "start": "osm:11976273415",
+   "dest": "osm:4778527800",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_71bb171520ed4f7498ad.wfgc",
+   "instance_sha256": "bfd9c0d8febe67c7e6f573e9c7d16323721244740f39a0a0888a14684c10cdba",
+   "bytes": 6046022,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "169631815813fa6db2249fe7c764bc742e69fcf8c08a4093e6341ddf522b6e43"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_970f71fd90034d0a86a0",
+   "start": "osm:11976273415",
+   "dest": "osm:4778527800",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_970f71fd90034d0a86a0.wfgc",
+   "instance_sha256": "085bf180e6d5623d5620271c6f62b8a36f75ee55eb8aac9ed6f0d61996c90344",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "e828ad848d28cc2eb718b015bb9342f247706aeadafe642ae66535dabffd03cb"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "job": "rc_c2be6969c3bf4cd186c9",
+   "start": "osm:11976273415",
+   "dest": "osm:4778527800",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T190000Z__rc_c2be6969c3bf4cd186c9.wfgc",
+   "instance_sha256": "5a22e4b4cae3412dbf83e74c50ea0fa41b820f085f63c43a2c9738e308f753dd",
+   "bytes": 6223693,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "10d6757dbe41121c4e689dcbbd8f1961399db8b613e498c4a211506d1c4ed034"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_72478624486e40059bd8",
+   "start": "osm:11830468892",
+   "dest": "osm:11830468948",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_72478624486e40059bd8.wfgc",
+   "instance_sha256": "708dd7a13ff71ae09ed258f5c545c36513d1dee052a8bb06b787377f25471cf6",
+   "bytes": 5971041,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "280ba1f23b72de687758819dc9e71df543a98124c25d2101cb1c165ed51df23a"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_9953be63fdf44083a64c",
+   "start": "osm:11830468892",
+   "dest": "osm:11830468948",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_9953be63fdf44083a64c.wfgc",
+   "instance_sha256": "c309f2e0f87741c1d3b0267775aff701048e30cbba5983a3abe2abca78953ae7",
+   "bytes": 5521229,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "a2691ecaafb176203fafae0f8e863994f71a76f033b95af576ee205cebcd7abc"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_38d578f45b9f4d90a9e8",
+   "start": "osm:12138978122",
+   "dest": "osm:11830469137",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_38d578f45b9f4d90a9e8.wfgc",
+   "instance_sha256": "363721e468474048369dc552b79db0d7fd84ee5a6baf9f8e9c07cdfba1a67c93",
+   "bytes": 5972316,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "1bcee9af7f1deee5b7a894d3647a56d31fafb7bfae45d09ac64a020bea94873d"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_48d90b8f8f1f40b1ab91",
+   "start": "osm:11830468892",
+   "dest": "osm:11830469137",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_48d90b8f8f1f40b1ab91.wfgc",
+   "instance_sha256": "7eaa5680c0ada969c962e8560edb4b4628bb8375fb56f9bdcd9b0488afee00d3",
+   "bytes": 5972316,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "5d083a19152ee14e4c30fbaf5c29c2813b8426c7f3fdafa62c7d041f3164b8f1"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_ed8d3ec2d8954eb4a3b6",
+   "start": "osm:11830468892",
+   "dest": "osm:11830469137",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_ed8d3ec2d8954eb4a3b6.wfgc",
+   "instance_sha256": "f7333c8ca6ef076dab398146127406bcd5c71472b44d9b68a52fe7970fa5c57b",
+   "bytes": 5525018,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "bbbc3f56a5af338ee30e5a203930b0b65b73237da4480e320f1ea3bc636139b6"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_45cf4b8e23484fb5ad0b",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_b5077ec273914a9b81ed",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_bf8a31175a68461aad57",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_96b7536f8af84310baaa",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_dec1611818854619a6aa",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_f952c8898f5a44c9912d",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_843b5c6842f244d5b1e1",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_9bc98730f6d54d82a994",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_767fa8e12e7b40dabb9f",
+   "start": "osm:437251344",
+   "dest": "osm:12045046658",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_767fa8e12e7b40dabb9f.wfgc",
+   "instance_sha256": "16229a4b2003e85a93aae9a0af68f8a63ba45bed5986c0e399c50bfbbe45b1ad",
+   "bytes": 5943863,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "18c15ada605d2624c929197f7489d688e4e1f6a0e42447a09a6556beaa7e008d"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_87f84613ad114f53ae1c",
+   "start": "osm:437251344",
+   "dest": "osm:12045046658",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_87f84613ad114f53ae1c.wfgc",
+   "instance_sha256": "6dc389ce35c45c7efd27cb060e701f224d8a08a07b101f12495546ea6b8befb2",
+   "bytes": 6055013,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "22e9a6adb23c23e8b927d53359c773920ab6719686fe4266b38347c77f53d7cc"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_2a782133f2bd4a57997e",
+   "start": "osm:12068995030",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_a363ca17fbe041bab26d",
+   "start": "osm:12068995030",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_a363ca17fbe041bab26d.wfgc",
+   "instance_sha256": "65f4290e83520a34979d272946afe03a5cc3280fec516034db93e66317a287fe",
+   "bytes": 6073932,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "d78f583bc8ba6432946b0e1668fd24910d44182065a8d55ff9b14db8c4a4632c"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_db57db4db690491895fa",
+   "start": "osm:11343767896",
+   "dest": "osm:12048311097",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_f0c0dd1703d74832bf24",
+   "start": "osm:11343767896",
+   "dest": "osm:12048311097",
+   "dwell": 120,
+   "window": [
+    0,
+    3600
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_18c59c206ded40cab0e6",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_18c59c206ded40cab0e6.wfgc",
+   "instance_sha256": "ddb074558e776d1e59ed2680f9284f60a086089a37473e314892fc6c4a8139d0",
+   "bytes": 5971303,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "52974157eadc3034542b1c1e32b19dc145a31b4c142abc03e0494fd1020830bc"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_4161f7edd1624e77b356",
+   "start": "osm:12061373413",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_4161f7edd1624e77b356.wfgc",
+   "instance_sha256": "4b89025a651d4858c1129955eac2bcd4297a3e73a2f079eb71c840ec81d26f69",
+   "bytes": 5521979,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "f1ebd8cf9bc6eb46bccce10667616c0405c1dc0674b7f4a596eb2cfb39f409aa"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_7244abe57dc24e58a818",
+   "start": "osm:12056625899",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_7244abe57dc24e58a818.wfgc",
+   "instance_sha256": "05491f38ae7464d690d603d93778139292e05c1b416f1522d00fc61236ffe2f0",
+   "bytes": 5521979,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "0aeb1cb718ece98567c0f27b8b1b188396cc74afcdd87bf44ca5570c19a20584"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_b4221eef516346299731",
+   "start": "osm:12058544642",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_b4221eef516346299731.wfgc",
+   "instance_sha256": "1e128082f36c2475d7b293c319fe53adce6c461d5eac42982ab6062d7e5eb20b",
+   "bytes": 5521979,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "1094d1b2bb99e81ba7775adda47f04e056b643f0ea99fc1c4aa44481b5fb4f66"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_ba7fcc3174ce4e779f8c",
+   "start": "osm:12056625899",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_ba7fcc3174ce4e779f8c.wfgc",
+   "instance_sha256": "7eec78bb0d59723448b2030c109d451ae1a935b4a7ff3ab070585d49fa97d95c",
+   "bytes": 5971303,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "67c795dcf6ff182f08733476f82721d70d3658305ccd56ce648f730013432351"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_eb0b82c0ce334773adf5",
+   "start": "osm:12061373413",
+   "dest": "osm:12050420169",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_eb0b82c0ce334773adf5.wfgc",
+   "instance_sha256": "c5a170acdb6d34da96703a3b8ec92407f61843b1dcb14356011d5e4bbafb2561",
+   "bytes": 5971303,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7b5d14ba2c3c2fa75d8c2d34cab181a8d47a3506b23e5d6a8754364db8af264b"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_23fde393aa2a4fdd99ce",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_23fde393aa2a4fdd99ce.wfgc",
+   "instance_sha256": "5f9a7d87fdab3be5c900e8f97717bb781a71818486cfebff8b52cacdc328d331",
+   "bytes": 5973144,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "cc9ad48055e3a2528dcf124176767dfd3e63dd391b3ce60f7537d7fed025b8b1"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_7a18ec4428cb42c28b8f",
+   "start": "osm:12058544642",
+   "dest": "osm:12050429874",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_7a18ec4428cb42c28b8f.wfgc",
+   "instance_sha256": "1757afe5db883580e469211701993d3ec3be869e0eda907ad3974a9d378c38da",
+   "bytes": 5527502,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "1707000f45e68ff492006fd92b2a18f3e7a678292c34678916681e4320964751"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_06dd982055db4d19b9cc",
+   "start": "osm:437251344",
+   "dest": "osm:12052073642",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_06dd982055db4d19b9cc.wfgc",
+   "instance_sha256": "8ac44502cdb3a3eb99aebec040af41a4252c5be2107613c45bc5f58bc4070e53",
+   "bytes": 5523445,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "9827106ab45748e26297c3a21f4aa3492f85f90cb172d2c6e543fa4a2e08b681"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_d315a5f3e6484117ab16",
+   "start": "osm:437251344",
+   "dest": "osm:12052073642",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_d315a5f3e6484117ab16.wfgc",
+   "instance_sha256": "13b476af74091a6ea6dc80e2d82969bf3e91d4cefab651adf8b8c2f6c51e8c6c",
+   "bytes": 5971791,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "f9b9d4af5ddf7ac477f5d0f5aa889f29ad90d72b6a025373061d1828e02decc7"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_250dd2b229d34cba88d0",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_250dd2b229d34cba88d0.wfgc",
+   "instance_sha256": "8e6bba3833579e57ed82c978c37638454686368bf2f4ffa05e07a359fff55149",
+   "bytes": 5907602,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "eaf0849c2c34b2d56bb66f9aeb6adb245e6f8d008de71059fa161cd084f24090"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_4d429f2fce1340b7ad63",
+   "start": "osm:12056625899",
+   "dest": "osm:12061371598",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_4d429f2fce1340b7ad63.wfgc",
+   "instance_sha256": "a8e96c551ebabe2bbf72cd5f870488197620c88d0736d995d965deccc8c3093d",
+   "bytes": 6039648,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "7e1e1515ddece99a8b25e1d412ab0572cb4048124fe2a099000957c036e6349e"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_1a254d5465154fb99006",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_5e6ee98d7806415eb790",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_722fce900b4f41d8a6d6",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_e6c3d52319414b708423",
+   "start": "osm:10258416038",
+   "dest": "osm:12061373837",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_68bc3dc692f8485c9196",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_81bf8faf553e4c2392d5",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_a0e77dd7b27c4ce3b3c8",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_1df9b42140b046e78f07",
+   "start": "osm:12138978122",
+   "dest": "osm:12154357436",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_5ec336a248e846e480ac",
+   "start": "osm:12138978122",
+   "dest": "osm:12154357436",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_9f1e113d2aaa42f3a63c",
+   "start": "osm:12138978122",
+   "dest": "osm:12154357436",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_e4a56d1c5c2049869ded",
+   "start": "osm:12138978122",
+   "dest": "osm:12154357436",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_24284caa9e164e67ad0a",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_88e5dc79335f4569839f",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_b7e8a7272a5643428c60",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_e615c26ef93d491da3f2",
+   "start": "osm:12154357513",
+   "dest": "osm:12154728281",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_0827053b25e24027a83b",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_0827053b25e24027a83b.wfgc",
+   "instance_sha256": "aebe9dd68ba95f15f1ab71585956e6c476ba20b27d52d0c71b02c163c84c9008",
+   "bytes": 5694364,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "78d9caf60f282a56b6af81ae0e86d9e7d12b2c33c7a7caeda8cd4fcf5b7e5cd6"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_0de176ca3dc34b69aa76",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_0de176ca3dc34b69aa76.wfgc",
+   "instance_sha256": "a658587584f81fa01ecf342f787364920d67a8b4b7885c6136e1ae4adbe2a91e",
+   "bytes": 5996144,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "f27173613a056912f54d4e3d0a368075565b9171d6dc47568df6ef127af6b00b"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "job": "rc_b552d7fca1034d0bb4c4",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838463",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250325T230000Z__rc_b552d7fca1034d0bb4c4.wfgc",
+   "instance_sha256": "0d7f8fd870a6f6c1e2f6e7606563ee92afc0de83fbeeb80112a4f614bc4375c8",
+   "bytes": 5694226,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "d1d01383c1e249cb533495031a0b36ab74bb293478786be9d47c73aa6a0de4ff"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_1d28db0931914aa59375",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_60ad72ec90a3410e8f04",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_b0a321de04d84d4ca3d5",
+   "start": "osm:11993250216",
+   "dest": "osm:11935180344",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_06cde5108ddd4961b4dc",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_78e27dbb75314c83bea7",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_f60c1339119c4e5590a4",
+   "start": "osm:4714300283",
+   "dest": "osm:12032277413",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_5a056fd66926413ebbbf",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_f31a99a9339c427b9612",
+   "start": "osm:12068995030",
+   "dest": "osm:12043426674",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_6370d92918cd4265831b",
+   "start": "osm:12068995030",
+   "dest": "osm:12045201838",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_4910747b2836483a9e8f",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_a3b1f9fc1a2c4598b558",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_b89afe9989154368ab05",
+   "start": "osm:1868086697",
+   "dest": "osm:12068645015",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_225f9dabeb7a45218262",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838462",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250326T080000Z__rc_225f9dabeb7a45218262.wfgc",
+   "instance_sha256": "5f9a5a66890c5a42ee3180c5f96fda14e410dc217341cff44129b05c9e7bb751",
+   "bytes": 5781511,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "2bff3bbbeafc7e9e61c1f1e7423c9da908d7fcabb2eac696f237a6abed8727bf"
+  },
+  {
+   "cache": "../../../planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "job": "rc_063f0ae0647640289197",
+   "start": "osm:12192410255",
+   "dest": "osm:12188838463",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "NO_ROUTE_CERT",
+   "file": "yeongdeok_2025__20250326T080000Z__rc_063f0ae0647640289197.wfgc",
+   "instance_sha256": "22c7da7eb87903daa25f0ec1c739427285d1a10ea66b623a805a7e1ece363e10",
+   "bytes": 5781329,
+   "checker_rc": 0,
+   "checker_out": "ACCEPT NO_ROUTE 3601",
+   "cert_sha256": "0e8d33480aabf142e4ed6998aad97544d13fb8dc906e37a4892e5bb117bb8e18"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_0acd7b9d60154c3c94e3",
+   "start": "osm:365847993",
+   "dest": "osm:358865205",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_778e9dd4438c49bf96b2",
+   "start": "osm:365847993",
+   "dest": "osm:358865205",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_83eb1ca05ec54e72b8af",
+   "start": "osm:365847993",
+   "dest": "osm:358865205",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_3400ac18290249d1840a",
+   "start": "osm:12368880073",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_3a52d1383b1540c885e8",
+   "start": "osm:365517470",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_4491da419c4043939321",
+   "start": "osm:365517470",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_70575441d05c4d4dacbf",
+   "start": "osm:365517193",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_7166bc9c65534692a3bc",
+   "start": "osm:365517470",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_77410c94e3ab480091f9",
+   "start": "osm:12368880073",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_9a3bcd27d5c34f558960",
+   "start": "osm:365847993",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_c0a6472e02fc4b4ab386",
+   "start": "osm:365847993",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_cc535384724040b7922b",
+   "start": "osm:365516269",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_d5f394db6a25420399b3",
+   "start": "osm:365516269",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_e18400689e4b448d839d",
+   "start": "osm:365517193",
+   "dest": "osm:358875672",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_318110a3e4a44e86a1f6",
+   "start": "osm:365517470",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_437b73778ff6442d8051",
+   "start": "osm:365517193",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_483903f38ec549f4b35c",
+   "start": "osm:365516269",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_4df544f08b0449df80d9",
+   "start": "osm:365516269",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_5bce637e51ee46fa8db1",
+   "start": "osm:365517193",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_94a4ee38c6924b23b61a",
+   "start": "osm:365517470",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_d90a4346cf984b00a8b0",
+   "start": "osm:365517470",
+   "dest": "osm:358876491",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_05bde0f539414623a7c7",
+   "start": "osm:365517193",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_24f466b0973f478f8d4b",
+   "start": "osm:365517193",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1800,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_3e0fce293666451dbd6e",
+   "start": "osm:12616948834",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_49e169f9aa614ffaa82d",
+   "start": "osm:365837923",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_67bf565b6e814469b5c2",
+   "start": "osm:12616948834",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_7a45ee6310b848688392",
+   "start": "osm:12616948834",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_7c9b89d1a8254d639769",
+   "start": "osm:367855585",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_818aaa4a1d904035b213",
+   "start": "osm:367855585",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_8e230076488c414a95ad",
+   "start": "osm:330188613",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_8f0fbc28f2994f0eace9",
+   "start": "osm:365837923",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_990a255ff90b4c0fa30c",
+   "start": "osm:365517193",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 1200,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_b22a23a56aad4da5b3f3",
+   "start": "osm:365837923",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_d25d1dceb7dc4d128ec7",
+   "start": "osm:365517193",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_d2eeb954bfaa4fb49c55",
+   "start": "osm:330188613",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 600,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_fed52dcfbd804156a445",
+   "start": "osm:330188613",
+   "dest": "osm:367857816",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_55e306e41d314db986ad",
+   "start": "osm:330188490",
+   "dest": "osm:368193483",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_9734b164fdb34751b07c",
+   "start": "osm:12100026663",
+   "dest": "osm:368193483",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  },
+  {
+   "cache": "../../../planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "job": "rc_d61f698548164d2593e6",
+   "start": "osm:365843898",
+   "dest": "osm:368193483",
+   "dwell": 120,
+   "window": [
+    0,
+    3600.0
+   ],
+   "departure": 0,
+   "status": "FEASIBLE_IN_ROUTER_FIELD (no certificate)"
+  }
+ ]
+}

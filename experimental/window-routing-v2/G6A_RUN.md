@@ -4,8 +4,15 @@ G6_RULE.md stays the rule. This file fixes how G6a is run and compared. Where th
 governs. Nothing here loosens G6_RULE.md.
 
 ## Kits
-- **V2:** Main's kit at the time of the run, manifest `192f15cc…` (Step 2 + Step 3; orchestrator order). Its
-  KIT_IDENTITY is checked on every V2 row.
+- **V2:** the identity-record kit, manifest `bd67ff9d…`. That is Step 2 + Step 3 + the identity record (4 recording
+  lines in the worker).
+  - The orchestrator decided (option B, 2026-11-13 04:15Z) to land the identity record first, through its own
+    tests, G1 panel, verification and cut, and then run G6a once, on the kit that goes forward. So G6a, G6b and Step 6
+    refer to one manifest.
+  - G6a does not start until that cut is on Main and its manifest is confirmed equal to `bd67ff9d…`. If the cut
+    changes the manifest, this line is amended before the run.
+  - Its KIT_IDENTITY is checked on every V2 row, and every V2 row also carries `checker_identity` (the three checker
+    module hashes).
 - **PARENT:** the frozen request-window kit (`window-kit`, unchanged).
 
 ## Sample
@@ -81,7 +88,7 @@ A job whose request the builder rejects is listed as INPUT_REJECTED for both kit
 ## Pass
 G6a passes if:
 - there are 0 G6 failures and 0 V2 timeout contradictions, after the R phase;
-- every V2 row carries kit identity `192f15cc…`;
+- every V2 row carries kit identity `bd67ff9d…` (or the manifest named above, if amended);
 - the PARENT input and request hashes equal V2's on every job.
 
 Everything else is reported:
