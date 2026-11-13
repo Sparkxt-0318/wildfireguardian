@@ -32,6 +32,10 @@ model (§6) stays stable.
 
 - Forecast checkpoint c651 (`c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843`),
   next-hour new-burn probability, 375 m cells, EPSG:5179.
+  - **Default unchanged (orchestrator decision on the owner's delegation, 13 Nov 2026).** c651 stays the planner
+    default. The Wapiti reconciliation (Owen: PASS WITH NOTES) found that the sign of the difference depends
+    entirely on the interval set: +8.17 % on 25 intervals, −44.5 % on all 52. That is not a basis for switching.
+    The question is revisited only after the pinned refits are verified.
 - Routing package `wfg_latest` 1.0.0, executed kit v3. Evaluated arm used by the API: `RDA_CAND`.
 - Regions (real OSM road graphs): `uljin_2022` 울진, `miryang_2022` 밀양, `hongseong_2023` 홍성,
   `uiseong_andong_2025` 의성·안동, `yeongdeok_2025` 영덕. Demo regions: 의성·안동, 영덕
