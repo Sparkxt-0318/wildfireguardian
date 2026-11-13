@@ -1,6 +1,8 @@
 # Routing on the widened road graph (rule; DRAFT, plan only; written before any build or run)
 
 **Status.**
+- **The assessor read de025de1 (13 Nov) and passed the design; the build may start after the assessor's changes,** which are
+  applied in this revision: class wording, arm names, agency visibility, P6, the window-exit report and §6.
 - Draft. The rule and the pass criteria are committed before any build or run.
 - The assessor reads the rule before anything is built. The independent verifier verifies the result.
 - **No verified one-hour result changes.** None of the re-run candidates is in the one-hour panel.
@@ -75,8 +77,12 @@ Every run is made twice, using the routing author's `PacketModel(extra_blocks=�
 
 | Arm | Padding cells | Reads as |
 |---|---|---|
-| **pessimistic** | closed on [0, H), under both the closed and the router rules | "fire may be anywhere outside the export grid" |
-| **optimistic** | open | "no fire outside the export grid" |
+| **padding closed** | closed on [0, H), under both the closed and the router rules | "fire may be anywhere outside the export grid" |
+| **padding open** | open | "no fire outside the export grid" |
+
+**What "padding closed" is conservative about.** It is conservative about the padding **only**. Inside the export
+grid, cells with no fire information still read as open, exactly as in the headline. It is not a worst case inside
+the export grid (assessor, 13 Nov).
 
 **Label on both arms:** **"no fire data outside the export grid; not shown safe"**.
 
@@ -84,14 +90,28 @@ Every run is made twice, using the routing author's `PacketModel(extra_blocks=�
 
 For each (place, start, horizon, variant):
 
-| Pessimistic arm | Optimistic arm | Class |
+| Padding closed | Padding open | Class |
 |---|---|---|
-| checked route | (any) | **has a checked road route on the widened graph** (pre-fire roads; padding assumed burning) |
-| no route | checked route | **undetermined: depends on fire outside the export grid** (never "has a road escape") |
-| no route | no route | **no checked route on the widened graph**. If the reachable set again touches the widened boundary, it is "undetermined: map window too small (widened)". |
+| route found | (any) | **route found by the router on the widened graph, to the listed destinations; not independently checked** (pre-fire roads; padding assumed burning) |
+| no route | route found | **undetermined: depends on fire outside the export grid** (never "has a road escape") |
+| no route | no route | **no route found by the router on the widened graph to the listed destinations; not independently checked**. If the reachable set again touches the widened boundary, it is "undetermined: map window too small (widened)". |
 
-- **Refusal claims** come from ROUTER on the pessimistic arm only.
-- **The NO_CHECKED_ROUTE set and the AIR-EXTRACT §1 counts** take only the pessimistic class. An "undetermined" place
+**Why the classes are worded this way** (assessor):
+- **"Checked" is not used.** Every checker refuses the padded packets (§2.1, P5), so these routes are found by the
+  router and checked by nothing. In this project "checked" means an independent checker accepted the route.
+- **"To the listed destinations".** The destination set is unchanged and lies inside the old area. A "no route" here
+  means no route to those places. It does **not** mean that no road leads away from the fire, and it is not the same
+  as "no road escape".
+
+**What agencies see** (assessor):
+- Only the three classes, and facts from the **padding-closed** arm.
+- The padding-open arm stays internal. Its only outward trace is the class "undetermined: depends on fire outside the
+  export grid".
+- **No route geometry, time or count from the padding-open arm goes to an agency.** A line drawn through cells where
+  we have no fire data would be read as a way out.
+
+- **Refusal claims** come from ROUTER on the padding-closed arm only.
+- **The NO_CHECKED_ROUTE set and the AIR-EXTRACT §1 counts** take only the padding-closed class. An "undetermined" place
   stays out of every count of no-escape places.
 
 ## 3. Waiting: two arms, so that the road effect and the waiting effect are separated
@@ -161,21 +181,41 @@ graph does not change them, so they are not re-run.
   On padding cells: flame is false in every bin, and support is false.
 - **P3, support.** Support = false on exactly the 9,632 padding cells, and true on every export cell (or as in the
   v3.7 packet).
-- **P4, extension monotonicity.** Arm (a) × the pessimistic arm. Every (place, start, horizon, variant, departure)
+- **P4, extension monotonicity.** Arm (a) × the padding-closed arm. Every (place, start, horizon, variant, departure)
   that had a checked route on the old graph under `/2` still has one on the widened graph.
   - Why it must hold: the old graph is a subgraph inside the windows, the hazard on export cells is equal, and the
     padding is closed.
   - Any violation is a FAIL and stops the work.
+- **P6, arm geometry** (assessor):
+  - no route in the padding-closed arm touches a padding cell;
+  - every route that exists only in the padding-open arm does touch one.
+
+  This follows from the construction, so it is asserted. A violation means the arms are not what the table says, and
+  it is a FAIL.
 - **P5, refusals.** Every packet with padding is refused by full_check, the kit checker and the F-3.2 certifier. This
   confirms that no certificate is issued on it.
 
 **Reported, not asserted:**
+- **Per padding-closed route result: does the route leave the old window at all?** If it does not, the old graph
+  should already have found it. That is a discrepancy to explain, not a gain (assessor).
 - the class counts per region, start and horizon;
 - the road effect and the waiting effect;
 - which of the 34 candidates change class.
 
+**Later, not now: a checker mode** (assessor). It would accept a route when every cell the route touches has support
+true. Padding-closed routes lie wholly on export cells, so they could then be independently checked. That is a change
+to a verified checker, and it needs its own plan-first step.
+
 ## 6. What this rule does not do
 
+- **It certifies nothing.** No route on the widened graph is independently checked, and no certificate is issued.
+  Nothing here may feed a resident channel, or the early-action list's times, without a separate decision.
+- **It does not show that a road escape exists or does not.** The destinations are unchanged.
+- **It does not test today's roads.** The map is pre-fire, 79 days older than the owner graphs, with no closures or
+  damage.
+- **It is not a worst case inside the export grid** (§2.2).
+- **It does not re-evaluate the 1,074 rows whose start point is on ground burned before the start.** They keep their
+  separate "not evaluated" state (the assessor's verdict on the `/2` headline).
 - **Results.** It changes no verified one-hour result and no `/2` headline number. Results on the widened graph are
   reported alongside, labelled.
 - **Fire data.** It adds no fire data outside the export grid.
