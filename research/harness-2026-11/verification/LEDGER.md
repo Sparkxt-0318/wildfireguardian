@@ -134,6 +134,12 @@ Accepted limitation (per rule 6): a same-size content change is not detected. | 
 - 429 → ERROR;
 - A/F: original + .v2 only, 0 file GETs over 3 unchanged re-runs;
 - B: --out at the repo root refused, not created. | **PASS WITH NOTES.** Notes: a same-size content change is not detected (accepted per rule 6). Never run against a real server. Real use still requires the 2027 season and the orchestrator's go, and the script must be run at exactly this sha (df613e01…) |
+| 76 | part-a weather night-1 checkpoint | Daniel (run), Hannah (check) | daniel/data-fetch-3 @748afe70: parta_input_manifest_night1.json (f70e52b0…), parta_weather_completeness_night1.json (09af55fa…) | Both sha256 recomputed from git and they match. Checked against Hannah's own part-a reference (PART_A_ALLOWLIST_FINAL.csv, 490):
+- the completeness file's event set equals the allowlist exactly, and so does the pins file's (0 extra, 0 missing);
+- sealed overlap 0 with the 118 sealed IDs in both;
+- all 490 events are all_finite, with bands == complete_hours (min 29 bands);
+- Σ n_responses = 574, which equals the part-a request count Daniel reports;
+- pins: 16,664 total, 2,940 weather (490 × 6) and 490 terrain. | PASS WITH NOTES (committed artifacts). Not verified: the request and run logs (scratch only), i.e. 591 requests, all 200, 6,985.9 weighted, caps held, no restarts; and the weather values themselves beyond the finiteness flags in Daniel's file. Item 14 (row 72) remains the only value-level comparison with the owner |
 
 ## Baseline detail (5fa19a2)
 
