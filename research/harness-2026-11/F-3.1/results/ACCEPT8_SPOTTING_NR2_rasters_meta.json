@@ -1,0 +1,159 @@
+{
+ "base_sha256": "fe81f945ddb9dd68f9de27b5865ca12d1a345934540934b723bd66b7d01fa953",
+ "uiseong_andong_2025|20250323T010000Z|0": {
+  "npz_sha256": "c015e2e79e893f9d7ce736c9309a7415645fb5d85bd4ab47145e26bb86016714",
+  "clamped_cells": 0,
+  "finite_cells": 10955
+ },
+ "uiseong_andong_2025|20250323T010000Z|500": {
+  "npz_sha256": "a17dbd82c3400eb9d11242796e80e410323e71f7d6eea2adb78bc80a4783e7f5",
+  "clamped_cells": 116,
+  "finite_cells": 11446
+ },
+ "uiseong_andong_2025|20250323T010000Z|1000": {
+  "npz_sha256": "712a40272fdada66a686e02bed0dcc7b53e00e483b40216695d4c39e68fe3285",
+  "clamped_cells": 290,
+  "finite_cells": 12030
+ },
+ "uiseong_andong_2025|20250323T010000Z|2000": {
+  "npz_sha256": "46fa6510ade97b0498a4c7635a548ebee5cde2a9fd663a0601cf0652dd83b554",
+  "clamped_cells": 714,
+  "finite_cells": 13154
+ },
+ "uiseong_andong_2025|20250323T010000Z|nesting": {
+  "a0_equals_a": true,
+  "order_fail_0_500": 0,
+  "order_fail_500_1000": 0,
+  "order_fail_1000_2000": 0
+ },
+ "uiseong_andong_2025|20250324T090000Z|0": {
+  "npz_sha256": "658287498bc765c21ddb2a6f6d3a182e5e2065e5996e85e28e743431545954ee",
+  "clamped_cells": 0,
+  "finite_cells": 10955
+ },
+ "uiseong_andong_2025|20250324T090000Z|500": {
+  "npz_sha256": "2a67c1bb9d05767f0a0ec8658d027477a10c83354c36b3f62c4f02385c4e0ba0",
+  "clamped_cells": 182,
+  "finite_cells": 11446
+ },
+ "uiseong_andong_2025|20250324T090000Z|1000": {
+  "npz_sha256": "7c068fc454b127851dca6713bd24fbe49dfb323e8396a23355f9037bee38d51b",
+  "clamped_cells": 420,
+  "finite_cells": 12030
+ },
+ "uiseong_andong_2025|20250324T090000Z|2000": {
+  "npz_sha256": "b008d5ac387367026f1122114784977398e6058fdf1b0f45fc545ef8315e4f41",
+  "clamped_cells": 956,
+  "finite_cells": 13154
+ },
+ "uiseong_andong_2025|20250324T090000Z|nesting": {
+  "a0_equals_a": true,
+  "order_fail_0_500": 0,
+  "order_fail_500_1000": 0,
+  "order_fail_1000_2000": 0
+ },
+ "uiseong_andong_2025|20250325T170000Z|0": {
+  "npz_sha256": "38caee106b9b9d6f17018d2fb2bb4cf2bb91cc471d684c5ef240ef0b6d24c0cb",
+  "clamped_cells": 0,
+  "finite_cells": 10955
+ },
+ "uiseong_andong_2025|20250325T170000Z|500": {
+  "npz_sha256": "3c522cb5a9882f7b10ad8634193d2188a95a56ef100ce3dc9aacccae7c002f45",
+  "clamped_cells": 681,
+  "finite_cells": 11446
+ },
+ "uiseong_andong_2025|20250325T170000Z|1000": {
+  "npz_sha256": "a7b8949cdfcaa4e5ee9bd0d4948429717e37f4752bc928371bdcf83c36c989c2",
+  "clamped_cells": 1590,
+  "finite_cells": 12030
+ },
+ "uiseong_andong_2025|20250325T170000Z|2000": {
+  "npz_sha256": "949764a0d4bdca377f681194900e69c003fe24739443f68ae3f99aeb4e652383",
+  "clamped_cells": 3335,
+  "finite_cells": 13154
+ },
+ "uiseong_andong_2025|20250325T170000Z|nesting": {
+  "a0_equals_a": true,
+  "order_fail_0_500": 0,
+  "order_fail_500_1000": 0,
+  "order_fail_1000_2000": 0
+ },
+ "yeongdeok_2025|20250325T190000Z|0": {
+  "npz_sha256": "5e35a0f161f65e00f8db85275a6db1e6c15abf6125b49215239ad2a6c8c28760",
+  "clamped_cells": 0,
+  "finite_cells": 10955
+ },
+ "yeongdeok_2025|20250325T190000Z|500": {
+  "npz_sha256": "6380f96e15929b525caf9e3481b3edf146ac6c500c6b7eaa2a4bf5385b03fb5d",
+  "clamped_cells": 679,
+  "finite_cells": 11446
+ },
+ "yeongdeok_2025|20250325T190000Z|1000": {
+  "npz_sha256": "6d2e2670c8c3bace0f639d6b3dfd97eceba625a7b23b415b545efa1cb1b29611",
+  "clamped_cells": 1498,
+  "finite_cells": 12030
+ },
+ "yeongdeok_2025|20250325T190000Z|2000": {
+  "npz_sha256": "395100be7d29bae957fc9ec51d6a9b24565a18148547d2662ee839da44552006",
+  "clamped_cells": 3044,
+  "finite_cells": 13154
+ },
+ "yeongdeok_2025|20250325T190000Z|nesting": {
+  "a0_equals_a": true,
+  "order_fail_0_500": 0,
+  "order_fail_500_1000": 0,
+  "order_fail_1000_2000": 0
+ },
+ "yeongdeok_2025|20250325T230000Z|0": {
+  "npz_sha256": "f368013b982b842a1624145eefe39312290f859d2353883e57a5ddcaab7495b7",
+  "clamped_cells": 0,
+  "finite_cells": 10955
+ },
+ "yeongdeok_2025|20250325T230000Z|500": {
+  "npz_sha256": "72c5c87ae805348f79ff1795df40c032e34f6f97993b5347eb662b1744c5a52f",
+  "clamped_cells": 532,
+  "finite_cells": 11446
+ },
+ "yeongdeok_2025|20250325T230000Z|1000": {
+  "npz_sha256": "4c9c64217d4037151cfcabb056479a8a67b08ac226cc7e2a3949b92781994b6e",
+  "clamped_cells": 1216,
+  "finite_cells": 12030
+ },
+ "yeongdeok_2025|20250325T230000Z|2000": {
+  "npz_sha256": "f49e4b3b7f0d43cbf2f7706b1f05e79cd76ca9a608d14d9ee2578e910ecf17b4",
+  "clamped_cells": 2532,
+  "finite_cells": 13154
+ },
+ "yeongdeok_2025|20250325T230000Z|nesting": {
+  "a0_equals_a": true,
+  "order_fail_0_500": 0,
+  "order_fail_500_1000": 0,
+  "order_fail_1000_2000": 0
+ },
+ "yeongdeok_2025|20250326T080000Z|0": {
+  "npz_sha256": "74bf28bf526c568fd21f55be23542afcf3a35abfb4ebfb632d96ca0ee2e77bb8",
+  "clamped_cells": 0,
+  "finite_cells": 10955
+ },
+ "yeongdeok_2025|20250326T080000Z|500": {
+  "npz_sha256": "05e62573c9ae01bbe001590af3ae43bd45ca32c1651d7faa8c82db33930c95e1",
+  "clamped_cells": 497,
+  "finite_cells": 11446
+ },
+ "yeongdeok_2025|20250326T080000Z|1000": {
+  "npz_sha256": "92d8639b772199d537031e7c673882f09e6ab34584d1a677ca42b81919c293c7",
+  "clamped_cells": 1130,
+  "finite_cells": 12030
+ },
+ "yeongdeok_2025|20250326T080000Z|2000": {
+  "npz_sha256": "5560e4bac4def331e938b5dd8aac1e65fc05f38c496a141b2667d0a633b5c113",
+  "clamped_cells": 2299,
+  "finite_cells": 13154
+ },
+ "yeongdeok_2025|20250326T080000Z|nesting": {
+  "a0_equals_a": true,
+  "order_fail_0_500": 0,
+  "order_fail_500_1000": 0,
+  "order_fail_1000_2000": 0
+ }
+}

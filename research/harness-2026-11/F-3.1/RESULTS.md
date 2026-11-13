@@ -976,3 +976,59 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
   - Uiseong 25T17Z: 6;
   - Yeongdeok 25T19Z: 1.
 - "Possibly road-limited" is a reachability heuristic at t = 0 (the reachable set touches a graph-window boundary node). It does not show that the window is the cause.
+
+## Acceptance 8, spotting-dilation half, on `no_reentry/2` (rule `SPOTTING_NR2_ACCEPT8_RULE.md`, committed first at bfc67ae4; NOT YET VERIFIED)
+
+**Labels.**
+- SCENARIO, not what happened. Graphs are road-limited.
+- Isotropic dilation with no wind field. Nothing is claimed about actual spotting distances in 2025.
+- This is a research check of monotonicity, not a spotting result.
+- CERT = router OR closed footprint; ROUTER = router rule only.
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+- **Waiting rule (R):** Each departure time in [0, H], every integer second, is a separate trip. Leaving later is how waiting at the start place is represented. Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other node.
+- **Environment:** numpy 1.26.4, Python 3.13.18.
+
+**Hazards.**
+- Base: kriged_mean.
+- a_d = a where a ≤ start; otherwise a_d = max(dilate(a, d, lag 0), start). Dilation uses Leo's `fdyn.variants.dilate` at 819bcb91, unchanged.
+- Nesting was checked before any build on all 6 starts:
+  - a_0 = a on every cell;
+  - 0 cells out of order for 0 ≤ 500 ≤ 1000 ≤ 2000.
+- Clamped cells (start | d = 500 / 1000 / 2000):
+  - UA 23T01Z: 116 / 290 / 714
+  - UA 24T09Z: 182 / 420 / 956
+  - UA 25T17Z: 681 / 1,590 / 3,335
+  - YD 25T19Z: 679 / 1,498 / 3,044
+  - YD 25T23Z: 532 / 1,216 / 2,532
+  - YD 26T08Z: 497 / 1,130 / 2,299
+- Under `/2` a clamped cell (arrival = start) is in C0 (inclusive) and closed on [0, H). Its C0 membership is the same as the unclamped dilation would give.
+
+**Run.**
+- 24 pairs: 6 recorded starts × d ∈ {0, 500, 1000, 2000} m, h5.
+- Builds: `/2` + reopening from the v3.7 manifest commands, with `--arrival`, `--arrival-variant` and `--out` replaced. Every packet's transform is `no_reentry/2`.
+- Runner `deadline_field/headline.py`, unchanged. Batch `batch/spot_nr2_batch.py`; comparison `deadline_field/spot_nr2_compare.py`.
+- Files:
+  - `results/ACCEPT8_SPOTTING_NR2.json`;
+  - `results/ACCEPT8_SPOTTING_NR2_rasters_meta.json` (raster sha256 and the nesting checks).
+- 0 build or run failures.
+
+**Control (pass/fail): PASS on all 6 starts.** At d = 0 every place's CERT and ROUTER leave-by and no-route status equals the committed HEADLINE `/2` kriged_mean h5 row.
+
+**Witnesses.**
+- Every `/2` CERT leave-by witness passes the full checker on its own packet and on the reopening packet, with every next second infeasible.
+- 0 failing witnesses, so no place is excluded.
+- The exactness precondition is not met on 7 witnesses, all UA 25T17Z (d = 0: 2, 500: 3, 1000: 2); they still pass the full checker.
+
+**Result: 0 violations, CERT and ROUTER.** No place has a later leave-by under the larger dilation, or a route under d′ where d has none. CERT and ROUTER counts are identical.
+
+| start | 0→500 equal / earlier / lost / none on both | 500→1000 | 1000→2000 | 0→2000 |
+|---|---|---|---|---|
+| UA 23T01Z | 56 / 0 / 0 / 28 | 55 / 1 / 0 / 28 | 49 / 0 / 7 / 28 | 49 / 0 / 7 / 28 |
+| UA 24T09Z | 49 / 0 / 2 / 33 | 42 / 6 / 1 / 35 | 39 / 2 / 7 / 36 | 38 / 3 / 10 / 33 |
+| UA 25T17Z | 8 / 20 / 1 / 55 | 8 / 18 / 2 / 56 | 1 / 23 / 2 / 58 | 1 / 23 / 5 / 55 |
+| YD 25T19Z | 46 / 2 / 4 / 38 | 43 / 4 / 1 / 42 | 34 / 5 / 8 / 43 | 34 / 5 / 13 / 38 |
+| YD 25T23Z | 45 / 1 / 4 / 40 | 43 / 0 / 3 / 44 | 33 / 2 / 8 / 47 | 33 / 2 / 15 / 40 |
+| YD 26T08Z | 45 / 0 / 3 / 42 | 42 / 0 / 3 / 45 | 33 / 2 / 7 / 48 | 33 / 2 / 13 / 42 |
+
+- "Lost" (a route under d, none under d′) and "none on both" are monotonicity comparison classes, not counts of places without a route. They include places in the not-evaluated state (`NOT_EVALUATED_LABEL_RULE.md`), which this check does not split.
+- The row-61 artefact (spotting making places safer) cannot occur here: no place moves later.
