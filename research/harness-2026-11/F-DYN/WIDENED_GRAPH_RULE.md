@@ -317,3 +317,112 @@ grid", and the reader should see how many there are.
 - **Step-1-waitable nodes absent from the widened graph** cannot be set. They are listed, with their count reported,
   before any run. They are expected to be 0, given the step-2 inside-window equality.
 - The dict and its sha256 are committed with the run input.
+
+## 8. Amendment 2: the independent verifier's read (verification ledger row 78) and one further gap (13 Nov; before any routing run)
+
+The independent verifier read the rule @ af24680e before any build and found it sound with four clarifications. They
+are settled here. Item (v) is a further gap found by the author while writing them. Nothing here was decided after a
+result: no padded packet has been built and no route has been computed.
+
+**Graph inputs reproduced (not a run).** The pbf was fetched by env var only, into its own directory: 233,753,476
+bytes, sha256 9b67fc95…, header replication timestamp 2025-01-01T21:21:00Z. With the data-fetch author's committed
+scripts (`roads/step1/` @ 6b37ebed; extract_area.py 0d57e2f1…, build_graph.py fcc1573e…; Python 3.13.18, pyosmium
+4.3.2, pyproj 3.8.0, `python -I`), the outputs are byte-identical to MANIFEST.json:
+- area_grid5km.json 7865f495…;
+- ua_step1.json e92cd0a8…;
+- yd_step1.json 39226a07…;
+- kfs01_grid5km.json 2232df00….
+
+The widened build peaked at 0.75 GB RSS.
+
+**(i) Padding in the padded export means "not burned".** This is a stated condition, not an assumption.
+- The bridge's unknown-age policy ("known burned, age unknown → active [0, T)") applies only to *known* burned cells:
+  `known_burned = source_burned_area_valid & (source_burned_area == 1)` and `unknown_age = known_burned &
+  ~heat__initial_burning_valid` (`integration/src/wfg_latest/bridge.py` lines 173 and 179, frozen).
+- `source_burned_area_valid = false` on padding therefore gives neither known-burned nor unknown-age. Padding gets no
+  present fire and no enclosure.
+- **Why P2 checks "flame false on padding in every bin":** it is the check that catches a violation of this condition.
+  A violation is a FAIL and stops the build.
+- **Flux on padding is nonzero.** Fire at the grid edge radiates into it. Routes that exist only in the padding-open
+  arm therefore carry a dose that nothing checks. That is one more reason the padding-open arm stays internal (§2.2).
+
+**(ii) P2, added fields.** These must also equal the v3.7 `/2` packet:
+- `valid_until` and the horizon H;
+- the present-fire enclosure fields (`present_fire_unknown_age_enclosed`, `unknown_age_cells_enclosed`, `R_max_s`).
+
+Flux on export cells is held to A1 (relative 1e-9 or absolute 1e-12 kW/m²). The independent verifier's argument for why
+it can hold (rfft2 over the full linear shape with zero padding, no wrap-around, and sources on export cells only in
+both builds) is recorded here as the reason. A failure is still a FAIL.
+
+**(iii) P4 restated: the same field on both graphs, feasible-set containment, and a fixed power floor.**
+
+*1. The same field on both graphs.*
+- Both sides use the routing author's deadline-field solver on `PacketModel.instance("cert", …)`, the CERT rule (router
+  OR closed footprint).
+- Neither side uses full_check.
+- "Checked route on the old graph" is dropped from P4. Since CERT-feasible ⊂ ROUTER-feasible, a CERT loss could
+  otherwise hide behind a ROUTER survival.
+
+*2. Containment of feasible sets, not grid points.* For each (place entry node, destination, dwell), let F(G, arm) be
+the exact CERT-feasible departure set on [0, H) (interval sets, integer seconds). Write G1 for the step-1 graph, with
+the v3.7 `/2` packet and the old waiting set.
+
+**The eligible old graph G1′** is G1 restricted so that it is, by construction, a sub-instance of the widened instance:
+- **(a)** keep only edges identical in both graphs: id, u, v, direction, ticks and segments (§7);
+- **(b)** drop every edge, wait node and destination point that touches a padding cell under the closed rule (§7(c));
+- **(c)** use as forbidden turns the union of G1's and the widened graph's on the edges that remain (item (v));
+- **(d)** keep G1's waitable flags.
+
+**P4 (asserted).** F(G1′) ⊆ F(widened, waiting arm (a), padding closed), exactly, for every triple, place, start,
+horizon and variant run. Any departure second in the difference is a FAIL and stops the work.
+
+**P4-open (asserted).** G1″ is G1′ without step (b). F(G1″) ⊆ F(widened, waiting arm (a), padding open), exactly.
+
+**Reported per region, start and triple:**
+- F(G1) \ F(G1′): departures lost to the old graph only through exclusions (a), (b) or (c);
+- the row "lost only by touching the edge of the fire-data grid (padding assumed burning); not a fire result; the
+  result on the old graph is unchanged" (§7) is the part due to (b) alone. It stays internal.
+
+*3. Power: a control set, and a minimum fixed now.*
+- **The control set.** The 34 candidates have no CERT route at their departures by construction, so on their own they
+  test containment weakly. P4 and P4-open are therefore also run on a control set: **every INSTANCE place at UA
+  25T17Z and at YD 25T19Z, h5, kriged_mean, no_reentry/2**. Only waiting arm (a) is used, under both padding arms. The
+  control set is internal and changes no headline number.
+- **Coverage per region.** Measured in departure-seconds summed over triples: |F(G1′)| / |F(G1)| (and |F(G1″)| /
+  |F(G1)| for P4-open), together with the number of triples where F(G1′) is non-empty.
+- **The fixed minimum.** P4 in a region counts as a test of the extension only if both hold:
+  - coverage ≥ 0.50;
+  - at least 50 triples with F(G1′) non-empty.
+- **Below the minimum,** that region's P4 result is reported as "held, but below the fixed coverage minimum: tests
+  little". It is never reported as a plain PASS. The same minimum applies to P4-open.
+
+*4. Mechanics.*
+- **Router-only runner.** The runs use a router-only runner, `fdyn/widened_run.py` (new). It calls PacketModel and the
+  deadline-field solver only, and never full_check or headline.py's witness check. It is committed and tested before
+  any run.
+- **P5 is a separate step.** It runs full_check, the kit checker and the F-3.2 certifier on each padded packet and
+  asserts refusal.
+- **Pre-build test: does PacketModel accept a support-masked packet?** Before any padded packet is built, a test checks
+  that PacketModel, at the routing author's committed head, loads a support-masked packet written by the F-9.3 wrapper.
+  - **Why.** Verification ledger row 42 found PacketModel @ d731b3a refusing one.
+  - **Pass condition.** The packet loads, and its Instance B/W/A arrays are identical to those of the unmasked packet
+    it wraps. Support does not enter the contact rules.
+  - **If it refuses,** the work stops and returns to the orchestrator. The author does not patch around it, because
+    PacketModel belongs to the routing author.
+
+**(iv) Memory.** The routing author's border-touch runner hit OOM on YD at about 14 GB (969a2ca2) and now keeps one
+field in memory at a time.
+- The runner here does the same.
+- The sizing check (§4) is measured on the widened graph with one UA candidate first.
+- If YD does not fit in this 15 GB container, YD is reported **blocked, with the measured peak**. It is not truncated.
+
+**(v) Turn restrictions differ between the graphs.**
+- A node that is a dead end in step 1 because its outward edge was clipped at the window edge allows a U-turn there
+  (ROAD_RULE addendum 1). The same node in the widened graph is not a dead end, so that U-turn is forbidden.
+- Restriction relations skipped in step 1 as outside the window can also apply in the widened graph.
+- An old route could therefore use a turn the widened graph forbids. That would break P4 without any fire or padding
+  effect.
+- (iii)2(c) removes this by construction. The number of turn pairs added to G1′ this way is reported per region.
+
+**Unchanged.** §2.3's classes, §2.2's agency visibility, P1–P3, P5 and P6 stand as written. Every result stays router-only
+and labelled.
