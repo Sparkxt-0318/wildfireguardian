@@ -249,13 +249,20 @@ used instead of replaying 19 commits; the resulting tree is what a rebase would 
 rewritten.
 
 ### How the merge was resolved (mechanical, checked)
-- For every file both steps changed (worker, road_core, zsweep, journey_decision_v2_1, g1_compare), the merged file
-  minus Step 2's file equals Step 3's own change, line for line. Checked by comparing sorted diff lines.
+- Files both steps changed: the worker, road_core and g1_compare, plus road_bounds, test_build_v2 and SOURCE_SHA256
+  (each in its own bullet below).
+  - For the worker, road_core and g1_compare, the merged file minus Step 2's file equals Step 3's own change, line for
+    line (checked by comparing sorted diff lines).
+  - Every other file is exactly one side's version: zsweep and v2_work are Step 3's, journey_decision_v2_1 is Step
+    2's.
+  - Thomas's review (34a7e2da) corrected an earlier version of this bullet, which listed zsweep and
+    journey_decision_v2_1 as changed by both steps.
 - `road_bounds.py` (both sides added it to the overlay):
   - Step 2 amendment E's chunked `edge_source_dist` and `dist_sha256` are kept;
   - Step 3's `stage_budget` and its tick before each coefficient chunk are kept;
   - merged minus Step 2 is exactly those Step 3 lines;
-  - the only Step 3 lines dropped are its six unchunked distance lines, which Step 2 replaced byte-identically.
+  - the only Step 3 lines dropped are its six unchunked distance lines. Step 2 amendment E replaced them with a
+    chunked computation whose OUTPUT is byte-identical (tested, `test_step2_dist`); the source is different.
 - `test_build_v2.py`: STEP2_WORKER_LINES, STEP2_WRAPPER and STEP3_WORKER_LINES are kept, all exact. The worker-diff
   test now requires:
   - removed lines = the global line + Step 2's 3 check-call lines + Step 3's 6 stage calls + 3 extended lines;
