@@ -782,3 +782,40 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 - **Expected cause, not yet shown:** pre-start burn-out. Under `/1`, a cell whose earlier arrival puts its burn-out before the start is open from 0. Under kriged_mean the same cell is still burning or not yet burned.
 - **The test** is acceptance 8 on `/2` (`NOREENTRY2_ACCEPTANCE_RULE.md`). If the rows disappear there, the cause is confirmed. Any row that remains is listed and explained.
 - envelope (lo = firms_early, hi = firms_constrained) is not pointwise nested with kriged_mean by construction. Its rows are reported, not tested.
+
+## `no_reentry/2` acceptance 6a–6d and 7, Richard's side (rule `NOREENTRY2_ACCEPTANCE_RULE.md`, committed first at ed87b5bb; not yet verified)
+
+**Scope.**
+- Labels: SCENARIO, not what happened. Graphs are road-limited.
+- **Waiting rule:** waiting is allowed only at graph dead-end nodes (as supplied in graph.json).
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+- Samples: Leo's 8 `/2` samples (819bcb91, MANIFEST_v3_7 sha256 7c178267…). These are Yeongdeok 25T11Z and Uiseong
+  24T09Z, h5, 4 variants each. Each is built as a `/1` + `/2` pair from the manifest commands, into scratch paths, so
+  the hashes are of these builds and are not canonical.
+- B0 is recomputed independently from the export npz and the variant raster: router-cell centre → pixel; integer ms;
+  a ≤ h inclusive.
+- Yeongdeok 25T11Z has no INSTANCE entry. Its places are taken from the 25T19Z entry, recorded per sample.
+- Runner: `deadline_field/noreentry2_accept.py`; batch: `batch/nr2_accept_batch.py`.
+- Summary: `results/NOREENTRY2_ACCEPTANCE_6_7.json`.
+
+| sample (h5) | B0 mine = plan meta (export-burned not present + variant burned out) | 6a phase mismatches | 6b origins equal (CERT, ROUTER; leave-by and 30-min grid) | 6c witnesses contact-clear on `/2` and `/1` | 7 radiation-convention-limited |
+|---|---|---|---|---|---|
+| U 24T09Z kriged_mean | 1,032 = 1,032 (1,032 + 0) | 0 | 252 / 252 | 125 / 125 | 0 |
+| U 24T09Z firms_early | 1,186 = 1,186 (1,032 + 154) | 0 | 252 / 252 | 120 / 120 | 0 |
+| U 24T09Z envelope | 1,087 = 1,087 (1,032 + 55) | 0 | 252 / 252 | 120 / 120 | 0 |
+| U 24T09Z envelope_burnset | 0 = 0 | 0 | 252 / 252 | no witnesses (no origin has a route) | 0 |
+| YD 25T11Z kriged_mean | 2,197 = 2,197 (2,197 + 0) | 0 | 270 / 270 | 270 / 270 | 0 |
+| YD 25T11Z firms_early | 2,527 = 2,527 (2,197 + 330) | 0 | 270 / 270 | 220 / 220 | 0 |
+| YD 25T11Z envelope | 2,215 = 2,215 (2,197 + 18) | 0 | 270 / 270 | 220 / 220 | 0 |
+| YD 25T11Z envelope_burnset | 0 = 0 | 0 | 270 / 270 | 73 / 73 | 0 |
+
+**Result: PASS on all 8.**
+- 6a: `/2` phases = `/1` phases with B0 set to [0, ≥H), and no other cell differs.
+- 6b: the `/2` field equals the `/1` + extra_blocks{B0: 0} field for every origin.
+- 6c: every witness is contact-clear and passes the full checker on both packets.
+- 6d: my B0 and its split equal Leo's plan meta. replaced_later_birth = 0 everywhere.
+- 7: 0 jobs refused only because burned-out ground radiates. The witnesses checked are leave-by witnesses only.
+- Self-test (`/1` fed in as `/2`, YD 25T19Z kriged_mean): 6a mismatches = |B0| = 7,457 exactly. 94 origins differ in
+  6b, as expected.
+
+**Not done here.** Acceptance 8 (monotonicity) and the headline rerun on `/2` wait for Nora's pass on v3.7.
