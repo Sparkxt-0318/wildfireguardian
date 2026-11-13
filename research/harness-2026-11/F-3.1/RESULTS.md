@@ -1032,3 +1032,27 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
 
 - "Lost" (a route under d, none under d′) and "none on both" are monotonicity comparison classes, not counts of places without a route. They include places in the not-evaluated state (`NOT_EVALUATED_LABEL_RULE.md`), which this check does not split.
 - The row-61 artefact (spotting making places safer) cannot occur here: no place moves later.
+
+## Support-aware READ path in `PacketModel` (rule `SUPPORT_READ_RULE.md`, committed first at 51d3feee; tests at b477d4c9 before the code; code at 53ccd5ae; VERIFIED: Nora, PASS WITH NOTES, ledger row 79)
+
+- **Purpose.** It lets the widened-graph padded packets load (WIDENED_GRAPH_RULE pre-build test). It is not a result.
+- **The gate.** An F-9.3 packet declared `supplied/1` loads, with its support-false cells recorded.
+  - The declaration must be present in both BUILD_SUMMARY and the HAZARD identity, equal in both, writer
+    `wfg.f93.support-writer/1`, and its count must match the npz.
+  - Every other support-incomplete packet is refused as before, including `c651_unknown/1`.
+- **Contact rules ignore support.** Padding closure stays in `extra_blocks`.
+- **`full_check` refuses masked packets** (`REFUSED_SUPPORT_MASKED`) without running a checker.
+- **Tests:** 26/26 with inputs.
+  - T1: the two HEADLINE pairs the verifier re-ran, plus a 1-h packet, are byte-identical to 969a2ca2 (504 issue sets).
+  - T2: the masked twin equals the unmasked one; 1,267 support-false cells.
+  - T3: all refusals hold.
+- **Independent checks.**
+  - The F-DYN builder's pre-test passes on 53ccd5ae (F-DYN 8116fc46).
+  - The verifier's own masked packet (6,156 false cells) loads, and its digests equal the plain twin's. Tampered
+    declarations are refused.
+- **Open notes (row 79), not fixed here.**
+  1. The npz-view shim is process-global. In-process threads must not build packets concurrently; the batches use
+     subprocesses.
+  2. The declaration is bound by count, not cell by cell. The declared `support_mask_sha256` is not compared with
+     the npz.
+  3. The npz view supports item access only. It would fail loudly if the reader changed.
