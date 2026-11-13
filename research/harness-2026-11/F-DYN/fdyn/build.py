@@ -129,6 +129,9 @@ def main(argv=None):
                     help='NOREENTRY_RULE.md: born cells closed to the horizon (scalar law T = R = H), own identity')
     ap.add_argument('--no-reentry2', action='store_true',
                     help='NOREENTRY2_RULE.md: as --no-reentry, plus cells burned out before the start closed on [0, H)')
+    ap.add_argument('--pad-cells', type=int, default=0,
+                    help='WIDENED_GRAPH_RULE.md §2.1: pad export and rasters by N cells (full_grid; graph on the padded grid)')
+    ap.add_argument('--padded-export-dir', type=Path, default=None, help='fresh directory for the padded export (with --pad-cells)')
     ap.add_argument('--support-mask', type=Path, default=None,
                     help='F-9.3 SUPPORT_WIRING_RULE.md: npz with boolean "support" (north-up; export grid or packet grid)')
     ap.add_argument('--support-rule', default=None, help='supplied/1 (the only rule on this path)')
@@ -141,6 +144,16 @@ def main(argv=None):
         raise SystemExit('SUPPORT_ENVELOPE_UNSUPPORTED: masks apply to scalar-law packets only')
     arrival = read_raster(a.arrival)
     sd = read_raster(a.sd) if a.sd else None
+    arrival_hi = read_raster(a.arrival_hi) if a.arrival_hi else None
+    arrival_exact, arrival_hi_exact = read_exact(a.arrival), read_exact(a.arrival_hi)
+    if a.pad_cells:                                       # WIDENED_GRAPH_RULE.md §2.1 (NaN = no arrival in padding)
+        from fdyn import pad_export
+        if a.domain != 'full_grid' or a.padded_export_dir is None or a.synthetic_export_dir is not None:
+            raise SystemExit('PAD_ARGS: --pad-cells needs --domain full_grid and --padded-export-dir (recorded exports only)')
+        arrival, sd, arrival_hi, arrival_exact, arrival_hi_exact = (
+            pad_export.pad_raster(x, a.pad_cells) for x in (arrival, sd, arrival_hi, arrival_exact, arrival_hi_exact))
+    elif a.padded_export_dir is not None:
+        raise SystemExit('PAD_ARGS: --padded-export-dir needs --pad-cells')
     source = json.loads(a.arrival_source)
     source['file_sha256'] = sha(a.arrival)
     if a.arrival_variant == 'kriged_mean' and source['file_sha256'] != KRIGED_TOA_SHA256:
@@ -166,6 +179,8 @@ def main(argv=None):
             raise SystemExit('synthetic present fire needs --kriged-toa (the published TOA, as the recorded exports)')
         synthetic_export.write(a.kriged_toa, a.start, a.synthetic_export_dir)
         export_dir = a.synthetic_export_dir
+    if a.pad_cells:
+        export_dir = pad_export.write(export_dir, a.start, a.pad_cells, a.padded_export_dir)
     with np.load(export_dir / f'FORECAST_{a.start}.npz') as z:
         burned_at_start = z['source_burned_area_valid'] & (z['source_burned_area'] == 1)
         export_burned = burned_at_start.copy()                       # NOREENTRY2_RULE.md 6.1 (C0, part a)
@@ -180,8 +195,7 @@ def main(argv=None):
                        start_utc=start.isoformat(), horizon_s=a.horizon_h * 3600.0, quantum_s=a.quantum_s,
                        member_set=a.member_set, region=a.region, window=win,
                        burned_at_start=burned_at_start, burn_duration_s=burn_T,
-                       arrival_hi_h=read_raster(a.arrival_hi) if a.arrival_hi else None,
-                       arrival_exact=read_exact(a.arrival), arrival_hi_exact=read_exact(a.arrival_hi))
+                       arrival_hi_h=arrival_hi, arrival_exact=arrival_exact, arrival_hi_exact=arrival_hi_exact)
     if a.arrival_variant.startswith('envelope') != (a.arrival_hi is not None):
         raise SystemExit('--arrival-variant envelope* requires --arrival-hi (and only it)')
     if a.arrival_hi is not None and a.domain != 'full_grid':
