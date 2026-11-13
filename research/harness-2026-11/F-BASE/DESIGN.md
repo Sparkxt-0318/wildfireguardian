@@ -237,3 +237,34 @@ Orchestrator ruling of 19:24 UTC, on Nora's defect report (F-BASE/RESULTS.md, de
    must also be equal (nora_nr_d.py).
 3. **Signature check.** At dep 7200, the no_reentry/1 verdicts are reported next to reopening. Nothing is asserted;
    this is the count that exposed the defect.
+
+## Dated addition, 2026-11-13 (g): "waiting allowed everywhere" sensitivity row for (d)/(e)/(f) (rule fixed before any code or run)
+
+Orchestrator decision on the owner's delegation, 13 Nov (relayed by Richard):
+- Waiting only at graph dead-end nodes stays the documented default.
+- "Waiting allowed everywhere" is ALWAYS reported as a labelled sensitivity row.
+- No verified result changes.
+
+**Sensitivity reading.**
+- The same O2 instances as the verified runs:
+  - reopening: built from the (c) packet and request, instance sha equal to (c);
+  - no_reentry/1: built from the NR packet per (f), instance sha equal to the (f) row.
+- Then `waitable := all nodes`. This is `ablate(inst, "all_wait")` as in summarize_fdyn.py, verbatim.
+- Wait blocks (WB), edge blocks, acceptance windows, forbidden turns and durations are unchanged. A node that is
+  burning still cannot be waited at.
+- Solved for exact, S1 (+ replay), S2 and S3(600/1800/3600), using the same code as (d)/(e)/(f).
+
+**Columns.**
+- The columns of (d) and (e), for each reading.
+- Also, per request, the verdict change against the default (dead-end) waitable rule: NO_ROUTE → ROUTE, ROUTE →
+  NO_ROUTE (expected 0, because adding wait options can only enlarge the feasible set), and the T change where both route.
+- **Label on every row:** "SENSITIVITY: waiting allowed at every node (not the documented default; default = graph
+  dead ends only)".
+- No pass/fail. The default rows are not changed.
+- The (c) F-DYN fact is reported beside it, from verified rows: all 14 (c) NO_ROUTE requests are ROUTE under N1, the
+  all-waitable relaxation (fdyn_c, 14/14).
+
+**Acceptance (stated before running).**
+1. The instance sha before the ablation equals the verified row's, on every request.
+2. There are 0 ROUTE → NO_ROUTE changes for exact. A nonzero count is reported as a finding and stops the write-up
+   until it is explained.
