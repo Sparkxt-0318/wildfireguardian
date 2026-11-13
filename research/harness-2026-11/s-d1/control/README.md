@@ -68,3 +68,26 @@ Runtimes on this host (x86-64, 4 cores): identity rebuild of 273 cases took 2 mi
 Coverage in both directions (Owen's note): `check_case_coverage.py --results RESULTS_identity.jsonl --heldout HELDOUT`
 reports 273 rebuilt case_ids, all unique, equal to the 273 stored receipts, with none stored-not-rebuilt and none
 rebuilt-not-stored. The same holds for RESULTS_d4_wind.jsonl.
+
+## Rebuilt-input run and channel diagnostic (2026-11-13)
+
+**Rebuilt-input run.**
+- Descriptive row per REBUILT_INPUT_PLAN. Scripts were committed before the run (c0d1836e); results are at 2fe48893.
+- RESULTS_rebuilt_input.jsonl and RESULTS_rebuilt_input_summary.json: 273/273 cases, max |Δp| 3.58e-7, 0 cells above
+  the 4.2e-7 floor.
+
+**One-case diagnostic.**
+- `diag_env_channels_one_case.py` with DIAG_env_channels_one_case.txt.
+- It was **committed together with its output at 2fe48893, NOT before it**: it was an ad-hoc check, run after the
+  summaries (Owen's note).
+
+**All-case diagnostic.**
+- `diag_env_channels.py`. Its rule is fixed in its docstring and was committed before running, at 6b5f2268. The
+  result is DIAG_env_channels.json at f3f07aed.
+- 18/19 channels equal on 273/273 cases. terrain.slope_degrees differs on every case: max 7.63e-6 deg, on ≤ 14.6% of
+  cells.
+- Owen independently confirmed the per-fire slope differences and the value-identity of the other sources from raster
+  comparisons.
+- Wording: reproduction of the inputs, not evidence of model insensitivity.
+- Owen's side note: several fuel and vegetation rasters differ at byte level with identical values, so byte-level pins
+  on those files cannot match across rebuilds.
