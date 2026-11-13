@@ -127,6 +127,13 @@ Accepted limitation (per rule 6): a same-size content change is not detected. | 
 - 2a2448bf: item 14 set to PASS WITH NOTES, citing row 72 (ff7857b2), with the notes kept; adds 'Roster closed' listing rows 58, 60, 62, 63, 64, 66, 67, 69, 70, 71. I checked these are exactly the audit rows (59, 61, 65, 68 are not audits).
 - ec130b76: removes the not-yet-adopted re-run sentence.
 - 59fd3d40: +1 line, the adopted re-run rule, citing CUSTODY_NOTE_A1 §2 item 6 @07a4a25a with the full sha256 37df2b20…123f. Recomputed from `git show 07a4a25a:` and it matches; the wording is faithful to the note. | PASS (documentation only) |
+| 75 | CR1 in-season harvest v3 (route d′) | Daniel (author), Hannah (re-review) | harvest_cr1.py `13060482` (sha256 df613e01…8ea5); HARVEST_RULE.md 42906d99 unchanged (0-line diff); clean worktree, local fixtures and 127.0.0.1 test servers only | Daniel's 35/35 reproduce. The diff from v2 is limited to D′ and N: _body wraps every body read (HTTPException, OSError → Stop); catch-all → ERROR(<class>); size() returns ABSENT / None / int. My full adversarial set re-run on v3:
+- E: a file-HEAD 302 into /protected and an off-host 301 → BLOCKED, exit 3, with no /protected request seen;
+- truncated body → 'ERROR (body read: IncompleteRead)', exit 3, never ALL DONE;
+- HEAD without Content-Length → the new file is downloaded ('new': 1), with no false 404;
+- 429 → ERROR;
+- A/F: original + .v2 only, 0 file GETs over 3 unchanged re-runs;
+- B: --out at the repo root refused, not created. | **PASS WITH NOTES.** Notes: a same-size content change is not detected (accepted per rule 6). Never run against a real server. Real use still requires the 2027 season and the orchestrator's go, and the script must be run at exactly this sha (df613e01…) |
 
 ## Baseline detail (5fa19a2)
 
