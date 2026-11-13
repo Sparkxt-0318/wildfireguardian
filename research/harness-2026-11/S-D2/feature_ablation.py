@@ -64,6 +64,7 @@ from scipy.ndimage import distance_transform_edt, gaussian_filter, label
 
 import run_shape_recovery as X
 import runenv
+import fitguard
 import synthetic as S
 import synthetic_robust as R
 from synthetic import INF
@@ -265,19 +266,28 @@ def _job(arm, seed, spot_rate, k0):
         "meanfield_nll": lambda: R.fit_meanfield(p, obs, loss="nll"),
         "mcem": lambda: S.mcem(p, obs, np.random.default_rng(31_000 + seed), **R.MCEM_SHORT)[0],
     }
+    log = fitguard.GuardLog()                     # addendum 3: bound and gradient guard on every fit
+    import scipy.optimize as _so
+    S.minimize = fitguard.guarded(_so.minimize, log)
+    R.minimize = fitguard.guarded(_so.minimize, log)
     rows = []
     for est, fn in fits.items():
         t0 = time.perf_counter()
+        log.reset()
         th = fn()
         rows.append(dict(arm=arm, seed=seed, estimator=est, far_share=X.far_share(th, p.offs),
-                         total=float(np.sum(th[1:])), true_total=float(p.k.sum()),
-                         seconds=time.perf_counter() - t0, **info))
+                         total=float(np.sum(th[1:])), true_total=float(p.k.sum()), theta=[float(v) for v in th],
+                         guard=log.summary(), seconds=time.perf_counter() - t0, **info))
     return rows
 
 
 def verdicts(summary, true_share):
     out = {}
     for arm, s in summary.items():
+        bad = {e: s[e]["n_guard_fail"] for e in ("meanfield_nll", "mcem") if s[e]["n_guard_fail"]}
+        if bad:                                   # addendum 3: a guard failure in a verdict estimator voids the arm
+            out[arm] = f"INVALID (guard failures: {bad})"
+            continue
         m = s["mcem"]
         mcem_ok = abs(m["far_share_mean"] - true_share) <= 0.05 and m["far_share_sd"] <= 0.05
         nll_up = s["meanfield_nll"]["far_share_mean"] > 0.40
@@ -313,7 +323,11 @@ def main(argv=None):
         summary[arm] = {}
         for est in ("plugin", "composite", "meanfield_nll", "mcem"):
             fs = np.array([r["far_share"] for r in rows if r["arm"] == arm and r["estimator"] == est])
-            summary[arm][est] = dict(far_share_mean=float(fs.mean()), far_share_sd=float(fs.std(ddof=1)))
+            g = [r["guard"] for r in rows if r["arm"] == arm and r["estimator"] == est]
+            summary[arm][est] = dict(far_share_mean=float(fs.mean()), far_share_sd=float(fs.std(ddof=1)),
+                                     n_guard_fail=sum(not x["ok"] for x in g),
+                                     guard_reasons=sorted({q for x in g for q in x["reasons"]}),
+                                     n_guard_flagged_calls=sum(x["n_flagged"] for x in g))
         summary[arm]["detached_share_mean"] = float(np.mean([r["detached_share"] for r in rows
                                                              if r["arm"] == arm and r["estimator"] == "mcem"]))
     out = dict(command="python feature_ablation.py " + " ".join(argv or sys.argv[1:]), env=runenv.info(),

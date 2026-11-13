@@ -52,3 +52,29 @@ to each arm.
 **Additional reading, declared now.** If NLL's far share on `baseline_contig` alone is above 0.40 while MCEM is within
 tolerance, then **contiguity itself** is reported as "the cause". In that case the four feature arms are read relative
 to the contiguous baseline.
+
+## Addendum 3 (2026-11-13 ~02:25 UTC, before any guarded run): bound and gradient guard on every fit (Iris)
+
+**Disclosure.** A first launch at about 01:58 UTC ran without a guard: L-BFGS-B was called bare, with no bound or
+gradient checks. It was stopped at about 02:21 UTC with 22 of 50 (arm, seed) jobs checkpointed. Those checkpoints were
+set aside unread and are NOT used. No output of that launch has been inspected, and the whole run starts afresh.
+
+**Guard (fitguard.py).** Every L-BFGS-B call made by every estimator goes through the guard. This covers plug-in,
+composite, mean-field NLL, and each MCEM M-step. The guard leaves the fit unchanged and records the following
+per call:
+- FAIL if the final objective or gradient is non-finite;
+- FAIL if the final objective exceeds the objective at x0 by more than 1e-9·max(1, |f0|);
+- FAIL if every parameter sits at the floor;
+- if 50% or more of the parameters sit at the floor, FLAG the call and re-minimise from x0 = 0.005 and x0 = 0.08. The
+  call FAILS if either restart lowers the objective by more than 1e-6 relative. The restarts are a diagnostic only:
+  they never replace the fit.
+
+A fit FAILS if any of its calls fails.
+
+**Effect on the reading.**
+- The per-arm, per-estimator summary reports the number of failed fits and their reasons.
+- If any mean-field NLL or MCEM fit in an arm fails, that arm's verdict is **INVALID (guard)** in place of a reading.
+  Those are the two estimators the pass rule reads.
+- Failures in plug-in or composite are reported, but do not void the verdict.
+
+Thresholds, seeds and arms are otherwise unchanged.
