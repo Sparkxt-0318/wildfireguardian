@@ -826,7 +826,19 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
   - YD 25T11Z takes its places from the 25T19Z entry.
 - The headline rerun and acceptance 8 are unblocked.
 
-## Waiting-location sensitivity, 1-h panel (rule `WAITING_SENSITIVITY_RULE.md`, committed first at 28251ca; runner b472b40; not yet verified)
+## Waiting-location sensitivity, 1-h panel (rule `WAITING_SENSITIVITY_RULE.md`, committed first at 28251ca; runner b472b40; VERIFIED: Owen, PASS WITH NOTES, ledger row 50)
+
+**Owen's reproduction and controls (row 50).**
+- Reproduced exactly: the 3 Uiseong caches and Yeongdeok 25T19Z.
+- The switch is not inert:
+  - The flag takes waitable nodes from 554 to 23,158 of 23,158.
+  - The whole feasible-departure sets are identical, not only the recorded departure, for all 506 (spec, origin,
+    field) on Uiseong 25T17Z.
+  - Positive control: with the same core, waiting everywhere enlarges the feasible set in 111 of 1,726 random
+    (instance, origin) pairs and never shrinks one.
+- Notes:
+  - Yeongdeok 25T23Z and 26T08Z were not re-run.
+  - The scope is 1 h only. Marcus's multi-hour 14/14 flips stand.
 
 **Labels.**
 - SENSITIVITY: waiting allowed at every node (not the supplied graph rule).
