@@ -60,14 +60,16 @@ checked route: kriged_mean, firms_early and envelope.
   - A labelled sensitivity row, **"waiting allowed everywhere"**, is ALWAYS reported. That includes Marcus's finding
     that all 14 NO_ROUTE results flip under it.
   - No verified result changes.
-- **Plain-language wording: pending confirmation.** Richard's proposal: "Departure time is free (equivalent to waiting
-  at the start place before leaving). Once moving, a stop is allowed only at a road dead end (graph dead-end node),
-  which may be a short detour off the route. Waiting is not allowed at any other node."
-  - The orchestrator's earlier "wait before leaving at the start place; no stopping mid-route" does not match the
-    graphs: only 20/88 UA and 27/94 YD start nodes are dead ends, and 2,034 dead ends are not starts.
-  - The confirmed wording replaces this paragraph when it is fixed.
-- "Waiting anywhere" can only remove places from the set, and "waiting nowhere" can only add them. Both are reported
-  as counts, and each place is flagged if its membership depends on the rule.
+- **Plain-language wording: FINAL** (the orchestrator, 13 Nov 00:13 UTC, verbatim; recorded in F-3.1
+  WAITING_SENSITIVITY_RULE.md @ 1b792c77).
+  - **(S) Single-departure results:** "The trip starts at the stated time. Once moving, a stop is allowed only at a
+    road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any
+    other node, including the start unless it is itself a dead end. Other departure times are separate results."
+  - **(R) Range results** (the deadline field and departure sweeps; the range and step are named): "Each departure
+    time in [range, step named] is a separate trip. Leaving later is how waiting at the start place is represented.
+    Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off
+    the route; waiting is not allowed at any other node."
+- **Not monotone in departure time.** A later departure can have a route when an earlier one has none.
 
 ## 2. EARLY-ACTION LIST (main output; no new data)
 
@@ -79,6 +81,11 @@ checked road route, per timing variant.
 - **Grid times, not deadlines.** The checker runs on a 30-min departure grid, so the route may have closed at any time
   in the following 30 minutes. Each value is shown as a pair: **"last computed time with a route / next computed
   time, none"**. It is never shown as a single clock time, and never called a deadline.
+- **Prefix check.** "Last computed time with a route" does **not** mean every earlier time had one, because results
+  are not monotone in departure time. Each list states, per place and variant, **whether the feasible departure set
+  is a prefix** of the grid. This is checked per run, not assumed. In Richard's `/1` run it was a prefix everywhere (0
+  non-prefix sets over 48 pairs). A non-prefix place lists its feasible departures explicitly.
+- **Waiting wording.** The list carries the (R) wording above, with the range and step named.
 - **Origin already inside the modelled fire area.** Such a place has no latest departure. It is shown as "none at any
   computed time", never as a blank or a time.
 - **Header of every list:**
