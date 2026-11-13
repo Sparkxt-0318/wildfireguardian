@@ -89,3 +89,29 @@ The independent verifier checks T1–T4 and the code diff before the F-DYN build
 - **Which packet is "masked".** The packet with the declared mask, D, must give phases, B, W, A and IB identical to
   A's (T2). `support_false_cells` must be the router image of the false cells of D's npz `support`; D has 1,267 cells
   false in each of the 4 members.
+
+## Amendment 2 (verification ledger row 79 notes 1-2; orchestrator 08:59 UTC). Committed before the tests and the code
+
+1. **The declaration is bound to the mask by its hash, not only by its count.** In addition to the existing gate:
+   - every member's npz `support` (north-up, as stored) equals the same mask m;
+   - the declaration's `support_mask_sha256` equals sha256(`np.packbits(m).tobytes()` + `str(m.shape)`), the F-9.3
+     writer's own formula (`packets_f93.py`);
+   - `cells` equals m.size;
+   - `unsupported_cells` equals the count of false cells in m.
+
+   Any mismatch refuses the packet with a ValueError that names the field.
+2. **Thread safety of the temporary reader swap.**
+   - A module-level lock in `real.py` is held for every replay-reader construction made by `load_packet`, masked or
+     not. While the npz view is installed, no other `load_packet` call in the process can construct a packet.
+   - Direct `Packet(...)` calls outside `load_packet` are not covered. A comment at the swap says so, and says that
+     such calls must not run concurrently with `load_packet` in one process.
+3. **Tests.**
+   - T5 (binding): copies of D are refused when:
+     - (a) the declared `support_mask_sha256` is altered;
+     - (b) one member's support differs from the others;
+     - (c) `cells` is altered.
+
+     D itself still loads, so T2 is unchanged.
+   - T6 (concurrency): 8 threads load D and A interleaved, 3 rounds each. Every result equals the single-threaded
+     load (phases and B digests, `support_masked`). `tools.explain_deadlines.packet.np` is the numpy module after
+     every round.
