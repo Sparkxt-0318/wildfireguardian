@@ -150,6 +150,20 @@ One research row per place in the §1 set, and per unresolved origin.
   - It is the only fetch item (Daniel's FETCH_PLAN, cca4e27a).
   - The API variant 15134224 needs a service key, so it is excluded.
 - 경북 has 48 rows. **의성 has 0 registered sites**, and every 의성 row says so.
+- **Fetched** by Daniel at ca7133d8 (`air_extract/KFS_HELIPAD_MANIFEST.md`); the CSV stays out of git until Hannah has
+  reviewed it.
+  - sha256 `55f66625…`, 116,211 bytes; CP949; 627 rows × 32 columns.
+  - Served as "…_20251022.csv"; 점검일 runs from 2014-07-07 to 2025-10-22.
+  - **Coordinates.** DMS split over six integer columns, and **no datum is stated**.
+    - 538 rows are valid.
+    - 24 rows are blank.
+    - **65 rows are invalid** (minutes or seconds ≥ 60). They are not repaired or guessed.
+- **D0 rule for unusable rows, fixed before any build.**
+  - Sites with blank or invalid coordinates are excluded from the distance computation.
+  - Every row states how many registered sites in its 시군구 were excluded for this reason, because **an excluded
+    site could be nearer** than the reported one.
+  - The datum is stated as "not given by the source; read as WGS84/GRS80 geographic". At these distances that
+    choice is immaterial.
 - These are forest-aviation operating sites, **not pickup points**, and every row is labelled that way.
 
 **Flight gate at that time.** It is stated per row, from Sofia's sources. Only daylight and wind can be evaluated:
