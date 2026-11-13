@@ -459,3 +459,14 @@ pair: UA 25T17Z, `c651_unknown/1`, 5,068 support-false entries.
 
 No padded packet has been built and no route has been computed. As §8 states, the question has returned to the
 orchestrator.
+
+**Orchestrator decision on the pre-test failure (13 Nov, 08:27Z): option A.**
+- **The change.** The routing author adds a support-aware read path to PacketModel, written plan-first.
+- **Its tests:**
+  - full_check, the kit checker and F-3.2 still refuse masked packets;
+  - unmasked packets route byte-identically.
+- **The gate.** The independent verifier checks the change before any padded packet is built.
+- **Until then, nothing padded is built.**
+- **The pre-test re-runs on the new head** (`fdyn/widened_pretest_packetmodel.py`, same pair). Its pass condition
+  (§8(iii)4) is unchanged.
+- **The §8(v) difference stays recorded as found:** 58 turn pairs (UA) and 64 (YD).
