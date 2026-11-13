@@ -71,3 +71,21 @@
 ## Verification
 
 The independent verifier checks T1–T4 and the code diff before the F-DYN builder builds any padded packet.
+
+## Amendment 1 (committed before tests and code): test inputs, and the c651 rule
+
+- **Test inputs.** These are the pre-test pair from the F-DYN builder (13 Nov, 08:30 UTC), built from the repo root
+  with `python3 -I -B`. All use UA 25T17Z on the recorded window.
+  - A, unmasked: `integration/src/wfg_latest/build_packet.py`, npz `d581ba92…`.
+  - D, masked, F-9.3 `supplied/1`: `research/harness-2026-11/F-9.3/support_mask/build_packet_f93.py` with
+    `--support-rule supplied/1`. The mask is C's `support[0]` (recorded `support_mask_sha256` `a0353243…`). npz
+    `39140349…`.
+  - C, the same mask declared `c651_unknown/1`, npz `39140349…`.
+- **Regression pairs (T1).** These are the HEADLINE `/2` and reopening pairs, UA 25T17Z h5 kriged_mean and
+  firms_early, as in the rule.
+- **`c651_unknown/1` stays refused.** The new path admits `supplied/1` only. Nothing in the widened work needs
+  `c651_unknown/1`. T3 gets a case:
+  - (e) C (`c651_unknown/1`, the same npz as D) is still refused by `load_packet`.
+- **Which packet is "masked".** The packet with the declared mask, D, must give phases, B, W, A and IB identical to
+  A's (T2). `support_false_cells` must be the router image of the false cells of D's npz `support`; D has 1,267 cells
+  false in each of the 4 members.
