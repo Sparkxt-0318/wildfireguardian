@@ -211,3 +211,8 @@ what the A1 §3.1 refit commands pass. The leak bound's fold base must match the
   (1) the assessor reads the ruling and says whether it is an erratum or a named stage-2 item;
   (2) the independent verifier confirms the archive invocation evidence in a row.
   The extract-only smoke may run meanwhile.
+- **Confirmation (2), DONE:** independent verifier, ledger row 61 (verification/owen-smoke-2), PASS.
+  (i) The pinned pipeline.py (88d376d2) parser, given the exact a03_baselines argv, yields
+  max_fit_intervals_per_fire = 0. (ii) A1 §3.1 (PREREGISTRATION_ADDENDUM.md lines 215 and 222 on Main) quotes the
+  `final … --max-fit-intervals-per-fire 0` command verbatim. Row 61 also extends row 60 to a55e2366.
+- **Confirmation (1), the assessor's reading:** _pending_.
