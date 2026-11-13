@@ -1,0 +1,2129 @@
+{
+ "fl2_type_exceptions": [
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_29e8a3f184d946459a91",
+   "P1": [
+    "checked_route",
+    2653
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2c3e16911ded466abd85",
+   "P1": [
+    "checked_route",
+    867
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2d2d94d3694f4517885c",
+   "P1": [
+    "checked_route",
+    787
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_32b3c2f0fcd24e8e8f42",
+   "P1": [
+    "checked_route",
+    917
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_35c8a591a2c340e3a628",
+   "P1": [
+    "checked_route",
+    317
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_3e4ac618c34b4be3aafe",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    631
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_443099f5007b44fea03d",
+   "P1": [
+    "checked_route",
+    1542
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4bc81e5596d74bdab2dd",
+   "P1": [
+    "checked_route",
+    2582
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4ce0e4c062fa40c3a85c",
+   "P1": [
+    "checked_route",
+    661
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_5b95c076c7cc42a2b45e",
+   "P1": [
+    "checked_route",
+    670
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_82550231bfc7430bad40",
+   "P1": [
+    "checked_route",
+    3031
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_852c55768e3e46da8e88",
+   "P1": [
+    "checked_route",
+    1795
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_93d2012370734339b590",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    1911
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_94babeef50f7458caf9b",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    869
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_9e9a04977df04a22923d",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    1831
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_aacd04b8d6d5488591e9",
+   "P1": [
+    "checked_route",
+    1311
+   ],
+   "P2": [
+    "unresolved",
+    null
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_af774c52de4b4367ac31",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    3070
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_b5c40ca4951c4dca91e8",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2911
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_ba6307f7d80f4f1d8ca6",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    3340
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_c72ddde67df3443689e7",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    1469
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_d597b5514bd648e485a8",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    3253
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_d8167b86e9d743b687cc",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    3267
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_e4e3620a40034c04b25a",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2667
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_edf2caf1560b4dab9902",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    782
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_fe3fbb27d62f4e478c86",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    1231
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_348a530fe6c944a394f6",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2332
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_b4865a4083c341ad938b",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    1676
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_68bc3dc692f8485c9196",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2140
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_96b7536f8af84310baaa",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2486
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_bf8a31175a68461aad57",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2689
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_db57db4db690491895fa",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    3122
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_dec1611818854619a6aa",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    1886
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_f0c0dd1703d74832bf24",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    2522
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_f952c8898f5a44c9912d",
+   "P1": [
+    "unresolved",
+    null
+   ],
+   "P2": [
+    "checked_route",
+    3086
+   ]
+  }
+ ],
+ "parent_harness_errors": [],
+ "g6_failures": [
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_012fca0fd59c414c9a2a",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2486
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_032b2da42a8640edbf90",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2395
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_046a65c89cb0423a9d53",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1172
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_089a02efd8154fbea30c",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2431
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_099341106c5a468393f0",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1382
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_0b2e74fcb21349babd8f",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1467
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_0ca78de2a43d4fcbbd65",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1886
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_0dd40f3644164c2f9ae4",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2069
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_186e48aceda4475e8403",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3289
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_1918aa63121c4f60ab60",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3337
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_1ec63329e3ea454ea414",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1595
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_1f553c5f005144a99055",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1540
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_21e88192ec7a494ca662",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1537
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2871ec6a0a9141929222",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2786
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2cb48282fd774eb3873a",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3340
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2cffcebe0f434f959ff6",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2140
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_3243dd4f0ee7485cbfb4",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1111
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_3618033c179b41bab3ce",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1683
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4cf5cc702b294a69b6b8",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2311
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4f4868449ee64052b4b8",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2795
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_56734295b95e41f48273",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    986
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_59b283987f874f8197f0",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1772
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_5bc099f928a74f81a30b",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3086
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_5f4d5fff05bb4bb88815",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1387
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_5f516cd926a14c9997cf",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2737
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_6002a53fb32044ba87e2",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1987
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_62a4d2c9113348dfbe10",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3269
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_64753218d1084dfe8398",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2186
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_690cd6f4fae4441ebfe4",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2372
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_69b338a2f0c6419baa81",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3386
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_6fed8f078dfa4a33b09b",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1083
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_73bbaee54259477eba15",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2740
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_76e41cfea75d49d2ae7a",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1861
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_7a18ea3f90bb41eba002",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2740
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_7e7a0e0d10ad4be68dad",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    940
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_825422f7fdf34dcb9c57",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3111
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_834490857ae347eebffe",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3342
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_84a3925d07104d00966c",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2137
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_8647512a8bdb4979a672",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    853
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_88e3003b651d4c919963",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2142
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_8e4c1d7afb9743aab9cc",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2740
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_913bb586ecf640c7bea2",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2053
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_929b47a739804f52bf59",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1453
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_96e5ba9f76d9468d92d8",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    937
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_9e40d102871e4f64a099",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2511
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_a09f9dda37484f1da345",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2140
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_a34125907885456598b9",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2883
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_a3f2a31500f34790afcb",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2140
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_aba601f50c6e4d1696ef",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2283
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_ada1418489fb49139b9b",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2742
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_af5e011fc8c94aa5b8dc",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2195
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_b17fe17266544b15bd19",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    995
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_b3a82328d7284620afc3",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2972
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_bb8a9d1164bb4fac934f",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2689
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_c37badd378294d15a156",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1982
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_c763177100384196b04a",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2089
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": false,
+   "after_rerun": false
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_ca97d6c98cd54acb8f23",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1261
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_d7ae37c583a14508b6a6",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3395
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_f893fbcc630340698bfb",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1870
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_fd6be28f8a484ea495e8",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    1711
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_fef79da43e714f34a475",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2587
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_8360b748eee941e6b543",
+   "stratum": "ROUTE",
+   "V2": [
+    "checked_route",
+    2372
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_45cf4b8e23484fb5ad0b",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    2089
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_b5077ec273914a9b81ed",
+   "stratum": "TIMEOUT",
+   "V2": [
+    "checked_route",
+    3289
+   ],
+   "PARENT": [
+    [
+     "unresolved",
+     null
+    ]
+   ],
+   "wall_cap_involved": true,
+   "after_rerun": true
+  }
+ ],
+ "rerun_needed": [],
+ "equal_arrival_ties": [
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_bf8a31175a68461aad57",
+   "arrival_s": 2689
+  },
+  {
+   "cache": "yeongdeok_2025/20250326T080000Z.json",
+   "job_id": "rc_1d28db0931914aa59375",
+   "arrival_s": 3289
+  },
+  {
+   "cache": "yeongdeok_2025/20250326T080000Z.json",
+   "job_id": "rc_b0a321de04d84d4ca3d5",
+   "arrival_s": 2689
+  }
+ ],
+ "raw_status_differences": [
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_483903f38ec549f4b35c",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_4df544f08b0449df80d9",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_55e306e41d314db986ad",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_9734b164fdb34751b07c",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_9a3bcd27d5c34f558960",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_c0a6472e02fc4b4ab386",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_cc535384724040b7922b",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_d5f394db6a25420399b3",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "uiseong_andong_2025/20250325T170000Z.json",
+   "job_id": "rc_d61f698548164d2593e6",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_29e8a3f184d946459a91",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2c3e16911ded466abd85",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_2d2d94d3694f4517885c",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_32b3c2f0fcd24e8e8f42",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_35c8a591a2c340e3a628",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_3b505c51e3454fcbadad",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_3e4ac618c34b4be3aafe",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4148a2f0799a4016aaff",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_443099f5007b44fea03d",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4b2dee44b1964b2e9345",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4bc81e5596d74bdab2dd",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_4ce0e4c062fa40c3a85c",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_55e61567b7714d08933b",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_5b95c076c7cc42a2b45e",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_5c4623cb1a714a7a990a",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_652834197e144fc8a91f",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_82550231bfc7430bad40",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_852c55768e3e46da8e88",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_896c72e6e31b4e1f8148",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_89b361c55d2a4b24a714",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_939078f26be4443bac31",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_93d2012370734339b590",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_94babeef50f7458caf9b",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_9e9a04977df04a22923d",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_aacd04b8d6d5488591e9",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_af774c52de4b4367ac31",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_b5c40ca4951c4dca91e8",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_ba6307f7d80f4f1d8ca6",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_c72ddde67df3443689e7",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_d597b5514bd648e485a8",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_d8167b86e9d743b687cc",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_d85a7bce04d042b192e2",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_defc4316fed548249c54",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_dfb43d87a32a44fdbbd3",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_e0eca2361a3a4f7fa640",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_e4e3620a40034c04b25a",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_eb410bcb8d2944dfa6df",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_edf2caf1560b4dab9902",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_fac673818c9e4fc3ba8f",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_fe3fbb27d62f4e478c86",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_71692478c3d34364aeda",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_f2dce443435547e38486",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_24284caa9e164e67ad0a",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_88e5dc79335f4569839f",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_96b7536f8af84310baaa",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_9f1e113d2aaa42f3a63c",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_b7e8a7272a5643428c60",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_bf8a31175a68461aad57",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_db57db4db690491895fa",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_dec1611818854619a6aa",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_e4a56d1c5c2049869ded",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_e615c26ef93d491da3f2",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_e6c3d52319414b708423",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE"
+   ]
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T230000Z.json",
+   "job_id": "rc_f0c0dd1703d74832bf24",
+   "V2": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "PARENT": [
+    "CHECKED_JOURNEY_FEASIBLE",
+    "UNRESOLVED"
+   ]
+  }
+ ],
+ "v2_timeout_contradictions": [],
+ "kit_identity_mismatch": [],
+ "input_or_request_mismatch": [],
+ "harness_errors": [],
+ "parent_vs_record": {
+  "OK": 702,
+  "ROUTE_ARRIVAL_DIFFERS": 3
+ },
+ "v2_vs_record": {
+  "OK": 705
+ },
+ "parent_vs_record_list": [
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_348a530fe6c944a394f6",
+   "reason": "ROUTE_ARRIVAL_DIFFERS",
+   "PARENT": [
+    "unresolved",
+    null
+   ],
+   "RECORD": {
+    "arrival_s": 2332,
+    "raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "reason_code": null,
+    "verdict": "checked_route"
+   }
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_8360b748eee941e6b543",
+   "reason": "ROUTE_ARRIVAL_DIFFERS",
+   "PARENT": [
+    "unresolved",
+    null
+   ],
+   "RECORD": {
+    "arrival_s": 2372,
+    "raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "reason_code": null,
+    "verdict": "checked_route"
+   }
+  },
+  {
+   "cache": "yeongdeok_2025/20250325T190000Z.json",
+   "job_id": "rc_b4865a4083c341ad938b",
+   "reason": "ROUTE_ARRIVAL_DIFFERS",
+   "PARENT": [
+    "unresolved",
+    null
+   ],
+   "RECORD": {
+    "arrival_s": 1676,
+    "raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "reason_code": null,
+    "verdict": "checked_route"
+   }
+  }
+ ],
+ "parent_raw_status_variation_P1_vs_P2": 34,
+ "verdict_counts": {
+  "V2": {
+   "checked_route": 337,
+   "model_no_route": 170,
+   "unresolved": 198
+  },
+  "PARENT_P1": {
+   "checked_route": 251,
+   "model_no_route": 170,
+   "unresolved": 284
+  }
+ },
+ "PASS": false
+}
