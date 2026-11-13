@@ -219,7 +219,7 @@ def test_committed_labels_are_the_delivered_run_and_are_in_places_geojson() -> N
     import subprocess
 
     here = Path(__file__).parent
-    assert hashlib.sha256((here / "labels.json").read_bytes()).hexdigest() == "0896957b8c23f1abafcf0652bd3b57d2c1c6013e050d2fc1edbc8a231c5be52c"
+    assert hashlib.sha256((here / "labels.json").read_bytes()).hexdigest() == "a907184e1e3de9c10c11d0a2be5dee58ec0ecbc4c47a0fbc9b5af824cacfae36"
     doc = json.loads((here / "labels.json").read_text(encoding="utf-8"))
     assert doc["fixture"] is False and doc["crs_epsg"] == 5186 and doc["base_dates"] == ["2025-06-30"]
     assert all(m == doc["counts_by_margin"]["50m"] for m in doc["counts_by_margin"].values())

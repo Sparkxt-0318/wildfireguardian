@@ -4,13 +4,13 @@ Status: built and tested; **waiting for Mira's verification and for Iris and Sof
 
 ## Labels (delivered by Daniel; Hannah verifies)
 
-- **Run.** Daniel's run 3 of `label_sigungu.py` @ 92757b2e (sha256 534fee03…5d06), on the owner's BND_SIGUNGU_PG.
+- **Run.** Daniel's run 4 (it supersedes run 3; only the `source` field differs, checked by Daniel and by Clara: 178 differing values, all `source`) of `label_sigungu.py` @ 92757b2e (sha256 534fee03…5d06), on the owner's BND_SIGUNGU_PG.
   - Archive sha256: bafb7ef2…5b41.
   - BASE_DATE: 2025-06-30.
   - CRS: EPSG:5186.
-- **The file.** `labels.json`, committed byte for byte as delivered: sha256 0896957b…be52c, 71,746 bytes.
-- **Source line.** Sofia's wording, the same on every label:
-  "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 2026-11-12 프로젝트 책임자 제공. 프로젝트 책임자에 따르면 data.go.kr 15125064(센서스경계 시군구경계)에 연결된 V-World 페이지에서 내려받음(출처 확인 중)."
+- **The file.** `labels.json`, committed byte for byte as delivered: sha256 a907184e…ae36, 63,736 bytes (byte copy: daniel/data-fetch-3 @ 35e88568).
+- **Source line** (orchestrator decision on the owner's delegation, 13 Nov 2026: state only the dataset identity that can be vouched for; no URL, Drive link or file id; Korean by Sofia), the same on every label:
+  "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음."
 - **Applied.** `apply_sigungu.py` writes the labels into the two `places.geojson` files.
   - Only the `sigungu` property is added to the 177 origins; everything else is unchanged.
   - `--check` passes, and a pytest pins it.
@@ -34,7 +34,7 @@ Counts are identical at 0, 25, 50 and 100 m. There are no outside_all, multiple,
   - All 9 청송/영양 places agree.
   - The margin logic was read and found sound.
 - Independent leg: OSM admin_level-6 boundaries agree on 177/177.
-- **Not verified:** the archive's portal of origin. The source line keeps "출처 확인 중" until the owner confirms it.
+- **Not verified:** the exact download page. The 13 Nov source line states that it was not recorded. Hannah's checks (row 65) were on run 3; run 4 differs only in `source`, so every label value she checked is unchanged.
 
 ## Kit rule
 
