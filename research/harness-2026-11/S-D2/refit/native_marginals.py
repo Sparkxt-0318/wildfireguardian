@@ -63,7 +63,7 @@ def _multi_lead(leads):
         SV.step_durations, SV.propagate_mean_field = orig_steps, orig_prop
 
 
-def cumulative_marginals(model, sample, leads: Sequence[float], **kw):
+def cumulative_marginals(model, sample, leads: Sequence[float], info: dict | None = None, **kw):
     """Return (cdf [J, H, W], valid [J, H, W]) numpy arrays: P(newly burned by lead j) and validity.
 
     ``sample.hours`` is ignored for the step grid (the leads define it); everything else is sample_forecast.
@@ -82,6 +82,8 @@ def cumulative_marginals(model, sample, leads: Sequence[float], **kw):
     # The cumulative new-burn occupancy is nondecreasing by construction; a decrease beyond float noise is an
     # error, not something to repair silently.
     drop = float(np.max(cdf[:-1] - cdf[1:])) if len(cdf) > 1 else 0.0
+    if info is not None:
+        info.update(max_decrease_raw=drop, min_raw=float(cdf.min()), max_raw=float(cdf.max()))
     if drop > 1e-6 or cdf.min() < -1e-6 or cdf.max() > 1 + 1e-6:
         raise ValueError(f"cumulative marginal not monotone in [0, 1] (max decrease {drop:.3g})")
     cdf = np.clip(np.maximum.accumulate(cdf, axis=0), 0.0, 1.0)
