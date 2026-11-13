@@ -448,6 +448,7 @@ tolerance: |mean − 0.072| ≤ 0.05 and SD ≤ 0.05.
 | detached_contig | 0.122 (0.015) | 0.072 (0.020) | 0.396 | 0.036 | not the cause |
 
 Reading:
+- **Which result to rely on.** The verdicts in this table stand as registered under the 5-seed rule. The 30-seed extension (§3j, verified, row 59) is the reading to rely on: both time-varying arms are INTERMITTENT, not STABLE. The 5-seed "passes the pre-registered rule" for time_varying_contig did not hold across seeds.
 - **Firmer half:** contiguity alone, barriers and detached spotting do not move NLL's far share. That rules out three explanations under this generator. (State error is not among them; see †.)
 - **Only time-varying spread rate passes the rule, and both of its verdicts sit on the edge of the rule:**
   - On `time_varying_contig`, NLL's per-seed far shares are 0.532, 0.193, 0.271, 0.418 and 0.843: only 2 of 5 seeds are above 0.40.
@@ -568,6 +569,7 @@ The readings with the cross-host counts are unchanged:
 - time_varying fails STABLE on its NLL median (0.340).
 - time_varying_contig has MCEM within tolerance on both hosts for 14/30 = 0.47, below 0.80.
 - Both stay INTERMITTENT, since each exceeds its baseline's share above 0.40 by ≥ 0.43.
+- *Hypothesis (synthetic modulator; it supports the direction only):* under a time-varying rate, MCEM is within tolerance on both hosts for only 22 of 30 seeds (plain) and 14 of 30 (contiguous), against 30 and 28 on the matching baselines. So the feature that sometimes inflates NLL's far share also degrades the estimator that is correct under a constant rate. This fits the real-fire picture of NLL far shares above 0.40 on most fires, but it is not evidence about real fires.
 - *Note:* this host's own time_varying MCEM count, 24/30 = 0.80, sat exactly at the STABLE threshold; cross-host it is 22/30. That is moot, because NLL fails STABLE.
 
 Per the orchestrator and Iris, **no further kernel diagnostics follow.** Whether the variation is weather needs the real covariates.
