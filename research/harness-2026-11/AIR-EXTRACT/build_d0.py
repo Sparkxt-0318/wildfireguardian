@@ -215,6 +215,13 @@ def main():
         for u in ea[table]:
             x, y = place_xy[(u['region'], u['origin'])]
             off = row_time(u, table)
+            H = u['horizon_h'] * 3600
+            if off >= H:                     # ledger row 85 note 1: no computed departure without a route
+                out_rows[table].append({'region': u['region'], 'start': u['start'], 'horizon_h': u['horizon_h'],
+                                        'origin': u['origin'], 'name': u['name'], 'name_en': u['name_en'],
+                                        'row_time': None, 'status': 'no computed departure without a route',
+                                        'gates': 'none evaluated (no row time)', 'fixed': FIXED})
+                continue
             t0 = dt.datetime.strptime(u['start'], '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
             t = t0 + dt.timedelta(seconds=off)
             dists = sorted(((G.inv(x, y, lon, lat)[2] / 1000, lat, lon, ss) for lat, lon, ss in dpts), key=lambda r: r[0])
@@ -268,17 +275,22 @@ def main():
     tests['D2_register'] = (counts['usable'], counts['blank'], counts['invalid']) == (538, 24, 65) and \
         len(pts) == 500 and counts['invalid_wellformed_outside_korea'] == 10
     tests['D3_nearest'] = not d3_bad
-    tests['D4_exclusion_text'] = all(r['exclusion_texts'] for t in out_rows.values() for r in t)
+    timed = [r for t in out_rows.values() for r in t if r.get('row_time')]
+    tests['D4_exclusion_text'] = all(r['exclusion_texts'] for r in timed)
     tests['D5_pip'] = all((lat, lon) in pip for lat, lon, _ in dpts if (lat, lon) in near)
     d6 = d6_test()
-    tests['D6_daylight'] = all(x['ok'] for x in d6) and all(r['daylight'] is not None for t in out_rows.values() for r in t)
-    tests['D7_statuses'] = all(r['status'].startswith(('excluded (', 'not excluded by the gates evaluated (')) for t in out_rows.values() for r in t)
+    tests['D6_daylight'] = all(x['ok'] for x in d6) and all(r['daylight'] is not None for r in timed)
+    tests['D7_statuses'] = all(r['status'].startswith(('excluded (', 'not excluded by the gates evaluated (')) or
+                               r['status'] == 'no computed departure without a route' for t in out_rows.values() for r in t)
     tests['D8_labels'] = all(r['fixed'] == FIXED for t in out_rows.values() for r in t)
-    partial = wind is None or not all(r['wind'] and r['wind']['have_gusts'] for t in out_rows.values() for r in t)
-    summ = {t: {'rows': len(v), 'excluded_night': sum(r['daylight']['night'] for r in v),
+    partial = wind is None or not all(r['wind'] and r['wind']['have_gusts'] for r in timed)
+    summ = {t: {'rows': len(v), 'no_row_time': sum(not r.get('row_time') for r in v),
+                'excluded_night': sum(r['daylight']['night'] for r in v if r.get('row_time')),
                 'excluded_wind': sum('wind' in r['status'] and r['status'].startswith('excluded') for r in v),
                 'excluded_any': sum(r['status'].startswith('excluded') for r in v),
-                'not_excluded': sum(r['status'].startswith('not excluded') for r in v)} for t, v in out_rows.items()}
+                'not_excluded': sum(r['status'].startswith('not excluded') for r in v),
+                'wind_within_0p1_ms_of_a_limit': sum(bool(r.get('wind') and r['wind']['near_limit']) for r in v)}
+            for t, v in out_rows.items()}
     out = {'schema': 'wfg.air-extract.d0/1', 'rule': 'D0_RULE.md (+ amendments 1-2)', 'staff_label': STAFF,
            'absence_line': ABSENCE, 'partial': 'partial: daylight gate only' if partial else None,
            'register': {'identity': IDENT, 'base_date_note': BASE_DATE, 'datum': DATUM, 'portal_limits': PORTAL,
@@ -307,22 +319,30 @@ def main():
 
 
 def wind_at(wind, place, site, t):
-    """Max over the place point and the nearest site of the hourly mean and gust at the row's hour (UTC)."""
+    """Each location (place point, nearest site) is tested on its own at the row's hour (UTC); either one over the
+    limit excludes (D0_RULE amendment 1; ledger row 85 fix). Values shown per point at 0.01 m/s."""
     hour = t.replace(minute=0, second=0).strftime('%Y-%m-%dT%H:00')
-    vals = []
-    for (lat, lon) in (place, site):
-        k = f'{lat:.4f},{lon:.4f}'
-        rec = wind['points'].get(k)
+    pts = []
+    for role, (lat, lon) in (('place', place), ('site', site)):
+        rec = wind['points'].get(f'{lat:.4f},{lon:.4f}')
         if rec is None or hour not in rec['time']:
             return None
         i = rec['time'].index(hour)
-        ws, wg = rec['wind_speed_10m'][i], rec.get('wind_gusts_10m', [None] * len(rec['time']))[i]
-        vals.append((ws, wg))
-    ws, wg = max(v[0] for v in vals), max((v[1] for v in vals if v[1] is not None), default=None)
-    have = wg is not None
-    return {'label': WIND_LABEL, 'hour_utc': hour, 'mean_ms': ws, 'gust_ms': wg, 'have_gusts': have,
-            'over_type12': ws > LIM12 or (have and wg - ws > SPREAD), 'over_type3': ws > LIM3 or (have and wg - ws > SPREAD),
-            'limits': 'US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread'}
+        ws = rec['wind_speed_10m'][i]
+        wg = (rec.get('wind_gusts_10m') or [None] * len(rec['time']))[i]
+        have = wg is not None
+        spread = (wg - ws) if have else None
+        o12 = ws > LIM12 or (have and spread > SPREAD)
+        o3 = ws > LIM3 or (have and spread > SPREAD)
+        margin = min(abs(ws - LIM12), abs(ws - LIM3), abs(spread - SPREAD) if have else 1e9)
+        pts.append({'point': role, 'mean_ms': round(ws, 2), 'gust_ms': None if wg is None else round(wg, 2),
+                    'gust_spread_ms': None if spread is None else round(spread, 2), 'over_type12': o12, 'over_type3': o3,
+                    'within_0p1_ms_of_a_limit': margin < 0.1})
+    return {'label': WIND_LABEL, 'hour_utc': hour, 'points': pts, 'have_gusts': all(p['gust_ms'] is not None for p in pts),
+            'over_type12': any(p['over_type12'] for p in pts), 'over_type3': any(p['over_type3'] for p in pts),
+            'near_limit': any(p['within_0p1_ms_of_a_limit'] for p in pts),
+            'limits': 'US interagency reference (NWCG PMS 510): 40 kt (20.58 m/s) Type 1-2, 30 kt (15.43 m/s) Type 3, '
+                      '15 kt (7.72 m/s) gust spread; tested per point'}
 
 
 def render(o):
@@ -345,10 +365,16 @@ def render(o):
               '| Place | Row time | Nearest registered site | Straight-line distance (km) | Site points within 100 km | '
               'Minutes of daylight remaining | Status | Notes |', '|---|---|---|---|---|---|---|---|']
         for r in rows:
+            if not r.get('row_time'):
+                L.append(f'| {r["name"]} ({r["name_en"]}), {r["region"]} {r["start"]} h{r["horizon_h"]} | — | — | — | — | — | '
+                         f'{r["status"]} | {r["gates"]}; {"; ".join(r["fixed"])} |')
+                continue
             ns = r['nearest_site']
             notes = r['exclusion_texts'] + (['nearest site lies outside the 시군구 named in its address'] if ns['outside_stated_sigungu'] else [])
             if r['wind']:
-                notes.append(f'wind ({r["wind"]["label"]}): mean {r["wind"]["mean_ms"]} m/s, gust {r["wind"]["gust_ms"]} m/s')
+                notes.append(f'wind ({r["wind"]["label"]}; {r["wind"]["hour_utc"]} UTC): ' + '; '.join(
+                    f'{p["point"]} mean {p["mean_ms"]} / gust {p["gust_ms"]} / spread {p["gust_spread_ms"]} m/s'
+                    + (' (within 0.1 m/s of a limit)' if p['within_0p1_ms_of_a_limit'] else '') for p in r['wind']['points']))
             if r['wind_observation_note']:
                 notes.append(r['wind_observation_note'])
             notes += r['fixed']

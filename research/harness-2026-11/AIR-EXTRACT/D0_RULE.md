@@ -223,3 +223,17 @@ agree within 2 minutes on two dates: Yeongdeok 2025-03-25 and Seoul 2025-06-21.
   - That is far below the sourced observation of about 27 m/s gusts on 25 Mar. This kilometre-scale reanalysis
     understates that day's wind, so its wind gate errs towards "not excluded". The documented observation stays beside
     the column, not as a gate.
+
+**Ledger row 85 (13 Nov, ~12:53Z): FAIL on the wind-gate implementation. Fixed before re-use.**
+- **Defect.** `wind_at` took the maximum mean and the maximum gust over the place and the site separately, then
+  subtracted. The amendment 1 rule is "each location read, either one over the limit excludes". The mixed spread can
+  only be smaller than the larger per-location spread, so exclusions could only be missed.
+- **Fix.**
+  - Each point is tested on its own, against the mean limits and the gust spread.
+  - Both points' mean, gust and spread are shown at 0.01 m/s, with a "within 0.1 m/s of a limit" flag; near-limit
+    rows are counted.
+  - A unit with no grid departure without a route (row time ≥ H) reads **"no computed departure without a route"**
+    and gets no gate result.
+- **Builder timing.** The fix is committed before the re-run, in a separate commit from its outputs.
+- **Earlier output.** The verifier noted that the builder and its outputs were committed together at 38be623d.
+  @ 38be623d is superseded and is not used.
