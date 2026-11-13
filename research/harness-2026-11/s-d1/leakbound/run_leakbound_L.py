@@ -1,4 +1,4 @@
-"""Survey-timing leak bound, arms L and L2 (LEAK_BOUND_PLAN.md rev 1 + rev 2 @ claude/s-d9-leakbound bd07e7d1).
+"""Survey-timing leak bound, arms L and L2 (LEAK_BOUND_PLAN.md rev 1-3 @ claude/s-d9-leakbound 78e2539a).
 Part-a fire folds only. Arm R is NOT RUN (rev 1 item 2). Descriptive; "material" per rev 1.
 
 Stages (checkpointed; re-running the identical command resumes):
@@ -42,6 +42,7 @@ KEEP_SEED = 0
 BOOT_B = 2000
 BOOT_SEED = 20261030
 ARMS = ("base", "L", "L2")
+BASE_LABEL = "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
 
 
 def sha(p):
@@ -192,11 +193,16 @@ def main():
         stop_check(a)
         t0 = time.perf_counter()
         xs, ys, ds, f1s, ivs = [], [], [], [], []
-        outside = newburn = 0
+        outside = newburn = band_unc = band_unc_in = 0
         grad = env.terrain_gradient(ev)
         for k, s in enumerate(P.perimeter_samples(ev, a.perimeters, env, crop=False)):
             nb = s.endpoint & ~s.initial
             cs = P.cropped(s)
+            r0, r1, c0, c1 = cs.meta["crop"]
+            du = (distance_transform_edt(~s.initial) * CELL_M if s.initial.any() else np.full(s.initial.shape, np.inf))
+            bu = s.score_mask & (du <= BAND_M)
+            band_unc += int(bu.sum())
+            band_unc_in += int(bu[r0:r1, c0:c1].sum())
             nb_in = int((cs.endpoint & ~cs.initial).sum())
             newburn += int(nb.sum())
             outside += int(nb.sum()) - nb_in
@@ -213,7 +219,8 @@ def main():
         np.savez_compressed(cpath, x=np.concatenate(xs) if xs else np.zeros((0, 21)), y=cat(ys, np.int8), dist_m=cat(ds, np.float32),
                  f1=cat(f1s, np.float64), interval=cat(ivs, np.int32),
                  f2=np.float64(f2_value(times[ev]["first_utc"], times[ev]["last_utc"], times[ev]["surveys"])),
-                 intervals=np.int32(len(xs)), newburn=np.int64(newburn), newburn_outside_crop=np.int64(outside))
+                 intervals=np.int32(len(xs)), newburn=np.int64(newburn), newburn_outside_crop=np.int64(outside),
+                 band_uncropped=np.int64(band_unc), band_uncropped_inside_crop=np.int64(band_unc_in))
         print(json.dumps(dict(fire=ev, intervals=len(xs), cells=int(sum(len(y) for y in ys)),
                               seconds=round(time.perf_counter() - t0, 1))), flush=True)
     if a.limit:
@@ -224,6 +231,7 @@ def main():
     stop_check(a)
     ys_all = [np.load(a.run / "cache" / f"{ev}.npz")["y"] for ev in fires]
     keep = draw_keep(ys_all)
+    keep_sha = hashlib.sha256(np.concatenate(keep).astype(np.uint8).tobytes()).hexdigest()
     for k in range(5):
         fpath, apath = a.run / f"fold_{k}.pkl", a.run / f"fold_{k}_agg.json"
         if apath.exists():
@@ -251,7 +259,7 @@ def main():
                 continue
             f2 = np.full(len(z["y"]), float(z["f2"]))
             preds = {arm: predict(fitted, arm, z["x"], z["f1"], f2) for arm in ARMS}
-            agg[ev] = aggregate(z["y"], z["dist_m"] <= BAND_M, preds)
+            agg[ev] = dict(aggregate(z["y"], z["dist_m"] <= BAND_M, preds), base_label=BASE_LABEL)
         coef = {arm: dict(standardised=fitted[arm][1].coef_[0].tolist(),
                           f1_raw=(float(fitted[arm][1].coef_[0][21] / fitted[arm][0].scale_[21]) if arm != "base" else None))
                 for arm in ARMS}
@@ -265,7 +273,14 @@ def main():
         per_fire.update(d["per_fire"])
         coefs[k] = d["coefficients"]
     meta = {ev: np.load(a.run / "cache" / f"{ev}.npz") for ev in fires}
-    res = dict(receipt, finished_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
+    bu = {ev: (int(m["band_uncropped"]), int(m["band_uncropped_inside_crop"])) for ev, m in meta.items()}
+    bu_tot = sum(v[0] for v in bu.values())
+    res = dict(receipt, finished_utc=dt.datetime.now(dt.timezone.utc).isoformat(), base_label=BASE_LABEL,
+               keep_vector_sha256=keep_sha, keep_rows=int(sum(int(k.sum()) for k in keep)),
+               band_truncation=dict(
+                   note="share of UNCROPPED 4 km band cells (score_mask, distance on the uncropped grid) outside the crop",
+                   overall=(bu_tot - sum(v[1] for v in bu.values())) / bu_tot if bu_tot else None,
+                   per_fire={ev: ((v[0] - v[1]) / v[0] if v[0] else None) for ev, v in sorted(bu.items())}),
                fold_assignment_sha256=sha(a.folds),
                newburn_cells=int(sum(int(m["newburn"]) for m in meta.values())),
                newburn_outside_crop=int(sum(int(m["newburn_outside_crop"]) for m in meta.values())),
@@ -280,11 +295,11 @@ def main():
     L = res["arms"]["L"]["band"]
     (a.run / "LEAK_BOUND.md").write_text(
         f"# Survey-timing leak bound, arms L/L2 (part a, 5 fire folds)\n\n"
-        f"Arm R: NOT RUN. Arm L (primary), 4 km band: dBrier {L['delta_brier']:.3e}, 95% CI "
+        f"{BASE_LABEL}.\n\nArm R: NOT RUN. Arm L (primary), 4 km band: dBrier {L['delta_brier']:.3e}, 95% CI "
         f"[{L['ci95'][0]:.3e}, {L['ci95'][1]:.3e}], material = {L['material']}; relative change "
         f"{L['relative_change']:.3%}. L2 band: dBrier {res['arms']['L2']['band']['delta_brier']:.3e}, CI "
         f"{res['arms']['L2']['band']['ci95']}. New-burn cells outside the crop: {res['newburn_outside_crop']} of "
-        f"{res['newburn_cells']}.\n")
+        f"{res['newburn_cells']}. Uncropped 4 km band cells outside the crop: {res['band_truncation']['overall']}.\n")
     if (a.run / "STOPPED.json").exists():  # a resumed run that completes supersedes an earlier clean stop
         (a.run / "STOPPED.json").rename(a.run / "STOPPED_superseded.json")
     print(json.dumps(dict(L_band=L, material=L["material"])), flush=True)
