@@ -1,0 +1,1423 @@
+{
+ "env_unpinned": "E1: Python 3.13.18, numpy 2.1.3, scipy 1.14.1, pandas 2.2.3 (not recorded in file)",
+ "env_pinned": {
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "pandas": "2.2.3",
+  "scikit-learn": "1.5.2",
+  "torch": "2.5.1+cpu",
+  "pinned": true
+ },
+ "check_bounds_pinned": {
+  "0": {
+   "plugin": "PASS",
+   "composite": "PASS",
+   "meanfield_nll": "PASS",
+   "mcem": "PASS"
+  },
+  "1": {
+   "plugin": "PASS",
+   "composite": "PASS",
+   "meanfield_nll": "PASS",
+   "mcem": "PASS"
+  },
+  "2": {
+   "plugin": "PASS",
+   "composite": "PASS",
+   "meanfield_nll": "PASS",
+   "mcem": "PASS"
+  },
+  "3": {
+   "plugin": "PASS",
+   "composite": "PASS",
+   "meanfield_nll": "PASS",
+   "mcem": "PASS"
+  },
+  "4": {
+   "plugin": "PASS",
+   "composite": "PASS",
+   "meanfield_nll": "PASS",
+   "mcem": "PASS"
+  }
+ },
+ "caveats": "covariate-free, homogeneous, 25 part-a fires incl. 4 H-dev, not the neural refit",
+ "rows": [
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.brier",
+   "unpinned": 0.05690829006350518,
+   "pinned": 0.05692783106562026,
+   "delta": 1.9541002115076866e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.pred_area",
+   "unpinned": 21056.787109375,
+   "pinned": 21059.498046875,
+   "delta": 2.7109375,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.lowbin_gap",
+   "unpinned": 1.8972611980572034e-05,
+   "pinned": 1.7410352512155572e-05,
+   "delta": -1.5622594684164617e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.lowbin_n",
+   "unpinned": 1853,
+   "pinned": 1851,
+   "delta": -2,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.pos_below_1e5",
+   "unpinned": 0,
+   "pinned": 0,
+   "delta": 0,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.pos_below_1_1024",
+   "unpinned": 0,
+   "pinned": 0,
+   "delta": 0,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.pred_0-1km",
+   "unpinned": 14996.111328125,
+   "pinned": 15003.017578125,
+   "delta": 6.90625,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.pred_1-2km",
+   "unpinned": 2993.271484375,
+   "pinned": 2993.2744140625,
+   "delta": 0.0029296875,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "plugin.pred_2-4km",
+   "unpinned": 3067.404296875,
+   "pinned": 3063.2060546875,
+   "delta": -4.1982421875,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.brier",
+   "unpinned": 0.06270195169154012,
+   "pinned": 0.06368934545375254,
+   "delta": 0.0009873937622124213,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.pred_area",
+   "unpinned": 3583.1220703125,
+   "pinned": 22511.5869140625,
+   "delta": 18928.46484375,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.lowbin_gap",
+   "unpinned": 0.05673573745885408,
+   "pinned": 0.02688848271171525,
+   "delta": -0.02984725474713883,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.lowbin_n",
+   "unpinned": 343898,
+   "pinned": 239201,
+   "delta": -104697,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.pos_below_1e5",
+   "unpinned": 19264,
+   "pinned": 5578,
+   "delta": -13686,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.pos_below_1_1024",
+   "unpinned": 19264,
+   "pinned": 5578,
+   "delta": -13686,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.pred_0-1km",
+   "unpinned": 3545.646484375,
+   "pinned": 22033.75390625,
+   "delta": 18488.107421875,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.pred_1-2km",
+   "unpinned": 36.7265625,
+   "pinned": 470.99609375,
+   "delta": 434.26953125,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "composite.pred_2-4km",
+   "unpinned": 0.7490234375,
+   "pinned": 6.8369140625,
+   "delta": 6.087890625,
+   "e1_invalid": true
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.brier",
+   "unpinned": 0.05797706201104882,
+   "pinned": 0.057967732573728885,
+   "delta": -9.329437319932632e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.pred_area",
+   "unpinned": 22166.380859375,
+   "pinned": 22154.1328125,
+   "delta": -12.248046875,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.lowbin_gap",
+   "unpinned": 0.0025406821061117937,
+   "pinned": 0.0035122940891472868,
+   "delta": 0.0009716119830354931,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.lowbin_n",
+   "unpinned": 3256,
+   "pinned": 3225,
+   "delta": -31,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.pos_below_1e5",
+   "unpinned": 3,
+   "pinned": 4,
+   "delta": 1,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.pos_below_1_1024",
+   "unpinned": 3,
+   "pinned": 4,
+   "delta": 1,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.pred_0-1km",
+   "unpinned": 17303.7998046875,
+   "pinned": 17295.19921875,
+   "delta": -8.6005859375,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.pred_1-2km",
+   "unpinned": 2961.3623046875,
+   "pinned": 2958.892578125,
+   "delta": -2.4697265625,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "meanfield_nll.pred_2-4km",
+   "unpinned": 1901.21875,
+   "pinned": 1900.041015625,
+   "delta": -1.177734375,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.brier",
+   "unpinned": 0.06597748213663163,
+   "pinned": 0.06599645539876689,
+   "delta": 1.8973262135263402e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.pred_area",
+   "unpinned": 27003.845703125,
+   "pinned": 26994.2197265625,
+   "delta": -9.6259765625,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.lowbin_gap",
+   "unpinned": 0.021791156726089285,
+   "pinned": 0.021769344802144028,
+   "delta": -2.181192394525716e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.lowbin_n",
+   "unpinned": 184708,
+   "pinned": 184326,
+   "delta": -382,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.pos_below_1e5",
+   "unpinned": 2610,
+   "pinned": 2504,
+   "delta": -106,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.pos_below_1_1024",
+   "unpinned": 2610,
+   "pinned": 2504,
+   "delta": -106,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.pred_0-1km",
+   "unpinned": 25396.2548828125,
+   "pinned": 25386.6044921875,
+   "delta": -9.650390625,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.pred_1-2km",
+   "unpinned": 1486.4375,
+   "pinned": 1486.396484375,
+   "delta": -0.041015625,
+   "e1_invalid": false
+  },
+  {
+   "section": "cv_part_a pooled",
+   "quantity": "mcem.pred_2-4km",
+   "unpinned": 121.1533203125,
+   "pinned": 121.21875,
+   "delta": 0.0654296875,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_plugin.point",
+   "unpinned": 0.009069192073126441,
+   "pinned": 0.009068624333146633,
+   "delta": -5.6773997980826e-07,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_plugin.ci95_lo",
+   "unpinned": 0.00567570104078254,
+   "pinned": 0.005664902404200292,
+   "delta": -1.0798636582248083e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_plugin.ci95_hi",
+   "unpinned": 0.012399686374446507,
+   "pinned": 0.01242260345195477,
+   "delta": 2.291707750826273e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_plugin.mcem_better_fires",
+   "unpinned": "5/25",
+   "pinned": "5/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_composite.point",
+   "unpinned": 0.0032755304450914906,
+   "pinned": 0.0023071099450143527,
+   "delta": -0.0009684205000771379,
+   "e1_invalid": true
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_composite.ci95_lo",
+   "unpinned": -0.0017324693623838733,
+   "pinned": 0.0010757652613180174,
+   "delta": 0.0028082346237018906,
+   "e1_invalid": true
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_composite.ci95_hi",
+   "unpinned": 0.008506677125949604,
+   "pinned": 0.003439557771456823,
+   "delta": -0.005067119354492781,
+   "e1_invalid": true
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_composite.mcem_better_fires",
+   "unpinned": "11/25",
+   "pinned": "5/25",
+   "delta": null,
+   "e1_invalid": true
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_meanfield_nll.point",
+   "unpinned": 0.008000420125582806,
+   "pinned": 0.008028722825038009,
+   "delta": 2.8302699455202973e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_meanfield_nll.ci95_lo",
+   "unpinned": 0.005029963543683581,
+   "pinned": 0.005034094185778315,
+   "delta": 4.130642094733912e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_meanfield_nll.ci95_hi",
+   "unpinned": 0.010731250328291754,
+   "pinned": 0.01077740406050716,
+   "delta": 4.6153732215404794e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "brier_diff_vs_mcem",
+   "quantity": "mcem_minus_meanfield_nll.mcem_better_fires",
+   "unpinned": "4/25",
+   "pinned": "5/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "persistence.brier",
+   "unpinned": 0.0646171920892892,
+   "pinned": 0.0646171920892892,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "persistence.brier_0-1km",
+   "unpinned": 0.16215200645425107,
+   "pinned": 0.16215200645425107,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "persistence.brier_1-2km",
+   "unpinned": 0.04844701466814753,
+   "pinned": 0.04844701466814753,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "persistence.brier_2-4km",
+   "unpinned": 0.02331328822702096,
+   "pinned": 0.02331328822702096,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_1h.brier",
+   "unpinned": 0.9292148032112786,
+   "pinned": 0.9292148032112786,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_1h.brier_0-1km",
+   "unpinned": 0.8378479935457489,
+   "pinned": 0.8378479935457489,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_1h.brier_1-2km",
+   "unpinned": 0.9471582857799394,
+   "pinned": 0.9471582857799394,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_1h.brier_2-4km",
+   "unpinned": 0.9662165681774774,
+   "pinned": 0.9662165681774774,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_2h.brier",
+   "unpinned": 0.9194297587189696,
+   "pinned": 0.9194297587189696,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_2h.brier_0-1km",
+   "unpinned": 0.8342230032160738,
+   "pinned": 0.8342230032160738,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_2h.brier_1-2km",
+   "unpinned": 0.9417295392746352,
+   "pinned": 0.9417295392746352,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_2h.brier_2-4km",
+   "unpinned": 0.9505721247619764,
+   "pinned": 0.9505721247619764,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_4h.brier",
+   "unpinned": 0.6550948589082523,
+   "pinned": 0.6550948589082523,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_4h.brier_0-1km",
+   "unpinned": 0.8294707293082678,
+   "pinned": 0.8294707293082678,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_4h.brier_1-2km",
+   "unpinned": 0.9228198843399333,
+   "pinned": 0.9228198843399333,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_4h.brier_2-4km",
+   "unpinned": 0.4019342852347245,
+   "pinned": 0.4019342852347245,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_8h.brier",
+   "unpinned": 0.34169331853882473,
+   "pinned": 0.34169331853882473,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_8h.brier_0-1km",
+   "unpinned": 0.8232927732281202,
+   "pinned": 0.8232927732281202,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_8h.brier_1-2km",
+   "unpinned": 0.3848665313469419,
+   "pinned": 0.3848665313469419,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_8h.brier_2-4km",
+   "unpinned": 0.06338227889128761,
+   "pinned": 0.06338227889128761,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_best.brier",
+   "unpinned": 0.34169331853882473,
+   "pinned": 0.34169331853882473,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_best.brier_0-1km",
+   "unpinned": 0.8232927732281202,
+   "pinned": 0.8232927732281202,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_best.brier_1-2km",
+   "unpinned": 0.3848665313469419,
+   "pinned": 0.3848665313469419,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "dilation_best.brier_2-4km",
+   "unpinned": 0.06338227889128761,
+   "pinned": 0.06338227889128761,
+   "delta": 0.0,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "logistic_cf.brier",
+   "unpinned": 0.05664636501891034,
+   "pinned": 0.056646365018915804,
+   "delta": 5.460909502374989e-15,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "logistic_cf.brier_0-1km",
+   "unpinned": 0.1333766758343642,
+   "pinned": 0.13337667583437707,
+   "delta": 1.2878587085651816e-14,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "logistic_cf.brier_1-2km",
+   "unpinned": 0.04625558645223815,
+   "pinned": 0.046255586452243654,
+   "delta": 5.502542865798432e-15,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "logistic_cf.brier_2-4km",
+   "unpinned": 0.022744084988019612,
+   "pinned": 0.022744084988021204,
+   "delta": 1.592476150946709e-15,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "plugin.brier",
+   "unpinned": 0.05690829006350518,
+   "pinned": 0.05692783106562026,
+   "delta": 1.9541002115076866e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "plugin.brier_0-1km",
+   "unpinned": 0.1346654800165962,
+   "pinned": 0.13473058006430216,
+   "delta": 6.510004770596267e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "plugin.brier_1-2km",
+   "unpinned": 0.04633122586924572,
+   "pinned": 0.046333213908199986,
+   "delta": 1.9880389542648036e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "plugin.brier_2-4km",
+   "unpinned": 0.022580845288909596,
+   "pinned": 0.02258713789894801,
+   "delta": 6.292610038413637e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "composite.brier",
+   "unpinned": 0.06270195169154012,
+   "pinned": 0.06368934545375254,
+   "delta": 0.0009873937622124213,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "composite.brier_0-1km",
+   "unpinned": 0.15451647433425372,
+   "pinned": 0.1590523518740577,
+   "delta": 0.004535877539803973,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "composite.brier_1-2km",
+   "unpinned": 0.04831997468285164,
+   "pinned": 0.04787259468749776,
+   "delta": -0.0004473799953538804,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "composite.brier_2-4km",
+   "unpinned": 0.02331278388804086,
+   "pinned": 0.02330916642009785,
+   "delta": -3.617467943008157e-06,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "meanfield_nll.brier",
+   "unpinned": 0.05797706201104882,
+   "pinned": 0.057967732573728885,
+   "delta": -9.329437319932632e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "meanfield_nll.brier_0-1km",
+   "unpinned": 0.13825490559730907,
+   "pinned": 0.13820373340211783,
+   "delta": -5.117219519124028e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "meanfield_nll.brier_1-2km",
+   "unpinned": 0.04670695051248973,
+   "pinned": 0.046715745100099015,
+   "delta": 8.794587609287086e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "meanfield_nll.brier_2-4km",
+   "unpinned": 0.02274850383571251,
+   "pinned": 0.022750131369521615,
+   "delta": 1.6275338091051306e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "mcem.brier",
+   "unpinned": 0.06597748213663163,
+   "pinned": 0.06599645539876689,
+   "delta": 1.8973262135263402e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "mcem.brier_0-1km",
+   "unpinned": 0.16875589510337963,
+   "pinned": 0.16883591944849655,
+   "delta": 8.002434511691914e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "mcem.brier_1-2km",
+   "unpinned": 0.04760711136746674,
+   "pinned": 0.047610462777923496,
+   "delta": 3.35141045675752e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines pooled",
+   "quantity": "mcem.brier_2-4km",
+   "unpinned": 0.023257535987227452,
+   "pinned": 0.023253980345256758,
+   "delta": -3.55564197069419e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_plugin.point",
+   "unpinned": 0.007708902025784032,
+   "pinned": 0.007689361023668951,
+   "delta": -1.9541002115081203e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_plugin.ci95_lo",
+   "unpinned": 0.004194661769581703,
+   "pinned": 0.004174851333938249,
+   "delta": -1.9810435643453916e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_plugin.ci95_hi",
+   "unpinned": 0.011466067655866365,
+   "pinned": 0.011453314655805145,
+   "delta": -1.2753000061219155e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_plugin.better_fires",
+   "unpinned": "6/25",
+   "pinned": "6/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_plugin.point",
+   "unpinned": 0.8723065131477734,
+   "pinned": 0.8722869721456584,
+   "delta": -1.954100211498666e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_plugin.ci95_lo",
+   "unpinned": 0.8327851223081895,
+   "pinned": 0.8327606097559418,
+   "delta": -2.4512552247668573e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_plugin.ci95_hi",
+   "unpinned": 0.90319284951299,
+   "pinned": 0.9031776004421921,
+   "delta": -1.524907079786253e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_plugin.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_plugin.point",
+   "unpinned": 0.8625214686554644,
+   "pinned": 0.8625019276533493,
+   "delta": -1.9541002115097683e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_plugin.ci95_lo",
+   "unpinned": 0.8203112815650544,
+   "pinned": 0.8202904676495534,
+   "delta": -2.0813915501016744e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_plugin.ci95_hi",
+   "unpinned": 0.8941336934328618,
+   "pinned": 0.8941084702260967,
+   "delta": -2.5223206765012662e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_plugin.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_plugin.point",
+   "unpinned": 0.5981865688447471,
+   "pinned": 0.598167027842632,
+   "delta": -1.9541002115097683e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_plugin.ci95_lo",
+   "unpinned": 0.5554031643899624,
+   "pinned": 0.5553881980154922,
+   "delta": -1.4966374470182231e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_plugin.ci95_hi",
+   "unpinned": 0.6401381814287896,
+   "pinned": 0.6401284838630168,
+   "delta": -9.697565772848193e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_plugin.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_plugin.point",
+   "unpinned": 0.2847850284753195,
+   "pinned": 0.28476548747320446,
+   "delta": -1.9541002115042172e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_plugin.ci95_lo",
+   "unpinned": 0.2501593148886433,
+   "pinned": 0.2501399789730817,
+   "delta": -1.9335915561580208e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_plugin.ci95_hi",
+   "unpinned": 0.3186684027441244,
+   "pinned": 0.31865377806588135,
+   "delta": -1.4624678243035927e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_plugin.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_plugin.point",
+   "unpinned": 0.2847850284753195,
+   "pinned": 0.28476548747320446,
+   "delta": -1.9541002115042172e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_plugin.ci95_lo",
+   "unpinned": 0.2501593148886433,
+   "pinned": 0.2501399789730817,
+   "delta": -1.9335915561580208e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_plugin.ci95_hi",
+   "unpinned": 0.3186684027441244,
+   "pinned": 0.31865377806588135,
+   "delta": -1.4624678243035927e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_plugin.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_plugin.point",
+   "unpinned": -0.00026192504459483996,
+   "pinned": -0.0002814660467044593,
+   "delta": -1.9541002109619318e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_plugin.ci95_lo",
+   "unpinned": -0.0007424424549952684,
+   "pinned": -0.0007697382376437523,
+   "delta": -2.729578264848388e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_plugin.ci95_hi",
+   "unpinned": 0.0002680943050516937,
+   "pinned": 0.00025287761735615024,
+   "delta": -1.521668769554344e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_plugin.better_fires",
+   "unpinned": "17/25",
+   "pinned": "17/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_plugin.point",
+   "unpinned": 0.005793661628034951,
+   "pinned": 0.006761514388132279,
+   "delta": 0.0009678527600973279,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_plugin.ci95_lo",
+   "unpinned": 0.0029509741452779736,
+   "pinned": 0.004394855136137249,
+   "delta": 0.001443880990859275,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_plugin.ci95_hi",
+   "unpinned": 0.008802043727482186,
+   "pinned": 0.00906303165077902,
+   "delta": 0.0002609879232968338,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_plugin.better_fires",
+   "unpinned": "7/25",
+   "pinned": "4/25",
+   "delta": null,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_plugin.point",
+   "unpinned": 0.0010687719475436356,
+   "pinned": 0.0010399015081086233,
+   "delta": -2.8870439435012317e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_plugin.ci95_lo",
+   "unpinned": 0.00045130538927278186,
+   "pinned": 0.0004212545612514867,
+   "delta": -3.0050828021295137e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_plugin.ci95_hi",
+   "unpinned": 0.0016513900573299366,
+   "pinned": 0.001629747949294303,
+   "delta": -2.1642108035633493e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_plugin.better_fires",
+   "unpinned": "7/25",
+   "pinned": "8/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "mcem_minus_plugin.point",
+   "unpinned": 0.009069192073126441,
+   "pinned": 0.009068624333146633,
+   "delta": -5.6773997980826e-07,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "mcem_minus_plugin.ci95_lo",
+   "unpinned": 0.005630408890059328,
+   "pinned": 0.005600254697255081,
+   "delta": -3.0154192804247512e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "mcem_minus_plugin.ci95_hi",
+   "unpinned": 0.01234068717156857,
+   "pinned": 0.012365741928143908,
+   "delta": 2.5054756575338885e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "mcem_minus_plugin.better_fires",
+   "unpinned": "5/25",
+   "pinned": "5/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_mcem.point",
+   "unpinned": -0.001360290047342409,
+   "pinned": -0.0013792633094776808,
+   "delta": -1.897326213527186e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_mcem.ci95_lo",
+   "unpinned": -0.007762925075217423,
+   "pinned": -0.007801273731979203,
+   "delta": -3.834865676178006e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_mcem.ci95_hi",
+   "unpinned": 0.0054334764123237025,
+   "pinned": 0.005423116884361493,
+   "delta": -1.0359527962209257e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "persistence_minus_mcem.better_fires",
+   "unpinned": "13/25",
+   "pinned": "13/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_mcem.point",
+   "unpinned": 0.863237321074647,
+   "pinned": 0.8632183478125117,
+   "delta": -1.8973262135291158e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_mcem.ci95_lo",
+   "unpinned": 0.8263591652694142,
+   "pinned": 0.8263397362913799,
+   "delta": -1.942897803430821e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_mcem.ci95_hi",
+   "unpinned": 0.8922573135200177,
+   "pinned": 0.8922490125220622,
+   "delta": -8.300997955457134e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_1h_minus_mcem.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_mcem.point",
+   "unpinned": 0.853452276582338,
+   "pinned": 0.8534333033202027,
+   "delta": -1.8973262135291158e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_mcem.ci95_lo",
+   "unpinned": 0.8135723390873698,
+   "pinned": 0.8135512164579087,
+   "delta": -2.11226294610789e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_mcem.ci95_hi",
+   "unpinned": 0.8830770526932941,
+   "pinned": 0.8830459277882347,
+   "delta": -3.112490505940979e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_2h_minus_mcem.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_mcem.point",
+   "unpinned": 0.5891173767716207,
+   "pinned": 0.5890984035094854,
+   "delta": -1.8973262135291158e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_mcem.ci95_lo",
+   "unpinned": 0.5490516196982621,
+   "pinned": 0.5490508964858531,
+   "delta": -7.232124089595615e-07,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_mcem.ci95_hi",
+   "unpinned": 0.6283734957451529,
+   "pinned": 0.6283222123577877,
+   "delta": -5.128338736515303e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_4h_minus_mcem.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_mcem.point",
+   "unpinned": 0.2757158364021931,
+   "pinned": 0.2756968631400578,
+   "delta": -1.8973262135291158e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_mcem.ci95_lo",
+   "unpinned": 0.2439719533182721,
+   "pinned": 0.24397502544903926,
+   "delta": 3.0721307671677245e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_mcem.ci95_hi",
+   "unpinned": 0.3069352659955504,
+   "pinned": 0.3068670943115084,
+   "delta": -6.817168404199547e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_8h_minus_mcem.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_mcem.point",
+   "unpinned": 0.2757158364021931,
+   "pinned": 0.2756968631400578,
+   "delta": -1.8973262135291158e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_mcem.ci95_lo",
+   "unpinned": 0.2439719533182721,
+   "pinned": 0.24397502544903926,
+   "delta": 3.0721307671677245e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_mcem.ci95_hi",
+   "unpinned": 0.3069352659955504,
+   "pinned": 0.3068670943115084,
+   "delta": -6.817168404199547e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "dilation_best_minus_mcem.better_fires",
+   "unpinned": "0/25",
+   "pinned": "0/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_mcem.point",
+   "unpinned": -0.00933111711772128,
+   "pinned": -0.009350090379851092,
+   "delta": -1.8973262129811166e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_mcem.ci95_lo",
+   "unpinned": -0.012787511218791165,
+   "pinned": -0.012836499032982568,
+   "delta": -4.8987814191402135e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_mcem.ci95_hi",
+   "unpinned": -0.005715546307899872,
+   "pinned": -0.0057169688618682124,
+   "delta": -1.4225539683400054e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "logistic_cf_minus_mcem.better_fires",
+   "unpinned": "20/25",
+   "pinned": "20/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "plugin_minus_mcem.point",
+   "unpinned": -0.009069192073126441,
+   "pinned": -0.009068624333146633,
+   "delta": 5.6773997980826e-07,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "plugin_minus_mcem.ci95_lo",
+   "unpinned": -0.012340687171568573,
+   "pinned": -0.01236574192814391,
+   "delta": -2.505475657533715e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "plugin_minus_mcem.ci95_hi",
+   "unpinned": -0.005630408890059328,
+   "pinned": -0.005600254697255082,
+   "delta": 3.0154192804246645e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "plugin_minus_mcem.better_fires",
+   "unpinned": "20/25",
+   "pinned": "20/25",
+   "delta": null,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_mcem.point",
+   "unpinned": -0.0032755304450914906,
+   "pinned": -0.0023071099450143527,
+   "delta": 0.0009684205000771379,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_mcem.ci95_lo",
+   "unpinned": -0.008445895927598764,
+   "pinned": -0.0034378841047148505,
+   "delta": 0.0050080118228839135,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_mcem.ci95_hi",
+   "unpinned": 0.001833229035210066,
+   "pinned": -0.0010919257146150476,
+   "delta": -0.0029251547498251136,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "composite_minus_mcem.better_fires",
+   "unpinned": "14/25",
+   "pinned": "20/25",
+   "delta": null,
+   "e1_invalid": true
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_mcem.point",
+   "unpinned": -0.008000420125582806,
+   "pinned": -0.008028722825038009,
+   "delta": -2.8302699455202973e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_mcem.ci95_lo",
+   "unpinned": -0.010751746581838218,
+   "pinned": -0.010804917498931595,
+   "delta": -5.317091709337689e-05,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_mcem.ci95_hi",
+   "unpinned": -0.005140987898559235,
+   "pinned": -0.005142512797615416,
+   "delta": -1.5248990561803413e-06,
+   "e1_invalid": false
+  },
+  {
+   "section": "baselines paired",
+   "quantity": "meanfield_nll_minus_mcem.better_fires",
+   "unpinned": "21/25",
+   "pinned": "20/25",
+   "delta": null,
+   "e1_invalid": false
+  }
+ ]
+}

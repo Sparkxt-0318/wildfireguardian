@@ -46,3 +46,33 @@ Six losses in total: 4 container reclaims while the session was idle and detache
 composite collapsed to the floor in folds 0, 2, 3 and 4 (Owen), so all composite numbers here are INVALID. See
 results/cv_composite_rerun.json (pinned environment: Python 3.12.3, numpy 1.26.4, scipy 1.13.1). cv_baselines.py ran in
 the pinned environment but read the composite p from these checkpoints.
+
+## Pinned rerun (E3), 2026-11-12/13
+
+Environment: `{'python': '3.12.3', 'numpy': '1.26.4', 'scipy': '1.13.1', 'pandas': '2.2.3', 'scikit-learn': '1.5.2', 'torch': '2.5.1+cpu', 'pinned': True}`
+(`runenv.require_pinned()` enforced; same seeds and fold split as E1).
+Command per fold: `venv312/bin/python cv_part_a.py --brackets $SP/brackets_v2 --fit results/real_bracket_fit.json --checkpoint-dir $SP/cv_ckpt_pinned --only-fold k`;
+aggregate adds `--out results/cv_part_a_pinned.json`. Baselines: `cv_baselines.py --cv results/cv_part_a_pinned.json --ckpt $SP/cv_ckpt_pinned --out results/cv_baselines_pinned.json`.
+
+```
+2dc2c746ad9e42b40f42dfd2fdf8f159351a80cfbc5d61ab6a79331c46b61361  cv_ckpt_pinned/fold0.json
+b72b931252de4be6364aca9b582285d2a6625936da7fe603bb59269ef5223a97  cv_ckpt_pinned/fold1.json
+e4d234bf3fd65a0a91f94e428379278ee08d1b4138ccbeeea12d7da78c5cef29  cv_ckpt_pinned/fold2.json
+a4f2e865e10a8949a645e0b3146452401274e04107ae098bf999185e5c64d72a  cv_ckpt_pinned/fold3.json
+902156de1ab8345835f5aa6cbbb9521cf15546c0afcf32df4d8ba2554faf0543  cv_ckpt_pinned/fold4.json
+cfc8cfae14fb366b031439495ac818ad66853b76a1836dd1f8eaaefd70b65b8e  results/cv_part_a_pinned.json
+baa4c207bcf68785f37e85dcb327943ceca328bfbb9bc766eb2e0c27297fe708  results/cv_baselines_pinned.json
+624936da0e73762023e15d14f6581a939c6947ec44b063ac9158981d5509c4af  results/check_bounds_pinned.json
+54f22b475e13e89ef392508ed6bff8dcbc53bb031a85d89f78249b66c427caac  cv_part_a.py
+40ba3454b499f29ada04ca32e363d080747b9a827819dfe28b4f6eec33b60e0d  check_bounds.py
+d3578a8a0976997a89c7bb3cd9d2f43af587f438613df6cfe1532fb61750a187  cv_baselines.py
+fede2cb775f494982a10ad129b64bbff964af9579966ba5fd655e29ec224f1bb  compare_pinned.py
+```
+
+Pinned-run losses (restart log):
+```
+2026-11-12T23:13 tracked task bii5kqkio (pinned E3) hit 2 h limit; in-progress fires lost (fold0 fire2, fold1 fire3, fold2 fire1, fold3 fire3, fold4 fire0); all 5 pinned fits checkpointed; relaunched as new tracked task
+2026-11-13T00:22 container restart killed tracked task bg29s3qvx (pinned E3); folds 2,3 done; in-progress fires lost (fold0 after fire3, fold1 after fire3, fold4 after fire1); relaunched as new tracked task
+```
+Fits all checkpointed before the first loss; each loss cost only the test fires being scored (resume from per-fire checkpoints; bit-identity of resume is tested in test_cv_resume.py).
+No pinned fit tripped the FitFailed guard; check_bounds_pinned.json: PASS for all 4 estimators in all 5 folds (composite share at floor 0.20–0.32).

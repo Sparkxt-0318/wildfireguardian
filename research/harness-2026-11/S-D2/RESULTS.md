@@ -338,6 +338,28 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
   * No covariates; mapped extent, not flame arrival.
   * 64 simulations give a coarse 95th percentile.
 
+## 3f. Part-a fire-level CV in the pinned environment E3 (unverified; sent to Owen)
+
+Caveats: covariate-free, homogeneous, 25 part-a fires incl. 4 H-dev, not the neural refit.
+Pinned E3 (Python 3.12.3, numpy 1.26.4, scipy 1.13.1, pandas 2.2.3, scikit-learn 1.5.2); same seeds and folds as E1.
+Every pooled number, pinned vs unpinned: results/cv_pinned_vs_unpinned.md (172 rows; compare_pinned.py). Receipt: CV_RECEIPT.md.
+
+| arm | Brier E1 | Brier E3 | E3 − E1 |
+|---|---|---|---|
+| logistic_cf (reference) | 0.0566464 | 0.0566464 | 0 |
+| plugin | 0.0569083 | 0.0569278 | +2.0e-5 |
+| meanfield_nll | 0.0579771 | 0.0579677 | −9.3e-6 |
+| composite | ~~0.062702~~ INVALID | 0.0636893 | — |
+| persistence (reference) | 0.0646172 | 0.0646172 | 0 |
+| mcem | 0.0659775 | 0.0659965 | +1.9e-5 |
+| dilation_8h = dilation_best (reference) | 0.341693 | 0.341693 | 0 |
+
+- No E3 fit tripped the FitFailed guard. check_bounds: PASS for all 4 estimators in all 5 folds (composite share at floor 0.20–0.32).
+- Every non-composite pooled Brier moved by < 3e-5. Paired MCEM − plug-in: 0.009069 [0.005665, 0.012423], 5/25 fires (E1 0.009069 [0.005676, 0.012400]).
+- The composite is now valid. MCEM − composite: +0.002307 [0.001076, 0.003440], 5/25 fires better for MCEM. Composite − plug-in: +0.006762 [0.004395, 0.009063], 4/25 fires better for the composite.
+  So the composite sits between plug-in/logistic_cf and persistence, and is worse than plug-in.
+- Conclusions for plug-in, mean-field NLL and MCEM are unchanged. MCEM is still the worst and has no skill over persistence. Plug-in is still ≈ logistic_cf.
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any

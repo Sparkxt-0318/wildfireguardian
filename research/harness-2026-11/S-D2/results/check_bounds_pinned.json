@@ -1,0 +1,144 @@
+{
+ "command": "python check_bounds.py --cv results/cv_part_a_pinned.json --brackets /tmp/claude-0/-home-user-wildfireguardian/714aca3e-92f3-5774-9c7c-0355cdc04536/scratchpad/brackets_v2 --out results/check_bounds_pinned.json",
+ "env": {
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "pandas": "2.2.3",
+  "scikit-learn": "1.5.2",
+  "torch": "2.5.1+cpu",
+  "pinned": true
+ },
+ "results": {
+  "0": {
+   "plugin": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "composite": {
+    "share_at_floor": 0.24,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "meanfield_nll": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "mcem": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   }
+  },
+  "1": {
+   "plugin": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "composite": {
+    "share_at_floor": 0.2,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "meanfield_nll": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "mcem": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   }
+  },
+  "2": {
+   "plugin": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "composite": {
+    "share_at_floor": 0.28,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "meanfield_nll": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "mcem": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   }
+  },
+  "3": {
+   "plugin": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "composite": {
+    "share_at_floor": 0.24,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "meanfield_nll": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "mcem": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   }
+  },
+  "4": {
+   "plugin": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "composite": {
+    "share_at_floor": 0.32,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "meanfield_nll": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   },
+   "mcem": {
+    "share_at_floor": 0.0,
+    "flagged": false,
+    "all_at_floor": false,
+    "verdict": "PASS"
+   }
+  }
+ }
+}
