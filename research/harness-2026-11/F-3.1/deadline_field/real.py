@@ -168,7 +168,8 @@ class PacketModel:
     """Per (graph, packet): blocked start intervals of every edge, wait and issue point, per rule."""
 
     def __init__(self, graph_path, packet_dir, *, H: int | None = None, extra_blocks: dict | None = None,
-                 present_only: bool = False, duration_factor=None, waitable_all: bool = False):
+                 present_only: bool = False, duration_factor=None, waitable_all: bool = False,
+                 waitable_override: dict | None = None):
         """extra_blocks: {router cell: start second} adds a pseudo-phase [start, beyond H) to that cell under BOTH
         rules (pessimistic unknown-support instances); None = the frozen packet exactly."""
         self.raw = json.loads(Path(graph_path).read_text())
@@ -176,6 +177,18 @@ class PacketModel:
         if waitable_all:      # WAITING_SENSITIVITY_RULE.md: field AND checker read the same modified graph
             for n in self.raw["nodes"]:
                 n["waitable"] = True
+        if waitable_override is not None:   # WIDENED_GRAPH_RULE arm (a): explicit waitable set; field AND checker see it
+            if waitable_all:
+                raise ValueError("waitable_all and waitable_override are exclusive")
+            ids = {n["id"] for n in self.raw["nodes"]}
+            unknown = sorted(k for k in waitable_override if k not in ids)
+            bad = sorted(k for k, v in waitable_override.items() if not isinstance(v, bool))
+            if unknown or bad:
+                raise ValueError({"waitable_override_unknown_ids": unknown, "waitable_override_non_bool": bad})
+            for n in self.raw["nodes"]:
+                if n["id"] in waitable_override:
+                    n["waitable"] = waitable_override[n["id"]]
+        self.waitable_override = dict(waitable_override) if waitable_override is not None else None
         self.g = RoadGraph(self.raw)
         self.pk, self.per_cell_law = load_packet(packet_dir, self.g.grid)
         self.H = int(self.pk.horizon) if H is None else H
