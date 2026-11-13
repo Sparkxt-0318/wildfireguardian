@@ -151,7 +151,11 @@ Not verified: byte identity with Geofabrik's published file. download.geofabrik.
 2. the driver command, driver sha and nirops_access.py sha sent before the run; R is read ONLY through nirops_access.py; no direct NIROPS read and no F1–F5;
 3. an access log of every fid and Incident_C;
 4. R-only outputs.
-Post-run: the log, the output hashes and Daniel's audit TSV for the window. Not yet run |
+Post-run: the log, the output hashes and Daniel's audit TSV for the window. Not yet run. 03:08Z updates:
+- condition 1 CHECKED: R_ALLOWLIST.csv @c4d74159 (307fc097…) = R; 6 unique IRWIN IDs; 0 sealed by ID, unit or IRWIN; 0 H; 0 part-a. Building it read F3 (Daniel, already fully exposed per rows 38/45), so no new exposure;
+- nirops_access.py @ab065e85 (08753d96) confirmed; it writes no log, so the driver or builder must log;
+- the driver demo_native_marginals_R.py @e598a840 (f807007b) does no NIROPS read;
+- the R states builder: (B) build_nirops_event.py rejected (its where-filter evaluates every record, and it writes into its workspace); (A) a new build_r_states.py approved with 7 conditions (nirops_access only, logging, no F-files, read-only US2024 grid with a before/after manifest re-hash, a new output dir, a spy-based fixture test, and Hannah's go before running) |
 
 ## Baseline detail (5fa19a2)
 
