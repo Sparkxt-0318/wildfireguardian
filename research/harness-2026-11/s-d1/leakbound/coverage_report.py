@@ -3,7 +3,9 @@
 `newburn_outside_crop` and the row count of each RUN/cache/<fire>.npz; no feature, label or prediction value.
 A shortfall is attributed by re-testing pipeline.Environment.available_at on the pool's events.json window (the only
 reason perimeter_samples skips an interval); any shortfall not explained that way is listed as UNEXPLAINED.
-Separate from run_leakbound_L.py so the verified run script keeps its sha.
+Separate from run_leakbound_L.py so the verified run script keeps its sha. Asserts count in (FOLDS fires) = count used
+(cached fires) and exits non-zero otherwise (verifier row 62 note). The run script does not call pipeline.available():
+it iterates all FOLDS fires directly, and a fire missing from events.json or without states.npz raises, it is not dropped.
 
     python coverage_report.py --run RUN --perimeters WS/data/perimeters --events WS/data/environment/events.json \
         --folds FOLDS.csv --out RUN/COVERAGE.json
@@ -68,8 +70,11 @@ def main():
                perimeter_manifest_sha256=sha(a.perimeters / "PERIMETER_MANIFEST.json"),
                events_json_sha256=sha(a.events), folds_sha256=sha(a.folds), script_sha256=sha(__file__),
                rows=rows)
+    out["count_in_equals_count_used"] = (len(rows) == len(fires) and not missing_cache)
     a.out.write_text(json.dumps(out, indent=1) + "\n")
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, indent=1))
+    if not out["count_in_equals_count_used"]:
+        raise SystemExit(f"COUNT MISMATCH: {len(fires)} fires in, {len(rows)} used; missing: {missing_cache[:10]}")
 
 
 if __name__ == "__main__":
