@@ -1,0 +1,169 @@
+{
+ "what": "waiting-location sensitivity, 1-h panel (WAITING_SENSITIVITY_RULE.md); optimistic field; SENSITIVITY: waiting allowed at every node (not the supplied graph rule)",
+ "supplied_rule": "waiting is allowed only at graph dead-end nodes (as supplied in graph.json; rule undocumented)",
+ "totals": {
+  "cert|no_route->no_route": 1752,
+  "router|no_route->no_route": 1752,
+  "cert|feasible->feasible": 7970,
+  "router|feasible->feasible": 7970,
+  "faults": 0
+ },
+ "caches": [
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "jobs": 1523,
+   "transitions": {
+    "cert|no_route->no_route": 335,
+    "router|no_route->no_route": 335,
+    "cert|feasible->feasible": 1188,
+    "router|feasible->feasible": 1188
+   },
+   "faults": 0,
+   "flip_witness_checks": {},
+   "origins": 86,
+   "origin_deadline_changes": {},
+   "origin_deadline_shift_s": {
+    "cert": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    },
+    "router": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    }
+   }
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "jobs": 1518,
+   "transitions": {
+    "cert|feasible->feasible": 1158,
+    "router|feasible->feasible": 1158,
+    "cert|no_route->no_route": 360,
+    "router|no_route->no_route": 360
+   },
+   "faults": 0,
+   "flip_witness_checks": {},
+   "origins": 85,
+   "origin_deadline_changes": {},
+   "origin_deadline_shift_s": {
+    "cert": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    },
+    "router": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    }
+   }
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "jobs": 1557,
+   "transitions": {
+    "cert|feasible->feasible": 1068,
+    "router|feasible->feasible": 1068,
+    "cert|no_route->no_route": 489,
+    "router|no_route->no_route": 489
+   },
+   "faults": 0,
+   "flip_witness_checks": {},
+   "origins": 85,
+   "origin_deadline_changes": {},
+   "origin_deadline_shift_s": {
+    "cert": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    },
+    "router": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    }
+   }
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "jobs": 1810,
+   "transitions": {
+    "cert|feasible->feasible": 1522,
+    "router|feasible->feasible": 1522,
+    "cert|no_route->no_route": 288,
+    "router|no_route->no_route": 288
+   },
+   "faults": 0,
+   "flip_witness_checks": {},
+   "origins": 92,
+   "origin_deadline_changes": {},
+   "origin_deadline_shift_s": {
+    "cert": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    },
+    "router": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    }
+   }
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "jobs": 1673,
+   "transitions": {
+    "cert|no_route->no_route": 161,
+    "router|no_route->no_route": 161,
+    "cert|feasible->feasible": 1512,
+    "router|feasible->feasible": 1512
+   },
+   "faults": 0,
+   "flip_witness_checks": {},
+   "origins": 91,
+   "origin_deadline_changes": {},
+   "origin_deadline_shift_s": {
+    "cert": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    },
+    "router": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    }
+   }
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "jobs": 1641,
+   "transitions": {
+    "cert|feasible->feasible": 1522,
+    "router|feasible->feasible": 1522,
+    "cert|no_route->no_route": 119,
+    "router|no_route->no_route": 119
+   },
+   "faults": 0,
+   "flip_witness_checks": {},
+   "origins": 91,
+   "origin_deadline_changes": {},
+   "origin_deadline_shift_s": {
+    "cert": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    },
+    "router": {
+     "n": 0,
+     "median_upper": null,
+     "max": null
+    }
+   }
+  }
+ ]
+}

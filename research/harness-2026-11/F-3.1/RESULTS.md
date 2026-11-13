@@ -819,3 +819,36 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
   6b, as expected.
 
 **Not done here.** Acceptance 8 (monotonicity) and the headline rerun on `/2` wait for Nora's pass on v3.7.
+
+## Waiting-location sensitivity, 1-h panel (rule `WAITING_SENSITIVITY_RULE.md`, committed first at 28251ca; runner b472b40; not yet verified)
+
+**Labels.**
+- SENSITIVITY: waiting allowed at every node (not the supplied graph rule).
+- Default: waiting is allowed only at graph dead-end nodes. This is documented as the default by the orchestrator's
+  decision of 13 Nov.
+- Wording (S) for these single-departure job verdicts: "The trip starts at the stated time. Once moving, a stop is
+  allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not
+  allowed at any other node, including the start unless it is itself a dead end. Other departure times are separate
+  results."
+- Field: the optimistic (frozen packet) field. CERT and ROUTER are computed separately. The full checker reads the
+  same modified graph.
+
+**Scope.** The 6 planner caches, 9,722 jobs and 530 origins. Summary: `results/WAITING_SENSITIVITY_1h.json`.
+
+| cache | jobs | origins | CERT feasible→feasible / no_route→no_route | ROUTER (same) | flips | faults | origin deadline changes |
+|---|---|---|---|---|---|---|---|
+| Uiseong 23T01Z | 1,523 | 86 | 1,188 / 335 | 1,188 / 335 | 0 | 0 | 0 |
+| Uiseong 24T09Z | 1,518 | 85 | 1,158 / 360 | 1,158 / 360 | 0 | 0 | 0 |
+| Uiseong 25T17Z | 1,557 | 85 | 1,068 / 489 | 1,068 / 489 | 0 | 0 | 0 |
+| Yeongdeok 25T19Z | 1,810 | 92 | 1,522 / 288 | 1,522 / 288 | 0 | 0 | 0 |
+| Yeongdeok 25T23Z | 1,673 | 91 | 1,512 / 161 | 1,512 / 161 | 0 | 0 | 0 |
+| Yeongdeok 26T08Z | 1,641 | 91 | 1,522 / 119 | 1,522 / 119 | 0 | 0 | 0 |
+
+- **Result.** At 1 h, allowing waiting at every node changes NO job verdict, CERT or ROUTER (0 of 9,722; 0 NO_ROUTE
+  flips), and NO origin deadline (0 of 530). It also produces no faults.
+- **The multi-hour picture differs.** Marcus's F-DYN (c) set has 14/14 NO_ROUTE → ROUTE under all-waitable. That
+  multi-hour sensitivity is reported separately; this table must not be read as covering it.
+- **Multi-hour arm of the rule.** Per the rule, it runs on the headline arm, `no_reentry/2`, once that exists. It has
+  not been run yet.
+- **Cost.** The Yeongdeok caches peak at 11.4–12.2 GB RSS under all-waitable. One run was killed for running out of
+  memory while running alongside other jobs, and was rerun alone.
