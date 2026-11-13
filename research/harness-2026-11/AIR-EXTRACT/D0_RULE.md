@@ -196,3 +196,18 @@ build may start (assessor) under the changes below. D0 stays low priority, behin
 - **New column:** the number of distinct usable site points within 100 km of the place.
 - **D6 (extended):** the solar routine is tested on two dates, one in late March at these latitudes.
 - **D7 (extended):** "landing zone" and "extraction" are forbidden, except in the document's title.
+
+**B2 checked (13 Nov, ~12:55Z): the replay's own wind cannot serve D0.**
+- The KFS_01 forecast record lists its inputs as `weather.wind_eastward_10m` / `weather.wind_northward_10m`: mean wind
+  only, no gusts.
+- The raw weather fields are not in the repository or the release; only the forecast exports are.
+- They cover the export grid only, and registered sites can lie outside it.
+
+So the Open-Meteo fallback applies, within the data-fetch author's budget.
+
+**P-a re-fetch done.** The data-fetch author's exact sequence, run in its own empty directory, returned 116,211 bytes,
+sha256 55f66625… (match). The file is outside the repository.
+
+**D6 reference (a note, not a change of criterion).** No published sunrise/sunset table can be fetched here. The NOAA
+routine is therefore tested against an independent implementation, `astral` 3.2 (PyPI). Its sunrise and sunset must
+agree within 2 minutes on two dates: Yeongdeok 2025-03-25 and Seoul 2025-06-21.
