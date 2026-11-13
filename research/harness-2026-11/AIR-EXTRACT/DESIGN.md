@@ -46,9 +46,21 @@ checked route: kriged_mean, firms_early and envelope.
   has a route.
 - It is **never** reported as a bare "no route".
 
+**Not evaluated: start point on ground burned before the start** (Iris, 13 Nov, on the `/2` headline at 54bcb96e).
+These places come first and are kept separate from the set.
+- **Label:** "start point on ground the model shows as burned before this start time: not evaluated", with the
+  line "Under the no-re-entry rule nothing is computed from this point. This says nothing about whether people are
+  there or whether roads are passable."
+- **Why.** Under `no_reentry/2` the origin's own cell is closed, so nothing was searched. These are 1,074 of the 1,322
+  rows that lost their route going from `/1` to `/2`.
+- **Excluded from:** the no-road-escape set, the early-action list (§2) and the air candidates (§3).
+- **Their own count,** per timing variant, with "inside" and "touches" reported separately.
+
 **Cause label**, exactly one per place, in this precedence. Agency wording is Iris's, and every label says
 "modelled" because these are statements about a fire reconstruction, not observations.
 1. **"origin already inside the modelled fire area at that departure time"** (internally: at-issue).
+1b. **"every road exit crosses ground the model shows as already burned"**, flagged **"depends on the no-re-entry
+    rule"**. These places stay in the set (Iris).
 2. **"every road exit in the mapped area is blocked by modelled fire"** (internally: fire-limited).
 3. **"undetermined: map window too small"** (internally: road-limited). There is no checked route inside the loaded
    graph, but a route off the clipped graph is not excluded. These places are **kept out of every count of
@@ -93,6 +105,9 @@ checked road route, per timing variant.
   - the packet version (MANIFEST_v3_7 `no_reentry/2`, with its sha256).
 - **Not built until Nora passes `no_reentry/2`.**
 - **Purpose.** Staff can prioritise early warning and assisted transport *before* the roads close.
+- **Scope.** The list is for places still ahead of the fire. "Not evaluated" places (start point on ground burned
+  before the start) are never on it. Without this split it would be led by places the modelled fire has already
+  passed (Iris).
 
 **Columns:**
 - the place;
