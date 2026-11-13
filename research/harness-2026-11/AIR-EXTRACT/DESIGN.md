@@ -154,7 +154,9 @@ needed.
   lists its feasible grid times explicitly.
 - **Horizon-censored places** (route at every grid time up to H): "route at every computed time to H". Never a time.
 - **Header of every list:**
-  - checker: `deadline_field/headline.py` @ 54bcb96e + the kit's `check_route`;
+  - checker: `deadline_field/headline.py` @ 54bcb96e + kit `routing-package/routing/independent.py::check_route`, file
+    sha256 41fcfee25b980b080287025e2b883e5f0f78d7d21580a5c1633375cf1e64ca2a (last changed at 100e821b; identical on
+    Main and on the run branch);
   - packets: MANIFEST_v3_7 `no_reentry/2`, sha256 7c178267…;
   - numpy 1.26.4.
 - **Spotting:** under a clamped isotropic spotting dilation of 500–2,000 m (ledger row 77), no place's leave-by gets
