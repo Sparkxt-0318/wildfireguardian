@@ -408,18 +408,20 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
   - **After** the freeze nothing changes.
   - The decision is recorded whatever its direction.
 
-## 7. Power (provisional: computed from A1's committed `derive/POWER.json` per-fire R differences)
-- **Method.** As in A1 §6.3, R's 6 fires are resampled as the fire population, with entry-weighted pooled ΔBrier and a whole-fire percentile bootstrap. Power is the share of simulated cohorts whose 95% interval lies below 0.
+## 7. Power (computed from A1's committed `derive/POWER.json` per-fire R differences)
+- **Method.** As in A1 §6.3, R's 6 fires are resampled as the fire population, with entry-weighted pooled ΔBrier and a whole-fire percentile bootstrap (2,000 cohorts × 2,000 draws). Power is the share of simulated cohorts whose 95% interval lies below 0.
 - **Comparison used.** The available proxy is `d4_wind_seed0` vs `persistence`; the eventual candidate's effect is unknown.
-- **Scenarios.** "Half" shifts every per-fire difference by half the R pooled effect toward 0. The code is in the scratch run, to be committed as `clean_replication/power_cr1.py` before the freeze.
+- **Scenarios.** "Half" shifts every per-fire difference by half the R pooled effect toward 0, keeping the between-fire spread (the rule in A1's `derive/power.py`).
+- **Code and output (committed).** `clean_replication/power_cr1.py`, seed 20261113. It reads only `derive/POWER.json`, whose sha256 it records, and writes `clean_replication/POWER_CR1.json`. No fire data is read.
 
 | effect | N = 20 | N = 30 | N = 45 | N = 60 | N = 90 |
 |---|---|---|---|---|---|
-| R effect (−2.0e-4) | 0.81 | 0.94 | – | – | – |
-| half of the R effect | 0.30 | 0.42 | 0.60 | 0.67 | 0.87 |
+| R effect (−2.0e-4) | 0.81 | 0.92 | 0.99 | 1.00 | 1.00 |
+| half of the R effect | 0.33 | 0.43 | 0.59 | 0.72 | 0.87 |
 
 - vs `dilation_8h`: power 1.0 in every case.
-- vs `logistic`: power 0, since the R effect has the wrong sign. A1's own finding stands.
+- vs `logistic`: power 0, since the R effect has the wrong sign (+1.9e-4). A1's own finding stands.
+- The committed figures replace the provisional scratch-run table (previously 0.81 and 0.94 at the R effect; 0.30, 0.42, 0.60, 0.67 and 0.87 at half). Differences are Monte Carlo noise of about ±0.02–0.05 and change no conclusion.
 
 **Consequence for §5.** N_target = 90, decided by the owner on 12 Nov 2026. Achieved power is about 0.87 at half the R effect.
 - The resampling of only 6 fires makes all of these figures rough.
@@ -470,7 +472,7 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 | snapshot and closing dates | owner | **recomputed in draft 6** for the 2027-01-01 start |
 | Magstadt-equivalent series builder | Daniel | rehearsal on exposed 2020–24 fires, using IR files already held (FTP paths 404, row 49) |
 | buffer B for the same-ground rule | Iris / Hannah | **B = 4 km, confirmed by Iris** (18:19Z) |
-| power at the R effect and at half of it | Victor | provisional table in §7; `power_cr1.py` committed before the freeze |
+| power at the R effect and at half of it | Victor | **done**: `power_cr1.py` and `POWER_CR1.json` committed; §7 table updated from the committed run |
 | second custodian | orchestrator | Nora |
 | access protocol review | Hannah | draft 9 checked: **PASS WITH NOTES** (ledger row 53), subject to the gate finding |
 | Tier-1 scope vs the blind test (US 2026) and `fresh_holdout` (US 2025) | owner | **decided** (12 Nov): no 2026 in any tier; Tier 2 from 2027-01-01 |

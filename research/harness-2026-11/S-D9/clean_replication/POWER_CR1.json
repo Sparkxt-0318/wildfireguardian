@@ -1,0 +1,70 @@
+{
+ "bootstrap_draws": 2000,
+ "candidate": "d4_wind_seed0",
+ "cohorts": 2000,
+ "comparisons": {
+  "dilation_8h": {
+   "half_r_effect": {
+    "20": 1.0,
+    "30": 1.0,
+    "45": 1.0,
+    "60": 1.0,
+    "90": 1.0
+   },
+   "r_effect": {
+    "20": 1.0,
+    "30": 1.0,
+    "45": 1.0,
+    "60": 1.0,
+    "90": 1.0
+   },
+   "r_pooled_difference": -0.3529773169757309
+  },
+  "logistic": {
+   "half_r_effect": {
+    "20": 0.0005,
+    "30": 0.0,
+    "45": 0.0,
+    "60": 0.0,
+    "90": 0.0
+   },
+   "r_effect": {
+    "20": 0.0,
+    "30": 0.0,
+    "45": 0.0,
+    "60": 0.0,
+    "90": 0.0
+   },
+   "r_pooled_difference": 0.00019449878279112793
+  },
+  "persistence": {
+   "half_r_effect": {
+    "20": 0.3265,
+    "30": 0.431,
+    "45": 0.588,
+    "60": 0.716,
+    "90": 0.868
+   },
+   "r_effect": {
+    "20": 0.808,
+    "30": 0.9225,
+    "45": 0.989,
+    "60": 0.9985,
+    "90": 0.9995
+   },
+   "r_pooled_difference": -0.00019987901917182263
+  }
+ },
+ "method": "A1 \u00a76.3: resample R fires as the population; pooled entry-weighted \u0394Brier; whole-fire percentile bootstrap; power = share of cohorts with 95% upper bound < 0",
+ "n_grid": [
+  20,
+  30,
+  45,
+  60,
+  90
+ ],
+ "r_fires": 6,
+ "seed": 20261113,
+ "source": "POWER.json",
+ "source_sha256": "bc0778f19363cc6043be4affe974e09ab70a454c32e08d52fcdde8a13438190f"
+}
