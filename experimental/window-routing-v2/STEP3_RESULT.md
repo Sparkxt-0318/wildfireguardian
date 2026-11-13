@@ -1,15 +1,20 @@
 # Step 3 result: caps enforced promptly, Z on deterministic work budgets
 
-> **Known limit, stated in every Step 3 report (Iris, adopted by the orchestrator 23:43 UTC).** Work-unit counts are
-> identical on any machine. **Outcomes are deterministic only on hosts within about 1.9× of this reference host's
-> speed.** Beyond that the Z watchdog (16 s) can fire before Z's work budget does. The missions at risk are **Yeongdeok
-> 0325T19 FD1 and FX2**, whose budget-capped Z takes about 8.5 s here; FD1 would lose the LO stage that proves its
-> refusal. Each run's host-speed figure (Z sweep units per second) is recorded below. STAGE_CAP_WATCHDOG results are
-> reported apart from work-budget cuts. The fix is a separate later step (PLAN, "Step 3c").
+> **Known limit, stated in every Step 3 report (Iris, adopted by the orchestrator 23:43 UTC; margin corrected per Mira,
+> ledger 120).** Work-unit counts are identical on any machine. **Outcomes are deterministic only on hosts within about
+> 1.65× of this reference host's speed.** Beyond that, the Z watchdog (16 s) can fire before Z's work budget does. The
+> margin is the smallest across everything run here; per set:
+> - **F-DYN set: 1.66×**, the smallest. Yeongdeok 0325T23 …166 kriged_mean, budget-capped Z 9.65 s; firms_early 8.82 s
+>   (1.82×).
+> - **1-hour panel: 1.84×.** Yeongdeok 0325T19 FD1, budget-capped Z 8.60–8.68 s, and FX2, 8.46–8.49 s. FD1 would lose
+>   the LO stage that proves its refusal.
+>
+> Each run's host-speed figure (Z sweep units per second) is recorded below. STAGE_CAP_WATCHDOG results are reported
+> apart from work-budget cuts. The fix is a separate later step (PLAN, "Step 3c").
 
 Kit `kit-v2-step3e`, branch `claude/priya-kit-v2-step3`, cut from the Step 1 tip with no Step 2 code.
 Budgets: setup 2^12 and sweep 2^28, both extrapolated (STEP3_ACCEPTANCE, "Recalibration after the B2 correction").
-**Mira has not verified any of this yet.**
+**Verified by Mira:** ledger 115, PASS WITH NOTES at 629ef31 (code, tests, unit determinism on a second machine, FL2, and the panel summary recomputed from the rows); ledger 117, G2/G2b records plus her own spot check of her two FL2 runs. The F-DYN every-stage-stop rows were produced on my host; Mira checked the committed summary against those rows (ledger 120) but did not re-run them.
 
 ## Tests (all on kit-v2-step3e)
 
@@ -66,7 +71,8 @@ The figure is Z sweep units per second of Z sweep wall, taken from each V2 run's
 - On this reference host, the at-risk missions ran at:
   - yeongdeok_2025__20250325T190000Z_FD1: 55.9, 53.7 M units/s;
   - yeongdeok_2025__20250325T190000Z_FX2: 56.0, 56.8 M units/s;
-- A host whose figure on these two missions is below about 1/1.9 of these values is outside the stated margin.
+- A host whose figure on these two missions is below about 1/1.84 of these values is outside the 1-hour panel's
+  margin. The F-DYN set's margin is smaller: 1.66× (Yeongdeok …166).
 - A fixed host-speed microbenchmark is part of the later Step 3c (Iris's preflight).
 
 ## Mira's verification (ledger 115, PASS WITH NOTES at 629ef31)
@@ -86,7 +92,8 @@ The figure is Z sweep units per second of Z sweep wall, taken from each V2 run's
 **N2: slower-machine margin, stated.** Z no longer has a 6 s wall. Its only wall limit is the watchdog at
 max(1.5 × 6, 6 + 10) = **16 s**, and a watchdog firing ends the job's search by fail-closed design. The budget-capped
 Yeongdeok 0325T19 FD1/FX2 Z runs took about 8.5 s here.
-- **On a machine about 1.9× slower than this host, those jobs would end in `STAGE_CAP_WATCHDOG`**, and FD1 would never
+- **On a machine about 1.84× slower than this host, those jobs would end in `STAGE_CAP_WATCHDOG`** (and the F-DYN
+  Yeongdeok …166 jobs from about 1.66×; see the known-limit statement), and FD1 would never
   reach the LO stage that now proves its refusal.
 - **Unit determinism holds on any machine; outcome determinism holds only inside that wall margin.**
 - (Proposal, not adopted: derive Z's watchdog threshold from the remaining job time rather than the nominal 6 s, since Z
@@ -103,7 +110,9 @@ Yeongdeok 0325T19 FD1/FX2 Z runs took about 8.5 s here.
 - **Setup:** the 12 F-DYN requests, 300 s, `--mode plain`, controller guard and request `rss_limit_mb` both 12,288 MiB
   (the A1 settings), kit-v2-step3e, 2026-11-12T23:37:49Z onward, alone on the host, no restart. Rows are in
   `results/step3/FDYN_STAGE_STOP_ROWS.jsonl`.
-- **Result: 32 stages checked, 0 violations, 0 STAGE_CAP_WATCHDOG.**
+- **Result: 26 stages checked against their caps (12 Z, 6 LO, 2 LO2, 6 HI), 0 violations, 0 STAGE_CAP_WATCHDOG.**
+  6 EA builds are reported with their elapsed time but **not** checked against a cap (`stage_stop_check.py` has no EA test).
+- Tool note (Mira, ledger 120, not blocking): the Z sweep overshoot is allowed up to a fixed 120,000 units, not the job's own E + 1. It holds here (largest overshoot 72,619 < E + 1 = 111,925); a later edit should read E + 1 from the record.
 - **Uiseong, 4 requests:**
   - Z is cut **in setup** with `WORK_BUDGET_SETUP` at 4,097 setup units, after 7.0–7.4 s (setup used to take 20–23 s).
   - LO stops 0.20–0.56 s past its 112–114 s cap, and HI 0.10–0.31 s past its 87–89 s cap, both
