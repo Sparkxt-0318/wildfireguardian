@@ -62,7 +62,7 @@
 | refit receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, d2_nll_rebuilt, d2_bracket_rebuilt | **PENDING** |
 | rate-mixture form | **PENDING** |
 | part-c manifests | **PENDING** |
-| item 14 weather outcome (AlderCreek T/wind) | **PASS, UNVERIFIED** until Hannah's row. Daniel, `data-fetch-3/weather/ITEM14_ALDERCREEK.md` at 24d20770: the three model-read channels (2 m temperature, 10 m wind east/north), the node-index raster and the band table (2,139 hours) are byte-identical to the owner's files, so median and p95 abs. difference are 0 (thresholds: median ≤ 1 K or 1 m/s, p95 ≤ 3 K or 3 m/s). Covers only those channels; RH, precipitation and ERA5 are not rebuilt |
+| item 14 weather outcome (AlderCreek T/wind) | **PASS WITH NOTES** (Hannah, ledger row 72, ff7857b2: full sha256 match; not a file copy by inode, mtime and request log; she does not hold the files, and a content copy by another path is not excluded). Daniel, `data-fetch-3/weather/ITEM14_ALDERCREEK.md` at 24d20770: the three model-read channels (2 m temperature, 10 m wind east/north), the node-index raster and the band table (2,139 hours) are byte-identical to the owner's files, so median and p95 abs. difference are 0 (thresholds: median ≤ 1 K or 1 m/s, p95 ≤ 3 K or 3 m/s). Covers only those channels; RH, precipitation and ERA5 are not rebuilt |
 
 **Control-run evidence.** Owen verified Marcus's unmodified-rollout control on R (owen-smoke-2, rows 25 and 33).
 - All 273 rebuilt cases are identical.
@@ -143,6 +143,7 @@ Part c is not opened until **all** of the following hold:
 
 7. **No-touch declaration at opening.** Every worker session declares that it will not build, read or derive part-b or part-c labels or perimeters until the decision is recorded. A breach moves the affected fires to an **"exposed" stratum**, which is reported separately.
 8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. The script is `verification/access_audit.py` at commit **8156141c** on claude/verification-ledger, sha256 `e18338fb190dbddcb58bd4ae0c9374365ead6d59343d389540ad384230f69bf8`. Nora passed it (her row 52, 8e1e09c6), and it is Hannah's ledger row 59 (f52f2ea9). Earlier heads (4844e7fb, 72a07bf1, a4094fa7) are superseded and are not cited; a4094fa7 had a GOFER pattern regression.
+   - **Roster closed.** The pre-opening roll-out covers 16 sessions in Hannah's ledger rows 58–71 (closure noted at row 71, 999aaa57): rows 58, 60, 62, 63, 64, 66, 67, 69, 70 and 71. At opening, the custodian re-runs item 8 for any session not on that roster and for any transcript that has grown since its row.
 
 The same conditions apply to opening part b. This text matches Hannah's `verification/CUSTODY_NOTE_A1.md`.
 
