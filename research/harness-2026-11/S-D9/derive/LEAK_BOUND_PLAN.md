@@ -84,3 +84,82 @@ Proposed by the plan author after the refit author's feasibility note. **Nothing
    - the code-first rule: the implementation, the fold-assignment hash and a smoke test on the committed fixture are committed before any fit;
    - the folds, entries, cutoff (t0), score, bootstrap (B = 2,000, seed 20261030), "material" threshold and consequences.
 4. **Where it runs.** In the executor's container, which holds the pinned part-a environment, as a tracked task from the refit author's pinned commit. The custodian's `checked_utc` rule is applied before the pin check. The independent verifier checks the run.
+
+## Revision 3 (2026-11-13, implementation details; before any fit)
+Revision 2 is kept as written above. It holds the timing change and the base-model clarification, and the
+orchestrator approved it at 11:37 UTC. This revision fixes only the implementation details revisions 1–2 left
+implicit. **Nothing has been fitted.**
+
+**Approvals.**
+- Approved by the plan author, 2026-11-13.
+- Revision 2 approved by the orchestrator, 11:37Z.
+- The independent verifier's reading of this revision is recorded below before any fit.
+
+1. **Samples.** Every part-a interval ≤ 48 h comes from unmodified `pipeline.perimeter_samples(event, perimeters,
+   env, crop=False)`. It is then cropped by unmodified `pipeline.cropped` (`crop_box(initial, 10)`), the A1 §3.1 crop,
+   for training and scoring alike. New-burn cells outside the crop are counted and reported.
+2. **Base features.** `pipeline.logistic_features` (21 columns), unchanged. Rows are `score_mask & all-finite
+   environment & all-finite features`, as in `pipeline.command_baselines`.
+3. **Forbidden features.**
+   - F1 = log1p(max(0, last_utc − cutoff) / 24 h), with cutoff = the interval's start survey time, exact to the second.
+   - F2 = log1p(surveys / max(1, (last_utc − first_utc) / 24 h)).
+   - Source: PARTA_TIMES.csv (metadata via nirops_access ab065e85; check file at 378d4c95, 0 differences against
+     states.npz).
+   - Appended as extra columns: L adds F1; L2 adds F1 and F2.
+4. **Training subsample: STATED DEVIATION.**
+   - One uniform per training entry: `keep = (y == 1) | (rng.random(N) < 0.05)`, `rng = np.random.default_rng(0)`.
+   - It is drawn ONCE over all part-a entries, concatenated by fire id (string sort), then interval order, then
+     row-major cell order. The same keep-vector is reused for every fold and every arm, so base and augmented are
+     exactly paired, which rev 1 item 3 requires.
+   - Its sha256 is written to the output.
+   - `command_baselines` instead draws sequentially over its own training list. This is a deviation, accepted by the
+     plan author.
+   - Weights are 1 for positives and 20 for kept negatives.
+5. **Fit, per fold k (train = the 4 other folds).**
+   - `StandardScaler().fit(x, sample_weight=w)`, then `LogisticRegression(max_iter=3000, random_state=0)` (default
+     C = 1), with the same weights.
+   - `random_state=0` equals `command_baselines`' `--seed` default (0); it is not a new choice.
+   - Base, L and L2 differ only in their columns.
+   - Every output row is labelled "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1
+     logistic_rebuilt object" (revision 2 item 2).
+6. **Scoring, per held-out fold.**
+   - Every masked cell of the held-out fires' cropped intervals is scored, unsubsampled.
+   - **4 km band** = Euclidean distance between 375 m cell centres to the nearest initial cell ≤ 4000 m, computed on
+     the cropped grid. The full cropped domain is secondary.
+   - **STATED DEVIATION: the crop truncates the band.** The crop margin is 10 cells = 3.75 km beyond the initial
+     bounding box, so wherever the crop binds, the 3.75–4 km shell is not scored.
+   - Reported beside the "material" result, overall and per fire: the share of the UNCROPPED band cells (score_mask,
+     distance computed on the uncropped grid ≤ 4000 m) that fall outside the crop.
+7. **Statistics.**
+   - Pooled out-of-fold Brier, base vs augmented, per arm, in the band (primary) and the full domain.
+   - ΔBrier = augmented − base.
+   - 95% interval = the 2.5–97.5 percentile of a whole-fire bootstrap. It resamples, with replacement, from the union
+     of held-out fires (all 490), with base and augmented paired per fire: B = 2,000, `np.random.default_rng(20261030)`.
+     Each resample gives ΔBrier = Σ SSE_aug − Σ SSE_base over Σ n.
+   - **Material:** rev 1, unchanged; arm L in the band. L2 is secondary.
+   - Also reported, with no bearing on the label:
+     - the relative change;
+     - per-fire ΔBrier quantiles;
+     - the [0, 0.1) calibration gap (mean p − mean y), base vs augmented;
+     - the F1 coefficient per fold (standardised and raw).
+8. **Smoke test: STATED DEVIATION from revision 2 item 3.**
+   - The committed fixture has no perimeters and no baseline terrain, so the extract stage cannot run on it.
+   - Before any fit, the following are committed and run:
+     (a) synthetic unit tests and a synthetic end-to-end test (fake per-fire caches) of the fit, score, report, resume
+         and stop paths;
+     (b) an extract-only smoke on 2 real part-a fires (`--limit 2`, no fit) in the executor's container. It reports
+         intervals, cells, seconds, cache size and peak RSS. No values from inside the cache are read.
+9. **Execution.**
+   - The run takes place in the executor's container, from the refit author's pinned commit. The executor runs the
+     exact command verbatim and changes no code.
+   - Inputs:
+     - the pinned refit venv, with `check_refit_env.py` ok;
+     - part-a pins f70e52b0, after the checked_utc rule;
+     - pool perimeters 982eb71c.
+   - **Checkpointed.** Per-fire extraction caches and per-fold models and aggregates are written as they finish. The
+     identical command resumes and skips completed work.
+   - `--stop-at 2026-11-13T23:30:00Z`: if the run is not finished by then, it stops cleanly (exit 3, STOPPED.json),
+     and the partial state is reported as NOT COMPLETE (no result). This keeps the 00:12Z day-2 weather launch clear.
+   - Outputs: `derive/LEAK_BOUND.json` and `.md`, with per-fire aggregates only; no cell-level data is committed.
+
+**Independent verifier's reading of revision 3:** _pending; recorded here before any fit_.
