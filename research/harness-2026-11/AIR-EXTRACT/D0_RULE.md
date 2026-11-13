@@ -211,3 +211,15 @@ sha256 55f66625… (match). The file is outside the repository.
 **D6 reference (a note, not a change of criterion).** No published sunrise/sunset table can be fetched here. The NOAA
 routine is therefore tested against an independent implementation, `astral` 3.2 (PyPI). Its sunrise and sunset must
 agree within 2 minutes on two dates: Yeongdeok 2025-03-25 and Seoul 2025-06-21.
+
+**Wind gate in (13 Nov, ~12:52Z).**
+- **Fetch:** `fetch_wind_openmeteo.py` → 74 locations (place points + nearest sites) = **74 weighted calls**, under the
+  1,500 ceiling, with no 429. The ledger is `results/D0_WIND_LEDGER.json`; the response sha256 is 97ffba67… (kept
+  outside the repository). Gusts are present at every point.
+- **Build:** D1–D8 PASS. The "partial" label is removed; gates evaluated: daylight and wind.
+- **Reading, stated with the counts:**
+  - Every wind exclusion comes from the **gust spread** (gust − mean > 15 kt), not the mean.
+  - The reanalysis mean never exceeds 5.3 m/s, and its gusts reach 13.8 m/s.
+  - That is far below the sourced observation of about 27 m/s gusts on 25 Mar. This kilometre-scale reanalysis
+    understates that day's wind, so its wind gate errs towards "not excluded". The documented observation stays beside
+    the column, not as a gate.

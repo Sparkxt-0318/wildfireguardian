@@ -3,7 +3,7 @@
  "rule": "D0_RULE.md (+ amendments 1-2)",
  "staff_label": "Staff and agency use only. Not resident-facing.",
  "absence_line": "one fire, March 2025, that day's wind. A place not on this list has not been shown to have a road escape.",
- "partial": "partial: daylight gate only",
+ "partial": null,
  "register": {
   "identity": "data.go.kr 15069465, 산림청 산림항공본부, licence unrestricted, base date 2025-10-22 (this release pinned; annual updates, next 2027-07-31); custody ledger row 88",
   "base_date_note": "The register's base date (2025-10-22) is after the March 2025 fires. These rows describe sites registered as of that date, not sites known to exist at the replay time.",
@@ -18,34 +18,35 @@
   "distinct_usable_points": 500
  },
  "boundaries": "OpenStreetMap administrative boundaries, snapshot 2025-01-01 (admin_level=6); ODbL",
- "wind_source": null,
+ "wind_source": "Open-Meteo historical archive (reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment)",
  "gates_evaluated": [
-  "daylight"
+  "daylight",
+  "wind"
  ],
  "summary_counts": {
   "main_list": {
    "rows": 166,
    "excluded_night": 76,
-   "excluded_wind": 0,
-   "excluded_any": 76,
-   "not_excluded": 90
+   "excluded_wind": 12,
+   "excluded_any": 86,
+   "not_excluded": 80
   },
   "some_variants_only": {
    "rows": 5,
    "excluded_night": 1,
-   "excluded_wind": 0,
-   "excluded_any": 1,
-   "not_excluded": 4
+   "excluded_wind": 3,
+   "excluded_any": 3,
+   "not_excluded": 2
   },
   "mixed_not_evaluated": {
    "rows": 16,
    "excluded_night": 10,
-   "excluded_wind": 0,
-   "excluded_any": 10,
-   "not_excluded": 6
+   "excluded_wind": 4,
+   "excluded_any": 12,
+   "not_excluded": 4
   }
  },
- "summary_note": "not a finding until the wind gate is in (assessor); hypothesis: most rows excluded",
+ "summary_note": "hypothesis (assessor): most rows excluded; these counts are the finding",
  "sites_outside_stated_sigungu": 11,
  "d6_solar_test": [
   {
@@ -88,7 +89,8 @@
  "inputs_sha256": {
   "csv": "55f666251b5e803ad2fd92eaaf1a8518200045038dc03838b0d76f73b6137931",
   "osm": "3427c103c465f8f6fb5b9542fafcf71883d37c187912f7c430d54a756bffb8e7",
-  "list": "d1b17516f745f4e2b21b7099752812ba665b8b005997deeb6a43731b4a92532e"
+  "list": "d1b17516f745f4e2b21b7099752812ba665b8b005997deeb6a43731b4a92532e",
+  "wind": "97ffba67a6eab1762406e3992fce909af90bfcf6fc5ffd15db6d5cd7dd948932"
  },
  "tables": {
   "main_list": [
@@ -127,9 +129,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -171,9 +182,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -215,9 +235,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.02,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -259,9 +288,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -303,9 +341,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -347,9 +394,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -391,9 +447,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -435,9 +500,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.02,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -479,9 +553,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -523,9 +606,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.01,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -567,9 +659,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -611,9 +712,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 250
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T05:00",
+     "mean_ms": 2.47,
+     "gust_ms": 7.0,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -655,9 +765,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 250
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T05:00",
+     "mean_ms": 2.43,
+     "gust_ms": 7.0,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -699,9 +818,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -743,9 +871,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.47,
+     "gust_ms": 3.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -787,9 +924,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -831,9 +977,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 250
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T05:00",
+     "mean_ms": 2.77,
+     "gust_ms": 7.2,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -875,9 +1030,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -919,9 +1083,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -963,9 +1136,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1007,9 +1189,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.02,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1051,9 +1242,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1095,9 +1295,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1139,9 +1348,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1183,9 +1401,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.02,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1227,9 +1454,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1271,9 +1507,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1315,9 +1560,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1359,9 +1613,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1403,9 +1666,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.02,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1447,9 +1719,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1491,9 +1772,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.01,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1535,9 +1825,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1579,9 +1878,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 70
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T08:00",
+     "mean_ms": 4.53,
+     "gust_ms": 10.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1623,9 +1931,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 70
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T08:00",
+     "mean_ms": 4.53,
+     "gust_ms": 10.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1667,9 +1984,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1711,9 +2037,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.47,
+     "gust_ms": 3.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1755,9 +2090,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1799,9 +2143,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 70
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T08:00",
+     "mean_ms": 4.09,
+     "gust_ms": 10.0,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1843,9 +2196,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1887,9 +2249,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1931,9 +2302,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -1975,9 +2355,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.02,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2019,9 +2408,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.7,
+     "gust_ms": 5.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2063,8 +2461,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T12:00",
+     "mean_ms": 4.5,
+     "gust_ms": 9.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -2107,9 +2514,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 40
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2151,9 +2567,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 40
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2195,9 +2620,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.07,
+     "gust_ms": 13.0,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2239,9 +2673,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2283,9 +2726,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2327,9 +2779,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2371,9 +2832,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2415,9 +2885,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.45,
+     "gust_ms": 12.2,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2459,9 +2938,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2503,8 +2991,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T13:00",
+     "mean_ms": 2.65,
+     "gust_ms": 5.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -2547,9 +3044,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2591,9 +3097,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.54,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2635,9 +3150,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2679,8 +3203,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T13:00",
+     "mean_ms": 3.37,
+     "gust_ms": 7.7,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -2723,9 +3256,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2767,8 +3309,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T12:00",
+     "mean_ms": 4.5,
+     "gust_ms": 9.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -2811,9 +3362,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 40
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2855,9 +3415,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 40
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2899,9 +3468,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.07,
+     "gust_ms": 13.0,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2943,9 +3521,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -2987,9 +3574,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3031,9 +3627,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3075,9 +3680,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3119,9 +3733,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.45,
+     "gust_ms": 12.2,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3163,9 +3786,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3207,8 +3839,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T16:00",
+     "mean_ms": 1.79,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3251,9 +3892,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3295,9 +3945,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.54,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3339,9 +3998,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 4.39,
+     "gust_ms": 11.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3383,8 +4051,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T16:00",
+     "mean_ms": 2.69,
+     "gust_ms": 6.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3427,9 +4104,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3470,8 +4156,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3513,8 +4208,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3556,8 +4260,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3599,8 +4312,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3642,9 +4364,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 733
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T21:00",
+     "mean_ms": 0.91,
+     "gust_ms": 3.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3685,8 +4416,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T21:00",
+     "mean_ms": 0.91,
+     "gust_ms": 3.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3728,8 +4468,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3771,9 +4520,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 733
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T21:00",
+     "mean_ms": 0.91,
+     "gust_ms": 3.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -3814,8 +4572,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3857,8 +4624,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3900,8 +4676,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3944,8 +4729,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -3987,8 +4781,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4031,8 +4834,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4075,8 +4887,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4119,8 +4940,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.5,
+     "gust_ms": 5.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4163,8 +4993,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.95,
+     "gust_ms": 6.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4207,8 +5046,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.95,
+     "gust_ms": 6.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4251,8 +5099,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.95,
+     "gust_ms": 6.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4295,8 +5152,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.5,
+     "gust_ms": 5.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4338,8 +5204,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T21:00",
+     "mean_ms": 1.0,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4381,8 +5256,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4424,8 +5308,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4467,8 +5360,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4510,8 +5412,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 2.4,
+     "gust_ms": 6.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4553,8 +5464,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.1,
+     "gust_ms": 7.2,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4596,8 +5516,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4639,8 +5568,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4682,8 +5620,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4725,8 +5672,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4768,8 +5724,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4811,8 +5776,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4855,8 +5829,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4898,8 +5881,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4941,8 +5933,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -4984,8 +5985,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5027,8 +6037,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5070,8 +6089,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5113,9 +6141,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 553
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T00:00",
+     "mean_ms": 1.19,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -5156,8 +6193,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T21:00",
+     "mean_ms": 0.91,
+     "gust_ms": 3.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5199,8 +6245,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5242,9 +6297,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 553
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T00:00",
+     "mean_ms": 1.19,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -5285,8 +6349,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5328,8 +6401,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5371,8 +6453,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5415,8 +6506,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5458,8 +6558,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5502,8 +6611,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5546,8 +6664,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5590,8 +6717,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.5,
+     "gust_ms": 5.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5634,8 +6770,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.95,
+     "gust_ms": 6.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5678,8 +6823,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.95,
+     "gust_ms": 6.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5722,8 +6876,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.95,
+     "gust_ms": 6.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5766,8 +6929,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 2.5,
+     "gust_ms": 5.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5809,8 +6981,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T21:00",
+     "mean_ms": 1.0,
+     "gust_ms": 4.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5852,8 +7033,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5895,8 +7085,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5938,8 +7137,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -5981,8 +7189,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 2.4,
+     "gust_ms": 6.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6024,8 +7241,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.1,
+     "gust_ms": 7.2,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6067,8 +7293,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6110,8 +7345,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6153,8 +7397,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6196,8 +7449,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6239,8 +7501,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6282,8 +7553,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6326,8 +7606,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6369,8 +7658,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T18:00",
+     "mean_ms": 3.73,
+     "gust_ms": 8.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6412,9 +7710,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 700
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T22:00",
+     "mean_ms": 3.37,
+     "gust_ms": 7.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6455,8 +7762,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.97,
+     "gust_ms": 10.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6498,8 +7814,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.42,
+     "gust_ms": 10.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6541,9 +7866,18 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "excluded (night)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.0,
+     "gust_ms": 11.5,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (night and wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6584,9 +7918,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 700
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T22:00",
+     "mean_ms": 3.37,
+     "gust_ms": 7.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6627,8 +7970,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.97,
+     "gust_ms": 10.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6670,8 +8022,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.42,
+     "gust_ms": 10.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -6713,9 +8074,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 430
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T02:00",
+     "mean_ms": 3.61,
+     "gust_ms": 9.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6756,9 +8126,18 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "excluded (night)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.0,
+     "gust_ms": 11.5,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (night and wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6799,9 +8178,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 490
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T01:00",
+     "mean_ms": 2.49,
+     "gust_ms": 6.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6842,9 +8230,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 640
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T23:00",
+     "mean_ms": 2.95,
+     "gust_ms": 8.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6885,9 +8282,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 430
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T02:00",
+     "mean_ms": 3.61,
+     "gust_ms": 9.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6928,9 +8334,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 490
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T01:00",
+     "mean_ms": 2.49,
+     "gust_ms": 6.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -6971,9 +8386,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 640
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T23:00",
+     "mean_ms": 2.95,
+     "gust_ms": 8.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7014,9 +8438,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 430
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T02:00",
+     "mean_ms": 3.61,
+     "gust_ms": 9.1,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7057,9 +8490,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 490
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T01:00",
+     "mean_ms": 2.49,
+     "gust_ms": 6.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7100,9 +8542,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 100
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T08:00",
+     "mean_ms": 5.33,
+     "gust_ms": 12.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7143,9 +8594,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 100
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T08:00",
+     "mean_ms": 4.54,
+     "gust_ms": 11.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7186,9 +8646,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 100
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T08:00",
+     "mean_ms": 4.54,
+     "gust_ms": 11.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7229,9 +8698,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 100
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T08:00",
+     "mean_ms": 5.33,
+     "gust_ms": 12.9,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7272,9 +8750,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 100
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T08:00",
+     "mean_ms": 4.54,
+     "gust_ms": 11.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7315,9 +8802,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 100
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-26T08:00",
+     "mean_ms": 4.54,
+     "gust_ms": 11.6,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7361,9 +8857,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 519
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.92,
+     "gust_ms": 5.7,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7405,9 +8910,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 519
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 1.92,
+     "gust_ms": 5.7,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7449,9 +8963,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7493,9 +9016,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 41
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7536,9 +9068,18 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "excluded (night)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.55,
+     "gust_ms": 12.0,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (night and wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7582,9 +9123,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 219
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T06:00",
+     "mean_ms": 3.01,
+     "gust_ms": 7.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7626,9 +9176,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7670,9 +9229,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 39
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T09:00",
+     "mean_ms": 1.56,
+     "gust_ms": 8.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7714,9 +9282,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 520
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-23T01:00",
+     "mean_ms": 0.93,
+     "gust_ms": 4.4,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "not excluded by the gates evaluated (smoke and visibility not evaluated)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7758,9 +9335,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 40
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7802,8 +9388,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T13:00",
+     "mean_ms": 3.37,
+     "gust_ms": 7.7,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -7846,9 +9441,18 @@
      "night": false,
      "minutes_of_daylight_remaining": 40
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "not excluded by the gates evaluated (wind, smoke and visibility not evaluated)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T09:00",
+     "mean_ms": 5.25,
+     "gust_ms": 13.8,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -7890,8 +9494,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-24T16:00",
+     "mean_ms": 2.69,
+     "gust_ms": 6.8,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -7933,8 +9546,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -7976,8 +9598,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T17:00",
+     "mean_ms": 4.57,
+     "gust_ms": 10.3,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -8019,8 +9650,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 1.88,
+     "gust_ms": 5.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -8062,8 +9702,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 1.88,
+     "gust_ms": 5.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -8105,9 +9754,18 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "excluded (night)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.55,
+     "gust_ms": 12.0,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (night and wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",
@@ -8148,8 +9806,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 1.88,
+     "gust_ms": 5.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -8191,8 +9858,17 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 1.88,
+     "gust_ms": 5.5,
+     "have_gusts": true,
+     "over_type12": false,
+     "over_type3": false,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
     "status": "excluded (night)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
@@ -8234,9 +9910,18 @@
      "night": true,
      "minutes_of_daylight_remaining": 0
     },
-    "wind": null,
-    "wind_observation_note": null,
-    "status": "excluded (night)",
+    "wind": {
+     "label": "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment",
+     "hour_utc": "2025-03-25T19:00",
+     "mean_ms": 3.55,
+     "gust_ms": 12.0,
+     "have_gusts": true,
+     "over_type12": true,
+     "over_type3": true,
+     "limits": "US interagency reference (NWCG PMS 510): 40 kt Type 1-2, 30 kt Type 3, 15 kt gust spread"
+    },
+    "wind_observation_note": "documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the reanalysis used here peaks at about 14 m/s, so its wind gate errs toward \"not excluded\"",
+    "status": "excluded (night and wind)",
     "fixed": [
      "flight feasibility is the pilot's and agency's decision",
      "forest-aviation operating site, not a pickup point",

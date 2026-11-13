@@ -41,7 +41,8 @@ PORTAL = 'Portal limits (quoted from the source): military landing sites are exc
 IDENT = ('data.go.kr 15069465, 산림청 산림항공본부, licence unrestricted, base date 2025-10-22 (this release pinned; '
          'annual updates, next 2027-07-31); custody ledger row 88')
 WIND_LABEL = 'reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment'
-GUST_OBS = 'documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher)'
+GUST_OBS = ('documented observation, not a gate: gusts of about 27 m/s reported on 25 Mar 2025 (source researcher); the '
+            'reanalysis used here peaks at about 14 m/s, so its wind gate errs toward "not excluded"')
 KT = 0.514444
 LIM12, LIM3, SPREAD = 40 * KT, 30 * KT, 15 * KT
 FORBIDDEN = [r'\bflyable\b', r'\bpossible\b(?! position error)', r'\bsafe\b', r'\brescue\b', r'evacuate by air',
