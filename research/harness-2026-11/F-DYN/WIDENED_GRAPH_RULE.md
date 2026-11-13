@@ -652,3 +652,17 @@ P1–P6 pass everywhere, and the coverage floor is met in both regions.
   none. The 30-min-grid class equals [0, H] on every row. P4, P4-open and P6 are 0.
 - **Control:** identical (601,657 s; 83 non-empty triples).
 - **Yeongdeok (§10):** the verifier's re-run is in progress.
+
+**Yeongdeok verified (verification ledger row 83, PASS; 13 Nov).** The independent verifier ran a full independent
+re-run of all 9 YD runs from their own inputs:
+- yd_step1 rebuilt with the recorded command (39226a07);
+- their own G1/G1′;
+- their own packets, at PacketModel 446978f6.
+
+What matched:
+- All 9 runs rc 0, and 8/8 rows "no route found", with 0 mismatches.
+- Every feasible set of osm:12031458606 is empty in all six arms. P4, P4-open and P6 are 0.
+- The control is identical: 90 places, 270 triples, 150 non-empty, 2,479,535 s, ratio 1.0.
+
+**Both regions** (20 found / 6 undetermined / 246 none of 272) are now independently verified (rows 82, 82a and 83).
+The YD widened classes on the early-action list drop "verification pending" at its next rebuild.
