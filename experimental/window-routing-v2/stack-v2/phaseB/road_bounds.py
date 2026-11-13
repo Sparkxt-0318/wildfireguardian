@@ -320,6 +320,7 @@ class RoadBoundModel:
         self.stats = {'boxes_computed': 0, 'coef_batches': 0, 'coef_s': 0.0, 'activity_s': 0.0, 'edge_evals': 0,
                       'node_evals': 0, 'partial_evals': 0, 'fast_path': 0, 'general_path': 0, 'box_cache_hits': 0,
                       'refined_edges': 0, 'analytic_domain_skips': 0}
+        self.stage_budget = None   # kit-v2 Step 3: set per stage by the worker (v2_work.Budget); None = parent behaviour
         self.construct_s = time.perf_counter() - t0
 
     # ------------------------------------------------------------------ identity / views ---------------------
@@ -413,9 +414,16 @@ class RoadBoundModel:
         with np.errstate(over='raise', invalid='raise', divide='raise', under='ignore'):
             B = boxes.shape[0]
             rows = max(1, MEM_CHUNK_BYTES // max(1, self.P * self.settings['source_tiles_per_axis'] ** 2 * 8))
+            sb = getattr(self, 'stage_budget', None)   # kit-v2 Step 3: tick BEFORE each chunk; nothing is stored here
             if B <= rows:
+                if sb is not None:   # kit-v2 Step 3
+                    sb.tick(B, 'bound_boxes')
                 return self._coefficients(boxes)
-            parts = [self._coefficients(boxes[i:i + rows]) for i in range(0, B, rows)]
+            parts = []   # kit-v2 Step 3: the parent's chunk loop, written out so a tick precedes each chunk
+            for i in range(0, B, rows):
+                if sb is not None:   # kit-v2 Step 3
+                    sb.tick(min(rows, B - i), 'bound_boxes')
+                parts.append(self._coefficients(boxes[i:i + rows]))
             return np.concatenate([p[0] for p in parts]), np.concatenate([p[1] for p in parts])
 
     def _coefficients(self, boxes):

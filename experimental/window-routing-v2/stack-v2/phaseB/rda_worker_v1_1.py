@@ -51,6 +51,10 @@ ALLOCATION = {'version': 'wfg.rda.allocation/2-window-check-first',
               'checks': 'each whole-road check gets all remaining time up to the deadline'}
 
 
+V2_STEP3 = {'Z_setup_units': 4096, 'Z_sweep_units': 268435456,   # kit-v2 Step 3: 2**12 / 2**28, results/step3/Z_CALIBRATION_V2.json (both extrapolated)
+            'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3
+
+
 class DeadlineStop(Exception):
     pass
 
@@ -359,6 +363,21 @@ def main():
         return False
 
     M = None; done = False
+    import v2_work; _V2W = {'poisoned': False}   # kit-v2 Step 3
+    def _v2_run(name, cap_s, fn, bound_budget=True):   # kit-v2 Step 3: prompt cap checks + watchdog for one stage
+        if bound_budget and M is not None:   # kit-v2 Step 3: the bound model ticks this stage's wall deadline per chunk
+            M.stage_budget = v2_work.Budget(deadline=time.perf_counter() + cap_s)
+        try:   # kit-v2 Step 3
+            with v2_work.watchdog(name, v2_work.watchdog_threshold(cap_s)):   # kit-v2 Step 3
+                return fn()   # kit-v2 Step 3
+        except v2_work.WatchdogFired as exc:   # kit-v2 Step 3: killed, reported, never continued; fail closed after
+            _V2W['poisoned'] = True; _V2W['stage'] = name; _V2W['threshold_s'] = exc.threshold_s   # kit-v2 Step 3
+            STATE['stage_cap_watchdog'] = dict(_V2W)   # kit-v2 Step 3
+            return {'status': 'TIMEOUT', 'reason': 'STAGE_CAP_WATCHDOG', 'legs': [], 'arrival': None, 'destination': None,   # kit-v2 Step 3
+                    'per_member': {}, 'solver_status': 'INCOMPLETE_CAP', 'metrics': {'watchdog_threshold_s': exc.threshold_s}}   # kit-v2 Step 3
+        finally:   # kit-v2 Step 3
+            if M is not None:   # kit-v2 Step 3
+                M.stage_budget = None   # kit-v2 Step 3
     if not scope['supported']:
         result = {'status': 'UNKNOWN', 'reason': 'EXACT_CLOCK_SCOPE_UNSUPPORTED', 'solver_status': 'UNSUPPORTED_CLOCK_SCOPE',
                   'legs': [], 'destination': None, 'arrival': None, 'metrics': {}}
@@ -378,26 +397,31 @@ def main():
             t0 = time.perf_counter()
             try:
                 _prog_stage('Z')
-                z = zsweep.contact_sweep(graph, hazard, request, M, wall_s=cap, core=core,
-                                         check_route_mode=road_core.check_route_mode, zero_view=M.view('zero'))
+                _zw = {'setup': V2_STEP3['Z_setup_units'], 'sweep': V2_STEP3['Z_sweep_units']}; _zwall = cap if None in _zw.values() else max(0., remaining() - ALLOCATION['Z_reserve_s'])   # kit-v2 Step 3
+                _zb = v2_work.Budget(group_caps={k: v for k, v in _zw.items() if v is not None}, deadline=time.perf_counter() + _zwall)   # kit-v2 Step 3
+                z = _v2_run('Z', ALLOCATION['Z_max_s'], lambda: zsweep.contact_sweep(graph, hazard, request, M, wall_s=_zwall, core=core,   # kit-v2 Step 3
+                                         check_route_mode=road_core.check_route_mode, zero_view=M.view('zero'), budget=_zb), bound_budget=False)   # kit-v2 Step 3
             except zsweep.SweepUnsupported as exc:
                 rq = copy.deepcopy(request); rq['limits']['wall_s'] = max(0., cap - (time.perf_counter() - t0))
                 z = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('zero'), mode='zero')
                 z['z_method'] = 'road_core_zero_mode'; z['z_fallback_reason'] = str(exc)
             STATE['engine_binding']['actual_invocations'] += 1
-            record('Z', 'zero', cap, t0, z)
+            record('Z', 'zero', cap, t0, z, {'z_work': _zb.record(), 'z_work_caps': dict(_zw)})   # kit-v2 Step 3
             checkpoint('Z_RETURNED')
             if z.get('status') in ('AT_ISSUE_FAILURE', 'DISCONNECTED', 'INVALID_INPUT'):
                 candidates.append(('Z', 'zero', z, None, None, None)); done = True
             else:
                 done = consider('Z', 'zero', z, 'contact_only_lattice_relaxation')
+            done = done or _V2W['poisoned']   # kit-v2 Step 3: fail closed after a watchdog
         # ------------------------------------------------------------ EA (admissible A* tightening for LO / LO2 / HI)
         EA = None
         if not done and remaining() > ALLOCATION['HI_check_reserve_s']:
             t0 = time.perf_counter()
             try:
                 _prog_stage('EA')
-                EA = zsweep.EarliestArrivalBound(graph, hazard, request, M, core, deadline=deadline - ALLOCATION['HI_check_reserve_s'])
+                EA = _v2_run('EA', max(0., deadline - ALLOCATION['HI_check_reserve_s'] - time.perf_counter()), lambda: zsweep.EarliestArrivalBound(graph, hazard, request, M, core, deadline=deadline - ALLOCATION['HI_check_reserve_s']), bound_budget=False)   # kit-v2 Step 3
+                if isinstance(EA, dict):   # kit-v2 Step 3: watchdog fired
+                    raise TimeoutError('STAGE_CAP_WATCHDOG')   # kit-v2 Step 3
                 start_bound = EA.bound(request['position']['node'], request['incoming_edge'], request['departure'], True)
                 z_arr = next((c[2].get('arrival') for c in candidates if c[0] == 'Z'), None)
                 z_status = next((c[2].get('status') for c in candidates if c[0] == 'Z'), None)
@@ -413,6 +437,7 @@ def main():
                 EA = None
             STATE['stages']['earliest_arrival_bound_s'] = time.perf_counter() - t0
             checkpoint('EA_BUILT')
+            done = done or _V2W['poisoned']   # kit-v2 Step 3: fail closed after a watchdog
         # ------------------------------------------------------------ LO
         lo_res = None
         if not done and M.unsupported:
@@ -426,11 +451,11 @@ def main():
             if cap >= ALLOCATION['min_search_cap_s']:
                 rq = copy.deepcopy(request); rq['limits']['wall_s'] = cap; t0 = time.perf_counter()
                 _prog_stage('LO')
-                lo_res = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA)
+                lo_res = _v2_run('LO', cap, lambda: road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA))   # kit-v2 Step 3
                 _prog_done(lo_res)
                 STATE['engine_binding']['actual_invocations'] += 1
                 record('LO', 'lo', cap, t0, lo_res); checkpoint('LO_RETURNED')
-                done = consider('LO', 'lo', lo_res, 'road_lower_bound_lattice_relaxation')
+                done = consider('LO', 'lo', lo_res, 'road_lower_bound_lattice_relaxation') or _V2W['poisoned']   # kit-v2 Step 3
         # ------------------------------------------------------------ LO2 (one selective refinement)
         lo_route_uncertified = (lo_res is not None and lo_res.get('destination') is not None)
         if not done and lo_route_uncertified and remaining() >= ALLOCATION['LO2_min_remaining_s']:
@@ -447,12 +472,12 @@ def main():
                 if cap >= ALLOCATION['min_search_cap_s']:
                     rq = copy.deepcopy(request); rq['limits']['wall_s'] = cap; t1 = time.perf_counter()
                     _prog_stage('LO2')
-                    lo2 = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA)
+                    lo2 = _v2_run('LO2', cap, lambda: road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA))   # kit-v2 Step 3
                     _prog_done(lo2)
                     STATE['engine_binding']['actual_invocations'] += 1
                     record('LO2', 'lo', cap, t1, lo2, {'refined_edges': nref, 'refinement_s': tref, 'refinement_selection': selinfo})
                     checkpoint('LO2_RETURNED')
-                    done = consider('LO2', 'lo', lo2, 'road_lower_bound_lattice_relaxation')
+                    done = consider('LO2', 'lo', lo2, 'road_lower_bound_lattice_relaxation') or _V2W['poisoned']   # kit-v2 Step 3
         # ------------------------------------------------------------ HI
         if not done:
             cap = remaining() - ALLOCATION['HI_check_reserve_s']
@@ -461,7 +486,7 @@ def main():
             if cap >= ALLOCATION['min_search_cap_s']:
                 rq = copy.deepcopy(request); rq['limits']['wall_s'] = cap; t0 = time.perf_counter()
                 _prog_stage('HI')
-                hi = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('hi'), mode='hi', arrival_bound=EA)
+                hi = _v2_run('HI', cap, lambda: road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('hi'), mode='hi', arrival_bound=EA))   # kit-v2 Step 3
                 _prog_done(hi)
                 STATE['engine_binding']['actual_invocations'] += 1
                 record('HI', 'hi', cap, t0, hi); checkpoint('HI_RETURNED')

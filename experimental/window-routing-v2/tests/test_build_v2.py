@@ -96,6 +96,41 @@ STEP2_WRAPPER = ['import v2_memory, hybrid_checker as _v2_hc',
                  "rec['resource_budget'] = _v2_budget",
                  "rec['check_child'] = _v2_child"]
 
+# Step 3: every added worker line carrying the Step 3 marker, exactly and in order (STEP3_ACCEPTANCE B).
+STEP3_WORKER_LINES = [
+    "V2_STEP3 = {'Z_setup_units': 4096, 'Z_sweep_units': 268435456,   # kit-v2 Step 3: 2**12 / 2**28, results/step3/Z_CALIBRATION_V2.json (both extrapolated)",
+    "            'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3",
+    "    import v2_work; _V2W = {'poisoned': False}   # kit-v2 Step 3",
+    '    def _v2_run(name, cap_s, fn, bound_budget=True):   # kit-v2 Step 3: prompt cap checks + watchdog for one stage',
+    "        if bound_budget and M is not None:   # kit-v2 Step 3: the bound model ticks this stage's wall deadline per chunk",
+    '        try:   # kit-v2 Step 3',
+    '            with v2_work.watchdog(name, v2_work.watchdog_threshold(cap_s)):   # kit-v2 Step 3',
+    '                return fn()   # kit-v2 Step 3',
+    '        except v2_work.WatchdogFired as exc:   # kit-v2 Step 3: killed, reported, never continued; fail closed after',
+    "            _V2W['poisoned'] = True; _V2W['stage'] = name; _V2W['threshold_s'] = exc.threshold_s   # kit-v2 Step 3",
+    "            STATE['stage_cap_watchdog'] = dict(_V2W)   # kit-v2 Step 3",
+    "            return {'status': 'TIMEOUT', 'reason': 'STAGE_CAP_WATCHDOG', 'legs': [], 'arrival': None, 'destination': None,   # kit-v2 Step 3",
+    "                    'per_member': {}, 'solver_status': 'INCOMPLETE_CAP', 'metrics': {'watchdog_threshold_s': exc.threshold_s}}   # kit-v2 Step 3",
+    '        finally:   # kit-v2 Step 3',
+    '            if M is not None:   # kit-v2 Step 3',
+    '                M.stage_budget = None   # kit-v2 Step 3',
+    "                _zw = {'setup': V2_STEP3['Z_setup_units'], 'sweep': V2_STEP3['Z_sweep_units']}; _zwall = cap if None in _zw.values() else max(0., remaining() - ALLOCATION['Z_reserve_s'])   # kit-v2 Step 3",
+    '                _zb = v2_work.Budget(group_caps={k: v for k, v in _zw.items() if v is not None}, deadline=time.perf_counter() + _zwall)   # kit-v2 Step 3',
+    "                z = _v2_run('Z', ALLOCATION['Z_max_s'], lambda: zsweep.contact_sweep(graph, hazard, request, M, wall_s=_zwall, core=core,   # kit-v2 Step 3",
+    "                                         check_route_mode=road_core.check_route_mode, zero_view=M.view('zero'), budget=_zb), bound_budget=False)   # kit-v2 Step 3",
+    "            record('Z', 'zero', cap, t0, z, {'z_work': _zb.record(), 'z_work_caps': dict(_zw)})   # kit-v2 Step 3",
+    "            done = done or _V2W['poisoned']   # kit-v2 Step 3: fail closed after a watchdog",
+    "                EA = _v2_run('EA', max(0., deadline - ALLOCATION['HI_check_reserve_s'] - time.perf_counter()), lambda: zsweep.EarliestArrivalBound(graph, hazard, request, M, core, deadline=deadline - ALLOCATION['HI_check_reserve_s']), bound_budget=False)   # kit-v2 Step 3",
+    '                if isinstance(EA, dict):   # kit-v2 Step 3: watchdog fired',
+    "                    raise TimeoutError('STAGE_CAP_WATCHDOG')   # kit-v2 Step 3",
+    "            done = done or _V2W['poisoned']   # kit-v2 Step 3: fail closed after a watchdog",
+    "                lo_res = _v2_run('LO', cap, lambda: road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA))   # kit-v2 Step 3",
+    "                done = consider('LO', 'lo', lo_res, 'road_lower_bound_lattice_relaxation') or _V2W['poisoned']   # kit-v2 Step 3",
+    "                    lo2 = _v2_run('LO2', cap, lambda: road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA))   # kit-v2 Step 3",
+    "                    done = consider('LO2', 'lo', lo2, 'road_lower_bound_lattice_relaxation') or _V2W['poisoned']   # kit-v2 Step 3",
+    "                hi = _v2_run('HI', cap, lambda: road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('hi'), mode='hi', arrival_bound=EA))   # kit-v2 Step 3",
+]
+
 
 class Sealed(unittest.TestCase):
     def test_overlay_sealed(self):
@@ -107,11 +142,33 @@ class Sealed(unittest.TestCase):
         parent = (B.REPO / 'experimental/window-routing/stack/phaseB/rda_worker_v1_1.py').read_text().splitlines()
         v2 = (B.HERE / 'stack-v2/phaseB/rda_worker_v1_1.py').read_text().splitlines()
         removed = [l for l in parent if l not in v2]
-        # Step 2 (STEP2_ACCEPTANCE (a)): the in-process check call (3 lines) is replaced by the forked, measured call
+        # Step 2 (STEP2_ACCEPTANCE (a)): the in-process check call (3 lines) is replaced by the forked, measured call.
         step2_removed = ["            rec = checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,",
                          "                                       wall_s=max(0., deadline - time.perf_counter()),",
                          "                                       expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)"]
-        self.assertEqual(removed, ['    global STATE, FOLDER, WRITE, ROOT'] + step2_removed)
+        # Step 3 (STEP3_ACCEPTANCE B): exactly the five stage calls are re-written to run under _v2_run (prompt cap
+        # checks + watchdog). Each replacement line must contain the parent's call expression verbatim (Z: its two
+        # lines joined, plus the declared budget keyword and the Step 3 wall/deadline variable in place of the cap).
+        step3_removed = [l for l in removed if l.strip().startswith(('z = zsweep.contact_sweep', 'check_route_mode=road_core',
+                         'EA = zsweep.EarliestArrivalBound', 'lo_res = road_core.solve', 'lo2 = road_core.solve', 'hi = road_core.solve'))]
+        self.assertEqual(len(step3_removed), 6, step3_removed)
+        # plus three lines EXTENDED in place: the Z record gains the work record; LO/LO2 'done' gain the fail-closed or
+        extended = [l for l in removed if l.strip() in ("record('Z', 'zero', cap, t0, z)",
+                    "done = consider('LO', 'lo', lo_res, 'road_lower_bound_lattice_relaxation')",
+                    "done = consider('LO2', 'lo', lo2, 'road_lower_bound_lattice_relaxation')")]
+        self.assertEqual(len(extended), 3, extended)
+        for l in extended:
+            head = l.rstrip()[:-1] if l.strip().startswith('record(') else l.rstrip()
+            self.assertTrue(any(a.startswith(head) and 'kit-v2 Step 3' in a for a in v2), l)
+        # Step 2 + Step 3 (rebased Step 3 on Step 2): nothing else is removed, in parent order
+        self.assertEqual([l for l in removed if l not in step3_removed + extended], ['    global STATE, FOLDER, WRITE, ROOT'] + step2_removed)
+        for l in step3_removed:
+            call = l.strip().split(' = ', 1)[1] if ' = ' in l.strip().split('(')[0] else l.strip()
+            if call.startswith('zsweep.contact_sweep'):
+                call = call.replace('wall_s=cap', 'wall_s=_zwall')
+            if call.startswith('check_route_mode'):
+                call = call[:-1] + ', budget=_zb)'
+            self.assertTrue(any(call in a and 'kit-v2 Step 3' in a for a in v2), call)
         added = [l for l in v2 if l not in parent]
         step2 = ['            def _v2_check():   # kit-v2 Step 2: runs in a forked child, own memory measured by a fresh cgroup v1 peak',
                  "                return checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,",
@@ -119,8 +176,11 @@ class Sealed(unittest.TestCase):
                  "                                            expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)"]
         marked = [l for l in added if 'kit-v2 Step 2' in l and l not in step2]
         self.assertEqual(marked, STEP2_WORKER_LINES)                   # every marked Step 2 line, exactly and in order
+        step3 = [l for l in added if 'kit-v2 Step 3' in l]
+        self.assertEqual(step3, STEP3_WORKER_LINES)                    # exact, in order (declared in STEP3_ACCEPTANCE B)
+        self.assertFalse([l for l in step3 if 'kit-v2 Step 2' in l])   # no line claims both steps
         step2 += marked
-        added = [l for l in added if l not in step2]
+        added = [l for l in added if l not in step2 + step3]
         ident = [l for l in added if ('kit' in l.lower() or '_kid' in l) and 'Step 1' not in l and '_V2_PROG' not in l]
         self.assertEqual(len(ident), 3, ident)
         markers = ('_prog', '_PROG', 'PROGRESS', 'p[', 'p = ', 'tmp', 'f_', 'm_', 'res_', "'stage'", "'info'", 'return',

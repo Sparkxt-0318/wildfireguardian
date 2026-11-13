@@ -358,6 +358,34 @@ def _lower_bounds(graph, destinations, dt):
 
 
 def solve(graph, hazard, request, *, prepared=None, exposure=None, mode="centre", arrival_bound=None):
+    """kit-v2 Step 3: the parent's solve (below, unchanged) plus one catch. A v2_work.StageCap raised by the bound
+    model's per-chunk tick (wall deadline or work budget, set on the model by the worker for this stage) ends the solve
+    as the existing incomplete-cap TIMEOUT. Nothing partial is returned: no legs, no arrival, no certificate."""
+    try:
+        return _solve_parent(graph, hazard, request, prepared=prepared, exposure=exposure, mode=mode,
+                             arrival_bound=arrival_bound)
+    except BaseException as exc:
+        try:
+            from v2_work import StageCap
+        except ImportError:
+            raise exc
+        if not isinstance(exc, StageCap):
+            raise
+        info = dict(LAST_PROGRESS) if LAST_PROGRESS else {}
+        return {"status": "TIMEOUT", "reason": exc.reason + "_IN_BOUND_MODEL", "legs": [], "arrival": None,
+                "destination": None, "per_member": {}, "solver_status": "INCOMPLETE_CAP",
+                "metrics": {"expansions": info.get("expansions"), "labels": info.get("labels"),
+                            "stage_cap_units": exc.units, "stage_cap": exc.reason},
+                "hazard_version": hazard.get("version") if isinstance(hazard, dict) else None,
+                "provenance": {"solver": "baseline", "model": "EXACT_LATTICE_EDGEGRID", "physical_safety_claim": False,
+                               "exposure_mode": mode},
+                "certificate_conditions": [], "exposure_mode": mode}
+
+
+LAST_PROGRESS = {}   # kit-v2 Step 3: last expansion counters of the running solve (for the StageCap result)
+
+
+def _solve_parent(graph, hazard, request, *, prepared=None, exposure=None, mode="centre", arrival_bound=None):
     """Exact vector search; optional explicit prepared graph admission reuse.
 
     Pass a PreparedGraph as graph, or a raw graph with prepared= to require
@@ -374,6 +402,7 @@ def solve(graph, hazard, request, *, prepared=None, exposure=None, mode="centre"
     gap_hits = []  # extinction-rounding gap samples (lo/zero): withdraw global claims
 
     start_clock = time.perf_counter()
+    LAST_PROGRESS.clear()   # kit-v2 Step 3
     reuse_holder = []  # per-solve only (review finding: no cross-solve retention)
     metrics = {
         "labels": 0,
@@ -758,6 +787,7 @@ def solve(graph, hazard, request, *, prepared=None, exposure=None, mode="centre"
                 1048576 if sys.platform == "darwin" else 1024
             )
             metrics["peak_rss_mb"] = rss
+            LAST_PROGRESS.update(expansions=metrics.get("expansions"), labels=len(records))   # kit-v2 Step 3
             if PROGRESS_HOOK is not None:
                 PROGRESS_HOOK("road_core.solve", {"expansions": metrics.get("expansions"), "labels": len(records),
                                                   "frontier": len(heap), "elapsed_s": time.perf_counter() - start_clock})
