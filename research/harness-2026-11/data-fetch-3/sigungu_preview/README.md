@@ -29,3 +29,11 @@ The boundary file itself is private and is not committed. Its member sha256 valu
 - Output: sha256 0896957b8c23f1abafcf0652bd3b57d2c1c6013e050d2fc1edbc8a231c5be52c, 71,746 bytes.
 - Every label is identical to run 2 apart from its `source` string, and the counts are identical: 177 of 177 established.
 - Clara commits this file as delivered. Runs 1 and 2 are superseded.
+
+## Run 4 (FINAL, as delivered; 13 Nov): `labels_run4_script_92757b2e_vworld_source.json`
+
+- Run on the orchestrator's decision, under the owner's delegation. The source line drops "출처 확인 중".
+- Same script (92757b2e, sha 534fee03…), same archive (sha bafb7ef2…), `--margin 50`, same `--archive-sha256`. Only `--source` changed, to Sofia's final string, used verbatim.
+- Output: sha256 a907184e1e3de9c10c11d0a2be5dee58ec0ecbc4c47a0fbc9b5af824cacfae36, 63,736 bytes. 177 of 177 established at 50 m.
+- Programmatic check (`diff_runs.py` against run 3, output in `DIFF_RUN3_RUN4.txt`): 178 differing leaves, and the only differing key is `source` (177 labels plus the top-level field). "ONLY source differs: True".
+- Run 3 is superseded.

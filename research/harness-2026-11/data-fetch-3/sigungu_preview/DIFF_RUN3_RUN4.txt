@@ -1,0 +1,3 @@
+differing leaves: 178 distinct keys: ['source']
+ONLY source differs: True
+source values (run4): ['"행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음."']
