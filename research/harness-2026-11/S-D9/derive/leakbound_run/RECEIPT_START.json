@@ -1,0 +1,21 @@
+{
+ "plan": "LEAK_BOUND_PLAN.md rev 1-4 (claude/s-d9-leakbound)",
+ "interval_cap": "all eligible intervals <= 48 h per fire (cap 0; rev 4)",
+ "arms_run": [
+  "L",
+  "L2"
+ ],
+ "arm_R": "NOT RUN (no fold-held-out d4_wind_rebuilt predictions; rev 1 item 2)",
+ "script_sha256": "679b80730c1eb8e3ecfd1d037e2819b89317aed6d54e6fe437200672f001f47a",
+ "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+ "pins_sha256": "f70e52b00bfd8eaf12743cd60599238e72abefca80cbc0802c51a52a8ea2005a",
+ "folds_sha256": "1187a9d6998e493ecf40914ad0f8799cbe419cbe5bf2098b7f1a781464aa424e",
+ "times_sha256": "dd6b36f9fdef3bba4f9aeadaab768d0a09eb608d21b34d51a65c1e890505de29",
+ "perimeter_manifest_sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
+ "fires": 490,
+ "host": {
+  "python": "3.12.3",
+  "numpy": "1.26.4"
+ },
+ "started_utc": "2026-11-13T11:49:28.287536+00:00"
+}
