@@ -204,3 +204,10 @@ what the A1 §3.1 refit commands pass. The leak bound's fold base must match the
   weighting A1 also requires; the runbook and this bound use `pipeline.command_baselines`' inline weighted fit. The
   leak-bound fit and the `logistic_rebuilt` refit wait for the orchestrator's ruling on which recipe A1 means. The
   code and the extract-only smoke may proceed.
+- **Orchestrator ruling on the recipe (2026-11-13, ~11:45Z):** resolve to `pipeline.py command_baselines`:
+  `logistic_features`, StandardScaler with sample weights, LR(max_iter=3000, random_state=0), 1/0.05 inverse weights,
+  interval cap 0. This is the recipe this bound implements.
+- **The fit waits for exactly two confirmations:**
+  (1) the assessor reads the ruling and says whether it is an erratum or a named stage-2 item;
+  (2) the independent verifier confirms the archive invocation evidence in a row.
+  The extract-only smoke may run meanwhile.
