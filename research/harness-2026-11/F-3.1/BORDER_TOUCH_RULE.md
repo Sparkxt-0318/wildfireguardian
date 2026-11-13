@@ -51,3 +51,17 @@
   - touching the outer ring (proxy).
 - **The static envelope_burnset row** on its own.
 - **Not-evaluated rows** have no witness and are not counted. Their number is stated.
+
+## Amendment 1 (committed before any run): which witness per place
+
+- **Leave-by.** The HEADLINE place leave-by is the end of the union, over the place's destinations, of the feasible
+  departure sets (`headline.py`). More than one destination can contain that second.
+- **Witnesses.** For each destination whose feasible set contains the place's leave-by, `witness_greedy` gives one
+  witness at that second. The witnesses of all such destinations are checked.
+- **A place counts as touching the border at two levels:**
+  - **"any":** at least one of its leave-by witnesses touches. This is the reported upper bound.
+  - **"all":** every one of its leave-by witnesses touches. Not every route that departs at the leave-by is
+    enumerated, so this is also not exact.
+- **Per (place, destination) witness counts** are reported as well.
+- **ROUTER witnesses** are full-checked like the CERT ones, and their outcome is reported. A ROUTER witness may fail
+  the closed rule; it is not required to pass, and this is not a fault.
