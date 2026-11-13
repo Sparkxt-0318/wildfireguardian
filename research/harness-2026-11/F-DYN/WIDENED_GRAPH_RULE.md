@@ -221,3 +221,58 @@ to a verified checker, and it needs its own plan-first step.
 - **Fire data.** It adds no fire data outside the export grid.
 - **Destinations.** It adds no destinations.
 - **The owner graphs.** It does not replace the owner graphs for anything else.
+
+## 7. Amendment 1: P4 precisely, and padding at the export-grid border (13 Nov; before any build)
+
+The routing author found four ways P4 could fail (his message of 04:28 UTC). Each is settled here, before any build.
+
+**(a) Ids: P4 compares like with like.**
+- The INSTANCE entry and destination ids are owner-graph OSM node ids, and the owner graphs are 79 days newer than the
+  snapshot.
+- P4 therefore compares **Daniel's step-1 graph** (same snapshot, clipped to the old window) against **the widened
+  graph**. It does not compare against the owner graph.
+- **Precondition:** Daniel's inside-window equality (0 missing / extra / differing; STEP2_RESULT.md).
+- **Before any run:** every INSTANCE entry and destination id is checked for presence in step-1. Missing ids are
+  listed, and their rows are excluded from P4 and reported.
+
+**(b) Edges clipped at the boundary.** Step 1 drops edges that cross the window boundary, and the widened graph has
+them whole, with different geometry and ticks.
+- P4 is asserted only for old routes that use edges **identical in both graphs**.
+- Any old route that uses an edge differing between the graphs is listed, not asserted.
+
+**(c) Padding at the export-grid border. Measured: both old windows reach it.**
+- UA window: cols 23–95, rows 0–64. Its row 0 is the export grid's south edge.
+- YD window: cols 166–236, rows 0–66. That is the export grid's south **and** east edges.
+
+**Ruling.** The padding-closed arm uses **the same closure as fire, under both the closed and the router rules.**
+- **Why.** "Padding closed" stands for possible fire, and fire closes an edge that touches its cell boundary. A
+  router-rule-only padding would be weaker than fire exactly where we have no data.
+- **Consequence.** An old edge, node or destination point lying on the export-grid border touches a padding cell, so
+  it is blocked from 0 in that arm.
+- **P4 is therefore asserted only for old routes that touch no padding cell**, counting boundary contact under the
+  closed rule.
+- **Old routes lost only through such contact** are listed in their own row: **"lost only by touching the edge of the
+  fire-data grid (padding assumed burning)"**. That row is not a P4 failure, and not a fire result.
+
+**(d) Waiting.** Arm (a) uses the **old** waiting set (§3). Otherwise P4 could fail through lost stops.
+- **Implementation:** a `waitable_override: {node_id: bool}` in the routing author's PacketModel. It is applied to the
+  raw nodes before the RoadGraph is built, so the field and full_check see the same graph.
+- **Tests and failure handling:**
+  - a unit test (override == graph flags gives identical fields), committed before any run;
+  - unknown ids in the override are an error list, never silently ignored.
+- **Source:** `daniel/data-fetch-3` @ ccc1de58, `research/harness-2026-11/data-fetch-3/roads/STEP2_WAITABLE_DELTA.json`.
+
+**Restated P4.** For every (place, start, horizon, variant, departure) under `/2`, take each old route (step-1 graph,
+old waiting set) that:
+- uses only edges identical in both graphs;
+- touches no padding cell;
+- has its entry and destination ids present in step-1.
+
+Each such route must still have a route on the widened graph under arm (a) × padding closed. Every violation is a
+FAIL.
+
+**Candidate input.** Fixed: `results/NR2_ROAD_LIMITED_CANDIDATES.json` @ 50535521 (routing author's branch). It has 176
+rows over 34 places:
+- 160 are "depends on the no-re-entry rule";
+- 16 had no route on `/1` either;
+- none is "not evaluated".

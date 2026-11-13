@@ -55,6 +55,12 @@ These places come first and are kept separate from the set.
   rows that lost their route going from `/1` to `/2`.
 - **Excluded from:** the no-road-escape set, the early-action list (§2) and the air candidates (§3).
 - **Their own count,** per timing variant, with "inside" and "touches" reported separately.
+- **Measured on the `/2` headline** (routing author, rule NOT_EVALUATED_LABEL_RULE.md @ da167134, tables @ 50535521).
+  - **1,114 not-evaluated rows over 48 packets, all "inside" and 0 "touches".** That is the 1,074 that lost their
+    route, plus 40 with no route on `/1` either.
+  - Every one is a CERT origin-in-flame at t = 0. 8 h is identical to 5 h.
+  - B0 there equals the plan meta on all 48 packets.
+  - **248 rows "depend on the no-re-entry rule"** (fire-limited 88, possibly road-limited 160).
 
 **Cause label**, exactly one per place, in this precedence. Agency wording is Iris's, and every label says
 "modelled" because these are statements about a fire reconstruction, not observations.
