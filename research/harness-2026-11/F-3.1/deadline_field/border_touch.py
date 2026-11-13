@@ -64,15 +64,18 @@ def main():
     for o in inst["origins"]:
         for d in o["destinations"]:
             specs.setdefault((d["node"], d["dwell_s"]), set()).add(o["entry_node"])
-    feas, flds = {}, {}
+    feas = {}
     rows, mism, disagree = [], [], []
     cnt = Counter()
     for var in ("cert", "router"):
+        # pass 1: feasible sets (one field in memory at a time, as headline.py)
         for (dnode, dwell), origins in sorted(specs.items()):
             fld = backward(pm.instance(var, [{"node": dnode, "dwell": dwell, "window": [0, H]}], sorted(origins)))
             for o in origins:
                 feas[(var, dnode, dwell, o)] = issue_set(fld, pm.nidx[o])
-            flds[(var, dnode, dwell)] = fld
+            del fld
+        # place leave-by and the (destination -> origins) that need a witness at it
+        lbs, need = {}, {}
         for o in inst["origins"]:
             e = o["entry_node"]
             u = iv.normalize([p for d in o["destinations"] for p in feas[(var, d["node"], d["dwell_s"], e)]])
@@ -86,13 +89,20 @@ def main():
             if lb is None:
                 cnt[var + ":no_witness"] += 1
                 continue
-            ws = []
+            lbs[o["origin_id"]] = lb
             for d in o["destinations"]:
-                if not iv.contains(feas[(var, d["node"], d["dwell_s"], e)], lb):
-                    continue
-                w = witness_greedy(flds[(var, d["node"], d["dwell_s"])], pm.nidx[e], lb)
+                if iv.contains(feas[(var, d["node"], d["dwell_s"], e)], lb):
+                    need.setdefault((d["node"], d["dwell_s"]), []).append(o)
+        # pass 2: per destination, recompute its field once and take the witnesses
+        ws_by = {}
+        for (dnode, dwell), olist in sorted(need.items(), key=lambda kv: (kv[0][0], kv[0][1])):
+            fld = backward(pm.instance(var, [{"node": dnode, "dwell": dwell, "window": [0, H]}],
+                                       sorted(specs[(dnode, dwell)])))
+            for o in olist:
+                e, lb = o["entry_node"], lbs[o["origin_id"]]
+                w = witness_greedy(fld, pm.nidx[e], lb)
                 legs = [(k, (pm.g.edge_ids[x] if k == "EDGE" else pm.node_ids[x]), s_, t_) for k, x, s_, t_ in w[1]]
-                segs = [(pm.g.xy(e), pm.g.xy(e)), (pm.g.xy(d["node"]), pm.g.xy(d["node"]))]
+                segs = [(pm.g.xy(e), pm.g.xy(e)), (pm.g.xy(dnode), pm.g.xy(dnode))]
                 for k, x, _s, _t in w[1]:
                     if k == "EDGE":
                         segs.append((pm.g.xy(pm.g.u[x]), pm.g.xy(pm.g.v[x])))
@@ -100,22 +110,26 @@ def main():
                         p = pm.g.xy(pm.node_ids[x]); segs.append((p, p))
                 foot, ring, bnd = tests(grid, wide, segs)
                 if foot != bnd:
-                    disagree.append({"origin": o["origin_id"], "field": var, "dest": d["node"], "footprint": foot, "boundary": bnd})
-                chk = full_check(pm, hz, origin=e, legs=legs, dest=d["node"], dwell=d["dwell_s"], window=[0, H],
+                    disagree.append({"origin": o["origin_id"], "field": var, "dest": dnode, "footprint": foot, "boundary": bnd})
+                chk = full_check(pm, hz, origin=e, legs=legs, dest=dnode, dwell=dwell, window=[0, H],
                                  departure=lb, incurred=0.0, peak=peak_l, dose=dose_l)
                 ok = chk["full_policy_ok"] and chk["closed_and_router_replay_clear"]
                 cnt["%s:witness_check_%s" % (var, "PASS" if ok else "FAIL")] += 1
-                ws.append({"dest": d["node"], "touch_footprint": foot, "touch_ring_proxy": ring, "touch_boundary": bnd,
-                           "check_pass": ok, "codes": chk["codes"], "legs": legs})
+                ws_by.setdefault(o["origin_id"], []).append(
+                    {"dest": dnode, "touch_footprint": foot, "touch_ring_proxy": ring, "touch_boundary": bnd,
+                     "check_pass": ok, "codes": chk["codes"], "legs": legs})
                 cnt[var + ":witnesses"] += 1
                 cnt[var + ":witnesses_touch_footprint"] += foot
                 cnt[var + ":witnesses_touch_ring_proxy"] += ring
-            anyt, allt = any(w["touch_footprint"] for w in ws), all(w["touch_footprint"] for w in ws)
+            del fld
+        for oid, lb in lbs.items():
+            ws = ws_by.get(oid, [])
+            anyt, allt = any(w["touch_footprint"] for w in ws), bool(ws) and all(w["touch_footprint"] for w in ws)
             cnt[var + ":places_with_witness"] += 1
             cnt[var + ":places_touch_any"] += anyt
             cnt[var + ":places_touch_all"] += allt
             cnt[var + ":places_ring_proxy_any"] += any(w["touch_ring_proxy"] for w in ws)
-            rows.append({"origin": o["origin_id"], "field": var, "leave_by_s": lb, "touch_any": anyt, "touch_all": allt,
+            rows.append({"origin": oid, "field": var, "leave_by_s": lb, "touch_any": anyt, "touch_all": allt,
                          "witnesses": ws})
     out = {"what": "border-touch witnesses (BORDER_TOUCH_RULE.md + amendment 1); UPPER BOUND, see rule",
            "region": a.region, "start": a.start, "horizon_h": h, "variant": a.variant, "H": H,
