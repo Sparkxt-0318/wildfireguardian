@@ -1,0 +1,29 @@
+{
+ "note": "compact rows: blocked_edges_at_dep replaced by count + sha256 of json.dumps(list); all other fields verbatim. Full gzipped rows kept outside git; their sha256:",
+ "full_gz_sha256": {
+  "uiseong_andong_2025__20250323T010000Z__h5__firms_early.jsonl.gz": "806408f4ed05eedf63b4405cece1ad121dfbc6dc42fceaec44ba2d259270e1a6",
+  "uiseong_andong_2025__20250323T010000Z__h5__kriged_mean.jsonl.gz": "591a6a77ba887fe158af55c66b2421ffeca3cb2302e50e4dc8d300f75692fc0d",
+  "uiseong_andong_2025__20250323T010000Z__h8__firms_early.jsonl.gz": "21347cd6c5f05dd65b94d99b6bf45858c51515b0d5958703ee21b5a751a3eced",
+  "uiseong_andong_2025__20250323T010000Z__h8__kriged_mean.jsonl.gz": "590fbdace3c7d2fa6e2f5dfb881ceec1f8e63dccb01911fdbe514a3d5000a6ab",
+  "uiseong_andong_2025__20250324T090000Z__h5__firms_early.jsonl.gz": "24a70b9e9e1aee1f2982ae3fd74aeb4b8c01adcccdd417d09d3e4338bf65c82b",
+  "uiseong_andong_2025__20250324T090000Z__h5__kriged_mean.jsonl.gz": "d1cc20986f4490350cac896078da7570f332e26cd59dc1569ed3182aa0dc2407",
+  "uiseong_andong_2025__20250324T090000Z__h8__firms_early.jsonl.gz": "9a5cbff5124c5d4ac8df29254af8f63e779699b78fbd7856cba319e1413fc718",
+  "uiseong_andong_2025__20250324T090000Z__h8__kriged_mean.jsonl.gz": "962131e76277491beb3a991ee48f1b3fbc2c1ecb520e3c184d2a0c546f75f72b",
+  "uiseong_andong_2025__20250325T170000Z__h5__firms_early.jsonl.gz": "c990b96191adc9af10fe71ee0ec3882629b2680f57f009ad249b58452c4174d3",
+  "uiseong_andong_2025__20250325T170000Z__h5__kriged_mean.jsonl.gz": "3a392ebd88926650fa3d348a8cec6771d837619b65e8d55063c02560cc5ba842",
+  "uiseong_andong_2025__20250325T170000Z__h8__firms_early.jsonl.gz": "70b1c0137d87694fe8c5ccc528a5099ad0687457b2250e176d20ae63129d3584",
+  "uiseong_andong_2025__20250325T170000Z__h8__kriged_mean.jsonl.gz": "422baa71b1ef949c6529f9b1e17f282635347d79e8803e87831312a5ebf5604a",
+  "yeongdeok_2025__20250325T190000Z__h5__firms_early.jsonl.gz": "dc4e55a30c2214a03ae679b636b3011dcc839432a43ce1f64435e4fe0d8440d4",
+  "yeongdeok_2025__20250325T190000Z__h5__kriged_mean.jsonl.gz": "042a62efe9e665405c528d7bdd2d452c4506966bdf7a12270bf746eae9e53c5b",
+  "yeongdeok_2025__20250325T190000Z__h8__firms_early.jsonl.gz": "b441fa5db61932c0ea5a97ab668e20346c3d9675bddebc5ce78bc6132a1af993",
+  "yeongdeok_2025__20250325T190000Z__h8__kriged_mean.jsonl.gz": "1b008eaf1d19019d8abbd176fed2492bc3669f2dcfc22b7c1adb53642bc02832",
+  "yeongdeok_2025__20250325T230000Z__h5__firms_early.jsonl.gz": "771b105e83972295a951e597cd3cfd67c6160728466161c0d0562eabaebab4ef",
+  "yeongdeok_2025__20250325T230000Z__h5__kriged_mean.jsonl.gz": "68bbad62364003cbb9e66cd7a1bf01a605af26ce04a333cd9c9a365b919dea88",
+  "yeongdeok_2025__20250325T230000Z__h8__firms_early.jsonl.gz": "b4800c603fd0f69086fff2b524b90c6360bce78ee8122c8b5a47681d6bd79bee",
+  "yeongdeok_2025__20250325T230000Z__h8__kriged_mean.jsonl.gz": "af914a7ee26bce993181043f8204211096f4e9a15c8643f40f4b5c1b510bc6f5",
+  "yeongdeok_2025__20250326T080000Z__h5__firms_early.jsonl.gz": "4c23acd24a7315e61ccaf97c9569668cebdb3856be48d1c09081d444ab3f59d2",
+  "yeongdeok_2025__20250326T080000Z__h5__kriged_mean.jsonl.gz": "24d10aa1662d92c8e2291050078db3c9d89ffa7d64011a19d250abe38be5ef5e",
+  "yeongdeok_2025__20250326T080000Z__h8__firms_early.jsonl.gz": "eeec0474dbd2b8760d0e4423c0b16ae36f0d61994ab7ffd697e369e819c1961c",
+  "yeongdeok_2025__20250326T080000Z__h8__kriged_mean.jsonl.gz": "abeadfc365755b3eab9cb7bbdb800f3878ff75dccd7d35db0b433a5cf333abbf"
+ }
+}

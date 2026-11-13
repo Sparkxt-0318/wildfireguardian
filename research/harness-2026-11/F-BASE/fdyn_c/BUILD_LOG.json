@@ -1,0 +1,245 @@
+{
+ "manifest_sha": "aaed2402e926a2e8c2341c9920f222b61c471cbd3bf76b66e3921158c71bb2b3",
+ "builds": [
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250323T010000Z_h5_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 12.0,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250323T010000Z_h5_firms_early_central_q300",
+   "rc": 0,
+   "s": 9.9,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250323T010000Z_h8_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 15.3,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250323T010000Z_h8_firms_early_central_q300",
+   "rc": 0,
+   "s": 12.2,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250324T090000Z_h5_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 11.9,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250324T090000Z_h5_firms_early_central_q300",
+   "rc": 0,
+   "s": 10.2,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250324T090000Z_h8_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 15.9,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250324T090000Z_h8_firms_early_central_q300",
+   "rc": 0,
+   "s": 13.7,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 13.0,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300",
+   "rc": 0,
+   "s": 12.2,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h8_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 16.5,
+   "err": ""
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h8_firms_early_central_q300",
+   "rc": 0,
+   "s": 16.4,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T190000Z_h5_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 16.8,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T190000Z_h5_firms_early_central_q300",
+   "rc": 0,
+   "s": 18.9,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T190000Z_h8_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 23.6,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T190000Z_h8_firms_early_central_q300",
+   "rc": 0,
+   "s": 23.2,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 17.3,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300",
+   "rc": 0,
+   "s": 17.4,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h8_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 23.9,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h8_firms_early_central_q300",
+   "rc": 0,
+   "s": 23.0,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 5,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250326T080000Z_h5_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 17.5,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 5,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250326T080000Z_h5_firms_early_central_q300",
+   "rc": 0,
+   "s": 16.6,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 8,
+   "variant": "kriged_mean",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250326T080000Z_h8_kriged_mean_central_q300",
+   "rc": 0,
+   "s": 19.0,
+   "err": ""
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "h": 8,
+   "variant": "firms_early",
+   "out": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250326T080000Z_h8_firms_early_central_q300",
+   "rc": 0,
+   "s": 18.1,
+   "err": ""
+  }
+ ]
+}

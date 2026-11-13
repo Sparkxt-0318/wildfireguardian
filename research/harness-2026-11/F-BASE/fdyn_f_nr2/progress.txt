@@ -1,0 +1,25 @@
+uiseong_andong_2025:20250323T010000Z:5:kriged_mean rc=0
+uiseong_andong_2025:20250323T010000Z:5:firms_early rc=0
+uiseong_andong_2025:20250323T010000Z:8:kriged_mean rc=0
+uiseong_andong_2025:20250323T010000Z:8:firms_early rc=0
+uiseong_andong_2025:20250324T090000Z:5:kriged_mean rc=0
+uiseong_andong_2025:20250324T090000Z:5:firms_early rc=0
+uiseong_andong_2025:20250324T090000Z:8:kriged_mean rc=0
+uiseong_andong_2025:20250324T090000Z:8:firms_early rc=0
+uiseong_andong_2025:20250325T170000Z:5:kriged_mean rc=0
+uiseong_andong_2025:20250325T170000Z:5:firms_early rc=0
+uiseong_andong_2025:20250325T170000Z:8:kriged_mean rc=0
+uiseong_andong_2025:20250325T170000Z:8:firms_early rc=0
+yeongdeok_2025:20250325T190000Z:5:kriged_mean rc=0
+yeongdeok_2025:20250325T190000Z:5:firms_early rc=0
+yeongdeok_2025:20250325T190000Z:8:kriged_mean rc=0
+yeongdeok_2025:20250325T190000Z:8:firms_early rc=0
+yeongdeok_2025:20250325T230000Z:5:kriged_mean rc=0
+yeongdeok_2025:20250325T230000Z:5:firms_early rc=0
+yeongdeok_2025:20250325T230000Z:8:firms_early rc=0
+yeongdeok_2025:20250325T230000Z:8:kriged_mean rc=0
+yeongdeok_2025:20250326T080000Z:5:kriged_mean rc=0
+yeongdeok_2025:20250326T080000Z:5:firms_early rc=0
+yeongdeok_2025:20250326T080000Z:8:kriged_mean rc=0
+yeongdeok_2025:20250326T080000Z:8:firms_early rc=0
+DONE

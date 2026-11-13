@@ -1,0 +1,1415 @@
+{
+ "rule": "DESIGN.md (c)",
+ "table": {
+  "uiseong_andong_2025|h5|firms_early": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 52,
+   "check_py_accept": 52,
+   "n1_ok": 52,
+   "n2_ok": 52,
+   "n3_ok": 54,
+   "n1_unsound_route": 2,
+   "n2_false_no_route": 2
+  },
+  "uiseong_andong_2025|h5|kriged_mean": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 52,
+   "check_py_accept": 52,
+   "n1_ok": 52,
+   "n2_ok": 53,
+   "n3_ok": 54,
+   "n1_unsound_route": 2,
+   "n2_false_no_route": 1
+  },
+  "uiseong_andong_2025|h8|firms_early": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 52,
+   "check_py_accept": 52,
+   "n1_ok": 52,
+   "n2_ok": 52,
+   "n3_ok": 54,
+   "n1_unsound_route": 2,
+   "n2_false_no_route": 2
+  },
+  "uiseong_andong_2025|h8|kriged_mean": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 52,
+   "check_py_accept": 52,
+   "n1_ok": 52,
+   "n2_ok": 53,
+   "n3_ok": 54,
+   "n1_unsound_route": 2,
+   "n2_false_no_route": 1
+  },
+  "yeongdeok_2025|h5|firms_early": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 53,
+   "check_py_accept": 53,
+   "n1_ok": 53,
+   "n2_ok": 53,
+   "n3_ok": 54,
+   "n2_late_T": 1,
+   "n1_unsound_route": 1
+  },
+  "yeongdeok_2025|h5|kriged_mean": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 52,
+   "check_py_accept": 52,
+   "n1_ok": 52,
+   "n2_ok": 53,
+   "n3_ok": 54,
+   "n2_late_T": 1,
+   "n1_unsound_route": 2
+  },
+  "yeongdeok_2025|h8|firms_early": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 53,
+   "check_py_accept": 53,
+   "n1_ok": 53,
+   "n2_ok": 53,
+   "n3_ok": 54,
+   "n2_late_T": 1,
+   "n1_unsound_route": 1
+  },
+  "yeongdeok_2025|h8|kriged_mean": {
+   "n": 54,
+   "exact_agrees_sipp": 54,
+   "exact_route": 52,
+   "check_py_accept": 52,
+   "n1_ok": 52,
+   "n2_ok": 53,
+   "n3_ok": 54,
+   "n2_late_T": 1,
+   "n1_unsound_route": 2
+  }
+ },
+ "failures": [
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    12460
+   ],
+   "request_sha256": "d362f7887e1a7f05f9ff5e5c4c5a5f33cc7ade5657c00b6eda941e1c8d2461d5",
+   "instance_sha256": "9c4bd5b8eed8053f986c4576bcf57b282353ec94ba331d89b810956b84a8d99c",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 3,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     12460
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    12460
+   ],
+   "request_sha256": "c324849fcbb0cd101cb76073eb33d6a5a5c7883944c80d62c355643f0946cc5e",
+   "instance_sha256": "dbab3323cb164f5701c6757a27f3d0a93a1e94a1ef8ddc0b06fda12147ac8815",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 3,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     12460
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    12460
+   ],
+   "request_sha256": "5b10cd0bf98d2f48f8aac506a3d8e38b8ae503846f38457fb0ba0cb2e8631cac",
+   "instance_sha256": "8747f5b0be27b52b61e79199d20dc003a27dd5a9792ea647b5c43c85328a5326",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 8,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     12460
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    12460
+   ],
+   "request_sha256": "a76b1f335797ee3b65658a404014e1bc85adcaee6bf4685c99fd41c86bafcc7c",
+   "instance_sha256": "1bb8c7554a0e9ff8c387cb67b1167f8aff38bb0068e7a52df1973a88ef10de52",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 5,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     12460
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     12460
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    6165
+   ],
+   "request_sha256": "7d50d3857eaf41e08d02f6cda908b71b4b7d7efe5253019cb35affd23198b454",
+   "instance_sha256": "fd24e6cb9fde89fb5d7561159d9ec9c56069dea7967c8682b71a91e8ecf1fc9e",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 114,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     6165
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160449",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "false_no_route",
+   "exact": [
+    "ROUTE",
+    5947
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "request_sha256": "2c3b6afbdf97f58333e48ac98f83b15f3c4098018e30536517754d2fff5e0ad7",
+   "instance_sha256": "815bf33b8de51053f1967cf04871ea613777f2acc92aee4a47aa7256be700bc1",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 114,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "ROUTE",
+     5947
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160463",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "false_no_route",
+   "exact": [
+    "ROUTE",
+    4284
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "request_sha256": "06e2e053255e3608c0dca9c150bdfaa25bdee804e15ebdc22a3e2955a2b76db6",
+   "instance_sha256": "c95ee49a3332eee72ebea6e6daa91a1264df25f681d93fed3f700df6fcc1b84c",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 114,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     4284
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4284
+    ],
+    "naive": [
+     "ROUTE",
+     4284
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     4284
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    6165
+   ],
+   "request_sha256": "537ba8d70b6e1a72e515febf2fb7305a6bbe8f506b48379b1e1218dbf6f68ae5",
+   "instance_sha256": "fa1c3a7cfabee06f785ebe383a579389e401d08ddd8c6fd908b094775dcf7f16",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 120,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     6165
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160449",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "false_no_route",
+   "exact": [
+    "ROUTE",
+    5947
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "request_sha256": "d83779af67ecbdae2a3cf2c8b1c5b35f56ef43f34d9b2b480986536e6223f1ec",
+   "instance_sha256": "61a8f81a09906a22d0b3341e4ab44cd0e1d82011af584ba3002b3c4bd5d90f80",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 120,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "ROUTE",
+     5947
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    6165
+   ],
+   "request_sha256": "27c3ba20da3cbfaff290a8b398c1a219c6902ad7deb1e15a18abd282d613189a",
+   "instance_sha256": "87d4a8b67647d9ccfd72c2b9d63de236f06631cab818cc846fa2a477dbe26cbf",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 114,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     6165
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160449",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "false_no_route",
+   "exact": [
+    "ROUTE",
+    5947
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "request_sha256": "b1f73bf13ae23f244e5ae007e8b36bb8fc4ba938a357413073f171993161d13f",
+   "instance_sha256": "fbe03a884662fb58ff5489570e8dc8358cf91e3da8c9806d5a49a2b8390e92a7",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 114,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "ROUTE",
+     5947
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160463",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "false_no_route",
+   "exact": [
+    "ROUTE",
+    4284
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "request_sha256": "1ba8decce216b2b222195542e2eddb8373357813351f3a5b7f4c0a9380cdf2ab",
+   "instance_sha256": "74dd37c7ff5f7d43e2125cc14c387c80fbc2e3bbc3fa3bc4f7be99d22fb14c6f",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 114,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     4284
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4284
+    ],
+    "naive": [
+     "ROUTE",
+     4284
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     4284
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    6165
+   ],
+   "request_sha256": "9f75e4fb99348e8c2c799f924faf389c6bd69696c2b3a14192f3fa748b9d0909",
+   "instance_sha256": "b6a6953271f9aa952e357bcfb0a13a185ceb42c54d76b5cd7bfc4f592be2b6d3",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 120,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     6165
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     6165
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160449",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "false_no_route",
+   "exact": [
+    "ROUTE",
+    5947
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "request_sha256": "23c977f73b243028cfde0ced370d4c5e3d89b869e516bbc5516d772325fb97a8",
+   "instance_sha256": "6117551e8ed3bc0eddafa9940753fe294d2c58cd4050b48cd52a0624447565a5",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 120,
+   "n_waitable": 554,
+   "nV": 23158,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "ROUTE",
+     5947
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     5947
+    ],
+    "naive": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "late_T",
+   "exact": [
+    "ROUTE",
+    4022
+   ],
+   "naive": [
+    "ROUTE",
+    5812
+   ],
+   "request_sha256": "656605ecb5470ba087f354f323db41423aa08fb73471388622049bc0d591e2d9",
+   "instance_sha256": "213115ae56a38fd86b79b5c7816ffcadb33f0af3c57826f9933b0d53f02deb65",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 42,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     4022
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4022
+    ],
+    "naive": [
+     "ROUTE",
+     4022
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     4022
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "late_T",
+   "exact": [
+    "ROUTE",
+    4181
+   ],
+   "naive": [
+    "ROUTE",
+    5812
+   ],
+   "request_sha256": "5863a9b9f7fb29f2f52819b642a1acb3d707983cb67cfa33a02c47d38c7bde1a",
+   "instance_sha256": "1d214f3463e17881f96b9e50de6c8eb53c7c55c53d46c82b7a6603a848ea6789",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 68,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     4181
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4181
+    ],
+    "naive": [
+     "ROUTE",
+     4181
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     4181
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    11294
+   ],
+   "request_sha256": "b0e61bac0c0ddbd6179823bae8e475f5718adc1301a05670d6f85e764a74f3b5",
+   "instance_sha256": "64a7d977a4e1ff6fb810e0036e402ccc9b117f3c9c0f2b26e92cd19d8f98dc14",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 68,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     11294
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     11294
+    ],
+    "naive": [
+     "ROUTE",
+     11294
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     11294
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "late_T",
+   "exact": [
+    "ROUTE",
+    4022
+   ],
+   "naive": [
+    "ROUTE",
+    5812
+   ],
+   "request_sha256": "35f97a11312bcda04966e6146db32e6990efbb28ef84b634ee659f557ad06574",
+   "instance_sha256": "110b24fe429ec8b79beb2473ac1e48c4129eb1d2c02dea523e4ee37f853c04e1",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 49,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     4022
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4022
+    ],
+    "naive": [
+     "ROUTE",
+     4022
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     4022
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "solver": "n2",
+   "cls": "late_T",
+   "exact": [
+    "ROUTE",
+    4181
+   ],
+   "naive": [
+    "ROUTE",
+    5812
+   ],
+   "request_sha256": "22c4a239f921fd40f5851a418129eaf7bb547a9489ec60a18a54d7a9ea252306",
+   "instance_sha256": "44ec3d45cdd4e25cdb49fff010b035733e6a5a9cb4edc74db8f7798a68a45b67",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 76,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "ROUTE",
+     4181
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4181
+    ],
+    "naive": [
+     "ROUTE",
+     4181
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "ROUTE",
+     4181
+    ],
+    "naive": [
+     "ROUTE",
+     5812
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    11294
+   ],
+   "request_sha256": "6441567059b21eb23fe154de76440c853fac30c323fcb20c35770f4094a10069",
+   "instance_sha256": "28902a095d4dd7276dc9dd77d072b2f0764f9dd393e233895e6e4fe91632be6a",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 76,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     11294
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     11294
+    ],
+    "naive": [
+     "ROUTE",
+     11294
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     11294
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160178",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    4113
+   ],
+   "request_sha256": "10d415aeb2838c6df3c79c91149d8e1bda350c0a70125c04e9f77fd6adf84d3e",
+   "instance_sha256": "15cddff347dc59156e3811be0f9582a865cc75b5ac199c82de931d67240c9dce",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 4,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4113
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160178",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    4113
+   ],
+   "request_sha256": "d40053217d933e29594322f8ce3c826f0123bc9ee377e8bccd4138c4e820d3dd",
+   "instance_sha256": "15cddff347dc59156e3811be0f9582a865cc75b5ac199c82de931d67240c9dce",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 4,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4113
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "origin": "osm_node_415160178",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    4113
+   ],
+   "request_sha256": "6cc37a9ac0ac3afddfc0cfccf3d84c63b4fbd51159582d9fbc607e0278bdce89",
+   "instance_sha256": "fb4f5a5ec337af3ce43a8092d8f84e9dbce633b9bd30e9e198cab33cfc3267f7",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 4,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4113
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   }
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "origin": "osm_node_415160178",
+   "departure": 0,
+   "solver": "n1",
+   "cls": "unsound_route",
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    4113
+   ],
+   "request_sha256": "dee59c0514c108a8ea1f9ca69dfb86448c6ff157a900a4c054a6a46b352e3144",
+   "instance_sha256": "fb4f5a5ec337af3ce43a8092d8f84e9dbce633b9bd30e9e198cab33cfc3267f7",
+   "instance_sha_matches_c": true,
+   "n_WB_nodes": 4,
+   "n_waitable": 1527,
+   "nV": 56369,
+   "no_WB": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   },
+   "all_wait": {
+    "exact": [
+     "ROUTE",
+     4113
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": true
+   },
+   "no_AC": {
+    "exact": [
+     "NO_ROUTE",
+     null
+    ],
+    "naive": [
+     "ROUTE",
+     4113
+    ],
+    "naive_correct": false
+   }
+  }
+ ]
+}

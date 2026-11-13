@@ -1,0 +1,451 @@
+{
+ "rule": "DESIGN.md dated section 2026-11-12 (F-BASE-TEN)",
+ "tally": {
+  "run": 16,
+  "agree": 16,
+  "not_run": [
+   "20250325T190000Z_FD1",
+   "20250325T190000Z_FX2",
+   "20250325T230000Z_FL2",
+   "20250326T080000Z_FW1"
+  ]
+ },
+ "rows": [
+  {
+   "mission": "20230402T070000Z_FN1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "nodes": 6507007,
+   "arcs_upper_bound": 7034572,
+   "status": "RUN",
+   "claim": "NO_ROUTE",
+   "T": null,
+   "stats": {
+    "nodes": 6507007,
+    "arcs": 7006943,
+    "edge_arcs": 6880943,
+    "reached": 1780953
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.0030970020000040677,
+   "build_and_search_s_median": 0.4914243289999831,
+   "peak_rss_mib_max": 424.66796875,
+   "scipy": "1.13.1"
+  },
+  {
+   "mission": "20230402T070000Z_FX1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "nodes": 6507007,
+   "arcs_upper_bound": 7034572,
+   "status": "RUN",
+   "claim": "NO_ROUTE",
+   "T": null,
+   "stats": {
+    "nodes": 6507007,
+    "arcs": 7006943,
+    "edge_arcs": 6880943,
+    "reached": 1780953
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.002346721000094476,
+   "build_and_search_s_median": 0.5015889950000201,
+   "peak_rss_mib_max": 424.65625,
+   "scipy": "1.13.1"
+  },
+  {
+   "mission": "20230402T140000Z_FW2",
+   "recorded": [
+    "ROUTE",
+    1459
+   ],
+   "nodes": 5422807,
+   "arcs_upper_bound": 5860963,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 1459,
+   "stats": {
+    "nodes": 5422807,
+    "arcs": 5744082,
+    "edge_arcs": 5639082,
+    "reached": 3421051
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.0024400129998412012,
+   "build_and_search_s_median": 0.4683714450000025,
+   "peak_rss_mib_max": 359.01953125,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 1459"
+  },
+  {
+   "mission": "20230402T230000Z_FD1",
+   "recorded": [
+    "ROUTE",
+    531
+   ],
+   "nodes": 6507007,
+   "arcs_upper_bound": 7034563,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 531,
+   "stats": {
+    "nodes": 6507007,
+    "arcs": 6987817,
+    "edge_arcs": 6865417,
+    "reached": 4436954
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.002241357999992033,
+   "build_and_search_s_median": 0.529553721999946,
+   "peak_rss_mib_max": 423.86328125,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 531"
+  },
+  {
+   "mission": "20220531T100000Z_FN1",
+   "recorded": [
+    "ROUTE",
+    1142
+   ],
+   "nodes": 11220716,
+   "arcs_upper_bound": 14774656,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 1142,
+   "stats": {
+    "nodes": 11220716,
+    "arcs": 14774656,
+    "edge_arcs": 14501056,
+    "reached": 9113674
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.003990074000057575,
+   "build_and_search_s_median": 1.0353715170001578,
+   "peak_rss_mib_max": 790.33203125,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 1142"
+  },
+  {
+   "mission": "20220601T020000Z_FW1",
+   "recorded": [
+    "ROUTE",
+    1270
+   ],
+   "nodes": 10285916,
+   "arcs_upper_bound": 13542255,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 1270,
+   "stats": {
+    "nodes": 10285916,
+    "arcs": 13542255,
+    "edge_arcs": 13288155,
+    "reached": 8161074
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.003792336000060459,
+   "build_and_search_s_median": 0.9473072409998622,
+   "peak_rss_mib_max": 729.23046875,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 1270"
+  },
+  {
+   "mission": "20220601T080000Z_FD1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "nodes": 9351116,
+   "arcs_upper_bound": 12312845,
+   "status": "RUN",
+   "claim": "NO_ROUTE",
+   "T": null,
+   "stats": {
+    "nodes": 9351116,
+    "arcs": 11623448,
+    "edge_arcs": 11395448,
+    "reached": 3651958
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.003859721000026184,
+   "build_and_search_s_median": 0.6937023919999774,
+   "peak_rss_mib_max": 639.37109375,
+   "scipy": "1.13.1"
+  },
+  {
+   "mission": "20220601T080000Z_FX1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "nodes": 11220716,
+   "arcs_upper_bound": 14778245,
+   "status": "RUN",
+   "claim": "NO_ROUTE",
+   "T": null,
+   "stats": {
+    "nodes": 11220716,
+    "arcs": 13950848,
+    "edge_arcs": 13677248,
+    "reached": 4432558
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.007397588000003452,
+   "build_and_search_s_median": 1.0013899489999858,
+   "peak_rss_mib_max": 756.03515625,
+   "scipy": "1.13.1"
+  },
+  {
+   "mission": "20250323T010000Z_FD1",
+   "recorded": [
+    "ROUTE",
+    2460
+   ],
+   "nodes": 131524827,
+   "arcs_upper_bound": 148093220,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 2460,
+   "stats": {
+    "nodes": 131524827,
+    "arcs": 147770184,
+    "edge_arcs": 146151936,
+    "reached": 29329789
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.06444399399993017,
+   "build_and_search_s_median": 14.60620312900005,
+   "peak_rss_mib_max": 7824.41015625,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 2460"
+  },
+  {
+   "mission": "20250323T010000Z_FX2",
+   "recorded": [
+    "ROUTE",
+    2540
+   ],
+   "nodes": 131524827,
+   "arcs_upper_bound": 148093211,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 2540,
+   "stats": {
+    "nodes": 131524827,
+    "arcs": 147770175,
+    "edge_arcs": 146151927,
+    "reached": 56514133
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.08293934799985436,
+   "build_and_search_s_median": 15.289243159999842,
+   "peak_rss_mib_max": 7824.4140625,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 2540"
+  },
+  {
+   "mission": "20250324T090000Z_FL2",
+   "recorded": [
+    "ROUTE",
+    2143
+   ],
+   "nodes": 157821027,
+   "arcs_upper_bound": 177739816,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 2143,
+   "stats": {
+    "nodes": 157821027,
+    "arcs": 177017189,
+    "edge_arcs": 175080181,
+    "reached": 68696084
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.062314764999882755,
+   "build_and_search_s_median": 16.917686857000035,
+   "peak_rss_mib_max": 9355.94921875,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 2143"
+  },
+  {
+   "mission": "20250325T170000Z_FW1",
+   "recorded": [
+    "ROUTE",
+    1064
+   ],
+   "nodes": 157821027,
+   "arcs_upper_bound": 177739822,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 1064,
+   "stats": {
+    "nodes": 157821027,
+    "arcs": 170046925,
+    "edge_arcs": 168200125,
+    "reached": 51659301
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.05892886600008751,
+   "build_and_search_s_median": 15.854374377999875,
+   "peak_rss_mib_max": 9059.4921875,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 1064"
+  },
+  {
+   "mission": "20220304T030000Z_FD1",
+   "recorded": [
+    "ROUTE",
+    1589
+   ],
+   "nodes": 68094910,
+   "arcs_upper_bound": 82144173,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 1589,
+   "stats": {
+    "nodes": 68094910,
+    "arcs": 82144173,
+    "edge_arcs": 80938173,
+    "reached": 36819711
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.043486764000135736,
+   "build_and_search_s_median": 6.633023786999956,
+   "peak_rss_mib_max": 4270.046875,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 1589"
+  },
+  {
+   "mission": "20220304T030000Z_FX1",
+   "recorded": [
+    "ROUTE",
+    3119
+   ],
+   "nodes": 68094910,
+   "arcs_upper_bound": 82144176,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 3119,
+   "stats": {
+    "nodes": 68094910,
+    "arcs": 82144176,
+    "edge_arcs": 80938176,
+    "reached": 17742915
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.024519996999970317,
+   "build_and_search_s_median": 6.700650934000123,
+   "peak_rss_mib_max": 4270.14453125,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 3119"
+  },
+  {
+   "mission": "20220304T060000Z_FL1",
+   "recorded": [
+    "ROUTE",
+    2067
+   ],
+   "nodes": 68094910,
+   "arcs_upper_bound": 82144176,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 2067,
+   "stats": {
+    "nodes": 68094910,
+    "arcs": 81657304,
+    "edge_arcs": 80451304,
+    "reached": 30880816
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.024589813999909893,
+   "build_and_search_s_median": 7.207581628000071,
+   "peak_rss_mib_max": 4249.30078125,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 2067"
+  },
+  {
+   "mission": "20220304T120000Z_FW2",
+   "recorded": [
+    "ROUTE",
+    1655
+   ],
+   "nodes": 56748910,
+   "arcs_upper_bound": 68440773,
+   "status": "RUN",
+   "claim": "ROUTE",
+   "T": 1655,
+   "stats": {
+    "nodes": 56748910,
+    "arcs": 68406600,
+    "edge_arcs": 67401600,
+    "reached": 22646476
+   },
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "parse_s_median": 0.024649852000038663,
+   "build_and_search_s_median": 6.140771976999986,
+   "peak_rss_mib_max": 3568.890625,
+   "scipy": "1.13.1",
+   "f32_check_py_on_ten_witness": "ACCEPT ROUTE 1655"
+  },
+  {
+   "mission": "20250325T190000Z_FD1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "nodes": 403041925,
+   "arcs_upper_bound": 451435973,
+   "status": "NOT RUN: arc upper bound 4.51e+08 > budget 2e+08"
+  },
+  {
+   "mission": "20250325T190000Z_FX2",
+   "recorded": [
+    "ROUTE",
+    2512
+   ],
+   "nodes": 403041925,
+   "arcs_upper_bound": 451435951,
+   "status": "NOT RUN: arc upper bound 4.51e+08 > budget 2e+08"
+  },
+  {
+   "mission": "20250325T230000Z_FL2",
+   "recorded": [
+    "ROUTE",
+    1922
+   ],
+   "nodes": 403041925,
+   "arcs_upper_bound": 451428769,
+   "status": "NOT RUN: arc upper bound 4.51e+08 > budget 2e+08"
+  },
+  {
+   "mission": "20250326T080000Z_FW1",
+   "recorded": [
+    "ROUTE",
+    896
+   ],
+   "nodes": 369464425,
+   "arcs_upper_bound": 413801875,
+   "status": "NOT RUN: arc upper bound 4.14e+08 > budget 2e+08"
+  }
+ ]
+}

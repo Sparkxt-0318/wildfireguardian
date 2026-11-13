@@ -1,0 +1,234 @@
+{
+ "rule": "DESIGN.md (g)",
+ "label": "SENSITIVITY: waiting allowed at every node (not the documented default; default = graph dead ends only)",
+ "rows_per_packet": {
+  "uiseong_andong_2025:20250323T010000Z:5:firms_early": 18,
+  "uiseong_andong_2025:20250323T010000Z:5:kriged_mean": 18,
+  "uiseong_andong_2025:20250323T010000Z:8:firms_early": 18,
+  "uiseong_andong_2025:20250323T010000Z:8:kriged_mean": 18,
+  "uiseong_andong_2025:20250324T090000Z:5:firms_early": 18,
+  "uiseong_andong_2025:20250324T090000Z:5:kriged_mean": 18,
+  "uiseong_andong_2025:20250324T090000Z:8:firms_early": 18,
+  "uiseong_andong_2025:20250324T090000Z:8:kriged_mean": 18,
+  "uiseong_andong_2025:20250325T170000Z:5:firms_early": 18,
+  "uiseong_andong_2025:20250325T170000Z:5:kriged_mean": 18,
+  "uiseong_andong_2025:20250325T170000Z:8:firms_early": 18,
+  "uiseong_andong_2025:20250325T170000Z:8:kriged_mean": 18,
+  "yeongdeok_2025:20250325T190000Z:5:firms_early": 18,
+  "yeongdeok_2025:20250325T190000Z:5:kriged_mean": 18,
+  "yeongdeok_2025:20250325T190000Z:8:firms_early": 18,
+  "yeongdeok_2025:20250325T190000Z:8:kriged_mean": 18,
+  "yeongdeok_2025:20250325T230000Z:5:firms_early": 18,
+  "yeongdeok_2025:20250325T230000Z:5:kriged_mean": 18,
+  "yeongdeok_2025:20250325T230000Z:8:firms_early": 18,
+  "yeongdeok_2025:20250325T230000Z:8:kriged_mean": 18,
+  "yeongdeok_2025:20250326T080000Z:5:firms_early": 18,
+  "yeongdeok_2025:20250326T080000Z:5:kriged_mean": 18,
+  "yeongdeok_2025:20250326T080000Z:8:firms_early": 18,
+  "yeongdeok_2025:20250326T080000Z:8:kriged_mean": 18
+ },
+ "problems": [],
+ "readings": {
+  "reopening": {
+   "label": "SENSITIVITY: waiting allowed at every node (not the documented default; default = graph dead ends only)",
+   "requests": 432,
+   "exact": {
+    "ROUTE": 432,
+    "NO_ROUTE": 0
+   },
+   "s1": {
+    "ROUTE": 408
+   },
+   "s2": {
+    "ROUTE": 378
+   },
+   "d_i": 0,
+   "d_ii": {
+    "count": 54,
+    "denominator": 432
+   },
+   "s3": {
+    "600": {
+     "ROUTE": 408,
+     "VIOLATION": 0,
+     "REFUSED": 24,
+     "UNRESOLVED": 0,
+     "e_ii": 24,
+     "replays_all": true
+    },
+    "1800": {
+     "ROUTE": 408,
+     "VIOLATION": 0,
+     "REFUSED": 24,
+     "UNRESOLVED": 0,
+     "e_ii": 24,
+     "replays_all": true
+    },
+    "3600": {
+     "ROUTE": 408,
+     "VIOLATION": 0,
+     "REFUSED": 24,
+     "UNRESOLVED": 0,
+     "e_ii": 24,
+     "replays_all": true
+    }
+   },
+   "change_vs_default_exact": {
+    "NO_ROUTE->ROUTE": 14,
+    "ROUTE->ROUTE": 418
+   },
+   "route_to_no_route": 0,
+   "T_change_where_both_route": {
+    "n": 418,
+    "earlier": 0,
+    "same": 418,
+    "later": 0,
+    "min": 0
+   },
+   "no_route_to_route": [
+    {
+     "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+     "origin": "osm_node_415160350",
+     "departure": 7200,
+     "T_all_wait": 12460
+    },
+    {
+     "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+     "origin": "osm_node_415160350",
+     "departure": 7200,
+     "T_all_wait": 12460
+    },
+    {
+     "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+     "origin": "osm_node_415160350",
+     "departure": 7200,
+     "T_all_wait": 12460
+    },
+    {
+     "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+     "origin": "osm_node_415160350",
+     "departure": 7200,
+     "T_all_wait": 12460
+    },
+    {
+     "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+     "origin": "osm_node_415160362",
+     "departure": 0,
+     "T_all_wait": 6165
+    },
+    {
+     "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+     "origin": "osm_node_415160362",
+     "departure": 0,
+     "T_all_wait": 6165
+    },
+    {
+     "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+     "origin": "osm_node_415160362",
+     "departure": 0,
+     "T_all_wait": 6165
+    },
+    {
+     "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+     "origin": "osm_node_415160362",
+     "departure": 0,
+     "T_all_wait": 6165
+    },
+    {
+     "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+     "origin": "osm_node_415160167",
+     "departure": 7200,
+     "T_all_wait": 11294
+    },
+    {
+     "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+     "origin": "osm_node_415160167",
+     "departure": 7200,
+     "T_all_wait": 11294
+    },
+    {
+     "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+     "origin": "osm_node_415160178",
+     "departure": 0,
+     "T_all_wait": 4113
+    },
+    {
+     "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+     "origin": "osm_node_415160178",
+     "departure": 0,
+     "T_all_wait": 4113
+    },
+    {
+     "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+     "origin": "osm_node_415160178",
+     "departure": 0,
+     "T_all_wait": 4113
+    },
+    {
+     "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+     "origin": "osm_node_415160178",
+     "departure": 0,
+     "T_all_wait": 4113
+    }
+   ]
+  },
+  "no_reentry/1": {
+   "label": "SENSITIVITY: waiting allowed at every node (not the documented default; default = graph dead ends only)",
+   "requests": 432,
+   "exact": {
+    "ROUTE": 382,
+    "NO_ROUTE": 50
+   },
+   "s1": {
+    "ROUTE": 382
+   },
+   "s2": {
+    "ROUTE": 356
+   },
+   "d_i": 0,
+   "d_ii": {
+    "count": 26,
+    "denominator": 382
+   },
+   "s3": {
+    "600": {
+     "ROUTE": 382,
+     "VIOLATION": 0,
+     "REFUSED": 50,
+     "UNRESOLVED": 0,
+     "e_ii": 0,
+     "replays_all": true
+    },
+    "1800": {
+     "ROUTE": 382,
+     "VIOLATION": 0,
+     "REFUSED": 50,
+     "UNRESOLVED": 0,
+     "e_ii": 0,
+     "replays_all": true
+    },
+    "3600": {
+     "ROUTE": 382,
+     "VIOLATION": 0,
+     "REFUSED": 50,
+     "UNRESOLVED": 0,
+     "e_ii": 0,
+     "replays_all": true
+    }
+   },
+   "change_vs_default_exact": {
+    "NO_ROUTE->NO_ROUTE": 50,
+    "ROUTE->ROUTE": 382
+   },
+   "route_to_no_route": 0,
+   "T_change_where_both_route": {
+    "n": 382,
+    "earlier": 0,
+    "same": 382,
+    "later": 0,
+    "min": 0
+   },
+   "no_route_to_route": []
+  }
+ }
+}

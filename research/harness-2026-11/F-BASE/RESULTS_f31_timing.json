@@ -1,0 +1,503 @@
+{
+ "rule": "DESIGN.md dated addition 2026-11-12 (b)",
+ "source": "claude/f31-deadline-field@25352cad, python -m deadline_field.mission_timing --repeat 3",
+ "host_note": "same host as F-BASE/router runs; refit venv py3.12, numpy 1.26.4",
+ "consistent": 20,
+ "rows": [
+  {
+   "mission": "20230402T070000Z_FN1",
+   "dep": 0,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "dep_in_feasible_set": false,
+   "consistent": true,
+   "build_s": 0.048,
+   "search_s_median": 0.013,
+   "search_s": [
+    0.013,
+    0.011,
+    0.018
+   ],
+   "latest_departure_s": null,
+   "feasible_set": [],
+   "router_search_s_median": 0.008142957998643396,
+   "exact_search_s_median": 0.0060094289999597095
+  },
+  {
+   "mission": "20230402T070000Z_FX1",
+   "dep": 0,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "dep_in_feasible_set": false,
+   "consistent": true,
+   "build_s": 0.054,
+   "search_s_median": 0.011,
+   "search_s": [
+    0.013,
+    0.01,
+    0.011
+   ],
+   "latest_departure_s": null,
+   "feasible_set": [],
+   "router_search_s_median": 0.007803155000146944,
+   "exact_search_s_median": 0.006450008000001617
+  },
+  {
+   "mission": "20230402T140000Z_FW2",
+   "dep": 600,
+   "recorded": [
+    "ROUTE",
+    1459
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.043,
+   "search_s_median": 0.019,
+   "search_s": [
+    0.029,
+    0.018,
+    0.019
+   ],
+   "latest_departure_s": 3112,
+   "feasible_set": [
+    [
+     0,
+     3112
+    ]
+   ],
+   "router_search_s_median": 0.004545894000330009,
+   "exact_search_s_median": 0.0347459050000225
+  },
+  {
+   "mission": "20230402T230000Z_FD1",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    531
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.039,
+   "search_s_median": 0.012,
+   "search_s": [
+    0.012,
+    0.01,
+    0.022
+   ],
+   "latest_departure_s": 196,
+   "feasible_set": [
+    [
+     0,
+     196
+    ]
+   ],
+   "router_search_s_median": 0.0009923769994202303,
+   "exact_search_s_median": 0.003465820999963398
+  },
+  {
+   "mission": "20220531T100000Z_FN1",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    1142
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.109,
+   "search_s_median": 0.035,
+   "search_s": [
+    0.042,
+    0.026,
+    0.035
+   ],
+   "latest_departure_s": 2338,
+   "feasible_set": [
+    [
+     0,
+     2338
+    ]
+   ],
+   "router_search_s_median": 0.0020393560007505585,
+   "exact_search_s_median": 0.12918059800006176
+  },
+  {
+   "mission": "20220601T020000Z_FW1",
+   "dep": 300,
+   "recorded": [
+    "ROUTE",
+    1270
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.064,
+   "search_s_median": 0.068,
+   "search_s": [
+    0.068,
+    0.09,
+    0.056
+   ],
+   "latest_departure_s": 2748,
+   "feasible_set": [
+    [
+     0,
+     2748
+    ]
+   ],
+   "router_search_s_median": 0.008712445000128355,
+   "exact_search_s_median": 0.008845049999990806
+  },
+  {
+   "mission": "20220601T080000Z_FD1",
+   "dep": 600,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "dep_in_feasible_set": false,
+   "consistent": true,
+   "build_s": 0.094,
+   "search_s_median": 0.031,
+   "search_s": [
+    0.031,
+    0.028,
+    0.032
+   ],
+   "latest_departure_s": null,
+   "feasible_set": [],
+   "router_search_s_median": 0.03853065399925981,
+   "exact_search_s_median": 0.03641087099993001
+  },
+  {
+   "mission": "20220601T080000Z_FX1",
+   "dep": 0,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "dep_in_feasible_set": false,
+   "consistent": true,
+   "build_s": 0.107,
+   "search_s_median": 0.019,
+   "search_s": [
+    0.03,
+    0.019,
+    0.017
+   ],
+   "latest_departure_s": null,
+   "feasible_set": [],
+   "router_search_s_median": 0.040402157999778865,
+   "exact_search_s_median": 0.03748658699998941
+  },
+  {
+   "mission": "20250323T010000Z_FD1",
+   "dep": 600,
+   "recorded": [
+    "ROUTE",
+    2460
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 1.09,
+   "search_s_median": 0.672,
+   "search_s": [
+    0.663,
+    0.672,
+    0.68
+   ],
+   "latest_departure_s": 639,
+   "feasible_set": [
+    [
+     0,
+     639
+    ]
+   ],
+   "router_search_s_median": 0.026401163999253185,
+   "exact_search_s_median": 0.49945398599993496
+  },
+  {
+   "mission": "20250323T010000Z_FX2",
+   "dep": 600,
+   "recorded": [
+    "ROUTE",
+    2540
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 1.181,
+   "search_s_median": 0.833,
+   "search_s": [
+    0.987,
+    0.833,
+    0.803
+   ],
+   "latest_departure_s": 1540,
+   "feasible_set": [
+    [
+     0,
+     1540
+    ]
+   ],
+   "router_search_s_median": 0.023383281999485916,
+   "exact_search_s_median": 2.291739247999999
+  },
+  {
+   "mission": "20250324T090000Z_FL2",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    2143
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 1.123,
+   "search_s_median": 0.674,
+   "search_s": [
+    0.678,
+    0.576,
+    0.674
+   ],
+   "latest_departure_s": 1337,
+   "feasible_set": [
+    [
+     0,
+     1337
+    ]
+   ],
+   "router_search_s_median": 0.3194391449997056,
+   "exact_search_s_median": 1.5879221000000143
+  },
+  {
+   "mission": "20250325T170000Z_FW1",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    1064
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 1.504,
+   "search_s_median": 0.821,
+   "search_s": [
+    0.821,
+    0.814,
+    0.902
+   ],
+   "latest_departure_s": 2907,
+   "feasible_set": [
+    [
+     0,
+     2907
+    ]
+   ],
+   "router_search_s_median": 0.08260326700110454,
+   "exact_search_s_median": 0.025972499999966203
+  },
+  {
+   "mission": "20220304T030000Z_FD1",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    1589
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.531,
+   "search_s_median": 0.283,
+   "search_s": [
+    0.283,
+    0.291,
+    0.265
+   ],
+   "latest_departure_s": 176,
+   "feasible_set": [
+    [
+     0,
+     176
+    ]
+   ],
+   "router_search_s_median": 0.00914309500149102,
+   "exact_search_s_median": 0.49763766899991424
+  },
+  {
+   "mission": "20220304T030000Z_FX1",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    3119
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.452,
+   "search_s_median": 0.308,
+   "search_s": [
+    0.321,
+    0.308,
+    0.304
+   ],
+   "latest_departure_s": 361,
+   "feasible_set": [
+    [
+     0,
+     361
+    ]
+   ],
+   "router_search_s_median": 0.009954122999261017,
+   "exact_search_s_median": 0.5063444579999441
+  },
+  {
+   "mission": "20220304T060000Z_FL1",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    2067
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.473,
+   "search_s_median": 0.314,
+   "search_s": [
+    0.316,
+    0.314,
+    0.31
+   ],
+   "latest_departure_s": 1413,
+   "feasible_set": [
+    [
+     0,
+     1413
+    ]
+   ],
+   "router_search_s_median": 0.012194613000247045,
+   "exact_search_s_median": 0.14181932400003916
+  },
+  {
+   "mission": "20220304T120000Z_FW2",
+   "dep": 600,
+   "recorded": [
+    "ROUTE",
+    1655
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 0.501,
+   "search_s_median": 0.373,
+   "search_s": [
+    0.395,
+    0.373,
+    0.358
+   ],
+   "latest_departure_s": 2680,
+   "feasible_set": [
+    [
+     0,
+     2680
+    ]
+   ],
+   "router_search_s_median": 0.009453026999835856,
+   "exact_search_s_median": 0.08246745000008104
+  },
+  {
+   "mission": "20250325T190000Z_FD1",
+   "dep": 0,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "dep_in_feasible_set": false,
+   "consistent": true,
+   "build_s": 3.399,
+   "search_s_median": 1.609,
+   "search_s": [
+    2.018,
+    1.469,
+    1.609
+   ],
+   "latest_departure_s": null,
+   "feasible_set": [],
+   "router_search_s_median": 3.596809413000301,
+   "exact_search_s_median": 3.2616851459999907
+  },
+  {
+   "mission": "20250325T190000Z_FX2",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    2512
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 3.227,
+   "search_s_median": 1.866,
+   "search_s": [
+    1.92,
+    1.866,
+    1.445
+   ],
+   "latest_departure_s": 968,
+   "feasible_set": [
+    [
+     0,
+     968
+    ]
+   ],
+   "router_search_s_median": 0.5751331800001935,
+   "exact_search_s_median": 2.1322668359999852
+  },
+  {
+   "mission": "20250325T230000Z_FL2",
+   "dep": 0,
+   "recorded": [
+    "ROUTE",
+    1922
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 2.941,
+   "search_s_median": 2.883,
+   "search_s": [
+    3.009,
+    2.883,
+    2.676
+   ],
+   "latest_departure_s": 1558,
+   "feasible_set": [
+    [
+     0,
+     1558
+    ]
+   ],
+   "router_search_s_median": 0.2576503660002345,
+   "exact_search_s_median": 3.1915671739999425
+  },
+  {
+   "mission": "20250326T080000Z_FW1",
+   "dep": 300,
+   "recorded": [
+    "ROUTE",
+    896
+   ],
+   "dep_in_feasible_set": true,
+   "consistent": true,
+   "build_s": 2.982,
+   "search_s_median": 2.206,
+   "search_s": [
+    2.206,
+    2.379,
+    2.097
+   ],
+   "latest_departure_s": 3004,
+   "feasible_set": [
+    [
+     0,
+     3004
+    ]
+   ],
+   "router_search_s_median": 0.23485458899995137,
+   "exact_search_s_median": 0.046407859999931134
+  }
+ ]
+}

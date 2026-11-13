@@ -1,0 +1,1033 @@
+{
+ "rule": "DESIGN.md (F-BASE frozen comparison rules)",
+ "tally": {
+  "exact": {
+   "agree": 20,
+   "total": 20
+  },
+  "n1": {
+   "agree": 20,
+   "total": 20
+  },
+  "n2": {
+   "agree": 15,
+   "total": 20
+  },
+  "n3": {
+   "agree": 14,
+   "total": 20
+  }
+ },
+ "rows": [
+  {
+   "mission": "20230402T070000Z_FN1",
+   "region": "hongseong_2023",
+   "instance_sha256": "3848b22fb146eb9830ed0171e6ebf758e64d67397401bb53bf94980a6f0c9807",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0017973290000554698,
+     "search_s_median": 0.0060094289999597095,
+     "peak_rss_mib_max": 20.63671875,
+     "consistent_across_repeats": true,
+     "replay_ok": null
+    },
+    "n1": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0033621699999457633,
+     "search_s_median": 0.0014322829999855458,
+     "peak_rss_mib_max": 20.18359375,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0018576740000071368,
+     "search_s_median": 0.001070052999921245,
+     "peak_rss_mib_max": 20.18359375,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0022835830000076385,
+     "search_s_median": 0.008088155999985247,
+     "peak_rss_mib_max": 20.27734375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20230402T070000Z_FX1",
+   "region": "hongseong_2023",
+   "instance_sha256": "1c21b2d5b7a5c1e3206d1c87932f6e5c76ce47c7a3215af3f40b5e30b2d67491",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0021041190000232746,
+     "search_s_median": 0.006450008000001617,
+     "peak_rss_mib_max": 20.3984375,
+     "consistent_across_repeats": true,
+     "replay_ok": null
+    },
+    "n1": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.001954921999981707,
+     "search_s_median": 0.0008539010000276903,
+     "peak_rss_mib_max": 20.19921875,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0018191330000263406,
+     "search_s_median": 0.0010582180000255903,
+     "peak_rss_mib_max": 20.1796875,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0018748649999906775,
+     "search_s_median": 0.006116135999945982,
+     "peak_rss_mib_max": 20.3984375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20230402T140000Z_FW2",
+   "region": "hongseong_2023",
+   "instance_sha256": "a1acf09eac2f19e062a7c29474f2dc95f29e3e99040c91f24b71cf7dffb2cde7",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1459
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1459,
+     "agrees": true,
+     "parse_s_median": 0.00223669600006815,
+     "search_s_median": 0.0347459050000225,
+     "peak_rss_mib_max": 22.35546875,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1459",
+     "witness_legs": 247
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1459,
+     "agrees": true,
+     "parse_s_median": 0.002017340000065815,
+     "search_s_median": 0.0015878369999882125,
+     "peak_rss_mib_max": 20.140625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": false,
+     "parse_s_median": 0.0021043499999677806,
+     "search_s_median": 0.0026815040000656154,
+     "peak_rss_mib_max": 20.13671875,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 968,
+     "agrees": false,
+     "parse_s_median": 0.002084830000057991,
+     "search_s_median": 0.0023463239999728103,
+     "peak_rss_mib_max": 20.1171875,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20230402T230000Z_FD1",
+   "region": "hongseong_2023",
+   "instance_sha256": "7f7efcc524a37cfc6d49932eda2cc2d6f5096c0037d900d6c00ce6473232f3af",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    531
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 531,
+     "agrees": true,
+     "parse_s_median": 0.001889775999984522,
+     "search_s_median": 0.003465820999963398,
+     "peak_rss_mib_max": 20.2578125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 531",
+     "witness_legs": 119
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 531,
+     "agrees": true,
+     "parse_s_median": 0.0018527659999563184,
+     "search_s_median": 0.0009716339999386037,
+     "peak_rss_mib_max": 20.03125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 531,
+     "agrees": true,
+     "parse_s_median": 0.0021128089999820077,
+     "search_s_median": 0.0016032359999371693,
+     "peak_rss_mib_max": 20.140625,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 531,
+     "agrees": true,
+     "parse_s_median": 0.0019844729999931587,
+     "search_s_median": 0.0035184399999934612,
+     "peak_rss_mib_max": 20.203125,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220531T100000Z_FN1",
+   "region": "miryang_2022",
+   "instance_sha256": "1b1fd2b7753275ce8641c577b3a4d48ca71f3ef2ffdd202f2e04ae419662725c",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1142
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1142,
+     "agrees": true,
+     "parse_s_median": 0.0033706599999732134,
+     "search_s_median": 0.12918059800006176,
+     "peak_rss_mib_max": 27.28515625,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1142",
+     "witness_legs": 195
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1142,
+     "agrees": true,
+     "parse_s_median": 0.0031901590000416036,
+     "search_s_median": 0.0043870970000625675,
+     "peak_rss_mib_max": 20.94921875,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 1142,
+     "agrees": true,
+     "parse_s_median": 0.003331765999973868,
+     "search_s_median": 0.005983503000038581,
+     "peak_rss_mib_max": 21.01953125,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 1142,
+     "agrees": true,
+     "parse_s_median": 0.0032444470000427827,
+     "search_s_median": 0.12979531600001337,
+     "peak_rss_mib_max": 27.2421875,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220601T020000Z_FW1",
+   "region": "miryang_2022",
+   "instance_sha256": "44bd1b5fb4d5dc8d0a564f044c3d19021468e3e88bde2d349f36b60b82d8ae5b",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1270
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1270,
+     "agrees": true,
+     "parse_s_median": 0.003097618999959195,
+     "search_s_median": 0.008845049999990806,
+     "peak_rss_mib_max": 21.1953125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1270",
+     "witness_legs": 375
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1270,
+     "agrees": true,
+     "parse_s_median": 0.0030360639999571504,
+     "search_s_median": 0.003374184999984209,
+     "peak_rss_mib_max": 20.7734375,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 1294,
+     "agrees": false,
+     "parse_s_median": 0.0030801269999756187,
+     "search_s_median": 0.0049855470000466084,
+     "peak_rss_mib_max": 20.65234375,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 1032,
+     "agrees": false,
+     "parse_s_median": 0.0030717010000671507,
+     "search_s_median": 0.005151255999976456,
+     "peak_rss_mib_max": 20.7890625,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220601T080000Z_FD1",
+   "region": "miryang_2022",
+   "instance_sha256": "1b4026fd5f770959885621ea9143c70fa966d926c02fe673603373d22f139273",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.003363863999993555,
+     "search_s_median": 0.03641087099993001,
+     "peak_rss_mib_max": 22.40234375,
+     "consistent_across_repeats": true,
+     "replay_ok": null
+    },
+    "n1": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.003289936999976817,
+     "search_s_median": 0.002198526000029233,
+     "peak_rss_mib_max": 20.7890625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0033032919999413934,
+     "search_s_median": 0.0032335110000758505,
+     "peak_rss_mib_max": 20.74609375,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.003404983999985234,
+     "search_s_median": 0.03648607700006323,
+     "peak_rss_mib_max": 22.37890625,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220601T080000Z_FX1",
+   "region": "miryang_2022",
+   "instance_sha256": "136d908351445370e7f2ad6e0479a123f4d05af41692b4bb7256f2433be96b50",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.004333704000032412,
+     "search_s_median": 0.03748658699998941,
+     "peak_rss_mib_max": 22.00390625,
+     "consistent_across_repeats": true,
+     "replay_ok": null
+    },
+    "n1": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0033183140000119238,
+     "search_s_median": 0.002144960999999057,
+     "peak_rss_mib_max": 20.828125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0032811979999678442,
+     "search_s_median": 0.0030389549999654264,
+     "peak_rss_mib_max": 20.7734375,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.0033041809999758698,
+     "search_s_median": 0.050615307000043686,
+     "peak_rss_mib_max": 22.0234375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250323T010000Z_FD1",
+   "region": "uiseong_andong_2025",
+   "instance_sha256": "8ff8c498916fc0f370cd6bc1cad4ceda72bc0d9c691cc7e951225c925c3aecb5",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    2460
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 2460,
+     "agrees": true,
+     "parse_s_median": 0.049552102000006926,
+     "search_s_median": 0.49945398599993496,
+     "peak_rss_mib_max": 65.40625,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 2460",
+     "witness_legs": 410
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 2460,
+     "agrees": true,
+     "parse_s_median": 0.04781215200000588,
+     "search_s_median": 0.021115807999990466,
+     "peak_rss_mib_max": 41.66015625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 2460,
+     "agrees": true,
+     "parse_s_median": 0.06275248299994018,
+     "search_s_median": 0.025509495000051174,
+     "peak_rss_mib_max": 41.78515625,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 2460,
+     "agrees": true,
+     "parse_s_median": 0.04790989700006776,
+     "search_s_median": 0.5423973099999557,
+     "peak_rss_mib_max": 65.3125,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250323T010000Z_FX2",
+   "region": "uiseong_andong_2025",
+   "instance_sha256": "987a3dd4b4f5a3bf2d4f15264569b2b54a50985785515315bfe497bd7b5b327c",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    2540
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 2540,
+     "agrees": true,
+     "parse_s_median": 0.04898578500001349,
+     "search_s_median": 2.291739247999999,
+     "peak_rss_mib_max": 147.84375,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 2540",
+     "witness_legs": 322
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 2540,
+     "agrees": true,
+     "parse_s_median": 0.04835076599999866,
+     "search_s_median": 0.046990151000045444,
+     "peak_rss_mib_max": 42.59375,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 2540,
+     "agrees": true,
+     "parse_s_median": 0.05091841099999783,
+     "search_s_median": 0.06662306900000203,
+     "peak_rss_mib_max": 42.6328125,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 2540,
+     "agrees": true,
+     "parse_s_median": 0.04672801000003801,
+     "search_s_median": 2.4018430029999536,
+     "peak_rss_mib_max": 147.88671875,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250324T090000Z_FL2",
+   "region": "uiseong_andong_2025",
+   "instance_sha256": "f79018bb3b82c9fbd9dbcf77cea6447d05012ec7fbc70e56eee3c650ef4d3ba4",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    2143
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 2143,
+     "agrees": true,
+     "parse_s_median": 0.05755045399996561,
+     "search_s_median": 1.5879221000000143,
+     "peak_rss_mib_max": 113.14453125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 2143",
+     "witness_legs": 472
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 2143,
+     "agrees": true,
+     "parse_s_median": 0.05409798100004082,
+     "search_s_median": 0.0547804670000005,
+     "peak_rss_mib_max": 42.5390625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 2143,
+     "agrees": true,
+     "parse_s_median": 0.06352297700004783,
+     "search_s_median": 0.06444361100000151,
+     "peak_rss_mib_max": 42.4140625,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 2143,
+     "agrees": true,
+     "parse_s_median": 0.07088793600007648,
+     "search_s_median": 1.544527429000027,
+     "peak_rss_mib_max": 113.09765625,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250325T170000Z_FW1",
+   "region": "uiseong_andong_2025",
+   "instance_sha256": "ce3efc64474b184c58a3de21c7fe6bb7c156f73a5bd82f0a038dd57a44e39802",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1064
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1064,
+     "agrees": true,
+     "parse_s_median": 0.06371936799996547,
+     "search_s_median": 0.025972499999966203,
+     "peak_rss_mib_max": 41.9609375,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1064",
+     "witness_legs": 653
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1064,
+     "agrees": true,
+     "parse_s_median": 0.05205686599992987,
+     "search_s_median": 0.01271493600006579,
+     "peak_rss_mib_max": 42.1015625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": false,
+     "parse_s_median": 0.04767273100003422,
+     "search_s_median": 0.07337416500001837,
+     "peak_rss_mib_max": 42.09765625,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 573,
+     "agrees": false,
+     "parse_s_median": 0.04773169800000687,
+     "search_s_median": 0.010519068999997216,
+     "peak_rss_mib_max": 41.99609375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220304T030000Z_FD1",
+   "region": "uljin_2022",
+   "instance_sha256": "36c1935dc559afc87ac3fa1102b127645ce9b1654ae998a61880976c300d39be",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1589
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1589,
+     "agrees": true,
+     "parse_s_median": 0.0201271660000657,
+     "search_s_median": 0.49763766899991424,
+     "peak_rss_mib_max": 50.60546875,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1589",
+     "witness_legs": 212
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1589,
+     "agrees": true,
+     "parse_s_median": 0.021400113000026977,
+     "search_s_median": 0.014186386999995193,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 1589,
+     "agrees": true,
+     "parse_s_median": 0.020756627000082517,
+     "search_s_median": 0.023619903000053455,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 1589,
+     "agrees": true,
+     "parse_s_median": 0.021477167999933044,
+     "search_s_median": 0.6360316130000001,
+     "peak_rss_mib_max": 50.6171875,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220304T030000Z_FX1",
+   "region": "uljin_2022",
+   "instance_sha256": "c09c98c98c941b00ab1d4b46d46df0d29e729f321016266101d3b7600f689deb",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    3119
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 3119,
+     "agrees": true,
+     "parse_s_median": 0.02638807200003157,
+     "search_s_median": 0.5063444579999441,
+     "peak_rss_mib_max": 49.5703125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 3119",
+     "witness_legs": 512
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 3119,
+     "agrees": true,
+     "parse_s_median": 0.022795158000008087,
+     "search_s_median": 0.022134825999955865,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 3119,
+     "agrees": true,
+     "parse_s_median": 0.02493656700005431,
+     "search_s_median": 0.026688581000030354,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 3119,
+     "agrees": true,
+     "parse_s_median": 0.020215963000055126,
+     "search_s_median": 0.4628739270000324,
+     "peak_rss_mib_max": 49.734375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220304T060000Z_FL1",
+   "region": "uljin_2022",
+   "instance_sha256": "3924065cae22f3f33c0a4d07b8cd1ec500b0f6df2b2f1329248d75cbf1eb4448",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    2067
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 2067,
+     "agrees": true,
+     "parse_s_median": 0.020700671999975384,
+     "search_s_median": 0.14181932400003916,
+     "peak_rss_mib_max": 32.91796875,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 2067",
+     "witness_legs": 453
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 2067,
+     "agrees": true,
+     "parse_s_median": 0.02035997200005113,
+     "search_s_median": 0.017446032999941963,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 2067,
+     "agrees": true,
+     "parse_s_median": 0.022176333000061277,
+     "search_s_median": 0.02275807499995608,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 2067,
+     "agrees": true,
+     "parse_s_median": 0.026636539000037374,
+     "search_s_median": 0.12063591200001156,
+     "peak_rss_mib_max": 32.9453125,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20220304T120000Z_FW2",
+   "region": "uljin_2022",
+   "instance_sha256": "3ef3e1692d6b48267ba56d75da16b6a3ae2bbc84454ab7c008ec4b04f3c590b1",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1655
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1655,
+     "agrees": true,
+     "parse_s_median": 0.018940635999911137,
+     "search_s_median": 0.08246745000008104,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1655",
+     "witness_legs": 246
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1655,
+     "agrees": true,
+     "parse_s_median": 0.019292646000053537,
+     "search_s_median": 0.006696548000036273,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": false,
+     "parse_s_median": 0.019796558000052755,
+     "search_s_median": 0.03851465900004314,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 1400,
+     "agrees": false,
+     "parse_s_median": 0.01929742400000123,
+     "search_s_median": 0.062136676999898555,
+     "peak_rss_mib_max": 31.05078125,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250325T190000Z_FD1",
+   "region": "yeongdeok_2025",
+   "instance_sha256": "504925bf20713f2408d5c40a43aa878dfa7dfd261b39602cfa09d335eac3bc1e",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.1611343179999949,
+     "search_s_median": 3.2616851459999907,
+     "peak_rss_mib_max": 226.58203125,
+     "consistent_across_repeats": true,
+     "replay_ok": null
+    },
+    "n1": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.14076421100003245,
+     "search_s_median": 0.18807453900001292,
+     "peak_rss_mib_max": 80.76171875,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": true,
+     "parse_s_median": 0.13624688100003368,
+     "search_s_median": 0.24406471300005705,
+     "peak_rss_mib_max": 80.60546875,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 2921,
+     "agrees": false,
+     "parse_s_median": 0.14434054499997728,
+     "search_s_median": 3.190196470999922,
+     "peak_rss_mib_max": 214.9609375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250325T190000Z_FX2",
+   "region": "yeongdeok_2025",
+   "instance_sha256": "1c195e4171e39fc6ec33bd3ec2c2fbf247b85aca90fb9a1a7518c5d0424e7cc2",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    2512
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 2512,
+     "agrees": true,
+     "parse_s_median": 0.14674437700000453,
+     "search_s_median": 2.1322668359999852,
+     "peak_rss_mib_max": 180.5546875,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 2512",
+     "witness_legs": 1129
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 2512,
+     "agrees": true,
+     "parse_s_median": 0.14927746600005776,
+     "search_s_median": 0.18149401999994552,
+     "peak_rss_mib_max": 79.625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 2512,
+     "agrees": true,
+     "parse_s_median": 0.14419720499995492,
+     "search_s_median": 0.20714231600004496,
+     "peak_rss_mib_max": 79.50390625,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 2512,
+     "agrees": true,
+     "parse_s_median": 0.16164557199999763,
+     "search_s_median": 2.340036503999954,
+     "peak_rss_mib_max": 180.61328125,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250325T230000Z_FL2",
+   "region": "yeongdeok_2025",
+   "instance_sha256": "f6e8fd84bbeb55d11c0336552553d82521977bb52b799d82528a6caae5f4eba4",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    1922
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 1922,
+     "agrees": true,
+     "parse_s_median": 0.1948987829999851,
+     "search_s_median": 3.1915671739999425,
+     "peak_rss_mib_max": 214.4453125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 1922",
+     "witness_legs": 657
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 1922,
+     "agrees": true,
+     "parse_s_median": 0.1389788360000921,
+     "search_s_median": 0.17432322500008013,
+     "peak_rss_mib_max": 79.4453125,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "ROUTE",
+     "T": 1922,
+     "agrees": true,
+     "parse_s_median": 0.14510993199996847,
+     "search_s_median": 0.17287938399999803,
+     "peak_rss_mib_max": 79.44921875,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 1922,
+     "agrees": true,
+     "parse_s_median": 0.14733204200001637,
+     "search_s_median": 3.093542184999933,
+     "peak_rss_mib_max": 214.40234375,
+     "consistent_across_repeats": true
+    }
+   }
+  },
+  {
+   "mission": "20250326T080000Z_FW1",
+   "region": "yeongdeok_2025",
+   "instance_sha256": "ebed087a48c3e5e74314c40dd3a9a0b764d94d0a8caad005fc11224fa0d49bb7",
+   "instance_sha256_matches_f32": true,
+   "recorded": [
+    "ROUTE",
+    896
+   ],
+   "solvers": {
+    "exact": {
+     "claim": "ROUTE",
+     "T": 896,
+     "agrees": true,
+     "parse_s_median": 0.16915603100005683,
+     "search_s_median": 0.046407859999931134,
+     "peak_rss_mib_max": 76.70703125,
+     "consistent_across_repeats": true,
+     "replay_ok": true,
+     "f32_check_py_on_fbase_witness": "ACCEPT ROUTE 896",
+     "witness_legs": 252
+    },
+    "n1": {
+     "claim": "ROUTE",
+     "T": 896,
+     "agrees": true,
+     "parse_s_median": 0.13963420200002474,
+     "search_s_median": 0.020304544000055103,
+     "peak_rss_mib_max": 76.625,
+     "consistent_across_repeats": true
+    },
+    "n2": {
+     "claim": "NO_ROUTE",
+     "T": null,
+     "agrees": false,
+     "parse_s_median": 0.14412080699992202,
+     "search_s_median": 0.20247273200004656,
+     "peak_rss_mib_max": 76.73046875,
+     "consistent_across_repeats": true
+    },
+    "n3": {
+     "claim": "ROUTE",
+     "T": 776,
+     "agrees": false,
+     "parse_s_median": 0.15358682999999473,
+     "search_s_median": 0.03783906700004991,
+     "peak_rss_mib_max": 76.80078125,
+     "consistent_across_repeats": true
+    }
+   }
+  }
+ ]
+}
