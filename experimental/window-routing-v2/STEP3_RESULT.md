@@ -214,7 +214,30 @@ measured on one host (`vm`, x86_64, Intel Xeon @ 2.10 GHz, 4 CPUs), each run alo
 - The host-speed proxy (pure-Python Z sweep) did not see a host change that slowed numpy coefficient work by about
   40% and Z by about 9%. Step 3c should not rely on that proxy alone.
 
-## Pending
+## A4 rerun on kit-v2-step23 (PLAN Step 3 acceptance; rule in STEP3_ACCEPTANCE, written before the run)
 
-- The A4 rerun (10 reps × 2 requests at 900 s), now on kit-v2-step23, the settled base, after Mira's verdict on the
-  results above. It runs as a tracked, checkpointed background task.
+- **Setup:** identical to the original A4 except the kit.
+  - Yeongdeok 0325T23 `firms_early` …11753630207 and …415158168; 900 s, guard 3,072 MiB, no `rss_limit_mb`, plain.
+  - 10 reps, both requests per rep, `tools/a4_rerun.py`.
+  - 2026-11-13 03:37:49–03:51:22 UTC, alone on the host (as above), **no restart**.
+  - Rows are in `results/step3rebase/a4/`.
+- **Result: PASS, each request gives one outcome class in 10/10.**
+
+| Request (Yeongdeok firms) | This rerun (kit-v2-step23) | Original A4 (unmodified kit, not pooled) |
+|---|---|---|
+| …11753630207 | **10/10 FULL_OPTIMUM_PROVEN@59** | 8 proven / 1 feasible / 1 guard stop |
+| …415158168 | **10/10 FULL_OPTIMUM_PROVEN@274** | 8 feasible / 2 guard stops |
+
+- **Z in every rep:**
+  - Z completes with CONDITIONAL_OPTIMUM (EXACT_CONTACT_SWEEP) inside its work budgets.
+  - **Its work-unit counts are identical across all 10 reps:** setup 1,826 for both requests; sweep 6,715,500 (…207)
+    and 30,779,375 (…168).
+  - Z wall 5.75–7.07 s (…207) and 6.46–7.96 s (…168). Under the old fixed 6 s cap, most of these would have been cut;
+    the budget lets Z finish the same work every time.
+- **No guard stops.** Family RSS-sum peak 1,427–1,493 MiB. Walls 32.5–44.5 s.
+- Single host. The known limit above applies: on a host more than about 1.55× slower than this one, the Z watchdog
+  (16 s) would come before Z's work budget. Here the largest Z was 7.96 s, a 2.0× margin on these two requests.
+
+## Pending
+- Mira's verification of the A4 rerun.
+- Then the cut heads for Step 2 and the rebased Step 3, which go to Mira before any PR.
