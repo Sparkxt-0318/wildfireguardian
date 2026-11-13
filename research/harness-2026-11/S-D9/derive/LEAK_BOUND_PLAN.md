@@ -186,3 +186,14 @@ The independent verifier asked which per-fire interval cap the `logistic_rebuilt
 - The refit runbook's `logistic_rebuilt` command is amended to pass `--max-fit-intervals-per-fire 0` explicitly, so
   the A1 object and this fold base use the same cap.
 - Not a change to revisions 1–3. It states the cap they left implicit.
+
+**Records on revisions 3–4 (2026-11-13, before any fit).**
+- **Plan author:** revision 4 APPROVED (cap 0). The revision 3 item 8 smoke deviation was accepted by the plan author
+  (recorded under revision 3).
+- **Independent verifier:** READ rev 3–4, 2026-11-13; no objection. Implementation b25d963d verified pre-fit (ledger
+  row 60). The interval-cap objection is resolved by the archived argv. The run head a55e2366 differs from b25d963d
+  only by a code comment (t1 = A1 t0) and the band-truncation note string; the verifier is asked to confirm.
+- **HOLD on the fit** (plan author, 11:48Z). A1 §3.1 names `baselines.fit_logistic`, which cannot do the inverse
+  weighting A1 also requires; the runbook and this bound use `pipeline.command_baselines`' inline weighted fit. The
+  leak-bound fit and the `logistic_rebuilt` refit wait for the orchestrator's ruling on which recipe A1 means. The
+  code and the extract-only smoke may proceed.
