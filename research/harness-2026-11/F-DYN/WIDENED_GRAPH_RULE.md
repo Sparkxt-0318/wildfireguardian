@@ -276,3 +276,16 @@ rows over 34 places:
 - 160 are "depends on the no-re-entry rule";
 - 16 had no route on `/1` either;
 - none is "not evaluated".
+
+**§7 additions (13 Nov, from the routing author's id check; before any build):**
+- **What "identical edge" means in P4:** the same edge id, u, v, **ticks and segments**. Nodes moved by 0.34–23 m
+  between snapshots change the ticks, so id/u/v alone is not enough.
+- **Ids are not shared with the owner graphs.** STEP1_COMPARE.txt @ 122f42a3:
+  - UA has 237 owner-only and 205 rebuild-only nodes.
+  - 1,582 common UA edges differ.
+- **Any comparison with owner-graph results goes through an explicit id mapping.** Ids are never assumed equal.
+- **Places that cannot be located.** An INSTANCE id absent from the rebuilt step-1 node set makes its place **"not
+  located on the 2025-01-01 graph"**. Such places are not re-run, and they are listed.
+  - **Known before the rebuild:** UA osm:12616948834, created after the snapshot. It is the entry node of place
+    osm:node/415160468 at all 3 UA starts.
+  - The full membership test runs on the rebuilt step-1 graph, before any routing run.
