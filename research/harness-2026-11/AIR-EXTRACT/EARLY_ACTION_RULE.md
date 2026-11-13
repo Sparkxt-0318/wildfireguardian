@@ -144,3 +144,48 @@ Every input file's sha256 is recorded in the output header. A mismatch with the 
 - **E9, wording.** The files contain no resident-facing text, and every label string is verbatim from DESIGN or the
   split file. A test checks the forbidden phrases: "safe", "no road escape" as a bare claim, "deadline", "no result
   depends on what burns outside the grid", and bare "no route".
+
+## 10. Amendment 1 (13 Nov; from the assessor's read of 075e7b07, before any build)
+
+The assessor's seven changes are adopted as written. The routing author's pins are added. These sections override §2–§9
+wherever they differ.
+
+**Pins (routing author, 13 Nov).**
+- **Leave-by:** `places[*].nr_cert.per_variant.<variant>.leave_by_s` + `horizon_censored` in HEADLINE_NR2_summary.json.
+  It was written once at 54bcb96e and is unchanged since; it is on Main via #170, and 97f080c2 carries the same bytes.
+  sha256 017dbf1f566b4a2a….
+- **Split:** HEADLINE_NR2_not_evaluated_split.json @ 50535521, also on Main via #170.
+- **Waiting:** no `/2` multi-hour "waiting allowed everywhere" run exists. The only one is the 1-h panel (ledger row 50:
+  0 changes, with the 14/14 multi-hour control flips). So the column reads "not computed for the `/2` multi-hour
+  field" on every row.
+
+**A1 (§3, replaces "any variant").** Every unit falls into exactly one of these groups:
+- **(a) Evaluated under all three timing variants:** it goes to membership (A2).
+- **(b) Not evaluated under all three:** off the list and counted, as before.
+- **(c) Mixed:** its own table, headed **"timing variants disagree on whether the modelled fire has already reached the
+  start point"**. It shows the pairs for the evaluated variants and "not evaluated" for the others.
+
+**A2 (§2, the second table).** For the group (a) units:
+- **The main list** is unchanged: at one or more grid times, every variant has closed (the intersection).
+- **A second table, "no checked route under some variants only",** with the same columns. It holds every group (a)
+  unit that is not on the main list but, at one or more grid times, has one or two variants without a route.
+- **The rest** are "never in the set".
+- **E5 reconciles over five groups:** main + some-variants + never + (c) + (b) = 1,044, per region, start and horizon.
+
+**A3 (§7, absence line).** Every output file carries, verbatim: **"one fire, March 2025, that day's wind. A place not
+on this list has not been shown to have a road escape."** E9 asserts that it is present.
+
+**A4 (§4, the new label).**
+- **Wording:** "a checked route at the start under every variant; none from a later computed time under every variant
+  (modelled fire); cause of closing not classified".
+- **Counting:** these units get their own count. They are **not** added to any no-escape total, because no
+  reachable-set boundary test has been run at the closing time.
+- **New column:** beside the unit label, the per-variant labels (from the split classes).
+
+**A5 (§5, clock times).** Every clock time carries its date and "(replay)", for example "2025-03-25 19:30 KST
+(replay)".
+
+**A6 (E3, corrected).** Every listed unit has a grid t at which no variant's [0, leave_by] contains t. Every **evaluated**
+unit (group a) with such a t is on the main list.
+
+**A7 (E9).** "trapped" and "escape route" are added to the forbidden phrases.
