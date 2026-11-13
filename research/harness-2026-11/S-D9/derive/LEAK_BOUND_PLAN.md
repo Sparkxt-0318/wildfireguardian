@@ -187,6 +187,13 @@ The independent verifier asked which per-fire interval cap the `logistic_rebuilt
   the A1 object and this fold base use the same cap.
 - Not a change to revisions 1–3. It states the cap they left implicit.
 
+**Orchestrator ruling on the cap (2026-11-13 11:48Z): option (a), every eligible interval per fire
+(`--max-fit-intervals-per-fire 0`).** This is what the archived logistic run actually used (the last flag wins) and
+what the A1 §3.1 refit commands pass. The leak bound's fold base must match the object it bounds.
+- *Condition:* before the fit, the independent verifier confirms both facts himself and records them in his row:
+  (i) the a03_baselines.json invocation, with argparse's last-value behaviour for that flag; and (ii) the A1 §3.1
+  command text.
+
 **Records on revisions 3–4 (2026-11-13, before any fit).**
 - **Plan author:** revision 4 APPROVED (cap 0). The revision 3 item 8 smoke deviation was accepted by the plan author
   (recorded under revision 3).
