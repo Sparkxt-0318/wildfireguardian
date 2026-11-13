@@ -18,6 +18,9 @@ from tools.explain_deadlines.replay import build_segments, first_contact  # noqa
 
 
 def full_check(pm, hazard, *, origin, legs, dest, dwell, window, departure, incurred=0.0, peak=10.0, dose=100.0):
+    if getattr(pm, "support_masked", False):        # SUPPORT_READ_RULE.md 5 / WIDENED_GRAPH_RULE P5: never checked
+        return {"full_policy_ok": False, "full_status": "REFUSED_SUPPORT_MASKED", "codes": ["REFUSED_SUPPORT_MASKED"],
+                "closed_and_router_replay_clear": None, "max_dose": None}
     members = [m["id"] for m in hazard["members"]]
     request = {"position": {"node": origin}, "incoming_edge": None, "departure": departure, "horizon": pm.H,
                "destinations": [{"node": dest, "dwell": dwell, "open_intervals": [list(window)]}],

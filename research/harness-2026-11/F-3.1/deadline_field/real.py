@@ -16,6 +16,8 @@ from __future__ import annotations
 
 import json
 import sys
+
+import numpy as np
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -46,6 +48,13 @@ def load_packet(packet_dir, grid):
         hazard_only = "per_cell_law_HAZARD_only" in z.files
     if hazard_only:          # v3.4 'envelope': the packet declares that its arrays must refuse; read HAZARD only
         return _hazard_only_packet(_P(packet_dir), grid), True
+    # SUPPORT_READ_RULE.md: an F-9.3 supplied/1 support-masked packet is read with support recorded, not refused
+    with np.load(_P(packet_dir) / "constructed_arrays.npz", allow_pickle=False) as z:
+        sup_all = bool(np.array(z["support"]).all()) if "support" in z.files else True
+    if not sup_all:
+        decl = _support_declaration(_P(packet_dir))
+        if decl is not None:
+            return _support_masked_packet(_P(packet_dir), grid, decl), False
     try:
         return Packet(packet_dir, grid), False
     except PacketError:
@@ -77,6 +86,69 @@ def load_packet(packet_dir, grid):
     pk.consistency = {"status": "PHASES_FROM_HAZARD_FLAME_BINS (per-cell law)", "cells": len(cells_all)}
     pk.per_cell_law = True
     return pk, True
+
+
+F93_WRITER = "wfg.f93.support-writer/1"
+
+
+def _support_declaration(d):
+    """SUPPORT_READ_RULE.md (b): the F-9.3 declaration, or None. Both BUILD_SUMMARY.support_writer and HAZARD
+    provenance.identity.support_writer must be present and equal, version wfg.f93.support-writer/1, rule supplied/1."""
+    import json as _j
+    try:
+        bs = _j.loads((d / "BUILD_SUMMARY.json").read_text()).get("support_writer")
+        hz = _j.loads((d / "HAZARD.json").read_text())["provenance"]["identity"].get("support_writer")
+    except (OSError, KeyError, ValueError):
+        return None
+    if not bs or not hz or bs != hz or bs.get("version") != F93_WRITER or bs.get("rule") != "supplied/1":
+        return None
+    return bs
+
+
+class _SupportAllTrue:
+    """npz view for the unchanged replay reader: identical arrays except 'support', which reads all true."""
+
+    def __init__(self, z):
+        self._z = z
+
+    def __getitem__(self, k):
+        a = self._z[k]
+        return np.ones(a.shape, dtype=bool) if k == "support" else a
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self._z.close()
+        return False
+
+
+def _support_masked_packet(d, grid, decl):
+    """SUPPORT_READ_RULE.md 2-3: the unchanged replay reader (every check except the single all-true-support clause),
+    then the real support-false cells recorded on the packet. Contact phases do not depend on support."""
+    import types
+    from tools.explain_deadlines import packet as _pm
+    with np.load(d / "constructed_arrays.npz", allow_pickle=False) as z:
+        sup = np.array(z["support"]).astype(bool)
+    if sup.ndim != 3:
+        raise ValueError("support array is not (members, rows, cols)")
+    n_false = [int((~sup[s]).sum()) for s in range(sup.shape[0])]
+    if any(n != int(decl.get("unsupported_cells", -1)) for n in n_false):
+        raise ValueError("declared unsupported_cells %r differs from the npz support (%r)" % (decl.get("unsupported_cells"), n_false))
+    real_np = _pm.np
+    shim = types.SimpleNamespace(**{k: getattr(real_np, k) for k in dir(real_np) if not k.startswith("__")})
+    shim.load = lambda *a, **k: _SupportAllTrue(real_np.load(*a, **k))
+    _pm.np = shim
+    try:
+        pk = Packet(d, grid)
+    finally:
+        _pm.np = real_np
+    pk.support_masked = True
+    pk.support_false_by_member = [sorted(pk.native_to_router(int(i)) for i in np.flatnonzero(~sup[s].ravel()))
+                                  for s in range(sup.shape[0])]
+    pk.support_false_cells = sorted(set().union(*map(set, pk.support_false_by_member)))
+    pk.support_declaration = decl
+    return pk
 
 
 def _phases_from_bins(pk):
@@ -191,6 +263,10 @@ class PacketModel:
         self.waitable_override = dict(waitable_override) if waitable_override is not None else None
         self.g = RoadGraph(self.raw)
         self.pk, self.per_cell_law = load_packet(packet_dir, self.g.grid)
+        if not hasattr(self.pk, "support_masked"):
+            self.pk.support_masked, self.pk.support_false_cells = False, []
+        self.support_masked = self.pk.support_masked                   # SUPPORT_READ_RULE.md 3
+        self.support_false_cells = list(self.pk.support_false_cells)
         self.H = int(self.pk.horizon) if H is None else H
         if F(self.H) != self.pk.horizon:
             raise ValueError("non-integer horizon")

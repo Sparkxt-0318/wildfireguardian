@@ -1,0 +1,39 @@
+{
+ "window_graph": "/home/user/wildfireguardian/data/routing/graphs/uiseong_andong_2025/graph.json",
+ "A": {
+  "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/A",
+  "npz_sha256": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198"
+ },
+ "C": {
+  "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/C",
+  "npz_sha256": "39140349cada70644152a761b4564786da3d929202b70b2561f1f70880ce59bd"
+ },
+ "D": {
+  "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/D",
+  "npz_sha256": "39140349cada70644152a761b4564786da3d929202b70b2561f1f70880ce59bd"
+ },
+ "fdyn_graph": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/leo819/research/harness-2026-11/F-DYN/_data/graphs_interim/uiseong_andong_2025/graph.json",
+ "instance_json": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/leo819/research/harness-2026-11/F-DYN/_data/INSTANCE.json",
+ "t1": {
+  "kriged_mean_reopening": {
+   "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/T1_kriged_mean_reopening",
+   "npz_sha256": "eadda12057fe874b057a75d834421fa08e554fb5c656fbdbbdc9ca492e42d8e5",
+   "hazard_sha256": "8b4d35a6ff6d24eb251820815b7632531c7fd34d556b6d6270a38e59002237f4"
+  },
+  "kriged_mean_no_reentry2": {
+   "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/T1_kriged_mean_no_reentry2",
+   "npz_sha256": "0099419036affdf7220dbc6d30bd1186cf3442008f4c71386fe8248e0f5dca17",
+   "hazard_sha256": "0d39cb39888c5b52ac56ee21533c93b249303b6dedff42db0b1c78d8f26ad588"
+  },
+  "firms_early_reopening": {
+   "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/T1_firms_early_reopening",
+   "npz_sha256": "9a69430eaf632cc57b27b671ebb7e31ecd63abfafeb5c57444503eac6c35b4d1",
+   "hazard_sha256": "5bbcc2d51ee502136994a87ea35e0a45b6eff7ae2e28e5a3dce01691b9d92f10"
+  },
+  "firms_early_no_reentry2": {
+   "dir": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/f31/supp/T1_firms_early_no_reentry2",
+   "npz_sha256": "9d216d2206fc3c625e2a74832b780dca514f97e1067f89647f240ab0603f1122",
+   "hazard_sha256": "f539a5ebf31918440b835b7c03901ec2ccab72e4a4f5c447a8b49f0816bac363"
+  }
+ }
+}
