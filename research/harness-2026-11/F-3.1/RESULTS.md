@@ -783,7 +783,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 - **The test** is acceptance 8 on `/2` (`NOREENTRY2_ACCEPTANCE_RULE.md`). If the rows disappear there, the cause is confirmed. Any row that remains is listed and explained.
 - envelope (lo = firms_early, hi = firms_constrained) is not pointwise nested with kriged_mean by construction. Its rows are reported, not tested.
 
-## `no_reentry/2` acceptance 6a–6d and 7, Richard's side (rule `NOREENTRY2_ACCEPTANCE_RULE.md`, committed first at ed87b5bb; not yet verified)
+## `no_reentry/2` acceptance 6a–6d and 7, Richard's side (rule `NOREENTRY2_ACCEPTANCE_RULE.md`, committed first at ed87b5bb; VERIFIED: Nora, PASS, ledger row 68)
 
 **Scope.**
 - Labels: SCENARIO, not what happened. Graphs are road-limited.
@@ -818,7 +818,13 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 - Self-test (`/1` fed in as `/2`, YD 25T19Z kriged_mean): 6a mismatches = |B0| = 7,457 exactly. 94 origins differ in
   6b, as expected.
 
-**Not done here.** Acceptance 8 (monotonicity) and the headline rerun on `/2` wait for Nora's pass on v3.7.
+**Nora (row 68).**
+- She ran the runner on her own v3.7 builds of U 24T09Z and YD 25T11Z kriged_mean. Both are equal to these rows.
+- All 8 B0 counts were matched independently in row 66.
+- Notes:
+  - 7 covers leave-by witnesses only. It is not a `/2` dose or peak statement.
+  - YD 25T11Z takes its places from the 25T19Z entry.
+- The headline rerun and acceptance 8 are unblocked.
 
 ## Waiting-location sensitivity, 1-h panel (rule `WAITING_SENSITIVITY_RULE.md`, committed first at 28251ca; runner b472b40; not yet verified)
 
