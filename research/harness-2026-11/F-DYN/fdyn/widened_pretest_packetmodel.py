@@ -39,9 +39,22 @@ def main():
             r['error'] = '%s: %s' % (type(e).__name__, str(e)[:300])
         out[tag] = r
     if len(models) == 2:
-        same = models['plain'].B == models['masked'].B
-        out['B_identical'] = same
-        out['pass'] = bool(same)
+        from fractions import Fraction
+        P, M = models['plain'], models['masked']
+        out['B_identical'] = P.B == M.B                     # edge blocks, router and closed rules
+        inst = json.loads((Path(__file__).resolve().parents[1] / '_data' / 'INSTANCE.json').read_text())['instances']
+        dests = sorted({(d['node'], d['dwell_s']) for i in inst if i['region'] == P.raw.get('region', i['region'])
+                        for o in i['origins'] for d in o['destinations'] if d['node'] in P.nidx})
+        w_same = all(P.point_blocks(n, Fraction(1), r) == M.point_blocks(n, Fraction(1), r)
+                     for n in P.node_ids if P.g.waitable[n] for r in ('router', 'closed'))
+        a_same = all(P.point_blocks(n, Fraction(dw), r) == M.point_blocks(n, Fraction(dw), r)
+                     for n, dw in dests for r in ('router', 'closed'))
+        out['W_point_blocks_identical'] = w_same              # wait blocks (W) at every waitable node
+        out['A_destination_blocks_identical'] = a_same        # destination dwell blocks (A) at INSTANCE destinations
+        out['destinations_compared'] = len(dests)
+        out['masked_attrs'] = {k: (len(v) if hasattr(v, '__len__') and not isinstance(v, (str, bool)) else v)
+                               for k, v in ((a, getattr(M, a, None)) for a in ('support_masked', 'support_false_cells'))}
+        out['pass'] = bool(out['B_identical'] and w_same and a_same)
     else:
         out['pass'] = False
     a.out.write_text(json.dumps(out, indent=1))

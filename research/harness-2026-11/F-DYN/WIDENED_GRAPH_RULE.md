@@ -480,3 +480,15 @@ orchestrator.
   - D's npz is byte-identical to C's (39140349…). Only the declared rule differs.
 - **D at 969a2ca2: refused** in the same way. The record is `results/WIDENED_PRETEST_PACKETMODEL_supplied1.json`.
 - **The first record stands as it was.**
+
+**§8(iii)4 pre-build test on the routing author's support-aware read path (13 Nov): PASS.**
+- **Code under test:** `claude/f31-deadline-field` @ 53ccd5ae, using the A/D pair.
+- **Loading:** D (`supplied/1`) loads, with `support_masked` true and 1,267 support-false cells.
+- **Comparison with the unmasked twin:**
+  - edge blocks B are identical under both rules;
+  - wait-point blocks W are identical at every waitable node;
+  - destination dwell blocks A are identical at the 30 INSTANCE destinations on this graph.
+- **Record:** `results/WIDENED_PRETEST_PACKETMODEL_53ccd5ae.json`.
+- **The script was extended before this run** to compare W and A as well as B, which is what the §8 pass condition
+  states. The two earlier FAIL records compared B only; they failed at load, so the comparison never ran.
+- **Gate still closed.** Padded packets are built only after the independent verifier's verdict on 53ccd5ae.
