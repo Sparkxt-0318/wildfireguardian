@@ -256,3 +256,16 @@ The per-point wind values are in `results/D0_AIR_ROW.json` (`tables.*[].wind.poi
 - **The no-departure case** (row time ≥ H) reads "no computed departure without a route", with no gate.
 - **The first run's counts** (38be623d: 86 of 166 main-list rows excluded, 12 by wind, and its other table counts)
   are **withdrawn**. Every output file now states this in its header.
+
+**Verification.**
+- **Row 85a (13 Nov): the wind gate and row times PASS.** The independent verifier reproduced every per-point flag
+  and count. Exactly 2 main-list rows are newly excluded by wind; none is dropped.
+- **The verifier's site-check script** (`verification/nora-fire` @ f3e647d3, `nora_d0_sites_check.py`; standard
+  library only: its own CSV parse, Vincenty geodesic and ray casting) was run by the author against the copies
+  outside git. Its output is committed untouched as `results/D0_SITES_CHECK_NORA.json`.
+  - **Input shas:** CSV 55f66625…, OSM extract 3427c103….
+  - **Register:** 627 rows = 538 usable / 24 blank / 65 invalid; 10 well-formed rows outside Korea; 500 distinct
+    usable points.
+  - **Rows:** 185 timed rows checked, with **0 mismatches** in the nearest site, distance (0.1 km), points within
+    100 km and the place's 시군구.
+  - **Point-in-polygon:** 126 usable sites within 100 km; 11 outside their stated 시군구, equal to D0's 11.
