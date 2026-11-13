@@ -73,3 +73,14 @@ These points were not fixed above. They are fixed here before code is committed.
 5. **Timing.** The measurement starts after the part-a weather fetch and the `logistic_rebuilt` refit.
    - The implementation and the fold-assignment hash are committed before any fit.
 
+
+## Revision 2 (2026-11-13, before any implementation or fit; PROPOSED, pending orchestrator approval)
+Proposed by the plan author after the refit author's feasibility note. **Nothing has been implemented or fitted.**
+1. **Timing (replaces revision 1 item 5).** The measurement may start once the part-a weather fetch is done (pinned: `parta_input_manifest_night1.json` f70e52b0…). It no longer waits for the A1 §3.1 `logistic_rebuilt` refit.
+   - *Reason:* arms L and L2 refit the `logistic_rebuilt` **recipe** inside each part-a fold (A1 §3.1 frozen feature set and fit settings). They never read the A1 refit's output. The fit-23 fires are not in the folds, so the fit-23 weather (day 2) is not needed.
+   - Arm R is unchanged and stays **NOT RUN** (revision 1 item 2).
+2. **Clarification of the base model in arms L and L2.** In each fold, the base is the `logistic_rebuilt` recipe trained on the other four part-a folds only. It is therefore not the A1 `logistic_rebuilt` object, which is trained on fit-23 ∪ part a. The output says so in every row. The bound measures what survey-timing features add to this recipe on part a. That is the quantity §"Material" is about.
+3. **Unchanged:**
+   - the code-first rule: the implementation, the fold-assignment hash and a smoke test on the committed fixture are committed before any fit;
+   - the folds, entries, cutoff (t0), score, bootstrap (B = 2,000, seed 20261030), "material" threshold and consequences.
+4. **Where it runs.** In the executor's container, which holds the pinned part-a environment, as a tracked task from the refit author's pinned commit. The custodian's `checked_utc` rule is applied before the pin check. The independent verifier checks the run.
