@@ -362,7 +362,7 @@ Every pooled number, pinned vs unpinned: results/cv_pinned_vs_unpinned.md (172 r
 - Owen's notes: composite and NLL are bit-identical to his independent pinned runs (folds 0 and 2, 10 fires). Plug-in and MCEM differ slightly between the two pinned hosts: thetas by ≤ 5e-8 (plug-in) and ≤ 3e-4 (MCEM), per-fire Brier by ≤ 0.24% and ≤ 0.64% relative. This is likely host floating point (BLAS/CPU). The conclusions are unaffected: on those 10 fires, MCEM − plug-in is +0.01068 in both.
 - Conclusions for plug-in, mean-field NLL and MCEM are unchanged. MCEM is still the worst and has no skill over persistence. Plug-in is still ≈ logistic_cf.
 
-## 3g. Three-arm state family (RULE_state_family.md @ d0c7f0ad) in E3 on the pinned kernels (unverified; sent to Owen)
+## 3g. Three-arm state family (RULE_state_family.md @ d0c7f0ad) in E3 on the pinned kernels (verified: Owen, PASS WITH NOTES, ledger row 53 @ fcb7618f; DEVELOPMENT-ONLY)
 
 Caveats: covariate-free, homogeneous, 25 part-a fires incl. 4 H-dev, not the neural refit. This is round 2 on the same
 25 fires; two round-1 arms (mcem_rate, mcem_state) were tried earlier and failed.
@@ -401,6 +401,15 @@ Paired differences (arm − comparator; fire-clustered bootstrap 95% CI; exact s
 - Internal checks:
   - m = 1 reproduces the CV within Monte Carlo error: MCEM 0.065991 vs 0.065996, plug-in 0.056950 vs 0.056928. The CV used 1,024 simulations (seeds 77_000+…); the family check uses 512 to 8T (seeds 99_000/99_500).
   - The round-1 m ≤ 2 recompute gives 0.060421 against the 0.060462 reported in cv_rate_arm.json. That reported number used the E1 kernels, so a difference of this size (4e-5) is expected from the kernel change, not a code discrepancy.
+- Verification (Owen, row 53):
+  - An independent aggregator, written from the rule text, reproduces every pooled Brier (max diff 3.4e-15), CI, sign-flip p, better-fire count, the lag-1 choice and qualifies = all False.
+  - 5 stage-1 checkpoints regenerated from the seeds are bit-identical.
+  - The checkpoints are on claude/s-d2-e3-ckpt @ 69350a45 (SHA256SUMS).
+- Notes (Owen):
+  - (1) κ = 1000 was chosen in every fold, at the top edge of the κ grid. A wider grid would be diagnostic only under the stopping rule.
+  - (2) About 10% of the state weight sits at the slow edge m = 1/16.
+  - (3) The 4e-5 gap in the m ≤ 2 check is plausibly the kernel change, but it is not an exact reproduction.
+  - (4) The sign-flip p uses 10,000 random flips, as the rule states, not full enumeration.
 
 ## 4. Ideas and gaps
 
