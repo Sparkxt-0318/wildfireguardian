@@ -1,0 +1,12 @@
+250 MT-BDF-022161_FuseLake 12 12 3 4
+300 MT_BDF_006227_Goose 32 36 5 31
+350 OR-0732S-00174_SkylineRidgeComplex 47 52 9 17
+400 OR-UMF-000479_SlickEar 17 16 4 13
+450 WA-GPF-001028_Kalama 17 18 3 45
+incidents 490 cells 904452 median grid 782 nodes median 5.0 max 68 days median 12.0 max 96 TOTAL slim calls 6150
+                          incident    h    w  nodes                      start                        end  days  slim_calls
+149          CA-TNF-00137_Mosquito   95   83     22  2022-09-08T04:00:00+00:00  2022-11-05T07:00:00+00:00    59       92.71
+421      OR-WWF-000400_DoubleCreek  126  102     32  2022-09-01T06:00:00+00:00  2022-10-15T06:00:00+00:00    45      102.86
+485  WY-MRF-000408_EastTroublesome   89  168     36  2020-10-16T05:00:00+00:00  2020-11-30T20:00:00+00:00    46      118.29
+89            CA-KNF-007035_Slater  126  107     33  2020-09-09T20:00:00+00:00  2020-11-04T02:00:00+00:00    57      134.36
+75              CA-BTU-013761_Park  201  151     68  2024-07-26T06:00:00+00:00  2024-09-30T01:00:00+00:00    67      325.43

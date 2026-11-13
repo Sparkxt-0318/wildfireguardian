@@ -1,0 +1,2 @@
+PASS: fetched 218 constructed URLs (no index page), stderr lines 218
+PASS years mode: 420 constructed year URLs, counts only

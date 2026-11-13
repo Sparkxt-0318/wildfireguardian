@@ -1,0 +1,11 @@
+# Run: python3 -I gyeongbuk_breakdown_kfs_helipad.py <CSV sha 55f66625…>
+# Method: rows are assigned to a 시군구 by the address text (the second token of 이착륙장주소), not by point-in-polygon.
+# Validity uses the same rule as coords_kfs_helipad.py.
+경북 rows 48 {'valid': 42, 'blank': 2, 'invalid': 4}
+의성 0 {}
+안동 2 {'valid': 2}
+청송 2 {'valid': 2}
+영양 1 {'valid': 1}
+영덕 4 {'valid': 4}
+울진 1 {'invalid': 1}
+all 경북 시군구 tokens: {'구미시': 4, '경산시': 3, '포항시': 10, '경주시': 1, '고령군': 2, '청도군': 4, '상주시': 4, '봉화군': 1, '영주시': 2, '성주군': 1, '영덕군': 4, '영양군': 1, '영천시': 2, '예천군': 1, '안동시': 2, '칠곡군': 2, '울진군': 1, '청송군': 2, '문경시': 1}

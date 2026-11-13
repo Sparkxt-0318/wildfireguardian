@@ -1,0 +1,1309 @@
+{
+ "schema": "wfg.wkit.sigungu_labels/1",
+ "fixture": false,
+ "rule": "DESIGN.md (pre-registered): inside exactly one polygon, ≥ margin from its boundary, entry node in the same polygon",
+ "margin_m": 50.0,
+ "crs": "EPSG:5186",
+ "crs_name": "KGD2002 / Central Belt 2010",
+ "crs_epsg": 5186,
+ "base_dates": [
+  "2025-06-30"
+ ],
+ "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+ "archive_sha256": "bafb7ef2e548d51a2bc7a446cac12b40cb4a7dd3339efc69e90f8edad31a5b41",
+ "source_files_sha256": {
+  "BND_SIGUNGU_PG.cpg": "3033cf66fa728da7a2940d823aad8118fb40687ebfad1147c313478b2baafe4b",
+  "BND_SIGUNGU_PG.dbf": "419875a389fa7c3c1efff9550c13fb26ed3ee4a25e2b782f4638f2f02933f04e",
+  "BND_SIGUNGU_PG.prj": "d1e193c7d79d44da8888b37d42dbee5d772c92f0af76a4190ea096debcdd99ec",
+  "BND_SIGUNGU_PG.shp": "a8dfc0ed188493153a8667aa87e9fd4196b9bc34e792c956120874afb4650b65",
+  "BND_SIGUNGU_PG.shx": "a7bff21d041faf4674f9b8361c0d9ef0a88223cb646114f7b5a5a5b40966e89a"
+ },
+ "places_input_sha256": "2625142d84d93bc7ad209a2f02a5dcf84d004f640bf7800966c04af583eb6c91",
+ "labels": {
+  "osm:way/1372113459": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8467.0
+  },
+  "osm:node/5344430780": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7212.9
+  },
+  "osm:node/5344420465": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7144.4
+  },
+  "osm:way/1265051875": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8140.4
+  },
+  "osm:way/1265051876": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8148.3
+  },
+  "osm:node/415160356": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5319.1
+  },
+  "osm:node/415158550": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7196.6
+  },
+  "osm:node/415158421": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8271.6
+  },
+  "osm:node/415160364": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2908.6
+  },
+  "osm:node/415158418": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5821.0
+  },
+  "osm:node/415158419": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8111.5
+  },
+  "osm:node/415160468": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1748.0
+  },
+  "osm:node/415160467": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 545.6
+  },
+  "osm:node/415158420": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5189.4
+  },
+  "osm:node/415160420": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4385.2
+  },
+  "osm:node/415160471": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1361.2
+  },
+  "osm:node/415158324": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3950.3
+  },
+  "osm:node/415160350": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3321.5
+  },
+  "osm:node/415160353": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7970.2
+  },
+  "osm:node/415160464": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2844.8
+  },
+  "osm:node/415160457": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4118.8
+  },
+  "osm:node/415160465": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1414.1
+  },
+  "osm:node/415160343": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2157.9
+  },
+  "osm:node/415160438": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4749.1
+  },
+  "osm:node/415158434": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8688.6
+  },
+  "osm:node/415160439": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6115.8
+  },
+  "osm:node/415160483": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 11091.1
+  },
+  "osm:node/415158537": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2213.5
+  },
+  "osm:node/415160421": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5737.2
+  },
+  "osm:node/415160361": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2173.2
+  },
+  "osm:node/415160440": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5849.0
+  },
+  "osm:node/415160466": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1707.2
+  },
+  "osm:node/415160474": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7631.5
+  },
+  "osm:node/415160460": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 534.5
+  },
+  "osm:node/415158553": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4591.5
+  },
+  "osm:node/415160424": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2853.3
+  },
+  "osm:node/415160434": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3905.9
+  },
+  "osm:node/415160475": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3668.6
+  },
+  "osm:node/415160415": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7665.8
+  },
+  "osm:node/415160358": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3742.7
+  },
+  "osm:node/415160437": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1973.6
+  },
+  "osm:node/415160497": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 10741.8
+  },
+  "osm:node/415158432": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4658.2
+  },
+  "osm:node/415160478": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5479.8
+  },
+  "osm:node/415160359": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3794.4
+  },
+  "osm:node/415160428": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4328.7
+  },
+  "osm:node/415160432": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 798.5
+  },
+  "osm:node/415160470": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2760.0
+  },
+  "osm:node/415160454": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6837.5
+  },
+  "osm:node/415160362": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1317.3
+  },
+  "osm:node/415158335": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6917.6
+  },
+  "osm:node/415158323": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4828.3
+  },
+  "osm:node/415160416": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7150.8
+  },
+  "osm:node/415160429": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6018.0
+  },
+  "osm:node/415160360": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1291.6
+  },
+  "osm:node/415160451": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 981.6
+  },
+  "osm:node/415160476": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5179.5
+  },
+  "osm:node/415160473": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1838.2
+  },
+  "osm:node/415160458": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1969.5
+  },
+  "osm:node/415160449": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1417.1
+  },
+  "osm:node/415160456": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4184.2
+  },
+  "osm:node/415160430": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 9114.1
+  },
+  "osm:node/415160463": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2420.4
+  },
+  "osm:node/415158538": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2757.3
+  },
+  "osm:node/415160455": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3973.6
+  },
+  "osm:node/415160355": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5582.8
+  },
+  "osm:node/415158334": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5546.0
+  },
+  "osm:node/415158417": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3708.1
+  },
+  "osm:node/415160345": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1882.6
+  },
+  "osm:node/415160433": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1010.5
+  },
+  "osm:node/415160351": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4415.1
+  },
+  "osm:node/415160461": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5252.3
+  },
+  "osm:node/415160480": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8710.9
+  },
+  "osm:node/415160435": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1273.8
+  },
+  "osm:node/415158338": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 9758.8
+  },
+  "osm:node/415160431": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6441.6
+  },
+  "osm:node/415160363": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2881.1
+  },
+  "osm:node/415160459": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1165.9
+  },
+  "osm:node/415160436": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2801.3
+  },
+  "osm:node/415158416": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6420.2
+  },
+  "osm:node/415160477": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3106.4
+  },
+  "osm:node/415158533": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "안동시",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4526.8
+  },
+  "osm:node/415160399": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5142.4
+  },
+  "osm:node/415160357": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 9397.9
+  },
+  "osm:node/415160479": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8055.4
+  },
+  "osm:node/415160469": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "의성군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 740.6
+  },
+  "osm:node/11753630207": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1999.2
+  },
+  "osm:node/415160154": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 717.3
+  },
+  "osm:node/415160201": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 220.0
+  },
+  "osm:node/415160204": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2313.1
+  },
+  "osm:node/415158186": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1906.7
+  },
+  "osm:node/415160206": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7095.6
+  },
+  "osm:node/415160155": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 243.3
+  },
+  "osm:node/415160156": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1915.4
+  },
+  "osm:node/415160309": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1169.8
+  },
+  "osm:node/415160190": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4326.5
+  },
+  "osm:node/415160311": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4080.3
+  },
+  "osm:node/415160164": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4625.2
+  },
+  "osm:node/415160162": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4285.6
+  },
+  "osm:node/415160150": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2257.9
+  },
+  "osm:node/415160143": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 504.5
+  },
+  "osm:node/415160319": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "청송군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2190.8
+  },
+  "osm:node/415160193": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 682.2
+  },
+  "osm:node/415160189": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6828.1
+  },
+  "osm:node/415160197": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8281.4
+  },
+  "osm:node/415158166": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3592.0
+  },
+  "osm:node/415160159": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 267.7
+  },
+  "osm:node/415160168": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6621.1
+  },
+  "osm:node/415160205": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 665.8
+  },
+  "osm:node/415160157": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3993.3
+  },
+  "osm:node/415160315": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1497.9
+  },
+  "osm:node/415160183": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3244.3
+  },
+  "osm:node/415158184": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3381.4
+  },
+  "osm:node/415160171": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4722.5
+  },
+  "osm:node/415160192": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1878.4
+  },
+  "osm:node/415158181": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 8660.4
+  },
+  "osm:node/415158183": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4633.8
+  },
+  "osm:node/415160313": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2762.4
+  },
+  "osm:node/415160317": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1310.5
+  },
+  "osm:node/415158182": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6461.9
+  },
+  "osm:node/415160132": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1979.5
+  },
+  "osm:node/415158212": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 189.1
+  },
+  "osm:node/415160209": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2679.5
+  },
+  "osm:node/415160153": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 404.8
+  },
+  "osm:node/415158320": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영양군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 875.1
+  },
+  "osm:node/415160187": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 9190.7
+  },
+  "osm:node/415160203": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3375.6
+  },
+  "osm:node/415160278": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "청송군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2930.7
+  },
+  "osm:node/415160163": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5977.3
+  },
+  "osm:node/415160200": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 858.6
+  },
+  "osm:node/415158185": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2379.9
+  },
+  "osm:node/415160151": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2198.7
+  },
+  "osm:node/415160185": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2133.9
+  },
+  "osm:node/415160314": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2196.2
+  },
+  "osm:node/415160310": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2492.8
+  },
+  "osm:node/415158168": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6281.7
+  },
+  "osm:node/415160182": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6372.1
+  },
+  "osm:node/415160166": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7274.7
+  },
+  "osm:node/415160167": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7334.4
+  },
+  "osm:node/415158259": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영양군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3636.3
+  },
+  "osm:node/415158187": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2243.7
+  },
+  "osm:node/415160194": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 775.3
+  },
+  "osm:node/415160184": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 9381.1
+  },
+  "osm:node/415160148": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2791.7
+  },
+  "osm:node/415160130": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 658.1
+  },
+  "osm:node/415160188": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6035.0
+  },
+  "osm:node/415160173": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1241.5
+  },
+  "osm:node/415160178": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2946.6
+  },
+  "osm:node/415160175": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1979.7
+  },
+  "osm:node/415160176": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5351.1
+  },
+  "osm:node/415160146": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3517.0
+  },
+  "osm:node/415160158": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3242.3
+  },
+  "osm:node/415158176": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5731.9
+  },
+  "osm:node/415160312": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1519.2
+  },
+  "osm:node/415160147": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2811.2
+  },
+  "osm:node/415160181": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5638.4
+  },
+  "osm:node/415160177": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4325.2
+  },
+  "osm:node/415160196": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5710.5
+  },
+  "osm:node/415160316": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "청송군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3174.1
+  },
+  "osm:node/415160172": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 2407.4
+  },
+  "osm:node/415160169": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4615.2
+  },
+  "osm:node/415160302": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1163.9
+  },
+  "osm:node/415160202": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 559.9
+  },
+  "osm:node/415160165": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 5692.9
+  },
+  "osm:node/415158213": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 848.8
+  },
+  "osm:node/415160195": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 7638.2
+  },
+  "osm:node/415158318": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영양군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3209.4
+  },
+  "osm:node/415158321": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영양군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 581.8
+  },
+  "osm:node/415160160": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1433.1
+  },
+  "osm:node/415160318": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "청송군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 942.1
+  },
+  "osm:node/415160207": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6064.3
+  },
+  "osm:node/415158322": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영양군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1511.9
+  },
+  "osm:node/415160208": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4448.9
+  },
+  "osm:node/415160149": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 3501.6
+  },
+  "osm:node/415160199": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 6785.0
+  },
+  "osm:node/415160303": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 1090.2
+  },
+  "osm:node/415160170": {
+   "source": "행정구역: BND_SIGUNGU_PG (BASE_DATE 2025-06-30). 시군구 행정구역 경계. 프로젝트 책임자가 V-World(국토교통부)에서 내려받음. 내려받은 페이지 주소는 기록되지 않음.",
+   "ko": "영덕군",
+   "status": "established",
+   "reason": null,
+   "boundary_m": 4609.8
+  }
+ },
+ "counts_by_margin": {
+  "0m": {
+   "uiseong_andong_2025": {
+    "의성군": 48,
+    "안동시": 38
+   },
+   "yeongdeok_2025": {
+    "영덕군": 82,
+    "청송군": 4,
+    "영양군": 5
+   }
+  },
+  "25m": {
+   "uiseong_andong_2025": {
+    "의성군": 48,
+    "안동시": 38
+   },
+   "yeongdeok_2025": {
+    "영덕군": 82,
+    "청송군": 4,
+    "영양군": 5
+   }
+  },
+  "50m": {
+   "uiseong_andong_2025": {
+    "의성군": 48,
+    "안동시": 38
+   },
+   "yeongdeok_2025": {
+    "영덕군": 82,
+    "청송군": 4,
+    "영양군": 5
+   }
+  },
+  "100m": {
+   "uiseong_andong_2025": {
+    "의성군": 48,
+    "안동시": 38
+   },
+   "yeongdeok_2025": {
+    "영덕군": 82,
+    "청송군": 4,
+    "영양군": 5
+   }
+  }
+ }
+}

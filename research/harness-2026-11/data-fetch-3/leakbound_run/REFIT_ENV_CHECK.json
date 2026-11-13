@@ -1,0 +1,20 @@
+{
+ "schema": "s-d1.refit-env-check/1",
+ "ok": true,
+ "mismatches": [],
+ "python": "3.12.3",
+ "executable": "/tmp/claude-0/-home-user-wildfireguardian/871125f8-0d91-5580-b9d8-af4c744628f7/scratchpad/refit_venv/bin/python",
+ "packages": {
+  "affine": "3.0.1",
+  "numpy": "1.26.4",
+  "pandas": "2.2.3",
+  "pyproj": "3.7.0",
+  "pyshp": "2.3.1",
+  "rasterio": "1.4.3",
+  "scikit-learn": "1.5.2",
+  "scipy": "1.13.1",
+  "shapely": "2.0.6",
+  "torch": "2.5.1+cpu"
+ },
+ "requirements_sha256": "1972d6e7c6f64e1bed7af8a4f2c0343843e8070579065847e9c15f180278484e"
+}

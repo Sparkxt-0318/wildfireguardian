@@ -1,0 +1,33 @@
+{
+  "event_id": "KFS_03",
+  "country": "KR",
+  "epsg": 5179,
+  "height": 20,
+  "width": 33,
+  "pixel_size_m": 375,
+  "file": "regions/KFS_03/biome/biome_class_375m.tif",
+  "sha256": "51f13a5e319135b16318fb01c343bf591791fd6a19785ce1b047ec634b538ee7",
+  "biome_codes": [
+    4
+  ],
+  "class_pixel_counts": {
+    "4": 645
+  },
+  "total_pixels": 660,
+  "valid_pixels": 645,
+  "missing_pixels": 15,
+  "valid_fraction": 0.9772727272727273,
+  "valid_arrival_pixels": 372,
+  "biome_covered_arrival_pixels": 372,
+  "biome_missing_arrival_pixels": 0,
+  "conflicting_biome_pixels": 0,
+  "repaired_ecoregion_ids": [],
+  "retained_ecoregion_ids": [
+    655,
+    669
+  ],
+  "exact_reference_grid": true,
+  "all_pixel_centres_checked": true,
+  "independent_projected_rasterization_disagreements": 0,
+  "passed": true
+}
