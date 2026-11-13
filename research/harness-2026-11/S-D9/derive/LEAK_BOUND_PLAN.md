@@ -216,3 +216,13 @@ what the A1 §3.1 refit commands pass. The leak bound's fold base must match the
   max_fit_intervals_per_fire = 0. (ii) A1 §3.1 (PREREGISTRATION_ADDENDUM.md lines 215 and 222 on Main) quotes the
   `final … --max-fit-intervals-per-fire 0` command verbatim. Row 61 also extends row 60 to a55e2366.
 - **Confirmation (1), the assessor's reading:** _pending_.
+
+## Note (2026-11-13, after the run; correction to revision 3 item 6, which is not edited)
+The run reported `band_truncation.overall = 0.0`. That is a geometric necessity, not chance:
+- `crop_box(initial, 10)` keeps every cell within 10 cells of the initial bounding box.
+- A cell outside it is therefore ≥ 11 cells from every initial cell along at least one axis. Its centre distance is
+  ≥ 11 × 375 m = 4,125 m, which is more than 4,000 m.
+- So the A1 crop never truncates the 4 km band, and the "3.75–4 km shell is not scored" limitation stated in
+  revision 3 item 6 does not occur. It was conservative but wrong.
+- The full-domain secondary population is still the cropped domain. New-burn cells outside the crop: 12,384 of
+  122,640.
