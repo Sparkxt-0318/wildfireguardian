@@ -106,3 +106,21 @@ never retried silently and never dropped.
   - The script now has `--gate-only` (9284e5ab), so the Yeongdeok envelope packet gets its gate record only.
 - **Check for the verifier.** Compare this erratum against MANIFEST_v3_7 (sha 7c178267): the envelope entries'
   `transform` and `soundness` fields.
+
+## Note 2 (2026-11-13 ~03:50 UTC; sharding and the corrected cost; the rule text above is unchanged)
+
+- **Why.** The tracked task stopped at the 2 h background limit with 618 rows checkpointed, all FULLY_BOUND. On
+  burnset rows the §6 cost was wrong: they take about 69 s per row (certify about 64 s plus verify about 5 s), not
+  15 s. Corrected ETA for the remainder (about 558 rows): 7–10 h on one core, or about 2–3 h on 4 shards.
+- **Sharding changes scheduling only (orchestrator, 03:46 UTC).**
+  - With `--shard k/N`, a shard takes the rows whose index, in the fixed (packet list, sorted request file) order, is
+    ≡ k mod N. It writes them to `ROWS.shard<k>of<N>.jsonl`.
+  - The per-row steps (§3), the gates (§2) and the checkpoint rule are unchanged. Every shard recomputes the gates;
+    only shard 0 records them.
+  - Afterwards `--merge` joins ROWS.jsonl and the shard files into ROWS_MERGED.jsonl. Any duplicate key fails the
+    merge, as does any key whose bundle sha differs from the bundle on disk.
+- **Test.** `test_nr2_shards.py`:
+  - shard index sets partition the rows;
+  - sharded recomputation of a sample of rows already in the sequential checkpoint gives the same claim, T, I,
+    verdict and bundle sha256.
+- **Restarts** are logged in `nr2_scope_a.log` with time and reason.
