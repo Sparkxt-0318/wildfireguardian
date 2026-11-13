@@ -1,0 +1,4 @@
+start 2026-11-13T00:36:57Z
+end   2026-11-13 01:22:42.948306990 +0000
+rows 120, status differences vs recorded 0
+EXIT=0
