@@ -1,6 +1,6 @@
 # RULE: feature-ablation seed extension (Iris follow-up), fixed before running
 
-Committed before any run of the extension (2026-11-13, ~03:05 UTC). This is a follow-up with its own rule. The verdicts of
+Committed before any run of the extension (2026-11-13, ~02:57 UTC). This is a follow-up with its own rule. The verdicts of
 TOLERANCE_feature_ablation.md (results/feature_ablation.json, RESULTS §3h) **stand as recorded** and are not re-read.
 
 **Question.** Is "a rate that varies between intervals" a stable explanation of the mean-field NLL far-share gap, or
