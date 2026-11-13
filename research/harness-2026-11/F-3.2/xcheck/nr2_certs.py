@@ -10,7 +10,7 @@ A restart skips recorded keys (after re-checking the recorded bundle sha256 on d
 
 Usage (from the routing-next worktree root, F-3.2 PYTHONPATH):
   python research/harness-2026-11/F-3.2/xcheck/nr2_certs.py --leo <v3.7 worktree> --requests <requests.py out dir> \
-      --out DIR --packets <packet dir relative to --leo> ... [--departures 0 7200]
+      --out DIR --packets <packet dir relative to --leo> ... [--departures 0 7200] [--gate-only <packet> ...]
 """
 import argparse
 import hashlib
@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--packets", nargs="+", required=True)
     ap.add_argument("--departures", type=int, nargs="+", default=[0, 7200])
+    ap.add_argument("--gate-only", nargs="*", default=[], help="packets run through the gates only (no rows), NR2 rule §5")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True); (a.out / "bundles").mkdir(exist_ok=True)
     log = a.out / "ROWS.jsonl"
@@ -88,7 +89,7 @@ def main():
             if gk not in done:
                 put(g)
             print(json.dumps({k: g.get(k) for k in ("packet", "status", "reason", "p1_raw_vs_contact", "p1_hazard_vs_contact")}), flush=True)
-            if g["status"] != "GATES_PASS":
+            if g["status"] != "GATES_PASS" or rel in a.gate_only:
                 continue
             if model is None:
                 model = routable_contact_model(str(a.leo / rel))
