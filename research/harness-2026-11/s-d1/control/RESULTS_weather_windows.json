@@ -1,0 +1,2493 @@
+{
+ "windows_sha256": "56cb34449cf8db252471b8d7e7448708234732f6d58e44a6db524ed93628f396",
+ "n_cases": 273,
+ "covered": 273,
+ "uncovered": [],
+ "per_event": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "covered": 52,
+   "uncovered": 0
+  },
+  "ID-BOF-000904_Goat": {
+   "covered": 42,
+   "uncovered": 0
+  },
+  "ID-BOF-001080_Lava": {
+   "covered": 47,
+   "uncovered": 0
+  },
+  "ID-SCF-240202_RedRock": {
+   "covered": 40,
+   "uncovered": 0
+  },
+  "WA-SES-000173_Pioneer": {
+   "covered": 55,
+   "uncovered": 0
+  },
+  "WY-BTF-002416_FishCreek": {
+   "covered": 37,
+   "uncovered": 0
+  }
+ },
+ "min_margin_before_h": 28.016666666666666,
+ "min_margin_after_h": 24.75,
+ "rows": [
+  {
+   "case": "01f5b29f42dbe531bcf84db7",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-04T05:00:00+00:00",
+   "endpoint": "2024-07-05T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 530.0,
+   "margin_after_h": 1272.0
+  },
+  {
+   "case": "0205ea95c721f4495ed99f1e",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-06T03:33:00+00:00",
+   "endpoint": "2024-09-07T04:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 651.55,
+   "margin_after_h": 1106.25
+  },
+  {
+   "case": "0220c36079a901c7ac32baf1",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-28T06:43:00+00:00",
+   "endpoint": "2024-09-29T02:33:00+00:00",
+   "covered": true,
+   "margin_before_h": 1398.7166666666667,
+   "margin_after_h": 601.45
+  },
+  {
+   "case": "025c214d40d82ac2f032b749",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-14T07:30:00+00:00",
+   "endpoint": "2024-07-15T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 772.5,
+   "margin_after_h": 1032.0
+  },
+  {
+   "case": "02ed6e7032488c1135f69a6f",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-22T19:00:00+00:00",
+   "endpoint": "2024-08-23T07:46:00+00:00",
+   "covered": true,
+   "margin_before_h": 523.0,
+   "margin_after_h": 1533.2333333333333
+  },
+  {
+   "case": "039a9cbb05c17d9afddf6235",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-29T03:13:00+00:00",
+   "endpoint": "2024-08-30T05:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 195.21666666666667,
+   "margin_after_h": 1416.95
+  },
+  {
+   "case": "03fa1b981ccd6f68468dd9f4",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-15T08:00:00+00:00",
+   "endpoint": "2024-07-16T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 797.0,
+   "margin_after_h": 1008.0
+  },
+  {
+   "case": "04fab38dc821088d2e53edde",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-13T03:55:00+00:00",
+   "endpoint": "2024-09-14T04:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 1035.9166666666667,
+   "margin_after_h": 959.75
+  },
+  {
+   "case": "052799f29b12f0f69f806627",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-17T03:20:00+00:00",
+   "endpoint": "2024-08-18T03:07:00+00:00",
+   "covered": true,
+   "margin_before_h": 387.3333333333333,
+   "margin_after_h": 1608.8833333333334
+  },
+  {
+   "case": "05a519cd9042e213e2049a3a",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-01T02:46:00+00:00",
+   "endpoint": "2024-09-02T06:58:00+00:00",
+   "covered": true,
+   "margin_before_h": 746.7666666666667,
+   "margin_after_h": 1294.0333333333333
+  },
+  {
+   "case": "07a03c906b10249119df21d8",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-13T05:50:00+00:00",
+   "endpoint": "2024-10-14T10:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1277.8333333333333,
+   "margin_after_h": 331.5
+  },
+  {
+   "case": "09448faa5823f85aa40ef596",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-19T02:23:00+00:00",
+   "endpoint": "2024-09-20T08:33:00+00:00",
+   "covered": true,
+   "margin_before_h": 506.3833333333333,
+   "margin_after_h": 858.45
+  },
+  {
+   "case": "0958c1169a0b857af1193809",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-14T04:11:00+00:00",
+   "endpoint": "2024-08-15T04:23:00+00:00",
+   "covered": true,
+   "margin_before_h": 316.18333333333334,
+   "margin_after_h": 1679.6166666666666
+  },
+  {
+   "case": "095cf70dbc24083a54b0e92d",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-21T08:45:00+00:00",
+   "endpoint": "2024-06-22T09:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 221.75,
+   "margin_after_h": 1582.75
+  },
+  {
+   "case": "09ca32933722e923279dcf97",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-09T06:22:00+00:00",
+   "endpoint": "2024-09-10T03:29:00+00:00",
+   "covered": true,
+   "margin_before_h": 942.3666666666667,
+   "margin_after_h": 1105.5166666666667
+  },
+  {
+   "case": "0a196f37de77a36395a31dbc",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-29T07:16:00+00:00",
+   "endpoint": "2024-08-30T03:42:00+00:00",
+   "covered": true,
+   "margin_before_h": 679.2666666666667,
+   "margin_after_h": 1320.3
+  },
+  {
+   "case": "0a701d087919ef614a5d35cd",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-14T06:32:00+00:00",
+   "endpoint": "2024-10-15T02:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 1782.5333333333333,
+   "margin_after_h": 266.35
+  },
+  {
+   "case": "0d04b92e288f93491f174dda",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-09T03:59:00+00:00",
+   "endpoint": "2024-07-10T08:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 648.9833333333333,
+   "margin_after_h": 1151.75
+  },
+  {
+   "case": "0da807d0e9db66a7d819275b",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-20T06:21:00+00:00",
+   "endpoint": "2024-08-21T06:28:00+00:00",
+   "covered": true,
+   "margin_before_h": 462.35,
+   "margin_after_h": 1533.5333333333333
+  },
+  {
+   "case": "0e998a1de17c9a9423c110b9",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-18T09:00:00+00:00",
+   "endpoint": "2024-07-19T08:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 870.0,
+   "margin_after_h": 935.75
+  },
+  {
+   "case": "10ee6556e81b5533b05ce979",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-28T06:00:00+00:00",
+   "endpoint": "2024-09-30T04:13:00+00:00",
+   "covered": true,
+   "margin_before_h": 1182.0,
+   "margin_after_h": 554.7833333333333
+  },
+  {
+   "case": "12df4ec9bddd5617ee23ac65",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-16T05:37:00+00:00",
+   "endpoint": "2024-08-17T03:20:00+00:00",
+   "covered": true,
+   "margin_before_h": 365.6166666666667,
+   "margin_after_h": 1632.6666666666667
+  },
+  {
+   "case": "132f81a54fd85a96c3ef3e0a",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-10T08:45:00+00:00",
+   "endpoint": "2024-08-11T09:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1421.75,
+   "margin_after_h": 383.0
+  },
+  {
+   "case": "1455969fe55440e46429ea93",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-06T08:39:00+00:00",
+   "endpoint": "2024-10-07T02:57:00+00:00",
+   "covered": true,
+   "margin_before_h": 1376.65,
+   "margin_after_h": 388.05
+  },
+  {
+   "case": "150fd6a14b6c10b8d9f5a7c8",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-20T08:33:00+00:00",
+   "endpoint": "2024-09-21T03:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 536.55,
+   "margin_after_h": 839.95
+  },
+  {
+   "case": "16d45ab08259d7a4faa750ed",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-24T02:21:00+00:00",
+   "endpoint": "2024-09-25T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 626.35,
+   "margin_after_h": 744.0
+  },
+  {
+   "case": "188c796b136c27cf6a3bfc46",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-05T03:28:00+00:00",
+   "endpoint": "2024-09-06T04:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 843.4666666666667,
+   "margin_after_h": 1200.35
+  },
+  {
+   "case": "194ab4e6b594c1cad5f0d1bd",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-06T07:31:00+00:00",
+   "endpoint": "2024-10-07T05:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 919.5166666666667,
+   "margin_after_h": 453.5
+  },
+  {
+   "case": "1b8648da2068646d60abe453",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-02T06:56:00+00:00",
+   "endpoint": "2024-10-04T06:01:00+00:00",
+   "covered": true,
+   "margin_before_h": 1494.9333333333334,
+   "margin_after_h": 526.9833333333333
+  },
+  {
+   "case": "1bfae3f1dd3db8e7e3b59b8d",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-14T04:15:00+00:00",
+   "endpoint": "2024-09-15T03:04:00+00:00",
+   "covered": true,
+   "margin_before_h": 1060.25,
+   "margin_after_h": 936.9333333333333
+  },
+  {
+   "case": "1d1562689afdefa54337c90e",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-07T04:24:00+00:00",
+   "endpoint": "2024-09-08T03:57:00+00:00",
+   "covered": true,
+   "margin_before_h": 220.4,
+   "margin_after_h": 1151.05
+  },
+  {
+   "case": "1f62ce9d05240890b4dbb166",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-22T02:25:00+00:00",
+   "endpoint": "2024-10-23T04:59:00+00:00",
+   "covered": true,
+   "margin_before_h": 1490.4166666666667,
+   "margin_after_h": 121.01666666666667
+  },
+  {
+   "case": "1f798e793241727fa2b358c5",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-06T04:39:00+00:00",
+   "endpoint": "2024-09-07T03:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 868.65,
+   "margin_after_h": 1177.4666666666667
+  },
+  {
+   "case": "1ffa45e8656ddd94f11508f5",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-25T03:00:00+00:00",
+   "endpoint": "2024-09-26T07:04:00+00:00",
+   "covered": true,
+   "margin_before_h": 651.0,
+   "margin_after_h": 715.9333333333333
+  },
+  {
+   "case": "203425b8010c6cb23f6eb1e1",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-30T03:48:00+00:00",
+   "endpoint": "2024-08-31T07:23:00+00:00",
+   "covered": true,
+   "margin_before_h": 483.8,
+   "margin_after_h": 1271.6166666666666
+  },
+  {
+   "case": "2037c987183c4625c11b3709",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-29T02:19:00+00:00",
+   "endpoint": "2024-09-30T05:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 746.3166666666667,
+   "margin_after_h": 621.25
+  },
+  {
+   "case": "209b804b04699dbe6ae68300",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-02T06:50:00+00:00",
+   "endpoint": "2024-09-04T05:34:00+00:00",
+   "covered": true,
+   "margin_before_h": 558.8333333333334,
+   "margin_after_h": 1177.4333333333334
+  },
+  {
+   "case": "21396af8e34a84bb07a3f1be",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-08T08:45:00+00:00",
+   "endpoint": "2024-08-09T09:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1373.75,
+   "margin_after_h": 431.0
+  },
+  {
+   "case": "2181f6b933dece78a1f4fb17",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-22T06:19:00+00:00",
+   "endpoint": "2024-09-23T06:14:00+00:00",
+   "covered": true,
+   "margin_before_h": 1038.3166666666666,
+   "margin_after_h": 720.7666666666667
+  },
+  {
+   "case": "21cd1fa543604e7cf04d7945",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-13T04:04:00+00:00",
+   "endpoint": "2024-10-14T02:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 1084.0666666666666,
+   "margin_after_h": 288.46666666666664
+  },
+  {
+   "case": "21e6a7f73574da3dfcb57cf1",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-06T08:00:00+00:00",
+   "endpoint": "2024-07-07T04:21:00+00:00",
+   "covered": true,
+   "margin_before_h": 581.0,
+   "margin_after_h": 1227.65
+  },
+  {
+   "case": "22317891978c10645ac4ce29",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-16T08:00:00+00:00",
+   "endpoint": "2024-07-17T08:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 821.0,
+   "margin_after_h": 983.5
+  },
+  {
+   "case": "22dca2ee35a2e8b69ddbf104",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-27T03:30:00+00:00",
+   "endpoint": "2024-09-28T06:43:00+00:00",
+   "covered": true,
+   "margin_before_h": 1371.5,
+   "margin_after_h": 621.2833333333333
+  },
+  {
+   "case": "253fc22c04233e9767644cdf",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-02T06:03:00+00:00",
+   "endpoint": "2024-10-03T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1278.05,
+   "margin_after_h": 484.0
+  },
+  {
+   "case": "2563fae676e016efae20dc76",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-18T03:00:00+00:00",
+   "endpoint": "2024-09-19T02:23:00+00:00",
+   "covered": true,
+   "margin_before_h": 483.0,
+   "margin_after_h": 888.6166666666667
+  },
+  {
+   "case": "2592be1ecf9226c2052e509c",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-05T04:26:00+00:00",
+   "endpoint": "2024-09-06T04:31:00+00:00",
+   "covered": true,
+   "margin_before_h": 172.43333333333334,
+   "margin_after_h": 1198.4833333333333
+  },
+  {
+   "case": "29d56bb6ed06628bf05c1fe4",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-27T03:32:00+00:00",
+   "endpoint": "2024-08-28T03:07:00+00:00",
+   "covered": true,
+   "margin_before_h": 411.53333333333336,
+   "margin_after_h": 1347.8833333333334
+  },
+  {
+   "case": "2a13fd6d443dc66436b5178b",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-26T04:37:00+00:00",
+   "endpoint": "2024-08-27T03:40:00+00:00",
+   "covered": true,
+   "margin_before_h": 604.6166666666667,
+   "margin_after_h": 1392.3333333333333
+  },
+  {
+   "case": "2acbdd9a7a35b030b701c63e",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-15T02:39:00+00:00",
+   "endpoint": "2024-10-16T01:46:00+00:00",
+   "covered": true,
+   "margin_before_h": 1802.65,
+   "margin_after_h": 243.23333333333332
+  },
+  {
+   "case": "2ae6f23b1ed2499d23334b53",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-14T03:19:00+00:00",
+   "endpoint": "2024-09-15T02:09:00+00:00",
+   "covered": true,
+   "margin_before_h": 843.3166666666667,
+   "margin_after_h": 916.85
+  },
+  {
+   "case": "2c3499cb6899a26a377c6dc0",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-18T04:00:00+00:00",
+   "endpoint": "2024-08-19T06:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1609.0,
+   "margin_after_h": 194.0
+  },
+  {
+   "case": "2cb80ff48121dad9515de9f6",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-20T07:15:00+00:00",
+   "endpoint": "2024-07-21T11:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 916.25,
+   "margin_after_h": 884.75
+  },
+  {
+   "case": "2e9c2d9bc0a4bdc579cefd8c",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-08T07:38:00+00:00",
+   "endpoint": "2024-07-09T03:59:00+00:00",
+   "covered": true,
+   "margin_before_h": 628.6333333333333,
+   "margin_after_h": 1180.0166666666667
+  },
+  {
+   "case": "2f1584cf74601f2389b9289c",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-18T02:38:00+00:00",
+   "endpoint": "2024-08-19T06:23:00+00:00",
+   "covered": true,
+   "margin_before_h": 410.6333333333333,
+   "margin_after_h": 1630.6166666666666
+  },
+  {
+   "case": "308b4791c36cb12ddb4bc8d6",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-04T03:58:00+00:00",
+   "endpoint": "2024-09-05T05:10:00+00:00",
+   "covered": true,
+   "margin_before_h": 339.96666666666664,
+   "margin_after_h": 1272.8333333333333
+  },
+  {
+   "case": "3090798d440ccbc300a8f6f1",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-23T02:14:00+00:00",
+   "endpoint": "2024-08-24T05:10:00+00:00",
+   "covered": true,
+   "margin_before_h": 50.233333333333334,
+   "margin_after_h": 1560.8333333333333
+  },
+  {
+   "case": "309278b64a4682f96cd163c3",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-03T09:45:00+00:00",
+   "endpoint": "2024-08-05T02:13:00+00:00",
+   "covered": true,
+   "margin_before_h": 1254.75,
+   "margin_after_h": 533.7833333333333
+  },
+  {
+   "case": "30a19dbfba8056b03e3e7844",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-22T03:41:00+00:00",
+   "endpoint": "2024-09-23T05:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 579.6833333333333,
+   "margin_after_h": 789.4666666666667
+  },
+  {
+   "case": "358cabe3d82607587b5b5799",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-23T04:10:00+00:00",
+   "endpoint": "2024-09-24T05:17:00+00:00",
+   "covered": true,
+   "margin_before_h": 1276.1666666666667,
+   "margin_after_h": 718.7166666666667
+  },
+  {
+   "case": "36d2188d35781888fdcb064b",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-20T05:03:00+00:00",
+   "endpoint": "2024-10-21T03:04:00+00:00",
+   "covered": true,
+   "margin_before_h": 1445.05,
+   "margin_after_h": 170.93333333333334
+  },
+  {
+   "case": "38f51001c3b09c0ad39b7aec",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-21T07:30:00+00:00",
+   "endpoint": "2024-08-23T07:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1684.5,
+   "margin_after_h": 96.5
+  },
+  {
+   "case": "3992d9d96eacf18f53247729",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-14T07:45:00+00:00",
+   "endpoint": "2024-09-15T04:34:00+00:00",
+   "covered": true,
+   "margin_before_h": 391.75,
+   "margin_after_h": 982.4333333333333
+  },
+  {
+   "case": "3a11d88b87918508ee154219",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-28T03:07:00+00:00",
+   "endpoint": "2024-08-29T07:37:00+00:00",
+   "covered": true,
+   "margin_before_h": 435.1166666666667,
+   "margin_after_h": 1319.3833333333334
+  },
+  {
+   "case": "3bc62dd8d8b1d4e474a3018b",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-26T03:18:00+00:00",
+   "endpoint": "2024-09-27T03:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1347.3,
+   "margin_after_h": 648.5
+  },
+  {
+   "case": "3c4171cff2b7971c929696f2",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-01T07:53:00+00:00",
+   "endpoint": "2024-10-02T02:43:00+00:00",
+   "covered": true,
+   "margin_before_h": 991.8833333333333,
+   "margin_after_h": 627.2833333333333
+  },
+  {
+   "case": "3c81994494e04add834c3a0e",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-19T08:15:00+00:00",
+   "endpoint": "2024-07-20T07:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 893.25,
+   "margin_after_h": 912.75
+  },
+  {
+   "case": "3c972d8c29217f35953c29e4",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-18T03:12:00+00:00",
+   "endpoint": "2024-08-19T05:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 195.2,
+   "margin_after_h": 1561.3666666666666
+  },
+  {
+   "case": "42bfc0bc3ef4f4051fdc90c9",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-05T03:03:00+00:00",
+   "endpoint": "2024-08-06T07:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 99.05,
+   "margin_after_h": 1892.95
+  },
+  {
+   "case": "43748b77558bcd3783438446",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-21T11:15:00+00:00",
+   "endpoint": "2024-07-22T09:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 944.25,
+   "margin_after_h": 862.75
+  },
+  {
+   "case": "4391cfde2bfcc57bd4143ceb",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-02T04:00:00+00:00",
+   "endpoint": "2024-08-03T09:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1225.0,
+   "margin_after_h": 574.25
+  },
+  {
+   "case": "455bd4b049f60e676e269130",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-10T04:44:00+00:00",
+   "endpoint": "2024-10-11T03:56:00+00:00",
+   "covered": true,
+   "margin_before_h": 1468.7333333333333,
+   "margin_after_h": 291.06666666666666
+  },
+  {
+   "case": "456077289c02cf2a7cdd1c5e",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-14T10:30:00+00:00",
+   "endpoint": "2024-10-15T06:25:00+00:00",
+   "covered": true,
+   "margin_before_h": 1306.5,
+   "margin_after_h": 311.5833333333333
+  },
+  {
+   "case": "45647d25ef416e2b51ec81de",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-14T04:43:00+00:00",
+   "endpoint": "2024-08-15T04:41:00+00:00",
+   "covered": true,
+   "margin_before_h": 100.71666666666667,
+   "margin_after_h": 1658.3166666666666
+  },
+  {
+   "case": "45ae36cfbd57e6031bf5d2c1",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-23T04:59:00+00:00",
+   "endpoint": "2024-10-24T01:22:00+00:00",
+   "covered": true,
+   "margin_before_h": 1516.9833333333333,
+   "margin_after_h": 100.63333333333334
+  },
+  {
+   "case": "45d9bf2deb2d8aa7e698c9a2",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-06T02:25:00+00:00",
+   "endpoint": "2024-10-07T09:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 1106.4166666666667,
+   "margin_after_h": 500.75
+  },
+  {
+   "case": "46e4303a0127bfcafb098873",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-19T06:00:00+00:00",
+   "endpoint": "2024-08-20T08:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1635.0,
+   "margin_after_h": 167.25
+  },
+  {
+   "case": "47b76573ee7e56425d939d71",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-30T03:42:00+00:00",
+   "endpoint": "2024-08-31T07:27:00+00:00",
+   "covered": true,
+   "margin_before_h": 699.7,
+   "margin_after_h": 1292.55
+  },
+  {
+   "case": "4a85a5dc0c7edafdbe644b62",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-20T05:01:00+00:00",
+   "endpoint": "2024-08-21T06:34:00+00:00",
+   "covered": true,
+   "margin_before_h": 245.01666666666668,
+   "margin_after_h": 1512.4333333333334
+  },
+  {
+   "case": "4c1a6206dd4edb42085370cf",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-05T06:37:00+00:00",
+   "endpoint": "2024-08-06T09:02:00+00:00",
+   "covered": true,
+   "margin_before_h": 102.61666666666666,
+   "margin_after_h": 1939.9666666666667
+  },
+  {
+   "case": "4ce89bd9635bc560fec345b2",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-21T07:18:00+00:00",
+   "endpoint": "2024-08-22T19:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 487.3,
+   "margin_after_h": 1546.0
+  },
+  {
+   "case": "4da1e349fab4c9e02defc9a3",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-23T07:46:00+00:00",
+   "endpoint": "2024-08-24T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 535.7666666666667,
+   "margin_after_h": 1514.0
+  },
+  {
+   "case": "4e7fd6e09f3097f81720a51d",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-24T01:22:00+00:00",
+   "endpoint": "2024-10-25T01:17:00+00:00",
+   "covered": true,
+   "margin_before_h": 1537.3666666666666,
+   "margin_after_h": 76.71666666666667
+  },
+  {
+   "case": "5027b44d940a856a98f98a20",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-13T11:15:00+00:00",
+   "endpoint": "2024-08-14T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1496.25,
+   "margin_after_h": 312.0
+  },
+  {
+   "case": "5077a29d65e7e7c4d0767f0a",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-11T06:51:00+00:00",
+   "endpoint": "2024-08-12T07:16:00+00:00",
+   "covered": true,
+   "margin_before_h": 30.85,
+   "margin_after_h": 1727.7333333333333
+  },
+  {
+   "case": "50872a0ec32ff2d21b288452",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-11T03:00:00+00:00",
+   "endpoint": "2024-09-12T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 315.0,
+   "margin_after_h": 1056.0
+  },
+  {
+   "case": "52277ab1db5773686637a129",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-01T07:21:00+00:00",
+   "endpoint": "2024-09-02T02:49:00+00:00",
+   "covered": true,
+   "margin_before_h": 271.35,
+   "margin_after_h": 1347.1833333333334
+  },
+  {
+   "case": "5351b4630cfe6b39d7f47bfd",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-07T04:21:00+00:00",
+   "endpoint": "2024-07-08T07:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 601.35,
+   "margin_after_h": 1200.3666666666666
+  },
+  {
+   "case": "539bd75d067b6b8e2f5ba7a4",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-07T04:45:00+00:00",
+   "endpoint": "2024-09-08T03:35:00+00:00",
+   "covered": true,
+   "margin_before_h": 676.75,
+   "margin_after_h": 1083.4166666666667
+  },
+  {
+   "case": "5408ab9ebda155b069b648f1",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-09T03:42:00+00:00",
+   "endpoint": "2024-08-10T08:02:00+00:00",
+   "covered": true,
+   "margin_before_h": 195.7,
+   "margin_after_h": 1795.9666666666667
+  },
+  {
+   "case": "5c11d9fb6dcfe6436fac9c4b",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-10-01T02:36:00+00:00",
+   "endpoint": "2024-10-02T04:33:00+00:00",
+   "covered": true,
+   "margin_before_h": 1466.6,
+   "margin_after_h": 527.45
+  },
+  {
+   "case": "5c84af9dfdb9f77f1b8140a6",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-10-05T04:03:00+00:00",
+   "endpoint": "2024-10-07T01:41:00+00:00",
+   "covered": true,
+   "margin_before_h": 1564.05,
+   "margin_after_h": 410.31666666666666
+  },
+  {
+   "case": "5d69d7e5aa5ff5ec83ae8fb4",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-15T04:34:00+00:00",
+   "endpoint": "2024-09-16T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 412.56666666666666,
+   "margin_after_h": 960.0
+  },
+  {
+   "case": "5e2c2c6bc775131085e860d3",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-11T07:45:00+00:00",
+   "endpoint": "2024-08-12T07:09:00+00:00",
+   "covered": true,
+   "margin_before_h": 247.75,
+   "margin_after_h": 1748.85
+  },
+  {
+   "case": "5e3e60d16d74a0bac4a11697",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-12T15:48:00+00:00",
+   "endpoint": "2024-08-13T11:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 1476.8,
+   "margin_after_h": 332.75
+  },
+  {
+   "case": "5f5624133a06a2abc37d0cc3",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-11T09:00:00+00:00",
+   "endpoint": "2024-08-12T15:48:00+00:00",
+   "covered": true,
+   "margin_before_h": 1446.0,
+   "margin_after_h": 352.2
+  },
+  {
+   "case": "5fe159586351ab09e0a8d0b5",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-18T03:07:00+00:00",
+   "endpoint": "2024-08-19T05:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 411.1166666666667,
+   "margin_after_h": 1582.4666666666667
+  },
+  {
+   "case": "60d7f258313c79c4da6e09d9",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-27T03:45:00+00:00",
+   "endpoint": "2024-07-28T02:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1080.75,
+   "margin_after_h": 725.25
+  },
+  {
+   "case": "6291da1b0aa00e025391c28d",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-24T05:17:00+00:00",
+   "endpoint": "2024-09-26T03:18:00+00:00",
+   "covered": true,
+   "margin_before_h": 1301.2833333333333,
+   "margin_after_h": 672.7
+  },
+  {
+   "case": "62a1e50a387001f37da5ff09",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-09T03:00:00+00:00",
+   "endpoint": "2024-10-10T06:54:00+00:00",
+   "covered": true,
+   "margin_before_h": 1659.0,
+   "margin_after_h": 382.1
+  },
+  {
+   "case": "62e9742e9678ba95d2ee6a30",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-23T01:54:00+00:00",
+   "endpoint": "2024-09-24T03:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 1273.9,
+   "margin_after_h": 769.3666666666667
+  },
+  {
+   "case": "636da47f0762b9868624c73f",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-10-07T01:41:00+00:00",
+   "endpoint": "2024-10-09T01:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 1609.6833333333334,
+   "margin_after_h": 362.35
+  },
+  {
+   "case": "63840fd1ae898ab1eee959d3",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-10T08:02:00+00:00",
+   "endpoint": "2024-09-11T07:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 968.0333333333333,
+   "margin_after_h": 1028.95
+  },
+  {
+   "case": "63ba0f29c6716dd6f73ab467",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-02T02:43:00+00:00",
+   "endpoint": "2024-10-03T06:53:00+00:00",
+   "covered": true,
+   "margin_before_h": 1010.7166666666667,
+   "margin_after_h": 599.1166666666667
+  },
+  {
+   "case": "641204adbccaf70c4ab51df6",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-14T06:04:00+00:00",
+   "endpoint": "2024-10-15T03:26:00+00:00",
+   "covered": true,
+   "margin_before_h": 1566.0666666666666,
+   "margin_after_h": 195.56666666666666
+  },
+  {
+   "case": "658dc65f3d32275b887f3daf",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-06T07:03:00+00:00",
+   "endpoint": "2024-08-07T03:08:00+00:00",
+   "covered": true,
+   "margin_before_h": 127.05,
+   "margin_after_h": 1872.8666666666666
+  },
+  {
+   "case": "65a29c25757352f0b49f9273",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-25T08:30:00+00:00",
+   "endpoint": "2024-08-26T07:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 1781.5,
+   "margin_after_h": 24.75
+  },
+  {
+   "case": "65b14f64af94d98c236b0985",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-21T03:04:00+00:00",
+   "endpoint": "2024-10-22T02:25:00+00:00",
+   "covered": true,
+   "margin_before_h": 1467.0666666666666,
+   "margin_after_h": 147.58333333333334
+  },
+  {
+   "case": "65d88f0b9b290161513d503a",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-12T07:09:00+00:00",
+   "endpoint": "2024-08-13T08:13:00+00:00",
+   "covered": true,
+   "margin_before_h": 271.15,
+   "margin_after_h": 1723.7833333333333
+  },
+  {
+   "case": "65e8f9b4a2542cb228dfd2e7",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-09T10:30:00+00:00",
+   "endpoint": "2024-10-10T11:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 1186.5,
+   "margin_after_h": 426.75
+  },
+  {
+   "case": "6719334fd38840b1beabd553",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-10T03:58:00+00:00",
+   "endpoint": "2024-09-11T07:24:00+00:00",
+   "covered": true,
+   "margin_before_h": 747.9666666666667,
+   "margin_after_h": 1007.6
+  },
+  {
+   "case": "6837b76d1b8ba8fd5c55e1a3",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-10T04:20:00+00:00",
+   "endpoint": "2024-09-11T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 292.3333333333333,
+   "margin_after_h": 1080.0
+  },
+  {
+   "case": "6b3ba5720f25cabec98bcd0d",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-11T03:00:00+00:00",
+   "endpoint": "2024-10-13T00:58:00+00:00",
+   "covered": true,
+   "margin_before_h": 1707.0,
+   "margin_after_h": 316.03333333333336
+  },
+  {
+   "case": "6b92f46c1085927c7d4fcc26",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-12T07:54:00+00:00",
+   "endpoint": "2024-08-13T04:07:00+00:00",
+   "covered": true,
+   "margin_before_h": 271.9,
+   "margin_after_h": 1776.8833333333334
+  },
+  {
+   "case": "6c7a6c0d9df42ce38b82c798",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-25T11:00:00+00:00",
+   "endpoint": "2024-07-26T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1040.0,
+   "margin_after_h": 768.0
+  },
+  {
+   "case": "6cef7e3cf9031837567015f2",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-07T05:30:00+00:00",
+   "endpoint": "2024-10-08T03:06:00+00:00",
+   "covered": true,
+   "margin_before_h": 941.5,
+   "margin_after_h": 431.9
+  },
+  {
+   "case": "6d1f784eebc32b3f7d699416",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-02T06:53:00+00:00",
+   "endpoint": "2024-09-04T05:36:00+00:00",
+   "covered": true,
+   "margin_before_h": 774.8833333333333,
+   "margin_after_h": 1198.4
+  },
+  {
+   "case": "6d54bbb4b2f8fc1dc71b16b5",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-29T03:49:00+00:00",
+   "endpoint": "2024-08-30T03:34:00+00:00",
+   "covered": true,
+   "margin_before_h": 675.8166666666667,
+   "margin_after_h": 1369.4333333333334
+  },
+  {
+   "case": "70362bd23497fc1e5073c76f",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-26T05:32:00+00:00",
+   "endpoint": "2024-06-27T05:42:00+00:00",
+   "covered": true,
+   "margin_before_h": 338.53333333333336,
+   "margin_after_h": 1466.3
+  },
+  {
+   "case": "7080a09729f5261028698d4b",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-19T03:42:00+00:00",
+   "endpoint": "2024-09-20T07:43:00+00:00",
+   "covered": true,
+   "margin_before_h": 1179.7,
+   "margin_after_h": 861.2833333333333
+  },
+  {
+   "case": "70b61716ff4a4146e3817fc5",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-26T04:02:00+00:00",
+   "endpoint": "2024-08-27T03:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 388.03333333333336,
+   "margin_after_h": 1371.4666666666667
+  },
+  {
+   "case": "70e11f3e7f17ae0c9f5dba6b",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-08T03:06:00+00:00",
+   "endpoint": "2024-10-09T03:11:00+00:00",
+   "covered": true,
+   "margin_before_h": 963.1,
+   "margin_after_h": 407.81666666666666
+  },
+  {
+   "case": "71d596e5e7e0f0bffd12a5ff",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-20T06:49:00+00:00",
+   "endpoint": "2024-09-21T04:02:00+00:00",
+   "covered": true,
+   "margin_before_h": 990.8166666666667,
+   "margin_after_h": 770.9666666666667
+  },
+  {
+   "case": "728f81f9b911ceb74e24c71b",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-12T03:00:00+00:00",
+   "endpoint": "2024-10-13T04:04:00+00:00",
+   "covered": true,
+   "margin_before_h": 1059.0,
+   "margin_after_h": 310.93333333333334
+  },
+  {
+   "case": "74b533adc59f7331113ec5f1",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-01T05:42:00+00:00",
+   "endpoint": "2024-10-03T03:56:00+00:00",
+   "covered": true,
+   "margin_before_h": 797.7,
+   "margin_after_h": 551.0666666666667
+  },
+  {
+   "case": "75c5910672fd5a19f2709e4f",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-10-02T04:33:00+00:00",
+   "endpoint": "2024-10-03T02:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 1492.55,
+   "margin_after_h": 505.3666666666667
+  },
+  {
+   "case": "765ed21cee4694a4a7b1073e",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-07T05:06:00+00:00",
+   "endpoint": "2024-08-08T08:02:00+00:00",
+   "covered": true,
+   "margin_before_h": 149.1,
+   "margin_after_h": 1892.9666666666667
+  },
+  {
+   "case": "772f9c91ef67a78be8cd8715",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-02T06:58:00+00:00",
+   "endpoint": "2024-09-04T03:33:00+00:00",
+   "covered": true,
+   "margin_before_h": 774.9666666666667,
+   "margin_after_h": 1249.45
+  },
+  {
+   "case": "784f14dcbccd3e513867ceaf",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-06T10:00:00+00:00",
+   "endpoint": "2024-08-07T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1327.0,
+   "margin_after_h": 480.0
+  },
+  {
+   "case": "7a63cad5c4414d1432578601",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-07T08:00:00+00:00",
+   "endpoint": "2024-08-08T08:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1349.0,
+   "margin_after_h": 455.25
+  },
+  {
+   "case": "7fcfa9c79e73bf212db7d928",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-29T07:37:00+00:00",
+   "endpoint": "2024-08-30T03:48:00+00:00",
+   "covered": true,
+   "margin_before_h": 463.6166666666667,
+   "margin_after_h": 1299.2
+  },
+  {
+   "case": "7ff7339397ce1c82b59f88c7",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-24T03:00:00+00:00",
+   "endpoint": "2024-08-25T05:26:00+00:00",
+   "covered": true,
+   "margin_before_h": 555.0,
+   "margin_after_h": 1487.5666666666666
+  },
+  {
+   "case": "801c1d8f0195dee9ebeea9e7",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-05T05:23:00+00:00",
+   "endpoint": "2024-09-06T04:42:00+00:00",
+   "covered": true,
+   "margin_before_h": 845.3833333333333,
+   "margin_after_h": 1151.3
+  },
+  {
+   "case": "8167df1f8c86c188a039bada",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-28T02:59:00+00:00",
+   "endpoint": "2024-08-29T07:16:00+00:00",
+   "covered": true,
+   "margin_before_h": 650.9833333333333,
+   "margin_after_h": 1340.7333333333333
+  },
+  {
+   "case": "832c41cc74e55e3c84578e11",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-09T02:15:00+00:00",
+   "endpoint": "2024-09-09T06:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 458.25,
+   "margin_after_h": 1175.3666666666666
+  },
+  {
+   "case": "84466d55cb00b926190da5e4",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-13T03:39:00+00:00",
+   "endpoint": "2024-08-14T04:43:00+00:00",
+   "covered": true,
+   "margin_before_h": 75.65,
+   "margin_after_h": 1682.2833333333333
+  },
+  {
+   "case": "84587af7462ebdf5c4c3d893",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-11T17:30:00+00:00",
+   "endpoint": "2024-10-13T05:50:00+00:00",
+   "covered": true,
+   "margin_before_h": 1241.5,
+   "margin_after_h": 360.1666666666667
+  },
+  {
+   "case": "84cbd4fec4b3c6ace1cca1ed",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-07T03:08:00+00:00",
+   "endpoint": "2024-08-08T07:46:00+00:00",
+   "covered": true,
+   "margin_before_h": 147.13333333333333,
+   "margin_after_h": 1844.2333333333333
+  },
+  {
+   "case": "84fc763ee94b1d05505b29cd",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-16T02:23:00+00:00",
+   "endpoint": "2024-10-17T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1154.3833333333334,
+   "margin_after_h": 216.0
+  },
+  {
+   "case": "85a9d9b1d26a12e4c65703a6",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-10T11:15:00+00:00",
+   "endpoint": "2024-10-11T17:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1211.25,
+   "margin_after_h": 396.5
+  },
+  {
+   "case": "864ee75edb308402aec48557",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-27T04:09:00+00:00",
+   "endpoint": "2024-08-28T05:26:00+00:00",
+   "covered": true,
+   "margin_before_h": 148.15,
+   "margin_after_h": 1464.5666666666666
+  },
+  {
+   "case": "86755078c98be4c270720c8d",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-15T03:26:00+00:00",
+   "endpoint": "2024-10-16T05:56:00+00:00",
+   "covered": true,
+   "margin_before_h": 1587.4333333333334,
+   "margin_after_h": 169.06666666666666
+  },
+  {
+   "case": "87212d433a0a848845ad75f1",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-30T05:45:00+00:00",
+   "endpoint": "2024-10-01T05:42:00+00:00",
+   "covered": true,
+   "margin_before_h": 773.75,
+   "margin_after_h": 597.3
+  },
+  {
+   "case": "876ff9cd7fababa66a8dae79",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-10T08:15:00+00:00",
+   "endpoint": "2024-07-11T07:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 677.25,
+   "margin_after_h": 1128.25
+  },
+  {
+   "case": "8786ba7bf9daeb1e98727ba0",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-06T04:31:00+00:00",
+   "endpoint": "2024-09-07T04:24:00+00:00",
+   "covered": true,
+   "margin_before_h": 196.51666666666668,
+   "margin_after_h": 1174.6
+  },
+  {
+   "case": "878f0f5f577dbbf19ee14c7e",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-10T08:38:00+00:00",
+   "endpoint": "2024-08-11T08:16:00+00:00",
+   "covered": true,
+   "margin_before_h": 224.63333333333333,
+   "margin_after_h": 1820.7333333333333
+  },
+  {
+   "case": "87cab80ab3542b1a8edff21d",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-31T07:27:00+00:00",
+   "endpoint": "2024-09-01T03:37:00+00:00",
+   "covered": true,
+   "margin_before_h": 727.45,
+   "margin_after_h": 1272.3833333333334
+  },
+  {
+   "case": "87ff5222dc5800adff81c7e6",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-23T06:14:00+00:00",
+   "endpoint": "2024-09-24T04:01:00+00:00",
+   "covered": true,
+   "margin_before_h": 1062.2333333333333,
+   "margin_after_h": 698.9833333333333
+  },
+  {
+   "case": "8a3db81a478a48bf69fd310d",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-02T04:01:00+00:00",
+   "endpoint": "2024-08-04T02:26:00+00:00",
+   "covered": true,
+   "margin_before_h": 28.016666666666666,
+   "margin_after_h": 1945.5666666666666
+  },
+  {
+   "case": "8ab9145be20a77a0269dcf5e",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-17T04:00:00+00:00",
+   "endpoint": "2024-08-18T03:12:00+00:00",
+   "covered": true,
+   "margin_before_h": 172.0,
+   "margin_after_h": 1587.8
+  },
+  {
+   "case": "8b5bbb4651bac108ff4840e2",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-04T04:56:00+00:00",
+   "endpoint": "2024-09-05T04:26:00+00:00",
+   "covered": true,
+   "margin_before_h": 148.93333333333334,
+   "margin_after_h": 1222.5666666666666
+  },
+  {
+   "case": "8b82d0ff57582632d5897626",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-21T03:19:00+00:00",
+   "endpoint": "2024-09-22T03:58:00+00:00",
+   "covered": true,
+   "margin_before_h": 1227.3166666666666,
+   "margin_after_h": 817.0333333333333
+  },
+  {
+   "case": "8cabaabc13d828a29530730a",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-10T06:54:00+00:00",
+   "endpoint": "2024-10-11T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1686.9,
+   "margin_after_h": 362.0
+  },
+  {
+   "case": "8d35bdbef27925bf56ee3743",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-28T03:49:00+00:00",
+   "endpoint": "2024-08-29T03:49:00+00:00",
+   "covered": true,
+   "margin_before_h": 651.8166666666667,
+   "margin_after_h": 1393.1833333333334
+  },
+  {
+   "case": "8d5aa4f048fc91fdcf3b97d9",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-25T09:00:00+00:00",
+   "endpoint": "2024-06-26T05:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 318.0,
+   "margin_after_h": 1490.4666666666667
+  },
+  {
+   "case": "90c65aa74ae9bffd08f0f934",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-03T07:30:00+00:00",
+   "endpoint": "2024-07-04T05:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 508.5,
+   "margin_after_h": 1299.0
+  },
+  {
+   "case": "918033431a92353a8510002a",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-15T07:55:00+00:00",
+   "endpoint": "2024-09-17T02:37:00+00:00",
+   "covered": true,
+   "margin_before_h": 607.9166666666666,
+   "margin_after_h": 987.3833333333333
+  },
+  {
+   "case": "9202aa03e240c2743f1b643a",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-28T05:26:00+00:00",
+   "endpoint": "2024-08-29T03:13:00+00:00",
+   "covered": true,
+   "margin_before_h": 173.43333333333334,
+   "margin_after_h": 1442.7833333333333
+  },
+  {
+   "case": "93f6bd091698c4e75998b05c",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-24T04:45:00+00:00",
+   "endpoint": "2024-07-25T11:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1009.75,
+   "margin_after_h": 789.0
+  },
+  {
+   "case": "94bf9430887f72ea021e6916",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-11T01:38:00+00:00",
+   "endpoint": "2024-10-12T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1033.6333333333334,
+   "margin_after_h": 336.0
+  },
+  {
+   "case": "95564d989001705fb3f3ae31",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-26T07:04:00+00:00",
+   "endpoint": "2024-09-27T02:51:00+00:00",
+   "covered": true,
+   "margin_before_h": 679.0666666666667,
+   "margin_after_h": 696.15
+  },
+  {
+   "case": "96b57f27236fbfe5bb2c1f91",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-15T06:25:00+00:00",
+   "endpoint": "2024-10-16T03:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 1326.4166666666667,
+   "margin_after_h": 290.3666666666667
+  },
+  {
+   "case": "96bb83959704f65f6d47ecaa",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-20T06:53:00+00:00",
+   "endpoint": "2024-08-21T07:18:00+00:00",
+   "covered": true,
+   "margin_before_h": 462.8833333333333,
+   "margin_after_h": 1581.7
+  },
+  {
+   "case": "96c04aa7e58f13afaf3014b1",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-19T05:32:00+00:00",
+   "endpoint": "2024-08-20T06:21:00+00:00",
+   "covered": true,
+   "margin_before_h": 437.53333333333336,
+   "margin_after_h": 1557.65
+  },
+  {
+   "case": "973d3d7547f37bd31335ee8a",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-15T06:56:00+00:00",
+   "endpoint": "2024-10-16T02:23:00+00:00",
+   "covered": true,
+   "margin_before_h": 1134.9333333333334,
+   "margin_after_h": 240.61666666666667
+  },
+  {
+   "case": "97edba92f647a1094a1bc1a3",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-20T08:45:00+00:00",
+   "endpoint": "2024-06-21T08:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 197.75,
+   "margin_after_h": 1607.25
+  },
+  {
+   "case": "987b6e13ee640a57cbd3bdd9",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-09T09:00:00+00:00",
+   "endpoint": "2024-08-10T08:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1398.0,
+   "margin_after_h": 407.25
+  },
+  {
+   "case": "990dfb00403fbeabd53118f9",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-04T05:36:00+00:00",
+   "endpoint": "2024-09-05T05:23:00+00:00",
+   "covered": true,
+   "margin_before_h": 821.6,
+   "margin_after_h": 1174.6166666666666
+  },
+  {
+   "case": "9bbddd5dee87d1421b87285e",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-01T06:30:00+00:00",
+   "endpoint": "2024-08-02T04:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1203.5,
+   "margin_after_h": 604.0
+  },
+  {
+   "case": "9c630e39a161a01924ea8677",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-05T04:14:00+00:00",
+   "endpoint": "2024-09-06T03:33:00+00:00",
+   "covered": true,
+   "margin_before_h": 628.2333333333333,
+   "margin_after_h": 1131.45
+  },
+  {
+   "case": "9d1b870c90e05f268196d3a7",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-05T08:20:00+00:00",
+   "endpoint": "2024-10-06T02:25:00+00:00",
+   "covered": true,
+   "margin_before_h": 1088.3333333333333,
+   "margin_after_h": 531.5833333333334
+  },
+  {
+   "case": "9d73ab35832e628f669b6106",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-08T03:54:00+00:00",
+   "endpoint": "2024-09-09T06:22:00+00:00",
+   "covered": true,
+   "margin_before_h": 915.9,
+   "margin_after_h": 1126.6333333333334
+  },
+  {
+   "case": "9df8d9228b43a9926e6c02ed",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-05T08:00:00+00:00",
+   "endpoint": "2024-07-06T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 557.0,
+   "margin_after_h": 1248.0
+  },
+  {
+   "case": "9f3bfb884a7a215d063e6570",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-30T03:34:00+00:00",
+   "endpoint": "2024-08-31T07:33:00+00:00",
+   "covered": true,
+   "margin_before_h": 699.5666666666667,
+   "margin_after_h": 1341.45
+  },
+  {
+   "case": "a047d1778e25ae66255fe5d2",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-10-11T04:20:00+00:00",
+   "endpoint": "2024-10-13T02:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 1708.3333333333333,
+   "margin_after_h": 265.35
+  },
+  {
+   "case": "a15effee7331905e9b5f0fb7",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-08T07:01:00+00:00",
+   "endpoint": "2024-10-09T02:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1423.0166666666667,
+   "margin_after_h": 341.0
+  },
+  {
+   "case": "a17dc9b4870eed29ec78bb89",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-23T05:32:00+00:00",
+   "endpoint": "2024-09-24T02:21:00+00:00",
+   "covered": true,
+   "margin_before_h": 605.5333333333333,
+   "margin_after_h": 768.65
+  },
+  {
+   "case": "a2f181745612f3616958607b",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-12T07:16:00+00:00",
+   "endpoint": "2024-08-13T03:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 55.266666666666666,
+   "margin_after_h": 1707.35
+  },
+  {
+   "case": "a3d2c46ab21c508addc01415",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-13T04:07:00+00:00",
+   "endpoint": "2024-08-14T03:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 292.1166666666667,
+   "margin_after_h": 1753.25
+  },
+  {
+   "case": "a3d4e0c09bc663f0ceb4d793",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-21T06:34:00+00:00",
+   "endpoint": "2024-08-22T07:19:00+00:00",
+   "covered": true,
+   "margin_before_h": 270.56666666666666,
+   "margin_after_h": 1487.6833333333334
+  },
+  {
+   "case": "a440b3d6d4acf2930240445d",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-01T03:43:00+00:00",
+   "endpoint": "2024-09-02T06:50:00+00:00",
+   "covered": true,
+   "margin_before_h": 531.7166666666667,
+   "margin_after_h": 1224.1666666666667
+  },
+  {
+   "case": "a4b740fbac307c8840f86f83",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-04T02:57:00+00:00",
+   "endpoint": "2024-10-05T08:20:00+00:00",
+   "covered": true,
+   "margin_before_h": 1058.95,
+   "margin_after_h": 549.6666666666666
+  },
+  {
+   "case": "a5713e2f19f978cda509677c",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-14T02:32:00+00:00",
+   "endpoint": "2024-10-15T06:56:00+00:00",
+   "covered": true,
+   "margin_before_h": 1106.5333333333333,
+   "margin_after_h": 260.06666666666666
+  },
+  {
+   "case": "a6364103310aa6a978839f0b",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-16T06:01:00+00:00",
+   "endpoint": "2024-08-17T02:53:00+00:00",
+   "covered": true,
+   "margin_before_h": 366.01666666666665,
+   "margin_after_h": 1682.1166666666666
+  },
+  {
+   "case": "a66adeeaf4aa868d46377b24",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-29T07:30:00+00:00",
+   "endpoint": "2024-07-01T04:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 412.5,
+   "margin_after_h": 1371.35
+  },
+  {
+   "case": "a728907cf3070a0c77316d62",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-09T03:11:00+00:00",
+   "endpoint": "2024-10-10T08:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 987.1833333333333,
+   "margin_after_h": 378.3666666666667
+  },
+  {
+   "case": "a8603f5b2ffac13aea3a5c5f",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-24T10:45:00+00:00",
+   "endpoint": "2024-06-25T09:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 295.75,
+   "margin_after_h": 1511.0
+  },
+  {
+   "case": "a90eb8e40d27b33edac6336b",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-06T09:02:00+00:00",
+   "endpoint": "2024-08-07T05:06:00+00:00",
+   "covered": true,
+   "margin_before_h": 129.03333333333333,
+   "margin_after_h": 1919.9
+  },
+  {
+   "case": "a92cea6db2c509be777af273",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-26T05:58:00+00:00",
+   "endpoint": "2024-08-27T06:24:00+00:00",
+   "covered": true,
+   "margin_before_h": 605.9666666666667,
+   "margin_after_h": 1438.6
+  },
+  {
+   "case": "a9ac03c57fa99884692b6036",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-04T02:26:00+00:00",
+   "endpoint": "2024-08-05T03:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 74.43333333333334,
+   "margin_after_h": 1920.95
+  },
+  {
+   "case": "aa0fd5cd2a592712e53561e3",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-08T07:46:00+00:00",
+   "endpoint": "2024-08-09T03:42:00+00:00",
+   "covered": true,
+   "margin_before_h": 175.76666666666668,
+   "margin_after_h": 1824.3
+  },
+  {
+   "case": "aa642f83463ef9f7e784d85b",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-22T05:43:00+00:00",
+   "endpoint": "2024-09-23T04:10:00+00:00",
+   "covered": true,
+   "margin_before_h": 1253.7166666666667,
+   "margin_after_h": 743.8333333333334
+  },
+  {
+   "case": "aafc4bd4ee8463cba585d8f0",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-13T08:13:00+00:00",
+   "endpoint": "2024-08-14T04:11:00+00:00",
+   "covered": true,
+   "margin_before_h": 296.21666666666664,
+   "margin_after_h": 1703.8166666666666
+  },
+  {
+   "case": "ad9cbcabffdaf7c2846903ad",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-10T03:29:00+00:00",
+   "endpoint": "2024-09-11T06:41:00+00:00",
+   "covered": true,
+   "margin_before_h": 963.4833333333333,
+   "margin_after_h": 1078.3166666666666
+  },
+  {
+   "case": "adc6b49fcdd086616627c1cf",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-11T08:16:00+00:00",
+   "endpoint": "2024-08-12T07:54:00+00:00",
+   "covered": true,
+   "margin_before_h": 248.26666666666668,
+   "margin_after_h": 1797.1
+  },
+  {
+   "case": "ae166a4c6433a1076ebcfc84",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-03T06:53:00+00:00",
+   "endpoint": "2024-10-04T02:57:00+00:00",
+   "covered": true,
+   "margin_before_h": 1038.8833333333334,
+   "margin_after_h": 579.05
+  },
+  {
+   "case": "ae644f08a62790cfea35973f",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-08T01:40:00+00:00",
+   "endpoint": "2024-10-09T10:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1153.6666666666667,
+   "margin_after_h": 451.5
+  },
+  {
+   "case": "aebd18883415992c5064eabc",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-27T06:24:00+00:00",
+   "endpoint": "2024-08-28T03:49:00+00:00",
+   "covered": true,
+   "margin_before_h": 630.4,
+   "margin_after_h": 1417.1833333333334
+  },
+  {
+   "case": "b22eeb6a2a07e14c1468f789",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-09T06:38:00+00:00",
+   "endpoint": "2024-09-10T05:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 462.6333333333333,
+   "margin_after_h": 1153.0
+  },
+  {
+   "case": "b330a4e365907cb884045548",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-21T04:50:00+00:00",
+   "endpoint": "2024-09-22T05:43:00+00:00",
+   "covered": true,
+   "margin_before_h": 1228.8333333333333,
+   "margin_after_h": 766.2833333333333
+  },
+  {
+   "case": "b3c3aca18685f0ba42e77511",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-19T07:13:00+00:00",
+   "endpoint": "2024-09-21T04:50:00+00:00",
+   "covered": true,
+   "margin_before_h": 1183.2166666666667,
+   "margin_after_h": 791.1666666666666
+  },
+  {
+   "case": "b44e605fa054908dcca7e8fe",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-21T04:02:00+00:00",
+   "endpoint": "2024-09-22T06:19:00+00:00",
+   "covered": true,
+   "margin_before_h": 1012.0333333333333,
+   "margin_after_h": 744.6833333333333
+  },
+  {
+   "case": "b464697603493cee520f4237",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-15T04:23:00+00:00",
+   "endpoint": "2024-08-16T05:37:00+00:00",
+   "covered": true,
+   "margin_before_h": 340.3833333333333,
+   "margin_after_h": 1654.3833333333334
+  },
+  {
+   "case": "b48c4214184384a3f837c022",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-14T02:32:00+00:00",
+   "endpoint": "2024-09-15T01:21:00+00:00",
+   "covered": true,
+   "margin_before_h": 1058.5333333333333,
+   "margin_after_h": 987.65
+  },
+  {
+   "case": "b491db02f7568c57940add8d",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-12T03:00:00+00:00",
+   "endpoint": "2024-09-13T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 339.0,
+   "margin_after_h": 1032.0
+  },
+  {
+   "case": "bb46406cdda63fdd6dec908a",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-07T09:15:00+00:00",
+   "endpoint": "2024-10-08T01:40:00+00:00",
+   "covered": true,
+   "margin_before_h": 1137.25,
+   "margin_after_h": 484.3333333333333
+  },
+  {
+   "case": "bdd83a03720eba7c36125c70",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-09T03:20:00+00:00",
+   "endpoint": "2024-08-10T08:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 195.33333333333334,
+   "margin_after_h": 1844.3666666666666
+  },
+  {
+   "case": "c3ac5991b37dd3242705ada8",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-16T05:15:00+00:00",
+   "endpoint": "2024-08-17T04:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 149.25,
+   "margin_after_h": 1611.0
+  },
+  {
+   "case": "c414b73ede87778c6fcfb187",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-04T05:34:00+00:00",
+   "endpoint": "2024-09-05T04:14:00+00:00",
+   "covered": true,
+   "margin_before_h": 605.5666666666667,
+   "margin_after_h": 1154.7666666666667
+  },
+  {
+   "case": "c47bf97b838415c2e864f825",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-31T07:23:00+00:00",
+   "endpoint": "2024-09-01T03:43:00+00:00",
+   "covered": true,
+   "margin_before_h": 511.3833333333333,
+   "margin_after_h": 1251.2833333333333
+  },
+  {
+   "case": "c52a7b6552e3f0d1b1851a13",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-17T03:00:00+00:00",
+   "endpoint": "2024-09-18T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 459.0,
+   "margin_after_h": 912.0
+  },
+  {
+   "case": "ca97c02e1484861bf9adeef2",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-07T02:57:00+00:00",
+   "endpoint": "2024-10-08T07:01:00+00:00",
+   "covered": true,
+   "margin_before_h": 1394.95,
+   "margin_after_h": 359.98333333333335
+  },
+  {
+   "case": "cb061be9746d0f8a19b1dc97",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-19T08:15:00+00:00",
+   "endpoint": "2024-06-20T08:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 173.25,
+   "margin_after_h": 1631.25
+  },
+  {
+   "case": "cb68b956dfeb675c1cbe4c34",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-07T05:08:00+00:00",
+   "endpoint": "2024-09-09T02:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 413.1333333333333,
+   "margin_after_h": 1179.75
+  },
+  {
+   "case": "ccc81be3b7e8b1041b0547f7",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-06T04:42:00+00:00",
+   "endpoint": "2024-09-07T04:24:00+00:00",
+   "covered": true,
+   "margin_before_h": 868.7,
+   "margin_after_h": 1127.6
+  },
+  {
+   "case": "cdd0724e5e5f4cc2a93701c1",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-21T03:03:00+00:00",
+   "endpoint": "2024-09-22T03:41:00+00:00",
+   "covered": true,
+   "margin_before_h": 555.05,
+   "margin_after_h": 815.3166666666667
+  },
+  {
+   "case": "ceecb2bba39e8bc083f90e73",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-25T05:26:00+00:00",
+   "endpoint": "2024-08-26T05:58:00+00:00",
+   "covered": true,
+   "margin_before_h": 581.4333333333333,
+   "margin_after_h": 1463.0333333333333
+  },
+  {
+   "case": "cf11b13972c39ff8d977f047",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-04T03:33:00+00:00",
+   "endpoint": "2024-09-05T03:28:00+00:00",
+   "covered": true,
+   "margin_before_h": 819.55,
+   "margin_after_h": 1225.5333333333333
+  },
+  {
+   "case": "d0a9300971470f728056325a",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-27T02:51:00+00:00",
+   "endpoint": "2024-09-28T03:28:00+00:00",
+   "covered": true,
+   "margin_before_h": 698.85,
+   "margin_after_h": 671.5333333333333
+  },
+  {
+   "case": "d126ce4ca83f2eeee95b8394",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-07T04:25:00+00:00",
+   "endpoint": "2024-10-08T07:53:00+00:00",
+   "covered": true,
+   "margin_before_h": 1612.4166666666667,
+   "margin_after_h": 429.1166666666667
+  },
+  {
+   "case": "d1b8935c09197467bbd924b4",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-16T03:00:00+00:00",
+   "endpoint": "2024-09-17T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 435.0,
+   "margin_after_h": 936.0
+  },
+  {
+   "case": "d2413ddf9dc4ce0c14def4e5",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-20T07:43:00+00:00",
+   "endpoint": "2024-09-21T03:19:00+00:00",
+   "covered": true,
+   "margin_before_h": 1207.7166666666667,
+   "margin_after_h": 841.6833333333333
+  },
+  {
+   "case": "d2958a6d95a870201cd0729c",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-09T04:31:00+00:00",
+   "endpoint": "2024-09-10T04:20:00+00:00",
+   "covered": true,
+   "margin_before_h": 268.51666666666665,
+   "margin_after_h": 1102.6666666666667
+  },
+  {
+   "case": "d2c65e0cfaf10e1b62b60ebf",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-01T04:06:00+00:00",
+   "endpoint": "2024-10-02T06:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 1252.1,
+   "margin_after_h": 504.95
+  },
+  {
+   "case": "d33ff80894cf81db4f545b9b",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-13T03:00:00+00:00",
+   "endpoint": "2024-09-14T07:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 363.0,
+   "margin_after_h": 1003.25
+  },
+  {
+   "case": "d383c9c95f9e658b17b49407",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-28T05:17:00+00:00",
+   "endpoint": "2024-09-30T04:58:00+00:00",
+   "covered": true,
+   "margin_before_h": 1397.2833333333333,
+   "margin_after_h": 624.0333333333333
+  },
+  {
+   "case": "d4ce88f81da8d1a98edbf91a",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-15T05:08:00+00:00",
+   "endpoint": "2024-08-16T06:01:00+00:00",
+   "covered": true,
+   "margin_before_h": 341.1333333333333,
+   "margin_after_h": 1702.9833333333333
+  },
+  {
+   "case": "d5f49a117abaa6516e801734",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-24T04:01:00+00:00",
+   "endpoint": "2024-09-26T03:48:00+00:00",
+   "covered": true,
+   "margin_before_h": 1084.0166666666667,
+   "margin_after_h": 651.2
+  },
+  {
+   "case": "d8323e530859af08899b20ce",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-17T08:30:00+00:00",
+   "endpoint": "2024-07-18T09:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 845.5,
+   "margin_after_h": 959.0
+  },
+  {
+   "case": "d9f1ba45c7ea38092ce5f325",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-22T09:15:00+00:00",
+   "endpoint": "2024-07-23T09:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 966.25,
+   "margin_after_h": 838.25
+  },
+  {
+   "case": "d9f9d32df257c3fffbcd8865",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-19T05:34:00+00:00",
+   "endpoint": "2024-09-20T06:49:00+00:00",
+   "covered": true,
+   "margin_before_h": 965.5666666666667,
+   "margin_after_h": 792.1833333333333
+  },
+  {
+   "case": "db4b25d15f89fe2683dda020",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-11T07:03:00+00:00",
+   "endpoint": "2024-09-13T03:55:00+00:00",
+   "covered": true,
+   "margin_before_h": 991.05,
+   "margin_after_h": 984.0833333333334
+  },
+  {
+   "case": "dd158e1a5abed388136c2c31",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-17T02:53:00+00:00",
+   "endpoint": "2024-08-18T02:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 386.8833333333333,
+   "margin_after_h": 1658.3666666666666
+  },
+  {
+   "case": "dd44c9a58a8c841023195d74",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-26T08:00:00+00:00",
+   "endpoint": "2024-07-27T03:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1061.0,
+   "margin_after_h": 748.25
+  },
+  {
+   "case": "de1fe346959c89418b28ec1d",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-28T03:28:00+00:00",
+   "endpoint": "2024-09-29T02:19:00+00:00",
+   "covered": true,
+   "margin_before_h": 723.4666666666667,
+   "margin_after_h": 648.6833333333333
+  },
+  {
+   "case": "e2175ac025dc9251ef45add8",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-25T08:16:00+00:00",
+   "endpoint": "2024-08-27T04:09:00+00:00",
+   "covered": true,
+   "margin_before_h": 104.26666666666667,
+   "margin_after_h": 1489.85
+  },
+  {
+   "case": "e3f6e671fb7afe337154a22c",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-22T08:02:00+00:00",
+   "endpoint": "2024-08-23T02:14:00+00:00",
+   "covered": true,
+   "margin_before_h": 32.03333333333333,
+   "margin_after_h": 1587.7666666666667
+  },
+  {
+   "case": "e43f8568c3b93511e5553b0c",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-15T04:41:00+00:00",
+   "endpoint": "2024-08-16T05:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 124.68333333333334,
+   "margin_after_h": 1633.75
+  },
+  {
+   "case": "e46f8cd74000f2c8d4e40f76",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-05T05:10:00+00:00",
+   "endpoint": "2024-09-06T03:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 365.1666666666667,
+   "margin_after_h": 1250.4666666666667
+  },
+  {
+   "case": "e502f0e5c4d58c7757891d13",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-19T06:23:00+00:00",
+   "endpoint": "2024-08-20T06:53:00+00:00",
+   "covered": true,
+   "margin_before_h": 438.3833333333333,
+   "margin_after_h": 1606.1166666666666
+  },
+  {
+   "case": "e52a65ff7da3cb7e87f78119",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-10-09T02:00:00+00:00",
+   "endpoint": "2024-10-10T04:44:00+00:00",
+   "covered": true,
+   "margin_before_h": 1442.0,
+   "margin_after_h": 314.26666666666665
+  },
+  {
+   "case": "e5a4fbbacd20a209a61169ab",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-07T03:32:00+00:00",
+   "endpoint": "2024-09-08T03:54:00+00:00",
+   "covered": true,
+   "margin_before_h": 891.5333333333333,
+   "margin_after_h": 1153.1
+  },
+  {
+   "case": "e7648f3eb0c0d975208bd6d5",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-10T08:02:00+00:00",
+   "endpoint": "2024-08-11T07:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 224.03333333333333,
+   "margin_after_h": 1772.25
+  },
+  {
+   "case": "e8ab32fef8842f8bb1a5c2d8",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-23T09:45:00+00:00",
+   "endpoint": "2024-07-24T04:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 990.75,
+   "margin_after_h": 819.25
+  },
+  {
+   "case": "e99bd7f38a91a4fc1f564df6",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-01T04:39:00+00:00",
+   "endpoint": "2024-07-02T10:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 457.65,
+   "margin_after_h": 1342.0
+  },
+  {
+   "case": "e9ef74ab70b1a3534592e7ec",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-09-08T03:57:00+00:00",
+   "endpoint": "2024-09-09T04:31:00+00:00",
+   "covered": true,
+   "margin_before_h": 243.95,
+   "margin_after_h": 1126.4833333333333
+  },
+  {
+   "case": "eacac9c4098819c0267943ec",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-14T08:00:00+00:00",
+   "endpoint": "2024-08-15T08:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1517.0,
+   "margin_after_h": 288.0
+  },
+  {
+   "case": "ec84bb5d6e3cff72fe45f0c5",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-06-16T08:30:00+00:00",
+   "endpoint": "2024-06-17T04:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 101.5,
+   "margin_after_h": 1708.0
+  },
+  {
+   "case": "ec967148dc44df215c107ab4",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-07T04:24:00+00:00",
+   "endpoint": "2024-09-08T02:22:00+00:00",
+   "covered": true,
+   "margin_before_h": 892.4,
+   "margin_after_h": 1105.6333333333334
+  },
+  {
+   "case": "ed6a4c3e28c0cb2120647eb6",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-08-19T05:38:00+00:00",
+   "endpoint": "2024-08-20T05:01:00+00:00",
+   "covered": true,
+   "margin_before_h": 221.63333333333333,
+   "margin_after_h": 1537.9833333333333
+  },
+  {
+   "case": "ee4abc3bdeced5ef7d058928",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-16T03:38:00+00:00",
+   "endpoint": "2024-10-17T02:31:00+00:00",
+   "covered": true,
+   "margin_before_h": 1347.6333333333334,
+   "margin_after_h": 267.48333333333335
+  },
+  {
+   "case": "ef0d35ee481b4b068f33d784",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-10T08:38:00+00:00",
+   "endpoint": "2024-10-11T01:38:00+00:00",
+   "covered": true,
+   "margin_before_h": 1016.6333333333333,
+   "margin_after_h": 361.3666666666667
+  },
+  {
+   "case": "ef504726bc8f435315b672f9",
+   "event": "ID-BOF-000904_Goat",
+   "cutoff": "2024-09-30T04:13:00+00:00",
+   "endpoint": "2024-10-01T04:06:00+00:00",
+   "covered": true,
+   "margin_before_h": 1228.2166666666667,
+   "margin_after_h": 530.9
+  },
+  {
+   "case": "ef90441bdf992ebaffeaf639",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-05T02:13:00+00:00",
+   "endpoint": "2024-08-05T18:57:00+00:00",
+   "covered": true,
+   "margin_before_h": 1295.2166666666667,
+   "margin_after_h": 517.05
+  },
+  {
+   "case": "f352c6f84b6b6c62f4d539d1",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-09-22T03:58:00+00:00",
+   "endpoint": "2024-09-23T01:54:00+00:00",
+   "covered": true,
+   "margin_before_h": 1251.9666666666667,
+   "margin_after_h": 795.1
+  },
+  {
+   "case": "f365b7fee379bb0bb1d32a95",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-13T00:58:00+00:00",
+   "endpoint": "2024-10-14T06:32:00+00:00",
+   "covered": true,
+   "margin_before_h": 1752.9666666666667,
+   "margin_after_h": 286.46666666666664
+  },
+  {
+   "case": "f3860dfe82a7a761780f0a0f",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-31T08:45:00+00:00",
+   "endpoint": "2024-08-01T06:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1181.75,
+   "margin_after_h": 625.5
+  },
+  {
+   "case": "f3dd1c660dff0e49acffb230",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-08-24T05:10:00+00:00",
+   "endpoint": "2024-08-25T08:16:00+00:00",
+   "covered": true,
+   "margin_before_h": 77.16666666666667,
+   "margin_after_h": 1533.7333333333333
+  },
+  {
+   "case": "f541941c5f1c2cc7206874be",
+   "event": "ID-SCF-240202_RedRock",
+   "cutoff": "2024-10-19T05:09:00+00:00",
+   "endpoint": "2024-10-20T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1229.15,
+   "margin_after_h": 144.0
+  },
+  {
+   "case": "f73b3037ca0d081b65f37671",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-10-08T07:53:00+00:00",
+   "endpoint": "2024-10-09T03:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1639.8833333333334,
+   "margin_after_h": 410.0
+  },
+  {
+   "case": "f7d734158ae9f0299f52da7a",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-20T03:54:00+00:00",
+   "endpoint": "2024-09-22T02:39:00+00:00",
+   "covered": true,
+   "margin_before_h": 723.9,
+   "margin_after_h": 867.35
+  },
+  {
+   "case": "f89e9be0eb6e121183dcc254",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-05T18:57:00+00:00",
+   "endpoint": "2024-08-06T10:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1311.95,
+   "margin_after_h": 502.0
+  },
+  {
+   "case": "f94f698a40d62fff377c4784",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-17T07:45:00+00:00",
+   "endpoint": "2024-08-18T04:00:00+00:00",
+   "covered": true,
+   "margin_before_h": 1588.75,
+   "margin_after_h": 220.0
+  },
+  {
+   "case": "f9705ed9809fbbe1d51d187b",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-14T03:45:00+00:00",
+   "endpoint": "2024-08-15T05:08:00+00:00",
+   "covered": true,
+   "margin_before_h": 315.75,
+   "margin_after_h": 1727.8666666666666
+  },
+  {
+   "case": "f9f8ec3c684094b8de008f16",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-31T07:33:00+00:00",
+   "endpoint": "2024-09-01T02:46:00+00:00",
+   "covered": true,
+   "margin_before_h": 727.55,
+   "margin_after_h": 1322.2333333333333
+  },
+  {
+   "case": "fa6cb5fede4cfb9908fb7eb0",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-16T10:15:00+00:00",
+   "endpoint": "2024-08-17T07:45:00+00:00",
+   "covered": true,
+   "margin_before_h": 1567.25,
+   "margin_after_h": 240.25
+  },
+  {
+   "case": "faa656e893e727ed25d590f4",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-09-06T03:32:00+00:00",
+   "endpoint": "2024-09-07T05:08:00+00:00",
+   "covered": true,
+   "margin_before_h": 387.53333333333336,
+   "margin_after_h": 1224.8666666666666
+  },
+  {
+   "case": "fb59dbd9fc917aca90c700bc",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-20T08:45:00+00:00",
+   "endpoint": "2024-08-21T07:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 1661.75,
+   "margin_after_h": 144.5
+  },
+  {
+   "case": "fb643f9c668a46a628fc6dbf",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-08-27T03:40:00+00:00",
+   "endpoint": "2024-08-28T02:59:00+00:00",
+   "covered": true,
+   "margin_before_h": 627.6666666666666,
+   "margin_after_h": 1369.0166666666667
+  },
+  {
+   "case": "feb77cc748531a3fedf4f4c7",
+   "event": "WY-BTF-002416_FishCreek",
+   "cutoff": "2024-10-19T06:11:00+00:00",
+   "endpoint": "2024-10-20T05:03:00+00:00",
+   "covered": true,
+   "margin_before_h": 1422.1833333333334,
+   "margin_after_h": 192.95
+  },
+  {
+   "case": "febd94be6dcd1cbef0408008",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-08-15T08:00:00+00:00",
+   "endpoint": "2024-08-16T10:15:00+00:00",
+   "covered": true,
+   "margin_before_h": 1541.0,
+   "margin_after_h": 261.75
+  },
+  {
+   "case": "fed4c3bab9da10c322bf6caf",
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "cutoff": "2024-08-08T08:02:00+00:00",
+   "endpoint": "2024-08-09T03:20:00+00:00",
+   "covered": true,
+   "margin_before_h": 176.03333333333333,
+   "margin_after_h": 1873.6666666666667
+  },
+  {
+   "case": "fed4dea676c3dcd75cb8c4d1",
+   "event": "WA-SES-000173_Pioneer",
+   "cutoff": "2024-07-02T10:00:00+00:00",
+   "endpoint": "2024-07-03T07:30:00+00:00",
+   "covered": true,
+   "margin_before_h": 487.0,
+   "margin_after_h": 1320.5
+  },
+  {
+   "case": "ff2cf9689c11a4ad202256d4",
+   "event": "ID-BOF-001080_Lava",
+   "cutoff": "2024-09-01T03:37:00+00:00",
+   "endpoint": "2024-09-02T06:53:00+00:00",
+   "covered": true,
+   "margin_before_h": 747.6166666666667,
+   "margin_after_h": 1245.1166666666666
+  }
+ ]
+}
