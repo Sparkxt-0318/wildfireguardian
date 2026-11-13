@@ -475,7 +475,7 @@ Reading:
   - On the contiguous baseline the calibrated share reaches at most 0.12, not 0.15; the rule takes the closest grid value.
 - This is consistent with the state-family result above: the rate varies between intervals. It does not by itself say where the real-data gain lies. Iris's covariate reading (time-varying weather) is one candidate; this ablation tests a synthetic modulator, not weather.
 
-## 3i. A1 §5.2 native multi-observation cumulative marginals, demonstrated on cohort R (reported by Daniel; receipt not yet reassembled here; unverified until Owen)
+## 3i. A1 §5.2 native multi-observation cumulative marginals, demonstrated on cohort R (verified: Owen, PASS WITH NOTES, ledger row 55 @ 7e195b36)
 
 What it demonstrates: the D2 candidates (d2_nll_rebuilt, d2_bracket_rebuilt) share one forecast path,
 `survival.sample_forecast`. That path emits P(newly burned by t_j) at every later survey within 48 h natively, in
@@ -504,6 +504,14 @@ one rollout (refit/native_marginals.py). No score was computed.
   the audit TSV.
 - Receipt: NATIVE_MARGINALS_R_RECEIPT.json, sha256 89288293…3405, 166,706 bytes. It is held off-repo pending
   Hannah's ruling, because rows[] carry R survey timestamps. Arrival files stay in Daniel's container.
+- Verification (Owen, row 55):
+  - His independent rerun under Hannah's GO gives all 6 arrival files bit-identical to Daniel's, and per_event, all 273 rows and the summary identical.
+  - I also checked the time-free extract here: head.json 42c3f480… and rows_min.txt 2d18ffd3…. Its code and weight shas equal 55b268df; its rows sum to 273; its records sum to 330, the access log's fid count. The extract is not committed (Hannah, A1 §2).
+- Notes (Owen):
+  - Development weights; no score.
+  - Only lead 1 must be bit-identical to sample_forecast, and it is. At fractional leads, later columns differ from separate sample_forecast runs by up to 0.03 in a synthetic probe, because the multi-lead grid inserts exact break steps. This is the documented discretisation, not an error.
+  - 1 of the 347 input pins (biome_validation.json, which carries a wall-clock checked_utc) is not byte-reproducible (Daniel NOTE_2 @ 122f42a3).
+  - The canopy stage's source URL is dead.
 - Note: in the receipt, entries are cells unburned at cutoff and valid. The non-degeneracy rule is the one in the driver (max > 0.01 on some cutoff, no constant cutoff, no all-one cutoff).
 
 ## 4. Ideas and gaps
