@@ -599,3 +599,48 @@ python -I build_graph.py area_grid5km.json yd_step1.json --grid 1147500 1815750 
 ```
 
 `--grid` takes x0 y0 cell W H. `--region` and `--label` go into the graph bytes.
+
+## 10. Results: Yeongdeok (13 Nov; router-only, not independently checked)
+
+> **roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; no fire data
+> outside the export grid; not shown safe.** Internal. Agencies see only the §2.3 classes, from the padding-closed arm.
+
+**Sizing (§4/§8(iv)).** One candidate place, all 6 arms: peak 1.9 GB, 239 s. YD fits in the 15 GB container and is
+**not** blocked. The widened graph is shared by both regions, and arm (b) is the dead-end rule, not waiting allowed
+everywhere.
+
+**Run.**
+- PacketModel 446978f6.
+- 9 runs, all rc 0: 8 candidate combos (25T19Z × h5/h8 × 4 variants) plus the control set (25T19Z, h5, kriged_mean,
+  all 90 located places, waiting (a); 3,501 s).
+- Peak memory 1.96 GB.
+
+**Asserted, all PASS:**
+- **P1:** §8.
+- **P2 and P3:** 8/8; max flux absolute difference 1.8e-15 (`results/WIDENED_PAIRS_YD.json`).
+- **P5:** 8/8; every twin loads (`results/WIDENED_P5_YD.json`).
+- **P4 and P4-open:** 0 lost departure seconds.
+- **P6:** 0.
+
+**Coverage floor, control set.** Ratio 1.0 (2,479,535 departure-seconds), 150 non-empty triples. **P4 is reported as
+PASS.**
+
+**Classes** (`results/WIDENED_RESULTS_YD.json`; 30-min grid, §4). The one YD candidate place has entry
+osm:12031458606 (YD 25T19Z, from the candidate list). Under every variant and both horizons, it has **no route found
+by the router on the widened graph to the listed destinations; not independently checked** (8 of 8 rows).
+- It has no route on G1 either. The snapshot effect is 0.
+- The widening effect is 0, the waiting effect is 0, and the padding arm makes no difference (0 undetermined).
+
+**Reading.** For the one Yeongdeok candidate, the wider road window does not produce a route to the listed
+destinations, even with padding open. Its no-route therefore does not come from the window edge or from the
+assumption about fire outside the grid. It remains "no route found", router-only.
+
+**Both regions together** (§9 and §10): 272 candidate place-rows.
+
+| Class | Rows |
+|---|---|
+| Route found | 20 (all UA: 12 from the widening, 8 from the map date) |
+| Undetermined: depends on fire outside the export grid | 6 (all UA) |
+| No route found | 246 |
+
+P1–P6 pass everywhere, and the coverage floor is met in both regions.
