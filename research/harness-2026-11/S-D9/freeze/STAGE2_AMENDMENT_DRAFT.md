@@ -57,7 +57,7 @@
 |---|---|
 | refit train-events, final | **PENDING** (pre-weather list bbedca82 = fit-23 + 490, checked against allowlist 7db3cc0e) |
 | part-a pool manifest | **PENDING** sha (daniel/data-fetch-3 982eb71c, 490/490) |
-| weather input manifest (refits) | **PENDING**: part-a pins manifest after the part-a weather step; fit-23 US pins after night 2 (Daniel, 13–14 Nov) |
+| weather input manifest (refits) | part a: `f70e52b0…` (490 events, 16,664 pins; completeness `09af55fa…`; data-fetch-3 748afe70), event set equal to the part-a allowlist. Fit-23 US: **PENDING** (after night 2, 14 Nov) |
 | rebuild environment | **PENDING** |
 | refit receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, d2_nll_rebuilt, d2_bracket_rebuilt | **PENDING** |
 | rate-mixture form | **PENDING** |
