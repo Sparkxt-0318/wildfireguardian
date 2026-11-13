@@ -266,3 +266,26 @@ NR1_PACKETS.json on 24/24.
 true-NR rows (nora_nr_d.py) equal ours on UA 25T17 h5 kriged_mean (18/18). Re-running with her own NR packet gives
 identical request and instance shas (18/18). The other 23 packets were not re-run by her. Row 65 supersedes the no_reentry
 FAILs of rows 62/60a for /1; the reopening PASS of rows 62/60a stands.
+
+## 2026-11-13: (g) SENSITIVITY: waiting allowed at every node (not the documented default; default = graph dead ends only)
+
+Rule (g) 57f7a91f → runner 31ee124b → run (00:14–02:06 UTC) → results c65b0964 (RESULTS_fdyn_allwait.json,
+fdyn_g_allwait/). Instances are the verified ones (sha equal on 432/432 per reading); only `waitable := all nodes`.
+
+| reading | exact R / NR | change vs default | S1 R | (d)(ii) S2 refuses resolvable | S3 (every Δ) R/V/Ref/U | (e)(ii) |
+|---|---|---|---|---|---|---|
+| reopening | 432 / 0 | all 14 NO_ROUTE → ROUTE; 0 ROUTE → NO_ROUTE; T unchanged on 418 | 408 | 54/432 | 408/0/24/0 | 24/432 |
+| no_reentry/1 | 382 / 50 | none (identical to default on 432/432) | 382 | 26/382 | 382/0/50/0 | 0/432 |
+
+- **Reopening.** Every default NO_ROUTE comes from the dead-end waiting rule; the (c) N1 finding was the same, 14/14.
+  The 24 S3 refusals are requests exact routes only by waiting for a reopening, which no snapshot can see.
+- **No re-entry.** NO_ROUTE does not depend on the waiting rule, and this is structural, not just a count (Nora, row
+  69):
+  - On the no-re-entry O2 instance every edge block and wait block is a single suffix interval of usable starts. She
+    checked 11,287 edge blocks and 120 wait blocks with nora_suffix.py, on 4 requests at dep 0 and 7200.
+  - With suffix blocks and FIFO travel, departing later never opens anything, so waiting cannot help. All-wait is then
+    identical to the default for every packet built by the no-re-entry law.
+  - That holds for /1, and by the same law is expected for /2. For /2 this is not measured here.
+
+**Verification:** Nora, **PASS WITH NOTES** (ledger row 69). Her recount equals every figure; her re-run of UA 25T17 h5
+kriged with her own packets gives 18 identical rows.
