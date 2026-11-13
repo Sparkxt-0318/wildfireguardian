@@ -505,3 +505,54 @@ loads in one process errored and left the reader patched.
   - **UA sizing run:** the feasible sets are identical to the 53ccd5ae run; peak 1.8 GB, 180 s.
 - **UA packet pairs (24 = 3 starts × h5/h8 × 4 variants): P2 and P3 PASS on all 24.** The maximum flux difference is
   1.9e-15 kW/m² absolute. Results: `results/WIDENED_PAIRS_UA.json`.
+
+## 9. Results: Uiseong (13 Nov; router-only, not independently checked)
+
+> **roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; no fire data
+> outside the export grid; not shown safe.** Internal. Agencies see only the §2.3 classes, from the padding-closed arm.
+
+**Run.**
+- PacketModel 446978f6 and the deadline-field solver.
+- 25 runs, all rc 0: 24 candidate combos (3 starts × h5/h8 × 4 variants) plus the control set (UA 25T17Z, h5,
+  kriged_mean, all located places, waiting (a)).
+- Peak memory 1.96 GB per run.
+- A container restart at about 10:25Z killed the batch. The 10 finished outputs were intact (written only at the
+  end), and the rest re-ran from the same inputs.
+
+**Asserted, all PASS:**
+- **P1:** the graph shas match (§8).
+- **P2 and P3:** 24/24 (`results/WIDENED_PAIRS_UA.json`).
+- **P5:** 24/24. full_check, the kit checker and F-3.2 refuse every padded packet; every unpadded twin loads
+  (`results/WIDENED_P5_UA.json`).
+- **P4 and P4-open:** 0 departure seconds lost in any triple of any run.
+- **P6:** 0 closed ⊄ open; 0 padding-closed witnesses touch padding.
+
+**Coverage floor (§8(iii)3), control set.** |F(G1′)| / |F(G1)| = 1.0 (601,657 departure-seconds), with 83 non-empty
+triples (minimum 50). The floor is met, so **P4 is reported as PASS.** G1′ = G1 because no G1 geometry touches the
+export-grid border (§8).
+
+**Classes** (§2.3; waiting (b), the headline; per place, start, horizon and variant): see
+`results/WIDENED_RESULTS_UA.json`. kriged_mean, h5 (h8 is identical in every row):
+
+| Start | Candidate places | Route found (padding closed) | Undetermined: depends on fire outside the export grid | No route found |
+|---|---|---|---|---|
+| UA 23T01Z | 17 | 1 | 0 | 16 |
+| UA 24T09Z | 10 | 1 | 1 | 8 |
+| UA 25T17Z | 6 | 2 | 0 | 4 |
+
+firms_early and envelope differ only at 23T01Z: 0 found / 1 undetermined / 16 none. envelope_burnset has no route
+anywhere.
+
+**Effects** (summed over the 264 candidate place-rows, padding closed):
+- **Widening effect, widened (a) against G1** (78a): 12 rows gain a route. Each such route leaves the old window, since
+  every in-window widened edge is a G1 edge. 244 rows stay at no route, and 8 rows already had a route on G1.
+- **Snapshot effect, G1 against the owner-graph `/2` headline:** those 8 rows had **no** CERT route on the owner
+  graphs (the candidate list's definition) but have one on G1. That is the map-date difference (2025-01-01 against
+  2025-03-21), not the widening. Per-row detail is in `per_place`.
+- **Waiting effect, (b) against (a):** none. The 20 rows with a route under (a) have one under (b), and the 244 without
+  have none.
+
+**Reading.** On the 2025-01-01 map, a wider road window gives a router route to the listed destinations for 12 of
+the 264 Uiseong candidate place-rows. Of the rows with no route, 4 more depend on what is assumed outside the export
+grid. The rest still have no route found. None of this is independently checked, and nothing here changes a
+headline number or a class an agency sees, except through the labelled classes above.
