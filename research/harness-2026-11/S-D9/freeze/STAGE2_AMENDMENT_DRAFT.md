@@ -18,11 +18,12 @@
 - **Clean confirmation.** The clean confirmation is CR1 (`clean_replication/PREREGISTRATION_DRAFT.md`, PR #153), not part c. It is frozen separately.
 
 ## 2. d2_bracket_rebuilt protocol
-- **Code (claude/s-d2-next):** proposed final `refit/` head **55b268df** (Elena, 03:12Z 13 Nov; supersedes 7d4937c7 and e598a840, and the only file changed since e598a840 is the demo driver), for `d2_bracket_rebuilt` and `d2_nll_rebuilt`. File sha256 prefixes, checked from the commit: `d2_bracket.py` 80f9fbb6, `run_d2_bracket.py` cc41cc33, `run_d2.py` 46d299ea (stale text only), `time_estep.py` 0bebc764, `native_marginals.py` 5fad4734, `demo_native_marginals_R.py` bcad73ed (its receipt carries the three weight conditions: weights.status, a strict weights.load_check, summary.non_degenerate; it reads R states only through `nirops_access.py` ab065e85 with `R_ALLOWLIST` c4d74159, under Hannah's row-78 terms). Earlier pins superseded: `d2_bracket.py` 98d7d6c6, `run_d2.py` e3c0843c, `native_marginals.py` 48825e3d. **Owen's verification (LEDGER-SMOKE-2):**
+- **Code (claude/s-d2-next):** proposed final `refit/` head **df55cff7** (Elena, 03:50Z 13 Nov). It is 55b268df with `run_d2.py` restored to the frozen stage-1 pin e3c0843c… (orchestrator ruling, option A), so FREEZE.json §3.1 item 21 stays valid with no amendment. `git diff 55b268df df55cff7 -- refit/` touches only run_d2.py (+2/−3, text only). It supersedes 55b268df, 7d4937c7 and e598a840, for `d2_bracket_rebuilt` and `d2_nll_rebuilt`. File sha256 prefixes, checked from the commit: `d2_bracket.py` 80f9fbb6, `run_d2_bracket.py` cc41cc33, `run_d2.py` e3c0843c (= stage-1 pin; 46d299ea at 55b268df reverted), `time_estep.py` 0bebc764, `native_marginals.py` 5fad4734, `demo_native_marginals_R.py` bcad73ed (its receipt carries the three weight conditions: weights.status, a strict weights.load_check, summary.non_degenerate; it reads R states only through `nirops_access.py` ab065e85 with `R_ALLOWLIST` c4d74159, under Hannah's row-78 terms). Earlier pins superseded: `d2_bracket.py` 98d7d6c6, `run_d2.py` e3c0843c, `native_marginals.py` 48825e3d. **Owen's verification (LEDGER-SMOKE-2):**
   - Row 51 (PASS WITH NOTES): the core code.
   - Row 52 (PASS): the centre guard, `d2_bracket.py` 80f9fbb6.
   - Row 55 (PASS WITH NOTES, 7e195b36): `native_marginals.py` and the demo driver at 55b268df.
-  - `run_d2.py` 46d299ea differs from the row-51 version only in a help/error string; Owen to confirm in the freeze check.
+  - Row 56 (PASS WITH NOTES, 29d55102): the whole `refit/` at 55b268df.
+  - df55cff7 differs from 55b268df only by the run_d2.py revert. Victor checked: sha e3c0843c, and the demo driver and `native_marginals.py` do not import run_d2.py (the driver only hashes it into its receipt). **PENDING:** Owen's one-row confirmation.
 - **E-step:** discretised Gibbs on a 0.25 h grid.
   - 2 sweeps per epoch, with midpoint initialisation and a warm start.
   - Its own RNG: `SeedSequence([seed, 0x5D2B])`.
@@ -44,7 +45,7 @@
   - **Execution.** The demo may run in Daniel's container, where the US2024 environment (286f4c47) already exists, from Elena's exact commit. Daniel executes it verbatim and changes no code; Elena owns the command and the receipt. This is the same arrangement as the refits.
   - **Weights (orchestrator ruling, 2026-11-13, 03:06Z).** The demo may use the committed `d4_wind_seed0` checkpoint (33c5b3cf…) as **development weights**, under three conditions in addition to (a)–(d):
     - the receipt names the checkpoint and its archive provenance, and says plainly that these are development weights, not part-a-trained;
-    - the weights load unchanged into the model class of the final head (55b268df; model code unchanged from e598a840), with no shape or key remapping;
+    - the weights load unchanged into the model class of the final head (df55cff7; model code unchanged from e598a840), with no shape or key remapping;
     - the outputs are non-degenerate.
   - **R inputs (orchestrator with Hannah as custodian, approved with conditions).** R's survey states, times and cutoffs come only through `nirops_access.py` in Daniel's container, with a committed allowlist of exactly the 6 R IDs. Hannah checks the allowlist and driver shas before the run, and the access log and audit after it.
 
