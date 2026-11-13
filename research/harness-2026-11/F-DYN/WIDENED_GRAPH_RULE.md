@@ -426,3 +426,36 @@ field in memory at a time.
 
 **Unchanged.** §2.3's classes, §2.2's agency visibility, P1–P3, P5 and P6 stand as written. Every result stays router-only
 and labelled.
+
+**§8 read by the independent verifier (verification ledger row 78a, 13 Nov): settled.**
+- **P4.** Given G1′ as stated, F(G1′) ⊆ F(widened) is a theorem given P2. P4 therefore catches implementation faults
+  only.
+- **(v)** is closed by the forbidden-turn union.
+
+**Reporting addition from that read (13 Nov; before any routing run).** The headline ran on the owner graphs, which
+are 79 days newer than the snapshot. A class change against the headline could therefore come from the map date
+rather than from the widening. Two effects are reported separately, so that neither is credited to the other:
+- **The widening effect:** widened, waiting arm (a), against G1, the same snapshot.
+- **The snapshot effect:** G1 against the owner-graph `/2` headline, through the §7 explicit id mapping.
+
+§2.3's class changes and §3's road effect are both stated against G1. The comparison with the headline is shown as the
+sum of the two effects, never as one effect.
+
+**Input checks done before any routing run (13 Nov):** `fdyn/widened_inputs.py` → `results/WIDENED_INPUTS.json`.
+- **Membership.** The only unlocated id is UA osm:12616948834. Its place, osm:node/415160468, is "not located on the
+  2025-01-01 graph" at all 3 UA starts.
+- **Arm (a) dict.** `results/WIDENED_ARM_A_WAITABLE.json`: 79,428 entries, sha256 34d0b7d4…. Its in-window delta
+  equals STEP2_WAITABLE_DELTA.json, and 0 step-1-waitable nodes are absent from the widened graph.
+- **Edges.** Every step-1 edge is identical in the widened graph: UA 43,801 and YD 111,814, with 0 differing and 0
+  absent.
+- **§8(v) is real.** The widened graph forbids 58 (UA) and 64 (YD) turn pairs on identical edges that step 1 allows.
+
+**§8(iii)4 pre-build test (13 Nov): FAIL. The work stops here.** The test (`fdyn/widened_pretest_packetmodel.py` →
+`results/WIDENED_PRETEST_PACKETMODEL.json`) ran PacketModel at the routing author's head 969a2ca2 on an F-9.3 masked
+pair: UA 25T17Z, `c651_unknown/1`, 5,068 support-false entries.
+- **The unmasked twin loads.**
+- **The masked packet is refused:** `PacketError: npz contract violated (current/support/events)`. This is the replay
+  `Packet`'s all-true-support contract, the same refusal as in row 42.
+
+No padded packet has been built and no route has been computed. As §8 states, the question has returned to the
+orchestrator.
