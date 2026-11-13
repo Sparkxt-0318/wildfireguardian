@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import sys
+import threading
 
 import numpy as np
 from fractions import Fraction as F
@@ -56,16 +57,18 @@ def load_packet(packet_dir, grid):
         if decl is not None:
             return _support_masked_packet(_P(packet_dir), grid, decl), False
     try:
-        return Packet(packet_dir, grid), False
+        with _READ_LOCK:          # SUPPORT_READ_RULE.md amendment 2: no reader construction during a swap
+            return Packet(packet_dir, grid), False
     except PacketError:
         if not ext:
             raise
-    orig = Packet.verify_consistency
-    Packet.verify_consistency = lambda self: {"status": "DEFERRED"}
-    try:
-        pk = Packet(packet_dir, grid)
-    finally:
-        Packet.verify_consistency = orig
+    with _READ_LOCK:              # class-level patch below is process-global too
+        orig = Packet.verify_consistency
+        Packet.verify_consistency = lambda self: {"status": "DEFERRED"}
+        try:
+            pk = Packet(packet_dir, grid)
+        finally:
+            Packet.verify_consistency = orig
     big = pk.horizon + 10 ** 9
     pk.phases = []
     cells_all = set()
@@ -89,6 +92,10 @@ def load_packet(packet_dir, grid):
 
 
 F93_WRITER = "wfg.f93.support-writer/1"
+# SUPPORT_READ_RULE.md amendment 2: every replay-reader construction made by load_packet holds this lock, because the
+# masked path temporarily swaps tools.explain_deadlines.packet.np (process-global). Direct Packet(...) calls made
+# OUTSIDE load_packet are not covered and must not run concurrently with load_packet in one process.
+_READ_LOCK = threading.RLock()
 
 
 def _support_declaration(d):
@@ -132,17 +139,28 @@ def _support_masked_packet(d, grid, decl):
         sup = np.array(z["support"]).astype(bool)
     if sup.ndim != 3:
         raise ValueError("support array is not (members, rows, cols)")
-    n_false = [int((~sup[s]).sum()) for s in range(sup.shape[0])]
-    if any(n != int(decl.get("unsupported_cells", -1)) for n in n_false):
-        raise ValueError("declared unsupported_cells %r differs from the npz support (%r)" % (decl.get("unsupported_cells"), n_false))
-    real_np = _pm.np
-    shim = types.SimpleNamespace(**{k: getattr(real_np, k) for k in dir(real_np) if not k.startswith("__")})
-    shim.load = lambda *a, **k: _SupportAllTrue(real_np.load(*a, **k))
-    _pm.np = shim
-    try:
-        pk = Packet(d, grid)
-    finally:
-        _pm.np = real_np
+    import hashlib
+    m = sup[0]
+    if any(not np.array_equal(sup[s], m) for s in range(sup.shape[0])):
+        raise ValueError("support differs between members; one declared F-9.3 mask is required")
+    want_sha = hashlib.sha256(np.packbits(m).tobytes() + str(m.shape).encode()).hexdigest()   # packets_f93.py formula
+    if decl.get("support_mask_sha256") != want_sha:
+        raise ValueError("declared support_mask_sha256 %r differs from the npz mask (%s)" % (decl.get("support_mask_sha256"), want_sha))
+    if int(decl.get("cells", -1)) != int(m.size):
+        raise ValueError("declared cells %r differs from the npz mask size %d" % (decl.get("cells"), m.size))
+    if int(decl.get("unsupported_cells", -1)) != int((~m).sum()):
+        raise ValueError("declared unsupported_cells %r differs from the npz support (%d)" % (decl.get("unsupported_cells"), int((~m).sum())))
+    with _READ_LOCK:              # the swap is process-global: capture, swap and restore all under the lock
+        real_np = _pm.np
+        if real_np is not np:
+            raise RuntimeError("tools.explain_deadlines.packet.np is not numpy before the swap")
+        shim = types.SimpleNamespace(**{k: getattr(real_np, k) for k in dir(real_np) if not k.startswith("__")})
+        shim.load = lambda *a, **k: _SupportAllTrue(real_np.load(*a, **k))
+        _pm.np = shim
+        try:
+            pk = Packet(d, grid)
+        finally:
+            _pm.np = real_np
     pk.support_masked = True
     pk.support_false_by_member = [sorted(pk.native_to_router(int(i)) for i in np.flatnonzero(~sup[s].ravel()))
                                   for s in range(sup.shape[0])]

@@ -210,8 +210,9 @@ def test_t6_concurrent_loads_are_correct():
         def work(x):
             try:
                 got.append((x, key(load_packet(Path(inp[x]["dir"]), grid)[0])))
-            except Exception as e:  # noqa: BLE001
-                errs.append(repr(e))
+            except Exception:  # noqa: BLE001
+                import traceback
+                errs.append(traceback.format_exc())
         ts = [threading.Thread(target=work, args=("A" if i % 2 else "D",)) for i in range(8)]
         for t in ts:
             t.start()
