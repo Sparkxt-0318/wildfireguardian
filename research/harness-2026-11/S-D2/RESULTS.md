@@ -508,7 +508,7 @@ one rollout (refit/native_marginals.py). No score was computed.
   - His independent rerun under Hannah's GO gives all 6 arrival files bit-identical to Daniel's, and per_event, all 273 rows and the summary identical.
   - I also checked the time-free extract here: head.json 42c3f480… and rows_min.txt 2d18ffd3…. Its code and weight shas equal 55b268df; its rows sum to 273; its records sum to 330, the access log's fid count. The extract is not committed (Hannah, A1 §2).
 - **refit/ head verified as the FREEZE object** (Owen, ledger row 56 @ 29d55102, PASS WITH NOTES): all of refit/ at 55b268df, for d2_bracket_rebuilt and d2_nll_rebuilt. It is unchanged up to 4eb878b0.
-  - run_d2.py 46d299ea differs from the stage-1 FREEZE pin e3c0843c only in its docstring and the bracket-refusal message. FREEZE.json must record 46d299ea.
+  - run_d2.py 46d299ea differed from the stage-1 FREEZE pin e3c0843c only in its docstring and the bracket-refusal message. By orchestrator ruling (A), run_d2.py has been restored to the exact e3c0843c bytes in a new refit/ head (next commit), so the stage-1 pin stays valid with no amendment. That run_d2.py text change was the only difference from 55b268df.
   - This verifies the code objects, not a training run; the real-data refits are verified separately.
 - Notes (Owen):
   - Development weights; no score.
