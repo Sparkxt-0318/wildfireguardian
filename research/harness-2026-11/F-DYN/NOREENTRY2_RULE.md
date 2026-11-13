@@ -369,3 +369,25 @@ Sent to Nora.
 **Gate.** `no_reentry/2` is now the person-facing default (F-BASE DESIGN.md: the default once Nora passes v3.7 and
 6a–6d pass). It carries the F1 exposure label, and the radiation-convention-limited column stays in every exposure
 table.
+
+## Erratum 1 (2026-11-13), to §6.3; §6.3 is not edited
+
+**Ledger row 77** (acceptance 8, spotting half on `no_reentry/2`; PASS WITH NOTES). The independent verifier found two
+statements in §6.3 false as written, in the dilation batch:
+- "C0 is never computed from a dilated raster";
+- "dilation adds nothing to C0".
+
+**Why they are false.** The dilation runs pass a dilated, clamped raster as the variant raster (a_d = max(dilate(a),
+t_start)). Every clamped cell has a_d = t_start, so it satisfies a ≤ h and **enters C0**.
+
+**Measured effect: nil** (row 77). B0 is the same at every dilation distance. The clamped cells are already born at 0
+under `/1` (catch-up ignition at the start), so B0 = C0 minus the cells already active at 0 excludes them.
+
+**Corrected statement** (the verifier's wording): **"dilation adds nothing to B0."** C0 may grow under dilation; B0,
+and therefore the `/2` packet's closed-from-0 set beyond `/1`, does not.
+
+**What is unchanged.**
+- MANIFEST_v3_7 contains no dilation packets.
+- Every `/2` result already reported stands.
+
+The verifier checks this erratum.
