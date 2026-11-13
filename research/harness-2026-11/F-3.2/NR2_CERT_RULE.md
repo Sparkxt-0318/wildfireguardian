@@ -65,6 +65,13 @@ never retried silently and never dropped.
     checkers, structure, O2); contact only, no radiation".
   - Add the variant's own label where it has one. For example, burnset rows keep the burn-set wording fixed by the
     orchestrator.
+  - Waiting rule, form (S) for single-departure results (F-3.1/WAITING_SENSITIVITY_RULE.md @ 1b792c77; orchestrator,
+    2026-11-13 00:13 UTC, verbatim): "The trip starts at the stated time. Once moving, a stop is allowed only at a road
+    dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other
+    node, including the start unless it is itself a dead end. Other departure times are separate results."
+  - Departures 0 s and 7200 s are separate results. They are never read as a leave-by window: the relaxation is not
+    monotone in departure under dead-end-only waiting.
+  - Where reported, "waiting allowed everywhere" is a labelled sensitivity row, never the default.
 
 ## 5. Scope (orchestrator, 2026-11-12 ~23:05 UTC: option (a))
 
