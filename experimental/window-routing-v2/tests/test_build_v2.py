@@ -84,7 +84,7 @@ STEP2_WORKER_LINES = [
     '                rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)  # kit-v2 Step 2',
     '            if rec is None:   # kit-v2 Step 2: interrupted check (MemoryError, crash, kill) stays UNRESOLVED',
     "                rec = {'status': 'UNRESOLVED', 'reason': 'CHECK_CHILD_FAILED', 'check_child': _v2_child}   # kit-v2 Step 2",
-    "            STATE.setdefault('check_budgets', []).append(_v2_budget)   # kit-v2 Step 2 amendment F: every check's budget (M2-model)",
+    "            STATE.setdefault('check_budgets', []).append({k: _v2_budget.get(k) for k in ('peak_mb', 'sampled_private_peak_mb', 'mechanism')})   # kit-v2 Step 2 amendment F: every check's memory for M2-model; no verdict field (Thomas 18:12 point 1)",
     "            rec['resource_budget'] = _v2_budget; rec['check_child'] = _v2_child   # kit-v2 Step 2",
     "        STATE['bound_model_dist'] = {'dist_sha256': M.dist_sha256, 'dist_block_rows': M.dist_block_rows}   # kit-v2 Step 2",
 ]
@@ -92,7 +92,7 @@ STEP2_WORKER_LINES = [
 STEP2_WRAPPER = ['import v2_memory, hybrid_checker as _v2_hc',
                  "if job.get('v2_check_isolation', True) is False:\n    rec, _v2_child = (_v2_check(), None)\n    _v2_budget = {'gate_mb': _v2_hc.RSS_LIMIT_MB, 'within_budget': 'not_proven', 'mechanism': None, 'comparison_arm': 'no_check_isolation'}\nelse:\n    rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)",
                  "if rec is None:\n    rec = {'status': 'UNRESOLVED', 'reason': 'CHECK_CHILD_FAILED', 'check_child': _v2_child}",
-                 "STATE.setdefault('check_budgets', []).append(_v2_budget)",
+                 "STATE.setdefault('check_budgets', []).append({k: _v2_budget.get(k) for k in ('peak_mb', 'sampled_private_peak_mb', 'mechanism')})",
                  "rec['resource_budget'] = _v2_budget",
                  "rec['check_child'] = _v2_child"]
 
