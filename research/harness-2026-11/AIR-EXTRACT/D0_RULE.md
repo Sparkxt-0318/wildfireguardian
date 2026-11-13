@@ -269,3 +269,7 @@ The per-point wind values are in `results/D0_AIR_ROW.json` (`tables.*[].wind.poi
   - **Rows:** 185 timed rows checked, with **0 mismatches** in the nearest site, distance (0.1 km), points within
     100 km and the place's 시군구.
   - **Point-in-polygon:** 126 usable sites within 100 km; 11 outside their stated 시군구, equal to D0's 11.
+- **Row 85b (13 Nov): the site checks PASS. Row 85 is closed, and D0 overall is PASS WITH NOTES.**
+  - The builder was committed together with its outputs in the first two runs.
+  - 2 rows are near a wind limit, and are flagged.
+  - The wind values are reanalysis, and the verifier did not re-fetch them.
