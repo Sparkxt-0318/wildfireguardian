@@ -34,3 +34,13 @@ die with it. Harness-tracked background tasks keep it alive for at most 2 h each
   run directory.
 - Report: the wall time per training interval, extrapolated to 3 epochs over the final list's interval count.
   **If the extrapolation exceeds ~4 h, flag it before launching.**
+
+## Declared deviation, 2026-11-13 01:30 UTC (orchestrator ruling), recorded before any timing run
+- **Run.** The one-epoch timing runs now on the **5 part-a events of TIMING_SUBSET only**, as a tracked task. The 3
+  fit-23 fires are omitted because their weather lands on day 2.
+- **Use.** The timing is an estimate only. No loss or score from it is read for any decision or reported as a result.
+- **Re-timing.** The declared subset (3 fit-23 + 5 part-a) is re-timed after day 2 if the estimate matters for
+  scheduling.
+- **Gate.** No refit starts before TRAIN_EVENTS_final and Victor's check.
+- **Status at recording: BLOCKED on inputs.** The part-a environment files behind Daniel's pins (f70e52b0) are not
+  in this container. The options (a/b/c) are with the orchestrator.
