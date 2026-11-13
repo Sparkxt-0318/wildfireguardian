@@ -32,7 +32,8 @@ def run(kit):
     p = subprocess.run([sys.executable, '-B', str(V2 / 'tools/run_one_job.py'), str(kit), str(DATA), MISSION[0],
                         MISSION[1], str(out), '81'], capture_output=True, text=True, timeout=600)
     assert p.returncode == 0, p.stderr[-3000:]
-    return json.loads((out / 'RESULT.json').read_text())
+    run.last = json.loads((out / 'RESULT.json').read_text())
+    return run.last
 
 
 @unittest.skipIf(KIT is None, 'set WFG_V2_KIT')
@@ -40,6 +41,13 @@ class IdentityRecord(unittest.TestCase):
     def test_a_recorded_hashes_equal_manifest(self):
         rec = run(KIT).get('checker_identity')
         self.assertIsNotNone(rec, 'RESULT has no checker_identity')
+        res = run.last
+        q = json.loads((KIT / 'queues/LATEST_PREFLIGHT_REAL.json').read_text())['jobs'][0]
+        self.assertEqual(rec['checker_module_override'], q.get('checker_module'))   # 'adaptive_checker' in this kit
+        if q.get('checker_module'):
+            self.assertEqual((res.get('checker_module') or {}).get('module'), q['checker_module'])
+            self.assertIn(q['checker_module'], rec['checker_class_mro'])
+        self.assertIn('hybrid_checker', rec['checker_class_mro'])   # the recorded hybrid_checker is on the checking path
         man = manifest(KIT)
         for name, rel in MODS.items():
             e = rec[name]

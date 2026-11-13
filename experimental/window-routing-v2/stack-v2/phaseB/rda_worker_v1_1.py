@@ -238,6 +238,8 @@ def main():
     for _ir in ('contact_first', 'mission_contract', 'hybrid_checker'):   # kit-v2 identity record
         _irm = sys.modules.get(_ir)   # kit-v2 identity record
         STATE['checker_identity'][_ir] = {'imported': True, 'path': _irm.__file__, 'sha256': sha(pathlib.Path(_irm.__file__))} if _irm is not None and getattr(_irm, '__file__', None) else {'imported': False}   # kit-v2 identity record
+    STATE['checker_identity']['checker_module_override'] = job.get('checker_module')   # kit-v2 identity record: an override's own files are hashed in STATE['checker_module']
+    STATE['checker_identity']['checker_class_mro'] = [c.__module__ for c in HybridChecker.__mro__]   # kit-v2 identity record: the modules on the checking path
     gdig = graph_digest(graph)
     checker = {'obj': None}
     checks = {}   # route key -> REAL whole-road check record (a deterministic function of the route; reused)
