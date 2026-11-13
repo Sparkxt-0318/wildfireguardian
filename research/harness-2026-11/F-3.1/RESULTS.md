@@ -1097,10 +1097,14 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
 | places touching, "any" (the upper bound) / "all" | **0 / 0** | 0 / 0 |
 | witnesses in the outermost export ring (**proxy, not the count**) | 54 | 12 |
 
-- **Reading:** no HEADLINE route witness touches a padding cell. So no HEADLINE result (place with a route) is shown
-  to depend on "nothing burning just outside the fire-data grid".
-- **The ring proxy** comes from 3 Yeongdeok places (osm:node/415158213 축산리, 415160130, 415160318), at every YD
-  start and horizon and in every timing variant.
+- **Reading:** no HEADLINE route touches the edge of the fire-data grid. The test is contact: a route's closed-rule
+  footprint against padding cells. It does **not** cover heat. Fire burning just outside the grid would not touch
+  these roads, but its radiant flux could reach a road near the edge, and the packets carry no flux from fire that
+  is not in the data (assessor, 13 Nov 09:15).
+- **The ring proxy is the figure for the heat question.** It covers 3 Yeongdeok places, at every YD start and
+  horizon and in every timing variant: 축산리 (osm:node/415158213), 옥계리 (osm:node/415160130) and 항리
+  (osm:node/415160318). Each is **"within one cell of the grid edge; radiant heat from fire outside the grid is
+  not modelled"**.
   - A road in the outer ring that does not reach the grid boundary has no padding cell in its closed footprint, so the
     padding-closed arm does not block it.
 - **Places without a witness** (no route, or not evaluated) are not counted here: 1,520 rows (timing variants) and 882
