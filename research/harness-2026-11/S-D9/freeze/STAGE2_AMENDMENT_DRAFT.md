@@ -120,7 +120,13 @@ This amendment therefore promotes exactly **three** archive-trained models to **
       - **Proximity is NON-ZERO.** Against part c: 3 fit-23 fires in 4 pairs with 2 distinct part-c incidents. Pair distances and times: 0.2 km / 1.0 d, 38.0 km / 2.4 d, 47.9 km / 3.5 d and 28.7 km / 27.7 d. The 0.2 km / 1 d pair has different IRWIN and WFIGS IDs, so it is very likely the same or an adjoining fire recorded under another incident.
       - Against part b: 2 fit-23 fires in 2 pairs, 45.3 km / 0.3 d and 41.5 km / 1.0 d.
       - All the pairs are 2021–2022 US fires. Identities are held by the custodian only.
-    - **This also bears on every model trained on fit-23 ∪ part a**: the rebuilt refits, which include the §6.1 objects `logistic_rebuilt` and `d4_wind_recal`, and the D2 candidates. It is not only the archive rows. **DECISION PENDING (orchestrator):** see the message of 2026-11-13.
+    - **Reading against A1 (Victor, 2026-11-13).** A1 already applies this rule to the fit fires.
+      - §1.3 ("Independence from fit fires") excludes any b/c/d incident within 50 km and 30 days of a FIT or SELECTED_ON fire. §1.2 item 6 applies it, and item 11 says it uses point of origin and discovery date.
+      - `cohort/apply_filters.py` implements it, with `ref.csv` = the 23 fit fires plus Wapiti, all with origin and discovery fields.
+      - The row-83 denominators (b 35, c 38) equal kept plus excluded in `RUN_FILTERS.md` (30 + 5, 30 + 8). So the pairs may be incidents that §1.3 had already excluded.
+      - **PENDING:** the custodian's rerun on **kept** members only.
+        - If there are 0 kept hits, §1.3 worked, nothing changes, and the exclusion rule above for the archive rows is moot.
+        - If any kept hit exists, A1's own remedy applies: §1.2 item 6, which excludes it and replaces it from d before any prediction runs. That would be recorded here as an implementation correction. Training fires are never dropped by §1.3.
   - **If any fit-23 fire is within 50 km and 30 days of a part-c fire:** the two models trained on fit-23 are reported with that count beside every number, and the orchestrator decides whether they stay.
 - **Secondaries only.** None of the three is, or replaces, a §6.1 criterion object. Those stay `persistence`, `dilation_8h`, `logistic_rebuilt` and `d4_wind_recal`. The rebuilt refits stay the confirmatory comparators.
 - **No named secondary's result changes the §6.1 verdict or the wording of the headline claim, whichever way it falls.** Each is reported with its own paired comparisons and intervals, with no multiplicity adjustment and no claim that would need one. Every sentence about them says "secondary, no multiplicity adjustment" (§9, row O12).
