@@ -12,14 +12,34 @@
     "committed": false
   },
   "derived_uncommitted": {
-    "area_grid5km.json": {"sha256": "7865f495a2079fcb1c3dadc414f214262d442acca82916c14218308d1aba732c", "bytes": 22150457, "note": "nodes, highway ways and restriction relations for export grid +5 km (extract_area.py)"},
-    "ua_step1.json": {"sha256": "e92cd0a8e09c649fa082d21b52c84d0cb0f264f6f3863c0b878642b83cb6d7da", "bytes": 15609569, "note": "uiseong_andong_2025 current window rebuild (build_graph.py)"},
-    "yd_step1.json": {"sha256": "39226a07673b08c3a37bb75dee9706cdc75e91bc1c00691b50f08652d6ea6eff", "bytes": 40396394, "note": "yeongdeok_2025 current window rebuild (build_graph.py)"}
+    "area_grid5km.json": {
+      "sha256": "7865f495a2079fcb1c3dadc414f214262d442acca82916c14218308d1aba732c",
+      "bytes": 22150457,
+      "note": "nodes, highway ways and restriction relations for export grid +5 km (extract_area.py)"
+    },
+    "ua_step1.json": {
+      "sha256": "e92cd0a8e09c649fa082d21b52c84d0cb0f264f6f3863c0b878642b83cb6d7da",
+      "bytes": 15609569,
+      "note": "uiseong_andong_2025 current window rebuild (build_graph.py)"
+    },
+    "yd_step1.json": {
+      "sha256": "39226a07673b08c3a37bb75dee9706cdc75e91bc1c00691b50f08652d6ea6eff",
+      "bytes": 40396394,
+      "note": "yeongdeok_2025 current window rebuild (build_graph.py)"
+    },
+    "kfs01_grid5km.json": {
+      "sha256": "2232df003340805736677b075024d451dcf2f8fa7676dc2912c2927c236612e4",
+      "bytes": 132657177,
+      "note": "KFS_01 export grid + 14 cells (5,250 m): EPSG:5179 x0 1080000 y0 1810500, 265 x 107 x 375 m; 185,747 nodes, 367,094 edges, 347,783 forbidden_turns, 4,494 waitable, 14,386 ways; step-2 check PASS (STEP2_RESULT.md)"
+    }
   },
   "reference_owner_graphs": {
     "uiseong_andong_2025": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
     "yeongdeok_2025": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9"
   },
-  "tools": {"pyosmium": "4.3.2", "pyproj": "3.8.0"},
+  "tools": {
+    "pyosmium": "4.3.2",
+    "pyproj": "3.8.0"
+  },
   "status": "EQUIVALENT recipe, NOT byte-identical; snapshot 79 days before the owner graphs"
 }
