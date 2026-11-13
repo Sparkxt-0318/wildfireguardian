@@ -1062,7 +1062,7 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
      the npz.
   3. The npz view supports item access only. It would fail loudly if the reader changed.
 
-## HEADLINE `/2` witnesses touching the export-grid border (rule `BORDER_TOUCH_RULE.md` at 472b83cf + amendment 1 at 7fdfaa85, committed first; NOT YET VERIFIED)
+## HEADLINE `/2` witnesses touching the export-grid border (rule `BORDER_TOUCH_RULE.md` at 472b83cf + amendment 1 at 7fdfaa85, committed first; VERIFIED: Nora, PASS WITH NOTES, ledger row 80)
 
 **Labels.**
 - SCENARIO, not what happened. Graphs are road-limited.
@@ -1102,13 +1102,14 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
 | places touching, "any" (the upper bound) / "all" | **0 / 0** | 0 / 0 |
 | witnesses in the outermost export ring (**proxy, not the count**) | 54 | 12 |
 
+- **Why the count is 0 (ledger row 80): a property of the graphs, not of the run.** Every graphs_interim node lies strictly inside the export grid (23,158 UA, 56,369 YD; closest 0.13 m from the UA south edge and 0.46 m from the YD east edge). Edges are straight chords, so by convexity no edge, node or destination reaches the boundary. No route on these graphs can touch a padding cell, witness or not.
 - **Reading:** no HEADLINE route touches the edge of the fire-data grid. The test is contact: a route's closed-rule
   footprint against padding cells. It does **not** cover heat. Fire burning just outside the grid would not touch
   these roads, but its radiant flux could reach a road near the edge, and the packets carry no flux from fire that
   is not in the data (assessor, 13 Nov 09:15).
-- **The ring proxy is the figure for the heat question.** It covers 3 Yeongdeok places, at every YD start and
+- **The ring proxy is an indicator for the heat question, not a bound** (one cell, 375 m, says nothing about how far heat from fire outside the grid matters; ledger row 80 note 2). It covers 3 Yeongdeok places, at every YD start and
   horizon and in every timing variant: 축산리 (osm:node/415158213), 옥계리 (osm:node/415160130) and 항리
-  (osm:node/415160318). Each is **"within one cell of the grid edge; radiant heat from fire outside the grid is
+  (osm:node/415160318), at 63 / 170 / 365 m from the edge. Each is **"within one cell of the grid edge; radiant heat from fire outside the grid is
   not modelled"**.
   - A road in the outer ring that does not reach the grid boundary has no padding cell in its closed footprint, so the
     padding-closed arm does not block it.
