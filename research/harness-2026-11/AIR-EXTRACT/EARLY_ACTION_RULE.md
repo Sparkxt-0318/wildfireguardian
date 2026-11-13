@@ -197,3 +197,23 @@ that are pinned verbatim, not list wording:
 
 The test now matches "deadline" as a whole word, and the scan skips exactly those two pinned strings. Every other
 phrase and place is scanned as before. No label, count or pair changed.
+
+## 11. Status: verified (verification ledger row 84, PASS WITH NOTES; 13 Nov)
+
+The independent verifier recomputed the list from the pinned inputs. It matches exactly:
+- groups 166 / 5 / 16 / 495 / 362;
+- labels 24 / 83 / 28 / 6 / 25;
+- 0 mismatches in any pair string or KST time.
+
+The notes, recorded:
+1. **Builder timing.** The builder's first version was committed before any run (47c920f3). The version that produced
+   the list — amendment 1's grouping, the no-route record fix and the E9 scope — was committed **together with the
+   list** (2f6275f7), not before it. So "committed before it is run" (§8) is not literally met for the final version.
+   The verifier's recompute shows the content is unaffected.
+2. **E6 holds vacuously.** None of 축산리, 옥계리 and 항리 appears on any table.
+3. **numpy.** The routing figures come from numpy 1.26.4 (ledger row 72a). The builder ran on numpy 2.5.3 and reads
+   JSON only. The Markdown header names both; the JSON field `numpy` is the builder's.
+4. **YD widened classes:** pending the verifier's YD re-run.
+
+**Open:** the waiting-dependence column is filled when the routing author's `/2` waiting run (WAITING_NR2_RULE.md
+@ 1dc3ec72) is verified. That will be an amendment and a rebuild, then a new verification.
