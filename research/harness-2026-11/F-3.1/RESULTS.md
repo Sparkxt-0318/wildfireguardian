@@ -871,7 +871,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 - **Cost.** The Yeongdeok caches peak at 11.4–12.2 GB RSS under all-waitable. One run was killed for running out of
   memory while running alongside other jobs, and was rerun alone.
 
-## Multi-hour HEADLINE run on `no_reentry/2`, 48 packet pairs (SCENARIO, not what happened; HEADLINE; NOT YET VERIFIED; no-route counts split per `NOT_EVALUATED_LABEL_RULE.md`, file `results/HEADLINE_NR2_not_evaluated_split.json`)
+## Multi-hour HEADLINE run on `no_reentry/2`, 48 packet pairs (SCENARIO, not what happened; HEADLINE; VERIFIED: Nora, PASS WITH NOTES, ledger row 72 (the run and acceptance 8; the not-evaluated split is a separate request); no-route counts split per `NOT_EVALUATED_LABEL_RULE.md`, file `results/HEADLINE_NR2_not_evaluated_split.json`)
 
 **Labels.**
 - SCENARIO, not what happened. Graphs are road-limited: roads are limited to the recorded windows.
@@ -890,7 +890,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 
 **Coverage.** 48 pairs: v3.7 `no_reentry/2` + reopening × 4 variants × 6 recorded starts × {5 h, 8 h}.
 - Leo's code at 819bcb91, MANIFEST_v3_7 (sha256 7c178267…).
-- Each packet is built from the manifest command at its manifest `--out` path, so the hashes are the canonical builds.
+- Each packet is built from the manifest command at its manifest `--out` path. **The HAZARD hashes do not reproduce Nora's builds** (ledger row 72 note 1: e.g. UA 25T17 h5 firms_early `/2` f539a5eb here vs 55dd21b8; `--out` is not the cause). Under investigation via `provenance.identity`; the routing results reproduced exactly (336/336 places).
 - Runner: `deadline_field/headline.py`; batch: `batch/headline_nr2_batch.py`.
 - 0 build or run failures. Every packet's writer_identity.transform = `no_reentry/2`.
 - Summary: `results/HEADLINE_NR2_summary.json`, per place, packet and variant. The raw per-pair outputs stay in scratch.
@@ -957,11 +957,11 @@ PASS = full policy OK and closed/router replay clear.
 
 **Acceptance 8, earlier-arrival half** (`NOREENTRY2_ACCEPTANCE_RULE.md` §8; MULTIHOUR_HEADLINE_RULE.md amendment 19:15 UTC).
 - **Nested pair tested:** firms_early vs kriged_mean. On the rasters firms_early arrival is ≤ kriged_mean on all 10,955 cells (2,364 earlier, 8,591 equal, 0 later).
-- **Result:** 0 violations, CERT and ROUTER. No place has a later firms_early leave-by, or a firms_early route where kriged_mean has none.
+- **Result:** 0 violations, CERT and ROUTER. The leave-by half rests on 520 comparable rows per field (514 equal + 6 earlier); the 52 rows where firms_early has no route are direction-consistent but are not leave-by comparisons (ledger row 72 note 3). No place has a later firms_early leave-by, or a firms_early route where kriged_mean has none.
   - Per field, over 1,044 rows: equal 514, firms_early earlier 6, firms_early no route with kriged_mean route 52 (a lost route is not a violation), no route on both 472.
 - The classes above ("no route", "none on both") are monotonicity comparison classes, not counts of places without a route. They include rows in the not-evaluated state; the place counts are the split table above.
 - **envelope vs kriged_mean:** not nested (lo = firms_early, hi = firms_constrained). Reported, not tested. Its counts are the same as firms_early, with 0 later rows.
-- **The 166 `/1` rows** (earlier variant later than kriged_mean, row 67) are all gone on `/2`. Every one went by losing the variant's route, none by a leave-by moving earlier:
+- **The 166 `/1` rows** (earlier variant later than kriged_mean, row 67) have no `/2` route for the variant (ledger row 72 note 2: "no `/2` route", not "ordering fixed"; 142 lose both routes, 24 lose the variant's route, 0 stay comparable). Every one went by losing the variant's route, none by a leave-by moving earlier:
   - 71 per field: no route on both;
   - 12 per field: variant no route, kriged_mean route.
 
