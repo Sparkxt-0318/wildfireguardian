@@ -17,8 +17,7 @@ D2 deviation, by variant:
   restored after fitting, so validation and scoring paths still use Brier. eps is added, not used as a clamp, so
   the gradient stays nonzero for p < eps (``survival.clipped_nll`` clamps and would zero it exactly in the
   near-zero tail that P-D2 is about).
-* ``--d2 bracket`` (``d2_bracket_rebuilt``): implemented in ``run_d2_bracket.py`` (``d2_bracket.fit_bracket``), not
-  here; this wrapper refuses it so that the NLL path cannot be run under the bracket name.
+* ``--d2 bracket`` (``d2_bracket_rebuilt``): not implemented yet. Its E-step cost must be timed first (Iris).
 
     python run_d2.py --d2 nll --input-manifest PINS.json --train-events TRAIN.txt -- final --data-root ... \\
         --perimeters ... --work ... --run ... --variant d4_wind --seed 0 --epochs 3 --hidden 16 --lr 0.003 \\
@@ -94,7 +93,7 @@ def main():
     ap.add_argument("rest", nargs=argparse.REMAINDER)
     args = ap.parse_args()
     if args.d2 == "bracket":
-        raise SystemExit("d2_bracket_rebuilt runs through run_d2_bracket.py, not this wrapper")
+        raise SystemExit("d2_bracket_rebuilt is not implemented yet (E-step cost to be timed first)")
     rest = args.rest[1:] if args.rest and args.rest[0] == "--" else args.rest
     for path, expected in PINNED.items():
         if sha256(path) != expected:
