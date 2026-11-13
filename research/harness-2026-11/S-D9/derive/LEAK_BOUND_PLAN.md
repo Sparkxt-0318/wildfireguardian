@@ -74,7 +74,7 @@ These points were not fixed above. They are fixed here before code is committed.
    - The implementation and the fold-assignment hash are committed before any fit.
 
 
-## Revision 2 (2026-11-13, before any implementation or fit; PROPOSED, pending orchestrator approval)
+## Revision 2 (2026-11-13, before any implementation or fit; APPROVED by the orchestrator 11:37Z)
 Proposed by the plan author after the refit author's feasibility note. **Nothing has been implemented or fitted.**
 1. **Timing (replaces revision 1 item 5).** The measurement may start once the part-a weather fetch is done (pinned: `parta_input_manifest_night1.json` f70e52b0…). It no longer waits for the A1 §3.1 `logistic_rebuilt` refit.
    - *Reason:* arms L and L2 refit the `logistic_rebuilt` **recipe** inside each part-a fold (A1 §3.1 frozen feature set and fit settings). They never read the A1 refit's output. The fit-23 fires are not in the folds, so the fit-23 weather (day 2) is not needed.
