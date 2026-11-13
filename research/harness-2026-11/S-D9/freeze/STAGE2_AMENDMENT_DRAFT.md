@@ -106,7 +106,7 @@ These are stage-2 change items, made before any refit has run and before part c 
 
 *Limitation, stated for any later use of d:* 9 of the 31 kept-d incidents are within item-9 proximity of part-a training fires. Any later test on d must first apply item 9 from the training side.
 
-**S2-2. `logistic_rebuilt` recipe: a clarification of a line that cannot be executed as written** (named item, assessor 2026-11-13).
+**S2-2. `logistic_rebuilt` recipe: a clarification of a line that cannot be executed as written** (named item). *Assessor (2026-11-13):* "Named item. The resolution follows the archive object's recorded recipe and is made before any refit."
 
 *The contradiction.* A1 §3.1 reads "Fit: `fit_logistic(C=1.0, seed=0)`, negatives subsampled at 0.05 and inverse-weighted". `baselines.fit_logistic` takes no sample weights: it uses an unweighted `StandardScaler` and `LogisticRegression(C, max_iter=2000)`. So it cannot inverse-weight, and the line contradicts itself.
 
@@ -125,7 +125,9 @@ These are stage-2 change items, made before any refit has run and before part c 
 
 *Descriptive line, after pinning:* the largest |Δp| on part a between the two readings, so a reader can see how much rides on the choice. The expectation that it is small is a hypothesis, not a claim.
 
-*Verification.* The independent verifier reproduces `logistic_rebuilt` from this pinned text alone, as for the recalibration, and confirms the archive invocation evidence in a row: **PENDING**. The `logistic_rebuilt` refit and the leak-bound fit are released on that row.
+*Verification.*
+- **Archive invocation evidence: PASS** (independent verifier, LEDGER-SMOKE-2 row 61, 9c39559b). The archived `a03_baselines` argv, parsed with the pinned pipeline.py parser, gives `max_fit_intervals_per_fire` = 0. A1 §3.1 lines 215 and 222 pass `--max-fit-intervals-per-fire 0`.
+- **Reproduction of `logistic_rebuilt` from this pinned text alone**, as for the recalibration: **PENDING**. The `logistic_rebuilt` refit and the leak-bound fit are released on that row.
 
 *Consequence for the `d4_wind_recal` pin.* Its estimator is **not** the same as `logistic_rebuilt`'s. They share only the 0.05 fraction, the 1/0.05 weights and C = 1.0. The recal scaler is unweighted and uses `max_iter` 2000; `logistic_rebuilt` here has a weighted scaler and `max_iter` 3000. The recal recipe itself is unchanged and stays identical to the development recalibration (`derive/logistic_dev.py`). Any wording implying the two estimators are identical is corrected by this item.
 
