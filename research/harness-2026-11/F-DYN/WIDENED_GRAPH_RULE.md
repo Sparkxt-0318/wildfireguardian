@@ -303,3 +303,17 @@ rows over 34 places:
 **Reported with the widened-graph results; this changes nothing in the headline.** The count of `/2` headline routes
 that touch the export-grid border, per region and start. These results rest on "nothing is burning just outside the
 grid", and the reader should see how many there are.
+
+**§7(d) implementation fixed (13 Nov).** The routing author's `waitable_override` is at `claude/f31-deadline-field` @
+903b1668, committed before any run.
+- It is applied to raw nodes before RoadGraph.
+- It refuses unknown ids, non-bool values, and use together with waitable_all. Test: `tests/test_waitable_override.py`;
+  the suite passes 15/15.
+
+**How the arm (a) dict is built.** Input: `STEP2_WAITABLE_DELTA.json` @ ccc1de58.
+- **Contents:** for every node present in both the step-1 graph and the widened graph, `{id: step-1 waitable}`.
+- **Nodes absent from step 1** (the 3 in-window additions and all out-of-window nodes) are not in the dict, so they
+  keep the widened graph's own dead-end flag. That matches §3(a).
+- **Step-1-waitable nodes absent from the widened graph** cannot be set. They are listed, with their count reported,
+  before any run. They are expected to be 0, given the step-2 inside-window equality.
+- The dict and its sha256 are committed with the run input.
