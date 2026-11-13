@@ -162,7 +162,17 @@ implicit. **Nothing has been fitted.**
      and the partial state is reported as NOT COMPLETE (no result). This keeps the 00:12Z day-2 weather launch clear.
    - Outputs: `derive/LEAK_BOUND.json` and `.md`, with per-fire aggregates only; no cell-level data is committed.
 
-**Independent verifier's reading of revision 3:** _pending; recorded here before any fit_.
+**Records (added 2026-11-13, before any fit).**
+- **Plan author:** the item 8 smoke deviation is ACCEPTED (2026-11-13). The plan author spot-checked the runner at
+  34a428c0 against items 1–7.
+- **Cutoff mapping (item 3):** the runner's cutoff is `sample.t1`. In `pipeline.perimeter_samples`, `t1` is
+  `times[i].isoformat()`, the interval's START survey time, i.e. A1's t0. Despite its name, it is not the interval's
+  end (the end is `meta["t2"]`).
+- **Band truncation (item 6):** the denominator is the uncropped band cells with `score_mask` only. The scored band
+  additionally requires finite environment and features, so the reported share outside the crop is slightly
+  conservative (it overstates the loss).
+- **Independent verifier:** READ rev 3, 2026-11-13. One objection, the interval cap, pending a ruling. Revision 4
+  states the cap (0, all intervals) with the evidence from the archived run.
 
 ## Revision 4 (2026-11-13, clarification before any fit): interval cap
 The independent verifier asked which per-fire interval cap the `logistic_rebuilt` recipe uses: `pipeline.py`'s
