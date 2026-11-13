@@ -1,0 +1,3449 @@
+{
+ "stage": "parta",
+ "rule": "usable iff events.json start_utc <= floor_h(cutoff) <= end_utc (pipeline.available_at) and the weather record is all-finite with floor_h(cutoff) in its band window",
+ "preweather_sha256": "bbedca82b10ff0d7737feac78f7997bb57e26f3af6028eb10516d4cb7c42b55b",
+ "completeness_sha256": "09af55fa8a65b1711f7bc64b8a64810d83b985db46ed47bb24a23ab3e7c3846a",
+ "perimeter_manifest_sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
+ "events_json_sha256": "fef3626051d4a06b80c355b0773a28ce28c5bdc6131f5208ac4a7d89405b3b19",
+ "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+ "script_sha256": "e51cf8bbec73b3bf2f9cc2d83efd9481ec70edaa07eb540eb52ad150cab3cef2",
+ "events_in_stage": 490,
+ "events_not_in_stage": 23,
+ "intervals_le_48h": 3773,
+ "usable_intervals": 3773,
+ "events_with_skips": 0,
+ "catalog_vs_band_window_differences": [],
+ "no_usable_interval": [],
+ "rows": [
+  {
+   "event": "AZ-A1S-001211_Monument",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-A3S-001033_Walnut",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-A4S-000950_Central",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-A5S-230970_Pilot",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASD-000097_Basin",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000264_Foote",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000416_Pius",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000447_Campbell",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000613_Horton",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000624_Bear",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000627_Moore",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000662_WestChev",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-000662_Wyrick",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-ASF-00083_Bringham",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-CNF-000401_Foster",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-CNF-000427_Pinnacle",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-CNF-000552_Beehive",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-CNF-000552_Corral",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000159_Tunnel",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000176_Wolf",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000272_Wilbur",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000523_Pipeline",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000536_Haywire",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000642_Backbone",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-COF-000642_Snake",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-CRD-000996_PinePeak",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-CRD-001644_Ridge",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-FTA-000336_McDonaldTank",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-FTA-000555_CottonwoodRidge",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-FTA-000574_Spoon",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-FTA-000867_Lofer",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-KNF-000369_Bravo",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-KNF-000391_ThreeLakes",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-NAA-000156_WoodSprings2",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PHD-000455_Tussock",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PNF-000863_Rafael",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PNF-000991_Grapevine",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PNF-001008_Tiger",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PNF-002178_Horse",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PPA-000327_SycamoreCanyon",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-PPA-000453_Contreras",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-001110_Buckhorn",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-001115_Watch",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-001403_BlueRiver",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-001418_DryLake",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-002036_BlueRiver2",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-002036_Valley",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-002339_CassadoreSprings",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-002574_Rockhouse",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-SCA-002639_Alder",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TCA-000773_C3",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-000705_Spring",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001046_Diamond",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001130_Black",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001306_Sawtooth",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001581_Bush",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001594_West",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001699_Middle",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-001830_Polles",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-002510_Griffin",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "AZ-TNF-002616_Hidden",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-AEU-017769_Electra",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-AEU-022341_Crozier",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ANF-001704_Sheep",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ANF-003063_Dam",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ANF-003273_Lake",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ANF-003289_Ranch2",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ANF-003687_Bobcat",
+   "intervals_le_48h": 30,
+   "usable": 30,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ANF-243334_Bridge",
+   "intervals_le_48h": 18,
+   "usable": 18,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BDF-009908_Vista",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BDF-012520_Line",
+   "intervals_le_48h": 35,
+   "usable": 35,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BDF-012958_Radford",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BEU-004024_River",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BEU-004081_Carmel",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BTU-012090_Thompson",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-BTU-013761_Park",
+   "intervals_le_48h": 60,
+   "usable": 60,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-CND-002309_Stagecoach",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-CND-002374_Peak",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-CND-002796_French",
+   "intervals_le_48h": 18,
+   "usable": 18,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-CNF-002791_Chaparral",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-CNF-002833_Valley",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-CZU-005205_CZULightning",
+   "intervals_le_48h": 19,
+   "usable": 19,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ENF-032344_Point",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-FKU-010219_Mineral",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-FKU-019190_Boone",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-HIA-000046_MP21",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-INF-001299_InyoCreek",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-INF-001695_Dexter",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-KNF-005169_Tennant",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-KNF-007035_Slater",
+   "intervals_le_48h": 30,
+   "usable": 30,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-KNF-007241_Fox",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-KNP-000088_CoffeePot",
+   "intervals_le_48h": 27,
+   "usable": 27,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-KNP-000122_KNPComplex",
+   "intervals_le_48h": 37,
+   "usable": 37,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LAC-020523_Post",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LAC-434928_Franklin",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LMU-003874_Hog",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LMU-003917_Gold",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LNF-004290_Stump",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LNF-2815_Graham",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LNU-011083_Sites",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LNU-013407_LNULightningComplex_Meyers",
+   "intervals_le_48h": 22,
+   "usable": 22,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LNU-013725_Ridge",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LNU-015947_Glass",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LPF-001493_Willow",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LPF-001542_Lake",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LPF-002759_Alisal",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-LPF-003161_Coleman",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MDF-000486_Allen",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MDF-000486_Caldwell",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MDF-000896_Barnes",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MMU-014714_River",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MNP-010701_York",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MVU-013233_Border13",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-MVU-018864_Border32",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-NEU-023725_Bridge",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-NOD-004137_S4",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ORC-019703_Emerald",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ORC-060975_Coastal",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ORC-121364_Silverado",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ORC-121612_BlueRidge",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-ORC-136890_Bond",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-OVD-030860_MountainView",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-PNF-001064_Beckwourth",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-PNF-001299_Sheep",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-RNP-012009_Woodward",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-RRU-096640_Apple",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-RRU-102458_RiversideSupport_Rabbit",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-RRU-129712_Fairview",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-RRU-160976_Highland",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SCU-004686_Crews",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-000949_Lava",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-000973_Deep",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-000982_Salt",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-000996_Shoe",
+   "intervals_le_48h": 20,
+   "usable": 20,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-001004_ThreeNine",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-001187_Knob",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHF-001376_Hobo",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHU-009978_Zogg",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SHU-010480_Fawn",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SKU-007568_Mill",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SKU-007586_Mountain",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SNF-001402_Bullfrog",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SQF-001362_Borel",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SQF-002089_Wishon",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-SQF-002758_Walkers",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-STF-002313_Peak",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-TCU-007675_Aero",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-TNF-000855_Royal",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-TNF-001251_Bear",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-TNF-00137_Mosquito",
+   "intervals_le_48h": 39,
+   "usable": 39,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-TNF-001600_Loyalton",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-YNP-000050_Pika",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-YNP-000058_Rodgers",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA-YNP-000066_Aspen",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CA_SLU_009866_Pond",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-ARF-000683_AlexanderMountain",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-ARF-001048_Lefthand",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-BLX-001036_Calwood",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-DTX-000082_CurrantCreek",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-GFX-000348_GrizzlyCreek",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-GFX-230097_SpringCreek",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-GMF-000176_Lowline",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-MRX-000086_Bucktail",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-PSF-000779_OakRidge",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-PSF-001717_SaintCharles",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-RTF-000363_MiddleFork",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJD-000416_EastCanyon",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-000203_Plumtaw",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-000348_ChrisMountain",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-000570_BearCreek",
+   "intervals_le_48h": 19,
+   "usable": 19,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-000678_QuartzRidge",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-001183_MillCreek2",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-001184_TrailSprings",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-SJF-001214_Ice",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-TLX-000722_HighPark",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "CO-UPD-000186_LittleMesa",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000212_BlackMountain",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000487_Warm",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000488_Golden",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000699_Bulltrout",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000714_Buck",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000740_East",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-000777_Grouse",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-BOF-001073_Sheep",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-CMS-000280_BillyCreek",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-CMS-000470_ShovelCreek",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-CTS-000714_Sunnyside_IronGate",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-EIS-000311_Chimney",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000212_DiamondWatch",
+   "intervals_le_48h": 30,
+   "usable": 30,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000234_Consalus",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000385_EneasPeak",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000424_BlackBurn",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000447_RidgeCreek",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000452_TrestleCreek",
+   "intervals_le_48h": 21,
+   "usable": 21,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000454_Buckskin2",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000533_Bernard",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000653_KootenaiRiverComplex_Katka",
+   "intervals_le_48h": 25,
+   "usable": 25,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-IPF-000653_KootenaiRiverComplex_Russell",
+   "intervals_le_48h": 26,
+   "usable": 26,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-MCS-000404_TooKush2",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000321_LittleBear",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000321b_WestFork",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000370_Midnight",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000412_AceButte",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000515_Anchor",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000552_Beaver",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000581_SnowCreek",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000628_Sponge",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-000819_MooseCreek_Halfway",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-00472_Shissler",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-00505_MocusPoint",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-00508_Marion",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-NCF-00563_WarmSprings",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-000422_RushCreek",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-000433_Vinegar",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-000495_Porphyry",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-000570_Woodhead",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-002673_ElkHorn",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-005464_Limepoint",
+   "intervals_le_48h": 27,
+   "usable": 27,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-005567_Farrow",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-005658_Lemhi",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PAF-005791_Logan",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PDS-000614_LelandComplex",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-PDS-000892_Bedrock",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-POS-000512_Hunter2",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-POS-000617_Pioneer",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SCF-021130_MudLick",
+   "intervals_le_48h": 20,
+   "usable": 20,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SCF-021154_Haynes",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SCF-021157_Iron",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SCF-022250_Owl",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SCF-023084_Hayden",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SCF-240169_Birch",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SIS-000452_Copeland",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000180_BenchLake",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000207_MormonBend",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000331_Frog",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000335_Corral",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000351_Badger",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000353_JakesGulch",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-STF-000353_Trap",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SWS-000558_Pumpkin",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "ID-SWS-000920_Flat",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006132_Clover",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006210_BowlesCreek",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006286_TrailRidge",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006305_Goat",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006341_Haystack",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006386_SandLake",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006388_Placer",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006610_BearCreek",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-006645_StateCreek",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-022161_FuseLake",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-246327_Grouse",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-246437_RatioMountain",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-246666_Meridian",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BDF-6306_BlackMountain",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BID-210154_CrookedCreek",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-BRF-022252_BlodgettLake",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-CGF-21048_RobertsonDraw",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-CRA-210153_BuffaloPasture",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000070_MagpieRock",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000094_BigKnife",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000098_MiddleRidge",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000100_Niarada",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000101_MillPocket",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000106_Elmo",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000109_Redhorn",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000130_Garceau",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000130_LittleMoney2",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000141_Sullivan",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHA-000157_Boulder2700",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FHF-000000_TinSoldierComplex",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FNF-000496_DorisPoint",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FNF-000518_Ridge",
+   "intervals_le_48h": 24,
+   "usable": 24,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-FNF-000651_Lemonade",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-GNP-000462_Quartz",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-HLF-000154_DeepCreekCanyon",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-HLF-000182_MoorsMountain",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-HLF-000367_HorseGulch",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-HLF-005079_Balsinger",
+   "intervals_le_48h": 25,
+   "usable": 25,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-HLF-005079_Ellis",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-HLF-005149_CrownMountain",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-KNF-000167_BurntPeak",
+   "intervals_le_48h": 38,
+   "usable": 38,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-KNF-000176_Sutton",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-KNF-000201_SouthYaak",
+   "intervals_le_48h": 27,
+   "usable": 27,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-KNF-000262_EastFork",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LG02-000351_HarrisMountain",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LG23-200899_Bobcat",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LG29-000236_Deadman",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LG29-000428_RichardSpring",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LNF-000883_DeepLookoutMtn",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LNF-000889_Brewster",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LNF-000951_DryCabin",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LNF-200730_RiverRoadEast",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-LNF-240427_MillerPeak",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-NWS-000748_WhitetailCreek",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-NWS-00274L_GravelPit",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-SOS-210281_Peterson",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-SWS-001022_AndersonHill",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-SWS-200549_Colt",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT-SWS-240711_McElwain",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "MT_BDF_006227_Goose",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-CAF-000136_Comanche",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-CAF-000200_Midnight",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-CAF-000631_Luna",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-CIF-000279_OjodeLosCasos",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-EMP-000234_Encerrita",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000226_Cub",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000226_Good",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000227_Turkey",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000276_Johnson",
+   "intervals_le_48h": 18,
+   "usable": 18,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000318_Ridge",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000357_Dark",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000360_Divide",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000382_Davis",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000423_Noonday",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000428_Pasture",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-GNF-000447_Prior",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-LCD-000234_UVAS",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-LNF-000130_ThreeRivers",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-LNF-000227_Blue2",
+   "intervals_le_48h": 17,
+   "usable": 17,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-LNF-000552_BlueFront",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-MEA-000382_SouthFork",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-MEA-000385_Salt",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-N4S-000034_CooksPeak",
+   "intervals_le_48h": 22,
+   "usable": 22,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-N5S-000114_NogalCanyon",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-N5S-000115_McBride",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-N6S-000234_CerroBandera",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-SNF-000091_Indios",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-SNF-000150_WolfDraw",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-SNF-000190_Rincon",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NM-SNF-000532_Medio",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-CCD-030406_Numbers",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-EKD-010089_Goshute",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-EKD-010185_Lost",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040026_WilsonCreek",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040076_MeadowValley",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040078_BigSummit",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040082_StewartCanyon",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040122_Comet",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040123_Baldy",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040152_DodgeSprings",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-ELD-040155_HeathCanyon",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-HTF-010139_Wildcat",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-HTF-030419_Tamarack",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-HTF-030684_Slink",
+   "intervals_le_48h": 19,
+   "usable": 19,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-HTF-040163_BroomCanyon",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-HTF-500736_Mahogany",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-HTF-500917_Cottonwood",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-SND-501554_VirginMountain",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "NV-TMFX_031010_Davis",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-0732S-00174_SkylineRidgeComplex",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-553S-553018_EchoMountainComplex",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-711S-00037_SaltCreek",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-711S-000382_UpperApplegate3900",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-711S-00102_Worthington",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-711S-026621_SObenchain",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-731-S0314_TyeeComplex",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-732S-000362_Milepost98",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-781S-000037_SweetCreekMP2",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-781S-000115_7k",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-952S-000063_Laurel",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-952S-020279_SteetMountain_SteetEast",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-953S-000766_Shoefly",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-953S-024122_CourtRock",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-953S-024272_FossilComplex_Canyon",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-954S-000017_FirMountain",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-954S-000022_MosierCreek",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-954S-000514_LarchCreek",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-955S-001022_Grandview",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-981S-230203_Golden",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-981S-240314_Copperfield",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-9853S-024259_TwoCabin",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-BUD-002079_NealsHill",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-BUD-002263_BigMeadow",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-DEF-000845_FlatTop",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-DEF-000851_Firestone",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-200196_BenYoung",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-200404_242",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-210422_PattonMeadow",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-210422_WillowValley",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-210452_CougarPeak",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-230307_Morgan",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-FWF-240332_BuckCreek",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-LAD-220351_VanMeter",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MAF-002502_Falls",
+   "intervals_le_48h": 26,
+   "usable": 26,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MAF-002523_Telephone",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MAF-002549_PoisonCreek",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MAF-022199_CrocketsKnob",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MHF-000583_Boulder",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MHF-000681_WhiteRiver",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-MHF-001199_CampCreek",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-OCF-000772_WileyFlat",
+   "intervals_le_48h": 22,
+   "usable": 22,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-ORC-000008_NorthCascade_Unger",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-PRD-000289_Darlene",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-PRD-000404_RVLoneRock",
+   "intervals_le_48h": 18,
+   "usable": 18,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-PRD-000604_ElkLane",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-RSF-000209_Flat",
+   "intervals_le_48h": 44,
+   "usable": 44,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-SHR-240269_WarnerPeak",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-SUF-230424_ThreeButtesFire",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UMF-000392_BenHarrison",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UMF-000479_SlickEar",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UMF-000658_LickCreek",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UMF-000745_ElbowCreek",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UMF-000830_TigerCreek_West",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UPF-000345_Chilcoot",
+   "intervals_le_48h": 21,
+   "usable": 21,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UPF-000357_Dinner",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UPF-000436_ArchieCreek",
+   "intervals_le_48h": 19,
+   "usable": 19,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UPF-000441_Thielsen",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-UPF-240402_DevilsKnob",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-VAD-000153_IndianCreek",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-VAD-240129_CowValley",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-VAD-240141_Durkee",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-VAD-240166_BadlandComplex_Coyote",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WIF-200430_HolidayFarm",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WIF-210362_Knoll",
+   "intervals_le_48h": 16,
+   "usable": 16,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WIF-220189_BigSwamp",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WIF-230329_Salmon",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WIF-240210_Pyramid",
+   "intervals_le_48h": 37,
+   "usable": 37,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WIF-240427_Bingham",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WSA-000026_S503",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WWF-000338_CliffMountain",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WWF-000400_DoubleCreek",
+   "intervals_le_48h": 28,
+   "usable": 28,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WWF-000413_JonesCreek",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "OR-WWF-000431_TownGulch",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-CCD-000315_Flatt",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-CCD-000429_VeyoWest",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-CPD-000347_DeerSprings",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-DIF-000133_LeftFork",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-DIF-000270_Mammoth",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-FIF-200493_Cowboy",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-FIF-240112_LittleTwist",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-FIF-240206_SilverKing",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-MLF-000115_BennionCreek",
+   "intervals_le_48h": 15,
+   "usable": 15,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-MLF-000131_PackCreek",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-NWS-000342_JacobCity",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-NWS-001080_Range",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-SCS-200223_Canal",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-SCS-220216_HalfwayHill",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-SWS-000431_TurkeyFarmRoad",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-UWF-000303_MorganCanyon",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-UWF-000615_UpperProvo",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "UT-VLD-000127_Bear",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-COA-0200084_Chuweah",
+   "intervals_le_48h": 14,
+   "usable": 14,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-COA-021087_SummitTrail",
+   "intervals_le_48h": 38,
+   "usable": 38,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-COA-200106_Whitmore",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-COA-200136_IncheliumComplex_North",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-COA-240089_Swawilla",
+   "intervals_le_48h": 11,
+   "usable": 11,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-COF-002348_BulldogMtn",
+   "intervals_le_48h": 12,
+   "usable": 12,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-GPF-000813_WilliamsMine",
+   "intervals_le_48h": 27,
+   "usable": 27,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-GPF-000864_BigHollow",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-GPF-001028_Kalama",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-GPF-001208_Siouxon",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-GPF-001297_CowlitzComplex",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-MSF-000334_SuiattleRiver",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NCP-000262_Sourdough",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-001779_WestHallett",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-001795_WestAnderson",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-001858_BoulderMountain",
+   "intervals_le_48h": 9,
+   "usable": 9,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-001974_Gray",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-002246_FordCorkscrew",
+   "intervals_le_48h": 10,
+   "usable": 10,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-01491_WilliamsLake",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-NES-240099_BridgeCreek",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OLP-000412_Hurricane",
+   "intervals_le_48h": 1,
+   "usable": 1,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OLS-000079_Road2620",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OWF-000374_AirplaneLake",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OWF-000407_Chikamin",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OWF-000454_WindyPass",
+   "intervals_le_48h": 5,
+   "usable": 5,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OWF-000456_Nason",
+   "intervals_le_48h": 8,
+   "usable": 8,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OWF-000563_BlueLake",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-OWF-000639_ColdCreek",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-PCS-0220_NakiaCreek",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000263_VantageHighway",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000277_CowCanyon",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000336_TunnelFive",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000360_RedApple",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000464_NewellRoad",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000477_Retreat",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-000565_EvansCanyon",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SES-020209_CougarCreek",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SPA-002124_Sherwood",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-SPD-001947_Palmer_Anglin",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WA-WFS-000594_PearlHill",
+   "intervals_le_48h": 4,
+   "usable": 4,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-BHF-000399_Elk",
+   "intervals_le_48h": 13,
+   "usable": 13,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-BTF-002201_Sandy",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-HPD-240536_LaBonte",
+   "intervals_le_48h": 3,
+   "usable": 3,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-MRF-000408_EastTroublesome",
+   "intervals_le_48h": 6,
+   "usable": 6,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-MRF-000514_BlackMountain",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-MRF-200752_Mullen",
+   "intervals_le_48h": 18,
+   "usable": 18,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-MRF-220267_Sugarloaf",
+   "intervals_le_48h": 7,
+   "usable": 7,
+   "record_ok": true,
+   "skipped": []
+  },
+  {
+   "event": "WY-YNP-002006_LoneStar",
+   "intervals_le_48h": 2,
+   "usable": 2,
+   "record_ok": true,
+   "skipped": []
+  }
+ ]
+}
