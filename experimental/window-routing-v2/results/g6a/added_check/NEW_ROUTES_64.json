@@ -1,0 +1,2434 @@
+[
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_012fca0fd59c414c9a2a",
+  "set": "wall_cap_47",
+  "v2_arrival": 2486,
+  "router_arrival": 2486,
+  "cert_arrival": 2486,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 37.0,
+  "v2_first_wall_s": 39.2,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 37.0,
+  "peak_kw_m2": 5.305433989481125e-05,
+  "peak_margin": 9.999946945660104,
+  "dose_min_margin": 99.97023774045435,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 491.49609375,
+   "pass": true,
+   "elapsed_s": 12.580561864000629
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2486
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_032b2da42a8640edbf90",
+  "set": "wall_cap_47",
+  "v2_arrival": 2395,
+  "router_arrival": 2395,
+  "cert_arrival": 2395,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 29.2,
+  "v2_first_wall_s": 30.6,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.6
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 29.2,
+  "peak_kw_m2": 0.0015956200554660808,
+  "peak_margin": 9.998404379944533,
+  "dose_min_margin": 99.45120637183453,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 420.7265625,
+   "pass": true,
+   "elapsed_s": 10.252334976999919
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2395
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_046a65c89cb0423a9d53",
+  "set": "wall_cap_47",
+  "v2_arrival": 1172,
+  "router_arrival": 1172,
+  "cert_arrival": 1172,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 35.9,
+  "v2_first_wall_s": 38.2,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.5
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 35.9,
+  "peak_kw_m2": 0.002369523691054779,
+  "peak_margin": 9.997630476308945,
+  "dose_min_margin": 99.63864251185481,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 467.35546875,
+   "pass": true,
+   "elapsed_s": 12.544955633999962
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1172
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_089a02efd8154fbea30c",
+  "set": "search_timeout_17",
+  "v2_arrival": 2431,
+  "router_arrival": 2431,
+  "cert_arrival": 2431,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.5,
+  "v2_first_wall_s": 32.5,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.4
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.5,
+  "peak_kw_m2": 0.005612878174177654,
+  "peak_margin": 9.994387121825822,
+  "dose_min_margin": 99.10664445144606,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 429.37890625,
+   "pass": true,
+   "elapsed_s": 11.663881706999746
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2431
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_099341106c5a468393f0",
+  "set": "wall_cap_47",
+  "v2_arrival": 1382,
+  "router_arrival": 1382,
+  "cert_arrival": 1382,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 28.6,
+  "v2_first_wall_s": 33.2,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.5
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.6
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 28.6,
+  "peak_kw_m2": 4.471416942531101e-05,
+  "peak_margin": 9.999955285830575,
+  "dose_min_margin": 99.97755071470591,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 434.7890625,
+   "pass": true,
+   "elapsed_s": 8.475425608000478
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1382
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_0b2e74fcb21349babd8f",
+  "set": "wall_cap_47",
+  "v2_arrival": 1467,
+  "router_arrival": 1467,
+  "cert_arrival": 1467,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.8,
+  "v2_first_wall_s": 38.1,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.8,
+  "peak_kw_m2": 0.005607744533013687,
+  "peak_margin": 9.994392255466986,
+  "dose_min_margin": 98.99479758035906,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 443.98046875,
+   "pass": true,
+   "elapsed_s": 14.358719879999626
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1467
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_0ca78de2a43d4fcbbd65",
+  "set": "wall_cap_47",
+  "v2_arrival": 1886,
+  "router_arrival": 1886,
+  "cert_arrival": 1886,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 39.6,
+  "v2_first_wall_s": 39.9,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.2
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 39.6,
+  "peak_kw_m2": 5.300606521032935e-05,
+  "peak_margin": 9.99994699393479,
+  "dose_min_margin": 99.97026349515515,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 491.48046875,
+   "pass": true,
+   "elapsed_s": 12.839255906999824
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1886
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_0dd40f3644164c2f9ae4",
+  "set": "wall_cap_47",
+  "v2_arrival": 2069,
+  "router_arrival": 2069,
+  "cert_arrival": 2069,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.1,
+  "v2_first_wall_s": 35.3,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.1,
+  "peak_kw_m2": 8.34976509174286e-06,
+  "peak_margin": 9.999991650234909,
+  "dose_min_margin": 99.99503245239745,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 437.078125,
+   "pass": true,
+   "elapsed_s": 9.374538496999776
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2069
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_186e48aceda4475e8403",
+  "set": "wall_cap_47",
+  "v2_arrival": 3289,
+  "router_arrival": 3289,
+  "cert_arrival": 3289,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 40.0,
+  "v2_first_wall_s": 38.7,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.5
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 40.0,
+  "peak_kw_m2": 0.00031641375179195766,
+  "peak_margin": 9.999683586248208,
+  "dose_min_margin": 99.84171068063759,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 495.17578125,
+   "pass": true,
+   "elapsed_s": 12.505112001999805
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3289
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_1918aa63121c4f60ab60",
+  "set": "wall_cap_47",
+  "v2_arrival": 3337,
+  "router_arrival": 3337,
+  "cert_arrival": 3337,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.6,
+  "v2_first_wall_s": 32.6,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.6
+   ],
+   [
+    "LATE_RESULT",
+    81.2
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.6,
+  "peak_kw_m2": 7.184473347936594e-06,
+  "peak_margin": 9.999992815526651,
+  "dose_min_margin": 99.99456387243369,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 446.73828125,
+   "pass": true,
+   "elapsed_s": 10.749296554000466
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3337
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_1ec63329e3ea454ea414",
+  "set": "wall_cap_47",
+  "v2_arrival": 1595,
+  "router_arrival": 1595,
+  "cert_arrival": 1595,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.9,
+  "v2_first_wall_s": 30.8,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.9,
+  "peak_kw_m2": 5.305433989481125e-05,
+  "peak_margin": 9.999946945660104,
+  "dose_min_margin": 99.97559238639813,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.20703125,
+   "pass": true,
+   "elapsed_s": 9.9310568840001
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1595
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_1f553c5f005144a99055",
+  "set": "wall_cap_47",
+  "v2_arrival": 1540,
+  "router_arrival": 1540,
+  "cert_arrival": 1540,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.4,
+  "v2_first_wall_s": 33.1,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.8
+   ],
+   [
+    "LATE_RESULT",
+    81.5
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.4,
+  "peak_kw_m2": 5.659811874944169e-06,
+  "peak_margin": 9.999994340188126,
+  "dose_min_margin": 99.99567439277888,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.66015625,
+   "pass": true,
+   "elapsed_s": 11.810843131999718
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1540
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_21e88192ec7a494ca662",
+  "set": "wall_cap_47",
+  "v2_arrival": 1537,
+  "router_arrival": 1537,
+  "cert_arrival": 1537,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.0,
+  "v2_first_wall_s": 31.6,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.9
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.0,
+  "peak_kw_m2": 7.16254722028661e-06,
+  "peak_margin": 9.99999283745278,
+  "dose_min_margin": 99.9945835550975,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 446.6953125,
+   "pass": true,
+   "elapsed_s": 9.548663487999875
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1537
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_2871ec6a0a9141929222",
+  "set": "search_timeout_17",
+  "v2_arrival": 2786,
+  "router_arrival": 2786,
+  "cert_arrival": 2786,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 29.2,
+  "v2_first_wall_s": 29.2,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.6
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 29.2,
+  "peak_kw_m2": 1.4290154409088878e-05,
+  "peak_margin": 9.99998570984559,
+  "dose_min_margin": 99.98727555974412,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.63671875,
+   "pass": true,
+   "elapsed_s": 8.956815953000842
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2786
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_2cb48282fd774eb3873a",
+  "set": "search_timeout_17",
+  "v2_arrival": 3340,
+  "router_arrival": 3340,
+  "cert_arrival": 3340,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 50.5,
+  "v2_first_wall_s": 50.5,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.7
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 50.5,
+  "peak_kw_m2": 1.125709732806962e-05,
+  "peak_margin": 9.999988742902673,
+  "dose_min_margin": 99.9834646436634,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 521.71484375,
+   "pass": true,
+   "elapsed_s": 16.944576425999912
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3340
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_2cffcebe0f434f959ff6",
+  "set": "search_timeout_17",
+  "v2_arrival": 2140,
+  "router_arrival": 2140,
+  "cert_arrival": 2140,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 49.1,
+  "v2_first_wall_s": 49.1,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.2
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.9
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 49.1,
+  "peak_kw_m2": 1.122137265143725e-05,
+  "peak_margin": 9.99998877862735,
+  "dose_min_margin": 99.98358681549503,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 521.453125,
+   "pass": true,
+   "elapsed_s": 16.498596772999917
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2140
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_3243dd4f0ee7485cbfb4",
+  "set": "wall_cap_47",
+  "v2_arrival": 1111,
+  "router_arrival": 1111,
+  "cert_arrival": 1111,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.3,
+  "v2_first_wall_s": 36.1,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.5
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.3,
+  "peak_kw_m2": 0.000463962547506257,
+  "peak_margin": 9.999536037452494,
+  "dose_min_margin": 99.6879586725744,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.90234375,
+   "pass": true,
+   "elapsed_s": 9.993820144999518
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1111
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_3618033c179b41bab3ce",
+  "set": "wall_cap_47",
+  "v2_arrival": 1683,
+  "router_arrival": 1683,
+  "cert_arrival": 1683,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.0,
+  "v2_first_wall_s": 36.3,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.3
+   ],
+   [
+    "LATE_RESULT",
+    81.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.0,
+  "peak_kw_m2": 5.977815469108741e-06,
+  "peak_margin": 9.99999402218453,
+  "dose_min_margin": 99.99504892408471,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 453.27734375,
+   "pass": true,
+   "elapsed_s": 10.402914754000449
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1683
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_4cf5cc702b294a69b6b8",
+  "set": "wall_cap_47",
+  "v2_arrival": 2311,
+  "router_arrival": 2311,
+  "cert_arrival": 2311,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.2,
+  "v2_first_wall_s": 33.8,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.5
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.6
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.2,
+  "peak_kw_m2": 0.00046450724399625367,
+  "peak_margin": 9.999535492756003,
+  "dose_min_margin": 99.68623955964756,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.625,
+   "pass": true,
+   "elapsed_s": 9.492718981000507
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2311
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_4f4868449ee64052b4b8",
+  "set": "wall_cap_47",
+  "v2_arrival": 2795,
+  "router_arrival": 2795,
+  "cert_arrival": 2795,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 30.2,
+  "v2_first_wall_s": 32.0,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.7
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 30.2,
+  "peak_kw_m2": 5.31085750064913e-05,
+  "peak_margin": 9.999946891424994,
+  "dose_min_margin": 99.97556302944832,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.47265625,
+   "pass": true,
+   "elapsed_s": 9.5847423719988
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2795
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_56734295b95e41f48273",
+  "set": "search_timeout_17",
+  "v2_arrival": 986,
+  "router_arrival": 986,
+  "cert_arrival": 986,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 31.2,
+  "v2_first_wall_s": 31.2,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.8
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 31.2,
+  "peak_kw_m2": 1.4235330012340741e-05,
+  "peak_margin": 9.999985764669988,
+  "dose_min_margin": 99.98733570741635,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.59765625,
+   "pass": true,
+   "elapsed_s": 8.732504314000835
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 986
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_59b283987f874f8197f0",
+  "set": "wall_cap_47",
+  "v2_arrival": 1772,
+  "router_arrival": 1772,
+  "cert_arrival": 1772,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 37.3,
+  "v2_first_wall_s": 43.3,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    81.0
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 37.3,
+  "peak_kw_m2": 0.002369737839577632,
+  "peak_margin": 9.997630262160422,
+  "dose_min_margin": 99.63845845041955,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 467.48046875,
+   "pass": true,
+   "elapsed_s": 12.736496886000168
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1772
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_5bc099f928a74f81a30b",
+  "set": "search_timeout_17",
+  "v2_arrival": 3086,
+  "router_arrival": 3086,
+  "cert_arrival": 3086,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 48.7,
+  "v2_first_wall_s": 48.7,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.8
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 48.7,
+  "peak_kw_m2": 5.3088105439420606e-05,
+  "peak_margin": 9.999946911894561,
+  "dose_min_margin": 99.97021781327368,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 491.265625,
+   "pass": true,
+   "elapsed_s": 12.30341249400044
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3086
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_5f4d5fff05bb4bb88815",
+  "set": "wall_cap_47",
+  "v2_arrival": 1387,
+  "router_arrival": 1387,
+  "cert_arrival": 1387,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 30.2,
+  "v2_first_wall_s": 33.0,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 30.2,
+  "peak_kw_m2": 0.000633291048847766,
+  "peak_margin": 9.999366708951152,
+  "dose_min_margin": 99.83986889274779,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 429.203125,
+   "pass": true,
+   "elapsed_s": 8.571531605000928
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1387
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_5f516cd926a14c9997cf",
+  "set": "wall_cap_47",
+  "v2_arrival": 2737,
+  "router_arrival": 2737,
+  "cert_arrival": 2737,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.2,
+  "v2_first_wall_s": 33.9,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.2
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.2,
+  "peak_kw_m2": 7.175652711645237e-06,
+  "peak_margin": 9.999992824347288,
+  "dose_min_margin": 99.99456430891196,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 446.53515625,
+   "pass": true,
+   "elapsed_s": 9.360002096000244
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2737
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_6002a53fb32044ba87e2",
+  "set": "wall_cap_47",
+  "v2_arrival": 1987,
+  "router_arrival": 1987,
+  "cert_arrival": 1987,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 29.3,
+  "v2_first_wall_s": 33.7,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.6
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 29.3,
+  "peak_kw_m2": 0.0006333046374080663,
+  "peak_margin": 9.999366695362593,
+  "dose_min_margin": 99.83977748833627,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 428.93359375,
+   "pass": true,
+   "elapsed_s": 9.120062163001421
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1987
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_62a4d2c9113348dfbe10",
+  "set": "wall_cap_47",
+  "v2_arrival": 3269,
+  "router_arrival": 3269,
+  "cert_arrival": 3269,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 31.5,
+  "v2_first_wall_s": 36.5,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.9
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 31.5,
+  "peak_kw_m2": 8.380663273757572e-06,
+  "peak_margin": 9.999991619336726,
+  "dose_min_margin": 99.99502546348779,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 437.125,
+   "pass": true,
+   "elapsed_s": 10.402390175000619
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3269
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_64753218d1084dfe8398",
+  "set": "search_timeout_17",
+  "v2_arrival": 2186,
+  "router_arrival": 2186,
+  "cert_arrival": 2186,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.7,
+  "v2_first_wall_s": 32.7,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.3
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.7,
+  "peak_kw_m2": 1.4279825407481273e-05,
+  "peak_margin": 9.999985720174593,
+  "dose_min_margin": 99.98728160046,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.578125,
+   "pass": true,
+   "elapsed_s": 8.99122311499923
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2186
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_690cd6f4fae4441ebfe4",
+  "set": "wall_cap_47",
+  "v2_arrival": 2372,
+  "router_arrival": 2372,
+  "cert_arrival": 2372,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 38.4,
+  "v2_first_wall_s": 37.2,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 38.4,
+  "peak_kw_m2": 0.002370282536067834,
+  "peak_margin": 9.997629717463932,
+  "dose_min_margin": 99.6382750083834,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 467.2734375,
+   "pass": true,
+   "elapsed_s": 12.669834323000032
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2372
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_69b338a2f0c6419baa81",
+  "set": "wall_cap_47",
+  "v2_arrival": 3386,
+  "router_arrival": 3386,
+  "cert_arrival": 3386,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 29.8,
+  "v2_first_wall_s": 30.7,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.3
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 29.8,
+  "peak_kw_m2": 1.4290154409088878e-05,
+  "peak_margin": 9.99998570984559,
+  "dose_min_margin": 99.98727535414635,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.59375,
+   "pass": true,
+   "elapsed_s": 9.943923838000046
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3386
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_6fed8f078dfa4a33b09b",
+  "set": "wall_cap_47",
+  "v2_arrival": 1083,
+  "router_arrival": 1083,
+  "cert_arrival": 1083,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.3,
+  "v2_first_wall_s": 36.4,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.3,
+  "peak_kw_m2": 5.951231573188796e-06,
+  "peak_margin": 9.999994048768427,
+  "dose_min_margin": 99.9950575025647,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 457.6328125,
+   "pass": true,
+   "elapsed_s": 9.75342929999897
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1083
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_73bbaee54259477eba15",
+  "set": "wall_cap_47",
+  "v2_arrival": 2740,
+  "router_arrival": 2740,
+  "cert_arrival": 2740,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 47.8,
+  "v2_first_wall_s": 46.9,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.8
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 47.8,
+  "peak_kw_m2": 1.1240915640158777e-05,
+  "peak_margin": 9.99998875908436,
+  "dose_min_margin": 99.98351458523246,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 521.6875,
+   "pass": true,
+   "elapsed_s": 13.995157465000375
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2740
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_76e41cfea75d49d2ae7a",
+  "set": "wall_cap_47",
+  "v2_arrival": 1861,
+  "router_arrival": 1861,
+  "cert_arrival": 1861,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.7,
+  "v2_first_wall_s": 30.3,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.5
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.7,
+  "peak_kw_m2": 0.006345370117683555,
+  "peak_margin": 9.993654629882316,
+  "dose_min_margin": 99.73185509093419,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 423.14453125,
+   "pass": true,
+   "elapsed_s": 9.801860837000277
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1861
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_7a18ea3f90bb41eba002",
+  "set": "wall_cap_47",
+  "v2_arrival": 2740,
+  "router_arrival": 2740,
+  "cert_arrival": 2740,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 49.5,
+  "v2_first_wall_s": 48.8,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.8
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 49.5,
+  "peak_kw_m2": 1.1240915640158777e-05,
+  "peak_margin": 9.99998875908436,
+  "dose_min_margin": 99.98351458523246,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 521.75390625,
+   "pass": true,
+   "elapsed_s": 17.533955237000555
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2740
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_7e7a0e0d10ad4be68dad",
+  "set": "wall_cap_47",
+  "v2_arrival": 940,
+  "router_arrival": 940,
+  "cert_arrival": 940,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.6,
+  "v2_first_wall_s": 33.6,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.3
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.6,
+  "peak_kw_m2": 5.646258796418992e-06,
+  "peak_margin": 9.999994353741204,
+  "dose_min_margin": 99.9956821089257,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.55078125,
+   "pass": true,
+   "elapsed_s": 9.855332855000597
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 940
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_825422f7fdf34dcb9c57",
+  "set": "search_timeout_17",
+  "v2_arrival": 3111,
+  "router_arrival": 3111,
+  "cert_arrival": 3111,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.9,
+  "v2_first_wall_s": 32.9,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.2
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    78.7
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.9,
+  "peak_kw_m2": 6.905218333934746e-06,
+  "peak_margin": 9.999993094781667,
+  "dose_min_margin": 99.99570180290608,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 434.08984375,
+   "pass": true,
+   "elapsed_s": 9.946249593000175
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3111
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_834490857ae347eebffe",
+  "set": "wall_cap_47",
+  "v2_arrival": 3342,
+  "router_arrival": 3342,
+  "cert_arrival": 3342,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.4,
+  "v2_first_wall_s": 34.9,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.4,
+  "peak_kw_m2": 8.594566344359332e-05,
+  "peak_margin": 9.999914054336557,
+  "dose_min_margin": 99.97308506777486,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 438.4140625,
+   "pass": true,
+   "elapsed_s": 8.887452062999728
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3342
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_84a3925d07104d00966c",
+  "set": "wall_cap_47",
+  "v2_arrival": 2137,
+  "router_arrival": 2137,
+  "cert_arrival": 2137,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 31.4,
+  "v2_first_wall_s": 34.9,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.2
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 31.4,
+  "peak_kw_m2": 7.175652711645237e-06,
+  "peak_margin": 9.999992824347288,
+  "dose_min_margin": 99.99457154187948,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 446.72265625,
+   "pass": true,
+   "elapsed_s": 8.766834505000588
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2137
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_8647512a8bdb4979a672",
+  "set": "wall_cap_47",
+  "v2_arrival": 853,
+  "router_arrival": 853,
+  "cert_arrival": 853,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.3,
+  "v2_first_wall_s": 33.0,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.3,
+  "peak_kw_m2": 7.837622117665099e-06,
+  "peak_margin": 9.999992162377882,
+  "dose_min_margin": 99.99414300038258,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.28515625,
+   "pass": true,
+   "elapsed_s": 9.758264334999694
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 853
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_88e3003b651d4c919963",
+  "set": "search_timeout_17",
+  "v2_arrival": 2142,
+  "router_arrival": 2142,
+  "cert_arrival": 2142,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.3,
+  "v2_first_wall_s": 32.3,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.5
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.3,
+  "peak_kw_m2": 8.567897459178414e-05,
+  "peak_margin": 9.999914321025408,
+  "dose_min_margin": 99.9730958952094,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 438.3828125,
+   "pass": true,
+   "elapsed_s": 8.15922639100063
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2142
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_8e4c1d7afb9743aab9cc",
+  "set": "search_timeout_17",
+  "v2_arrival": 2740,
+  "router_arrival": 2740,
+  "cert_arrival": 2740,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.5,
+  "v2_first_wall_s": 34.5,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.5
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.5,
+  "peak_kw_m2": 5.673427149283885e-06,
+  "peak_margin": 9.999994326572851,
+  "dose_min_margin": 99.99565733374061,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.546875,
+   "pass": true,
+   "elapsed_s": 9.438287828999819
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2740
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_913bb586ecf640c7bea2",
+  "set": "wall_cap_47",
+  "v2_arrival": 2053,
+  "router_arrival": 2053,
+  "cert_arrival": 2053,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 30.8,
+  "v2_first_wall_s": 33.0,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 30.8,
+  "peak_kw_m2": 8.035697609663406e-06,
+  "peak_margin": 9.99999196430239,
+  "dose_min_margin": 99.99406763702932,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.46484375,
+   "pass": true,
+   "elapsed_s": 9.35931161299959
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2053
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_929b47a739804f52bf59",
+  "set": "wall_cap_47",
+  "v2_arrival": 1453,
+  "router_arrival": 1453,
+  "cert_arrival": 1453,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.6,
+  "v2_first_wall_s": 32.5,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.4
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.6,
+  "peak_kw_m2": 7.849746924956471e-06,
+  "peak_margin": 9.999992150253075,
+  "dose_min_margin": 99.99413274475002,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.48046875,
+   "pass": true,
+   "elapsed_s": 10.276091648998772
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1453
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_96e5ba9f76d9468d92d8",
+  "set": "search_timeout_17",
+  "v2_arrival": 937,
+  "router_arrival": 937,
+  "cert_arrival": 937,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 40.3,
+  "v2_first_wall_s": 40.3,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.1
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 40.3,
+  "peak_kw_m2": 7.147283260366913e-06,
+  "peak_margin": 9.999992852716739,
+  "dose_min_margin": 99.99459218489147,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 446.5234375,
+   "pass": true,
+   "elapsed_s": 8.446996896998826
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 937
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_9e40d102871e4f64a099",
+  "set": "search_timeout_17",
+  "v2_arrival": 2511,
+  "router_arrival": 2511,
+  "cert_arrival": 2511,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.4,
+  "v2_first_wall_s": 33.4,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.6
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.4,
+  "peak_kw_m2": 6.905218333934746e-06,
+  "peak_margin": 9.999993094781667,
+  "dose_min_margin": 99.9957028665544,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 434.09765625,
+   "pass": true,
+   "elapsed_s": 8.283253021998462
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2511
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_a09f9dda37484f1da345",
+  "set": "wall_cap_47",
+  "v2_arrival": 2140,
+  "router_arrival": 2140,
+  "cert_arrival": 2140,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 48.0,
+  "v2_first_wall_s": 45.1,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.2
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 48.0,
+  "peak_kw_m2": 1.122137265143725e-05,
+  "peak_margin": 9.99998877862735,
+  "dose_min_margin": 99.98358681549503,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 521.65625,
+   "pass": true,
+   "elapsed_s": 14.311150946999987
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2140
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_a34125907885456598b9",
+  "set": "search_timeout_17",
+  "v2_arrival": 2883,
+  "router_arrival": 2883,
+  "cert_arrival": 2883,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.5,
+  "v2_first_wall_s": 32.5,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.5
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    78.2
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.5,
+  "peak_kw_m2": 6.007295731990512e-06,
+  "peak_margin": 9.999993992704267,
+  "dose_min_margin": 99.99502845319242,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 457.80859375,
+   "pass": true,
+   "elapsed_s": 10.966518401999565
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2883
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_a3f2a31500f34790afcb",
+  "set": "search_timeout_17",
+  "v2_arrival": 2140,
+  "router_arrival": 2140,
+  "cert_arrival": 2140,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 31.6,
+  "v2_first_wall_s": 31.6,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.1
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.9
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 31.6,
+  "peak_kw_m2": 5.673427149283885e-06,
+  "peak_margin": 9.999994326572851,
+  "dose_min_margin": 99.99566343836042,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 444.4765625,
+   "pass": true,
+   "elapsed_s": 8.929388360000303
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2140
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_aba601f50c6e4d1696ef",
+  "set": "wall_cap_47",
+  "v2_arrival": 2283,
+  "router_arrival": 2283,
+  "cert_arrival": 2283,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.3,
+  "v2_first_wall_s": 31.9,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.7
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.3,
+  "peak_kw_m2": 5.992031773487242e-06,
+  "peak_margin": 9.999994007968226,
+  "dose_min_margin": 99.99503565953283,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 457.62890625,
+   "pass": true,
+   "elapsed_s": 9.361301801000081
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2283
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_ada1418489fb49139b9b",
+  "set": "wall_cap_47",
+  "v2_arrival": 2742,
+  "router_arrival": 2742,
+  "cert_arrival": 2742,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 35.2,
+  "v2_first_wall_s": 29.0,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    78.7
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 35.2,
+  "peak_kw_m2": 8.593388316764106e-05,
+  "peak_margin": 9.999914066116832,
+  "dose_min_margin": 99.97308540000505,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 438.34375,
+   "pass": true,
+   "elapsed_s": 7.971369853001306
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2742
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_af5e011fc8c94aa5b8dc",
+  "set": "wall_cap_47",
+  "v2_arrival": 2195,
+  "router_arrival": 2195,
+  "cert_arrival": 2195,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 35.5,
+  "v2_first_wall_s": 29.9,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 35.5,
+  "peak_kw_m2": 5.3088105439420606e-05,
+  "peak_margin": 9.999946911894561,
+  "dose_min_margin": 99.9755727862586,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.453125,
+   "pass": true,
+   "elapsed_s": 8.150899123998897
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2195
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_b17fe17266544b15bd19",
+  "set": "wall_cap_47",
+  "v2_arrival": 995,
+  "router_arrival": 995,
+  "cert_arrival": 995,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.9,
+  "v2_first_wall_s": 29.5,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.5
+   ],
+   [
+    "LATE_RESULT",
+    81.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.9,
+  "peak_kw_m2": 5.300606521032935e-05,
+  "peak_margin": 9.99994699393479,
+  "dose_min_margin": 99.9756078293868,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.52734375,
+   "pass": true,
+   "elapsed_s": 9.055391354000676
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 995
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_b3a82328d7284620afc3",
+  "set": "search_timeout_17",
+  "v2_arrival": 2972,
+  "router_arrival": 2972,
+  "cert_arrival": 2972,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 40.6,
+  "v2_first_wall_s": 40.6,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    80.2
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.5
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 40.6,
+  "peak_kw_m2": 0.00237037715790574,
+  "peak_margin": 9.997629622842094,
+  "dose_min_margin": 99.63820068753766,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 467.640625,
+   "pass": true,
+   "elapsed_s": 11.466221922000841
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2972
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_bb8a9d1164bb4fac934f",
+  "set": "search_timeout_17",
+  "v2_arrival": 2689,
+  "router_arrival": 2689,
+  "cert_arrival": 2689,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 39.5,
+  "v2_first_wall_s": 39.5,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.5
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    80.0
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 39.5,
+  "peak_kw_m2": 0.0003163994196875921,
+  "peak_margin": 9.999683600580312,
+  "dose_min_margin": 99.84178044483832,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 495.50390625,
+   "pass": true,
+   "elapsed_s": 10.283323794001262
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2689
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_c37badd378294d15a156",
+  "set": "wall_cap_47",
+  "v2_arrival": 1982,
+  "router_arrival": 1982,
+  "cert_arrival": 1982,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.7,
+  "v2_first_wall_s": 30.8,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.7
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.7,
+  "peak_kw_m2": 4.472484557019783e-05,
+  "peak_margin": 9.999955275154429,
+  "dose_min_margin": 99.97750210687789,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 434.7578125,
+   "pass": true,
+   "elapsed_s": 8.026159823000853
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1982
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_c763177100384196b04a",
+  "set": "search_timeout_17",
+  "v2_arrival": 2089,
+  "router_arrival": 2089,
+  "cert_arrival": 2089,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 43.3,
+  "v2_first_wall_s": 43.3,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.2
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    78.5
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 43.3,
+  "peak_kw_m2": 0.0003163613533658954,
+  "peak_margin": 9.999683638646633,
+  "dose_min_margin": 99.84182208471054,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 495.30859375,
+   "pass": true,
+   "elapsed_s": 10.459996498999317
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2089
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_ca97d6c98cd54acb8f23",
+  "set": "wall_cap_47",
+  "v2_arrival": 1261,
+  "router_arrival": 1261,
+  "cert_arrival": 1261,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 32.8,
+  "v2_first_wall_s": 34.0,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    79.1
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 32.8,
+  "peak_kw_m2": 0.006297570283381493,
+  "peak_margin": 9.993702429716619,
+  "dose_min_margin": 99.73603717754409,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 423.25,
+   "pass": true,
+   "elapsed_s": 9.093033700000888
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1261
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_d7ae37c583a14508b6a6",
+  "set": "wall_cap_47",
+  "v2_arrival": 3395,
+  "router_arrival": 3395,
+  "cert_arrival": 3395,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 34.0,
+  "v2_first_wall_s": 32.4,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.3
+   ],
+   [
+    "LATE_RESULT",
+    81.2
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 34.0,
+  "peak_kw_m2": 5.312406430897242e-05,
+  "peak_margin": 9.999946875935692,
+  "dose_min_margin": 99.97556072259376,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 439.3828125,
+   "pass": true,
+   "elapsed_s": 8.016686891000063
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3395
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_f893fbcc630340698bfb",
+  "set": "wall_cap_47",
+  "v2_arrival": 1870,
+  "router_arrival": 1870,
+  "cert_arrival": 1870,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 35.5,
+  "v2_first_wall_s": 32.4,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 35.5,
+  "peak_kw_m2": 0.002370282536067834,
+  "peak_margin": 9.997629717463932,
+  "dose_min_margin": 99.67757417458874,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 429.3203125,
+   "pass": true,
+   "elapsed_s": 10.687661994001246
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1870
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_fd6be28f8a484ea495e8",
+  "set": "wall_cap_47",
+  "v2_arrival": 1711,
+  "router_arrival": 1711,
+  "cert_arrival": 1711,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 35.6,
+  "v2_first_wall_s": 34.4,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    78.8
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 35.6,
+  "peak_kw_m2": 0.000463962547506257,
+  "peak_margin": 9.999536037452494,
+  "dose_min_margin": 99.68714992616124,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 449.38671875,
+   "pass": true,
+   "elapsed_s": 11.389552185999491
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 1711
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_fef79da43e714f34a475",
+  "set": "wall_cap_47",
+  "v2_arrival": 2587,
+  "router_arrival": 2587,
+  "cert_arrival": 2587,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 33.6,
+  "v2_first_wall_s": 31.2,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 33.6,
+  "peak_kw_m2": 0.0006333046374080663,
+  "peak_margin": 9.999366695362593,
+  "dose_min_margin": 99.83976453923898,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 429.04296875,
+   "pass": true,
+   "elapsed_s": 10.024550002999604
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2587
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T190000Z.json",
+  "job_id": "rc_8360b748eee941e6b543",
+  "set": "wall_cap_47",
+  "v2_arrival": 2372,
+  "router_arrival": 2372,
+  "cert_arrival": 2372,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 43.8,
+  "v2_first_wall_s": 39.0,
+  "parent_stops": [
+   [
+    "LATE_RESULT",
+    81.3
+   ],
+   [
+    "SEARCH_TIMEOUT",
+    78.4
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 43.8,
+  "peak_kw_m2": 0.002370282536067834,
+  "peak_margin": 9.997629717463932,
+  "dose_min_margin": 99.6382750083834,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 467.28125,
+   "pass": true,
+   "elapsed_s": 11.27555379200021
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2372
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T230000Z.json",
+  "job_id": "rc_45cf4b8e23484fb5ad0b",
+  "set": "wall_cap_47",
+  "v2_arrival": 2089,
+  "router_arrival": 2089,
+  "cert_arrival": 2089,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 39.1,
+  "v2_first_wall_s": 34.8,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    78.4
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 39.1,
+  "peak_kw_m2": 3.9370572321205636e-05,
+  "peak_margin": 9.99996062942768,
+  "dose_min_margin": 99.97643213541383,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 495.1953125,
+   "pass": true,
+   "elapsed_s": 13.67813094200028
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 2089
+ },
+ {
+  "cache": "yeongdeok_2025/20250325T230000Z.json",
+  "job_id": "rc_b5077ec273914a9b81ed",
+  "set": "wall_cap_47",
+  "v2_arrival": 3289,
+  "router_arrival": 3289,
+  "cert_arrival": 3289,
+  "class": "equal",
+  "v2_raw_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "v2_wall_s": 39.4,
+  "v2_first_wall_s": 33.7,
+  "parent_stops": [
+   [
+    "SEARCH_TIMEOUT",
+    79.3
+   ],
+   [
+    "LATE_RESULT",
+    81.3
+   ]
+  ],
+  "on_time": true,
+  "receipt_wall_s": 39.4,
+  "peak_kw_m2": 3.9370572321205636e-05,
+  "peak_margin": 9.99996062942768,
+  "dose_min_margin": 99.97641727280431,
+  "g2a_whole_road": {
+   "status": "CERTIFIED_ADMISSIBLE",
+   "reason": "COMPLETE_CONTACT_AND_RADIATION",
+   "lifetime_rss_mb": 495.140625,
+   "pass": true,
+   "elapsed_s": 11.40971634699963
+  },
+  "g2a_pass": true,
+  "g2b": "PASS",
+  "g2b_note": "attains the relaxation optimum",
+  "g2b_relax_T": 3289
+ }
+]
