@@ -1,5 +1,7 @@
 # D0: AIR-EXTRACT registered-site row (staff and agency use only)
 
+> **The first D0 run (38be623d; e.g. 86 of 166 main-list rows excluded) is WITHDRAWN: its wind gate combined place and site values (ledger row 85). These counts replace it.**
+
 > Staff and agency use only. Not resident-facing.
 
 > **one fire, March 2025, that day's wind. A place not on this list has not been shown to have a road escape.**

@@ -98,6 +98,7 @@
   "list": "d1b17516f745f4e2b21b7099752812ba665b8b005997deeb6a43731b4a92532e",
   "wind": "97ffba67a6eab1762406e3992fce909af90bfcf6fc5ffd15db6d5cd7dd948932"
  },
+ "withdrawn": "The first D0 run (38be623d; e.g. 86 of 166 main-list rows excluded) is WITHDRAWN: its wind gate combined place and site values (ledger row 85). These counts replace it.",
  "tables": {
   "main_list": [
    {
