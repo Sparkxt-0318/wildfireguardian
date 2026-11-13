@@ -76,7 +76,8 @@ class Remap(unittest.TestCase):
 
     def test_module_version_suffix(self):
         for M in MODS:
-            self.assertTrue(M.MODULE_VERSION.endswith('+kit-v2-step1'), M.MODULE_VERSION)
+            # Step 1 introduced the suffix; later steps advance it (Step 2: v2_1 -> '+kit-v2-step2'), never drop it
+            self.assertRegex(M.MODULE_VERSION, r'\+kit-v2-step[12]$')
 
 
 SCRATCH = os.environ.get('WFG_FDYN_SCRATCH')
@@ -97,7 +98,15 @@ class Replay(unittest.TestCase):
                       hazard=json.loads(Path(job['hazard_path']).read_text()),
                       optimality_certificate=res.get('optimality_certificate'), refusal_certificate=res.get('refusal_certificate'))
             a = F.decision_from_worker_record(res, rc, job, **kw); b = V.decision_from_worker_record(res, rc, job, **kw)
-            self.assertEqual(a['authoritative_status'], b['authoritative_status'], d.name)
+            if b['authoritative_status'] in getattr(V, 'MEMORY_BUDGET_STATUSES', ()):
+                # Step 2 (STEP2_ACCEPTANCE (c)): a recorded frozen-kit success carries no resource_budget, so v2 reports
+                # it apart. That must be the ONLY status change: the kit's certified status equals the frozen status,
+                # the recorded check has no within_budget True, and the journey is kept beside it.
+                self.assertEqual(b['certified_status_within_kit'], a['authoritative_status'], d.name)
+                self.assertIsNot(((res.get('whole_road_check') or {}).get('resource_budget') or {}).get('within_budget'), True)
+                self.assertEqual(b['journey_outside_memory_budget'], a['journey'], d.name)
+            else:
+                self.assertEqual(a['authoritative_status'], b['authoritative_status'], d.name)
             out.append((d.name, a['unresolved_reason'], b['unresolved_reason']))
         return out
 

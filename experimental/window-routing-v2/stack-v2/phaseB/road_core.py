@@ -34,6 +34,7 @@ from fractions import Fraction
 # kit-v2 Step 1: optional progress hook (None = parent behaviour). Called at the existing every-64-expansions
 # bookkeeping point only; it may not change control flow.
 PROGRESS_HOOK = None
+_PAGE = __import__("os").sysconf("SC_PAGE_SIZE")   # kit-v2 Step 2: current-RSS gate
 
 
 def node_cell(graph, node):
@@ -790,7 +791,13 @@ def _solve_parent(graph, hazard, request, *, prepared=None, exposure=None, mode=
             if PROGRESS_HOOK is not None:
                 PROGRESS_HOOK("road_core.solve", {"expansions": metrics.get("expansions"), "labels": len(records),
                                                   "frontier": len(heap), "elapsed_s": time.perf_counter() - start_clock})
-            if rss > limits.get("rss_limit_mb", 3072):
+            # kit-v2 Step 2: the gate compares CURRENT resident memory (a freed transient no longer stops search);
+            # the lifetime peak above is still reported
+            with open("/proc/self/statm") as _statm:
+                rss_now = int(_statm.read().split()[1]) * _PAGE / 1048576
+            metrics["gate_rss_mb_current"] = rss_now
+            metrics["rss_gate_kind"] = "current_resident_statm"
+            if rss_now > limits.get("rss_limit_mb", 3072):
                 return finish("TIMEOUT", "RSS_LIMIT", solver_status="INCOMPLETE_CAP")
         _, _, idx = heapq.heappop(heap)
         node, incoming, t, admission, dose, parent, previous_leg = records[idx]

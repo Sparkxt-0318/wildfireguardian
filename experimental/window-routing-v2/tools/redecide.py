@@ -32,7 +32,11 @@ def main():
                                             refusal_certificate=res.get('refusal_certificate'))
         r2 = dict(r, recorded_status=r['authoritative_status'], recorded_reason=r['unresolved_reason'],
                   authoritative_status=dec['authoritative_status'], unresolved_reason=dec.get('unresolved_reason'),
-                  arrival_s=(dec.get('journey') or {}).get('arrival'), decision_module_version=dec.get('module_version'))
+                  arrival_s=(dec.get('journey') or {}).get('arrival'), decision_module_version=dec.get('module_version'),
+                  # Step 2 (Thomas 18:24): the status/arrival before the memory map, used by G1
+                  pre_memory_status=dec.get('certified_status_within_kit') or dec['authoritative_status'],
+                  pre_memory_arrival_s=((dec.get('journey') or dec.get('journey_outside_memory_budget') or {}).get('arrival')),
+                  memory_mapped=dec.get('certified_status_within_kit') is not None)
         status_diff += r2['authoritative_status'] != r2['recorded_status']
         out.append(r2)
     (run / 'ROWS_REDECIDED.jsonl').write_text(''.join(json.dumps(x, sort_keys=True, default=str) + '\n' for x in out))
