@@ -61,7 +61,7 @@ G6a is recorded as **FAIL AS WRITTEN on the 17 jobs**, in those words, at the to
 - **Counting.** G6b reports allowed differences as their **own count**, split into "optimum confirmed" and "checked
   route, optimality not verified", beside the unchanged count and the failures,
   never folded into "pass", with a per-stratum and per-input (region, start) breakdown. A concentration is stated: in
-  G6a, all 64 differences are Yeongdeok TIMEOUT-stratum, 62 of them from 0325T19.
+  G6a, all 64 differences are Yeongdeok (63 TIMEOUT-stratum and 1 ROUTE-stratum, per the rows), 62 of them from 0325T19.
 - **Reviews before G6b runs:** the assessor judges whether this definition can hide a real regression, and the
   verifier reads it.
 

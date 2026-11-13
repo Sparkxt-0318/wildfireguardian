@@ -25,17 +25,17 @@ Run on one host, 3 workers, 81 s, guard 3,072 MiB. G6 runs are never used for ti
 |---|---|
 | **V2 vs RECORD** | **705/705 allowed** by G6_RULE's table |
 | **Timeout contradictions by V2** | **0**: none of the 98 certified-no-route timeouts became a route, and none of the 199 feasible ones became a refusal (TIMEOUT_NO_ROUTE_CERTS_1h @ c0e34d4) |
-| V2 vs PARENT differences | **64, all in one direction: PARENT UNRESOLVED → V2 checked route (FULL_OPTIMUM_PROVEN)**. All are TIMEOUT-stratum Yeongdeok: 62 from 0325T19 and 2 from 0325T23 |
+| V2 vs PARENT differences | **64, all in one direction: PARENT UNRESOLVED → V2 checked route (FULL_OPTIMUM_PROVEN)**. All Yeongdeok: 63 TIMEOUT-stratum and 1 ROUTE-stratum (rc_8360b748…, recorded route 2372, where V2 equals the record). 62 from 0325T19 and 2 from 0325T23 |
 | PARENT stop on those 64 | **47** deadline termination (LATE_RESULT, wall cap): 16 in both PARENT runs, 31 in one run with SEARCH_TIMEOUT in the other. **17** SEARCH_TIMEOUT in both PARENT runs, at about 78–81 s |
 | Phase R (47 wall-cap jobs rerun once on V2) | **47/47 reproduce the same V2 checked route** |
 | FL2-type list (PARENT P1 ≠ P2, committed before V2 ran) | 34 jobs, all UNRESOLVED ↔ checked_route |
 | PARENT vs RECORD (pre-existing kit differences, listed) | 702 allowed; 3 ROUTE-stratum arrival differences |
-| Equal-arrival ties (different legs, same arrival) | 25, listed |
+| Equal-arrival ties (V2's legs differ from every PARENT run with the same arrival) | **3**, listed. An earlier comparator counted 25, because it compared with P1 only; corrected per verification ledger 141 N2 |
 | raw_status differences (judged against PARENT {P1, P2}) | 63, listed. PARENT's own P1-vs-P2 raw_status variation is 34 |
 | Kit identity / input and request hashes | 0 mismatches. Every V2 row carries kit identity 0fffb589 and the checker identity record |
 | Harness errors | 0 in 2,162 job runs (P1 705, P2 705, V 705, R 47) |
 
-## Added check on the 64 new routes (G6A_RULING.md (2); author's build; the verifier's build is pending)
+## Added check on the 64 new routes (G6A_RULING.md (2); author's build, reproduced on the verifier's build)
 | Check | Result |
 |---|---|
 | **Headline: V2 arrival = router-field optimum** (crossref @ 5389803e) | **64/64**. The optimum is confirmed from both sides on every route, so no witness test was triggered. 0 routes on jobs the router field calls infeasible |
@@ -46,6 +46,21 @@ Run on one host, 3 workers, 81 s, guard 3,072 MiB. G6 runs are never used for ti
 
 **Not verified by G6a:** tie-break behaviour among equal-arrival routes on these 64 jobs, because PARENT has no route to
 compare. It rests on the jobs where V2 equals PARENT exactly.
+
+## Verification (verification ledger 141, PASS WITH NOTES; recorded as FAIL AS WRITTEN on the 17)
+- **(2) on the verifier's own build.** V2 was rerun on the 64 jobs with `tools/g6_job.py` on the verifier's 0fffb589
+  kit:
+  - 64/64 checked route FULL_OPTIMUM_PROVEN;
+  - arrival equal to the author's V2 and to the router optimum, 64/64;
+  - route triples identical to the author's, 64/64;
+  - on time 64/64, wall 25.5–44.3 s;
+  - g2_recheck with the verifier's frozen kit 64/64;
+  - g2b PASS "attains" 64/64, with relax_T equal to the router optimum.
+  - This is also a second V2 run on these jobs, and it reproduced every route.
+- **The amended definition (1)** was read by the verifier, who agrees.
+- **Notes applied:**
+  - N1: the stratum breakdown is taken from the rows (63 + 1).
+  - N2: ties are compared against every PARENT run with the same outcome (3, not 25).
 
 ## Post-hoc reading under the G6b-only amendment; G6a remains FAIL AS WRITTEN
 Under G6A_RULING.md (1), the closed time-cap list, with (2):
@@ -58,7 +73,7 @@ V2 wall time for the 17, against PARENT's SEARCH_TIMEOUT stop at about 78–81 s
 32.7, 32.9, 33.4, 34.5, 39.5, 40.3, 40.6, 43.3, 48.7, 49.1, 50.5 s.
 
 ## Concentration
-- All 64 differences are Yeongdeok TIMEOUT-stratum: 62 from start 0325T19 and 2 from 0325T23.
+- All 64 differences are Yeongdeok: 63 TIMEOUT-stratum and 1 ROUTE-stratum; 62 from start 0325T19 and 2 from 0325T23.
 - These are the missions where Step 3's work budget lets Z finish. PARENT stops these jobs on time-based caps.
 
 ## Runs and restarts (RUNLOG.txt, per-phase RESTARTS.log)
@@ -70,7 +85,6 @@ V2 wall time for the 17, against PARENT's SEARCH_TIMEOUT stop at about 78–81 s
   task.
 
 ## Ideas and gaps
-- The verifier's independent run of (2) on their own build is pending (G6A_RULING order, step 5).
 - G6b must not start until the verifier has read (1) and verified (2).
 - The 34 PARENT FL2-type flips suggest 3-worker timing variance near the 81 s cap (hypothesis, untested). G6b could
   report whether V2's outcomes vary between two V2 runs on the same jobs.

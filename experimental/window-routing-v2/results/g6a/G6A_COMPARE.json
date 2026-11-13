@@ -1503,124 +1503,14 @@
  "rerun_needed": [],
  "equal_arrival_ties": [
   {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_3e4ac618c34b4be3aafe",
-   "arrival_s": 631
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_93d2012370734339b590",
-   "arrival_s": 1911
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_94babeef50f7458caf9b",
-   "arrival_s": 869
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_9e9a04977df04a22923d",
-   "arrival_s": 1831
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_af774c52de4b4367ac31",
-   "arrival_s": 3070
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_b5c40ca4951c4dca91e8",
-   "arrival_s": 2911
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_ba6307f7d80f4f1d8ca6",
-   "arrival_s": 3340
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_c72ddde67df3443689e7",
-   "arrival_s": 1469
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_d597b5514bd648e485a8",
-   "arrival_s": 3253
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_d8167b86e9d743b687cc",
-   "arrival_s": 3267
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_e4e3620a40034c04b25a",
-   "arrival_s": 2667
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_edf2caf1560b4dab9902",
-   "arrival_s": 782
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_fe3fbb27d62f4e478c86",
-   "arrival_s": 1231
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_348a530fe6c944a394f6",
-   "arrival_s": 2332
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T190000Z.json",
-   "job_id": "rc_b4865a4083c341ad938b",
-   "arrival_s": 1676
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T230000Z.json",
-   "job_id": "rc_68bc3dc692f8485c9196",
-   "arrival_s": 2140
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T230000Z.json",
-   "job_id": "rc_96b7536f8af84310baaa",
-   "arrival_s": 2486
-  },
-  {
    "cache": "yeongdeok_2025/20250325T230000Z.json",
    "job_id": "rc_bf8a31175a68461aad57",
    "arrival_s": 2689
   },
   {
-   "cache": "yeongdeok_2025/20250325T230000Z.json",
-   "job_id": "rc_db57db4db690491895fa",
-   "arrival_s": 3122
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T230000Z.json",
-   "job_id": "rc_dec1611818854619a6aa",
-   "arrival_s": 1886
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T230000Z.json",
-   "job_id": "rc_f0c0dd1703d74832bf24",
-   "arrival_s": 2522
-  },
-  {
-   "cache": "yeongdeok_2025/20250325T230000Z.json",
-   "job_id": "rc_f952c8898f5a44c9912d",
-   "arrival_s": 3086
-  },
-  {
    "cache": "yeongdeok_2025/20250326T080000Z.json",
    "job_id": "rc_1d28db0931914aa59375",
    "arrival_s": 3289
-  },
-  {
-   "cache": "yeongdeok_2025/20250326T080000Z.json",
-   "job_id": "rc_60ad72ec90a3410e8f04",
-   "arrival_s": 2089
   },
   {
    "cache": "yeongdeok_2025/20250326T080000Z.json",

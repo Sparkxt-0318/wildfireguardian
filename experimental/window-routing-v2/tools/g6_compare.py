@@ -77,7 +77,9 @@ def main():
             entry = {'cache': i[0], 'job_id': i[1], 'stratum': v.get('stratum'), 'V2': key(v), 'PARENT': sorted(pset, key=str),
                      'wall_cap_involved': bool(capped), 'after_rerun': i in R}
             (rerun if capped and i not in R else fails).append(entry)
-        elif key(v)[0] == 'checked_route' and (v['outcome'].get('route') != p1['outcome'].get('route')):
+        elif key(v)[0] == 'checked_route' and all(v['outcome'].get('route') != p['outcome'].get('route')
+                                                  for p in (p1, p2) if key(p) == key(v)):
+            # verification ledger 141 N2: a tie only if V2's route differs from EVERY PARENT run with the same outcome
             ties.append({'cache': i[0], 'job_id': i[1], 'arrival_s': key(v)[1]})
         # verification ledger 138 N1: judged against PARENT's own variation {P1, P2}, so it is not counted against V2
         praw = {p1['outcome'].get('raw_status'), p2['outcome'].get('raw_status')}
