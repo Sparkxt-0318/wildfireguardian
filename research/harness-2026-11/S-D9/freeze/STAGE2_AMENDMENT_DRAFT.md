@@ -29,7 +29,7 @@
 - **Unscored burned cells.** Cells burned at the endpoint but not initially are latent.
   - Unscored latent cells get no own-event or exposure term; they act as sources only.
   - **Residual, recorded.** Unscored cells that are not endpoint-burned keep τ = ∞. Report their part-a share.
-- **Grid step.** Elena's 0.25 h vs 0.05 h synthetic check (8b0fde65) finds differences ≤ 0.0024 in far share and ≤ 0.0010 in rate ratio. **UNVERIFIED** (Owen).
+- **Grid step.** Elena's 0.25 h vs 0.05 h synthetic check (8b0fde65) finds differences ≤ 0.0024 in far share and ≤ 0.0010 in rate ratio. Verified: PASS WITH NOTES (Owen, LEDGER-SMOKE-2 @9f0a5162, row 27).
 - **Timing.** About 2.6× d4 per pass, as an upper bound. Not a frozen quantity.
 - **§5.2.** The native-marginal demo on R must exist before the code sha is frozen. **PENDING.**
 
@@ -39,12 +39,12 @@
   - It is averaged over part-a training scored cells, with equal weight.
   - The same stencil is used for d4_wind, d2_nll and d2_bracket.
 - **Recovery tolerance.** Committed before the output was read, at 946f1e4e (`TOLERANCE_shape_recovery.md`).
-- **Result.** Elena's 780cbabe: MCEM and mean-field NLL recover the far share in both kernels, while plug-in inflates it (0.388 vs 0.072). **UNVERIFIED** (Owen).
+- **Result.** Elena's 780cbabe: MCEM and mean-field NLL recover the far share in both kernels, while plug-in inflates it (0.388 vs 0.072). Verified: PASS (Owen, LEDGER-SMOKE-2 @9f0a5162, row 26).
   - **Interpretive note:** the real part-a gap in NLL (about 0.64–0.68 vs MCEM about 0.07) is *not* explained by estimator bias under the synthetic model.
 
 ## 4. Crop property (A1 §3.1; item 22 declaration)
 - **Finding.** 12,384 of 122,640 new-burn cells (10.1%), in 97 of 3,773 intervals, fall outside `crop_box(initial, 10)`. They are dropped in all arms. This is a property of the recipe, not a change to it.
-  - Source: Elena b7cdc48f. **UNVERIFIED** (Owen).
+  - Source: Elena b7cdc48f. Verified: PASS (Owen, LEDGER-SMOKE-2 @9f0a5162, row 40).
 - **Note:** spread beyond about 3.75 km is scored as unreachable and never trained.
 
 ## 5. Half-step scope
@@ -82,10 +82,10 @@ Each row fixes the sentence the paper may write for one possible result.
 - The headline is `d2_bracket_rebuilt`. If it is not admitted, the headline is `d2_nll_rebuilt`. If neither is admitted, there is none (§6.1, revision 29).
 - Every part-b and part-c sentence carries the survey-timing limitation (§1; b's membership changes are among the 18): "labels, perimeters and growth sealed; survey-timing metadata exposed before the split; membership rules used it".
 - Any other admitted candidate is **secondary**, with its own verdict and **no multiplicity adjustment**. Any statement about it says so.
-- **Part-a evidence before part c opened (dated 2026-11-12; UNVERIFIED until Owen's ledger row exists).** Elena's part-a fire-level cross-validation (96f99bf6, 7cc21f47) used a **covariate-free analogue on 25 fires, not the neural refit** (`d2_bracket_rebuilt` itself was not cross-validated). Out of sample in the 4 km band (paired Brier, whole-fire intervals):
-  - MCEM (bracket kernel) − plug-in: **+0.0091 [+0.0056, +0.0123]**. The bracket kernel was worse; it was better on 5 of 25 fires.
-  - persistence − MCEM: **−0.0014 [−0.0078, +0.0054]**. The bracket kernel showed no skill over no growth.
-  - `logistic_cf` − plug-in: **−0.0003 [−0.0007, +0.0003]**. The best kernel was no better than a 3-feature covariate-free distance logistic (`logistic_cf`).
+- **Part-a evidence before part c opened (dated 2026-11-12; verified: PASS WITH NOTES, Owen, LEDGER-SMOKE-2 @9f0a5162, row 49).** Elena's part-a fire-level cross-validation, **pinned version of record 4278da2d** (earlier runs 96f99bf6 and 7cc21f47 are superseded), used a **covariate-free analogue on 25 fires, not the neural refit** (`d2_bracket_rebuilt` itself was not cross-validated). Out of sample in the 4 km band (paired Brier, whole-fire intervals):
+  - MCEM (bracket kernel) − plug-in: **+0.0091 [+0.0057, +0.0124]**. The bracket kernel was worse; it was better on 5 of 25 fires. Source: `S-D2/results/cv_part_a_pinned.json`, seed 20261030.
+  - persistence − MCEM: **−0.0014 [−0.0078, +0.0054]**. The bracket kernel showed no skill over no growth. Source: `S-D2/results/cv_baselines_pinned.json`, seed 20261112.
+  - `logistic_cf` − plug-in: **−0.0003 [−0.0008, +0.0003]**, `logistic_cf` better on 17 of 25 fires. The best kernel (plug-in) was no better than a 3-feature covariate-free distance logistic (`logistic_cf`). Source: `cv_baselines_pinned.json`. Plug-in is the best kernel: the converged composite is also worse than plug-in, +0.0068 [+0.0044, +0.0091].
 
   This was recorded before part c opened. **A negative part-c result for the headline is therefore the expected one, and a positive one would run against the training-set evidence.** Any part-c sentence about the headline cites this line once it is verified. The headline and fallback stay exactly as registered.
 
@@ -103,7 +103,7 @@ Each row fixes the sentence the paper may write for one possible result.
 | O11 | The **fallback or a secondary candidate beats the headline** (or passes criteria the headline fails) | "[Candidate] scored better than the pre-registered headline on [criteria]. It is reported as secondary, without multiplicity adjustment; the pre-registered decision rests on the headline." | Promoting the fallback or a secondary to headline, or any superiority claim for it. |
 | O9 | **Material leak bound** (§1; `LEAK_BOUND_PLAN.md`) | Whatever row applies, plus: "A part-a measurement found that survey-timing information could improve the reference model detectably. Criteria that depend on constants not shown independent of sealed survey timing are reported as descriptive." | Omitting the leak-bound result. |
 
-**Preprint wording (Wapiti).** Marcus's reconciliation note (1c3c4270) finds that the sign change is entirely due to the interval set: on the preprint's 25-interval cohort the BSS is +8.17%; on all 52 eligible intervals it is −44.5%; and the 24 common intervals have bit-identical predictions. It is **UNVERIFIED** until Owen passes it. Once he does, any text about the preprint's Wapiti figure says it is **"specific to its 25-interval August cohort"**, and no row of this table cites the preprint figure as evidence for any candidate.
+**Preprint wording (Wapiti).** Marcus's reconciliation note (1c3c4270) finds that the sign change is entirely due to the interval set: on the preprint's 25-interval cohort the BSS is +8.17%; on all 52 eligible intervals it is −44.5%; and the 24 common intervals have bit-identical predictions. Verified: PASS WITH NOTES (Owen, LEDGER-SMOKE-2 @9f0a5162, row 42). Any text about the preprint's Wapiti figure says it is **"specific to its 25-interval August cohort"**, and no row of this table cites the preprint figure as evidence for any candidate.
 
 For **secondary candidates and comparator rows** (d4_wind vs logistic on part c, `c651_fullvalid_rebuilt` and others), the same sentences apply with "secondary, no multiplicity adjustment" added. A secondary success never becomes the headline.
 
@@ -115,7 +115,7 @@ For **secondary candidates and comparator rows** (d4_wind vs logistic on part c,
 - A proposal that needs an A1 change after the freeze is recorded as "not adopted: A1 closed" and is redirected to one of these two places.
 
 ## 11. Part b: held for a later named candidate; conditions for naming one (revised 2026-11-12)
-- **No reservation at this freeze.** An earlier draft reserved part b for one combined candidate (bracket likelihood plus the rate-mixture form). That reservation is **withdrawn**: part-a cross-validation on the covariate-free analogue pointed against the bracket arm out of sample (§9, dated line; UNVERIFIED until Owen).
+- **No reservation at this freeze.** An earlier draft reserved part b for one combined candidate (bracket likelihood plus the rate-mixture form). That reservation is **withdrawn**: part-a cross-validation on the covariate-free analogue pointed against the bracket arm out of sample (§9, dated line; Owen row 49).
 - **A1's wording stands unchanged.** A1 §1.2 item 4 reads: "a confirmatory test set held for a later named candidate… opened only when a named candidate is declared by SHA in an amendment committed before the opening". §9 step 5 and §6.1 say the same. This section adds conditions for naming a candidate and removes nothing.
 - **Conditions for naming a candidate.** All of the following must hold, and each is recorded in the naming amendment (the one exception of §10):
   1. **Beats `logistic_cf` out of sample on part a.** In fire-level cross-validation on part a (whole-fire folds, 4 km band, paired Brier), the candidate beats the covariate-free distance logistic `logistic_cf` (and so the plug-in kernel and `logistic_rebuilt` as well) by at least a margin.
