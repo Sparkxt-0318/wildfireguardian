@@ -7,12 +7,16 @@ Step 2 amendment F (STEP2_ACCEPTANCE F2, R7):
   the job exactly as run_profile builds it.
 - The harness samples the job's whole process family (every descendant of this interpreter) every 10 ms: family PSS and
   RSS sums from /proc/<pid>/smaps_rollup, identically for every arm, plus its own CPU time (thread_time).
+- Sampling-error rules (Mira 122 N2, the same rules as the controller's R3): a pid that vanished between the listing and
+  the read is skipped and counted (vanished_pids); a sample in which a LIVE pid could not be read is NOT MEASURED: it is
+  counted (unmeasured_samples) and excluded from every peak, never summed partially. Both counts are in harness_mem.
 """
 import json, os, sys, threading, time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / 'research/harness-2026-11/F-3.4'))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import run_profile as RP  # noqa: E402
 
 kit, inputs, region, case, out, budget = sys.argv[1:7]
@@ -27,51 +31,7 @@ if arm == 'V2_NOISO':
     RP.build_job = build_job
 
 
-def descendants(root):
-    kids = {}
-    for d in os.listdir('/proc'):
-        if d.isdigit():
-            try:
-                with open('/proc/%s/stat' % d) as f:
-                    ppid = int(f.read().rsplit(')', 1)[1].split()[1])
-                kids.setdefault(ppid, []).append(int(d))
-            except (OSError, IndexError, ValueError):
-                pass
-    out, todo = [], list(kids.get(root, []))
-    while todo:
-        x = todo.pop(); out.append(x); todo.extend(kids.get(x, []))
-    return out
-
-
-def rollup(pid):
-    r = {}
-    try:
-        with open('/proc/%d/smaps_rollup' % pid) as f:
-            for line in f:
-                if line.startswith(('Rss:', 'Pss:')):
-                    r[line[:3]] = int(line.split()[1]) * 1024
-    except OSError:
-        pass
-    return r
-
-
-MEM = {'pss_peak': 0, 'rss_peak': 0, 'pss_at_rss_peak': 0, 'n_at_pss_peak': 0, 'samples': 0, 'sampler_cpu_s': 0.0}
-STOP = [False]
-
-
-def sample():
-    me = os.getpid(); t_cpu = time.thread_time()
-    while not STOP[0]:
-        fam = descendants(me)          # the harness interpreter itself is excluded: it is the same for every arm
-        vals = [rollup(p) for p in fam]
-        pss = sum(v.get('Pss', 0) for v in vals); rss = sum(v.get('Rss', 0) for v in vals)
-        MEM['samples'] += 1
-        if pss > MEM['pss_peak']:
-            MEM['pss_peak'] = pss; MEM['n_at_pss_peak'] = sum(1 for v in vals if v)
-        if rss > MEM['rss_peak']:
-            MEM['rss_peak'] = rss; MEM['pss_at_rss_peak'] = pss
-        MEM['sampler_cpu_s'] = time.thread_time() - t_cpu
-        time.sleep(0.01)
+from harness_mem import MEM, STOP, sample  # noqa: E402  (Mira 122 N2: tested sampler)
 
 
 th = threading.Thread(target=sample, daemon=True); th.start()
@@ -82,5 +42,7 @@ row['module_files'] = {m: getattr(sys.modules.get(m), '__file__', None) for m in
 row['arm'] = arm
 row['harness_mem'] = {'family_pss_peak_mib': MEM['pss_peak'] / 2 ** 20, 'family_rss_peak_mib': MEM['rss_peak'] / 2 ** 20,
                       'pss_at_rss_peak_mib': MEM['pss_at_rss_peak'] / 2 ** 20, 'processes_at_pss_peak': MEM['n_at_pss_peak'],
-                      'samples': MEM['samples'], 'sampler_cpu_s': MEM['sampler_cpu_s'], 'interval_s': 0.01}
+                      'samples': MEM['samples'], 'measured_samples': MEM['measured_samples'],
+                      'unmeasured_samples': MEM['unmeasured_samples'], 'vanished_pids': MEM['vanished_pids'],
+                      'sampler_cpu_s': MEM['sampler_cpu_s'], 'interval_s': 0.01}
 print(json.dumps(row, sort_keys=True, default=str))

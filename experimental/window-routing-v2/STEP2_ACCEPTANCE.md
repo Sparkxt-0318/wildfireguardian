@@ -392,3 +392,29 @@ These replace the corresponding text above where they differ.
      - (b) a V2 rep in which no check ran.
      - Note: the cgroup peak charges file pages the child faults in (npz reads), and PSS counts those file pages too, so
        both sides measure comparable things and the slack does not need to cover file pages.
+- **Changes from Mira's code review (ledger 122, PASS WITH NOTES at f46161e), adopted before any panel output was
+  read:**
+  - **N1, R6 for FL2.** The R6 text above is replaced for FL2 only: **FL2 is judged under the G1 rule (both arms' sets
+    within {UNRESOLVED, FEASIBLE@1922, OPTIMUM@1922}); exact set equality is reported (`R6_exact_sets_equal`) and is not
+    the verdict.** Every other mission keeps exact set equality.
+    - Reason: G1 already treats FL2 by this set, because its outcome depends on where the budget falls in its search.
+      V2 and V2_NOISO differ in wall time by the fork, so exact equality on FL2 would test timing, not whether isolation
+      changes a verdict.
+    - This is a laxer rule than the text it replaces. It is fixed now, before results, and the exact comparison is
+      always printed beside it.
+  - **N2, harness sampler.** The harness sampler (`tools/run_one_job.py`) follows the R3 rules:
+    - a pid that vanished between listing and reading is skipped and counted (`vanished_pids`);
+    - a sample in which a **live** pid could not be read is **not measured**: it is counted (`unmeasured_samples`) and
+      excluded from every peak, never summed partially;
+    - `harness_mem` reports `measured_samples`, `unmeasured_samples` and `vanished_pids`.
+    - A rep with any unmeasured sample, or without these counts, has no harness PSS peak. **M1 is then not evaluable
+      for that mission (reported, never a pass).** M2 and M3(d) use only measured reps.
+    - **The first 3-arm panel (started 00:17 UTC with the old sampler, stopped 00:27 UTC before completion) was
+      not read.** Its directory is kept, renamed `v2_step2f_g1_ABANDONED_unread_N2`, and is never used for any
+      verdict. The panel reruns in full with the fixed sampler.
+  - **N3.** A controller-level test (`test_step2f_guard.ControllerGuard`) runs `run_attempt` with a 1,536 MiB guard:
+    - the shared family must not trip;
+    - the own-allocation family must trip;
+    - in both, the receipt's `guard_measure`, `pss_samples`, `pss_fallback_samples` and `pss_vanished_pids` are
+      checked.
+  - **N4.** `step2f_compare.py` refuses to run without `ROWS_REDECIDED.jsonl` and the pre-memory fields on every row.
