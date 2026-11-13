@@ -163,3 +163,16 @@ implicit. **Nothing has been fitted.**
    - Outputs: `derive/LEAK_BOUND.json` and `.md`, with per-fire aggregates only; no cell-level data is committed.
 
 **Independent verifier's reading of revision 3:** _pending; recorded here before any fit_.
+
+## Revision 4 (2026-11-13, clarification before any fit): interval cap
+The independent verifier asked which per-fire interval cap the `logistic_rebuilt` recipe uses: `pipeline.py`'s
+`--max-fit-intervals-per-fire` defaults to 3 ("first three eligible consecutive intervals").
+- **Evidence.** The archived logistic baseline (`research/forecast-v2/executions/a03_baselines.json`, job
+  a03_baselines) ran `pipeline.py baselines` with `--max-fit-intervals-per-fire 3` and then, later in the same argv,
+  `--max-fit-intervals-per-fire 0`. argparse keeps the last value, so the frozen logistic trained on **all** eligible
+  intervals per fire (cap 0).
+- **Fixed now.** Arms L and L2 use every eligible interval ≤ 48 h per fire (cap 0). This equals the archived logistic
+  invocation and the A1 §3.1 `final` commands (`--max-fit-intervals-per-fire 0`).
+- The refit runbook's `logistic_rebuilt` command is amended to pass `--max-fit-intervals-per-fire 0` explicitly, so
+  the A1 object and this fold base use the same cap.
+- Not a change to revisions 1–3. It states the cap they left implicit.
