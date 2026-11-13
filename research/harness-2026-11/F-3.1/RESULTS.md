@@ -1056,3 +1056,52 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
   2. The declaration is bound by count, not cell by cell. The declared `support_mask_sha256` is not compared with
      the npz.
   3. The npz view supports item access only. It would fail loudly if the reader changed.
+
+## HEADLINE `/2` witnesses touching the export-grid border (rule `BORDER_TOUCH_RULE.md` at 472b83cf + amendment 1 at 7fdfaa85, committed first; NOT YET VERIFIED)
+
+**Labels.**
+- SCENARIO, not what happened. Graphs are road-limited.
+- **UPPER BOUND.** The count is of stored witnesses, and a place may have another route that does not touch the
+  border.
+- CERT = router OR closed footprint; ROUTER = router rule only.
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+- No HEADLINE number changes.
+
+**Run.**
+- All 48 HEADLINE `/2` packets were rebuilt from the v3.7 manifest (Leo 819bcb91).
+- Per place, the CERT and ROUTER leave-by were re-derived, and a witness was taken at it for every destination whose
+  feasible set contains it.
+- File: `results/BORDER_TOUCH_NR2.json`.
+- **Runner history:** `deadline_field/border_touch.py`, made two-pass at 969a2ca2 to cap memory. The Yeongdeok
+  single-pass runs were OOM-killed at about 14 GB.
+  - The two-pass runner gives identical counts and all 58 per-route records on a packet the first version had
+    completed (UA 25T17Z h5 kriged_mean).
+  - The UA packets come from the first version and the YD packets from the second.
+  - The last 6 YD packets started after `real.py` gained the support-aware path (53ccd5ae). That path is inactive on
+    unmasked packets: T1 shows byte-identical results.
+
+**Checks.**
+- **Leave-by:** 0 mismatches against `results/HEADLINE_NR2_summary.json`, every place, field and variant.
+- **Test equivalence:** the footprint test (padding cells on the export lattice + 14 cells) and the boundary test
+  disagree on 0 witnesses.
+- **Full checker:** every witness passes, 1,680 CERT and 1,680 ROUTER for the timing variants and 162 + 162 for the
+  static row.
+
+**Result.**
+
+| | timing variants (CERT = ROUTER) | static envelope_burnset row |
+|---|---|---|
+| places with a witness | 1,612 | 162 |
+| witnesses | 1,680 | 162 |
+| witnesses touching the border (footprint test; the count) | **0** | **0** |
+| places touching, "any" (the upper bound) / "all" | **0 / 0** | 0 / 0 |
+| witnesses in the outermost export ring (**proxy, not the count**) | 54 | 12 |
+
+- **Reading:** no HEADLINE route witness touches a padding cell. So no HEADLINE result (place with a route) is shown
+  to depend on "nothing burning just outside the fire-data grid".
+- **The ring proxy** comes from 3 Yeongdeok places (osm:node/415158213 축산리, 415160130, 415160318), at every YD
+  start and horizon and in every timing variant.
+  - A road in the outer ring that does not reach the grid boundary has no padding cell in its closed footprint, so the
+    padding-closed arm does not block it.
+- **Places without a witness** (no route, or not evaluated) are not counted here: 1,520 rows (timing variants) and 882
+  (static).
