@@ -79,8 +79,10 @@ def main():
             (rerun if capped and i not in R else fails).append(entry)
         elif key(v)[0] == 'checked_route' and (v['outcome'].get('route') != p1['outcome'].get('route')):
             ties.append({'cache': i[0], 'job_id': i[1], 'arrival_s': key(v)[1]})
-        if v['outcome'].get('raw_status') != p1['outcome'].get('raw_status') and key(v) in pset:
-            rawdiff.append({'cache': i[0], 'job_id': i[1], 'V2': v['outcome'].get('raw_status'), 'PARENT': p1['outcome'].get('raw_status')})
+        # verification ledger 138 N1: judged against PARENT's own variation {P1, P2}, so it is not counted against V2
+        praw = {p1['outcome'].get('raw_status'), p2['outcome'].get('raw_status')}
+        if v['outcome'].get('raw_status') not in praw and key(v) in pset:
+            rawdiff.append({'cache': i[0], 'job_id': i[1], 'V2': v['outcome'].get('raw_status'), 'PARENT': sorted(praw, key=str)})
         cert = certs.get(i) if v.get('stratum') == 'TIMEOUT' else None
         rv, rp = vs_record(v, cert), vs_record(p1, cert)
         rec_v2[rv or 'OK'] += 1; rec_parent[rp or 'OK'] += 1
@@ -96,6 +98,7 @@ def main():
                v2_timeout_contradictions=contra, kit_identity_mismatch=idbad, input_or_request_mismatch=inbad,
                harness_errors=errors, parent_vs_record=dict(rec_parent), v2_vs_record=dict(rec_v2),
                parent_vs_record_list=rec_parent_list)
+    out['parent_raw_status_variation_P1_vs_P2'] = sum(1 for i in ids if P1[i]['outcome'].get('raw_status') != P2[i]['outcome'].get('raw_status') and key(P1[i]) == key(P2[i]))
     out['verdict_counts'] = {'V2': dict(Counter(key(R.get(i, V[i]))[0] for i in ids)), 'PARENT_P1': dict(Counter(key(P1[i])[0] for i in ids))}
     out['PASS'] = (not fails and not rerun and not contra and not idbad and not inbad and not errors)
     if a.rerun_list and rerun:

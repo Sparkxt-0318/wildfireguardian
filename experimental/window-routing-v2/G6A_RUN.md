@@ -14,7 +14,10 @@ governs. Nothing here loosens G6_RULE.md.
     changes the manifest, this line is amended before the run.
   - Its KIT_IDENTITY is checked on every V2 row, and every V2 row also carries `checker_identity` (the three checker
     module hashes).
-- **PARENT:** the frozen request-window kit (`window-kit`, unchanged).
+- **PARENT:** the frozen request-window kit (`window-kit`, unchanged), manifest `b6770404…`. That is the same parent
+  the V2 kit records in its KIT_IDENTITY (`parent_manifest_sha256`).
+  - PARENT rows have no `kit_identity`, because the frozen kit predates the record. They name the kit by path, and
+    this line names its manifest (verification ledger 138 N2).
 
 ## Sample
 `G6A_SAMPLE.json` as committed (seed 20261112): 705 jobs = 297 TIMEOUT + 186 AT_ISSUE + 150 ROUTE + 72 NOROUTE. It is
@@ -73,6 +76,8 @@ A job whose request the builder rejects is listed as INPUT_REJECTED for both kit
     as "equal-arrival ties", not failures (G6_RULE: "unless another route has the same arrival").
   - A raw_status difference with the same verdict and arrival (for example FEASIBLE vs OPTIMUM) is listed, not a
     failure.
+    - It is judged against PARENT's own {P1, P2} raw statuses (ledger 138 N1), so PARENT's variation is not counted
+      against V2. PARENT's own P1-vs-P2 raw_status variation is reported beside it.
   - For FL2-type jobs (P1 ≠ P2), V2 is compared with the set {P1, P2}.
 - **Against the RECORD,** for both kits and per G6_RULE's table:
   - checked_route needs identical arrival_s;
