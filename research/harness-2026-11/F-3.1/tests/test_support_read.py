@@ -149,3 +149,74 @@ def test_t3e_c651_declared_mask_still_refused():
     inp = _inputs()
     with pytest.raises(PacketError, match="npz contract violated"):
         PacketModel(inp["window_graph"], inp["C"]["dir"])
+
+
+# ------------------------------------------------------------------------------------------------ T5 binding (amendment 2)
+def _tamper(src: Path, dst: Path, how: str):
+    shutil.copytree(src, dst)
+    if how in ("sha", "cells"):
+        for f, path in (("BUILD_SUMMARY.json", ("support_writer",)), ("HAZARD.json", ("provenance", "identity", "support_writer"))):
+            doc = json.loads((dst / f).read_text())
+            sw = doc
+            for k in path:
+                sw = sw[k]
+            if how == "sha":
+                sw["support_mask_sha256"] = "0" * 64
+            else:
+                sw["cells"] = int(sw["cells"]) + 1
+            (dst / f).write_text(json.dumps(doc))
+    elif how == "member":
+        with np.load(dst / "constructed_arrays.npz", allow_pickle=False) as z:
+            arrs = {k: np.array(z[k]) for k in z.files}
+        sup = arrs["support"].astype(bool)
+        # move one false cell in member 1 (count per member unchanged, cells differ)
+        f = np.flatnonzero(~sup[1].ravel())[0]
+        t = np.flatnonzero(sup[1].ravel())[0]
+        m1 = sup[1].ravel().copy()
+        m1[f], m1[t] = True, False
+        sup[1] = m1.reshape(sup[1].shape)
+        arrs["support"] = sup.astype(arrs["support"].dtype)
+        np.savez_compressed(dst / "constructed_arrays.npz", **arrs)
+
+
+@pytest.mark.parametrize("how", ["sha", "member", "cells"])
+def test_t5_declaration_bound_to_mask(tmp_path, how):
+    inp = _inputs()
+    p = tmp_path / ("tampered_" + how)
+    _tamper(Path(inp["D"]["dir"]), p, how)
+    g = json.loads(Path(inp["window_graph"]).read_text())
+    from tools.explain_deadlines.geometry import Grid
+    with pytest.raises(ValueError):
+        load_packet(p, Grid.from_graph(g["grid"]))
+
+
+# ------------------------------------------------------------------------------------------------ T6 concurrency (amendment 2)
+def test_t6_concurrent_loads_are_correct():
+    import threading
+    from tools.explain_deadlines import packet as _pkmod
+    inp = _inputs()
+    g = json.loads(Path(inp["window_graph"]).read_text())
+    from tools.explain_deadlines.geometry import Grid
+    grid = Grid.from_graph(g["grid"])
+
+    def key(pk):
+        return (json.dumps([{str(c): [str(x) for x in v] for c, v in sorted(ph.items())} for ph in pk.phases]),
+                bool(getattr(pk, "support_masked", False)), tuple(getattr(pk, "support_false_cells", [])))
+    want = {x: key(load_packet(Path(inp[x]["dir"]), grid)[0]) for x in ("A", "D")}
+    assert want["A"][0] == want["D"][0] and want["D"][1] and not want["A"][1]
+    for _round in range(3):
+        got, errs = [], []
+
+        def work(x):
+            try:
+                got.append((x, key(load_packet(Path(inp[x]["dir"]), grid)[0])))
+            except Exception as e:  # noqa: BLE001
+                errs.append(repr(e))
+        ts = [threading.Thread(target=work, args=("A" if i % 2 else "D",)) for i in range(8)]
+        for t in ts:
+            t.start()
+        for t in ts:
+            t.join()
+        assert not errs, errs
+        assert len(got) == 8 and all(k == want[x] for x, k in got)
+        assert _pkmod.np is np
