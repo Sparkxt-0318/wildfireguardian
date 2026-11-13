@@ -33,10 +33,15 @@
 
 ## 1. The "no road escape" set (Richard)
 
-**Inputs.**
-- Packets: `no_reentry/2` (MANIFEST_v3_7), once Nora passes it.
-- Router: Richard's full checker.
-- Departures: the 30-min grid, per region, start and horizon.
+**Inputs** (the routing author's text, 13 Nov ~09:20; figures verified in verification ledger rows 72, 73 and 77).
+- **Field:** the HEADLINE deadline field on `no_reentry/2` (MANIFEST_v3_7, sha256 7c178267…; 819bcb91), as verified
+  in ledger row 72. The runner is `deadline_field/headline.py` at 54bcb96e (claude/f31-deadline-field). Environment:
+  numpy 1.26.4, Python 3.13.18.
+- **Checking:** every reported latest departure has a witness that passes the full checker (4,842 / 4,842 on the
+  headline).
+- **CERT and ROUTER:** "No checked route" is read from CERT (router OR closed footprint). Refusal claims come only from
+  ROUTER. On the headline, CERT and ROUTER agree on every place.
+- **Departures:** the field is exact to the second over [0, H]. The list reports it on the 30-min grid only (§2).
 
 **Definition.** A place is in **NO_CHECKED_ROUTE** at a departure time when **all three timing variants** give no
 checked route: kriged_mean, firms_early and envelope.
@@ -61,9 +66,24 @@ These places come first and are kept separate from the set.
   - Every one is a CERT origin-in-flame at t = 0. 8 h is identical to 5 h.
   - B0 there equals the plan meta on all 48 packets.
   - **248 rows "depend on the no-re-entry rule"** (fire-limited 88, possibly road-limited 160).
+  - **Per start** (kriged_mean, 5 h; 8 h identical): not evaluated / depends on the no-re-entry rule / other no route,
+    out of 84 UA or 90 YD places:
 
-**Cause label**, exactly one per place, in this precedence. Agency wording is Iris's, and every label says
-"modelled" because these are statements about a fire reconstruction, not observations.
+    | Start | Not evaluated | Depends on no-re-entry | Other no route |
+    |---|---|---|---|
+    | UA 23T01Z | 8 | 19 | 1 |
+    | UA 24T09Z | 20 | 13 | 0 |
+    | UA 25T17Z | 42 | 4 | 9 |
+    | YD 25T19Z | 33 | 0 | 5 |
+    | YD 25T23Z | 39 | 1 | 0 |
+    | YD 26T08Z | 39 | 1 | 2 |
+
+    The firms_early and envelope rows are in F-3.1 RESULTS (split table). **Unsplit no-route counts are never quoted.**
+
+**Cause label**, exactly one per place, in this precedence: 0 → 1 → 1b → 2 → 3. Agency wording is Iris's, and every
+label says "modelled" because these are statements about a fire reconstruction, not observations.
+0. **"start point on ground the model shows as burned before this start time: not evaluated"**. Not part of the set
+   (above).
 1. **"origin already inside the modelled fire area at that departure time"** (internally: at-issue).
 1b. **"every road exit crosses ground the model shows as already burned"**, flagged **"depends on the no-re-entry
     rule"**. These places stay in the set (Iris).
@@ -124,8 +144,23 @@ checked road route, per timing variant.
 - whether the result depends on the waiting rule;
 - the departure grid step.
 
-**Source.** Richard's latest-departure field on the `/2` packets, the same checker as his headline. No new data is
+**Source** (the routing author's text, 13 Nov ~09:20). The per-place CERT leave-by of the HEADLINE `/2` run
+(results/HEADLINE_NR2_summary.json, ledger row 72) and the per-place issue sets in its raw outputs. No new data is
 needed.
+- **Grid pair:** "last computed time with a route" = the largest multiple of 1,800 s in the place's feasible departure
+  set; "next computed time, none" = that + 1,800 s. If that time is ≥ H, it is written "none up to the horizon (H)".
+- **Prefix:** measured, not assumed. On the `/2` headline, 0 of 48 pairs have a non-prefix feasible set, so every
+  place's set is [0, leave-by]. The list still carries the per-place prefix flag, and any future non-prefix place
+  lists its feasible grid times explicitly.
+- **Horizon-censored places** (route at every grid time up to H): "route at every computed time to H". Never a time.
+- **Header of every list:**
+  - checker: `deadline_field/headline.py` @ 54bcb96e + the kit's `check_route`;
+  - packets: MANIFEST_v3_7 `no_reentry/2`, sha256 7c178267…;
+  - numpy 1.26.4.
+- **Spotting:** under a clamped isotropic spotting dilation of 500–2,000 m (ledger row 77), no place's leave-by gets
+  later. That is a research check, not a list column.
+- **Map-edge limit:** the border-touch count (an upper bound on witnesses that touch the edge of the fire-data grid)
+  will be stated beside the list. It is in its final run: so far 0 witnesses touch in the 47 of 48 packets done.
 
 **Pre-season version.** The same list from the March 2025 replay, per region:
 - which places lost their last checked route;
@@ -299,11 +334,42 @@ The same gates and label apply as in 3.1.
 - **The §1 set against the breakwater rescues.** Are 경정3리, 석리 etc. in NO_CHECKED_ROUTE on the matching
   Yeongdeok starts, and with which cause label?
   - **This is fixed in this note BEFORE it is run** (Iris). The villages are already known, so the comparison could
-    otherwise be fitted. Three things are written here first:
-    - the village-to-node mapping source;
-    - the incident times, with their sources;
-    - what counts as agreement.
-  - Until they are, this check is not run, and nothing is validated.
+    otherwise be fitted. The three parts follow (the routing author's text, 13 Nov ~09:20).
+  - **Village → node mapping source:** INSTANCE.json (F-DYN _data, 819bcb91), Yeongdeok origins by OSM place name.
+    The nodes it gives:
+
+    | Village | Origin | Entry node | Entry distance |
+    |---|---|---|---|
+    | 경정리 | osm:node/415160201 | osm:11779897864 | 71.9 m |
+    | 석리 | osm:node/415160200 | osm:11872197463 | 474.4 m |
+    | 남석리 | osm:node/415160162 | osm:4778527797 | 12.9 m |
+    | 노물리 | osm:node/415160193 | osm:11872368163 | 73.7 m |
+    | 오보리 | osm:node/415160194 | osm:11897956630 | 328.8 m |
+    | 축산리 | osm:node/415158213 | osm:12144230037 | 154.3 m |
+
+    **Stated approximation:** "경정3리" maps to the OSM place node for 경정리, the parent village. The node is not the
+    breakwater; the entry distance is the place node → road node distance. A reported village not in the list is "not
+    in the place list", never "no route".
+  - **Incident times:** from the sources only, written here before the run.
+    - YTN 2025-03-26 (found by the source researcher): 104 residents taken off 영덕 breakwaters by 울진해경.
+    - kbmaeil 202503260913624: 해경 arrived about 2 h after the call.
+    - The exact clock times are **not yet sourced**. The source researcher is to supply call and pickup times, each
+      with a source, before the run. **Until then the check is not run.**
+  - **Agreement criterion** (fixed now):
+    - **The start used:** the latest recorded Yeongdeok start at or before the earliest sourced call time.
+      - The recorded starts are 25T19Z, 25T23Z and 26T08Z UTC (= 26 Mar 04:00, 08:00 and 17:00 KST).
+      - If every sourced call time is earlier than 25T19Z, the check **cannot be run on recorded starts**, and it is
+        reported as "not checkable: no recorded start before the incident".
+    - **Agree:** the village is in the §1 NO_CHECKED_ROUTE set (all three timing variants) at the grid departure
+      nearest the call time, with cause label 1, 1b or 2.
+    - **Disagree:** it has a checked route at that departure under any timing variant.
+    - **Other cases are their own class:**
+      - "not evaluated", as start point on burned ground (rule 0);
+      - "undetermined: map window too small" (label 3);
+      - the place node > 500 m from the breakwater named in the source.
+    - "Reached" means reached by the modelled fire.
+    - **What it can show:** six villages, one fire. Agreement does not validate the set, and disagreement is reported
+      with the route's witness.
 - **The §2 early-action times against reported evacuation-order and road-closure times,** where a source gives them.
 - **The §3.1 flight gate against the record:**
   - 25 Mar: gusts about 27 m/s, 4 helicopters landed;
@@ -335,7 +401,7 @@ The same gates and label apply as in 3.1.
 
 | Who | What | Status |
 |---|---|---|
-| Richard | §1 text, latest-departure field for §2, §5 breakwater check | positions agreed; text to follow after his `/1` batch and waiting runs |
+| Richard | §1 text, §2 latest-departure field, §5 breakwater check | §1/§2 from the verified `/2` headline (rows 72/73), sent 13 Nov ~09:20; §5 criteria fixed; incident clock times pending from Sofia |
 | Sofia | 행안부 고립예상지역 (15139647) | answered 22:44: needs a service key, coverage unstated, addresses only, field undefined; column HELD pending an owner sample |
 | Daniel | 산림청 CSV (15069465), one file, after the road extract | in fetch plan (cca4e27a) |
 | Priya | radiant stand-off rows (D1 only) | received 22:45; cited in §3.2 |
