@@ -26,8 +26,10 @@ CLS = {'closed': 'route found by the router on the widened graph, to the listed 
        'none': 'no route found by the router on the widened graph to the listed destinations; not independently checked'}
 
 
-def place_union(sets, entry):
-    return any(v for k, v in sets.items() if k.startswith('cert|') and k.split('|')[1] == entry)
+def place_union(sets, entry, grid):
+    """§4 / row 82 (3): a route counts when the feasible set holds at least one 30-min grid departure."""
+    ivs = [p for k, v in sets.items() if k.startswith('cert|') and k.split('|')[1] == entry for p in v]
+    return any(a_ <= t <= b for t in grid for a_, b in ivs)
 
 
 def main():
@@ -38,6 +40,7 @@ def main():
     ap.add_argument('--out', type=Path, required=True)
     a = ap.parse_args()
     inst = json.loads(a.instance.read_text())['instances']
+    grids = {(i['start_tag'], i['horizon_s']): i['depart_offsets_s'] for i in inst if i['region'] == a.region}
     entry_of = {(i['start_tag'], o['origin_id']): o['entry_node'] for i in inst if i['region'] == a.region for o in i['origins']}
     out = {'rule': 'WIDENED_GRAPH_RULE.md', 'region': a.region,
            'label': 'roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; '
@@ -61,11 +64,12 @@ def main():
             if kind != 'candidates':
                 continue
             variant = f.stem.split('_', 2)[2]
+            grid = grids[(d['start'], d['horizon_h'] * 3600)]
             entries = sorted({k.split('|')[1] for k in S['a_closed'] if k.startswith('cert|')})
             for e in entries:
-                g1 = place_union(S['g1'], e)
-                ac, ao = place_union(S['a_closed'], e), place_union(S['a_open'], e)
-                bc, bo = place_union(S['b_closed'], e), place_union(S['b_open'], e)
+                g1 = place_union(S['g1'], e, grid)
+                ac, ao = place_union(S['a_closed'], e, grid), place_union(S['a_open'], e, grid)
+                bc, bo = place_union(S['b_closed'], e, grid), place_union(S['b_open'], e, grid)
                 c = 'closed' if bc else ('undet' if bo else 'none')
                 classes[(d['start'], d['horizon_h'], variant, c)] += 1
                 widening[('G1 route' if g1 else 'G1 none', 'widened(a) closed route' if ac else 'widened(a) closed none')] += 1
