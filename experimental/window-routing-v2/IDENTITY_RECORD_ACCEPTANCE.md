@@ -19,18 +19,28 @@ If a module is not in `sys.modules` at that point, its entry is `{"imported": fa
 silently skipped.
 
 ## Amendment (review of c7f893e5 by the certificates reviewer; written before the code change)
-- **Override labelling:** the record gains `checker_module_override`, which is the job's `checker_module`, or null.
-  - With an override set, `hybrid_checker` in the record is the default module the worker imported. It is not the
-    one used for the check, which `STATE['checker_module']` identifies, as before.
-  - **The record identifies the checking code only when `checker_module_override` is null.** That is the case for
-    every worker job in this kit's panels; only `tools/g2_recheck.py` uses an override, and it does not go through the
-    worker.
+- **Override labelling, corrected by a measured fact before any code was committed.**
+  - The first draft of this amendment said every worker job has no override. **That is false.** The kit's queue job
+    sets `checker_module: adaptive_checker` (with `checker_sha256` over `adaptive_checker.py` and `ivkernel.py`), so
+    every panel job runs the override path. Found when the new test asserted a null override and got
+    `'adaptive_checker'`.
+  - `adaptive_checker.HybridChecker` subclasses `hybrid_checker.HybridChecker`, imported by name, which is the same
+    `sys.modules['hybrid_checker']` the record hashes. So on real jobs the recorded `hybrid_checker` is the base class
+    of the checker actually used. The override's own files are hashed by the existing `STATE['checker_module']`.
+  - **Two record-only lines are added:**
+    - `checker_module_override`: the job's `checker_module`, or null;
+    - `checker_class_mro`: the module of every class in the MRO of the `HybridChecker` actually used for the check.
+  - So the record shows directly which recorded modules are on the checking path. The checking code is identified by
+    `checker_identity` together with `STATE['checker_module']`.
 - **Limit, stated, not fixed:** the hash is of the `.py` file at record time, not of the bytes Python loaded. A stale
   `.pyc`, or an edit after import, could differ. Kit runs use `-B` and `PYTHONDONTWRITEBYTECODE=1`.
 - **Pre-existing, noted only:** in the Step 2 block, `_v2_hc.RSS_LIMIT_MB` is read from the default `hybrid_checker`
   even under an override. That is not this change.
-- **Added to test (a):** `checker_module_override` is null on a default job.
-- The kit changes (one more recording line), so the tests, suite and G1 panel below are rerun on the new manifest.
+- **Added to test (a):**
+  - `checker_module_override` equals the kit queue job's `checker_module`;
+  - `checker_class_mro` contains both that module and `hybrid_checker`;
+  - `RESULT.checker_module.module` equals the override.
+- The kit changes (two more recording lines), so the tests, suite and G1 panel below are rerun on the new manifest.
 
 ## Tests (all must pass)
 1. **Pre-stated test (a):** a job run on the built kit records, for all three modules, a path inside the kit and a
