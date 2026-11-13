@@ -90,6 +90,29 @@
 
 - **Erratum (orchestrator, 16:05Z):** A1's status line still reads "DRAFT revision 24 (amendment 1 to the revision-23 freeze candidate), not frozen". It should read: "Frozen at stage 1 (`FREEZE.json`, with amendment 1, A1 item 30); stage 2 by this amendment." This changes no rule, number or membership. The frozen file is not edited in place, so the stage-2 record carries the correction.
 
+## 8. Archive-trained rows promoted to named secondaries on part c (A1 §3.1, conditional on item 14)
+**Orchestrator decision, 2026-11-13.** A1 §1.2 item 14 and §3.1 (revision 29) allow the archive-trained rows to be promoted "by amendment to named secondaries on part c" if item 14 passes on all channels before part c opens. Item 14 now passes:
+- the non-weather rasters are all 44 identical or float32-close;
+- temperature and wind are byte-identical (custodian ledger row 72, PASS WITH NOTES);
+- end to end, rebuilt inputs reproduce the stored predictions on all 273 cohort-R cases, with max |Δp| 3.6e-7 and none above the 4.2e-7 floor (independent verifier, LEDGER-SMOKE-2 row 58).
+
+This amendment therefore promotes exactly **three** archive-trained models to **named secondaries** on part c, scored on rebuilt inputs:
+
+| name | frozen object | sha256 |
+|---|---|---|
+| `d4_wind_seed0` | `forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/checkpoint.pt` | `33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3` |
+| `c651_mc` | `forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt` (1,024 trajectories) | `c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843` |
+| `logistic` | `forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl` (coefficients in `logistic.json`, sha256 `7640bf6cde5d9ab95371c32828fd325c9618e16a6d4e20ea37e7fa2fd8a1c6df`) | `4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49` |
+
+- **Secondaries only.** None of the three is, or replaces, a §6.1 criterion object. Those stay `persistence`, `dilation_8h`, `logistic_rebuilt` and `d4_wind_recal`. The rebuilt refits stay the confirmatory comparators.
+- **No multiplicity-adjusted claim.** Each named secondary is reported with its own paired comparisons and intervals. No multiplicity adjustment is applied, and no claim is made that would need one. Every sentence about them says "secondary, no multiplicity adjustment" (§9).
+- **Count.** This adds three named secondaries. The other part-c secondaries (§9, §13) are unchanged.
+- **Disclosed limitations, carried into every sentence:**
+  - all three were trained on archive inputs before the split (the fit-23 pool, or for `c651_mc` 25 kriged events);
+  - item 14's weather pass covers only the three model-read channels, so RH, precipitation and ERA5 were not rebuilt (row 72 notes);
+  - `c651_mc` keeps its revision-28 limitation statement: it was trained on hindsight-restricted interior patches and is uninformative on full-rectangle perimeter labels.
+- **Assessor's reading:** **PENDING**. The assessor reads this section before the freeze, and the verdict is recorded here.
+
 ## 9. Outcome-to-claim table, parts c and b (written before part c opens; changes no criterion)
 Each row fixes the sentence the paper may write for one possible result.
 - The rows apply to **part c** (headline candidate) and, word for word, to **part b** (the later named candidate of §11, if one is ever named). For part b, "headline" means that candidate.
