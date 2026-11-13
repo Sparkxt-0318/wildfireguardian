@@ -236,7 +236,7 @@ The run reported `band_truncation.overall = 0.0`. That is a geometric necessity,
   A1 object).
 - **Consequence (rev 1, fixed in advance):** the limitations paragraph cites the measured bound (the interval and the
   relative change) and states that arm R was not run.
-- **Verification:** independent verifier, **PASS WITH NOTES**, ledger row 63 (verification/owen-smoke-2).
+- **Verification:** independent verifier, **PASS WITH NOTES**, ledger row 63 (verification/owen-smoke-2 @ 22ebfd3a).
   - Aggregate-level recomputation reproduces every Brier, ΔBrier, interval, material flag and calibration gap exactly.
   - Coverage: 490/490 fires and 3,773/3,773 intervals.
   - The band truncation of 0 is confirmed exact.
