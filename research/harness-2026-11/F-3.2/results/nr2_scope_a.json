@@ -1,0 +1,381 @@
+{
+ "hazard_sha256_note": "gate hazard_sha256 is host-specific (HAZARD.json embeds absolute paths); it is a record of this host's file, not an identity. Identity is the npz sha256, the writer sha and the bound digests (verification ledger 136, N1)",
+ "label": "F-DYN no_reentry/2 (person-facing default): relaxation certificates, bound and verified by verify_bound (both checkers, structure, O2); contact only, no radiation",
+ "waiting_rule_form_S": "The trip starts at the stated time. Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other node, including the start unless it is itself a dead end. Other departure times are separate results.",
+ "departures_s": [
+  0,
+  7200
+ ],
+ "departures_note": "0 s and 7200 s are separate results, never a leave-by window",
+ "rule": "NR2_CERT_RULE.md (+ erratum 1, note 2)",
+ "rows_file_sha256": "d82d179aca7eabadfb62af09dd4d03dfeeead0c44ce1dea72dc34ca1252dec6d",
+ "packets": [
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/uiseong_andong_2025/20250324T090000Z_h5_kriged_mean_central_q300",
+   "region": "uiseong_andong_2025",
+   "variant": "kriged_mean",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "77a1c7b0ddb6c1ff301bd8bfe90623e0890ca9919a2fa15be7093083da2e5f03",
+    "npz_sha256": "50bc6099f7e44c0255828922a0abb321e7b8a7973a54b288d6ac6c2b46ea3123",
+    "active_cells": 1167,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "certified",
+   "requests": 168,
+   "rows": 168,
+   "verdicts": {
+    "FULLY_BOUND": 168
+   },
+   "claims": {
+    "ROUTE": 102,
+    "NO_ROUTE": 66
+   },
+   "claims_by_departure": {
+    "0": {
+     "ROUTE": 51,
+     "NO_ROUTE": 33
+    },
+    "7200": {
+     "ROUTE": 51,
+     "NO_ROUTE": 33
+    }
+   },
+   "not_fully_bound": [],
+   "certify_s_total": 2009.0,
+   "verify_s_total": 578.2,
+   "result": "PASS"
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/uiseong_andong_2025/20250324T090000Z_h5_firms_early_central_q300",
+   "region": "uiseong_andong_2025",
+   "variant": "firms_early",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "b4c73c7cce86379ad75299378d5f1d782490a582911d4c9452d0a08b4a854a5b",
+    "npz_sha256": "1fab0f8699ed39ee3a7b07562c0fae3bf7df6a69ffc0fbde7656a40766d48335",
+    "active_cells": 1277,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "certified",
+   "requests": 168,
+   "rows": 168,
+   "verdicts": {
+    "FULLY_BOUND": 168
+   },
+   "claims": {
+    "ROUTE": 94,
+    "NO_ROUTE": 74
+   },
+   "claims_by_departure": {
+    "0": {
+     "ROUTE": 47,
+     "NO_ROUTE": 37
+    },
+    "7200": {
+     "ROUTE": 47,
+     "NO_ROUTE": 37
+    }
+   },
+   "not_fully_bound": [],
+   "certify_s_total": 2236.3,
+   "verify_s_total": 628.8,
+   "result": "PASS"
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/uiseong_andong_2025/20250324T090000Z_h5_envelope_central_q300",
+   "region": "uiseong_andong_2025",
+   "variant": "envelope",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "a5cd41ab74d4310ed9a47d68839540227c777b53ce44bb7cebe185d2e891d73f",
+    "npz_sha256": "1fab0f8699ed39ee3a7b07562c0fae3bf7df6a69ffc0fbde7656a40766d48335",
+    "active_cells": 1277,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "gate only (NR2 §5)",
+   "rows_reported": 0
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/uiseong_andong_2025/20250324T090000Z_h5_envelope_burnset_central_q300",
+   "region": "uiseong_andong_2025",
+   "variant": "envelope_burnset",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "9e9d704e85d42412e6392ae37a32e71f26a98e6067c5c3e8e8ece0fc56cd8ba5",
+    "npz_sha256": "8d8a33a0341abb2a72dc80095dc1a1d279f7441ac8ddc1117a66b3eeef7314d2",
+    "active_cells": 16176,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "certified",
+   "requests": 168,
+   "rows": 168,
+   "verdicts": {
+    "FULLY_BOUND": 168
+   },
+   "claims": {
+    "NO_ROUTE": 168
+   },
+   "claims_by_departure": {
+    "0": {
+     "NO_ROUTE": 84
+    },
+    "7200": {
+     "NO_ROUTE": 84
+    }
+   },
+   "not_fully_bound": [],
+   "certify_s_total": 10914.1,
+   "verify_s_total": 816.9,
+   "result": "PASS",
+   "variant_label": "envelope_burnset: sound relative to the final mapped burn set; burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only); single implementation, not independently checked"
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/yeongdeok_2025/20250325T110000Z_h5_kriged_mean_central_q300",
+   "region": "yeongdeok_2025",
+   "variant": "kriged_mean",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "b97b5b7f8a7be846dd2554efda686f885ff0b55f4f29a03c4789e12d167a93b5",
+    "npz_sha256": "2bad8094b8ac8a37f8f468e39b393708478d6be56c50d6e583262e5e2369cd52",
+    "active_cells": 3214,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "certified",
+   "requests": 180,
+   "rows": 180,
+   "verdicts": {
+    "FULLY_BOUND": 180
+   },
+   "claims": {
+    "ROUTE": 180
+   },
+   "claims_by_departure": {
+    "0": {
+     "ROUTE": 90
+    },
+    "7200": {
+     "ROUTE": 90
+    }
+   },
+   "not_fully_bound": [],
+   "certify_s_total": 617.0,
+   "verify_s_total": 1681.3,
+   "result": "PASS"
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/yeongdeok_2025/20250325T110000Z_h5_firms_early_central_q300",
+   "region": "yeongdeok_2025",
+   "variant": "firms_early",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "679ee76363179196d247135ca5816c58f203862f4b799b5bf4bfc7beb589438a",
+    "npz_sha256": "34b5411972bf5e0d7163424150d4d3e4704b4b1c63b66707f84fa57d357fb946",
+    "active_cells": 3967,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "certified",
+   "requests": 180,
+   "rows": 180,
+   "verdicts": {
+    "FULLY_BOUND": 180
+   },
+   "claims": {
+    "ROUTE": 148,
+    "NO_ROUTE": 32
+   },
+   "claims_by_departure": {
+    "0": {
+     "ROUTE": 81,
+     "NO_ROUTE": 9
+    },
+    "7200": {
+     "ROUTE": 67,
+     "NO_ROUTE": 23
+    }
+   },
+   "not_fully_bound": [],
+   "certify_s_total": 3793.5,
+   "verify_s_total": 1773.8,
+   "result": "PASS"
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/yeongdeok_2025/20250325T110000Z_h5_envelope_central_q300",
+   "region": "yeongdeok_2025",
+   "variant": "envelope",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "05a8898d9660eb5a5df896c258661cda957e38e7405a0ecedc23d943939edab9",
+    "npz_sha256": "34b5411972bf5e0d7163424150d4d3e4704b4b1c63b66707f84fa57d357fb946",
+    "active_cells": 3967,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "gate only (NR2 §5)",
+   "rows_reported": 0
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/yeongdeok_2025/20250325T110000Z_h5_envelope_burnset_central_q300",
+   "region": "yeongdeok_2025",
+   "variant": "envelope_burnset",
+   "gate": {
+    "status": "GATES_PASS",
+    "reason": null,
+    "transform": "no_reentry/2",
+    "writer": {
+     "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+    },
+    "hazard_sha256": "6f63a98a6d1eb579fe3e28f87c37fe193360b5daf03a888ade410a2bdba5d49c",
+    "npz_sha256": "4d1181c721e0d9e6a6bd093a2695091632cc706de6ca2af4de9ec992d4afe344",
+    "active_cells": 16176,
+    "p1_raw_vs_contact": 0,
+    "p1_hazard_vs_contact": 0,
+    "p1_hazard_later_end_lt_1us": 0
+   },
+   "role": "certified",
+   "requests": 180,
+   "rows": 180,
+   "verdicts": {
+    "FULLY_BOUND": 180
+   },
+   "claims": {
+    "ROUTE": 54,
+    "NO_ROUTE": 126
+   },
+   "claims_by_departure": {
+    "0": {
+     "ROUTE": 27,
+     "NO_ROUTE": 63
+    },
+    "7200": {
+     "ROUTE": 27,
+     "NO_ROUTE": 63
+    }
+   },
+   "not_fully_bound": [],
+   "certify_s_total": 20856.5,
+   "verify_s_total": 2003.0,
+   "result": "PASS",
+   "variant_label": "envelope_burnset: sound relative to the final mapped burn set; burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only); single implementation, not independently checked"
+  }
+ ],
+ "out_of_scope": [
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v37_noreentry2/uiseong_andong_2025/20250324T090000Z_h5_envelope_central_q300",
+   "rows": 168,
+   "reason": "erratum 1: the v3.7 no_reentry/2 envelope is routable by design (NOREENTRY_RULE.md §2/§5), so the gates passed and rows were certified before --gate-only existed; data only, not results; label limited to the manifest's 'BRACKET-START, NOT A LOWER BOUND'",
+   "claims": {
+    "ROUTE": 94,
+    "NO_ROUTE": 74
+   },
+   "verdicts": {
+    "FULLY_BOUND": 168
+   }
+  }
+ ],
+ "uncertified": "the other 360 certifiable packets of MANIFEST_v3_7 no_reentry/2 carry no F-3.2 certificate",
+ "burnset_ordering": [
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "vs": "kriged_mean",
+   "pairs": 168,
+   "both_finite": 0,
+   "both_finite_equal_T": 0,
+   "burnset_no_route_other_route": 102,
+   "both_no_route": 66,
+   "burnset_earlier": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "vs": "firms_early",
+   "pairs": 168,
+   "both_finite": 0,
+   "both_finite_equal_T": 0,
+   "burnset_no_route_other_route": 94,
+   "both_no_route": 74,
+   "burnset_earlier": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "vs": "kriged_mean",
+   "pairs": 180,
+   "both_finite": 54,
+   "both_finite_equal_T": 52,
+   "burnset_no_route_other_route": 126,
+   "both_no_route": 0,
+   "burnset_earlier": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "vs": "firms_early",
+   "pairs": 180,
+   "both_finite": 54,
+   "both_finite_equal_T": 52,
+   "burnset_no_route_other_route": 94,
+   "both_no_route": 32,
+   "burnset_earlier": 0
+  }
+ ],
+ "summary": {
+  "certified_packets": 6,
+  "pass": 6,
+  "rows": 1044,
+  "fully_bound": 1044,
+  "ROUTE": 578,
+  "NO_ROUTE": 466,
+  "gate_only_packets": 2,
+  "out_of_scope_rows": 168
+ }
+}

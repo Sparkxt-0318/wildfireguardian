@@ -357,3 +357,35 @@ This section supersedes the cut-2 section where they differ.
   identity, not per-run import hashes; reviewed by Mira as a document, the code reading itself not independently
   re-checked), conditional on both sides using the same packet members, flame law and grid cells; packet, members and
   grid checked".
+
+## Routing cut 4: F-DYN no_reentry/2 certificates, scope (a) (verified; verification ledgers 126, 136)
+
+- **Rule and result.**
+  - `NR2_CERT_RULE.md`: written before the run. Erratum 1 records that the v3.7 envelope packets are routable by
+    design, not refused. Note 2 records that sharding changes scheduling only, and the corrected cost.
+  - `NR2_RESULT.md`, `results/nr2_scope_a.json`, `results/nr2_scope_a_rows.jsonl.gz`.
+  - Code: `xcheck/nr2_certs.py` (gates, per-row certify/bind/verify, checkpoint, `--shard`, `--merge`),
+    `xcheck/nr2_summary.py`, `xcheck/test_nr2_shards.py`.
+- **Scope.** Uiseong 20250324T090000Z and Yeongdeok 20250325T110000Z × h5 × {kriged_mean, firms_early,
+  envelope_burnset}, at departures 0 s and 7200 s. The two h5 `envelope` packets went through the gates only. The other
+  360 certifiable packets of MANIFEST_v3_7 no_reentry/2 carry no F-3.2 certificate.
+- **Result.** 6 of 6 packets PASS (gates G-A/G-B/G-C, P1 0/0). 1,044 of 1,044 rows are FULLY_BOUND (both checkers,
+  T7 structure, O2): 578 ROUTE and 466 NO_ROUTE. 168 Uiseong envelope rows, certified before `--gate-only` existed,
+  are listed as out-of-scope data, not results.
+- **Labels.**
+  - "F-DYN no_reentry/2 (person-facing default): relaxation certificates, bound and verified by verify_bound (both
+    checkers, structure, O2); contact only, no radiation".
+  - Waiting rule form (S), verbatim in `NR2_RESULT.md`. 0 s and 7200 s are separate results, never a leave-by
+    window.
+  - Burnset rows keep the burn-set label.
+- **Independent check (ledger 136).**
+  - Two packets were rebuilt from MANIFEST_v3_7: npz and writer sha equal; gates equal.
+  - 348/348 request sha equal.
+  - 6 sampled rows were re-certified with an independently built C checker: claim, T, I and bundle sha256 equal 6/6;
+    FULLY_BOUND 6/6.
+- **Notes.**
+  - The gate `hazard_sha256` is host-specific and is not an identity.
+  - The burnset-never-earlier ordering has only 54 both-finite pairs per comparator, all at Yeongdeok. It is asserted
+    by `nr2_summary.py`.
+- **Not covered.** Radiation, dose and peak; h8; the 360 other packets; the kit's whole-road model. G-C is a single
+  implementation. O2 and the generator are separate code paths by the same author.
