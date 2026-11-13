@@ -410,6 +410,12 @@ Paired differences (arm − comparator; fire-clustered bootstrap 95% CI; exact s
   - (2) About 10% of the state weight sits at the slow edge m = 1/16.
   - (3) The 4e-5 gap in the m ≤ 2 check is plausibly the kernel change, but it is not an exact reproduction.
   - (4) The sign-flip p uses 10,000 random flips, as the rule states, not full enumeration.
+- Post-hoc, descriptive (Iris, after verification; not in the rule and not in `qualifies`).
+  - Paired lag-1 minus state on the MCEM kernel: **−0.00181 [−0.00310, −0.00043], sign-flip p 0.017, 19/25 fires better for lag-1.**
+  - The same aggregate, rerun with this pair added, gives results/cv_state_family_pinned_posthoc.json. Every verified field is identical to cv_state_family_pinned.json.
+  - Reading (descriptive, no claim on part b): one-interval memory improves the MCEM form (MCEM 0.0660 → state 0.0608 → lag-1 0.0590). This is consistent with the lag-1 persistence finding.
+  - plugin_state_wide, plug-in and logistic_cf cannot be told apart. Every difference between arms sits in 0–1 km, which again points to near growth.
+- Composite reference values: in any table that leaves S-D2, its comparisons against logistic_cf and persistence are point-only (pooled differences, no CI). The 5,578 cells below 1/1024 come from the converged E3 fit; the earlier 19,264 was withdrawn with the invalid E1 composite.
 
 ## 4. Ideas and gaps
 

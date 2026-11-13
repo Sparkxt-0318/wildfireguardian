@@ -190,6 +190,14 @@ def aggregate(cv, a):
                                               better_fires=f"{int((d < 0).sum())}/{len(fires)}")
     qual = {arm: all(comp[f"{arm}_minus_{r}"]["ci95"][1] < 0 and comp[f"{arm}_minus_{r}"]["signflip_p"] < ALPHA
                      for r in ("plugin", "logistic_cf")) for arm in arms}
+    # POST-HOC, DESCRIPTIVE (Iris, 2026-11-13, after Owen's row-53 verification; not in RULE_state_family.md and
+    # not used by `qualifies`): paired lag-1 minus state on the MCEM kernel. Same bootstrap draws and sign-flip seed.
+    d = err["mcem_lag1_wide"] - err["mcem_state_wide"]
+    bs = d[draws].sum(1) / n[draws].sum(1)
+    posthoc = {"mcem_lag1_wide_minus_mcem_state_wide": dict(
+        point=float(d.sum() / n.sum()), ci95=[float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))],
+        signflip_p=signflip_p(d, np.random.default_rng(20261112)), better_fires=f"{int((d < 0).sum())}/{len(fires)}",
+        note="post-hoc descriptive pair; not part of the rule or of qualifies")}
     # first vs later for lag-1
     split = {}
     for name, first in (("first_interval", True), ("later_intervals", False)):
@@ -208,7 +216,7 @@ def aggregate(cv, a):
     out = dict(command="python cv_state_family.py " + " ".join(sys.argv[1:]), rule="RULE_state_family.md @ d0c7f0ad", env=runenv.info(),
                grid=GRID.tolist(), sims=SIMS, tmax=TMAX, alpha_signflip=ALPHA,
                disclosure="round 2 on the same 25 fires; two earlier arms (mcem_rate, mcem_state) tried and failed",
-               pooled=pooled, comparisons=comp, qualifies=qual,
+               pooled=pooled, comparisons=comp, posthoc_descriptive=posthoc, qualifies=qual,
                stopping_rule_triggered=not any(qual.values()), state_weights=info["state_weights"],
                edge_weights=edges, lag1_choice=info["lag1_choice"], first_vs_later_lag1=split)
     a.out.write_text(json.dumps(out, indent=1))
