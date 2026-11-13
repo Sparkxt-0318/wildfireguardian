@@ -46,3 +46,25 @@ only at graph dead-end nodes (as supplied in graph.json; rule undocumented)"*.
 * Measured numbers only. Nothing here changes the frozen results or the headline tables. The sensitivity rows sit next
   to them.
 * **Order.** These runs start after the current `no_reentry/1` variant batch finishes.
+
+## Orchestrator decision on the owner's delegation, 13 Nov
+
+**Waiting rule.** The supplied behaviour is kept as the documented default: waiting only at graph dead-end nodes.
+- "Waiting allowed everywhere" is always reported as a labelled sensitivity row. This includes Marcus's finding that
+  all 14 NO_ROUTE flip.
+- No verified result changes.
+
+**Plain-language wording: PENDING the orchestrator's confirmation.** The proposed wording was "wait before leaving at
+the start place; no stopping mid-route". Richard flagged at 00:12 UTC that it does not match the graphs:
+- 20 of 88 Uiseong start nodes are dead ends; 27 of 94 Yeongdeok start nodes are.
+- 534 of 554 Uiseong dead ends are not start nodes; 1,500 of 1,527 Yeongdeok dead ends are not.
+- The field chooses departure freely.
+
+Richard's proposed wording: "Departure time is free (equivalent to waiting at the start place before leaving). Once
+moving, a stop is allowed only at a road dead end (graph dead-end node), which may be a short detour off the route.
+Waiting is not allowed at any other node."
+
+**One-hour unknown-area headline tier (same decision).** 8.2 km/h.
+- Labelled an assumption from an oral briefing figure. The written figure is ≈ 4.2 km/h; the detections give 7.0 km/h.
+- 16.4 km/h and Tier A are shown beside it as sensitivity.
+- One-hour tool only.
