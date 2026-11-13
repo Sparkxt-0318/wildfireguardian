@@ -1,0 +1,10 @@
+2026-11-13T08:30:33Z start phase P2 kit /tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/window-kit: 705 jobs, 0 done, 705 to run
+2026-11-13T10:20:52Z start phase P2 kit /tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/window-kit: 705 jobs, 577 done, 128 to run
+2026-11-13T10:20:52Z yeongdeok_2025/20250325T230000Z.json rc_eb0b82c0ce334773adf5: folder without a row, renamed _restart1, rerun
+2026-11-13T10:20:52Z yeongdeok_2025/20250325T230000Z.json rc_f0c0dd1703d74832bf24: folder without a row, renamed _restart1, rerun
+2026-11-13T10:20:52Z yeongdeok_2025/20250325T230000Z.json rc_ed8d3ec2d8954eb4a3b6: folder without a row, renamed _restart1, rerun
+2026-11-13T10:26:25Z start phase P2 kit /tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/window-kit: 705 jobs, 589 done, 116 to run
+2026-11-13T10:26:25Z yeongdeok_2025/20250325T230000Z.json rc_5aa14f1f6af648718b05: folder without a row, renamed _restart1, rerun
+2026-11-13T10:26:25Z yeongdeok_2025/20250325T230000Z.json rc_521cd62f4b3d4ee98e02: folder without a row, renamed _restart1, rerun
+2026-11-13T10:26:25Z yeongdeok_2025/20250325T230000Z.json rc_76470ff645d44a88918e: folder without a row, renamed _restart1, rerun
+2026-11-13T10:41:03Z end phase P2

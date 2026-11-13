@@ -1,0 +1,4 @@
+2026-11-13T06:20:13Z harness smoke test before P1: PARENT on 4 jobs (one per stratum) in scratch g6_smoke; outputs never compared; edges/times/waits equal the record on the ROUTE job
+2026-11-13T08:20:29Z P1 task stopped by the 2 h background limit at 628/705 rows (3 folders without a row); resumed from checkpoint; P2 chained after P1 in the same task
+2026-11-13T10:20:52Z P1 complete 705/705 (08:30:33Z). P2 task stopped by the 2 h background limit at 577/705 rows (3 folders without a row); resumed from checkpoint
+2026-11-13T10:26:25Z container restart during P2 at 589/705 rows (3 folders without a row); resumed from checkpoint
