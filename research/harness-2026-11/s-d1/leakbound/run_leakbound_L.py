@@ -224,6 +224,7 @@ def main():
             xs.append(feats[mask])
             ys.append(cs.endpoint.ravel()[mask].astype(np.int8))
             ds.append(dist.ravel()[mask].astype(np.float32))
+            # s.t1 is pipeline.perimeter_samples' times[i].isoformat(): the interval START (A1 t0), not its end (meta["t2"])
             f1s.append(np.full(int(mask.sum()), f1_value(s.t1, times[ev]["last_utc"])))
             ivs.append(np.full(int(mask.sum()), k, np.int32))
         cat = (lambda v, dt_: np.concatenate(v) if v else np.zeros(0, dt_))
@@ -289,7 +290,7 @@ def main():
     res = dict(receipt, finished_utc=dt.datetime.now(dt.timezone.utc).isoformat(), base_label=BASE_LABEL,
                keep_vector_sha256=keep_sha, keep_rows=int(sum(int(k.sum()) for k in keep)),
                band_truncation=dict(
-                   note="share of UNCROPPED 4 km band cells (score_mask, distance on the uncropped grid) outside the crop",
+                   note="share of UNCROPPED 4 km band cells (score_mask only, distance on the uncropped grid) outside the crop; the scored band also requires finite environment/features, so this share is slightly conservative",
                    overall=(bu_tot - sum(v[1] for v in bu.values())) / bu_tot if bu_tot else None,
                    per_fire={ev: ((v[0] - v[1]) / v[0] if v[0] else None) for ev, v in sorted(bu.items())}),
                fold_assignment_sha256=sha(a.folds),
