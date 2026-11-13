@@ -164,6 +164,22 @@ One research row per place in the §1 set, and per unresolved origin.
     site could be nearer** than the reported one.
   - The datum is stated as "not given by the source; read as WGS84/GRS80 geographic". At these distances that
     choice is immaterial.
+- **경북 breakdown** (Daniel, 13 Nov; rows assigned to a 시군구 from the address text, not by point-in-polygon).
+  - All 48 경북 rows: 42 valid, 2 blank, 4 invalid.
+
+  | 시군구 | Rows | Usable |
+  |---|---|---|
+  | 의성 | 0 | — |
+  | 안동 | 2 | 2 |
+  | 청송 | 2 | 2 |
+  | 영양 | 1 | 1 |
+  | 영덕 | 4 | 4 |
+  | **울진** | 1 | **0 (its only site has invalid coordinates)** |
+
+  - So **울진 rows say "1 registered site in 울진 excluded: coordinates invalid in the source"**, and the nearest
+    usable site lies outside 울진.
+  - Whether any coordinate falls outside its stated 시군구 is not yet checked. A point-in-polygon check is done before
+    D0 is built.
 - These are forest-aviation operating sites, **not pickup points**, and every row is labelled that way.
 
 **Flight gate at that time.** It is stated per row, from Sofia's sources. Only daylight and wind can be evaluated:
