@@ -54,15 +54,34 @@ only at graph dead-end nodes (as supplied in graph.json; rule undocumented)"*.
   all 14 NO_ROUTE flip.
 - No verified result changes.
 
-**Plain-language wording: PENDING the orchestrator's confirmation.** The proposed wording was "wait before leaving at
-the start place; no stopping mid-route". Richard flagged at 00:12 UTC that it does not match the graphs:
+**Plain-language wording: FINAL.** The orchestrator confirmed it at 00:13 UTC on 13 Nov. It replaces both earlier
+wordings: the orchestrator's first one and Richard's first proposal. Thomas's correction is adopted.
+
+- **(S) Single-departure results** (kit request, F-3.2 certificates, per-job verdicts): "The trip starts at the stated
+  time. Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off
+  the route; waiting is not allowed at any other node, including the start unless it is itself a dead end. Other
+  departure times are separate results."
+- **(R) Range results** (deadline field, departure sweeps): "Each departure time in [range, step named] is a separate
+  trip. Leaving later is how waiting at the start place is represented. Once moving, a stop is allowed only at a road
+  dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other
+  node."
+
+**Measured counts** (graph.json waitable flags; planner-cache start nodes):
 - 20 of 88 Uiseong start nodes are dead ends; 27 of 94 Yeongdeok start nodes are.
 - 534 of 554 Uiseong dead ends are not start nodes; 1,500 of 1,527 Yeongdeok dead ends are not.
-- The field chooses departure freely.
+- The field sweeps departures.
 
-Richard's proposed wording: "Departure time is free (equivalent to waiting at the start place before leaving). Once
-moving, a stop is allowed only at a road dead end (graph dead-end node), which may be a short detour off the route.
-Waiting is not allowed at any other node."
+**Not monotone in departure time. This affects how leave-by times are read.**
+- Under dead-end-only waiting, a later departure can have a route when an earlier one has none. A traveller who leaves
+  earlier from a start that is not a dead end cannot wait out the fire there.
+- A feasible-departure set can therefore have holes, and it need not be a prefix [0, leave-by].
+- The leave-by (the latest feasible departure) does NOT mean that every earlier departure is feasible. Every table that
+  reports a leave-by also reports whether the feasible set is a prefix (`nonprefix_feasible_sets`).
+- Measured so far:
+  - the verified multi-hour `/1` VARIANT run has 0 non-prefix sets over 48 pairs;
+  - the 1-h panel has at most 1 interval per state, so no holes;
+  - holes do occur in the reopening F-DYN packets of the burn-duration study (RESULTS.md, Nora row 35). There, cells
+    clearing within the horizon interact with the waiting rule.
 
 **One-hour unknown-area headline tier (same decision).** 8.2 km/h.
 - Labelled an assumption from an oral briefing figure. The written figure is ≈ 4.2 km/h; the detections give 7.0 km/h.
