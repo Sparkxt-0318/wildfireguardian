@@ -63,6 +63,7 @@ import numpy as np
 from scipy.ndimage import distance_transform_edt, gaussian_filter, label
 
 import run_shape_recovery as X
+import runenv
 import synthetic as S
 import synthetic_robust as R
 from synthetic import INF
@@ -238,7 +239,20 @@ def calibrate(k0=K0_BASE):
 
 
 def job(args):
-    arm, seed, spot_rate, k0 = args
+    arm, seed, spot_rate, k0, ckpt = args
+    ck = Path(ckpt) / f"{arm}_seed{seed}.json" if ckpt else None
+    if ck is not None and ck.exists():          # resume: each (arm, seed) is deterministic given its inputs
+        return json.loads(ck.read_text())
+    rows = _job(arm, seed, spot_rate, k0)
+    if ck is not None:
+        ck.parent.mkdir(parents=True, exist_ok=True)
+        tmp = ck.with_suffix(".tmp")
+        tmp.write_text(json.dumps(rows))
+        tmp.replace(ck)
+    return rows
+
+
+def _job(arm, seed, spot_rate, k0):
     feature = arm.replace("_contig", "")
     p, obs, info = generate(feature, seed, spot_rate, k0)
     info["k0_true"] = k0
@@ -278,7 +292,9 @@ def main(argv=None):
     ap.add_argument("--arms", nargs="+", default=ARMS)
     ap.add_argument("--workers", type=int, default=min(4, os.cpu_count() or 1))
     ap.add_argument("--out", type=Path, default=Path("results/feature_ablation.json"))
+    ap.add_argument("--ckpt", type=Path, default=None, help="per-(arm, seed) row checkpoints (resume)")
     a = ap.parse_args(argv)
+    runenv.require_pinned()
     t0 = time.time()
     k0c, k0_table = calibrate_k0() if any(x.endswith("_contig") for x in a.arms) else (None, None)
     spot = {}
@@ -287,7 +303,7 @@ def main(argv=None):
         spot["detached"], cal["detached"] = calibrate(K0_BASE)
     if "detached_contig" in a.arms:
         spot["detached_contig"], cal["detached_contig"] = calibrate(k0c)
-    jobs = [(arm, s, spot.get(arm), k0c if arm.endswith("_contig") else K0_BASE)
+    jobs = [(arm, s, spot.get(arm), k0c if arm.endswith("_contig") else K0_BASE, str(a.ckpt) if a.ckpt else None)
             for arm in a.arms for s in range(a.seeds)]
     with ProcessPoolExecutor(a.workers) as pool:
         rows = [r for rs in pool.map(job, jobs) for r in rs]
@@ -300,7 +316,8 @@ def main(argv=None):
             summary[arm][est] = dict(far_share_mean=float(fs.mean()), far_share_sd=float(fs.std(ddof=1)))
         summary[arm]["detached_share_mean"] = float(np.mean([r["detached_share"] for r in rows
                                                              if r["arm"] == arm and r["estimator"] == "mcem"]))
-    out = dict(command="python feature_ablation.py " + " ".join(argv or sys.argv[1:]), true_far_share=true_share,
+    out = dict(command="python feature_ablation.py " + " ".join(argv or sys.argv[1:]), env=runenv.info(),
+               true_far_share=true_share,
                spot_rate=spot, calibration=cal, k0_contig=k0c, k0_calibration=k0_table, wall_seconds=time.time() - t0, summary=summary,
                verdicts=verdicts(summary, true_share), rows=rows)
     a.out.parent.mkdir(parents=True, exist_ok=True)
