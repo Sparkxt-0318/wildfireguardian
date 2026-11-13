@@ -1,0 +1,5 @@
+start 2026-11-13T02:06:49Z
+end   2026-11-13 02:35:28.715418411 +0000
+restarts: none (no RESTARTS file; one continuous harness-tracked task)
+rows 80, status differences vs recorded 0
+EXIT=0

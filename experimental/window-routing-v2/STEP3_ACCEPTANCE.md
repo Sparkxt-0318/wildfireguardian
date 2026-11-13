@@ -240,3 +240,88 @@ The 2^28 budget committed at 7ebd84d is **superseded** and is not used for any G
   - under the budgets their setup completes, and their sweep gets up to 268.4 M units, i.e. 2.07×, 2.11× and 1.31× the
     sweep units they reached at the old cap;
   - outcomes at the old cap and under the budgets are both reported from the G1 run.
+
+## Rebase onto the final Step 2 (written before any run on the rebased kit; 2026-11-13 ~02:0x UTC)
+
+Order: orchestrator, Step 2F accepted by Mira (ledger 125). Branch `claude/priya-kit-v2-step3-on2`: a merge of the final
+Step 3 (`claude/priya-kit-v2-step3` @ 149f448) into the final Step 2 (`claude/priya-kit-v2` @ bc90787). A merge is
+used instead of replaying 19 commits; the resulting tree is what a rebase would produce. Neither existing branch is
+rewritten.
+
+### How the merge was resolved (mechanical, checked)
+- Files both steps changed: the worker, road_core and g1_compare, plus road_bounds, test_build_v2 and SOURCE_SHA256
+  (each in its own bullet below).
+  - For the worker, road_core and g1_compare, the merged file minus Step 2's file equals Step 3's own change, line for
+    line (checked by comparing sorted diff lines).
+  - Every other file is exactly one side's version: zsweep and v2_work are Step 3's, journey_decision_v2_1 is Step
+    2's.
+  - Thomas's review (34a7e2da) corrected an earlier version of this bullet, which listed zsweep and
+    journey_decision_v2_1 as changed by both steps.
+- `road_bounds.py` (both sides added it to the overlay):
+  - Step 2 amendment E's chunked `edge_source_dist` and `dist_sha256` are kept;
+  - Step 3's `stage_budget` and its tick before each coefficient chunk are kept;
+  - merged minus Step 2 is exactly those Step 3 lines;
+  - the only Step 3 lines dropped are its six unchunked distance lines. Step 2 amendment E replaced them with a
+    chunked computation whose OUTPUT is byte-identical (tested, `test_step2_dist`); the source is different.
+- `test_build_v2.py`: STEP2_WORKER_LINES, STEP2_WRAPPER and STEP3_WORKER_LINES are kept, all exact. The worker-diff
+  test now requires:
+  - removed lines = the global line + Step 2's 3 check-call lines + Step 3's 6 stage calls + 3 extended lines;
+  - added lines = exactly the Step 2 and Step 3 declared lines;
+  - no line carries both markers.
+- `SOURCE_SHA256.json` is recomputed from the merged overlay (11 files).
+
+### Acceptance for the rebased kit (all must hold; same rules as before, nothing loosened)
+- **Tests:** every suite of both steps on the rebased kit, with the parent runner ok. Reported as a count:
+  passed + skipped.
+- **G1 panel** (FROZEN vs rebased V2, 20 missions × 2 reps, 81 s, alone on the host, harness-tracked, checkpointed,
+  restarts logged):
+  - **G1** 20/20 under the G1 rule including FL2. The FL2 outcomes at the old cap and under the budgets are both
+    reported.
+  - **G3** 20/20.
+  - Memory-mapped statuses 0 OUTSIDE and 0 NOT_PROVEN. Every published check `within_budget: true`.
+  - **M1** (Step 2F, per rep, harness family PSS, host stated) ≤ 3,072 MiB. Not evaluable is never a pass.
+  - **G5 wall** ≤ 1.10.
+  - **G2** on every published route; **G2b** 0 violations.
+  - Kit identity on every V2 row.
+- **F-DYN every-stage-stop, rerun on the rebased kit (Mira ledger 127, before the cut).**
+  - Reason: the combination is new on F-DYN. Step 2's solver current-RSS gate (road_core) and its forked checks now
+    run inside Step 3's work-budgeted stages, and Step 3 lets Z run past the old 6 s. Step 3's 26-stage result came
+    from a kit without Step 2.
+  - Rule: unchanged from §D and the Step 3 result.
+    - The 12 F-DYN requests, 300 s, `--mode plain`, controller guard and request `rss_limit_mb` both 12,288 MiB;
+      kit-v2-step23; alone on the host, after the G1 panel; tracked, with restarts logged.
+    - `tools/stage_stop_check.py`. **Every Z, LO, LO2 and HI stage checked against its cap, 0 violations,
+      0 STAGE_CAP_WATCHDOG.** EA builds are reported, not checked.
+    - Statuses are reported beside the Step 3 run's. Any difference is reported as a finding with the stage that
+      produced it; it is not explained away.
+  - The stage count is expected to be 26 if the same stages run. A different count is reported, not a failure in
+    itself; every stage that runs must stop.
+- **Not rerun:** Step 2F's M3(d) (Mira ledger 127: the controller is unchanged by Step 3, and M1 per rep on the G1 panel
+  covers Step 3's memory at one hour).
+- **Then A4:** 10 reps × 2 requests × 900 s on this kit, tracked and checkpointed, with a timing claim only from runs
+  without a restart.
+
+## A4 rerun on kit-v2-step23 (written before the run; PLAN Step 3 acceptance; Mira ledger 128: nothing blocks it)
+
+- **Rule (PLAN Step 3):** each request gives **one** outcome class in 10/10.
+- **Outcome class:**
+  - a run that publishes gives (pre-memory-map status, arrival);
+  - a memory-guard stop and UNRESOLVED are each a class of their own.
+  - An "arrival" difference within the same status is a different class: it is reported, not merged.
+- **Setup:** identical to the original A4 (F-3.4 FDYN_PLAN amendment A4), except for the kit.
+  - Yeongdeok 0325T23 `firms_early`, origins …11753630207 and …415158168.
+  - `fdyn_profile.py --only` with both tags, so the two requests alternate within each rep.
+  - Budget 900 s, controller guard 3,072 MiB, no `rss_limit_mb` in the request, `--mode plain`.
+  - 10 reps, `fdyn_v2a4_r01..r10`.
+  - Kit-v2-step23 (manifest `192f15cc…`), alone on the host.
+- **Tracking:**
+  - one harness-tracked task (`tools/a4_rerun.py`), checkpointed per rep: a rep whose ROWS.jsonl has both rows is
+    complete and skipped on resume;
+  - a partial rep is renamed `_restartN`, logged in `A4_RESTARTS.log` and rerun from the start;
+  - timing claims come only from reps without a restart.
+- **Reported per run:** the Z stage status, reason, elapsed time, setup and sweep units, wall time and harness family
+  PSS peak (run_one_job's sampler is not in this path: the family peak RSS is reported, labelled), plus the host.
+- **Interpretation:**
+  - 10/10 one class per request is the PLAN acceptance.
+  - Anything else is a failure of that line, reported with the stage that differs.
+  - The original A4 (unmodified kit, 8/1/1 and 8/2) is shown beside it, not pooled.
