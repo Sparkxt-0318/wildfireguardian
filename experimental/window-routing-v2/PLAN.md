@@ -372,8 +372,9 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
   0700 FN1, FX1; Miryang 0601T08 FD1, FX1; 2 reps each) and **2 are stage LO** (Yeongdeok 0325T19 FD1, 2 reps). In
   missions: **4 of 5 refusal missions are Z, 1 is LO**.
 
-**G2c result for the 4 stage-Z refusal missions (Thomas, 19:14 UTC; `thomas/routing-next` @ 8d3c58c7). NOT yet
-verified by Mira.**
+**G2c result for the 4 stage-Z refusal missions (Thomas, 19:14 UTC; `thomas/routing-next` @ 8d3c58c7, now also on Main).
+Verified by Mira:** ledger 103 (the four refusal bundles FULLY_BOUND with her own inputs) and ledgers 106–109 (wording and
+code identity).
 - All 4 are F-3.2 NO_ROUTE certificates with T = 3601. Each is accepted by `check_py` and `wfgc_check` in fresh
   processes, and each is FULLY_BOUND under binding rule 2.2 (R2, R3, T7a, T7b).
 - Bundles (`xcheck/results/g2c_bundles/*.v2.wfgc`; record `xcheck/results/g2c_stage_z_refusals.json`):
@@ -384,7 +385,7 @@ verified by Mira.**
 - Input digests match the request, HAZARD and graph prefixes I sent. The packet gate P1 (X1 rules 1, 2 and 4) passes;
   rule 3 is covered by T7b.
 - So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions. **Required wording, final** (Thomas 22:52 UTC;
-  Mira, ledgers 106–109; it replaces W1 and W2′; recorded in `g2c_stage_z_refusals.json` on `thomas/routing-next`):
+  Mira, ledgers 106–109; it replaces W1 and W2′; recorded in `g2c_stage_z_refusals.json` on `thomas/routing-next`, now on Main):
   "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written
   dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code at f2cbcfc, byte-identical
   through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and the run records' kit identity,
@@ -566,8 +567,9 @@ hashes equal the kit manifest's entries for those three files, and a deliberatel
 recorded with its own hash, not the manifest's.
 
 **Step 3c (separate, later; Iris 23:43 UTC, adopted by the orchestrator): outcome determinism independent of host
-speed.** Step 3's known limit is that outcomes are deterministic only within about 1.9× of the reference host
-(Yeongdeok 0325T19 FD1 and FX2). Iris rejected deriving Z's watchdog from the remaining job time: that moves the cliff
+speed.** Step 3's known limit is that outcomes are deterministic only within about 1.65× of the reference host:
+1.66× on the F-DYN set (Yeongdeok 0325T23 …166, budget-capped Z 9.65 s) and 1.84× on the 1-hour panel (Yeongdeok
+0325T19 FD1 and FX2), against the 16 s Z watchdog (Mira, ledger 120). Iris rejected deriving Z's watchdog from the remaining job time: that moves the cliff
 into a later stage or the job deadline instead of removing it.
 
 - **Design:**
