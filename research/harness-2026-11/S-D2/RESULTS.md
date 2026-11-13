@@ -465,6 +465,37 @@ Reading:
   - On the contiguous baseline the calibrated share reaches at most 0.12, not 0.15; the rule takes the closest grid value.
 - This is consistent with the state-family result above: the rate varies between intervals. It does not by itself say where the real-data gain lies. Iris's covariate reading (time-varying weather) is one candidate; this ablation tests a synthetic modulator, not weather.
 
+## 3i. A1 §5.2 native multi-observation cumulative marginals, demonstrated on cohort R (reported by Daniel; receipt not yet reassembled here; unverified until Owen)
+
+What it demonstrates: the D2 candidates (d2_nll_rebuilt, d2_bracket_rebuilt) share one forecast path,
+`survival.sample_forecast`. That path emits P(newly burned by t_j) at every later survey within 48 h natively, in
+one rollout (refit/native_marginals.py). No score was computed.
+
+- Rulings:
+  - weights: #155 §2 8e02a19d (Victor, orchestrator). Development weights are accepted: the committed d4_wind_seed0
+    (33c5b3cf), archive-trained, **not part-a-trained**, loaded unchanged into the D2 code path.
+  - custody: Hannah, ledger row 78, GO extended to 55b268df at ec52f0ee. Path 1: R is read only through
+    nirops_access.py (08753d96) with R_ALLOWLIST (307fc097).
+- Run: Daniel's container, commit 55b268df (refit/ head; demo_native_marginals_R.py bcad73ed), command verbatim,
+  03:14:09–03:18:26Z, exit 0.
+  - US2024 inputs: manifest 286f4c47, checked before and after.
+  - Interpreter: pinned refit venv plus pyogrio 0.10.0 (GDAL 3.9.1), geopandas 1.0.1, packaging 24.2 and certifi
+    2026.10.23, on a side path; check_refit_env ok.
+- Result (driver summary):
+  - coverage: **6 fires, 273 cutoffs, 0 skipped**;
+  - all_in_unit_interval true; all_nondecreasing true (max decrease 0.0); **all_single_lead_bit_identical true**;
+    one column per later survey within 48 h;
+  - weights load: StructuredKernelModel, strict load, keys/shapes/values equal, 26,137 parameters;
+  - non-degenerate: pass. Entry CDF at the last lead has quantiles 0.5 1.7e-19, 0.9 2.7e-4, 0.99 0.032,
+    0.999 0.138 and max 0.998;
+  - rps_computed false.
+- Access: NIROPS_ACCESS_LOG.jsonl (sha 2ea91ba1…) has 7 lines: 1 id_index (Incident_C only, 12,706 records) and
+  6 read_incident calls covering 330 fids, each mapped to its own R incident (Daniel). Hannah checks the log and
+  the audit TSV.
+- Receipt: NATIVE_MARGINALS_R_RECEIPT.json, sha256 89288293…3405, 166,706 bytes. It is held off-repo pending
+  Hannah's ruling, because rows[] carry R survey timestamps. Arrival files stay in Daniel's container.
+- Note: in the receipt, entries are cells unburned at cutoff and valid. The non-degeneracy rule is the one in the driver (max > 0.01 on some cutoff, no constant cutoff, no all-one cutoff).
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any
