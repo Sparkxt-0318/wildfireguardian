@@ -232,12 +232,14 @@ measured on one host (`vm`, x86_64, Intel Xeon @ 2.10 GHz, 4 CPUs), each run alo
   - Z completes with CONDITIONAL_OPTIMUM (EXACT_CONTACT_SWEEP) inside its work budgets.
   - **Its work-unit counts are identical across all 10 reps:** setup 1,826 for both requests; sweep 6,715,500 (…207)
     and 30,779,375 (…168).
-  - Z wall 5.75–7.07 s (…207) and 6.46–7.96 s (…168). Under the old fixed 6 s cap, most of these would have been cut;
-    the budget lets Z finish the same work every time.
+  - Z wall 5.75–7.07 s (…207) and 6.46–7.96 s (…168). **On this host** the old fixed 6 s cap would have cut most of
+    these. On Mira's faster host, all 4 of her Z runs finished under 6 s (4.84–5.69 s, ledger 130).
+  - The claim that holds on both hosts is that the work units are identical.
+- **Mira's verification:** ledger 130, PASS WITH NOTE. Her own 2 reps on her kit give 4/4 rows in the same classes
+  with the same units, and no guard trigger. Her note (the 6 s statement is host-specific) is applied above.
 - **No guard stops.** Family RSS-sum peak 1,427–1,493 MiB. Walls 32.5–44.5 s.
 - Single host. The known limit above applies: on a host more than about 1.55× slower than this one, the Z watchdog
   (16 s) would come before Z's work budget. Here the largest Z was 7.96 s, a 2.0× margin on these two requests.
 
 ## Pending
-- Mira's verification of the A4 rerun.
-- Then the cut heads for Step 2 and the rebased Step 3, which go to Mira before any PR.
+- The cut heads for Step 2 and the rebased Step 3, which go to Mira before any PR.
