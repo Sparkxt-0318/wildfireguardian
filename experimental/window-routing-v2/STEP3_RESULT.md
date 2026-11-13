@@ -133,7 +133,77 @@ G6).** Compared with the earlier run under the same settings (`fdyn_b300_g12k_rs
 - …166 stays UNRESOLVED.
 - No G2 or G2b was run on these routes, so they are not acceptance evidence for anything except the stage-stop rule.
 
+## Rebased onto the final Step 2 (kit-v2-step23, manifest `192f15cc…`; acceptance in STEP3_ACCEPTANCE "Rebase onto the final Step 2")
+
+Merge `claude/priya-kit-v2-step3-on2` @ 34a7e2da (Step 3 149f448 into Step 2 bc90787): Thomas PASS WITH ONE NOTE (doc,
+applied at 90012ac9); Mira ledger 127 PASS (own kit 192f15cc…, suite 81 + 3 skipped on her kit). All results below are
+measured on one host (`vm`, x86_64, Intel Xeon @ 2.10 GHz, 4 CPUs), each run alone, no restart.
+
+### Gates
+
+| Gate | Result |
+|---|---|
+| Tests on kit-v2-step23 | **81 passed + 3 skipped**, parent runner ok |
+| **G1** panel, 20 missions × 2 reps, 81 s, 02:06:49–02:35:28 UTC, 80 rows, redecide 0 differences (`results/step3rebase/`) | **20/20**, FL2 rule included |
+| G3 | **20/20** |
+| Memory-mapped statuses / check budgets | 0 OUTSIDE, 0 NOT_PROVEN; **28 checks, all `within_budget: true`**, largest check peak 487.6 MiB |
+| **M1** (Step 2F, per V2 rep, harness family PSS) | **PASS 40/40**, largest **1,552.6 MiB** (Yeongdeok 0325T19 FX2, rep 2); 0 unmeasured samples (53,191 measured). Host as above |
+| **G5 wall** (summed medians) | **0.892** (391.9 / 439.4 s), driven by FL2 (below) |
+| **G2** | **28/28** published routes accepted by both frozen checkers |
+| **G2b** (`xcheck/g2b.py` @ deeb7c2) | **40 runs, 0 violations** (38 PASS, 2 NOT_APPLICABLE_STATUS) |
+| Kit identity | V2 40/40 |
+| **F-DYN every-stage-stop** (Mira ledger 127; 12 requests, 300 s, guard and rss_limit 12,288 MiB, 02:35:33–03:05 UTC; `results/step3rebase/STAGE_STOP_FDYN.json`) | **22 stages checked (12 Z, 6 LO, 4 HI), 0 violations, 0 STAGE_CAP_WATCHDOG**; 6 EA builds reported, not checked |
+
+- **FL2 (Yeongdeok 0325T23):** V2 is FULL_OPTIMUM_PROVEN@1922 on both reps in about 29 s. FROZEN is FEASIBLE@1922
+  and UNRESOLVED, at 79–81 s. Step 3's own panel showed the same outcome under the budgets.
+- **Step 1 reason changes, not verdict changes:**
+  - FX2: LATE_RESULT → SEARCH_TIMEOUT;
+  - FL2: LATE_RESULT no longer appears.
+
+### F-DYN: differences from the Step 3 run, each tied to its stage (measured)
+- **Stage count 22, not 26.** On both Yeongdeok …166 requests, LO2 and HI did not run, because the LO candidate was
+  certified.
+- **Verdict change on Yeongdeok …166 (both variants): UNRESOLVED → CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN, arrival 3953.**
+  - Step 3 run: the whole-road check of the LO, LO2 and HI candidates returned UNRESOLVED / **RSS_LIMIT** each time,
+    all at arrival 3953. That check runs in-process, so it is charged the 4.4 GiB parent.
+  - Rebased kit: the check runs in a forked child under Step 2. It is CERTIFIED_ADMISSIBLE, with its own cgroup peak
+    494–495 MiB, within_budget true.
+  - This is Step 2's purpose showing on F-DYN. The same-host A/B below confirms it.
+- **Uiseong family RSS-sum peak: 9.2–9.8 GiB → 2.3 GiB** (the 2 AT_ISSUE requests: 9.2–9.8 GiB → 0.9 GiB). Statuses are
+  unchanged: 4 UNRESOLVED and 2 AT_ISSUE_FAILURE.
+  - Hypothesis, untested: amendment E's chunked distance removes the transient there.
+- **LO on …166 took longer: 70.4 / 82.7 s against 52.8 / 62.6 s, still 37–51 s inside its cap.**
+  - The work is identical: 1,669 expansions, 1,404 boxes, 9 coefficient batches.
+  - The whole difference is in the bound-model coefficient time (55.2 / 66.5 s against 38.4 / 48.1 s).
+  - **Post-hoc diagnostic** (not in the acceptance; `results/step3rebase/ab166/`): Step 3's kit (kit-v2-step3e) and the
+    rebased kit were run back-to-back on this host on kriged_mean …166, 03:18–03:27 UTC:
+
+    | kit | Z | LO | coef_s | outcome |
+    |---|---|---|---|---|
+    | kit-v2-step3e | 10.5 s | 83.1 s | 67.1 s | TIMEOUT, LO check RSS_LIMIT |
+    | kit-v2-step23 | 10.6 s | 85.4 s | 69.1 s | FULL_OPTIMUM_PROVEN, check certified |
+
+  - So the slower LO and Z come from this host (the container was replaced at 00:36Z), not from the rebase.
+  - The verdict change comes from Step 2: same host, same request, and only the rebased kit certifies.
+  - The Z sweep units/s proxy differs by only 3% (median 28.6 M against 29.4 M), so the proxy does not capture this
+    host's slowdown. That is a finding about the proxy.
+
+### Known limit, measured again on this host
+- Z budget-capped times on the rebased runs:
+  - 10.3 s (…166 kriged_mean), 9.91 s (1-hour FX2 r1), 9.63 s (FD1 r1);
+  - previously 9.65 s and 8.5 s on the reference host.
+- **The watchdog margin on this host is 1.55× (F-DYN …166) and 1.61× (1-hour FX2).**
+- The A/B shows this is the host: Step 3's kit takes 10.5 s here.
+- The known-limit statement is relative to the reference host (Z 9.65 s on …166). This host is about 1.09× slower on
+  that stage, so it is inside the 1.65× bound, with 1.51–1.55× left.
+- Step 3c (Iris's host-speed design) remains the planned fix.
+
+### Ideas and gaps
+- The F-DYN set and the A/B are single runs per request.
+- The host-speed proxy (pure-Python Z sweep) did not see a host change that slowed numpy coefficient work by about
+  40% and Z by about 9%. Step 3c should not rely on that proxy alone.
+
 ## Pending
 
-- The A4 rerun (10 reps × 2 requests at 900 s). It is held until the final base (Step 2 amendment F + Step 3) is
-  settled (orchestrator), and will run as a tracked, checkpointed background task.
+- The A4 rerun (10 reps × 2 requests at 900 s), now on kit-v2-step23, the settled base, after Mira's verdict on the
+  results above. It runs as a tracked, checkpointed background task.
