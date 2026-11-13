@@ -556,3 +556,10 @@ anywhere.
 the 264 Uiseong candidate place-rows. Of the rows with no route, 4 more depend on what is assumed outside the export
 grid. The rest still have no route found. None of this is independently checked, and nothing here changes a
 headline number or a class an agency sees, except through the labelled classes above.
+
+**Correction to §9 "Reading" (13 Nov, ~11:20Z, same author; the table and effects above stand).** "4 more depend on
+what is assumed outside the export grid" is wrong. The count over the 264 rows is **6**: UA 23T01Z firms_early and
+envelope at h5 and h8 (4), plus UA 24T09Z kriged_mean at h5 and h8 (2). The full split of the 264 rows is:
+- 20 with a route found (12 from the widening, 8 already on G1);
+- 6 undetermined;
+- 238 with no route found.
