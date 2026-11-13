@@ -38,6 +38,11 @@
     - (c) the receipt shows, per R fire and cutoff, valid cumulative CDFs: in [0,1], non-decreasing across observation times, one column per later survey ≤ 48 h, with the single-lead column bit-identical to `sample_forecast`;
     - (d) no RPS is used at this step; the revision-30 propriety gate governs any scoring for admission.
   - **Execution.** The demo may run in Daniel's container, where the US2024 environment (286f4c47) already exists, from Elena's exact commit. Daniel executes it verbatim and changes no code; Elena owns the command and the receipt. This is the same arrangement as the refits.
+  - **Weights (orchestrator ruling, 2026-11-13, 03:06Z).** The demo may use the committed `d4_wind_seed0` checkpoint (33c5b3cf…) as **development weights**, under three conditions in addition to (a)–(d):
+    - the receipt names the checkpoint and its archive provenance, and says plainly that these are development weights, not part-a-trained;
+    - the weights load unchanged into the e598a840 model class, with no shape or key remapping;
+    - the outputs are non-degenerate.
+  - **R inputs (orchestrator with Hannah as custodian, approved with conditions).** R's survey states, times and cutoffs come only through `nirops_access.py` in Daniel's container, with a committed allowlist of exactly the 6 R IDs. Hannah checks the allowlist and driver shas before the run, and the access log and audit after it.
 
 ## 3. far_share (descriptive, carries no weight)
 - **Definition.** F is the set of offsets at Chebyshev distance ≥ 2 on the 9×9 stencil.
