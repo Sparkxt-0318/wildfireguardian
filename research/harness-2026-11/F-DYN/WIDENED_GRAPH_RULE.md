@@ -470,3 +470,13 @@ orchestrator.
 - **The pre-test re-runs on the new head** (`fdyn/widened_pretest_packetmodel.py`, same pair). Its pass condition
   (§8(iii)4) is unchanged.
 - **The §8(v) difference stays recorded as found:** 58 turn pairs (UA) and 64 (YD).
+
+**Pre-test pair, corrected to the rule the build uses (13 Nov, 08:4xZ).** The pass condition is unchanged.
+- **The flaw.** The masked packet in the first pre-test was declared `c651_unknown/1`. The padded build uses
+  `supplied/1` (§2.1), and the routing author's planned read path (F-3.1 SUPPORT_READ_RULE.md) admits `supplied/1`
+  only. The c651 packet therefore cannot test the path the build needs.
+- **The new pair.** The pre-test pair is now A (unmasked) / D (`supplied/1`). D carries the same mask: C's support[0],
+  support_mask_sha256 a0353243…, 1,267 cells.
+  - D's npz is byte-identical to C's (39140349…). Only the declared rule differs.
+- **D at 969a2ca2: refused** in the same way. The record is `results/WIDENED_PRETEST_PACKETMODEL_supplied1.json`.
+- **The first record stands as it was.**
