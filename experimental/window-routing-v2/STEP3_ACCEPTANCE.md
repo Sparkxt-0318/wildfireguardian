@@ -283,10 +283,20 @@ rewritten.
   - **G5 wall** ≤ 1.10.
   - **G2** on every published route; **G2b** 0 violations.
   - Kit identity on every V2 row.
-- **Not rerun, with the reason:**
-  - the Step 3 every-stage-stop run on the F-DYN set: the Step 2 changes do not touch stage code (the worker's stage
-    lines are byte-equal to Step 3's), and the bound-model distance is byte-identical (amendment E, tested);
-  - Step 2F's M3(d): the controller is unchanged by Step 3.
-  - If Mira or Thomas want either rerun, it is run before the cut.
+- **F-DYN every-stage-stop, rerun on the rebased kit (Mira ledger 127, before the cut).**
+  - Reason: the combination is new on F-DYN. Step 2's solver current-RSS gate (road_core) and its forked checks now
+    run inside Step 3's work-budgeted stages, and Step 3 lets Z run past the old 6 s. Step 3's 26-stage result came
+    from a kit without Step 2.
+  - Rule: unchanged from §D and the Step 3 result.
+    - The 12 F-DYN requests, 300 s, `--mode plain`, controller guard and request `rss_limit_mb` both 12,288 MiB;
+      kit-v2-step23; alone on the host, after the G1 panel; tracked, with restarts logged.
+    - `tools/stage_stop_check.py`. **Every Z, LO, LO2 and HI stage checked against its cap, 0 violations,
+      0 STAGE_CAP_WATCHDOG.** EA builds are reported, not checked.
+    - Statuses are reported beside the Step 3 run's. Any difference is reported as a finding with the stage that
+      produced it; it is not explained away.
+  - The stage count is expected to be 26 if the same stages run. A different count is reported, not a failure in
+    itself; every stage that runs must stop.
+- **Not rerun:** Step 2F's M3(d) (Mira ledger 127: the controller is unchanged by Step 3, and M1 per rep on the G1 panel
+  covers Step 3's memory at one hour).
 - **Then A4:** 10 reps × 2 requests × 900 s on this kit, tracked and checkpointed, with a timing claim only from runs
   without a restart.
