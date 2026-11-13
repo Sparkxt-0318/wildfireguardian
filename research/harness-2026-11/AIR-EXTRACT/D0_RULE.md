@@ -237,3 +237,13 @@ agree within 2 minutes on two dates: Yeongdeok 2025-03-25 and Seoul 2025-06-21.
 - **Builder timing.** The fix is committed before the re-run, in a separate commit from its outputs.
 - **Earlier output.** The verifier noted that the builder and its outputs were committed together at 38be623d.
   @ 38be623d is superseded and is not used.
+
+**Re-run after the row-85 fix (builder d15fc1b1): D1–D8 PASS.**
+
+| Table | Rows | No row time | Excluded at night | Excluded by wind | Excluded either way | Not excluded | Wind within 0.1 m/s of a limit |
+|---|---|---|---|---|---|---|---|
+| Main list | 166 | 0 | 76 | 14 (was 12) | 88 | 78 | 2 |
+| Some variants only | 5 | 0 | 1 | 3 | 3 | 2 | 0 |
+| Variants disagree | 16 | 2 | 10 | 4 | 12 | 2 | 0 |
+
+The per-point wind values are in `results/D0_AIR_ROW.json` (`tables.*[].wind.points`).
