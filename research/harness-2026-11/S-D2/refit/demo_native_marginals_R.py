@@ -105,7 +105,17 @@ def main():
     torch.set_num_threads(a.threads)
 
     env = pipeline.Environment(a.data_root, a.work / "environment_cache", input_sha256=pins)
-    model = pipeline.load_structured(a.checkpoint)
+    model = pipeline.load_structured(a.checkpoint)        # load_state_dict(strict=True): any key or shape remap raises
+    saved = torch.load(a.checkpoint, map_location="cpu", weights_only=False)
+    sd_saved, sd_model = saved["state_dict"], model.state_dict()
+    load_check = dict(
+        model_class=f"{type(model).__module__}.{type(model).__qualname__}", strict_load=True,
+        keys_equal=sorted(sd_saved) == sorted(sd_model),
+        shapes_equal=all(tuple(sd_saved[k].shape) == tuple(sd_model[k].shape) for k in sd_model),
+        values_equal=all(torch.equal(sd_saved[k].cpu(), sd_model[k].cpu()) for k in sd_model),
+        parameters=int(sum(v.numel() for v in sd_model.values())))
+    if not (load_check["keys_equal"] and load_check["shapes_equal"] and load_check["values_equal"]):
+        raise SystemExit(f"weights did not load unchanged: {load_check}")
     if set(pipeline.SPLIT["held_out"]["us_2024"]) != R_EVENTS:
         raise SystemExit("SPLIT held_out us_2024 differs from cohort R")
     a.out.mkdir(parents=True, exist_ok=True)
@@ -137,7 +147,11 @@ def main():
         nirops_access_sha256=acc_sha, allowlist_sha256=allow_sha, allowlist=allowed,
         nirops_archive_path=str(a.nirops_shp), nirops_archive_hash="not computed (would read every record's bytes)",
         access_log="NIROPS_ACCESS_LOG.jsonl", per_event={},
-        weights=dict(checkpoint=str(a.checkpoint), sha256=sha256(a.checkpoint), note=a.weights_note),
+        weights=dict(checkpoint=str(a.checkpoint), sha256=sha256(a.checkpoint), note=a.weights_note,
+                     status="development weights, not part-a-trained",
+                     provenance="archive-trained d4_wind weights (forecast-v2 final d4_wind_seed0) loaded into the D2 "
+                                "code path; not a D2-trained model (ruling #155 §2 at 8e02a19d)",
+                     load_check=load_check),
         lead_window_hours=WINDOW, crop=False,
         host=dict(python=platform.python_version(), platform=platform.platform(), torch=torch.__version__,
                   numpy=np.__version__),
@@ -154,7 +168,18 @@ def main():
         run_event(event, times, states, env, model, NM, a.out, receipt)
     log.close()
     receipt["access_log_sha256"] = sha256(log_path)
+    build_summary(receipt, t_start)
+    out = a.out / "NATIVE_MARGINALS_R_RECEIPT.json"
+    out.write_text(json.dumps(receipt, indent=1) + "\n")
+    print(json.dumps(dict(receipt=str(out), **receipt["summary"]), indent=1))
+
+
+def build_summary(receipt, t_start):
+    """Summary flags of the receipt (validity, bit-identity, non-degeneracy)."""
     rows = receipt["rows"]
+    allv = np.concatenate(receipt.pop("_last_lead_values")) if receipt.get("_last_lead_values") else np.zeros(0)
+    entry_quantiles = ({str(q): float(np.quantile(allv, q)) for q in (0.5, 0.9, 0.99, 0.999, 1.0)}
+                       if allv.size else None)
     receipt["summary"] = dict(
         fires=len({r["event"] for r in rows}), cutoffs=len(rows), skipped=len(receipt["skipped"]),
         all_in_unit_interval=all(r["in_unit_interval"] for r in rows),
@@ -162,10 +187,16 @@ def main():
         max_decrease_overall=max((r["max_decrease"] for r in rows), default=None),
         all_single_lead_bit_identical=all(r["single_lead_bit_identical"] for r in rows),
         all_columns_match_later_surveys_within_48h=True,   # by construction; arrival_entries re-checks shapes
+        non_degenerate=dict(
+            rule="max cdf over entries > 0.01 on some cutoff, every cutoff's entry cdf not constant, and no cutoff "
+                 "with all entries at exactly 1",
+            any_cutoff_max_above_001=any((r["entry_cdf_max"] or 0) > 0.01 for r in rows),
+            no_constant_cutoff=all((r["entry_cdf_sd"] or 0) > 0 for r in rows if r["entries"]),
+            no_all_one_cutoff=not any(r["entry_cdf_min"] == 1.0 for r in rows if r["entries"]),
+            entry_cdf_last_lead_quantiles=entry_quantiles),
         wall_seconds=time.perf_counter() - t_start)
-    out = a.out / "NATIVE_MARGINALS_R_RECEIPT.json"
-    out.write_text(json.dumps(receipt, indent=1) + "\n")
-    print(json.dumps(dict(receipt=str(out), **receipt["summary"]), indent=1))
+    nd = receipt["summary"]["non_degenerate"]
+    nd["pass"] = bool(nd["any_cutoff_max_above_001"] and nd["no_constant_cutoff"] and nd["no_all_one_cutoff"])
 
 
 def survey_states_from_records(gdf, grid):
@@ -223,6 +254,7 @@ def run_event(event, times, states, env, model, NM, out_dir, receipt):
         ok = valid.all(0) & ~states[i]
         forecasts[i] = (cdf, valid)
         cutoffs.append(i)
+        receipt.setdefault("_last_lead_values", []).append(cdf[-1][ok].astype(np.float32))
         receipt["rows"].append(dict(
             event=event, cutoff_index=i, cutoff_utc=times[i].isoformat(), n_leads=len(leads),
             lead_hours=[round(x, 6) for x in leads], cdf_min=info["min_raw"], cdf_max=info["max_raw"],
@@ -230,6 +262,9 @@ def run_event(event, times, states, env, model, NM, out_dir, receipt):
             nondecreasing=bool(info["max_decrease_raw"] <= 0.0),
             single_lead_bit_identical=same, cells=int(ok.size), entries=int(ok.sum()),
             mean_cdf_last_lead_on_entries=float(cdf[-1][ok].mean()) if ok.any() else None,
+            entry_cdf_max=float(cdf[:, ok].max()) if ok.any() else None,
+            entry_cdf_min=float(cdf[:, ok].min()) if ok.any() else None,
+            entry_cdf_sd=float(cdf[-1][ok].std()) if ok.any() else None,
             seconds=time.perf_counter() - t0))
     if cutoffs:
         e = NM.arrival_entries(cutoffs, hours, states, forecasts, window=WINDOW)
