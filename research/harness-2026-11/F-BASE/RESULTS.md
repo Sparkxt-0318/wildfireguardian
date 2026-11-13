@@ -289,3 +289,41 @@ fdyn_g_allwait/). Instances are the verified ones (sha equal on 432/432 per read
 
 **Verification:** Nora, **PASS WITH NOTES** (ledger row 69). Her recount equals every figure; her re-run of UA 25T17 h5
 kriged with her own packets gives 18 identical rows.
+
+## 2026-11-13: (f) no_reentry/2, THE DEFAULT reading (manifest v3.7; Nora row 68), built from the /2 packet
+
+Rule (f) 465114bf → packet hashes NR2_PACKETS.json 1713ab4a (24 built from MANIFEST_v3_7 @ db4f57dd) → the run, with
+the same runner verified for /1 (cff72c6f). The run started at 00:51:27 and ended at 05:13:15 UTC, with two
+2 h-task-limit handovers relaunched by the identical command (fdyn_f_nr2/RESTARTS.log). Results: 8ebdb0b1
+(RESULTS_fdyn_nr2.json; compact rows in fdyn_f_nr2/, where the blocked-edge lists are replaced by count + sha256 and
+FULL_ROWS_SHA256.json holds the full rows' shas).
+
+- **Exact:** ROUTE 250 / NO_ROUTE 182 of 432.
+  - Per packet (18 requests each): NO_ROUTE ranges 4–13 for Uiseong and 6–8 for Yeongdeok.
+  - Per (region, horizon, variant), over 3 starts: 24–27 of 54 for Uiseong and 20 of 54 for Yeongdeok.
+- **(d):**
+  - (i) S1 returns a route the exact field rejects: 0/432;
+  - (ii) S2 refuses a resolvable request: 18/250;
+  - every S1 route replays at the exact T.
+- **(e), every Δ:**
+  - S3 ROUTE 250 / VIOLATION 0 / REFUSED 182 / UNRESOLVED 0;
+  - violations relative to the time-dependent model: 0;
+  - refuses a resolvable request: 0;
+  - every ROUTE replays at the exact T.
+- **Signature vs reopening (exact):** dep 0: 128 / 80 / 8; dep 7200: 122 / 88 / 6. Order: both ROUTE / NR-only
+  NO_ROUTE / both NO_ROUTE.
+- **vs /1:**
+  - 132 requests go ROUTE → NO_ROUTE (UA 68, YD 64);
+  - 0 go NO_ROUTE → ROUTE;
+  - where both route, 12 arrive later and 0 earlier.
+  - Consistent with /2 only adding closures (cells burned out before the start, the B0 cells). On a 4-packet UA h5
+    sample, Nora found that the 26 lost requests are 20 with the origin's entry node in a B0 cell and 6 with a corridor
+    through B0. The other 20 packets are not checked.
+- **Caveats:**
+  - contact relaxation only (F1): no dose or peak claim;
+  - NO_ROUTE / REFUSED depend on the waitable rule;
+  - all-wait = default for /2 is argued (the suffix-block argument in (g)), NOT measured.
+
+**Verification:** Nora, **PASS WITH NOTES** (ledger row 75). Her recount of all 432 rows equals every claim. Her re-run
+of UA 25T17 h5 kriged_mean with her own /2 build gives 18 identical rows, including request/instance sha and the
+compact blocked-edge fields. 23 packets were not re-run by her.
