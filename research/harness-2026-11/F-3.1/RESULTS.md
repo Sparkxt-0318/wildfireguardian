@@ -906,11 +906,11 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 | non-prefix feasible sets | 0 | 0 |
 | no-route rows, split (NOT_EVALUATED_LABEL_RULE.md): start point on ground the model shows as burned before this start time: not evaluated | 1,114 (inside 1,114, touches 0) | – |
 | no-route rows: route on `/1`, none on `/2` (flag "depends on the no-re-entry rule") | 248 (fire-limited 88, possibly road-limited 160) | – |
-| no-route rows: origin already inside the modelled fire area at that departure time | 950 | – |
-| no-route rows: fire-limited within loaded graph (other) | 74 | – |
-| no-route rows: possibly road-limited (ROAD-LIMITED; other) | 16 | – |
+| no-route rows: origin already inside the modelled fire area at that departure time | timing variants 74; static envelope_burnset row 876 (separate stratum) | – |
+| no-route rows: fire-limited within loaded graph (other) | timing variants 68; static row 6 | – |
+| no-route rows: possibly road-limited (ROAD-LIMITED; other) | timing variants 16; static row 0 | – |
 
-PASS = full policy OK and closed/router replay clear.
+PASS = full policy OK and closed/router replay clear. The not-evaluated split is VERIFIED: Nora, PASS WITH NOTES, ledger row 73 (note applied: the timing variants and the static envelope_burnset row are shown as separate strata).
 
 **`/2` vs `/1`, per place (1,044 (region, start, horizon, place) rows × 3 timing variants = 3,132 per field; CERT and ROUTER identical).**
 
