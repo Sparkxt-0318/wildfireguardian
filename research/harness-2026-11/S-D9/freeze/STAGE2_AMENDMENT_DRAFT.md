@@ -143,7 +143,7 @@ Part c is not opened until **all** of the following hold:
 
 7. **No-touch declaration at opening.** Every worker session declares that it will not build, read or derive part-b or part-c labels or perimeters until the decision is recorded. A breach moves the affected fires to an **"exposed" stratum**, which is reported separately.
 8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. The script is `verification/access_audit.py` at commit **8156141c** on claude/verification-ledger, sha256 `e18338fb190dbddcb58bd4ae0c9374365ead6d59343d389540ad384230f69bf8`. Nora passed it (her row 52, 8e1e09c6), and it is Hannah's ledger row 59 (f52f2ea9). Earlier heads (4844e7fb, 72a07bf1, a4094fa7) are superseded and are not cited; a4094fa7 had a GOFER pattern regression.
-   - **Roster closed.** The pre-opening roll-out covers 16 sessions in Hannah's ledger rows 58–71 (closure noted at row 71, 999aaa57): rows 58, 60, 62, 63, 64, 66, 67, 69, 70 and 71. At opening, the custodian re-runs item 8 for any session not on that roster and for any transcript that has grown since its row.
+   - **Roster closed.** The pre-opening roll-out covers 16 sessions in Hannah's ledger rows 58–71 (closure noted at row 71, 999aaa57): rows 58, 60, 62, 63, 64, 66, 67, 69, 70 and 71.
 
 The same conditions apply to opening part b. This text matches Hannah's `verification/CUSTODY_NOTE_A1.md`.
 
