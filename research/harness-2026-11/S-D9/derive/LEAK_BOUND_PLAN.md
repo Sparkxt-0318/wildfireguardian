@@ -226,3 +226,18 @@ The run reported `band_truncation.overall = 0.0`. That is a geometric necessity,
   revision 3 item 6 does not occur. It was conservative but wrong.
 - The full-domain secondary population is still the cropped domain. New-burn cells outside the crop: 12,384 of
   122,640.
+
+## Result and verification (2026-11-13)
+- **Outputs:** derive/leakbound_run/ @ b2e235ab, byte-identical to the executor's commit 1140a2f5.
+- **Arm L (primary), 4 km band:** ΔBrier −4.95e-5, 95% CI [−1.82e-4, +8.89e-5]. **NOT MATERIAL** (rev 1 rule).
+  The relative change is −0.23%, and 350 of 490 fires improve.
+- **Arm L2:** not material in either population.
+- **Arm R:** NOT RUN. The bound therefore covers the `logistic_rebuilt` recipe only, refit inside the folds (not the
+  A1 object).
+- **Consequence (rev 1, fixed in advance):** the limitations paragraph cites the measured bound (the interval and the
+  relative change) and states that arm R was not run.
+- **Verification:** independent verifier, **PASS WITH NOTES**, ledger row 63 (verification/owen-smoke-2).
+  - Aggregate-level recomputation reproduces every Brier, ΔBrier, interval, material flag and calibration gap exactly.
+  - Coverage: 490/490 fires and 3,773/3,773 intervals.
+  - The band truncation of 0 is confirmed exact.
+  - *Note:* the per-fire cache and the fold models were not independently recomputed (aggregate level only).
