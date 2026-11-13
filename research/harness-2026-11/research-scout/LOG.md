@@ -940,3 +940,61 @@ Metadata only, read through the API; no files were downloaded.
   - This affects VNP64A1 and also VIIRS S-NPP active-fire detections (FIRMS) used elsewhere in the project.
   - VJ164A1 (NOAA-20): no collection found in CMR.
 - Verdict: no NASA burned-area product is confirmed for 2027 fires.
+
+## Batch 13 (2026-11-13): NOAA-20/21 VIIRS for 2027, FEDS, and one correction
+
+Documentation only: no fire or burned-area data were downloaded, and only collection-level metadata was read from CMR. Each source was opened by a research agent unless it is marked otherwise. Where a line says "re-checked", the quote was confirmed again in the saved page.
+
+**Correction to batch 12 (scope check, verification ledger row 139)**
+
+- Batch 12 said "제11조③ provides only for sharing between agencies". That overstates it.
+- The 시행규칙 does require informing the public of the 산불위험지수 and the 대응단계.
+- Neither of those concerns damage perimeters. No publication duty for perimeters was found.
+
+**(1) NOAA-20/21 VIIRS 375 m active fire**
+
+- Both are live in FIRMS.
+- CMR collection metadata:
+  - VJ114IMGTDL_NRT and VJ214IMGTDL_NRT: Version 2, ACTIVE, "No constraints". The CMR dates and links contain slips.
+  - Standard products VJ114IMG (from 2018-01-01) and VJ214IMG (from 2023-02-10): v002, ACTIVE.
+- FIRMS FAQ:
+  - Latency: "within 3 hours of a satellite observation (on a best-effort basis)".
+  - NOAA-20 from 1 April 2018.
+  - NOAA-21 "from 17 January 2024" (re-checked). The FIRMS download page says "1 March 2023 - present" (re-checked). The two pages conflict.
+  - Science-quality files come with a "2-3 month lag".
+- Access:
+  - The archive folder needs an Earthdata Login.
+  - The API needs a free MAP_KEY (5000 transactions per 10 min).
+  - Cite as "NASA FIRMS".
+
+**(2) NOAA-20/21 burned area**
+
+- It does not exist: CMR has no VJ164A1 or VJ264A1, and the LP DAAC pages only redirect.
+- FIRMS blog 2026-10-27: "Efforts are ongoing to develop and implement a continuity plan of the Suomi NPP VIIRS burned area product using NOAA-20 VIIRS observations and possibly NOAA-21" (re-checked). No date is given.
+- MCD64A1 is not a safe fallback either, because Terra/Aqua begin shutting down late 2026/early 2027 (batch 12).
+- Result: no NASA burned-area product is confirmed to update for 2027.
+
+**(3) The Suomi NPP record after 2026-11-02**
+
+- FIRMS FAQ: new S-NPP data "ceased at 15:40 Universal Time (UTC) on November 2, 2026" (re-checked). The archive covers "20 January 2012 to November 2, 2026".
+- FIRMS blog:
+  - "Historical data will continue to be available".
+  - Alerts have stopped.
+  - Users should switch the sensor to VIIRS_NOAA20_NRT or VIIRS_NOAA21_NRT.
+- NESDIS: transition to "NOAA-21 (Primary) and NOAA-20 (Secondary)".
+- No merged S-NPP plus NOAA-20/21 series was found.
+
+**(4) FEDS NRT fire perimeters (VEDA docs; Chen et al. 2022)**
+
+- Sensors: "Suomi NPP and NOAA-20 satellites" (re-checked).
+- Cadence: "~ every 12 hours" (re-checked).
+- Coverage: a "CONUS-wide implementation" (re-checked), so Korea is not covered.
+- Status: "experimental".
+- Access: the OGC API opens without login. No licence was found.
+- Not found: whether FEDS continues on NOAA-20/21 after the S-NPP cut-off.
+
+**Verdict for Korea 2027**
+
+- Active fire: NOAA-21 (primary) and NOAA-20 VIIRS 375 m NRT; the S-NPP archive serves as history only.
+- No VIIRS or MODIS burned-area product is confirmed to update.
+- FEDS does not cover Korea.
