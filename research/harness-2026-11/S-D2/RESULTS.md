@@ -362,6 +362,46 @@ Every pooled number, pinned vs unpinned: results/cv_pinned_vs_unpinned.md (172 r
 - Owen's notes: composite and NLL are bit-identical to his independent pinned runs (folds 0 and 2, 10 fires). Plug-in and MCEM differ slightly between the two pinned hosts: thetas by ≤ 5e-8 (plug-in) and ≤ 3e-4 (MCEM), per-fire Brier by ≤ 0.24% and ≤ 0.64% relative. This is likely host floating point (BLAS/CPU). The conclusions are unaffected: on those 10 fires, MCEM − plug-in is +0.01068 in both.
 - Conclusions for plug-in, mean-field NLL and MCEM are unchanged. MCEM is still the worst and has no skill over persistence. Plug-in is still ≈ logistic_cf.
 
+## 3g. Three-arm state family (RULE_state_family.md @ d0c7f0ad) in E3 on the pinned kernels (unverified; sent to Owen)
+
+Caveats: covariate-free, homogeneous, 25 part-a fires incl. 4 H-dev, not the neural refit. This is round 2 on the same
+25 fires; two round-1 arms (mcem_rate, mcem_state) were tried earlier and failed.
+Run: E3 pinned; kernels from results/cv_part_a_pinned.json; result in results/cv_state_family_pinned.json
+(cv_state_family.py c51a1d79…). The earlier unpinned-venv312 family checkpoints were set aside and not reused.
+
+**Outcome under the pre-registered bar** (beat BOTH plug-in and logistic_cf, with bootstrap CI < 0 AND sign-flip p < 0.05/3): **no arm qualifies.
+The stopping rule is triggered: the kernel line names NO part-b candidate, and any further kernel work is diagnostic only.**
+
+| arm | Brier | 0–1 km | 1–2 km | 2–4 km |
+|---|---|---|---|---|
+| logistic_cf (reference) | 0.056646 | 0.13338 | 0.04626 | 0.02274 |
+| plugin | 0.056928 | 0.13473 | 0.04633 | 0.02259 |
+| plugin_state_wide | 0.057165 | 0.13513 | 0.04651 | 0.02277 |
+| mcem_lag1_wide | 0.058963 | 0.14279 | 0.04635 | 0.02269 |
+| mcem_state_wide | 0.060768 | 0.14872 | 0.04720 | 0.02291 |
+| persistence (reference) | 0.064617 | 0.16215 | 0.04845 | 0.02331 |
+| mcem | 0.065996 | 0.16884 | 0.04761 | 0.02325 |
+| dilation_8h (reference) | 0.341693 | 0.82329 | 0.38487 | 0.06338 |
+
+Paired differences (arm − comparator; fire-clustered bootstrap 95% CI; exact sign-flip p; fires where the arm is better):
+
+| arm | vs plug-in | vs logistic_cf | vs persistence | vs MCEM |
+|---|---|---|---|---|
+| mcem_state_wide | +0.00384 [0.00140, 0.00615], p 0.0066, 7/25 | +0.00412 [0.00155, 0.00657], p 0.0055, 7/25 | −0.00385 [−0.00973, 0.00169], p 0.23, 15/25 | −0.00523 [−0.00646, −0.00403], p 1e-4, 24/25 |
+| mcem_lag1_wide | +0.00203 [−0.00040, 0.00414], p 0.11, 9/25 | +0.00232 [−0.00028, 0.00466], p 0.088, 8/25 | −0.00565 [−0.01139, −0.00060], p 0.051, 15/25 | −0.00703 [−0.00898, −0.00517], p 1e-4, 24/25 |
+| plugin_state_wide | +0.00024 [−0.00070, 0.00119], p 0.65, 13/25 | +0.00052 [−0.00061, 0.00147], p 0.36, 9/25 | −0.00745 [−0.01189, −0.00330], p 0.0028, 18/25 | −0.00883 [−0.01163, −0.00597], p 1e-4, 21/25 |
+
+- The two MCEM-kernel arms are *significantly worse* than plug-in and logistic_cf (mcem_state_wide) or not distinguishable from them (mcem_lag1_wide). The plug-in-kernel state arm is no different from plug-in.
+- Edge weights per fold (rule: weight at m = 8 and m = 1/16). mcem_state_wide: m = 8 0.000–0.009, m = 1/16 0.108–0.128. plugin_state_wide: m = 8 0.000–0.006, m = 1/16 0.081–0.094. There is no pile-up at the top of the grid; about 10% of the weight sits at the slow edge.
+- Lag-1 (ρ, κ) chosen on the other folds: (0.25, 1000) in all 5 folds.
+- First vs later intervals (lag-1 arm; comparators on the same cells):
+  - first interval (29,117 cells): lag1 = state_wide 0.10612, MCEM 0.11065, plug-in 0.11203, logistic_cf 0.11323, persistence 0.13745. The two arms coincide here, as they must, because lag-1 has no previous interval.
+  - later intervals (338,587 cells): lag1 0.05491, state_wide 0.05687, MCEM 0.06216, plug-in 0.05219, logistic_cf 0.05178, persistence 0.05835.
+  - So the state arms beat plug-in only on the first interval (a small share of cells), and lose to it on later intervals.
+- Internal checks:
+  - m = 1 reproduces the CV within Monte Carlo error: MCEM 0.065991 vs 0.065996, plug-in 0.056950 vs 0.056928. Both runs use 512 simulations, differently seeded.
+  - The round-1 m ≤ 2 recompute gives 0.060421 against the 0.060462 reported in cv_rate_arm.json. That reported number used the E1 kernels, so a difference of this size (4e-5) is expected from the kernel change, not a code discrepancy.
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any
