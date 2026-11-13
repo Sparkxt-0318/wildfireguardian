@@ -517,7 +517,7 @@ one rollout (refit/native_marginals.py). No score was computed.
   - The canopy stage's source URL is dead.
 - Note: in the receipt, entries are cells unburned at cutoff and valid. The non-degeneracy rule is the one in the driver (max > 0.01 on some cutoff, no constant cutoff, no all-one cutoff).
 
-## 3j. Feature-ablation seed extension (RULE_ablation_seed_extension.md @ 030632f9 + disclosed additions; unverified; sent to Owen)
+## 3j. Feature-ablation seed extension (RULE_ablation_seed_extension.md @ 030632f9 + disclosed additions; verified: Owen, PASS WITH NOTES, ledger row 59 @ c67329e2; synthetic only)
 
 Synthetic only. This is a follow-up with its own rule; the §3h verdicts stand as recorded.
 - Arms: baseline, time_varying, baseline_contig, time_varying_contig. Seeds 0–29; seeds 0–4 are reused from the guarded run.
@@ -551,7 +551,24 @@ Guard: 480 fits, 0 NLL or MCEM failures, so no seed is voided. **3 composite fit
 
 *Not a reading:* feature_ablation.py also writes the original 5-seed rule's mean-based verdicts into the JSON. Applied to 30 seeds, they say "the cause" for both time-varying arms: NLL means 0.407 and 0.494, and MCEM mean/SD inside 0.05. That is the original rule's arithmetic on a different seed count. It is not part of RULE_ablation_seed_extension.md and is not reported as a verdict.
 
-Cross-host: if Owen reruns, MCEM per-seed tolerance is taken from both hosts under the disclosed addition (01685f0d), so the readings above could only move toward NOT STABLE.
+**Cross-host (01685f0d; Owen's full rerun, row 59).** NLL and composite thetas are bit-identical (120/120 each). MCEM far share differs by ≤ 0.016 (host floating point). Readings are identical, and the same 3 composite guard fails appear.
+
+MCEM per seed is within tolerance only if it is within on both hosts:
+
+| arm | Owen's host | this host | both | split seeds |
+|---|---|---|---|---|
+| baseline | 30 | 30 | 30 | — |
+| time_varying | 22 | 24 | **22** | 17, 23 |
+| baseline_contig | 28 | 28 | 28 | — |
+| time_varying_contig | 14 | 15 | **14** | 5 |
+
+MCEM SD on Owen's host / this host: 0.0189/0.0187, 0.0368/0.0370, 0.0262/0.0262 and 0.0470/0.0469.
+
+The readings with the cross-host counts are unchanged:
+- time_varying fails STABLE on its NLL median (0.340).
+- time_varying_contig has MCEM within tolerance on both hosts for 14/30 = 0.47, below 0.80.
+- Both stay INTERMITTENT, since each exceeds its baseline's share above 0.40 by ≥ 0.43.
+- *Note:* this host's own time_varying MCEM count, 24/30 = 0.80, sat exactly at the STABLE threshold; cross-host it is 22/30. That is moot, because NLL fails STABLE.
 
 Per the orchestrator and Iris, **no further kernel diagnostics follow.** Whether the variation is weather needs the real covariates.
 
