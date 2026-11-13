@@ -480,32 +480,34 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
     - **Wider consequence:** any 2027 VIIRS pipeline in this project must use NOAA-20/21, not S-NPP.
   - **Back to the orchestrator for a decision** (2026-11-13), with options (c) VIIRS first detection and (a′) a perimeter-free reconstruction. See the message of that date.
 
-### 9.1 KR-P label: conditional on a qualifying 2027 product (orchestrator, 2026-11-13; draft for the custodian's verification)
+### 9.1 KR-P label: option (c), descriptive only (orchestrator ruling, 2026-11-13; for the assessor's reading and the custodian's verification)
 **Neither option (a) nor option (b) is adopted.** Option (a) cannot run from public inputs. Option (b) has no confirmed 2027 product. KR-P is built around what will exist in 2027, and it is **conditional**: if no qualifying product exists for the season, KR-P is reported as **"count only; not run (no qualifying product)"**. No label is forced.
-- **Candidate label: first VIIRS detection (option c), NOAA-20/21 only.**
+- **No confirmatory claim.** KR-P supports no confirmatory, superiority or generalisation claim. It is reported **"not run"** if fewer than the minimum number of events qualify, or if no qualifying product exists.
+- **Label: first VIIRS detection (option c), NOAA-20/21 only.**
   - Product: VIIRS 375 m active-fire detections from **NOAA-20 and NOAA-21 only** (FIRMS class VJ114/VJ214, I-band). Product names, versions and terms are **PENDING** the web-research session's documentation check. Each is pinned by version, and each downloaded file by sha256, before the season.
   - **Suomi NPP is excluded.** Its data delivery ended on 2026-11-02.
   - **Arrival** = the earliest detection time among the detections whose 375 m footprint centre falls in a cell of the 375 m EPSG:5179 analysis grid. Detections flagged low confidence are excluded.
   - **Footprint and population:**
     - The scored area is the event's detection cells dilated by one cell (375 m), within the KFS incident's reported location area.
     - Cells inside it never detected count as not burned. Cells outside it are not scored.
-    - The footprint comes from the final detections, so this is **hindsight-restricted** (A1 §4.1) and is labelled so.
+    - **The footprint is defined from the detections themselves**, including later ones. That is hindsight: the population is **hindsight-restricted** (A1 §4.1) and is labelled so.
   - **Endpoints and leads.** Endpoints are the NOAA-20/21 overpass times over the event. A forecast issued at one overpass is scored at each later overpass within 48 h (A1 §2), on the cells first detected by that overpass.
   - **Known biases, stated in every result:**
-    - Arrival is **late by up to the gap between overpasses**, typically about 12 h with two satellites.
+    - **First detection is an upper bound on arrival time.** Fire arrives at or before the first overpass that sees it. The bound is limited by overpass cadence (about 12 h between NOAA-20/21 passes) and by cloud and smoke.
     - Cloud and smoke obscuration delays or misses detections.
     - Small or low-intensity burning goes undetected, so the burned area is underestimated.
     - Detection geolocation is uncertain to about one pixel.
     - Labels are not perimeters, so results are not comparable with NIROPS, cohort R, or cohort K's kriged labels.
-- **Burned-area cross-check (conditional).** Use one only if a NOAA-20/21-based burned-area product, or another public 2027 burned-area product, is confirmed before the season. MCD64A1 and VNP64A1 are **not** relied on (MODIS is ending; VNP64A1 depends on S-NPP).
-- **Official KFS perimeters: obtainable only through an agency contact. OWNER ITEM.** If the owner obtains 2027 KFS final damage perimeters under terms that allow use, the deposit's kriging (CC-BY-4.0) could be applied inside them as a later descriptive variant, declared before use. It is not part of KR-P as registered.
+- **(b′) Burned-area cross-check, conditional.** Used only if a NOAA-20/21-based burned-area product, or another public 2027 burned-area product, is confirmed before the season. MCD64A1 and VNP64A1 are **not** relied on (MODIS is ending; VNP64A1 depends on S-NPP).
+- **Official KFS perimeters: obtainable only through an agency contact. OWNER ITEM.** If the owner obtains 2027 KFS final damage perimeters under terms that allow use, the deposit's kriging (CC-BY-4.0) could be applied inside them as a later descriptive variant, declared before use. It is not part of KR-P as registered. **(a′)**, the kriging of NOAA-20/21 detections inside a detection- or Sentinel-2-derived footprint, is **not adopted**.
 - **Himawari: not used.** The P-Tree terms forbid redistribution and require contact before results are released.
 - **Eligibility (proposal).**
   - KFS-reported burned area ≥ 100 ha.
   - Detections on at least 2 distinct overpasses at least 12 h apart, so the event yields at least one scorable interval.
   - At least 10 detection cells.
 - **Minimum event count (proposal).** If fewer than **5** events are eligible, KR-P is reported as a count only.
-- **Status:** a draft for the custodian's verification and the assessor's reading, to be frozen before 2027-01-01. The earlier option-(b) draft is withdrawn.
+- **Status:** for the assessor's reading and the custodian's verification, to be frozen before 2027-01-01. The earlier option-(b) draft is withdrawn.
+- **Product pins:** taken from the web-research session's documentation batch on NOAA-20/21 active-fire products and terms. **PENDING**; each product is pinned by name, version and terms before the season.
 - **US side checked for S-NPP dependence.**
   - Tier 2's primary label, NIROPS-type IR deliveries, does not use VIIRS.
   - The **FEDS** descriptive stratum is VIIRS-derived and 12-hourly. Whether FEDS NRT continues on NOAA-20/21 after the S-NPP cut-off is **PENDING** the documentation check. If its cadence or inputs change, the FEDS stratum states that.
