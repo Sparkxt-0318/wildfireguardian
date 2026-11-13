@@ -39,3 +39,8 @@ the headline. No further kernel diagnostics follow this extension, whatever the 
 weather is a separate question that needs the real covariates.
 
 Scope: synthetic generator only (low_far truth, 64×64, T = 240 h, 24 h brackets). This rule makes no claim on part b or on real covariates.
+
+*Disclosed addition (Iris, 2026-11-13 ~03:40 UTC, while the run was under way, before any extension output was read; it adds a condition and loosens nothing):*
+- If Owen reruns the extension on his host, MCEM's far-share SD and the per-seed within-tolerance results are reported from both hosts.
+- A tolerance check that passes on one host and fails on the other counts as **not within tolerance**. This applies both to the per-seed check |far − 0.0718| ≤ 0.05 and to any SD ≤ 0.05 statement.
+- The STABLE/INTERMITTENT/NOT REPRODUCED reading is then taken with those per-seed results. Reason: on the 5-seed run, a host change moved time_varying_contig's MCEM SD from 0.0435 to 0.0480 (Owen, row 54).
