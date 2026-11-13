@@ -871,7 +871,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 - **Cost.** The Yeongdeok caches peak at 11.4–12.2 GB RSS under all-waitable. One run was killed for running out of
   memory while running alongside other jobs, and was rerun alone.
 
-## Multi-hour HEADLINE run on `no_reentry/2`, 48 packet pairs (SCENARIO, not what happened; HEADLINE; NOT YET VERIFIED)
+## Multi-hour HEADLINE run on `no_reentry/2`, 48 packet pairs (SCENARIO, not what happened; HEADLINE; NOT YET VERIFIED; no-route counts split per `NOT_EVALUATED_LABEL_RULE.md`, file `results/HEADLINE_NR2_not_evaluated_split.json`)
 
 **Labels.**
 - SCENARIO, not what happened. Graphs are road-limited: roads are limited to the recorded windows.
@@ -904,9 +904,11 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 | acceptance 7: budget-code (PEAK/DOSE) differences vs reopening | 0 of 4,842 requests | 0 of 9,058 |
 | verdict differences on the 30-min grid (175,392 units) | 64,169, all "no re-entry infeasible / reopening feasible"; none the other way | 14,954 |
 | non-prefix feasible sets | 0 | 0 |
-| no-route rows: origin point in flame at departure | 2,064 | 950 |
-| no-route rows: fire-limited within loaded graph | 162 | 98 |
-| no-route rows: possibly road-limited (ROAD-LIMITED) | 176 | 32 |
+| no-route rows, split (NOT_EVALUATED_LABEL_RULE.md): start point on ground the model shows as burned before this start time: not evaluated | 1,114 (inside 1,114, touches 0) | – |
+| no-route rows: route on `/1`, none on `/2` (flag "depends on the no-re-entry rule") | 248 (fire-limited 88, possibly road-limited 160) | – |
+| no-route rows: origin already inside the modelled fire area at that departure time | 950 | – |
+| no-route rows: fire-limited within loaded graph (other) | 74 | – |
+| no-route rows: possibly road-limited (ROAD-LIMITED; other) | 16 | – |
 
 PASS = full policy OK and closed/router replay clear.
 
@@ -916,27 +918,48 @@ PASS = full policy OK and closed/router replay clear.
 |---|---|---|
 | same leave-by | 1,580 | 1,580 |
 | no route on both | 198 | 198 |
-| route on `/1`, no route on `/2` | 1,322 | 1,322 |
+| route on `/1`, no route on `/2`: not evaluated / depends on the no-re-entry rule | 1,074 / 248 | 1,074 / 248 |
 | `/2` leave-by earlier (median 116 s, max 311 s) | 32 | 32 |
 | `/2` later, or route on `/2` only | 0 | 0 |
 
-- **The 1,322 lost routes split as follows:**
-  - origin point closed at departure: 1,074;
-  - fire-limited: 88;
-  - possibly road-limited: 160.
-- **Cause.** `/2` differs from `/1` only on B0, the cells burned or burned out before the start (acceptance 6a, ledger row 68). So a place that had a route on `/1` and is "origin point in flame at departure" on `/2` has its own point on or touching a B0 cell. In wording terms that is "origin already inside the modelled fire area at that departure time". Here the fire area includes ground that burned out before the start: the place is closed because it sits on burned-out ground under this arm, not because flame reaches it.
-- **Share of places without a route on `/2`.** Per start, kriged_mean / firms_early / envelope, out of 84 Uiseong or 90 Yeongdeok places. The counts are identical at 5 h and 8 h.
-  - Uiseong 23T01Z: 28 / 30 / 30
-  - Uiseong 24T09Z: 33 / 37 / 37
-  - Uiseong 25T17Z: 55 / 72 / 72
-  - Yeongdeok 25T19Z: 38 / 40 / 40
-  - Yeongdeok 25T23Z: 40 / 41 / 41
-  - Yeongdeok 26T08Z: 42 / 42 / 42
+- **Split of the rows that lost their route (`NOT_EVALUATED_LABEL_RULE.md`, committed first at da167134; B0 recomputed with Leo's `build.main` stopped inside `add_b0`; per-member |B0| = plan meta on all 48 packets; members agree; 0 consistency exceptions):**
+  - **"start point on ground the model shows as burned before this start time: not evaluated": 1,074, all inside (touches 0).** "Under the no-re-entry rule nothing is computed from this point. This says nothing about whether people are there or whether roads are passable." These are not "no route", not in the no-road-escape set and not air candidates. A further 40 rows in this state already had no route on `/1`, so the state totals 1,114 rows.
+  - **248 stay "no checked route"**, flagged "depends on the no-re-entry rule", with cause "every road exit crosses ground the model shows as already burned". Their existing split: fire-limited 88, possibly road-limited 160.
+- **Why.** `/2` differs from `/1` only on B0 (acceptance 6a, ledger row 68). The not-evaluated state comes from the rule closing the start point's own cell, not from a search.
+- **Per start and variant, 5 h** (8 h identical on every count). Unsplit no-route counts are not quoted. The static envelope_burnset row has no B0 cells (0 not evaluated); it is shown as its own row.
+
+| start | variant | places | route | not evaluated (inside / touches) | lost route, depends on the no-re-entry rule | no route: origin already inside the modelled fire area at that departure time | no route: fire-limited | no route: possibly road-limited |
+|---|---|---|---|---|---|---|---|---|
+| Uiseong 23T01Z | kriged_mean | 84 | 56 | 8 (8 / 0) | 19 | 0 | 1 | 0 |
+| Uiseong 23T01Z | firms_early | 84 | 54 | 10 (10 / 0) | 19 | 0 | 1 | 0 |
+| Uiseong 23T01Z | envelope | 84 | 54 | 10 (10 / 0) | 19 | 0 | 1 | 0 |
+| Uiseong 23T01Z | envelope_burnset (static row) | 84 | 0 | 0 (0 / 0) | 0 | 84 | 0 | 0 |
+| Uiseong 24T09Z | kriged_mean | 84 | 51 | 20 (20 / 0) | 13 | 0 | 0 | 0 |
+| Uiseong 24T09Z | firms_early | 84 | 47 | 22 (22 / 0) | 15 | 0 | 0 | 0 |
+| Uiseong 24T09Z | envelope | 84 | 47 | 21 (21 / 0) | 13 | 1 | 2 | 0 |
+| Uiseong 24T09Z | envelope_burnset (static row) | 84 | 0 | 0 (0 / 0) | 0 | 84 | 0 | 0 |
+| Uiseong 25T17Z | kriged_mean | 84 | 29 | 42 (42 / 0) | 4 | 6 | 2 | 1 |
+| Uiseong 25T17Z | firms_early | 84 | 12 | 43 (43 / 0) | 6 | 7 | 13 | 3 |
+| Uiseong 25T17Z | envelope | 84 | 12 | 42 (42 / 0) | 6 | 8 | 13 | 3 |
+| Uiseong 25T17Z | envelope_burnset (static row) | 84 | 0 | 0 (0 / 0) | 0 | 84 | 0 | 0 |
+| Yeongdeok 25T19Z | kriged_mean | 90 | 52 | 33 (33 / 0) | 0 | 3 | 1 | 1 |
+| Yeongdeok 25T19Z | firms_early | 90 | 50 | 36 (36 / 0) | 1 | 3 | 0 | 0 |
+| Yeongdeok 25T19Z | envelope | 90 | 50 | 36 (36 / 0) | 1 | 3 | 0 | 0 |
+| Yeongdeok 25T19Z | envelope_burnset (static row) | 90 | 27 | 0 (0 / 0) | 0 | 62 | 1 | 0 |
+| Yeongdeok 25T23Z | kriged_mean | 90 | 50 | 39 (39 / 0) | 1 | 0 | 0 | 0 |
+| Yeongdeok 25T23Z | firms_early | 90 | 49 | 39 (39 / 0) | 2 | 0 | 0 | 0 |
+| Yeongdeok 25T23Z | envelope | 90 | 49 | 39 (39 / 0) | 2 | 0 | 0 | 0 |
+| Yeongdeok 25T23Z | envelope_burnset (static row) | 90 | 27 | 0 (0 / 0) | 0 | 62 | 1 | 0 |
+| Yeongdeok 26T08Z | kriged_mean | 90 | 48 | 39 (39 / 0) | 1 | 2 | 0 | 0 |
+| Yeongdeok 26T08Z | firms_early | 90 | 48 | 39 (39 / 0) | 1 | 2 | 0 | 0 |
+| Yeongdeok 26T08Z | envelope | 90 | 48 | 39 (39 / 0) | 1 | 2 | 0 | 0 |
+| Yeongdeok 26T08Z | envelope_burnset (static row) | 90 | 27 | 0 (0 / 0) | 0 | 62 | 1 | 0 |
 
 **Acceptance 8, earlier-arrival half** (`NOREENTRY2_ACCEPTANCE_RULE.md` §8; MULTIHOUR_HEADLINE_RULE.md amendment 19:15 UTC).
 - **Nested pair tested:** firms_early vs kriged_mean. On the rasters firms_early arrival is ≤ kriged_mean on all 10,955 cells (2,364 earlier, 8,591 equal, 0 later).
 - **Result:** 0 violations, CERT and ROUTER. No place has a later firms_early leave-by, or a firms_early route where kriged_mean has none.
   - Per field, over 1,044 rows: equal 514, firms_early earlier 6, firms_early no route with kriged_mean route 52 (a lost route is not a violation), no route on both 472.
+- The classes above ("no route", "none on both") are monotonicity comparison classes, not counts of places without a route. They include rows in the not-evaluated state; the place counts are the split table above.
 - **envelope vs kriged_mean:** not nested (lo = firms_early, hi = firms_constrained). Reported, not tested. Its counts are the same as firms_early, with 0 later rows.
 - **The 166 `/1` rows** (earlier variant later than kriged_mean, row 67) are all gone on `/2`. Every one went by losing the variant's route, none by a leave-by moving earlier:
   - 71 per field: no route on both;
