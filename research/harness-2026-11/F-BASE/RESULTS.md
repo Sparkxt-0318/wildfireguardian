@@ -327,3 +327,22 @@ FULL_ROWS_SHA256.json holds the full rows' shas).
 **Verification:** Nora, **PASS WITH NOTES** (ledger row 75). Her recount of all 432 rows equals every claim. Her re-run
 of UA 25T17 h5 kriged_mean with her own /2 build gives 18 identical rows, including request/instance sha and the
 compact blocked-edge fields. 23 packets were not re-run by her.
+
+### Lost routes under /2, labelled (adopted split wording, orchestrator 2026-11-13)
+
+The 132 requests that are ROUTE on /1 and NO_ROUTE on /2 are labelled by classify_lost_nr2.py (LOST_nr2.json). It uses
+the independent verifier's method (nora_fbase_nr2_lost.py), extended from 4 UA h5 packets to all 24.
+- **120 (UA 56, YD 64): "start point on ground the model shows as burned before the start: not evaluated".** The
+  origin's entry node lies in a cell burned out before the start (B0). These are not route failures to be read as
+  hazard findings.
+- **12 (all UA): "depends on the no-re-entry rule".** The origin is open at second 0, and the route is lost through
+  a corridor closed by B0.
+- **Cross-check:** on UA h5, the verifier's 4-packet sample gave 20 B0 + 6 corridor. My 6 UA h5 packets give 28 B0 + 6
+  corridor, which contains it.
+
+Stated plainly, for the /2 section above:
+- (1) "all-wait = default" on /2 is ARGUED (suffix blocks + FIFO), NOT MEASURED.
+- (2) The independent verifier re-ran 1 of the 24 packets. 23 packets were NOT re-run independently; for them,
+  verification is a recount of the committed rows.
+- (3) The per-packet / per-group wording is as corrected above: per packet of 18, NO_ROUTE is 4–13 for UA and 6–8
+  for YD; per (region, horizon, variant) group of 54, it is 24–27 for UA and 20 for YD.
