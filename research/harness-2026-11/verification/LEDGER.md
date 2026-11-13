@@ -140,6 +140,12 @@ Accepted limitation (per rule 6): a same-size content change is not detected. | 
 - all 490 events are all_finite, with bands == complete_hours (min 29 bands);
 - Σ n_responses = 574, which equals the part-a request count Daniel reports;
 - pins: 16,664 total, 2,940 weather (490 × 6) and 490 terrain. | PASS WITH NOTES (committed artifacts). Not verified: the request and run logs (scratch only), i.e. 591 requests, all 200, 6,985.9 weighted, caps held, no restarts; and the weather values themselves beyond the finiteness flags in Daniel's file. Item 14 (row 72) remains the only value-level comparison with the owner |
+| 77 | roads source provenance (owner-supplied OSM pbf) | Daniel (download, run), Hannah (check) | south-korea-250101.osm.pbf, 233,753,476 bytes, sha256 9b67fc95…83ab, md5 858ec848…4631; record: ROAD_RULE_ADDENDUM_2 @e358b679 (committed 02:21:06Z, before the step-1 build @27c5fe80; the in-file '02:35Z' is an erratum, noted in STEP1_RESULT.md), MANIFEST.json @27c5fe80; check script pbf_provenance_check.py @92f00f04 (539109e9…), run unmodified by Daniel (venv python, pyosmium 4.3.2, rc 0) | The script output equals the manifest:
+- sha256, header generator osmium/1.14.0, replication 2025-01-01T21:21:00Z, seq 3813, Geofabrik south-korea-updates base;
+- counts: 31.2 M nodes, 2.91 M ways, 53 k relations;
+- newest object 2025-01-01T20:50:24Z, before the stated snapshot.
+**Independent content check** (Hannah, OSM API /history, 80 requests spaced 3 s): for a deterministic sample of 40 ways and 40 nodes, version and timestamp equal the latest version at or before 2025-01-01T21:21Z in 80/80 cases, none deleted at that time. 10 of the 80 were edited after the snapshot, so the file is specifically a 1 Jan 2025 state, not a later extract.
+Not verified: byte identity with Geofabrik's published file. download.geofabrik.de reset the connection from my container too, and archive.org answered 429. The md5 above allows that check later. | PASS WITH NOTES. Genuine OSM data at the stated snapshot (sampled), with consistent header and hashes; Geofabrik byte identity is still open. No private link in any file. Not verified: the graph build itself (step 1, a separate review) |
 
 ## Baseline detail (5fa19a2)
 
