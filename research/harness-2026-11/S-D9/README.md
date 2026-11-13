@@ -1,6 +1,9 @@
 # S-D9: multi-fire, multi-horizon probabilistic benchmark harness
 
-Status: the **harness and its correctness check are complete**. The pre-registration addendum is still a draft, and **no new score has been produced or inspected**.
+Status: the **harness and its correctness check are complete**.
+- **Addendum A1** (30 change items) is **frozen at stage 1**, in `FREEZE.json` and `FREEZE_AMENDMENT_1.json`.
+- **Stage 2** is in preparation in `freeze/`. Part c stays closed until it is frozen and verified.
+- **No part b, c or d fire, and no H-test fire, has been scored.**
 
 | file | contents |
 |---|---|
@@ -9,7 +12,12 @@ Status: the **harness and its correctness check are complete**. The pre-registra
 | `sd9bench/` | scoring harness (input contract in `sd9bench/entries.py`) |
 | `tests/` | the forecast-v2 reproduction test and unit tests |
 | `derive/` | rules applied on the already-exposed US2024 cohort R: `derive_dist.py` (dist_m from committed files, with consistency checks), `band_rule.py` → `BAND_RULE.json` (primary band 4 km), `power.py` → `POWER.json` |
-| `PREREGISTRATION_ADDENDUM.md` | addendum A1, draft revision 2 (Iris's 7 revisions); not frozen |
+| `PREREGISTRATION_ADDENDUM.md` | addendum A1, frozen at stage 1 (sha256 in `FREEZE.json`). Its own status line still reads "DRAFT revision 24", but the file is frozen and is not edited in place. `FREEZE.json` and its amendments are authoritative |
+| `FREEZE.json`, `FREEZE_AMENDMENT_1.json` | stage-1 freeze record and amendment 1 (the part-c headline candidate) |
+| `freeze/` | stage-2 pins and amendment draft, plus `make_freeze.py` |
+| `cohort/` | NIROPS four-part split, final cohort and part-a allowlist |
+| `clean_replication/` | CR1 clean-replication pre-registration (draft) |
+| `external/` | WSTS 2019 labels-only persistence replication |
 
 ## Interface for D1/D2 and later streams
 
