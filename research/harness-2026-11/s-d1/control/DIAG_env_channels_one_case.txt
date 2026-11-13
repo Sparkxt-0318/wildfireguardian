@@ -1,0 +1,8 @@
+ADDITIONAL DIAGNOSTIC (not one of REBUILT_INPUT_PLAN's summaries; run after the summaries, one case only).
+Case: first perimeter_samples interval of ID-BOF-000683_Wapiti_Wapiti (cutoff 2024-08-05T06:37Z), sample.environment
+under Daniel's rebuilt inputs (pins 286f4c47) vs the owner-archive inputs used by the control. 19 channels, 111x105.
+- weather.temperature_2m, wind_eastward_10m, wind_northward_10m: identical (max |diff| 0)
+- vegetation.tree_cover_percent, biome one-hots 1-14: identical
+- terrain.slope_degrees: max |diff| 7.629e-06 deg, 13.0% of cells changed
+So on this case the rebuild reproduces the archive inputs except a float-level slope difference; the near-zero
+|Δp| of the rebuilt-input run reflects input reproduction, not model insensitivity. Other cases NOT checked.

@@ -1,0 +1,496 @@
+{
+ "plan": "REBUILT_INPUT_PLAN.md",
+ "label": "descriptive row only; no pass/fail",
+ "header": {
+  "header": true,
+  "plan": "REBUILT_INPUT_PLAN.md",
+  "label": "descriptive row only; archive-trained model on rebuilt inputs",
+  "script_sha256": "5316d864f4d87d95abd9b47652a9a6012c8c5b912359f029beda25c9cbde2f51",
+  "control_sha256": "4d21793bce6b90ad3e6b63fe9ac9d7997a313acd3904576420ed96b4ba4facc0",
+  "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+  "score_cohorts_sha256": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+  "checkpoint_sha256": "33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3",
+  "pins_sha256": "286f4c47d1c21d12485b4ec2079ce09c698c21af73d64037921b34284e6592c2",
+  "n_pins": 347,
+  "perimeter_manifest_sha256": "5c9d0eb24a0df3ac8ccdb9301fca04b1c13c90d74c446f495523c1ccb4bb914a",
+  "host": {
+   "python": "3.12.3",
+   "torch": "2.5.1+cpu",
+   "numpy": "1.26.4",
+   "threads": 2
+  }
+ },
+ "footer": {
+  "footer": true,
+  "stored_cases": 273,
+  "run_cases": 273,
+  "stored_cases_not_rebuilt": []
+ },
+ "counts": {
+  "n_cases": 273,
+  "n_cells": 1705079,
+  "n_positives": 8520,
+  "n_flagged": 0,
+  "identity_mismatch_cases": [],
+  "entries_mismatch_cases": [],
+  "environmental_snapshot_differs": 273,
+  "residence_equal": 273
+ },
+ "pooled": {
+  "full": {
+   "n": 1705079,
+   "positives": 8520,
+   "abs_dp": {
+    "max": 3.5762786865234375e-07,
+    "median": 8.077935669463161e-28,
+    "mean": 3.238453849556683e-10,
+    "p99": 7.450580596923828e-09,
+    "above_floor": 0
+   },
+   "brier": {
+    "rebuilt": 0.004926886226395923,
+    "original": 0.004926886222562958,
+    "delta": 3.832965195238458e-12
+   },
+   "average_precision": {
+    "rebuilt": 0.05425461501203166,
+    "original": 0.05425462117433217,
+    "delta": -6.162300510148544e-09
+   },
+   "tail_p_lt_1_1024": {
+    "rebuilt": {
+     "share_cells": 0.9331884329113197,
+     "share_positives": 0.417018779342723
+    },
+    "original": {
+     "share_cells": 0.9331884329113197,
+     "share_positives": 0.417018779342723
+    }
+   }
+  },
+  "band_4km": {
+   "n": 596719,
+   "positives": 8179,
+   "abs_dp": {
+    "max": 3.5762786865234375e-07,
+    "median": 2.2737367544323206e-13,
+    "mean": 9.253152579786097e-10,
+    "p99": 1.862645149230957e-08,
+    "above_floor": 0
+   },
+   "brier": {
+    "rebuilt": 0.013506740020168941,
+    "original": 0.013506740009215073,
+    "delta": 1.0953868020968649e-11
+   },
+   "average_precision": {
+    "rebuilt": 0.05613074511359773,
+    "original": 0.056130751535683726,
+    "delta": -6.4220859949393194e-09
+   },
+   "tail_p_lt_1_1024": {
+    "rebuilt": {
+     "share_cells": 0.8091111561723358,
+     "share_positives": 0.39271304560459713
+    },
+    "original": {
+     "share_cells": 0.8091111561723358,
+     "share_positives": 0.39271304560459713
+    }
+   }
+  },
+  "unsupported_cells": 0
+ },
+ "per_fire": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "full": {
+    "n": 494121,
+    "positives": 3744,
+    "abs_dp": {
+     "max": 1.9371509552001953e-07,
+     "median": 1.262177448353619e-28,
+     "mean": 3.5855318233381107e-10,
+     "p99": 9.313225746154785e-09,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.0074037453181310785,
+     "original": 0.007403745307876784,
+     "delta": 1.0254294809108888e-11
+    },
+    "average_precision": {
+     "rebuilt": 0.08078218033387835,
+     "original": 0.08078218553786165,
+     "delta": -5.203983299839621e-09
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9224724308418384,
+      "share_positives": 0.42254273504273504
+     },
+     "original": {
+      "share_cells": 0.9224724308418384,
+      "share_positives": 0.42254273504273504
+     }
+    }
+   },
+   "band_4km": {
+    "n": 169389,
+    "positives": 3489,
+    "abs_dp": {
+     "max": 1.9371509552001953e-07,
+     "median": 3.126388037344441e-13,
+     "mean": 1.0459277193475434e-09,
+     "p99": 1.862645149230957e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.020091895229880516,
+     "original": 0.020091895199967933,
+     "delta": 2.9912582827362755e-11
+    },
+    "average_precision": {
+     "rebuilt": 0.08557433192571562,
+     "original": 0.08557433753067191,
+     "delta": -5.604956290761187e-09
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.7738459994450643,
+      "share_positives": 0.3803382057896245
+     },
+     "original": {
+      "share_cells": 0.7738459994450643,
+      "share_positives": 0.3803382057896245
+     }
+    }
+   },
+   "unsupported_cells": 0
+  },
+  "ID-BOF-000904_Goat": {
+   "full": {
+    "n": 191108,
+    "positives": 438,
+    "abs_dp": {
+     "max": 1.4901161193847656e-07,
+     "median": 9.34011311781678e-28,
+     "mean": 2.514144363415111e-10,
+     "p99": 6.51925802230835e-09,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.00215105607026526,
+     "original": 0.002151056065812953,
+     "delta": 4.4523070126534225e-12
+    },
+    "average_precision": {
+     "rebuilt": 0.14370968404071632,
+     "original": 0.14370969246664206,
+     "delta": -8.425925734911743e-09
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9479875253783201,
+      "share_positives": 0.0867579908675799
+     },
+     "original": {
+      "share_cells": 0.9479875253783201,
+      "share_positives": 0.0867579908675799
+     }
+    }
+   },
+   "band_4km": {
+    "n": 54441,
+    "positives": 438,
+    "abs_dp": {
+     "max": 1.4901161193847656e-07,
+     "median": 1.1368683772161603e-13,
+     "mean": 8.825571108513196e-10,
+     "p99": 1.862645149230957e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.007551000596540136,
+     "original": 0.007551000580910896,
+     "delta": 1.5629240089631846e-11
+    },
+    "average_precision": {
+     "rebuilt": 0.14370970345332437,
+     "original": 0.1437097118792501,
+     "delta": -8.425925734911743e-09
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.8174170202604655,
+      "share_positives": 0.0867579908675799
+     },
+     "original": {
+      "share_cells": 0.8174170202604655,
+      "share_positives": 0.0867579908675799
+     }
+    }
+   },
+   "unsupported_cells": 0
+  },
+  "ID-BOF-001080_Lava": {
+   "full": {
+    "n": 258470,
+    "positives": 662,
+    "abs_dp": {
+     "max": 3.5762786865234375e-07,
+     "median": 3.697785493223493e-32,
+     "mean": 4.091136168185363e-10,
+     "p99": 1.1175870895385742e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.0026764909839987914,
+     "original": 0.002676490989337303,
+     "delta": -5.338511750718755e-12
+    },
+    "average_precision": {
+     "rebuilt": 0.028048588481673527,
+     "original": 0.02804858848167352,
+     "delta": 6.938893903907228e-18
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9283940109103571,
+      "share_positives": 0.4229607250755287
+     },
+     "original": {
+      "share_cells": 0.9283940109103571,
+      "share_positives": 0.4229607250755287
+     }
+    }
+   },
+   "band_4km": {
+    "n": 75617,
+    "positives": 635,
+    "abs_dp": {
+     "max": 3.5762786865234375e-07,
+     "median": 2.5011104298755527e-12,
+     "mean": 1.3980309233726864e-09,
+     "p99": 2.421438694000244e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.00879155192560648,
+     "original": 0.008791551943842716,
+     "delta": -1.823623543839581e-11
+    },
+    "average_precision": {
+     "rebuilt": 0.02899119909888688,
+     "original": 0.02899119909888688,
+     "delta": 0.0
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.7553989182326726,
+      "share_positives": 0.3984251968503937
+     },
+     "original": {
+      "share_cells": 0.7553989182326726,
+      "share_positives": 0.3984251968503937
+     }
+    }
+   },
+   "unsupported_cells": 0
+  },
+  "ID-SCF-240202_RedRock": {
+   "full": {
+    "n": 282428,
+    "positives": 962,
+    "abs_dp": {
+     "max": 1.1175870895385742e-07,
+     "median": 4.733165431326071e-30,
+     "mean": 2.0717663476077966e-10,
+     "p99": 5.587935447692871e-09,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.003347303930219104,
+     "original": 0.003347303928997785,
+     "delta": 1.2213186191545322e-12
+    },
+    "average_precision": {
+     "rebuilt": 0.06127925691705898,
+     "original": 0.061279273296381574,
+     "delta": -1.6379322592685597e-08
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9439113685611908,
+      "share_positives": 0.262993762993763
+     },
+     "original": {
+      "share_cells": 0.9439113685611908,
+      "share_positives": 0.262993762993763
+     }
+    }
+   },
+   "band_4km": {
+    "n": 90497,
+    "positives": 962,
+    "abs_dp": {
+     "max": 1.1175870895385742e-07,
+     "median": 4.618527782440651e-14,
+     "mean": 6.465681830770499e-10,
+     "p99": 1.30385160446167e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.010446449654728011,
+     "original": 0.010446449650916454,
+     "delta": 3.811556972821428e-12
+    },
+    "average_precision": {
+     "rebuilt": 0.061279457451904565,
+     "original": 0.061279473831227164,
+     "delta": -1.637932259962449e-08
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.8249555233875157,
+      "share_positives": 0.262993762993763
+     },
+     "original": {
+      "share_cells": 0.8249555233875157,
+      "share_positives": 0.262993762993763
+     }
+    }
+   },
+   "unsupported_cells": 0
+  },
+  "WA-SES-000173_Pioneer": {
+   "full": {
+    "n": 251039,
+    "positives": 956,
+    "abs_dp": {
+     "max": 2.682209014892578e-07,
+     "median": 6.617444900424222e-24,
+     "mean": 5.532959696635297e-10,
+     "p99": 1.4901161193847656e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.003777098282174589,
+     "original": 0.0037770982763718234,
+     "delta": 5.802765386253572e-12
+    },
+    "average_precision": {
+     "rebuilt": 0.04324531424415293,
+     "original": 0.043245305177603374,
+     "delta": 9.066549552794179e-09
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9135632312110867,
+      "share_positives": 0.2792887029288703
+     },
+     "original": {
+      "share_cells": 0.9135632312110867,
+      "share_positives": 0.2792887029288703
+     }
+    }
+   },
+   "band_4km": {
+    "n": 104994,
+    "positives": 956,
+    "abs_dp": {
+     "max": 2.682209014892578e-07,
+     "median": 2.4158453015843406e-13,
+     "mean": 1.3229214678931019e-09,
+     "p99": 2.9802322387695312e-08,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.00903098249098707,
+     "original": 0.009030982477112749,
+     "delta": 1.3874321830309455e-11
+    },
+    "average_precision": {
+     "rebuilt": 0.04324998812784171,
+     "original": 0.04324997906129216,
+     "delta": 9.066549552794179e-09
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.7933310474884279,
+      "share_positives": 0.2792887029288703
+     },
+     "original": {
+      "share_cells": 0.7933310474884279,
+      "share_positives": 0.2792887029288703
+     }
+    }
+   },
+   "unsupported_cells": 0
+  },
+  "WY-BTF-002416_FishCreek": {
+   "full": {
+    "n": 227913,
+    "positives": 1758,
+    "abs_dp": {
+     "max": 8.940696716308594e-08,
+     "median": 2.8434333556510326e-25,
+     "mean": 1.0447430360199011e-10,
+     "p99": 2.3283064365386963e-09,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.007660538106661387,
+     "original": 0.0076605381058015756,
+     "delta": 8.598113540592145e-13
+    },
+    "average_precision": {
+     "rebuilt": 0.06869583321060185,
+     "original": 0.0686958323591467,
+     "delta": 8.514551563809647e-10
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9577777485268502,
+      "share_positives": 0.6444823663253697
+     },
+     "original": {
+      "share_cells": 0.9577777485268502,
+      "share_positives": 0.6444823663253697
+     }
+    }
+   },
+   "band_4km": {
+    "n": 101781,
+    "positives": 1699,
+    "abs_dp": {
+     "max": 8.940696716308594e-08,
+     "median": 4.085620730620576e-14,
+     "mean": 2.3394397289038126e-10,
+     "p99": 4.470348358153619e-09,
+     "above_floor": 0
+    },
+    "brier": {
+     "rebuilt": 0.01657417613801708,
+     "original": 0.01657417613609175,
+     "delta": 1.9253314220701867e-12
+    },
+    "average_precision": {
+     "rebuilt": 0.0706039007156792,
+     "original": 0.07060389983426961,
+     "delta": 8.81409584208015e-10
+    },
+    "tail_p_lt_1_1024": {
+     "rebuilt": {
+      "share_cells": 0.9054538666352266,
+      "share_positives": 0.6321365509123014
+     },
+     "original": {
+      "share_cells": 0.9054538666352266,
+      "share_positives": 0.6321365509123014
+     }
+    }
+   },
+   "unsupported_cells": 0
+  }
+ }
+}
