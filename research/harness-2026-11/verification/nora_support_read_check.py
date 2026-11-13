@@ -24,7 +24,7 @@ for pd in sys.argv[5:]:
         pm = PacketModel(G, pd)
     except Exception as ex:
         print(pd.split('/')[-1], 'REFUSED', type(ex).__name__, str(ex)[:120]); continue
-    out = {'masked': pm.support_masked, 'n_false': len(pm.support_false_cells), 'B': dig(pm.B)}
+    out = {'masked': getattr(pm, 'support_masked', None), 'n_false': len(getattr(pm, 'support_false_cells', [])), 'B': dig(pm.B)}
     for rule in ('cert', 'router'):
         ds = []
         for o in inst['origins'][:4]:
@@ -34,7 +34,7 @@ for pd in sys.argv[5:]:
         out[rule] = hashlib.sha256('|'.join(ds).encode()).hexdigest()[:16] + f' ({len(ds)} inst)'
     import tools.explain_deadlines.packet as _pm, numpy
     out['np_restored'] = _pm.np is numpy
-    if pm.support_masked:
+    if getattr(pm, 'support_masked', False):
         from deadline_field.verify import full_check
         hz = json.load(open(pd + '/HAZARD.json'))
         o = inst['origins'][0]; d = o['destinations'][0]
