@@ -417,6 +417,49 @@ Paired differences (arm − comparator; fire-clustered bootstrap 95% CI; exact s
   - plugin_state_wide, plug-in and logistic_cf cannot be told apart. Every difference between arms sits in 0–1 km, which again points to near growth.
 - Composite reference values: in any table that leaves S-D2, its comparisons against logistic_cf and persistence are point-only (pooled differences, no CI). The 5,578 cells below 1/1024 come from the converged E3 fit; the earlier 19,264 was withdrawn with the invalid E1 composite.
 
+## 3h. Feature ablation for the NLL far-share gap (TOLERANCE_feature_ablation.md + addenda 1–3), E3, guarded (unverified; sent to Owen)
+
+Synthetic only. The truth is the `low_far` kernel (far share 0.0718), on a 64×64 grid with T = 240 h, 24 h brackets
+and seeds 0–4. Results are in results/feature_ablation.json (feature_ablation.py 2b65ef05, fitguard.py 50d4bf4f,
+commit 595b845d; wall time 31 min).
+
+**Disclosure.** A first launch ran without the guard. It had checkpointed 22 of 50 jobs when it was stopped, and those
+were discarded unread. This run is the guarded rerun from scratch.
+
+**Guard (addendum 3).** 200 fits made 1,700 L-BFGS-B calls. **0 fits failed, so no arm is INVALID.** The restart rule (50%
+or more of parameters at the floor) triggered on 399 calls: MCEM 373 M-steps across 20 fits, composite 17, NLL 8,
+plug-in 1. No restart improved an objective. Most MCEM triggers are on the `_contig` arms, where k0 = 1e-12 and many
+offsets sit at the floor.
+
+**Pass rule** (pre-registered). An arm reads "the cause" if the mean NLL far share is above 0.40 AND MCEM is within
+tolerance: |mean − 0.072| ≤ 0.05 and SD ≤ 0.05.
+
+| arm | NLL far share, mean (SD) | MCEM mean (SD) | plug-in | composite | verdict |
+|---|---|---|---|---|---|
+| baseline | 0.095 (0.026) | 0.080 (0.010) | 0.388 | 0.047 | not the cause |
+| state_error | 0.095 (0.026) | 0.136 (0.024) | 0.372 | 0.090 | not the cause (MCEM out of tolerance) |
+| time_varying | 0.308 (0.338) | 0.113 (0.054) | 0.387 | 0.027 | not the cause (MCEM SD 0.054 > 0.05) |
+| barriers | 0.082 (0.035) | 0.064 (0.020) | 0.351 | 0.037 | not the cause |
+| detached | 0.090 (0.014) | 0.075 (0.019) | 0.378 | 0.045 | not the cause |
+| baseline_contig | 0.087 (0.038) | 0.087 (0.013) | 0.392 | 0.050 | not the cause (so contiguity itself is not the cause) |
+| state_error_contig | 0.087 (0.038) | 0.129 (0.026) | 0.375 | 0.091 | not the cause (MCEM out of tolerance) |
+| **time_varying_contig** | **0.451 (0.255)** | 0.101 (0.043) | 0.512 | 0.026 | **"the cause"** |
+| barriers_contig | 0.078 (0.025) | 0.064 (0.018) | 0.344 | 0.034 | not the cause |
+| detached_contig | 0.122 (0.015) | 0.072 (0.020) | 0.396 | 0.036 | not the cause |
+
+Reading:
+- **Only time-varying spread rate reproduces the gap, and only fragilely.**
+  - On `time_varying_contig`, NLL's per-seed far shares are 0.532, 0.193, 0.271, 0.418 and 0.843: only 2 of 5 seeds are above 0.40.
+  - MCEM passes with SD 0.043, close to the 0.05 limit.
+  - On the original baseline, `time_varying` gives NLL 0.215, 0.172, 0.198, 0.053 and 0.901. The mean is 0.308, and MCEM's SD of 0.054 fails tolerance.
+  - So a day-to-day rate modulator makes NLL's far share unstable, with occasional very large values, rather than uniformly high. The rule's mean-based reading hides that.
+- State error (one-survey bracket shifts) moves MCEM out of tolerance (0.136 and 0.129) but leaves NLL unchanged.
+- Barriers, detached spotting and contiguity do not move NLL.
+- Calibration notes:
+  - The detached spotting rate is 1.2e-5 on both baselines (generator-only, seeds 100–109).
+  - On the contiguous baseline the calibrated share reaches at most 0.12, not 0.15; the rule takes the closest grid value.
+- This is consistent with the state-family result above: the rate varies between intervals. It does not by itself say where the real-data gain lies. Iris's covariate reading (time-varying weather) is one candidate; this ablation tests a synthetic modulator, not weather.
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any
