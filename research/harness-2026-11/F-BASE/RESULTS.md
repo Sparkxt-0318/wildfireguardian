@@ -166,6 +166,14 @@ Richard's own command, unchanged: `claude/f31-deadline-field` at 25352cad, `pyth
 13:57 (8b99a06c) and the results at 16:14 (6f0925fa). The per-request records carry no timestamps; runs from S3
 onward stamp started_utc in their header rows.
 
+**Waiting rule, plain language (FINAL, orchestrator 2026-11-13 00:13 UTC, verbatim; record F-3.1/WAITING_SENSITIVITY_RULE.md
+@ 1b792c77; form (S), because every F-BASE result is a single-departure job):** "The trip starts at the stated time. Once
+moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route;
+waiting is not allowed at any other node, including the start unless it is itself a dead end. Other departure times are
+separate results." Dead-end-only is the default. "Waiting allowed everywhere" is always reported as a labelled
+sensitivity row (DESIGN.md (g)). For F-DYN (c), all 14 NO_ROUTE requests become ROUTE under N1, the all-waitable
+relaxation (fdyn_c, 14/14). The departures {0, 7200} are separate results, and verdicts are not monotone in departure time.
+
 **Where the waitable rule comes from (Thomas, 2026-11-12 20:07 UTC; Richard's line pending):** Waiting is permitted
 only at nodes flagged `waitable` in the supplied OSM-derived graph.json (data/routing/graphs/<region>/graph.json, shas
 in data/routing/INPUT_FILES.json; read verbatim at wfg_sipp/frontend.py:51; F-DYN's regrid_graph.py copies it
