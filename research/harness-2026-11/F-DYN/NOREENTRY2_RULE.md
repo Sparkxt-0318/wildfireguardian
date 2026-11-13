@@ -383,7 +383,9 @@ t_start)). Every clamped cell has a_d = t_start, so it satisfies a ≤ h and **e
 **Measured effect: nil** (row 77; the routing author's numbers, UA 25T17Z).
 - C0 = 4,673 / 5,354 / 6,263 / 8,008 cells at d = 0 / 500 / 1000 / 2000 m. Each increment equals the clamped-cell
   count.
-- **B0 = 3,168 at every d.** B0 is the same at every dilation distance. The clamped cells are already born at 0
+- **B0 = 3,168 at every d.**
+- **Scope (ledger row 77a):** measured on UA 25T17Z h5 kriged_mean only. The general claim rests on the argument
+  (clamped cells are /1 birth 0), not on a measurement. B0 is the same at every dilation distance. The clamped cells are already born at 0
 under `/1` (catch-up ignition at the start), so B0 = C0 minus the cells already active at 0 excludes them.
 
 **Corrected statement** (the verifier's wording): **"dilation adds nothing to B0."** C0 may grow under dilation; B0,
