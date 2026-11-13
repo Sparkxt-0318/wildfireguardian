@@ -119,3 +119,11 @@ d4_wind_rebuilt. Each gets its own `RUN`.
   - load and verification scaled linearly to 513 events: ≤ ~1.9 h.
   - Under the ~4 h flag, but unreliable: the subset has small fires only and fit-23 is missing.
 - **Re-timing:** the declared subset (3 fit-23 + 5 part-a) is re-timed after day 2, with a 5 s heartbeat for peak RSS.
+
+## Count check for logistic_rebuilt (2026-11-13; plan author, from verifier row 62)
+`pipeline.command_baselines` passes events through `available()`. That function silently drops events missing from
+`events.json` or without `states.npz`. After the `-- baselines` run, assert that the number of fit events equals the
+number of lines in `--train-events`, and log both:
+- `fit_events` is in `$RUN/baselines/dilation_choice.json`;
+- the wrapper receipt records `train_events`.
+Any difference stops the line: no logistic_rebuilt output is used, and the dropped ids are reported.
