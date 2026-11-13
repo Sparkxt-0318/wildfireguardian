@@ -62,7 +62,7 @@
 | refit receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, d2_nll_rebuilt, d2_bracket_rebuilt | **PENDING** |
 | rate-mixture form | **PENDING** |
 | part-c manifests | **PENDING** |
-| item 14 weather outcome (AlderCreek T/wind) | **PENDING** |
+| item 14 weather outcome (AlderCreek T/wind) | **PASS, UNVERIFIED** until Hannah's row. Daniel, `data-fetch-3/weather/ITEM14_ALDERCREEK.md` at 24d20770: the three model-read channels (2 m temperature, 10 m wind east/north), the node-index raster and the band table (2,139 hours) are byte-identical to the owner's files, so median and p95 abs. difference are 0 (thresholds: median ≤ 1 K or 1 m/s, p95 ≤ 3 K or 3 m/s). Covers only those channels; RH, precipitation and ERA5 are not rebuilt |
 
 **Control-run evidence.** Owen verified Marcus's unmodified-rollout control on R (owen-smoke-2, rows 25 and 33).
 - All 273 rebuilt cases are identical.
