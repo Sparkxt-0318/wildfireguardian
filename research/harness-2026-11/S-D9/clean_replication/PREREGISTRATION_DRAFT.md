@@ -461,6 +461,15 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
   - The only exception is the custodian, under the §3 protocol: ID-only listing, the salted hash, the sealed store, and the leak rule into "exposed".
 - **Snapshot and closing.** These are the same as Tier 2: 2028-01-31 and 2028-03-31. The extension year is the same.
 - **Reporting.** KR-P results are reported with the Tier-2 report, in a separate table. They are never in the abstract's confirmatory sentence.
+- **Label source (orchestrator decision, 2026-11-13): option (a), pending its preconditions.** We run the deposit's published reconstruction code ourselves, pinned, on VIIRS and Himawari detections. MODIS MCD64A1 is a descriptive cross-check (option b). Before any rule is drafted, the following must be confirmed and recorded:
+  - (i) the licence permits reuse;
+  - (ii) the code runs end to end from public inputs in a pinned environment;
+  - (iii) it reproduces cohort K's published labels on at least one 2025 event. This is the acceptance test, and its rule is committed before it runs.
+  - **Findings so far (Victor, 2026-11-13; no fire data fetched):**
+    - (i) **Licence: CC-BY-4.0** (Zenodo record 10.5281/zenodo.21788344, metadata only). Reuse is permitted with attribution.
+    - (ii) **Not yet shown, and blocked.** The committed copy of the deposit's code (`routing-review/.../sources/zenodo_21788344/extracted/code/`, 5 files, 406 lines) holds library functions only, with no end-to-end driver. Its Korean product (`produce_rasters.kr_product`) interpolates **only inside the event's final perimeter** (EPSG:5179) and selects detections inside that perimeter (`preprocess.select`). The deposit does not include Korean final perimeters (`forecast/documents/korean_observation_availability_20261012.md`). So option (a) needs a public source of KFS final damage perimeters, plus a pinned Himawari active-fire product, as well as VIIRS. Neither has been identified yet.
+    - (iii) Not run. It depends on (ii).
+  - Per the orchestrator's instruction, this goes back to the orchestrator before (b) or (c) is chosen.
 - **Training.** KR-P is scored with the Tier-2 frozen candidates exactly as frozen, plus the A1 Korean comparators (persistence, `dilation_8h`, and the KR logistic reference, if one is frozen by then). There is no Korean refit after the declaration.
 
 ## Open items
