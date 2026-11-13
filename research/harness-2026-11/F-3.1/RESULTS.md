@@ -1050,7 +1050,12 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
   - The F-DYN builder's pre-test passes on 53ccd5ae (F-DYN 8116fc46).
   - The verifier's own masked packet (6,156 false cells) loads, and its digests equal the plain twin's. Tampered
     declarations are refused.
-- **Open notes (row 79), not fixed here.**
+- **Row 79 notes 1–2: CLOSED by amendment 2 @ 446978f6** (rule 5ad24702, tests 716ea18d before the code; VERIFIED: Nora, PASS, ledger row 79a).
+  - The declaration is now bound to the mask by the F-9.3 writer's hash, `cells` and the per-member equality.
+  - Every reader construction in `load_packet` holds a module lock; the swap captures, installs and restores numpy under it.
+  - The verifier's own threaded test shows 53ccd5ae failing (8 errors per round, shim left installed) and 446978f6 clean.
+  - Direct `Packet(...)` calls outside `load_packet` are not covered.
+- **Original notes (row 79), as written:**
   1. The npz-view shim is process-global. In-process threads must not build packets concurrently; the batches use
      subprocesses.
   2. The declaration is bound by count, not cell by cell. The declared `support_mask_sha256` is not compared with
