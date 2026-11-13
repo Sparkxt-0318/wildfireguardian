@@ -838,3 +838,31 @@ Sources were opened by research agents, and the key figures were re-checked in t
 - Remove candidates exposed to the forecast fire or smoke.
 - Gate the whole option on daylight, wind and visibility.
 - Label it "possible if flyable"; never present it as a route.
+
+## Batch 11 (2026-11-13): follow-ups to batches 9 and 10
+
+**Correction to batch 9 (Mira, ledger 118)**
+
+- Write the Uiseong figure as "about 4.2 km/h or more (50–51 km in ≤ 12 h)".
+- This replaces "about 4.25 km/h" and "4.25 km/h or more".
+
+**Non-road exit (Iris)**
+
+- The 해경 boat evacuation of 104 residents from the 영덕 breakwaters (YTN 0134_202503260822402725) is the documented non-road exit in this event.
+- Cite it if "other exits" come up.
+
+**행안부 고립예상지역대책 (data.go.kr 15139647, catalog JSON read)**
+
+- Access:
+  - It is a LINK to safetydata.go.kr, so a service key is needed (approved automatically).
+  - Licence: "제한 없음".
+  - Registered 2024-12-03; modified 2025-05-26.
+- Contents:
+  - Spatial coverage ("공간범위") is blank, and no years are given.
+  - Places are given by 상세주소 (address); no coordinates are listed.
+  - 헬기구조가능여부 has no published definition.
+  - The safetydata detail page is script-driven and could not be reached from here.
+- Sibling datasets on the same terms:
+  - 15139708 지역고립예상지점: 마을명 and 행정동코드.
+  - 15139648 교통두절예상지역: 두절구간 and 우회도로지정.
+- Advice: hold the §2 column until the owner pulls a 경북 sample.
