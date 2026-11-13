@@ -472,7 +472,15 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
   - Per the orchestrator's instruction, this goes back to the orchestrator before (b) or (c) is chosen.
   - **Orchestrator (11:37Z):** (a1) first, as a time-boxed documentation check by the web-research session: are KFS final damage perimeters and a Himawari active-fire product publicly obtainable for 2025 events, and on what terms? If the perimeters are not obtainable, fall back to (b). The (b) rule set is drafted below in parallel. **It is NOT ADOPTED.**
 
-### 9.1 KR-P rule set under option (b): FALLBACK, NOT ADOPTED (draft for the custodian's verification)
+  - **Documentation check result (web-research session, 2026-11-13; documentation only, no data downloaded; detail in that session's LOG.md batch 12, PR #175):**
+    - **KFS final damage perimeters: not publicly available**, as far as found. data.go.kr offers statistics and points only. The law provides only for sharing between agencies. The yearly statistics book is statistics only. 2025 drone, IR and VIIRS mapping went to agencies only. A few portals could not be checked from here. **So option (a) as specified is not feasible from public inputs.**
+    - **Himawari:** JAXA P-Tree L2WLF version 1.00 (0.02°, 10 min). Its terms forbid redistribution to third parties and require contacting the Secretariat before results are released, which conflicts with JAXA's general credit-based policy. Written clearance would be needed. The archive start and latency are not stated.
+    - **The deposit** (CC-BY-4.0) names neither the Himawari product nor the Korean perimeter source.
+    - **Burned area for 2027 is not assured.** NASA says Terra and Aqua (MODIS) begin shutting down in late 2026 or early 2027. VNP64A1, the named successor, depends on Suomi NPP, whose data delivery **ended 2026-11-02**. No NOAA-20 burned-area product exists yet. **So option (b) as drafted below may have no 2027 data.**
+    - **Wider consequence:** any 2027 VIIRS pipeline in this project must use NOAA-20/21, not S-NPP.
+  - **Back to the orchestrator for a decision** (2026-11-13), with options (c) VIIRS first detection and (a′) a perimeter-free reconstruction. See the message of that date.
+
+### 9.1 KR-P rule set under option (b): FALLBACK, NOT ADOPTED; 2027 data availability unconfirmed (see above)
 Each choice below is a proposal. It takes effect only if (b) is adopted, and only by a commit made before 2027-01-01.
 - **Label product.** MODIS MCD64A1 Collection 6.1 monthly burned area, tile(s) covering each event, at native 500 m (sinusoidal), pinned by granule ID and file sha256.
   - Layers: `Burn Date` (ordinal day), `Burn Date Uncertainty` (days), `QA`, `First Day` and `Last Day`.
