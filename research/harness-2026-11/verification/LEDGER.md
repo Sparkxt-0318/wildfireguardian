@@ -113,6 +113,16 @@ Other counts: net_cmd 11 (PR #103 fetch.py list/get to its own data hosts, the p
 - the request log has exactly 1 AlderCreek row, 00:15:28Z, 11 locations × 90 days, http 200;
 - the raw response file differs in name and size from the owner's cache (777,197 vs 2,157,982 bytes).
 Script limitation (mine): the status column is named 'http' in his log, so status_counts read '?'. The verbatim row shows 200. | **PASS WITH NOTES.** Not verified: the files themselves (I hold neither side) and Open-Meteo's content; that the pipeline read no owner-cached content by another path (mtime and inode exclude a file copy, not a content copy); RH, precipitation, ERA5 and the other channels are not rebuilt (stated in the write-up) |
+| 73 | CR1 in-season harvest v2 (route d′) | Daniel (author), Hannah (re-review) | harvest_cr1.py `14157891` (sha256 43cc99b7…4291); HARVEST_RULE.md 42906d99 unchanged (0-line diff); clean worktree, local fixtures and 127.0.0.1 test servers only (no real server contacted) | Daniel's 32/32 reproduce (ALL PASS). Re-test of row 68:
+- **E fixed:** a 302 into /protected on a dir or on a file HEAD, and a 301 to another host, both end BLOCKED, exit 3, and the server log shows no /protected request.
+- **A fixed:** 1 change + 3 unchanged re-runs leave the original + .v2, with latest → .v2.
+- **F fixed:** 0 file GETs over 3 unchanged http re-runs (HEAD only).
+- **B fixed:** --out=<repo root>/zz_out is refused (rc 2) and not created.
+- **D partly fixed:** 429 → 'ERROR (HTTP 429)', 500 and URLError → ERROR.
+Remaining:
+- **D′:** errors raised while reading a body (IncompleteRead from a truncated response, a socket timeout mid-read) are outside _open's try. They escape uncaught and the RUN line still says 'ALL DONE {}'.
+- **N (new):** if a HEAD has no Content-Length and the file is new, size() returns None and take() logs HTTP_404 and never downloads it. That is silent data loss, misreported as 404.
+Accepted limitation (per rule 6): a same-size content change is not detected. | **FAIL (narrow).** Access safety (E, the guards, year, salt, logs) now passes. D′ and N must be fixed, with tests, before real use: catch http.client.HTTPException / OSError around read() → Stop; treat a missing Content-Length as 'unknown → download and sha-compare', not 404 |
 
 ## Baseline detail (5fa19a2)
 
