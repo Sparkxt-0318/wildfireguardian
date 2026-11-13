@@ -106,19 +106,28 @@ These are stage-2 change items, made before any refit has run and before part c 
 
 *Limitation, stated for any later use of d:* 9 of the 31 kept-d incidents are within item-9 proximity of part-a training fires. Any later test on d must first apply item 9 from the training side.
 
-**S2-2. `logistic_rebuilt` recipe: resolving a contradiction in A1 §3.1.** A1 §3.1 reads "Fit: `fit_logistic(C=1.0, seed=0)`, negatives subsampled at 0.05 and inverse-weighted". But `baselines.fit_logistic` takes no sample weights: it uses an unweighted scaler and `LogisticRegression(max_iter=2000)`. So it cannot do the inverse weighting the same sentence requires. The archive `logistic` that A1 says is rebuilt was produced by `pipeline.py` `command_baselines`.
+**S2-2. `logistic_rebuilt` recipe: a clarification of a line that cannot be executed as written** (named item, assessor 2026-11-13).
 
-*Resolution (orchestrator ruling):* `logistic_rebuilt` uses `command_baselines`'s recipe:
-- `pipeline.logistic_features`;
-- negatives kept with probability 0.05 and weighted 1/0.05;
-- `StandardScaler().fit(x, sample_weight=w)`;
-- `LogisticRegression(max_iter=3000, random_state=0)` fit with the same weights;
-- interval cap `--max-fit-intervals-per-fire 0`, per the archive invocation evidence (the leak-bound author's).
+*The contradiction.* A1 §3.1 reads "Fit: `fit_logistic(C=1.0, seed=0)`, negatives subsampled at 0.05 and inverse-weighted". `baselines.fit_logistic` takes no sample weights: it uses an unweighted `StandardScaler` and `LogisticRegression(C, max_iter=2000)`. So it cannot inverse-weight, and the line contradicts itself.
 
-This is the only reading that honours "inverse-weighted" and reproduces the archive object's recipe. The leak bound (LEAK_BOUND_PLAN revisions 3 and 4) and the refit runbook use it.
-- *Assessor:* erratum or named item **PENDING**; a named item is expected, since it settles which code runs.
-- *Independent verifier:* a row confirming the archive invocation evidence is **PENDING**.
-- *Takes effect* once both exist. The `logistic_rebuilt` refit and the leak-bound fit wait for it.
+*Resolution (orchestrator ruling; assessor: a named item, labelled clarification).* The object being rebuilt is the archive `logistic`. Its own record (`logistic.json`) says "negatives subsampled at the stated fraction and weighted by its inverse", and it was produced by `research/forecast-v2/scripts/pipeline.py` `command_baselines` (pipeline.py 88d376d2…, lines 529–560). `logistic_rebuilt` therefore uses `command_baselines`'s recipe. Every point where it differs from `fit_logistic` is pinned literally:
+1. **Samples and order.**
+   - Samples come from `fit_samples(..., mixed=False)`: `perimeter_samples(event, ..., crop=True, ...)` for each event in the **order of the pinned `TRAIN_EVENTS_final` file**, then in pipeline interval order within each event.
+   - The interval cap is `--max-fit-intervals-per-fire 0` (all intervals), per the archive invocation evidence.
+   - **Sample order is part of the recipe** (item 3).
+2. **Row mask (per sample):** `score_mask & isfinite(environment) on every channel & isfinite(features) on every feature`, with features from `pipeline.logistic_features(sample, names, terrain_gradient)`.
+3. **Subsample draw:** a single generator `rng = np.random.default_rng(seed)` with seed 0, advanced **sample by sample in the order of item 1**: `keep = (y == 1) | (rng.random(len(y)) < 0.05)` per sample. Changing the sample order changes the draw.
+4. **Weights:** 1 for positives and 1 / 0.05 = 20 for kept negatives.
+5. **Scaler: fit WITH `sample_weight`** (`StandardScaler().fit(x, sample_weight=w)`), giving weighted moments. This differs from `fit_logistic` and from the `d4_wind_recal` pin.
+6. **Estimator:** `LogisticRegression(max_iter=3000, random_state=0)` with the default C = 1.0, fit with `sample_weight=w`.
+
+*Has any score been seen?* Whether any score of `logistic_rebuilt` under either reading has ever been looked at: **PENDING**, a plain yes or no from the refit author and the independent verifier. If no, the choice was made blind to outcomes. If yes, it is stated here with what was seen.
+
+*Descriptive line, after pinning:* the largest |Δp| on part a between the two readings, so a reader can see how much rides on the choice. The expectation that it is small is a hypothesis, not a claim.
+
+*Verification.* The independent verifier reproduces `logistic_rebuilt` from this pinned text alone, as for the recalibration, and confirms the archive invocation evidence in a row: **PENDING**. The `logistic_rebuilt` refit and the leak-bound fit are released on that row.
+
+*Consequence for the `d4_wind_recal` pin.* Its estimator is **not** the same as `logistic_rebuilt`'s. They share only the 0.05 fraction, the 1/0.05 weights and C = 1.0. The recal scaler is unweighted and uses `max_iter` 2000; `logistic_rebuilt` here has a weighted scaler and `max_iter` 3000. The recal recipe itself is unchanged and stays identical to the development recalibration (`derive/logistic_dev.py`). Any wording implying the two estimators are identical is corrected by this item.
 
 ## 8. Archive-trained rows promoted to named secondaries on part c (A1 §3.1, conditional on item 14)
 **Orchestrator decision, 2026-11-13.** A1 §1.2 item 14 and §3.1 (revision 29) allow the archive-trained rows to be promoted "by amendment to named secondaries on part c" if item 14 passes before part c opens. Item 14 now passes on **every channel it names**: temperature, both wind components, slope, tree cover and biome. **One leg (non-weather rasters) is unverified** (see below). Item 14 is a one-fire check. Each leg, with its scope and verifier:
