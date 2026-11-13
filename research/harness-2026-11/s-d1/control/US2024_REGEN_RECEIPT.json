@@ -1,0 +1,20 @@
+{
+ "what": "US2024 six-fire environment regenerated in Marcus's container (orchestrator ruling (b)); verified against Daniel's pins",
+ "script": "daniel/data-fetch-3 @ 12fc6e7b research/harness-2026-11/data-fetch-3/weather/rebuild_us2024_pinned.sh (unmodified)",
+ "started_utc": "2026-11-13T03:38:18Z",
+ "ended_utc": "2026-11-13T03:44:02Z",
+ "stages": {"terrain": 0, "canopy": "1 (GLAD Forest_height_2019_NAM.tif unreachable; no pinned file depends on it, as in Owen's run)", "gridmet": 0, "landfire": 0, "landcover": 0, "biome": 0, "enrich-data": 0},
+ "open_meteo": {"requests": 13, "weighted": 662.58, "http": "all 200", "window_utc": ["2026-11-13T03:42:46Z", "2026-11-13T03:43:55Z"], "not_concurrent_with": "Owen 03:35:52Z-03:37:04Z"},
+ "script_result": "exit 1: pinned 347, rebuilt 347, missing 0, extra 0, mismatched 1 (environment/biome_validation.json only)",
+ "substitution": {
+  "procedure": "Owen's, orchestrator-approved; Hannah's approval under her condition 3 relayed by Owen 03:40Z (not received directly by Marcus)",
+  "file": "environment/biome_validation.json",
+  "field": "checked_utc (wall-clock timestamp written by environment.py; one occurrence; byte-level replace, same length 6226 B)",
+  "old_value": "2026-11-13T03:42:42.473798+00:00",
+  "new_value": "2026-11-12T09:43:38.262390+00:00 (Daniel's pinned value, via Owen)",
+  "file_sha256_before": "fe519e5e7e152f38d0f039a516e03b0a0a8a0236679f9297be2f3f665fc2a7f2",
+  "file_sha256_after": "28e05ba6f6e1b9e50b89d5ffb8d447c3dbb8422a182aeeb4848af560a8a4b6ef"
+ },
+ "after_substitution": "make_input_manifest.py on the 6 ids gives 347 pins, sha256 286f4c47d1c21d12485b4ec2079ce09c698c21af73d64037921b34284e6592c2, byte-identical (cmp) to the committed pins file",
+ "committed": "this receipt only; no environment file is committed"
+}
