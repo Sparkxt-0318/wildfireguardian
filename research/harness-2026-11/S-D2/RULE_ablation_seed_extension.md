@@ -21,6 +21,12 @@ were two seeds lucky? The 5-seed mean-based rule hides the seed distribution, so
 The reference for size is the real data: NLL above 0.40 on 18 of 25 per-fire fits (0.72; median 0.679), and MCEM
 within 0.05 of 0.0718 on 22 of 25 (0.88) (results/real_far_share.json). The comparison is descriptive.
 
+*Wording clarification (Iris, 2026-11-13 ~03:05 UTC, during the run; reporting only, no change to any reading):*
+- Real fires have no known kernel, so there is no truth to be within. "MCEM within 0.05 of 0.0718" means within 0.05 of the
+  synthetic generator's reference value. It is a comparison with that setting, not evidence that 0.072 is right for real fires.
+- The INTERMITTENT margin of 0.10 is 3 seeds out of 30, so shares are reported with their counts (k of 30).
+  ablation_seed_reading.py was edited during the run to add these counts and this note. Its readings are unchanged.
+
 **Reading, fixed now.** For each time-varying arm against its matching baseline (time_varying vs baseline, and
 time_varying_contig vs baseline_contig), using seeds 0–29:
 - **STABLE**: NLL median > 0.40, AND share above 0.40 ≥ 0.50, AND MCEM per-seed within-tolerance share ≥ 0.80.

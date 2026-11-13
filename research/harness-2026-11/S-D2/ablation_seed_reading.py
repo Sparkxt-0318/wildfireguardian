@@ -19,9 +19,11 @@ def arm_stats(rows, arm, seeds):
     m = np.array([mc[s]["far_share"] for s in ok])
     out = dict(n=len(ok), voided_seeds=void,
                nll=dict(median=float(np.median(v)), q25=float(np.percentile(v, 25)), q75=float(np.percentile(v, 75)),
-                        mean=float(v.mean()), share_above_040=float((v > 0.40).mean())),
+                        mean=float(v.mean()), share_above_040=float((v > 0.40).mean()),
+                        count_above_040=f"{int((v > 0.40).sum())} of {len(v)}"),
                mcem=dict(median=float(np.median(m)), mean=float(m.mean()), sd=float(m.std(ddof=1)),
-                         share_within_tol=float((np.abs(m - TRUE) <= 0.05).mean())),
+                         share_within_tol=float((np.abs(m - TRUE) <= 0.05).mean()),
+                         count_within_tol=f"{int((np.abs(m - TRUE) <= 0.05).sum())} of {len(m)}"),
                restart_triggers=int(sum(r["guard"]["n_flagged"] for r in rows if r["arm"] == arm and r["seed"] in ok)))
     return out
 
@@ -43,7 +45,11 @@ def main(path="results/feature_ablation_seeds30.json", out="results/ablation_see
         res[name] = dict(stats=st, reading={tv: reading(st[tv], st[b]) for tv, b in PAIRS})
     res["headline"] = res["seeds_0_29"]["reading"]
     res["agree_0_29_vs_5_29"] = res["seeds_0_29"]["reading"] == res["seeds_5_29"]["reading"]
-    res["real_reference"] = dict(nll_share_above_040=0.72, nll_median=0.679, mcem_share_within_tol=0.88,
+    res["real_reference"] = dict(nll_share_above_040=0.72, nll_count_above_040="18 of 25", nll_median=0.679,
+                                 mcem_share_within_005_of_synthetic_reference_0072=0.88, mcem_count="22 of 25",
+                                 note=("Real fires have no known kernel. The MCEM figure compares real per-fire fits "
+                                       "with the synthetic generator's setting 0.072; it is not evidence that 0.072 "
+                                       "is right for real fires."),
                                  source="results/real_far_share.json (25 per-fire fits)")
     res["rule"] = "RULE_ablation_seed_extension.md"
     Path(out).write_text(json.dumps(res, indent=1))
