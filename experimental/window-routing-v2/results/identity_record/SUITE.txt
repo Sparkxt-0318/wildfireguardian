@@ -1,0 +1,12 @@
+test_build_v2: Ran 11 tests in 0.086s OK 
+test_identity_record: Ran 2 tests in 16.080s OK 
+test_step1_reasons: Ran 10 tests in 0.001s OK (skipped=3) 
+test_step3_work: Ran 15 tests in 187.889s OK 
+test_step3_thomas: Ran 6 tests in 395.711s OK 
+test_step2f_guard: Ran 12 tests in 16.629s OK 
+test_step2_memory: Ran 19 tests in 39.417s OK 
+test_step2_dist: Ran 7 tests in 27.451s OK 
+test_step1_progress: Ran 2 tests in 58.672s OK 
+test_step1_followups: Ran 2 tests in 139.799s OK 
+ "replacement_tests_pass": true,
+ "ok": true
