@@ -52,6 +52,13 @@ What remains sealed: **labels, perimeters and growth of part-c fires, as built a
 5. **A no-touch declaration.** At opening, every worker session declares that it will not build, read or derive part-c labels until the decision is recorded. A breach moves the affected fires to an "exposed" stratum, in the same way as CR1 §1.6.
 
 6. **Audit before opening.** Every worker session runs `access_audit.py` on its own transcript, including subagents, and sends the output plus the transcript file's sha256 to the custodian. The custodian compares the results with the declarations (ledger rows 38 and 45).
+   - **Roster and re-run at opening** (adopted by the orchestrator 2026-11-13, on Victor's proposal):
+     - The roster audit is recorded in ledger rows 58–71: 16 sessions, `access_audit.py` 8156141c, with the transcript sha256 at each run.
+     - At the opening of part c, the custodian has the access audit re-run, at the same script version, for:
+       - any session not on that roster;
+       - every session whose transcript (main or subagent) has grown or changed since its recorded hashes.
+     - Each session runs the script on its own transcripts. The custodian cannot read other containers.
+     - Opening proceeds only after those rows are recorded in the ledger. A session that cannot or does not re-run is recorded as such, and opening waits for the orchestrator's decision on it.
 
 ## 3. What it cannot do
 
