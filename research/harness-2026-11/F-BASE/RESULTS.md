@@ -170,7 +170,7 @@ onward stamp started_utc in their header rows.
 @ 1b792c77; form (S), because every F-BASE result is a single-departure job):** "The trip starts at the stated time. Once
 moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route;
 waiting is not allowed at any other node, including the start unless it is itself a dead end. Other departure times are
-separate results." Dead-end-only is the default. "Waiting allowed everywhere" is always reported as a labelled
+separate results." Note, beside the confirmed text (Richard, 00:14 UTC): "A stop at a dead end is itself checked against the fire like any other leg (wait blocks apply)." Dead-end-only is the default. "Waiting allowed everywhere" is always reported as a labelled
 sensitivity row (DESIGN.md (g)). For F-DYN (c), all 14 NO_ROUTE requests become ROUTE under N1, the all-waitable
 relaxation (fdyn_c, 14/14). The departures {0, 7200} are separate results, and verdicts are not monotone in departure time.
 
