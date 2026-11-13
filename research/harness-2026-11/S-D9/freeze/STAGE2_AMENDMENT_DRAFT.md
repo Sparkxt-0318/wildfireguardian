@@ -72,7 +72,7 @@
 | item | state |
 |---|---|
 | refit train-events, final | **PENDING** (pre-weather list bbedca82 = fit-23 + 490, checked against allowlist 7db3cc0e) |
-| part-a pool manifest | **PENDING** sha (daniel/data-fetch-3 982eb71c, 490/490) |
+| part-a pool manifest | daniel/data-fetch-3 982eb71c, `parta_pool/`: `PERIMETER_MANIFEST.json` sha256 `08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77`, `events.json` sha256 `fef3626051d4a06b80c355b0773a28ce28c5bdc6131f5208ac4a7d89405b3b19`, 490 `states.npz`. These are the files the §3.1 stage-1 report (7b810e66) reads; Victor re-ran that report on them and got byte-identical output. Pinned |
 | weather input manifest (refits) | part a: `f70e52b0…` (490 events, 16,664 pins; completeness `09af55fa…`; data-fetch-3 748afe70), event set equal to the part-a allowlist. Fit-23 US: **PENDING** (after night 2, 14 Nov) |
 | rebuild environment | **PENDING** |
 | refit receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, d2_nll_rebuilt, d2_bracket_rebuilt | **PENDING** |
