@@ -90,6 +90,36 @@
 
 - **Erratum (orchestrator, 16:05Z):** A1's status line still reads "DRAFT revision 24 (amendment 1 to the revision-23 freeze candidate), not frozen". It should read: "Frozen at stage 1 (`FREEZE.json`, with amendment 1, A1 item 30); stage 2 by this amendment." This changes no rule, number or membership. The frozen file is not edited in place, so the stage-2 record carries the correction.
 
+## 7a. Named stage-2 items (orchestrator rulings, 2026-11-13)
+These are stage-2 change items, made before any refit has run and before part c opens.
+
+**S2-1. Promotion from part d skips incidents near training fires** (A1 §1.2 items 5, 6, 10 and 12). *Found by:* the custodian's ledger row 86, totals only:
+- kept b and c are clean against part a (0 hits under item 9);
+- part a was never filtered against part d: 12 part-a fires are within 50 km and 30 days of 9 of the 31 kept part-d incidents;
+- fit-23 and Wapiti are clean against b, c and d (row 85).
+
+*Gap:* A1 lets a d incident replace a b or c fire (items 5, 6 and 10), but item 9 filters part a against b and c only. A replacement made after the refits are trained (for example an input-build failure under item 5) could bring in a d incident near a training fire. At that point item 9 could not be honoured without retraining.
+
+*Rule:* when the custodian promotes a d incident into b or c, she **skips** any d incident within 50 km and 30 days (point of origin and discovery date, A1 item 11) of any training fire **as trained**, meaning part a, fit-23 and Wapiti. She takes the next eligible incident in `u` order and logs each skip with counts only. The check uses metadata only. The item-12 floor counts all remaining d incidents. At most **1** promotion is possible: kept d is 31 and the floor is 30.
+
+*Not done:* the 12 part-a fires are **not** dropped from training. With at most one promotion possible, the skip rule closes the gap without changing the training list. *Assessor:* the required minimum is met; the alternative (dropping the 12 part-a fires) was offered and not adopted.
+
+*Limitation, stated for any later use of d:* 9 of the 31 kept-d incidents are within item-9 proximity of part-a training fires. Any later test on d must first apply item 9 from the training side.
+
+**S2-2. `logistic_rebuilt` recipe: resolving a contradiction in A1 §3.1.** A1 §3.1 reads "Fit: `fit_logistic(C=1.0, seed=0)`, negatives subsampled at 0.05 and inverse-weighted". But `baselines.fit_logistic` takes no sample weights: it uses an unweighted scaler and `LogisticRegression(max_iter=2000)`. So it cannot do the inverse weighting the same sentence requires. The archive `logistic` that A1 says is rebuilt was produced by `pipeline.py` `command_baselines`.
+
+*Resolution (orchestrator ruling):* `logistic_rebuilt` uses `command_baselines`'s recipe:
+- `pipeline.logistic_features`;
+- negatives kept with probability 0.05 and weighted 1/0.05;
+- `StandardScaler().fit(x, sample_weight=w)`;
+- `LogisticRegression(max_iter=3000, random_state=0)` fit with the same weights;
+- interval cap `--max-fit-intervals-per-fire 0`, per the archive invocation evidence (the leak-bound author's).
+
+This is the only reading that honours "inverse-weighted" and reproduces the archive object's recipe. The leak bound (LEAK_BOUND_PLAN revisions 3 and 4) and the refit runbook use it.
+- *Assessor:* erratum or named item **PENDING**; a named item is expected, since it settles which code runs.
+- *Independent verifier:* a row confirming the archive invocation evidence is **PENDING**.
+- *Takes effect* once both exist. The `logistic_rebuilt` refit and the leak-bound fit wait for it.
+
 ## 8. Archive-trained rows promoted to named secondaries on part c (A1 §3.1, conditional on item 14)
 **Orchestrator decision, 2026-11-13.** A1 §1.2 item 14 and §3.1 (revision 29) allow the archive-trained rows to be promoted "by amendment to named secondaries on part c" if item 14 passes before part c opens. Item 14 now passes on **every channel it names**: temperature, both wind components, slope, tree cover and biome. **One leg (non-weather rasters) is unverified** (see below). Item 14 is a one-fire check. Each leg, with its scope and verifier:
 
