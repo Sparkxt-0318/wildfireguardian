@@ -417,7 +417,7 @@ Paired differences (arm − comparator; fire-clustered bootstrap 95% CI; exact s
   - plugin_state_wide, plug-in and logistic_cf cannot be told apart. Every difference between arms sits in 0–1 km, which again points to near growth.
 - Composite reference values: in any table that leaves S-D2, its comparisons against logistic_cf and persistence are point-only (pooled differences, no CI). The 5,578 cells below 1/1024 come from the converged E3 fit; the earlier 19,264 was withdrawn with the invalid E1 composite.
 
-## 3h. Feature ablation for the NLL far-share gap (TOLERANCE_feature_ablation.md + addenda 1–3), E3, guarded (unverified; sent to Owen)
+## 3h. Feature ablation for the NLL far-share gap (TOLERANCE_feature_ablation.md + addenda 1–3), E3, guarded (verified: Owen, PASS WITH NOTES, ledger row 54 @ 86ac7d0c, with the state_error correction 6af9f0fd; synthetic only)
 
 Synthetic only. The truth is the `low_far` kernel (far share 0.0718), on a 64×64 grid with T = 240 h, 24 h brackets
 and seeds 0–4. Results are in results/feature_ablation.json (feature_ablation.py 2b65ef05, fitguard.py 50d4bf4f,
@@ -438,7 +438,7 @@ tolerance: |mean − 0.072| ≤ 0.05 and SD ≤ 0.05.
 |---|---|---|---|---|---|
 | baseline | 0.095 (0.026) | 0.080 (0.010) | 0.388 | 0.047 | not the cause |
 | state_error | ~~0.095 (0.026)~~ NOT MEASURED† | 0.136 (0.024) | 0.372 | 0.090 | undetermined† (recorded as "not the cause") |
-| time_varying | 0.308 (0.338) | 0.113 (0.054) | 0.387 | 0.027 | not the cause (MCEM SD 0.054 > 0.05) |
+| time_varying | 0.308 (0.338) | 0.113 (0.054) | 0.387 | 0.027 | not the cause (NLL mean 0.308 < 0.40; MCEM SD 0.054 > 0.05 as well) |
 | barriers | 0.082 (0.035) | 0.064 (0.020) | 0.351 | 0.037 | not the cause |
 | detached | 0.090 (0.014) | 0.075 (0.019) | 0.378 | 0.045 | not the cause |
 | baseline_contig | 0.087 (0.038) | 0.087 (0.013) | 0.392 | 0.050 | not the cause (so contiguity itself is not the cause) |
@@ -452,13 +452,23 @@ Reading:
 - **Only time-varying spread rate passes the rule, and both of its verdicts sit on the edge of the rule:**
   - On `time_varying_contig`, NLL's per-seed far shares are 0.532, 0.193, 0.271, 0.418 and 0.843: only 2 of 5 seeds are above 0.40.
   - MCEM passes with SD 0.043, close to the 0.05 limit.
-  - On the original baseline, `time_varying` gives NLL 0.215, 0.172, 0.198, 0.053 and 0.901. The mean is 0.308, and MCEM's SD of 0.054 fails tolerance.
+  - On the original baseline, `time_varying` gives NLL 0.215, 0.172, 0.198, 0.053 and 0.901. Its mean of 0.308 is below 0.40, so the rule fails it on NLL. MCEM's SD of 0.054 would also fail tolerance. *Correction: an earlier version of this line, and a message to Iris, implied it failed only on MCEM's SD (Owen, row 54).*
   - Hypothesis: a day-to-day rate modulator makes NLL's far share unstable, with occasional very large values (one seed at 0.843 carries the mean), rather than uniformly high. The rule's mean-based reading hides that.
   - The real-data NLL far share (median 0.679 over 25 per-fire fits; results/real_far_share.json) is above every arm's mean, so the modulator reproduces the direction of the gap, not yet its size.
+- Verification notes (Owen, row 54):
+  - His full rerun gives composite and NLL thetas bit-identical on all 50 rows. Plug-in differs by ≤ 2e-6 and MCEM by ≤ 1.8e-3 (far share ≤ 0.015); this is cross-host floating point, as in row 49.
+  - All 10 verdicts, the calibration tables and the spot rate are identical.
+  - Guard: 1,700 calls, 0 fails, 388 flagged against my 399. The whole difference is MCEM on time_varying_contig seed 4.
+  - Both pass/fail edges are thin. time_varying_contig MCEM SD is 0.0435 here and 0.0480 on his host, against the 0.05 limit.
+  - detached_contig calibration tops out at 0.12.
 - Audit (Iris's request): no other estimator in the harness reads true arrival times where it should read observations. The `p.tau` reads are in generators, diagnostics (crossing_time), the labelled oracle and held-out NLL. In run_robust and run_shape_recovery, fit_meanfield sees exact perimeters, where states are exact functions of tau, so this is equivalent. In real_bracket_fit and cv_part_a, `p.tau` is the observed bracket end. Only the state_error arms here were affected.
   - A 30-seed extension under its own rule (RULE_ablation_seed_extension.md) tests whether this is stable. The verdicts above, under the original rule, stand as recorded.
 - State error (one-survey bracket shifts) moves MCEM out of tolerance (0.136 and 0.129). Its effect on NLL was **not measured** (†).
-- † Owen found this, and I confirmed it. R.fit_meanfield builds its survey states from problem.tau, the TRUE arrival times, and never reads obs, while generate() applies state_error to obs only. The NLL thetas of state_error and state_error_contig are bit-identical to baseline and baseline_contig on all 5 seeds. Plug-in, composite and MCEM all differ. So the NLL column for those two arms restates the baseline, and their verdicts are undetermined between "not the cause" and "both affected". They cannot be "the cause", because MCEM is out of tolerance. The other arms change tau itself, so they are unaffected. The recorded verdicts in the JSON are left as written and annotated here; Owen is running a diagnostic NLL refit on the perturbed observations.
+- † Owen found this, and I confirmed it. R.fit_meanfield builds its survey states from problem.tau, the TRUE arrival times, and never reads obs, while generate() applies state_error to obs only. The NLL thetas of state_error and state_error_contig are bit-identical to baseline and baseline_contig on all 5 seeds. Plug-in, composite and MCEM all differ. So the NLL column for those two arms restates the baseline, and their verdicts are undetermined between "not the cause" and "both affected". They cannot be "the cause", because MCEM is out of tolerance. The other arms change tau itself, so they are unaffected. The recorded verdicts in the JSON are left as written and annotated here.
+  - **Owen's diagnostic probe** (post-hoc, not a rule reading): he refit NLL with tau replaced by the perturbed observed bracket upper ends. A clean-observation control reproduces every committed baseline exactly.
+  - state_error: NLL far share 0.138 (SD 0.034; seeds 0.120, 0.102, 0.180, 0.120, 0.170).
+  - state_error_contig: 0.120 (SD 0.035; seeds 0.131, 0.140, 0.160, 0.086, 0.081).
+  - Both are far below 0.40. That points to "not the cause" rather than "both affected", but it stays post-hoc. The firmer half stays at three explanations.
 - Barriers, detached spotting and contiguity do not move NLL.
 - Calibration notes:
   - The detached spotting rate is 1.2e-5 on both baselines (generator-only, seeds 100–109).
