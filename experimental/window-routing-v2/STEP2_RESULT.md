@@ -3,7 +3,7 @@
 **Amendment F result (first section below):**
 - Every pre-stated criterion passes.
 - M2-model is not evaluable on 6 refusal-type missions, where no check ran. They are listed and not counted as passes.
-- This result is for Mira's verification.
+- Verified by Mira: ledger 125, PASS WITH NOTES (panel recomputed from the committed rows with 0 disagreements; M3(d) reproduced on her host, ratio 0.9965). Her notes N1, N2, N4 are applied below; N3 is in Ideas and gaps.
 
 The original Step 2 result follows it unchanged. That result was a G5 memory FAIL as written, which led to the owner
 decision and to amendment F.
@@ -32,7 +32,7 @@ decision and to amendment F.
 
 | Criterion (fixed before the panel) | Result |
 |---|---|
-| **M1** every V2 rep's harness family-PSS peak ≤ 3,072 MiB | **PASS, 40/40 reps.** Largest **1,823 MiB** (Yeongdeok 0325T23 FL2, rep 1). M1 not evaluable: none |
+| **M1** every V2 rep's harness family-PSS peak ≤ 3,072 MiB | **PASS, 40/40 reps.** Largest **1,823 MiB** (Yeongdeok 0325T23 FL2, rep 1). M1 not evaluable: none. **Host-dependent (Mira 125 N1):** measured on this panel's host only: receipts `host vm`, x86_64 linux; `/proc/cpuinfo` Intel Xeon @ 2.10 GHz, 4 CPUs (read after the panel in the same container, with no restart since 00:36Z; not recorded by the panel itself). Peaks depend on the path a run reaches: on Mira's faster host FL2 ended before the later stages, with V2 at 994 MiB against 1,823 MiB here, so M1's margin (1,823 vs 3,072 MiB) is a margin on this host |
 | **M2** per-mission table | below |
 | M2 post-hoc tripwire: V2 − V2_NOISO > 50% AND > 300 MiB. Label: *post-hoc tripwire (set after 2 diagnostics on panel missions); passing it is not evidence of an acceptable cost* | Not tripped on any mission. Largest increase +275 MiB (FL2, +18%) |
 | **M2-model** (an accounting-consistency bound, not a cost bound): median V2 − median V2_NOISO ≤ largest check cgroup peak + 64 MiB | **PASS on all 14 evaluable missions.** **Not evaluable on 6**, each for the reason "V2 rep 1: no check ran": Hongseong 0402T07 FN1 and FX1, Miryang 0601T08 FD1 and FX1, Yeongdeok 0325T19 FD1 and FX2. These are not passes. On them V2 − V2_NOISO is −1 to +1 MiB |
@@ -86,8 +86,10 @@ Notes on the table (all measured):
 - Refusal-type missions (no check): V2, V2_NOISO and FROZEN agree within 2 MiB.
 
 ### Ideas and gaps
-- M3(d) is a single run. In that 216 s run the harness sampler used 101 s of CPU, in the harness interpreter, outside
-  the job's family. I did not measure whether this slowed the job.
+- G2 and G2b were run by me on my run folders; Mira checked the records only (ledger 125 N2).
+- M3(d) is a single run here; Mira reproduced it on her host (ratio 0.9965, ledger 125).
+- M3(d), sampler cost: in my 216 s run the harness sampler used 101 s of CPU, in the harness interpreter, outside
+  the job's family (Mira's run: 53.7 s). I did not measure whether this slowed the job.
 - FL2's verdict under isolation: R6 shows only that both arms fall inside the G1 set (see above). FL2's timing
   sensitivity belongs to Step 3 (work budgets), not to this step.
 - M2-model has no verdict on refusal-type missions by construction: no check runs, so there is no cgroup peak.

@@ -4,6 +4,8 @@ interpreter every 10 ms. Writes HARNESS_MEM.json into OUT and prints the M3(d) c
 receipt's sampled_family_peak_pss_bytes:
   R5: controller PSS peak <= harness PSS max AND >= 0.95 x harness PSS max; also below the harness RSS-sum peak.
   WFG_F34=.../F-3.4 python -B m3d_run.py OUT TAG KIT LEO [BUDGET_S=300] [GUARD_MIB=12288]
+Inputs (Mira 125 N4): fdyn_profile.py builds the requests for ALL of its PACKETS before applying --only, so LEO must
+hold every packet it lists, even when only TAG runs.
 A harness sample with a live unreadable pid is not measured; any such sample makes M3(d) not evaluable (never a pass).
 """
 import hashlib, json, os, runpy, sys, threading
