@@ -380,10 +380,13 @@ statements in §6.3 false as written, in the dilation batch:
 **Why they are false.** The dilation runs pass a dilated, clamped raster as the variant raster (a_d = max(dilate(a),
 t_start)). Every clamped cell has a_d = t_start, so it satisfies a ≤ h and **enters C0**.
 
-**Measured effect: nil** (row 77; the routing author's numbers, UA 25T17Z).
+**Measured effect: nil** (measured by the independent verifier, ledger row 77, from the plan meta of the verifier's builds; UA 25T17Z).
 - C0 = 4,673 / 5,354 / 6,263 / 8,008 cells at d = 0 / 500 / 1000 / 2000 m. Each increment equals the clamped-cell
   count.
 - **B0 = 3,168 at every d.**
+- **c0_definition string.** The plan meta of every `/2` build still carries the string "never from a dilated
+  raster". It is data, and changing it would move plan_sha256, so it is left as written. This erratum governs it
+  (ledger row 77b).
 - **Scope (ledger row 77a):** measured on UA 25T17Z h5 kriged_mean only. The general claim rests on the argument
   (clamped cells are /1 birth 0), not on a measurement. B0 is the same at every dilation distance. The clamped cells are already born at 0
 under `/1` (catch-up ignition at the start), so B0 = C0 minus the cells already active at 0 excludes them.
