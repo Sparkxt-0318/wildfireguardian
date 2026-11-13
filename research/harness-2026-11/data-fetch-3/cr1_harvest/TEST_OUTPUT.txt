@@ -1,13 +1,16 @@
 REFUSED: --year 2025; only 2027 is allowed (2025 and 2026 are off limits)
-REFUSED: --year 2026; only 2027 is allowed (2025 and 2026 are off limits)
-REFUSED: --year 2024; only 2027 is allowed (2025 and 2026 are off limits)
-REFUSED: CR1_LOG_SALT is not set
-REFUSED: --out is inside the repository
 PASS refuses year 2025
+REFUSED: --year 2026; only 2027 is allowed (2025 and 2026 are off limits)
 PASS refuses year 2026
+REFUSED: --year 2024; only 2027 is allowed (2025 and 2026 are off limits)
 PASS refuses year 2024
+REFUSED: CR1_LOG_SALT is not set
 PASS refuses without salt
-PASS refuses out inside repo
+PASS B: repo root is the git top level
+REFUSED: --out is inside the repository
+PASS B: refuses --out at <repo>/zz_out
+REFUSED: --out is inside the repository
+PASS refuses --out inside script dir
 ALL DONE {"absent_region_year": 1, "new": 3, "no_ir": 1, "not_taken": 2, "refused": 1}
 PASS first run exit 0
 PASS takes exactly 3 IR files
@@ -19,9 +22,29 @@ ALL DONE {"absent_region_year": 1, "no_ir": 1, "not_taken": 2, "refused": 1, "un
 PASS second run exit 0
 PASS re-run is idempotent (no new)
 ALL DONE {"absent_region_year": 1, "changed": 1, "no_ir": 1, "not_taken": 2, "refused": 1, "unchanged": 2}
-PASS changed file kept as .v2, original kept
+ALL DONE {"absent_region_year": 1, "no_ir": 1, "not_taken": 2, "refused": 1, "unchanged": 3}
+ALL DONE {"absent_region_year": 1, "no_ir": 1, "not_taken": 2, "refused": 1, "unchanged": 3}
+ALL DONE {"absent_region_year": 1, "no_ir": 1, "not_taken": 2, "refused": 1, "unchanged": 3}
+PASS A: change + 3 re-runs keeps exactly original + .v2
+PASS A: latest pointer is .v2
+PASS A: last re-run all unchanged
 PASS guard refuses ../etc
 PASS guard refuses nrcc/2026/x
 PASS guard refuses nrcc/2027/protected/x
 PASS guard refuses /abs
+ALL DONE {"new": 3, "no_ir": 1, "not_taken": 2, "refused": 1}
+PASS http: first run exit 0
+PASS http: takes the same 3 files
+PASS http: no request ever reached 2026 or protected
+PASS http: no 301 needed (dirs requested with trailing /)
+ALL DONE {"no_ir": 1, "not_taken": 2, "refused": 1, "unchanged": 3}
+PASS F: re-run exit 0
+PASS F: unchanged re-run makes zero file GETs (HEAD only)
+BLOCKED (HTTP 302 redirect not followed) {}
+PASS E: 302 -> BLOCKED, exit 3
+PASS E: server never saw a /protected request
+ERROR (HTTP 500) {}
+PASS D: 500 -> ERROR (HTTP 500), exit 3, not ALL DONE
+ERROR (URLError) {}
+PASS D: URLError -> ERROR, exit 3
 ALL PASS
