@@ -55,8 +55,17 @@ checked route: kriged_mean, firms_early and envelope.
    no-escape places**, and they are not air candidates.
 
 **Dependence on the waiting rule.**
-- The supplied rule is that waiting is allowed only at graph dead-end nodes. It is undocumented, and the owner has
-  been asked.
+- **Decided, 13 Nov** (the orchestrator, on the owner's delegation, relayed by Richard):
+  - The documented default stays: waiting is allowed only at graph dead-end nodes.
+  - A labelled sensitivity row, **"waiting allowed everywhere"**, is ALWAYS reported. That includes Marcus's finding
+    that all 14 NO_ROUTE results flip under it.
+  - No verified result changes.
+- **Plain-language wording: pending confirmation.** Richard's proposal: "Departure time is free (equivalent to waiting
+  at the start place before leaving). Once moving, a stop is allowed only at a road dead end (graph dead-end node),
+  which may be a short detour off the route. Waiting is not allowed at any other node."
+  - The orchestrator's earlier "wait before leaving at the start place; no stopping mid-route" does not match the
+    graphs: only 20/88 UA and 27/94 YD start nodes are dead ends, and 2,034 dead ends are not starts.
+  - The confirmed wording replaces this paragraph when it is fixed.
 - "Waiting anywhere" can only remove places from the set, and "waiting nowhere" can only add them. Both are reported
   as counts, and each place is flagged if its membership depends on the rule.
 
