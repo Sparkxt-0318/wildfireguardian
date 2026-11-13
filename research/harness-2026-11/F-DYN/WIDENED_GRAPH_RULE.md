@@ -576,3 +576,26 @@ author's container). The notes, settled here:
   absolute ≤ 1.9e-15 kW/m². A1 is "relative ≤ 1e-9 OR absolute ≤ 1e-12", so they pass, and that is how they pass.
 - **Padding flux is nonzero** (verifier's build: max 0.0037 kW/m²), as §8(i) anticipates. The padding-open arm stays
   internal.
+
+**Graph build commands (13 Nov; added at the independent verifier's request, so the build can be reproduced from the
+text).** These are the data-fetch author's committed scripts, `research/harness-2026-11/data-fetch-3/roads/step1/` @
+6b37ebed:
+- extract_area.py sha256 0d57e2f1…;
+- build_graph.py sha256 fcc1573e…;
+- Python 3.13.18, pyosmium 4.3.2, pyproj 3.8.0;
+- every command run as `python -I`, from a scripts directory separate from the data.
+
+The pbf is fetched with its Drive id in an env var only. Its id is never written down.
+
+```
+L="roads as of 2025-01-01 (before the March 2025 fires)"   # ASCII hyphens; plain space before "(before"
+python -I extract_area.py <dl>/south-korea-250101.osm.pbf area_grid5km.json                       # 7865f495…
+python -I build_graph.py area_grid5km.json kfs01_grid5km.json --grid 1080000 1810500 375 265 107 \
+    --region kfs01_exportgrid_plus5250m --label "$L"                                               # 2232df00…
+python -I build_graph.py area_grid5km.json ua_step1.json --grid 1093875 1815750 375 73 65 \
+    --region uiseong_andong_2025 --label "$L"                                                      # e92cd0a8…
+python -I build_graph.py area_grid5km.json yd_step1.json --grid 1147500 1815750 375 71 67 \
+    --region yeongdeok_2025 --label "$L"                                                           # 39226a07…
+```
+
+`--grid` takes x0 y0 cell W H. `--region` and `--label` go into the graph bytes.
