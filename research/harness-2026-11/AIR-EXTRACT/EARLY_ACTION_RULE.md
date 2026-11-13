@@ -189,3 +189,11 @@ on this list has not been shown to have a road escape."** E9 asserts that it is 
 unit (group a) with such a t is on the main list.
 
 **A7 (E9).** "trapped" and "escape route" are added to the forbidden phrases.
+
+**E9 scope (13 Nov, at the first build; recorded before the list is used).** The first build failed E9 on two strings
+that are pinned verbatim, not list wording:
+- the module name `deadline_field/headline.py` in the checker line;
+- "…so no route on these graphs can touch it" in the verified map-edge bullet (ledger row 80).
+
+The test now matches "deadline" as a whole word, and the scan skips exactly those two pinned strings. Every other
+phrase and place is scanned as before. No label, count or pair changed.

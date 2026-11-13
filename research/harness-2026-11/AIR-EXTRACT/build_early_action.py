@@ -23,7 +23,8 @@ LABELS = {
     '1b': 'every road exit crosses ground the model shows as already burned',
     '2': 'every road exit in the mapped area is blocked by modelled fire',
     '3': 'undetermined: map window too small',
-    'closes_in_horizon': 'every route closes within the horizon',
+    'closes_in_horizon': ('a checked route at the start under every variant; none from a later computed time under every '
+                          'variant (modelled fire); cause of closing not classified'),
 }
 FLAG_1B = 'depends on the no-re-entry rule'
 CLASS_TO_LABEL = {'no_route_origin_point_in_flame_at_departure': '1', 'lost_route_depends_on_no_reentry': '1b',
@@ -48,7 +49,11 @@ STAFF = ('Staff and agency use only. Not resident-facing. SCENARIO from a fire r
 WIDE_TEXT = {'route found': 'route found by the router on the widened graph, to the listed destinations; not independently checked',
              'undetermined': 'undetermined: depends on fire outside the export grid',
              'no route found': 'no route found by the router on the widened graph to the listed destinations; not independently checked'}
-FORBIDDEN = [r'\bsafe\b', r'\bdeadline', r'no result depends on what burns outside the grid', r'(?<![\w-])no route(?! found)(?!_)']
+FORBIDDEN = [r'\bsafe\b', r'\bdeadlines?\b', r'no result depends on what burns outside the grid', r'(?<![\w-])no route(?! found)(?!_)',
+             r'\btrapped\b', r'escape route']
+ABSENCE = "one fire, March 2025, that day's wind. A place not on this list has not been shown to have a road escape."
+MIXED_HEAD = 'timing variants disagree on whether the modelled fire has already reached the start point'
+SOME_HEAD = 'no checked route under some variants only'
 KST = dt.timedelta(hours=9)
 
 
@@ -58,7 +63,7 @@ def sha(p):
 
 def clock(start_tag, off):
     t = dt.datetime.strptime(start_tag, '%Y%m%dT%H%M%SZ') + dt.timedelta(seconds=off) + KST
-    return t.strftime('%d %b %H:%M KST')
+    return t.strftime('%Y-%m-%d %H:%M KST (replay)')
 
 
 def pair(leave_by, censored, H, start):
@@ -100,49 +105,66 @@ def main():
             c = r['class']
             key = 'route found' if c.startswith('route found') else ('undetermined' if c.startswith('undetermined') else 'no route found')
             wide.setdefault((w['region'], r['start'], r['horizon_h'], r['entry_node']), set()).add((r['variant'], key))
-    units, not_eval, never, mixed_ne = [], [], 0, 0
+    units, some, mixed, not_eval, never = [], [], [], [], 0
     agree = Counter()
-    for p in hl['places']:
+
+    def unit_row(p, rows, lb, cen, grid, H, evaluated):
         reg, st, h, o = p['region'], p['start'], p['horizon_h'], p['origin']
-        grid, H = grids[(reg, st, h)]
-        rows = {v: cls[(reg, st, h, v, o)] for v in VARIANTS}
-        ne = [v for v in VARIANTS if rows[v]['class'] == 'not_evaluated']
-        if ne:
-            mixed_ne += len(ne) < 3
-            not_eval.append({'region': reg, 'start': st, 'horizon_h': h, 'origin': o, 'variants': ne})
-            continue
-        pv = p['nr_cert']['per_variant']
-        lb = {v: pv[v]['leave_by_s'] for v in VARIANTS}
-        cen = {v: bool(pv[v].get('horizon_censored')) for v in VARIANTS}
+        prs = {}
         for v in VARIANTS:
-            agree[p['nr_router']['per_variant'][v]['leave_by_s'] == lb[v]] += 1
-        in_set = [t for t in grid if all(lb[v] is None or t > lb[v] for v in VARIANTS)]
-        if not in_set:
-            never += 1
-            continue
-        labs = [CLASS_TO_LABEL[rows[v]['class']] for v in VARIANTS if rows[v]['class'] in CLASS_TO_LABEL]
-        lab = min(labs, key=PRECEDENCE.index) if labs else 'closes_in_horizon'
-        prs = {v: pair(lb[v], cen[v], H, st) for v in VARIANTS}
-        finite = [v for v in VARIANTS if prs[v][1] is not None or (lb[v] is not None and not cen[v] and lb[v] < H)]
-        earliest_v = min(VARIANTS, key=lambda v: (-1 if lb[v] is None else lb[v]))
+            prs[v] = pair(lb[v], cen[v], H, st)[0] if v in evaluated else 'not evaluated'
+        ev = [v for v in VARIANTS if v in evaluated]
+        earliest_v = min(ev, key=lambda v: (-1 if lb[v] is None else lb[v])) if ev else None
         nm = names.get((reg, o), (None, None, None))
         w = sorted(wide.get((reg, st, h, nm[2]), set()))
-        unit = {'region': reg, 'start': st, 'horizon_h': h, 'origin': o, 'name': nm[0], 'name_en': nm[1],
-                'cause_label': lab, 'cause_text': LABELS[lab], 'flag': FLAG_1B if lab == '1b' else None,
-                'excluded_from_no_escape_counts': lab == '3',
-                'pairs': {v: prs[v][0] for v in VARIANTS}, 'leave_by_s': lb,
-                'earliest': {'variant': earliest_v, 'pair': prs[earliest_v][0], 'label': EARLIEST},
-                'first_grid_departure_in_set': in_set[0], 'prefix': PREFIX,
-                'envelope_burnset_static_row': p.get('static_final_footprint_row'),
+        per_var = {v: (CLASS_TO_LABEL.get(rows[v]['class']) or ('not evaluated' if rows[v]['class'] == 'not_evaluated'
+                                                                 else 'route')) for v in VARIANTS}
+        return {'region': reg, 'start': st, 'horizon_h': h, 'origin': o, 'name': nm[0], 'name_en': nm[1],
+                'per_variant_labels': per_var, 'pairs': prs, 'leave_by_s': lb,
+                'earliest': None if earliest_v is None else {'variant': earliest_v, 'pair': prs[earliest_v], 'label': EARLIEST},
+                'prefix': PREFIX, 'envelope_burnset_static_row': p.get('static_final_footprint_row'),
                 'waiting_rule_dependence': WAIT_COL, 'grid_step_s': STEP,
                 'edge_caveat': EDGE_CAVEAT if nm[0] in EDGE_PLACES else None,
                 'widened_class': [{'variant': v, 'class': WIDE_TEXT[k],
                                    **({'note': 'verification pending'} if reg == 'yeongdeok_2025' else {})} for v, k in w] or None}
-        units.append(unit)
+
+    for p in hl['places']:
+        reg, st, h, o = p['region'], p['start'], p['horizon_h'], p['origin']
+        grid, H = grids[(reg, st, h)]
+        rows = {v: cls[(reg, st, h, v, o)] for v in VARIANTS}
+        pv = p['nr_cert']['per_variant']
+        lb = {v: pv[v].get('leave_by_s') for v in VARIANTS}      # a {'no_route': ...} record = no route at any grid time
+        cen = {v: bool(pv[v].get('horizon_censored')) for v in VARIANTS}
+        for v in VARIANTS:
+            agree[p['nr_router']['per_variant'][v].get('leave_by_s') == lb[v]] += 1
+        ne = [v for v in VARIANTS if rows[v]['class'] == 'not_evaluated']
+        if len(ne) == 3:
+            not_eval.append({'region': reg, 'start': st, 'horizon_h': h, 'origin': o, 'variants': ne})
+            continue
+        if ne:
+            mixed.append(unit_row(p, rows, lb, cen, grid, H, [v for v in VARIANTS if v not in ne]))
+            continue
+        closed = lambda v, t: lb[v] is None or t > lb[v]
+        all_t = [t for t in grid if all(closed(v, t) for v in VARIANTS)]
+        some_t = [t for t in grid if any(closed(v, t) for v in VARIANTS)]
+        if all_t:
+            u = unit_row(p, rows, lb, cen, grid, H, VARIANTS)
+            labs = [CLASS_TO_LABEL[rows[v]['class']] for v in VARIANTS if rows[v]['class'] in CLASS_TO_LABEL]
+            lab = min(labs, key=PRECEDENCE.index) if labs else 'closes_in_horizon'
+            u.update({'cause_label': lab, 'cause_text': LABELS[lab], 'flag': FLAG_1B if lab == '1b' else None,
+                      'excluded_from_no_escape_counts': lab in ('3', 'closes_in_horizon'),
+                      'first_grid_departure_in_set': all_t[0]})
+            units.append(u)
+        elif some_t:
+            u = unit_row(p, rows, lb, cen, grid, H, VARIANTS)
+            u['first_grid_departure_some_closed'] = some_t[0]
+            some.append(u)
+        else:
+            never += 1
     # ---- pass criteria
     tests = {}
     e1 = []
-    for u in units:
+    for u in units + some:
         H = grids[(u['region'], u['start'], u['horizon_h'])][1]
         for v in VARIANTS:
             lbv = u['leave_by_s'][v]
@@ -156,38 +178,43 @@ def main():
             e1.append((u['origin'], 'earliest'))
     tests['E1_pairs'] = not e1
     ne_keys = {(n['region'], n['start'], n['horizon_h'], n['origin']) for n in not_eval}
-    tests['E2_not_evaluated_off_list'] = not any((u['region'], u['start'], u['horizon_h'], u['origin']) in ne_keys for u in units)
-    split_ne = Counter((r['region'], r['start'], r['horizon_h'], r['variant']) for r in sp['rows'] if r['class'] == 'not_evaluated')
-    own_ne = Counter((n['region'], n['start'], n['horizon_h'], v) for n in not_eval for v in n['variants'])
-    tests['E2_counts_equal_split'] = all(split_ne[k] == own_ne[k] for k in split_ne if k[3] in VARIANTS)
+    tests['E2_not_evaluated_off_list'] = not any((u['region'], u['start'], u['horizon_h'], u['origin']) in ne_keys
+                                                 for u in units + some + mixed)
+    split_ne = Counter((r['region'], r['start'], r['horizon_h'], r['variant']) for r in sp['rows']
+                       if r['class'] == 'not_evaluated' and r['variant'] in VARIANTS)
+    own_ne = Counter((n['region'], n['start'], n['horizon_h'], v) for n in not_eval for v in n['variants']) + \
+        Counter((m['region'], m['start'], m['horizon_h'], v) for m in mixed for v in VARIANTS if m['pairs'][v] == 'not evaluated')
+    tests['E2_counts_equal_split'] = split_ne == own_ne
+    listed = {(u['region'], u['start'], u['horizon_h'], u['origin']) for u in units}
     tests['E3_membership'] = all(u['first_grid_departure_in_set'] is not None for u in units)
     tests['E4_labels'] = all(u['cause_label'] in LABELS for u in units)
-    per = Counter((p['region'], p['start'], p['horizon_h']) for p in hl['places'])
-    got = Counter((u['region'], u['start'], u['horizon_h']) for u in units) + \
-        Counter((n['region'], n['start'], n['horizon_h']) for n in not_eval)
-    tests['E5_reconciliation'] = (len(units) + len(not_eval) + never == len(hl['places']) == 1044)
-    tests['E6_edge_caveat'] = all((u['edge_caveat'] is not None) == (u['name'] in EDGE_PLACES) for u in units)
+    tests['E5_reconciliation'] = len(units) + len(some) + never + len(mixed) + len(not_eval) == len(hl['places']) == 1044
+    tests['E6_edge_caveat'] = all((u['edge_caveat'] is not None) == (u['name'] in EDGE_PLACES) for u in units + some + mixed)
     tests['E7_widened_text'] = all(c['class'] in WIDE_TEXT.values() and set(c) <= {'variant', 'class', 'note'}
-                                   for u in units for c in (u['widened_class'] or []))
+                                   for u in units + some + mixed for c in (u['widened_class'] or []))
     tests['E8_cert_router_agree'] = agree[False] == 0
-    out = {'schema': 'wfg.air-extract.early-action/1', 'rule': 'EARLY_ACTION_RULE.md', 'staff_label': STAFF,
-           'waiting_wording_R': WAIT_R, 'map_edge': MAP_EDGE, 'prefix': PREFIX, 'earliest_label': EARLIEST,
+    no_escape = Counter(u['cause_label'] for u in units if not u['excluded_from_no_escape_counts'])
+    out = {'schema': 'wfg.air-extract.early-action/1', 'rule': 'EARLY_ACTION_RULE.md (+ amendment 1)', 'staff_label': STAFF,
+           'absence_line': ABSENCE, 'waiting_wording_R': WAIT_R, 'map_edge': MAP_EDGE, 'prefix': PREFIX,
+           'earliest_label': EARLIEST,
            'checker': 'deadline_field/headline.py @ 54bcb96e + kit routing-package/routing/independent.py::check_route '
                       '(file sha256 41fcfee25b980b080287025e2b883e5f0f78d7d21580a5c1633375cf1e64ca2a)',
            'packets': 'MANIFEST_v3_7 no_reentry/2, sha256 7c178267…', 'numpy': np.__version__,
            'inputs_sha256': {k: sha(f) for k, f in files.items()},
-           'not_evaluated': {'label': NOT_EVAL, 'state_line': sp.get('state_line'), 'units': len(not_eval),
-                             'units_not_evaluated_in_only_some_variants': mixed_ne,
+           'not_evaluated': {'label': NOT_EVAL, 'state_line': sp.get('state_line'), 'units_all_three': len(not_eval),
                              'rows_per_variant': {'|'.join(map(str, k)): n for k, n in sorted(own_ne.items())}},
-           'counts': {'units': len(hl['places']), 'listed': len(units), 'not_evaluated': len(not_eval),
-                      'never_in_set': never, 'by_label': dict(Counter(u['cause_label'] for u in units)),
+           'counts': {'units': len(hl['places']), 'main_list': len(units), 'some_variants_only': len(some),
+                      'never_in_set': never, 'mixed_not_evaluated': len(mixed), 'not_evaluated_all_three': len(not_eval),
+                      'main_by_label': dict(Counter(u['cause_label'] for u in units)),
+                      'no_escape_count_by_label': dict(no_escape),
                       'cert_router_leave_by_agree': dict((str(k), v) for k, v in agree.items())},
-           'units': units}
+           'main_list': units, 'some_variants_only': some, 'mixed_not_evaluated': mixed}
     a.out_dir.mkdir(parents=True, exist_ok=True)
     js = json.dumps(out, ensure_ascii=False, indent=1)
     md = render(out)
-    bad = [pat for pat in FORBIDDEN for text in (md,) if re.search(pat, text, re.I)]
-    tests['E9_wording'] = not bad
+    scan = md.replace(MAP_EDGE, '').replace(out['checker'], '')   # pinned verbatim strings (amendment 1, E9 scope)
+    bad = [pat for pat in FORBIDDEN if re.search(pat, scan, re.I)]
+    tests['E9_wording'] = not bad and ABSENCE in md and ABSENCE in json.dumps(out, ensure_ascii=False)
     out['pass_criteria'] = tests
     out['all_pass'] = all(tests.values())
     out['E9_forbidden_hits'] = bad
@@ -196,36 +223,60 @@ def main():
     print(json.dumps({'pass_criteria': tests, 'counts': out['counts'], 'E9_hits': bad}, ensure_ascii=False, indent=1))
 
 
+def _notes(u):
+    notes = []
+    if u.get('flag'):
+        notes.append(u['flag'])
+    if u.get('excluded_from_no_escape_counts'):
+        notes.append('not added to any no-escape count')
+    if u['edge_caveat']:
+        notes.append(u['edge_caveat'])
+    for c in u['widened_class'] or []:
+        notes.append(f'widened graph ({c["variant"]}): {c["class"]}' + (f' [{c["note"]}]' if c.get('note') else ''))
+    return '; '.join(notes)
+
+
+def _table(L, title, us, with_cause):
+    groups = {}
+    for u in us:
+        groups.setdefault((u['region'], u['start'], u['horizon_h']), []).append(u)
+    L += [f'# {title}', '']
+    if not us:
+        L += ['(none)', '']
+    for (reg, st, h), g in sorted(groups.items()):
+        L += [f'## {reg}, start {st}, horizon {h} h', '',
+              '| Place | ' + ('Cause (modelled) | ' if with_cause else '') +
+              'Per-variant labels | kriged_mean | firms_early | envelope | Earliest | Waiting rule | Notes |',
+              '|---|' + ('---|' if with_cause else '') + '---|---|---|---|---|---|---|']
+        for u in sorted(g, key=lambda x: (x['earliest']['pair'] if x['earliest'] else '', x['name'] or '')):
+            pvl = ', '.join(f'{v}: {u["per_variant_labels"][v]}' for v in VARIANTS)
+            e = f'{u["earliest"]["pair"]} ({u["earliest"]["variant"]})' if u['earliest'] else ''
+            L.append(f'| {u["name"]} ({u["name_en"]}) | ' + (f'{u["cause_text"]} | ' if with_cause else '') +
+                     f'{pvl} | {u["pairs"]["kriged_mean"]} | {u["pairs"]["firms_early"]} | {u["pairs"]["envelope"]} | '
+                     f'{e} | {u["waiting_rule_dependence"]} | {_notes(u)} |')
+        L.append('')
+
+
 def render(o):
+    c = o['counts']
     L = ['# Early-action list (staff and agency use only)', '', f'> {o["staff_label"]}', '',
-         f'- **Checker:** {o["checker"]}', f'- **Packets:** {o["packets"]}; numpy {o["numpy"]}',
+         f'> **{o["absence_line"]}**', '',
+         f'- **Checker:** {o["checker"]}', f'- **Packets:** {o["packets"]} (headline run on numpy 1.26.4); this list builder: numpy {o["numpy"]}, reads JSON only',
          f'- **Waiting (R):** {o["waiting_wording_R"]}', f'- **{o["map_edge"]}**',
          f'- **Departure sets:** {o["prefix"]}.',
          f'- **Earliest column:** "{o["earliest_label"]}". It is not a bound.',
-         f'- **Not on this list:** {o["not_evaluated"]["units"]} units "{o["not_evaluated"]["label"]}" '
-         f'({o["not_evaluated"]["units_not_evaluated_in_only_some_variants"]} of them under only some timing variants). '
-         f'{o["not_evaluated"]["state_line"]}', '']
-    groups = {}
-    for u in o['units']:
-        groups.setdefault((u['region'], u['start'], u['horizon_h']), []).append(u)
-    for (reg, st, h), us in sorted(groups.items()):
-        L += [f'## {reg}, start {st}, horizon {h} h', '',
-              '| Place | Cause (modelled) | kriged_mean | firms_early | envelope | Earliest | Waiting rule | Notes |',
-              '|---|---|---|---|---|---|---|---|']
-        for u in sorted(us, key=lambda x: (x['earliest']['pair'], x['name'] or '')):
-            notes = []
-            if u['flag']:
-                notes.append(u['flag'])
-            if u['excluded_from_no_escape_counts']:
-                notes.append('excluded from no-escape counts')
-            if u['edge_caveat']:
-                notes.append(u['edge_caveat'])
-            for c in u['widened_class'] or []:
-                notes.append(f'widened graph ({c["variant"]}): {c["class"]}' + (f' [{c["note"]}]' if c.get('note') else ''))
-            L.append(f'| {u["name"]} ({u["name_en"]}) | {u["cause_text"]} | {u["pairs"]["kriged_mean"]} | '
-                     f'{u["pairs"]["firms_early"]} | {u["pairs"]["envelope"]} | {u["earliest"]["pair"]} '
-                     f'({u["earliest"]["variant"]}) | {u["waiting_rule_dependence"]} | {"; ".join(notes)} |')
-        L.append('')
+         f'- **Not on these tables:** {o["not_evaluated"]["units_all_three"]} units "{o["not_evaluated"]["label"]}" '
+         f'under all three timing variants. {o["not_evaluated"]["state_line"]}',
+         f'- **Counts:** main list {c["main_list"]}; no checked route under some variants only '
+         f'{c["some_variants_only"]}; timing variants disagree on the start point {c["mixed_not_evaluated"]}; a '
+         f'checked route at every computed time under every variant {c["never_in_set"]}; not evaluated {c["not_evaluated_all_three"]}; total {c["units"]}.',
+         f'- **Labels counted toward no-escape totals (1, 1b, 2 only):** {c["no_escape_count_by_label"]}', '']
+    _table(L, 'Main list: no checked route under any of the three timing variants at some computed time',
+           o['main_list'], True)
+    _table(L, o.get('some_head', 'No checked route under some variants only'), o['some_variants_only'], False)
+    _table(L, 'Timing variants disagree on whether the modelled fire has already reached the start point',
+           o['mixed_not_evaluated'], False)
+    L += ['', f'> **{o["absence_line"]}**', '']
     return '\n'.join(L)
 
 
