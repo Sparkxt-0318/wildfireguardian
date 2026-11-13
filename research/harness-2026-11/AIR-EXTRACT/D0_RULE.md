@@ -145,3 +145,54 @@ The assessor's hypothesis (most excluded) is stated as a hypothesis, and the cou
 - **Cross-check.** `check_place_sigungu.py` → `results/PLACE_SIGUNGU_CHECK.json`: all **59 of 59** distinct places on
   the early-action main list get the same 시군구 from the OSM polygons as from labels.json (V-World BND_SIGUNGU_PG,
   2025-06-30). There are **0 disagreements**.
+
+## 9. Amendment 2 (13 Nov, ~12:46Z; the assessor's read of 479a45fc, the orchestrator's direction, custody ledger row 88; before any build)
+
+**Status.** P-a is recorded: custody ledger row 88, PASS WITH NOTES; sha 55f66625… reproduced independently. The
+build may start (assessor) under the changes below. D0 stays low priority, behind the verifier's queue.
+
+**B1, daylight gate now, labelled partial.**
+- The header and the summary read **"partial: daylight gate only"** until wind is in. **The summary count is not
+  quoted as a finding until then.**
+- **New column:** "minutes of daylight remaining at the row's time", the minutes until the sun's centre reaches −0.833°.
+  There is no new threshold, and the status does not change.
+
+**B2, the wind source.**
+- **First choice:** the wind field the fire reconstruction already uses, "that day's wind" by construction, if it
+  covers the places, sites and hours. Its gust status is stated. No new fetch.
+- **Fallback, only if it does not cover them:** the Open-Meteo archive (amendment 1).
+  - **Budget** (the data-fetch author): today, 13 Nov UTC, finished well before 23:30Z. Hard ceiling 1,500 weighted
+    calls; ≤ 500/min and ≤ 4,500 per rolling hour; stop on any 429.
+  - **Nothing is sent on 14 Nov UTC** until the data-fetch author reports his day-2 run ALL DONE.
+  - **Afterwards,** the actual weighted total is sent to the data-fetch author and the weather-stream author.
+- **A documented observation, never a gate:** the source researcher's sourced gust figure (about 27 m/s, 25 Mar) sits
+  beside the wind column.
+
+**B3, all three early-action tables, in separate sections with separate counts, never pooled.**
+- **Main list:** the row time is the first computed departure in the set.
+- **"No checked route under some variants only":** the row time is the first computed departure with no route under
+  the earliest-closing variant.
+- **"Timing variants disagree":** the same rule, over the variants that are evaluated.
+- **D1 (replaced):** there is one row per unit in each of the three tables, and no others.
+
+**B4, the register's identity and limits** (custody row 88). The header carries:
+- data.go.kr 15069465; 산림청 산림항공본부; licence unrestricted; **base date 2025-10-22, pinned to this release**
+  (annual updates; next 2027-07-31).
+- **"The register's base date (2025-10-22) is after the March 2025 fires. These rows describe sites registered as of
+  that date, not sites known to exist at the replay time."**
+- **The datum:** "not stated anywhere in the source; read as WGS84/GRS80 geographic; possible position error of a few
+  hundred metres".
+- **The portal's own limits, quoted:** military landing sites are excluded, and use requires prior coordination with
+  the managing agency.
+- **Counts:**
+  - 538 usable rows; **38 of them repeat another row's coordinates, giving 500 distinct points.** Sites are counted on
+    distinct points.
+  - Of the 65 invalid rows, **10 are well-formed DMS that fall outside Korea**. They are counted, not repaired.
+- **D2 (extended):** usable / blank / invalid = 538 / 24 / 65; 500 distinct usable points; 10 invalid rows are
+  well-formed DMS outside Korea.
+
+**B5, smaller points.**
+- The column header reads **"straight-line distance"**, to 0.1 km.
+- **New column:** the number of distinct usable site points within 100 km of the place.
+- **D6 (extended):** the solar routine is tested on two dates, one in late March at these latitudes.
+- **D7 (extended):** "landing zone" and "extraction" are forbidden, except in the document's title.
