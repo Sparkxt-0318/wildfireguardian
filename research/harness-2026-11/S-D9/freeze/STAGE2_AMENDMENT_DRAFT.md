@@ -115,24 +115,16 @@ This amendment therefore promotes exactly **three** archive-trained models to **
   - **ID overlap.** Part a–d were drawn from the clean pool of A1 §1.2 item 1, which keeps only incidents with `project_status == "unused_in_repo_events"` and no shared IRWIN with a project fire. So no training event can be a part-c fire by ID. KFS_02 and KFS_03 are Korean, so they are not NIROPS incidents at all.
   - **Proximity** (A1 item 9's 50 km and 30 days, applied here to the training fires).
     - KFS_02 and KFS_03 satisfy it by geography: they are in Korea, and every part-c incident is a US NIROPS fire.
-    - Only the fit-23 fires need checking. The custodian checked them against sealed origins and discovery dates, totals only (ledger row 83):
-      - ID overlap is 0 for part c and 0 for part b, also by unit-number key.
-      - **Proximity is NON-ZERO.** Against part c: 3 fit-23 fires in 4 pairs with 2 distinct part-c incidents. Pair distances and times: 0.2 km / 1.0 d, 38.0 km / 2.4 d, 47.9 km / 3.5 d and 28.7 km / 27.7 d. The 0.2 km / 1 d pair has different IRWIN and WFIGS IDs, so it is very likely the same or an adjoining fire recorded under another incident.
-      - Against part b: 2 fit-23 fires in 2 pairs, 45.3 km / 0.3 d and 41.5 km / 1.0 d.
-      - All the pairs are 2021–2022 US fires. Identities are held by the custodian only.
-    - **Reading against A1 (Victor, 2026-11-13).** A1 already applies this rule to the fit fires.
-      - §1.3 ("Independence from fit fires") excludes any b/c/d incident within 50 km and 30 days of a FIT or SELECTED_ON fire. §1.2 item 6 applies it, and item 11 says it uses point of origin and discovery date.
-      - `cohort/apply_filters.py` implements it, with `ref.csv` = the 23 fit fires plus Wapiti, all with origin and discovery fields.
-      - The row-83 denominators (b 35, c 38) equal kept plus excluded in `RUN_FILTERS.md` (30 + 5, 30 + 8). So the pairs may be incidents that §1.3 had already excluded.
-      - **PENDING:** the custodian's rerun on **kept** members only.
-        - If there are 0 kept hits, §1.3 worked, nothing changes, and the exclusion rule above for the archive rows is moot.
-        - If any kept hit exists, A1's own remedy applies: §1.2 item 6, which excludes it and replaces it from d before any prediction runs. That would be recorded here as an implementation correction. Training fires are never dropped by §1.3.
-  - **If any fit-23 fire is within 50 km and 30 days of a part-c fire:** the two models trained on fit-23 are reported with that count beside every number, and the orchestrator decides whether they stay.
+    - Only the fit-23 fires need checking. **Result: no overlap** (custodian, ledger row 85, totals only; rows 83–84 are superseded, because they counted rows already excluded by §1.3):
+      - ID overlap is 0 against b and c, also by unit-number key.
+      - A1 §1.3 ("Independence from fit fires") already excluded every b/c/d incident within 50 km and 30 days of a fit-23 fire or Wapiti (`cohort/apply_filters.py`, `ref.csv` = the 23 fit fires plus Wapiti). Against **kept** members (COHORT_FINAL d5ae66f4): b 0, c 0, d 0. All 5 incidents flagged in row 83 were §1.3 exclusions.
+      - Near-duplicate pairs (< 1 km and < 2 d) between the full training list (part a + fit-23) and kept b, c and d incidents: 0.
+    - So the promoted rows are out of sample by A1's own rules. No incident is excluded, and no change is made to training lists or scoring.
 - **Secondaries only.** None of the three is, or replaces, a §6.1 criterion object. Those stay `persistence`, `dilation_8h`, `logistic_rebuilt` and `d4_wind_recal`. The rebuilt refits stay the confirmatory comparators.
 - **No named secondary's result changes the §6.1 verdict or the wording of the headline claim, whichever way it falls.** Each is reported with its own paired comparisons and intervals, with no multiplicity adjustment and no claim that would need one. Every sentence about them says "secondary, no multiplicity adjustment" (§9, row O12).
 - **Count.** This adds three named secondaries. The other part-c secondaries (§9, §13) are unchanged.
 - **Disclosed limitation, carried into every sentence.** All three were trained on archive inputs before the split.
-- **Assessor's reading (2026-11-13): PASS WITH NOTES.** "The promotion follows A1 §3.1's pre-stated condition and adds no criterion object. Notes 1–7 are addressed in this section; note 1 (training fires against part c) is a condition of scoring these rows." *Follow-up (assessor, 2026-11-13):* the note-6 departure is accepted, because A1 §5.2 governs, and `c651_mc`'s row now states what it is scored on. **Open until the freeze commit:** note 1 (the custodian's proximity totals), note 4 (a verifier row for the non-weather leg) and note 6 (the `c651_mc` seed as a number).
+- **Assessor's reading (2026-11-13): PASS WITH NOTES.** "The promotion follows A1 §3.1's pre-stated condition and adds no criterion object. Notes 1–7 are addressed in this section; note 1 (training fires against part c) is a condition of scoring these rows." *Follow-up (assessor, 2026-11-13):* the note-6 departure is accepted, because A1 §5.2 governs, and `c651_mc`'s row now states what it is scored on. Note 1 is closed by row 85: no overlap. **Open until the freeze commit:** note 4 (a verifier row for the non-weather leg) and note 6 (the `c651_mc` seed as a number).
 
 ## 9. Outcome-to-claim table, parts c and b (written before part c opens; changes no criterion)
 Each row fixes the sentence the paper may write for one possible result.
