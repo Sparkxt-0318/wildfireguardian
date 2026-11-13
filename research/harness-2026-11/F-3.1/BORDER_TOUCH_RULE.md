@@ -29,7 +29,7 @@
   - Cells are closed rectangles that share their boundary with the export grid. So this is equivalent to: some leg
     segment or point has a point on, or outside, the export-grid rectangle's boundary. The count is computed with the
     footprint test itself; the equivalence is asserted on every witness, and every disagreement is listed.
-- **Proxy, reported beside it and labelled "proxy".** A witness has some leg whose footprint includes a cell in the
+- **Proxy, reported beside it and labelled "proxy". It is not the count.** It is the larger number because a road in the outer ring need not reach the grid boundary. Such a road has no padding cell in its closed footprint, so the padding-closed arm does not block it. A witness has some leg whose footprint includes a cell in the
   outermost ring of export cells (row 0, row H−1, column 0, column W−1).
 
 ## How
