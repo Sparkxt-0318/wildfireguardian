@@ -145,7 +145,7 @@ Accepted limitation (per rule 6): a same-size content change is not detected. | 
 - counts: 31.2 M nodes, 2.91 M ways, 53 k relations;
 - newest object 2025-01-01T20:50:24Z, before the stated snapshot.
 **Independent content check** (Hannah, OSM API /history, 80 requests spaced 3 s): for a deterministic sample of 40 ways and 40 nodes, version and timestamp equal the latest version at or before 2025-01-01T21:21Z in 80/80 cases, none deleted at that time. 10 of the 80 were edited after the snapshot, so the file is specifically a 1 Jan 2025 state, not a later extract.
-Not verified: byte identity with Geofabrik's published file. download.geofabrik.de reset the connection from my container too, and archive.org answered 429. The md5 above allows that check later. | PASS WITH NOTES. Genuine OSM data at the stated snapshot (sampled), with consistent header and hashes; Geofabrik byte identity is still open. No private link in any file. Not verified: the graph build itself (step 1, a separate review) |
+Not verified: byte identity with Geofabrik's published file. download.geofabrik.de reset the connection from my container too, and archive.org answered 429. The md5 above allows that check later. | PASS WITH NOTES, **closed** (orchestrator 13 Nov). Genuine OSM data at the stated snapshot (sampled), with consistent header and hashes. Byte identity with Geofabrik: **not checkable**, because the publisher's .md5 was not found (the owner tried download.geofabrik.de/asia/south-korea-250101.osm.pbf.md5 in a browser on 13 Nov). The 80/80 OSM-history content check stands as the provenance evidence. No private link in any file. Not verified: the graph build itself (step 1, a separate review) |
 
 ## Baseline detail (5fa19a2)
 
