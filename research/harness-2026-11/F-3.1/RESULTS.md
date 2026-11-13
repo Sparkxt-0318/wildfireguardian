@@ -977,7 +977,7 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
   - Yeongdeok 25T19Z: 1.
 - "Possibly road-limited" is a reachability heuristic at t = 0 (the reachable set touches a graph-window boundary node). It does not show that the window is the cause.
 
-## Acceptance 8, spotting-dilation half, on `no_reentry/2` (rule `SPOTTING_NR2_ACCEPT8_RULE.md`, committed first at bfc67ae4; NOT YET VERIFIED)
+## Acceptance 8, spotting-dilation half, on `no_reentry/2` (rule `SPOTTING_NR2_ACCEPT8_RULE.md`, committed first at bfc67ae4; VERIFIED: Nora, PASS WITH NOTES, ledger row 77)
 
 **Labels.**
 - SCENARIO, not what happened. Graphs are road-limited.
@@ -1001,7 +1001,7 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
   - YD 25T19Z: 679 / 1,498 / 3,044
   - YD 25T23Z: 532 / 1,216 / 2,532
   - YD 26T08Z: 497 / 1,130 / 2,299
-- Under `/2` a clamped cell (arrival = start) is in C0 (inclusive) and closed on [0, H). Its C0 membership is the same as the unclamped dilation would give.
+- The batch passes the dilated raster as `--arrival`, so C0 is computed from it, and every clamped cell (arrival = start, inclusive) enters C0. UA 25T17Z, from ledger row 77: C0 = 4,673 / 5,354 / 6,263 / 8,008 cells for d = 0 / 500 / 1000 / 2000; each increment equals the clamped count. This departs from the wording of `NOREENTRY2_RULE.md` §6.3 ("never computed from a spotting-dilated raster"). **Dilation adds nothing to B0:** B0 = 3,168 at every d there. A clamped cell already has `/1` birth 0, and B0 excludes those cells, so `/2` closes nothing beyond `/1` because of the dilation. Rewording the rule and the builder docstring is a builder-side note.
 
 **Run.**
 - 24 pairs: 6 recorded starts × d ∈ {0, 500, 1000, 2000} m, h5.
