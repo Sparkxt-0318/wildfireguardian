@@ -6,7 +6,7 @@ G3: median largest dose / peak upper-bound share of budget equal within 1e-4 whe
 G5: summed median plain wall (V2 vs FROZEN) rises <= 10%; per-mission median family peak RSS <= +10% and <= 3072 MiB.
   python -B g1_compare.py RUN_DIR [--json OUT]
 """
-import argparse, json, statistics as st
+import argparse, json, os, statistics as st
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
@@ -21,7 +21,7 @@ def shares(run, r):
     pm = rad.get('per_member') or []
     if isinstance(pm, dict):
         pm = [dict(v, id=k) for k, v in pm.items()]
-    req = json.loads((REPO / 'data/routing/latest_inputs_try02/requests' / r['region'] / (r['case_id'] + '.json')).read_text())
+    req = json.loads((Path(os.environ.get('WFG_DATA_ROUTING', str(REPO / 'data/routing'))) / 'latest_inputs_try02/requests' / r['region'] / (r['case_id'] + '.json')).read_text())
     d = max((m['dose_upper_kj_m2'] / req['budgets']['dose'][m['id']] for m in pm), default=None)
     p = max((m['peak_upper_kw_m2'] / req['budgets']['peak'] for m in pm), default=None)
     return d, p, (json.loads(res.read_text()).get('kit_identity') if res.exists() else None)

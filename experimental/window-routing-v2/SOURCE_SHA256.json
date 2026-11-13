@@ -1,7 +1,9 @@
 {
   "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
   "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
-  "stack-v2/phaseB/rda_worker_v1_1.py": "82251f34ca2497ab4323a40db6dcf4144338208c6eb5384e2c08b0eea7ad0471",
-  "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
-  "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+  "stack-v2/phaseB/rda_worker_v1_1.py": "8523e3518e166363c796f7adbe631947ba40fadf8ef18cf4d274f253aa8a0e41",
+  "stack-v2/phaseB/road_bounds.py": "21c1d919dfac256a145647289bfeb0d424602dc4e59b678240cd84ff9d854c09",
+  "stack-v2/phaseB/road_core.py": "2272eedafe60fd67be741464d31992667a7666f86a772851238e73181f5ef379",
+  "stack-v2/phaseB/v2_work.py": "fc2dc0babfc38462e4ac4f0b0c8b5f4ad5ffb675231c8a219de1b20da4d44a86",
+  "stack-v2/phaseB/zsweep.py": "72f6c433ebe9ac7b9cd3fd8c56340b8b29eca969b0b621ee94d08683d9824fd5"
 }
