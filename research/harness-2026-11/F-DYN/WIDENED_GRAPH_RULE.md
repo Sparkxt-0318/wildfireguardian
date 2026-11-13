@@ -563,3 +563,16 @@ envelope at h5 and h8 (4), plus UA 24T09Z kriged_mean at h5 and h8 (2). The full
 - 20 with a route found (12 from the widening, 8 already on G1);
 - 6 undetermined;
 - 238 with no route found.
+
+**Independent verifier's read of §9 (verification ledger row 82, PASS WITH NOTES; 13 Nov).** The packet side was
+reproduced on the verifier's own build. The routing side was recounted, not re-run (the graphs are local to the
+author's container). The notes, settled here:
+- **(3) Departure set for the class.** §4 fixes the 30-min departure grid; §9 used any feasible departure in [0, H].
+  **The class follows §4: a route is "found" when the feasible set contains at least one 30-min grid departure**
+  (INSTANCE `depart_offsets_s`). Measured on all 264 Uiseong rows, the two definitions give the same class in every
+  row (0 differ), and every one of the 20 found routes has a feasible grid departure. The §9 numbers stand. The
+  exact sets stay in the run outputs.
+- **A1, absolute bound only.** Some pairs pass A1 only on the absolute bound: max relative 3.1e-9 > 1e-9, at max
+  absolute ≤ 1.9e-15 kW/m². A1 is "relative ≤ 1e-9 OR absolute ≤ 1e-12", so they pass, and that is how they pass.
+- **Padding flux is nonzero** (verifier's build: max 0.0037 kW/m²), as §8(i) anticipates. The padding-open arm stays
+  internal.
