@@ -71,7 +71,8 @@ def read_raster(path: Path) -> np.ndarray:
 
 def add_b0(p, arrival, export_burned, present_fire, start_h):
     """NOREENTRY2_RULE.md 1 and 6.1-6.3: C0 = export known-burned | (variant arrival or lo <= start, integer ms since
-    t0, inclusive), never from a dilated raster (only the variant's own --arrival is passed). Per member,
+    t0, inclusive), computed from whatever --arrival is passed (NOREENTRY2_RULE.md erratum 1: a clamped dilated
+    --arrival can add cells to C0 but adds nothing to B0, since those cells are already born at 0). Per member,
     B0 = C0 minus present fire minus cells already born at 0; B0 cells get birth 0 (with T = R = H in the child:
     active on [0, H)), replacing any later birth (6.2)."""
     a_ms, fin = ignitions.to_ms(arrival)

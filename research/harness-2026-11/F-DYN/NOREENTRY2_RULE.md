@@ -380,11 +380,18 @@ statements in §6.3 false as written, in the dilation batch:
 **Why they are false.** The dilation runs pass a dilated, clamped raster as the variant raster (a_d = max(dilate(a),
 t_start)). Every clamped cell has a_d = t_start, so it satisfies a ≤ h and **enters C0**.
 
-**Measured effect: nil** (row 77). B0 is the same at every dilation distance. The clamped cells are already born at 0
+**Measured effect: nil** (row 77; the routing author's numbers, UA 25T17Z).
+- C0 = 4,673 / 5,354 / 6,263 / 8,008 cells at d = 0 / 500 / 1000 / 2000 m. Each increment equals the clamped-cell
+  count.
+- **B0 = 3,168 at every d.** B0 is the same at every dilation distance. The clamped cells are already born at 0
 under `/1` (catch-up ignition at the start), so B0 = C0 minus the cells already active at 0 excludes them.
 
 **Corrected statement** (the verifier's wording): **"dilation adds nothing to B0."** C0 may grow under dilation; B0,
 and therefore the `/2` packet's closed-from-0 set beyond `/1`, does not.
+
+**Docstring.** The `add_b0` docstring in `fdyn/build.py` is reworded to the same statement. It is a comment-only
+change, but it changes `build.py`'s sha256, so future builds record a new `fdyn_builder_sha256` in BUILD_SUMMARY.
+Packet files (HAZARD, REPORT, NATIVE_METADATA, npz) are unaffected.
 
 **What is unchanged.**
 - MANIFEST_v3_7 contains no dilation packets.
