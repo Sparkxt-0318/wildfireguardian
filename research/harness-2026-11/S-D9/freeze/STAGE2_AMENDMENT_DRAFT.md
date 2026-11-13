@@ -91,27 +91,37 @@
 - **Erratum (orchestrator, 16:05Z):** A1's status line still reads "DRAFT revision 24 (amendment 1 to the revision-23 freeze candidate), not frozen". It should read: "Frozen at stage 1 (`FREEZE.json`, with amendment 1, A1 item 30); stage 2 by this amendment." This changes no rule, number or membership. The frozen file is not edited in place, so the stage-2 record carries the correction.
 
 ## 8. Archive-trained rows promoted to named secondaries on part c (A1 §3.1, conditional on item 14)
-**Orchestrator decision, 2026-11-13.** A1 §1.2 item 14 and §3.1 (revision 29) allow the archive-trained rows to be promoted "by amendment to named secondaries on part c" if item 14 passes on all channels before part c opens. Item 14 now passes:
-- the non-weather rasters are all 44 identical or float32-close;
-- temperature and wind are byte-identical (custodian ledger row 72, PASS WITH NOTES);
-- end to end, rebuilt inputs reproduce the stored predictions on all 273 cohort-R cases, with max |Δp| 3.6e-7 and none above the 4.2e-7 floor (independent verifier, LEDGER-SMOKE-2 row 58).
+**Orchestrator decision, 2026-11-13.** A1 §1.2 item 14 and §3.1 (revision 29) allow the archive-trained rows to be promoted "by amendment to named secondaries on part c" if item 14 passes before part c opens. Item 14 now passes on **every channel it names**: temperature, both wind components, slope, tree cover and biome. Item 14 is a one-fire check. Each leg, with its scope and verifier:
+
+| leg | fire(s) | result | verified by |
+|---|---|---|---|
+| non-weather rasters, cell by cell (slope, tree cover, biome and the other shared rasters) | AlderCreek (MT-BDF-006269), one fit fire | all **44** shared rasters have identical masks and identical or float32-close values (daniel/data-fetch-3 4c643033, `cmp_region.py` 9857fe46…) | **reported by the fetcher; not yet independently verified** (A1 says the same). Verification requested before the freeze |
+| temperature and wind (u, v), every cell and hour | AlderCreek | byte-identical to the owner's files, so median and p95 abs. difference are 0 | custodian, ledger row 72, PASS WITH NOTES |
+| end to end: stored predictions reproduced from rebuilt inputs | the 6 cohort-R fires (US2024), 273 cases | max \|Δp\| 3.6e-7, 0 above the 4.2e-7 floor | independent verifier, LEDGER-SMOKE-2 row 58, independent rerun |
+
+- **44, not 47.** A1 revision 23 said "47". The amendment-1 erratum corrects this as a counting error: the source table has 66 rows, of which 44 are shared rasters, 21 are archive-only weather files and 1 is the archive-only GLAD canopy height.
+- **Channels not rebuilt.** RH, precipitation and ERA5 are not item-14 channels and were not rebuilt (row 72 notes). **None of the three promoted models reads them.** `d4_wind_seed0` and `logistic` read exactly the six pipeline source channels (`pipeline.py` SOURCE_CHANNELS: 2 m temperature, 10 m wind east and north, slope, tree cover, biome). `c651_mc`'s checkpoint contract lists the same channels, with biome one-hot (19 inputs). So the unrebuilt channels cannot affect these rows.
 
 This amendment therefore promotes exactly **three** archive-trained models to **named secondaries** on part c, scored on rebuilt inputs:
 
-| name | frozen object | sha256 |
-|---|---|---|
-| `d4_wind_seed0` | `forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/checkpoint.pt` | `33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3` |
-| `c651_mc` | `forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt` (1,024 trajectories) | `c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843` |
-| `logistic` | `forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl` (coefficients in `logistic.json`, sha256 `7640bf6cde5d9ab95371c32828fd325c9618e16a6d4e20ea37e7fa2fd8a1c6df`) | `4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49` |
+| name | frozen object | sha256 | note |
+|---|---|---|---|
+| `d4_wind_seed0` | `forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/checkpoint.pt` | `33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3` | trained on the fit-23 archive inputs |
+| `c651_mc` | `forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt`. Marginals come from 1,024 Monte Carlo trajectories per case; the per-case seed is `case_seed(seed, event, t1)` with the seed of the pinned part-c prediction command (**PENDING** confirmation of that seed in `STAGE2_PINS.md`) | `c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843` | **Revision-28 limitation:** trained only on hindsight-restricted interior patches of final kriged footprints, it is uninformative on full-rectangle perimeter labels and is **not a comparator**. Tail reported only against the 1/1024 floor. **No §5.2 arrival RPS:** A1 §5.2 (revision 7) declared it UNAVAILABLE for this model, and it cannot be added after the freeze |
+| `logistic` | `forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl` (coefficients in `logistic.json`, sha256 `7640bf6cde5d9ab95371c32828fd325c9618e16a6d4e20ea37e7fa2fd8a1c6df`) | `4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49` | trained on the fit-23 archive inputs |
 
+- **Out of sample: a condition of scoring these rows (training fires against part c).**
+  - The training events are the fit-23 US fires, for all three, plus KFS_02 and KFS_03 for `c651_mc`.
+  - **ID overlap.** Part a–d were drawn from the clean pool of A1 §1.2 item 1, which keeps only incidents with `project_status == "unused_in_repo_events"` and no shared IRWIN with a project fire. So no training event can be a part-c fire by ID. KFS_02 and KFS_03 are Korean, so they are not NIROPS incidents at all.
+  - **Proximity** (A1 item 9's 50 km and 30 days, applied here to the training fires). Only the custodian can check this, against sealed part-c origins and dates, reporting totals only: **PENDING**.
+  - If any training fire is within 50 km and 30 days of a part-c fire, the affected secondary is reported with the overlap count stated in every sentence about it.
 - **Secondaries only.** None of the three is, or replaces, a §6.1 criterion object. Those stay `persistence`, `dilation_8h`, `logistic_rebuilt` and `d4_wind_recal`. The rebuilt refits stay the confirmatory comparators.
-- **No multiplicity-adjusted claim.** Each named secondary is reported with its own paired comparisons and intervals. No multiplicity adjustment is applied, and no claim is made that would need one. Every sentence about them says "secondary, no multiplicity adjustment" (§9).
+- **No named secondary's result changes the §6.1 verdict or the wording of the headline claim, whichever way it falls.** Each is reported with its own paired comparisons and intervals, with no multiplicity adjustment and no claim that would need one. Every sentence about them says "secondary, no multiplicity adjustment" (§9, row O12).
 - **Count.** This adds three named secondaries. The other part-c secondaries (§9, §13) are unchanged.
-- **Disclosed limitations, carried into every sentence:**
-  - all three were trained on archive inputs before the split (the fit-23 pool, or for `c651_mc` 25 kriged events);
-  - item 14's weather pass covers only the three model-read channels, so RH, precipitation and ERA5 were not rebuilt (row 72 notes);
-  - `c651_mc` keeps its revision-28 limitation statement: it was trained on hindsight-restricted interior patches and is uninformative on full-rectangle perimeter labels.
-- **Assessor's reading:** **PENDING**. The assessor reads this section before the freeze, and the verdict is recorded here.
+- **Disclosed limitation, carried into every sentence.** All three were trained on archive inputs before the split.
+- **Assessor's reading (2026-11-13): PASS WITH NOTES.** "The promotion follows A1 §3.1's pre-stated condition and adds no criterion object. Notes 1–7 are addressed in this section; note 1 (training fires against part c) is a condition of scoring these rows." *Two departures from the assessor's notes, sent back to her:*
+  - note 6 asked that `c651_mc`'s marginals be scored under §5.2, but A1 forbids that (see the table);
+  - the non-weather leg is marked unverified rather than given a row, until a verifier's row exists.
 
 ## 9. Outcome-to-claim table, parts c and b (written before part c opens; changes no criterion)
 Each row fixes the sentence the paper may write for one possible result.
@@ -140,6 +150,7 @@ Each row fixes the sentence the paper may write for one possible result.
 | O8 | **No headline** (neither admitted) | "No candidate met the admission rules, so there is no headline part-c decision. Secondary candidates are reported individually, without multiplicity adjustment." | Promoting a secondary result to headline. |
 | O10 | Headline **worse than, or not better than, `d4_wind_recal` or `logistic_rebuilt`** (criterion 3 or 4 fails, whatever the direction of the interval) | "Handling the survey gaps correctly in the likelihood did not improve forecasts over [the reference]; P-D2 is not supported." Add the dated part-a cross-validation line above. If the interval lies wholly above 0, also say the candidate was worse. | That the bracket likelihood helps forecasts. That the result is unexpected or anomalous. |
 | O11 | The **fallback or a secondary candidate beats the headline** (or passes criteria the headline fails) | "[Candidate] scored better than the pre-registered headline on [criteria]. It is reported as secondary, without multiplicity adjustment; the pre-registered decision rests on the headline." | Promoting the fallback or a secondary to headline, or any superiority claim for it. |
+| O12 | Any result of a **named archive-trained secondary** (§8: `d4_wind_seed0`, `c651_mc`, `logistic`), in either direction | "[Model] (archive-trained, named secondary, no multiplicity adjustment): [paired results]." Plus the §8 limitations, and for `c651_mc` the revision-28 statement. | Any claim from these rows. Any change to the §6.1 verdict or the headline wording because of them. Calling `c651_mc` a comparator. |
 | O9 | **Material leak bound** (§1; `LEAK_BOUND_PLAN.md`) | Whatever row applies, plus: "A part-a measurement found that survey-timing information could improve the reference model detectably. Criteria that depend on constants not shown independent of sealed survey timing are reported as descriptive." | Omitting the leak-bound result. |
 
 **Preprint wording (Wapiti).** Marcus's reconciliation note (1c3c4270) finds that the sign change is entirely due to the interval set: on the preprint's 25-interval cohort the BSS is +8.17%; on all 52 eligible intervals it is −44.5%; and the 24 common intervals have bit-identical predictions. Verified: PASS WITH NOTES (Owen, LEDGER-SMOKE-2 @9f0a5162, row 42). Any text about the preprint's Wapiti figure says it is **"specific to its 25-interval August cohort"**, and no row of this table cites the preprint figure as evidence for any candidate.
