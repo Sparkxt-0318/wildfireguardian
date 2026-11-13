@@ -6,6 +6,7 @@ labelled reading, plus acceptance (3): per departure, the NR verdicts next to re
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -36,8 +37,9 @@ def main():
             reo[(ls[0]["packet"], r["origin"], r["departure"])] = r["reopening"]["exact"][0]
     sig = Counter()
     labels = set()
-    for f in sorted(a.dir.glob("*.jsonl")):
-        ls = [json.loads(l) for l in f.read_text().splitlines()]
+    for f in sorted(list(a.dir.glob("*.jsonl")) + list(a.dir.glob("*.jsonl.gz"))):
+        txt = gzip.decompress(f.read_bytes()).decode() if f.suffix == ".gz" else f.read_text()
+        ls = [json.loads(l) for l in txt.splitlines()]
         h0 = ls[0]
         labels.add(h0["label"])
         headers.append({k: h0.get(k) for k in ("packet", "started_utc", "script_sha256", "nr_hazard_sha256")})
