@@ -123,6 +123,10 @@ Remaining:
 - **D′:** errors raised while reading a body (IncompleteRead from a truncated response, a socket timeout mid-read) are outside _open's try. They escape uncaught and the RUN line still says 'ALL DONE {}'.
 - **N (new):** if a HEAD has no Content-Length and the file is new, size() returns None and take() logs HTTP_404 and never downloads it. That is silent data loss, misreported as 404.
 Accepted limitation (per rule 6): a same-size content change is not detected. | **FAIL (narrow).** Access safety (E, the guards, year, salt, logs) now passes. D′ and N must be fixed, with tests, before real use: catch http.client.HTTPException / OSError around read() → Stop; treat a missing Content-Length as 'unknown → download and sha-compare', not 404 |
+| 74 | S-D9 stage-2 §12 item 8 (roster + re-run at opening) and item-14 status | Victor (author), Hannah (check) | claude/s-d9-stage2: 2a2448bf → ec130b76 → 59fd3d40 (head) | Each commit touches only STAGE2_AMENDMENT_DRAFT.md.
+- 2a2448bf: item 14 set to PASS WITH NOTES, citing row 72 (ff7857b2), with the notes kept; adds 'Roster closed' listing rows 58, 60, 62, 63, 64, 66, 67, 69, 70, 71. I checked these are exactly the audit rows (59, 61, 65, 68 are not audits).
+- ec130b76: removes the not-yet-adopted re-run sentence.
+- 59fd3d40: +1 line, the adopted re-run rule, citing CUSTODY_NOTE_A1 §2 item 6 @07a4a25a with the full sha256 37df2b20…123f. Recomputed from `git show 07a4a25a:` and it matches; the wording is faithful to the note. | PASS (documentation only) |
 
 ## Baseline detail (5fa19a2)
 
