@@ -754,3 +754,87 @@ All sources below were opened.
 - OSMnx graph_from_polygon adds no real buffer: it buffers 0.5 km only for intersection counts, then truncates back to the polygon.
 - Not opened: Intini 2019, Beloglazov 2016.
 - Suggestion for Leo: extend the network per road to safe ground or a named destination, make those nodes sinks, and add refuge nodes where no exit works.
+
+## Batch 9 (2026-11-12): sources for the Uiseong spread rate (Iris, Richard)
+
+**"8.2 km/h" for the Uiseong fire**
+
+- Source: oral briefing on 2025-03-27 by 원명수, head of the 국립산림과학원 국가산림위성정보활용센터 (Money Today, mt.co.kr 2025032716355753806).
+- Stated basis: "미국 위성의 열탐지 결과".
+- No interval, distance or method was given. I found no KFS or 국립산림과학원 written report with this figure; forest.go.kr is blocked from here.
+
+**KFS written figure**
+
+- Newsis NISX20250327_0003115850 and _0003116059.
+- The fire-line moved 50-51 km in 12 h or less, from 25 Mar 14:00 to 26 Mar 02:00 KST, by spotting. Methods: VIIRS, drones, IR aircraft.
+- KFS deputy head 이미라: "시간대 평균 속도를 낼 수 없지만".
+- This works out to about 4.25 km/h mean front displacement including spotting (my arithmetic).
+
+**Recommendation**
+
+- Cite 51 km in 12 h or less, i.e. 4.25 km/h or more, from KFS.
+- Quote 8.2 km/h only as an oral figure whose method is unpublished.
+- Neither figure is a contiguous rate of spread.
+
+**Data hold**
+
+- Under the orchestrator's 2026-11-12 standing rule: no fetching of fire incident data products (perimeters, IR deliveries, incident folders) for any year without the orchestrator's explicit go.
+
+## Batch 10 (2026-11-12): helicopter extraction, documentation only (Leo, Richard, Iris)
+
+Sources were opened by research agents, and the key figures were re-checked in the downloaded text. No incident data products were used.
+
+**Landing-zone criteria, Korea**
+
+- 국토부고시 2022-350 (공항·비행장시설 및 이착륙장 설치기준):
+  - 제80조 TLOF: 0.83 × aircraft size.
+  - Slope: 2% or less.
+- 공항시설법 시행규칙 별표 1-2:
+  - Landing area: 1.2 × size, at least 15 m.
+  - Approach surface: 1/8.
+- 건축물 피난·방화구조 규칙 제13조 (rooftop heliport): 22 m; no obstacles within a 12 m radius.
+- 119항공대 운영 규정 (소방청훈령 478) 제21-22조:
+  - Day, over land: visibility 3,200 m, ceiling 300 m.
+  - Night: visibility 4,800 m and ceiling 600 m; 수색구조 needs 야간투시경 (NVG); landing sites must be lit.
+  - Improvised sites are allowed when judged safe; no size is given.
+
+**Landing-zone criteria, abroad**
+
+- NWCG PMS 510 (2023):
+  - Safety circle 110/90/75 ft (Type 1/2/3).
+  - Slope 6° or less.
+  - Approach path about 1:8.
+  - Wind below 500 ft AGL: 40/15 kt for Type 1-2.
+  - Smoke limit not quantified.
+- ICAO Annex 14 Vol II: FATO 1.5 D; TLOF 0.83 D.
+
+**Not found**
+
+- A numeric smoke limit.
+- A 산림청 helispot standard.
+- Hoist operating limits, and how many people per lift or how long per lift (only the 119 equipment spec: 270 kg, cable 70/80 m).
+
+**March 2025 Gyeongbuk fires**
+
+- No helicopter evacuation of residents was found.
+- 104 residents were taken off the 영덕 breakwaters by 해경 boats (YTN 0134_202503260822402725).
+- Flights were stopped by:
+  - gusts of about 27 m/s, with emergency landings (Newsis NISX20250327_0003115424);
+  - wind of 15 m/s and smoke/haze (Yonhap via Daum 20250325121416274);
+  - night, when only ground crews worked.
+- After the S-76 crash on 26 Mar, all fire helicopters nationwide were grounded until about 15:30 (Newsis NISX20250326_0003114128).
+
+**Registers**
+
+- 산림청 이착륙장 (data.go.kr 15069465 CSV / 15134224 API):
+  - 627 sites, with coordinates; licence "제한 없음".
+  - 경북: 48 sites; 의성: 0.
+- 행안부 고립예상지역대책 (15139647): has a "헬기구조가능여부" field.
+- Not found: a 경북 소방 or 닥터헬기 landing-site list.
+
+**Model idea**
+
+- Landing-zone candidates: 산림청 sites plus open cells that pass the size, slope and approach-path tests.
+- Remove candidates exposed to the forecast fire or smoke.
+- Gate the whole option on daylight, wind and visibility.
+- Label it "possible if flyable"; never present it as a route.
