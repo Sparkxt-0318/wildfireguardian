@@ -206,7 +206,7 @@ what the A1 §3.1 refit commands pass. The leak bound's fold base must match the
   code and the extract-only smoke may proceed.
 - **Orchestrator ruling on the recipe (2026-11-13, ~11:45Z):** resolve to `pipeline.py command_baselines`:
   `logistic_features`, StandardScaler with sample weights, LR(max_iter=3000, random_state=0), 1/0.05 inverse weights,
-  interval cap 0. This is the recipe this bound implements. It is recorded in #155 §7a S2-2 @ 6e9f41be.
+  interval cap 0. This is the recipe this bound implements. It is recorded in #155 §7a S2-2 @ 6e9f41be (pinned literally, cap 0, @ 10b0d7b3).
 - **The fit waits for exactly two confirmations:**
   (1) the assessor reads the ruling and says whether it is an erratum or a named stage-2 item;
   (2) the independent verifier confirms the archive invocation evidence in a row.
