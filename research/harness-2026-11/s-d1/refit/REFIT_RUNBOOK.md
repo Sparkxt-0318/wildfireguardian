@@ -98,7 +98,7 @@ nohup V/bin/python research/harness-2026-11/s-d1/refit/run_pipeline_rebuilt.py \
 - `--epochs 3`;
 - PINS = the combined pins file Daniel issues for fit-23 + part a (sha named then);
 - `--data-root` / `--perimeters` = the workspace holding all 513 events.
-Order: logistic_rebuilt first (`-- baselines` with the same data/perimeters/work/run arguments, per A1 §3.1), then
+Order: logistic_rebuilt first (`-- baselines` with the same data/perimeters/work/run arguments **and `--max-fit-intervals-per-fire 0`**, per A1 §3.1; the archived logistic run a03_baselines ended its argv with `--max-fit-intervals-per-fire 0`, which argparse keeps), then
 d4_wind_rebuilt. Each gets its own `RUN`.
 
 **Checkpoint and resume (stated honestly).**

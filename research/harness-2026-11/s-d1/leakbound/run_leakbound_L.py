@@ -1,4 +1,4 @@
-"""Survey-timing leak bound, arms L and L2 (LEAK_BOUND_PLAN.md rev 1-3 @ claude/s-d9-leakbound 78e2539a).
+"""Survey-timing leak bound, arms L and L2 (LEAK_BOUND_PLAN.md rev 1-4 @ claude/s-d9-leakbound (rev 4: interval cap 0)).
 Part-a fire folds only. Arm R is NOT RUN (rev 1 item 2). Descriptive; "material" per rev 1.
 
 Stages (checkpointed; re-running the identical command resumes):
@@ -176,13 +176,24 @@ def main():
     fires = sorted(folds)
     if set(fires) != set(times):
         raise SystemExit("FOLDS and PARTA_TIMES fire sets differ")
-    receipt = dict(plan="LEAK_BOUND_PLAN.md rev 1 + rev 2 (claude/s-d9-leakbound bd07e7d1)", arms_run=list(ARMS[1:]),
+    receipt = dict(plan="LEAK_BOUND_PLAN.md rev 1-4 (claude/s-d9-leakbound)", interval_cap="all eligible intervals <= 48 h per fire (cap 0; rev 4)", arms_run=list(ARMS[1:]),
                    arm_R="NOT RUN (no fold-held-out d4_wind_rebuilt predictions; rev 1 item 2)",
                    script_sha256=sha(__file__), pipeline_sha256=sha(SCRIPTS / "pipeline.py"),
                    pins_sha256=sha(a.pins), folds_sha256=sha(a.folds), times_sha256=sha(a.times),
                    perimeter_manifest_sha256=sha(a.perimeters / "PERIMETER_MANIFEST.json"),
                    fires=len(fires), host=dict(python=platform.python_version(), numpy=np.__version__))
-    (a.run / "RECEIPT_START.json").write_text(json.dumps(dict(receipt, started_utc=dt.datetime.now(dt.timezone.utc).isoformat()), indent=1) + "\n")
+    first = a.run / "RECEIPT_START.json"
+    pinned = ("script_sha256", "pipeline_sha256", "pins_sha256", "folds_sha256", "times_sha256", "perimeter_manifest_sha256")
+    if first.exists():  # resume: refuse unless every input and code sha equals the first start's
+        prev = json.loads(first.read_text())
+        diff = [k for k in pinned if prev.get(k) != receipt[k]]
+        if diff:
+            raise SystemExit(f"RESUME REFUSED: inputs or code differ from RECEIPT_START.json: {diff}")
+        n = len(list(a.run.glob("RECEIPT_RESUME_*.json"))) + 1
+        (a.run / f"RECEIPT_RESUME_{n}.json").write_text(json.dumps(dict(resumed_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
+                                                                         same_as_start=list(pinned))) + "\n")
+    else:
+        first.write_text(json.dumps(dict(receipt, started_utc=dt.datetime.now(dt.timezone.utc).isoformat()), indent=1) + "\n")
 
     # ---- extract (cached per fire)
     todo = fires[:a.limit] if a.limit else fires
