@@ -115,7 +115,12 @@ This amendment therefore promotes exactly **three** archive-trained models to **
   - **ID overlap.** Part a–d were drawn from the clean pool of A1 §1.2 item 1, which keeps only incidents with `project_status == "unused_in_repo_events"` and no shared IRWIN with a project fire. So no training event can be a part-c fire by ID. KFS_02 and KFS_03 are Korean, so they are not NIROPS incidents at all.
   - **Proximity** (A1 item 9's 50 km and 30 days, applied here to the training fires).
     - KFS_02 and KFS_03 satisfy it by geography: they are in Korea, and every part-c incident is a US NIROPS fire.
-    - Only the fit-23 fires need checking. The custodian checks them against sealed part-c origins and dates, reporting totals only: **PENDING**.
+    - Only the fit-23 fires need checking. The custodian checked them against sealed origins and discovery dates, totals only (ledger row 83):
+      - ID overlap is 0 for part c and 0 for part b, also by unit-number key.
+      - **Proximity is NON-ZERO.** Against part c: 3 fit-23 fires in 4 pairs with 2 distinct part-c incidents. Pair distances and times: 0.2 km / 1.0 d, 38.0 km / 2.4 d, 47.9 km / 3.5 d and 28.7 km / 27.7 d. The 0.2 km / 1 d pair has different IRWIN and WFIGS IDs, so it is very likely the same or an adjoining fire recorded under another incident.
+      - Against part b: 2 fit-23 fires in 2 pairs, 45.3 km / 0.3 d and 41.5 km / 1.0 d.
+      - All the pairs are 2021–2022 US fires. Identities are held by the custodian only.
+    - **This also bears on every model trained on fit-23 ∪ part a**: the rebuilt refits, which include the §6.1 objects `logistic_rebuilt` and `d4_wind_recal`, and the D2 candidates. It is not only the archive rows. **DECISION PENDING (orchestrator):** see the message of 2026-11-13.
   - **If any fit-23 fire is within 50 km and 30 days of a part-c fire:** the two models trained on fit-23 are reported with that count beside every number, and the orchestrator decides whether they stay.
 - **Secondaries only.** None of the three is, or replaces, a §6.1 criterion object. Those stay `persistence`, `dilation_8h`, `logistic_rebuilt` and `d4_wind_recal`. The rebuilt refits stay the confirmatory comparators.
 - **No named secondary's result changes the §6.1 verdict or the wording of the headline claim, whichever way it falls.** Each is reported with its own paired comparisons and intervals, with no multiplicity adjustment and no claim that would need one. Every sentence about them says "secondary, no multiplicity adjustment" (§9, row O12).
