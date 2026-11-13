@@ -14,7 +14,15 @@
 - **Reporting rule.** Part-c results are also reported by tercile of survey span. This is descriptive and does not change the primary test.
 - **Leak bound.** The plan is `derive/LEAK_BOUND_PLAN.md` (e8772880, PR #148), and constant provenance is in `CONSTANT_PROVENANCE.md` (0a89bee2).
   - Marcus runs the leak bound with the refits, and Owen verifies it.
-  - A material leak is pre-defined as a 95% interval of ΔBrier lying entirely below 0. **PENDING** result.
+  - A material leak is pre-defined as a 95% interval of ΔBrier lying entirely below 0.
+  - **Result (UNVERIFIED until the independent verifier's row exists).** The run used LEAK_BOUND_PLAN revisions 1–4. Output: `derive/leakbound_run/` on claude/s-d9-leakbound at b2e235ab, copied byte-identical from daniel/data-fetch-3 1140a2f5. `LEAK_BOUND.json` has sha256 47bfbcc4….
+    - **Arm L (primary, 4 km band): ΔBrier −4.95e-5, 95% CI [−1.82e-4, +8.89e-5], NOT material.** The relative change is −0.235%.
+    - Arm L2 (secondary, band): ΔBrier +7.84e-5, CI [−3.21e-4, +6.83e-4].
+    - The base is the `logistic_rebuilt` recipe refit inside part-a folds, not the A1 object.
+    - **Arm R: NOT RUN** (no fold-held-out `d4_wind_rebuilt` predictions; plan revision 1 item 2).
+    - Coverage: 490 fires scored. No uncropped 4 km band cell lies outside the crop, so the stated band-truncation limitation did not occur.
+    - The run had one tracked restart after a 2 h task limit; the resume receipts confirm the six input shas unchanged.
+  - **Consequence, applied as fixed in the plan.** The plan's "not material" branch names arms L **and** R. R was not run, so the limitations paragraph cites arm L's bound (the interval and the relative change). It also states that the bound covers the logistic recipe only, and that no bound was measured for the recalibrated d4 arm. Part-c results are also reported by tercile of survey span (amendment rule g).
 - **Clean confirmation.** The clean confirmation is CR1 (`clean_replication/PREREGISTRATION_DRAFT.md`, PR #153), not part c. It is frozen separately.
 
 ## 2. d2_bracket_rebuilt protocol
