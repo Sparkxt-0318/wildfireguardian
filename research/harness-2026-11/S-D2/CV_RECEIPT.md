@@ -76,3 +76,8 @@ Pinned-run losses (restart log):
 ```
 Fits all checkpointed before the first loss; each loss cost only the test fires being scored (resume from per-fire checkpoints; bit-identity of resume is tested in test_cv_resume.py).
 No pinned fit tripped the FitFailed guard; check_bounds_pinned.json: PASS for all 4 estimators in all 5 folds (composite share at floor 0.20–0.32).
+
+**Cross-host reproducibility (Owen, ledger row 49).** "Pinned" fixes package versions, not bit-identity across hosts.
+Owen's independent pinned rerun of folds 0 and 2 matched the composite and mean-field NLL thetas exactly (max |Δ| 0).
+Plug-in and MCEM thetas differ by ≤ 5e-8 and ≤ 3e-4, and per-fire Brier by ≤ 0.24% and ≤ 0.64% relative. This is
+attributed to host-level floating point (BLAS/CPU), not code. Conclusions are unchanged (10-fire MCEM − plug-in +0.01068 on both hosts).
