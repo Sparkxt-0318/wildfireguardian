@@ -18,7 +18,8 @@ G6a is recorded as **FAIL AS WRITTEN on the 17 jobs**, in those words, at the to
   No other code counts, and the list is not extended after a run. In G6a, PARENT's time-capped stops were only
   `LATE_RESULT` (with deadline termination) and `SEARCH_TIMEOUT`.
 - **A V2 ≠ PARENT difference is allowed only if ALL of these hold:**
-  1. PARENT is time-capped (closed list above) in **every** PARENT run of that job;
+  1. PARENT is time-capped (closed list above) in **every** PARENT run of that job. G6a and G6b run PARENT exactly
+     **2 times per job** (P1 and P2), so "every" means both, never one;
   2. V2's final outcome is a checked route;
   3. **V2 finished inside the job limit a kit user has:** the same 81 s complete budget, with on-time publication
      (receipt `on_time_complete_publication` true, and `complete_wall_s` ≤ 81). V2's wall time is reported beside the
@@ -27,6 +28,24 @@ G6a is recorded as **FAIL AS WRITTEN on the 17 jobs**, in those words, at the to
   4. the V2 route contradicts neither the RECORD, the router field (`JOBS_1h_crossref.json` @ 5389803e: router
      feasibility and arrival) nor a certificate (`TIMEOUT_NO_ROUTE_CERTS_1h.json` @ c0e34d4);
   5. it passes the added route check (2) below.
+- **Optimality, two-sided (assessor's addition 1).** The router field is a relaxation, so "V2 arrival ≥ router
+  optimum" holds for every feasible route and cannot by itself test V2's FULL_OPTIMUM_PROVEN. For each allowed
+  difference:
+  - **V2 arrival = `router.arrival`:** the optimum is confirmed from both sides. Counted as **"optimum confirmed"**.
+  - **V2 arrival > `router.arrival`:** the router field's own witness route for that job is regenerated with the
+    field code at 5389803e (`research/harness-2026-11/F-3.1/deadline_field`). It is identified by its
+    `legs_sha256` equal to the cross-reference's `router.legs_sha256`, and then checked by both frozen checkers, as in
+    (2a).
+    - If the witness passes, a full-policy route earlier than V2's exists, V2's optimality claim is false, and the
+      difference is a **FAILURE**.
+    - If the witness does not pass, the difference is allowed as **"checked route, optimality not verified"**,
+      counted separately.
+    - If the witness cannot be regenerated with a matching hash, the job is listed as "witness unavailable". It is
+      not allowed until resolved.
+- **Exposure (assessor).** For each allowed route, the peak and dose from the V2 result are reported, with their
+  margins to the request's limits.
+  - The result states that **tie-break behaviour among equal-arrival routes is not verified by G6b on allowed
+    differences** (PARENT has no route to compare). It rests on the jobs where V2 equals PARENT exactly.
 - **Status claimed.** An allowed difference is counted as a **checked route**. V2's optimality claim
   (FULL_OPTIMUM_PROVEN) is reported as **verified** only if (2c) independently confirms it. Otherwise it is reported as
   "optimality claimed, not independently verified".
@@ -39,7 +58,8 @@ G6a is recorded as **FAIL AS WRITTEN on the 17 jobs**, in those words, at the to
   - any change of arrival where both have a route.
   - A change of legs at equal arrival stays an "equal-arrival tie", listed as G6_RULE allows, and is never folded
     into the allowed differences.
-- **Counting.** G6b reports allowed differences as their **own count**, beside the unchanged count and the failures,
+- **Counting.** G6b reports allowed differences as their **own count**, split into "optimum confirmed" and "checked
+  route, optimality not verified", beside the unchanged count and the failures,
   never folded into "pass", with a per-stratum and per-input (region, start) breakdown. A concentration is stated: in
   G6a, all 64 differences are Yeongdeok TIMEOUT-stratum, 62 of them from 0325T19.
 - **Reviews before G6b runs:** the assessor judges whether this definition can hide a real regression, and the
@@ -68,11 +88,15 @@ For each job:
   That is reported, but it does not fail (2), because (2) is about the route's soundness.
 - **(2d) Time.** V2's `complete_wall_s` and on-time publication are reported for each job, beside PARENT's stop
   time and reason (assessor criterion 1).
-- **Pass (2):** all jobs pass both (2a) and (2b), on both builds. (2c) and (2d) are reported per job.
+- **(2e) Two-sided optimality, as in (1).** For every job: whether V2 arrival = `router.arrival`, and the witness
+  check where it is later. **The headline number is how many of the 64 have V2 arrival equal to the router optimum.**
+- **Pass (2):** all jobs pass both (2a) and (2b) on both builds, and no job fails (2e)'s witness test. (2c) and (2d)
+  are reported per job.
 
 ## (3) Post-hoc reading of the 17 (labelled; not a pass)
 The result states whether each of the 17 would have been allowed under the amended wording (1) together with (2).
 It is labelled **"post-hoc reading under the G6b-only amendment; G6a remains FAIL AS WRITTEN"**.
+The assessor's addition 1 (two-sided optimality) is applied to the 17 as well.
 The V2 wall time for each of the 17 is given next to PARENT's SEARCH_TIMEOUT stop of about 78 s.
 
 ## Order
