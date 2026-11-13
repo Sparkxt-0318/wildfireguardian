@@ -1,0 +1,5 @@
+start 2026-11-13T04:31:52Z
+end   2026-11-13 05:00:23.550342867 +0000
+restarts: none
+rows 80, status differences vs recorded 0
+EXIT=0

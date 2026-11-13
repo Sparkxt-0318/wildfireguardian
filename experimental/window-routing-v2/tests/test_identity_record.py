@@ -48,6 +48,11 @@ class IdentityRecord(unittest.TestCase):
             self.assertEqual((res.get('checker_module') or {}).get('module'), q['checker_module'])
             self.assertIn(q['checker_module'], rec['checker_class_mro'])
         self.assertIn('hybrid_checker', rec['checker_class_mro'])   # the recorded hybrid_checker is on the checking path
+        # certificates review (optional tightening, adopted): every non-builtins module on the checking path is hashed,
+        # either in checker_identity or among the override's pinned files in RESULT.checker_module.sha256
+        pinned = {Path(f).stem for f in ((res.get('checker_module') or {}).get('sha256') or {})}
+        unhashed = [m for m in rec['checker_class_mro'] if m != 'builtins' and m not in MODS and m not in pinned]
+        self.assertEqual(unhashed, [], rec['checker_class_mro'])
         man = manifest(KIT)
         for name, rel in MODS.items():
             e = rec[name]
