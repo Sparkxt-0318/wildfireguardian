@@ -107,3 +107,15 @@ d4_wind_rebuilt. Each gets its own `RUN`.
 - A lost run is therefore relaunched with the IDENTICAL command into a fresh `RUN`. Append (UTC, reason, attempt n) to
   `RESTARTS.log`.
 - After two consecutive losses: stop and report.
+
+## Timing result (declared deviation; estimate only), 2026-11-13
+- **Run:** by Daniel @7b810e66 on the 5 part-a events, 1 epoch, 01:38:43–01:39:54Z, exit 0. REFIT_ENV_CHECK ok
+  (56bf3784…); receipt b1569c23….
+- **Numbers:** fit_seconds 2.738; train_samples 25, all 5 events used; wall_seconds 68.8; peak RSS ≥ 334 MB (only 2
+  heartbeat samples). No loss was read.
+- **Extrapolation to d4_wind_rebuilt, 3 epochs, part a (3,773 samples):**
+  - uniform per sample: ≈ 21 min of fit;
+  - size-weighted (intervals × final_mapped_cells; a hypothesis), where the subset is 333× smaller than part a: ≈ 46 min;
+  - load and verification scaled linearly to 513 events: ≤ ~1.9 h.
+  - Under the ~4 h flag, but unreliable: the subset has small fires only and fit-23 is missing.
+- **Re-timing:** the declared subset (3 fit-23 + 5 part-a) is re-timed after day 2, with a 5 s heartbeat for peak RSS.
