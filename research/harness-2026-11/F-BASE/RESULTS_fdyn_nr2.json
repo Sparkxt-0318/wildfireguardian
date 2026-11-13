@@ -1,0 +1,1164 @@
+{
+ "rule": "DESIGN.md (f) (columns of (d) and (e))",
+ "labels": [
+  "no_reentry/2"
+ ],
+ "wording": "violations are relative to the time-dependent model",
+ "waitable_note": "NO_ROUTE / REFUSED counts depend on the as-built waitable rule: the graph.json 'waitable' flag, undocumented, empirically = graph dead end (RESULTS.md 'Where the waitable rule comes from').",
+ "headers": [
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:firms_early",
+   "started_utc": "2026-11-13T00:54:41.307850+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "bf9c2640d66114d792009cc58ce0fbd5dab83314047f3bbda7aabf994fe773ff"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:kriged_mean",
+   "started_utc": "2026-11-13T00:51:27.776966+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "23af363448dbc06e064aeb9f0a6eda6418acfc272781e2f05d3594cd52de3782"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:firms_early",
+   "started_utc": "2026-11-13T01:01:39.016371+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "0106c269edef2c96351aa582a52bb004e1bee3e85b5609072272df071e5a0448"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:kriged_mean",
+   "started_utc": "2026-11-13T00:58:16.396273+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "547f8e5053e01df418c8e2af85eef7dc63f99ace65aedaf8e0ee8d0b312c773f"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "started_utc": "2026-11-13T01:10:03.144601+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "b4c73c7cce86379ad75299378d5f1d782490a582911d4c9452d0a08b4a854a5b"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "started_utc": "2026-11-13T01:05:15.793328+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "77a1c7b0ddb6c1ff301bd8bfe90623e0890ca9919a2fa15be7093083da2e5f03"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "started_utc": "2026-11-13T01:19:45.330995+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "af6a63fc380911c9456275465cbd3c6f17625eedf0ba3f3564e5abc47a83d7f1"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "started_utc": "2026-11-13T01:14:52.198750+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "9e349ed2d646b33eb9b6c366164d0e3195fe1b1760987957891713f9833037f0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "started_utc": "2026-11-13T01:38:04.547745+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "55dd21b8cd9c286ebe8cbda0a8483ab93da0ec1c8a17881913a77f7a939e2c0d"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "started_utc": "2026-11-13T01:24:42.753595+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "5d59cd48bef620612f4ecfd4bd699c49429e1bc4535f1dacfb977dcd29eb1497"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "started_utc": "2026-11-13T02:04:18.558193+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "77ee2cb3edf6ff3ec6264888bbd303cb475921440780e02b390d4f8c8c7e49a8"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "started_utc": "2026-11-13T01:51:24.208500+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "2eee5cc5e583cffa0cc844af0bd07a5996801a1a6607b5c788fa378a4761f772"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:firms_early",
+   "started_utc": "2026-11-13T02:51:31.373673+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "901027f299d1c27a4d1acd9cdc140f97320c8ae1bccef860585ea1c4048fe782"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "started_utc": "2026-11-13T02:17:14.727164+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "aeb11f1c64bcc438c5639503a488d77474117f7c74d3b5cd7c25aa3d5b9e0b0b"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:firms_early",
+   "started_utc": "2026-11-13T03:33:10.677060+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "32c8a464042a0e83ea9b0e1f2abca53a2894c7e26aad05292eb3dcc97e1d9fb1"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "started_utc": "2026-11-13T03:11:58.395348+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "66a1fec6c5d79297761461fed294b3c031fc902dbefc6bed352f0a254622e9e4"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "started_utc": "2026-11-13T04:15:22.794372+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "6affe68f40e3f2268b1d1adccf3452b4e3dbf77d3327b55bcaf888f7320ab024"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "started_utc": "2026-11-13T03:54:14.522849+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "cf31a45cc8921c0ce1e7c9c4f631f08eb792cc18c6ee8058dd57ce15e71daaeb"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "started_utc": "2026-11-13T04:51:33.754732+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "81660c0568582bf38d1a932047eb33abe441625b98232dbd3afd2d0279f2e863"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "started_utc": "2026-11-13T04:51:33.785611+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "c38d42c2ea49de14a7e931c30e38f55c348bb428dc286771c6322e6ed5a76894"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "started_utc": "2026-11-13T05:12:51.184467+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "8722e324dc15909a4240b18f74faf3c398775e3aa7b13ad6c4f515c122d8b2f1"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "started_utc": "2026-11-13T04:51:33.044269+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "bccddc265d84defd665fd2e2b0ccea99d053c1e14ca3097f736b51e42aab7b24"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "started_utc": "2026-11-13T05:13:15.128234+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "5d7a6fc18bdfe909a4e8dd72f19cf0a978deafd16b1a8e32c58109f6b655c274"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "started_utc": "2026-11-13T05:13:03.893738+00:00",
+   "script_sha256": "cff72c6fd86f833bd20e5efbd30c9e4012205b4cdfb72762a526a03ab5875371",
+   "nr_hazard_sha256": "f693df842343cb339ba7410c4e7991cd29f4e601f1aaecdede2bc7a4fbffe207"
+  }
+ ],
+ "problems": [],
+ "totals": {
+  "requests": 432,
+  "exact_route": 250,
+  "exact_no_route": 182,
+  "d_i": 0,
+  "d_ii": 18,
+  "s3": {
+   "600": {
+    "ROUTE": 250,
+    "VIOLATION": 0,
+    "REFUSED": 182,
+    "UNRESOLVED": 0,
+    "e_ii": 0,
+    "replays_all": true
+   },
+   "1800": {
+    "ROUTE": 250,
+    "VIOLATION": 0,
+    "REFUSED": 182,
+    "UNRESOLVED": 0,
+    "e_ii": 0,
+    "replays_all": true
+   },
+   "3600": {
+    "ROUTE": 250,
+    "VIOLATION": 0,
+    "REFUSED": 182,
+    "UNRESOLVED": 0,
+    "e_ii": 0,
+    "replays_all": true
+   }
+  }
+ },
+ "acceptance3_signature": [
+  {
+   "departure": 0,
+   "nr_exact": "NO_ROUTE",
+   "reopening_exact": "NO_ROUTE",
+   "count": 8
+  },
+  {
+   "departure": 0,
+   "nr_exact": "NO_ROUTE",
+   "reopening_exact": "ROUTE",
+   "count": 80
+  },
+  {
+   "departure": 0,
+   "nr_exact": "ROUTE",
+   "reopening_exact": "ROUTE",
+   "count": 128
+  },
+  {
+   "departure": 7200,
+   "nr_exact": "NO_ROUTE",
+   "reopening_exact": "NO_ROUTE",
+   "count": 6
+  },
+  {
+   "departure": 7200,
+   "nr_exact": "NO_ROUTE",
+   "reopening_exact": "ROUTE",
+   "count": 88
+  },
+  {
+   "departure": 7200,
+   "nr_exact": "ROUTE",
+   "reopening_exact": "ROUTE",
+   "count": 122
+  }
+ ],
+ "rows": [
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 27,
+    "NO_ROUTE": 27
+   },
+   "s1": {
+    "ROUTE": 27,
+    "NO_ROUTE": 27
+   },
+   "s2": {
+    "ROUTE": 26,
+    "NO_ROUTE": 28
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 13
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 14
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 1,
+    "denominator": 27
+   },
+   "s2_delay_s": {
+    "n": 26,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 27,
+      "VIOLATION": 0,
+      "REFUSED": 27,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 27,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 5
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 27,
+      "VIOLATION": 0,
+      "REFUSED": 27,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 27,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 2
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 27,
+      "VIOLATION": 0,
+      "REFUSED": 27,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 27,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 30,
+    "NO_ROUTE": 24
+   },
+   "s1": {
+    "ROUTE": 30,
+    "NO_ROUTE": 24
+   },
+   "s2": {
+    "ROUTE": 28,
+    "NO_ROUTE": 26
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 11
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 13
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 2,
+    "denominator": 30
+   },
+   "s2_delay_s": {
+    "n": 28,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 30,
+      "VIOLATION": 0,
+      "REFUSED": 24,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 30,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 5
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 30,
+      "VIOLATION": 0,
+      "REFUSED": 24,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 30,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 2
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 30,
+      "VIOLATION": 0,
+      "REFUSED": 24,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 30,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 27,
+    "NO_ROUTE": 27
+   },
+   "s1": {
+    "ROUTE": 27,
+    "NO_ROUTE": 27
+   },
+   "s2": {
+    "ROUTE": 26,
+    "NO_ROUTE": 28
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 13
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 14
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 1,
+    "denominator": 27
+   },
+   "s2_delay_s": {
+    "n": 26,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 27,
+      "VIOLATION": 0,
+      "REFUSED": 27,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 27,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 5
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 27,
+      "VIOLATION": 0,
+      "REFUSED": 27,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 27,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 2
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 27,
+      "VIOLATION": 0,
+      "REFUSED": 27,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 27,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 30,
+    "NO_ROUTE": 24
+   },
+   "s1": {
+    "ROUTE": 30,
+    "NO_ROUTE": 24
+   },
+   "s2": {
+    "ROUTE": 28,
+    "NO_ROUTE": 26
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 11
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 13
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 2,
+    "denominator": 30
+   },
+   "s2_delay_s": {
+    "n": 28,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 30,
+      "VIOLATION": 0,
+      "REFUSED": 24,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 30,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 5
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 30,
+      "VIOLATION": 0,
+      "REFUSED": 24,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 30,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 2
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 30,
+      "VIOLATION": 0,
+      "REFUSED": 24,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 30,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s1": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s2": {
+    "ROUTE": 32,
+    "NO_ROUTE": 22
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 10
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 10
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 2,
+    "denominator": 34
+   },
+   "s2_delay_s": {
+    "n": 32,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s1": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s2": {
+    "ROUTE": 32,
+    "NO_ROUTE": 22
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 10
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 10
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 2,
+    "denominator": 34
+   },
+   "s2_delay_s": {
+    "n": 32,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s1": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s2": {
+    "ROUTE": 30,
+    "NO_ROUTE": 24
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 10
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 10
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 4,
+    "denominator": 34
+   },
+   "s2_delay_s": {
+    "n": 30,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s1": {
+    "ROUTE": 34,
+    "NO_ROUTE": 20
+   },
+   "s2": {
+    "ROUTE": 30,
+    "NO_ROUTE": 24
+   },
+   "by_departure": {
+    "0": {
+     "n": 27,
+     "exact_no_route": 10
+    },
+    "7200": {
+     "n": 27,
+     "exact_no_route": 10
+    }
+   },
+   "d_i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54
+   },
+   "d_ii_s2_refuses_resolvable": {
+    "count": 4,
+    "denominator": 34
+   },
+   "s2_delay_s": {
+    "n": 30,
+    "median": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays_different_T": 0,
+   "s3": {
+    "600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "1800": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    },
+    "3600": {
+     "outcomes": {
+      "ROUTE": 34,
+      "VIOLATION": 0,
+      "REFUSED": 20,
+      "UNRESOLVED": 0
+     },
+     "e_i_violation": {
+      "count": 0,
+      "denominator": 54
+     },
+     "e_ii_refuses_resolvable": {
+      "count": 0,
+      "denominator": 54
+     },
+     "route_replays_all": true,
+     "T_minus_exact_s": {
+      "n": 34,
+      "median": 0.0,
+      "max": 0,
+      "positive": 0
+     },
+     "max_plans": 1
+    }
+   }
+  }
+ ]
+}

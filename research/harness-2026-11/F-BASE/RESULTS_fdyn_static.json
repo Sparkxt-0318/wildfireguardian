@@ -1,0 +1,633 @@
+{
+ "rule": "DESIGN.md (d)",
+ "waitable_note": "NO_ROUTE verdicts depend on the as-built waitable rule (which nodes the router lets a vehicle wait at); see RESULTS.md 'Where the waitable rule comes from'.",
+ "problems": [],
+ "totals": {
+  "no_reentry": {
+   "requests": 432,
+   "exact_route": 408,
+   "exact_no_route": 24,
+   "i": 0,
+   "ii": 30,
+   "s1_replays_different_T": 0
+  },
+  "reopening": {
+   "requests": 432,
+   "exact_route": 418,
+   "exact_no_route": 14,
+   "i": 0,
+   "ii": 40,
+   "s1_replays_different_T": 0
+  }
+ },
+ "rows": [
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "s1": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 4,
+    "denominator": 50,
+    "rate": 0.08
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 18.391304347826086,
+    "max": 288,
+    "positive": 3
+   },
+   "s1_replays": 50,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 6,
+    "denominator": 52,
+    "rate": 0.11538461538461539
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 18.391304347826086,
+    "max": 288,
+    "positive": 3
+   },
+   "s1_replays": 50,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 5,
+    "denominator": 51,
+    "rate": 0.09803921568627451
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 30.130434782608695,
+    "max": 288,
+    "positive": 5
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 6,
+    "denominator": 52,
+    "rate": 0.11538461538461539
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 30.130434782608695,
+    "max": 288,
+    "positive": 5
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "s1": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 4,
+    "denominator": 50,
+    "rate": 0.08
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 36.0,
+    "max": 288,
+    "positive": 6
+   },
+   "s1_replays": 50,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 6,
+    "denominator": 52,
+    "rate": 0.11538461538461539
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 36.0,
+    "max": 288,
+    "positive": 6
+   },
+   "s1_replays": 50,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 5,
+    "denominator": 51,
+    "rate": 0.09803921568627451
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 36.0,
+    "max": 288,
+    "positive": 6
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 46,
+    "NO_ROUTE": 8
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 6,
+    "denominator": 52,
+    "rate": 0.11538461538461539
+   },
+   "s2_delay_s": {
+    "n": 46,
+    "median": 0.0,
+    "mean": 36.0,
+    "max": 288,
+    "positive": 6
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s2": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 2,
+    "denominator": 52,
+    "rate": 0.038461538461538464
+   },
+   "s2_delay_s": {
+    "n": 50,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 52,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 53,
+    "NO_ROUTE": 1
+   },
+   "s1": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s2": {
+    "ROUTE": 50,
+    "NO_ROUTE": 4
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 3,
+    "denominator": 53,
+    "rate": 0.05660377358490566
+   },
+   "s2_delay_s": {
+    "n": 50,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 52,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 49,
+    "NO_ROUTE": 5
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 2,
+    "denominator": 51,
+    "rate": 0.0392156862745098
+   },
+   "s2_delay_s": {
+    "n": 49,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 49,
+    "NO_ROUTE": 5
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 3,
+    "denominator": 52,
+    "rate": 0.057692307692307696
+   },
+   "s2_delay_s": {
+    "n": 49,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s2": {
+    "ROUTE": 48,
+    "NO_ROUTE": 6
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 4,
+    "denominator": 52,
+    "rate": 0.07692307692307693
+   },
+   "s2_delay_s": {
+    "n": 48,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 52,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 53,
+    "NO_ROUTE": 1
+   },
+   "s1": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s2": {
+    "ROUTE": 48,
+    "NO_ROUTE": 6
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 5,
+    "denominator": 53,
+    "rate": 0.09433962264150944
+   },
+   "s2_delay_s": {
+    "n": 48,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 52,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "reading": "no_reentry",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 47,
+    "NO_ROUTE": 7
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 4,
+    "denominator": 51,
+    "rate": 0.0784313725490196
+   },
+   "s2_delay_s": {
+    "n": 47,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "reading": "reopening",
+   "requests": 54,
+   "exact": {
+    "ROUTE": 52,
+    "NO_ROUTE": 2
+   },
+   "s1": {
+    "ROUTE": 51,
+    "NO_ROUTE": 3
+   },
+   "s2": {
+    "ROUTE": 47,
+    "NO_ROUTE": 7
+   },
+   "i_s1_route_rejected": {
+    "count": 0,
+    "denominator": 54,
+    "rate": 0.0
+   },
+   "ii_s2_refuses_resolvable": {
+    "count": 5,
+    "denominator": 52,
+    "rate": 0.09615384615384616
+   },
+   "s2_delay_s": {
+    "n": 47,
+    "median": 0.0,
+    "mean": 0.0,
+    "max": 0,
+    "positive": 0
+   },
+   "s1_replays": 51,
+   "s1_replays_different_T": 0
+  }
+ ]
+}

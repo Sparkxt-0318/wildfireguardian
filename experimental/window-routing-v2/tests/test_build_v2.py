@@ -97,6 +97,16 @@ STEP2_WRAPPER = ['import v2_memory, hybrid_checker as _v2_hc',
                  "rec['check_child'] = _v2_child"]
 
 # Step 3: every added worker line carrying the Step 3 marker, exactly and in order (STEP3_ACCEPTANCE B).
+# Identity record (IDENTITY_RECORD_ACCEPTANCE): every worker line carrying its marker, exactly and in order.
+IDENTITY_RECORD_WORKER_LINES = [
+    "    STATE['checker_identity'] = {}   # kit-v2 identity record: the three checker modules as imported (path, sha256)",
+    "    for _ir in ('contact_first', 'mission_contract', 'hybrid_checker'):   # kit-v2 identity record",
+    '        _irm = sys.modules.get(_ir)   # kit-v2 identity record',
+    "        STATE['checker_identity'][_ir] = {'imported': True, 'path': _irm.__file__, 'sha256': sha(pathlib.Path(_irm.__file__))} if _irm is not None and getattr(_irm, '__file__', None) else {'imported': False}   # kit-v2 identity record",
+    "    STATE['checker_identity']['checker_module_override'] = job.get('checker_module')   # kit-v2 identity record: an override's own files are hashed in STATE['checker_module']",
+    "    STATE['checker_identity']['checker_class_mro'] = [c.__module__ for c in HybridChecker.__mro__]   # kit-v2 identity record: the modules on the checking path",
+]
+
 STEP3_WORKER_LINES = [
     "V2_STEP3 = {'Z_setup_units': 4096, 'Z_sweep_units': 268435456,   # kit-v2 Step 3: 2**12 / 2**28, results/step3/Z_CALIBRATION_V2.json (both extrapolated)",
     "            'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3",
@@ -180,7 +190,10 @@ class Sealed(unittest.TestCase):
         self.assertEqual(step3, STEP3_WORKER_LINES)                    # exact, in order (declared in STEP3_ACCEPTANCE B)
         self.assertFalse([l for l in step3 if 'kit-v2 Step 2' in l])   # no line claims both steps
         step2 += marked
-        added = [l for l in added if l not in step2 + step3]
+        idrec = [l for l in added if 'kit-v2 identity record' in l]
+        self.assertEqual(idrec, IDENTITY_RECORD_WORKER_LINES)          # exact, in order (IDENTITY_RECORD_ACCEPTANCE)
+        self.assertFalse([l for l in idrec if 'kit-v2 Step' in l])     # no line claims two markers
+        added = [l for l in added if l not in step2 + step3 + idrec]
         ident = [l for l in added if ('kit' in l.lower() or '_kid' in l) and 'Step 1' not in l and '_V2_PROG' not in l]
         self.assertEqual(len(ident), 3, ident)
         markers = ('_prog', '_PROG', 'PROGRESS', 'p[', 'p = ', 'tmp', 'f_', 'm_', 'res_', "'stage'", "'info'", 'return',

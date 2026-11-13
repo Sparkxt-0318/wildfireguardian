@@ -1,0 +1,460 @@
+{
+ "rule": "DESIGN.md rule 4 + dated 2026-11-12 (search only; build separate)",
+ "rows": [
+  {
+   "mission": "20220304T030000Z_FX1",
+   "recorded": [
+    "ROUTE",
+    3119
+   ],
+   "claim": "ROUTE",
+   "T": 3119,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.2333347940002568,
+   "search_s_median": 0.009954122999261017,
+   "peak_rss_mib_max": 84.28515625
+  },
+  {
+   "mission": "20220601T080000Z_FX1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "claim": "NO_ROUTE",
+   "T": null,
+   "status": "EXHAUSTED",
+   "raw_keys": [
+    "arrival",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.089197185001467,
+   "search_s_median": 0.040402157999778865,
+   "peak_rss_mib_max": 84.33984375
+  },
+  {
+   "mission": "20230402T070000Z_FX1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "claim": "NO_ROUTE",
+   "T": null,
+   "status": "EXHAUSTED",
+   "raw_keys": [
+    "arrival",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.027422856001066975,
+   "search_s_median": 0.007803155000146944,
+   "peak_rss_mib_max": 84.36328125
+  },
+  {
+   "mission": "20250323T010000Z_FX2",
+   "recorded": [
+    "ROUTE",
+    2540
+   ],
+   "claim": "ROUTE",
+   "T": 2540,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.7221179200005281,
+   "search_s_median": 0.023383281999485916,
+   "peak_rss_mib_max": 141.4453125
+  },
+  {
+   "mission": "20250325T190000Z_FX2",
+   "recorded": [
+    "ROUTE",
+    2512
+   ],
+   "claim": "ROUTE",
+   "T": 2512,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 3.9751255070004845,
+   "search_s_median": 0.5751331800001935,
+   "peak_rss_mib_max": 295.5078125
+  },
+  {
+   "mission": "20220304T060000Z_FL1",
+   "recorded": [
+    "ROUTE",
+    2067
+   ],
+   "claim": "ROUTE",
+   "T": 2067,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.34892435900110286,
+   "search_s_median": 0.012194613000247045,
+   "peak_rss_mib_max": 84.296875
+  },
+  {
+   "mission": "20220601T020000Z_FW1",
+   "recorded": [
+    "ROUTE",
+    1270
+   ],
+   "claim": "ROUTE",
+   "T": 1270,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.03679134100093506,
+   "search_s_median": 0.008712445000128355,
+   "peak_rss_mib_max": 84.34765625
+  },
+  {
+   "mission": "20230402T140000Z_FW2",
+   "recorded": [
+    "ROUTE",
+    1459
+   ],
+   "claim": "ROUTE",
+   "T": 1459,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.035461041999951703,
+   "search_s_median": 0.004545894000330009,
+   "peak_rss_mib_max": 84.30078125
+  },
+  {
+   "mission": "20250324T090000Z_FL2",
+   "recorded": [
+    "ROUTE",
+    2143
+   ],
+   "claim": "ROUTE",
+   "T": 2143,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.8236575009996159,
+   "search_s_median": 0.3194391449997056,
+   "peak_rss_mib_max": 144.546875
+  },
+  {
+   "mission": "20250325T230000Z_FL2",
+   "recorded": [
+    "ROUTE",
+    1922
+   ],
+   "claim": "ROUTE",
+   "T": 1922,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 2.6510153870003705,
+   "search_s_median": 0.2576503660002345,
+   "peak_rss_mib_max": 274.2421875
+  },
+  {
+   "mission": "20220304T120000Z_FW2",
+   "recorded": [
+    "ROUTE",
+    1655
+   ],
+   "claim": "ROUTE",
+   "T": 1655,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.2470367290006834,
+   "search_s_median": 0.009453026999835856,
+   "peak_rss_mib_max": 84.3046875
+  },
+  {
+   "mission": "20220601T080000Z_FD1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "claim": "NO_ROUTE",
+   "T": null,
+   "status": "EXHAUSTED",
+   "raw_keys": [
+    "arrival",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.08673606299998937,
+   "search_s_median": 0.03853065399925981,
+   "peak_rss_mib_max": 84.37109375
+  },
+  {
+   "mission": "20230402T230000Z_FD1",
+   "recorded": [
+    "ROUTE",
+    531
+   ],
+   "claim": "ROUTE",
+   "T": 531,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.027283911000267835,
+   "search_s_median": 0.0009923769994202303,
+   "peak_rss_mib_max": 84.28515625
+  },
+  {
+   "mission": "20250325T170000Z_FW1",
+   "recorded": [
+    "ROUTE",
+    1064
+   ],
+   "claim": "ROUTE",
+   "T": 1064,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 2.4453276630010805,
+   "search_s_median": 0.08260326700110454,
+   "peak_rss_mib_max": 172.83984375
+  },
+  {
+   "mission": "20250326T080000Z_FW1",
+   "recorded": [
+    "ROUTE",
+    896
+   ],
+   "claim": "ROUTE",
+   "T": 896,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 1.9291591649998736,
+   "search_s_median": 0.23485458899995137,
+   "peak_rss_mib_max": 267.0625
+  },
+  {
+   "mission": "20220304T030000Z_FD1",
+   "recorded": [
+    "ROUTE",
+    1589
+   ],
+   "claim": "ROUTE",
+   "T": 1589,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.22161104400038312,
+   "search_s_median": 0.00914309500149102,
+   "peak_rss_mib_max": 84.34375
+  },
+  {
+   "mission": "20220531T100000Z_FN1",
+   "recorded": [
+    "ROUTE",
+    1142
+   ],
+   "claim": "ROUTE",
+   "T": 1142,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.03563831700012088,
+   "search_s_median": 0.0020393560007505585,
+   "peak_rss_mib_max": 84.34375
+  },
+  {
+   "mission": "20230402T070000Z_FN1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "claim": "NO_ROUTE",
+   "T": null,
+   "status": "EXHAUSTED",
+   "raw_keys": [
+    "arrival",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.028610036000827677,
+   "search_s_median": 0.008142957998643396,
+   "peak_rss_mib_max": 84.35546875
+  },
+  {
+   "mission": "20250323T010000Z_FD1",
+   "recorded": [
+    "ROUTE",
+    2460
+   ],
+   "claim": "ROUTE",
+   "T": 2460,
+   "status": "FOUND",
+   "raw_keys": [
+    "arrival",
+    "destination_node",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 0.7234423579993745,
+   "search_s_median": 0.026401163999253185,
+   "peak_rss_mib_max": 141.4765625
+  },
+  {
+   "mission": "20250325T190000Z_FD1",
+   "recorded": [
+    "NO_ROUTE",
+    null
+   ],
+   "claim": "NO_ROUTE",
+   "T": null,
+   "status": "EXHAUSTED",
+   "raw_keys": [
+    "arrival",
+    "legs",
+    "metrics",
+    "status",
+    "wall_s"
+   ],
+   "agrees": true,
+   "consistent_across_repeats": true,
+   "build_s_median": 4.113068183998621,
+   "search_s_median": 3.596809413000301,
+   "peak_rss_mib_max": 409.4140625
+  }
+ ]
+}

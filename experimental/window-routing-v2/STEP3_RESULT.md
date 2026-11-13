@@ -5,7 +5,7 @@
 > 1.65× of this reference host's speed.** Beyond that, the Z watchdog (16 s) can fire before Z's work budget does. The
 > margin is the smallest across everything run here; per set:
 > - **F-DYN set: 1.66×**, the smallest. Yeongdeok 0325T23 …166 kriged_mean, budget-capped Z 9.65 s; firms_early 8.82 s
->   (1.82×).
+>   (1.81×).
 > - **1-hour panel: 1.84×.** Yeongdeok 0325T19 FD1, budget-capped Z 8.60–8.68 s, and FX2, 8.46–8.49 s. FD1 would lose
 >   the LO stage that proves its refusal.
 >
@@ -133,7 +133,113 @@ G6).** Compared with the earlier run under the same settings (`fdyn_b300_g12k_rs
 - …166 stays UNRESOLVED.
 - No G2 or G2b was run on these routes, so they are not acceptance evidence for anything except the stage-stop rule.
 
-## Pending
+## Rebased onto the final Step 2 (kit-v2-step23, manifest `192f15cc…`; acceptance in STEP3_ACCEPTANCE "Rebase onto the final Step 2")
 
-- The A4 rerun (10 reps × 2 requests at 900 s). It is held until the final base (Step 2 amendment F + Step 3) is
-  settled (orchestrator), and will run as a tracked, checkpointed background task.
+Merge `claude/priya-kit-v2-step3-on2` @ 34a7e2da (Step 3 149f448 into Step 2 bc90787): Thomas PASS WITH ONE NOTE (doc,
+applied at 90012ac9); Mira ledger 127 PASS (own kit 192f15cc…, suite 81 + 3 skipped on her kit). All results below are
+measured on one host (`vm`, x86_64, Intel Xeon @ 2.10 GHz, 4 CPUs), each run alone, no restart.
+
+### Gates
+
+| Gate | Result |
+|---|---|
+| Tests on kit-v2-step23 | **81 passed + 3 skipped**, parent runner ok |
+| **G1** panel, 20 missions × 2 reps, 81 s, 02:06:49–02:35:28 UTC, 80 rows, redecide 0 differences (`results/step3rebase/`) | **20/20**, FL2 rule included |
+| G3 | **20/20** |
+| Memory-mapped statuses / check budgets | 0 OUTSIDE, 0 NOT_PROVEN; **28 checks, all `within_budget: true`**, largest check peak 487.6 MiB |
+| **M1** (Step 2F, per V2 rep, harness family PSS) | **PASS 40/40**, largest **1,552.6 MiB** (Yeongdeok 0325T19 FX2, rep 2); 0 unmeasured samples (53,191 measured). Host as above |
+| **G5 wall** (summed medians) | **0.892** (391.9 / 439.4 s), driven by FL2 (below) |
+| **G2** | **28/28** published routes accepted by both frozen checkers |
+| **G2b** (`xcheck/g2b.py` @ deeb7c2) | **40 runs, 0 violations** (38 PASS, 2 NOT_APPLICABLE_STATUS) |
+| Kit identity | V2 40/40 |
+| **F-DYN every-stage-stop** (Mira ledger 127; 12 requests, 300 s, guard and rss_limit 12,288 MiB, 02:35:33–03:05 UTC; `results/step3rebase/STAGE_STOP_FDYN.json`) | **22 stages checked (12 Z, 6 LO, 4 HI), 0 violations, 0 STAGE_CAP_WATCHDOG**; 6 EA builds reported, not checked |
+
+- **FL2 (Yeongdeok 0325T23):** V2 is FULL_OPTIMUM_PROVEN@1922 on both reps in about 29 s. FROZEN is FEASIBLE@1922
+  and UNRESOLVED, at 79–81 s. Step 3's own panel showed the same outcome under the budgets.
+- **Step 1 reason changes, not verdict changes:**
+  - FX2: LATE_RESULT → SEARCH_TIMEOUT;
+  - FL2: LATE_RESULT no longer appears.
+
+### F-DYN: differences from the Step 3 run, each tied to its stage (measured)
+- **Stage count 22, not 26.** On both Yeongdeok …166 requests, LO2 and HI did not run, because the LO candidate was
+  certified.
+- **Verdict change on Yeongdeok …166 (both variants): UNRESOLVED → CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN, arrival 3953.**
+  - Step 3 run: the whole-road check of the LO, LO2 and HI candidates returned UNRESOLVED / **RSS_LIMIT** each time,
+    all at arrival 3953. That check runs in-process, so it is charged the 4.4 GiB parent.
+  - Rebased kit: the check runs in a forked child under Step 2. It is CERTIFIED_ADMISSIBLE, with its own cgroup peak
+    494–495 MiB, within_budget true.
+  - This is Step 2's purpose showing on F-DYN. The same-host A/B below confirms it.
+- **Uiseong family RSS-sum peak: 9.2–9.8 GiB → 2.3 GiB** (the 2 AT_ISSUE requests: 9.2–9.8 GiB → 0.9 GiB). Statuses are
+  unchanged: 4 UNRESOLVED and 2 AT_ISSUE_FAILURE.
+  - Hypothesis, untested: amendment E's chunked distance removes the transient there.
+- **LO on …166 took longer: 70.4 / 82.7 s against 52.8 / 62.6 s, still 37–51 s inside its cap.**
+  - The work is identical: 1,669 expansions, 1,404 boxes, 9 coefficient batches.
+  - The whole difference is in the bound-model coefficient time (55.2 / 66.5 s against 38.4 / 48.1 s).
+  - **Post-hoc diagnostic** (not in the acceptance; `results/step3rebase/ab166/`): Step 3's kit (kit-v2-step3e) and the
+    rebased kit were run back-to-back on this host on kriged_mean …166, 03:18–03:27 UTC:
+
+    | kit | Z | LO | coef_s | outcome |
+    |---|---|---|---|---|
+    | kit-v2-step3e | 10.5 s | 83.1 s | 67.1 s | TIMEOUT, LO check RSS_LIMIT |
+    | kit-v2-step23 | 10.6 s | 85.4 s | 69.1 s | FULL_OPTIMUM_PROVEN, check certified |
+
+  - So the slower LO and Z come from this host (the container was replaced at 00:36Z), not from the rebase.
+  - The verdict change comes from Step 2: same host, same request, and only the rebased kit certifies.
+  - The Z sweep units/s proxy differs by only 3% (median 28.6 M against 29.4 M), so the proxy does not capture this
+    host's slowdown. That is a finding about the proxy.
+
+### Known limit, measured again on this host
+- Z budget-capped times on the rebased runs:
+  - 10.3 s (…166 kriged_mean), 9.91 s (1-hour FX2 r1), 9.63 s (FD1 r1);
+  - previously 9.65 s and 8.5 s on the reference host.
+- **The watchdog margin on this host is 1.55× (F-DYN …166) and 1.61× (1-hour FX2).**
+- The A/B shows this is the host: Step 3's kit takes 10.5 s here.
+- The known-limit statement is relative to the reference host (Z 9.65 s on …166). This host is about 1.09× slower on
+  that stage, so it is inside the 1.65× bound, with 1.51–1.55× left.
+- Step 3c (Iris's host-speed design) remains the planned fix.
+
+### Mira's verification (ledger 128, PASS WITH NOTES at 7ee900e2)
+- Reproduced from the committed rows: G1, G3, G5, memory-mapped statuses, M1, G2/G2b, and the stage-stop rows.
+- Her own …166 kriged_mean run gives FULL_OPTIMUM_PROVEN@3953, with forked-check peak 493.5 MiB, Z 9.5 s and LO
+  70.5 s. The headline verdict change reproduces.
+- N1: `stage_stop_check.py` now reports `stages_checked` (22) and `rows_reported_not_checked` (6 EA) separately. It
+  used to report 28 rows.
+- N2: G1_COMPARE's check budgets and kit identity were read from run folders that are not committed. They are now
+  committed per run in `results/step3rebase/V2_RUN_RECORDS.jsonl`, extracted from each V2 RESULT.json: 40 runs, 28
+  check budgets, max 487.6 MiB, 28/28 published checks `within_budget: true`. The extraction itself rests on my run
+  folders.
+
+### Ideas and gaps
+- The F-DYN set and the A/B are single runs per request.
+- The host-speed proxy (pure-Python Z sweep) did not see a host change that slowed numpy coefficient work by about
+  40% and Z by about 9%. Step 3c should not rely on that proxy alone.
+
+## A4 rerun on kit-v2-step23 (PLAN Step 3 acceptance; rule in STEP3_ACCEPTANCE, written before the run)
+
+- **Setup:** identical to the original A4 except the kit.
+  - Yeongdeok 0325T23 `firms_early` …11753630207 and …415158168; 900 s, guard 3,072 MiB, no `rss_limit_mb`, plain.
+  - 10 reps, both requests per rep, `tools/a4_rerun.py`.
+  - 2026-11-13 03:37:49–03:51:22 UTC, alone on the host (as above), **no restart**.
+  - Rows are in `results/step3rebase/a4/`.
+- **Result: PASS, each request gives one outcome class in 10/10.**
+
+| Request (Yeongdeok firms) | This rerun (kit-v2-step23) | Original A4 (unmodified kit, not pooled) |
+|---|---|---|
+| …11753630207 | **10/10 FULL_OPTIMUM_PROVEN@59** | 8 proven / 1 feasible / 1 guard stop |
+| …415158168 | **10/10 FULL_OPTIMUM_PROVEN@274** | 8 feasible / 2 guard stops |
+
+- **Z in every rep:**
+  - Z completes with CONDITIONAL_OPTIMUM (EXACT_CONTACT_SWEEP) inside its work budgets.
+  - **Its work-unit counts are identical across all 10 reps:** setup 1,826 for both requests; sweep 6,715,500 (…207)
+    and 30,779,375 (…168).
+  - Z wall 5.75–7.07 s (…207) and 6.46–7.96 s (…168). **On this host** the old fixed 6 s cap would have cut most of
+    these. On Mira's faster host, all 4 of her Z runs finished under 6 s (4.84–5.69 s, ledger 130).
+  - The claim that holds on both hosts is that the work units are identical.
+- **Mira's verification:** ledger 130, PASS WITH NOTE. Her own 2 reps on her kit give 4/4 rows in the same classes
+  with the same units, and no guard trigger. Her note (the 6 s statement is host-specific) is applied above.
+- **No guard stops.** Family RSS-sum peak 1,427–1,493 MiB. Walls 32.5–44.5 s.
+- Single host. The known limit above applies: on a host more than about 1.55× slower than this one, the Z watchdog
+  (16 s) would come before Z's work budget. Here the largest Z was 7.96 s, a 2.0× margin on these two requests.
+
+## Pending
+- The cut heads for Step 2 and the rebased Step 3, which go to Mira before any PR.

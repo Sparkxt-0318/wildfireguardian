@@ -1,0 +1,943 @@
+{
+ "method": "verifier's nora_fbase_nr2_lost.py, all 24 packets",
+ "lost": 132,
+ "by_label": {
+  "start point on ground the model shows as burned before the start: not evaluated": 120,
+  "depends on the no-re-entry rule": 12
+ },
+ "by_detail": {
+  "origin in B0": 120,
+  "origin open at 0 (corridor through B0)": 12
+ },
+ "by_region_label": {
+  "uiseong_andong_2025 | depends on the no-re-entry rule": 12,
+  "uiseong_andong_2025 | start point on ground the model shows as burned before the start: not evaluated": 56,
+  "yeongdeok_2025 | start point on ground the model shows as burned before the start: not evaluated": 64
+ },
+ "rows": [
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:5:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250323T010000Z:8:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160449",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160449",
+   "departure": 7200,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160449",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160449",
+   "departure": 7200,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "origin": "osm_node_415160362",
+   "departure": 0,
+   "label": "depends on the no-re-entry rule",
+   "detail": "origin open at 0 (corridor through B0)"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250324T090000Z:8:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:5:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:firms_early",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "origin": "osm_node_415160350",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "origin": "osm_node_415160350",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "origin": "osm_node_415160431",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "uiseong_andong_2025:20250325T170000Z:8:kriged_mean",
+   "origin": "osm_node_415160474",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:5:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T190000Z:8:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:5:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250325T230000Z:8:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:5:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:firms_early",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "origin": "osm_node_415160167",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "origin": "osm_node_415160192",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 0,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  },
+  {
+   "packet": "yeongdeok_2025:20250326T080000Z:8:kriged_mean",
+   "origin": "osm_node_415160310",
+   "departure": 7200,
+   "label": "start point on ground the model shows as burned before the start: not evaluated",
+   "detail": "origin in B0"
+  }
+ ]
+}
