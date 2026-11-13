@@ -234,6 +234,10 @@ def main():
     if job.get('v2_check_isolation', True) is False:   # kit-v2 Step 2 amendment F: baseline comparison arm, set only by the panel harness
         STATE['comparison_arm'] = 'no_check_isolation'   # kit-v2 Step 2
     from mission_contract import graph_digest
+    STATE['checker_identity'] = {}   # kit-v2 identity record: the three checker modules as imported (path, sha256)
+    for _ir in ('contact_first', 'mission_contract', 'hybrid_checker'):   # kit-v2 identity record
+        _irm = sys.modules.get(_ir)   # kit-v2 identity record
+        STATE['checker_identity'][_ir] = {'imported': True, 'path': _irm.__file__, 'sha256': sha(pathlib.Path(_irm.__file__))} if _irm is not None and getattr(_irm, '__file__', None) else {'imported': False}   # kit-v2 identity record
     gdig = graph_digest(graph)
     checker = {'obj': None}
     checks = {}   # route key -> REAL whole-road check record (a deterministic function of the route; reused)
