@@ -1,0 +1,391 @@
+{
+ "what": "burn-duration sensitivity of feasible-departure holes, F-DYN v3.1 packets (rule: BURN_DURATION_SENSITIVITY_RULE.md). SCENARIO, not what happened; f != 1 are contact-field counterfactuals (not policy-checked). deadline_changes: origin -> [f=1, f] contiguous deadline (s).",
+ "packets": [
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 6,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 3
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158259",
+     "osm:node/415158320",
+     "osm:node/415160183"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {
+     "osm:node/415158166": [
+      17812,
+      9536
+     ],
+     "osm:node/415160164": [
+      17750,
+      17439
+     ],
+     "osm:node/415160165": [
+      17706,
+      null
+     ],
+     "osm:node/415160167": [
+      17709,
+      null
+     ],
+     "osm:node/415160196": [
+      17426,
+      null
+     ],
+     "osm:node/415160311": [
+      17867,
+      3466
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 352.2,
+    "never": 296.4
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 6,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 4,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 2
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158259",
+     "osm:node/415158320",
+     "osm:node/415160165",
+     "osm:node/415160167",
+     "osm:node/415160183",
+     "osm:node/415160311"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {
+     "osm:node/415158166": [
+      17812,
+      9536
+     ],
+     "osm:node/415160164": [
+      17750,
+      17439
+     ],
+     "osm:node/415160167": [
+      552,
+      null
+     ],
+     "osm:node/415160196": [
+      17426,
+      null
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 348.2,
+    "never": 265.6
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h8 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 7,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 3
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158259",
+     "osm:node/415158320",
+     "osm:node/415160183"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {
+     "osm:node/415158166": [
+      28612,
+      9536
+     ],
+     "osm:node/415160164": [
+      28550,
+      28239
+     ],
+     "osm:node/415160165": [
+      28506,
+      null
+     ],
+     "osm:node/415160167": [
+      28509,
+      null
+     ],
+     "osm:node/415160178": [
+      25628,
+      25523
+     ],
+     "osm:node/415160196": [
+      28226,
+      null
+     ],
+     "osm:node/415160311": [
+      28667,
+      3466
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 380.6,
+    "never": 276.1
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h8 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 6,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 6,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 2
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158259",
+     "osm:node/415158320",
+     "osm:node/415160165",
+     "osm:node/415160167",
+     "osm:node/415160183",
+     "osm:node/415160311"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {
+     "osm:node/415158166": [
+      28612,
+      9536
+     ],
+     "osm:node/415160164": [
+      28550,
+      28239
+     ],
+     "osm:node/415160167": [
+      552,
+      null
+     ],
+     "osm:node/415160178": [
+      25628,
+      25523
+     ],
+     "osm:node/415160196": [
+      28226,
+      null
+     ],
+     "osm:node/415160314": [
+      25962,
+      22727
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 388.8,
+    "never": 296.8
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160178",
+     "osm:node/415160314"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {}
+   },
+   "wall_s": {
+    "1": 359.9,
+    "never": 367.7
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160178",
+     "osm:node/415160314"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {}
+   },
+   "wall_s": {
+    "1": 334.1,
+    "never": 343.1
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h8 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160178",
+     "osm:node/415160314"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {}
+   },
+   "wall_s": {
+    "1": 330.7,
+    "never": 520.4
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h8 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160178",
+     "osm:node/415160314"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {}
+   },
+   "wall_s": {
+    "1": 333.5,
+    "never": 520.3
+   }
+  }
+ ]
+}

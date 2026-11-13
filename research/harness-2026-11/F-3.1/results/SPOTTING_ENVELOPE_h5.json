@@ -1,0 +1,561 @@
+{
+ "what": "spotting-distance envelope (SPOTTING_RULE.md); per region-start and d, never pooled; CERT contact field; SCENARIO, not what happened; research variant (reopening packets as built); lag 0 s isotropic dilation; shifts are NOT upper bounds (see moves_later_note); median is the upper median",
+ "moves_later_note": "CONSTRUCTION ARTEFACT (Nora row 61): dilating the whole raster moves cells that were NOT burned at the start (per the export) to pre-start arrivals; the builder treats them as burned out, so their roads open and places move LATER. Spotting makes places safer here, the shifts are NOT upper bounds even under the dilation rule, and moves_earlier can be understated. UA 24T09 d500: 97 of 135 d0 phase cells dropped, 9 places later (10 under never-clears, 0 earlier). Fix before any non-research use: a_d = max(dilate(a), t_start) for cells not burned at the start.",
+ "rows": [
+  {
+   "region_start": "uiseong_andong_2025__20250323T010000Z",
+   "d_m": 0,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 82,
+    "fire_set": 2
+   },
+   "hazard_sha256": "b4f31b1799c65bac42087416c83f66caf45b061de2c9298e288e6799d5e7a7a9",
+   "control_vs_kriged_mean": {
+    "control_file": "uiseong_andong_2025__20250323T010000Z_h5_kriged_mean.json",
+    "places_differing": 0,
+    "differing": []
+   }
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250323T010000Z",
+   "d_m": 500,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 5,
+   "shift_s": {
+    "median_upper": 1145,
+    "max": 5515
+   },
+   "moves_before_start": 0,
+   "moves_later": 4,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 80,
+    "fire_set": 4
+   },
+   "hazard_sha256": "79263088fe83ae196afc31a7e62e5d767d4bbad52abe8b7d1270069246471d63"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250323T010000Z",
+   "d_m": 1000,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 13,
+   "shift_s": {
+    "median_upper": 525,
+    "max": 14815
+   },
+   "moves_before_start": 2,
+   "moves_later": 3,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 74,
+    "fire_set": 10
+   },
+   "hazard_sha256": "e7ee6f0a7e24267f7438e4a46672cbd7958c6b83e39b4653b647076f1205fa56"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250323T010000Z",
+   "d_m": 2000,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 8,
+   "shift_s": {
+    "median_upper": 525,
+    "max": 2652
+   },
+   "moves_before_start": 0,
+   "moves_later": 5,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 76,
+    "fire_set": 8
+   },
+   "hazard_sha256": "8997d290f642ef7c92320a485cf8196a89d81c243d32fd6aab9cd144615dcd41"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250324T090000Z",
+   "d_m": 0,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 76,
+    "fire_set": 8
+   },
+   "hazard_sha256": "707ea8b9c21ed32f63c97f1c6f4a19a63015ba5aff0650aec1f5cb5ef02b1b36",
+   "control_vs_kriged_mean": {
+    "control_file": "uiseong_andong_2025__20250324T090000Z_h5_kriged_mean.json",
+    "places_differing": 0,
+    "differing": []
+   }
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250324T090000Z",
+   "d_m": 500,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 9,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 83,
+    "fire_set": 1
+   },
+   "hazard_sha256": "f1b2ef6577910b44d86a1d789d709c22b63cb17d876c691fe19d803b29b9e34a"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250324T090000Z",
+   "d_m": 1000,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 7,
+   "shift_s": {
+    "median_upper": 106,
+    "max": 8422
+   },
+   "moves_before_start": 0,
+   "moves_later": 7,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 76,
+    "fire_set": 8
+   },
+   "hazard_sha256": "b4c5bed4ff09282c52da68f8e61d19b002d1e1eaaaba23aeba1d38f0884e1fcf"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250324T090000Z",
+   "d_m": 2000,
+   "places": 84,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 8,
+   "shift_s": {
+    "median_upper": 2312,
+    "max": 12965
+   },
+   "moves_before_start": 0,
+   "moves_later": 8,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 77,
+    "fire_set": 7
+   },
+   "hazard_sha256": "d09fad37933c43f6fc0d813c3be9dd9c0032880e11d655eec7aff6bfdd1f3a5a"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250325T170000Z",
+   "d_m": 0,
+   "places": 84,
+   "no_checked_route_at_d0": 9,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 79,
+    "fire_set": 5
+   },
+   "hazard_sha256": "98ef8c980e5c0ae35b0dc959e08b93f6fe662543de503f2c5a4d3b7806ff1af8",
+   "control_vs_kriged_mean": {
+    "control_file": "uiseong_andong_2025__20250325T170000Z_h5_kriged_mean.json",
+    "places_differing": 0,
+    "differing": []
+   }
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250325T170000Z",
+   "d_m": 500,
+   "places": 84,
+   "no_checked_route_at_d0": 9,
+   "moves_earlier": 19,
+   "shift_s": {
+    "median_upper": 369,
+    "max": 6607
+   },
+   "moves_before_start": 2,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 250,
+    "next_second_infeasible:True": 252,
+    "upper_bound:PASS": 2
+   },
+   "classes": {
+    "window_set": 79,
+    "fire_set": 5
+   },
+   "hazard_sha256": "2bc4b54c75d341e683e8ff6f551a6a8d6f80c4191d69b6a5e0b212e81e64cf2a"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250325T170000Z",
+   "d_m": 1000,
+   "places": 84,
+   "no_checked_route_at_d0": 9,
+   "moves_earlier": 17,
+   "shift_s": {
+    "median_upper": 939,
+    "max": 4800
+   },
+   "moves_before_start": 4,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "classes": {
+    "window_set": 79,
+    "fire_set": 5
+   },
+   "hazard_sha256": "8a2535a8a19a55c5ecc38db922a5093511bbfec75cf7f169c041349c6594af95"
+  },
+  {
+   "region_start": "uiseong_andong_2025__20250325T170000Z",
+   "d_m": 2000,
+   "places": 84,
+   "no_checked_route_at_d0": 9,
+   "moves_earlier": 22,
+   "shift_s": {
+    "median_upper": 3248,
+    "max": 13719
+   },
+   "moves_before_start": 5,
+   "moves_later": 1,
+   "witness_checks": {
+    "exact:PASS": 246,
+    "next_second_infeasible:True": 252,
+    "upper_bound:PASS": 6
+   },
+   "classes": {
+    "window_set": 77,
+    "fire_set": 7
+   },
+   "hazard_sha256": "c92d5e7d3e2027e6cb4f499150fc7bf66e0ff2f93a4cc8172b3a5fdd961b9fb6"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T190000Z",
+   "d_m": 0,
+   "places": 90,
+   "no_checked_route_at_d0": 4,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 269,
+    "next_second_infeasible:True": 270,
+    "upper_bound:PASS": 1
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "f62d6c58fa5ace9dcfbebb068dc16a39bcb5f9315a0699c31bb5601e1cb5091a",
+   "control_vs_kriged_mean": {
+    "control_file": "yeongdeok_2025__20250325T190000Z_h5_kriged_mean.json",
+    "places_differing": 0,
+    "differing": []
+   }
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T190000Z",
+   "d_m": 500,
+   "places": 90,
+   "no_checked_route_at_d0": 4,
+   "moves_earlier": 2,
+   "shift_s": {
+    "median_upper": 9116,
+    "max": 9116
+   },
+   "moves_before_start": 2,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 269,
+    "next_second_infeasible:True": 270,
+    "upper_bound:PASS": 1
+   },
+   "classes": {
+    "window_set": 89,
+    "fire_set": 1
+   },
+   "hazard_sha256": "6b816d9ddcdc7fb82625033fd224c34619d495d3ed5f85175b8980d3f8ce43cd"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T190000Z",
+   "d_m": 1000,
+   "places": 90,
+   "no_checked_route_at_d0": 4,
+   "moves_earlier": 3,
+   "shift_s": {
+    "median_upper": 4692,
+    "max": 11112
+   },
+   "moves_before_start": 2,
+   "moves_later": 1,
+   "witness_checks": {
+    "exact:PASS": 268,
+    "next_second_infeasible:True": 270,
+    "upper_bound:PASS": 2
+   },
+   "classes": {
+    "window_set": 89,
+    "fire_set": 1
+   },
+   "hazard_sha256": "7b16b193366c2f0ea3882bd9a67067671a255894fd6583d368df2a6007d633d2"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T190000Z",
+   "d_m": 2000,
+   "places": 90,
+   "no_checked_route_at_d0": 4,
+   "moves_earlier": 4,
+   "shift_s": {
+    "median_upper": 15912,
+    "max": 17592
+   },
+   "moves_before_start": 2,
+   "moves_later": 2,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 88,
+    "fire_set": 2
+   },
+   "hazard_sha256": "f588b8070f4c87bc25c96dd4ee5adf35850ad36326f0101a75761048f161e59f"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T230000Z",
+   "d_m": 0,
+   "places": 90,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "0ece1183f188cf516c67db338bdfd806d25319b3d822a31fabc639399ec6557f",
+   "control_vs_kriged_mean": {
+    "control_file": "yeongdeok_2025__20250325T230000Z_h5_kriged_mean.json",
+    "places_differing": 0,
+    "differing": []
+   }
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T230000Z",
+   "d_m": 500,
+   "places": 90,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "cf16ee1cff9b9a17b75a31fdd868b303230427d8fde64ae34b7748bcbae53f12"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T230000Z",
+   "d_m": 1000,
+   "places": 90,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 2,
+   "shift_s": {
+    "median_upper": 5956,
+    "max": 5956
+   },
+   "moves_before_start": 1,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 89,
+    "fire_set": 1
+   },
+   "hazard_sha256": "5b74a5e837f778a5daecba4a65952da88e5206b95adf776c4415726fd1ef8532"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250325T230000Z",
+   "d_m": 2000,
+   "places": 90,
+   "no_checked_route_at_d0": 0,
+   "moves_earlier": 1,
+   "shift_s": {
+    "median_upper": 16646,
+    "max": 16646
+   },
+   "moves_before_start": 1,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "7daaa53c7fb524701000dfb6b9d26b68c4b58fe18ad29c7bc9e0ca462b026d3d"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250326T080000Z",
+   "d_m": 0,
+   "places": 90,
+   "no_checked_route_at_d0": 2,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "32eb32bb2dd97883da000805fe1aacafc4b97d2a53aec3578dd339f90b027596",
+   "control_vs_kriged_mean": {
+    "control_file": "yeongdeok_2025__20250326T080000Z_h5_kriged_mean.json",
+    "places_differing": 0,
+    "differing": []
+   }
+  },
+  {
+   "region_start": "yeongdeok_2025__20250326T080000Z",
+   "d_m": 500,
+   "places": 90,
+   "no_checked_route_at_d0": 2,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "be68f06367c5d2c1910d800eb7821483391f3911a4c382819850c5db1c15b3fa"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250326T080000Z",
+   "d_m": 1000,
+   "places": 90,
+   "no_checked_route_at_d0": 2,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "d48628b43614a23f83a9dfd868ed8cd2bede3c3f4bb8f978ed0d76f754fc0c1c"
+  },
+  {
+   "region_start": "yeongdeok_2025__20250326T080000Z",
+   "d_m": 2000,
+   "places": 90,
+   "no_checked_route_at_d0": 2,
+   "moves_earlier": 0,
+   "shift_s": {
+    "median_upper": null,
+    "max": null
+   },
+   "moves_before_start": 0,
+   "moves_later": 0,
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "classes": {
+    "window_set": 90
+   },
+   "hazard_sha256": "7dd8aa52a874f03d119b82262d5388717cb435ae1f7180a84daa7f9840e531d6"
+  }
+ ]
+}

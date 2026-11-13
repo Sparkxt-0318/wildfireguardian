@@ -1,0 +1,2382 @@
+{
+ "what": "burn-duration sensitivity of feasible-departure holes, Uiseong F-DYN v3.1 packets (rule: BURN_DURATION_SENSITIVITY_RULE.md). SCENARIO, not what happened; f != 1 are contact-field counterfactuals (not policy-checked). deadline_changes: origin -> [f=1, f] contiguous deadline (s).",
+ "packets": [
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 1,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 1,
+     "contiguous_deadline_changed_vs_f1": 8,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 23,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 1
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160429",
+     "osm:node/415160430",
+     "osm:node/415160476"
+    ],
+    "0.5": [
+     "osm:node/415160429",
+     "osm:node/415160430",
+     "osm:node/415160476"
+    ],
+    "2": [
+     "osm:node/415160429"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160430": [
+      6538,
+      9294
+     ]
+    },
+    "2": {
+     "osm:node/415160353": [
+      16888,
+      16648
+     ],
+     "osm:node/415160356": [
+      17452,
+      16328
+     ],
+     "osm:node/415160415": [
+      17459,
+      3410
+     ],
+     "osm:node/415160420": [
+      16567,
+      6722
+     ],
+     "osm:node/415160430": [
+      6538,
+      3526
+     ],
+     "osm:node/415160476": [
+      10789,
+      2536
+     ],
+     "osm:node/415160477": [
+      16971,
+      16905
+     ],
+     "osm:node/415160478": [
+      17238,
+      16446
+     ]
+    },
+    "never": {
+     "osm:node/415160353": [
+      16888,
+      null
+     ],
+     "osm:node/415160356": [
+      17452,
+      10644
+     ],
+     "osm:node/415160415": [
+      17459,
+      3410
+     ],
+     "osm:node/415160416": [
+      16751,
+      13435
+     ],
+     "osm:node/415160420": [
+      16567,
+      6722
+     ],
+     "osm:node/415160421": [
+      16711,
+      13567
+     ],
+     "osm:node/415160424": [
+      17088,
+      13713
+     ],
+     "osm:node/415160428": [
+      16949,
+      14583
+     ],
+     "osm:node/415160430": [
+      6538,
+      3526
+     ],
+     "osm:node/415160433": [
+      16429,
+      14903
+     ],
+     "osm:node/415160434": [
+      17084,
+      14718
+     ],
+     "osm:node/415160435": [
+      16427,
+      14362
+     ],
+     "osm:node/415160436": [
+      16248,
+      15949
+     ],
+     "osm:node/415160437": [
+      16059,
+      15760
+     ],
+     "osm:node/415160438": [
+      16490,
+      14115
+     ],
+     "osm:node/415160439": [
+      16482,
+      13696
+     ],
+     "osm:node/415160440": [
+      16453,
+      13814
+     ],
+     "osm:node/415160449": [
+      15593,
+      15305
+     ],
+     "osm:node/415160474": [
+      17384,
+      17114
+     ],
+     "osm:node/415160476": [
+      10789,
+      2536
+     ],
+     "osm:node/415160477": [
+      16971,
+      15404
+     ],
+     "osm:node/415160478": [
+      17238,
+      14991
+     ],
+     "osm:node/415160497": [
+      17348,
+      5026
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 38.9,
+    "0.5": 41.4,
+    "2": 36.1,
+    "never": 26.1
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 3,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 2,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 23,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 1
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160420",
+     "osm:node/415160429",
+     "osm:node/415160430"
+    ],
+    "0.5": [
+     "osm:node/415160420",
+     "osm:node/415160429",
+     "osm:node/415160430"
+    ],
+    "2": [
+     "osm:node/415160420",
+     "osm:node/415160429"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160353": [
+      16648,
+      16888
+     ],
+     "osm:node/415160430": [
+      6538,
+      9294
+     ],
+     "osm:node/415160476": [
+      14286,
+      17440
+     ]
+    },
+    "2": {
+     "osm:node/415160415": [
+      17459,
+      3410
+     ],
+     "osm:node/415160430": [
+      6538,
+      3526
+     ]
+    },
+    "never": {
+     "osm:node/415160353": [
+      16648,
+      null
+     ],
+     "osm:node/415160357": [
+      17155,
+      7056
+     ],
+     "osm:node/415160415": [
+      17459,
+      3410
+     ],
+     "osm:node/415160416": [
+      16751,
+      3370
+     ],
+     "osm:node/415160420": [
+      5581,
+      3178
+     ],
+     "osm:node/415160421": [
+      16711,
+      3502
+     ],
+     "osm:node/415160424": [
+      17088,
+      3628
+     ],
+     "osm:node/415160428": [
+      16949,
+      5360
+     ],
+     "osm:node/415160430": [
+      6538,
+      3526
+     ],
+     "osm:node/415160433": [
+      16429,
+      4840
+     ],
+     "osm:node/415160434": [
+      17084,
+      5495
+     ],
+     "osm:node/415160435": [
+      16427,
+      4313
+     ],
+     "osm:node/415160436": [
+      16248,
+      15949
+     ],
+     "osm:node/415160437": [
+      16059,
+      15760
+     ],
+     "osm:node/415160438": [
+      16490,
+      4030
+     ],
+     "osm:node/415160439": [
+      16482,
+      3631
+     ],
+     "osm:node/415160440": [
+      16453,
+      3729
+     ],
+     "osm:node/415160449": [
+      15593,
+      15305
+     ],
+     "osm:node/415160474": [
+      17384,
+      17114
+     ],
+     "osm:node/415160476": [
+      14286,
+      2536
+     ],
+     "osm:node/415160477": [
+      16971,
+      5316
+     ],
+     "osm:node/415160478": [
+      17238,
+      4903
+     ],
+     "osm:node/415160497": [
+      17348,
+      5026
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 41.3,
+    "0.5": 45.3,
+    "2": 34.8,
+    "never": 25.8
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h8 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 1,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 9,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 25,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 1
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160429",
+     "osm:node/415160430",
+     "osm:node/415160476"
+    ],
+    "0.5": [
+     "osm:node/415160429",
+     "osm:node/415160430",
+     "osm:node/415160476"
+    ],
+    "2": [
+     "osm:node/415160429",
+     "osm:node/415160430",
+     "osm:node/415160476"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160430": [
+      6538,
+      9294
+     ]
+    },
+    "2": {
+     "osm:node/415160357": [
+      27955,
+      19435
+     ],
+     "osm:node/415160416": [
+      27551,
+      26888
+     ],
+     "osm:node/415160420": [
+      27367,
+      26702
+     ],
+     "osm:node/415160421": [
+      27511,
+      27020
+     ],
+     "osm:node/415160439": [
+      27282,
+      27149
+     ],
+     "osm:node/415160474": [
+      28184,
+      27914
+     ],
+     "osm:node/415160476": [
+      10789,
+      10765
+     ],
+     "osm:node/415160483": [
+      28500,
+      20395
+     ],
+     "osm:node/415160497": [
+      28148,
+      20964
+     ]
+    },
+    "never": {
+     "osm:node/415160353": [
+      27448,
+      null
+     ],
+     "osm:node/415160356": [
+      28252,
+      10644
+     ],
+     "osm:node/415160357": [
+      27955,
+      19435
+     ],
+     "osm:node/415160415": [
+      28259,
+      3410
+     ],
+     "osm:node/415160416": [
+      27551,
+      24235
+     ],
+     "osm:node/415160420": [
+      27367,
+      6722
+     ],
+     "osm:node/415160421": [
+      27511,
+      24367
+     ],
+     "osm:node/415160424": [
+      27888,
+      24513
+     ],
+     "osm:node/415160428": [
+      27749,
+      25383
+     ],
+     "osm:node/415160430": [
+      6538,
+      3526
+     ],
+     "osm:node/415160433": [
+      27229,
+      25703
+     ],
+     "osm:node/415160434": [
+      27884,
+      25518
+     ],
+     "osm:node/415160435": [
+      27227,
+      25162
+     ],
+     "osm:node/415160436": [
+      27048,
+      26749
+     ],
+     "osm:node/415160437": [
+      26859,
+      26560
+     ],
+     "osm:node/415160438": [
+      27290,
+      24915
+     ],
+     "osm:node/415160439": [
+      27282,
+      24496
+     ],
+     "osm:node/415160440": [
+      27253,
+      24614
+     ],
+     "osm:node/415160449": [
+      26393,
+      26105
+     ],
+     "osm:node/415160474": [
+      28184,
+      27914
+     ],
+     "osm:node/415160476": [
+      10789,
+      2536
+     ],
+     "osm:node/415160477": [
+      27771,
+      26204
+     ],
+     "osm:node/415160478": [
+      28038,
+      25791
+     ],
+     "osm:node/415160483": [
+      28500,
+      20395
+     ],
+     "osm:node/415160497": [
+      28148,
+      5026
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 29.9,
+    "0.5": 33.2,
+    "2": 28.8,
+    "never": 24.6
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h8 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 3,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 10,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 24,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 1
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160420",
+     "osm:node/415160429",
+     "osm:node/415160430"
+    ],
+    "0.5": [
+     "osm:node/415160420",
+     "osm:node/415160429",
+     "osm:node/415160430"
+    ],
+    "2": [
+     "osm:node/415160420",
+     "osm:node/415160429",
+     "osm:node/415160430"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160353": [
+      27162,
+      27303
+     ],
+     "osm:node/415160430": [
+      6538,
+      9294
+     ],
+     "osm:node/415160476": [
+      23883,
+      27543
+     ]
+    },
+    "2": {
+     "osm:node/415160353": [
+      27162,
+      18519
+     ],
+     "osm:node/415160357": [
+      27955,
+      19435
+     ],
+     "osm:node/415160416": [
+      27551,
+      26888
+     ],
+     "osm:node/415160421": [
+      27511,
+      27020
+     ],
+     "osm:node/415160439": [
+      27282,
+      27149
+     ],
+     "osm:node/415160474": [
+      28184,
+      27914
+     ],
+     "osm:node/415160477": [
+      27771,
+      27705
+     ],
+     "osm:node/415160478": [
+      28038,
+      27246
+     ],
+     "osm:node/415160483": [
+      28500,
+      20395
+     ],
+     "osm:node/415160497": [
+      28148,
+      20964
+     ]
+    },
+    "never": {
+     "osm:node/415160353": [
+      27162,
+      null
+     ],
+     "osm:node/415160357": [
+      27955,
+      7056
+     ],
+     "osm:node/415160415": [
+      28259,
+      3410
+     ],
+     "osm:node/415160416": [
+      27551,
+      3370
+     ],
+     "osm:node/415160420": [
+      5581,
+      3178
+     ],
+     "osm:node/415160421": [
+      27511,
+      3502
+     ],
+     "osm:node/415160424": [
+      27888,
+      3628
+     ],
+     "osm:node/415160428": [
+      27749,
+      5360
+     ],
+     "osm:node/415160430": [
+      6538,
+      3526
+     ],
+     "osm:node/415160433": [
+      27229,
+      4840
+     ],
+     "osm:node/415160434": [
+      27884,
+      5495
+     ],
+     "osm:node/415160435": [
+      27227,
+      4313
+     ],
+     "osm:node/415160436": [
+      27048,
+      26749
+     ],
+     "osm:node/415160437": [
+      26859,
+      26560
+     ],
+     "osm:node/415160438": [
+      27290,
+      4030
+     ],
+     "osm:node/415160439": [
+      27282,
+      3631
+     ],
+     "osm:node/415160440": [
+      27253,
+      3729
+     ],
+     "osm:node/415160449": [
+      26393,
+      26105
+     ],
+     "osm:node/415160474": [
+      28184,
+      27914
+     ],
+     "osm:node/415160476": [
+      23883,
+      2536
+     ],
+     "osm:node/415160477": [
+      27771,
+      5316
+     ],
+     "osm:node/415160478": [
+      28038,
+      4903
+     ],
+     "osm:node/415160483": [
+      28500,
+      20395
+     ],
+     "osm:node/415160497": [
+      28148,
+      5026
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 32.3,
+    "0.5": 34.0,
+    "2": 31.6,
+    "never": 24.2
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 1,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 1,
+     "contiguous_deadline_changed_vs_f1": 7,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 10,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "0.5": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "2": [
+     "osm:node/415160350"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160477": [
+      16905,
+      16971
+     ]
+    },
+    "2": {
+     "osm:node/415160343": [
+      17369,
+      11219
+     ],
+     "osm:node/415160345": [
+      17730,
+      17604
+     ],
+     "osm:node/415160353": [
+      16888,
+      16865
+     ],
+     "osm:node/415160356": [
+      17452,
+      17429
+     ],
+     "osm:node/415160428": [
+      16949,
+      10636
+     ],
+     "osm:node/415160434": [
+      12284,
+      10771
+     ],
+     "osm:node/415160497": [
+      17348,
+      9232
+     ]
+    },
+    "never": {
+     "osm:node/415160343": [
+      17369,
+      11184
+     ],
+     "osm:node/415160345": [
+      17730,
+      11545
+     ],
+     "osm:node/415160350": [
+      5999,
+      5956
+     ],
+     "osm:node/415160353": [
+      16888,
+      5073
+     ],
+     "osm:node/415160355": [
+      17194,
+      4847
+     ],
+     "osm:node/415160356": [
+      17452,
+      5637
+     ],
+     "osm:node/415160362": [
+      17318,
+      4155
+     ],
+     "osm:node/415160428": [
+      16949,
+      10636
+     ],
+     "osm:node/415160434": [
+      12284,
+      10771
+     ],
+     "osm:node/415160497": [
+      17348,
+      9232
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 26.4,
+    "0.5": 28.6,
+    "2": 29.0,
+    "never": 27.4
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 2,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 9,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 14,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "0.5": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "2": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160355": [
+      16662,
+      17194
+     ],
+     "osm:node/415160477": [
+      16905,
+      16971
+     ]
+    },
+    "2": {
+     "osm:node/415160343": [
+      17369,
+      11219
+     ],
+     "osm:node/415160345": [
+      17730,
+      17604
+     ],
+     "osm:node/415160353": [
+      16888,
+      16865
+     ],
+     "osm:node/415160355": [
+      16662,
+      16639
+     ],
+     "osm:node/415160356": [
+      17452,
+      17429
+     ],
+     "osm:node/415160428": [
+      16949,
+      10636
+     ],
+     "osm:node/415160434": [
+      12284,
+      10598
+     ],
+     "osm:node/415160474": [
+      17384,
+      17114
+     ],
+     "osm:node/415160497": [
+      17348,
+      9232
+     ]
+    },
+    "never": {
+     "osm:node/415160343": [
+      17369,
+      11184
+     ],
+     "osm:node/415160345": [
+      17730,
+      11545
+     ],
+     "osm:node/415160350": [
+      5999,
+      5956
+     ],
+     "osm:node/415160353": [
+      16888,
+      5073
+     ],
+     "osm:node/415160355": [
+      16662,
+      4847
+     ],
+     "osm:node/415160356": [
+      17452,
+      5637
+     ],
+     "osm:node/415160362": [
+      17318,
+      4155
+     ],
+     "osm:node/415160428": [
+      16949,
+      1938
+     ],
+     "osm:node/415160433": [
+      16429,
+      14779
+     ],
+     "osm:node/415160434": [
+      12284,
+      2073
+     ],
+     "osm:node/415160435": [
+      15902,
+      15900
+     ],
+     "osm:node/415160474": [
+      17384,
+      17114
+     ],
+     "osm:node/415160477": [
+      16905,
+      14476
+     ],
+     "osm:node/415160497": [
+      17348,
+      9232
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 30.5,
+    "0.5": 31.1,
+    "2": 32.3,
+    "never": 25.1
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h8 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 7,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 6,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 14,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "0.5": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "2": [
+     "osm:node/415160350",
+     "osm:node/415160497"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160428": [
+      24986,
+      27749
+     ],
+     "osm:node/415160435": [
+      26702,
+      27062
+     ],
+     "osm:node/415160436": [
+      26749,
+      26883
+     ],
+     "osm:node/415160437": [
+      26560,
+      26694
+     ],
+     "osm:node/415160438": [
+      26763,
+      27119
+     ],
+     "osm:node/415160440": [
+      27048,
+      27082
+     ],
+     "osm:node/415160449": [
+      26105,
+      26239
+     ]
+    },
+    "2": {
+     "osm:node/415160428": [
+      24986,
+      10636
+     ],
+     "osm:node/415160433": [
+      27229,
+      25809
+     ],
+     "osm:node/415160434": [
+      12284,
+      10771
+     ],
+     "osm:node/415160435": [
+      26702,
+      26700
+     ],
+     "osm:node/415160477": [
+      27705,
+      26310
+     ],
+     "osm:node/415160497": [
+      28148,
+      9232
+     ]
+    },
+    "never": {
+     "osm:node/415160343": [
+      28169,
+      11184
+     ],
+     "osm:node/415160345": [
+      26699,
+      11545
+     ],
+     "osm:node/415160350": [
+      5999,
+      5956
+     ],
+     "osm:node/415160353": [
+      27688,
+      5073
+     ],
+     "osm:node/415160355": [
+      27994,
+      4847
+     ],
+     "osm:node/415160356": [
+      28252,
+      5637
+     ],
+     "osm:node/415160362": [
+      28118,
+      4155
+     ],
+     "osm:node/415160428": [
+      24986,
+      10636
+     ],
+     "osm:node/415160433": [
+      27229,
+      25703
+     ],
+     "osm:node/415160434": [
+      12284,
+      10771
+     ],
+     "osm:node/415160435": [
+      26702,
+      26700
+     ],
+     "osm:node/415160474": [
+      28184,
+      27914
+     ],
+     "osm:node/415160477": [
+      27705,
+      26204
+     ],
+     "osm:node/415160497": [
+      28148,
+      9232
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 32.7,
+    "0.5": 33.6,
+    "2": 28.6,
+    "never": 25.4
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h8 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 8,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 3,
+     "contiguous_deadline_changed_vs_f1": 6,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 14,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "0.5": [
+     "osm:node/415160350",
+     "osm:node/415160434"
+    ],
+    "2": [
+     "osm:node/415160350",
+     "osm:node/415160434",
+     "osm:node/415160497"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415160428": [
+      24986,
+      27749
+     ],
+     "osm:node/415160435": [
+      26702,
+      27062
+     ],
+     "osm:node/415160436": [
+      26749,
+      26883
+     ],
+     "osm:node/415160437": [
+      26560,
+      26694
+     ],
+     "osm:node/415160438": [
+      26763,
+      27119
+     ],
+     "osm:node/415160440": [
+      27048,
+      27082
+     ],
+     "osm:node/415160449": [
+      26105,
+      26239
+     ],
+     "osm:node/415160477": [
+      27705,
+      27771
+     ]
+    },
+    "2": {
+     "osm:node/415160428": [
+      24986,
+      10636
+     ],
+     "osm:node/415160433": [
+      27229,
+      25809
+     ],
+     "osm:node/415160434": [
+      12284,
+      10598
+     ],
+     "osm:node/415160435": [
+      26702,
+      26700
+     ],
+     "osm:node/415160477": [
+      27705,
+      26310
+     ],
+     "osm:node/415160497": [
+      28148,
+      9232
+     ]
+    },
+    "never": {
+     "osm:node/415160343": [
+      28169,
+      11184
+     ],
+     "osm:node/415160345": [
+      28530,
+      11545
+     ],
+     "osm:node/415160350": [
+      5999,
+      5956
+     ],
+     "osm:node/415160353": [
+      27688,
+      5073
+     ],
+     "osm:node/415160355": [
+      27994,
+      4847
+     ],
+     "osm:node/415160356": [
+      28252,
+      5637
+     ],
+     "osm:node/415160362": [
+      28118,
+      4155
+     ],
+     "osm:node/415160428": [
+      24986,
+      1938
+     ],
+     "osm:node/415160433": [
+      27229,
+      25579
+     ],
+     "osm:node/415160434": [
+      12284,
+      2073
+     ],
+     "osm:node/415160435": [
+      26702,
+      26700
+     ],
+     "osm:node/415160474": [
+      28184,
+      27914
+     ],
+     "osm:node/415160477": [
+      27705,
+      25276
+     ],
+     "osm:node/415160497": [
+      28148,
+      9232
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 33.2,
+    "0.5": 32.8,
+    "2": 29.1,
+    "never": 24.3
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 7,
+     "contiguous_deadline_appeared": 2,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 25,
+     "contiguous_deadline_changed_vs_f1": 8,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 1
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 20,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 15
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "0.5": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "2": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415158416": [
+      15565,
+      16217
+     ],
+     "osm:node/415158417": [
+      16165,
+      16255
+     ],
+     "osm:node/415158418": [
+      16660,
+      16823
+     ],
+     "osm:node/415158432": [
+      15907,
+      16559
+     ],
+     "osm:node/415158538": [
+      null,
+      1925
+     ],
+     "osm:node/415160458": [
+      null,
+      2669
+     ],
+     "osm:node/415160464": [
+      1363,
+      4777
+     ]
+    },
+    "2": {
+     "osm:node/415158417": [
+      16165,
+      13542
+     ],
+     "osm:node/415158420": [
+      1328,
+      1162
+     ],
+     "osm:node/415158553": [
+      17363,
+      9880
+     ],
+     "osm:node/415160454": [
+      4547,
+      4545
+     ],
+     "osm:node/415160455": [
+      5673,
+      null
+     ],
+     "osm:node/415160456": [
+      4423,
+      4421
+     ],
+     "osm:node/415160457": [
+      8368,
+      4543
+     ],
+     "osm:node/415160461": [
+      4660,
+      4658
+     ]
+    },
+    "never": {
+     "osm:node/415158324": [
+      1135,
+      1134
+     ],
+     "osm:node/415158335": [
+      17468,
+      null
+     ],
+     "osm:node/415158338": [
+      17417,
+      null
+     ],
+     "osm:node/415158417": [
+      16165,
+      null
+     ],
+     "osm:node/415158420": [
+      1328,
+      null
+     ],
+     "osm:node/415158553": [
+      17363,
+      9880
+     ],
+     "osm:node/415160363": [
+      17187,
+      null
+     ],
+     "osm:node/415160432": [
+      17098,
+      17015
+     ],
+     "osm:node/415160449": [
+      15593,
+      null
+     ],
+     "osm:node/415160451": [
+      1494,
+      null
+     ],
+     "osm:node/415160454": [
+      4547,
+      null
+     ],
+     "osm:node/415160455": [
+      5673,
+      null
+     ],
+     "osm:node/415160456": [
+      4423,
+      null
+     ],
+     "osm:node/415160457": [
+      8368,
+      null
+     ],
+     "osm:node/415160460": [
+      16910,
+      16640
+     ],
+     "osm:node/415160461": [
+      4660,
+      null
+     ],
+     "osm:node/415160463": [
+      1120,
+      null
+     ],
+     "osm:node/415160464": [
+      1363,
+      null
+     ],
+     "osm:node/415160466": [
+      568,
+      null
+     ],
+     "osm:node/5344420465": [
+      17590,
+      17174
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 32.7,
+    "0.5": 37.2,
+    "2": 36.9,
+    "never": 20.7
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 5,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 24,
+     "contiguous_deadline_changed_vs_f1": 2,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 9,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 4
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415158553",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "0.5": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415158553",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "2": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160454",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415158416": [
+      15565,
+      16217
+     ],
+     "osm:node/415158417": [
+      15949,
+      15988
+     ],
+     "osm:node/415158418": [
+      16660,
+      16823
+     ],
+     "osm:node/415158432": [
+      15907,
+      16559
+     ],
+     "osm:node/415160451": [
+      16249,
+      16339
+     ]
+    },
+    "2": {
+     "osm:node/415158417": [
+      15949,
+      13542
+     ],
+     "osm:node/415160451": [
+      16249,
+      13842
+     ]
+    },
+    "never": {
+     "osm:node/415158335": [
+      17468,
+      null
+     ],
+     "osm:node/415158338": [
+      17417,
+      null
+     ],
+     "osm:node/415158417": [
+      15949,
+      13542
+     ],
+     "osm:node/415160363": [
+      17187,
+      null
+     ],
+     "osm:node/415160432": [
+      17098,
+      17015
+     ],
+     "osm:node/415160449": [
+      15593,
+      null
+     ],
+     "osm:node/415160451": [
+      16249,
+      13842
+     ],
+     "osm:node/415160460": [
+      16910,
+      16640
+     ],
+     "osm:node/5344420465": [
+      17590,
+      17174
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 33.7,
+    "0.5": 35.6,
+    "2": 36.3,
+    "never": 21.2
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h8 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 3,
+     "contiguous_deadline_appeared": 2,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 6,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 1
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 23,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 15
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "0.5": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "2": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415158538": [
+      null,
+      1925
+     ],
+     "osm:node/415160458": [
+      null,
+      2669
+     ],
+     "osm:node/415160464": [
+      1363,
+      4777
+     ]
+    },
+    "2": {
+     "osm:node/415158417": [
+      27066,
+      22076
+     ],
+     "osm:node/415160454": [
+      4547,
+      4545
+     ],
+     "osm:node/415160455": [
+      5673,
+      null
+     ],
+     "osm:node/415160456": [
+      4423,
+      4421
+     ],
+     "osm:node/415160457": [
+      8368,
+      4543
+     ],
+     "osm:node/415160461": [
+      4660,
+      4658
+     ]
+    },
+    "never": {
+     "osm:node/415158324": [
+      1135,
+      1134
+     ],
+     "osm:node/415158335": [
+      28268,
+      null
+     ],
+     "osm:node/415158338": [
+      28217,
+      null
+     ],
+     "osm:node/415158416": [
+      27017,
+      26365
+     ],
+     "osm:node/415158417": [
+      27066,
+      null
+     ],
+     "osm:node/415158418": [
+      27623,
+      27460
+     ],
+     "osm:node/415158420": [
+      1328,
+      null
+     ],
+     "osm:node/415158432": [
+      27359,
+      26707
+     ],
+     "osm:node/415158553": [
+      28163,
+      9880
+     ],
+     "osm:node/415160363": [
+      27987,
+      null
+     ],
+     "osm:node/415160432": [
+      27898,
+      27815
+     ],
+     "osm:node/415160449": [
+      26393,
+      null
+     ],
+     "osm:node/415160451": [
+      1494,
+      null
+     ],
+     "osm:node/415160454": [
+      4547,
+      null
+     ],
+     "osm:node/415160455": [
+      5673,
+      null
+     ],
+     "osm:node/415160456": [
+      4423,
+      null
+     ],
+     "osm:node/415160457": [
+      8368,
+      null
+     ],
+     "osm:node/415160460": [
+      27710,
+      27440
+     ],
+     "osm:node/415160461": [
+      4660,
+      null
+     ],
+     "osm:node/415160463": [
+      1120,
+      null
+     ],
+     "osm:node/415160464": [
+      1363,
+      null
+     ],
+     "osm:node/415160466": [
+      568,
+      null
+     ],
+     "osm:node/5344420465": [
+      28390,
+      27974
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 36.7,
+    "0.5": 39.4,
+    "2": 35.5,
+    "never": 20.6
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h8 kriged_mean",
+   "variant_label": null,
+   "counts": {
+    "1": {
+     "origins": 84,
+     "origins_with_hole": 28,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "0.5": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 2,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "2": {
+     "origins": 84,
+     "origins_with_hole": 27,
+     "contiguous_deadline_changed_vs_f1": 2,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 84,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 9,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 4
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415158553",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "0.5": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415158553",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "2": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158334",
+     "osm:node/415158420",
+     "osm:node/415158533",
+     "osm:node/415158537",
+     "osm:node/415158538",
+     "osm:node/415158553",
+     "osm:node/415160358",
+     "osm:node/415160360",
+     "osm:node/415160361",
+     "osm:node/415160362",
+     "osm:node/415160435",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160459",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/415160467",
+     "osm:node/415160471",
+     "osm:node/415160473"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "0.5": {
+     "osm:node/415158417": [
+      23844,
+      27066
+     ],
+     "osm:node/415160451": [
+      23974,
+      27366
+     ]
+    },
+    "2": {
+     "osm:node/415158417": [
+      23844,
+      13542
+     ],
+     "osm:node/415160451": [
+      23974,
+      13842
+     ]
+    },
+    "never": {
+     "osm:node/415158335": [
+      28268,
+      null
+     ],
+     "osm:node/415158338": [
+      28217,
+      null
+     ],
+     "osm:node/415158417": [
+      23844,
+      13542
+     ],
+     "osm:node/415160363": [
+      27987,
+      null
+     ],
+     "osm:node/415160432": [
+      27898,
+      27815
+     ],
+     "osm:node/415160449": [
+      26393,
+      null
+     ],
+     "osm:node/415160451": [
+      23974,
+      13842
+     ],
+     "osm:node/415160460": [
+      27710,
+      27440
+     ],
+     "osm:node/5344420465": [
+      28390,
+      27974
+     ]
+    }
+   },
+   "wall_s": {
+    "1": 37.0,
+    "0.5": 37.6,
+    "2": 38.9,
+    "never": 22.4
+   }
+  }
+ ]
+}

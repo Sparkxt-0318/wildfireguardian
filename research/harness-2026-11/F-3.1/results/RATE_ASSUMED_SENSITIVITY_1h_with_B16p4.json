@@ -1,0 +1,485 @@
+{
+ "what": "rate-assumed tier sensitivity at 1 h (RATE_ASSUMED_RULE.md); per origin vs optimistic; CERT contact field, pessimistic 'checked' is contact-only; tier label 'rate-assumed, v km/h'; Tier A = all unknown blocked from 0",
+ "caches": [
+  {
+   "cache_file": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "variants": {
+    "A": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 34,
+     "moved": 1,
+     "unchanged": 50,
+     "moved_shift_s": {
+      "median": 100,
+      "max": 100
+     },
+     "job_labels": {
+      "no_route": 335,
+      "checked(contact)": 636,
+      "unresolved": 552
+     }
+    },
+    "R1.5": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 0,
+     "moved": 11,
+     "unchanged": 74,
+     "moved_shift_s": {
+      "median": 1445,
+      "max": 1877
+     },
+     "job_labels": {
+      "no_route": 335,
+      "checked(contact)": 1119,
+      "unresolved": 69
+     }
+    },
+    "R8.2": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 5,
+     "moved": 6,
+     "unchanged": 74,
+     "moved_shift_s": {
+      "median": 2859,
+      "max": 2915
+     },
+     "job_labels": {
+      "no_route": 335,
+      "checked(contact)": 1059,
+      "unresolved": 129
+     }
+    },
+    "R16.4": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 6,
+     "moved": 28,
+     "unchanged": 51,
+     "moved_shift_s": {
+      "median": 258,
+      "max": 3024
+     },
+     "job_labels": {
+      "no_route": 335,
+      "checked(contact)": 1018,
+      "unresolved": 170
+     }
+    },
+    "B16.4": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 28,
+     "moved": 7,
+     "unchanged": 50,
+     "moved_shift_s": {
+      "median": 2369,
+      "max": 3218
+     },
+     "job_labels": {
+      "no_route": 335,
+      "checked(contact)": 648,
+      "unresolved": 540
+     }
+    }
+   }
+  },
+  {
+   "cache_file": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "variants": {
+    "A": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 30,
+     "moved": 3,
+     "unchanged": 52,
+     "moved_shift_s": {
+      "median": 489,
+      "max": 686
+     },
+     "job_labels": {
+      "unresolved": 511,
+      "checked(contact)": 647,
+      "no_route": 360
+     }
+    },
+    "R1.5": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 0,
+     "moved": 3,
+     "unchanged": 82,
+     "moved_shift_s": {
+      "median": 489,
+      "max": 686
+     },
+     "job_labels": {
+      "checked(contact)": 1145,
+      "no_route": 360,
+      "unresolved": 13
+     }
+    },
+    "R8.2": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 0,
+     "moved": 15,
+     "unchanged": 70,
+     "moved_shift_s": {
+      "median": 500,
+      "max": 1406
+     },
+     "job_labels": {
+      "checked(contact)": 1112,
+      "no_route": 360,
+      "unresolved": 46
+     }
+    },
+    "R16.4": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 0,
+     "moved": 33,
+     "unchanged": 52,
+     "moved_shift_s": {
+      "median": 909,
+      "max": 1945
+     },
+     "job_labels": {
+      "unresolved": 191,
+      "checked(contact)": 967,
+      "no_route": 360
+     }
+    },
+    "B16.4": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 28,
+     "moved": 5,
+     "unchanged": 52,
+     "moved_shift_s": {
+      "median": 686,
+      "max": 2369
+     },
+     "job_labels": {
+      "unresolved": 509,
+      "checked(contact)": 649,
+      "no_route": 360
+     }
+    }
+   }
+  },
+  {
+   "cache_file": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "variants": {
+    "A": {
+     "origins_with_optimistic_deadline": 73,
+     "removed": 24,
+     "moved": 0,
+     "unchanged": 49,
+     "moved_shift_s": {
+      "median": null,
+      "max": null
+     },
+     "job_labels": {
+      "unresolved": 427,
+      "checked(contact)": 641,
+      "no_route": 489
+     }
+    },
+    "R1.5": {
+     "origins_with_optimistic_deadline": 73,
+     "removed": 0,
+     "moved": 4,
+     "unchanged": 69,
+     "moved_shift_s": {
+      "median": 11,
+      "max": 2335
+     },
+     "job_labels": {
+      "checked(contact)": 1056,
+      "no_route": 489,
+      "unresolved": 12
+     }
+    },
+    "R8.2": {
+     "origins_with_optimistic_deadline": 73,
+     "removed": 1,
+     "moved": 19,
+     "unchanged": 53,
+     "moved_shift_s": {
+      "median": 1248,
+      "max": 3070
+     },
+     "job_labels": {
+      "unresolved": 183,
+      "checked(contact)": 885,
+      "no_route": 489
+     }
+    },
+    "R16.4": {
+     "origins_with_optimistic_deadline": 73,
+     "removed": 5,
+     "moved": 19,
+     "unchanged": 49,
+     "moved_shift_s": {
+      "median": 2220,
+      "max": 3189
+     },
+     "job_labels": {
+      "unresolved": 330,
+      "checked(contact)": 738,
+      "no_route": 489
+     }
+    },
+    "B16.4": {
+     "origins_with_optimistic_deadline": 73,
+     "removed": 23,
+     "moved": 1,
+     "unchanged": 49,
+     "moved_shift_s": {
+      "median": 2369,
+      "max": 2369
+     },
+     "job_labels": {
+      "unresolved": 426,
+      "checked(contact)": 642,
+      "no_route": 489
+     }
+    }
+   }
+  },
+  {
+   "cache_file": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "variants": {
+    "A": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 56,
+     "moved": 2,
+     "unchanged": 27,
+     "moved_shift_s": {
+      "median": 107,
+      "max": 107
+     },
+     "job_labels": {
+      "unresolved": 1049,
+      "checked(contact)": 473,
+      "no_route": 288
+     }
+    },
+    "R1.5": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 1,
+     "moved": 5,
+     "unchanged": 79,
+     "moved_shift_s": {
+      "median": 1435,
+      "max": 2177
+     },
+     "job_labels": {
+      "checked(contact)": 1455,
+      "no_route": 288,
+      "unresolved": 67
+     }
+    },
+    "R8.2": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 3,
+     "moved": 47,
+     "unchanged": 35,
+     "moved_shift_s": {
+      "median": 942,
+      "max": 3123
+     },
+     "job_labels": {
+      "checked(contact)": 1144,
+      "no_route": 288,
+      "unresolved": 378
+     }
+    },
+    "R16.4": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 4,
+     "moved": 54,
+     "unchanged": 27,
+     "moved_shift_s": {
+      "median": 2191,
+      "max": 3370
+     },
+     "job_labels": {
+      "unresolved": 712,
+      "checked(contact)": 810,
+      "no_route": 288
+     }
+    },
+    "B16.4": {
+     "origins_with_optimistic_deadline": 85,
+     "removed": 56,
+     "moved": 2,
+     "unchanged": 27,
+     "moved_shift_s": {
+      "median": 107,
+      "max": 107
+     },
+     "job_labels": {
+      "unresolved": 1049,
+      "checked(contact)": 473,
+      "no_route": 288
+     }
+    }
+   }
+  },
+  {
+   "cache_file": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "variants": {
+    "A": {
+     "origins_with_optimistic_deadline": 91,
+     "removed": 56,
+     "moved": 3,
+     "unchanged": 32,
+     "moved_shift_s": {
+      "median": 107,
+      "max": 673
+     },
+     "job_labels": {
+      "no_route": 161,
+      "checked(contact)": 552,
+      "unresolved": 960
+     }
+    },
+    "R1.5": {
+     "origins_with_optimistic_deadline": 91,
+     "removed": 0,
+     "moved": 4,
+     "unchanged": 87,
+     "moved_shift_s": {
+      "median": 1624,
+      "max": 2132
+     },
+     "job_labels": {
+      "no_route": 161,
+      "checked(contact)": 1501,
+      "unresolved": 11
+     }
+    },
+    "R8.2": {
+     "origins_with_optimistic_deadline": 91,
+     "removed": 1,
+     "moved": 34,
+     "unchanged": 56,
+     "moved_shift_s": {
+      "median": 1131,
+      "max": 3232
+     },
+     "job_labels": {
+      "no_route": 161,
+      "checked(contact)": 1290,
+      "unresolved": 222
+     }
+    },
+    "R16.4": {
+     "origins_with_optimistic_deadline": 91,
+     "removed": 3,
+     "moved": 56,
+     "unchanged": 32,
+     "moved_shift_s": {
+      "median": 1864,
+      "max": 3416
+     },
+     "job_labels": {
+      "no_route": 161,
+      "checked(contact)": 970,
+      "unresolved": 542
+     }
+    },
+    "B16.4": {
+     "origins_with_optimistic_deadline": 91,
+     "removed": 56,
+     "moved": 3,
+     "unchanged": 32,
+     "moved_shift_s": {
+      "median": 107,
+      "max": 673
+     },
+     "job_labels": {
+      "no_route": 161,
+      "checked(contact)": 552,
+      "unresolved": 960
+     }
+    }
+   }
+  },
+  {
+   "cache_file": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "variants": {
+    "A": {
+     "origins_with_optimistic_deadline": 89,
+     "removed": 55,
+     "moved": 3,
+     "unchanged": 31,
+     "moved_shift_s": {
+      "median": 107,
+      "max": 673
+     },
+     "job_labels": {
+      "unresolved": 979,
+      "no_route": 119,
+      "checked(contact)": 543
+     }
+    },
+    "R1.5": {
+     "origins_with_optimistic_deadline": 89,
+     "removed": 0,
+     "moved": 2,
+     "unchanged": 87,
+     "moved_shift_s": {
+      "median": 1588,
+      "max": 1588
+     },
+     "job_labels": {
+      "checked(contact)": 1509,
+      "no_route": 119,
+      "unresolved": 13
+     }
+    },
+    "R8.2": {
+     "origins_with_optimistic_deadline": 89,
+     "removed": 0,
+     "moved": 27,
+     "unchanged": 62,
+     "moved_shift_s": {
+      "median": 1471,
+      "max": 3232
+     },
+     "job_labels": {
+      "unresolved": 219,
+      "no_route": 119,
+      "checked(contact)": 1303
+     }
+    },
+    "R16.4": {
+     "origins_with_optimistic_deadline": 89,
+     "removed": 1,
+     "moved": 53,
+     "unchanged": 35,
+     "moved_shift_s": {
+      "median": 1722,
+      "max": 3380
+     },
+     "job_labels": {
+      "unresolved": 473,
+      "no_route": 119,
+      "checked(contact)": 1049
+     }
+    },
+    "B16.4": {
+     "origins_with_optimistic_deadline": 89,
+     "removed": 55,
+     "moved": 3,
+     "unchanged": 31,
+     "moved_shift_s": {
+      "median": 107,
+      "max": 673
+     },
+     "job_labels": {
+      "unresolved": 979,
+      "no_route": 119,
+      "checked(contact)": 543
+     }
+    }
+   }
+  }
+ ]
+}

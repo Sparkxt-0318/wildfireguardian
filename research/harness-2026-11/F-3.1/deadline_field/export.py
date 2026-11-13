@@ -107,3 +107,17 @@ def wfgc_no_route(fld, origin: int, dep: int) -> tuple:
     inst_text = wfgc_instance_text(inst, origin, dep)
     text = "WFGC 1\n" + inst_text + "CLAIM NO_ROUTE\nWITNESS 0\nCERT %d %d\n" % (H + 1, len(recs)) + "\n".join(recs) + "\nEND\n"
     return text, hashlib.sha256(inst_text.encode()).hexdigest()
+
+
+def wfgc_index_map(graph_path) -> dict:
+    """Map from .wfgc indices to graph ids for every certificate built on this graph (Thomas): edge index j ->
+    graph edge id (edge order of graph.json), node index v -> node id (node order of graph.json). The sentinel
+    state E is the issue state at the certificate's ORIGIN and has no edge id."""
+    import json as _j
+    from pathlib import Path as _P
+    from tools.explain_deadlines.roads import RoadGraph
+    raw = _j.loads(_P(graph_path).read_text())
+    g = RoadGraph(raw)
+    return {"graph": str(graph_path), "graph_sha256": hashlib.sha256(_P(graph_path).read_bytes()).hexdigest(),
+            "revision": raw.get("revision"), "edges": list(g.edge_ids), "nodes": list(g.node_xy),
+            "note": "edge index j = position in 'edges'; node index v = position in 'nodes'; sentinel state E = issue state"}

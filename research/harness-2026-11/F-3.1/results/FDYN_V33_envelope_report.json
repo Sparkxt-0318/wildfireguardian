@@ -1,0 +1,682 @@
+{
+ "what": "F-DYN v3.3 envelope variants vs kriged_mean (v3.1), contiguous deadlines (merged rule); SCENARIO, not what happened; envelope_sound is withdrawn and not scored",
+ "labels": {
+  "envelope": "bracket-start, not a lower bound",
+  "envelope_burnset": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked"
+ },
+ "per_region_start": [
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "3795874bc674ffe671b729093a55c069885b65f5612c4213bc4217163cc4853f",
+   "origins": 84,
+   "checked_route_at_start": 84,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 81,
+   "classes": {
+    "window_set": 84
+   },
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "witness_fail": 0,
+   "holes_cert": 3
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "4b05b888f6aac449fdd7e66dc0224bc8bf72cbde29ee4fe8a0b41a762a218ced",
+   "origins": 84,
+   "checked_route_at_start": 0,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 0,
+   "classes": {
+    "no_checked_departure": 84
+   },
+   "witness_checks": {},
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "03aed4dbb704025d3d3c3fb73bfe1515c11e792d3be039efc48b3fa2cb092af4",
+   "origins": 84,
+   "checked_route_at_start": 84,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 81,
+   "classes": {
+    "window_set": 83,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "witness_fail": 0,
+   "holes_cert": 3
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "b87a24956431b790a7b7f71ae05ede0291ebb776de56885079223b280993c64e",
+   "origins": 84,
+   "checked_route_at_start": 0,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 0,
+   "classes": {
+    "no_checked_departure": 84
+   },
+   "witness_checks": {},
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "52827098e8312704f9e0b9f25046461c455db8612b8ad9756510806b0ced06f2",
+   "origins": 84,
+   "checked_route_at_start": 82,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 81,
+   "classes": {
+    "window_set": 75,
+    "no_checked_departure": 2,
+    "fire_set": 7
+   },
+   "witness_checks": {
+    "exact:PASS": 246,
+    "next_second_infeasible:True": 246
+   },
+   "witness_fail": 0,
+   "holes_cert": 2
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "21b6560eaeccfb590f26d85c8b7a3ae7fad2b9a2df892fba06541a615232bf98",
+   "origins": 84,
+   "checked_route_at_start": 0,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 0,
+   "classes": {
+    "no_checked_departure": 84
+   },
+   "witness_checks": {},
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "0b0793d1c773e1951f5cdb8fb247ab73de2c6ad55f21717ed356ca876ecf7f77",
+   "origins": 84,
+   "checked_route_at_start": 82,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 81,
+   "classes": {
+    "window_set": 72,
+    "no_checked_departure": 2,
+    "fire_set": 10
+   },
+   "witness_checks": {
+    "exact:PASS": 246,
+    "next_second_infeasible:True": 246
+   },
+   "witness_fail": 0,
+   "holes_cert": 2
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "4df82d56698db3260024b403b684ef9b7eb08ff421c568e107724bfbc328c519",
+   "origins": 84,
+   "checked_route_at_start": 0,
+   "baseline_kriged_checked": 84,
+   "deadline_unchanged_vs_kriged": 0,
+   "classes": {
+    "no_checked_departure": 84
+   },
+   "witness_checks": {},
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "c1ddeb0c1167905d23a6b17d4e4e3b01d9211d937ad65804a1ff80739f15276d",
+   "origins": 84,
+   "checked_route_at_start": 69,
+   "baseline_kriged_checked": 75,
+   "deadline_unchanged_vs_kriged": 60,
+   "classes": {
+    "window_set": 79,
+    "fire_set": 5
+   },
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "witness_fail": 0,
+   "holes_cert": 28
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "a58628e939ab1a31df62ad37c022f43862d4bfc3ce8ae093ed067b0f24da6c85",
+   "origins": 84,
+   "checked_route_at_start": 0,
+   "baseline_kriged_checked": 75,
+   "deadline_unchanged_vs_kriged": 0,
+   "classes": {
+    "no_checked_departure": 84
+   },
+   "witness_checks": {},
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "4054dfcfda699171823dd243067bbecf996b4b6405c882fc5d0b6fe909c151c9",
+   "origins": 84,
+   "checked_route_at_start": 69,
+   "baseline_kriged_checked": 75,
+   "deadline_unchanged_vs_kriged": 57,
+   "classes": {
+    "window_set": 84
+   },
+   "witness_checks": {
+    "exact:PASS": 252,
+    "next_second_infeasible:True": 252
+   },
+   "witness_fail": 0,
+   "holes_cert": 28
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "b434047607c6b24369e4c6989624eae7de7f6b2b3c78bbd3caa6df5cbe5b86a7",
+   "origins": 84,
+   "checked_route_at_start": 0,
+   "baseline_kriged_checked": 75,
+   "deadline_unchanged_vs_kriged": 0,
+   "classes": {
+    "no_checked_departure": 84
+   },
+   "witness_checks": {},
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "610af43858ea5d14d201204a320a72d9e0b89ad4756492e1b33ebd0cb566bb2e",
+   "origins": 90,
+   "checked_route_at_start": 87,
+   "baseline_kriged_checked": 86,
+   "deadline_unchanged_vs_kriged": 84,
+   "classes": {
+    "window_set": 90
+   },
+   "witness_checks": {
+    "exact:PASS": 269,
+    "next_second_infeasible:True": 270,
+    "upper_bound:PASS": 1
+   },
+   "witness_fail": 0,
+   "holes_cert": 3
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "66ac2caaa410008eedd1e74b3c8a16c4d5131f8e0c7056471d2966aae18061fe",
+   "origins": 90,
+   "checked_route_at_start": 27,
+   "baseline_kriged_checked": 86,
+   "deadline_unchanged_vs_kriged": 26,
+   "classes": {
+    "window_set": 26,
+    "no_checked_departure": 63,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 73,
+    "next_second_infeasible:True": 73
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "d962ecdfab97817bb588e76411d3629b8ccba20568552785d94e70367419675a",
+   "origins": 90,
+   "checked_route_at_start": 87,
+   "baseline_kriged_checked": 86,
+   "deadline_unchanged_vs_kriged": 83,
+   "classes": {
+    "window_set": 88,
+    "fire_set": 2
+   },
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "witness_fail": 0,
+   "holes_cert": 3
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "a230733298a83704f04a37652592b264bad4a0133648fec584fd304fa0915585",
+   "origins": 90,
+   "checked_route_at_start": 27,
+   "baseline_kriged_checked": 86,
+   "deadline_unchanged_vs_kriged": 26,
+   "classes": {
+    "window_set": 26,
+    "no_checked_departure": 63,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 73,
+    "next_second_infeasible:True": 73
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "85f86c455160d5f3e30a172e0d60326a6019906c976ec9f2179ebed3199ab06e",
+   "origins": 90,
+   "checked_route_at_start": 90,
+   "baseline_kriged_checked": 90,
+   "deadline_unchanged_vs_kriged": 90,
+   "classes": {
+    "window_set": 90
+   },
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "c4608c2e5dd7be48259cbe6cd662033ea769e79e1f8a9625605125642171b718",
+   "origins": 90,
+   "checked_route_at_start": 27,
+   "baseline_kriged_checked": 90,
+   "deadline_unchanged_vs_kriged": 26,
+   "classes": {
+    "window_set": 26,
+    "no_checked_departure": 63,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 73,
+    "next_second_infeasible:True": 73
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "4bc773c03d182427212bcd11c3fa7b6a11bd02b589da405de03cc0a64c86b5ed",
+   "origins": 90,
+   "checked_route_at_start": 90,
+   "baseline_kriged_checked": 90,
+   "deadline_unchanged_vs_kriged": 90,
+   "classes": {
+    "window_set": 88,
+    "fire_set": 2
+   },
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "c1ac8fcf3d073d5748986d9e869941bea86c6370426f3e1722d4e119bd274ed7",
+   "origins": 90,
+   "checked_route_at_start": 27,
+   "baseline_kriged_checked": 90,
+   "deadline_unchanged_vs_kriged": 26,
+   "classes": {
+    "window_set": 26,
+    "no_checked_departure": 63,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 73,
+    "next_second_infeasible:True": 73
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "dbb0cc1b0e93ff25f472121d46e69cd9e4f8e38c635a2ec53bf81e8e4e7ce06d",
+   "origins": 90,
+   "checked_route_at_start": 88,
+   "baseline_kriged_checked": 88,
+   "deadline_unchanged_vs_kriged": 88,
+   "classes": {
+    "window_set": 90
+   },
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "witness_fail": 0,
+   "holes_cert": 2
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "1dd9441a5fb71b20ff1447b6bebc61e2be98c51b8fec9da2a3b8342f3ecdd99d",
+   "origins": 90,
+   "checked_route_at_start": 27,
+   "baseline_kriged_checked": 88,
+   "deadline_unchanged_vs_kriged": 26,
+   "classes": {
+    "window_set": 26,
+    "no_checked_departure": 63,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 73,
+    "next_second_infeasible:True": 73
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "label": "bracket-start, not a lower bound",
+   "manifest_soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "hazard_sha256": "0f721650fb5eecd8338228cd54b510c9768a588ce98aaf5151d84a55d070b103",
+   "origins": 90,
+   "checked_route_at_start": 88,
+   "baseline_kriged_checked": 88,
+   "deadline_unchanged_vs_kriged": 88,
+   "classes": {
+    "window_set": 90
+   },
+   "witness_checks": {
+    "exact:PASS": 270,
+    "next_second_infeasible:True": 270
+   },
+   "witness_fail": 0,
+   "holes_cert": 2
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250326T080000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "label": "sound relative to the final mapped burn set (fire never mapped is outside it); single implementation, not independently checked",
+   "manifest_soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "hazard_sha256": "2532991b4ec463663aa9b983f45527293cd98652e18c6882cea5fa8af90eb944",
+   "origins": 90,
+   "checked_route_at_start": 27,
+   "baseline_kriged_checked": 88,
+   "deadline_unchanged_vs_kriged": 26,
+   "classes": {
+    "window_set": 26,
+    "no_checked_departure": 63,
+    "fire_set": 1
+   },
+   "witness_checks": {
+    "exact:PASS": 73,
+    "next_second_infeasible:True": 73
+   },
+   "witness_fail": 0,
+   "holes_cert": 0
+  }
+ ],
+ "per_region": [
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "origins": 252,
+   "checked_route_at_start": 235,
+   "deadline_unchanged_vs_kriged": 222,
+   "witness_fail": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "origins": 252,
+   "checked_route_at_start": 0,
+   "deadline_unchanged_vs_kriged": 0,
+   "witness_fail": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "origins": 252,
+   "checked_route_at_start": 235,
+   "deadline_unchanged_vs_kriged": 219,
+   "witness_fail": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "origins": 252,
+   "checked_route_at_start": 0,
+   "deadline_unchanged_vs_kriged": 0,
+   "witness_fail": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "origins": 270,
+   "checked_route_at_start": 265,
+   "deadline_unchanged_vs_kriged": 262,
+   "witness_fail": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "origins": 270,
+   "checked_route_at_start": 81,
+   "deadline_unchanged_vs_kriged": 78,
+   "witness_fail": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "origins": 270,
+   "checked_route_at_start": 265,
+   "deadline_unchanged_vs_kriged": 261,
+   "witness_fail": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "origins": 270,
+   "checked_route_at_start": 81,
+   "deadline_unchanged_vs_kriged": 78,
+   "witness_fail": 0
+  }
+ ],
+ "burnset_blocked_roads": {
+  "uiseong_andong_2025 20250323T010000Z": {
+   "edges": 43826,
+   "edges_touching_burning_cells": 43512,
+   "closed_blocked_whole_horizon": 43512,
+   "router_blocked_whole_horizon": 43512,
+   "closed_blocked_at_t0": 43512,
+   "burning_cells": 16176,
+   "H": 18000,
+   "closed_blocked_whole_horizon_frac": 0.9928,
+   "router_blocked_whole_horizon_frac": 0.9928
+  },
+  "uiseong_andong_2025 20250324T090000Z": {
+   "edges": 43826,
+   "edges_touching_burning_cells": 43512,
+   "closed_blocked_whole_horizon": 43512,
+   "router_blocked_whole_horizon": 43512,
+   "closed_blocked_at_t0": 43512,
+   "burning_cells": 16176,
+   "H": 18000,
+   "closed_blocked_whole_horizon_frac": 0.9928,
+   "router_blocked_whole_horizon_frac": 0.9928
+  },
+  "uiseong_andong_2025 20250325T170000Z": {
+   "edges": 43826,
+   "edges_touching_burning_cells": 43512,
+   "closed_blocked_whole_horizon": 43512,
+   "router_blocked_whole_horizon": 43512,
+   "closed_blocked_at_t0": 43512,
+   "burning_cells": 16176,
+   "H": 18000,
+   "closed_blocked_whole_horizon_frac": 0.9928,
+   "router_blocked_whole_horizon_frac": 0.9928
+  },
+  "yeongdeok_2025 20250325T190000Z": {
+   "edges": 111924,
+   "edges_touching_burning_cells": 76543,
+   "closed_blocked_whole_horizon": 76541,
+   "router_blocked_whole_horizon": 76541,
+   "closed_blocked_at_t0": 76541,
+   "burning_cells": 16176,
+   "H": 18000,
+   "closed_blocked_whole_horizon_frac": 0.6839,
+   "router_blocked_whole_horizon_frac": 0.6839
+  },
+  "yeongdeok_2025 20250325T230000Z": {
+   "edges": 111924,
+   "edges_touching_burning_cells": 76543,
+   "closed_blocked_whole_horizon": 76541,
+   "router_blocked_whole_horizon": 76541,
+   "closed_blocked_at_t0": 76541,
+   "burning_cells": 16176,
+   "H": 18000,
+   "closed_blocked_whole_horizon_frac": 0.6839,
+   "router_blocked_whole_horizon_frac": 0.6839
+  },
+  "yeongdeok_2025 20250326T080000Z": {
+   "edges": 111924,
+   "edges_touching_burning_cells": 76543,
+   "closed_blocked_whole_horizon": 76541,
+   "router_blocked_whole_horizon": 76541,
+   "closed_blocked_at_t0": 76541,
+   "burning_cells": 16176,
+   "H": 18000,
+   "closed_blocked_whole_horizon_frac": 0.6839,
+   "router_blocked_whole_horizon_frac": 0.6839
+  }
+ }
+}

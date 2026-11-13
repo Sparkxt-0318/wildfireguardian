@@ -1,0 +1,467 @@
+{
+ "what": "no_reentry/2 acceptance 6a-6d and 7, Richard's side (NOREENTRY2_ACCEPTANCE_RULE.md); Leo 819bcb91, MANIFEST_v3_7 sha256 7c178267...; packets built to scratch paths (hashes are of these builds, not canonical)",
+ "label": "SCENARIO, not what happened; graphs road-limited; waiting is allowed only at graph dead-end nodes (as supplied in graph.json); dose/peak columns carry Leo's fdyn.no_reentry_flux label",
+ "pass": true,
+ "samples": [
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "H": 18000,
+   "variant": "envelope",
+   "places_from_instance_start": "20250324T090000Z",
+   "export_file": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/leo819/data/routing/latest_inputs_try02/exports/KFS_01/FORECAST_20250324T090000Z.npz",
+   "C0": {
+    "h_ms": 196560000,
+    "export_burned_router_cells": 1050,
+    "variant_before_start_router_cells": 1204,
+    "C0_router_cells": 1204,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 1050,
+    "variant_before_start_pixels_total": 1204
+   },
+   "B0_per_member": [
+    1087
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 1032,
+    "variant_burned_out": 55,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 1032,
+    "variant_burned_out": 55,
+    "replaced_later_birth": 0,
+    "b0_total": 1087
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 252,
+    "cert:grid_equal": 252,
+    "router:leave_by_equal": 252,
+    "router:grid_equal": 252
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 120,
+    "contact_clear_on_/1:True": 120,
+    "full_/2:True|full_/1:True": 120
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 228
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "H": 18000,
+   "variant": "envelope_burnset",
+   "places_from_instance_start": "20250324T090000Z",
+   "export_file": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/leo819/data/routing/latest_inputs_try02/exports/KFS_01/FORECAST_20250324T090000Z.npz",
+   "C0": {
+    "h_ms": 196560000,
+    "export_burned_router_cells": 1050,
+    "variant_before_start_router_cells": 16176,
+    "C0_router_cells": 16176,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 1050,
+    "variant_before_start_pixels_total": 16176
+   },
+   "B0_per_member": [
+    0
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 0,
+    "variant_burned_out": 0,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 0,
+    "variant_burned_out": 0,
+    "replaced_later_birth": 0,
+    "b0_total": 0
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 252,
+    "cert:grid_equal": 252,
+    "router:leave_by_equal": 252,
+    "router:grid_equal": 252
+   },
+   "6c_witness": {},
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 92
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "H": 18000,
+   "variant": "firms_early",
+   "places_from_instance_start": "20250324T090000Z",
+   "export_file": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/leo819/data/routing/latest_inputs_try02/exports/KFS_01/FORECAST_20250324T090000Z.npz",
+   "C0": {
+    "h_ms": 196560000,
+    "export_burned_router_cells": 1050,
+    "variant_before_start_router_cells": 1204,
+    "C0_router_cells": 1204,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 1050,
+    "variant_before_start_pixels_total": 1204
+   },
+   "B0_per_member": [
+    1186
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 1032,
+    "variant_burned_out": 154,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 1032,
+    "variant_burned_out": 154,
+    "replaced_later_birth": 0,
+    "b0_total": 1186
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 252,
+    "cert:grid_equal": 252,
+    "router:leave_by_equal": 252,
+    "router:grid_equal": 252
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 120,
+    "contact_clear_on_/1:True": 120,
+    "full_/2:True|full_/1:True": 120
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 227
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "H": 18000,
+   "variant": "kriged_mean",
+   "places_from_instance_start": "20250324T090000Z",
+   "export_file": "/tmp/claude-0/-home-user-wildfireguardian/bb5282c2-950b-50f1-81b9-ac1de20b6fe6/scratchpad/leo819/data/routing/latest_inputs_try02/exports/KFS_01/FORECAST_20250324T090000Z.npz",
+   "C0": {
+    "h_ms": 196560000,
+    "export_burned_router_cells": 1050,
+    "variant_before_start_router_cells": 1050,
+    "C0_router_cells": 1050,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 1050,
+    "variant_before_start_pixels_total": 1050
+   },
+   "B0_per_member": [
+    1032
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 1032,
+    "variant_burned_out": 0,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 1032,
+    "variant_burned_out": 0,
+    "replaced_later_birth": 0,
+    "b0_total": 1032
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 252,
+    "cert:grid_equal": 252,
+    "router:leave_by_equal": 252,
+    "router:grid_equal": 252
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 125,
+    "contact_clear_on_/1:True": 125,
+    "full_/2:True|full_/1:True": 125
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 245
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "H": 18000,
+   "variant": "envelope",
+   "places_from_instance_start": "20250325T190000Z",
+   "export_file": "_data/synthetic_exports/FORECAST_20250325T110000Z.npz",
+   "C0": {
+    "h_ms": 290160000,
+    "export_burned_router_cells": 2294,
+    "variant_before_start_router_cells": 2624,
+    "C0_router_cells": 2624,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 2294,
+    "variant_before_start_pixels_total": 2624
+   },
+   "B0_per_member": [
+    2215
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 2197,
+    "variant_burned_out": 18,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 2197,
+    "variant_burned_out": 18,
+    "replaced_later_birth": 0,
+    "b0_total": 2215
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 270,
+    "cert:grid_equal": 270,
+    "router:leave_by_equal": 270,
+    "router:grid_equal": 270
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 220,
+    "contact_clear_on_/1:True": 220,
+    "full_/2:True|full_/1:True": 220
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 1746
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "H": 18000,
+   "variant": "envelope_burnset",
+   "places_from_instance_start": "20250325T190000Z",
+   "export_file": "_data/synthetic_exports/FORECAST_20250325T110000Z.npz",
+   "C0": {
+    "h_ms": 290160000,
+    "export_burned_router_cells": 2294,
+    "variant_before_start_router_cells": 16176,
+    "C0_router_cells": 16176,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 2294,
+    "variant_before_start_pixels_total": 16176
+   },
+   "B0_per_member": [
+    0
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 0,
+    "variant_burned_out": 0,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 0,
+    "variant_burned_out": 0,
+    "replaced_later_birth": 0,
+    "b0_total": 0
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 270,
+    "cert:grid_equal": 270,
+    "router:leave_by_equal": 270,
+    "router:grid_equal": 270
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 73,
+    "contact_clear_on_/1:True": 73,
+    "full_/2:True|full_/1:True": 73
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 1258
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "H": 18000,
+   "variant": "firms_early",
+   "places_from_instance_start": "20250325T190000Z",
+   "export_file": "_data/synthetic_exports/FORECAST_20250325T110000Z.npz",
+   "C0": {
+    "h_ms": 290160000,
+    "export_burned_router_cells": 2294,
+    "variant_before_start_router_cells": 2624,
+    "C0_router_cells": 2624,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 2294,
+    "variant_before_start_pixels_total": 2624
+   },
+   "B0_per_member": [
+    2527
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 2197,
+    "variant_burned_out": 330,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 2197,
+    "variant_burned_out": 330,
+    "replaced_later_birth": 0,
+    "b0_total": 2527
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 270,
+    "cert:grid_equal": 270,
+    "router:leave_by_equal": 270,
+    "router:grid_equal": 270
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 220,
+    "contact_clear_on_/1:True": 220,
+    "full_/2:True|full_/1:True": 220
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 1746
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "H": 18000,
+   "variant": "kriged_mean",
+   "places_from_instance_start": "20250325T190000Z",
+   "export_file": "_data/synthetic_exports/FORECAST_20250325T110000Z.npz",
+   "C0": {
+    "h_ms": 290160000,
+    "export_burned_router_cells": 2294,
+    "variant_before_start_router_cells": 2294,
+    "C0_router_cells": 2294,
+    "router_cells_outside": {},
+    "export_burned_pixels_total": 2294,
+    "variant_before_start_pixels_total": 2294
+   },
+   "B0_per_member": [
+    2197
+   ],
+   "B0_split_mine": {
+    "export_burned_not_present": 2197,
+    "variant_burned_out": 0,
+    "export_burned_and_present_but_not_full0": 0
+   },
+   "B0_plan_meta": {
+    "export_burned_not_present": 2197,
+    "variant_burned_out": 0,
+    "replaced_later_birth": 0,
+    "b0_total": 2197
+   },
+   "6d_equal": true,
+   "6a_phase_mismatches": 0,
+   "6b_field": {
+    "cert:leave_by_equal": 270,
+    "cert:grid_equal": 270,
+    "router:leave_by_equal": 270,
+    "router:grid_equal": 270
+   },
+   "6c_witness": {
+    "contact_clear_on_/2:True": 270,
+    "contact_clear_on_/1:True": 270,
+    "full_/2:True|full_/1:True": 270
+   },
+   "7_radiation_convention_limited": 0,
+   "writer_identity_nr2": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "base_packet_writer_sha256": null,
+    "support_writer": null,
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "transform": "no_reentry/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "fdyn_builder_sha256": {
+     "build.py": "8e10a3a8c4f66c04a703b560cf4d058a761d0712b5acfd0a95c6db66133620bb",
+     "_packet_child.py": "0a7513309b783c35d45d549000d40310bd30116e4d31d8bb646307c5931f4d1b"
+    }
+   },
+   "wall_s": 2075
+  }
+ ]
+}

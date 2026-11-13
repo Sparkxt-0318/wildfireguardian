@@ -1,0 +1,349 @@
+{
+ "what": "return trips (RETURN_TRIP_RULE.md): outbound at the start checked, return after arrival + dwell + delay; model statements on scenarios",
+ "packets": [
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 84
+    },
+    "60": {
+     "return_checked": 84
+    },
+    "120": {
+     "return_checked": 84
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 84
+    },
+    "60": {
+     "return_checked": 84
+    },
+    "120": {
+     "return_checked": 84
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 84
+    },
+    "60": {
+     "return_checked": 84
+    },
+    "120": {
+     "return_checked": 84
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 84
+    },
+    "60": {
+     "return_checked": 84
+    },
+    "120": {
+     "return_checked": 84
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_not_checked": 11,
+     "outbound_not_checked": 12,
+     "return_checked": 61
+    },
+    "60": {
+     "return_not_checked": 11,
+     "outbound_not_checked": 12,
+     "return_checked": 60,
+     "beyond_horizon": 1
+    },
+    "120": {
+     "return_checked": 71,
+     "outbound_not_checked": 12,
+     "beyond_horizon": 1
+    }
+   },
+   "return_not_checked": {
+    "30": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158420",
+     "osm:node/415158537",
+     "osm:node/415160454",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/5344420465"
+    ],
+    "60": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158420",
+     "osm:node/415158537",
+     "osm:node/415160454",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/5344420465"
+    ],
+    "120": []
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_not_checked": 4,
+     "outbound_not_checked": 9,
+     "return_checked": 71
+    },
+    "60": {
+     "return_not_checked": 14,
+     "outbound_not_checked": 9,
+     "return_checked": 61
+    },
+    "120": {
+     "return_checked": 59,
+     "outbound_not_checked": 9,
+     "return_not_checked": 16
+    }
+   },
+   "return_not_checked": {
+    "30": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158537",
+     "osm:node/5344420465"
+    ],
+    "60": [
+     "osm:node/415158323",
+     "osm:node/415158324",
+     "osm:node/415158416",
+     "osm:node/415158417",
+     "osm:node/415158418",
+     "osm:node/415158432",
+     "osm:node/415158537",
+     "osm:node/415160451",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160463",
+     "osm:node/415160465",
+     "osm:node/415160466",
+     "osm:node/5344420465"
+    ],
+    "120": [
+     "osm:node/415158416",
+     "osm:node/415158417",
+     "osm:node/415158418",
+     "osm:node/415158420",
+     "osm:node/415158432",
+     "osm:node/415160451",
+     "osm:node/415160454",
+     "osm:node/415160455",
+     "osm:node/415160456",
+     "osm:node/415160457",
+     "osm:node/415160458",
+     "osm:node/415160461",
+     "osm:node/415160463",
+     "osm:node/415160464",
+     "osm:node/415160465",
+     "osm:node/415160466"
+    ]
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 86,
+     "outbound_not_checked": 3,
+     "outbound_arrival_not_computed": 1
+    },
+    "60": {
+     "return_checked": 85,
+     "outbound_not_checked": 3,
+     "outbound_arrival_not_computed": 1,
+     "return_not_checked": 1
+    },
+    "120": {
+     "return_checked": 85,
+     "outbound_not_checked": 3,
+     "outbound_arrival_not_computed": 1,
+     "return_not_checked": 1
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [
+     "osm:node/415160311"
+    ],
+    "120": [
+     "osm:node/415160311"
+    ]
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 85,
+     "outbound_not_checked": 4,
+     "outbound_arrival_not_computed": 1
+    },
+    "60": {
+     "return_checked": 84,
+     "outbound_not_checked": 4,
+     "outbound_arrival_not_computed": 1,
+     "return_not_checked": 1
+    },
+    "120": {
+     "return_checked": 84,
+     "outbound_not_checked": 4,
+     "outbound_arrival_not_computed": 1,
+     "return_not_checked": 1
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [
+     "osm:node/415160311"
+    ],
+    "120": [
+     "osm:node/415160311"
+    ]
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 90
+    },
+    "60": {
+     "return_checked": 90
+    },
+    "120": {
+     "return_checked": 90
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 90
+    },
+    "60": {
+     "return_checked": 90
+    },
+    "120": {
+     "return_checked": 90
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 88,
+     "outbound_not_checked": 2
+    },
+    "60": {
+     "return_checked": 88,
+     "outbound_not_checked": 2
+    },
+    "120": {
+     "return_checked": 88,
+     "outbound_not_checked": 2
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "counts_by_delay_min": {
+    "30": {
+     "return_checked": 88,
+     "outbound_not_checked": 2
+    },
+    "60": {
+     "return_checked": 88,
+     "outbound_not_checked": 2
+    },
+    "120": {
+     "return_checked": 88,
+     "outbound_not_checked": 2
+    }
+   },
+   "return_not_checked": {
+    "30": [],
+    "60": [],
+    "120": []
+   }
+  }
+ ]
+}
