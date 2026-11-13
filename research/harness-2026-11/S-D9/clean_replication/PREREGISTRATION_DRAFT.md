@@ -490,9 +490,16 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
   - **Suomi NPP is excluded.** Its data delivery ended at 15:40 UTC on 2026-11-02 (Earthdata alert and NESDIS Update #4, source-confirmed by the FIRE-side verifier, ledger row 139, PR #175). The S-NPP archive (2012-01-20 to 2026-11-02) is **not spliced** with NOAA-20/21 in any series used here.
   - **Arrival** = the earliest detection time among the detections whose 375 m footprint centre falls in a cell of the 375 m EPSG:5179 analysis grid. Detections flagged low confidence are excluded.
   - **Footprint and population:**
-    - **Event definition (mechanical).** An event's detections are the qualifying detections within **10 km of the KFS-reported ignition coordinates** and from **1 day before the KFS-reported start to 14 days after it**.
-      - If two KFS incidents' windows overlap and their 10 km discs intersect, each detection is assigned to the nearer ignition point, and the custodian logs the overlap.
-      - The custodian has no discretion.
+    - **Event definition: space-time linkage from the ignition** (assessor and orchestrator, 2026-11-13). A fixed disc would cut off the long, fast runs this stratum exists to describe; the March 2025 Uiseong fire ran about 51 km in under 12 h. Every threshold below is pinned before the season and derived from the instrument, **not tuned on any 2027 data**:
+      - **Seed:** qualifying NOAA-20/21 detections within **R_seed = 3 km** of the KFS-reported ignition coordinates, from 1 day before the KFS-reported start. *Reason:* the reported coordinates are a point, and a few pixels' tolerance absorbs reporting error.
+      - **Growth:** a detection joins the event if it lies within **D_link = 2 km** and **T_link = 30 h** of a detection already in it, and the step repeats until no detection joins.
+        - *D_link reason:* about 5 nadir pixel widths (375 m), or about 2.5 pixel widths at swath edge, where VIIRS I-band pixels grow to about 0.8 km.
+        - *T_link reason:* NOAA-20 and NOAA-21 each pass about twice a day, so the same-time-of-day cycle is about 12 h. One fully missed cycle (cloud, smoke or a gap) makes a 24 h gap; the extra 6 h covers drift in overpass times between days and satellites.
+      - **Stop:** no detection later than 14 days after the KFS-reported start joins.
+      - **Two ignitions linking into each other:** each linked detection is assigned to the nearer ignition point, and the merge is logged.
+      - **Reported per event:** the number of linkage steps, the seed count, any merge with another ignition, and the count of detections within 2 × D_link of the event that did not join, so that truncation is visible.
+      - **Check before freeze (descriptive, exposed data only).** The rule text is committed first. Then it is run once on the already-exposed 2025 Korean NOAA-20/21 detections (outside KR-P; A1 lists KR2025 as exposed), to see that it recovers one event per known fire. Any change made after that check is stated as tuned there and on nothing else, and the check is rerun. No 2027 data is ever used to set a threshold.
+      - The custodian applies the rule mechanically, with no discretion.
     - The footprint is those detection cells dilated by one cell (375 m). Cells outside it are not scored.
     - **The footprint is defined from the detections themselves**, including later ones. That is hindsight: the population is **hindsight-restricted** (A1 §4.1) and is labelled so.
   - **Endpoints and leads.** Endpoints are the NOAA-20/21 overpass times over the event. A forecast is issued at one overpass and scored at each later overpass within 48 h (A1 §2).
