@@ -163,7 +163,7 @@ This frozen cut adds the verified multi-hour work done after the 1-hour cut (#13
 ## Multi-hour `no_reentry/1` VARIANT run, 48 packet pairs (SCENARIO, not what happened; VARIANT, not the headline; VERIFIED: Nora, PASS WITH NOTES, ledger row 67)
 
 **Nora's notes (row 67).**
-1. The HAZARD sha256 values in the summary are NOT the canonical v3.6 packet hashes. Example: Uiseong 25T17Z h5 kriged_mean `/1` is bc058bd7 here and e02e5135 canonically. The batch rewrites `--out` to an absolute scratch path, which enters provenance. Results are unaffected. Treat the summary's hashes as the hashes of these scratch builds only.
+1. The HAZARD sha256 values in the summary are NOT the canonical v3.6 packet hashes. Example: Uiseong 25T17Z h5 kriged_mean `/1` is bc058bd7 here and e02e5135 canonically. The batch rewrites `--out` to an absolute scratch path, which enters provenance. Results are unaffected. Treat the summary's hashes as the hashes of these scratch builds only. *(Correction, ledger row 72a: the `--out` explanation is withdrawn; the hashes differ because of the numpy version, 1.26.4 here vs 2.5.x, through `members.flux` float rounding only.)*
 2. The earlier-variant-later rows are the `/1` pre-start burn-out effect, as with spotting (row 61). They are expected to vanish under `/2` (acceptance 8). This is not shown yet.
 3. Nora re-ran 2 of the 48 pairs (Uiseong 25T17Z h5 kriged_mean and firms_early). Both reproduced exactly.
 
@@ -326,7 +326,8 @@ This frozen cut adds the verified multi-hour work done after the 1-hour cut (#13
 
 **Coverage.** 48 pairs: v3.7 `no_reentry/2` + reopening × 4 variants × 6 recorded starts × {5 h, 8 h}.
 - Leo's code at 819bcb91, MANIFEST_v3_7 (sha256 7c178267…).
-- Each packet is built from the manifest command at its manifest `--out` path. **The HAZARD hashes do not reproduce Nora's builds** (ledger row 72 note 1: e.g. UA 25T17 h5 firms_early `/2` f539a5eb here vs 55dd21b8; `--out` is not the cause). Under investigation via `provenance.identity`; the routing results reproduced exactly (336/336 places).
+- Each packet is built from the manifest command at its manifest `--out` path. **Environment: numpy 1.26.4, Python 3.13.18** (pinned for this stream). The HAZARD hashes recorded in the summary are numpy-1.26.4 hashes, not the hashes the F-DYN builders get on numpy 2.5.x (ledger row 72a: rebuilt on numpy 1.26.4 they equal these exactly, e.g. UA 25T17 h5 firms_early reopening 5bbcc2d51ee5 and `/2` f539a5ebf319; on numpy 2.5.x only `members.flux` differs, by float rounding).
+- **Exposure numbers (open note).** Dose, peak and the radiation-convention-limited column read flux, and every exposure figure here is from numpy 1.26.4. Cross-environment size, measured on one packet pair (ledger row 72a, UA 25T17 h5 firms_early): max |Δflux| 1.7e-15 kW/m², max relative 3.8e-10. Margins in this run: the closest witness dose to the 100 kJ/m² limit is 96.11 (relative margin 3.9e-2, over 9,684 full checks on `/2` and reopening); the largest packet flux is 0.703 kW/m² against the 10 kW/m² peak limit; 0 DOSE/PEAK codes. So no flag or threshold label can flip at that size. Per-packet quantification on all 48 pairs across numpy versions is not done; cross-environment reproducibility of exposure figures beyond that packet pair is not yet established.
 - Runner: `deadline_field/headline.py`; batch: `batch/headline_nr2_batch.py`.
 - 0 build or run failures. Every packet's writer_identity.transform = `no_reentry/2`.
 - Summary: `results/HEADLINE_NR2_summary.json`, per place, packet and variant. The raw per-pair outputs stay in scratch.
