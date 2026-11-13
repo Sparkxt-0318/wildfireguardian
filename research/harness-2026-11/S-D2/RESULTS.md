@@ -399,7 +399,7 @@ Paired differences (arm − comparator; fire-clustered bootstrap 95% CI; exact s
   - later intervals (338,587 cells): lag1 0.05491, state_wide 0.05687, MCEM 0.06216, plug-in 0.05219, logistic_cf 0.05178, persistence 0.05835.
   - So the state arms beat plug-in only on the first interval (a small share of cells), and lose to it on later intervals.
 - Internal checks:
-  - m = 1 reproduces the CV within Monte Carlo error: MCEM 0.065991 vs 0.065996, plug-in 0.056950 vs 0.056928. Both runs use 512 simulations, differently seeded.
+  - m = 1 reproduces the CV within Monte Carlo error: MCEM 0.065991 vs 0.065996, plug-in 0.056950 vs 0.056928. The CV used 1,024 simulations (seeds 77_000+…); the family check uses 512 to 8T (seeds 99_000/99_500).
   - The round-1 m ≤ 2 recompute gives 0.060421 against the 0.060462 reported in cv_rate_arm.json. That reported number used the E1 kernels, so a difference of this size (4e-5) is expected from the kernel change, not a code discrepancy.
 
 ## 4. Ideas and gaps
