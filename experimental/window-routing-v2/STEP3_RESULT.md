@@ -98,9 +98,33 @@ Yeongdeok 0325T19 FD1/FX2 Z runs took about 8.5 s here.
 - FD1's Z would complete at 403,041,925 sweep units as PROVEN_INFEASIBLE.
 - **Any later budget change must come from the stated calibration rule, never from these two numbers.**
 
+## Every stage stops at its cap on the F-DYN set (acceptance D; `tools/stage_stop_check.py` → `results/step3/STAGE_STOP_FDYN.json`)
+
+- **Setup:** the 12 F-DYN requests, 300 s, `--mode plain`, controller guard and request `rss_limit_mb` both 12,288 MiB
+  (the A1 settings), kit-v2-step3e, 2026-11-12T23:37:49Z onward, alone on the host, no restart. Rows are in
+  `results/step3/FDYN_STAGE_STOP_ROWS.jsonl`.
+- **Result: 32 stages checked, 0 violations, 0 STAGE_CAP_WATCHDOG.**
+- **Uiseong, 4 requests:**
+  - Z is cut **in setup** with `WORK_BUDGET_SETUP` at 4,097 setup units, after 7.0–7.4 s (setup used to take 20–23 s).
+  - LO stops 0.20–0.56 s past its 112–114 s cap, and HI 0.10–0.31 s past its 87–89 s cap, both
+    `WALL_CLOCK_IN_BOUND_MODEL`. The tolerance is max(1 s, 5%), 4.4–5.7 s. LO used to overrun by 80–110 s with 1
+    expansion.
+- **Yeongdeok, 6 requests:**
+  - Z completes on 4 (CONDITIONAL_OPTIMUM, setup 1,826 / 2,376 units in 4.8–5.8 s).
+  - On …166, Z is cut by `WORK_BUDGET_SWEEP` at 268,508,075 units, within one sweep second of the budget. LO, LO2 and
+    HI then finish well inside their caps.
+- 2 requests are AT_ISSUE_FAILURE before any stage, as before.
+- Host speed on these runs: Z sweep 19.3–66.7 M units/s (`results/step3/HOST_SPEED_FDYN.json`).
+
+**Verdicts, reported only as a by-product (NOT a multi-hour result: PLAN forbids quoting multi-hour v2 numbers before
+G6).** Compared with the earlier run under the same settings (`fdyn_b300_g12k_rss12k`, Step 1-era kit):
+- the 4 Uiseong UNRESOLVED and 2 AT_ISSUE_FAILURE are unchanged;
+- 4 Yeongdeok requests are now CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN (2 were FEASIBLE at the same arrivals 59 / 274; 2
+  were UNRESOLVED), because Z now finishes instead of being cut by its 6 s wall after a 5–6 s setup;
+- …166 stays UNRESOLVED.
+- No G2 or G2b was run on these routes, so they are not acceptance evidence for anything except the stage-stop rule.
+
 ## Pending
 
-- The F-DYN set:
-  - every stage stops within max(1 s, 5%) of its cap, with setup units and setup and sweep wall reported;
-  - the A4 rerun, 10 reps × 2 requests at 900 s.
-  - These run as tracked, checkpointed background tasks.
+- The A4 rerun (10 reps × 2 requests at 900 s). It is held until the final base (Step 2 amendment F + Step 3) is
+  settled (orchestrator), and will run as a tracked, checkpointed background task.
