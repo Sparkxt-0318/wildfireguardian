@@ -18,6 +18,20 @@ This is recording only:
 If a module is not in `sys.modules` at that point, its entry is `{"imported": false}`. A missing entry is never
 silently skipped.
 
+## Amendment (review of c7f893e5 by the certificates reviewer; written before the code change)
+- **Override labelling:** the record gains `checker_module_override`, which is the job's `checker_module`, or null.
+  - With an override set, `hybrid_checker` in the record is the default module the worker imported. It is not the
+    one used for the check, which `STATE['checker_module']` identifies, as before.
+  - **The record identifies the checking code only when `checker_module_override` is null.** That is the case for
+    every worker job in this kit's panels; only `tools/g2_recheck.py` uses an override, and it does not go through the
+    worker.
+- **Limit, stated, not fixed:** the hash is of the `.py` file at record time, not of the bytes Python loaded. A stale
+  `.pyc`, or an edit after import, could differ. Kit runs use `-B` and `PYTHONDONTWRITEBYTECODE=1`.
+- **Pre-existing, noted only:** in the Step 2 block, `_v2_hc.RSS_LIMIT_MB` is read from the default `hybrid_checker`
+  even under an override. That is not this change.
+- **Added to test (a):** `checker_module_override` is null on a default job.
+- The kit changes (one more recording line), so the tests, suite and G1 panel below are rerun on the new manifest.
+
 ## Tests (all must pass)
 1. **Pre-stated test (a):** a job run on the built kit records, for all three modules, a path inside the kit and a
    sha256 equal to the kit manifest's entry for that file.
