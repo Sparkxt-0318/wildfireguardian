@@ -1,0 +1,2371 @@
+{
+ "what": "HEADLINE /2 witnesses touching the export-grid border (BORDER_TOUCH_RULE.md + amendment 1); UPPER BOUND",
+ "packets": {
+  "uiseong_andong_2025|20250323T010000Z|h5|envelope": {
+   "counts": {
+    "cert:witness_check_PASS": 54,
+    "cert:witnesses": 54,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 54,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 30,
+    "router:witness_check_PASS": 54,
+    "router:witnesses": 54,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 54,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 30
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h5|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 84,
+    "router:no_witness": 84
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h5|firms_early": {
+   "counts": {
+    "cert:witness_check_PASS": 54,
+    "cert:witnesses": 54,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 54,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 30,
+    "router:witness_check_PASS": 54,
+    "router:witnesses": 54,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 54,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 30
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h5|kriged_mean": {
+   "counts": {
+    "cert:witness_check_PASS": 56,
+    "cert:witnesses": 56,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 56,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 28,
+    "router:witness_check_PASS": 56,
+    "router:witnesses": 56,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 56,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 28
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h8|envelope": {
+   "counts": {
+    "cert:witness_check_PASS": 54,
+    "cert:witnesses": 54,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 54,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 30,
+    "router:witness_check_PASS": 54,
+    "router:witnesses": 54,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 54,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 30
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h8|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 84,
+    "router:no_witness": 84
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h8|firms_early": {
+   "counts": {
+    "cert:witness_check_PASS": 54,
+    "cert:witnesses": 54,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 54,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 30,
+    "router:witness_check_PASS": 54,
+    "router:witnesses": 54,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 54,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 30
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250323T010000Z|h8|kriged_mean": {
+   "counts": {
+    "cert:witness_check_PASS": 56,
+    "cert:witnesses": 56,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 56,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 28,
+    "router:witness_check_PASS": 56,
+    "router:witnesses": 56,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 56,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 28
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h5|envelope": {
+   "counts": {
+    "cert:witness_check_PASS": 47,
+    "cert:witnesses": 47,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 47,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 37,
+    "router:witness_check_PASS": 47,
+    "router:witnesses": 47,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 47,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 37
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h5|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 84,
+    "router:no_witness": 84
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h5|firms_early": {
+   "counts": {
+    "cert:witness_check_PASS": 47,
+    "cert:witnesses": 47,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 47,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 37,
+    "router:witness_check_PASS": 47,
+    "router:witnesses": 47,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 47,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 37
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h5|kriged_mean": {
+   "counts": {
+    "cert:witness_check_PASS": 51,
+    "cert:witnesses": 51,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 51,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 33,
+    "router:witness_check_PASS": 51,
+    "router:witnesses": 51,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 51,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 33
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h8|envelope": {
+   "counts": {
+    "cert:witness_check_PASS": 47,
+    "cert:witnesses": 47,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 47,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 37,
+    "router:witness_check_PASS": 47,
+    "router:witnesses": 47,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 47,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 37
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h8|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 84,
+    "router:no_witness": 84
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h8|firms_early": {
+   "counts": {
+    "cert:witness_check_PASS": 47,
+    "cert:witnesses": 47,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 47,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 37,
+    "router:witness_check_PASS": 47,
+    "router:witnesses": 47,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 47,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 37
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250324T090000Z|h8|kriged_mean": {
+   "counts": {
+    "cert:witness_check_PASS": 51,
+    "cert:witnesses": 51,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 51,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 33,
+    "router:witness_check_PASS": 51,
+    "router:witnesses": 51,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 51,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 33
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h5|envelope": {
+   "counts": {
+    "cert:witness_check_PASS": 16,
+    "cert:witnesses": 16,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 12,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 72,
+    "router:witness_check_PASS": 16,
+    "router:witnesses": 16,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 12,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 72
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h5|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 84,
+    "router:no_witness": 84
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h5|firms_early": {
+   "counts": {
+    "cert:witness_check_PASS": 16,
+    "cert:witnesses": 16,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 12,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 72,
+    "router:witness_check_PASS": 16,
+    "router:witnesses": 16,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 12,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 72
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h5|kriged_mean": {
+   "counts": {
+    "cert:witness_check_PASS": 54,
+    "cert:witnesses": 54,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 29,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 55,
+    "router:witness_check_PASS": 54,
+    "router:witnesses": 54,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 29,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 55
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h8|envelope": {
+   "counts": {
+    "cert:witness_check_PASS": 16,
+    "cert:witnesses": 16,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 12,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 72,
+    "router:witness_check_PASS": 16,
+    "router:witnesses": 16,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 12,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 72
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h8|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 84,
+    "router:no_witness": 84
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h8|firms_early": {
+   "counts": {
+    "cert:witness_check_PASS": 16,
+    "cert:witnesses": 16,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 12,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 72,
+    "router:witness_check_PASS": 16,
+    "router:witnesses": 16,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 12,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 72
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "uiseong_andong_2025|20250325T170000Z|h8|kriged_mean": {
+   "counts": {
+    "cert:witness_check_PASS": 54,
+    "cert:witnesses": 54,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 0,
+    "cert:places_with_witness": 29,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 0,
+    "cert:no_witness": 55,
+    "router:witness_check_PASS": 54,
+    "router:witnesses": 54,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 0,
+    "router:places_with_witness": 29,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 0,
+    "router:no_witness": 55
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h5|envelope": {
+   "counts": {
+    "cert:no_witness": 40,
+    "cert:witness_check_PASS": 50,
+    "cert:witnesses": 50,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 50,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 40,
+    "router:witness_check_PASS": 50,
+    "router:witnesses": 50,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 50,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h5|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 63,
+    "cert:witness_check_PASS": 27,
+    "cert:witnesses": 27,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 2,
+    "cert:places_with_witness": 27,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 2,
+    "router:no_witness": 63,
+    "router:witness_check_PASS": 27,
+    "router:witnesses": 27,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 2,
+    "router:places_with_witness": 27,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 2
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h5|firms_early": {
+   "counts": {
+    "cert:no_witness": 40,
+    "cert:witness_check_PASS": 50,
+    "cert:witnesses": 50,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 50,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 40,
+    "router:witness_check_PASS": 50,
+    "router:witnesses": 50,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 50,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h5|kriged_mean": {
+   "counts": {
+    "cert:no_witness": 38,
+    "cert:witness_check_PASS": 53,
+    "cert:witnesses": 53,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 52,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 38,
+    "router:witness_check_PASS": 53,
+    "router:witnesses": 53,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 52,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h8|envelope": {
+   "counts": {
+    "cert:no_witness": 40,
+    "cert:witness_check_PASS": 50,
+    "cert:witnesses": 50,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 50,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 40,
+    "router:witness_check_PASS": 50,
+    "router:witnesses": 50,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 50,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h8|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 63,
+    "cert:witness_check_PASS": 27,
+    "cert:witnesses": 27,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 2,
+    "cert:places_with_witness": 27,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 2,
+    "router:no_witness": 63,
+    "router:witness_check_PASS": 27,
+    "router:witnesses": 27,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 2,
+    "router:places_with_witness": 27,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 2
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h8|firms_early": {
+   "counts": {
+    "cert:no_witness": 40,
+    "cert:witness_check_PASS": 50,
+    "cert:witnesses": 50,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 50,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 40,
+    "router:witness_check_PASS": 50,
+    "router:witnesses": 50,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 50,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T190000Z|h8|kriged_mean": {
+   "counts": {
+    "cert:no_witness": 38,
+    "cert:witness_check_PASS": 53,
+    "cert:witnesses": 53,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 52,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 38,
+    "router:witness_check_PASS": 53,
+    "router:witnesses": 53,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 52,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h5|envelope": {
+   "counts": {
+    "cert:no_witness": 41,
+    "cert:witness_check_PASS": 49,
+    "cert:witnesses": 49,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 49,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 41,
+    "router:witness_check_PASS": 49,
+    "router:witnesses": 49,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 49,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h5|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 63,
+    "cert:witness_check_PASS": 27,
+    "cert:witnesses": 27,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 2,
+    "cert:places_with_witness": 27,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 2,
+    "router:no_witness": 63,
+    "router:witness_check_PASS": 27,
+    "router:witnesses": 27,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 2,
+    "router:places_with_witness": 27,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 2
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h5|firms_early": {
+   "counts": {
+    "cert:no_witness": 41,
+    "cert:witness_check_PASS": 49,
+    "cert:witnesses": 49,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 49,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 41,
+    "router:witness_check_PASS": 49,
+    "router:witnesses": 49,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 49,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h5|kriged_mean": {
+   "counts": {
+    "cert:no_witness": 40,
+    "cert:witness_check_PASS": 50,
+    "cert:witnesses": 50,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 50,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 40,
+    "router:witness_check_PASS": 50,
+    "router:witnesses": 50,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 50,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h8|envelope": {
+   "counts": {
+    "cert:no_witness": 41,
+    "cert:witness_check_PASS": 49,
+    "cert:witnesses": 49,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 49,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 41,
+    "router:witness_check_PASS": 49,
+    "router:witnesses": 49,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 49,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h8|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 63,
+    "cert:witness_check_PASS": 27,
+    "cert:witnesses": 27,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 2,
+    "cert:places_with_witness": 27,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 2,
+    "router:no_witness": 63,
+    "router:witness_check_PASS": 27,
+    "router:witnesses": 27,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 2,
+    "router:places_with_witness": 27,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 2
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h8|firms_early": {
+   "counts": {
+    "cert:no_witness": 41,
+    "cert:witness_check_PASS": 49,
+    "cert:witnesses": 49,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 49,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 41,
+    "router:witness_check_PASS": 49,
+    "router:witnesses": 49,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 49,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250325T230000Z|h8|kriged_mean": {
+   "counts": {
+    "cert:no_witness": 40,
+    "cert:witness_check_PASS": 50,
+    "cert:witnesses": 50,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 50,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 40,
+    "router:witness_check_PASS": 50,
+    "router:witnesses": 50,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 50,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h5|envelope": {
+   "counts": {
+    "cert:no_witness": 42,
+    "cert:witness_check_PASS": 48,
+    "cert:witnesses": 48,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 48,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 42,
+    "router:witness_check_PASS": 48,
+    "router:witnesses": 48,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 48,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h5|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 63,
+    "cert:witness_check_PASS": 27,
+    "cert:witnesses": 27,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 2,
+    "cert:places_with_witness": 27,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 2,
+    "router:no_witness": 63,
+    "router:witness_check_PASS": 27,
+    "router:witnesses": 27,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 2,
+    "router:places_with_witness": 27,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 2
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h5|firms_early": {
+   "counts": {
+    "cert:no_witness": 42,
+    "cert:witness_check_PASS": 48,
+    "cert:witnesses": 48,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 48,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 42,
+    "router:witness_check_PASS": 48,
+    "router:witnesses": 48,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 48,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h5|kriged_mean": {
+   "counts": {
+    "cert:no_witness": 42,
+    "cert:witness_check_PASS": 48,
+    "cert:witnesses": 48,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 48,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 42,
+    "router:witness_check_PASS": 48,
+    "router:witnesses": 48,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 48,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h8|envelope": {
+   "counts": {
+    "cert:no_witness": 42,
+    "cert:witness_check_PASS": 48,
+    "cert:witnesses": 48,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 48,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 42,
+    "router:witness_check_PASS": 48,
+    "router:witnesses": 48,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 48,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h8|envelope_burnset": {
+   "counts": {
+    "cert:no_witness": 63,
+    "cert:witness_check_PASS": 27,
+    "cert:witnesses": 27,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 2,
+    "cert:places_with_witness": 27,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 2,
+    "router:no_witness": 63,
+    "router:witness_check_PASS": 27,
+    "router:witnesses": 27,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 2,
+    "router:places_with_witness": 27,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 2
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h8|firms_early": {
+   "counts": {
+    "cert:no_witness": 42,
+    "cert:witness_check_PASS": 48,
+    "cert:witnesses": 48,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 48,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 42,
+    "router:witness_check_PASS": 48,
+    "router:witnesses": 48,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 48,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  },
+  "yeongdeok_2025|20250326T080000Z|h8|kriged_mean": {
+   "counts": {
+    "cert:no_witness": 42,
+    "cert:witness_check_PASS": 48,
+    "cert:witnesses": 48,
+    "cert:witnesses_touch_footprint": 0,
+    "cert:witnesses_touch_ring_proxy": 3,
+    "cert:places_with_witness": 48,
+    "cert:places_touch_any": 0,
+    "cert:places_touch_all": 0,
+    "cert:places_ring_proxy_any": 3,
+    "router:no_witness": 42,
+    "router:witness_check_PASS": 48,
+    "router:witnesses": 48,
+    "router:witnesses_touch_footprint": 0,
+    "router:witnesses_touch_ring_proxy": 3,
+    "router:places_with_witness": 48,
+    "router:places_touch_any": 0,
+    "router:places_touch_all": 0,
+    "router:places_ring_proxy_any": 3
+   },
+   "leave_by_mismatches": [],
+   "footprint_vs_boundary_disagreements": [],
+   "export_grid": [
+    "1085250",
+    "1815750",
+    "375",
+    237,
+    79
+   ],
+   "pad_cells": 14
+  }
+ },
+ "ring_proxy_places": [
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h5|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T190000Z|h8|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h5|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250325T230000Z|h8|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 17791
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17670
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h5|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 17787
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|envelope_burnset",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|firms_early",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|firms_early",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|firms_early",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "cert",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "cert",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|kriged_mean",
+   "origin": "osm:node/415158213",
+   "field": "router",
+   "dest": "osm:12144230038",
+   "leave_by_s": 28591
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|kriged_mean",
+   "origin": "osm:node/415160130",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28470
+  },
+  {
+   "packet": "yeongdeok_2025|20250326T080000Z|h8|kriged_mean",
+   "origin": "osm:node/415160318",
+   "field": "router",
+   "dest": "osm:12188838462",
+   "leave_by_s": 28587
+  }
+ ]
+}

@@ -16,6 +16,9 @@ from __future__ import annotations
 
 import json
 import sys
+import threading
+
+import numpy as np
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -46,17 +49,26 @@ def load_packet(packet_dir, grid):
         hazard_only = "per_cell_law_HAZARD_only" in z.files
     if hazard_only:          # v3.4 'envelope': the packet declares that its arrays must refuse; read HAZARD only
         return _hazard_only_packet(_P(packet_dir), grid), True
+    # SUPPORT_READ_RULE.md: an F-9.3 supplied/1 support-masked packet is read with support recorded, not refused
+    with np.load(_P(packet_dir) / "constructed_arrays.npz", allow_pickle=False) as z:
+        sup_all = bool(np.array(z["support"]).all()) if "support" in z.files else True
+    if not sup_all:
+        decl = _support_declaration(_P(packet_dir))
+        if decl is not None:
+            return _support_masked_packet(_P(packet_dir), grid, decl), False
     try:
-        return Packet(packet_dir, grid), False
+        with _READ_LOCK:          # SUPPORT_READ_RULE.md amendment 2: no reader construction during a swap
+            return Packet(packet_dir, grid), False
     except PacketError:
         if not ext:
             raise
-    orig = Packet.verify_consistency
-    Packet.verify_consistency = lambda self: {"status": "DEFERRED"}
-    try:
-        pk = Packet(packet_dir, grid)
-    finally:
-        Packet.verify_consistency = orig
+    with _READ_LOCK:              # class-level patch below is process-global too
+        orig = Packet.verify_consistency
+        Packet.verify_consistency = lambda self: {"status": "DEFERRED"}
+        try:
+            pk = Packet(packet_dir, grid)
+        finally:
+            Packet.verify_consistency = orig
     big = pk.horizon + 10 ** 9
     pk.phases = []
     cells_all = set()
@@ -77,6 +89,84 @@ def load_packet(packet_dir, grid):
     pk.consistency = {"status": "PHASES_FROM_HAZARD_FLAME_BINS (per-cell law)", "cells": len(cells_all)}
     pk.per_cell_law = True
     return pk, True
+
+
+F93_WRITER = "wfg.f93.support-writer/1"
+# SUPPORT_READ_RULE.md amendment 2: every replay-reader construction made by load_packet holds this lock, because the
+# masked path temporarily swaps tools.explain_deadlines.packet.np (process-global). Direct Packet(...) calls made
+# OUTSIDE load_packet are not covered and must not run concurrently with load_packet in one process.
+_READ_LOCK = threading.RLock()
+
+
+def _support_declaration(d):
+    """SUPPORT_READ_RULE.md (b): the F-9.3 declaration, or None. Both BUILD_SUMMARY.support_writer and HAZARD
+    provenance.identity.support_writer must be present and equal, version wfg.f93.support-writer/1, rule supplied/1."""
+    import json as _j
+    try:
+        bs = _j.loads((d / "BUILD_SUMMARY.json").read_text()).get("support_writer")
+        hz = _j.loads((d / "HAZARD.json").read_text())["provenance"]["identity"].get("support_writer")
+    except (OSError, KeyError, ValueError):
+        return None
+    if not bs or not hz or bs != hz or bs.get("version") != F93_WRITER or bs.get("rule") != "supplied/1":
+        return None
+    return bs
+
+
+class _SupportAllTrue:
+    """npz view for the unchanged replay reader: identical arrays except 'support', which reads all true."""
+
+    def __init__(self, z):
+        self._z = z
+
+    def __getitem__(self, k):
+        a = self._z[k]
+        return np.ones(a.shape, dtype=bool) if k == "support" else a
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self._z.close()
+        return False
+
+
+def _support_masked_packet(d, grid, decl):
+    """SUPPORT_READ_RULE.md 2-3: the unchanged replay reader (every check except the single all-true-support clause),
+    then the real support-false cells recorded on the packet. Contact phases do not depend on support."""
+    import types
+    from tools.explain_deadlines import packet as _pm
+    with np.load(d / "constructed_arrays.npz", allow_pickle=False) as z:
+        sup = np.array(z["support"]).astype(bool)
+    if sup.ndim != 3:
+        raise ValueError("support array is not (members, rows, cols)")
+    import hashlib
+    m = sup[0]
+    if any(not np.array_equal(sup[s], m) for s in range(sup.shape[0])):
+        raise ValueError("support differs between members; one declared F-9.3 mask is required")
+    want_sha = hashlib.sha256(np.packbits(m).tobytes() + str(m.shape).encode()).hexdigest()   # packets_f93.py formula
+    if decl.get("support_mask_sha256") != want_sha:
+        raise ValueError("declared support_mask_sha256 %r differs from the npz mask (%s)" % (decl.get("support_mask_sha256"), want_sha))
+    if int(decl.get("cells", -1)) != int(m.size):
+        raise ValueError("declared cells %r differs from the npz mask size %d" % (decl.get("cells"), m.size))
+    if int(decl.get("unsupported_cells", -1)) != int((~m).sum()):
+        raise ValueError("declared unsupported_cells %r differs from the npz support (%d)" % (decl.get("unsupported_cells"), int((~m).sum())))
+    with _READ_LOCK:              # the swap is process-global: capture, swap and restore all under the lock
+        real_np = _pm.np
+        if real_np is not np:
+            raise RuntimeError("tools.explain_deadlines.packet.np is not numpy before the swap")
+        shim = types.SimpleNamespace(**{k: getattr(real_np, k) for k in dir(real_np) if not k.startswith("__")})
+        shim.load = lambda *a, **k: _SupportAllTrue(real_np.load(*a, **k))
+        _pm.np = shim
+        try:
+            pk = Packet(d, grid)
+        finally:
+            _pm.np = real_np
+    pk.support_masked = True
+    pk.support_false_by_member = [sorted(pk.native_to_router(int(i)) for i in np.flatnonzero(~sup[s].ravel()))
+                                  for s in range(sup.shape[0])]
+    pk.support_false_cells = sorted(set().union(*map(set, pk.support_false_by_member)))
+    pk.support_declaration = decl
+    return pk
 
 
 def _phases_from_bins(pk):
@@ -168,7 +258,8 @@ class PacketModel:
     """Per (graph, packet): blocked start intervals of every edge, wait and issue point, per rule."""
 
     def __init__(self, graph_path, packet_dir, *, H: int | None = None, extra_blocks: dict | None = None,
-                 present_only: bool = False, duration_factor=None, waitable_all: bool = False):
+                 present_only: bool = False, duration_factor=None, waitable_all: bool = False,
+                 waitable_override: dict | None = None):
         """extra_blocks: {router cell: start second} adds a pseudo-phase [start, beyond H) to that cell under BOTH
         rules (pessimistic unknown-support instances); None = the frozen packet exactly."""
         self.raw = json.loads(Path(graph_path).read_text())
@@ -176,8 +267,24 @@ class PacketModel:
         if waitable_all:      # WAITING_SENSITIVITY_RULE.md: field AND checker read the same modified graph
             for n in self.raw["nodes"]:
                 n["waitable"] = True
+        if waitable_override is not None:   # WIDENED_GRAPH_RULE arm (a): explicit waitable set; field AND checker see it
+            if waitable_all:
+                raise ValueError("waitable_all and waitable_override are exclusive")
+            ids = {n["id"] for n in self.raw["nodes"]}
+            unknown = sorted(k for k in waitable_override if k not in ids)
+            bad = sorted(k for k, v in waitable_override.items() if not isinstance(v, bool))
+            if unknown or bad:
+                raise ValueError({"waitable_override_unknown_ids": unknown, "waitable_override_non_bool": bad})
+            for n in self.raw["nodes"]:
+                if n["id"] in waitable_override:
+                    n["waitable"] = waitable_override[n["id"]]
+        self.waitable_override = dict(waitable_override) if waitable_override is not None else None
         self.g = RoadGraph(self.raw)
         self.pk, self.per_cell_law = load_packet(packet_dir, self.g.grid)
+        if not hasattr(self.pk, "support_masked"):
+            self.pk.support_masked, self.pk.support_false_cells = False, []
+        self.support_masked = self.pk.support_masked                   # SUPPORT_READ_RULE.md 3
+        self.support_false_cells = list(self.pk.support_false_cells)
         self.H = int(self.pk.horizon) if H is None else H
         if F(self.H) != self.pk.horizon:
             raise ValueError("non-integer horizon")
