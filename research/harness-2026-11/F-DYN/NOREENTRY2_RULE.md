@@ -349,3 +349,23 @@ Her scripts are `nora_nr2.py` and `nora_nr2_readers.py`, on `verification/nora-f
 
 **Default switch.** `no_reentry/2` becomes the person-facing default (F-BASE DESIGN.md) once Richard's 6a–6d pass.
 His 7 and 8 are reported, not gates.
+
+## Richard: acceptance 6a–6d PASS and 7 reported, on all 8 samples
+
+Results at `2e4275b1`, `results/NOREENTRY2_ACCEPTANCE_6_7.json`, under F-3.1 NOREENTRY2_ACCEPTANCE_RULE.md @ ed87b5bb.
+Sent to Nora.
+
+- **6d.** His independent B0 equals the plan meta on all 8, split included:
+  - YD: 2,197 / 2,527 / 2,215 / 0;
+  - UA: 1,032 / 1,186 / 1,087 / 0.
+- **6a.** 0 phase mismatches: `/2` = `/1` with every B0 cell at [0, ≥ H).
+- **6b.** Fields equal: field(`/2`) == field(`/1` + extra_blocks{B0: 0}) for every origin, on CERT and ROUTER.
+- **6c.** All witnesses are contact-clear and pass the full checker on both packets.
+- **7, reported.** **0 radiation-convention-limited jobs.** Integrated flux rises ×3–23 under F1 (STATUS item 4), but
+  no job on these samples is refused because of B0 radiation.
+- **8, reported** (monotonicity), and the `/2` headline rerun: these start once Nora has passed Richard's 6–7
+  results. Nora's own `/2` verification is row 66, above.
+
+**Gate.** `no_reentry/2` is now the person-facing default (F-BASE DESIGN.md: the default once Nora passes v3.7 and
+6a–6d pass). It carries the F1 exposure label, and the radiation-convention-limited column stays in every exposure
+table.
