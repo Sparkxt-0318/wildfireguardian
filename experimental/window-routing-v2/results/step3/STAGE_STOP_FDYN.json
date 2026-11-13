@@ -1,0 +1,475 @@
+{
+ "rows": [
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158323",
+   "stage": "Z",
+   "status": "TIMEOUT",
+   "reason": "WORK_BUDGET_SETUP",
+   "elapsed_s": 7.004634722998162,
+   "setup_units": 4097,
+   "sweep_units": null,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": 1,
+    "sweep": -268435456
+   },
+   "setup_wall_s": 7.004634722998162,
+   "sweep_wall_s": 0.0,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158323",
+   "stage": "LO",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 112.03357449515025,
+   "elapsed_s": 112.42455797799994,
+   "check_s": 0,
+   "search_s": 112.42455797799994,
+   "over_s": 0.3909834828496912,
+   "tol_s": 5.601678724757512,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158323",
+   "stage": "HI",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 87.2706210849974,
+   "elapsed_s": 87.45684056399841,
+   "check_s": 0,
+   "search_s": 87.45684056399841,
+   "over_s": 0.18621947900101077,
+   "tol_s": 4.36353105424987,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158323",
+   "stage": "EA",
+   "elapsed_s": 41.24832323999726,
+   "error": null,
+   "note": "EA cap = deadline - HI reserve; checked every backward second"
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158324",
+   "stage": "Z",
+   "status": "TIMEOUT",
+   "reason": "WORK_BUDGET_SETUP",
+   "elapsed_s": 7.099769335000019,
+   "setup_units": 4097,
+   "sweep_units": null,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": 1,
+    "sweep": -268435456
+   },
+   "setup_wall_s": 7.099769335000019,
+   "sweep_wall_s": 0.0,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158324",
+   "stage": "LO",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 114.08457858435014,
+   "elapsed_s": 114.64921359800064,
+   "check_s": 0,
+   "search_s": 114.64921359800064,
+   "over_s": 0.5646350136505021,
+   "tol_s": 5.704228929217507,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158324",
+   "stage": "HI",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 88.77571885699945,
+   "elapsed_s": 89.08684359199833,
+   "check_s": 0,
+   "search_s": 89.08684359199833,
+   "over_s": 0.3111247349988844,
+   "tol_s": 4.4387859428499725,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158324",
+   "stage": "EA",
+   "elapsed_s": 42.22933771999669,
+   "error": null,
+   "note": "EA cap = deadline - HI reserve; checked every backward second"
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158334",
+   "stage": "Z",
+   "status": "AT_ISSUE_FAILURE",
+   "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+   "elapsed_s": 0.03918057600094471,
+   "setup_units": null,
+   "sweep_units": null,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -4096,
+    "sweep": -268435456
+   },
+   "setup_wall_s": 0.03918057600094471,
+   "sweep_wall_s": 0.0,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323",
+   "stage": "Z",
+   "status": "TIMEOUT",
+   "reason": "WORK_BUDGET_SETUP",
+   "elapsed_s": 7.365594504997716,
+   "setup_units": 4097,
+   "sweep_units": null,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": 1,
+    "sweep": -268435456
+   },
+   "setup_wall_s": 7.365594504997716,
+   "sweep_wall_s": 0.0,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323",
+   "stage": "LO",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 113.21362306155044,
+   "elapsed_s": 113.75797881100152,
+   "check_s": 0,
+   "search_s": 113.75797881100152,
+   "over_s": 0.5443557494510856,
+   "tol_s": 5.6606811530775225,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323",
+   "stage": "HI",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 88.07805353599906,
+   "elapsed_s": 88.17360674500014,
+   "check_s": 0,
+   "search_s": 88.17360674500014,
+   "over_s": 0.095553209001082,
+   "tol_s": 4.403902676799953,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323",
+   "stage": "EA",
+   "elapsed_s": 42.55674771299891,
+   "error": null,
+   "note": "EA cap = deadline - HI reserve; checked every backward second"
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324",
+   "stage": "Z",
+   "status": "TIMEOUT",
+   "reason": "WORK_BUDGET_SETUP",
+   "elapsed_s": 7.287661577000108,
+   "setup_units": 4097,
+   "sweep_units": null,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": 1,
+    "sweep": -268435456
+   },
+   "setup_wall_s": 7.287661577000108,
+   "sweep_wall_s": 0.0,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324",
+   "stage": "LO",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 114.32866819439951,
+   "elapsed_s": 114.52645361199757,
+   "check_s": 0,
+   "search_s": 114.52645361199757,
+   "over_s": 0.19778541759805535,
+   "tol_s": 5.716433409719976,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324",
+   "stage": "HI",
+   "status": "TIMEOUT",
+   "reason": "WALL_CLOCK_IN_BOUND_MODEL",
+   "cap_s": 89.33962010100004,
+   "elapsed_s": 89.49935306400221,
+   "check_s": 0,
+   "search_s": 89.49935306400221,
+   "over_s": 0.15973296300217044,
+   "tol_s": 4.466981005050002,
+   "ok": true
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324",
+   "stage": "EA",
+   "elapsed_s": 42.586734289998276,
+   "error": null,
+   "note": "EA cap = deadline - HI reserve; checked every backward second"
+  },
+  {
+   "run": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158334",
+   "stage": "Z",
+   "status": "AT_ISSUE_FAILURE",
+   "reason": "AT_ISSUE_CONSTRAINT_VIOLATION",
+   "elapsed_s": 0.047115456000028644,
+   "setup_units": null,
+   "sweep_units": null,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -4096,
+    "sweep": -268435456
+   },
+   "setup_wall_s": 0.047115456000028644,
+   "sweep_wall_s": 0.0,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_11753630207",
+   "stage": "Z",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_CONTACT_SWEEP",
+   "elapsed_s": 5.187021744000958,
+   "setup_units": 1826,
+   "sweep_units": 6715500,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -2270,
+    "sweep": -261719956
+   },
+   "setup_wall_s": 4.915336746998946,
+   "sweep_wall_s": 0.2716849970020121,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "stage": "Z",
+   "status": "TIMEOUT",
+   "reason": "WORK_BUDGET_SWEEP",
+   "elapsed_s": 8.81531580400042,
+   "setup_units": 1826,
+   "sweep_units": 268508075,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -2270,
+    "sweep": 72619
+   },
+   "setup_wall_s": 4.7905660610013,
+   "sweep_wall_s": 4.02474974299912,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "stage": "LO",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_SEARCH_CHECKED",
+   "cap_s": 116.17791696389996,
+   "elapsed_s": 52.82649915299771,
+   "check_s": 22.667818103000172,
+   "search_s": 52.82649915299771,
+   "over_s": -63.35141781090225,
+   "tol_s": 5.808895848194998,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "stage": "LO2",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_SEARCH_CHECKED",
+   "cap_s": 42.87137389990002,
+   "elapsed_s": 11.516465467000671,
+   "check_s": 22.667818103000172,
+   "search_s": 11.516465467000671,
+   "over_s": -31.35490843289935,
+   "tol_s": 2.1435686949950012,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "stage": "HI",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_SEARCH_CHECKED",
+   "cap_s": 106.96801655600211,
+   "elapsed_s": 11.899143339000148,
+   "check_s": 22.667818103000172,
+   "search_s": 11.899143339000148,
+   "over_s": -95.06887321700196,
+   "tol_s": 5.348400827800106,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "stage": "EA",
+   "elapsed_s": 62.45670076899842,
+   "error": null,
+   "note": "EA cap = deadline - HI reserve; checked every backward second"
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168",
+   "stage": "Z",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_CONTACT_SWEEP",
+   "elapsed_s": 5.928856792997976,
+   "setup_units": 1826,
+   "sweep_units": 30779375,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -2270,
+    "sweep": -237656081
+   },
+   "setup_wall_s": 4.895697171999927,
+   "sweep_wall_s": 1.033159620998049,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207",
+   "stage": "Z",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_CONTACT_SWEEP",
+   "elapsed_s": 6.166667122000945,
+   "setup_units": 2376,
+   "sweep_units": 6715500,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -1720,
+    "sweep": -261719956
+   },
+   "setup_wall_s": 5.818165528999089,
+   "sweep_wall_s": 0.34850159300185624,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+   "stage": "Z",
+   "status": "TIMEOUT",
+   "reason": "WORK_BUDGET_SWEEP",
+   "elapsed_s": 9.654846026998712,
+   "setup_units": 2376,
+   "sweep_units": 268508075,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -1720,
+    "sweep": 72619
+   },
+   "setup_wall_s": 5.345698050001374,
+   "sweep_wall_s": 4.3091479769973375,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+   "stage": "LO",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_SEARCH_CHECKED",
+   "cap_s": 115.94436921540093,
+   "elapsed_s": 62.61163363199739,
+   "check_s": 21.329771614000492,
+   "search_s": 62.61163363199739,
+   "over_s": -53.33273558340353,
+   "tol_s": 5.797218460770047,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+   "stage": "LO2",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_SEARCH_CHECKED",
+   "cap_s": 38.65660328355006,
+   "elapsed_s": 11.479345520998322,
+   "check_s": 21.329771614000492,
+   "search_s": 11.479345520998322,
+   "over_s": -27.17725776255174,
+   "tol_s": 1.9328301641775032,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+   "stage": "HI",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_SEARCH_CHECKED",
+   "cap_s": 94.96207779199904,
+   "elapsed_s": 11.487704573999508,
+   "check_s": 21.329771614000492,
+   "search_s": 11.487704573999508,
+   "over_s": -83.47437321799953,
+   "tol_s": 4.748103889599952,
+   "ok": true
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+   "stage": "EA",
+   "elapsed_s": 62.29286726200007,
+   "error": null,
+   "note": "EA cap = deadline - HI reserve; checked every backward second"
+  },
+  {
+   "run": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168",
+   "stage": "Z",
+   "status": "CONDITIONAL_OPTIMUM",
+   "reason": "EXACT_CONTACT_SWEEP",
+   "elapsed_s": 6.905190333000064,
+   "setup_units": 2376,
+   "sweep_units": 30779375,
+   "caps": {
+    "setup": 4096,
+    "sweep": 268435456
+   },
+   "units_over_cap": {
+    "setup": -1720,
+    "sweep": -237656081
+   },
+   "setup_wall_s": 5.843147872001282,
+   "sweep_wall_s": 1.0620424609987822,
+   "ok": true
+  }
+ ],
+ "violations": [],
+ "watchdog_findings": [],
+ "summary": {
+  "stages": 32,
+  "violations": 0,
+  "watchdog": 0
+ }
+}

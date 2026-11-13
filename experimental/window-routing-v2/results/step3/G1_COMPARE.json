@@ -1,0 +1,687 @@
+{
+ "missions": [
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FN1",
+   "frozen": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "v2": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     null,
+     null
+    ],
+    "peak_share": [
+     null,
+     null
+    ]
+   },
+   "wall_frozen": 0.613169738500801,
+   "wall_v2": 0.5817414810007904,
+   "peak_frozen": 49.361328125,
+   "peak_v2": 50.33984375,
+   "g5_memory": true
+  },
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FX1",
+   "frozen": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "v2": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     null,
+     null
+    ],
+    "peak_share": [
+     null,
+     null
+    ]
+   },
+   "wall_frozen": 0.5993812935012102,
+   "wall_v2": 0.6085229354994226,
+   "peak_frozen": 49.755859375,
+   "peak_v2": 50.0546875,
+   "g5_memory": true
+  },
+  {
+   "mission": "hongseong_2023/20230402T140000Z_FW2",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1459
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1459
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.0018167219493279497,
+     0.0018167219493279497
+    ],
+    "peak_share": [
+     9.075742073842137e-05,
+     9.075742073842137e-05
+    ]
+   },
+   "wall_frozen": 27.034131812999476,
+   "wall_v2": 26.99055007449897,
+   "peak_frozen": 84.875,
+   "peak_v2": 84.869140625,
+   "g5_memory": true
+  },
+  {
+   "mission": "hongseong_2023/20230402T230000Z_FD1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     531
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     531
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.00021175939635510372,
+     0.00021175939635510372
+    ],
+    "peak_share": [
+     9.906653522583497e-06,
+     9.906653522583497e-06
+    ]
+   },
+   "wall_frozen": 15.593541408499732,
+   "wall_v2": 16.03385326249918,
+   "peak_frozen": 69.234375,
+   "peak_v2": 69.69140625,
+   "g5_memory": true
+  },
+  {
+   "mission": "miryang_2022/20220531T100000Z_FN1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1142
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1142
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.3289484982865944,
+     0.3289484982865944
+    ],
+    "peak_share": [
+     2.4010786709460135e-05,
+     2.4010786709460135e-05
+    ]
+   },
+   "wall_frozen": 26.308598002000508,
+   "wall_v2": 26.263129051500073,
+   "peak_frozen": 88.13671875,
+   "peak_v2": 88.724609375,
+   "g5_memory": true
+  },
+  {
+   "mission": "miryang_2022/20220601T020000Z_FW1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1270
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1270
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.0001042781360107457,
+     0.0001042781360107457
+    ],
+    "peak_share": [
+     2.6718326422558954e-06,
+     2.6718326422558954e-06
+    ]
+   },
+   "wall_frozen": 14.246148852998886,
+   "wall_v2": 14.114987011000267,
+   "peak_frozen": 73.72265625,
+   "peak_v2": 73.8984375,
+   "g5_memory": true
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FD1",
+   "frozen": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "v2": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     null,
+     null
+    ],
+    "peak_share": [
+     null,
+     null
+    ]
+   },
+   "wall_frozen": 0.7460434754993912,
+   "wall_v2": 0.7743494110000029,
+   "peak_frozen": 55.318359375,
+   "peak_v2": 56.0234375,
+   "g5_memory": true
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FX1",
+   "frozen": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "v2": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     null,
+     null
+    ],
+    "peak_share": [
+     null,
+     null
+    ]
+   },
+   "wall_frozen": 0.782556370999373,
+   "wall_v2": 0.8030101214990282,
+   "peak_frozen": 56.15625,
+   "peak_v2": 56.134765625,
+   "g5_memory": true
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FD1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2460
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2460
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     7.364855815762876e-05,
+     7.364855815762876e-05
+    ],
+    "peak_share": [
+     1.3415241463496066e-06,
+     1.3415241463496066e-06
+    ]
+   },
+   "wall_frozen": 11.41934995649899,
+   "wall_v2": 11.825220213002467,
+   "peak_frozen": 350.3984375,
+   "peak_v2": 351.541015625,
+   "g5_memory": true
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FX2",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2540
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2540
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.3019100653940069,
+     0.3019100653940069
+    ],
+    "peak_share": [
+     0.0004993611710937017,
+     0.0004993611710937017
+    ]
+   },
+   "wall_frozen": 11.86724359300024,
+   "wall_v2": 12.091942554499838,
+   "peak_frozen": 351.962890625,
+   "peak_v2": 349.94921875,
+   "g5_memory": true
+  },
+  {
+   "mission": "uiseong_andong_2025/20250324T090000Z_FL2",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2143
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2143
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.000963136429553979,
+     0.000963136429553979
+    ],
+    "peak_share": [
+     7.789107245657532e-05,
+     7.789107245657532e-05
+    ]
+   },
+   "wall_frozen": 12.705345646498245,
+   "wall_v2": 12.62001522349965,
+   "peak_frozen": 375.79296875,
+   "peak_v2": 367.751953125,
+   "g5_memory": true
+  },
+  {
+   "mission": "uiseong_andong_2025/20250325T170000Z_FW1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1064
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1064
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.002531080132433629,
+     0.002531080132433629
+    ],
+    "peak_share": [
+     3.4786897875987775e-05,
+     3.4786897875987775e-05
+    ]
+   },
+   "wall_frozen": 13.996868155500124,
+   "wall_v2": 13.89125411600071,
+   "peak_frozen": 823.490234375,
+   "peak_v2": 863.41015625,
+   "g5_memory": true
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FD1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1589
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1589
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     8.532599890878386e-06,
+     8.532599890878386e-06
+    ],
+    "peak_share": [
+     2.071651006326782e-07,
+     2.071651006326782e-07
+    ]
+   },
+   "wall_frozen": 16.16064921150064,
+   "wall_v2": 16.01538575000086,
+   "peak_frozen": 201.958984375,
+   "peak_v2": 206.37109375,
+   "g5_memory": true
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FX1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     3119
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     3119
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.31269412902542953,
+     0.31269412902542953
+    ],
+    "peak_share": [
+     2.4888481683953225e-05,
+     2.4888481683953225e-05
+    ]
+   },
+   "wall_frozen": 29.649828418499965,
+   "wall_v2": 29.74577763799971,
+   "peak_frozen": 277.078125,
+   "peak_v2": 275.501953125,
+   "g5_memory": true
+  },
+  {
+   "mission": "uljin_2022/20220304T060000Z_FL1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2067
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2067
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.00042449563025189824,
+     0.00042449563025189824
+    ],
+    "peak_share": [
+     7.783531030459555e-06,
+     7.783531030459555e-06
+    ]
+   },
+   "wall_frozen": 6.491975799001011,
+   "wall_v2": 6.799739030002456,
+   "peak_frozen": 209.841796875,
+   "peak_v2": 208.087890625,
+   "g5_memory": true
+  },
+  {
+   "mission": "uljin_2022/20220304T120000Z_FW2",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1655
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1655
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.0029573730623518096,
+     0.0029573730623518096
+    ],
+    "peak_share": [
+     0.000257005252861869,
+     0.000257005252861869
+    ]
+   },
+   "wall_frozen": 5.986911551000958,
+   "wall_v2": 6.0233656389991665,
+   "peak_frozen": 169.638671875,
+   "peak_v2": 174.591796875,
+   "g5_memory": true
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FD1",
+   "frozen": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "v2": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     null,
+     null
+    ],
+    "peak_share": [
+     null,
+     null
+    ]
+   },
+   "wall_frozen": 33.02974878049827,
+   "wall_v2": 34.842633119998936,
+   "peak_frozen": 1474.494140625,
+   "peak_v2": 1475.10546875,
+   "g5_memory": true
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FX2",
+   "frozen": [
+    [
+     "UNRESOLVED",
+     null
+    ]
+   ],
+   "v2": [
+    [
+     "UNRESOLVED",
+     null
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     null,
+     null
+    ],
+    "peak_share": [
+     null,
+     null
+    ]
+   },
+   "wall_frozen": 79.74581759300054,
+   "wall_v2": 78.09708261800188,
+   "peak_frozen": 1561.65625,
+   "peak_v2": 1553.244140625,
+   "g5_memory": true
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T230000Z_FL2",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FEASIBLE",
+     1922
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1922
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     0.0018317870532689085,
+     0.0018317870532689085
+    ],
+    "peak_share": [
+     5.5077835066998286e-05,
+     5.5077835066998286e-05
+    ]
+   },
+   "wall_frozen": 25.55464155300251,
+   "wall_v2": 25.67034348749985,
+   "peak_frozen": 662.47265625,
+   "peak_v2": 674.33984375,
+   "g5_memory": true
+  },
+  {
+   "mission": "yeongdeok_2025/20250326T080000Z_FW1",
+   "frozen": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     896
+    ]
+   ],
+   "v2": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     896
+    ]
+   ],
+   "g1": true,
+   "g3": true,
+   "shares": {
+    "dose_share": [
+     1.2438104243694181e-06,
+     1.2438104243694181e-06
+    ],
+    "peak_share": [
+     2.0860207637771055e-08,
+     2.0860207637771055e-08
+    ]
+   },
+   "wall_frozen": 17.484301952999886,
+   "wall_v2": 17.939958625000145,
+   "peak_frozen": 636.244140625,
+   "peak_v2": 631.2109375,
+   "g5_memory": true
+  }
+ ],
+ "g1_failures": [],
+ "g3_failures": [],
+ "review_changes": [],
+ "sum_median_wall": {
+  "FROZEN": 350.01625316600075,
+  "V2": 351.7328613630034
+ },
+ "g5_wall_ratio": 1.0049043671014573,
+ "g5_wall": true,
+ "g5_memory": true,
+ "v2_rows_with_kit_identity": 40,
+ "v2_rows": 40,
+ "frozen_rows_with_kit_identity": 0,
+ "published_v2_routes": [
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uljin_2022__20220304T030000Z_FX1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uiseong_andong_2025__20250323T010000Z_FX2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uljin_2022__20220304T060000Z_FL1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/miryang_2022__20220601T020000Z_FW1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/hongseong_2023__20230402T140000Z_FW2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uiseong_andong_2025__20250324T090000Z_FL2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/yeongdeok_2025__20250325T230000Z_FL2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uljin_2022__20220304T120000Z_FW2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/hongseong_2023__20230402T230000Z_FD1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uiseong_andong_2025__20250325T170000Z_FW1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/yeongdeok_2025__20250326T080000Z_FW1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uljin_2022__20220304T030000Z_FD1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/miryang_2022__20220531T100000Z_FN1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r1/uiseong_andong_2025__20250323T010000Z_FD1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uiseong_andong_2025__20250323T010000Z_FD1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/miryang_2022__20220531T100000Z_FN1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uljin_2022__20220304T030000Z_FD1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/yeongdeok_2025__20250326T080000Z_FW1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uiseong_andong_2025__20250325T170000Z_FW1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/hongseong_2023__20230402T230000Z_FD1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uljin_2022__20220304T120000Z_FW2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/yeongdeok_2025__20250325T230000Z_FL2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uiseong_andong_2025__20250324T090000Z_FL2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/hongseong_2023__20230402T140000Z_FW2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/miryang_2022__20220601T020000Z_FW1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uljin_2022__20220304T060000Z_FL1",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uiseong_andong_2025__20250323T010000Z_FX2",
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/v2_step3_g1/V2/r2/uljin_2022__20220304T030000Z_FX1"
+ ]
+}

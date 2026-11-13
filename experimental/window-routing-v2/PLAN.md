@@ -357,8 +357,13 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
   - check it with both F-3.2 checkers (`check_py.py`, `checker_c/wfgc_check`) in fresh processes;
   - record the bundle sha, plus the graph, packet and request digests;
   - gate: X1 rules 0–2 plus G2b agreement;
-  - wording: "relaxation refusal independently checked by two checkers; implication to the kit model by an unverified
-    dominance argument" (`xcheck/DOMINANCE_RULE.md`, code reading only, NOT verified).
+  - wording (final; it replaces the original W1 sentence, as approved by Mira in ledgers 106–109 and recorded in
+    `g2c_stage_z_refusals.json`): "relaxation refusal independently checked by two checkers; implication to the kit's
+    whole-road model by a written dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code
+    at f2cbcfc, byte-identical through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and
+    the run records' kit identity, not per-run import hashes; reviewed by Mira as a document, the code reading itself
+    not independently re-checked), conditional on both sides using the same packet members, flame law and grid cells;
+    packet, members and grid checked"
 - **Stage LO/LO2 refusals (road_lower_bound_lattice_relaxation):**
   - no independent certificate format exists;
   - a fresh-process road_core rerun is re-execution only, labelled `REEXECUTED_ONLY`, never pooled;
@@ -366,6 +371,34 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
 - **Count (Step 0 panel, v2, 2 reps).** Of 10 FULL_MODEL_REFUSAL_PROVEN results, **8 are stage Z** (Hongseong
   0700 FN1, FX1; Miryang 0601T08 FD1, FX1; 2 reps each) and **2 are stage LO** (Yeongdeok 0325T19 FD1, 2 reps). In
   missions: **4 of 5 refusal missions are Z, 1 is LO**.
+
+**G2c result for the 4 stage-Z refusal missions (Thomas, 19:14 UTC; `thomas/routing-next` @ 8d3c58c7, now also on Main).
+Verified by Mira:** ledger 103 (the four refusal bundles FULLY_BOUND with her own inputs) and ledgers 106–109 (wording and
+code identity).
+- All 4 are F-3.2 NO_ROUTE certificates with T = 3601. Each is accepted by `check_py` and `wfgc_check` in fresh
+  processes, and each is FULLY_BOUND under binding rule 2.2 (R2, R3, T7a, T7b).
+- Bundles (`xcheck/results/g2c_bundles/*.v2.wfgc`; record `xcheck/results/g2c_stage_z_refusals.json`):
+  - Hongseong 0700 FN1: I 3848b22fb146eb98, 61,944 B;
+  - Hongseong 0700 FX1: I 1c21b2d5b7a5c1e3, 61,943 B;
+  - Miryang 0601T08 FD1: I 1b4026fd5f770959, 139,440 B;
+  - Miryang 0601T08 FX1: I 136d908351445370, 137,294 B.
+- Input digests match the request, HAZARD and graph prefixes I sent. The packet gate P1 (X1 rules 1, 2 and 4) passes;
+  rule 3 is covered by T7b.
+- So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions. **Required wording, final** (Thomas 22:52 UTC;
+  Mira, ledgers 106–109; it replaces W1 and W2′; recorded in `g2c_stage_z_refusals.json` on `thomas/routing-next`, now on Main):
+  "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written
+  dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code at f2cbcfc, byte-identical
+  through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and the run records' kit identity,
+  not per-run import hashes; reviewed by Mira as a document, the code reading itself not independently re-checked),
+  conditional on both sides using the same packet members, flame law and grid cells; packet, members and grid checked"
+  - Backing: the premise checks (grid rectangles, members, flame law, per-member flame phases), re-derived
+    independently by Mira (`xcheck/results/g2c_premises.json`, `g2c_stage_z_refusals.json` on `thomas/routing-next`).
+  - **Code identity of the four Step 0 jobs is manifest-based, not a per-run import-time hash.** Each RESULT records the
+    kit path and `kit_identity`. The kit-v2-step0 manifest (b37e0c79…) lists `contact_first.py` d2d2c4c8…,
+    `mission_contract.py` 2de57c83… and `hybrid_checker.py` ca7d0614…, which are the blobs DOMINANCE_RULE §1 was read
+    against. The files are unchanged since the kit build, which preceded the runs. Mira confirmed this chain from her own
+    Step 0 build (ledger 109), and the qualifier is in the final wording above.
+- Yeongdeok 0325T19 FD1 (stage LO) stays `REEXECUTED_ONLY`.
 
 **G6. Full one-hour verdict reproduction (before any multi-hour v2 number is quoted).**
 - v2 must reproduce all **9,722** recorded one-hour route-check verdicts, not only the 20-mission panel.
@@ -526,6 +559,60 @@ sweep?
    - The dense path stays the 1-hour solver until G6 shows the field reproduces it.
 7. **Then, by decision:** Step 1b (support outcomes); Step 7 (constant radiation tier and option A, 1-hour); Step 8
    (tie-break); Step 9 (thresholded-dose labelled variant). Iris reads the Step 9 sourcing lines before code.
+
+**Identity record, future steps (Thomas 22:46 UTC; test stated before code).** From the next step that edits the
+worker, the per-job identity record also carries the sha256 of `contact_first.py`, `mission_contract.py` and
+`hybrid_checker.py` as imported, read from each module's `__file__` at import time. Pre-stated test: a job's recorded
+hashes equal the kit manifest's entries for those three files, and a deliberately modified copy in a scratch kit is
+recorded with its own hash, not the manifest's.
+
+**Step 3c (separate, later; Iris 23:43 UTC, adopted by the orchestrator): outcome determinism independent of host
+speed.** Step 3's known limit is that outcomes are deterministic only within about 1.65× of the reference host:
+1.66× on the F-DYN set (Yeongdeok 0325T23 …166, budget-capped Z 9.65 s) and 1.84× on the 1-hour panel (Yeongdeok
+0325T19 FD1 and FX2), against the 16 s Z watchdog (Mira, ledger 120). Iris rejected deriving Z's watchdog from the remaining job time: that moves the cliff
+into a later stage or the job deadline instead of removing it.
+
+- **Design:**
+  1. Every stage is bounded by work units.
+  2. One wall watchdog, at **job** level only. When it fires, the result carries a **distinct "host too slow for this
+     job" status**. That status is never reported or compared as a model verdict, and never as plain UNRESOLVED.
+  3. A **host-speed preflight**: a fixed work-unit microbenchmark at the start of each job. Its factor against the
+     reference host is recorded in every result. Outside a stated factor, the run is flagged not comparable.
+- **Stages bounded by wall time today, and whether they can be work-bounded:**
+  - Z: already work-bounded (Step 3).
+  - LO, LO2, HI (`road_core.solve` with the bound model): **yes**, in expansions plus bound-model boxes, ticked at
+    the points Step 3 already uses for the wall check.
+  - EA build: **yes**, in backward sweep seconds × states, like Z's sweep.
+  - Admission, preparation and bound-model build: deterministic and finite, but not capped today. Work-boundable in
+    principle by ticking their loops; budgets would need the same calibration rule.
+  - **Whole-road checks (`HybridChecker`, adaptive fallback): NOT work-boundable without editing the checker.** The
+    checker is shared, certificate-adjacent code (Thomas reviews). Until then it stays bounded by the job deadline.
+    Under this design a check stopped by the job-level watchdog gets the distinct host-too-slow status.
+  - Publication and final binding: short and deterministic; covered by the job-level watchdog.
+- **Test, written before any code (Iris):**
+  - On the reference host, 1-hour panel verdicts and arrivals are unchanged, and the 9,722 gate (G6) passes.
+  - Injected slowdown at factors 1.5, 2 and 3, using a per-unit delay:
+    - unit counts are identical;
+    - verdicts are identical up to where the job-level watchdog fires, and beyond that only the distinct status
+      appears;
+    - **zero** cases where slowdown turns a refusal or a route into another model verdict, or into plain UNRESOLVED.
+  - FD1 keeps its refusal at 2× slowdown.
+  - The factor at which the watchdog first fires is measured and reported as the validity margin.
+
+**Step 3b (separate, later; NOT part of Step 3; orchestrator 20:02 UTC, from Iris's observation): cache
+`routing.core.edge_occupancies`.**
+- **Hypothesis**, measured once by cProfile under load: about 93% of the Uiseong F-DYN Z setup (about 18 s) is 11,011
+  calls to `core.edge_occupancies`, one per contact-candidate edge, at about 1.6 ms each in exact Fraction arithmetic.
+- **What:** a cache keyed on the edge and the fire field, if and only if a code reading shows the output depends on
+  nothing else (no request field, no clock).
+- **Acceptance:**
+  - byte-identical occupancy output for every key (old vs cached, on the 1-hour panel and the F-DYN packets);
+  - Z setup wall before and after, per mission;
+  - setup units unchanged; the setup unit counts calls, so a cache hit still counts as one unit, which keeps budgets
+    comparable. This is to be confirmed with Iris.
+- **Thomas reviews it,** because the occupancies sit under the contact certificates.
+- **Scope note:** if Step 6 (the interval-field solver for multi-hour) passes, the multi-hour solver no longer runs this
+  setup. This step then matters only for the dense one-hour path.
 
 **Steps 4 and 5 are CONDITIONAL, not deleted.** They are built only if Step 6 fails its acceptance, or if the dense
 path is still needed at multi-hour:

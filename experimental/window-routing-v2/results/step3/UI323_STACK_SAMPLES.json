@@ -1,0 +1,1202 @@
+[
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:50",
+  "samples": 20,
+  "first_s": 119.4,
+  "last_s": 391.1
+ },
+ {
+  "key": "zsweep.py:__init__:429 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 18,
+  "first_s": 77.2,
+  "last_s": 100.7
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:52",
+  "samples": 18,
+  "first_s": 117.4,
+  "last_s": 425.6
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:sqrt_bracket:37 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 16,
+  "first_s": 109.4,
+  "last_s": 444.7
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:52",
+  "samples": 15,
+  "first_s": 126.0,
+  "last_s": 442.7
+ },
+ {
+  "key": "road_bounds.py:dsum_last:111 < road_bounds.py:_activity:439 < road_bounds.py:_batch:458 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498 < road_bounds.py:edge:640",
+  "samples": 15,
+  "first_s": 305.7,
+  "last_s": 387.6
+ },
+ {
+  "key": "road_bounds.py:__init__:272 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 14,
+  "first_s": 25.8,
+  "last_s": 32.3
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sqrt_bracket:37 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 14,
+  "first_s": 121.4,
+  "last_s": 430.6
+ },
+ {
+  "key": "zsweep.py:__init__:373 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 11,
+  "first_s": 61.7,
+  "last_s": 72.7
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:52",
+  "samples": 11,
+  "first_s": 106.9,
+  "last_s": 443.7
+ },
+ {
+  "key": "zsweep.py:contact_sweep:146 < rda_worker_v1_1.py:main:366 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 10,
+  "first_s": 42.5,
+  "last_s": 56.8
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:mulhi:25 < road_bounds.py:_radial:359 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 10,
+  "first_s": 115.4,
+  "last_s": 415.1
+ },
+ {
+  "key": "road_bounds.py:__init__:273 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 9,
+  "first_s": 32.8,
+  "last_s": 36.8
+ },
+ {
+  "key": "zsweep.py:__init__:437 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 9,
+  "first_s": 79.7,
+  "last_s": 98.7
+ },
+ {
+  "key": "road_bounds.py:_radial:367 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 9,
+  "first_s": 104.9,
+  "last_s": 448.7
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 9,
+  "first_s": 149.0,
+  "last_s": 446.7
+ },
+ {
+  "key": "zsweep.py:__init__:443 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 8,
+  "first_s": 78.7,
+  "last_s": 99.7
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:mulhi:25 < radiation_bounds.py:sqrt_bracket:38 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390",
+  "samples": 8,
+  "first_s": 113.9,
+  "last_s": 408.1
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:mullo:24 < radiation_bounds.py:sqrt_bracket:38 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390",
+  "samples": 8,
+  "first_s": 118.4,
+  "last_s": 418.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 8,
+  "first_s": 120.4,
+  "last_s": 400.1
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sublo:26 < road_bounds.py:_radial:349 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 8,
+  "first_s": 153.0,
+  "last_s": 447.7
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 7,
+  "first_s": 103.4,
+  "last_s": 439.7
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:52",
+  "samples": 7,
+  "first_s": 108.9,
+  "last_s": 390.6
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:50",
+  "samples": 7,
+  "first_s": 111.9,
+  "last_s": 444.2
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 7,
+  "first_s": 114.4,
+  "last_s": 448.2
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 7,
+  "first_s": 116.4,
+  "last_s": 325.0
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 7,
+  "first_s": 128.5,
+  "last_s": 434.2
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 7,
+  "first_s": 133.5,
+  "last_s": 427.1
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:50",
+  "samples": 7,
+  "first_s": 176.5,
+  "last_s": 327.5
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:mullo:24 < road_bounds.py:_radial:355 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 7,
+  "first_s": 188.0,
+  "last_s": 401.1
+ },
+ {
+  "key": "road_bounds.py:__init__:274 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 6,
+  "first_s": 37.3,
+  "last_s": 39.8
+ },
+ {
+  "key": "zsweep.py:__init__:439 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 6,
+  "first_s": 80.2,
+  "last_s": 98.2
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 6,
+  "first_s": 105.9,
+  "last_s": 435.2
+ },
+ {
+  "key": "radiation_bounds.py:sqrt_bracket:38 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 6,
+  "first_s": 110.9,
+  "last_s": 340.0
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:50",
+  "samples": 6,
+  "first_s": 114.9,
+  "last_s": 414.6
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:addlo:22 < road_bounds.py:_radial:355 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 6,
+  "first_s": 125.5,
+  "last_s": 446.2
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:mullo:24 < road_bounds.py:_radial:358 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 6,
+  "first_s": 131.0,
+  "last_s": 350.0
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 6,
+  "first_s": 148.0,
+  "last_s": 355.0
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:mulhi:25 < road_bounds.py:_radial:356 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 6,
+  "first_s": 177.0,
+  "last_s": 378.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 6,
+  "first_s": 178.0,
+  "last_s": 283.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 6,
+  "first_s": 204.5,
+  "last_s": 429.6
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:addhi:23 < road_bounds.py:_radial:356 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 6,
+  "first_s": 208.0,
+  "last_s": 409.6
+ },
+ {
+  "key": "road_bounds.py:dsum_last:105 < road_bounds.py:_activity:439 < road_bounds.py:_batch:458 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498 < road_bounds.py:edge:640",
+  "samples": 6,
+  "first_s": 311.2,
+  "last_s": 386.1
+ },
+ {
+  "key": "road_bounds.py:dn:95 < road_bounds.py:down_div:569 < road_bounds.py:_radial:363 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 107.9,
+  "last_s": 413.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 5,
+  "first_s": 111.4,
+  "last_s": 274.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 5,
+  "first_s": 127.0,
+  "last_s": 431.2
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 5,
+  "first_s": 130.0,
+  "last_s": 424.6
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83",
+  "samples": 5,
+  "first_s": 132.0,
+  "last_s": 418.6
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:subhi:27 < road_bounds.py:_radial:352 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 133.0,
+  "last_s": 278.6
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sublo:26 < road_bounds.py:_radial:351 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 134.5,
+  "last_s": 329.5
+ },
+ {
+  "key": "radiation_bounds.py:sublo:26 < road_bounds.py:_radial:348 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 5,
+  "first_s": 141.5,
+  "last_s": 388.6
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sublo:26 < road_bounds.py:_radial:348 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 144.5,
+  "last_s": 428.1
+ },
+ {
+  "key": "road_bounds.py:_radial:352 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 5,
+  "first_s": 148.5,
+  "last_s": 331.0
+ },
+ {
+  "key": "road_bounds.py:dsum_last:111 < road_bounds.py:_coefficients:404 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 5,
+  "first_s": 154.0,
+  "last_s": 410.6
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:subhi:27 < road_bounds.py:_radial:350 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 154.5,
+  "last_s": 421.1
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sublo:26 < road_bounds.py:_radial:353 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 175.5,
+  "last_s": 304.2
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 5,
+  "first_s": 177.5,
+  "last_s": 449.2
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:subhi:27 < road_bounds.py:_radial:351 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 5,
+  "first_s": 199.5,
+  "last_s": 412.6
+ },
+ {
+  "key": "radiation_bounds.py:sublo:26 < road_bounds.py:_radial:349 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 5,
+  "first_s": 289.7,
+  "last_s": 424.1
+ },
+ {
+  "key": "fractions.py:_from_coprime_ints:341 < fractions.py:_mul:807 < fractions.py:forward:668 < road_bounds.py:__init__:208 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 4,
+  "first_s": 8.7,
+  "last_s": 13.1
+ },
+ {
+  "key": "_methods.py:_any:61 < zsweep.py:__init__:374 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98",
+  "samples": 4,
+  "first_s": 60.0,
+  "last_s": 74.0
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 4,
+  "first_s": 108.4,
+  "last_s": 411.6
+ },
+ {
+  "key": "radiation_bounds.py:sublo:26 < road_bounds.py:_radial:350 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 4,
+  "first_s": 123.0,
+  "last_s": 402.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 4,
+  "first_s": 124.0,
+  "last_s": 420.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 4,
+  "first_s": 129.0,
+  "last_s": 407.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 4,
+  "first_s": 136.5,
+  "last_s": 445.2
+ },
+ {
+  "key": "road_bounds.py:_radial:350 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 4,
+  "first_s": 138.5,
+  "last_s": 343.0
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 4,
+  "first_s": 145.0,
+  "last_s": 380.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 4,
+  "first_s": 167.0,
+  "last_s": 330.0
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83",
+  "samples": 4,
+  "first_s": 169.5,
+  "last_s": 374.6
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 4,
+  "first_s": 262.6,
+  "last_s": 441.7
+ },
+ {
+  "key": "road_bounds.py:up:99 < road_bounds.py:dsum_last:111 < road_bounds.py:_activity:439 < road_bounds.py:_batch:458 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 4,
+  "first_s": 305.2,
+  "last_s": 316.7
+ },
+ {
+  "key": "road_bounds.py:dsum_last:109 < road_bounds.py:_activity:439 < road_bounds.py:_batch:458 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498 < road_bounds.py:edge:640",
+  "samples": 4,
+  "first_s": 307.2,
+  "last_s": 387.1
+ },
+ {
+  "key": "fractions.py:__new__:203 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 3,
+  "first_s": 14.7,
+  "last_s": 17.4
+ },
+ {
+  "key": "zsweep.py:contact_sweep:128 < rda_worker_v1_1.py:main:366 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 3,
+  "first_s": 40.9,
+  "last_s": 41.9
+ },
+ {
+  "key": "zsweep.py:__init__:364 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 3,
+  "first_s": 58.4,
+  "last_s": 59.4
+ },
+ {
+  "key": "numeric.py:full:386 < zsweep.py:__init__:414 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98",
+  "samples": 3,
+  "first_s": 75.2,
+  "last_s": 76.2
+ },
+ {
+  "key": "zsweep.py:__init__:447 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 3,
+  "first_s": 82.2,
+  "last_s": 93.7
+ },
+ {
+  "key": "zsweep.py:__init__:426 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 3,
+  "first_s": 84.2,
+  "last_s": 99.2
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 104.4,
+  "last_s": 230.6
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:mullo:24 < radiation_bounds.py:sqrt_bracket:38 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:71",
+  "samples": 3,
+  "first_s": 112.9,
+  "last_s": 295.7
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 3,
+  "first_s": 115.9,
+  "last_s": 346.5
+ },
+ {
+  "key": "radiation_bounds.py:sqrt_bracket:37 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 116.9,
+  "last_s": 205.0
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 3,
+  "first_s": 121.9,
+  "last_s": 286.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 140.5,
+  "last_s": 438.7
+ },
+ {
+  "key": "radiation_bounds.py:sqrt_bracket:36 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 147.0,
+  "last_s": 166.0
+ },
+ {
+  "key": "road_bounds.py:dsum_last:111 < road_bounds.py:_coefficients:403 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 3,
+  "first_s": 160.0,
+  "last_s": 270.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 161.5,
+  "last_s": 370.5
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:subhi:27 < road_bounds.py:_radial:353 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 3,
+  "first_s": 167.5,
+  "last_s": 440.7
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 171.0,
+  "last_s": 252.6
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:50",
+  "samples": 3,
+  "first_s": 171.5,
+  "last_s": 285.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 194.0,
+  "last_s": 377.6
+ },
+ {
+  "key": "radiation_bounds.py:mulhi:25 < road_bounds.py:_radial:356 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 206.5,
+  "last_s": 282.6
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 3,
+  "first_s": 224.6,
+  "last_s": 403.1
+ },
+ {
+  "key": "ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:52",
+  "samples": 3,
+  "first_s": 227.1,
+  "last_s": 343.5
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 240.6,
+  "last_s": 298.7
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 3,
+  "first_s": 246.6,
+  "last_s": 302.2
+ },
+ {
+  "key": "radiation_bounds.py:subhi:27 < road_bounds.py:_radial:351 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 261.1,
+  "last_s": 439.2
+ },
+ {
+  "key": "radiation_bounds.py:mullo:24 < road_bounds.py:_radial:358 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 262.1,
+  "last_s": 429.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 3,
+  "first_s": 266.1,
+  "last_s": 359.5
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 279.1,
+  "last_s": 399.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 3,
+  "first_s": 292.7,
+  "last_s": 436.7
+ },
+ {
+  "key": "radiation_bounds.py:mullo:24 < road_bounds.py:_radial:355 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 296.7,
+  "last_s": 442.2
+ },
+ {
+  "key": "road_bounds.py:dsum_last:109 < road_bounds.py:_coefficients:404 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 3,
+  "first_s": 299.2,
+  "last_s": 347.0
+ },
+ {
+  "key": "road_bounds.py:_activity:436 < road_bounds.py:_batch:458 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498 < road_bounds.py:edge:640 < road_core.py:<lambda>:861",
+  "samples": 3,
+  "first_s": 308.7,
+  "last_s": 385.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 3,
+  "first_s": 353.5,
+  "last_s": 441.2
+ },
+ {
+  "key": "road_bounds.py:dn:95 < road_bounds.py:dsum_last:111 < road_bounds.py:_coefficients:403 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 3,
+  "first_s": 376.1,
+  "last_s": 434.7
+ },
+ {
+  "key": "copy.py:deepcopy:119 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_dict:222",
+  "samples": 2,
+  "first_s": 5.6,
+  "last_s": 319.5
+ },
+ {
+  "key": "<frozen abc>:__instancecheck__:119 < fractions.py:__new__:242 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354",
+  "samples": 2,
+  "first_s": 14.2,
+  "last_s": 15.3
+ },
+ {
+  "key": "road_exposure.py:outward_float:62 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:211 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 2,
+  "first_s": 21.1,
+  "last_s": 21.6
+ },
+ {
+  "key": "fractions.py:__new__:203 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:211 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 2,
+  "first_s": 22.1,
+  "last_s": 24.3
+ },
+ {
+  "key": "copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_dict:222 < copy.py:deepcopy:137",
+  "samples": 2,
+  "first_s": 102.4,
+  "last_s": 319.0
+ },
+ {
+  "key": "radiation_bounds.py:sublo:26 < road_bounds.py:_radial:352 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 2,
+  "first_s": 103.9,
+  "last_s": 328.0
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 105.4,
+  "last_s": 159.5
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:mulhi:25 < road_bounds.py:_radial:361 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 2,
+  "first_s": 106.4,
+  "last_s": 396.6
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:mulhi:25 < radiation_bounds.py:sqrt_bracket:38 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:69",
+  "samples": 2,
+  "first_s": 110.4,
+  "last_s": 288.7
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:44 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83",
+  "samples": 2,
+  "first_s": 123.5,
+  "last_s": 413.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_reduce:44 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 2,
+  "first_s": 125.0,
+  "last_s": 304.7
+ },
+ {
+  "key": "radiation_bounds.py:mullo:24 < road_bounds.py:_radial:360 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 2,
+  "first_s": 126.5,
+  "last_s": 425.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 2,
+  "first_s": 132.5,
+  "last_s": 449.7
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:corner_bounds:79 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:50 < road_bounds.py:_coefficients:409 < road_bounds.py:coefficients:390",
+  "samples": 2,
+  "first_s": 134.0,
+  "last_s": 354.0
+ },
+ {
+  "key": "radiation_bounds.py:sublo:26 < road_bounds.py:_radial:351 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 2,
+  "first_s": 137.0,
+  "last_s": 221.1
+ },
+ {
+  "key": "road_bounds.py:_radial:363 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 2,
+  "first_s": 139.5,
+  "last_s": 388.1
+ },
+ {
+  "key": "ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:50",
+  "samples": 2,
+  "first_s": 149.5,
+  "last_s": 433.2
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83",
+  "samples": 2,
+  "first_s": 174.0,
+  "last_s": 397.6
+ },
+ {
+  "key": "ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:52",
+  "samples": 2,
+  "first_s": 174.5,
+  "last_s": 211.6
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_reduce:44 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 2,
+  "first_s": 179.5,
+  "last_s": 396.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_reduce:47 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 2,
+  "first_s": 184.5,
+  "last_s": 198.0
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:44 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83",
+  "samples": 2,
+  "first_s": 186.0,
+  "last_s": 220.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 2,
+  "first_s": 195.5,
+  "last_s": 364.5
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:corner_bounds:80 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:52 < road_bounds.py:_coefficients:409",
+  "samples": 2,
+  "first_s": 197.5,
+  "last_s": 214.1
+ },
+ {
+  "key": "radiation_bounds.py:mulhi:25 < radiation_bounds.py:sqrt_bracket:38 < road_bounds.py:_radial:357 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 2,
+  "first_s": 202.0,
+  "last_s": 267.1
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:corner_bounds:80 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:52 < road_bounds.py:_coefficients:409",
+  "samples": 2,
+  "first_s": 217.1,
+  "last_s": 284.6
+ },
+ {
+  "key": "road_bounds.py:up:99 < road_bounds.py:dsum_last:111 < road_bounds.py:_coefficients:404 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 2,
+  "first_s": 222.1,
+  "last_s": 389.6
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_reduce:46 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 224.1,
+  "last_s": 256.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 225.6,
+  "last_s": 233.1
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 233.6,
+  "last_s": 259.1
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83",
+  "samples": 2,
+  "first_s": 235.1,
+  "last_s": 321.5
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sublo:26 < road_bounds.py:_radial:350 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 2,
+  "first_s": 238.6,
+  "last_s": 383.1
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 245.1,
+  "last_s": 293.2
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_reduce:47 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 249.1,
+  "last_s": 358.0
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 255.6,
+  "last_s": 257.6
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 269.6,
+  "last_s": 340.5
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:27 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:65 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91",
+  "samples": 2,
+  "first_s": 272.1,
+  "last_s": 326.0
+ },
+ {
+  "key": "radiation_bounds.py:up:21 < radiation_bounds.py:sqrt_bracket:37 < ivkernel.py:_reduce:45 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83",
+  "samples": 2,
+  "first_s": 290.7,
+  "last_s": 291.7
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:corner_bounds:81 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:52 < road_bounds.py:_coefficients:409 < road_bounds.py:coefficients:390",
+  "samples": 2,
+  "first_s": 294.2,
+  "last_s": 348.0
+ },
+ {
+  "key": "road_bounds.py:up:99 < road_bounds.py:_radial:367 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 2,
+  "first_s": 294.7,
+  "last_s": 323.0
+ },
+ {
+  "key": "road_bounds.py:dsum_last:105 < road_bounds.py:_coefficients:404 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 2,
+  "first_s": 333.5,
+  "last_s": 366.5
+ },
+ {
+  "key": "ivkernel.py:up:18 < ivkernel.py:_series:37 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 2,
+  "first_s": 339.0,
+  "last_s": 408.6
+ },
+ {
+  "key": "ivkernel.py:_reduce:47 < ivkernel.py:small:56 < ivkernel.py:atan_bounds:69 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:50",
+  "samples": 2,
+  "first_s": 339.5,
+  "last_s": 407.6
+ },
+ {
+  "key": "radiation_bounds.py:subhi:27 < road_bounds.py:_radial:350 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487",
+  "samples": 2,
+  "first_s": 346.0,
+  "last_s": 376.6
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:mullo:24 < road_bounds.py:_radial:360 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 2,
+  "first_s": 361.0,
+  "last_s": 443.2
+ },
+ {
+  "key": "road_bounds.py:_radial:351 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451 < road_bounds.py:_ensure_edges:487 < road_bounds.py:edge_store:498",
+  "samples": 2,
+  "first_s": 365.5,
+  "last_s": 437.7
+ },
+ {
+  "key": "threading.py:wait:359 < threading.py:wait:660 < threading.py:start:982 < phase_worker.py:<module>:36",
+  "samples": 1,
+  "first_s": 0.0,
+  "last_s": 0.0
+ },
+ {
+  "key": "decoder.py:raw_decode:361 < decoder.py:decode:345 < __init__.py:loads:352 < rda_worker_v1_1.py:main:136 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 1,
+  "first_s": 1.0,
+  "last_s": 1.0
+ },
+ {
+  "key": "encoder.py:iterencode:263 < encoder.py:encode:202 < __init__.py:dumps:242 < rda_worker_v1_1.py:canonical:74 < rda_worker_v1_1.py:main:141 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 2.4,
+  "last_s": 2.4
+ },
+ {
+  "key": "encoder.py:iterencode:263 < encoder.py:encode:202 < __init__.py:dumps:242 < prepared.py:_encode:34 < prepared.py:__init__:59 < preparation_mode.py:prepare_graph:66",
+  "samples": 1,
+  "first_s": 3.0,
+  "last_s": 3.0
+ },
+ {
+  "key": "admission_geometry.py:<genexpr>:163 < admission_geometry.py:__call__:163 < validation.py:_validate_graph:169 < validation.py:validate_graph:214 < prepared.py:__init__:61 < preparation_mode.py:prepare_graph:66",
+  "samples": 1,
+  "first_s": 3.5,
+  "last_s": 3.5
+ },
+ {
+  "key": "numbers.py:__float__:317 < admission_geometry.py:_serialize:71 < admission_geometry.py:__call__:115 < admission_geometry.py:__call__:200 < validation.py:_validate_graph:169 < validation.py:validate_graph:214",
+  "samples": 1,
+  "first_s": 4.0,
+  "last_s": 4.0
+ },
+ {
+  "key": "copy.py:deepcopy:125 < copy.py:_deepcopy_dict:222 < copy.py:deepcopy:137 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_dict:222",
+  "samples": 1,
+  "first_s": 4.5,
+  "last_s": 4.5
+ },
+ {
+  "key": "validation.py:number:24 < validation.py:_validate_hazard:294 < validation.py:validate_hazard:302 < rda_worker_v1_1.py:main:209 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 1,
+  "first_s": 5.1,
+  "last_s": 5.1
+ },
+ {
+  "key": "copy.py:deepcopy:135 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_dict:222",
+  "samples": 1,
+  "first_s": 6.1,
+  "last_s": 6.1
+ },
+ {
+  "key": "cp437.py:<module>:46 < <frozen importlib._bootstrap>:_call_with_frames_removed:488 < <frozen importlib._bootstrap_external>:exec_module:1027 < <frozen importlib._bootstrap>:_load_unlocked:935 < <frozen importlib._bootstrap>:_find_and_load_unlocked:1340 < <frozen importlib._bootstrap>:_find_and_load:1369",
+  "samples": 1,
+  "first_s": 6.6,
+  "last_s": 6.6
+ },
+ {
+  "key": "<frozen abc>:__instancecheck__:119 < fractions.py:__new__:242 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < radiation_bounds.py:__init__:100 < hybrid_radiation.py:__init__:26",
+  "samples": 1,
+  "first_s": 7.2,
+  "last_s": 7.2
+ },
+ {
+  "key": "fractions.py:__new__:234 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < adaptive_checker.py:__init__:33 < road_bounds.py:__init__:197 < rda_worker_v1_1.py:main:354",
+  "samples": 1,
+  "first_s": 7.7,
+  "last_s": 7.7
+ },
+ {
+  "key": "fractions.py:__new__:234 < road_bounds.py:__init__:208 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98",
+  "samples": 1,
+  "first_s": 8.2,
+  "last_s": 8.2
+ },
+ {
+  "key": "<frozen abc>:__instancecheck__:117 < fractions.py:_richcmp:997 < fractions.py:__gt__:1014 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:209",
+  "samples": 1,
+  "first_s": 9.2,
+  "last_s": 9.2
+ },
+ {
+  "key": "fractions.py:_sub:779 < fractions.py:forward:668 < road_bounds.py:__init__:208 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 1,
+  "first_s": 10.7,
+  "last_s": 10.7
+ },
+ {
+  "key": "road_exposure.py:outward_float:64 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:209 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 1,
+  "first_s": 11.2,
+  "last_s": 11.2
+ },
+ {
+  "key": "<frozen abc>:__instancecheck__:117 < fractions.py:__new__:242 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:209 < rda_worker_v1_1.py:main:354",
+  "samples": 1,
+  "first_s": 12.3,
+  "last_s": 12.3
+ },
+ {
+  "key": "fractions.py:__new__:234 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:209 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 13.7,
+  "last_s": 13.7
+ },
+ {
+  "key": "fractions.py:__new__:249 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 15.8,
+  "last_s": 15.8
+ },
+ {
+  "key": "road_exposure.py:outward_float:62 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 1,
+  "first_s": 16.4,
+  "last_s": 16.4
+ },
+ {
+  "key": "fractions.py:__new__:234 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 17.9,
+  "last_s": 17.9
+ },
+ {
+  "key": "numbers.py:__float__:317 < road_exposure.py:outward_float:63 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 18.4,
+  "last_s": 18.4
+ },
+ {
+  "key": "fractions.py:_richcmp:998 < fractions.py:__gt__:1014 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354",
+  "samples": 1,
+  "first_s": 18.9,
+  "last_s": 18.9
+ },
+ {
+  "key": "road_bounds.py:__init__:210 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 1,
+  "first_s": 19.5,
+  "last_s": 19.5
+ },
+ {
+  "key": "fractions.py:__new__:234 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:211 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 20.1,
+  "last_s": 20.1
+ },
+ {
+  "key": "radiation_bounds.py:interval:49 < road_bounds.py:__init__:211 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98",
+  "samples": 1,
+  "first_s": 20.6,
+  "last_s": 20.6
+ },
+ {
+  "key": "<frozen abc>:__instancecheck__:117 < fractions.py:_richcmp:997 < fractions.py:__lt__:1010 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:211",
+  "samples": 1,
+  "first_s": 22.7,
+  "last_s": 22.7
+ },
+ {
+  "key": "<frozen abc>:__instancecheck__:119 < fractions.py:__new__:242 < road_exposure.py:outward_float:66 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:211 < rda_worker_v1_1.py:main:354",
+  "samples": 1,
+  "first_s": 23.2,
+  "last_s": 23.2
+ },
+ {
+  "key": "numbers.py:__float__:317 < road_exposure.py:outward_float:63 < radiation_bounds.py:interval:50 < road_bounds.py:__init__:211 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 23.8,
+  "last_s": 23.8
+ },
+ {
+  "key": "road_bounds.py:__init__:212 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 1,
+  "first_s": 24.8,
+  "last_s": 24.8
+ },
+ {
+  "key": "fractions.py:_richcmp:986 < fractions.py:__le__:1018 < road_bounds.py:__init__:232 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88",
+  "samples": 1,
+  "first_s": 25.3,
+  "last_s": 25.3
+ },
+ {
+  "key": "_methods.py:_amin:45 < road_bounds.py:__init__:274 < rda_worker_v1_1.py:main:354 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98",
+  "samples": 1,
+  "first_s": 40.3,
+  "last_s": 40.3
+ },
+ {
+  "key": "fractions.py:_from_coprime_ints:334 < fractions.py:_div:829 < fractions.py:forward:668 < core.py:edge_occupancies:48 < zsweep.py:contact_sweep:135 < rda_worker_v1_1.py:main:366",
+  "samples": 1,
+  "first_s": 43.5,
+  "last_s": 43.5
+ },
+ {
+  "key": "zsweep.py:contact_sweep:150 < rda_worker_v1_1.py:main:366 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 1,
+  "first_s": 57.4,
+  "last_s": 57.4
+ },
+ {
+  "key": "fractions.py:_div:818 < fractions.py:forward:668 < core.py:node_cell:22 < zsweep.py:contact_sweep:172 < rda_worker_v1_1.py:main:366 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 57.9,
+  "last_s": 57.9
+ },
+ {
+  "key": "fractions.py:_from_coprime_ints:334 < fractions.py:_add:769 < fractions.py:forward:668 < core.py:edge_occupancies:48 < zsweep.py:__init__:369 < rda_worker_v1_1.py:main:385",
+  "samples": 1,
+  "first_s": 68.3,
+  "last_s": 68.3
+ },
+ {
+  "key": "zsweep.py:__init__:377 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 1,
+  "first_s": 74.7,
+  "last_s": 74.7
+ },
+ {
+  "key": "fromnumeric.py:_wrapfunc:54 < fromnumeric.py:nonzero:2115 < numeric.py:flatnonzero:714 < zsweep.py:__init__:438 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 76.7,
+  "last_s": 76.7
+ },
+ {
+  "key": "zsweep.py:__init__:428 < rda_worker_v1_1.py:main:385 < rda_worker_v1_1.py:<module>:511 < <frozen runpy>:_run_code:88 < <frozen runpy>:_run_module_code:98 < <frozen runpy>:run_path:294",
+  "samples": 1,
+  "first_s": 94.2,
+  "last_s": 94.2
+ },
+ {
+  "key": "encoder.py:iterencode:263 < encoder.py:encode:205 < __init__.py:dumps:238 < prepared.py:_encode:34 < prepared.py:matches:85 < road_core.py:solve:441",
+  "samples": 1,
+  "first_s": 101.4,
+  "last_s": 101.4
+ },
+ {
+  "key": "validation.py:number:20 < validation.py:_validate_hazard:294 < validation.py:validate_hazard:302 < road_core.py:solve:446 < rda_worker_v1_1.py:main:414 < rda_worker_v1_1.py:<module>:511",
+  "samples": 1,
+  "first_s": 101.9,
+  "last_s": 101.9
+ },
+ {
+  "key": "copy.py:deepcopy:125 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_list:197 < copy.py:deepcopy:137 < copy.py:_deepcopy_dict:222",
+  "samples": 1,
+  "first_s": 102.9,
+  "last_s": 102.9
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:36 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:63 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 1,
+  "first_s": 107.4,
+  "last_s": 107.4
+ },
+ {
+  "key": "ivkernel.py:_series:32 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92 < adaptive_checker.py:coefficients:50",
+  "samples": 1,
+  "first_s": 113.4,
+  "last_s": 113.4
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:_series:34 < ivkernel.py:small:58 < ivkernel.py:atan_bounds:71 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:92",
+  "samples": 1,
+  "first_s": 117.9,
+  "last_s": 117.9
+ },
+ {
+  "key": "radiation_bounds.py:down:20 < radiation_bounds.py:sublo:26 < road_bounds.py:_radial:352 < road_bounds.py:_coefficients:402 < road_bounds.py:coefficients:390 < road_bounds.py:_batch:451",
+  "samples": 1,
+  "first_s": 119.9,
+  "last_s": 119.9
+ },
+ {
+  "key": "ivkernel.py:dn:17 < ivkernel.py:atan_bounds:66 < ivkernel.py:corner_bounds:83 < ivkernel.py:rectangle_bounds:91 < adaptive_checker.py:coefficients:50 < road_bounds.py:_coefficients:409",
+  "samples": 1,
+  "first_s": 120.9,
+  "last_s": 120.9
+ }
+]

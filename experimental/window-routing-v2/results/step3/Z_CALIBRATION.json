@@ -1,0 +1,414 @@
+{
+ "rule": "STEP3_ACCEPTANCE C + Iris 19:16",
+ "missions": [
+  {
+   "mission": "hongseong_2023__20230402T070000Z_FN1",
+   "runs": 3,
+   "units": [
+    6507027,
+    6507027,
+    6507027
+   ],
+   "median_units": 6507027,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.19258567399992899,
+   "median_setup_units": 20,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "hongseong_2023__20230402T070000Z_FX1",
+   "runs": 3,
+   "units": [
+    6507027,
+    6507027,
+    6507027
+   ],
+   "median_units": 6507027,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.19843854600003397,
+   "median_setup_units": 20,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "hongseong_2023__20230402T140000Z_FW2",
+   "runs": 3,
+   "units": [
+    1554124,
+    1554124,
+    1554124
+   ],
+   "median_units": 1554124,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.1739959260003161,
+   "median_setup_units": 104,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "hongseong_2023__20230402T230000Z_FD1",
+   "runs": 3,
+   "units": [
+    961359,
+    961359,
+    961359
+   ],
+   "median_units": 961359,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.10783913700015546,
+   "median_setup_units": 35,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220531T100000Z_FN1",
+   "runs": 3,
+   "units": [
+    3561588,
+    3561588,
+    3561588
+   ],
+   "median_units": 3561588,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.226592293000067,
+   "median_setup_units": 0,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220601T020000Z_FW1",
+   "runs": 3,
+   "units": [
+    3025636,
+    3025636,
+    3025636
+   ],
+   "median_units": 3025636,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.21569397199982632,
+   "median_setup_units": 0,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220601T080000Z_FD1",
+   "runs": 3,
+   "units": [
+    9351692,
+    9351692,
+    9351692
+   ],
+   "median_units": 9351692,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.31582642899957136,
+   "median_setup_units": 576,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220601T080000Z_FX1",
+   "runs": 3,
+   "units": [
+    11221292,
+    11221292,
+    11221292
+   ],
+   "median_units": 11221292,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.3751352980007141,
+   "median_setup_units": 576,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "runs": 3,
+   "units": [
+    81562398,
+    81562398,
+    81562398
+   ],
+   "median_units": 81562398,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 2.8528462529993703,
+   "median_setup_units": 351,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "runs": 3,
+   "units": [
+    85068558,
+    85068558,
+    85068558
+   ],
+   "median_units": 85068558,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 3.0142999730005613,
+   "median_setup_units": 351,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250324T090000Z_FL2",
+   "runs": 3,
+   "units": [
+    93965879,
+    93965879,
+    93965879
+   ],
+   "median_units": 93965879,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 3.553772107000441,
+   "median_setup_units": 791,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250325T170000Z_FW1",
+   "runs": 3,
+   "units": [
+    46682225,
+    46682225,
+    46682225
+   ],
+   "median_units": 46682225,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 3.7172344079999675,
+   "median_setup_units": 6470,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T030000Z_FD1",
+   "runs": 3,
+   "units": [
+    30066900,
+    30066900,
+    30066900
+   ],
+   "median_units": 30066900,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 1.1500398560001486,
+   "median_setup_units": 0,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T030000Z_FX1",
+   "runs": 3,
+   "units": [
+    58999200,
+    58999200,
+    58999200
+   ],
+   "median_units": 58999200,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 2.036694258999887,
+   "median_setup_units": 0,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T060000Z_FL1",
+   "runs": 3,
+   "units": [
+    39106302,
+    39106302,
+    39106302
+   ],
+   "median_units": 39106302,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 1.6964345790001971,
+   "median_setup_units": 422,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T120000Z_FW2",
+   "runs": 3,
+   "units": [
+    19969015,
+    19969015,
+    19969015
+   ],
+   "median_units": 19969015,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 0.8598894869992364,
+   "median_setup_units": 55,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T190000Z_FD1",
+   "runs": 3,
+   "units": [
+    126931035,
+    120887085,
+    130848410
+   ],
+   "median_units": 126931035,
+   "spread_max_over_min": 1.0824018959510853,
+   "still_running_at_6s": true,
+   "median_z_wall_s": 6.067271402999722,
+   "median_setup_units": 8085,
+   "status": [
+    "TIMEOUT"
+   ],
+   "reason": [
+    "WALL_CLOCK"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+   "runs": 3,
+   "units": [
+    127042960,
+    123461360,
+    127938360
+   ],
+   "median_units": 127042960,
+   "spread_max_over_min": 1.036262357712567,
+   "still_running_at_6s": true,
+   "median_z_wall_s": 6.071152033000544,
+   "median_setup_units": 8085,
+   "status": [
+    "TIMEOUT"
+   ],
+   "reason": [
+    "WALL_CLOCK"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+   "runs": 3,
+   "units": [
+    193857263,
+    213667988,
+    215234938
+   ],
+   "median_units": 213667988,
+   "spread_max_over_min": 1.1102753369627425,
+   "still_running_at_6s": true,
+   "median_z_wall_s": 6.050247813000169,
+   "median_setup_units": 3163,
+   "status": [
+    "TIMEOUT"
+   ],
+   "reason": [
+    "WALL_CLOCK",
+    "WALL_CLOCK_AFTER_CHECK"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250326T080000Z_FW1",
+   "runs": 3,
+   "units": [
+    66819787,
+    66819787,
+    66819787
+   ],
+   "median_units": 66819787,
+   "spread_max_over_min": 1.0,
+   "still_running_at_6s": false,
+   "median_z_wall_s": 3.9723236960007853,
+   "median_setup_units": 562,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  }
+ ],
+ "raw_median_units": 148100980.3042354,
+ "how": "EXTRAPOLATED: median rate x 6 s over all 20 missions (only 3 still running at 6 s)",
+ "budget_power_of_two": 268435456,
+ "largest_completing_mission_units": 93965879,
+ "largest_setup_units": 8085,
+ "final_budget": 268435456,
+ "raised_by_safeguard": false,
+ "spread_over_1_25": []
+}
