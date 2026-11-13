@@ -2,3 +2,6 @@
 2026-11-13T08:20:29Z P1 task stopped by the 2 h background limit at 628/705 rows (3 folders without a row); resumed from checkpoint; P2 chained after P1 in the same task
 2026-11-13T10:20:52Z P1 complete 705/705 (08:30:33Z). P2 task stopped by the 2 h background limit at 577/705 rows (3 folders without a row); resumed from checkpoint
 2026-11-13T10:26:25Z container restart during P2 at 589/705 rows (3 folders without a row); resumed from checkpoint
+2026-11-13T10:41:47Z FL2-type list committed and sent to the verifier; phase V started on kit-v2-main172 (0fffb589)
+2026-11-13T12:22:32Z phase V complete 705/705 (10:41:47-12:21:48Z, no restart); first comparison: 17 G6 failures as written (PARENT SEARCH_TIMEOUT, not wall-cap by the pre-stated definition), 47 wall-cap differences to rerun once (phase R)
+2026-11-13T12:33:49Z added check (2): a first launch was detached by mistake (shell &), killed within a minute before any output, relaunched as a tracked task
