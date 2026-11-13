@@ -1,4 +1,5 @@
 {
+ "hazard_sha256_note": "gate hazard_sha256 is host-specific (HAZARD.json embeds absolute paths); it is a record of this host's file, not an identity. Identity is the npz sha256, the writer sha and the bound digests (verification ledger 136, N1)",
  "label": "F-DYN no_reentry/2 (person-facing default): relaxation certificates, bound and verified by verify_bound (both checkers, structure, O2); contact only, no radiation",
  "waiting_rule_form_S": "The trip starts at the stated time. Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other node, including the start unless it is itself a dead end. Other departure times are separate results.",
  "departures_s": [
@@ -321,6 +322,52 @@
   }
  ],
  "uncertified": "the other 360 certifiable packets of MANIFEST_v3_7 no_reentry/2 carry no F-3.2 certificate",
+ "burnset_ordering": [
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "vs": "kriged_mean",
+   "pairs": 168,
+   "both_finite": 0,
+   "both_finite_equal_T": 0,
+   "burnset_no_route_other_route": 102,
+   "both_no_route": 66,
+   "burnset_earlier": 0
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "vs": "firms_early",
+   "pairs": 168,
+   "both_finite": 0,
+   "both_finite_equal_T": 0,
+   "burnset_no_route_other_route": 94,
+   "both_no_route": 74,
+   "burnset_earlier": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "vs": "kriged_mean",
+   "pairs": 180,
+   "both_finite": 54,
+   "both_finite_equal_T": 52,
+   "burnset_no_route_other_route": 126,
+   "both_no_route": 0,
+   "burnset_earlier": 0
+  },
+  {
+   "region": "yeongdeok_2025",
+   "start": "20250325T110000Z",
+   "vs": "firms_early",
+   "pairs": 180,
+   "both_finite": 54,
+   "both_finite_equal_T": 52,
+   "burnset_no_route_other_route": 94,
+   "both_no_route": 32,
+   "burnset_earlier": 0
+  }
+ ],
  "summary": {
   "certified_packets": 6,
   "pass": 6,

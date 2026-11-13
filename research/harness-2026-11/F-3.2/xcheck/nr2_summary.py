@@ -41,7 +41,10 @@ def main():
             rows[r["packet"]].append(r)
     keys = [(r["packet"], r["origin"], r["departure"]) for r in recs if r["kind"] == "row"]
     assert len(keys) == len(set(keys)), "duplicate row keys"
-    out = {"label": LABEL, "waiting_rule_form_S": WAITING_S, "departures_s": [0, 7200],
+    out = {"hazard_sha256_note": "gate hazard_sha256 is host-specific (HAZARD.json embeds absolute paths); it is a record "
+                                 "of this host's file, not an identity. Identity is the npz sha256, the writer sha and the "
+                                 "bound digests (verification ledger 136, N1)",
+           "label": LABEL, "waiting_rule_form_S": WAITING_S, "departures_s": [0, 7200],
            "departures_note": "0 s and 7200 s are separate results, never a leave-by window",
            "rule": "NR2_CERT_RULE.md (+ erratum 1, note 2)", "rows_file_sha256": hashlib.sha256(raw).hexdigest(),
            "packets": [], "out_of_scope": [],
@@ -80,6 +83,31 @@ def main():
         if g and g["variant"] == "envelope_burnset":
             entry["variant_label"] = BURNSET
         out["packets"].append(entry)
+    # Standing cross-variant check (verification ledger 136): at the same start, origin and departure, the burnset
+    # arrival is never earlier than kriged_mean's or firms_early's (NO_ROUTE = +inf). Any violation fails the run.
+    arr = collections.defaultdict(dict)
+    for rel, rs in rows.items():
+        g = gates.get(rel)
+        if g and a.gate_only_substr not in rel.split("/")[-1]:
+            for r in rs:
+                arr[(g["region"], g["start"], g["variant"])][(r["origin"], r["departure"])] = (
+                    float("inf") if r["claim"] == "NO_ROUTE" else r["T"])
+    out["burnset_ordering"] = []
+    for (region, start, var), b in sorted(arr.items()):
+        if var != "envelope_burnset":
+            continue
+        for other in ("kriged_mean", "firms_early"):
+            o = arr.get((region, start, other), {})
+            ks = [k for k in b if k in o]
+            fin = [k for k in ks if b[k] != float("inf") and o[k] != float("inf")]
+            viol = [k for k in ks if b[k] < o[k]]
+            out["burnset_ordering"].append({
+                "region": region, "start": start, "vs": other, "pairs": len(ks), "both_finite": len(fin),
+                "both_finite_equal_T": sum(b[k] == o[k] for k in fin), "burnset_no_route_other_route":
+                sum(b[k] == float("inf") and o[k] != float("inf") for k in ks),
+                "both_no_route": sum(b[k] == o[k] == float("inf") for k in ks), "burnset_earlier": len(viol)})
+    if any(x["burnset_earlier"] for x in out["burnset_ordering"]):
+        raise SystemExit("BURNSET ORDERING VIOLATED: %s" % [x for x in out["burnset_ordering"] if x["burnset_earlier"]])
     cert = [p for p in out["packets"] if p["role"] == "certified"]
     out["summary"] = {"certified_packets": len(cert), "pass": sum(p["result"] == "PASS" for p in cert),
                       "rows": sum(p["rows"] for p in cert),
