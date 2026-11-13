@@ -37,6 +37,19 @@ assessor, before any code is written. It adds one measured finding from the Step
   - It is never plain UNRESOLVED.
   - The planner/API maps it to its own label, with no route and no refusal.
   - The status names the stage that was running and that stage's unit count.
+- **Stall vs slow (assessor).**
+  - If the running stage's unit counter advanced within the last S seconds before the watchdog fired, the status is
+    `HOST_TOO_SLOW_FOR_JOB`. If it did not advance for S seconds, the status is **`STAGE_STALLED`**, which is a
+    defect, not a slow host. S is stated with the code, before any run.
+  - Neither status is a verdict, and neither is UNRESOLVED.
+- **Reach (assessor).**
+  - A watchdog that runs between Python bytecodes cannot interrupt a call stuck inside compiled code.
+  - The job-level stop is therefore the controller's: the process-group kill at the deadline, which already exists.
+  - The in-process watchdog only names the stage and status, best effort.
+  - A job killed by the controller with no in-process status recorded gets the status from the controller's last
+    progress record: the stage and unit counter from SEARCH_PROGRESS, with the same advance rule.
+- **What is lost by design, stated.** With per-stage watchdogs, a hung stage was cut and later stages could still
+  produce a result. Now a hang costs the whole job. This trade is accepted for determinism.
 
 ### R3. Host-speed preflight: one factor per kind of work, measured at job start
 - **A fixed work-unit microbenchmark** for each kind of work the stages do:
@@ -48,6 +61,12 @@ assessor, before any code is written. It adds one measured finding from the Step
 - **Comparability:** `max` > the stated factor (the validity margin, measured in T5) flags the run "not comparable"
   in the result. It never changes the verdict.
 - **Preflight cost:** stated, measured, and at most 1 s per job. Its own wall time is reported.
+- **Postflight (assessor).** The same microbenchmark runs again at job end, and both are recorded. The run is flagged
+  "host changed during job" when any kind's factor differs by more than a margin stated before the run. A neighbour
+  that gets busy mid-job is not visible to a start-only snapshot.
+- **Whole-road checker.** Its wall time is reported per job. **Outcome determinism holds only while the checker
+  finishes inside the job budget.** That is the one remaining wall-time dependence, until the checker is work-bounded
+  with the certificates reviewer.
 
 ## Tests (written before code; the assessor reviews this list before any code)
 - **T1. Reference host:** the 1-hour panel's verdicts and arrivals are unchanged; G1 and G3 are as in Step 3; G6 passes
@@ -67,10 +86,32 @@ assessor, before any code is written. It adds one measured finding from the Step
   finding showed was missing.
 - **T5. Validity margin:** the factor at which the job-level watchdog first fires on the 1-hour panel and the F-DYN
   set is measured and reported per work kind.
-- **T6. Watchdog status discipline:** a synthetic non-returning check (the checker stays unbounded) under the
-  job-level watchdog gives `HOST_TOO_SLOW_FOR_JOB` with the stage named. It is never UNRESOLVED and never a refusal.
+- **T6. Watchdog status discipline,** with two kinds of non-return injected (assessor):
+  - (i) a Python loop that never ends and never ticks → `STAGE_STALLED`, with the stage named;
+  - (ii) a compiled call that does not return (a C-level sleep inside a stage) → the controller's deadline kill, with
+    the status taken from the last progress record.
+    - If (ii) cannot be named in-process, the result says so, and states that the controller's process-group kill is
+      what stops it.
+  - A slow-but-advancing stage under injected slowdown → `HOST_TOO_SLOW_FOR_JOB`.
+  - Never UNRESOLVED and never a refusal.
+- **T8. Are three work kinds enough (assessor).**
+  - On the reference host, each stage's dominant kind of work is recorded from a profile, and the profile is stated
+    in the result.
+  - On a second host, each stage's predicted time (reference time × that kind's factor) is compared with its
+    measured time, within a tolerance fixed before the run.
+  - Every stage within tolerance → three kinds are enough. A stage outside it names a missing kind.
+  - Hypotheses to check: packet read and deserialisation; large-array, memory-bound work.
+  - The replaced-container measurements (3% / 9% / about 40%) are reported as the first such comparison.
+- **T9. Budgets fit the job (assessor).**
+  - On the reference host, a job in which every stage runs to its full work budget still finishes inside 81 s.
+  - The measured validity margin (T5) is stated against that worst case.
+  - If the worst case does not fit, the budgets are recalibrated before anything else: otherwise the watchdog would
+    fire on the reference host itself.
 - **T7. API mapping:** the classifier (`api.verdict.classify`) receives `HOST_TOO_SLOW_FOR_JOB` and gives its own
   label, never `unresolved` with reason TIMEOUT. That keeps G6's time-capped closed list unaffected.
+  - The same applies to `STAGE_STALLED`.
+  - The test asserts that neither new status can enter the closed list {LATE_RESULT, DEADLINE_STOP,
+    SEARCH_TIMEOUT}.
 
 ## Interactions stated up front
 - **G6b** runs on the current kit (0fffb589) under the amended definition. Step 3c changes stage stopping, so after it
