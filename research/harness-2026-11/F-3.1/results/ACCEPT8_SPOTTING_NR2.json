@@ -1,0 +1,771 @@
+{
+ "what": "acceptance 8, spotting-dilation half, no_reentry/2",
+ "labels": [
+  "SCENARIO, not what happened; graphs are road-limited",
+  "isotropic dilation, no wind field; nothing is claimed about actual spotting distances in 2025",
+  "research check of monotonicity, not a spotting result",
+  "CERT = router OR closed footprint; ROUTER = router rule only",
+  "Assumes no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour."
+ ],
+ "starts": {
+  "uiseong_andong_2025|20250323T010000Z": {
+   "d_run": [
+    0,
+    500,
+    1000,
+    2000
+   ],
+   "nesting": {
+    "a0_equals_a": true,
+    "order_fail_0_500": 0,
+    "order_fail_500_1000": 0,
+    "order_fail_1000_2000": 0
+   },
+   "clamped_cells": {
+    "0": 0,
+    "500": 116,
+    "1000": 290,
+    "2000": 714
+   },
+   "witness_checks": {
+    "0": {
+     "nr:PASS": 152,
+     "reopening:PASS": 152,
+     "exact_full_policy_nr:True": 152,
+     "next_second_infeasible:True": 152
+    },
+    "500": {
+     "nr:PASS": 152,
+     "reopening:PASS": 152,
+     "exact_full_policy_nr:True": 152,
+     "next_second_infeasible:True": 152
+    },
+    "1000": {
+     "nr:PASS": 152,
+     "reopening:PASS": 152,
+     "exact_full_policy_nr:True": 152,
+     "next_second_infeasible:True": 152
+    },
+    "2000": {
+     "nr:PASS": 123,
+     "reopening:PASS": 123,
+     "exact_full_policy_nr:True": 123,
+     "next_second_infeasible:True": 123
+    }
+   },
+   "no_route_split": {
+    "0": {
+     "fire_limited_within_loaded_graph": 4,
+     "possibly_road_limited": 16,
+     "origin_point_in_flame_at_departure": 8
+    },
+    "500": {
+     "fire_limited_within_loaded_graph": 4,
+     "possibly_road_limited": 15,
+     "origin_point_in_flame_at_departure": 9
+    },
+    "1000": {
+     "origin_point_in_flame_at_departure": 13,
+     "fire_limited_within_loaded_graph": 3,
+     "possibly_road_limited": 12
+    },
+    "2000": {
+     "possibly_road_limited": 8,
+     "fire_limited_within_loaded_graph": 1,
+     "origin_point_in_flame_at_departure": 26
+    }
+   },
+   "transform": {
+    "0": "no_reentry/2",
+    "500": "no_reentry/2",
+    "1000": "no_reentry/2",
+    "2000": "no_reentry/2"
+   },
+   "control_d0_mismatches": [],
+   "control_pass": true,
+   "monotonicity": {
+    "0->500:nr_cert": {
+     "equal": 56,
+     "none_on_both": 28
+    },
+    "0->500:nr_router": {
+     "equal": 56,
+     "none_on_both": 28
+    },
+    "500->1000:nr_cert": {
+     "equal": 55,
+     "none_on_both": 28,
+     "earlier": 1
+    },
+    "500->1000:nr_router": {
+     "equal": 55,
+     "none_on_both": 28,
+     "earlier": 1
+    },
+    "1000->2000:nr_cert": {
+     "equal": 49,
+     "lost": 7,
+     "none_on_both": 28
+    },
+    "1000->2000:nr_router": {
+     "equal": 49,
+     "lost": 7,
+     "none_on_both": 28
+    },
+    "0->2000:nr_cert": {
+     "equal": 49,
+     "lost": 7,
+     "none_on_both": 28
+    },
+    "0->2000:nr_router": {
+     "equal": 49,
+     "lost": 7,
+     "none_on_both": 28
+    }
+   },
+   "violations": [],
+   "failing_witness_origins": []
+  },
+  "uiseong_andong_2025|20250324T090000Z": {
+   "d_run": [
+    0,
+    500,
+    1000,
+    2000
+   ],
+   "nesting": {
+    "a0_equals_a": true,
+    "order_fail_0_500": 0,
+    "order_fail_500_1000": 0,
+    "order_fail_1000_2000": 0
+   },
+   "clamped_cells": {
+    "0": 0,
+    "500": 182,
+    "1000": 420,
+    "2000": 956
+   },
+   "witness_checks": {
+    "0": {
+     "nr:PASS": 125,
+     "reopening:PASS": 125,
+     "exact_full_policy_nr:True": 125,
+     "next_second_infeasible:True": 125
+    },
+    "500": {
+     "nr:PASS": 123,
+     "reopening:PASS": 123,
+     "exact_full_policy_nr:True": 123,
+     "next_second_infeasible:True": 123
+    },
+    "1000": {
+     "nr:PASS": 122,
+     "reopening:PASS": 122,
+     "exact_full_policy_nr:True": 122,
+     "next_second_infeasible:True": 122
+    },
+    "2000": {
+     "nr:PASS": 107,
+     "reopening:PASS": 107,
+     "exact_full_policy_nr:True": 107,
+     "next_second_infeasible:True": 107
+    }
+   },
+   "no_route_split": {
+    "0": {
+     "fire_limited_within_loaded_graph": 4,
+     "origin_point_in_flame_at_departure": 20,
+     "possibly_road_limited": 9
+    },
+    "500": {
+     "possibly_road_limited": 8,
+     "fire_limited_within_loaded_graph": 2,
+     "origin_point_in_flame_at_departure": 25
+    },
+    "1000": {
+     "possibly_road_limited": 8,
+     "fire_limited_within_loaded_graph": 1,
+     "origin_point_in_flame_at_departure": 27
+    },
+    "2000": {
+     "possibly_road_limited": 7,
+     "origin_point_in_flame_at_departure": 32,
+     "fire_limited_within_loaded_graph": 4
+    }
+   },
+   "transform": {
+    "0": "no_reentry/2",
+    "500": "no_reentry/2",
+    "1000": "no_reentry/2",
+    "2000": "no_reentry/2"
+   },
+   "control_d0_mismatches": [],
+   "control_pass": true,
+   "monotonicity": {
+    "0->500:nr_cert": {
+     "equal": 49,
+     "lost": 2,
+     "none_on_both": 33
+    },
+    "0->500:nr_router": {
+     "equal": 49,
+     "lost": 2,
+     "none_on_both": 33
+    },
+    "500->1000:nr_cert": {
+     "equal": 42,
+     "none_on_both": 35,
+     "lost": 1,
+     "earlier": 6
+    },
+    "500->1000:nr_router": {
+     "equal": 42,
+     "none_on_both": 35,
+     "lost": 1,
+     "earlier": 6
+    },
+    "1000->2000:nr_cert": {
+     "equal": 39,
+     "none_on_both": 36,
+     "lost": 7,
+     "earlier": 2
+    },
+    "1000->2000:nr_router": {
+     "equal": 39,
+     "none_on_both": 36,
+     "lost": 7,
+     "earlier": 2
+    },
+    "0->2000:nr_cert": {
+     "equal": 38,
+     "lost": 10,
+     "none_on_both": 33,
+     "earlier": 3
+    },
+    "0->2000:nr_router": {
+     "equal": 38,
+     "lost": 10,
+     "none_on_both": 33,
+     "earlier": 3
+    }
+   },
+   "violations": [],
+   "failing_witness_origins": []
+  },
+  "uiseong_andong_2025|20250325T170000Z": {
+   "d_run": [
+    0,
+    500,
+    1000,
+    2000
+   ],
+   "nesting": {
+    "a0_equals_a": true,
+    "order_fail_0_500": 0,
+    "order_fail_500_1000": 0,
+    "order_fail_1000_2000": 0
+   },
+   "clamped_cells": {
+    "0": 0,
+    "500": 681,
+    "1000": 1590,
+    "2000": 3335
+   },
+   "witness_checks": {
+    "0": {
+     "nr:PASS": 83,
+     "reopening:PASS": 83,
+     "exact_full_policy_nr:True": 81,
+     "next_second_infeasible:True": 83,
+     "exact_full_policy_nr:False": 2
+    },
+    "500": {
+     "nr:PASS": 81,
+     "reopening:PASS": 81,
+     "exact_full_policy_nr:True": 78,
+     "next_second_infeasible:True": 81,
+     "exact_full_policy_nr:False": 3
+    },
+    "1000": {
+     "nr:PASS": 77,
+     "reopening:PASS": 77,
+     "exact_full_policy_nr:True": 75,
+     "next_second_infeasible:True": 77,
+     "exact_full_policy_nr:False": 2
+    },
+    "2000": {
+     "nr:PASS": 62,
+     "reopening:PASS": 62,
+     "exact_full_policy_nr:True": 62,
+     "next_second_infeasible:True": 62
+    }
+   },
+   "no_route_split": {
+    "0": {
+     "origin_point_in_flame_at_departure": 48,
+     "possibly_road_limited": 4,
+     "fire_limited_within_loaded_graph": 3
+    },
+    "500": {
+     "origin_point_in_flame_at_departure": 54,
+     "fire_limited_within_loaded_graph": 1,
+     "possibly_road_limited": 1
+    },
+    "1000": {
+     "origin_point_in_flame_at_departure": 57,
+     "fire_limited_within_loaded_graph": 1
+    },
+    "2000": {
+     "origin_point_in_flame_at_departure": 60
+    }
+   },
+   "transform": {
+    "0": "no_reentry/2",
+    "500": "no_reentry/2",
+    "1000": "no_reentry/2",
+    "2000": "no_reentry/2"
+   },
+   "control_d0_mismatches": [],
+   "control_pass": true,
+   "monotonicity": {
+    "0->500:nr_cert": {
+     "earlier": 20,
+     "none_on_both": 55,
+     "equal": 8,
+     "lost": 1
+    },
+    "0->500:nr_router": {
+     "earlier": 20,
+     "none_on_both": 55,
+     "equal": 8,
+     "lost": 1
+    },
+    "500->1000:nr_cert": {
+     "earlier": 18,
+     "none_on_both": 56,
+     "equal": 8,
+     "lost": 2
+    },
+    "500->1000:nr_router": {
+     "earlier": 18,
+     "none_on_both": 56,
+     "equal": 8,
+     "lost": 2
+    },
+    "1000->2000:nr_cert": {
+     "lost": 2,
+     "earlier": 23,
+     "none_on_both": 58,
+     "equal": 1
+    },
+    "1000->2000:nr_router": {
+     "lost": 2,
+     "earlier": 23,
+     "none_on_both": 58,
+     "equal": 1
+    },
+    "0->2000:nr_cert": {
+     "lost": 5,
+     "earlier": 23,
+     "none_on_both": 55,
+     "equal": 1
+    },
+    "0->2000:nr_router": {
+     "lost": 5,
+     "earlier": 23,
+     "none_on_both": 55,
+     "equal": 1
+    }
+   },
+   "violations": [],
+   "failing_witness_origins": []
+  },
+  "yeongdeok_2025|20250325T190000Z": {
+   "d_run": [
+    0,
+    500,
+    1000,
+    2000
+   ],
+   "nesting": {
+    "a0_equals_a": true,
+    "order_fail_0_500": 0,
+    "order_fail_500_1000": 0,
+    "order_fail_1000_2000": 0
+   },
+   "clamped_cells": {
+    "0": 0,
+    "500": 679,
+    "1000": 1498,
+    "2000": 3044
+   },
+   "witness_checks": {
+    "0": {
+     "nr:PASS": 150,
+     "reopening:PASS": 150,
+     "exact_full_policy_nr:True": 150,
+     "next_second_infeasible:True": 150
+    },
+    "500": {
+     "nr:PASS": 136,
+     "reopening:PASS": 136,
+     "exact_full_policy_nr:True": 136,
+     "next_second_infeasible:True": 136
+    },
+    "1000": {
+     "nr:PASS": 125,
+     "reopening:PASS": 125,
+     "exact_full_policy_nr:True": 125,
+     "next_second_infeasible:True": 125
+    },
+    "2000": {
+     "nr:PASS": 107,
+     "reopening:PASS": 107,
+     "exact_full_policy_nr:True": 107,
+     "next_second_infeasible:True": 107
+    }
+   },
+   "no_route_split": {
+    "0": {
+     "origin_point_in_flame_at_departure": 36,
+     "fire_limited_within_loaded_graph": 1,
+     "possibly_road_limited": 1
+    },
+    "500": {
+     "origin_point_in_flame_at_departure": 40,
+     "possibly_road_limited": 1,
+     "fire_limited_within_loaded_graph": 1
+    },
+    "1000": {
+     "origin_point_in_flame_at_departure": 43
+    },
+    "2000": {
+     "fire_limited_within_loaded_graph": 3,
+     "origin_point_in_flame_at_departure": 48
+    }
+   },
+   "transform": {
+    "0": "no_reentry/2",
+    "500": "no_reentry/2",
+    "1000": "no_reentry/2",
+    "2000": "no_reentry/2"
+   },
+   "control_d0_mismatches": [],
+   "control_pass": true,
+   "monotonicity": {
+    "0->500:nr_cert": {
+     "equal": 46,
+     "earlier": 2,
+     "none_on_both": 38,
+     "lost": 4
+    },
+    "0->500:nr_router": {
+     "equal": 46,
+     "earlier": 2,
+     "none_on_both": 38,
+     "lost": 4
+    },
+    "500->1000:nr_cert": {
+     "equal": 43,
+     "earlier": 4,
+     "none_on_both": 42,
+     "lost": 1
+    },
+    "500->1000:nr_router": {
+     "equal": 43,
+     "earlier": 4,
+     "none_on_both": 42,
+     "lost": 1
+    },
+    "1000->2000:nr_cert": {
+     "equal": 34,
+     "earlier": 5,
+     "lost": 8,
+     "none_on_both": 43
+    },
+    "1000->2000:nr_router": {
+     "equal": 34,
+     "earlier": 5,
+     "lost": 8,
+     "none_on_both": 43
+    },
+    "0->2000:nr_cert": {
+     "equal": 34,
+     "earlier": 5,
+     "lost": 13,
+     "none_on_both": 38
+    },
+    "0->2000:nr_router": {
+     "equal": 34,
+     "earlier": 5,
+     "lost": 13,
+     "none_on_both": 38
+    }
+   },
+   "violations": [],
+   "failing_witness_origins": []
+  },
+  "yeongdeok_2025|20250325T230000Z": {
+   "d_run": [
+    0,
+    500,
+    1000,
+    2000
+   ],
+   "nesting": {
+    "a0_equals_a": true,
+    "order_fail_0_500": 0,
+    "order_fail_500_1000": 0,
+    "order_fail_1000_2000": 0
+   },
+   "clamped_cells": {
+    "0": 0,
+    "500": 532,
+    "1000": 1216,
+    "2000": 2532
+   },
+   "witness_checks": {
+    "0": {
+     "nr:PASS": 138,
+     "reopening:PASS": 138,
+     "exact_full_policy_nr:True": 138,
+     "next_second_infeasible:True": 138
+    },
+    "500": {
+     "nr:PASS": 127,
+     "reopening:PASS": 127,
+     "exact_full_policy_nr:True": 127,
+     "next_second_infeasible:True": 127
+    },
+    "1000": {
+     "nr:PASS": 120,
+     "reopening:PASS": 120,
+     "exact_full_policy_nr:True": 120,
+     "next_second_infeasible:True": 120
+    },
+    "2000": {
+     "nr:PASS": 100,
+     "reopening:PASS": 100,
+     "exact_full_policy_nr:True": 100,
+     "next_second_infeasible:True": 100
+    }
+   },
+   "no_route_split": {
+    "0": {
+     "fire_limited_within_loaded_graph": 1,
+     "origin_point_in_flame_at_departure": 39
+    },
+    "500": {
+     "origin_point_in_flame_at_departure": 41,
+     "possibly_road_limited": 1,
+     "fire_limited_within_loaded_graph": 2
+    },
+    "1000": {
+     "origin_point_in_flame_at_departure": 45,
+     "fire_limited_within_loaded_graph": 2
+    },
+    "2000": {
+     "origin_point_in_flame_at_departure": 54,
+     "fire_limited_within_loaded_graph": 1
+    }
+   },
+   "transform": {
+    "0": "no_reentry/2",
+    "500": "no_reentry/2",
+    "1000": "no_reentry/2",
+    "2000": "no_reentry/2"
+   },
+   "control_d0_mismatches": [],
+   "control_pass": true,
+   "monotonicity": {
+    "0->500:nr_cert": {
+     "equal": 45,
+     "none_on_both": 40,
+     "lost": 4,
+     "earlier": 1
+    },
+    "0->500:nr_router": {
+     "equal": 45,
+     "none_on_both": 40,
+     "lost": 4,
+     "earlier": 1
+    },
+    "500->1000:nr_cert": {
+     "equal": 43,
+     "none_on_both": 44,
+     "lost": 3
+    },
+    "500->1000:nr_router": {
+     "equal": 43,
+     "none_on_both": 44,
+     "lost": 3
+    },
+    "1000->2000:nr_cert": {
+     "equal": 33,
+     "none_on_both": 47,
+     "earlier": 2,
+     "lost": 8
+    },
+    "1000->2000:nr_router": {
+     "equal": 33,
+     "none_on_both": 47,
+     "earlier": 2,
+     "lost": 8
+    },
+    "0->2000:nr_cert": {
+     "equal": 33,
+     "none_on_both": 40,
+     "earlier": 2,
+     "lost": 15
+    },
+    "0->2000:nr_router": {
+     "equal": 33,
+     "none_on_both": 40,
+     "earlier": 2,
+     "lost": 15
+    }
+   },
+   "violations": [],
+   "failing_witness_origins": []
+  },
+  "yeongdeok_2025|20250326T080000Z": {
+   "d_run": [
+    0,
+    500,
+    1000,
+    2000
+   ],
+   "nesting": {
+    "a0_equals_a": true,
+    "order_fail_0_500": 0,
+    "order_fail_500_1000": 0,
+    "order_fail_1000_2000": 0
+   },
+   "clamped_cells": {
+    "0": 0,
+    "500": 497,
+    "1000": 1130,
+    "2000": 2299
+   },
+   "witness_checks": {
+    "0": {
+     "nr:PASS": 136,
+     "reopening:PASS": 136,
+     "exact_full_policy_nr:True": 136,
+     "next_second_infeasible:True": 136
+    },
+    "500": {
+     "nr:PASS": 124,
+     "reopening:PASS": 124,
+     "exact_full_policy_nr:True": 124,
+     "next_second_infeasible:True": 124
+    },
+    "1000": {
+     "nr:PASS": 116,
+     "reopening:PASS": 116,
+     "exact_full_policy_nr:True": 116,
+     "next_second_infeasible:True": 116
+    },
+    "2000": {
+     "nr:PASS": 98,
+     "reopening:PASS": 98,
+     "exact_full_policy_nr:True": 98,
+     "next_second_infeasible:True": 98
+    }
+   },
+   "no_route_split": {
+    "0": {
+     "fire_limited_within_loaded_graph": 1,
+     "origin_point_in_flame_at_departure": 41
+    },
+    "500": {
+     "origin_point_in_flame_at_departure": 43,
+     "possibly_road_limited": 1,
+     "fire_limited_within_loaded_graph": 1
+    },
+    "1000": {
+     "origin_point_in_flame_at_departure": 48
+    },
+    "2000": {
+     "origin_point_in_flame_at_departure": 54,
+     "fire_limited_within_loaded_graph": 1
+    }
+   },
+   "transform": {
+    "0": "no_reentry/2",
+    "500": "no_reentry/2",
+    "1000": "no_reentry/2",
+    "2000": "no_reentry/2"
+   },
+   "control_d0_mismatches": [],
+   "control_pass": true,
+   "monotonicity": {
+    "0->500:nr_cert": {
+     "equal": 45,
+     "none_on_both": 42,
+     "lost": 3
+    },
+    "0->500:nr_router": {
+     "equal": 45,
+     "none_on_both": 42,
+     "lost": 3
+    },
+    "500->1000:nr_cert": {
+     "equal": 42,
+     "none_on_both": 45,
+     "lost": 3
+    },
+    "500->1000:nr_router": {
+     "equal": 42,
+     "none_on_both": 45,
+     "lost": 3
+    },
+    "1000->2000:nr_cert": {
+     "equal": 33,
+     "none_on_both": 48,
+     "earlier": 2,
+     "lost": 7
+    },
+    "1000->2000:nr_router": {
+     "equal": 33,
+     "none_on_both": 48,
+     "earlier": 2,
+     "lost": 7
+    },
+    "0->2000:nr_cert": {
+     "equal": 33,
+     "none_on_both": 42,
+     "earlier": 2,
+     "lost": 13
+    },
+    "0->2000:nr_router": {
+     "equal": 33,
+     "none_on_both": 42,
+     "earlier": 2,
+     "lost": 13
+    }
+   },
+   "violations": [],
+   "failing_witness_origins": []
+  }
+ },
+ "totals": {
+  "nr_cert:equal": 859,
+  "nr_cert:none_on_both": 982,
+  "nr_router:equal": 859,
+  "nr_router:none_on_both": 982,
+  "nr_cert:earlier": 121,
+  "nr_router:earlier": 121,
+  "nr_cert:lost": 126,
+  "nr_router:lost": 126
+ },
+ "violations_total": 0,
+ "controls_pass": {
+  "uiseong_andong_2025|20250323T010000Z": true,
+  "uiseong_andong_2025|20250324T090000Z": true,
+  "uiseong_andong_2025|20250325T170000Z": true,
+  "yeongdeok_2025|20250325T190000Z": true,
+  "yeongdeok_2025|20250325T230000Z": true,
+  "yeongdeok_2025|20250326T080000Z": true
+ }
+}

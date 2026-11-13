@@ -404,3 +404,146 @@ PASS = full policy OK and closed/router replay clear. The not-evaluated split is
 
   This is consistent with the expected cause (pre-start burn-out open under `/1`), shown as: the B0 closure removes those routes.
 - **Spotting-dilation half:** not run yet. It needs rebuilds with the clamp a_d = max(dilate(a), t_start); the rule goes in first.
+
+## Follow-up work in this cut (after #170)
+
+This frozen cut adds three verified items: acceptance 8, spotting-dilation half (ledger row 77); the support-aware READ path in `PacketModel` with its amendment 2 (rows 79, 79a); and the border-touch count on the HEADLINE (row 80). Other follow-up work stays on the working branch with its own verification.
+
+## Acceptance 8, spotting-dilation half, on `no_reentry/2` (rule `SPOTTING_NR2_ACCEPT8_RULE.md`, committed first at bfc67ae4; VERIFIED: Nora, PASS WITH NOTES, ledger row 77)
+
+**Labels.**
+- SCENARIO, not what happened. Graphs are road-limited.
+- Isotropic dilation with no wind field. Nothing is claimed about actual spotting distances in 2025.
+- This is a research check of monotonicity, not a spotting result.
+- CERT = router OR closed footprint; ROUTER = router rule only.
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+- **Waiting rule (R):** Each departure time in [0, H], every integer second, is a separate trip. Leaving later is how waiting at the start place is represented. Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other node.
+- **Environment:** numpy 1.26.4, Python 3.13.18.
+
+**Hazards.**
+- Base: kriged_mean.
+- a_d = a where a ≤ start; otherwise a_d = max(dilate(a, d, lag 0), start). Dilation uses Leo's `fdyn.variants.dilate` at 819bcb91, unchanged.
+- Nesting was checked before any build on all 6 starts:
+  - a_0 = a on every cell;
+  - 0 cells out of order for 0 ≤ 500 ≤ 1000 ≤ 2000.
+- Clamped cells (start | d = 500 / 1000 / 2000):
+  - UA 23T01Z: 116 / 290 / 714
+  - UA 24T09Z: 182 / 420 / 956
+  - UA 25T17Z: 681 / 1,590 / 3,335
+  - YD 25T19Z: 679 / 1,498 / 3,044
+  - YD 25T23Z: 532 / 1,216 / 2,532
+  - YD 26T08Z: 497 / 1,130 / 2,299
+- The batch passes the dilated raster as `--arrival`, so C0 is computed from it, and every clamped cell (arrival = start, inclusive) enters C0. UA 25T17Z, from ledger row 77: C0 = 4,673 / 5,354 / 6,263 / 8,008 cells for d = 0 / 500 / 1000 / 2000; each increment equals the clamped count. This departs from the wording of `NOREENTRY2_RULE.md` §6.3 ("never computed from a spotting-dilated raster"). **Dilation adds nothing to B0:** B0 = 3,168 at every d there. A clamped cell already has `/1` birth 0, and B0 excludes those cells, so `/2` closes nothing beyond `/1` because of the dilation. Rewording the rule and the builder docstring is a builder-side note.
+
+**Run.**
+- 24 pairs: 6 recorded starts × d ∈ {0, 500, 1000, 2000} m, h5.
+- Builds: `/2` + reopening from the v3.7 manifest commands, with `--arrival`, `--arrival-variant` and `--out` replaced. Every packet's transform is `no_reentry/2`.
+- Runner `deadline_field/headline.py`, unchanged. Batch `batch/spot_nr2_batch.py`; comparison `deadline_field/spot_nr2_compare.py`.
+- Files:
+  - `results/ACCEPT8_SPOTTING_NR2.json`;
+  - `results/ACCEPT8_SPOTTING_NR2_rasters_meta.json` (raster sha256 and the nesting checks).
+- 0 build or run failures.
+
+**Control (pass/fail): PASS on all 6 starts.** At d = 0 every place's CERT and ROUTER leave-by and no-route status equals the committed HEADLINE `/2` kriged_mean h5 row.
+
+**Witnesses.**
+- Every `/2` CERT leave-by witness passes the full checker on its own packet and on the reopening packet, with every next second infeasible.
+- 0 failing witnesses, so no place is excluded.
+- The exactness precondition is not met on 7 witnesses, all UA 25T17Z (d = 0: 2, 500: 3, 1000: 2); they still pass the full checker.
+
+**Result: 0 violations, CERT and ROUTER.** No place has a later leave-by under the larger dilation, or a route under d′ where d has none. CERT and ROUTER counts are identical.
+
+| start | 0→500 equal / earlier / lost / none on both | 500→1000 | 1000→2000 | 0→2000 |
+|---|---|---|---|---|
+| UA 23T01Z | 56 / 0 / 0 / 28 | 55 / 1 / 0 / 28 | 49 / 0 / 7 / 28 | 49 / 0 / 7 / 28 |
+| UA 24T09Z | 49 / 0 / 2 / 33 | 42 / 6 / 1 / 35 | 39 / 2 / 7 / 36 | 38 / 3 / 10 / 33 |
+| UA 25T17Z | 8 / 20 / 1 / 55 | 8 / 18 / 2 / 56 | 1 / 23 / 2 / 58 | 1 / 23 / 5 / 55 |
+| YD 25T19Z | 46 / 2 / 4 / 38 | 43 / 4 / 1 / 42 | 34 / 5 / 8 / 43 | 34 / 5 / 13 / 38 |
+| YD 25T23Z | 45 / 1 / 4 / 40 | 43 / 0 / 3 / 44 | 33 / 2 / 8 / 47 | 33 / 2 / 15 / 40 |
+| YD 26T08Z | 45 / 0 / 3 / 42 | 42 / 0 / 3 / 45 | 33 / 2 / 7 / 48 | 33 / 2 / 13 / 42 |
+
+- "Lost" (a route under d, none under d′) and "none on both" are monotonicity comparison classes, not counts of places without a route. They include places in the not-evaluated state (`NOT_EVALUATED_LABEL_RULE.md`), which this check does not split.
+- The row-61 artefact (spotting making places safer) cannot occur here: no place moves later.
+
+## Support-aware READ path in `PacketModel` (rule `SUPPORT_READ_RULE.md`, committed first at 51d3feee; tests at b477d4c9 before the code; code at 53ccd5ae; VERIFIED: Nora, PASS WITH NOTES, ledger row 79)
+
+- **Purpose.** It lets the widened-graph padded packets load (WIDENED_GRAPH_RULE pre-build test). It is not a result.
+- **The gate.** An F-9.3 packet declared `supplied/1` loads, with its support-false cells recorded.
+  - The declaration must be present in both BUILD_SUMMARY and the HAZARD identity, equal in both, writer
+    `wfg.f93.support-writer/1`, and its count must match the npz.
+  - Every other support-incomplete packet is refused as before, including `c651_unknown/1`.
+- **Contact rules ignore support.** Padding closure stays in `extra_blocks`.
+- **`full_check` refuses masked packets** (`REFUSED_SUPPORT_MASKED`) without running a checker.
+- **Tests:** 26/26 with inputs.
+  - T1: the two HEADLINE pairs the verifier re-ran, plus a 1-h packet, are byte-identical to 969a2ca2 (504 issue sets).
+  - T2: the masked twin equals the unmasked one; 1,267 support-false cells.
+  - T3: all refusals hold.
+- **Independent checks.**
+  - The F-DYN builder's pre-test passes on 53ccd5ae (F-DYN 8116fc46).
+  - The verifier's own masked packet (6,156 false cells) loads, and its digests equal the plain twin's. Tampered
+    declarations are refused.
+- **Row 79 notes 1–2: CLOSED by amendment 2 @ 446978f6** (rule 5ad24702, tests 716ea18d before the code; VERIFIED: Nora, PASS, ledger row 79a).
+  - The declaration is now bound to the mask by the F-9.3 writer's hash, `cells` and the per-member equality.
+  - Every reader construction in `load_packet` holds a module lock; the swap captures, installs and restores numpy under it.
+  - The verifier's own threaded test shows 53ccd5ae failing (8 errors per round, shim left installed) and 446978f6 clean.
+  - Direct `Packet(...)` calls outside `load_packet` are not covered.
+- **Original notes (row 79), as written:**
+  1. The npz-view shim is process-global. In-process threads must not build packets concurrently; the batches use
+     subprocesses.
+  2. The declaration is bound by count, not cell by cell. The declared `support_mask_sha256` is not compared with
+     the npz.
+  3. The npz view supports item access only. It would fail loudly if the reader changed.
+
+## HEADLINE `/2` witnesses touching the export-grid border (rule `BORDER_TOUCH_RULE.md` at 472b83cf + amendment 1 at 7fdfaa85, committed first; VERIFIED: Nora, PASS WITH NOTES, ledger row 80)
+
+**Labels.**
+- SCENARIO, not what happened. Graphs are road-limited.
+- **UPPER BOUND.** The count is of stored witnesses, and a place may have another route that does not touch the
+  border.
+- CERT = router OR closed footprint; ROUTER = router rule only.
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+- No HEADLINE number changes.
+
+**Run.**
+- All 48 HEADLINE `/2` packets were rebuilt from the v3.7 manifest (Leo 819bcb91).
+- Per place, the CERT and ROUTER leave-by were re-derived, and a witness was taken at it for every destination whose
+  feasible set contains it.
+- File: `results/BORDER_TOUCH_NR2.json`.
+- **Runner history:** `deadline_field/border_touch.py`, made two-pass at 969a2ca2 to cap memory. The Yeongdeok
+  single-pass runs were OOM-killed at about 14 GB.
+  - The two-pass runner gives identical counts and all 58 per-route records on a packet the first version had
+    completed (UA 25T17Z h5 kriged_mean).
+  - The UA packets come from the first version and the YD packets from the second.
+  - The last 6 YD packets started after `real.py` gained the support-aware path (53ccd5ae). That path is inactive on
+    unmasked packets: T1 shows byte-identical results.
+
+**Checks.**
+- **Leave-by:** 0 mismatches against `results/HEADLINE_NR2_summary.json`, every place, field and variant.
+- **Test equivalence:** the footprint test (padding cells on the export lattice + 14 cells) and the boundary test
+  disagree on 0 witnesses.
+- **Full checker:** every witness passes, 1,680 CERT and 1,680 ROUTER for the timing variants and 162 + 162 for the
+  static row.
+
+**Result.**
+
+| | timing variants (CERT = ROUTER) | static envelope_burnset row |
+|---|---|---|
+| places with a witness | 1,612 | 162 |
+| witnesses | 1,680 | 162 |
+| witnesses touching the border (footprint test; the count) | **0** | **0** |
+| places touching, "any" (the upper bound) / "all" | **0 / 0** | 0 / 0 |
+| witnesses in the outermost export ring (**proxy, not the count**) | 54 | 12 |
+
+- **Why the count is 0 (ledger row 80): a property of the graphs, not of the run.** Every graphs_interim node lies strictly inside the export grid (23,158 UA, 56,369 YD; closest 0.13 m from the UA south edge and 0.46 m from the YD east edge). Edges are straight chords, so by convexity no edge, node or destination reaches the boundary. No route on these graphs can touch a padding cell, witness or not.
+- **Reading:** no HEADLINE route touches the edge of the fire-data grid. The test is contact: a route's closed-rule
+  footprint against padding cells. It does **not** cover heat. Fire burning just outside the grid would not touch
+  these roads, but its radiant flux could reach a road near the edge, and the packets carry no flux from fire that
+  is not in the data (assessor, 13 Nov 09:15).
+- **The ring proxy is an indicator for the heat question, not a bound** (one cell, 375 m, says nothing about how far heat from fire outside the grid matters; ledger row 80 note 2). It covers 3 Yeongdeok places, at every YD start and
+  horizon and in every timing variant: 축산리 (osm:node/415158213), 옥계리 (osm:node/415160130) and 항리
+  (osm:node/415160318), at 63 / 170 / 365 m from the edge. Each is **"within one cell of the grid edge; radiant heat from fire outside the grid is
+  not modelled"**.
+  - A road in the outer ring that does not reach the grid boundary has no padding cell in its closed footprint, so the
+    padding-closed arm does not block it.
+- **Places without a witness** (no route, or not evaluated) are not counted here: 1,520 rows (timing variants) and 882
+  (static).

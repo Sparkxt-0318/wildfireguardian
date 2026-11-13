@@ -1,0 +1,78 @@
+{
+ "A": {
+  "H": 3600,
+  "phases": "81990c6b903a61a2782889f815b1b80489fa5785d3d3fb6c06720d6ec61174ff",
+  "B_router": "3945b4c63c61e64d6db3a23aeb79cd685dd6c800813b31c56e0ee035e3a25002",
+  "B_closed": "3945b4c63c61e64d6db3a23aeb79cd685dd6c800813b31c56e0ee035e3a25002",
+  "present_cells": "19a028d15832b9c5996135b31bdc3e5b7d1d74518a54ebc3763e4159e12dc115",
+  "burning_cells": "714d76327b2247efe499614ae216f17b5ccbe4fb11293fdaa05529eaa562ff81",
+  "origins_not_in_graph": 0,
+  "instances": "145e58be7c274ed31cebc03cfc2dce0063cce0160095253fa9fbe10b8d160543",
+  "n_instances": 60,
+  "issue_sets": "922649f13c4b7d135aa6eb4550bbe104606bc60508a7aeb0cffd6d2c9605a78a",
+  "n_issue_sets": 504,
+  "packet_npz_sha256": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198"
+ },
+ "firms_early_no_reentry2": {
+  "H": 18000,
+  "phases": "edcb1e987bb4da1f636c6ce3056703218c61d2d5f269c128be33e0a22f3e89ea",
+  "B_router": "ca19672c863532fb65673083918cf06546972aaec9d1c6ff17cb4bbd248c95e8",
+  "B_closed": "a0dbecbf81d56c623865197f697a2efd81aea6a1b7ccc15033baf830449b6ed0",
+  "present_cells": "3249255d5d5c2f96b88f77c1d6554a67da7b0c8246e69d6a9d91522ad6567e49",
+  "burning_cells": "650f8420426f6a88370c124b619b18d28b28909f8307cc0eb424c1b57aecc736",
+  "origins_not_in_graph": 0,
+  "instances": "5005d4f6046578fa3a3af4204d6a896264a0b815397d632017e2a0a98206fe24",
+  "n_instances": 60,
+  "issue_sets": "8ece2f4feb6aa10720b76a456c430a0c5490aebe9c359a88821727324d166ce0",
+  "n_issue_sets": 504,
+  "packet_npz_sha256": "9d216d2206fc3c625e2a74832b780dca514f97e1067f89647f240ab0603f1122"
+ },
+ "firms_early_reopening": {
+  "H": 18000,
+  "phases": "af8d76a98b16e3995516e1b4ce97bb57019e7f723df3ef04f6c365a6eb0663ca",
+  "B_router": "72504cad36a49194c107aeaafffccf7da3214fee21467a3d913c1a824c36f8f2",
+  "B_closed": "72504cad36a49194c107aeaafffccf7da3214fee21467a3d913c1a824c36f8f2",
+  "present_cells": "3249255d5d5c2f96b88f77c1d6554a67da7b0c8246e69d6a9d91522ad6567e49",
+  "burning_cells": "e687f10b31339576d0839adfedef62c2e02d77c78d7eaa1fdf0a63d9a1d2ba29",
+  "origins_not_in_graph": 0,
+  "instances": "82667926ba421b3565f6bc933f01e99e446647615303b7a033a4fb4b19a687e4",
+  "n_instances": 60,
+  "issue_sets": "b2d89a63df317f7c1d5f68dbdd5a065ea8a52acf2afc9cd36e668580cd742156",
+  "n_issue_sets": 504,
+  "packet_npz_sha256": "9a69430eaf632cc57b27b671ebb7e31ecd63abfafeb5c57444503eac6c35b4d1"
+ },
+ "kriged_mean_no_reentry2": {
+  "H": 18000,
+  "phases": "749b8569bcd75317e030b11b7815cfb945b368ec175be63ee29cfc74dae82855",
+  "B_router": "f68f002eb7dd7598181452f0ce96b54c475bcbccec8974da89ad7abb19fd1af0",
+  "B_closed": "fdf027d0e31ce3324340505fa6b040bc676b829e2f69e08fa8d8a8339d27d690",
+  "present_cells": "3249255d5d5c2f96b88f77c1d6554a67da7b0c8246e69d6a9d91522ad6567e49",
+  "burning_cells": "d2e51b8041ffe61d75368fe2ccc4bae6ea6ec01e293f839fdb50c2eb86edadbc",
+  "origins_not_in_graph": 0,
+  "instances": "672869c91a14613a5d0cc4e2a0b7d62a6a562413099fcd2c4b2821f8916deb3a",
+  "n_instances": 60,
+  "issue_sets": "75dbd7c9f7a31eabc3747e16495cee9f7e7ee89d312ad0395d437a0a93689349",
+  "n_issue_sets": 504,
+  "packet_npz_sha256": "0099419036affdf7220dbc6d30bd1186cf3442008f4c71386fe8248e0f5dca17"
+ },
+ "kriged_mean_reopening": {
+  "H": 18000,
+  "phases": "2abeabf3953d417a4cd87747da22da6f9fd1f03c7116cb44d78174754894a18c",
+  "B_router": "16d211b52e8564da39ffeb369eaa77e9b0facd8b31a1105429e383aead0a4216",
+  "B_closed": "16d211b52e8564da39ffeb369eaa77e9b0facd8b31a1105429e383aead0a4216",
+  "present_cells": "3249255d5d5c2f96b88f77c1d6554a67da7b0c8246e69d6a9d91522ad6567e49",
+  "burning_cells": "8cfcd580dec476ceb9797a201acd704d1a9899def7229a5c6335da085da4967f",
+  "origins_not_in_graph": 0,
+  "instances": "c4dbff6129845ebc27bb2a1550dfd8a97f5725f6301f520a06c8f74de6d5eaf5",
+  "n_instances": 60,
+  "issue_sets": "a3e9c09123a2094b0c4c25e9d233c9caa249fb908bb3440bde14e968fb06742a",
+  "n_issue_sets": 504,
+  "packet_npz_sha256": "eadda12057fe874b057a75d834421fa08e554fb5c656fbdbbdc9ca492e42d8e5"
+ },
+ "_meta": {
+  "code": "969a2ca2 (claude/f31-deadline-field)",
+  "tool": "deadline_field/pm_digest.py --fields",
+  "inputs": "batch/support_read_inputs.py",
+  "note": "sha256 of canonical JSON of PacketModel phases, B, instance W/A/IB/waitable and CERT/ROUTER issue sets"
+ }
+}
