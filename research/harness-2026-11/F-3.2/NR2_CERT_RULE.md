@@ -90,3 +90,19 @@ never retried silently and never dropped.
 - Uiseong 0324T09 h5 kriged_mean /2: first row FULLY_BOUND, certify 11.8 s plus verify 3.4 s.
 - About 15 s per row. A packet has 168 rows at the two departures, so about 42 minutes.
 - All 366 certifiable packets would take about 250 h. That is why the scope is limited.
+
+## Erratum 1 (2026-11-13 ~01:50 UTC; the rule text above is unchanged)
+
+- **What was wrong.** §2 (G-B) and §5 expected the h5 envelope packets to be REFUSED. That holds for the v3.5
+  reopening envelope ("HAZARD-only: arrays refuse"), not for the v3.7 `no_reentry/2` envelope. MANIFEST_v3_7 records
+  that packet as "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); no re-entry from lo: scalar law,
+  arrays consistent with HAZARD (NOREENTRY_RULE.md)". It is routable by design.
+- **What happened.** The Uiseong 20250324T090000Z h5 envelope packet passed G-A, G-B and G-C (1,277 active cells,
+  P1 0/0). The script then certified its 168 rows: 94 ROUTE, 74 NO_ROUTE, all FULLY_BOUND.
+- **Treatment (orchestrator, 01:46 UTC).**
+  - The 168 rows are out of scope and are listed as data only, with this reason. They are not results, and they carry
+    no person-facing label beyond the manifest's "BRACKET-START, NOT A LOWER BOUND".
+  - The envelope packets stay gate-only: the gate record is kept, and no rows are reported.
+  - The script now has `--gate-only` (9284e5ab), so the Yeongdeok envelope packet gets its gate record only.
+- **Check for the verifier.** Compare this erratum against MANIFEST_v3_7 (sha 7c178267): the envelope entries'
+  `transform` and `soundness` fields.
