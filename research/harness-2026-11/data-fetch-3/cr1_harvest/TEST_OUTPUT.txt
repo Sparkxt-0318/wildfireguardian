@@ -45,6 +45,12 @@ PASS E: 302 -> BLOCKED, exit 3
 PASS E: server never saw a /protected request
 ERROR (HTTP 500) {}
 PASS D: 500 -> ERROR (HTTP 500), exit 3, not ALL DONE
+ERROR (body read: IncompleteRead) {"new": 1}
+PASS D': truncated body -> ERROR (body read: IncompleteRead), exit 3
+ALL DONE {"new": 3, "no_ir": 1, "not_taken": 2, "refused": 1}
+PASS N: HEAD without Content-Length -> new file still downloaded
+ALL DONE {"no_ir": 1, "not_taken": 2, "refused": 1, "unchanged": 3}
+PASS N: unknown size re-run downloads, sha matches latest -> UNCHANGED, no .v2
 ERROR (URLError) {}
 PASS D: URLError -> ERROR, exit 3
 ALL PASS

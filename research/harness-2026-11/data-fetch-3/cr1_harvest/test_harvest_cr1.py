@@ -30,6 +30,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     seen = []
     redirect_dir = None
     error_dir = None
+    truncate_file = None   # D': GET sends Content-Length 100 but only 5 bytes, then closes
+    nocl_file = None       # N: HEAD answers 200 without Content-Length
 
     def log_message(self, *a):
         pass
@@ -40,6 +42,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_response(302); self.send_header('Location', '/protected/IR/'); self.end_headers(); return True
         if Handler.error_dir and self.path.rstrip('/').endswith(Handler.error_dir):
             self.send_response(500); self.end_headers(); return True
+        if Handler.truncate_file and self.command == 'GET' and self.path.endswith(Handler.truncate_file):
+            self.send_response(200); self.send_header('Content-Length', '100'); self.end_headers()
+            self.wfile.write(b'short'); self.wfile.flush(); self.close_connection = True; return True
+        if Handler.nocl_file and self.command == 'HEAD' and self.path.endswith(Handler.nocl_file):
+            self.send_response(200); self.end_headers(); return True
         return False
 
     def do_GET(self):
@@ -154,6 +161,26 @@ def main():
             lr = last_run(Path(td, 'dout'))
             check('D: 500 -> ERROR (HTTP 500), exit 3, not ALL DONE', rc == 3 and 'ERROR (HTTP 500)' in lr and 'ALL DONE' not in lr)
             Handler.error_dir = None
+            # D': truncated body -> ERROR, never ALL DONE
+            Handler.truncate_file = 'fake_heat_perimeter.shp'
+            rc = run(url, Path(td, 'tout'), regions='nrcc')
+            lr = last_run(Path(td, 'tout'))
+            check("D': truncated body -> ERROR (body read: IncompleteRead), exit 3", rc == 3 and 'ERROR (body read:' in lr and 'ALL DONE' not in lr)
+            Handler.truncate_file = None
+            # N: new file whose HEAD has no Content-Length is downloaded, not logged as 404
+            Handler.nocl_file = 'fake.kmz'
+            nout = Path(td, 'nout')
+            rc = run(url, nout, regions='nrcc')
+            nst = json.loads((nout / 'state.json').read_text())
+            check('N: HEAD without Content-Length -> new file still downloaded', rc == 0 and
+                  any(k.endswith('fake.kmz') for k in nst['files']) and '"404"' not in last_run(nout))
+            Handler.seen.clear()
+            rc = run(url, nout, regions='nrcc')
+            kmz_gets = [p for m, p in Handler.seen if m == 'GET' and p.endswith('fake.kmz')]
+            nst = json.loads((nout / 'state.json').read_text())
+            check('N: unknown size re-run downloads, sha matches latest -> UNCHANGED, no .v2', rc == 0 and len(kmz_gets) == 1
+                  and not any(k.endswith('.v2') for k in nst['files']) and '"unchanged": 3' in last_run(nout))
+            Handler.nocl_file = None
         finally:
             srv.shutdown()
             srv.server_close()  # close the listening socket so the next request is refused, not left hanging

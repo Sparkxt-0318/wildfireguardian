@@ -8,13 +8,18 @@ v2 (13 Nov): fixes Hannah's review FAIL (ledger row 68):
      a file is downloaded only when new or its size differs from the latest version.
   B  the --out guard uses the real repository root (git rev-parse --show-toplevel, fallback parents[4]).
   D  any other HTTP error (incl. 429), URLError or timeout stops the run with status ERROR (...); no retry.
+v3 (13 Nov): fixes the row-73 re-review FAIL:
+  D' body reads are wrapped too (http.client.HTTPException, OSError -> ERROR); a catch-all makes a crash end as
+     ERROR (<class>), never ALL DONE.
+  N  HEAD 404 means absent; HEAD 200 without Content-Length means size unknown -> download and compare sha with
+     the latest version (idempotence kept by sha).
 
 usage: CR1_LOG_SALT=... harvest_cr1.py --root URL_OR_DIR --year 2027 --regions R1,R2 --out DIR [--spacing 2.0]
 
 Run only on the synthetic fixture (test_harvest_cr1.py) until the 2027 season, Hannah's review and the
 orchestrator's go. --root may be an http(s) URL or a local directory (fixture mode); both are walked the same way.
 """
-import argparse, hashlib, html.parser, json, os, socket, subprocess, sys, time
+import argparse, hashlib, html.parser, http.client, json, os, socket, subprocess, sys, time
 import urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
@@ -113,6 +118,13 @@ class Source:
         except (urllib.error.URLError, socket.timeout, TimeoutError, ConnectionError) as e:
             raise Stop(type(e).__name__)
 
+    @staticmethod
+    def _body(r):
+        try:
+            return r.read()
+        except (http.client.HTTPException, OSError) as e:
+            raise Stop('body read: %s' % type(e).__name__)
+
     def listdir(self, rel):
         """Return (dirs, files) names directly under rel, or None if absent."""
         if not self.http:
@@ -126,7 +138,7 @@ class Source:
         if r is None:
             return None
         p = _Hrefs()
-        p.feed(r.read().decode('utf-8', 'replace'))
+        p.feed(self._body(r).decode('utf-8', 'replace'))
         dirs, files = [], []
         for h in p.hrefs:
             if h.startswith(('?', '/', '#')) or '://' in h or h.startswith('..'):
@@ -135,15 +147,18 @@ class Source:
             (dirs if name.endswith('/') else files).append(name.rstrip('/'))
         return sorted(set(dirs)), sorted(set(files))
 
+    ABSENT = object()
+
     def size(self, rel):
-        """Size without downloading: stat (local) or HEAD Content-Length (http). None if absent/unknown."""
+        """Size without downloading: stat (local) or HEAD Content-Length (http).
+        Returns Source.ABSENT if the file is absent (404), None if present but size unknown, else an int."""
         if not self.http:
             self.guard(rel)
             p = Path(self.root, rel)
-            return p.stat().st_size if p.is_file() else None
+            return p.stat().st_size if p.is_file() else Source.ABSENT
         r = self._open(rel, method='HEAD')
         if r is None:
-            return None
+            return Source.ABSENT
         cl = r.headers.get('Content-Length')
         return int(cl) if cl and cl.isdigit() else None
 
@@ -153,7 +168,7 @@ class Source:
             p = Path(self.root, rel)
             return p.read_bytes() if p.is_file() else None
         r = self._open(rel)
-        return None if r is None else r.read()
+        return None if r is None else self._body(r)
 
 
 def main(argv=None):
@@ -197,9 +212,9 @@ def main(argv=None):
     def take(rel):
         prev = files.get(latest[rel]) if rel in latest else None
         size = src.size(rel)
-        if size is None and prev is None:
+        if size is Source.ABSENT:
             log(rel, 'HTTP_404'); bump('404'); return
-        if prev is not None and size == prev['size']:
+        if size is not None and prev is not None and size == prev['size']:
             log(rel, 'UNCHANGED'); bump('unchanged'); return
         data = src.read(rel)
         if data is None:
@@ -251,6 +266,8 @@ def main(argv=None):
         status = 'BLOCKED (%s)' % e
     except Stop as e:
         status = 'ERROR (%s)' % e
+    except Exception as e:  # never report ALL DONE after an unexpected crash
+        status = 'ERROR (%s)' % type(e).__name__
     finally:
         statef.write_text(json.dumps(state, indent=1, sort_keys=True))
         logf.write('%s RUN %s %s\n' % (utc(), status, json.dumps(counts, sort_keys=True)))
