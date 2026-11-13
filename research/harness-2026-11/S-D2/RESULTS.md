@@ -437,18 +437,18 @@ tolerance: |mean − 0.072| ≤ 0.05 and SD ≤ 0.05.
 | arm | NLL far share, mean (SD) | MCEM mean (SD) | plug-in | composite | verdict |
 |---|---|---|---|---|---|
 | baseline | 0.095 (0.026) | 0.080 (0.010) | 0.388 | 0.047 | not the cause |
-| state_error | 0.095 (0.026) | 0.136 (0.024) | 0.372 | 0.090 | not the cause (MCEM out of tolerance) |
+| state_error | ~~0.095 (0.026)~~ NOT MEASURED† | 0.136 (0.024) | 0.372 | 0.090 | undetermined† (recorded as "not the cause") |
 | time_varying | 0.308 (0.338) | 0.113 (0.054) | 0.387 | 0.027 | not the cause (MCEM SD 0.054 > 0.05) |
 | barriers | 0.082 (0.035) | 0.064 (0.020) | 0.351 | 0.037 | not the cause |
 | detached | 0.090 (0.014) | 0.075 (0.019) | 0.378 | 0.045 | not the cause |
 | baseline_contig | 0.087 (0.038) | 0.087 (0.013) | 0.392 | 0.050 | not the cause (so contiguity itself is not the cause) |
-| state_error_contig | 0.087 (0.038) | 0.129 (0.026) | 0.375 | 0.091 | not the cause (MCEM out of tolerance) |
+| state_error_contig | ~~0.087 (0.038)~~ NOT MEASURED† | 0.129 (0.026) | 0.375 | 0.091 | undetermined† (recorded as "not the cause") |
 | **time_varying_contig** | **0.451 (0.255)** | 0.101 (0.043) | 0.512 | 0.026 | **passes the pre-registered rule by its letter** (not stable; see below) |
 | barriers_contig | 0.078 (0.025) | 0.064 (0.018) | 0.344 | 0.034 | not the cause |
 | detached_contig | 0.122 (0.015) | 0.072 (0.020) | 0.396 | 0.036 | not the cause |
 
 Reading:
-- **Firmer half:** contiguity alone, barriers, detached spotting and state error do not move NLL's far share. That rules out four explanations under this generator.
+- **Firmer half:** contiguity alone, barriers and detached spotting do not move NLL's far share. That rules out three explanations under this generator. (State error is not among them; see †.)
 - **Only time-varying spread rate passes the rule, and both of its verdicts sit on the edge of the rule:**
   - On `time_varying_contig`, NLL's per-seed far shares are 0.532, 0.193, 0.271, 0.418 and 0.843: only 2 of 5 seeds are above 0.40.
   - MCEM passes with SD 0.043, close to the 0.05 limit.
@@ -456,7 +456,8 @@ Reading:
   - Hypothesis: a day-to-day rate modulator makes NLL's far share unstable, with occasional very large values (one seed at 0.843 carries the mean), rather than uniformly high. The rule's mean-based reading hides that.
   - The real-data NLL far share (median 0.679 over 25 per-fire fits; results/real_far_share.json) is above every arm's mean, so the modulator reproduces the direction of the gap, not yet its size.
   - A 30-seed extension under its own rule (RULE_ablation_seed_extension.md) tests whether this is stable. The verdicts above, under the original rule, stand as recorded.
-- State error (one-survey bracket shifts) moves MCEM out of tolerance (0.136 and 0.129) but leaves NLL unchanged.
+- State error (one-survey bracket shifts) moves MCEM out of tolerance (0.136 and 0.129). Its effect on NLL was **not measured** (†).
+- † Owen found this, and I confirmed it. R.fit_meanfield builds its survey states from problem.tau, the TRUE arrival times, and never reads obs, while generate() applies state_error to obs only. The NLL thetas of state_error and state_error_contig are bit-identical to baseline and baseline_contig on all 5 seeds. Plug-in, composite and MCEM all differ. So the NLL column for those two arms restates the baseline, and their verdicts are undetermined between "not the cause" and "both affected". They cannot be "the cause", because MCEM is out of tolerance. The other arms change tau itself, so they are unaffected. The recorded verdicts in the JSON are left as written and annotated here; Owen is running a diagnostic NLL refit on the perturbed observations.
 - Barriers, detached spotting and contiguity do not move NLL.
 - Calibration notes:
   - The detached spotting rate is 1.2e-5 on both baselines (generator-only, seeds 100–109).
