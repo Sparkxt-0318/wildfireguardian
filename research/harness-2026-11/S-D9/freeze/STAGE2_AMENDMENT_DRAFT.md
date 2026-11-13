@@ -18,7 +18,7 @@
 - **Clean confirmation.** The clean confirmation is CR1 (`clean_replication/PREREGISTRATION_DRAFT.md`, PR #153), not part c. It is frozen separately.
 
 ## 2. d2_bracket_rebuilt protocol
-- **Code (claude/s-d2-next):** proposed final `refit/` head **7d4937c7** (Elena, 03:10Z 13 Nov; supersedes e598a840, and the only file changed is the demo driver), for `d2_bracket_rebuilt` and `d2_nll_rebuilt`. File sha256 prefixes, checked from the commit: `d2_bracket.py` 80f9fbb6, `run_d2_bracket.py` cc41cc33, `run_d2.py` 46d299ea (stale text only), `time_estep.py` 0bebc764, `native_marginals.py` 5fad4734, `demo_native_marginals_R.py` 7a71e16a (reads R states only through `nirops_access.py` ab065e85 with `R_ALLOWLIST` c4d74159, under Hannah's row-78 terms). Earlier pins superseded: `d2_bracket.py` 98d7d6c6, `run_d2.py` e3c0843c, `native_marginals.py` 48825e3d. **PENDING:** Owen's head verification.
+- **Code (claude/s-d2-next):** proposed final `refit/` head **55b268df** (Elena, 03:12Z 13 Nov; supersedes 7d4937c7 and e598a840, and the only file changed since e598a840 is the demo driver), for `d2_bracket_rebuilt` and `d2_nll_rebuilt`. File sha256 prefixes, checked from the commit: `d2_bracket.py` 80f9fbb6, `run_d2_bracket.py` cc41cc33, `run_d2.py` 46d299ea (stale text only), `time_estep.py` 0bebc764, `native_marginals.py` 5fad4734, `demo_native_marginals_R.py` bcad73ed (its receipt carries the three weight conditions: weights.status, a strict weights.load_check, summary.non_degenerate; it reads R states only through `nirops_access.py` ab065e85 with `R_ALLOWLIST` c4d74159, under Hannah's row-78 terms). Earlier pins superseded: `d2_bracket.py` 98d7d6c6, `run_d2.py` e3c0843c, `native_marginals.py` 48825e3d. **PENDING:** Owen's head verification.
 - **E-step:** discretised Gibbs on a 0.25 h grid.
   - 2 sweeps per epoch, with midpoint initialisation and a warm start.
   - Its own RNG: `SeedSequence([seed, 0x5D2B])`.
@@ -40,7 +40,7 @@
   - **Execution.** The demo may run in Daniel's container, where the US2024 environment (286f4c47) already exists, from Elena's exact commit. Daniel executes it verbatim and changes no code; Elena owns the command and the receipt. This is the same arrangement as the refits.
   - **Weights (orchestrator ruling, 2026-11-13, 03:06Z).** The demo may use the committed `d4_wind_seed0` checkpoint (33c5b3cf…) as **development weights**, under three conditions in addition to (a)–(d):
     - the receipt names the checkpoint and its archive provenance, and says plainly that these are development weights, not part-a-trained;
-    - the weights load unchanged into the model class of the final head (7d4937c7; model code unchanged from e598a840), with no shape or key remapping;
+    - the weights load unchanged into the model class of the final head (55b268df; model code unchanged from e598a840), with no shape or key remapping;
     - the outputs are non-degenerate.
   - **R inputs (orchestrator with Hannah as custodian, approved with conditions).** R's survey states, times and cutoffs come only through `nirops_access.py` in Daniel's container, with a committed allowlist of exactly the 6 R IDs. Hannah checks the allowlist and driver shas before the run, and the access log and audit after it.
 
