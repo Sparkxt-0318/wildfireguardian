@@ -492,3 +492,16 @@ orchestrator.
 - **The script was extended before this run** to compare W and A as well as B, which is what the §8 pass condition
   states. The two earlier FAIL records compared B only; they failed at load, so the comparison never ran.
 - **Gate still closed.** Padded packets are built only after the independent verifier's verdict on 53ccd5ae.
+
+**PacketModel pinned to 446978f6 (13 Nov, ~09:25Z).** The routing author's support-read amendment 2 (446978f6;
+verification ledger row 79a) binds the mask to the packet by hash and fixes a threading defect at 53ccd5ae: concurrent
+loads in one process errored and left the reader patched.
+- **Every padded run is pinned to 446978f6.**
+- **Exposure at 53ccd5ae:** none of the work here loaded packets concurrently in one process. Packet builds never
+  load PacketModel; the batch threads only dispatch subprocesses. All three PacketModel results produced on 53ccd5ae
+  were nevertheless re-run on 446978f6:
+  - **pre-build test (A/D): PASS** — `results/WIDENED_PRETEST_PACKETMODEL_446978f6.json`;
+  - **P5 on the test packet: PASS** — full_check REFUSED_SUPPORT_MASKED; kit and F-3.2 refuse; the twin loads;
+  - **UA sizing run:** the feasible sets are identical to the 53ccd5ae run; peak 1.8 GB, 180 s.
+- **UA packet pairs (24 = 3 starts × h5/h8 × 4 variants): P2 and P3 PASS on all 24.** The maximum flux difference is
+  1.9e-15 kW/m² absolute. Results: `results/WIDENED_PAIRS_UA.json`.
