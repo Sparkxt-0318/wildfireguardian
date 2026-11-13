@@ -517,6 +517,44 @@ one rollout (refit/native_marginals.py). No score was computed.
   - The canopy stage's source URL is dead.
 - Note: in the receipt, entries are cells unburned at cutoff and valid. The non-degeneracy rule is the one in the driver (max > 0.01 on some cutoff, no constant cutoff, no all-one cutoff).
 
+## 3j. Feature-ablation seed extension (RULE_ablation_seed_extension.md @ 030632f9 + disclosed additions; unverified; sent to Owen)
+
+Synthetic only. This is a follow-up with its own rule; the §3h verdicts stand as recorded.
+- Arms: baseline, time_varying, baseline_contig, time_varying_contig. Seeds 0–29; seeds 0–4 are reused from the guarded run.
+- Run: E3, feature_ablation.py 2b65ef05, fitguard 50d4bf4f.
+- Results: results/feature_ablation_seeds30.json (176e9c90…). Reading: results/ablation_seed_reading.json (a196d125…).
+
+**Reading under the rule: both time-varying arms are INTERMITTENT, and neither is STABLE.** Seeds 0–29 and fresh seeds 5–29 agree.
+
+| arm (seeds 0–29) | NLL median [IQR] | NLL above 0.40 | MCEM median (SD) | MCEM within 0.05 of 0.0718 |
+|---|---|---|---|---|
+| baseline | 0.094 [0.070, 0.122] | 0 of 30 | 0.076 (0.019) | 30 of 30 |
+| time_varying | 0.340 [0.254, 0.531] | **13 of 30** | 0.084 (0.037) | 24 of 30 |
+| baseline_contig | 0.084 [0.068, 0.111] | 0 of 30 | 0.077 (0.026) | 28 of 30 |
+| time_varying_contig | 0.467 [0.322, 0.642] | **18 of 30** | 0.123 (0.047) | **15 of 30** |
+
+Fresh seeds 5–29 alone:
+- time_varying: 12 of 25 above 0.40; MCEM within tolerance on 21 of 25.
+- time_varying_contig: 15 of 25 above 0.40; MCEM within tolerance on 12 of 25.
+
+Why each reading:
+- **time_varying** fails STABLE on the median (0.340 ≤ 0.40) and on the share (13/30 < 0.50). It is INTERMITTENT because 13/30 exceeds the baseline's 0/30 by 0.43.
+- **time_varying_contig** passes the NLL parts of STABLE: median 0.467, 18/30 above 0.40. It fails the MCEM part: within tolerance on 15/30 against the required 80%. It is INTERMITTENT by an 18/30 margin over its baseline (0/30).
+
+What this changes in the §3h picture:
+- A rate that varies between intervals moves the mean-field NLL far share above 0.40 on a large minority-to-majority of seeds (43–60%), and never does so without it (0 of 60 baseline seeds).
+- **On the contiguous baseline it also takes MCEM out of per-seed tolerance on half the seeds.** The 5-seed result "MCEM within tolerance" (§3h) was therefore favourable seeds, not a property of the arm. So the 5-seed pass of time_varying_contig does not hold up at 30 seeds.
+- Description: time-varying rate affects both estimators, NLL more strongly and more often. It is not the clean "NLL-only" cause the 5-seed rule looked for.
+- Real-data comparison (descriptive): NLL is above 0.40 on 18 of 25 real per-fire fits (0.72). The real MCEM agrees with the synthetic reference value 0.072 on 22 of 25. That is a comparison with the generator's setting, not evidence that 0.072 is right for real fires.
+
+Guard: 480 fits, 0 NLL or MCEM failures, so no seed is voided. **3 composite fits fail** (time_varying_contig seeds 7, 26 and 28: a restart from x0 = 0.005 and/or 0.08 improves the objective). These are reported and do not void anything, because composite is not a verdict estimator (addendum 3).
+
+*Not a reading:* feature_ablation.py also writes the original 5-seed rule's mean-based verdicts into the JSON. Applied to 30 seeds, they say "the cause" for both time-varying arms: NLL means 0.407 and 0.494, and MCEM mean/SD inside 0.05. That is the original rule's arithmetic on a different seed count. It is not part of RULE_ablation_seed_extension.md and is not reported as a verdict.
+
+Cross-host: if Owen reruns, MCEM per-seed tolerance is taken from both hosts under the disclosed addition (01685f0d), so the readings above could only move toward NOT STABLE.
+
+Per the orchestrator and Iris, **no further kernel diagnostics follow.** Whether the variation is weather needs the real covariates.
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any

@@ -1,0 +1,193 @@
+{
+ "seeds_0_29": {
+  "stats": {
+   "time_varying": {
+    "n": 30,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.33952545194740325,
+     "q25": 0.25443348238024766,
+     "q75": 0.530725922745347,
+     "mean": 0.407451330520199,
+     "share_above_040": 0.43333333333333335,
+     "count_above_040": "13 of 30"
+    },
+    "mcem": {
+     "median": 0.08388622348347119,
+     "mean": 0.09746025416096672,
+     "sd": 0.03695492936154886,
+     "share_within_tol": 0.8,
+     "count_within_tol": "24 of 30"
+    },
+    "restart_triggers": 14
+   },
+   "baseline": {
+    "n": 30,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.09436555282712272,
+     "q25": 0.06981954237591682,
+     "q75": 0.12226868922891593,
+     "mean": 0.0950021024852558,
+     "share_above_040": 0.0,
+     "count_above_040": "0 of 30"
+    },
+    "mcem": {
+     "median": 0.07550549299882299,
+     "mean": 0.07293308986835596,
+     "sd": 0.018749440776477774,
+     "share_within_tol": 1.0,
+     "count_within_tol": "30 of 30"
+    },
+    "restart_triggers": 13
+   },
+   "time_varying_contig": {
+    "n": 30,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.4671824180688362,
+     "q25": 0.32177224034056384,
+     "q75": 0.6424772282479926,
+     "mean": 0.4937216676564418,
+     "share_above_040": 0.6,
+     "count_above_040": "18 of 30"
+    },
+    "mcem": {
+     "median": 0.12281891771011573,
+     "mean": 0.11139499736620628,
+     "sd": 0.046929946765420574,
+     "share_within_tol": 0.5,
+     "count_within_tol": "15 of 30"
+    },
+    "restart_triggers": 563
+   },
+   "baseline_contig": {
+    "n": 30,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.08417007718465494,
+     "q25": 0.06819112475289978,
+     "q75": 0.1114969840192752,
+     "mean": 0.09181618724243266,
+     "share_above_040": 0.0,
+     "count_above_040": "0 of 30"
+    },
+    "mcem": {
+     "median": 0.07714985984295164,
+     "mean": 0.0785333871680965,
+     "sd": 0.026173578922457644,
+     "share_within_tol": 0.9333333333333333,
+     "count_within_tol": "28 of 30"
+    },
+    "restart_triggers": 658
+   }
+  },
+  "reading": {
+   "time_varying": "INTERMITTENT",
+   "time_varying_contig": "INTERMITTENT"
+  }
+ },
+ "seeds_5_29": {
+  "stats": {
+   "time_varying": {
+    "n": 25,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.36762607345186277,
+     "q25": 0.27150296301337096,
+     "q75": 0.5343326895176672,
+     "mean": 0.42743200775828283,
+     "share_above_040": 0.48,
+     "count_above_040": "12 of 25"
+    },
+    "mcem": {
+     "median": 0.08201800652186861,
+     "mean": 0.09432008989220073,
+     "sd": 0.03331695079109438,
+     "share_within_tol": 0.84,
+     "count_within_tol": "21 of 25"
+    },
+    "restart_triggers": 9
+   },
+   "baseline": {
+    "n": 25,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.09233972665528158,
+     "q25": 0.0694847082901529,
+     "q75": 0.12708452686688038,
+     "mean": 0.0949334592423787,
+     "share_above_040": 0.0,
+     "count_above_040": "0 of 25"
+    },
+    "mcem": {
+     "median": 0.07183632015264815,
+     "mean": 0.07158677183569394,
+     "sd": 0.019883178033222166,
+     "share_within_tol": 1.0,
+     "count_within_tol": "25 of 25"
+    },
+    "restart_triggers": 13
+   },
+   "time_varying_contig": {
+    "n": 25,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.46791029180246957,
+     "q25": 0.32465410624728525,
+     "q75": 0.6649908609735629,
+     "mean": 0.5022161083936799,
+     "share_above_040": 0.6,
+     "count_above_040": "15 of 25"
+    },
+    "mcem": {
+     "median": 0.12389341295635521,
+     "mean": 0.11351731080087869,
+     "sd": 0.04814370193272054,
+     "share_within_tol": 0.48,
+     "count_within_tol": "12 of 25"
+    },
+    "restart_triggers": 470
+   },
+   "baseline_contig": {
+    "n": 25,
+    "voided_seeds": [],
+    "nll": {
+     "median": 0.08442709965676862,
+     "q25": 0.07131550792207739,
+     "q75": 0.11242818871704668,
+     "mean": 0.09286421502832959,
+     "share_above_040": 0.0,
+     "count_above_040": "0 of 25"
+    },
+    "mcem": {
+     "median": 0.07581486048520061,
+     "mean": 0.07689352330408536,
+     "sd": 0.02797713303486271,
+     "share_within_tol": 0.92,
+     "count_within_tol": "23 of 25"
+    },
+    "restart_triggers": 560
+   }
+  },
+  "reading": {
+   "time_varying": "INTERMITTENT",
+   "time_varying_contig": "INTERMITTENT"
+  }
+ },
+ "headline": {
+  "time_varying": "INTERMITTENT",
+  "time_varying_contig": "INTERMITTENT"
+ },
+ "agree_0_29_vs_5_29": true,
+ "real_reference": {
+  "nll_share_above_040": 0.72,
+  "nll_count_above_040": "18 of 25",
+  "nll_median": 0.679,
+  "mcem_share_within_005_of_synthetic_reference_0072": 0.88,
+  "mcem_count": "22 of 25",
+  "note": "Real fires have no known kernel. The MCEM figure compares real per-fire fits with the synthetic generator's setting 0.072; it is not evidence that 0.072 is right for real fires.",
+  "source": "results/real_far_share.json (25 per-fire fits)"
+ },
+ "rule": "RULE_ablation_seed_extension.md"
+}
