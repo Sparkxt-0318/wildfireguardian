@@ -111,3 +111,30 @@ The assessor's hypothesis (most excluded) is stated as a hypothesis, and the cou
 - **D7, statuses.** Every status is one of the two strings in §4, and X is complete. The words "flyable", "possible",
   "safe", "rescue" and "evacuate by air" appear nowhere.
 - **D8, labels.** Every row carries the three fixed strings (§4), and every file carries the header lines (§6).
+
+## 8. Amendment 1: preconditions settled by the orchestrator (13 Nov, ~12:43Z; before any build)
+
+- **P-a, register.**
+  - I re-fetch the CSV through the same public data.go.kr flow (manifest @ ca7133d8), into its own empty directory,
+    and require sha256 55f66625…. **If the sha differs, D0 stops and reports. The file is not used.**
+  - The provenance verifier is asked for a ledger row on the file. **D0 results are not cited until that row
+    exists.**
+- **P-b, boundaries.** The OSM `admin_level=6` boundaries from the 2025-01-01 pbf are confirmed, labelled
+  "OpenStreetMap administrative boundaries, snapshot 2025-01-01".
+  - **Cross-check:** for every place used, the place → 시군구 assignment from the polygons must agree with the merged
+    jurisdiction labels (labels.json, 177 places).
+  - **Any disagreement is reported, not resolved.** The row then carries both assignments.
+- **P-c, wind.**
+  - **Source:** the Open-Meteo historical archive (no key; the same service as the weather stream), 10 m wind speed
+    **and** gusts at each site and place for the replay hours.
+  - **Label:** "reanalysis-based, not observed; grid scale kilometres; not a flight-safety assessment".
+  - **Quota:** the calls are agreed with the data-fetch author before any is sent, because the daily quota is shared.
+    A few hundred weighted calls at most, sent today before 23:30Z or after his 00:12Z day-2 run.
+  - **If gusts cannot be served for those dates,** D0 evaluates daylight only and says so.
+  - **Gate:** with gusts, the wind gate excludes when the mean is above the limit or the gust spread (gust − mean) is
+    above 15 kt, under the Type 1–2 limit (40 kt). The Type 3 limit (30 kt) is reported beside it.
+  - **Location and hour:** the wind is read at the place point and at the nearest site, at the row's hour. Either one
+    over the limit excludes. The values used are shown.
+- **Smoke and visibility:** not evaluated.
+- **KMA station data:** only if the assessor rules the reanalysis insufficient for a staff-only planning row.
+- **Status text once wind is evaluated:** "not excluded by the gates evaluated (smoke and visibility not evaluated)".
