@@ -252,7 +252,8 @@ them whole, with different geometry and ticks.
 - **P4 is therefore asserted only for old routes that touch no padding cell**, counting boundary contact under the
   closed rule.
 - **Old routes lost only through such contact** are listed in their own row: **"lost only by touching the edge of the
-  fire-data grid (padding assumed burning)"**. That row is not a P4 failure, and not a fire result.
+  fire-data grid (padding assumed burning); not a fire result; the result on the old graph is unchanged"**. The row
+  is internal, like everything else that depends on what padding is assumed to be. That row is not a P4 failure, and not a fire result.
 
 **(d) Waiting.** Arm (a) uses the **old** waiting set (§3). Otherwise P4 could fail through lost stops.
 - **Implementation:** a `waitable_override: {node_id: bool}` in the routing author's PacketModel. It is applied to the
@@ -289,3 +290,16 @@ rows over 34 places:
   - **Known before the rebuild:** UA osm:12616948834, created after the snapshot. It is the entry node of place
     osm:node/415160468 at all 3 UA starts.
   - The full membership test runs on the rebuilt step-1 graph, before any routing run.
+
+**The assessor's reading of §7 (13 Nov): border ruling accepted.** Her three additions are part of the rule:
+- **P4 coverage, reported per region:** how many old routes P4 covers, and how many it excludes for touching padding.
+  If most of the YD south/east-edge routes are excluded, P4 tests little there, and the report says so.
+- **P4-open, asserted.** Under (a) × padding open, every old route that uses only identical edges (and whose ids are
+  located) must still exist, with **no padding exclusions**: open padding adds no closure. This is the one complete
+  check of the graph extension. Any violation is a FAIL.
+- **The row label** for border-touch losses carries "not a fire result; the result on the old graph is unchanged",
+  and the row stays internal.
+
+**Reported with the widened-graph results; this changes nothing in the headline.** The count of `/2` headline routes
+that touch the export-grid border, per region and start. These results rest on "nothing is burning just outside the
+grid", and the reader should see how many there are.
