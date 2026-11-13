@@ -870,3 +870,85 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
   not been run yet.
 - **Cost.** The Yeongdeok caches peak at 11.4–12.2 GB RSS under all-waitable. One run was killed for running out of
   memory while running alongside other jobs, and was rerun alone.
+
+## Multi-hour HEADLINE run on `no_reentry/2`, 48 packet pairs (SCENARIO, not what happened; HEADLINE; NOT YET VERIFIED)
+
+**Labels.**
+- SCENARIO, not what happened. Graphs are road-limited: roads are limited to the recorded windows.
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+  The static final-footprint row shows whether the road crosses the eventual burn area, not when it was safe to leave.
+- **Fields:** CERT = router OR closed footprint; ROUTER = router rule only. Refusal claims come only from ROUTER.
+- "Exact" is relative to the time-dependent model.
+- firms_early and envelope: bracket-start, not a lower bound.
+- envelope_burnset is its own static row. Burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only).
+- **Arm:** HEADLINE arm (`no_reentry/2`). A cell that has burned is closed for the whole horizon, including cells burned out before the start.
+- **Dose and peak** (witness full checks, acceptance 7) carry the packet's `fdyn.no_reentry_flux` label verbatim:
+  "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field".
+- **Waiting rule (R):** Each departure time in [0, H], every integer second (verdicts on the 30-min grid), is a separate trip. Leaving later is how waiting at the start place is represented. Once moving, a stop is allowed only at a road dead end (a graph dead-end node), which may be a short detour off the route; waiting is not allowed at any other node.
+  - The rule is not monotone in departure time.
+  - Non-prefix feasible sets in this run: 0. Every leave-by below is a prefix leave-by.
+
+**Coverage.** 48 pairs: v3.7 `no_reentry/2` + reopening × 4 variants × 6 recorded starts × {5 h, 8 h}.
+- Leo's code at 819bcb91, MANIFEST_v3_7 (sha256 7c178267…).
+- Each packet is built from the manifest command at its manifest `--out` path, so the hashes are the canonical builds.
+- Runner: `deadline_field/headline.py`; batch: `batch/headline_nr2_batch.py`.
+- 0 build or run failures. Every packet's writer_identity.transform = `no_reentry/2`.
+- Summary: `results/HEADLINE_NR2_summary.json`, per place, packet and variant. The raw per-pair outputs stay in scratch.
+
+| check (totals over 48 pairs) | `/2` HEADLINE | (`/1` VARIANT, row 67) |
+|---|---|---|
+| CERT leave-by witnesses, full checker on the `/2` packet | 4,842 / 4,842 PASS | 9,058 / 9,058 |
+| same witnesses on the reopening packet | 4,842 / 4,842 PASS | 9,058 / 9,058 |
+| next second infeasible | 4,842 / 4,842 | 9,058 / 9,058 |
+| exactness precondition met (full policy = contact) | 4,838; 4 not met (still full-checker PASS) | 9,036; 22 |
+| acceptance 7: budget-code (PEAK/DOSE) differences vs reopening | 0 of 4,842 requests | 0 of 9,058 |
+| verdict differences on the 30-min grid (175,392 units) | 64,169, all "no re-entry infeasible / reopening feasible"; none the other way | 14,954 |
+| non-prefix feasible sets | 0 | 0 |
+| no-route rows: origin point in flame at departure | 2,064 | 950 |
+| no-route rows: fire-limited within loaded graph | 162 | 98 |
+| no-route rows: possibly road-limited (ROAD-LIMITED) | 176 | 32 |
+
+PASS = full policy OK and closed/router replay clear.
+
+**`/2` vs `/1`, per place (1,044 (region, start, horizon, place) rows × 3 timing variants = 3,132 per field; CERT and ROUTER identical).**
+
+| | CERT | ROUTER |
+|---|---|---|
+| same leave-by | 1,580 | 1,580 |
+| no route on both | 198 | 198 |
+| route on `/1`, no route on `/2` | 1,322 | 1,322 |
+| `/2` leave-by earlier (median 116 s, max 311 s) | 32 | 32 |
+| `/2` later, or route on `/2` only | 0 | 0 |
+
+- **The 1,322 lost routes split as follows:**
+  - origin point closed at departure: 1,074;
+  - fire-limited: 88;
+  - possibly road-limited: 160.
+- **Cause.** `/2` differs from `/1` only on B0, the cells burned or burned out before the start (acceptance 6a, ledger row 68). So a place that had a route on `/1` and is "origin point in flame at departure" on `/2` has its own point on or touching a B0 cell. In wording terms that is "origin already inside the modelled fire area at that departure time". Here the fire area includes ground that burned out before the start: the place is closed because it sits on burned-out ground under this arm, not because flame reaches it.
+- **Share of places without a route on `/2`.** Per start, kriged_mean / firms_early / envelope, out of 84 Uiseong or 90 Yeongdeok places. The counts are identical at 5 h and 8 h.
+  - Uiseong 23T01Z: 28 / 30 / 30
+  - Uiseong 24T09Z: 33 / 37 / 37
+  - Uiseong 25T17Z: 55 / 72 / 72
+  - Yeongdeok 25T19Z: 38 / 40 / 40
+  - Yeongdeok 25T23Z: 40 / 41 / 41
+  - Yeongdeok 26T08Z: 42 / 42 / 42
+
+**Acceptance 8, earlier-arrival half** (`NOREENTRY2_ACCEPTANCE_RULE.md` §8; MULTIHOUR_HEADLINE_RULE.md amendment 19:15 UTC).
+- **Nested pair tested:** firms_early vs kriged_mean. On the rasters firms_early arrival is ≤ kriged_mean on all 10,955 cells (2,364 earlier, 8,591 equal, 0 later).
+- **Result:** 0 violations, CERT and ROUTER. No place has a later firms_early leave-by, or a firms_early route where kriged_mean has none.
+  - Per field, over 1,044 rows: equal 514, firms_early earlier 6, firms_early no route with kriged_mean route 52 (a lost route is not a violation), no route on both 472.
+- **envelope vs kriged_mean:** not nested (lo = firms_early, hi = firms_constrained). Reported, not tested. Its counts are the same as firms_early, with 0 later rows.
+- **The 166 `/1` rows** (earlier variant later than kriged_mean, row 67) are all gone on `/2`. Every one went by losing the variant's route, none by a leave-by moving earlier:
+  - 71 per field: no route on both;
+  - 12 per field: variant no route, kriged_mean route.
+
+  This is consistent with the expected cause (pre-start burn-out open under `/1`), shown as: the B0 closure removes those routes.
+- **Spotting-dilation half:** not run yet. It needs rebuilds with the clamp a_d = max(dilate(a), t_start); the rule goes in first.
+
+**Possibly road-limited on `/2` (re-run candidates for the widened-graph rule).**
+- 34 (region, start, place), each at both 5 h and 8 h:
+  - Uiseong 23T01Z: 17;
+  - Uiseong 24T09Z: 10;
+  - Uiseong 25T17Z: 6;
+  - Yeongdeok 25T19Z: 1.
+- "Possibly road-limited" is a reachability heuristic at t = 0 (the reachable set touches a graph-window boundary node). It does not show that the window is the cause.
