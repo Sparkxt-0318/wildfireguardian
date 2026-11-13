@@ -5,7 +5,7 @@
 > 1.65× of this reference host's speed.** Beyond that, the Z watchdog (16 s) can fire before Z's work budget does. The
 > margin is the smallest across everything run here; per set:
 > - **F-DYN set: 1.66×**, the smallest. Yeongdeok 0325T23 …166 kriged_mean, budget-capped Z 9.65 s; firms_early 8.82 s
->   (1.82×).
+>   (1.81×).
 > - **1-hour panel: 1.84×.** Yeongdeok 0325T19 FD1, budget-capped Z 8.60–8.68 s, and FX2, 8.46–8.49 s. FD1 would lose
 >   the LO stage that proves its refusal.
 >
