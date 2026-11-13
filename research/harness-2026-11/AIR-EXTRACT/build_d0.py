@@ -303,6 +303,8 @@ def main():
            'sites_outside_stated_sigungu': sum(1 for v in pip.values() if not v['inside_stated']),
            'd6_solar_test': d6, 'inputs_sha256': {'csv': sha(a.csv), 'osm': sha(a.osm), 'list': sha(a.list),
                                                   **({'wind': sha(a.wind)} if a.wind else {})},
+           'withdrawn': ('The first D0 run (38be623d; e.g. 86 of 166 main-list rows excluded) is WITHDRAWN: its wind gate '
+                         'combined place and site values (ledger row 85). These counts replace it.'),
            'tables': out_rows}
     md = render(out)
     bad = [p for p in FORBIDDEN if re.search(p, md.replace('# D0: AIR-EXTRACT', ''), re.I)]
@@ -349,7 +351,7 @@ def render(o):
     L = ['# D0: AIR-EXTRACT registered-site row (staff and agency use only)', '']
     if o['partial']:
         L += [f'> **{o["partial"]}.** The summary counts are not a finding until the wind gate is in.', '']
-    L += [f'> {o["staff_label"]}', '', f'> **{o["absence_line"]}**', '',
+    L += [f'> **{o["withdrawn"]}**', '', f'> {o["staff_label"]}', '', f'> **{o["absence_line"]}**', '',
           f'- **Register:** {o["register"]["identity"]}.', f'- **{o["register"]["base_date_note"]}**',
           f'- **Datum:** {o["register"]["datum"]}.', f'- **{o["register"]["portal_limits"]}**',
           f'- **Register counts:** {o["register"]["counts"]}; distinct usable points {o["register"]["distinct_usable_points"]}.',

@@ -247,3 +247,12 @@ agree within 2 minutes on two dates: Yeongdeok 2025-03-25 and Seoul 2025-06-21.
 | Variants disagree | 16 | 2 | 10 | 4 | 12 | 2 | 0 |
 
 The per-point wind values are in `results/D0_AIR_ROW.json` (`tables.*[].wind.points`).
+
+**Correction record (13 Nov, ~12:56Z; the orchestrator's direction on row 85).**
+- **The rule text is unchanged.** Amendment 1 already says "the wind is read at the place point and at the nearest
+  site … either one over the limit excludes". The defect was in the code only.
+- **A regression test,** `tests/test_d0_wind.py`, covers the verifier's example: place 6/6, site 1/13 m/s. The fixed
+  gate excludes the row, and the old combined computation would not. 3/3 pass.
+- **The no-departure case** (row time ≥ H) reads "no computed departure without a route", with no gate.
+- **The first run's counts** (38be623d: 86 of 166 main-list rows excluded, 12 by wind, and its other table counts)
+  are **withdrawn**. Every output file now states this in its header.
