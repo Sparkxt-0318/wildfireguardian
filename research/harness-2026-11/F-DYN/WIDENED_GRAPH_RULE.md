@@ -644,3 +644,11 @@ assumption about fire outside the grid. It remains "no route found", router-only
 | No route found | 246 |
 
 P1–P6 pass everywhere, and the coverage floor is met in both regions.
+
+**Uiseong routing re-run by the independent verifier (verification ledger row 82a, PASS; 13 Nov).**
+- **Rebuilt independently:** all four graphs, byte-identical from the pbf; the arm (a) dict equal on all 23,126 UA
+  nodes; the G1 report equal (43,801 identical edges, 0 touching padding, 58 turn pairs).
+- **Re-run:** 8/8 runs on the verifier's own packets. 94/94 sampled rows match: all 6 undetermined, 4 found and 84
+  none. The 30-min-grid class equals [0, H] on every row. P4, P4-open and P6 are 0.
+- **Control:** identical (601,657 s; 83 non-empty triples).
+- **Yeongdeok (§10):** the verifier's re-run is in progress.
