@@ -138,3 +138,10 @@ The assessor's hypothesis (most excluded) is stated as a hypothesis, and the cou
 - **Smoke and visibility:** not evaluated.
 - **KMA station data:** only if the assessor rules the reanalysis insufficient for a staff-only planning row.
 - **Status text once wind is evaluated:** "not excluded by the gates evaluated (smoke and visibility not evaluated)".
+
+**P-b done (13 Nov).**
+- **Boundaries.** `extract_sigungu_osm.py` on the 2025-01-01 pbf (sha 9b67fc95…) gives 230 `admin_level=6` polygons,
+  0 failed rings. The extract's sha256 is 3427c103c465f8f6…; it is kept outside the repository.
+- **Cross-check.** `check_place_sigungu.py` → `results/PLACE_SIGUNGU_CHECK.json`: all **59 of 59** distinct places on
+  the early-action main list get the same 시군구 from the OSM polygons as from labels.json (V-World BND_SIGUNGU_PG,
+  2025-06-30). There are **0 disagreements**.
