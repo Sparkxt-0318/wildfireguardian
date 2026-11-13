@@ -106,6 +106,13 @@ Minor: directory URLs are requested without a trailing slash, so on Apache every
 - F3 incident_metadata.csv: `head -1`.
 Custodian check (hash lists, no names printed): the one printed data row of F1 @7d43080, and of F2 @ebc1a7f6 and @982eb71c, has **0 matches** with the 118 sealed IDs and 0 with the 2026 list. The 3 pilot ids have 0 sealed matches. Printed content is therefore non-sealed. The keyed read loaded the whole file into memory but printed pilot rows only, the same class as the whole-column reads in custody note §1. The fire names in her transcript come from committed PR #103 content (pilot / first row), not sealed b/c/d.
 Other counts: net_cmd 11 (PR #103 fetch.py list/get to its own data hosts, the pytorch index, local 127.0.0.1); net_result 6 (2025 Korean FIRMS names and timestamps); wildfire_gov_result 1 (reading the audit script); no wildfire.gov request, no ftp/gofer/nirops. | PASS WITH NOTES (from the run output and the custodian hash check; transcript not seen). **Roster closed:** 16 sessions, rows 58–71 |
+| 72 | part-a weather item 14 (AlderCreek) | Daniel (rebuild, run), Hannah (check) | write-up ITEM14_ALDERCREEK.md @24d20770 (daniel/data-fetch-3); Hannah's item14_check.py @dc2dfd50 (fe83a0bf…), run unmodified by Daniel (rc 0; output re-serialised, with only the 2 dir prefixes redacted) | The full sha256 confirm the write-up's 16-hex prefixes. Byte-identical owner vs rebuild: temperature_2m, wind_eastward_10m, wind_northward_10m (375 m), ecmwf_ifs_node_index_375m.tif, ecmwf_ifs_bands.csv. ecmwf_ifs_complete.json differs (metadata, 757 vs 2,474 bytes); the other 20 owner files have no rebuild, as expected for the slim rebuild.
+**Not a copy:**
+- every rebuild file is a different inode (1237026–1237031 vs 17630xx), nlink 1 throughout, and owner dir ≠ rebuild dir;
+- rebuild mtimes 2026-11-13T00:15:28–31Z vs owner 2026-11-12T11:20Z (archive extract);
+- the request log has exactly 1 AlderCreek row, 00:15:28Z, 11 locations × 90 days, http 200;
+- the raw response file differs in name and size from the owner's cache (777,197 vs 2,157,982 bytes).
+Script limitation (mine): the status column is named 'http' in his log, so status_counts read '?'. The verbatim row shows 200. | **PASS WITH NOTES.** Not verified: the files themselves (I hold neither side) and Open-Meteo's content; that the pipeline read no owner-cached content by another path (mtime and inode exclude a file copy, not a content copy); RH, precipitation, ERA5 and the other channels are not rebuilt (stated in the write-up) |
 
 ## Baseline detail (5fa19a2)
 
