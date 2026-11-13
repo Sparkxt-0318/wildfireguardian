@@ -88,6 +88,15 @@ For each job:
   That is reported, but it does not fail (2), because (2) is about the route's soundness.
 - **(2d) Time.** V2's `complete_wall_s` and on-time publication are reported for each job, beside PARENT's stop
   time and reason (assessor criterion 1).
+- **What g2b does and does not do (read from `xcheck/g2b.py` @ deeb7c2, `judge` and the main loop).**
+  - It solves the relaxation, and checks the relaxation's own certificate with the F-3.2 relaxation checkers
+    (`relax_checkers_accept`).
+  - It gives PASS whenever V2 arrival ≥ the relaxation optimum. The note says "attains the relaxation optimum" only on
+    equality.
+  - It does **not** run the relaxation's witness route through the frozen full-policy checkers. So the witness test
+    below is an addition, not a repeat.
+  - A g2b PASS whose note is "attains the relaxation optimum" counts as two-sided confirmation against g2b's own
+    relaxation. A PASS with "(a) arrival >= relaxation optimum" does not.
 - **(2e) Two-sided optimality, as in (1).** For every job: whether V2 arrival = `router.arrival`, and the witness
   check where it is later. **The headline number is how many of the 64 have V2 arrival equal to the router optimum.**
 - **Pass (2):** all jobs pass both (2a) and (2b) on both builds, and no job fails (2e)'s witness test. (2c) and (2d)
