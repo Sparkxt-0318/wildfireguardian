@@ -1,0 +1,117 @@
+"""Step 2 amendment F evaluation of a 3-arm g1_panel run (FROZEN, V2, V2_NOISO), as written in STEP2_ACCEPTANCE
+"Amendment F" and "changes from Mira's review" (R1-R7), before the panel:
+
+M1  every V2 rep's harness family-PSS peak <= 3,072 MiB (max over reps). Mira 122 N2: a rep whose harness sampler had
+    any unmeasured sample (a live pid it could not read), or that carries no sampler counts, is 'not measured': M1 is
+    then not evaluable for the mission (None, reported; never a pass)
+M2  per-mission table: V2, V2_NOISO, FROZEN PSS peaks (median over reps), MiB and ratios
+    post-hoc tripwire (labelled; passing it is not evidence of an acceptable cost): V2 - V2_NOISO > 50% AND > 300 MiB
+    M2-model (fixed before the panel; an ACCOUNTING-CONSISTENCY bound, not a cost bound; 'not evaluable' is never a pass): median V2 PSS - median V2_NOISO PSS <= largest per-check cgroup peak in the
+    mission's V2 reps + 64 MiB
+M4  V2_NOISO pre-memory-map (status, arrival) set == FROZEN's (G1 rule incl. FL2)
+R6  V2 pre-memory-map set == V2_NOISO's, per mission. FL2 (amendment F, Mira 122 N1, fixed before any panel output was
+    read): FL2 under the G1 rule (both arms' sets within FL2_OK); exact set equality is reported (R6_exact_sets_equal)
+    and is not the verdict
+N4 (Mira 122): the tool refuses to run without ROWS_REDECIDED.jsonl and the pre-memory fields on every row
+R7  V2 / V2_NOISO summed-median wall (the isolation cost); harness sampler CPU per arm
+G5w V2 / FROZEN summed-median wall <= 1.10
+  python -B step2f_compare.py RUN_DIR --json OUT
+"""
+import argparse, json, statistics as st
+from pathlib import Path
+
+FL2 = 'yeongdeok_2025/20250325T230000Z_FL2'
+FL2_OK = {('UNRESOLVED', None), ('CHECKED_JOURNEY_FEASIBLE', 1922), ('CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN', 1922)}
+SEEN = {'uljin_2022/20220304T120000Z_FW2', 'yeongdeok_2025/20250326T080000Z_FW1'}   # R1: seen before the tripwire
+
+
+def main():
+    ap = argparse.ArgumentParser(); ap.add_argument('run', type=Path); ap.add_argument('--json', type=Path)
+    a = ap.parse_args()
+    src = a.run / 'ROWS_REDECIDED.jsonl'
+    if not src.exists():                                   # Mira 122 N4: redecide must run first
+        raise SystemExit('NO_ROWS_REDECIDED: run tools/redecide.py on %s first' % a.run)
+    rows = [json.loads(l) for l in src.read_text().splitlines() if l.strip()]
+    missing = [r.get('kit_label') for r in rows if 'pre_memory_status' not in r or 'pre_memory_arrival_s' not in r]
+    if missing:
+        raise SystemExit('ROWS_WITHOUT_PRE_MEMORY_FIELDS %d' % len(missing))
+    key = lambda r: '%s/%s' % (r['region'], r['case_id'])
+    pre = lambda r: (r['pre_memory_status'], r['pre_memory_arrival_s'])
+
+    def harness_pss(r):
+        h = r.get('harness_mem') or {}
+        if 'unmeasured_samples' not in h or h['unmeasured_samples'] or not h.get('measured_samples'):
+            return None                                    # N2: not measured (or a pre-N2 sampler)
+        return h.get('family_pss_peak_mib')
+    med = lambda v: st.median(v) if v else None
+    out = {'missions': [], 'M1_fail': [], 'M2_posthoc_tripwire_fail': [], 'M2_model_fail': [], 'M4_fail': [], 'R6_fail': [],
+           'labels': {'M2_posthoc': 'post-hoc tripwire (set after 2 diagnostics on panel missions); passing it is not evidence of an acceptable cost',
+                      'V2_NOISO': 'baseline comparison: same kit without check isolation'}}
+    wall = {'FROZEN': 0.0, 'V2': 0.0, 'V2_NOISO': 0.0}; cpu = {'FROZEN': [], 'V2': [], 'V2_NOISO': []}
+    for m in sorted({key(r) for r in rows}):
+        by = {lab: [r for r in rows if key(r) == m and r['kit_label'] == lab] for lab in ('FROZEN', 'V2', 'V2_NOISO')}
+        pss = {lab: [harness_pss(r) for r in by[lab]] for lab in by}
+        harness_counts = {lab: [{k: (r.get('harness_mem') or {}).get(k) for k in ('measured_samples', 'unmeasured_samples', 'vanished_pids')}
+                                for r in by[lab]] for lab in by}
+        pmed = {lab: med([x for x in v if x is not None]) for lab, v in pss.items()}
+        sets = {lab: {pre(r) for r in by[lab]} for lab in by}
+        g1 = lambda s_ref, s: (s <= FL2_OK) if m == FL2 else (s == s_ref)
+        m4 = g1(sets['FROZEN'], sets['V2_NOISO']) and (m != FL2 or sets['FROZEN'] <= FL2_OK)
+        r6 = (sets['V2'] <= FL2_OK and sets['V2_NOISO'] <= FL2_OK) if m == FL2 else (sets['V2'] == sets['V2_NOISO'])
+        if m == FL2:
+            r6_exact = sets['V2'] == sets['V2_NOISO']
+        m1 = (False if any(x is not None and x > 3072 for x in pss['V2'])
+              else None if (not pss['V2'] or any(x is None for x in pss['V2'])) else True)
+        # largest per-check cgroup peak in the mission's V2 reps (STATE.check_budgets in RESULT)
+        cpk = 0.0; not_eval = None
+        for r in by['V2']:
+            res = a.run / 'V2' / ('r%d' % r['rep']) / ('%s__%s' % (r['region'], r['case_id'])) / 'RESULT.json'
+            bud = json.loads(res.read_text()).get('check_budgets') if res.exists() else None
+            if not bud:
+                not_eval = not_eval or 'V2 rep %s: no check ran' % r['rep']          # Mira 119 (2b)
+                continue
+            for b in bud:
+                if b.get('peak_mb') is None:
+                    not_eval = not_eval or 'no per-check cgroup peak (mechanism %s)' % b.get('mechanism')   # (2a)
+                cpk = max(cpk, b.get('peak_mb') or 0.0)
+        inc = (pmed['V2'] - pmed['V2_NOISO']) if pmed['V2'] is not None and pmed['V2_NOISO'] is not None else None
+        trip = inc is not None and inc > 300 and pmed['V2_NOISO'] and inc / pmed['V2_NOISO'] > 0.5
+        # accounting-consistency bound (not a cost bound); 'not evaluable' is never a pass (Mira 119)
+        model_ok = None if (not_eval or inc is None) else (inc <= cpk + 64)
+        for lab in wall:
+            w = med([r['complete_wall_s'] for r in by[lab] if r.get('complete_wall_s') is not None]); wall[lab] += w or 0
+            cpu[lab] += [((r.get('harness_mem') or {}).get('sampler_cpu_s') or 0) for r in by[lab]]
+        rec = {'mission': m, 'seen_before_tripwire': m in SEEN, 'pss_peaks_mib': pss, 'pss_median_mib': pmed,
+               'v2_minus_noiso_mib': inc, 'v2_over_noiso': (pmed['V2'] / pmed['V2_NOISO']) if pmed['V2'] and pmed['V2_NOISO'] else None,
+               'v2_over_frozen': (pmed['V2'] / pmed['FROZEN']) if pmed['V2'] and pmed['FROZEN'] else None,
+               'largest_check_cgroup_peak_mib': cpk, 'M1': m1, 'M2_posthoc_tripwire_ok': not trip, 'M2_model_ok': model_ok,
+               'M2_model_not_evaluable': not_eval, 'harness_sampler_counts': harness_counts,
+               'M4': m4, 'R6': r6, 'sets': {k: sorted(v, key=str) for k, v in sets.items()}}
+        if m == FL2:
+            rec['R6_exact_sets_equal'] = r6_exact
+        out['missions'].append(rec)
+        for k, ok in (('M1_fail', m1), ('M2_posthoc_tripwire_fail', not trip), ('M2_model_fail', model_ok), ('M4_fail', m4), ('R6_fail', r6)):
+            if ok is False:
+                out[k].append(m)
+        if m1 is None:
+            out.setdefault('M1_not_evaluable', []).append(m)
+        if model_ok is None:
+            out.setdefault('M2_model_not_evaluable', []).append({'mission': m, 'reason': not_eval or 'no PSS comparison'})
+        print('%-42s M1 %-5s trip %-5s model %-5s M4 %-5s R6 %-5s | PSS F %6.0f V2 %6.0f NOISO %6.0f (+%s MiB) chk %4.0f'
+              % (m, m1, not trip, model_ok, m4, r6, pmed['FROZEN'] or -1, pmed['V2'] or -1, pmed['V2_NOISO'] or -1,
+                 None if inc is None else round(inc), cpk))
+    out['wall_sum_median_s'] = wall
+    out['G5_wall_v2_over_frozen'] = wall['V2'] / wall['FROZEN'] if wall['FROZEN'] else None
+    out['G5_wall_ok'] = out['G5_wall_v2_over_frozen'] is not None and out['G5_wall_v2_over_frozen'] <= 1.10
+    out['R7_isolation_wall_cost_v2_over_noiso'] = wall['V2'] / wall['V2_NOISO'] if wall['V2_NOISO'] else None
+    out['R7_sampler_cpu_s_median'] = {k: med(v) for k, v in cpu.items()}
+    print(json.dumps({k: out.get(k) for k in ('M1_fail', 'M2_posthoc_tripwire_fail', 'M2_model_fail', 'M4_fail', 'R6_fail',
+                                          'M1_not_evaluable', 'M2_model_not_evaluable',
+                                          'G5_wall_v2_over_frozen', 'G5_wall_ok', 'R7_isolation_wall_cost_v2_over_noiso',
+                                          'R7_sampler_cpu_s_median')}, default=str))
+    if a.json:
+        a.json.write_text(json.dumps(out, indent=1, default=str) + '\n')
+
+
+if __name__ == '__main__':
+    main()

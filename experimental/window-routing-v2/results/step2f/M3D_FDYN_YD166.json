@@ -1,0 +1,31 @@
+{
+ "tag": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+ "f34": "/home/user/wildfireguardian/research/harness-2026-11/F-3.4",
+ "fdyn_profile_sha256": "15415280c208892f43d3d4f33123f966ef8c2fe19ec3756fff6a28af2415bca9",
+ "run_profile_sha256": "d59cb7288e07cbb092f55232a778bef3f7713ed233c3a560fb035415b871a120",
+ "harness": {
+  "family_pss_peak_mib": 5075.2919921875,
+  "family_rss_peak_mib": 9334.4375,
+  "pss_at_rss_peak_mib": 5075.2919921875,
+  "processes_at_pss_peak": 3,
+  "samples": 11744,
+  "measured_samples": 11744,
+  "unmeasured_samples": 0,
+  "vanished_pids": 71,
+  "sampler_cpu_s": 101.47834958,
+  "interval_s": 0.01
+ },
+ "controller": {
+  "pss_peak_mib": 5072.1708984375,
+  "rss_sum_peak_mib": 9365.88671875,
+  "guard_measure": "family_pss",
+  "pss_samples": 2070,
+  "pss_fallback_samples": 0,
+  "pss_vanished_pids": 0,
+  "memory_guard_triggered": false,
+  "raw_primary_status": "CHECKED_ROUTE"
+ },
+ "controller_over_harness_pss": 0.9993850415395205,
+ "M3d_ok": true,
+ "M3d_not_evaluable": null
+}

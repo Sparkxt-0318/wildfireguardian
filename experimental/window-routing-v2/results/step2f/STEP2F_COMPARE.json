@@ -1,0 +1,1881 @@
+{
+ "missions": [
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FN1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     42.00390625,
+     42.10546875
+    ],
+    "V2": [
+     42.3525390625,
+     44.5517578125
+    ],
+    "V2_NOISO": [
+     42.3388671875,
+     42.353515625
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 42.0546875,
+    "V2": 43.4521484375,
+    "V2_NOISO": 42.34619140625
+   },
+   "v2_minus_noiso_mib": 1.10595703125,
+   "v2_over_noiso": 1.026117036609974,
+   "v2_over_frozen": 1.033229611740665,
+   "largest_check_cgroup_peak_mib": 0.0,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": null,
+   "M2_model_not_evaluable": "V2 rep 1: no check ran",
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 63,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 57,
+      "unmeasured_samples": 0,
+      "vanished_pids": 0
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 69,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 59,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 59,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 63,
+      "unmeasured_samples": 0,
+      "vanished_pids": 0
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FX1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     42.0478515625,
+     42.1328125
+    ],
+    "V2": [
+     42.34765625,
+     42.3466796875
+    ],
+    "V2_NOISO": [
+     44.5263671875,
+     42.326171875
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 42.09033203125,
+    "V2": 42.34716796875,
+    "V2_NOISO": 43.42626953125
+   },
+   "v2_minus_noiso_mib": -1.0791015625,
+   "v2_over_noiso": 0.9751509495485569,
+   "v2_over_frozen": 1.0061020173779887,
+   "largest_check_cgroup_peak_mib": 0.0,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": null,
+   "M2_model_not_evaluable": "V2 rep 1: no check ran",
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 68,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 60,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 63,
+      "unmeasured_samples": 0,
+      "vanished_pids": 2
+     },
+     {
+      "measured_samples": 59,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 61,
+      "unmeasured_samples": 0,
+      "vanished_pids": 2
+     },
+     {
+      "measured_samples": 60,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "hongseong_2023/20230402T140000Z_FW2",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     77.3798828125,
+     79.0029296875
+    ],
+    "V2": [
+     89.71484375,
+     90.9052734375
+    ],
+    "V2_NOISO": [
+     77.15625,
+     76.2900390625
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 78.19140625,
+    "V2": 90.31005859375,
+    "V2_NOISO": 76.72314453125
+   },
+   "v2_minus_noiso_mib": 13.5869140625,
+   "v2_over_noiso": 1.1770901615869762,
+   "v2_over_frozen": 1.1549870110406155,
+   "largest_check_cgroup_peak_mib": 46.98046875,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 2478,
+      "unmeasured_samples": 0,
+      "vanished_pids": 26
+     },
+     {
+      "measured_samples": 2574,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 2473,
+      "unmeasured_samples": 0,
+      "vanished_pids": 19
+     },
+     {
+      "measured_samples": 2541,
+      "unmeasured_samples": 0,
+      "vanished_pids": 22
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 2527,
+      "unmeasured_samples": 0,
+      "vanished_pids": 26
+     },
+     {
+      "measured_samples": 2516,
+      "unmeasured_samples": 0,
+      "vanished_pids": 14
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1459
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1459
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1459
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "hongseong_2023/20230402T230000Z_FD1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     62.1689453125,
+     62.3203125
+    ],
+    "V2": [
+     74.005859375,
+     75.4140625
+    ],
+    "V2_NOISO": [
+     62.7138671875,
+     62.7216796875
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 62.24462890625,
+    "V2": 74.7099609375,
+    "V2_NOISO": 62.7177734375
+   },
+   "v2_minus_noiso_mib": 11.9921875,
+   "v2_over_noiso": 1.1912087569873722,
+   "v2_over_frozen": 1.200263576958981,
+   "largest_check_cgroup_peak_mib": 32.6796875,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1574,
+      "unmeasured_samples": 0,
+      "vanished_pids": 10
+     },
+     {
+      "measured_samples": 1481,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1493,
+      "unmeasured_samples": 0,
+      "vanished_pids": 17
+     },
+     {
+      "measured_samples": 1455,
+      "unmeasured_samples": 0,
+      "vanished_pids": 13
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1514,
+      "unmeasured_samples": 0,
+      "vanished_pids": 13
+     },
+     {
+      "measured_samples": 1480,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      531
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      531
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      531
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "miryang_2022/20220531T100000Z_FN1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     81.8466796875,
+     81.8984375
+    ],
+    "V2": [
+     94.4892578125,
+     96.2353515625
+    ],
+    "V2_NOISO": [
+     81.2431640625,
+     82.8349609375
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 81.87255859375,
+    "V2": 95.3623046875,
+    "V2_NOISO": 82.0390625
+   },
+   "v2_minus_noiso_mib": 13.3232421875,
+   "v2_over_noiso": 1.162401199885725,
+   "v2_over_frozen": 1.1647651707171611,
+   "largest_check_cgroup_peak_mib": 48.30859375,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 2367,
+      "unmeasured_samples": 0,
+      "vanished_pids": 22
+     },
+     {
+      "measured_samples": 2479,
+      "unmeasured_samples": 0,
+      "vanished_pids": 18
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 2432,
+      "unmeasured_samples": 0,
+      "vanished_pids": 26
+     },
+     {
+      "measured_samples": 2399,
+      "unmeasured_samples": 0,
+      "vanished_pids": 17
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 2476,
+      "unmeasured_samples": 0,
+      "vanished_pids": 12
+     },
+     {
+      "measured_samples": 2457,
+      "unmeasured_samples": 0,
+      "vanished_pids": 16
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1142
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1142
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1142
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "miryang_2022/20220601T020000Z_FW1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     65.8798828125,
+     66.16015625
+    ],
+    "V2": [
+     79.6875,
+     79.177734375
+    ],
+    "V2_NOISO": [
+     66.6298828125,
+     66.572265625
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 66.02001953125,
+    "V2": 79.4326171875,
+    "V2_NOISO": 66.60107421875
+   },
+   "v2_minus_noiso_mib": 12.83154296875,
+   "v2_over_noiso": 1.192662702805739,
+   "v2_over_frozen": 1.2031595529883365,
+   "largest_check_cgroup_peak_mib": 32.02734375,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1343,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     },
+     {
+      "measured_samples": 1330,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1289,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     },
+     {
+      "measured_samples": 1283,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1404,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     },
+     {
+      "measured_samples": 1364,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1270
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1270
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1270
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FD1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     48.2138671875,
+     48.3076171875
+    ],
+    "V2": [
+     49.197265625,
+     50.232421875
+    ],
+    "V2_NOISO": [
+     48.6552734375,
+     48.5947265625
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 48.2607421875,
+    "V2": 49.71484375,
+    "V2_NOISO": 48.625
+   },
+   "v2_minus_noiso_mib": 1.08984375,
+   "v2_over_noiso": 1.0224132390745502,
+   "v2_over_frozen": 1.0301301119002813,
+   "largest_check_cgroup_peak_mib": 0.0,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": null,
+   "M2_model_not_evaluable": "V2 rep 1: no check ran",
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 74,
+      "unmeasured_samples": 0,
+      "vanished_pids": 2
+     },
+     {
+      "measured_samples": 72,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 77,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 73,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 80,
+      "unmeasured_samples": 0,
+      "vanished_pids": 0
+     },
+     {
+      "measured_samples": 76,
+      "unmeasured_samples": 0,
+      "vanished_pids": 2
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FX1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     49.0263671875,
+     48.9267578125
+    ],
+    "V2": [
+     49.24609375,
+     49.2431640625
+    ],
+    "V2_NOISO": [
+     49.244140625,
+     49.2626953125
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 48.9765625,
+    "V2": 49.24462890625,
+    "V2_NOISO": 49.25341796875
+   },
+   "v2_minus_noiso_mib": -0.0087890625,
+   "v2_over_noiso": 0.9998215542623747,
+   "v2_over_frozen": 1.0054733609826128,
+   "largest_check_cgroup_peak_mib": 0.0,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": null,
+   "M2_model_not_evaluable": "V2 rep 1: no check ran",
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 81,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 77,
+      "unmeasured_samples": 0,
+      "vanished_pids": 2
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 80,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 80,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 89,
+      "unmeasured_samples": 0,
+      "vanished_pids": 0
+     },
+     {
+      "measured_samples": 77,
+      "unmeasured_samples": 0,
+      "vanished_pids": 2
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FD1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     355.5634765625,
+     355.701171875
+    ],
+    "V2": [
+     495.8349609375,
+     498.0791015625
+    ],
+    "V2_NOISO": [
+     355.822265625,
+     355.8916015625
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 355.63232421875,
+    "V2": 496.95703125,
+    "V2_NOISO": 355.85693359375
+   },
+   "v2_minus_noiso_mib": 141.10009765625,
+   "v2_over_noiso": 1.3965079343299556,
+   "v2_over_frozen": 1.3973899373227978,
+   "largest_check_cgroup_peak_mib": 245.78515625,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 960,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     },
+     {
+      "measured_samples": 973,
+      "unmeasured_samples": 0,
+      "vanished_pids": 5
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 945,
+      "unmeasured_samples": 0,
+      "vanished_pids": 5
+     },
+     {
+      "measured_samples": 946,
+      "unmeasured_samples": 0,
+      "vanished_pids": 3
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 924,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     },
+     {
+      "measured_samples": 942,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2460
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2460
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2460
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FX2",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     360.46875,
+     360.6201171875
+    ],
+    "V2": [
+     492.642578125,
+     503.4326171875
+    ],
+    "V2_NOISO": [
+     361.1474609375,
+     360.7783203125
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 360.54443359375,
+    "V2": 498.03759765625,
+    "V2_NOISO": 360.962890625
+   },
+   "v2_minus_noiso_mib": 137.07470703125,
+   "v2_over_noiso": 1.3797473662567028,
+   "v2_over_frozen": 1.3813487361100767,
+   "largest_check_cgroup_peak_mib": 250.53515625,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1012,
+      "unmeasured_samples": 0,
+      "vanished_pids": 3
+     },
+     {
+      "measured_samples": 988,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1045,
+      "unmeasured_samples": 0,
+      "vanished_pids": 12
+     },
+     {
+      "measured_samples": 939,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1008,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     },
+     {
+      "measured_samples": 963,
+      "unmeasured_samples": 0,
+      "vanished_pids": 5
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2540
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2540
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2540
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250324T090000Z_FL2",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     375.517578125,
+     375.55859375
+    ],
+    "V2": [
+     519.6396484375,
+     519.6259765625
+    ],
+    "V2_NOISO": [
+     375.826171875,
+     377.97265625
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 375.5380859375,
+    "V2": 519.6328125,
+    "V2_NOISO": 376.8994140625
+   },
+   "v2_minus_noiso_mib": 142.7333984375,
+   "v2_over_noiso": 1.3787042195131431,
+   "v2_over_frozen": 1.3837020317201099,
+   "largest_check_cgroup_peak_mib": 262.9921875,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1216,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     },
+     {
+      "measured_samples": 1044,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1090,
+      "unmeasured_samples": 0,
+      "vanished_pids": 11
+     },
+     {
+      "measured_samples": 1043,
+      "unmeasured_samples": 0,
+      "vanished_pids": 10
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1082,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     },
+     {
+      "measured_samples": 1052,
+      "unmeasured_samples": 0,
+      "vanished_pids": 13
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2143
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2143
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2143
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250325T170000Z_FW1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     855.4892578125,
+     854.4736328125
+    ],
+    "V2": [
+     465.4072265625,
+     465.5166015625
+    ],
+    "V2_NOISO": [
+     465.453125,
+     465.3173828125
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 854.9814453125,
+    "V2": 465.4619140625,
+    "V2_NOISO": 465.38525390625
+   },
+   "v2_minus_noiso_mib": 0.07666015625,
+   "v2_over_noiso": 1.0001647240766796,
+   "v2_over_frozen": 0.5444117139786248,
+   "largest_check_cgroup_peak_mib": 196.5,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1139,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     },
+     {
+      "measured_samples": 1122,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1128,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     },
+     {
+      "measured_samples": 1116,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1147,
+      "unmeasured_samples": 0,
+      "vanished_pids": 8
+     },
+     {
+      "measured_samples": 1138,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1064
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1064
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1064
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FD1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     203.728515625,
+     199.193359375
+    ],
+    "V2": [
+     245.068359375,
+     251.455078125
+    ],
+    "V2_NOISO": [
+     202.2568359375,
+     210.865234375
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 201.4609375,
+    "V2": 248.26171875,
+    "V2_NOISO": 206.56103515625
+   },
+   "v2_minus_noiso_mib": 41.70068359375,
+   "v2_over_noiso": 1.2018806865593317,
+   "v2_over_frozen": 1.232306976383449,
+   "largest_check_cgroup_peak_mib": 128.93359375,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1368,
+      "unmeasured_samples": 0,
+      "vanished_pids": 12
+     },
+     {
+      "measured_samples": 1382,
+      "unmeasured_samples": 0,
+      "vanished_pids": 13
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1330,
+      "unmeasured_samples": 0,
+      "vanished_pids": 14
+     },
+     {
+      "measured_samples": 1337,
+      "unmeasured_samples": 0,
+      "vanished_pids": 11
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1402,
+      "unmeasured_samples": 0,
+      "vanished_pids": 10
+     },
+     {
+      "measured_samples": 1433,
+      "unmeasured_samples": 0,
+      "vanished_pids": 11
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1589
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1589
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1589
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FX1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     276.6396484375,
+     273.1630859375
+    ],
+    "V2": [
+     330.171875,
+     330.8359375
+    ],
+    "V2_NOISO": [
+     273.0830078125,
+     270.740234375
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 274.9013671875,
+    "V2": 330.50390625,
+    "V2_NOISO": 271.91162109375
+   },
+   "v2_minus_noiso_mib": 58.59228515625,
+   "v2_over_noiso": 1.2154828282828283,
+   "v2_over_frozen": 1.2022635959630408,
+   "largest_check_cgroup_peak_mib": 200.203125,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 2662,
+      "unmeasured_samples": 0,
+      "vanished_pids": 14
+     },
+     {
+      "measured_samples": 2571,
+      "unmeasured_samples": 0,
+      "vanished_pids": 12
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 2832,
+      "unmeasured_samples": 0,
+      "vanished_pids": 20
+     },
+     {
+      "measured_samples": 2416,
+      "unmeasured_samples": 0,
+      "vanished_pids": 22
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 2683,
+      "unmeasured_samples": 0,
+      "vanished_pids": 16
+     },
+     {
+      "measured_samples": 2527,
+      "unmeasured_samples": 0,
+      "vanished_pids": 19
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      3119
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      3119
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      3119
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T060000Z_FL1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     206.564453125,
+     205.5244140625
+    ],
+    "V2": [
+     259.9716796875,
+     259.1533203125
+    ],
+    "V2_NOISO": [
+     211.10546875,
+     211.0341796875
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 206.04443359375,
+    "V2": 259.5625,
+    "V2_NOISO": 211.06982421875
+   },
+   "v2_minus_noiso_mib": 48.49267578125,
+   "v2_over_noiso": 1.2297470799567864,
+   "v2_over_frozen": 1.2597404136224788,
+   "largest_check_cgroup_peak_mib": 134.953125,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 599,
+      "unmeasured_samples": 0,
+      "vanished_pids": 4
+     },
+     {
+      "measured_samples": 579,
+      "unmeasured_samples": 0,
+      "vanished_pids": 3
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 565,
+      "unmeasured_samples": 0,
+      "vanished_pids": 4
+     },
+     {
+      "measured_samples": 581,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 588,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     },
+     {
+      "measured_samples": 594,
+      "unmeasured_samples": 0,
+      "vanished_pids": 5
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2067
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2067
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      2067
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T120000Z_FW2",
+   "seen_before_tripwire": true,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     172.423828125,
+     166.2392578125
+    ],
+    "V2": [
+     214.1240234375,
+     218.595703125
+    ],
+    "V2_NOISO": [
+     166.740234375,
+     168.1787109375
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 169.33154296875,
+    "V2": 216.35986328125,
+    "V2_NOISO": 167.45947265625
+   },
+   "v2_minus_noiso_mib": 48.900390625,
+   "v2_over_noiso": 1.2920132844642331,
+   "v2_over_frozen": 1.2777292374946294,
+   "largest_check_cgroup_peak_mib": 95.94921875,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 538,
+      "unmeasured_samples": 0,
+      "vanished_pids": 1
+     },
+     {
+      "measured_samples": 522,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 541,
+      "unmeasured_samples": 0,
+      "vanished_pids": 4
+     },
+     {
+      "measured_samples": 516,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 550,
+      "unmeasured_samples": 0,
+      "vanished_pids": 3
+     },
+     {
+      "measured_samples": 529,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1655
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1655
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      1655
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FD1",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     1462.8359375,
+     1462.794921875
+    ],
+    "V2": [
+     1466.0830078125,
+     1463.572265625
+    ],
+    "V2_NOISO": [
+     1463.5185546875,
+     1463.4970703125
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 1462.8154296875,
+    "V2": 1464.82763671875,
+    "V2_NOISO": 1463.5078125
+   },
+   "v2_minus_noiso_mib": 1.31982421875,
+   "v2_over_noiso": 1.0009018224620854,
+   "v2_over_frozen": 1.0013755713744965,
+   "largest_check_cgroup_peak_mib": 0.0,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": null,
+   "M2_model_not_evaluable": "V2 rep 1: no check ran",
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 2176,
+      "unmeasured_samples": 0,
+      "vanished_pids": 13
+     },
+     {
+      "measured_samples": 2188,
+      "unmeasured_samples": 0,
+      "vanished_pids": 13
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 2196,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     },
+     {
+      "measured_samples": 2198,
+      "unmeasured_samples": 0,
+      "vanished_pids": 18
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 2220,
+      "unmeasured_samples": 0,
+      "vanished_pids": 14
+     },
+     {
+      "measured_samples": 2198,
+      "unmeasured_samples": 0,
+      "vanished_pids": 20
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "FULL_MODEL_REFUSAL_PROVEN",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FX2",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     1543.8837890625,
+     1546.310546875
+    ],
+    "V2": [
+     1544.9404296875,
+     1546.6416015625
+    ],
+    "V2_NOISO": [
+     1545.4658203125,
+     1545.44921875
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 1545.09716796875,
+    "V2": 1545.791015625,
+    "V2_NOISO": 1545.45751953125
+   },
+   "v2_minus_noiso_mib": 0.33349609375,
+   "v2_over_noiso": 1.0002157911748044,
+   "v2_over_frozen": 1.0004490640916532,
+   "largest_check_cgroup_peak_mib": 0.0,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": null,
+   "M2_model_not_evaluable": "V2 rep 1: no check ran",
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 5227,
+      "unmeasured_samples": 0,
+      "vanished_pids": 37
+     },
+     {
+      "measured_samples": 5026,
+      "unmeasured_samples": 0,
+      "vanished_pids": 36
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 5237,
+      "unmeasured_samples": 0,
+      "vanished_pids": 32
+     },
+     {
+      "measured_samples": 5080,
+      "unmeasured_samples": 0,
+      "vanished_pids": 47
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 5354,
+      "unmeasured_samples": 0,
+      "vanished_pids": 30
+     },
+     {
+      "measured_samples": 5067,
+      "unmeasured_samples": 0,
+      "vanished_pids": 44
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "UNRESOLVED",
+      null
+     ]
+    ],
+    "V2": [
+     [
+      "UNRESOLVED",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "UNRESOLVED",
+      null
+     ]
+    ]
+   }
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T230000Z_FL2",
+   "seen_before_tripwire": false,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     1545.9150390625,
+     1545.9541015625
+    ],
+    "V2": [
+     1822.939453125,
+     1820.5517578125
+    ],
+    "V2_NOISO": [
+     1546.4853515625,
+     1546.4111328125
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 1545.9345703125,
+    "V2": 1821.74560546875,
+    "V2_NOISO": 1546.4482421875
+   },
+   "v2_minus_noiso_mib": 275.29736328125,
+   "v2_over_noiso": 1.1780191252258356,
+   "v2_over_frozen": 1.178410548837456,
+   "largest_check_cgroup_peak_mib": 494.5546875,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 4934,
+      "unmeasured_samples": 0,
+      "vanished_pids": 30
+     },
+     {
+      "measured_samples": 4976,
+      "unmeasured_samples": 0,
+      "vanished_pids": 25
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 4889,
+      "unmeasured_samples": 0,
+      "vanished_pids": 40
+     },
+     {
+      "measured_samples": 4786,
+      "unmeasured_samples": 0,
+      "vanished_pids": 46
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 5086,
+      "unmeasured_samples": 0,
+      "vanished_pids": 48
+     },
+     {
+      "measured_samples": 4942,
+      "unmeasured_samples": 0,
+      "vanished_pids": 46
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FEASIBLE",
+      1922
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FEASIBLE",
+      1922
+     ],
+     [
+      "UNRESOLVED",
+      null
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FEASIBLE",
+      1922
+     ],
+     [
+      "UNRESOLVED",
+      null
+     ]
+    ]
+   },
+   "R6_exact_sets_equal": true
+  },
+  {
+   "mission": "yeongdeok_2025/20250326T080000Z_FW1",
+   "seen_before_tripwire": true,
+   "pss_peaks_mib": {
+    "FROZEN": [
+     646.84375,
+     648.189453125
+    ],
+    "V2": [
+     896.8642578125,
+     898.646484375
+    ],
+    "V2_NOISO": [
+     651.9716796875,
+     653.7919921875
+    ]
+   },
+   "pss_median_mib": {
+    "FROZEN": 647.5166015625,
+    "V2": 897.75537109375,
+    "V2_NOISO": 652.8818359375
+   },
+   "v2_minus_noiso_mib": 244.87353515625,
+   "v2_over_noiso": 1.3750656270052697,
+   "v2_over_frozen": 1.3864592335198935,
+   "largest_check_cgroup_peak_mib": 430.5625,
+   "M1": true,
+   "M2_posthoc_tripwire_ok": true,
+   "M2_model_ok": true,
+   "M2_model_not_evaluable": null,
+   "harness_sampler_counts": {
+    "FROZEN": [
+     {
+      "measured_samples": 1341,
+      "unmeasured_samples": 0,
+      "vanished_pids": 9
+     },
+     {
+      "measured_samples": 1363,
+      "unmeasured_samples": 0,
+      "vanished_pids": 6
+     }
+    ],
+    "V2": [
+     {
+      "measured_samples": 1317,
+      "unmeasured_samples": 0,
+      "vanished_pids": 14
+     },
+     {
+      "measured_samples": 1381,
+      "unmeasured_samples": 0,
+      "vanished_pids": 17
+     }
+    ],
+    "V2_NOISO": [
+     {
+      "measured_samples": 1342,
+      "unmeasured_samples": 0,
+      "vanished_pids": 15
+     },
+     {
+      "measured_samples": 1371,
+      "unmeasured_samples": 0,
+      "vanished_pids": 7
+     }
+    ]
+   },
+   "M4": true,
+   "R6": true,
+   "sets": {
+    "FROZEN": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      896
+     ]
+    ],
+    "V2": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      896
+     ]
+    ],
+    "V2_NOISO": [
+     [
+      "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+      896
+     ]
+    ]
+   }
+  }
+ ],
+ "M1_fail": [],
+ "M2_posthoc_tripwire_fail": [],
+ "M2_model_fail": [],
+ "M4_fail": [],
+ "R6_fail": [],
+ "labels": {
+  "M2_posthoc": "post-hoc tripwire (set after 2 diagnostics on panel missions); passing it is not evidence of an acceptable cost",
+  "V2_NOISO": "baseline comparison: same kit without check isolation"
+ },
+ "M2_model_not_evaluable": [
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FN1",
+   "reason": "V2 rep 1: no check ran"
+  },
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FX1",
+   "reason": "V2 rep 1: no check ran"
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FD1",
+   "reason": "V2 rep 1: no check ran"
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FX1",
+   "reason": "V2 rep 1: no check ran"
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FD1",
+   "reason": "V2 rep 1: no check ran"
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FX2",
+   "reason": "V2 rep 1: no check ran"
+  }
+ ],
+ "wall_sum_median_s": {
+  "FROZEN": 441.41224667149976,
+  "V2": 443.83256488399996,
+  "V2_NOISO": 443.1019348399994
+ },
+ "G5_wall_v2_over_frozen": 1.005483124291976,
+ "G5_wall_ok": true,
+ "R7_isolation_wall_cost_v2_over_noiso": 1.0016488983381768,
+ "R7_sampler_cpu_s_median": {
+  "FROZEN": 3.969458287,
+  "V2": 4.2422478095,
+  "V2_NOISO": 3.7153134305
+ }
+}

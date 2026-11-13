@@ -146,6 +146,34 @@ def phase_meets_window(birth, expiry, window):
     return window is None or (birth <= window[1] and expiry > window[0])
 
 
+DIST_BLOCK_BYTES = 64 * 2 ** 20     # kit-v2 Step 2 amendment E: one edges x sources float64 block <= 64 MiB
+DIST_BLOCK_ROWS_OVERRIDE = None     # tests only (byte identity at 1 row / unchunked)
+
+
+def dist_block_rows(n_edges, n_sources):
+    if DIST_BLOCK_ROWS_OVERRIDE is not None:
+        return int(DIST_BLOCK_ROWS_OVERRIDE)
+    return max(1, DIST_BLOCK_BYTES // (8 * max(1, n_sources)))
+
+
+def edge_source_dist(U, V, sr, rows):
+    """Distance from each edge's bounding box to the nearest source rectangle: the parent's literal expression on
+    rows [a, b) of edges at a time. Every element is computed by the same ufuncs on the same inputs, and the row-wise
+    min is a selection over the full source axis, so the result does not depend on `rows`."""
+    E = len(U)
+    dist = np.empty(E, dtype=np.float64)
+    for a in range(0, E, rows):
+        b = min(E, a + rows)
+        Ub, Vb = U[a:b], V[a:b]
+        bx0 = np.minimum(Ub[:, 0], Vb[:, 0])[:, None]; bx1 = np.maximum(Ub[:, 0], Vb[:, 0])[:, None]
+        by0 = np.minimum(Ub[:, 1], Vb[:, 1])[:, None]; by1 = np.maximum(Ub[:, 1], Vb[:, 1])[:, None]
+        gx = np.maximum(0, np.maximum(sr[None, :, 0] - bx1, bx0 - sr[None, :, 1]))
+        gy = np.maximum(0, np.maximum(sr[None, :, 2] - by1, by0 - sr[None, :, 3]))
+        dist[a:b] = np.sqrt(gx * gx + gy * gy).min(axis=1)
+        del gx, gy
+    return dist
+
+
 class RoadBoundModel:
     """Exact-activity outward bounds for one (graph, packet, settings) epoch. Mode-independent store; use .view(mode)."""
 
@@ -266,14 +294,14 @@ class RoadBoundModel:
         self.U, self.V = U, V
         self.extent = np.maximum(np.abs(V[:, 0] - U[:, 0]), np.abs(V[:, 1] - U[:, 1]))
         if self.full_pot.size:
-            bx0 = np.minimum(U[:, 0], V[:, 0])[:, None]; bx1 = np.maximum(U[:, 0], V[:, 0])[:, None]
-            by0 = np.minimum(U[:, 1], V[:, 1])[:, None]; by1 = np.maximum(U[:, 1], V[:, 1])[:, None]
-            sr = self.src_rect
-            gx = np.maximum(0, np.maximum(sr[None, :, 0] - bx1, bx0 - sr[None, :, 1]))
-            gy = np.maximum(0, np.maximum(sr[None, :, 2] - by1, by0 - sr[None, :, 3]))
-            self.dist = np.sqrt(gx * gx + gy * gy).min(axis=1)
+            # kit-v2 Step 2 amendment E (Thomas 17:55 UTC): the parent's literal expression, evaluated over blocks of
+            # EDGES only (full source axis in every block); byte-identical by construction, and tested
+            self.dist_block_rows = dist_block_rows(len(self.edges), int(self.full_pot.size))
+            self.dist = edge_source_dist(U, V, self.src_rect, self.dist_block_rows)
         else:
             self.dist = np.full(len(self.edges), np.inf)
+            self.dist_block_rows = None
+        self.dist_sha256 = hashlib.sha256(self.dist.tobytes()).hexdigest()   # kit-v2 Step 2: recorded per result
         st = self.settings
         span = np.clip(self.dist / st['span_distance_divisor'], st['span_min_m'], st['span_max_m'])
         self.n_default = np.clip(np.ceil(self.extent / span), 1, st['max_sub_boxes_per_edge']).astype(int)

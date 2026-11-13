@@ -1,0 +1,7 @@
+{"what": "Diagnostic for G5 memory (tools/family_pss.py): one job each, whole process family sampled every 10 ms; Rss sum (what the controller's family reading counts; shared pages counted once per process) and Pss sum (shared pages split). Single runs, 2026-11-12 ~18:55 UTC.",
+ "rows": [
+  {"kit": "frozen", "mission": "uljin_2022/20220304T120000Z_FW2", "controller_family_peak_rss_mib": 180.3, "rss_sum_max": 196.4, "pss_sum_max": 182.4, "processes_at_max": 3},
+  {"kit": "frozen", "mission": "yeongdeok_2025/20250326T080000Z_FW1", "controller_family_peak_rss_mib": 638.1, "rss_sum_max": 667.9, "pss_sum_max": 653.8, "processes_at_max": 3},
+  {"kit": "v2 step2c", "mission": "uljin_2022/20220304T120000Z_FW2", "controller_family_peak_rss_mib": 300.3, "rss_sum_max": 314.2, "pss_sum_max": 224.3, "processes_at_max": 4},
+  {"kit": "v2 step2c", "mission": "yeongdeok_2025/20250326T080000Z_FW1", "controller_family_peak_rss_mib": 1101.7, "rss_sum_max": 1146.8, "pss_sum_max": 902.9, "processes_at_max": 4}
+ ]}
