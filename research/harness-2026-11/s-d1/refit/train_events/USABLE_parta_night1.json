@@ -6,13 +6,17 @@
  "perimeter_manifest_sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
  "events_json_sha256": "fef3626051d4a06b80c355b0773a28ce28c5bdc6131f5208ac4a7d89405b3b19",
  "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
- "script_sha256": "e51cf8bbec73b3bf2f9cc2d83efd9481ec70edaa07eb540eb52ad150cab3cef2",
+ "script_sha256": "f17835a70f971ec8495d02c37a0fd22da3a781aba3b98af8a7852c97339c3b1b",
  "events_in_stage": 490,
  "events_not_in_stage": 23,
  "intervals_le_48h": 3773,
  "usable_intervals": 3773,
  "events_with_skips": 0,
  "catalog_vs_band_window_differences": [],
+ "item5_catalog_window_is_floor_first_ceil_last_survey": {
+  "events_checked": 490,
+  "differences": []
+ },
  "no_usable_interval": [],
  "rows": [
   {

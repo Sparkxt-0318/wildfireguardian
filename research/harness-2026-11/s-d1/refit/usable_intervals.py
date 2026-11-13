@@ -44,7 +44,7 @@ def main():
     comp = json.loads(a.completeness.read_text())
     manifest = json.loads((a.pool / "PERIMETER_MANIFEST.json").read_text())
     catalog = {e["id"]: e for e in json.loads((a.pool / "events.json").read_text())}
-    window_diff = []
+    window_diff, item5_diff = [], []
     events = [e.strip() for e in a.preweather.read_text().splitlines() if e.strip()]
     rows, zero, not_in_stage = [], [], []
     for ev in events:
@@ -61,10 +61,19 @@ def main():
         if (clo, chi) != (lo, hi):
             window_diff.append(dict(event=ev, catalog=[str(clo), str(chi)], bands=[str(lo), str(hi)]))
         ok_rec = bool(c["all_finite"]) and c["bands"] == c["complete_hours"]
+        # §3.1 item 5: catalog window = [floor_hour(first survey), ceil_hour(last survey)]
+        exp = (min(times).floor("h"), max(times).ceil("h"))
+        if (clo, chi) != exp:
+            item5_diff.append(dict(event=ev, catalog=[str(clo), str(chi)], expected=[str(exp[0]), str(exp[1])]))
         iv = list(P.consecutive_intervals(times, 48.0))
-        usable = [k for k, (i, j, h) in enumerate(iv) if ok_rec and lo <= times[i].floor("h") <= hi and clo <= times[i].floor("h") <= chi]
+
+        def why(i):  # which test skips the interval; available_at is the §3.1 test, the others are stricter extras
+            t = times[i].floor("h")
+            return [n for n, ok in (("available_at", clo <= t <= chi), ("band_window", lo <= t <= hi),
+                                    ("record", ok_rec)) if not ok]
+        usable = [k for k, (i, j, h) in enumerate(iv) if not why(i)]
         rows.append(dict(event=ev, intervals_le_48h=len(iv), usable=len(usable), record_ok=ok_rec,
-                         skipped=[dict(t1=times[i].isoformat(), hours=h) for k, (i, j, h) in enumerate(iv)
+                         skipped=[dict(t1=times[i].isoformat(), hours=h, failed_tests=why(i)) for k, (i, j, h) in enumerate(iv)
                                   if k not in set(usable)]))
         if not usable:
             zero.append(ev)
@@ -74,7 +83,8 @@ def main():
                pipeline_sha256=sha(SCRIPTS / "pipeline.py"), script_sha256=sha(__file__),
                events_in_stage=len(rows), events_not_in_stage=len(not_in_stage),
                intervals_le_48h=sum(r["intervals_le_48h"] for r in rows), usable_intervals=sum(r["usable"] for r in rows),
-               events_with_skips=sum(1 for r in rows if r["skipped"]), catalog_vs_band_window_differences=window_diff, no_usable_interval=zero, rows=rows)
+               events_with_skips=sum(1 for r in rows if r["skipped"]), catalog_vs_band_window_differences=window_diff,
+               item5_catalog_window_is_floor_first_ceil_last_survey=dict(events_checked=len(rows), differences=item5_diff), no_usable_interval=zero, rows=rows)
     a.out.write_text(json.dumps(out, indent=1) + "\n")
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, indent=1))
 
