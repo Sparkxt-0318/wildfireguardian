@@ -300,3 +300,28 @@ rewritten.
   covers Step 3's memory at one hour).
 - **Then A4:** 10 reps × 2 requests × 900 s on this kit, tracked and checkpointed, with a timing claim only from runs
   without a restart.
+
+## A4 rerun on kit-v2-step23 (written before the run; PLAN Step 3 acceptance; Mira ledger 128: nothing blocks it)
+
+- **Rule (PLAN Step 3):** each request gives **one** outcome class in 10/10.
+- **Outcome class:**
+  - a run that publishes gives (pre-memory-map status, arrival);
+  - a memory-guard stop and UNRESOLVED are each a class of their own.
+  - An "arrival" difference within the same status is a different class: it is reported, not merged.
+- **Setup:** identical to the original A4 (F-3.4 FDYN_PLAN amendment A4), except for the kit.
+  - Yeongdeok 0325T23 `firms_early`, origins …11753630207 and …415158168.
+  - `fdyn_profile.py --only` with both tags, so the two requests alternate within each rep.
+  - Budget 900 s, controller guard 3,072 MiB, no `rss_limit_mb` in the request, `--mode plain`.
+  - 10 reps, `fdyn_v2a4_r01..r10`.
+  - Kit-v2-step23 (manifest `192f15cc…`), alone on the host.
+- **Tracking:**
+  - one harness-tracked task (`tools/a4_rerun.py`), checkpointed per rep: a rep whose ROWS.jsonl has both rows is
+    complete and skipped on resume;
+  - a partial rep is renamed `_restartN`, logged in `A4_RESTARTS.log` and rerun from the start;
+  - timing claims come only from reps without a restart.
+- **Reported per run:** the Z stage status, reason, elapsed time, setup and sweep units, wall time and harness family
+  PSS peak (run_one_job's sampler is not in this path: the family peak RSS is reported, labelled), plus the host.
+- **Interpretation:**
+  - 10/10 one class per request is the PLAN acceptance.
+  - Anything else is a failure of that line, reported with the stage that differs.
+  - The original A4 (unmodified kit, 8/1/1 and 8/2) is shown beside it, not pooled.

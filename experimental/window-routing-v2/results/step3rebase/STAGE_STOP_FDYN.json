@@ -416,7 +416,8 @@
  "violations": [],
  "watchdog_findings": [],
  "summary": {
-  "stages": 28,
+  "stages_checked": 22,
+  "rows_reported_not_checked": 6,
   "violations": 0,
   "watchdog": 0
  }

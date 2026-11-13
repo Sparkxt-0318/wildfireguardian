@@ -50,7 +50,9 @@ def main():
                              'error': ea.get('error'), 'note': 'EA cap = deadline - HI reserve; checked every backward second'})
     bad = [x for x in rows if x.get('ok') is False]
     out = {'rows': rows, 'violations': bad, 'watchdog_findings': findings,
-           'summary': {'stages': len(rows), 'violations': len(bad), 'watchdog': len(findings)}}
+           'summary': {'stages_checked': sum(1 for r in rows if r.get('ok') is not None),   # Mira 128 N1: checked only
+                       'rows_reported_not_checked': sum(1 for r in rows if r.get('ok') is None),   # EA builds
+                       'violations': len(bad), 'watchdog': len(findings)}}
     print(json.dumps(out['summary'])); [print(json.dumps(b)) for b in bad + findings]
     if a.json:
         Path(a.json).write_text(json.dumps(out, indent=1, default=str) + '\n')

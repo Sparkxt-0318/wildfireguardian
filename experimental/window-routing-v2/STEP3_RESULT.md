@@ -198,6 +198,17 @@ measured on one host (`vm`, x86_64, Intel Xeon @ 2.10 GHz, 4 CPUs), each run alo
   that stage, so it is inside the 1.65× bound, with 1.51–1.55× left.
 - Step 3c (Iris's host-speed design) remains the planned fix.
 
+### Mira's verification (ledger 128, PASS WITH NOTES at 7ee900e2)
+- Reproduced from the committed rows: G1, G3, G5, memory-mapped statuses, M1, G2/G2b, and the stage-stop rows.
+- Her own …166 kriged_mean run gives FULL_OPTIMUM_PROVEN@3953, with forked-check peak 493.5 MiB, Z 9.5 s and LO
+  70.5 s. The headline verdict change reproduces.
+- N1: `stage_stop_check.py` now reports `stages_checked` (22) and `rows_reported_not_checked` (6 EA) separately. It
+  used to report 28 rows.
+- N2: G1_COMPARE's check budgets and kit identity were read from run folders that are not committed. They are now
+  committed per run in `results/step3rebase/V2_RUN_RECORDS.jsonl`, extracted from each V2 RESULT.json: 40 runs, 28
+  check budgets, max 487.6 MiB, 28/28 published checks `within_budget: true`. The extraction itself rests on my run
+  folders.
+
 ### Ideas and gaps
 - The F-DYN set and the A/B are single runs per request.
 - The host-speed proxy (pure-Python Z sweep) did not see a host change that slowed numpy coefficient work by about
