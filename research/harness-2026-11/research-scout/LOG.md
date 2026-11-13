@@ -866,3 +866,77 @@ Sources were opened by research agents, and the key figures were re-checked in t
   - 15139708 지역고립예상지점: 마을명 and 행정동코드.
   - 15139648 교통두절예상지역: 두절구간 and 우회도로지정.
 - Advice: hold the §2 column until the owner pulls a 경북 sample.
+
+## Batch 12 (2026-11-13): KR-P cohort inputs, documentation only
+
+No data files were downloaded. Each source was opened by a research agent unless it is marked otherwise. Where a line says "re-checked", the quote was confirmed again in the saved page.
+
+### (1) 산림청 final damage perimeters
+
+No public release was found, for 2025 or for future fires.
+
+- data.go.kr searches (산불피해지, 산불 피해, 피해지, 산불영향구역): only statistics or point datasets turned up, no polygons.
+- 산림청_산불통계데이터 (data.go.kr 15121380):
+  - CSV of address and 피해면적.
+  - "시간범위 2022년 ~ 2024년 9월" (re-checked); updated yearly, next upload 2027-09-07.
+  - Licence: "제한 없음".
+- 산림청_산불발생통계 API (3070842): needs a service key; returns addresses and damagearea; no geometry.
+- 행안부 생활안전지도 산불발생이력 (15149598): a WMS point layer.
+- 산림재난방지법 and 시행규칙 (in force 2026.2.1):
+  - 제11조③ provides only for sharing between agencies.
+  - Neither text contains "공개".
+- 산불통계연보: published "매 익년 2월"; the 2025 yearbook was uploaded 2026-04-03. Statistics only.
+- 2025 mapping:
+  - 국립산림과학원 mapped the fire line with drones, IR aircraft and VIIRS (newsis 2025-03-27).
+  - 국토지리정보원 emergency spatial information was "provided to central government ministries and local governments" (Asiae 2025-04-15).
+  - Neither source mentions public release.
+- Independent satellite estimate: 116,333 ha against the official 99,289 ha (kbmaeil 2025-09-11; re-checked).
+- 농림위성 (2026-09 news): plans to produce 피해 영향권 and 피해 강도, shared "현장과"; nothing on public access.
+- Blocked, not checked: 산림빅데이터거래소, FGIS (map.forest.go.kr), NSDI, V-World, forest.go.kr.
+- Verdict:
+  - Perimeters for 2027 would probably need an 정보공개청구 or 자료신청 (inference).
+  - No publication delay is documented.
+
+### (2) Himawari AHI active-fire product
+
+Recommendation: pin JAXA P-Tree L2WLF.
+
+- JAXA P-Tree L2WLF, "Version : 1.00 (January 2020)" (re-checked):
+  - Resolution "0.02 x 0.02 degrees … (2 km x 2 km at nadir)" (re-checked); 10 min; full disk, which covers Korea.
+  - CSV with FRP, reliability level and QF.
+  - Access by FTP/SFTP after registration (name, email, organisation, purpose).
+  - Archive start for the fire product is not stated; the 2015-03-20 date applies to P-Tree overall. Latency for the fire product is not stated.
+- Terms (re-checked):
+  - Data before 2026-02-01 are non-profit only.
+  - "You cannot redistribute the data to the third parties".
+  - Contact the Secretariat before releasing research results.
+  - JAXA's general policy allows distribution with credit. The two conflict, so ask the Secretariat before publishing derived rasters.
+- CAMS/IPMA Himawari FRP-PIXEL:
+  - 10 min, about 2 km.
+  - Latency "below 3 hours"; public FTP holds the last 15 days; older data by offline order.
+  - No licence was found.
+- GK-2A AMI Forest Fire (KMA): 2 km, 10 min (KoreaScience 2026). The KMA data service returned 503; version, archive and terms are not established.
+- WF-ABBA Himawari: no product page found.
+
+### (3) Zenodo 10.5281/zenodo.21788344
+
+Metadata only, read through the API; no files were downloaded.
+
+- v3.0.0, 2026-09-26, CC-BY-4.0.
+- It names only "geostationary (GOES, Himawari) active-fire detections".
+- It does NOT say which Himawari product or version was used, or the source and version of the Korean perimeters.
+- related_identifier isDerivedFrom 10.17632/95rj5d379g.1 is a US dataset and was not pursued.
+
+### (4) Burned area for 2027
+
+- MCD64A1 v061 (LP DAAC): "ACTIVE"; 500 m; monthly; validation stage 3; CC0 / "without restriction". No latency figure was found.
+- Terra and Aqua: "In late 2026/early 2027 … will begin shutting down operations … MODIS data will no longer be collected" (Earthdata transition page; re-checked).
+  - Exact dates were not verified; a snippet claiming Feb and Sept 2027 was not found in the fetched text.
+  - Orbit drift: Terra about 9:00 AM by Dec 2025; Aqua about 3:50 PM by Aug 2026 (NSIDC).
+- VNP64A1 v002: "ACTIVE"; 500 m; from 2012-03.
+  - User guide: "intended as a successor to the MODIS burned area product" (re-checked).
+  - Earthdata blog 2025-09-24: "5-month lag"; a combined SNPP + NOAA-20 product is "planned".
+- **Suomi NPP data delivery "ended at 15:40 UTC on November 2, 2026"** (Earthdata and NESDIS; re-checked).
+  - This affects VNP64A1 and also VIIRS S-NPP active-fire detections (FIRMS) used elsewhere in the project.
+  - VJ164A1 (NOAA-20): no collection found in CMR.
+- Verdict: no NASA burned-area product is confirmed for 2027 fires.
