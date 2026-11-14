@@ -1,0 +1,453 @@
+{
+ "rule": "WIDENED_GRAPH_RULE.md",
+ "region": "yeongdeok_2025",
+ "label": "roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; no fire data outside the export grid; not shown safe",
+ "runs": [
+  {
+   "file": "20250325T190000Z_h5_envelope.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1870.39453125
+  },
+  {
+   "file": "20250325T190000Z_h5_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1915.453125
+  },
+  {
+   "file": "20250325T190000Z_h5_firms_early.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1870.6796875
+  },
+  {
+   "file": "20250325T190000Z_h5_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1871.28125
+  },
+  {
+   "file": "20250325T190000Z_h8_envelope.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1882.87109375
+  },
+  {
+   "file": "20250325T190000Z_h8_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1914.05859375
+  },
+  {
+   "file": "20250325T190000Z_h8_firms_early.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1893.16015625
+  },
+  {
+   "file": "20250325T190000Z_h8_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "places": 1,
+   "P4": {
+    "triples": 3,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1887.16796875
+  },
+  {
+   "file": "20250325T190000Z_h5_kriged_mean.json",
+   "kind": "control",
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "places": 90,
+   "P4": {
+    "triples": 270,
+    "nonempty": 150,
+    "departure_seconds": 2479535,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 2479535,
+    "g1p_departure_seconds": 2479535,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 150
+   },
+   "peak_rss_mib": 1863.33203125
+  }
+ ],
+ "fail": [],
+ "coverage_floor": {
+  "ratio": 1.0,
+  "nonempty_triples": 150,
+  "meets_fixed_minimum": true,
+  "P4_report": "PASS"
+ },
+ "classes_headline_waiting_b": [
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 1
+  }
+ ],
+ "widening_effect_vs_G1": {
+  "G1 none -> widened(a) closed none": 8
+ },
+ "waiting_effect_a_vs_b_closed": {
+  "(a) none -> (b) none": 8
+ },
+ "leaves_old_window": {},
+ "per_place": [
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T190000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12031458606",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  }
+ ],
+ "all_asserted_pass": true
+}

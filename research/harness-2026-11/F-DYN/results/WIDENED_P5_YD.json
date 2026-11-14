@@ -1,0 +1,145 @@
+{
+ "rule": "WIDENED_GRAPH_RULE.md P5",
+ "packetmodel": "446978f6",
+ "n": 8,
+ "all_P5": true,
+ "all_twin_loads": true,
+ "rows": [
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h5_envelope",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h5_envelope: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h5_envelope_burnset",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h5_envelope_burnset: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h5_firms_early",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h5_firms_early: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h5_kriged_mean",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h5_kriged_mean: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h8_envelope",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h8_envelope: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h8_envelope_burnset",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h8_envelope_burnset: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h8_firms_early",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h8_firms_early: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  },
+  {
+   "packet": "/tmp/claude-0/-home-user-wildfireguardian/2baed6ea-3563-556f-be30-7d96a10aadab/scratchpad/widened/batch/padded/yeongdeok_2025/20250325T190000Z_h8_kriged_mean",
+   "kit": {
+    "refused": true,
+    "error": "CheckerInputError: source support not complete (contract requires all true)"
+   },
+   "f32": {
+    "refused": true,
+    "error": "ValueError: 20250325T190000Z_h8_kriged_mean: 9632 unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+   },
+   "full_check": {
+    "refused": true,
+    "status": "REFUSED_SUPPORT_MASKED"
+   },
+   "P5": true,
+   "twin_loads": true
+  }
+ ]
+}

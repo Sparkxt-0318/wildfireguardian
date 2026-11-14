@@ -1,0 +1,253 @@
+{
+ "rule": "QUANT_v3_1_RULE.md",
+ "packets": [
+  {
+   "packet": "uiseong_andong_2025/20250324T020000Z_h5_envelope_central_q300",
+   "v3_present": false,
+   "note": "no v3 packet on disk (boundary-cell sample for the acceptance test)",
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 59,
+    "igniting_cells_with_1ms_rounded_hi": 79,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025/20250324T020000Z_h5_firms_early_central_q300",
+   "v3_present": false,
+   "note": "no v3 packet on disk (boundary-cell sample for the acceptance test)",
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 59,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025/20250325T140000Z_h5_envelope_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 5224,
+    "igniting_cells_with_1ms_rounded_hi": 5453,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025/20250325T140000Z_h5_firms_early_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 5224,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025/20250325T140000Z_h5_kriged_mean_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 6247,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": false,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T110000Z_h5_envelope_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 861,
+    "igniting_cells_with_1ms_rounded_hi": 887,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T110000Z_h5_envelope_sound_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 0,
+    "igniting_cells_with_1ms_rounded_hi": 0,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T110000Z_h5_firms_early_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 861,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T110000Z_h5_kriged_mean_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 920,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": false,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T230000Z_h5_envelope_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 337,
+    "igniting_cells_with_1ms_rounded_hi": 343,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 337,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": true,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  },
+  {
+   "packet": "yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300",
+   "v3_present": true,
+   "arrays_differing": [],
+   "hazard_channels_identical": true,
+   "hazard_members_identical": false,
+   "hazard_paths_differing": [
+    "/members[0]/id",
+    "/provenance/identity/construction_id",
+    "/provenance/identity/scenario_ids[0]",
+    "/provenance/identity/settings_digest"
+   ],
+   "v31_status": "BUILT",
+   "v31_quantization": {
+    "version": "wfg.fdyn.quant/3.1",
+    "rule": "QUANT_v3_1_RULE.md",
+    "igniting_cells_with_1ms_rounded_arrival": 465,
+    "igniting_cells_with_1ms_rounded_hi": null,
+    "exact_mask_supplied": false,
+    "worst_case_anticonservative_start_shift_ms": 0.5
+   }
+  }
+ ]
+}

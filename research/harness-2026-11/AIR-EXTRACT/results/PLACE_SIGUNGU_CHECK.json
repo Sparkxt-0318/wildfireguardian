@@ -1,0 +1,780 @@
+{
+ "rule": "D0_RULE.md amendment 1, P-b cross-check",
+ "osm_label": "OpenStreetMap administrative boundaries, snapshot 2025-01-01 (admin_level=6); ODbL",
+ "osm_sha256": "3427c103c465f8f6fb5b9542fafcf71883d37c187912f7c430d54a756bffb8e7",
+ "labels_sha256": "a907184e1e3de9c10c11d0a2be5dee58ec0ecbc4c47a0fbc9b5af824cacfae36",
+ "list_sha256": "d1b17516f745f4e2b21b7099752812ba665b8b005997deeb6a43731b4a92532e",
+ "places": 59,
+ "status_counts": {
+  "agree": 59
+ },
+ "rows": [
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160353",
+   "name": "구암리",
+   "lonlat": [
+    128.76704,
+    36.36331
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160357",
+   "name": "황룡리",
+   "lonlat": [
+    128.75439,
+    36.35432
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160415",
+   "name": "분토리",
+   "lonlat": [
+    128.64291,
+    36.3346
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160416",
+   "name": "신안리",
+   "lonlat": [
+    128.61166,
+    36.34063
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160421",
+   "name": "도옥리",
+   "lonlat": [
+    128.60089,
+    36.3535
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160424",
+   "name": "박곡리",
+   "lonlat": [
+    128.61967,
+    36.38298
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160428",
+   "name": "석탑리",
+   "lonlat": [
+    128.64337,
+    36.38281
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160430",
+   "name": "원당리",
+   "lonlat": [
+    128.67297,
+    36.34518
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160433",
+   "name": "장림리",
+   "lonlat": [
+    128.63055,
+    36.41101
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160434",
+   "name": "방하리",
+   "lonlat": [
+    128.66258,
+    36.39526
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160435",
+   "name": "창길리",
+   "lonlat": [
+    128.59744,
+    36.39479
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160436",
+   "name": "하령리",
+   "lonlat": [
+    128.56498,
+    36.41495
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160437",
+   "name": "삼춘리",
+   "lonlat": [
+    128.55906,
+    36.42983
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160438",
+   "name": "기도리",
+   "lonlat": [
+    128.55241,
+    36.38706
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160439",
+   "name": "대사리",
+   "lonlat": [
+    128.57405,
+    36.34284
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160440",
+   "name": "마전리",
+   "lonlat": [
+    128.56532,
+    36.36243
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160449",
+   "name": "용봉리",
+   "lonlat": [
+    128.5496392,
+    36.4528965
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160476",
+   "name": "업리",
+   "lonlat": [
+    128.68951,
+    36.39157
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160477",
+   "name": "하화리",
+   "lonlat": [
+    128.68771,
+    36.41073
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160478",
+   "name": "상화리",
+   "lonlat": [
+    128.7165,
+    36.39835
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160483",
+   "name": "도동리",
+   "lonlat": [
+    128.71777,
+    36.34301
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160497",
+   "name": "상리리",
+   "lonlat": [
+    128.7427,
+    36.34593
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160345",
+   "name": "입암리",
+   "lonlat": [
+    128.82409,
+    36.4033
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160350",
+   "name": "구성리",
+   "lonlat": [
+    128.81338,
+    36.38607
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160362",
+   "name": "신계리",
+   "lonlat": [
+    128.81866,
+    36.43208
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158323",
+   "name": "신석리",
+   "lonlat": [
+    128.78442,
+    36.52302
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158324",
+   "name": "구미리",
+   "lonlat": [
+    128.7644,
+    36.52167
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158334",
+   "name": "이천리",
+   "lonlat": [
+    128.79942,
+    36.52355
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158338",
+   "name": "천전리",
+   "lonlat": [
+    128.84776,
+    36.54166
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158416",
+   "name": "하아리",
+   "lonlat": [
+    128.57388,
+    36.54606
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158417",
+   "name": "인금리",
+   "lonlat": [
+    128.55241,
+    36.52727
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158420",
+   "name": "광음리",
+   "lonlat": [
+    128.6672092,
+    36.5084902
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158432",
+   "name": "상아리",
+   "lonlat": [
+    128.58746,
+    36.51918
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158533",
+   "name": "현내리",
+   "lonlat": [
+    128.72111,
+    36.52373
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158537",
+   "name": "도로리",
+   "lonlat": [
+    128.74635,
+    36.50879
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415158538",
+   "name": "원림리",
+   "lonlat": [
+    128.70472,
+    36.50508
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160358",
+   "name": "사촌리",
+   "lonlat": [
+    128.7575,
+    36.43753
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160360",
+   "name": "신흥리",
+   "lonlat": [
+    128.7801,
+    36.48693
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160361",
+   "name": "동변리",
+   "lonlat": [
+    128.79263,
+    36.44008
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160451",
+   "name": "어담리",
+   "lonlat": [
+    128.56396,
+    36.48366
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160454",
+   "name": "송리리",
+   "lonlat": [
+    128.63638,
+    36.49729
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160455",
+   "name": "원호리",
+   "lonlat": [
+    128.67108,
+    36.49403
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160456",
+   "name": "운산리",
+   "lonlat": [
+    128.65074,
+    36.47405
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160457",
+   "name": "국곡리",
+   "lonlat": [
+    128.60354,
+    36.48124
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160458",
+   "name": "용각리",
+   "lonlat": [
+    128.60078,
+    36.45427
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160461",
+   "name": "조탑리",
+   "lonlat": [
+    128.62977,
+    36.4766
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160463",
+   "name": "원리",
+   "lonlat": [
+    128.64497,
+    36.45394
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160464",
+   "name": "구천리",
+   "lonlat": [
+    128.67535,
+    36.47978
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160465",
+   "name": "귀미리",
+   "lonlat": [
+    128.68783,
+    36.46538
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160466",
+   "name": "망호리",
+   "lonlat": [
+    128.67965,
+    36.45982
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160467",
+   "name": "광연리",
+   "lonlat": [
+    128.66737,
+    36.44358
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160471",
+   "name": "구계리",
+   "lonlat": [
+    128.74354,
+    36.46841
+   ],
+   "osm": "의성군",
+   "labels": "의성군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "origin": "osm:node/415160473",
+   "name": "외하리",
+   "lonlat": [
+    128.72717,
+    36.49753
+   ],
+   "osm": "안동시",
+   "labels": "안동시",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "origin": "osm:node/415158166",
+   "name": "대리",
+   "lonlat": [
+    129.28198,
+    36.52956
+   ],
+   "osm": "영덕군",
+   "labels": "영덕군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "origin": "osm:node/415158259",
+   "name": "신평리",
+   "lonlat": [
+    129.16658,
+    36.54512
+   ],
+   "osm": "영양군",
+   "labels": "영양군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "origin": "osm:node/415158320",
+   "name": "삼의리",
+   "lonlat": [
+    129.22668,
+    36.53683
+   ],
+   "osm": "영양군",
+   "labels": "영양군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "origin": "osm:node/415160183",
+   "name": "도계리",
+   "lonlat": [
+    129.27563,
+    36.49147
+   ],
+   "osm": "영덕군",
+   "labels": "영덕군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "origin": "osm:node/415160178",
+   "name": "용덕리",
+   "lonlat": [
+    129.24844,
+    36.41852
+   ],
+   "osm": "영덕군",
+   "labels": "영덕군",
+   "labels_status": "established",
+   "status": "agree"
+  },
+  {
+   "region": "yeongdeok_2025",
+   "origin": "osm:node/415160314",
+   "name": "송천리",
+   "lonlat": [
+    129.2328,
+    36.42712
+   ],
+   "osm": "영덕군",
+   "labels": "영덕군",
+   "labels_status": "established",
+   "status": "agree"
+  }
+ ]
+}

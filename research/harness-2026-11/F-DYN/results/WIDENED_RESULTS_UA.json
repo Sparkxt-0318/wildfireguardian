@@ -1,0 +1,4278 @@
+{
+ "rule": "WIDENED_GRAPH_RULE.md",
+ "region": "uiseong_andong_2025",
+ "label": "roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; no fire data outside the export grid; not shown safe",
+ "runs": [
+  {
+   "file": "20250323T010000Z_h5_envelope.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1862.46484375
+  },
+  {
+   "file": "20250323T010000Z_h5_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1915.53515625
+  },
+  {
+   "file": "20250323T010000Z_h5_firms_early.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1860.94921875
+  },
+  {
+   "file": "20250323T010000Z_h5_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 3,
+    "departure_seconds": 52311,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 52311,
+    "g1p_departure_seconds": 52311,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 3
+   },
+   "peak_rss_mib": 1871.8359375
+  },
+  {
+   "file": "20250323T010000Z_h8_envelope.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1862.96875
+  },
+  {
+   "file": "20250323T010000Z_h8_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1917.33984375
+  },
+  {
+   "file": "20250323T010000Z_h8_firms_early.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1865.92578125
+  },
+  {
+   "file": "20250323T010000Z_h8_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "places": 17,
+   "P4": {
+    "triples": 51,
+    "nonempty": 3,
+    "departure_seconds": 84711,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 84711,
+    "g1p_departure_seconds": 84711,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 3
+   },
+   "peak_rss_mib": 1871.15625
+  },
+  {
+   "file": "20250324T090000Z_h5_envelope.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1867.8125
+  },
+  {
+   "file": "20250324T090000Z_h5_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1916.390625
+  },
+  {
+   "file": "20250324T090000Z_h5_firms_early.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1870.38671875
+  },
+  {
+   "file": "20250324T090000Z_h5_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 2,
+    "departure_seconds": 29621,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 29621,
+    "g1p_departure_seconds": 29621,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 2
+   },
+   "peak_rss_mib": 1869.0078125
+  },
+  {
+   "file": "20250324T090000Z_h8_envelope.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1874.52734375
+  },
+  {
+   "file": "20250324T090000Z_h8_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1916.30078125
+  },
+  {
+   "file": "20250324T090000Z_h8_firms_early.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1869.7421875
+  },
+  {
+   "file": "20250324T090000Z_h8_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "places": 10,
+   "P4": {
+    "triples": 30,
+    "nonempty": 2,
+    "departure_seconds": 51221,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 51221,
+    "g1p_departure_seconds": 51221,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 2
+   },
+   "peak_rss_mib": 1868.765625
+  },
+  {
+   "file": "20250325T170000Z_h5_envelope.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1868.09375
+  },
+  {
+   "file": "20250325T170000Z_h5_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1918.75
+  },
+  {
+   "file": "20250325T170000Z_h5_firms_early.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1873.0
+  },
+  {
+   "file": "20250325T170000Z_h5_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 6,
+    "departure_seconds": 60354,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 60354,
+    "g1p_departure_seconds": 60354,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 6
+   },
+   "peak_rss_mib": 1872.12890625
+  },
+  {
+   "file": "20250325T170000Z_h8_envelope.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1884.7578125
+  },
+  {
+   "file": "20250325T170000Z_h8_envelope_burnset.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1912.82421875
+  },
+  {
+   "file": "20250325T170000Z_h8_firms_early.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 0,
+    "departure_seconds": 0,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 0,
+    "g1p_departure_seconds": 0,
+    "ratio": null,
+    "g1p_nonempty_triples": 0
+   },
+   "peak_rss_mib": 1884.77734375
+  },
+  {
+   "file": "20250325T170000Z_h8_kriged_mean.json",
+   "kind": "candidates",
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "places": 6,
+   "P4": {
+    "triples": 18,
+    "nonempty": 6,
+    "departure_seconds": 60354,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    },
+    "b": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 60354,
+    "g1p_departure_seconds": 60354,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 6
+   },
+   "peak_rss_mib": 1898.66015625
+  },
+  {
+   "file": "20250325T170000Z_h5_kriged_mean.json",
+   "kind": "control",
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "places": 84,
+   "P4": {
+    "triples": 249,
+    "nonempty": 83,
+    "departure_seconds": 601657,
+    "violations": 0
+   },
+   "P4_open_violations": 0,
+   "P6": {
+    "a": {
+     "closed_subset_open_violations": 0,
+     "closed_witness_touching_padding": 0
+    }
+   },
+   "coverage": {
+    "g1_departure_seconds": 601657,
+    "g1p_departure_seconds": 601657,
+    "ratio": 1.0,
+    "g1p_nonempty_triples": 83
+   },
+   "peak_rss_mib": 1862.59765625
+  }
+ ],
+ "fail": [],
+ "coverage_floor": {
+  "ratio": 1.0,
+  "nonempty_triples": 83,
+  "meets_fixed_minimum": true,
+  "P4_report": "PASS"
+ },
+ "classes_headline_waiting_b": [
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 16
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "undetermined: depends on fire outside the export grid",
+   "n": 1
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 17
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 16
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "undetermined: depends on fire outside the export grid",
+   "n": 1
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 16
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 16
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "undetermined: depends on fire outside the export grid",
+   "n": 1
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 17
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 16
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "undetermined: depends on fire outside the export grid",
+   "n": 1
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 16
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 9
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 10
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 9
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 8
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "undetermined: depends on fire outside the export grid",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 9
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 10
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 9
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 1
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 8
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "undetermined: depends on fire outside the export grid",
+   "n": 1
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 2
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 4
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 6
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 2
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 4
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 2
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 4
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 2
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 4
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 6
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 2
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 4
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked",
+   "n": 2
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked",
+   "n": 4
+  }
+ ],
+ "widening_effect_vs_G1": {
+  "G1 none -> widened(a) closed none": 244,
+  "G1 none -> widened(a) closed route": 12,
+  "G1 route -> widened(a) closed route": 8
+ },
+ "waiting_effect_a_vs_b_closed": {
+  "(a) none -> (b) none": 244,
+  "(a) route -> (b) route": 20
+ },
+ "leaves_old_window": {
+  "widened (a) closed route where G1 has none: leaves the old window": 12
+ },
+ "per_place": [
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:12099834983",
+   "g1": false,
+   "a_closed": false,
+   "a_open": true,
+   "b_closed": false,
+   "b_open": true,
+   "class": "undetermined: depends on fire outside the export grid"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12099834983",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:12099834983",
+   "g1": false,
+   "a_closed": false,
+   "a_open": true,
+   "b_closed": false,
+   "b_open": true,
+   "class": "undetermined: depends on fire outside the export grid"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12099834983",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:12099834983",
+   "g1": false,
+   "a_closed": false,
+   "a_open": true,
+   "b_closed": false,
+   "b_open": true,
+   "class": "undetermined: depends on fire outside the export grid"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12099834983",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:12099834983",
+   "g1": false,
+   "a_closed": false,
+   "a_open": true,
+   "b_closed": false,
+   "b_open": true,
+   "class": "undetermined: depends on fire outside the export grid"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:10806795079",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12099834983",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12372525445",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:330187726",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365838918",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956312755",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:7022888357",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9852303373",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250323T010000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9856969553",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365847169",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365847169",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365847169",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365847169",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": true,
+   "b_closed": false,
+   "b_open": true,
+   "class": "undetermined: depends on fire outside the export grid"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365847169",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365847169",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365847169",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:12374870531",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365842937",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365846035",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365847169",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365849398",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:367855709",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:368192159",
+   "g1": false,
+   "a_closed": false,
+   "a_open": true,
+   "b_closed": false,
+   "b_open": true,
+   "class": "undetermined: depends on fire outside the export grid"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250324T090000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365516269",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:365847993",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365516269",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365847993",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365516269",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:365847993",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "firms_early",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365516269",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365847993",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 5,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365516269",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:365847993",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365516269",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:365847993",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "envelope_burnset",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365516269",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:365847993",
+   "g1": false,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "firms_early",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365516269",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:365847993",
+   "g1": true,
+   "a_closed": true,
+   "a_open": true,
+   "b_closed": true,
+   "b_open": true,
+   "class": "route found by the router on the widened graph, to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:403802220",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:6956293149",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9841533898",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  },
+  {
+   "start": "20250325T170000Z",
+   "horizon_h": 8,
+   "variant": "kriged_mean",
+   "entry_node": "osm:9851985061",
+   "g1": false,
+   "a_closed": false,
+   "a_open": false,
+   "b_closed": false,
+   "b_open": false,
+   "class": "no route found by the router on the widened graph to the listed destinations; not independently checked"
+  }
+ ],
+ "all_asserted_pass": true
+}

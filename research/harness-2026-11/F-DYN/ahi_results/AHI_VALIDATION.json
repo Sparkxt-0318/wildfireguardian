@@ -1,0 +1,121 @@
+{
+ "rule": "AHI_RULE.md @469796e + amendment 1 @def5016",
+ "pixels": 448,
+ "firing_pixels": 365,
+ "weak_baseline_firing": 365,
+ "saturated_at_tf": 1,
+ "parallax_shift_m": {
+  "median": 216.9721128509135,
+  "max": 808.1335484155272
+ },
+ "V1_by_frp_class": {
+  "frp_0_10": {
+   "pixels": 136,
+   "caught_in_time": 121,
+   "caught_share": 0.8897058823529411,
+   "earlier": 121,
+   "earlier_h_median": 10.13333333333334,
+   "earlier_h_iqr": [
+    7.608333333333334,
+    10.75
+   ],
+   "missed": 9
+  },
+  "frp_10_50": {
+   "pixels": 81,
+   "caught_in_time": 80,
+   "caught_share": 0.9876543209876543,
+   "earlier": 80,
+   "earlier_h_median": 4.170833333333334,
+   "earlier_h_iqr": [
+    3.1979166666666643,
+    5.6875000000000036
+   ],
+   "missed": 0
+  },
+  "frp_50_10000": {
+   "pixels": 34,
+   "caught_in_time": 34,
+   "caught_share": 1.0,
+   "earlier": 34,
+   "earlier_h_median": 2.3958333333333357,
+   "earlier_h_iqr": [
+    1.1041666666666714,
+    4.4062499999999964
+   ],
+   "missed": 0
+  }
+ },
+ "V2_preignition_flagged_scans": 0,
+ "V2_preignition_pixel_scans": 344064,
+ "V3_far_false_alarm": {
+  "far_pixels": 77,
+  "all": {
+   "pixel_hours": 2849,
+   "flagged": 52,
+   "share": 0.018252018252018252
+  },
+  "day": {
+   "pixel_hours": 1386,
+   "flagged": 52,
+   "share": 0.03751803751803752
+  },
+  "night": {
+   "pixel_hours": 1694,
+   "flagged": 0,
+   "share": 0.0
+  }
+ },
+ "V4_hourly_firing_pixels": {
+  "03-24 05:00 UTC": 105,
+  "03-24 06:00 UTC": 122,
+  "03-24 07:00 UTC": 77,
+  "03-24 08:00 UTC": 60,
+  "03-24 09:00 UTC": 38,
+  "03-24 10:00 UTC": 38,
+  "03-24 11:00 UTC": 32,
+  "03-24 12:00 UTC": 22,
+  "03-24 13:00 UTC": 29,
+  "03-24 14:00 UTC": 28,
+  "03-24 15:00 UTC": 23,
+  "03-24 16:00 UTC": 9,
+  "03-24 17:00 UTC": 7,
+  "03-24 18:00 UTC": 4,
+  "03-24 19:00 UTC": 5,
+  "03-24 20:00 UTC": 2,
+  "03-24 21:00 UTC": 1,
+  "03-24 22:00 UTC": 0,
+  "03-24 23:00 UTC": 0,
+  "03-25 00:00 UTC": 1,
+  "03-25 01:00 UTC": 7,
+  "03-25 02:00 UTC": 11,
+  "03-25 03:00 UTC": 20,
+  "03-25 04:00 UTC": 30,
+  "03-25 05:00 UTC": 71,
+  "03-25 06:00 UTC": 186,
+  "03-25 07:00 UTC": 224,
+  "03-25 08:00 UTC": 291,
+  "03-25 09:00 UTC": 271,
+  "03-25 10:00 UTC": 274,
+  "03-25 11:00 UTC": 244,
+  "03-25 12:00 UTC": 190,
+  "03-25 13:00 UTC": 196,
+  "03-25 14:00 UTC": 164,
+  "03-25 15:00 UTC": 139,
+  "03-25 16:00 UTC": 90,
+  "03-25 17:00 UTC": 75
+ },
+ "V5_psf_bleed": {
+  "neighbour_pixels_without_polar": 146,
+  "flagged": 82
+ },
+ "PASS": true,
+ "criteria": "V1 caught_share(FRP>=50) >= 0.80 AND V3 all share <= 0.02",
+ "inputs_sha256": {
+  "kfs01_ahi_20250320T06_20250320T18.npz": "675d5b4326a59ac83de95d360089212e44c06841f1f768d55d2fc54e373473d5",
+  "kfs01_ahi_20250320T18_20250321T06.npz": "8942f1eef5ffaf31babc8c538920cd076c369a838c1d2cb2a9fa4155c5f3891c",
+  "kfs01_ahi_20250321T18_20250322T02.npz": "88179935a75824b95d1ef40c19fded0f708af06279f6e6dcde928195d8460c31",
+  "kfs01_ahi_20250324T06_20250324T18.npz": "f0ac0e5c1082939d4b17df695df0092b27d7ed548449826fe7a91da3b764f203",
+  "kfs01_ahi_20250324T18_20250325T18.npz": "63dfc2b6566d01c14b326c248473eecf7ae7f2634f42f3b6579474a762736712"
+ }
+}
