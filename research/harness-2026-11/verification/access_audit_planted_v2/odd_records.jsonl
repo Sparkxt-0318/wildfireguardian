@@ -1,0 +1,5 @@
+["a","list","record"]
+"just a string"
+{"message": "str message"}
+{"message": {"content": [null, 5, {"type":"tool_result","content":null}]}}
+not json at all
