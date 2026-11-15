@@ -52,3 +52,17 @@ The refactored packaged worker was run locally against all 273 original frozen r
 The verifier confirmed 189 feasible journeys, 84 modeled refusals, 187 earliest-arrival proofs and 168 minimum-driving proofs. Both target paths were also rechecked using the distinct original adaptive thermal checker. The longest guarded worker request was 28.950 seconds and largest sampled process-family/supervisor memory 1,642 MiB. Guard CLI startup and cleanup are additionally recorded; its maximum was 29.009 seconds. Adding preparation adapter time gives a maximum 29.035 seconds. Cache copy and forecast generation remain outside these timings. A sample may miss a shorter memory peak.
 
 The timed run's adapter initially preserved the historical template's worker hash. The campaign separately bound the actual packaged-worker hash before each scored call and pinned the package and dependencies. The subsequent PR change fixes this metadata in the adapter and validates the worker entrypoint in the supervisor. The immutable source identity for the experiment remains the original package commit above. A post-run fix does not retroactively change the measured software.
+
+## Native-support full-census rerun
+
+The support_273 files record the final support-aware, tie-preserving rerun of the 273 original requests and its independent audit. Inputs, warm-cache preparation and the 30-second / 3,072 MiB sampled guards match the historical benchmark. The support-aware policy changes which routes may be published. The timed jobs explicitly selected strict policy, which is also the default.
+
+- 28 supported checked journeys, including 26 independently proved earliest among supported journeys and 23 independently verified minimum-driving claims.
+- 78 independently proved model-scoped no-route decisions and 167 unresolved.
+- Zero of the 28 returned journeys touched a cell-hour missing native forecast support.
+- Two of the 163 previously unsupported journeys received supported alternatives, with +71 and +2 seconds to arrival. The other 161 are unresolved. Of those 161, 153 have at least one endpoint in a missing native cell.
+- The 26 previously supported journeys retained the same arrival and driving times. Six prior model refusals became unresolved under strict processing.
+
+The all-18-packet source-crop validity audit is sanitized to omit local paths. The source input and campaign machinery remain external, so these records do not by themselves reproduce the study. The independent verifier's initial integer-clock type error and its complete rerun are documented in the local independent report. The support lattice self-test records 150 exhaustive small-graph checks.
+
+The policy cannot create missing input or validate off-route thermal-source coverage. An unresolved result is not a no-route proof. A supported route is not a field safety guarantee.

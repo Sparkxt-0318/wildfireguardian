@@ -46,9 +46,17 @@ def get_contact(graph,source,request):
     return merged,points
 
 
+class StopStrict(Exception):
+    pass
+
+
 def main():
     p=Path(sys.argv[1]);j=read(p);out=Path(j['output_path'])
     t0=float(os.environ['WFG_OUTER_MONOTONIC_START']);deadline=t0+30
+    policy=j.get('support_policy','REQUIRE_NATIVE_SUPPORT')
+    if policy not in ('HISTORICAL_ZERO_FILL','REQUIRE_NATIVE_SUPPORT'):
+        raise ValueError('UNKNOWN_SUPPORT_POLICY')
+    strict=policy=='REQUIRE_NATIVE_SUPPORT'
     src=Path(j['source_root']);phase=src.parent/'phaseB';packet=Path(j['source_directory'])
     full=phase/'rda_worker_v1_1.py';trace={'method':'corridor','steps':[]}
     def record(stage,**props):
@@ -56,8 +64,18 @@ def main():
     def traced():
         dump(out/'UPDATE_TRACE.json',trace)
     def fallback(reason):
+        if strict:
+            record('UNRESOLVED',reason=reason);traced()
+            dump(out/'RESULT.json',{'result':{'status':'UNRESOLVED','legs':[],'destination':None,'arrival':None},
+                 'decision':{'authoritative_status':'UNRESOLVED','reason':reason,
+                             'support_policy':policy,'physical_safety_claim':False}})
+            return
         record('FALLBACK_TO_FULL',reason=reason);traced()
         os.execv(sys.executable,[sys.executable,'-B',str(full),'--job-file',str(p)])
+    def stop(reason):
+        fallback(reason)
+        raise StopStrict()
+
     for name,digest in j['input_sha256'].items():
         if sha(j[name])!=digest:raise ValueError('INPUT_AUTHORITY')
     for name,digest in j['source_sha256'].items():
@@ -78,17 +96,17 @@ def main():
     graph=read(j['graph_path']);q=read(j['request_path']);haz=read(j['hazard_path'])
     if (j.get('update_arm')!='corridor' or len(q['destinations'])!=1 or
         set(q['position'])!={'node'} or haz['dt']!=1 or q['exposure_scope']!='including_dwell'):
-        fallback('UNSUPPORTED_GRAMMAR')
+        stop('UNSUPPORTED_GRAMMAR')
     d=q['destinations'][0]
     if any(int(t)!=t for t in (q['departure'],q['horizon'],d['dwell'])) or q['horizon']>3600:
-        fallback('UNSUPPORTED_CLOCK')
+        stop('UNSUPPORTED_CLOCK')
     vg=prepare_graph(graph,j,{}).snapshot()
     vh=validation.validate_hazard(vg,haz,q['as_of'],_graph_validated=True)
     vr=validation.validate_request(vg,vh,q,_validated_inputs=True)
-    if not check_clock_scope(vh,vr)['supported']:fallback('CLOCK_ADMISSION')
+    if not check_clock_scope(vh,vr)['supported']:stop('CLOCK_ADMISSION')
     meta=read(packet/'NATIVE_METADATA.json')
     if meta['time_origin']!=haz['time_origin'] or meta['graph_revision']!=graph['revision'] or meta['crs']!=graph['crs']:
-        fallback('PACKET_BINDING')
+        stop('PACKET_BINDING')
     del vg,vh,vr,haz
     # Reserve time for a native fallback if constructing the time-expanded relaxation is expensive.
     search_deadline=min(deadline-2,t0+15)
@@ -103,9 +121,26 @@ def main():
                contact_entry_intervals=events,source_content_sha256=source.content_sha256)
         route,ev=search(compiled,forbidden,points,q,search_deadline)
         record('legal_wait_search',**ev)
+        if strict and route is not None:
+            from native_support import constraints, missing_intervals, route_supported
+            from world import make_world
+            support_world=make_world(j['graph_path'],packet)
+            if not route_supported(support_world,q,route):
+                missing=missing_intervals(packet,graph,int(q['horizon']))
+                extra, extra_points=constraints(graph,compiled,missing,q,search_deadline)
+                combined=[union([*a,*b]) for a,b in zip(forbidden,extra)]
+                support_points={k:union([*points.get(k,()),*extra_points.get(k,())])
+                                for k in set(points)|set(extra_points)}
+                route,ev=search(compiled,combined,support_points,q,search_deadline)
+                record('supported_corridor_search',**ev)
+                if route is None:
+                    stop('SUPPORT_RESTRICTED_SEARCH_NO_ROUTE')
+                if not route_supported(support_world,q,route):
+                    stop('SUPPORT_VALIDATION_INCONCLUSIVE')
+            record('native_support_check',status='PASS',policy=policy)
         del compiled,index,parts,forbidden,source
     except (TimeoutError,ValueError) as e:
-        fallback('CORRIDOR_STAGE_UNRESOLVED:'+str(e))
+        stop('CORRIDOR_STAGE_UNRESOLVED:'+str(e))
     if route is None:
         if not ev['exhausted']:raise ArithmeticError('Incomplete search cannot prove absence')
         record('REFUSAL_PROVEN',certificate=ev['reason']);traced()
@@ -149,6 +184,8 @@ def main():
                     candidate=find(graph,q,packet,slack=slack)
                     if candidate is None:
                         continue
+                    if strict and not route_supported(support_world,q,candidate):
+                        continue
                     remaining=deadline-.8-time.perf_counter()
                     if remaining<=0:
                         break
@@ -174,7 +211,8 @@ def main():
                         # can replace it.
                         if slack == .993 and time.perf_counter()<deadline-6:
                             tighter=find(graph,q,packet,slack=.997)
-                            if tighter is not None and tighter['arrival']<candidate['arrival']:
+                            if tighter is not None and tighter['arrival']<candidate['arrival'] and (
+                                not strict or route_supported(support_world,q,tighter)):
                                 try:
                                     fine_budget=max(0,deadline-.8-time.perf_counter())
                                     if fine_budget>0:
@@ -195,7 +233,7 @@ def main():
                     # The original complete-journey checker remains the authority
                     # for candidates the faster enclosure does not establish.
                     candidate=find(graph,q,packet,slack=.75)
-                    if candidate is not None:
+                    if candidate is not None and (not strict or route_supported(support_world,q,candidate)):
                         checked=HybridChecker(packet).check(graph,q,candidate['legs'],candidate['destination'],
                             deadline=deadline-.5,wall_s=max(0,deadline-.5-time.perf_counter()),
                             expected_graph_revision=graph['revision'],expected_graph_sha256=graph_digest(graph))
@@ -208,16 +246,18 @@ def main():
                 bound=max(certificate['earliest_lower'],route['arrival'])
                 if bound>candidate['arrival']:raise ArithmeticError('Contradictory thermal arrival lower bound')
                 exact=bound==candidate['arrival']
-                decision='CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN' if exact else 'CHECKED_JOURNEY_FEASIBLE'
+                decision=('CHECKED_JOURNEY_SUPPORTED_OPTIMUM_PROVEN' if strict and exact else
+                          'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN' if exact else 'CHECKED_JOURNEY_FEASIBLE')
                 record('PUBLISHED',decision=decision,lower_bound_arrival=bound);traced()
                 dump(out/'TIEBREAK_TRACE.json',{'minimum_drive_proved':False,'initial_drive_s':road_cost(candidate),
                     'final_drive_s':road_cost(candidate),'reason':'NEW_VERIFIED_HEAT_BOUNDED_WITNESS'})
                 dump(out/'RESULT.json',{'result':{**candidate,'status':'CHECKED_ROUTE'},'whole_road_check':checked,
                     'optimality_certificate':{'complete':exact,'lower_bound_arrival':bound,'upper_bound_arrival':candidate['arrival'],
-                                              'relaxation_kind':'integer_lower_dose_on_time_expanded_roads'},
-                    'decision':{'authoritative_status':decision,'physical_safety_claim':False}})
+                                              'relaxation_kind':'integer_lower_dose_on_time_expanded_roads',
+                                              'scope':'supported_journeys' if strict else 'all_journeys'},
+                    'decision':{'authoritative_status':decision,'support_policy':policy,'physical_safety_claim':False}})
                 return
-        fallback('CORRIDOR_WITNESS_'+str(rec.get('reason',rec['status'])))
+        stop('CORRIDOR_WITNESS_'+str(rec.get('reason',rec['status'])))
     # Keep the already checked earliest-arrival witness available if refinement
     # cannot complete within its bounded share of the original request deadline.
     original=route
@@ -235,6 +275,9 @@ def main():
             candidates=candidate_plans(q,route,world)
             for saved,candidate in candidates:
                 if time.perf_counter()>=refine_deadline:break
+                if strict and not route_supported(support_world,q,candidate):
+                    outcome['stages'].append({'stage':'cycle_removal','saved_s':saved,'status':'UNSUPPORTED'})
+                    continue
                 checked=HybridChecker(packet).check(graph,q,candidate['legs'],candidate['destination'],
                     deadline=refine_deadline,wall_s=max(0,refine_deadline-time.perf_counter()),
                     expected_graph_revision=graph['revision'],expected_graph_sha256=graph_digest(graph))
@@ -247,7 +290,8 @@ def main():
             outcome['reason']=why;outcome['states']=count
             if why in ('STATIC_BOUND','EXHAUSTED'):
                 outcome['minimum_drive_proved']=True
-            if candidate is not None and time.perf_counter()<refine_deadline:
+            if (candidate is not None and time.perf_counter()<refine_deadline and
+                (not strict or route_supported(support_world,q,candidate))):
                 checked=HybridChecker(packet).check(graph,q,candidate['legs'],candidate['destination'],
                     deadline=refine_deadline,wall_s=max(0,refine_deadline-time.perf_counter()),
                     expected_graph_revision=graph['revision'],expected_graph_sha256=graph_digest(graph))
@@ -267,12 +311,18 @@ def main():
     assert outcome['final_drive_s']<=outcome['initial_drive_s']
     dump(out/'TIEBREAK_TRACE.json',outcome)
     record('minimum_driving_tiebreak',**outcome)
-    record('PUBLISHED',certificate='legal_corridor_contact_lattice');traced()
+    certificate='supported_legal_corridor_contact_lattice' if strict else 'legal_corridor_contact_lattice'
+    decision='CHECKED_JOURNEY_SUPPORTED_OPTIMUM_PROVEN' if strict else 'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN'
+    record('PUBLISHED',certificate=certificate);traced()
     dump(out/'RESULT.json',{'result':{**route,'status':'CHECKED_ROUTE'},'whole_road_check':rec,
          'optimality_certificate':{'complete':True,'lower_bound_arrival':route['arrival'],
-                                  'relaxation_kind':'legal_corridor_contact_lattice'},
-         'decision':{'authoritative_status':'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN','physical_safety_claim':False}})
+                                  'relaxation_kind':certificate,
+                                  'scope':'supported_journeys' if strict else 'all_journeys'},
+         'decision':{'authoritative_status':decision,'support_policy':policy,'physical_safety_claim':False}})
 
 
 if __name__=='__main__':
-    main()
+    try:
+        main()
+    except StopStrict:
+        pass

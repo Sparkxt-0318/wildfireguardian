@@ -49,3 +49,23 @@ The historical decision ledger, case-level proof summaries, lower-bound trials, 
 The local full-census rerun used frozen package commit `61b3a4c8464e6c5499578d4d4acae7f1354b6122`, original forecast and road inputs, authenticated private warm caches, and a fixed 30-second / 3,072 MiB sampled guard. An independent reviewer rechecked every route, model refusal, claimed optimality, input identity and resource receipt. The two difficult paths also passed the separate original adaptive thermal checker offline. All 273 decision statuses and all 189 route arrivals and driving durations matched the original v8 outcomes. The two focus routes were accepted as feasible without a completed earliest proof. FN1 and FT1 remain within independently established arrival intervals [3180, 3187] and [3070, 3074] seconds after forecast issue.
 
 The follow-up adapter change records the packaged worker's identity and checks it during supervision. That provenance correction and its tests were applied after the frozen run and do not change the measured router source. [Packaged rerun evidence](evidence/README.md)
+
+## Native forecast support policy
+
+By default, the worker applies `REQUIRE_NATIVE_SUPPORT`. This policy requires every cell touched during the whole journey, including movement, legal waits and the complete destination stay, to have native forecast support for every scenario member at the relevant hour. Closed road-cell intersections include gridlines and corner touches. The data are read from the frozen packet's `native_hourly_valid` mask. A cell outside the forecast grid is treated as unsupported.
+
+The worker first searches under the original modeled flame restrictions. If its candidate crosses unsupported cells, it searches for an alternative over the supported road-and-time domain, then checks the reconstructed journey against the original fire and heat constraints. A fully checked supported candidate is labeled with the support policy. An earliest-arrival certificate for this restricted search applies to supported journeys. Where the supported search cannot produce a checked route, the result is `UNRESOLVED`; unavailable forecast input does not establish that a route is physically impossible. The worker may still publish an unrestricted, model-scoped no-route proof when its original unrestricted search or original heat lower bound actually proves one.
+
+The legacy `HISTORICAL_ZERO_FILL` policy preserves the old benchmark behavior only when explicitly selected in the job. Do not interpret a supported-cell route as a field safety assessment. This policy neither fills missing forecast data nor establishes fire or radiation information for unsupported surrounding cells.
+
+The full-census policy comparison, guard definition and independently checked results are reported separately in the supporting evidence.
+
+## Native-support rerun
+
+All 273 original requests were rerun with native-support enforcement, including support-checked driving refinement. The independently verified result is 28 supported checked journeys, 78 no-route decisions proved under the original configured model, and 167 unresolved requests. Of the 28, 26 have independently proved earliest arrival among supported journeys and 23 have a verified minimum-driving claim. Every returned journey has native forecast support in the occupied cells and hours.
+
+The earlier permissive run returned 189 routes, of which 163 touched missing native input. Two of those 163 now have supported alternatives, with arrivals 71 and 2 seconds later. The other 161 return unresolved. The earlier run had 84 model-scoped no-route decisions; 78 were reproduced and six are now unresolved. All 26 earlier supported journeys retained their arrival and driving time.
+
+No guard stopped a request. Maximum worker wall time was 28.834 seconds, maximum sampled family-plus-supervisor RSS was 1,341.297 MiB, and the largest adapter-plus-supervisor elapsed time was 28.922 seconds. Forecast generation and cache copying were outside the timed worker boundary. Native-validity masks were checked against the original source crops; the input observations were not recovered or filled. These results do not establish coverage for unknown fire or radiation sources outside the occupied route.
+
+Both the initial supported-routing run and the final tie-preserving run were retained. The independent verifier's first final-run audit encountered a type error when an integer-valued clock was decoded as a float. The verifier was corrected with explicit integer checks and the complete audit restarted; it finished with zero discrepancies. The frozen worker and measured outputs were unchanged. [Case ledger and proofs](evidence/README.md)

@@ -45,6 +45,8 @@ jobs:
         run: python -B experimental/corridor-router-v8/tests/test_corridor.py -v
       - name: Run synthetic candidate search and negative controls
         run: python -B experimental/corridor-router-v8/tests/test_candidate.py -v
+      - name: Check native forecast support and unknown outcomes
+        run: python -B experimental/corridor-router-v8/tests/test_native_support.py -v
       - name: Check portable job CLI and provenance failures
         run: python -B experimental/corridor-router-v8/tests/test_prepare_job.py -v
       - name: Check deadline, child memory and process cleanup

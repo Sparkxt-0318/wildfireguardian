@@ -1,0 +1,3886 @@
+{
+  "uljin_2022__20220304T030000Z_FACILITY_LEG1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "849",
+      "unsupported_cell_hours": "3"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FACILITY_LEG2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1161",
+      "unsupported_cell_hours": "3"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FACILITY_LEG3": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1530",
+      "unsupported_cell_hours": "3"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GC1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2480",
+      "unsupported_cell_hours": "67"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GC2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1628",
+      "unsupported_cell_hours": "53"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GD1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "547",
+      "unsupported_cell_hours": "17"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GL1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1545",
+      "unsupported_cell_hours": "50"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GL2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1274",
+      "unsupported_cell_hours": "44"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GN1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1584",
+      "unsupported_cell_hours": "59"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GWn1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "964",
+      "unsupported_cell_hours": "28"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GWw1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1185",
+      "unsupported_cell_hours": "13"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GX1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2946",
+      "unsupported_cell_hours": "84"
+    }
+  },
+  "uljin_2022__20220304T030000Z_GX2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1295",
+      "unsupported_cell_hours": "46"
+    }
+  },
+  "uljin_2022__20220304T030000Z_OCT08_DIFFICULT": {
+    "previous": {
+      "kind": "route",
+      "arrival": "599",
+      "unsupported_cell_hours": "19"
+    }
+  },
+  "uljin_2022__20220304T030000Z_OCT08_SIMPLE": {
+    "previous": {
+      "kind": "route",
+      "arrival": "10",
+      "unsupported_cell_hours": "1"
+    }
+  },
+  "uljin_2022__20220304T030000Z_OCT08_TOPOLOGY_FIRST": {
+    "previous": {
+      "kind": "route",
+      "arrival": "265",
+      "unsupported_cell_hours": "8"
+    }
+  },
+  "uljin_2022__20220304T030000Z_supported_cold_OCT09": {
+    "previous": {
+      "kind": "route",
+      "arrival": "85",
+      "unsupported_cell_hours": "2"
+    }
+  },
+  "uljin_2022__20220304T030000Z_supported_near_positive_OCT09": {
+    "previous": {
+      "kind": "route",
+      "arrival": "301",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GC1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1660",
+      "unsupported_cell_hours": "41"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GC2_C2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2295
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_GD1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1098",
+      "unsupported_cell_hours": "28"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GL1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3001",
+      "unsupported_cell_hours": "75"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GL2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1579",
+      "unsupported_cell_hours": "57"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GN1_C2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1740
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_GWn1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3468",
+      "unsupported_cell_hours": "61"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GWw1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3412",
+      "unsupported_cell_hours": "85"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GX1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1897",
+      "unsupported_cell_hours": "48"
+    }
+  },
+  "uljin_2022__20220304T060000Z_GX2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1405",
+      "unsupported_cell_hours": "51"
+    }
+  },
+  "uljin_2022__20220304T060000Z_OCT08_DIFFICULT": {
+    "previous": {
+      "kind": "route",
+      "arrival": "599",
+      "unsupported_cell_hours": "19"
+    }
+  },
+  "uljin_2022__20220304T060000Z_OCT08_SIMPLE": {
+    "previous": {
+      "kind": "route",
+      "arrival": "10",
+      "unsupported_cell_hours": "1"
+    }
+  },
+  "uljin_2022__20220304T060000Z_OCT08_TOPOLOGY_FIRST": {
+    "previous": {
+      "kind": "route",
+      "arrival": "265",
+      "unsupported_cell_hours": "8"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND000": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3053",
+      "unsupported_cell_hours": "33"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND001": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1115",
+      "unsupported_cell_hours": "9"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND002": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1042",
+      "unsupported_cell_hours": "8"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND003": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND004": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2017",
+      "unsupported_cell_hours": "57"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND005": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND006": {
+    "previous": {
+      "kind": "route",
+      "arrival": "793",
+      "unsupported_cell_hours": "6"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND007": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND008": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND009": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2949",
+      "unsupported_cell_hours": "8"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND010": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1361",
+      "unsupported_cell_hours": "16"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND011": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND012": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND013": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3109",
+      "unsupported_cell_hours": "17"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND014": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2937",
+      "unsupported_cell_hours": "54"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND015": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND016": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2906",
+      "unsupported_cell_hours": "22"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND017": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2879",
+      "unsupported_cell_hours": "8"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND018": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1555",
+      "unsupported_cell_hours": "17"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND019": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND020": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3245",
+      "unsupported_cell_hours": "11"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND021": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3266",
+      "unsupported_cell_hours": "21"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND022": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND023": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2937",
+      "unsupported_cell_hours": "17"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND024": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2945",
+      "unsupported_cell_hours": "47"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND025": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND026": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2294",
+      "unsupported_cell_hours": "50"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND027": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2785",
+      "unsupported_cell_hours": "51"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND028": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2923",
+      "unsupported_cell_hours": "13"
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND029": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_supported_cold_OCT09": {
+    "previous": {
+      "kind": "route",
+      "arrival": "85",
+      "unsupported_cell_hours": "2"
+    }
+  },
+  "uljin_2022__20220304T060000Z_supported_near_positive_OCT09": {
+    "previous": {
+      "kind": "route",
+      "arrival": "301",
+      "unsupported_cell_hours": "11"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GC1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1989",
+      "unsupported_cell_hours": "47"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GC2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2866",
+      "unsupported_cell_hours": "90"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GD1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1053",
+      "unsupported_cell_hours": "28"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GL1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1716",
+      "unsupported_cell_hours": "41"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GL2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1552",
+      "unsupported_cell_hours": "18"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GN1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3293",
+      "unsupported_cell_hours": "76"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GWn1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1425",
+      "unsupported_cell_hours": "29"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GWw1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1587",
+      "unsupported_cell_hours": "24"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GX1_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1547",
+      "unsupported_cell_hours": "25"
+    }
+  },
+  "uljin_2022__20220304T120000Z_GX2_C2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2423",
+      "unsupported_cell_hours": "71"
+    }
+  },
+  "uljin_2022__20220304T120000Z_OCT08_DIFFICULT": {
+    "previous": {
+      "kind": "route",
+      "arrival": "599",
+      "unsupported_cell_hours": "19"
+    }
+  },
+  "uljin_2022__20220304T120000Z_OCT08_SIMPLE": {
+    "previous": {
+      "kind": "route",
+      "arrival": "10",
+      "unsupported_cell_hours": "1"
+    }
+  },
+  "uljin_2022__20220304T120000Z_OCT08_TOPOLOGY_FIRST": {
+    "previous": {
+      "kind": "route",
+      "arrival": "265",
+      "unsupported_cell_hours": "8"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND000": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1232",
+      "unsupported_cell_hours": "5"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND001": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3415",
+      "unsupported_cell_hours": "9"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND002": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2432",
+      "unsupported_cell_hours": "26"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND003": {
+    "previous": {
+      "kind": "route",
+      "arrival": "389",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND004": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND005": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3210",
+      "unsupported_cell_hours": "28"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND006": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND007": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3064",
+      "unsupported_cell_hours": "12"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND008": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1329",
+      "unsupported_cell_hours": "34"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND009": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND010": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND011": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3417",
+      "unsupported_cell_hours": "49"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND012": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2827",
+      "unsupported_cell_hours": "28"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND013": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2290",
+      "unsupported_cell_hours": "4"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND014": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1490",
+      "unsupported_cell_hours": "7"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND015": {
+    "previous": {
+      "kind": "route",
+      "arrival": "963",
+      "unsupported_cell_hours": "22"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND016": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3219",
+      "unsupported_cell_hours": "27"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND017": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND018": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2545",
+      "unsupported_cell_hours": "4"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND019": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND020": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2628",
+      "unsupported_cell_hours": "5"
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND021": {
+    "previous": {
+      "kind": "route",
+      "arrival": "518",
+      "unsupported_cell_hours": "4"
+    }
+  },
+  "uljin_2022__20220304T120000Z_supported_cold_OCT09": {
+    "previous": {
+      "kind": "route",
+      "arrival": "159",
+      "unsupported_cell_hours": "4"
+    }
+  },
+  "uljin_2022__20220304T120000Z_supported_near_positive_OCT09": {
+    "previous": {
+      "kind": "route",
+      "arrival": "301",
+      "unsupported_cell_hours": "3"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1589",
+      "unsupported_cell_hours": "52"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FL1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1473",
+      "unsupported_cell_hours": "46"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FL2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1399",
+      "unsupported_cell_hours": "44"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FL3": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3246",
+      "unsupported_cell_hours": "86"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FN1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2684",
+      "unsupported_cell_hours": "89"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FT1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1857",
+      "unsupported_cell_hours": "49"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1426",
+      "unsupported_cell_hours": "26"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2256",
+      "unsupported_cell_hours": "33"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FX1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3119",
+      "unsupported_cell_hours": "107"
+    }
+  },
+  "uljin_2022__20220304T030000Z_FX2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3229",
+      "unsupported_cell_hours": "101"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2262",
+      "unsupported_cell_hours": "79"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 48
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_FL2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3263",
+      "unsupported_cell_hours": "69"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FL3": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2827",
+      "unsupported_cell_hours": "100"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FN1": {
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_FT1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2662",
+      "unsupported_cell_hours": "95"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1548",
+      "unsupported_cell_hours": "29"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1935",
+      "unsupported_cell_hours": "30"
+    }
+  },
+  "uljin_2022__20220304T060000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1042
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_FX2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3063",
+      "unsupported_cell_hours": "100"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1921",
+      "unsupported_cell_hours": "50"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FL1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1500",
+      "unsupported_cell_hours": "22"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FL2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1620",
+      "unsupported_cell_hours": "27"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FL3": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2633",
+      "unsupported_cell_hours": "82"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FN1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2558",
+      "unsupported_cell_hours": "81"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FT1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1267",
+      "unsupported_cell_hours": "19"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1601",
+      "unsupported_cell_hours": "44"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1674",
+      "unsupported_cell_hours": "32"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FX1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3118",
+      "unsupported_cell_hours": "96"
+    }
+  },
+  "uljin_2022__20220304T120000Z_FX2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2967",
+      "unsupported_cell_hours": "94"
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FW1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FW2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1408",
+      "unsupported_cell_hours": "25"
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FN1": {
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FT1": {
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1600",
+      "unsupported_cell_hours": "19"
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1459",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FX1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1152",
+      "unsupported_cell_hours": "21"
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FX2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "859",
+      "unsupported_cell_hours": "21"
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic time-dependent graph plus destination",
+        "processed": 428
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FN1": {
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FT1": {
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1447",
+      "unsupported_cell_hours": "16"
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1573",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FX1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1736",
+      "unsupported_cell_hours": "27"
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FX2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1441",
+      "unsupported_cell_hours": "16"
+    }
+  },
+  "miryang_2022__20220531T100000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "544",
+      "unsupported_cell_hours": "18"
+    }
+  },
+  "miryang_2022__20220531T100000Z_FN1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1142",
+      "unsupported_cell_hours": "27"
+    }
+  },
+  "miryang_2022__20220531T100000Z_FT1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "334",
+      "unsupported_cell_hours": "1"
+    }
+  },
+  "miryang_2022__20220531T100000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "752",
+      "unsupported_cell_hours": "6"
+    }
+  },
+  "miryang_2022__20220531T100000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1132",
+      "unsupported_cell_hours": "2"
+    }
+  },
+  "miryang_2022__20220601T020000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "710",
+      "unsupported_cell_hours": "24"
+    }
+  },
+  "miryang_2022__20220601T020000Z_FN1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "74",
+      "unsupported_cell_hours": "3"
+    }
+  },
+  "miryang_2022__20220601T020000Z_FT1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "39",
+      "unsupported_cell_hours": "2"
+    }
+  },
+  "miryang_2022__20220601T020000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1270",
+      "unsupported_cell_hours": "25"
+    }
+  },
+  "miryang_2022__20220601T020000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1806",
+      "unsupported_cell_hours": "24"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FD1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1465",
+      "unsupported_cell_hours": "30"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FN1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "455",
+      "unsupported_cell_hours": "14"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FT1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "256",
+      "unsupported_cell_hours": "9"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1701",
+      "unsupported_cell_hours": "27"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1699",
+      "unsupported_cell_hours": "26"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FX1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "869",
+      "unsupported_cell_hours": "31"
+    }
+  },
+  "miryang_2022__20220601T080000Z_FX2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "749",
+      "unsupported_cell_hours": "26"
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FD1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 763,
+      "legs": 135,
+      "dwell": 120,
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.6159e-05,
+        5.6159e-05,
+        5.6159e-05,
+        5.6159e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.038911339,
+        0.038828699,
+        0.038942535,
+        0.038860343
+      ],
+      "dose_upper_nano": [
+        38911339,
+        38828699,
+        38942535,
+        38860343
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "1bc73670aea36abbc68267028215b7ed77d3d2b69caf426975e5a2f5249e104d",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "763",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FL3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2216
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FW1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FW2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2094,
+      "legs": 448,
+      "dwell": 120,
+      "occupied_cell_hours": 42,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000189504,
+        0.00018946,
+        0.000189511,
+        0.000189494
+      ],
+      "dose_upper_kj_m2": [
+        0.144156381,
+        0.144236214,
+        0.144051175,
+        0.143996851
+      ],
+      "dose_upper_nano": [
+        144156381,
+        144236214,
+        144051175,
+        143996851
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 42,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "8931b83ce8bdb95f751df124f6092e2eb174e8d506a05a51fa488765cf005776",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 10389,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "previous": {
+      "kind": "route",
+      "arrival": "2094",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2136
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FD1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2460,
+      "legs": 410,
+      "dwell": 120,
+      "occupied_cell_hours": 61,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000384266,
+        0.000117024,
+        0.000117937,
+        0.000117759
+      ],
+      "dose_upper_kj_m2": [
+        0.09306735,
+        0.042663846,
+        0.043150564,
+        0.043010503
+      ],
+      "dose_upper_nano": [
+        93067350,
+        42663846,
+        43150564,
+        43010503
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 61,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "28a42b62de8f1400cf2858d9d72ec61158940adc982459e56f1e8d6360a49691",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "2460",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FL1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3003,
+      "legs": 561,
+      "dwell": 120,
+      "occupied_cell_hours": 104,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00147099,
+        0.000877177,
+        0.001248011,
+        0.001590663
+      ],
+      "dose_upper_kj_m2": [
+        0.493420161,
+        0.408591859,
+        0.502574767,
+        0.478710909
+      ],
+      "dose_upper_nano": [
+        493420161,
+        408591859,
+        502574767,
+        478710909
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 104,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "e149015929506fa1edf7ab31a2a837ff60f91a5e47990f6fe70c27d25c57a48d",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "3003",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 10397
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FL3": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3207,
+      "legs": 656,
+      "dwell": 120,
+      "occupied_cell_hours": 107,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.1437e-05,
+        1.0438e-05,
+        1.0592e-05,
+        1.0593e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.013079572,
+        0.012065343,
+        0.012467905,
+        0.012290794
+      ],
+      "dose_upper_nano": [
+        13079572,
+        12065343,
+        12467905,
+        12290794
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 107,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "2f7cc4e0581a637a5d3699a9fbc670dd114e7454bc5fc9272c301b7582534fdb",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "3207",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FN1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3187,
+      "legs": 678,
+      "dwell": 120,
+      "occupied_cell_hours": 77,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000429178,
+        0.000181011,
+        0.000183754,
+        0.000181591
+      ],
+      "dose_upper_kj_m2": [
+        0.103639935,
+        0.065681295,
+        0.067859807,
+        0.06614957
+      ],
+      "dose_upper_nano": [
+        103639935,
+        65681295,
+        67859807,
+        66149570
+      ],
+      "span_m": 2,
+      "snap_m": 0.05,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 77,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "8296c8a2e5a4a6b98bdb4297c33ca5827002b071d78f3c903c998581dcc42429",
+    "previous": {
+      "kind": "route",
+      "arrival": "3187",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FT1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3074,
+      "legs": 712,
+      "dwell": 120,
+      "occupied_cell_hours": 66,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.8919e-05,
+        5.2845e-05,
+        5.3567e-05,
+        5.3255e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.027109075,
+        0.020470429,
+        0.020959141,
+        0.020732882
+      ],
+      "dose_upper_nano": [
+        27109075,
+        20470429,
+        20959141,
+        20732882
+      ],
+      "span_m": 2,
+      "snap_m": 0.05,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 66,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "37b592e6edf700cd5f3d402c11412e45786fb5417d5146c5412f164d934a04a8",
+    "previous": {
+      "kind": "route",
+      "arrival": "3074",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FW1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1940,
+      "legs": 147,
+      "dwell": 120,
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.727e-06,
+        1.641e-06,
+        1.667e-06,
+        1.693e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.00220881,
+        0.002146567,
+        0.002168623,
+        0.002205908
+      ],
+      "dose_upper_nano": [
+        2208810,
+        2146567,
+        2168623,
+        2205908
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "be5fcded1eab7cad15edd6d7b2343a46d2f9b08a8dd2d70a1c0ff5927b7d5cce",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 9265,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1940",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1212",
+      "unsupported_cell_hours": "1"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FX1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3107,
+      "legs": 551,
+      "dwell": 120,
+      "occupied_cell_hours": 95,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00147099,
+        0.000445414,
+        0.000479948,
+        0.00045301
+      ],
+      "dose_upper_kj_m2": [
+        0.272304918,
+        0.19031217,
+        0.210164488,
+        0.194442928
+      ],
+      "dose_upper_nano": [
+        272304918,
+        190312170,
+        210164488,
+        194442928
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 95,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "f47af9c13527b1993ed39074ab00a69fb074652a1702cbd52a1adaddc7da06e9",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "3107",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FX2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2540,
+      "legs": 322,
+      "dwell": 120,
+      "occupied_cell_hours": 67,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00147099,
+        0.000877177,
+        0.001248011,
+        0.001590663
+      ],
+      "dose_upper_kj_m2": [
+        0.512205446,
+        0.415764933,
+        0.506388822,
+        0.490863382
+      ],
+      "dose_upper_nano": [
+        512205446,
+        415764933,
+        506388822,
+        490863382
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 67,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "5ec965c6d9627d4ee34cbffe73cbef2be58967b50496f6cd9a150785c1c72c41",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "2540",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FD1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 950,
+      "legs": 263,
+      "dwell": 120,
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        9.0681e-05,
+        9.0681e-05,
+        9.3034e-05,
+        9.073e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.060049151,
+        0.060109897,
+        0.060976064,
+        0.062333035
+      ],
+      "dose_upper_nano": [
+        60049151,
+        60109897,
+        60976064,
+        62333035
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "fa8a1d151899ee81fe33c26e5e79797b5db625c8311b382f806c328d3483619e",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "950",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 4128
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FL3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 543
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 481
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 291
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FW1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1064,
+      "legs": 163,
+      "dwell": 120,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00014358,
+        0.000137166,
+        0.000138086,
+        0.00013759
+      ],
+      "dose_upper_kj_m2": [
+        0.126256227,
+        0.124191,
+        0.124990302,
+        0.124530364
+      ],
+      "dose_upper_nano": [
+        126256227,
+        124191000,
+        124990302,
+        124530364
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "76248ee3d382a5a2bd138f959958378c489a152e457d23720265bfc71f09d1d6",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 2224,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1064",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FW2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1721,
+      "legs": 192,
+      "dwell": 120,
+      "occupied_cell_hours": 32,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.1776e-05,
+        6.3035e-05,
+        0.000354791,
+        6.4377e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.041351058,
+        0.04178153,
+        0.076502573,
+        0.044400071
+      ],
+      "dose_upper_nano": [
+        41351058,
+        41781530,
+        76502573,
+        44400071
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 32,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "fb41f8fe1c8ecefc4028d18315f72087d08acbb7474204ba110ebcb1314facf6",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 2015,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 190
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1721",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2826
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1276
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FL3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1996
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FW1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FW2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 10736
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic time-dependent graph plus destination",
+        "processed": 3769
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 25647
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FL2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1922,
+      "legs": 657,
+      "dwell": 120,
+      "occupied_cell_hours": 64,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004096724,
+        0.004092353,
+        0.004183319,
+        0.004093898
+      ],
+      "dose_upper_kj_m2": [
+        0.671938541,
+        0.665685058,
+        0.719937156,
+        0.672957136
+      ],
+      "dose_upper_nano": [
+        671938541,
+        665685058,
+        719937156,
+        672957136
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 64,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "3fe6360663eb5ef574af03bca6f051c58d6255b33dde4de7d48fe9431168c816",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1922",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FL3": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1787,
+      "legs": 827,
+      "dwell": 120,
+      "occupied_cell_hours": 52,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.613e-06,
+        7.613e-06,
+        7.613e-06,
+        7.613e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.007565706,
+        0.007576809,
+        0.007693831,
+        0.007609099
+      ],
+      "dose_upper_nano": [
+        7565706,
+        7576809,
+        7693831,
+        7609099
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 52,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "0ae34825492046fb3a2f4fb118c4b7963d3019d097e44b023dc7dc41d54b41a5",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1787",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 4553
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 4744
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FW1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 765,
+      "legs": 216,
+      "dwell": 120,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000162554,
+        0.000161157,
+        0.000165259,
+        0.000183113
+      ],
+      "dose_upper_kj_m2": [
+        0.072159568,
+        0.071493192,
+        0.07345598,
+        0.07654243
+      ],
+      "dose_upper_nano": [
+        72159568,
+        71493192,
+        73455980,
+        76542430
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "2f121965169456bc44e6dcfdfbef5e47fb142c4fc2923c8f45e024b0971afae7",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 2403,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "765",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FW2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1249,
+      "legs": 877,
+      "dwell": 120,
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.047e-06,
+        7.094e-06,
+        7.093e-06,
+        7.103e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.008748485,
+        0.008974239,
+        0.008810722,
+        0.008759121
+      ],
+      "dose_upper_nano": [
+        8748485,
+        8974239,
+        8810722,
+        8759121
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "dca3a41dd5310ff0b12822f39eeb717c3d91097af55b8e31f19e06b4ae781cf1",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 2416,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "previous": {
+      "kind": "route",
+      "arrival": "1249",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3895
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 7864
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FD1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2446,
+      "legs": 1195,
+      "dwell": 120,
+      "occupied_cell_hours": 60,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000218319,
+        1.6492e-05,
+        1.9235e-05,
+        0.000527126
+      ],
+      "dose_upper_kj_m2": [
+        0.037062309,
+        0.011195966,
+        0.013543114,
+        0.076186301
+      ],
+      "dose_upper_nano": [
+        37062309,
+        11195966,
+        13543114,
+        76186301
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 60,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "835d3ac90fcbf4f0d31cbd380b145aece98c719686602a12d2647db7e291a8c2",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "2446",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FL1": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1738,
+      "legs": 980,
+      "dwell": 120,
+      "occupied_cell_hours": 46,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001339039,
+        0.001337239,
+        0.00148725,
+        0.001338833
+      ],
+      "dose_upper_kj_m2": [
+        0.330712336,
+        0.329350013,
+        0.371902039,
+        0.340781161
+      ],
+      "dose_upper_nano": [
+        330712336,
+        329350013,
+        371902039,
+        340781161
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 46,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "e4b5e129d2a890eac7488bbaf458530f782547174cc085d31d0c844ab231d464",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1738",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FL2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3192,
+      "legs": 1539,
+      "dwell": 120,
+      "occupied_cell_hours": 90,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000218357,
+        2.2003e-05,
+        4.7445e-05,
+        0.000527459
+      ],
+      "dose_upper_kj_m2": [
+        0.049514671,
+        0.013686127,
+        0.02402385,
+        0.097843123
+      ],
+      "dose_upper_nano": [
+        49514671,
+        13686127,
+        24023850,
+        97843123
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 90,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "38ec25532d93ef47958e93a1f7140c88351913d838104dbde30df6794770de13",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 161551,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "previous": {
+      "kind": "route",
+      "arrival": "3121",
+      "unsupported_cell_hours": "11"
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FL3": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3041",
+      "unsupported_cell_hours": "4"
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FN1": {
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1778,
+        "processed": 1047
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 100476
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 100476,
+        "contact_model": "closed geometry and exact source-law phases"
+      },
+      {
+        "nodes": 9709,
+        "edges": 19849,
+        "certified": true,
+        "method": "sparse conservative single-member dose frontier exhausted",
+        "member": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0",
+        "states": 146,
+        "visited_edge_times": 298,
+        "tiles": 25,
+        "remaining_dose_nano": 114416985
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FW1": {
+    "previous": {
+      "kind": "route",
+      "arrival": "896",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FW2": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1057",
+      "unsupported_cell_hours": "16"
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_COUNTERFACTUAL_BASELINE_FIRST": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_COUNTERFACTUAL_BASELINE_SECOND": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_DESTINATION_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_FACILITY_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_COUNTERFACTUAL_BASELINE_FIRST": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_COUNTERFACTUAL_BASELINE_SECOND": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_DESTINATION_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_FACILITY_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_HOLD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_HOLD2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_LEG1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_LEG2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_LEG3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_REJECTED_EDGE": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_COUNTERFACTUAL_BASELINE_FIRST": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3323,
+      "legs": 9,
+      "dwell": 20,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004002676,
+        0.003637045,
+        0.003691824,
+        0.003634894
+      ],
+      "dose_upper_kj_m2": [
+        0.157695883,
+        0.140645743,
+        0.143367149,
+        0.14055819
+      ],
+      "dose_upper_nano": [
+        157695883,
+        140645743,
+        143367149,
+        140558190
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "0fe77d8bfb374c79027501ce401c22e8ab444e7eef8fefce2d8917f45e3a38dd",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "3323",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_COUNTERFACTUAL_BASELINE_SECOND": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3433,
+      "legs": 9,
+      "dwell": 20,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.040107566,
+        0.003637045,
+        0.003691824,
+        0.003634894
+      ],
+      "dose_upper_kj_m2": [
+        0.78209649,
+        0.140645743,
+        0.143367149,
+        0.14055819
+      ],
+      "dose_upper_nano": [
+        782096490,
+        140645743,
+        143367149,
+        140558190
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "e331b21df1fb86b326b8ffedab0eee20030b2a99ebf79615efb9de4ad360123a",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "3433",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_DESTINATION_HOLD": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3353,
+      "legs": 0,
+      "dwell": 130,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.016287907,
+        0.003627041,
+        0.003680861,
+        0.003624889
+      ],
+      "dose_upper_kj_m2": [
+        1.93524748,
+        0.47151533,
+        0.47851193,
+        0.47123557
+      ],
+      "dose_upper_nano": [
+        1935247480,
+        471515330,
+        478511930,
+        471235570
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "1249d25f9c3499134214ee4e25915009517b5bc0f1ab85f5341a94dbdb6cf5fb",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "lattice has no requested clock",
+        "processed": 0,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "3353",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_FACILITY_HOLD": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 0,
+      "legs": 0,
+      "dwell": 3410,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.007220179,
+        0.002459442,
+        0.002549206,
+        0.00245772
+      ],
+      "dose_upper_kj_m2": [
+        8.772182665,
+        8.372115514,
+        8.476247168,
+        8.369564111
+      ],
+      "dose_upper_nano": [
+        8772182665,
+        8372115514,
+        8476247168,
+        8369564111
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "d36cf611b8ccd602cd23922150d9430c35fcfdcab6e051b6baa8b1335a3148a8",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "lattice has no requested clock",
+        "processed": 0,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "0",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "Uiseong_Andong_20250324_0900_surviving_OD": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 299,
+      "legs": 52,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001523411,
+        0.001523411,
+        0.001523411,
+        0.001523411
+      ],
+      "dose_upper_kj_m2": [
+        0.414652979,
+        0.414652979,
+        0.414652979,
+        0.414652979
+      ],
+      "dose_upper_nano": [
+        414652979,
+        414652979,
+        414652979,
+        414652979
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "52c600c476d35e83a8d8b01da122ea762e912de70f6bb23b82f9b7029ce51c02",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 40,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 55
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "297",
+      "unsupported_cell_hours": "1"
+    }
+  },
+  "Uiseong_Andong_20250325_1700_surviving_OD": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 155,
+      "legs": 29,
+      "dwell": 120,
+      "occupied_cell_hours": 5,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000263657,
+        0.000263657,
+        0.000263657,
+        0.000263657
+      ],
+      "dose_upper_kj_m2": [
+        0.053620801,
+        0.05360689,
+        0.053626405,
+        0.053621307
+      ],
+      "dose_upper_nano": [
+        53620801,
+        53606890,
+        53626405,
+        53621307
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 5,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "f4c7afd245b41417ed8575e3d22906b784d94ad549d3567363e2bbc517e6debd",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "155",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uljin_2022__20220304T030000Z_A01_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "300",
+      "unsupported_cell_hours": "11"
+    }
+  },
+  "uljin_2022__20220304T030000Z_A02_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "600",
+      "unsupported_cell_hours": "23"
+    }
+  },
+  "uljin_2022__20220304T030000Z_A03_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "899",
+      "unsupported_cell_hours": "33"
+    }
+  },
+  "uljin_2022__20220304T030000Z_B01_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "289",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "uljin_2022__20220304T030000Z_B02_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "960",
+      "unsupported_cell_hours": "18"
+    }
+  },
+  "uljin_2022__20220304T030000Z_B03_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1620",
+      "unsupported_cell_hours": "18"
+    }
+  },
+  "uljin_2022__20220304T030000Z_C01_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "301",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "uljin_2022__20220304T030000Z_C02_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "600",
+      "unsupported_cell_hours": "21"
+    }
+  },
+  "uljin_2022__20220304T060000Z_A04_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "300",
+      "unsupported_cell_hours": "10"
+    }
+  },
+  "uljin_2022__20220304T060000Z_A05_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "600",
+      "unsupported_cell_hours": "23"
+    }
+  },
+  "uljin_2022__20220304T060000Z_A06_OCT10": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2612
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "uljin_2022__20220304T060000Z_B04_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "300",
+      "unsupported_cell_hours": "11"
+    }
+  },
+  "uljin_2022__20220304T060000Z_B05_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "3015",
+      "unsupported_cell_hours": "23"
+    }
+  },
+  "uljin_2022__20220304T060000Z_C03_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "2886",
+      "unsupported_cell_hours": "53"
+    }
+  },
+  "uljin_2022__20220304T060000Z_C04_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "300",
+      "unsupported_cell_hours": "11"
+    }
+  },
+  "uljin_2022__20220304T060000Z_C05_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "600",
+      "unsupported_cell_hours": "21"
+    }
+  },
+  "uljin_2022__20220304T120000Z_A07_OCT10": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 301,
+      "legs": 62,
+      "dwell": 120,
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.8666e-05,
+        1.8666e-05,
+        1.8666e-05,
+        1.8666e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.004703831,
+        0.004703831,
+        0.004703831,
+        0.004703831
+      ],
+      "dose_upper_nano": [
+        4703831,
+        4703831,
+        4703831,
+        4703831
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "6e6e2e38b8f4ff5bcae7e403d05a9c7bbbff943314e0ea1f4e5706f45590901d",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "301",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "uljin_2022__20220304T120000Z_A08_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "600",
+      "unsupported_cell_hours": "15"
+    }
+  },
+  "uljin_2022__20220304T120000Z_B06_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1489",
+      "unsupported_cell_hours": "29"
+    }
+  },
+  "uljin_2022__20220304T120000Z_B07_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1261",
+      "unsupported_cell_hours": "9"
+    }
+  },
+  "uljin_2022__20220304T120000Z_B08_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1980",
+      "unsupported_cell_hours": "16"
+    }
+  },
+  "uljin_2022__20220304T120000Z_C06_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "899",
+      "unsupported_cell_hours": "9"
+    }
+  },
+  "uljin_2022__20220304T120000Z_C07_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "300",
+      "unsupported_cell_hours": "6"
+    }
+  },
+  "uljin_2022__20220304T120000Z_C08_OCT10": {
+    "previous": {
+      "kind": "route",
+      "arrival": "600",
+      "unsupported_cell_hours": "7"
+    }
+  },
+  "Caldor2021_G1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ],
+    "previous": {
+      "kind": "refusal",
+      "arrival": "",
+      "unsupported_cell_hours": ""
+    }
+  },
+  "Caldor2021_G2": {
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1954,
+      "legs": 541,
+      "dwell": 120,
+      "occupied_cell_hours": 58,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.002243904,
+        0.002243904,
+        0.002243904,
+        0.002243904
+      ],
+      "dose_upper_kj_m2": [
+        0.273300536,
+        0.284662801,
+        0.274239652,
+        0.272785493
+      ],
+      "dose_upper_nano": [
+        273300536,
+        284662801,
+        274239652,
+        272785493
+      ],
+      "span_m": 6,
+      "snap_half_m": 4,
+      "method": "directed solid-angle radial maxima"
+    },
+    "support_check": {
+      "occupied_cell_hours": 58,
+      "unsupported_cell_hours": 0,
+      "unsupported": []
+    },
+    "route_sha256": "830d1d9b4130c4d96fc7841b7cd46f232d4cf3be3c21b73ad6c27a99afeddc05",
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1,
+        "scope": "native-supported original roads, optimistic fire-contact model"
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    },
+    "previous": {
+      "kind": "route",
+      "arrival": "1954",
+      "unsupported_cell_hours": "0"
+    }
+  },
+  "Caldor2021_G3": {
+    "previous": {
+      "kind": "route",
+      "arrival": "1595",
+      "unsupported_cell_hours": "14"
+    }
+  }
+}

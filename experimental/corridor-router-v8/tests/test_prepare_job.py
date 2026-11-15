@@ -70,7 +70,17 @@ class PrepareJobCLI(unittest.TestCase):
             "template_worker_sha256": "a" * 64,
         })
         self.assertEqual(job["preparation_mode"], "COLD_FAST")
+        self.assertNotIn("support_policy", job)
         self.assertFalse((self.output / "RESULT.json").exists())
+
+    def test_explicit_historical_support_policy_is_preserved(self):
+        template = json.loads(self.template.read_text())
+        template["support_policy"] = "HISTORICAL_ZERO_FILL"
+        self.template.write_text(json.dumps(template))
+        result = self.call()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        job = json.loads((self.output / "job.json").read_text())
+        self.assertEqual(job["support_policy"], "HISTORICAL_ZERO_FILL")
 
     def test_rejects_template_digest_mismatch(self):
         result = subprocess.run(
