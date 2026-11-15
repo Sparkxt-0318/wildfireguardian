@@ -4,10 +4,12 @@ on:
   pull_request:
     paths:
       - 'experimental/corridor-router-v8/**'
+      - 'experimental/forecast-input-recovery/**'
       - '.github/workflows/corridor-router-v8.yml'
   push:
     paths:
       - 'experimental/corridor-router-v8/**'
+      - 'experimental/forecast-input-recovery/**'
       - '.github/workflows/corridor-router-v8.yml'
   workflow_dispatch:
 
@@ -53,3 +55,5 @@ jobs:
         run: python -B experimental/corridor-router-v8/tests/test_guard.py -v
       - name: Check numerical bounds against independent small cases
         run: python -B experimental/corridor-router-v8/tests/check_numerical_regression.py
+      - name: Reconcile published forecast-recovery receipts
+        run: python -B experimental/forecast-input-recovery/verify_ledger.py

@@ -1,0 +1,443 @@
+{
+  "original_packet_count": 18,
+  "replaced_count": 16,
+  "old_valid_cell_hours": 36095,
+  "new_valid_cell_hours": 40537,
+  "gained": 4442,
+  "denominator": 53679,
+  "old_supported_q_and_stochastic_births_exact": true,
+  "rows": {
+    "fl2_cutoff_replay_20261114/forecast/09": {
+      "cutoff": "2025-03-24T09:00:00+00:00",
+      "associated_cases": 25,
+      "replaced": false,
+      "old_route_grid_valid": 4625,
+      "updated_route_grid_valid": 4625,
+      "new_valid_cell_hours": 0,
+      "grid_cell_hours": 4745,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "bfcbba6b366acd2056c08e3de800e4538da4462fed1561cf88969d2599a3c20f",
+        "HAZARD.json": "86991f210a1711f8623e8789b5303abb314e2525bcb638cc2ad514f33d8e796a",
+        "NATIVE_METADATA.json": "21e9f7dbe9ce869affd537de03406c4d9ed8980aa1691457ebabdadecc3d5213",
+        "constructed_arrays.npz": "32e7c219b1b8d3ccd48bd20d8a1cfbc950e7b637b2875f6e5535eac1551cc4ca",
+        "REPORT.json": "000cb1d2bedeec6dc67b49d6e90499aef5bcb0bc8f871d9cd1deed8885086259"
+      },
+      "updated_sha256": {
+        "FULL.npz": "bfcbba6b366acd2056c08e3de800e4538da4462fed1561cf88969d2599a3c20f",
+        "HAZARD.json": "86991f210a1711f8623e8789b5303abb314e2525bcb638cc2ad514f33d8e796a",
+        "NATIVE_METADATA.json": "21e9f7dbe9ce869affd537de03406c4d9ed8980aa1691457ebabdadecc3d5213",
+        "constructed_arrays.npz": "32e7c219b1b8d3ccd48bd20d8a1cfbc950e7b637b2875f6e5535eac1551cc4ca",
+        "REPORT.json": "000cb1d2bedeec6dc67b49d6e90499aef5bcb0bc8f871d9cd1deed8885086259"
+      }
+    },
+    "wfg_all_revisions_20261115/benchmark/us_recovery/Caldor2021_G1/new": {
+      "cutoff": "2021-08-18T06:16:15+00:00",
+      "associated_cases": 1,
+      "replaced": true,
+      "old_route_grid_valid": 3418,
+      "updated_route_grid_valid": 4284,
+      "new_valid_cell_hours": 866,
+      "grid_cell_hours": 4284,
+      "newly_sampled_ignition_draws": 18,
+      "old_sha256": {
+        "FULL.npz": "3b42644ceb60705ea05e05490a6e82e9a980e19fb905ab4eec7d4bd237d7a893",
+        "HAZARD.json": "840b4ac7d31025fbf2a1b87e6f15928dfb630229725c5b78f1d45c1680ecd970",
+        "NATIVE_METADATA.json": "6063e1624d85755c763e5d0cc9c9d5f62d6d61e13119d9ab9a665eb02b28cd5b",
+        "constructed_arrays.npz": "2d7fc512cbfa74b8543873af18c8547feeb7fd616eda4af256db09ffc5341892",
+        "REPORT.json": "d141434bf3deb86ff691fff0fd51ab32a39b988f4e671e6f17ff9c8279083871"
+      },
+      "updated_sha256": {
+        "FULL.npz": "d3930af2cff34cc0aa7bda081231341753293d32ce7b27668573299b2ff2b3c0",
+        "HAZARD.json": "acaac42a5725c4f1cd3185af609e836ad9e8eaacd78b17e5f59437fdb14c019c",
+        "NATIVE_METADATA.json": "a92a1b05432c11a564f6bb52714a704f267a17dd7c7f8a42af8a400f59de9fdc",
+        "constructed_arrays.npz": "9548bfee81bb59b3d51e74a71f4986fe334760dd6b1a3da270481068676958c5",
+        "REPORT.json": "d03e4683a2f42d17ddce38ed09e966209a5bef5f391378ee742c5e7796b283be"
+      }
+    },
+    "wfg_all_revisions_20261115/benchmark/us_recovery/Caldor2021_G2/new": {
+      "cutoff": "2021-08-18T12:18:45+00:00",
+      "associated_cases": 1,
+      "replaced": true,
+      "old_route_grid_valid": 3161,
+      "updated_route_grid_valid": 4284,
+      "new_valid_cell_hours": 1123,
+      "grid_cell_hours": 4284,
+      "newly_sampled_ignition_draws": 8,
+      "old_sha256": {
+        "FULL.npz": "6578ddad3e0b02e06bdc8e4451ac76cfee8925ca558749dd5782549fa4e214f5",
+        "HAZARD.json": "8ff55660561894ed6467ab91b7cac8e35ecee4849da10c073dd9d97c22ca57d9",
+        "NATIVE_METADATA.json": "cff9d78a680021a3b4534632adae785cfd58a03c13f7b17a6e37eb6b23a06e10",
+        "constructed_arrays.npz": "d24d8dc8894f3cc9e389e09bcff4ee798b3d38bebcaac7f55cc8d831511a4154",
+        "REPORT.json": "735d93234266764bccb63c4c826898eff2769c49edaaf6a3a6954748b35ecc3c"
+      },
+      "updated_sha256": {
+        "FULL.npz": "1d4d58195172f9e86dcbfb552ce38362143f5f39cf9264dc39d297fe4567b22c",
+        "HAZARD.json": "3129a18b6d85dfdafd689553c887a9908500a71d3fc51cc621b9b64ee5fc1cd3",
+        "NATIVE_METADATA.json": "22087e227eb4a8b939048db01b086cee3cdf5d2b3cbdccb09a2b949d0d317849",
+        "constructed_arrays.npz": "9800eefd6d77c57b7a695663128784d3d9e4a386cc529fe7fd33b04a3cbcfe72",
+        "REPORT.json": "3b2db67fc0949a53966f173c476c7fd0efb69d397d386162c0e9e9e9327d1c3b"
+      }
+    },
+    "wfg_all_revisions_20261115/benchmark/us_recovery/Caldor2021_G3/new": {
+      "cutoff": "2021-08-18T18:21:15+00:00",
+      "associated_cases": 1,
+      "replaced": true,
+      "old_route_grid_valid": 2607,
+      "updated_route_grid_valid": 3451,
+      "new_valid_cell_hours": 844,
+      "grid_cell_hours": 4284,
+      "newly_sampled_ignition_draws": 1,
+      "old_sha256": {
+        "FULL.npz": "64241858b5a7af02a731d06422ef9db8a4c6708e670a57fba68b7fc2bf643a7d",
+        "HAZARD.json": "442103a5d7b77296c705eec2c6cfac8414bffe1868a53745a9d13e0b59380d1c",
+        "NATIVE_METADATA.json": "c8e2b843a873152bce5f42aa84625f45daf56529506f5295ea83ff78384f0848",
+        "constructed_arrays.npz": "92077ab965e480438c3431e5c7a3ef180304c48df7fdf334f38ff4a3870f2f64",
+        "REPORT.json": "6744f3ca91d3ff838c86016a0bc91f2cf4def87ed41631a55f4ce591d158a88b"
+      },
+      "updated_sha256": {
+        "FULL.npz": "7114d19d40901f5137de5a07e13247cbc92256589242957ee30074ba8e2b5fc5",
+        "HAZARD.json": "ada76cdb6fdfd93efa9af3d0079552e6853dc14175c13a6d85c04c8bbafdc0c6",
+        "NATIVE_METADATA.json": "42f3d49d66462158f230a193cff1d95d762f703e55303d64cd27a91fbc7257ad",
+        "constructed_arrays.npz": "613ee96777d226b8c66716b11986e3ea46d60b87172296818df786540db33aa6",
+        "REPORT.json": "2901c73ee1789413c96e3ced0044415193b78b584929e01f0edc8f52eb93e844"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/hongseong_2023/20230402T070000Z/new": {
+      "cutoff": "2023-04-02T07:00:00+00:00",
+      "associated_cases": 7,
+      "replaced": false,
+      "old_route_grid_valid": 324,
+      "updated_route_grid_valid": 324,
+      "new_valid_cell_hours": 0,
+      "grid_cell_hours": 324,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "09a6da4dcd63d31baadfae3020f9901ba35e608cb79b3109ca4735e118628f86",
+        "HAZARD.json": "c6d85395c30fde88cebb53d5bbd167d7b6e5168212d7a6628ac2be9914edf2cf",
+        "NATIVE_METADATA.json": "49287ac838c398e27680e2c874f1713202f32f8e7ea8e19c4409a4bc3e1a1473",
+        "constructed_arrays.npz": "00eded3bf51eb66fdcba92ab1929ca7c300e1bda7889f873da9d051daef75e40",
+        "REPORT.json": "2d1da40e3ab4ad7f0d946f635c995e016298699125f9c28a49731ee7a09324ac"
+      },
+      "updated_sha256": {
+        "FULL.npz": "09a6da4dcd63d31baadfae3020f9901ba35e608cb79b3109ca4735e118628f86",
+        "HAZARD.json": "c6d85395c30fde88cebb53d5bbd167d7b6e5168212d7a6628ac2be9914edf2cf",
+        "NATIVE_METADATA.json": "49287ac838c398e27680e2c874f1713202f32f8e7ea8e19c4409a4bc3e1a1473",
+        "constructed_arrays.npz": "00eded3bf51eb66fdcba92ab1929ca7c300e1bda7889f873da9d051daef75e40",
+        "REPORT.json": "2d1da40e3ab4ad7f0d946f635c995e016298699125f9c28a49731ee7a09324ac"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/hongseong_2023/20230402T140000Z/new": {
+      "cutoff": "2023-04-02T14:00:00+00:00",
+      "associated_cases": 7,
+      "replaced": true,
+      "old_route_grid_valid": 103,
+      "updated_route_grid_valid": 125,
+      "new_valid_cell_hours": 22,
+      "grid_cell_hours": 324,
+      "newly_sampled_ignition_draws": 4,
+      "old_sha256": {
+        "FULL.npz": "e9be2db04ee0d12714b57f2c6bc46fecbafc0db36ec846919ede0debc24c8094",
+        "HAZARD.json": "85b9e608ecab86ae8477a18c1694c2371ed6421a0fbee13880f45961d72c7807",
+        "NATIVE_METADATA.json": "7fe050788ff7647364eaeec1f81212cfb0acdc03f4278c771a4cfcdb87e19adf",
+        "constructed_arrays.npz": "29faf247c106b8f1af62196b6e067eb04cc77908cfe55a157db2ce544c8df53d",
+        "REPORT.json": "899ed6e541ac6e3a5bcafc8df32a53e949968d0aa942d265c2ffc231271a4a3c"
+      },
+      "updated_sha256": {
+        "FULL.npz": "3db8950327e30eb40de6c17ff659df0a859974d934049e3df437435c6e5e7490",
+        "HAZARD.json": "201c3c39f9eaf3eb94c877bd361cd7caf8f919174859a17ddff6d102085afc9d",
+        "NATIVE_METADATA.json": "adbc947bb8d748755dc122ec551ccf386834e9491ceafc508a65f8401c488b0f",
+        "constructed_arrays.npz": "5b078bea4315783537ea463ccd3c937508cb5b2ff149893d1846f57e36e3efb5",
+        "REPORT.json": "bcee1a9fda96885bdfee1aa95d9e86f71bb790798c2f122ed95d6cdb7ed3b948"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/hongseong_2023/20230402T230000Z/new": {
+      "cutoff": "2023-04-02T23:00:00+00:00",
+      "associated_cases": 7,
+      "replaced": true,
+      "old_route_grid_valid": 97,
+      "updated_route_grid_valid": 131,
+      "new_valid_cell_hours": 34,
+      "grid_cell_hours": 324,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "20cb5408a93173cd7c8e0f2a28a9bd0925ad9fa3f90aea924b21d2fae50ee970",
+        "HAZARD.json": "fbae6a28535965a69b970151be9ff1aaf23d6ddeab2bb831ce8ab0c9c99c4fbe",
+        "NATIVE_METADATA.json": "3f9130e536608813caa7c5786fb905df4340e8ccd88b3e4412c3f33867c2c0a9",
+        "constructed_arrays.npz": "840f8d756b13bfe4a4bea02ee41352e543fdce3a9043327baa3815601a42e376",
+        "REPORT.json": "2fff39f81c391c7fbf7f516cc8c91a474665ad5e12678eb4dfadf2bce26c4a19"
+      },
+      "updated_sha256": {
+        "FULL.npz": "815307a8276508091fbc24f86d2afb68230f0bc47625ff50ead89d740d5f3e89",
+        "HAZARD.json": "9354bbae07a282c66a2b222f2928ebac4f27503bf22bb09b9bb6168576bf5f15",
+        "NATIVE_METADATA.json": "c8b4302d54ff301201d79ec0b7fea6c1dc3185a1761f64890ac9081116bcba6b",
+        "constructed_arrays.npz": "d168a2c0d0b157170d6ab6c9010f7eaa7a255c4d9b397f15aade89af7e9467f2",
+        "REPORT.json": "80182c495069ca9ca2eb3cebc5a4a960ec03d4ad7653ebac9706d66a43aeeaaf"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/miryang_2022/20220531T100000Z/new": {
+      "cutoff": "2022-05-31T10:00:00+00:00",
+      "associated_cases": 5,
+      "replaced": true,
+      "old_route_grid_valid": 58,
+      "updated_route_grid_valid": 111,
+      "new_valid_cell_hours": 53,
+      "grid_cell_hours": 187,
+      "newly_sampled_ignition_draws": 2,
+      "old_sha256": {
+        "FULL.npz": "e1ad1dc9690d2779a3f9563d1d07587370fee15ca5fe522b44bf645c3bc2c7f7",
+        "HAZARD.json": "7a106c8525203e419f19e5ea113dc602f06eca74d1a25e3ac12465d1211c1dc3",
+        "NATIVE_METADATA.json": "d099353e8666e38c017e85c0a1e529811027576cf3b095f5a05040e04ec39736",
+        "constructed_arrays.npz": "332687de1b577fd18f4dbc3d82b051e05613a51fedf54878de1342d4d3b61ed5",
+        "REPORT.json": "156be1d9b8d73d87b0ac19d8299092beee71a57ad3114528fa2d1b88bd3b40ac"
+      },
+      "updated_sha256": {
+        "FULL.npz": "a2951c96bf43f8675659d6480364e318cea6ba67c36da26ccce3f2ec04a4bb3a",
+        "HAZARD.json": "45b88116c23968ab35aae6b4c6ebb1fce82face25a05b085f275827195af7f1c",
+        "NATIVE_METADATA.json": "7a0eca73e3d79414c64aaeb36708b4151957a5858b49ac25b2d1fbd2445cc7a4",
+        "constructed_arrays.npz": "1228f9fbb167715496474ea465d27dfe459e317431a2482f5a795fac0fe1ec00",
+        "REPORT.json": "3d17f5aacb8dc9a097846c65ebb186fef1a20d0ba1e46ff46836f7599b206ae0"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/miryang_2022/20220601T020000Z/new": {
+      "cutoff": "2022-06-01T02:00:00+00:00",
+      "associated_cases": 5,
+      "replaced": true,
+      "old_route_grid_valid": 3,
+      "updated_route_grid_valid": 15,
+      "new_valid_cell_hours": 12,
+      "grid_cell_hours": 187,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "e6a4147b0bf41cf58062421382b3beb47eb3ff22e5d7f83182b46674a19d64e4",
+        "HAZARD.json": "2845c616ceabf720df09b09cf790253c896f81fd99113da3e7eda9f2a3e247be",
+        "NATIVE_METADATA.json": "702ef51554d0d2bccd567c86e55428ff0e8763c71248b263e145243fa050eb0c",
+        "constructed_arrays.npz": "03d97f4103eeff99aa8a654727908dc537debeba516e617294c5dcdfbf9ab4e3",
+        "REPORT.json": "f949b8a9d4edb6dddff77f47f779a99eb272460d19c7be8ea8739ada48f969bb"
+      },
+      "updated_sha256": {
+        "FULL.npz": "6dedb4ddfbfc6a6f0ee23d732867c11186b3bcf1e9558d6e86f5190621f20dc1",
+        "HAZARD.json": "1ee97f4204c35f73b75310eeea27afc0e2cfdffbadd5980b3f9402f0ccadb1ec",
+        "NATIVE_METADATA.json": "470b796720ad67b4e736278329d73763c9f9a97fb934e802a47abe68653ec951",
+        "constructed_arrays.npz": "9011f65c3e16f0b41faaf426d30727b239d04b46071627552ec634f2671db9ae",
+        "REPORT.json": "fb7d6af3e9c945772f8cb779cf26a30d29e180f972d46c8d6bb4f3c8d109aec7"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/miryang_2022/20220601T080000Z/new": {
+      "cutoff": "2022-06-01T08:00:00+00:00",
+      "associated_cases": 7,
+      "replaced": true,
+      "old_route_grid_valid": 69,
+      "updated_route_grid_valid": 131,
+      "new_valid_cell_hours": 62,
+      "grid_cell_hours": 187,
+      "newly_sampled_ignition_draws": 4,
+      "old_sha256": {
+        "FULL.npz": "884d1e8c36df5170e5e1fae038048889dcd40731fc857645a76e6e4abeac7794",
+        "HAZARD.json": "bda4d5df073d3b6379526b794488a94d6366356167dde372922ca81194e08813",
+        "NATIVE_METADATA.json": "40528703fdd3d6725144e200118d5e386d1cd4d1180a8c16ab3949311c20dfef",
+        "constructed_arrays.npz": "431887901489ce7fb18bd93ac970cf84103c56c975aed31c681355d4baccc6b6",
+        "REPORT.json": "806f21c1a43f0f72438cca17f5263555e71aa18ba7791f480b4940c18ed4566a"
+      },
+      "updated_sha256": {
+        "FULL.npz": "413cfa716c7ca95bceb3024d2c13e1d68eac8fa2da267d0b0500fb362296f1fb",
+        "HAZARD.json": "cb55c788cded8a7126eb178b3a7d928dea9b6552a2e34b8af5338fb28d062e29",
+        "NATIVE_METADATA.json": "8ed3346aba61af5f62c95c138732309c0310993ef91b6db7b0c8637e7477626d",
+        "constructed_arrays.npz": "ed839fe8662ff8f6a935662a78d008b9f712f46f5c2343580091d283d44a9109",
+        "REPORT.json": "535233628f91a8169cc837c783ebbe769c1838f6b9db6ed4fdbf5e7956b5b9fc"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/uiseong_andong_2025/20250323T010000Z/new": {
+      "cutoff": "2025-03-23T01:00:00+00:00",
+      "associated_cases": 10,
+      "replaced": true,
+      "old_route_grid_valid": 4453,
+      "updated_route_grid_valid": 4580,
+      "new_valid_cell_hours": 127,
+      "grid_cell_hours": 4745,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "1d2e73aa3dbb1a535fe245ea8c4d26ce32601c22e796cd15669552c78edff1a3",
+        "HAZARD.json": "ccc3da107604cd9ef1ad45e37e9109d9de564883e36b4cea6ff75ef96f566a66",
+        "NATIVE_METADATA.json": "c0cda26788e51a7d4df17df2980378c8dae5768a20d643fbce40fba3731ef85b",
+        "constructed_arrays.npz": "38e77cec33091ca22885af97e74911f893dedfca9af310198dda0e4a90a829ec",
+        "REPORT.json": "6f17531ee238ab61d590177affe2f610cbced317174c70c04b4843801f013328"
+      },
+      "updated_sha256": {
+        "FULL.npz": "6c65b06e6e11c7ec6f3a335c9e4f9f94ef8bd3fea4e510dd981217f333e3c230",
+        "HAZARD.json": "cec29225c5bcbb0f07ac0ef0bf34619cdc75507301081b99cfc1b0298b2c41b5",
+        "NATIVE_METADATA.json": "c400c3ea2c4a35df3ea644850fb25d3e81bce19ebc9b206c72ed84dbefbe7ddd",
+        "constructed_arrays.npz": "551cd02ce54fde3a7e0db9e7dfe209b81dd5c94cb2b333d349c5ed0667929b14",
+        "REPORT.json": "e2ac689be4bbc789c49b2d2b5161eff2a6157a32d27a15eb504b45e30e80659c"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/uljin_2022/20220304T030000Z/new": {
+      "cutoff": "2022-03-04T03:00:00+00:00",
+      "associated_cases": 36,
+      "replaced": true,
+      "old_route_grid_valid": 66,
+      "updated_route_grid_valid": 137,
+      "new_valid_cell_hours": 71,
+      "grid_cell_hours": 3596,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "80b6a453b30340bed4f17a4b3efcf263e74847b4457cbff6bcc96e5da4248bdd",
+        "HAZARD.json": "a97faf218aac973b0a9539020e20aebc0c627f2c734ebcc095387805221abd5c",
+        "NATIVE_METADATA.json": "e101e77f7be2e6f3192a6346468b4487307d05d43f09719457d2e65f59c6b860",
+        "constructed_arrays.npz": "a2c384f6a0d899631ecdc155f62139392c8d85879d6c8e3f66722d755c932ee6",
+        "REPORT.json": "c11a0942ac8494df97bf08b717cd134128dcb347007d2ff03a66b4a9b366f106"
+      },
+      "updated_sha256": {
+        "FULL.npz": "d7135f16a0a39b4c7079e638552d046d8c878daa026e9a7989019d2d98b4bff9",
+        "HAZARD.json": "92b9e35787d760ccb4be02bd9344e6c2cf51457c3c11b98378d2305f7b47586b",
+        "NATIVE_METADATA.json": "d2684ad30b4d09fa16e214902f3aa21348bf9234dabd5a59638611e1ec9d636a",
+        "constructed_arrays.npz": "d7428da6b63869501de44a29822a2f215c862438680ab2d02879c0ce47d30751",
+        "REPORT.json": "db352a5b7ceea20e011ec726c24521f0bf44e75a0e89e329ab655db839d49691"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/uljin_2022/20220304T060000Z/new": {
+      "cutoff": "2022-03-04T06:00:00+00:00",
+      "associated_cases": 63,
+      "replaced": true,
+      "old_route_grid_valid": 192,
+      "updated_route_grid_valid": 610,
+      "new_valid_cell_hours": 418,
+      "grid_cell_hours": 3596,
+      "newly_sampled_ignition_draws": 6,
+      "old_sha256": {
+        "FULL.npz": "45afbf29702a370201c49bd4615cd13aad78936975bb34478679fb53a4d4a052",
+        "HAZARD.json": "739c49d9a39290ce0f6e6a438679864a4380110df90907b031ff72c20bcf3133",
+        "NATIVE_METADATA.json": "25a8ace05fc65e3836e6f3b28c340d44a86dd110f14fa513fe4eca503c201740",
+        "constructed_arrays.npz": "8d1cc93162cc9471432f7264e60b413ea0616e71aa587a6e1d5fcad442b1178f",
+        "REPORT.json": "a72b8b895daf811d88d80ae9ae07314e2c30d1edcc3ef8c714ab75743aa6cc5e"
+      },
+      "updated_sha256": {
+        "FULL.npz": "f43ed3836ab29d59658744b1648a14769bb2e8160be741c69478b3b5a4be793e",
+        "HAZARD.json": "86e3d596ab10e1fe2ca414db12c51e54ec62ec20a36ec5d5a8bace7369c88e34",
+        "NATIVE_METADATA.json": "4350d210e079c40b8443237ef329350a8e5c966ce52b7dff0f41273aaaeb1284",
+        "constructed_arrays.npz": "b5c0b8a3103c1f713b7cf79390b971ce8c18a309fcbbd62920de5d8ea18c2402",
+        "REPORT.json": "8f8c70459b946bc196142e80b1ad29bf6e9b549f023c6e3c86ba101bbafe6a2f"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/uljin_2022/20220304T120000Z/new": {
+      "cutoff": "2022-03-04T12:00:00+00:00",
+      "associated_cases": 55,
+      "replaced": true,
+      "old_route_grid_valid": 577,
+      "updated_route_grid_valid": 948,
+      "new_valid_cell_hours": 371,
+      "grid_cell_hours": 3596,
+      "newly_sampled_ignition_draws": 2,
+      "old_sha256": {
+        "FULL.npz": "fe94ccafa4b17d8cd17201e0f3d03a8edc6253fd9e4cec50fd34a63b70d3092b",
+        "HAZARD.json": "cdbd595244e3172afa95ce8f635da19aa2a1d5e3523e28a1d5e2ec4d9d1a5207",
+        "NATIVE_METADATA.json": "5c79af05ed03ecc11b9e09301388e270d387c332b8c6b8c782eeb49ae67070e1",
+        "constructed_arrays.npz": "a85997a25a1e5a9fa1fc3dceaaad09628c64c4ad28a6a2fb20b0644ae69241d9",
+        "REPORT.json": "e2b6bed572a74e1bb83ed853db0e1124157e205276e3e986726b72c8ff6bc2b8"
+      },
+      "updated_sha256": {
+        "FULL.npz": "afcfd1228d35ddf49e774dc04bbbf4622face921aec133a37084ae3c20e1b7ad",
+        "HAZARD.json": "3ff65b0010613f9adb114595b52a0a42fddd7d1b35fcc5b084a7ece65748f3d3",
+        "NATIVE_METADATA.json": "233207d6f24e89d3a9e159fc13523df1bf04117c22aad55860844b3b5f6bb165",
+        "constructed_arrays.npz": "a1cc2aadfbcddac263f193bde769b14248b5e27e70f6dd6f7ee6c63215a99b92",
+        "REPORT.json": "7889dbd18248e693adbaa3b3942cba8641170e5ee2001ddb0a14bb363ff6ba65"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/yeongdeok_2025/20250325T190000Z/new": {
+      "cutoff": "2025-03-25T19:00:00+00:00",
+      "associated_cases": 14,
+      "replaced": true,
+      "old_route_grid_valid": 4045,
+      "updated_route_grid_valid": 4185,
+      "new_valid_cell_hours": 140,
+      "grid_cell_hours": 4757,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "87ffd0334abb4665a53385a4c45691ff2cdd9aaf86c0ba51c18495058717710d",
+        "HAZARD.json": "f570324aa544d241878b561de4d03ff8a6a7ddaaef2c116a44ae95e0a63caa84",
+        "NATIVE_METADATA.json": "07466c3c21e7e41b12e80bf56f2a6ef1be980225fbbcce8f55ff4c950f0b97c9",
+        "constructed_arrays.npz": "d6a4d7f46bf936fa47a3cc73e4c23643e59bce199dccdd495ab583e0c642cae0",
+        "REPORT.json": "bd7b49ffe9e32f9348c7af4c104055fc44cf5c8b72ce74b4ae3ba0e1daae8532"
+      },
+      "updated_sha256": {
+        "FULL.npz": "6719a69de3b28b6148a088e80e64267445b5c46d3807d8ccad2e37123ee3534b",
+        "HAZARD.json": "648192c8faf3fdcf8751e67b8ece3cb136d9791f0b7cd1992756f0e970858304",
+        "NATIVE_METADATA.json": "0bf24bb50ae1753e39e2f13bd54e96f54bc39961f5c5286d2b7885aa52524dcd",
+        "constructed_arrays.npz": "998ad0f1eb07a9b81c1e075401a10797bfafae95e7678bbd4564781b306a6b34",
+        "REPORT.json": "f9ce03a7bc7ae276d7f031ccea098d3ccf15a929104da85a4dbc193ebe6f5051"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/yeongdeok_2025/20250325T230000Z/new": {
+      "cutoff": "2025-03-25T23:00:00+00:00",
+      "associated_cases": 10,
+      "replaced": true,
+      "old_route_grid_valid": 3922,
+      "updated_route_grid_valid": 4062,
+      "new_valid_cell_hours": 140,
+      "grid_cell_hours": 4757,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "dc9d1f225d2bde180aba78eaf944782f335d9ca74641844ce1d948121d7e9cd9",
+        "HAZARD.json": "04bf276ec528dd4ecba24a5c941c41fb89cf12c83a079b799d8ae28fe6495329",
+        "NATIVE_METADATA.json": "411aa41d4caa132f41b13431476360af8df227d52531d96e98c014b24a557e6b",
+        "constructed_arrays.npz": "915725cbb103ce63a8e3d85b995ec85ead1eea3e381139585600fef04bd1cf7e",
+        "REPORT.json": "69e85ec949b17fe4f0b25f4b93fdc413eb3cee48be8dce6710a136fa1f9d7ceb"
+      },
+      "updated_sha256": {
+        "FULL.npz": "2cbd60c81d02c197605cc1511782cca9d0ba506caa17e788f2133a3aa9667af0",
+        "HAZARD.json": "7f9a27c807808de59051b8e50f9870b3ebaac009f8ff5ae08fb422069c834445",
+        "NATIVE_METADATA.json": "5cf5ef9c498da4b68874055401e32c41406a140d19d6613fd85f34d1fc284452",
+        "constructed_arrays.npz": "6812ad1785474b99e574ed64c3beaf6e381a47f021895a93acf7b0292ca5fcfa",
+        "REPORT.json": "5f450f5b8f3a931b6fd2fb3242352300370f14fa7fa8cea8acf639cda8f5f616"
+      }
+    },
+    "wfg_all_revisions_20261115/forecasts/yeongdeok_2025/20250326T080000Z/new": {
+      "cutoff": "2025-03-26T08:00:00+00:00",
+      "associated_cases": 8,
+      "replaced": true,
+      "old_route_grid_valid": 3922,
+      "updated_route_grid_valid": 4062,
+      "new_valid_cell_hours": 140,
+      "grid_cell_hours": 4757,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "9bffab9f78d7ce5172d6a38e53f6c02dbec4a599b123eb6b5f16b3c48a4d1bc4",
+        "HAZARD.json": "5b6b9ed5100cdf82d1a9e1530f669345ae19b3b935bbd30f22b1ae509fae747a",
+        "NATIVE_METADATA.json": "93a2005f1a69422f448410cbdfacc1421ce7dbbc88fe132571712ae2eef02f27",
+        "constructed_arrays.npz": "dea7324e9bf302101b0086926b9b532ff7930aec5a414bbf35039515fc8b5471",
+        "REPORT.json": "a471599c42f2ace2baee16d0e861bd62b9a1a69bb153405a79fd501fe4cc05fe"
+      },
+      "updated_sha256": {
+        "FULL.npz": "7b456213c7a136d08ba0be3466789f2cd1a08ecf159c4fa799b6ec516942d228",
+        "HAZARD.json": "07b14ad867e885fd01031884a3eab2b1c0bf166ca2951ac11a2976330f5500ba",
+        "NATIVE_METADATA.json": "ae4ab1709c217b655cc91f3bfe5205dc1b328baaa4c2b1a5ab9f2a794bc9fd38",
+        "constructed_arrays.npz": "426d1a179a7d2678bc29cf1f9a9961914f5f796acea53fd227ef68857b476364",
+        "REPORT.json": "8f88e5ed785e75fcf476f68faa2c7c9aa4afd2aefa3276cd3f3c209382402bd7"
+      }
+    },
+    "wfg_surviving_revision_20261115/discovery/fw1/forecast/17": {
+      "cutoff": "2025-03-25T17:00:00+00:00",
+      "associated_cases": 11,
+      "replaced": true,
+      "old_route_grid_valid": 4453,
+      "updated_route_grid_valid": 4472,
+      "new_valid_cell_hours": 19,
+      "grid_cell_hours": 4745,
+      "newly_sampled_ignition_draws": 0,
+      "old_sha256": {
+        "FULL.npz": "172979b360902a6d83283ad2cc11e222ef216a3848d8e63b42dd7b6abd6ee193",
+        "HAZARD.json": "ba016848cbdf5288e5931abe3f3d5e8b525f0812a34d5e50d07ca57577206a70",
+        "NATIVE_METADATA.json": "ff6e05b1e3d0edff6c134188569377ae0c4793b09062affad4749591a9408974",
+        "constructed_arrays.npz": "94c6b26e9979c9a12e84f562ec846ad34971d02f51d5eb720cd3c025ffdc0d16",
+        "REPORT.json": "701c324b1645b7bf7f00036f3ba5c335d49bcf4f2f227189dd95ca4a9d655fae"
+      },
+      "updated_sha256": {
+        "FULL.npz": "d29e049d7d597fa185c22cd5df5acf0f7e84c94f34f8218e4a21aae36d4d3a27",
+        "HAZARD.json": "c10fa5f94f3ffd82290c9f416b813f65a38518a3f1675f4c6e41d16dba94b917",
+        "NATIVE_METADATA.json": "eafef21c9ffae95458ff25cb4617dc604dbb41dc0661513ab40645b664a39046",
+        "constructed_arrays.npz": "e6fe7da057a95be91dfb2f93b8939e73e1e48820ffd7b191e2920c49fa2a5e41",
+        "REPORT.json": "99d5d1770bfaf835e60fa2616b5ff64ee66afb080c7adc84d3d01efbab72003e"
+      }
+    }
+  }
+}

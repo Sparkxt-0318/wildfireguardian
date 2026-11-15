@@ -1,0 +1,678 @@
+{
+  "static_fields_review": {
+    "Caldor": [
+      {
+        "window": "Caldor2021_G1",
+        "cells_exterior_checked": 1112,
+        "all_19_inputs_crosschecked": true
+      },
+      {
+        "window": "Caldor2021_G2",
+        "cells_exterior_checked": 1112,
+        "all_19_inputs_crosschecked": true
+      },
+      {
+        "window": "Caldor2021_G3",
+        "cells_exterior_checked": 1112,
+        "all_19_inputs_crosschecked": true
+      }
+    ],
+    "Korea": [
+      {
+        "region": "hongseong_2023",
+        "exterior_cells": 352,
+        "tree_and_biome_matches": true,
+        "slope_matches": true,
+        "finite_slope": 352
+      },
+      {
+        "region": "miryang_2022",
+        "exterior_cells": 288,
+        "tree_and_biome_matches": true,
+        "slope_matches": true,
+        "finite_slope": 288
+      },
+      {
+        "region": "uiseong_andong_2025",
+        "exterior_cells": 2592,
+        "tree_and_biome_matches": true,
+        "slope_matches": true,
+        "finite_slope": 2592
+      },
+      {
+        "region": "uljin_2022",
+        "exterior_cells": 1024,
+        "tree_and_biome_matches": true,
+        "slope_matches": true,
+        "finite_slope": 1024
+      },
+      {
+        "region": "yeongdeok_2025",
+        "exterior_cells": 2592,
+        "tree_and_biome_matches": true,
+        "slope_matches": true,
+        "finite_slope": 2592
+      }
+    ]
+  },
+  "caldor_model_replay": {
+    "Caldor2021_G1": {
+      "old_valid": 3418,
+      "new_valid": 4284,
+      "gained": 866,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        18,
+        16,
+        22,
+        13
+      ],
+      "old_supported_q_and_births_exact": true,
+      "primary_halo_gain": 866,
+      "secondary_additional_q": 0
+    },
+    "Caldor2021_G2": {
+      "old_valid": 3161,
+      "new_valid": 4284,
+      "gained": 1123,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        7,
+        8,
+        5,
+        5
+      ],
+      "old_supported_q_and_births_exact": true,
+      "primary_halo_gain": 836,
+      "secondary_additional_q": 287
+    },
+    "Caldor2021_G3": {
+      "old_valid": 2607,
+      "new_valid": 3451,
+      "gained": 844,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        1,
+        1,
+        2,
+        1
+      ],
+      "old_supported_q_and_births_exact": true,
+      "primary_halo_gain": 843,
+      "secondary_additional_q": 1
+    }
+  },
+  "korea_model_replay": {
+    "hongseong_2023/20230402T140000Z": {
+      "old_valid": 103,
+      "new_valid": 125,
+      "gained": 22,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        3,
+        1,
+        0,
+        3
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "hongseong_2023/20230402T230000Z": {
+      "old_valid": 97,
+      "new_valid": 131,
+      "gained": 34,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        1,
+        0,
+        2,
+        1
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "miryang_2022/20220531T100000Z": {
+      "old_valid": 58,
+      "new_valid": 111,
+      "gained": 53,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "miryang_2022/20220601T020000Z": {
+      "old_valid": 3,
+      "new_valid": 15,
+      "gained": 12,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "miryang_2022/20220601T080000Z": {
+      "old_valid": 69,
+      "new_valid": 131,
+      "gained": 62,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        2,
+        2,
+        0,
+        0
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "uiseong_andong_2025/20250323T010000Z": {
+      "old_valid": 15908,
+      "new_valid": 17158,
+      "gained": 1250,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        6,
+        2,
+        6,
+        4
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "uljin_2022/20220304T030000Z": {
+      "old_valid": 66,
+      "new_valid": 137,
+      "gained": 71,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "uljin_2022/20220304T060000Z": {
+      "old_valid": 192,
+      "new_valid": 610,
+      "gained": 418,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        2,
+        2,
+        1,
+        1
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "uljin_2022/20220304T120000Z": {
+      "old_valid": 577,
+      "new_valid": 948,
+      "gained": 371,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "yeongdeok_2025/20250325T190000Z": {
+      "old_valid": 16246,
+      "new_valid": 17384,
+      "gained": 1138,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        38,
+        37,
+        50,
+        41
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "yeongdeok_2025/20250325T230000Z": {
+      "old_valid": 16037,
+      "new_valid": 17231,
+      "gained": 1194,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        22,
+        40,
+        31,
+        26
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "yeongdeok_2025/20250326T080000Z": {
+      "old_valid": 15809,
+      "new_valid": 16992,
+      "gained": 1183,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        40,
+        39,
+        41,
+        43
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "uiseong_andong_2025/20250324T090000Z": {
+      "old_valid": 16046,
+      "new_valid": 16459,
+      "gained": 413,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        13,
+        13,
+        22,
+        19
+      ],
+      "old_supported_q_and_births_exact": true
+    },
+    "uiseong_andong_2025/20250325T170000Z": {
+      "old_valid": 15701,
+      "new_valid": 16059,
+      "gained": 358,
+      "max_abs_single_member_error": 0,
+      "new_burns_by_member": [
+        27,
+        34,
+        36,
+        39
+      ],
+      "old_supported_q_and_births_exact": true
+    }
+  },
+  "caldor_raw_replay": [
+    {
+      "case": "Caldor2021_G1",
+      "eligibility_cutoff_utc": "2021-08-18T06:16:15+00:00",
+      "primary_platform": 17,
+      "primary_files": 33,
+      "secondary_files": 36,
+      "primary_cell_scan_rows": 178068,
+      "secondary_cell_scan_rows": 194256,
+      "old_crop_equal": true,
+      "new_crop_clear": 0,
+      "new_crop_fire": 0,
+      "new_outer_and_crop_clear": 0,
+      "new_outer_and_crop_fire": 0,
+      "expected_state_sha256": "662308c21cc3d6891a23cd0bdda8155a4e3ad8fc7fc848536d763de69ff99525"
+    },
+    {
+      "case": "Caldor2021_G2",
+      "eligibility_cutoff_utc": "2021-08-18T12:18:45+00:00",
+      "primary_platform": 16,
+      "primary_files": 35,
+      "secondary_files": 3,
+      "primary_cell_scan_rows": 188860,
+      "secondary_cell_scan_rows": 16188,
+      "old_crop_equal": true,
+      "new_crop_clear": 79,
+      "new_crop_fire": 11,
+      "new_outer_and_crop_clear": 79,
+      "new_outer_and_crop_fire": 11,
+      "expected_state_sha256": "2919283665d348098439bf65b181037fe9e90f9657fc63b75b728f76868e50cb"
+    },
+    {
+      "case": "Caldor2021_G3",
+      "eligibility_cutoff_utc": "2021-08-18T18:21:15+00:00",
+      "primary_platform": 17,
+      "primary_files": 36,
+      "secondary_files": 35,
+      "primary_cell_scan_rows": 194256,
+      "secondary_cell_scan_rows": 188860,
+      "old_crop_equal": true,
+      "new_crop_clear": 0,
+      "new_crop_fire": 1,
+      "new_outer_and_crop_clear": 0,
+      "new_outer_and_crop_fire": 1,
+      "expected_state_sha256": "bfc0303edfddb79dfd929fe2c921d07f04f741ad52ed1a05782fcc8afdb49819"
+    }
+  ],
+  "korea_halo_replay": [
+    {
+      "case": "hongseong_2023/20230402T070000Z",
+      "ahi_frames": 69,
+      "native_target_cell_scan_evaluations": 5520,
+      "halo_cells": 352,
+      "halo_state_supported": 350,
+      "halo_state_positive": 197,
+      "halo_weather_pixels": 1056,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "hongseong_2023/20230402T140000Z",
+      "ahi_frames": 69,
+      "native_target_cell_scan_evaluations": 5520,
+      "halo_cells": 352,
+      "halo_state_supported": 350,
+      "halo_state_positive": 38,
+      "halo_weather_pixels": 1056,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "hongseong_2023/20230402T230000Z",
+      "ahi_frames": 69,
+      "native_target_cell_scan_evaluations": 5520,
+      "halo_cells": 352,
+      "halo_state_supported": 350,
+      "halo_state_positive": 22,
+      "halo_weather_pixels": 1056,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "miryang_2022/20220531T100000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 4480,
+      "halo_cells": 288,
+      "halo_state_supported": 282,
+      "halo_state_positive": 0,
+      "halo_weather_pixels": 864,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "miryang_2022/20220601T020000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 4480,
+      "halo_cells": 288,
+      "halo_state_supported": 132,
+      "halo_state_positive": 0,
+      "halo_weather_pixels": 864,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "miryang_2022/20220601T080000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 4480,
+      "halo_cells": 288,
+      "halo_state_supported": 282,
+      "halo_state_positive": 53,
+      "halo_weather_pixels": 864,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "uiseong_andong_2025/20250323T010000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 59500,
+      "halo_cells": 2592,
+      "halo_state_supported": 2521,
+      "halo_state_positive": 0,
+      "halo_weather_pixels": 7776,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "uljin_2022/20220304T030000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 16660,
+      "halo_cells": 1024,
+      "halo_state_supported": 105,
+      "halo_state_positive": 0,
+      "halo_weather_pixels": 3072,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "uljin_2022/20220304T060000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 16660,
+      "halo_cells": 1024,
+      "halo_state_supported": 9,
+      "halo_state_positive": 9,
+      "halo_weather_pixels": 3072,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "uljin_2022/20220304T120000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 16660,
+      "halo_cells": 1024,
+      "halo_state_supported": 99,
+      "halo_state_positive": 88,
+      "halo_weather_pixels": 3072,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "yeongdeok_2025/20250325T190000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 59500,
+      "halo_cells": 2592,
+      "halo_state_supported": 2521,
+      "halo_state_positive": 70,
+      "halo_weather_pixels": 7776,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "yeongdeok_2025/20250325T230000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 59500,
+      "halo_cells": 2592,
+      "halo_state_supported": 2521,
+      "halo_state_positive": 24,
+      "halo_weather_pixels": 7776,
+      "archived_and_updated_parent_geolocation_exact": true
+    },
+    {
+      "case": "yeongdeok_2025/20250326T080000Z",
+      "ahi_frames": 70,
+      "native_target_cell_scan_evaluations": 59500,
+      "halo_cells": 2592,
+      "halo_state_supported": 2521,
+      "halo_state_positive": 45,
+      "halo_weather_pixels": 7776,
+      "archived_and_updated_parent_geolocation_exact": true
+    }
+  ],
+  "legacy_halo_review": [
+    {
+      "case": "20250324T090000Z",
+      "admitted_scans": 70,
+      "halo_valid": 772,
+      "assessed_raw_native_scan_cell_values": 31360,
+      "replayed_halo_with_terrain_agreement": true
+    },
+    {
+      "case": "20250325T170000Z",
+      "admitted_scans": 70,
+      "halo_valid": 660,
+      "assessed_raw_native_scan_cell_values": 31360,
+      "replayed_halo_with_terrain_agreement": true
+    }
+  ],
+  "ahi_raw_evidence": [
+    {
+      "object": "HS_H08_20220226_0250_B07_JP01_R20_S0101.DAT.bz2",
+      "sha256": "0b9ad8504e09268aae2118e2fde53aa50043d638cec33a8613bd130dee9bea0d",
+      "published_utc": "2022-02-26T02:56:30+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00012214896179330026
+    },
+    {
+      "object": "HS_H08_20220226_0250_B07_JP02_R20_S0101.DAT.bz2",
+      "sha256": "cf54dab476f5de9678cfe13c76f9591439b6b4f24f64a47561680dffef06208a",
+      "published_utc": "2022-02-26T02:57:04+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00014371219867825857
+    },
+    {
+      "object": "HS_H08_20220226_0250_B14_JP01_R20_S0101.DAT.bz2",
+      "sha256": "0ed3da3c20b2f15f72b13512f8c1fa37c3e1bef06a9675a9d44b069641d66b89",
+      "published_utc": "2022-02-26T02:56:27+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 5.040082027107928e-05
+    },
+    {
+      "object": "HS_H08_20220226_0250_B14_JP02_R20_S0101.DAT.bz2",
+      "sha256": "2bfe159181850fb66d3e245e859418ec7ce5746119ba9197f1764b4edb206500",
+      "published_utc": "2022-02-26T02:57:13+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 4.6835136913614406e-05
+    },
+    {
+      "object": "HS_H08_20220226_0550_B07_JP01_R20_S0101.DAT.bz2",
+      "sha256": "cdfc3b4f3bcfada804bd7b77f4a016dac2f3c385e3dd2eaa77bb70c1e6f0e935",
+      "published_utc": "2022-02-26T05:56:27+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00014503051278325074
+    },
+    {
+      "object": "HS_H08_20220226_0550_B07_JP02_R20_S0101.DAT.bz2",
+      "sha256": "909f33352796edbf64007150ffe0be5013d10742e2456cbb21b08331e46828c6",
+      "published_utc": "2022-02-26T05:57:15+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00012214896179330026
+    },
+    {
+      "object": "HS_H08_20220226_0550_B14_JP01_R20_S0101.DAT.bz2",
+      "sha256": "da512994c6d56ce965494ba7a640e0fd8d79db3f54f5aa845db9762f62297f8e",
+      "published_utc": "2022-02-26T05:56:41+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 5.040082027107928e-05
+    },
+    {
+      "object": "HS_H08_20220226_0550_B14_JP02_R20_S0101.DAT.bz2",
+      "sha256": "cc63d008dbd99431415a0ebab214a97a87fde4b9ac7517153084b94a8b966c84",
+      "published_utc": "2022-02-26T05:57:24+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 3.824730953283506e-05
+    },
+    {
+      "object": "HS_H08_20220226_1150_B07_JP01_R20_S0101.DAT.bz2",
+      "sha256": "c1a2c1bbcaf1519d80dd97ad01fceee650767c06910e14963c0dbcd22603532d",
+      "published_utc": "2022-02-26T11:56:14+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00017728359597413146
+    },
+    {
+      "object": "HS_H08_20220226_1150_B07_JP02_R20_S0101.DAT.bz2",
+      "sha256": "001b7332701fb7f00707027518a43c019b0d6b3c292ad12e0b1f4af3fbbef2da",
+      "published_utc": "2022-02-26T11:57:11+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.0001580319030267674
+    },
+    {
+      "object": "HS_H08_20220226_1150_B14_JP01_R20_S0101.DAT.bz2",
+      "sha256": "3b1177a90ba282696c9313470a220edd08b999a64765d3fe63a213beab20d581",
+      "published_utc": "2022-02-26T11:56:25+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 5.5437538264868635e-05
+    },
+    {
+      "object": "HS_H08_20220226_1150_B14_JP02_R20_S0101.DAT.bz2",
+      "sha256": "da2ded70b42db926f7bc92cc88e5d7ba758f3e530258f0051c7c37960040a6a7",
+      "published_utc": "2022-02-26T11:57:13+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 5.040082027107928e-05
+    },
+    {
+      "object": "HS_H08_20220227_0250_B07_JP01_R20_S0101.DAT.bz2",
+      "sha256": "3bc92113f69998cee475424ae45971d34e28b31723a703166beab57489716bda",
+      "published_utc": "2022-02-27T02:56:10+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 9.171418923870078e-05
+    },
+    {
+      "object": "HS_H08_20220227_0250_B07_JP02_R20_S0101.DAT.bz2",
+      "sha256": "8046c3d10f26eae2977df57f21592c38d25c5668276a666cd67479865e67f01b",
+      "published_utc": "2022-02-27T02:57:51+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 9.115219268096553e-05
+    },
+    {
+      "object": "HS_H08_20220227_0250_B14_JP01_R20_S0101.DAT.bz2",
+      "sha256": "20d02b7086f32cdc9a6a9b0efa9ffac321e11bb3c108a2d3b62b3aec118d199c",
+      "published_utc": "2022-02-27T02:56:23+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 4.9241036151670414e-05
+    },
+    {
+      "object": "HS_H08_20220227_0250_B14_JP02_R20_S0101.DAT.bz2",
+      "sha256": "b915f00cbfa108b69398c7a85094bc088ef9fe01d450a98f31879769975a2faf",
+      "published_utc": "2022-02-27T02:58:02+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 4.9241036151670414e-05
+    },
+    {
+      "object": "HS_H08_20220227_0550_B07_JP01_R20_S0101.DAT.bz2",
+      "sha256": "2128567b9fefbcc9c37d1dd31899be7b84b8f5757cf7e1dc9156e5b702ec1912",
+      "published_utc": "2022-02-27T05:56:22+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 9.695539358745009e-05
+    },
+    {
+      "object": "HS_H08_20220227_0550_B07_JP02_R20_S0101.DAT.bz2",
+      "sha256": "4c2118baf8548d421c1432a2c61ccbe0aafe90224f6aaa663f2a13df0dfe04af",
+      "published_utc": "2022-02-27T05:57:08+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 9.203579332961453e-05
+    },
+    {
+      "object": "HS_H08_20220227_0550_B14_JP01_R20_S0101.DAT.bz2",
+      "sha256": "cf5fd4190cbf815e2206bb2213f3709b334b55c52ce4a39242014b12afadd245",
+      "published_utc": "2022-02-27T05:56:28+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 4.9241036151670414e-05
+    },
+    {
+      "object": "HS_H08_20220227_0550_B14_JP02_R20_S0101.DAT.bz2",
+      "sha256": "9a9ceb12445ecc619763f518113db7619e957ee19205fbe554ac84f52518fb1f",
+      "published_utc": "2022-02-27T05:57:15+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 4.9241036151670414e-05
+    },
+    {
+      "object": "HS_H08_20220227_1150_B07_JP01_R20_S0101.DAT.bz2",
+      "sha256": "844534a305a98e6e8fea976746dc849e9cf5fbcb70f44f697527b58251c68199",
+      "published_utc": "2022-02-27T11:56:28+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00012214896179330026
+    },
+    {
+      "object": "HS_H08_20220227_1150_B07_JP02_R20_S0101.DAT.bz2",
+      "sha256": "abd51326f89b66e7fbd0e0f6dc78d638cf53d6d7ac8f89bf84dafe65c09339bf",
+      "published_utc": "2022-02-27T11:57:23+00:00",
+      "band": 7,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 0.00012214896179330026
+    },
+    {
+      "object": "HS_H08_20220227_1150_B14_JP01_R20_S0101.DAT.bz2",
+      "sha256": "f8040cdb26e9fd89c6805d1bb71f7d3568e74e67978ce2c6b75ae24dec494d87",
+      "published_utc": "2022-02-27T11:56:15+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 4.6152918343977944e-05
+    },
+    {
+      "object": "HS_H08_20220227_1150_B14_JP02_R20_S0101.DAT.bz2",
+      "sha256": "2c22c768973334ee22b42955a278114a521e875120fd2db3aad93575b4c03f88",
+      "published_utc": "2022-02-27T11:57:21+00:00",
+      "band": 14,
+      "sampled_native_pixels": 238,
+      "max_abs_K": 3.860537174205092e-05
+    }
+  ]
+}

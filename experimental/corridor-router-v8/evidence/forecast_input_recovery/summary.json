@@ -1,0 +1,30 @@
+{
+  "cases": 273,
+  "kinds": {
+    "unresolved": 124,
+    "refusal": 114,
+    "route": 35
+  },
+  "statuses": {
+    "UNRESOLVED": 124,
+    "FULL_MODEL_REFUSAL_PROVEN": 114,
+    "CHECKED_JOURNEY_SUPPORTED_OPTIMUM_PROVEN": 33,
+    "CHECKED_JOURNEY_FEASIBLE": 2
+  },
+  "reasons": {
+    "SUPPORT_RESTRICTED_SEARCH_NO_ROUTE": 124,
+    "None": 149
+  },
+  "verified_earliest": 33,
+  "verified_drive_min": 30,
+  "unsupported_routes": 0,
+  "max_wall_s": 28.198025249992497,
+  "max_peak_mib": 1339.765625,
+  "over_30_utc": 0,
+  "outer_above_30": 0,
+  "adapter_plus_outer_above_30": 0,
+  "guard_causes": {
+    "None": 273
+  },
+  "issues": []
+}

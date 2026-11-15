@@ -66,3 +66,11 @@ The support_273 files record the final support-aware, tie-preserving rerun of th
 The all-18-packet source-crop validity audit is sanitized to omit local paths. The source input and campaign machinery remain external, so these records do not by themselves reproduce the study. The independent verifier's initial integer-clock type error and its complete rerun are documented in the local independent report. The support lattice self-test records 150 exhaustive small-graph checks.
 
 The policy cannot create missing input or validate off-route thermal-source coverage. An unresolved result is not a no-route proof. A supported route is not a field safety guarantee.
+
+## Forecast-input recovery on all 273 requests
+
+After recovering forecast inputs for 16 of 18 windows, we reran every original request with the same router and limits. Independent checks found **35 supported routes, 114 model-scoped no-route proofs and 124 unresolved cases**, compared with 28, 78 and 167 before recovery. All returned journeys had native forecast support throughout driving, permitted waits and destination stays.
+
+Of the 153 cases that previously had a missing endpoint, 11 now have complete endpoint coverage and 7 have a checked route. 17 others gained partial coverage and 125 gained no fully supported endpoint cells. Across the whole cohort, the archive supplied 4,442 additional supported road-grid cell-hours. All previously supported probabilities and scenario ignition draws were preserved.
+
+[Case ledger, sensor sources and independent checks](forecast_input_recovery/README.md)

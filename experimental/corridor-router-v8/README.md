@@ -69,3 +69,11 @@ The earlier permissive run returned 189 routes, of which 163 touched missing nat
 No guard stopped a request. Maximum worker wall time was 28.834 seconds, maximum sampled family-plus-supervisor RSS was 1,341.297 MiB, and the largest adapter-plus-supervisor elapsed time was 28.922 seconds. Forecast generation and cache copying were outside the timed worker boundary. Native-validity masks were checked against the original source crops; the input observations were not recovered or filled. These results do not establish coverage for unknown fire or radiation sources outside the occupied route.
 
 Both the initial supported-routing run and the final tie-preserving run were retained. The independent verifier's first final-run audit encountered a type error when an integer-valued clock was decoded as a float. The verifier was corrected with explicit integer checks and the complete audit restarted; it finished with zero discrepancies. The frozen worker and measured outputs were unchanged. [Case ledger and proofs](evidence/README.md)
+
+## Forecast-input recovery on all 273 requests
+
+After recovering forecast inputs for 16 of 18 windows, we reran every original request with the same router and limits. Independent checks found **35 supported routes, 114 model-scoped no-route proofs and 124 unresolved cases**, compared with 28, 78 and 167 before recovery. All returned journeys had native forecast support throughout driving, permitted waits and destination stays.
+
+Of the 153 cases that previously had a missing endpoint, 11 now have complete endpoint coverage and 7 have a checked route. 17 others gained partial coverage and 125 gained no fully supported endpoint cells. Across the whole cohort, the archive supplied 4,442 additional supported road-grid cell-hours. All previously supported probabilities and scenario ignition draws were preserved.
+
+[Case ledger, sensor sources and independent checks](evidence/forecast_input_recovery/README.md)

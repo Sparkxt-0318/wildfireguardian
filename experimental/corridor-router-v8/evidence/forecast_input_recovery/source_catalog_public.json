@@ -1,0 +1,1772 @@
+[
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0250/HS_H08_20220226_0250_B07_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T02:56:30+00:00",
+    "sha256": "0b9ad8504e09268aae2118e2fde53aa50043d638cec33a8613bd130dee9bea0d",
+    "calibrated_crop_sha256": "84b499fcba8fd711c77bcf70956d1b201d3ba7a710a419cc2eb7b43e4f86bf2b"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0250/HS_H08_20220226_0250_B07_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T02:57:04+00:00",
+    "sha256": "cf54dab476f5de9678cfe13c76f9591439b6b4f24f64a47561680dffef06208a",
+    "calibrated_crop_sha256": "32ec9d472add832d12653d3c95a0497c669b161736e2548dedd2fef6e7ebed60"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0250/HS_H08_20220226_0250_B14_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T02:56:27+00:00",
+    "sha256": "0ed3da3c20b2f15f72b13512f8c1fa37c3e1bef06a9675a9d44b069641d66b89",
+    "calibrated_crop_sha256": "e4803439c72d2cd3fdce4793de97237cab4608e63814cfdbb6459b355802f389"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0250/HS_H08_20220226_0250_B14_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T02:57:13+00:00",
+    "sha256": "2bfe159181850fb66d3e245e859418ec7ce5746119ba9197f1764b4edb206500",
+    "calibrated_crop_sha256": "2eefd4d33ead24f8a7fe60adbd574c0887fdc188c4503e81a53117dba52a3f4e"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0550/HS_H08_20220226_0550_B07_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T05:56:27+00:00",
+    "sha256": "cdfc3b4f3bcfada804bd7b77f4a016dac2f3c385e3dd2eaa77bb70c1e6f0e935",
+    "calibrated_crop_sha256": "7e6b156e4b3b88077752abc3533ab42690b8ee3ee26271052be697519be05e7c"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0550/HS_H08_20220226_0550_B07_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T05:57:15+00:00",
+    "sha256": "909f33352796edbf64007150ffe0be5013d10742e2456cbb21b08331e46828c6",
+    "calibrated_crop_sha256": "6a13be0d20720cae582eb0131aa889c12a0e393200fe0b54fb5c358500db3665"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0550/HS_H08_20220226_0550_B14_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T05:56:41+00:00",
+    "sha256": "da512994c6d56ce965494ba7a640e0fd8d79db3f54f5aa845db9762f62297f8e",
+    "calibrated_crop_sha256": "16ef432e00b4e8766cff16b0a52a77cf8b7a8c1f9f3a60c7d0cb25f77fe546ef"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/0550/HS_H08_20220226_0550_B14_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T05:57:24+00:00",
+    "sha256": "cc63d008dbd99431415a0ebab214a97a87fde4b9ac7517153084b94a8b966c84",
+    "calibrated_crop_sha256": "573087523b74580be0d04939dd042c0ad035b583d31cfe08c4a11213e3be3b65"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/1150/HS_H08_20220226_1150_B07_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T11:56:14+00:00",
+    "sha256": "c1a2c1bbcaf1519d80dd97ad01fceee650767c06910e14963c0dbcd22603532d",
+    "calibrated_crop_sha256": "20c3882d6c1eadf73193d6f85016a83dc9489937daa05fb5708eb051247be6b7"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/1150/HS_H08_20220226_1150_B07_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T11:57:11+00:00",
+    "sha256": "001b7332701fb7f00707027518a43c019b0d6b3c292ad12e0b1f4af3fbbef2da",
+    "calibrated_crop_sha256": "de086ba235bc2cf306597c28bb0015d97cf49910c48ab95f4675943ef1e9d395"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/1150/HS_H08_20220226_1150_B14_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T11:56:25+00:00",
+    "sha256": "3b1177a90ba282696c9313470a220edd08b999a64765d3fe63a213beab20d581",
+    "calibrated_crop_sha256": "4b3e81add98b13d46f1be5457901632978840ec318a698629382ae2f100f2812"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/26/1150/HS_H08_20220226_1150_B14_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-26T11:57:13+00:00",
+    "sha256": "da2ded70b42db926f7bc92cc88e5d7ba758f3e530258f0051c7c37960040a6a7",
+    "calibrated_crop_sha256": "01de4d736f3c2631620cb7e1388e65162d8cc06c03487da821a270a986ea95b9"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0250/HS_H08_20220227_0250_B07_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T02:56:10+00:00",
+    "sha256": "3bc92113f69998cee475424ae45971d34e28b31723a703166beab57489716bda",
+    "calibrated_crop_sha256": "6087a37fa1bc680f361a4f428aabb5f1f107890c10774c03e3be41201e456da4"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0250/HS_H08_20220227_0250_B07_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T02:57:51+00:00",
+    "sha256": "8046c3d10f26eae2977df57f21592c38d25c5668276a666cd67479865e67f01b",
+    "calibrated_crop_sha256": "2877ce0ac2724c755e21e60fc16821a4b3acb1fc5e5e5343e482e2f66f0745bb"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0250/HS_H08_20220227_0250_B14_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T02:56:23+00:00",
+    "sha256": "20d02b7086f32cdc9a6a9b0efa9ffac321e11bb3c108a2d3b62b3aec118d199c",
+    "calibrated_crop_sha256": "f9cc11f556dca29c7b22f1c74cd01580f8226829935894286e849dcd0ade94bf"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0250/HS_H08_20220227_0250_B14_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T02:58:02+00:00",
+    "sha256": "b915f00cbfa108b69398c7a85094bc088ef9fe01d450a98f31879769975a2faf",
+    "calibrated_crop_sha256": "ba114972569884bf6ee4cbe7568bb2966640bc2be58c5c50b4ee3178ac3918c5"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0550/HS_H08_20220227_0550_B07_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T05:56:22+00:00",
+    "sha256": "2128567b9fefbcc9c37d1dd31899be7b84b8f5757cf7e1dc9156e5b702ec1912",
+    "calibrated_crop_sha256": "de9be05f4d6f22b0e656b3f2a8598875eb4c94f9f425fc50287a3eea9c0aab1b"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0550/HS_H08_20220227_0550_B07_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T05:57:08+00:00",
+    "sha256": "4c2118baf8548d421c1432a2c61ccbe0aafe90224f6aaa663f2a13df0dfe04af",
+    "calibrated_crop_sha256": "aa21e27e8eb63813104a781c8eebcfdc7cbc49183cffe59426818674d8969fdd"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0550/HS_H08_20220227_0550_B14_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T05:56:28+00:00",
+    "sha256": "cf5fd4190cbf815e2206bb2213f3709b334b55c52ce4a39242014b12afadd245",
+    "calibrated_crop_sha256": "68ed167484a639418fe8fe0cee5b8f070b87c8124c5c0cec7e34170ada65445d"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/0550/HS_H08_20220227_0550_B14_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T05:57:15+00:00",
+    "sha256": "9a9ceb12445ecc619763f518113db7619e957ee19205fbe554ac84f52518fb1f",
+    "calibrated_crop_sha256": "1d6f90ad29870b0de97a032a161dba4406699a2d01bbb50068abb042caed4065"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/1150/HS_H08_20220227_1150_B07_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T11:56:28+00:00",
+    "sha256": "844534a305a98e6e8fea976746dc849e9cf5fbcb70f44f697527b58251c68199",
+    "calibrated_crop_sha256": "7be512623d5cf3e8d005d2b3d190cc13a24554a12483ccd4563f8e9a1f5fd062"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/1150/HS_H08_20220227_1150_B07_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T11:57:23+00:00",
+    "sha256": "abd51326f89b66e7fbd0e0f6dc78d638cf53d6d7ac8f89bf84dafe65c09339bf",
+    "calibrated_crop_sha256": "a5d34c7deef067d57f8b8752845c9b62b623b1a2adac5549a037982609e3b7f5"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/1150/HS_H08_20220227_1150_B14_JP01_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T11:56:15+00:00",
+    "sha256": "f8040cdb26e9fd89c6805d1bb71f7d3568e74e67978ce2c6b75ae24dec494d87",
+    "calibrated_crop_sha256": "0fa1785955ed8e102e14fde2fedce5eb8cbfa724c3b3924da3323d25a3773093"
+  },
+  {
+    "input_type": "Himawari prior-day reference",
+    "url": "https://noaa-himawari8.s3.amazonaws.com/AHI-L1b-Japan/2022/02/27/1150/HS_H08_20220227_1150_B14_JP02_R20_S0101.DAT.bz2",
+    "published": "2022-02-27T11:57:21+00:00",
+    "sha256": "2c22c768973334ee22b42955a278114a521e875120fd2db3aad93575b4c03f88",
+    "calibrated_crop_sha256": "986ebfb1d8ffb6338443766f2382b495b1d6ee3cf98bead1cf95eec4509250de"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300316177_e20212300318550_c20212300319142.nc",
+    "ended": "2021-08-18T03:18:55+00:00",
+    "published": "2021-08-18T03:19:34.000Z",
+    "sha256": "ccf8fc562018c9b036e2d0575113217da1aeb975b5c2946d99886547939537cd"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300321177_e20212300323550_c20212300324115.nc",
+    "ended": "2021-08-18T03:23:55+00:00",
+    "published": "2021-08-18T03:24:28.000Z",
+    "sha256": "74143c163bffea3fcbe7d57576a15f5875ad181b592d867ae46cb8bd79fbd361"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300326177_e20212300328550_c20212300329096.nc",
+    "ended": "2021-08-18T03:28:55+00:00",
+    "published": "2021-08-18T03:29:27.000Z",
+    "sha256": "1e16d60c681a20c1eedd10ca36bddaefe4e0c93ee8e33a4ddb2128cb8708ebf0"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300331177_e20212300333550_c20212300334133.nc",
+    "ended": "2021-08-18T03:33:55+00:00",
+    "published": "2021-08-18T03:34:29.000Z",
+    "sha256": "712f12762ca63e3846affa1a5a204b1b42928b04e0118183a0d7c24402143b46"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300336177_e20212300338549_c20212300339116.nc",
+    "ended": "2021-08-18T03:38:54.900000+00:00",
+    "published": "2021-08-18T03:39:29.000Z",
+    "sha256": "424d74723326f5cb371b4b9f575fa1c2cba4b5479cda63b694f2874f46d79db9"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300341177_e20212300343550_c20212300344107.nc",
+    "ended": "2021-08-18T03:43:55+00:00",
+    "published": "2021-08-18T03:44:29.000Z",
+    "sha256": "ae839e9a06724cbbe699920ca06040d67ae35516fc59abf1e8b786bb2b00a39b"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300346177_e20212300348550_c20212300349121.nc",
+    "ended": "2021-08-18T03:48:55+00:00",
+    "published": "2021-08-18T03:49:32.000Z",
+    "sha256": "7ab4f34d17edf55e5517e3f4434f26084a6af9f03f33dd39fe246c83ed4387d0"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300351177_e20212300353550_c20212300354111.nc",
+    "ended": "2021-08-18T03:53:55+00:00",
+    "published": "2021-08-18T03:54:23.000Z",
+    "sha256": "eefa902dbbc875b92b9b90a6df3988085360039238ff96e3bec87af1186a9bb4"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G17_s20212300356177_e20212300358550_c20212300359103.nc",
+    "ended": "2021-08-18T03:58:55+00:00",
+    "published": "2021-08-18T03:59:19.000Z",
+    "sha256": "3b23032647ef1947c183d47a899fd51b879ebd0fcff0e928cc240897ea5066e0"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300401177_e20212300403550_c20212300404133.nc",
+    "ended": "2021-08-18T04:03:55+00:00",
+    "published": "2021-08-18T04:04:29.000Z",
+    "sha256": "32c61352967a1ef582acb1b6118c537ac6302ef95d17a9b61e6407c4fd89d2d7"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300406177_e20212300408550_c20212300409112.nc",
+    "ended": "2021-08-18T04:08:55+00:00",
+    "published": "2021-08-18T04:09:17.000Z",
+    "sha256": "26ecefef745baba6c91fbc292d17c6d20b6b08965b205e6daa5cfd641c0b1ef4"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300411177_e20212300413550_c20212300414107.nc",
+    "ended": "2021-08-18T04:13:55+00:00",
+    "published": "2021-08-18T04:14:26.000Z",
+    "sha256": "b312f694e255561ab79227299377ae139b95de70371bb751f89db0c4091d0fba"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300416177_e20212300418550_c20212300419134.nc",
+    "ended": "2021-08-18T04:18:55+00:00",
+    "published": "2021-08-18T04:19:27.000Z",
+    "sha256": "fe0f3c7b86fc0f4a9f784fa660bee743fdb2bdb71216892dc237c641348ca960"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300421177_e20212300423550_c20212300424114.nc",
+    "ended": "2021-08-18T04:23:55+00:00",
+    "published": "2021-08-18T04:24:25.000Z",
+    "sha256": "005e32ab001583f0a898c688a8efbbf3a0a0747d83e248f7eb1b64ee66889563"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300426177_e20212300428550_c20212300429100.nc",
+    "ended": "2021-08-18T04:28:55+00:00",
+    "published": "2021-08-18T04:29:16.000Z",
+    "sha256": "704c3f531627410c8e63157dbe8decf93243eb98a0be40e215f53798856a5961"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300431177_e20212300433550_c20212300434120.nc",
+    "ended": "2021-08-18T04:33:55+00:00",
+    "published": "2021-08-18T04:34:27.000Z",
+    "sha256": "cad6eb1e8b505f32726e08f90e28c8432209eb54457bf1c154328b5afba33003"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300436177_e20212300438550_c20212300439109.nc",
+    "ended": "2021-08-18T04:38:55+00:00",
+    "published": "2021-08-18T04:39:23.000Z",
+    "sha256": "f6cb3c5fcc43d9ac49de171f0fb634b1646314d585fd42900f2d5e3f1d03ff6d"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300441177_e20212300443550_c20212300444102.nc",
+    "ended": "2021-08-18T04:43:55+00:00",
+    "published": "2021-08-18T04:44:20.000Z",
+    "sha256": "aea2295fdea3825ab87e453363272448efaf74898b2be2de0ad8749e1cdaef0d"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300446177_e20212300448550_c20212300449114.nc",
+    "ended": "2021-08-18T04:48:55+00:00",
+    "published": "2021-08-18T04:49:18.000Z",
+    "sha256": "324be848faeb34a37a0b438d272c453b3a7e742709d50c67837e47f9a3e26faf"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300451177_e20212300453550_c20212300454111.nc",
+    "ended": "2021-08-18T04:53:55+00:00",
+    "published": "2021-08-18T04:54:25.000Z",
+    "sha256": "9299bc7fc40542bad452db1b6c03696ac2c80df4c3e22008d4d262f1b9004056"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G17_s20212300456177_e20212300458550_c20212300459090.nc",
+    "ended": "2021-08-18T04:58:55+00:00",
+    "published": "2021-08-18T04:59:26.000Z",
+    "sha256": "2fd96f0a44ce08e430171ad1c426228ed9ddf5a2e0f3e0836935c0cb71f90c57"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300501177_e20212300503550_c20212300504139.nc",
+    "ended": "2021-08-18T05:03:55+00:00",
+    "published": "2021-08-18T05:04:33.000Z",
+    "sha256": "4776746686d231dff5bf0c7864268d6e85c75cab8604df11b2fb3fa5da22e9b9"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300506177_e20212300508550_c20212300509110.nc",
+    "ended": "2021-08-18T05:08:55+00:00",
+    "published": "2021-08-18T05:09:26.000Z",
+    "sha256": "af0dcec8288ba7189ce9e8219a489a2fd9833f3d9b0ae745ead5bd5678e0d2a8"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300511177_e20212300513550_c20212300514110.nc",
+    "ended": "2021-08-18T05:13:55+00:00",
+    "published": "2021-08-18T05:14:30.000Z",
+    "sha256": "6e17db8199b2d4855fcd400ab04a6f3d02b0bfd5ccff4b9f7105533b4c8b67fe"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300516177_e20212300518550_c20212300519138.nc",
+    "ended": "2021-08-18T05:18:55+00:00",
+    "published": "2021-08-18T05:19:29.000Z",
+    "sha256": "9976971e648b5b9d5ff6645aa0518f9ae7e199aa98721e0f1d74a400d9483fe2"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300521177_e20212300523550_c20212300524108.nc",
+    "ended": "2021-08-18T05:23:55+00:00",
+    "published": "2021-08-18T05:24:31.000Z",
+    "sha256": "de786e9ebc46d991a028e68b112b7574fc0a733a9b48fa0d0856f4853e3226c0"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300526177_e20212300528550_c20212300529104.nc",
+    "ended": "2021-08-18T05:28:55+00:00",
+    "published": "2021-08-18T05:29:24.000Z",
+    "sha256": "54e38315d6bb27ce7f685f056c5ddca001f34f6ae62caa1c26de4b0f6d12b6eb"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300531177_e20212300533550_c20212300534122.nc",
+    "ended": "2021-08-18T05:33:55+00:00",
+    "published": "2021-08-18T05:34:24.000Z",
+    "sha256": "e4a871a7cf9ca830e8f60598647af096b4d1910efaaae6e22ceffd3b670b0c73"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300536177_e20212300538550_c20212300539108.nc",
+    "ended": "2021-08-18T05:38:55+00:00",
+    "published": "2021-08-18T05:39:17.000Z",
+    "sha256": "5e00465acc45a2e78e28d24ea44a0c05b479ae3ce94943add0458b869a746a72"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300541177_e20212300543550_c20212300544104.nc",
+    "ended": "2021-08-18T05:43:55+00:00",
+    "published": "2021-08-18T05:44:18.000Z",
+    "sha256": "7adf63f11d76c116c44d5208c0c6b4c86fd0e6305f63bc15daee120ed4fd3620"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300546177_e20212300548549_c20212300549111.nc",
+    "ended": "2021-08-18T05:48:54.900000+00:00",
+    "published": "2021-08-18T05:49:23.000Z",
+    "sha256": "01fe14f72db982a524a902d46f2eb40a896fa10effc9925877a7fe8802ac3f4e"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300551177_e20212300553550_c20212300554118.nc",
+    "ended": "2021-08-18T05:53:55+00:00",
+    "published": "2021-08-18T05:54:31.000Z",
+    "sha256": "3e65f676d5d178ca9462ab2f3675618fe64be4af608bf55728e9ec1b85cc1c8b"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G17_s20212300556177_e20212300558550_c20212300559099.nc",
+    "ended": "2021-08-18T05:58:55+00:00",
+    "published": "2021-08-18T05:59:31.000Z",
+    "sha256": "b8453d5c3390074784b3af41e03e71a3adc915ec12fc997b7295ce1c09af4b03"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300316172_e20212300318545_c20212300319188.nc",
+    "ended": "2021-08-18T03:18:54.500000+00:00",
+    "published": "2021-08-18T03:19:34.000Z",
+    "sha256": "0053db41d97b5bf9deb3bc4d6902290302c4b74d457bc355a0770ff65b6bf003"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300321172_e20212300323545_c20212300324175.nc",
+    "ended": "2021-08-18T03:23:54.500000+00:00",
+    "published": "2021-08-18T03:24:28.000Z",
+    "sha256": "c9c47689834e2d4778bf0b6d95e9e605e569b659a4de44048e6c8881f5e9e6a0"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300326172_e20212300328545_c20212300329157.nc",
+    "ended": "2021-08-18T03:28:54.500000+00:00",
+    "published": "2021-08-18T03:29:27.000Z",
+    "sha256": "a9bbdfab413f096ec314ca2705ac54f160986ead47de22e519d438971afd7541"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300331172_e20212300333545_c20212300334214.nc",
+    "ended": "2021-08-18T03:33:54.500000+00:00",
+    "published": "2021-08-18T03:34:29.000Z",
+    "sha256": "70fca631041c723ec3ff677f3e0fdb6c51c49dc402d9df6e6db1bd7bab9e13c4"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300336172_e20212300338545_c20212300339172.nc",
+    "ended": "2021-08-18T03:38:54.500000+00:00",
+    "published": "2021-08-18T03:39:29.000Z",
+    "sha256": "4cde0eb5f41c7bea1f180aff37f6e840ab0481b8ab500773673295210e5b41a3"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300341172_e20212300343545_c20212300344173.nc",
+    "ended": "2021-08-18T03:43:54.500000+00:00",
+    "published": "2021-08-18T03:44:29.000Z",
+    "sha256": "d47263a2b5d29b190bec09d3e99946aec0d0ff9da247be16d7219049f7f0e0d9"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300346172_e20212300348545_c20212300349178.nc",
+    "ended": "2021-08-18T03:48:54.500000+00:00",
+    "published": "2021-08-18T03:49:32.000Z",
+    "sha256": "45c948863b5c8f3b806a671ff6db50f7c902db422f2ac3d767ddeee30ea9cb2f"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300351172_e20212300353545_c20212300354184.nc",
+    "ended": "2021-08-18T03:53:54.500000+00:00",
+    "published": "2021-08-18T03:54:22.000Z",
+    "sha256": "767050a474d9ab6871d1cb312aedaa1f52f0bff003dd90812c6dc2f6a60506cc"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/03/OR_ABI-L2-FDCC-M6_G16_s20212300356172_e20212300358545_c20212300359166.nc",
+    "ended": "2021-08-18T03:58:54.500000+00:00",
+    "published": "2021-08-18T03:59:36.000Z",
+    "sha256": "241751cd323baea9437a3314caa4616c0d55f1ee1db6e79018642423c5c8b344"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300401172_e20212300403545_c20212300404219.nc",
+    "ended": "2021-08-18T04:03:54.500000+00:00",
+    "published": "2021-08-18T04:04:30.000Z",
+    "sha256": "b1aa6a4b27800c94ee9a997f7c1025164750d1c60d8ab987ee709ed40ba72f00"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300406172_e20212300408545_c20212300409187.nc",
+    "ended": "2021-08-18T04:08:54.500000+00:00",
+    "published": "2021-08-18T04:09:32.000Z",
+    "sha256": "98671a79a964e2030b40368bd3a969f9152b6e02728ca162c05e3fb18ffa694f"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300411172_e20212300413545_c20212300414189.nc",
+    "ended": "2021-08-18T04:13:54.500000+00:00",
+    "published": "2021-08-18T04:14:26.000Z",
+    "sha256": "bb618be81f11262f95bd78e41654e0fe3f95cedd39b13c6e2915985030227561"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300416172_e20212300418545_c20212300419209.nc",
+    "ended": "2021-08-18T04:18:54.500000+00:00",
+    "published": "2021-08-18T04:19:27.000Z",
+    "sha256": "a3e2dfc1d4544b965bb1d1e3552658daa991d414115c864204022cd806f1492e"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300421172_e20212300423545_c20212300424211.nc",
+    "ended": "2021-08-18T04:23:54.500000+00:00",
+    "published": "2021-08-18T04:24:41.000Z",
+    "sha256": "2d07ae3fbfeb39d3c04fcd2303da9e74a8c2ac98d103e609b9515e499316f977"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300426172_e20212300428545_c20212300429191.nc",
+    "ended": "2021-08-18T04:28:54.500000+00:00",
+    "published": "2021-08-18T04:29:31.000Z",
+    "sha256": "c64d86b08d1ff9554efd03fb6444b126e9a5e422d09e792b09b3e0eeb0e4a6e9"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300431172_e20212300433545_c20212300434230.nc",
+    "ended": "2021-08-18T04:33:54.500000+00:00",
+    "published": "2021-08-18T04:34:44.000Z",
+    "sha256": "e6e9c23596dd3fe1af4883d7645eb5700e4c46361b38d4c0d6191e42cce4e010"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300436172_e20212300438545_c20212300439188.nc",
+    "ended": "2021-08-18T04:38:54.500000+00:00",
+    "published": "2021-08-18T04:39:39.000Z",
+    "sha256": "5d38dd7d0c44d1d4c058bb40d3b7def9e344ae8f7874c6e0857d3bc7e00b4cc5"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300441172_e20212300443545_c20212300444191.nc",
+    "ended": "2021-08-18T04:43:54.500000+00:00",
+    "published": "2021-08-18T04:44:35.000Z",
+    "sha256": "22dee5f9797fad18f6fd83df3c4a4698dbd3aea7bac4d26e821437399d117ea2"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300446172_e20212300448545_c20212300449247.nc",
+    "ended": "2021-08-18T04:48:54.500000+00:00",
+    "published": "2021-08-18T04:49:33.000Z",
+    "sha256": "ba8ba1d9e4baf8ca23a6f273cfa3a2f79a8cd96b6ada57a5169af6ffb5ecbf34"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300451172_e20212300453545_c20212300454220.nc",
+    "ended": "2021-08-18T04:53:54.500000+00:00",
+    "published": "2021-08-18T04:54:41.000Z",
+    "sha256": "de9a19537b17afc9fab77d5eba78359fab717dec74839c49d8bd289fefb4d62f"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/04/OR_ABI-L2-FDCC-M6_G16_s20212300456172_e20212300458545_c20212300459187.nc",
+    "ended": "2021-08-18T04:58:54.500000+00:00",
+    "published": "2021-08-18T04:59:26.000Z",
+    "sha256": "73937870dc177e1f6c314380ba38614acd82f10401de11c4d9fdea7a58fabadb"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300501172_e20212300503545_c20212300504235.nc",
+    "ended": "2021-08-18T05:03:54.500000+00:00",
+    "published": "2021-08-18T05:04:33.000Z",
+    "sha256": "8b4ad5fdfbb65af8f8af6b8401922c9a884c62592b3b0f25e49aae28c3224c8e"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300506172_e20212300508545_c20212300509205.nc",
+    "ended": "2021-08-18T05:08:54.500000+00:00",
+    "published": "2021-08-18T05:09:26.000Z",
+    "sha256": "a792092af51aeb05f1451585b4c9a61d48f01d1c4204fa0e9225f96317c95287"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300511172_e20212300513545_c20212300514211.nc",
+    "ended": "2021-08-18T05:13:54.500000+00:00",
+    "published": "2021-08-18T05:14:31.000Z",
+    "sha256": "fcbad7aa32419ad6700cd2537e9d6f4a49dca8f23ecdf7186830a771c26583ec"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300516172_e20212300518545_c20212300519203.nc",
+    "ended": "2021-08-18T05:18:54.500000+00:00",
+    "published": "2021-08-18T05:19:28.000Z",
+    "sha256": "d33ac92ce17b9d5482aa67550519eda9f0cacf9ae6bb402f77415508de255e53"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300521172_e20212300523545_c20212300524224.nc",
+    "ended": "2021-08-18T05:23:54.500000+00:00",
+    "published": "2021-08-18T05:24:32.000Z",
+    "sha256": "591e11648d06a0aa462c3e05352c9dc06a67092bf450c7c692224988a01c73da"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300526172_e20212300528545_c20212300529194.nc",
+    "ended": "2021-08-18T05:28:54.500000+00:00",
+    "published": "2021-08-18T05:29:38.000Z",
+    "sha256": "33fc9817a28eafb76a866b319fcf0907d49d87f47cab5f43fe7c5495efd3b37c"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300531172_e20212300533545_c20212300534222.nc",
+    "ended": "2021-08-18T05:33:54.500000+00:00",
+    "published": "2021-08-18T05:34:37.000Z",
+    "sha256": "d88de1b6d6f7f4fd0a756480d2fb9747396272a0961c20ab6f55f150450d197a"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300536172_e20212300538545_c20212300539194.nc",
+    "ended": "2021-08-18T05:38:54.500000+00:00",
+    "published": "2021-08-18T05:39:32.000Z",
+    "sha256": "729aa150646f61d3f5b66fcb2458f724e133c3fa674029cb0b782b57c3860e4e"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300541172_e20212300543545_c20212300544215.nc",
+    "ended": "2021-08-18T05:43:54.500000+00:00",
+    "published": "2021-08-18T05:44:33.000Z",
+    "sha256": "770d0c5a9fa2a7884f68ca11c41036475fd340f4b1db512f2b38b02e668ca1bf"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300546172_e20212300548545_c20212300549229.nc",
+    "ended": "2021-08-18T05:48:54.500000+00:00",
+    "published": "2021-08-18T05:49:37.000Z",
+    "sha256": "eb18c027203ad68368ed2ead6a3dce6166aefc6e4efe0898b8872010c177cea4"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300551172_e20212300553545_c20212300554219.nc",
+    "ended": "2021-08-18T05:53:54.500000+00:00",
+    "published": "2021-08-18T05:54:30.000Z",
+    "sha256": "686b8af2da8e1cc174c534cfb57e455975d8512603ede04781ab408d2a7e1b52"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/05/OR_ABI-L2-FDCC-M6_G16_s20212300556172_e20212300558545_c20212300559174.nc",
+    "ended": "2021-08-18T05:58:54.500000+00:00",
+    "published": "2021-08-18T05:59:30.000Z",
+    "sha256": "0624f234a343a61a8aa056d6e2584a2ad9841d9baea87314b537ffeb6bc46217"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/06/OR_ABI-L2-FDCC-M6_G16_s20212300601172_e20212300603545_c20212300604228.nc",
+    "ended": "2021-08-18T06:03:54.500000+00:00",
+    "published": "2021-08-18T06:04:37.000Z",
+    "sha256": "3801d6dd343daa25353551d4c0cc345e8c1f5d774baf130b3aaf1e36a997b571"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/06/OR_ABI-L2-FDCC-M6_G16_s20212300606172_e20212300608545_c20212300609203.nc",
+    "ended": "2021-08-18T06:08:54.500000+00:00",
+    "published": "2021-08-18T06:09:27.000Z",
+    "sha256": "5bbdb75d3583c6a506b54bfa99df44baa588dfe7e4074ef16f66ea832567bea8"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G1",
+    "issue": "2021-08-18T06:16:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/06/OR_ABI-L2-FDCC-M6_G16_s20212300611172_e20212300613545_c20212300614228.nc",
+    "ended": "2021-08-18T06:13:54.500000+00:00",
+    "published": "2021-08-18T06:14:30.000Z",
+    "sha256": "45dc6a52578142ba714a2f2a7aece5939b5b546de9b247bed0aace840507d13b"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300921172_e20212300923545_c20212300924193.nc",
+    "ended": "2021-08-18T09:23:54.500000+00:00",
+    "published": "2021-08-18T09:24:36.000Z",
+    "sha256": "307ffb135c890cb062c5210c097dded0d1550c3419203fd9341f7cf4bbfcf6d1"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300926172_e20212300928545_c20212300929158.nc",
+    "ended": "2021-08-18T09:28:54.500000+00:00",
+    "published": "2021-08-18T09:29:19.000Z",
+    "sha256": "5167d8c4ce66f1810ff56e90bac6989ca2fd2df8cca6c63da47c52fa01444a18"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300931172_e20212300933545_c20212300934193.nc",
+    "ended": "2021-08-18T09:33:54.500000+00:00",
+    "published": "2021-08-18T09:34:35.000Z",
+    "sha256": "486ae4ac9504995bc5632b4f6db0ba54bcc0ff6c01e2dc1ee76e40b1ec2f85c4"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300936172_e20212300938545_c20212300939197.nc",
+    "ended": "2021-08-18T09:38:54.500000+00:00",
+    "published": "2021-08-18T09:39:30.000Z",
+    "sha256": "77c9fb2b0bc8db20f4d8d40398bf9dd3656c08bf51190b98fe4ef089b116838a"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300941172_e20212300943545_c20212300944172.nc",
+    "ended": "2021-08-18T09:43:54.500000+00:00",
+    "published": "2021-08-18T09:44:28.000Z",
+    "sha256": "91e1021c0aa6bc79868a17aff0e3e451ea89722f8029e1cf71d1234c43f754ec"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300946172_e20212300948545_c20212300949195.nc",
+    "ended": "2021-08-18T09:48:54.500000+00:00",
+    "published": "2021-08-18T09:49:37.000Z",
+    "sha256": "1d2bf1881b2e997331002a5657d401abd02b4a819e22c0e91594a7d2192e3696"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300951172_e20212300953545_c20212300954176.nc",
+    "ended": "2021-08-18T09:53:54.500000+00:00",
+    "published": "2021-08-18T09:54:23.000Z",
+    "sha256": "69b627436523b91bc2a49746af04490e4d40d56d6847e427e635628eb5b8ea24"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/09/OR_ABI-L2-FDCC-M6_G16_s20212300956172_e20212300958545_c20212300959169.nc",
+    "ended": "2021-08-18T09:58:54.500000+00:00",
+    "published": "2021-08-18T09:59:26.000Z",
+    "sha256": "c49941d61fa9aaea39e76365fd22558311f863e75948f7c122440c4bcbcf0fd8"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301001172_e20212301003545_c20212301004237.nc",
+    "ended": "2021-08-18T10:03:54.500000+00:00",
+    "published": "2021-08-18T10:04:32.000Z",
+    "sha256": "f366800eb26c5ce89d74dc9c55d9fa953f8a8ef2698a93136a5a3305c78a5879"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301006172_e20212301008545_c20212301009187.nc",
+    "ended": "2021-08-18T10:08:54.500000+00:00",
+    "published": "2021-08-18T10:09:23.000Z",
+    "sha256": "c4074148fbd0ecd5ceee9a9382fe7a44794cbccebd4cf300ff63a43a458c2b35"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301011172_e20212301013545_c20212301014180.nc",
+    "ended": "2021-08-18T10:13:54.500000+00:00",
+    "published": "2021-08-18T10:14:25.000Z",
+    "sha256": "e2c8b1f27e915906cefc81039befff87f6b62dc23a90d893ba8b28e2cbb0cc9e"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301016172_e20212301018545_c20212301019194.nc",
+    "ended": "2021-08-18T10:18:54.500000+00:00",
+    "published": "2021-08-18T10:19:31.000Z",
+    "sha256": "3e24bb6eeb1531dc4d050cc194b3282d65a52efc5f9125badd065b58829724f4"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301021172_e20212301023545_c20212301024204.nc",
+    "ended": "2021-08-18T10:23:54.500000+00:00",
+    "published": "2021-08-18T10:24:25.000Z",
+    "sha256": "572c2d7cff3b8539b6390087d0d1d7c36c5338f4ec9ac058f8f14925fea2f729"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301026172_e20212301028545_c20212301029177.nc",
+    "ended": "2021-08-18T10:28:54.500000+00:00",
+    "published": "2021-08-18T10:29:34.000Z",
+    "sha256": "10ec77f719a417139e8cd9bbf3e1c43aae652d14898505c7d64c163f4b6b6918"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301031172_e20212301033545_c20212301034202.nc",
+    "ended": "2021-08-18T10:33:54.500000+00:00",
+    "published": "2021-08-18T10:34:35.000Z",
+    "sha256": "de3029afa27841733a32498881b0e1e34da698c43b0fa9e4051854979d997bc1"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301036172_e20212301038545_c20212301039172.nc",
+    "ended": "2021-08-18T10:38:54.500000+00:00",
+    "published": "2021-08-18T10:39:21.000Z",
+    "sha256": "bac8b5272de22506cf86da21cb6804ad0d4ec51e4c1be5a6ebc60a44cd824384"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301041172_e20212301043545_c20212301044171.nc",
+    "ended": "2021-08-18T10:43:54.500000+00:00",
+    "published": "2021-08-18T10:44:34.000Z",
+    "sha256": "053d7c4342d46d53e3276dffc344323fa501453fe3cdd53178c7a3950afbbbb9"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301046172_e20212301048545_c20212301049187.nc",
+    "ended": "2021-08-18T10:48:54.500000+00:00",
+    "published": "2021-08-18T10:49:34.000Z",
+    "sha256": "d5377f29020cb89fac846a2ed4fcd543a001c68625bffd0d474a941f748911a7"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301051172_e20212301053545_c20212301054189.nc",
+    "ended": "2021-08-18T10:53:54.500000+00:00",
+    "published": "2021-08-18T10:54:34.000Z",
+    "sha256": "f179b2003bb40d553d51bffdc7c16ad82663261a72fb88ef1bee015b946cc455"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/10/OR_ABI-L2-FDCC-M6_G16_s20212301056172_e20212301058545_c20212301059158.nc",
+    "ended": "2021-08-18T10:58:54.500000+00:00",
+    "published": "2021-08-18T10:59:25.000Z",
+    "sha256": "c8f0d51e821af8c9bc2620f1439cc767e8acf1e2a23ca65f9511144b4d659cb1"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301101172_e20212301103545_c20212301104210.nc",
+    "ended": "2021-08-18T11:03:54.500000+00:00",
+    "published": "2021-08-18T11:04:25.000Z",
+    "sha256": "0f0deeeee3ae23f0dd791063c3da6d9ae356b3ac4863bfd99913651ae90b27f2"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301106172_e20212301108545_c20212301109184.nc",
+    "ended": "2021-08-18T11:08:54.500000+00:00",
+    "published": "2021-08-18T11:09:28.000Z",
+    "sha256": "d7112e2b4a4de5abb1c41eca2b2c47fb0546d314d686bf43a71671ae33f46840"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301111172_e20212301113545_c20212301114185.nc",
+    "ended": "2021-08-18T11:13:54.500000+00:00",
+    "published": "2021-08-18T11:14:36.000Z",
+    "sha256": "97491d9372decbb75c3f025f52f031a379410487f99665d2dda1b38171092bbf"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301116172_e20212301118545_c20212301119207.nc",
+    "ended": "2021-08-18T11:18:54.500000+00:00",
+    "published": "2021-08-18T11:19:27.000Z",
+    "sha256": "e31850e6a4cab2415eb5f953f10d1b5393ccb248e4efbaa9410dfcd957bfb7c0"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301121172_e20212301123545_c20212301124208.nc",
+    "ended": "2021-08-18T11:23:54.500000+00:00",
+    "published": "2021-08-18T11:24:35.000Z",
+    "sha256": "93fa5bcfbc9325d6321973eac34d57ef9b809a4b547b4a9ca01af472ca664e41"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301126172_e20212301128545_c20212301129180.nc",
+    "ended": "2021-08-18T11:28:54.500000+00:00",
+    "published": "2021-08-18T11:29:28.000Z",
+    "sha256": "246de84b7b85a3c8b7fbd03fe97b798796a25c0f33aa1cecec704b453b6ab17e"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301131172_e20212301133545_c20212301134214.nc",
+    "ended": "2021-08-18T11:33:54.500000+00:00",
+    "published": "2021-08-18T11:34:36.000Z",
+    "sha256": "c07d235243169557f1048317d660ff0bd060b9a4c042be890dee7f601f5361bd"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301136172_e20212301138545_c20212301139197.nc",
+    "ended": "2021-08-18T11:38:54.500000+00:00",
+    "published": "2021-08-18T11:39:26.000Z",
+    "sha256": "06b513d72e14b30bb50cf3918975c458bbbca3d818b6b1445f50689ba34995ef"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301141172_e20212301143545_c20212301144172.nc",
+    "ended": "2021-08-18T11:43:54.500000+00:00",
+    "published": "2021-08-18T11:44:25.000Z",
+    "sha256": "b85d5fd1401d421d5fffea3f6dc71f2d050d512f7703221023f36d3fb9567b18"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301146172_e20212301148545_c20212301149184.nc",
+    "ended": "2021-08-18T11:48:54.500000+00:00",
+    "published": "2021-08-18T11:49:28.000Z",
+    "sha256": "9e31f105895c2355c3f8f49346298a805b2d18e54abbe7fe0690c3c62bf0b8b4"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301151172_e20212301153545_c20212301154174.nc",
+    "ended": "2021-08-18T11:53:54.500000+00:00",
+    "published": "2021-08-18T11:54:25.000Z",
+    "sha256": "13541ddd5d858dd2fa7be366d7174c626eceeedb4d8a3dac780623bdb7e56741"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/11/OR_ABI-L2-FDCC-M6_G16_s20212301156172_e20212301158545_c20212301159152.nc",
+    "ended": "2021-08-18T11:58:54.500000+00:00",
+    "published": "2021-08-18T11:59:33.000Z",
+    "sha256": "9e3adeb5f63073b599c0eec16bb3a28823bcbc2b741c43e3c45e8628653c7e9c"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/12/OR_ABI-L2-FDCC-M6_G16_s20212301201172_e20212301203545_c20212301204193.nc",
+    "ended": "2021-08-18T12:03:54.500000+00:00",
+    "published": "2021-08-18T12:04:36.000Z",
+    "sha256": "2e5a21e60d61db8fdd5bc43d0c01fe02c1b04165fd7df34f652c0d686f4d0e15"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/12/OR_ABI-L2-FDCC-M6_G16_s20212301206172_e20212301208545_c20212301209171.nc",
+    "ended": "2021-08-18T12:08:54.500000+00:00",
+    "published": "2021-08-18T12:09:35.000Z",
+    "sha256": "3c1041e927b48f2ff3d2fcf921778dbb437ad8315937e3afd3381f36dcf9d3ec"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/12/OR_ABI-L2-FDCC-M6_G16_s20212301211172_e20212301213545_c20212301214167.nc",
+    "ended": "2021-08-18T12:13:54.500000+00:00",
+    "published": "2021-08-18T12:14:26.000Z",
+    "sha256": "c11ba94f0a9a01a47fdab40ba6f05b013e589c1fcac8f4f3cdfa429d16c2edb1"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/12/OR_ABI-L2-FDCC-M6_G17_s20212301201176_e20212301203549_c20212301204119.nc",
+    "ended": "2021-08-18T12:03:54.900000+00:00",
+    "published": "2021-08-18T12:04:23.000Z",
+    "sha256": "84f967418fdd4c7e9370fb23ad99f5790adac55ae15c2b7c7465555e552f0a15"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/12/OR_ABI-L2-FDCC-M6_G17_s20212301206176_e20212301208549_c20212301209088.nc",
+    "ended": "2021-08-18T12:08:54.900000+00:00",
+    "published": "2021-08-18T12:09:21.000Z",
+    "sha256": "f8b4cddc75c84f47530e2f5fabfaa933686a70d8cf376eac58173a2295dd16bd"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G2",
+    "issue": "2021-08-18T12:18:45+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/12/OR_ABI-L2-FDCC-M6_G17_s20212301211176_e20212301213549_c20212301214095.nc",
+    "ended": "2021-08-18T12:13:54.900000+00:00",
+    "published": "2021-08-18T12:14:26.000Z",
+    "sha256": "8540161b6f486ed8985e85267782ef2ebbfc971688d479be1c07fffedd598edb"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301521176_e20212301523549_c20212301524113.nc",
+    "ended": "2021-08-18T15:23:54.900000+00:00",
+    "published": "2021-08-18T15:24:36.000Z",
+    "sha256": "a9c33c48df0bcefb4f9baf00c31f5d087a8096fadd7ea5a54fe2af2b8c7ea0e7"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301526176_e20212301528549_c20212301529106.nc",
+    "ended": "2021-08-18T15:28:54.900000+00:00",
+    "published": "2021-08-18T15:29:18.000Z",
+    "sha256": "5672691e14b20efbc3279a4257e608e22ed8e1458e8d1894e853a0e8eb6d83f7"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301531176_e20212301533549_c20212301534132.nc",
+    "ended": "2021-08-18T15:33:54.900000+00:00",
+    "published": "2021-08-18T15:34:34.000Z",
+    "sha256": "78ccb8b380e72e344336576dd5fb0b4ed0bcf6ddbed61812f42735d0aa47bb6d"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301536176_e20212301538549_c20212301539116.nc",
+    "ended": "2021-08-18T15:38:54.900000+00:00",
+    "published": "2021-08-18T15:39:32.000Z",
+    "sha256": "5330e64a90c95fbc882f0ff04a63ea0bc58cdaa6317eca13df0aeee8b20b9c31"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301541176_e20212301543549_c20212301544124.nc",
+    "ended": "2021-08-18T15:43:54.900000+00:00",
+    "published": "2021-08-18T15:44:25.000Z",
+    "sha256": "4b787b6e4352570326232f61a6968f650056df4e4ad4c83b8706bc77adeab845"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301546176_e20212301548549_c20212301549122.nc",
+    "ended": "2021-08-18T15:48:54.900000+00:00",
+    "published": "2021-08-18T15:49:21.000Z",
+    "sha256": "abbe71280a0e5b0610938a4bc1d20d853d930aa068765b3ca1ad23887bc0cf3a"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301551176_e20212301553549_c20212301554116.nc",
+    "ended": "2021-08-18T15:53:54.900000+00:00",
+    "published": "2021-08-18T15:54:30.000Z",
+    "sha256": "5533bf90e42f33f3d6382869365978b617369cc2bddcf481616271eca5b2a0fd"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G17_s20212301556176_e20212301558549_c20212301559115.nc",
+    "ended": "2021-08-18T15:58:54.900000+00:00",
+    "published": "2021-08-18T15:59:26.000Z",
+    "sha256": "0234072e5af45f9d1372093cb6b6116f9a307e3d8cf7cddf0cba170cfff42dea"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301601176_e20212301603549_c20212301604154.nc",
+    "ended": "2021-08-18T16:03:54.900000+00:00",
+    "published": "2021-08-18T16:04:31.000Z",
+    "sha256": "99c9e0d82077c94ed849c4a7e7b2d1965eda854029dbe5700de84474cb98cb4d"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301606176_e20212301608549_c20212301609116.nc",
+    "ended": "2021-08-18T16:08:54.900000+00:00",
+    "published": "2021-08-18T16:09:18.000Z",
+    "sha256": "9a9b937f43a08a9cf1fa3c44a9e4ecb01665ab8c2fe9c761b1e96d69874fa625"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301611176_e20212301613549_c20212301614115.nc",
+    "ended": "2021-08-18T16:13:54.900000+00:00",
+    "published": "2021-08-18T16:14:25.000Z",
+    "sha256": "eed2b1fccd0475376c13899ebdbed0dfb3ccdd39b812c1ad5080b0bc93fc7c19"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301616176_e20212301618549_c20212301619130.nc",
+    "ended": "2021-08-18T16:18:54.900000+00:00",
+    "published": "2021-08-18T16:19:26.000Z",
+    "sha256": "9edaefc8e3681efbbacd9dfc639892f24924b9ecd67b38603a17bfea7ff1daf2"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301621176_e20212301623549_c20212301624121.nc",
+    "ended": "2021-08-18T16:23:54.900000+00:00",
+    "published": "2021-08-18T16:24:27.000Z",
+    "sha256": "a08ed85e5a51806bf2ee49e3c3b67de6967e92abd610c00eb0ffddfac43bdfc5"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301626176_e20212301628549_c20212301629101.nc",
+    "ended": "2021-08-18T16:28:54.900000+00:00",
+    "published": "2021-08-18T16:29:15.000Z",
+    "sha256": "bd13d83441d36038083b5cf8ab35a80daf8dcbf289ce301c8acff3bf7035bee1"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301631176_e20212301633549_c20212301634141.nc",
+    "ended": "2021-08-18T16:33:54.900000+00:00",
+    "published": "2021-08-18T16:34:25.000Z",
+    "sha256": "f454521648cc55ca089154defd300b86b8349aaea5aa31a3c72b1c6b7a94090c"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301636176_e20212301638549_c20212301639114.nc",
+    "ended": "2021-08-18T16:38:54.900000+00:00",
+    "published": "2021-08-18T16:39:28.000Z",
+    "sha256": "82cfbd41b8062a6682b5812c29d2748ce8b5a09bd016939225f3a2e56aa30640"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301641176_e20212301643549_c20212301644121.nc",
+    "ended": "2021-08-18T16:43:54.900000+00:00",
+    "published": "2021-08-18T16:44:18.000Z",
+    "sha256": "1d3afdf35c7c9fa3eeebf5f87c3fcb1a343a80f32f83bd49369c70263111097c"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301646176_e20212301648549_c20212301649127.nc",
+    "ended": "2021-08-18T16:48:54.900000+00:00",
+    "published": "2021-08-18T16:49:19.000Z",
+    "sha256": "b79f422dc408220cdc1050ade9aaf37f15bd298e588564f30a9b50affca09c2e"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301651176_e20212301653549_c20212301654114.nc",
+    "ended": "2021-08-18T16:53:54.900000+00:00",
+    "published": "2021-08-18T16:54:30.000Z",
+    "sha256": "ff6edb9a4ff65c5740f303ab6159afe72cabe4d779a9a8be13b13a63ec7b0645"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G17_s20212301656176_e20212301658549_c20212301659095.nc",
+    "ended": "2021-08-18T16:58:54.900000+00:00",
+    "published": "2021-08-18T16:59:28.000Z",
+    "sha256": "23dabaf1d1936f5449ca1f76255850b862f3d055083e28ef596eb9e41797ab48"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301701176_e20212301703549_c20212301704143.nc",
+    "ended": "2021-08-18T17:03:54.900000+00:00",
+    "published": "2021-08-18T17:04:20.000Z",
+    "sha256": "9a24095f0b8afa4a2641b69cc6320f7517217a852052194b6f418d64e623c596"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301706176_e20212301708549_c20212301709110.nc",
+    "ended": "2021-08-18T17:08:54.900000+00:00",
+    "published": "2021-08-18T17:09:21.000Z",
+    "sha256": "95b598db73ae69a96468b52e0b3b6d7b47268fdbb2ca4a5881d50675fc0847b9"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301711176_e20212301713549_c20212301714116.nc",
+    "ended": "2021-08-18T17:13:54.900000+00:00",
+    "published": "2021-08-18T17:14:29.000Z",
+    "sha256": "0f90c5ba8dca63164ca9e7bc109e728522a4764b1964d80048735da88ab166cb"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301716176_e20212301718549_c20212301719127.nc",
+    "ended": "2021-08-18T17:18:54.900000+00:00",
+    "published": "2021-08-18T17:19:25.000Z",
+    "sha256": "9748c1601a3ab63806c4cfe6e9042c4a7964744921feca871fdce33ccadd7bf2"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301721176_e20212301723549_c20212301724118.nc",
+    "ended": "2021-08-18T17:23:54.900000+00:00",
+    "published": "2021-08-18T17:24:18.000Z",
+    "sha256": "29e294ce52a04c0c273e4fd9c61b4d5d2fee19d0a072ee907a62bed2cf732598"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301726176_e20212301728549_c20212301729102.nc",
+    "ended": "2021-08-18T17:28:54.900000+00:00",
+    "published": "2021-08-18T17:29:22.000Z",
+    "sha256": "b1bdbe423f3a172836c6e70d46d3e26cfe1ff12945fb6c818e75bf7358920ebb"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301731176_e20212301733549_c20212301734136.nc",
+    "ended": "2021-08-18T17:33:54.900000+00:00",
+    "published": "2021-08-18T17:34:23.000Z",
+    "sha256": "9e5ed3ecfdc1d0c5936f5b504d46d50dfae891131da867e9be8f3b883e7c32c3"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301736176_e20212301738549_c20212301739112.nc",
+    "ended": "2021-08-18T17:38:54.900000+00:00",
+    "published": "2021-08-18T17:39:21.000Z",
+    "sha256": "2fda4178d5352ce08ba75789a26dbc299664153ca25c4c03eaff7d951c300f7f"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301741176_e20212301743549_c20212301744112.nc",
+    "ended": "2021-08-18T17:43:54.900000+00:00",
+    "published": "2021-08-18T17:44:27.000Z",
+    "sha256": "c787d3f3a3bc53b8142ca8897bbeaaf2034b7d2e6e2d3de5dc559c0fef225fd9"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301746176_e20212301748549_c20212301749119.nc",
+    "ended": "2021-08-18T17:48:54.900000+00:00",
+    "published": "2021-08-18T17:49:26.000Z",
+    "sha256": "496025be2ed6e9d53ad6025c354244d0cb35adaefb53e6ea825b5bc56e6dc99c"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301751176_e20212301753549_c20212301754118.nc",
+    "ended": "2021-08-18T17:53:54.900000+00:00",
+    "published": "2021-08-18T17:54:25.000Z",
+    "sha256": "5475c2aa45baae1ef5557a3798de84cb20575d76706b9dc97a3ebbfb8f6994b1"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G17_s20212301756176_e20212301758549_c20212301759098.nc",
+    "ended": "2021-08-18T17:58:54.900000+00:00",
+    "published": "2021-08-18T17:59:29.000Z",
+    "sha256": "f2a6195244ae3aa1d6ef0ae9785d242caa4cf186f4a6372769be041dd515fd3e"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G17_s20212301801176_e20212301803549_c20212301804151.nc",
+    "ended": "2021-08-18T18:03:54.900000+00:00",
+    "published": "2021-08-18T18:04:28.000Z",
+    "sha256": "1faa53a981bcf86b4de6855f2dfb7b00f2f7f5819d5ecb3948135725d8a1800f"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G17_s20212301806176_e20212301808549_c20212301809118.nc",
+    "ended": "2021-08-18T18:08:54.900000+00:00",
+    "published": "2021-08-18T18:09:29.000Z",
+    "sha256": "68cd57413fc1c2bf28d70b9ea99f0978fca28bb2faa453dc1c1b1dbce314dc8f"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G17_s20212301811176_e20212301813549_c20212301814115.nc",
+    "ended": "2021-08-18T18:13:54.900000+00:00",
+    "published": "2021-08-18T18:14:26.000Z",
+    "sha256": "e251a7b646ffff26f42030c29e3be3af934d91e2dd2bdb1d538915228ea494f3"
+  },
+  {
+    "input_type": "Caldor primary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes17.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G17_s20212301816176_e20212301818549_c20212301819143.nc",
+    "ended": "2021-08-18T18:18:54.900000+00:00",
+    "published": "2021-08-18T18:19:27.000Z",
+    "sha256": "51c3b13a9e5290d7a222996a9059f15450bb3da1ce6aa0d646697cd0a26ce58d"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301521172_e20212301523545_c20212301524218.nc",
+    "ended": "2021-08-18T15:23:54.500000+00:00",
+    "published": "2021-08-18T15:24:33.000Z",
+    "sha256": "d1795f6aed223b7bac8486f714d5f004fccacc10c310b9984cfbe1cd3213383b"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301526172_e20212301528545_c20212301529177.nc",
+    "ended": "2021-08-18T15:28:54.500000+00:00",
+    "published": "2021-08-18T15:29:34.000Z",
+    "sha256": "e3045b3616e8b8f96389e16d033d5ccc905d0f0a89151a62698d315c0efa56aa"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301531172_e20212301533545_c20212301534217.nc",
+    "ended": "2021-08-18T15:33:54.500000+00:00",
+    "published": "2021-08-18T15:34:40.000Z",
+    "sha256": "5095a083def2239cbd525910e8962dce97711cc55bf2c1295f2bc3bb32fb30fb"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301536172_e20212301538545_c20212301539201.nc",
+    "ended": "2021-08-18T15:38:54.500000+00:00",
+    "published": "2021-08-18T15:39:31.000Z",
+    "sha256": "a39fd114e006bee3f6a8ae119f0affdbb8e86a159791c82f0161f38c038d896d"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301541172_e20212301543545_c20212301544201.nc",
+    "ended": "2021-08-18T15:43:54.500000+00:00",
+    "published": "2021-08-18T15:44:25.000Z",
+    "sha256": "5826fe3b1859fcde75902e2c1719c4d66a3e9e4a147f6083fd1af1486216c5c5"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301546172_e20212301548545_c20212301549209.nc",
+    "ended": "2021-08-18T15:48:54.500000+00:00",
+    "published": "2021-08-18T15:49:37.000Z",
+    "sha256": "20c87b082293321933756ede528fc70949fed004d2511578a087696fcad8fa60"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301551172_e20212301553545_c20212301554221.nc",
+    "ended": "2021-08-18T15:53:54.500000+00:00",
+    "published": "2021-08-18T15:54:30.000Z",
+    "sha256": "1e09d20d6653afad2853ee93e470adda4e55dc09dc25eba469522ee04bffffbc"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/15/OR_ABI-L2-FDCC-M6_G16_s20212301556172_e20212301558545_c20212301559181.nc",
+    "ended": "2021-08-18T15:58:54.500000+00:00",
+    "published": "2021-08-18T15:59:26.000Z",
+    "sha256": "444d142364e5e6a4586fcb2e4aa6df282f1e7920b8dd9b22e05a51193a4986df"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301601172_e20212301603545_c20212301604245.nc",
+    "ended": "2021-08-18T16:03:54.500000+00:00",
+    "published": "2021-08-18T16:04:31.000Z",
+    "sha256": "abc99b0e91ad5812136e11b3a8af50c77c4f55a7f232d49fc4604ceb7bf386c1"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301606172_e20212301608545_c20212301609242.nc",
+    "ended": "2021-08-18T16:08:54.500000+00:00",
+    "published": "2021-08-18T16:09:33.000Z",
+    "sha256": "41a2de38d1f5ec01065b19327d035255f156248f7fdc1239f5cf35fd70b7c82e"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301611172_e20212301613545_c20212301614216.nc",
+    "ended": "2021-08-18T16:13:54.500000+00:00",
+    "published": "2021-08-18T16:14:42.000Z",
+    "sha256": "ab472a4f8c42a841e49c986f13f32d060a6514ace310ba7f0565bc745be7ce02"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301616172_e20212301618545_c20212301619231.nc",
+    "ended": "2021-08-18T16:18:54.500000+00:00",
+    "published": "2021-08-18T16:19:41.000Z",
+    "sha256": "2b4cf93f6888843fbae465df07d1593678517fd3c454ad69a50b1b286ef0c20e"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301621172_e20212301623545_c20212301624247.nc",
+    "ended": "2021-08-18T16:23:54.500000+00:00",
+    "published": "2021-08-18T16:24:43.000Z",
+    "sha256": "6d0fa381473bc4df786e17dd01176cd205a1e58700199c2edefe333f636bde90"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301626172_e20212301628545_c20212301629224.nc",
+    "ended": "2021-08-18T16:28:54.500000+00:00",
+    "published": "2021-08-18T16:29:30.000Z",
+    "sha256": "7bb9eb8a2a8514528071e5f5682b4d5cdc614a927dc22a4fa33fb6df78e7b581"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301631172_e20212301633545_c20212301634231.nc",
+    "ended": "2021-08-18T16:33:54.500000+00:00",
+    "published": "2021-08-18T16:34:39.000Z",
+    "sha256": "d7a07ffd9b25407f5144e76645dfcb0cdc5bd1549919f2b8f99bc5f28b1e286b"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301636172_e20212301638545_c20212301639202.nc",
+    "ended": "2021-08-18T16:38:54.500000+00:00",
+    "published": "2021-08-18T16:39:28.000Z",
+    "sha256": "5365cb989b6371661cc04a3205ba4c1db8dba3f38d4d1401ba7574b966d80358"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301641172_e20212301643545_c20212301644203.nc",
+    "ended": "2021-08-18T16:43:54.500000+00:00",
+    "published": "2021-08-18T16:44:33.000Z",
+    "sha256": "42f9c5c56a5e349a2ccff3310f7ef71c4371a15971bb5567a3a1d4260302d21a"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301646172_e20212301648545_c20212301649188.nc",
+    "ended": "2021-08-18T16:48:54.500000+00:00",
+    "published": "2021-08-18T16:49:35.000Z",
+    "sha256": "0cdd7fd57308438ae69aebec1c9098c4cb56fd8a06aa2b4249012ca3a1c606c5"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301651172_e20212301653545_c20212301654222.nc",
+    "ended": "2021-08-18T16:53:54.500000+00:00",
+    "published": "2021-08-18T16:54:30.000Z",
+    "sha256": "38738a0d161b2e4e30769738a06de59c32df7805c115f08cfa0feeff403d19a7"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/16/OR_ABI-L2-FDCC-M6_G16_s20212301656172_e20212301658545_c20212301659196.nc",
+    "ended": "2021-08-18T16:58:54.500000+00:00",
+    "published": "2021-08-18T16:59:29.000Z",
+    "sha256": "a23ec3e7bc4d9fba75125149639a93a56c0ff97f93ed61ce358ec913718c6fd3"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301701172_e20212301703545_c20212301704215.nc",
+    "ended": "2021-08-18T17:03:54.500000+00:00",
+    "published": "2021-08-18T17:04:34.000Z",
+    "sha256": "ff59b055e95d5b7b6fdc9fb9e2104a5c20afd317d99976e493a22fb88d033db5"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301706172_e20212301708545_c20212301709203.nc",
+    "ended": "2021-08-18T17:08:54.500000+00:00",
+    "published": "2021-08-18T17:09:35.000Z",
+    "sha256": "6d0348d82ab8af9e61a068353df997d6771a10688f1d767728dd50c70a490f63"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301711172_e20212301713545_c20212301714172.nc",
+    "ended": "2021-08-18T17:13:54.500000+00:00",
+    "published": "2021-08-18T17:14:29.000Z",
+    "sha256": "2893b5eec4e0627f55e633c775823672f9841f73c3f9cf9e636b35614b412dbb"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301716172_e20212301718545_c20212301719152.nc",
+    "ended": "2021-08-18T17:18:54.500000+00:00",
+    "published": "2021-08-18T17:19:24.000Z",
+    "sha256": "4027a84086252524fb62811b4714711f5048995bc947288db3ce9984993bd2a5"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301721172_e20212301723545_c20212301724177.nc",
+    "ended": "2021-08-18T17:23:54.500000+00:00",
+    "published": "2021-08-18T17:24:33.000Z",
+    "sha256": "a04659a26d0a825cd3425af32879b4c18cd49c7b313ec100cb0671fcb8a6da42"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301726172_e20212301728545_c20212301729137.nc",
+    "ended": "2021-08-18T17:28:54.500000+00:00",
+    "published": "2021-08-18T17:29:23.000Z",
+    "sha256": "8f5f5a58c22eaa1108cb4c5260490049f8fa8a0d41ba64b3914105defeee3e19"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301731172_e20212301733545_c20212301734176.nc",
+    "ended": "2021-08-18T17:33:54.500000+00:00",
+    "published": "2021-08-18T17:34:35.000Z",
+    "sha256": "5cb3f43b13a2ba509ed94930af5285b43226eddcd3573004eb857f521552bc18"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301736172_e20212301738545_c20212301739155.nc",
+    "ended": "2021-08-18T17:38:54.500000+00:00",
+    "published": "2021-08-18T17:39:34.000Z",
+    "sha256": "71ff5cc3c07847f9dbae902ba402831c2a7929b35e071ee0a109121444f15406"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301746172_e20212301748545_c20212301749192.nc",
+    "ended": "2021-08-18T17:48:54.500000+00:00",
+    "published": "2021-08-18T17:49:26.000Z",
+    "sha256": "4da1e8a29cf6739b5483ea6a5f6b8b75844e3717f3c99df82df87fefcb51c357"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301751172_e20212301753545_c20212301754247.nc",
+    "ended": "2021-08-18T17:53:54.500000+00:00",
+    "published": "2021-08-18T17:54:38.000Z",
+    "sha256": "4eada569ea17213f16180b5a0b4d866fb1cac50921188bb5f945b3ac4e244fbd"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/17/OR_ABI-L2-FDCC-M6_G16_s20212301756172_e20212301758545_c20212301759205.nc",
+    "ended": "2021-08-18T17:58:54.500000+00:00",
+    "published": "2021-08-18T17:59:28.000Z",
+    "sha256": "907ea36959e59e39066aac4971869d9040cc993cd38b0dcb3db042db750b3d9d"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G16_s20212301801172_e20212301803545_c20212301804233.nc",
+    "ended": "2021-08-18T18:03:54.500000+00:00",
+    "published": "2021-08-18T18:04:41.000Z",
+    "sha256": "f678f1f206e9f01d897e3f7b4ea32378fca9b6443037461dc53fb71f680ca0f4"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G16_s20212301806172_e20212301808545_c20212301809237.nc",
+    "ended": "2021-08-18T18:08:54.500000+00:00",
+    "published": "2021-08-18T18:09:29.000Z",
+    "sha256": "e9b5cc04dcf12cdc7f4b792018dc2ce0c44419d29d2edee26e33d8dcd15a840a"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G16_s20212301811172_e20212301813545_c20212301814220.nc",
+    "ended": "2021-08-18T18:13:54.500000+00:00",
+    "published": "2021-08-18T18:14:38.000Z",
+    "sha256": "059f884a23d5904ea7c6470e864308dd0e19e6f7ca644b0d639c798708d28ba1"
+  },
+  {
+    "input_type": "Caldor secondary ABI",
+    "window": "Caldor2021_G3",
+    "issue": "2021-08-18T18:21:15+00:00",
+    "url": "https://noaa-goes16.s3.amazonaws.com/ABI-L2-FDCC/2021/230/18/OR_ABI-L2-FDCC-M6_G16_s20212301816172_e20212301818545_c20212301819238.nc",
+    "ended": "2021-08-18T18:18:54.500000+00:00",
+    "published": "2021-08-18T18:19:42.000Z",
+    "sha256": "5a652b0dc65c92f08bd6031745d11e552eb19e55737df1c9d7501d320bb5b60e"
+  }
+]
