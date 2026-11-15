@@ -1,0 +1,7602 @@
+{
+  "uljin_2022__20220304T030000Z_FACILITY_LEG1": {
+    "route_sha256": "d94a107ca9e8efb6763804a5e875069891599ab2c8181db00152705180747119",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 849,
+      "legs": 9,
+      "dwell": 240,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 3,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0082e-05,
+        1.0082e-05,
+        1.0082e-05,
+        1.0082e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00268057,
+        0.00268057,
+        0.00268057,
+        0.00268057
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FACILITY_LEG2": {
+    "route_sha256": "5597792a4370170b005f3f5001d96ed3f4a825d96f2afe85f0e76e180725b5d3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1161,
+      "legs": 14,
+      "dwell": 300,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 3,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0237e-05,
+        1.0237e-05,
+        1.0237e-05,
+        1.0237e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.003717141,
+        0.003717141,
+        0.003717141,
+        0.003717141
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1158,
+        "processed": 9
+      },
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 1
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 1
+    }
+  },
+  "uljin_2022__20220304T030000Z_FACILITY_LEG3": {
+    "route_sha256": "90dc4e44d6f7a329c90ae2c0242b13b5a4911af0cc9e46f3372ed91035182ffd",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1530,
+      "legs": 9,
+      "dwell": 120,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 3,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0082e-05,
+        1.0082e-05,
+        1.0082e-05,
+        1.0082e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00165853,
+        0.00165853,
+        0.00165853,
+        0.00165853
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GC1_C2": {
+    "route_sha256": "c86f0a488263321b14ba5a6cd28464ac36633cc2f98048f807e293eae6402474",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2480,
+      "legs": 279,
+      "dwell": 120,
+      "occupied_cell_hours": 67,
+      "unsupported_cell_hours": 67,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.2145e-05,
+        4.2145e-05,
+        4.2145e-05,
+        4.2145e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.016148524,
+        0.016148524,
+        0.016148524,
+        0.016148524
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GC2_C2": {
+    "route_sha256": "c4d3f6fbfbc96c37572b23f0bcbe577bb17265474ea62b9143d2a76c25c1a39c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1628,
+      "legs": 333,
+      "dwell": 120,
+      "occupied_cell_hours": 53,
+      "unsupported_cell_hours": 53,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.6244e-05,
+        5.6244e-05,
+        5.6244e-05,
+        5.6244e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.026795969,
+        0.026795969,
+        0.026795969,
+        0.026795969
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GD1_C2": {
+    "route_sha256": "a11bac9ecac89337b2ddfb40c01dd337a7d2236b690435ced8fa31dcb8afb507",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 547,
+      "legs": 123,
+      "dwell": 120,
+      "occupied_cell_hours": 17,
+      "unsupported_cell_hours": 17,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.216e-06,
+        5.216e-06,
+        5.216e-06,
+        5.216e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002277368,
+        0.002277368,
+        0.002277368,
+        0.002277368
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GL1_C2": {
+    "route_sha256": "7dba33603585be896e3c748a9d325407bcd0f30eff671d103bf531e961bed68c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1545,
+      "legs": 256,
+      "dwell": 120,
+      "occupied_cell_hours": 50,
+      "unsupported_cell_hours": 50,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.038e-06,
+        5.038e-06,
+        5.038e-06,
+        5.038e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004656288,
+        0.004656288,
+        0.004656288,
+        0.004656288
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1542,
+        "processed": 233
+      },
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 171
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 171
+    }
+  },
+  "uljin_2022__20220304T030000Z_GL2_C2": {
+    "route_sha256": "5c08dd6e83f975860c751a68497b6980ed3c71739d5023412a53276141418e7d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1274,
+      "legs": 229,
+      "dwell": 120,
+      "occupied_cell_hours": 44,
+      "unsupported_cell_hours": 44,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.2145e-05,
+        4.2145e-05,
+        4.2145e-05,
+        4.2145e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.016240246,
+        0.016240246,
+        0.016240246,
+        0.016240246
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GN1_C2": {
+    "route_sha256": "c22f67f603efad5252338ac8d1274fadce50654b6d6d0800673c1e7b4fb7b72f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1584,
+      "legs": 196,
+      "dwell": 120,
+      "occupied_cell_hours": 59,
+      "unsupported_cell_hours": 59,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.025354409,
+        0.025354409,
+        0.025354409,
+        0.025354409
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GWn1_C2": {
+    "route_sha256": "1961f8093832870a834ecc74caf8adb09401bc2ed356fa08e683bfe5f424bf40",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 964,
+      "legs": 116,
+      "dwell": 120,
+      "occupied_cell_hours": 28,
+      "unsupported_cell_hours": 28,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.857e-06,
+        4.857e-06,
+        4.857e-06,
+        4.857e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.003928635,
+        0.003928635,
+        0.003928635,
+        0.003928635
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 3285
+    }
+  },
+  "uljin_2022__20220304T030000Z_GWw1_C2": {
+    "route_sha256": "132ce5ab26c292de4b742c00057425b06e06669236b8b6baee7e782008d1c170",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1185,
+      "legs": 90,
+      "dwell": 120,
+      "occupied_cell_hours": 13,
+      "unsupported_cell_hours": 13,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.003032505,
+        0.003032505,
+        0.003032505,
+        0.003032505
+      ],
+      "dose_upper_kj_m2": [
+        0.571600661,
+        0.571600661,
+        0.571600661,
+        0.571600661
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GX1_C2": {
+    "route_sha256": "d00254ecf08ce71481d00757d04badab9746414f75eb70b15b0a6937a78b6ca8",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2946,
+      "legs": 311,
+      "dwell": 120,
+      "occupied_cell_hours": 84,
+      "unsupported_cell_hours": 84,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.031933376,
+        0.031933376,
+        0.031933376,
+        0.031933376
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_GX2_C2": {
+    "route_sha256": "41277d26c7ba79eed690300ffabc435a795d8541f1c79d0cb6f009bb32fa9ba8",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1295,
+      "legs": 195,
+      "dwell": 120,
+      "occupied_cell_hours": 46,
+      "unsupported_cell_hours": 46,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        9.867e-06,
+        9.867e-06,
+        9.867e-06,
+        9.867e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.005758705,
+        0.005758705,
+        0.005758705,
+        0.005758705
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_OCT08_DIFFICULT": {
+    "route_sha256": "a3bd5c68fc9d9835514ab806d236833b98cb9e0227adbc8f22d4ddf96c81bf63",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 599,
+      "legs": 116,
+      "dwell": 120,
+      "occupied_cell_hours": 19,
+      "unsupported_cell_hours": 19,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.032279263,
+        0.032279263,
+        0.032279263,
+        0.032279263
+      ],
+      "dose_upper_kj_m2": [
+        3.771860332,
+        3.771860332,
+        3.771860332,
+        3.771860332
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_OCT08_SIMPLE": {
+    "route_sha256": "bea670a64ee242bf93559127e71bf3cfc65ad51bd082c2c7d4e1e0ad7e4a6ac3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 10,
+      "legs": 1,
+      "dwell": 120,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 1,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.5256e-05,
+        7.5256e-05,
+        7.5256e-05,
+        7.5256e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00978328,
+        0.00978328,
+        0.00978328,
+        0.00978328
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_OCT08_TOPOLOGY_FIRST": {
+    "route_sha256": "d24093990af3777791de7080dd7eabdbb202fb864be09d3ab5212f2a65472038",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 265,
+      "legs": 79,
+      "dwell": 120,
+      "occupied_cell_hours": 8,
+      "unsupported_cell_hours": 8,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.5439e-05,
+        1.5439e-05,
+        1.5439e-05,
+        1.5439e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.005529756,
+        0.005529756,
+        0.005529756,
+        0.005529756
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_supported_cold_OCT09": {
+    "route_sha256": "792dbc30bfc748e7ef892b7d68ddda51416f8837860a3fb848076788e84e5c7c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 85,
+      "legs": 14,
+      "dwell": 120,
+      "occupied_cell_hours": 2,
+      "unsupported_cell_hours": 2,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.3514e-05,
+        1.3514e-05,
+        1.3514e-05,
+        1.3514e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.002586207,
+        0.002586207,
+        0.002586207,
+        0.002586207
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_supported_near_positive_OCT09": {
+    "route_sha256": "b09563bcf165d8f5c0af334f4b76a860519eaaf347fdf4d1dddef7e2aaed0146",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 301,
+      "legs": 53,
+      "dwell": 120,
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        8.664e-06,
+        8.664e-06,
+        8.664e-06,
+        8.664e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002848587,
+        0.002848587,
+        0.002848587,
+        0.002848587
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_GC1_C2": {
+    "route_sha256": "fd267ccf7526b5c3edbdd49b9ff6b49dbcc6e74c1aab9621d0502a3289c8cbae",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1660,
+      "legs": 102,
+      "dwell": 120,
+      "occupied_cell_hours": 41,
+      "unsupported_cell_hours": 41,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000465996,
+        0.000465996,
+        0.000465996,
+        0.000465996
+      ],
+      "dose_upper_kj_m2": [
+        0.178463467,
+        0.178463467,
+        0.178463467,
+        0.178463467
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_GC2_C2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2295
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_GD1_C2": {
+    "route_sha256": "3d57b45c25f4f3f3eecc4308b803df19cfdc4a130dcb5a0d30ccea4079191edf",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1098,
+      "legs": 197,
+      "dwell": 120,
+      "occupied_cell_hours": 28,
+      "unsupported_cell_hours": 28,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000318517,
+        0.000318517,
+        0.000318517,
+        0.000318517
+      ],
+      "dose_upper_kj_m2": [
+        0.075839382,
+        0.075839382,
+        0.075839382,
+        0.075839382
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_GL1_C2": {
+    "route_sha256": "c09a0e9b5adba918421375f0e92cd223fa7cc7020559f8e7ca5c1976c63da5ca",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3001,
+      "legs": 535,
+      "dwell": 120,
+      "occupied_cell_hours": 77,
+      "unsupported_cell_hours": 75,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.757121068,
+        0.757121068,
+        0.757121068,
+        0.757121068
+      ],
+      "dose_upper_kj_m2": [
+        58.682712164,
+        58.682712164,
+        58.682712164,
+        58.682712164
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1832
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_GL2_C2": {
+    "route_sha256": "f2b69d0925528d291a04e62b785976a03785dbf843b7013e46b9f247bc83ef3c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1579,
+      "legs": 235,
+      "dwell": 120,
+      "occupied_cell_hours": 57,
+      "unsupported_cell_hours": 57,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000307629,
+        0.000307629,
+        0.000307629,
+        0.000307629
+      ],
+      "dose_upper_kj_m2": [
+        0.176307146,
+        0.176307146,
+        0.176307146,
+        0.176307146
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_GN1_C2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1740
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_GWn1_C2": {
+    "route_sha256": "5a41159ded453ce3043b79d207a5572acee84e99118a90e15978dd18ac31343f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3468,
+      "legs": 635,
+      "dwell": 120,
+      "occupied_cell_hours": 69,
+      "unsupported_cell_hours": 61,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.7287615,
+        0.7287615,
+        0.7287615,
+        0.7287615
+      ],
+      "dose_upper_kj_m2": [
+        13.45723298,
+        13.45723298,
+        13.45723298,
+        13.45723298
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1667
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_GWw1_C2": {
+    "route_sha256": "e3376848fa492cc82851ac72c873ef662e16a2f62e89fc79b0cd738dddf3cbc3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3412,
+      "legs": 678,
+      "dwell": 120,
+      "occupied_cell_hours": 96,
+      "unsupported_cell_hours": 85,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.119289071,
+        2.119289071,
+        2.119289071,
+        2.119289071
+      ],
+      "dose_upper_kj_m2": [
+        26.719219439,
+        26.719219439,
+        26.719219439,
+        26.719219439
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3274
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_GX1_C2": {
+    "route_sha256": "1ab7d2510c13335054adf4ae4d336536fb067ef9693a5266a49a30d49f0078bf",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1897,
+      "legs": 171,
+      "dwell": 120,
+      "occupied_cell_hours": 48,
+      "unsupported_cell_hours": 48,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000318517,
+        0.000318517,
+        0.000318517,
+        0.000318517
+      ],
+      "dose_upper_kj_m2": [
+        0.220008866,
+        0.220008866,
+        0.220008866,
+        0.220008866
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 111
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 561
+    }
+  },
+  "uljin_2022__20220304T060000Z_GX2_C2": {
+    "route_sha256": "dc4d9e139956fc5dfb13fefb2b54148e60d1d3a345005f4e3abe19c031ed7e88",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1405,
+      "legs": 201,
+      "dwell": 120,
+      "occupied_cell_hours": 51,
+      "unsupported_cell_hours": 51,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00126688,
+        0.00126688,
+        0.00126688,
+        0.00126688
+      ],
+      "dose_upper_kj_m2": [
+        0.453352519,
+        0.453352519,
+        0.453352519,
+        0.453352519
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 258
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 258
+    }
+  },
+  "uljin_2022__20220304T060000Z_OCT08_DIFFICULT": {
+    "route_sha256": "a3bd5c68fc9d9835514ab806d236833b98cb9e0227adbc8f22d4ddf96c81bf63",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 599,
+      "legs": 116,
+      "dwell": 120,
+      "occupied_cell_hours": 19,
+      "unsupported_cell_hours": 19,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004115223,
+        0.004115223,
+        0.004115223,
+        0.004115223
+      ],
+      "dose_upper_kj_m2": [
+        0.532168128,
+        0.532168128,
+        0.532168128,
+        0.532168128
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_OCT08_SIMPLE": {
+    "route_sha256": "bea670a64ee242bf93559127e71bf3cfc65ad51bd082c2c7d4e1e0ad7e4a6ac3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 10,
+      "legs": 1,
+      "dwell": 120,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 1,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.9197e-05,
+        1.9197e-05,
+        1.9197e-05,
+        1.9197e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00249561,
+        0.00249561,
+        0.00249561,
+        0.00249561
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_OCT08_TOPOLOGY_FIRST": {
+    "route_sha256": "d24093990af3777791de7080dd7eabdbb202fb864be09d3ab5212f2a65472038",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 265,
+      "legs": 79,
+      "dwell": 120,
+      "occupied_cell_hours": 8,
+      "unsupported_cell_hours": 8,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.0749e-05,
+        2.0749e-05,
+        2.0749e-05,
+        2.0749e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.007606023,
+        0.007606023,
+        0.007606023,
+        0.007606023
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND000": {
+    "route_sha256": "8f19c05d0490483a159a04a17f551d6a3b9088bd5379deb063b30638d938e3f6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3053,
+      "legs": 111,
+      "dwell": 120,
+      "occupied_cell_hours": 33,
+      "unsupported_cell_hours": 33,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000178085,
+        0.000178085,
+        0.000178085,
+        0.000178085
+      ],
+      "dose_upper_kj_m2": [
+        0.041461955,
+        0.041461955,
+        0.041461955,
+        0.041461955
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND001": {
+    "route_sha256": "a9f0abe188d4aee16c4322d59232a6fbfabb5bd5f0e9c1cb17d2b246d8bd61f9",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1115,
+      "legs": 35,
+      "dwell": 300,
+      "occupied_cell_hours": 9,
+      "unsupported_cell_hours": 9,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000434569,
+        0.000434569,
+        0.000434569,
+        0.000434569
+      ],
+      "dose_upper_kj_m2": [
+        0.171226767,
+        0.171226767,
+        0.171226767,
+        0.171226767
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND002": {
+    "route_sha256": "cc9d5a16111d863edb337d80f206600e9118d08c40af6155a0286318f1a8d089",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1042,
+      "legs": 36,
+      "dwell": 300,
+      "occupied_cell_hours": 8,
+      "unsupported_cell_hours": 8,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000691653,
+        0.000691653,
+        0.000691653,
+        0.000691653
+      ],
+      "dose_upper_kj_m2": [
+        0.315709793,
+        0.315709793,
+        0.315709793,
+        0.315709793
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND003": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND004": {
+    "route_sha256": "e87d60adea5cc9e13e71668cdc4c20b297b2b8702a5d2ad491f748f2f3fa4d79",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2017,
+      "legs": 221,
+      "dwell": 0,
+      "occupied_cell_hours": 57,
+      "unsupported_cell_hours": 57,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001030473,
+        0.001030473,
+        0.001030473,
+        0.001030473
+      ],
+      "dose_upper_kj_m2": [
+        0.342689358,
+        0.342689358,
+        0.342689358,
+        0.342689358
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 105
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 105
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND005": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND006": {
+    "route_sha256": "ea752f398f281d48b1d6c15d2153a025dbccf6b6cb629a1e0c69d49a1f7ff830",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 793,
+      "legs": 27,
+      "dwell": 0,
+      "occupied_cell_hours": 6,
+      "unsupported_cell_hours": 6,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000335037,
+        0.000335037,
+        0.000335037,
+        0.000335037
+      ],
+      "dose_upper_kj_m2": [
+        0.050356195,
+        0.050356195,
+        0.050356195,
+        0.050356195
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND007": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND008": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND009": {
+    "route_sha256": "9adda2900a2bb4b2028dea1fdc661c79a49e989e7b29b01d7e2937a0b43caebd",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2949,
+      "legs": 105,
+      "dwell": 0,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 8,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.117697525,
+        2.117697525,
+        2.117697525,
+        2.117697525
+      ],
+      "dose_upper_kj_m2": [
+        53.986175111,
+        53.986175111,
+        53.986175111,
+        53.986175111
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 44
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 139
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND010": {
+    "route_sha256": "9b35d08bfb61633d75642d55b81107549a23ebe2b077bbf6901e3ac471e0629f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1361,
+      "legs": 140,
+      "dwell": 0,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 16,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000936691,
+        0.000936691,
+        0.000936691,
+        0.000936691
+      ],
+      "dose_upper_kj_m2": [
+        0.105407916,
+        0.105407916,
+        0.105407916,
+        0.105407916
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND011": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND012": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND013": {
+    "route_sha256": "a586317ece04121aa57004151b740c331d5fdbefbae31ae0d7ccbf79403d2437",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3109,
+      "legs": 63,
+      "dwell": 60,
+      "occupied_cell_hours": 17,
+      "unsupported_cell_hours": 17,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.6189e-05,
+        6.6189e-05,
+        6.6189e-05,
+        6.6189e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.007719085,
+        0.007719085,
+        0.007719085,
+        0.007719085
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND014": {
+    "route_sha256": "9b9a013af4bc79e15c1d69961f8929f3b26559fe7edda8d081e9123ffa052df4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2937,
+      "legs": 380,
+      "dwell": 0,
+      "occupied_cell_hours": 60,
+      "unsupported_cell_hours": 54,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.70963268,
+        0.929887287,
+        0.929887287,
+        0.929887287
+      ],
+      "dose_upper_kj_m2": [
+        1.760249053,
+        32.771638089,
+        32.771638089,
+        32.771638089
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1516
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND015": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND016": {
+    "route_sha256": "45b7cac82688c784da76b08b759c67e582c74c196b0f87a4d95528cf5bd838ad",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2906,
+      "legs": 121,
+      "dwell": 60,
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 22,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001900083,
+        0.001900083,
+        0.001900083,
+        0.001900083
+      ],
+      "dose_upper_kj_m2": [
+        0.413090174,
+        0.413090174,
+        0.413090174,
+        0.413090174
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND017": {
+    "route_sha256": "80b2f9055131ec136ae8b64ef4840ec3cd4a891143420739cd69ad3099facbe4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2879,
+      "legs": 45,
+      "dwell": 120,
+      "occupied_cell_hours": 12,
+      "unsupported_cell_hours": 8,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.741309483,
+        0.70839857,
+        0.741309483,
+        0.741309483
+      ],
+      "dose_upper_kj_m2": [
+        13.556247493,
+        3.387296048,
+        13.556247493,
+        13.556247493
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 758
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 233
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND018": {
+    "route_sha256": "ac5a02c550d1da294df12a76497e117501574a076248accb0867a978729f9f1f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1555,
+      "legs": 46,
+      "dwell": 120,
+      "occupied_cell_hours": 17,
+      "unsupported_cell_hours": 17,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000465996,
+        0.000465996,
+        0.000465996,
+        0.000465996
+      ],
+      "dose_upper_kj_m2": [
+        0.154074511,
+        0.154074511,
+        0.154074511,
+        0.154074511
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND019": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND020": {
+    "route_sha256": "46940d3b063ea31dda88bbc23464887be05d1bcc5fbf07b341e6604b1e38ddf4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3245,
+      "legs": 32,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 11,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND021": {
+    "route_sha256": "45e50458bf77b4f9f7a27b108aa87efcfff16a20e76bf0a6730be297f84c3c10",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3266,
+      "legs": 94,
+      "dwell": 300,
+      "occupied_cell_hours": 25,
+      "unsupported_cell_hours": 21,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00126688,
+        0.00126688,
+        0.00126688,
+        0.00126688
+      ],
+      "dose_upper_kj_m2": [
+        0.147965824,
+        0.147965824,
+        0.147965824,
+        0.147965824
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND022": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND023": {
+    "route_sha256": "8b1ec1ce47c656b9069968d2344233c79becf40be92bcee0261388cd7e498de6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2937,
+      "legs": 93,
+      "dwell": 300,
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 17,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.70963268,
+        0.929887287,
+        0.929887287,
+        0.929887287
+      ],
+      "dose_upper_kj_m2": [
+        1.843878255,
+        32.935547171,
+        32.935547171,
+        32.935547171
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1175
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND024": {
+    "route_sha256": "3f08c0502a400adde021b93d51efaf02d9735b4e937a4dbbcc4a121ba19fc998",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2945,
+      "legs": 176,
+      "dwell": 300,
+      "occupied_cell_hours": 54,
+      "unsupported_cell_hours": 47,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.70963268,
+        0.929887287,
+        0.929887287,
+        0.929887287
+      ],
+      "dose_upper_kj_m2": [
+        1.756446356,
+        32.779301871,
+        32.779301871,
+        32.779301871
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 499
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 274
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND025": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND026": {
+    "route_sha256": "6650d8369cc74c5eed286b4332b879e7d1a8aa809d381250c9ef9dff16894680",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2294,
+      "legs": 187,
+      "dwell": 300,
+      "occupied_cell_hours": 50,
+      "unsupported_cell_hours": 50,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000307629,
+        0.000307629,
+        0.000307629,
+        0.000307629
+      ],
+      "dose_upper_kj_m2": [
+        0.199519684,
+        0.199519684,
+        0.199519684,
+        0.199519684
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 162
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 951
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND027": {
+    "route_sha256": "1f5318ebc902ab63a79a24c8405d477790409b361f7ea84af6a7794b84d00d0c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2785,
+      "legs": 220,
+      "dwell": 300,
+      "occupied_cell_hours": 51,
+      "unsupported_cell_hours": 51,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000465996,
+        0.000465996,
+        0.000465996,
+        0.000465996
+      ],
+      "dose_upper_kj_m2": [
+        0.17672288,
+        0.17672288,
+        0.17672288,
+        0.17672288
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 187
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 986
+    }
+  },
+  "uljin_2022__20220304T060000Z_RND028": {
+    "route_sha256": "cbc44c13ee52a9237f86071a0324f4d1b86c798d3714f887366320209ee0495e",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2923,
+      "legs": 76,
+      "dwell": 300,
+      "occupied_cell_hours": 19,
+      "unsupported_cell_hours": 13,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.929887287,
+        0.929887287,
+        0.929887287,
+        0.929887287
+      ],
+      "dose_upper_kj_m2": [
+        33.40666215,
+        33.40666215,
+        33.40666215,
+        33.40666215
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2970
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_RND029": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_supported_cold_OCT09": {
+    "route_sha256": "792dbc30bfc748e7ef892b7d68ddda51416f8837860a3fb848076788e84e5c7c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 85,
+      "legs": 14,
+      "dwell": 120,
+      "occupied_cell_hours": 2,
+      "unsupported_cell_hours": 2,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.0749e-05,
+        2.0749e-05,
+        2.0749e-05,
+        2.0749e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00406145,
+        0.00406145,
+        0.00406145,
+        0.00406145
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_supported_near_positive_OCT09": {
+    "route_sha256": "ecd2a00aa017928d2f01358c1a64f536baafc756d19af7ca3881773dd937362b",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 301,
+      "legs": 54,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 11,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000166358,
+        0.000166358,
+        0.000166358,
+        0.000166358
+      ],
+      "dose_upper_kj_m2": [
+        0.03216194,
+        0.03216194,
+        0.03216194,
+        0.03216194
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GC1_C2": {
+    "route_sha256": "41e3442ff056411e528233ada1a34106aeeece834ca4973768cbfab894521990",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1989,
+      "legs": 211,
+      "dwell": 120,
+      "occupied_cell_hours": 60,
+      "unsupported_cell_hours": 47,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0041e-05,
+        1.0041e-05,
+        1.0041e-05,
+        1.0041e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.006049231,
+        0.006049231,
+        0.006049231,
+        0.006049231
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GC2_C2": {
+    "route_sha256": "be1b2046327b860d00d70b8e9341999d9e7bc06cd6e2af25a3b73f1607019f67",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2866,
+      "legs": 343,
+      "dwell": 120,
+      "occupied_cell_hours": 103,
+      "unsupported_cell_hours": 90,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.008067958,
+        0.008067958,
+        0.008067958,
+        0.008067958
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GD1_C2": {
+    "route_sha256": "a1cc6020bf3b4480236d6b8223815ed484cc5c366b43984e9fb264973d78b71c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1053,
+      "legs": 198,
+      "dwell": 120,
+      "occupied_cell_hours": 36,
+      "unsupported_cell_hours": 28,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.7867e-05,
+        5.7867e-05,
+        5.7867e-05,
+        5.7867e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.021047413,
+        0.021047413,
+        0.021047413,
+        0.021047413
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GL1_C2": {
+    "route_sha256": "0c03f1ed378094dac574031a13ffcdf3fea48ca38d1c68729d425c2bbbf9caa4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1716,
+      "legs": 256,
+      "dwell": 120,
+      "occupied_cell_hours": 59,
+      "unsupported_cell_hours": 41,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.712e-06,
+        5.712e-06,
+        5.712e-06,
+        5.712e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004589122,
+        0.004589122,
+        0.004589122,
+        0.004589122
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GL2_C2": {
+    "route_sha256": "aa881dbbe42c3cd4e7ad512c57f384fdeb6affd12260571d8e6a9aa5f80bb0aa",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1552,
+      "legs": 359,
+      "dwell": 120,
+      "occupied_cell_hours": 50,
+      "unsupported_cell_hours": 18,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.028504177,
+        0.028504177,
+        0.028504177,
+        0.028504177
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GN1_C2": {
+    "route_sha256": "517e5f2993423221f34dd63e433d32776d507076bb7aa71b51df6b86dc5b563e",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3293,
+      "legs": 440,
+      "dwell": 120,
+      "occupied_cell_hours": 94,
+      "unsupported_cell_hours": 76,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.712e-06,
+        5.712e-06,
+        5.712e-06,
+        5.712e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.005750757,
+        0.005750757,
+        0.005750757,
+        0.005750757
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GWn1_C2": {
+    "route_sha256": "c5210bf73af2cf34b1c0e7dd36d54a49313a27d862dc314488961d2361f10d7c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1425,
+      "legs": 150,
+      "dwell": 120,
+      "occupied_cell_hours": 29,
+      "unsupported_cell_hours": 29,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.218e-06,
+        5.218e-06,
+        5.218e-06,
+        5.218e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004180893,
+        0.004180893,
+        0.004180893,
+        0.004180893
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 168
+    }
+  },
+  "uljin_2022__20220304T120000Z_GWw1_C2": {
+    "route_sha256": "aee97d0e4a0a1c431065ef9fde5c1668c38cc646ae1c87260946a8d7335308a4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1587,
+      "legs": 192,
+      "dwell": 120,
+      "occupied_cell_hours": 41,
+      "unsupported_cell_hours": 24,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.351e-06,
+        6.351e-06,
+        6.351e-06,
+        6.351e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.006084289,
+        0.006084289,
+        0.006084289,
+        0.006084289
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GX1_C2": {
+    "route_sha256": "0d06ab24a8c35cdd7b7b3d7e0bb5e0edfc2f9f2ab3d47b891b85c5d045908c4a",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1547,
+      "legs": 156,
+      "dwell": 120,
+      "occupied_cell_hours": 48,
+      "unsupported_cell_hours": 25,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.3751e-05,
+        1.3751e-05,
+        1.3751e-05,
+        1.3751e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.009630763,
+        0.009630763,
+        0.009630763,
+        0.009630763
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_GX2_C2": {
+    "route_sha256": "0ec827fefe2615bd39a485fea4bb382ce9de449fba768b9b3e6682406b8e5526",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2423,
+      "legs": 285,
+      "dwell": 120,
+      "occupied_cell_hours": 77,
+      "unsupported_cell_hours": 71,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.01e-06,
+        6.01e-06,
+        6.01e-06,
+        6.01e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004096895,
+        0.004096895,
+        0.004096895,
+        0.004096895
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_OCT08_DIFFICULT": {
+    "route_sha256": "a3bd5c68fc9d9835514ab806d236833b98cb9e0227adbc8f22d4ddf96c81bf63",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 599,
+      "legs": 116,
+      "dwell": 120,
+      "occupied_cell_hours": 19,
+      "unsupported_cell_hours": 19,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.068e-06,
+        1.068e-06,
+        1.068e-06,
+        1.068e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.000705428,
+        0.000705428,
+        0.000705428,
+        0.000705428
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_OCT08_SIMPLE": {
+    "route_sha256": "bea670a64ee242bf93559127e71bf3cfc65ad51bd082c2c7d4e1e0ad7e4a6ac3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 10,
+      "legs": 1,
+      "dwell": 120,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 1,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        8.69e-07,
+        8.69e-07,
+        8.69e-07,
+        8.69e-07
+      ],
+      "dose_upper_kj_m2": [
+        0.00011297,
+        0.00011297,
+        0.00011297,
+        0.00011297
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_OCT08_TOPOLOGY_FIRST": {
+    "route_sha256": "d24093990af3777791de7080dd7eabdbb202fb864be09d3ab5212f2a65472038",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 265,
+      "legs": 79,
+      "dwell": 120,
+      "occupied_cell_hours": 8,
+      "unsupported_cell_hours": 8,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.51e-07,
+        7.51e-07,
+        7.51e-07,
+        7.51e-07
+      ],
+      "dose_upper_kj_m2": [
+        0.000232863,
+        0.000232863,
+        0.000232863,
+        0.000232863
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND000": {
+    "route_sha256": "e690fab1b0a300c6a1e7d0f34ac0263089c18aeddff2514875a8eceb550bc96d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1232,
+      "legs": 26,
+      "dwell": 300,
+      "occupied_cell_hours": 5,
+      "unsupported_cell_hours": 5,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.928e-06,
+        4.928e-06,
+        4.928e-06,
+        4.928e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002098556,
+        0.002098556,
+        0.002098556,
+        0.002098556
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND001": {
+    "route_sha256": "1122b2e198a3d3d34d8fd37580fd80ab00f7e75d133414ac32e3b8a3f2eac1eb",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3415,
+      "legs": 143,
+      "dwell": 60,
+      "occupied_cell_hours": 24,
+      "unsupported_cell_hours": 9,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.887e-06,
+        7.887e-06,
+        7.887e-06,
+        7.887e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.003287128,
+        0.003287128,
+        0.003287128,
+        0.003287128
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND002": {
+    "route_sha256": "2059fef6cb31419e72db9ffc46ac52c76ed45c30a40e4d929228d52ca6e2b661",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2432,
+      "legs": 202,
+      "dwell": 300,
+      "occupied_cell_hours": 43,
+      "unsupported_cell_hours": 26,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.2552e-05,
+        4.2552e-05,
+        4.2552e-05,
+        4.2552e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.014240408,
+        0.014240408,
+        0.014240408,
+        0.014240408
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND003": {
+    "route_sha256": "e7690662f51f0a78a8d7db16c883cc6b32527454db885a7f072e2748bf2be776",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 389,
+      "legs": 87,
+      "dwell": 60,
+      "occupied_cell_hours": 15,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.013922944,
+        0.013922944,
+        0.013922944,
+        0.013922944
+      ],
+      "dose_upper_kj_m2": [
+        0.347623258,
+        0.347623258,
+        0.347623258,
+        0.347623258
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND004": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND005": {
+    "route_sha256": "453d3f2a99f559ce1ddd25cbd9e563c36e7eaa0c346ffbefb80575c901b833c3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3210,
+      "legs": 197,
+      "dwell": 120,
+      "occupied_cell_hours": 41,
+      "unsupported_cell_hours": 28,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.026229476,
+        0.026229476,
+        0.026229476,
+        0.026229476
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND006": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND007": {
+    "route_sha256": "153b3f5b20fbb7d66952d8af5f6c9b97123d0e3bbf0b9d0f8e074c1ddf0ef3c4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3064,
+      "legs": 43,
+      "dwell": 300,
+      "occupied_cell_hours": 12,
+      "unsupported_cell_hours": 12,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.5981e-05,
+        1.5981e-05,
+        1.5981e-05,
+        1.5981e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.004446332,
+        0.004446332,
+        0.004446332,
+        0.004446332
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND008": {
+    "route_sha256": "edf8377bd206a398a356f34b822f426474fa257fdb9f78f60294d87971b1a496",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1329,
+      "legs": 141,
+      "dwell": 60,
+      "occupied_cell_hours": 42,
+      "unsupported_cell_hours": 34,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000304292,
+        0.000304292,
+        0.000304292,
+        0.000304292
+      ],
+      "dose_upper_kj_m2": [
+        0.046509266,
+        0.046509266,
+        0.046509266,
+        0.046509266
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND009": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND010": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND011": {
+    "route_sha256": "3c8b2cf360b4f6531f1a9711baa34769988e0fe836f6ffd85c41ddd7e1d0bb56",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3417,
+      "legs": 446,
+      "dwell": 60,
+      "occupied_cell_hours": 59,
+      "unsupported_cell_hours": 49,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.413964879,
+        1.408732976,
+        1.413964879,
+        1.413964879
+      ],
+      "dose_upper_kj_m2": [
+        20.809620009,
+        5.974176073,
+        20.809620009,
+        20.809620009
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3439
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND012": {
+    "route_sha256": "4e34f4de66ba856031fd3e1f4915d4e60dab81a818e3ff01ea247c8951068fd6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2827,
+      "legs": 161,
+      "dwell": 60,
+      "occupied_cell_hours": 41,
+      "unsupported_cell_hours": 28,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000303711,
+        0.000303711,
+        0.000303711,
+        0.000303711
+      ],
+      "dose_upper_kj_m2": [
+        0.063473192,
+        0.063473192,
+        0.063473192,
+        0.063473192
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND013": {
+    "route_sha256": "6e2756987b592a02d7ba184e8236db396be718fa2fb4586c1d70023650ad3c6b",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2290,
+      "legs": 36,
+      "dwell": 60,
+      "occupied_cell_hours": 6,
+      "unsupported_cell_hours": 4,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.648e-06,
+        5.648e-06,
+        5.648e-06,
+        5.648e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.00123253,
+        0.00123253,
+        0.00123253,
+        0.00123253
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND014": {
+    "route_sha256": "27753cabb28f03ed3356829b2f9d2732f93d4af4a2e38160faaa1430de0694cf",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1490,
+      "legs": 100,
+      "dwell": 60,
+      "occupied_cell_hours": 17,
+      "unsupported_cell_hours": 7,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.01e-06,
+        6.01e-06,
+        6.01e-06,
+        6.01e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002548993,
+        0.002548993,
+        0.002548993,
+        0.002548993
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND015": {
+    "route_sha256": "879eb919dcca59235e28242e819e059833d16dd1370f39672255f0b779d17503",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 963,
+      "legs": 159,
+      "dwell": 300,
+      "occupied_cell_hours": 37,
+      "unsupported_cell_hours": 22,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.3791e-05,
+        1.3791e-05,
+        1.3791e-05,
+        1.3791e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.011720408,
+        0.011720408,
+        0.011720408,
+        0.011720408
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND016": {
+    "route_sha256": "53d8d18e5f8f9273946be53a7b7aaa4b3b5f801f6d04fb04f8d5261cf563d4af",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3219,
+      "legs": 143,
+      "dwell": 60,
+      "occupied_cell_hours": 39,
+      "unsupported_cell_hours": 27,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000210515,
+        0.000210515,
+        0.000210515,
+        0.000210515
+      ],
+      "dose_upper_kj_m2": [
+        0.044372248,
+        0.044372248,
+        0.044372248,
+        0.044372248
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND017": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND018": {
+    "route_sha256": "5ad36e96d99e7ebe21956cc82c052d72b0d85c6fecf114aba143b313ac78efdc",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2545,
+      "legs": 84,
+      "dwell": 0,
+      "occupied_cell_hours": 13,
+      "unsupported_cell_hours": 4,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.87e-06,
+        5.87e-06,
+        5.87e-06,
+        5.87e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.001530692,
+        0.001530692,
+        0.001530692,
+        0.001530692
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND019": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T120000Z_RND020": {
+    "route_sha256": "fbbdbd7fa2fb2cab28b509039a7684fb4517d73b247e96eb9b1427d918793228",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2628,
+      "legs": 65,
+      "dwell": 120,
+      "occupied_cell_hours": 14,
+      "unsupported_cell_hours": 5,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0041e-05,
+        1.0041e-05,
+        1.0041e-05,
+        1.0041e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00480358,
+        0.00480358,
+        0.00480358,
+        0.00480358
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_RND021": {
+    "route_sha256": "039df784c14c7275840136bdc0ba29ca27dedecf53c8a7a4ca2be917961cf3e4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 518,
+      "legs": 89,
+      "dwell": 0,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 4,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0732e-05,
+        1.0732e-05,
+        1.0732e-05,
+        1.0732e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.003365028,
+        0.003365028,
+        0.003365028,
+        0.003365028
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_supported_cold_OCT09": {
+    "route_sha256": "90ea2c1c0cceae9252c8ae7298d1316738bb207b2b3c975178789d38e8dd398d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 159,
+      "legs": 20,
+      "dwell": 120,
+      "occupied_cell_hours": 4,
+      "unsupported_cell_hours": 4,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.59e-06,
+        4.59e-06,
+        4.59e-06,
+        4.59e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.00114781,
+        0.00114781,
+        0.00114781,
+        0.00114781
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_supported_near_positive_OCT09": {
+    "route_sha256": "cb21d9a9d4b7a61de39204dd1c6c97e0dc1c82ef72f612dcedb5dec8c070a1d5",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 301,
+      "legs": 35,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 3,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        9.232e-06,
+        9.232e-06,
+        9.232e-06,
+        9.232e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002710749,
+        0.002710749,
+        0.002710749,
+        0.002710749
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FD1": {
+    "route_sha256": "e9396aa074b2e745e0b8ba56607852bec13ffa865f8df51698b51acb5e6d042e",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1589,
+      "legs": 212,
+      "dwell": 120,
+      "occupied_cell_hours": 52,
+      "unsupported_cell_hours": 52,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.3841e-05,
+        1.3841e-05,
+        1.3841e-05,
+        1.3841e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.016072609,
+        0.016072609,
+        0.016072609,
+        0.016072609
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FL1": {
+    "route_sha256": "d6685aff54bfdcc57f36c0f668e7fde00b5af83dee68aecb4ad81e414196d036",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1473,
+      "legs": 382,
+      "dwell": 120,
+      "occupied_cell_hours": 46,
+      "unsupported_cell_hours": 46,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.9345e-05,
+        1.9345e-05,
+        1.9345e-05,
+        1.9345e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.018579824,
+        0.018579824,
+        0.018579824,
+        0.018579824
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FL2": {
+    "route_sha256": "bbe23084e5028e088a5abe462852d46e3eaa5bd193ff4f9758d3080aad73336f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1399,
+      "legs": 294,
+      "dwell": 120,
+      "occupied_cell_hours": 44,
+      "unsupported_cell_hours": 44,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.2779e-05,
+        1.2779e-05,
+        1.2779e-05,
+        1.2779e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.01166775,
+        0.01166775,
+        0.01166775,
+        0.01166775
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FL3": {
+    "route_sha256": "23942dc82f6dc2d4fa51e2af3508de7e22631028c476fd8c46b24e0f9f649d9d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3246,
+      "legs": 541,
+      "dwell": 120,
+      "occupied_cell_hours": 87,
+      "unsupported_cell_hours": 86,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.711240399,
+        0.711240399,
+        0.711240399,
+        0.711240399
+      ],
+      "dose_upper_kj_m2": [
+        17.440858274,
+        17.440858274,
+        17.440858274,
+        17.440858274
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3219
+      }
+    ]
+  },
+  "uljin_2022__20220304T030000Z_FN1": {
+    "route_sha256": "fe5601a1e24fd35dc03a759c3957b62f505c6de3d9b5a6a2e7f3426e5227b543",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2684,
+      "legs": 511,
+      "dwell": 120,
+      "occupied_cell_hours": 89,
+      "unsupported_cell_hours": 89,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.030588788,
+        0.030588788,
+        0.030588788,
+        0.030588788
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FT1": {
+    "route_sha256": "c82a199d74ea4e8ea09ebb9a4d0869b21a3ba573b27d1360d75dde2c581fbcd9",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1857,
+      "legs": 335,
+      "dwell": 120,
+      "occupied_cell_hours": 49,
+      "unsupported_cell_hours": 49,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.4945e-05,
+        5.4945e-05,
+        5.4945e-05,
+        5.4945e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.024198199,
+        0.024198199,
+        0.024198199,
+        0.024198199
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FW1": {
+    "route_sha256": "bdf01882559e0242e64cdc4ed5d985602de13e9245f78a2230fd0d48969b9804",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1426,
+      "legs": 145,
+      "dwell": 120,
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 26,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.048e-06,
+        4.048e-06,
+        4.048e-06,
+        4.048e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004139477,
+        0.004139477,
+        0.004139477,
+        0.004139477
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FW2": {
+    "route_sha256": "278ad12f6c829a6b0efe36daa5eaa4816f4f189bb6a7f0270968db5f51845359",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2256,
+      "legs": 289,
+      "dwell": 120,
+      "occupied_cell_hours": 33,
+      "unsupported_cell_hours": 33,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000144423,
+        0.000144423,
+        0.000144423,
+        0.000144423
+      ],
+      "dose_upper_kj_m2": [
+        0.102435816,
+        0.102435816,
+        0.102435816,
+        0.102435816
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 330
+    }
+  },
+  "uljin_2022__20220304T030000Z_FX1": {
+    "route_sha256": "3a43cdeee45170dacb748fada3701fc4069c86bf69251a5303f5c475c67d09af",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3119,
+      "legs": 512,
+      "dwell": 120,
+      "occupied_cell_hours": 107,
+      "unsupported_cell_hours": 107,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.032883648,
+        0.032883648,
+        0.032883648,
+        0.032883648
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_FX2": {
+    "route_sha256": "e4e9484a5e9d18f2639c6f53451aba6006539f920aa2064e5fd37fb5fc4e94db",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3229,
+      "legs": 486,
+      "dwell": 120,
+      "occupied_cell_hours": 101,
+      "unsupported_cell_hours": 101,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05,
+        3.7353e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.029834945,
+        0.029834945,
+        0.029834945,
+        0.029834945
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_FD1": {
+    "route_sha256": "2b57def9e9784e200623359c13c91fd009ceeccafedc94746e23f330197d53a5",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2262,
+      "legs": 352,
+      "dwell": 120,
+      "occupied_cell_hours": 79,
+      "unsupported_cell_hours": 79,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004115223,
+        0.004115223,
+        0.004115223,
+        0.004115223
+      ],
+      "dose_upper_kj_m2": [
+        0.802988376,
+        0.802988376,
+        0.802988376,
+        0.802988376
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 48
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_FL2": {
+    "route_sha256": "9bcaf4d4c6190ccfab000d27719cdb571963bb185092f109644ecba336fe03ba",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3263,
+      "legs": 596,
+      "dwell": 120,
+      "occupied_cell_hours": 80,
+      "unsupported_cell_hours": 69,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.7287615,
+        0.7287615,
+        0.7287615,
+        0.7287615
+      ],
+      "dose_upper_kj_m2": [
+        13.415972024,
+        13.415972024,
+        13.415972024,
+        13.415972024
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1328
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_FL3": {
+    "route_sha256": "c1ef978411f966a57f0b34bd95f7ebd35e743ffe5cd743eabf175793e218b384",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2827,
+      "legs": 422,
+      "dwell": 120,
+      "occupied_cell_hours": 100,
+      "unsupported_cell_hours": 100,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000465996,
+        0.000465996,
+        0.000465996,
+        0.000465996
+      ],
+      "dose_upper_kj_m2": [
+        0.241666367,
+        0.241666367,
+        0.241666367,
+        0.241666367
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20220304T060000Z:75ebc90f278df40c:0",
+        "raw_lower_nano": 345286239,
+        "remaining_budget_nano": 328620239,
+        "arrival_limit": 3480,
+        "edge_count": 8269,
+        "reachable_edge_times": 1919577,
+        "sections": 8,
+        "snap_m": 4
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_FT1": {
+    "route_sha256": "60c551fe0ccda0266248988dfcce3261df0f9f317c422bf5167c581bc740a46d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2662,
+      "legs": 380,
+      "dwell": 120,
+      "occupied_cell_hours": 95,
+      "unsupported_cell_hours": 95,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001180966,
+        0.001180966,
+        0.001180966,
+        0.001180966
+      ],
+      "dose_upper_kj_m2": [
+        0.54202324,
+        0.54202324,
+        0.54202324,
+        0.54202324
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_FW1": {
+    "route_sha256": "452774e9c0c9d3f5f26acfbb57b66104135c612ef9993d6b625f35ceece76f90",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1548,
+      "legs": 150,
+      "dwell": 120,
+      "occupied_cell_hours": 29,
+      "unsupported_cell_hours": 29,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000246437,
+        0.000246437,
+        0.000246437,
+        0.000246437
+      ],
+      "dose_upper_kj_m2": [
+        0.094890492,
+        0.094890492,
+        0.094890492,
+        0.094890492
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_FW2": {
+    "route_sha256": "d2bb829a9632ef20d25a630520b071253c0f5a15d390847120a5616ed3ed79f7",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1935,
+      "legs": 169,
+      "dwell": 120,
+      "occupied_cell_hours": 30,
+      "unsupported_cell_hours": 30,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.044727187,
+        0.044727187,
+        0.044727187,
+        0.044727187
+      ],
+      "dose_upper_kj_m2": [
+        8.332903836,
+        8.332903836,
+        8.332903836,
+        8.332903836
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1042
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_FX2": {
+    "route_sha256": "5931fb14125dbd2d11926fb00b5bbbeef6b2c0f7a4cf1b201f648326d04fcac6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3063,
+      "legs": 476,
+      "dwell": 120,
+      "occupied_cell_hours": 107,
+      "unsupported_cell_hours": 100,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004115223,
+        0.004115223,
+        0.004115223,
+        0.004115223
+      ],
+      "dose_upper_kj_m2": [
+        1.216647501,
+        1.216647501,
+        1.216647501,
+        1.216647501
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FD1": {
+    "route_sha256": "8687e6bf72c923ba41aa78b32817f801b7f2abd077e7aabb1c7d06d696abed1e",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1921,
+      "legs": 379,
+      "dwell": 120,
+      "occupied_cell_hours": 50,
+      "unsupported_cell_hours": 50,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.64e-06,
+        2.64e-06,
+        2.64e-06,
+        2.64e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002546271,
+        0.002546271,
+        0.002546271,
+        0.002546271
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FL1": {
+    "route_sha256": "1592a83cc6796f807a4be07a0149c8ad81ea2f0f0410075d91d7d484f404c1d4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1500,
+      "legs": 304,
+      "dwell": 120,
+      "occupied_cell_hours": 49,
+      "unsupported_cell_hours": 22,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.008038616,
+        0.008038616,
+        0.008038616,
+        0.008038616
+      ],
+      "dose_upper_kj_m2": [
+        1.630147894,
+        1.630147894,
+        1.630147894,
+        1.630147894
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 500
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 2458
+    }
+  },
+  "uljin_2022__20220304T120000Z_FL2": {
+    "route_sha256": "bc0dd06b06c275c92b057057baa5e3f6bdb1592f30e2442f390f6d769584af37",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1620,
+      "legs": 297,
+      "dwell": 120,
+      "occupied_cell_hours": 54,
+      "unsupported_cell_hours": 27,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001552431,
+        0.001552431,
+        0.001552431,
+        0.001552431
+      ],
+      "dose_upper_kj_m2": [
+        0.305154304,
+        0.305154304,
+        0.305154304,
+        0.305154304
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FL3": {
+    "route_sha256": "9b164c1676934e091a21bf426dcb4c1ccd3e2ea2d5094dba43bf8e0e25c8fe71",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2633,
+      "legs": 345,
+      "dwell": 120,
+      "occupied_cell_hours": 95,
+      "unsupported_cell_hours": 82,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0041e-05,
+        1.0041e-05,
+        1.0041e-05,
+        1.0041e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.007322302,
+        0.007322302,
+        0.007322302,
+        0.007322302
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FN1": {
+    "route_sha256": "d9379ef47c52d908d41d8969cb9656d286dfcd7fafa5d494aaa9fb2d8fd48f7c",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2558,
+      "legs": 447,
+      "dwell": 120,
+      "occupied_cell_hours": 86,
+      "unsupported_cell_hours": 81,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.655e-06,
+        3.655e-06,
+        3.655e-06,
+        3.655e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.003545767,
+        0.003545767,
+        0.003545767,
+        0.003545767
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FT1": {
+    "route_sha256": "6ee83f0bcc439a4f4e1b816f718aa8954d225a0d13dac1f8d9489f8eca4572fa",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1267,
+      "legs": 288,
+      "dwell": 120,
+      "occupied_cell_hours": 43,
+      "unsupported_cell_hours": 19,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.027207634,
+        0.027207634,
+        0.027207634,
+        0.027207634
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FW1": {
+    "route_sha256": "e90782f6712c80051dba2076d5f50adb3ce854aff12c3375dc098c5960e8b300",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1601,
+      "legs": 212,
+      "dwell": 120,
+      "occupied_cell_hours": 44,
+      "unsupported_cell_hours": 44,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.421e-06,
+        1.421e-06,
+        1.421e-06,
+        1.421e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.001445687,
+        0.001445687,
+        0.001445687,
+        0.001445687
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FW2": {
+    "route_sha256": "15b7397bd8d0a7f2e970aaf029d6429fc683e93919fb365c08ec31a8c40232b4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1674,
+      "legs": 184,
+      "dwell": 120,
+      "occupied_cell_hours": 32,
+      "unsupported_cell_hours": 32,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.017052971,
+        0.017052971,
+        0.017052971,
+        0.017052971
+      ],
+      "dose_upper_kj_m2": [
+        2.641496794,
+        2.641496794,
+        2.641496794,
+        2.641496794
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1655,
+        "processed": 116
+      },
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 291
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 291
+    }
+  },
+  "uljin_2022__20220304T120000Z_FX1": {
+    "route_sha256": "5e5226d822e9e69e575e40aa1a8b050a33b9255945ead5fc282082b5b2df815a",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3118,
+      "legs": 416,
+      "dwell": 120,
+      "occupied_cell_hours": 109,
+      "unsupported_cell_hours": 96,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.008493085,
+        0.008493085,
+        0.008493085,
+        0.008493085
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_FX2": {
+    "route_sha256": "da0571231bb5b0dbe37cb63b5e36ebcdb962d5cec6e283fa2c2afaf79c8c6409",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2967,
+      "legs": 417,
+      "dwell": 120,
+      "occupied_cell_hours": 107,
+      "unsupported_cell_hours": 94,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.007747498,
+        0.007747498,
+        0.007747498,
+        0.007747498
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "hongseong_2023__20230402T070000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T070000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T070000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T070000Z_FW1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T070000Z_FW2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T070000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T070000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "hongseong_2023__20230402T140000Z_FD1": {
+    "route_sha256": "45b04eb3b2d4c2eda5851e787d9dbe7fd217c3f31a3ae695bc08afafb17355e4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1408,
+      "legs": 154,
+      "dwell": 120,
+      "occupied_cell_hours": 25,
+      "unsupported_cell_hours": 25,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00258688,
+        0.002585479,
+        0.002585479,
+        0.002585479
+      ],
+      "dose_upper_kj_m2": [
+        0.198072931,
+        0.19706809,
+        0.19706809,
+        0.198186947
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20230402T140000Z:c039b5e7d013322e:3",
+        "raw_lower_nano": 181039617,
+        "remaining_budget_nano": 120018692,
+        "arrival_limit": 3480,
+        "edge_count": 1676,
+        "reachable_edge_times": 3900554,
+        "sections": 8,
+        "snap_m": 4
+      }
+    ]
+  },
+  "hongseong_2023__20230402T140000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 2389,
+        "processed": 797
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 7341
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 7341,
+        "contact_model": "closed geometry and exact source-law phases"
+      },
+      {
+        "certified": true,
+        "method": "integer time-expanded conservative lower-dose exhaustion",
+        "legal_turns_relaxed": true,
+        "finite_budget_pruning": true,
+        "edge_count": 1675,
+        "node_count": 824,
+        "bin_seconds": 60,
+        "tiles_per_cell": 25,
+        "outcomes": [
+          {
+            "member": "ffb1:20230402T140000Z:c039b5e7d013322e:0",
+            "lower_dose_nano": null,
+            "available_budget_nano": 59380492,
+            "over_budget_by_lower_bound": true
+          }
+        ]
+      }
+    ]
+  },
+  "hongseong_2023__20230402T140000Z_FW1": {
+    "route_sha256": "227835ae153590e9c2f17c27cc1726be9beb1baf911e466483a75ce5d9e25a0f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1600,
+      "legs": 121,
+      "dwell": 120,
+      "occupied_cell_hours": 21,
+      "unsupported_cell_hours": 19,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000187321,
+        0.000106611,
+        0.000106611,
+        0.000141471
+      ],
+      "dose_upper_kj_m2": [
+        0.061420583,
+        0.033396208,
+        0.033396208,
+        0.041014174
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FW2": {
+    "route_sha256": "4c4c408d6da3df4f12563653b5c7dafd2d6b15aea3523b44994472a962c713a2",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1459,
+      "legs": 201,
+      "dwell": 120,
+      "occupied_cell_hours": 21,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.020505029,
+        0.020487654,
+        0.020487654,
+        0.020487654
+      ],
+      "dose_upper_kj_m2": [
+        1.528062047,
+        1.521136493,
+        1.521136493,
+        1.576765046
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 1969
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FX1": {
+    "route_sha256": "8f798798ac7f2db21466930399ee8a092a69be603042a25015b88197d088999b",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1152,
+      "legs": 174,
+      "dwell": 120,
+      "occupied_cell_hours": 29,
+      "unsupported_cell_hours": 21,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.002585479,
+        0.002585479,
+        0.002585479,
+        0.002585479
+      ],
+      "dose_upper_kj_m2": [
+        0.239073237,
+        0.217891556,
+        0.217891556,
+        0.2193559
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "hongseong_2023__20230402T140000Z_FX2": {
+    "route_sha256": "f00f33540b0d0afade993d016506a5e02d733d27a3b2ab31f0009b5d782f1019",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 859,
+      "legs": 176,
+      "dwell": 120,
+      "occupied_cell_hours": 29,
+      "unsupported_cell_hours": 21,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.002585479,
+        0.002585479,
+        0.002585479,
+        0.002585479
+      ],
+      "dose_upper_kj_m2": [
+        0.241662631,
+        0.218861911,
+        0.218861911,
+        0.219261511
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic time-dependent graph plus destination",
+        "processed": 428
+      }
+    ]
+  },
+  "hongseong_2023__20230402T230000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1304,
+        "processed": 393
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 9088
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 9088,
+        "contact_model": "closed geometry and exact source-law phases"
+      },
+      {
+        "certified": true,
+        "method": "integer time-expanded conservative lower-dose exhaustion",
+        "legal_turns_relaxed": true,
+        "finite_budget_pruning": true,
+        "edge_count": 1675,
+        "node_count": 824,
+        "bin_seconds": 60,
+        "tiles_per_cell": 25,
+        "outcomes": [
+          {
+            "member": "ffb1:20230402T230000Z:247138a35dcddc50:0",
+            "lower_dose_nano": null,
+            "available_budget_nano": 81179607,
+            "over_budget_by_lower_bound": true
+          }
+        ]
+      }
+    ]
+  },
+  "hongseong_2023__20230402T230000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 260,
+        "processed": 58
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 168
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 168,
+        "contact_model": "closed geometry and exact source-law phases"
+      },
+      {
+        "certified": true,
+        "method": "integer time-expanded conservative lower-dose exhaustion",
+        "legal_turns_relaxed": true,
+        "finite_budget_pruning": true,
+        "edge_count": 1675,
+        "node_count": 824,
+        "bin_seconds": 60,
+        "tiles_per_cell": 25,
+        "outcomes": [
+          {
+            "member": "ffb1:20230402T230000Z:247138a35dcddc50:0",
+            "lower_dose_nano": null,
+            "available_budget_nano": 123371664,
+            "over_budget_by_lower_bound": true
+          }
+        ]
+      }
+    ]
+  },
+  "hongseong_2023__20230402T230000Z_FW1": {
+    "route_sha256": "917571dded3d14f3898c24c59a0f744210f666cdacb9fb748c1c53bc13e48937",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1447,
+      "legs": 98,
+      "dwell": 120,
+      "occupied_cell_hours": 18,
+      "unsupported_cell_hours": 16,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004640588,
+        0.004640588,
+        0.004647362,
+        0.004640588
+      ],
+      "dose_upper_kj_m2": [
+        0.339072573,
+        0.339072573,
+        0.344480899,
+        0.339072573
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FW2": {
+    "route_sha256": "802900ed8d795381ac7a60a8000711b09d840c33e7249142f277edee7e82627a",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1573,
+      "legs": 227,
+      "dwell": 120,
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.009951894,
+        0.009951894,
+        0.708153059,
+        0.009951894
+      ],
+      "dose_upper_kj_m2": [
+        0.606977992,
+        0.606977992,
+        11.856945004,
+        0.606977992
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1515,
+        "processed": 254
+      },
+      {
+        "certified": true,
+        "method": "time-expanded permitted-turn/hold contact relaxation exhausted",
+        "processed": 379
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 625
+    }
+  },
+  "hongseong_2023__20230402T230000Z_FX1": {
+    "route_sha256": "e91007866649d77e9d66d576924e6ee6e691abeaecead87c152fc35cf22617a0",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1736,
+      "legs": 347,
+      "dwell": 120,
+      "occupied_cell_hours": 39,
+      "unsupported_cell_hours": 27,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.900897844,
+        0.900897844,
+        0.900905644,
+        0.900897844
+      ],
+      "dose_upper_kj_m2": [
+        16.679790701,
+        16.679790701,
+        17.282657061,
+        16.679790701
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 256
+      }
+    ]
+  },
+  "hongseong_2023__20230402T230000Z_FX2": {
+    "route_sha256": "02647a52d238747c6d85f86aa384b71ae9cb82f00b54e86346c887b0cdefc95f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1441,
+      "legs": 304,
+      "dwell": 120,
+      "occupied_cell_hours": 28,
+      "unsupported_cell_hours": 16,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.900897844,
+        0.900897844,
+        0.900905644,
+        0.900897844
+      ],
+      "dose_upper_kj_m2": [
+        16.893251178,
+        16.893251178,
+        17.628958674,
+        16.893251178
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 260
+      }
+    ]
+  },
+  "miryang_2022__20220531T100000Z_FD1": {
+    "route_sha256": "70be854c22c286cb008808eee0c8b7c21be8433e3054f414888b5f7c20822f08",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 544,
+      "legs": 117,
+      "dwell": 120,
+      "occupied_cell_hours": 19,
+      "unsupported_cell_hours": 18,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220531T100000Z_FN1": {
+    "route_sha256": "a3141690a2ad09077164608fd0b2c026dd99e8165d2c7548d8f5a7ea791b106f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1142,
+      "legs": 195,
+      "dwell": 120,
+      "occupied_cell_hours": 40,
+      "unsupported_cell_hours": 27,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220531T100000Z_FT1": {
+    "route_sha256": "11b273227d0d90b1a1f2d67ca0deecd3c89655bbd94cf1c20dd0f4dad8faa889",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 334,
+      "legs": 58,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 1,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220531T100000Z_FW1": {
+    "route_sha256": "f86e0e1425b110f8c4a0332aa76133908a315ae2cd30048fc886839d92efecfb",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 752,
+      "legs": 61,
+      "dwell": 120,
+      "occupied_cell_hours": 9,
+      "unsupported_cell_hours": 6,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220531T100000Z_FW2": {
+    "route_sha256": "6a49ad49241fae4b81a373e969d008a58104205173bcc3337decb9c67aecf8de",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1132,
+      "legs": 77,
+      "dwell": 120,
+      "occupied_cell_hours": 12,
+      "unsupported_cell_hours": 2,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 259
+    }
+  },
+  "miryang_2022__20220601T020000Z_FD1": {
+    "route_sha256": "4f41873d3efd715c766b09fecfce7912f93b9b420fb1584e39e6104b3fba3d08",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 710,
+      "legs": 121,
+      "dwell": 120,
+      "occupied_cell_hours": 24,
+      "unsupported_cell_hours": 24,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T020000Z_FN1": {
+    "route_sha256": "9a3c7afc55bf43d7a51d34acd16e95bec6914ff320f511d101f57481210477db",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 74,
+      "legs": 52,
+      "dwell": 120,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 3,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T020000Z_FT1": {
+    "route_sha256": "0b315a3f2ae42bf53721df0484d2eb4fee6c7f2612292117b8b47d13231d31f7",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 39,
+      "legs": 31,
+      "dwell": 120,
+      "occupied_cell_hours": 2,
+      "unsupported_cell_hours": 2,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T020000Z_FW1": {
+    "route_sha256": "9bb7e9d037fc270487b6077440afb0480ad0f807b7c4c515a2e3e0d763773b1f",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1270,
+      "legs": 138,
+      "dwell": 120,
+      "occupied_cell_hours": 25,
+      "unsupported_cell_hours": 25,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T020000Z_FW2": {
+    "route_sha256": "2a10608f47545cdf3cb2c15c861593b922dee1957bd04702b1b38443d2ed1d58",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1806,
+      "legs": 109,
+      "dwell": 120,
+      "occupied_cell_hours": 24,
+      "unsupported_cell_hours": 24,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dose_upper_kj_m2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 279
+    }
+  },
+  "miryang_2022__20220601T080000Z_FD1": {
+    "route_sha256": "393b42a408dfb782bff87a9cfaa853bffac1b04b318e50317f23d9327c3dce35",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1465,
+      "legs": 156,
+      "dwell": 120,
+      "occupied_cell_hours": 30,
+      "unsupported_cell_hours": 30,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001504501,
+        0.001504501,
+        0.001504501,
+        0.001504501
+      ],
+      "dose_upper_kj_m2": [
+        0.422757991,
+        0.422757991,
+        0.422757991,
+        0.422757991
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T080000Z_FN1": {
+    "route_sha256": "829e2c016acf4c32be472d193d9b7817f724bddd8da422e2960da983a4276cf9",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 455,
+      "legs": 90,
+      "dwell": 120,
+      "occupied_cell_hours": 14,
+      "unsupported_cell_hours": 14,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000198605,
+        0.000198605,
+        0.000198605,
+        0.000198605
+      ],
+      "dose_upper_kj_m2": [
+        0.087092099,
+        0.087092099,
+        0.087092099,
+        0.087092099
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T080000Z_FT1": {
+    "route_sha256": "02f977c06a0a1c521777ca9f8c2fabc90d7921fb6674b3d6cb4899101c523aeb",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 256,
+      "legs": 48,
+      "dwell": 120,
+      "occupied_cell_hours": 9,
+      "unsupported_cell_hours": 9,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000182972,
+        0.000182972,
+        0.000182972,
+        0.000182972
+      ],
+      "dose_upper_kj_m2": [
+        0.050058075,
+        0.050058075,
+        0.050058075,
+        0.050058075
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T080000Z_FW1": {
+    "route_sha256": "261a9e009f03d1850efc32845f5054d2e97530ebb623dd51c923b1be9bbd7c70",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1701,
+      "legs": 131,
+      "dwell": 120,
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 27,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000868255,
+        0.000868255,
+        0.000868255,
+        0.000868255
+      ],
+      "dose_upper_kj_m2": [
+        0.354751399,
+        0.354751399,
+        0.354751399,
+        0.354751399
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T080000Z_FW2": {
+    "route_sha256": "f764e63ae75949efa5ee6bcbf0bee126b891d3f32f402e880322a95d9ed2d103",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1699,
+      "legs": 123,
+      "dwell": 120,
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 26,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001842596,
+        0.001842596,
+        0.001842596,
+        0.001842596
+      ],
+      "dose_upper_kj_m2": [
+        0.305130616,
+        0.305130616,
+        0.305130616,
+        0.305130616
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 201
+    }
+  },
+  "miryang_2022__20220601T080000Z_FX1": {
+    "route_sha256": "e625daae7d9665523034c34ab3bfc0ef1146827bb75de176fd3ed233f88730f3",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 869,
+      "legs": 149,
+      "dwell": 120,
+      "occupied_cell_hours": 31,
+      "unsupported_cell_hours": 31,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.001504501,
+        0.001504501,
+        0.001504501,
+        0.001504501
+      ],
+      "dose_upper_kj_m2": [
+        0.53308994,
+        0.53308994,
+        0.53308994,
+        0.53308994
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "miryang_2022__20220601T080000Z_FX2": {
+    "route_sha256": "6610b5b59a7410126214355c838c9bc8addf5864d5dc798f1a603ee54d8a10ed",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 749,
+      "legs": 145,
+      "dwell": 120,
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 26,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.005434954,
+        0.005434954,
+        0.005434954,
+        0.005434954
+      ],
+      "dose_upper_kj_m2": [
+        1.032975001,
+        1.032975001,
+        1.032975001,
+        1.032975001
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FD1": {
+    "route_sha256": "1bc73670aea36abbc68267028215b7ed77d3d2b69caf426975e5a2f5249e104d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 763,
+      "legs": 135,
+      "dwell": 120,
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        8.3248e-05,
+        8.3248e-05,
+        8.3248e-05,
+        8.3248e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.057315376,
+        0.057110547,
+        0.057301822,
+        0.057203824
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250324T090000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FL3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2216
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FW1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FW2": {
+    "route_sha256": "8931b83ce8bdb95f751df124f6092e2eb174e8d506a05a51fa488765cf005776",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2094,
+      "legs": 448,
+      "dwell": 120,
+      "occupied_cell_hours": 42,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000324528,
+        0.000324473,
+        0.000324533,
+        0.000324514
+      ],
+      "dose_upper_kj_m2": [
+        0.248174351,
+        0.248233369,
+        0.247983941,
+        0.247918648
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2136
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250323T010000Z_FD1": {
+    "route_sha256": "28a42b62de8f1400cf2858d9d72ec61158940adc982459e56f1e8d6360a49691",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2460,
+      "legs": 410,
+      "dwell": 120,
+      "occupied_cell_hours": 61,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000949959,
+        0.000273585,
+        0.000274968,
+        0.000274681
+      ],
+      "dose_upper_kj_m2": [
+        0.234384434,
+        0.098951145,
+        0.099803987,
+        0.099454708
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FL1": {
+    "route_sha256": "e149015929506fa1edf7ab31a2a837ff60f91a5e47990f6fe70c27d25c57a48d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3003,
+      "legs": 561,
+      "dwell": 120,
+      "occupied_cell_hours": 104,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.016988937,
+        0.002147043,
+        0.012685817,
+        0.005141344
+      ],
+      "dose_upper_kj_m2": [
+        1.467306571,
+        0.897469116,
+        1.486106348,
+        1.166727276
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 10397
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250323T010000Z_FL3": {
+    "route_sha256": "2f7cc4e0581a637a5d3699a9fbc670dd114e7454bc5fc9272c301b7582534fdb",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3207,
+      "legs": 656,
+      "dwell": 120,
+      "occupied_cell_hours": 107,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.7003e-05,
+        2.4943e-05,
+        2.5233e-05,
+        2.5219e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.024021016,
+        0.022209483,
+        0.022833954,
+        0.022595924
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FN1": {
+    "route_sha256": "8296c8a2e5a4a6b98bdb4297c33ca5827002b071d78f3c903c998581dcc42429",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3187,
+      "legs": 678,
+      "dwell": 120,
+      "occupied_cell_hours": 77,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000429178,
+        0.000181011,
+        0.000183754,
+        0.000181591
+      ],
+      "dose_upper_kj_m2": [
+        0.103639935,
+        0.065681295,
+        0.067859807,
+        0.06614957
+      ],
+      "dose_upper_nano": [
+        103639935,
+        65681295,
+        67859807,
+        66149570
+      ],
+      "span_m": 2,
+      "snap_m": 0.05,
+      "method": "directed solid-angle radial maxima"
+    },
+    "travel_only_arrival_floor": 2972,
+    "reported_arrival_floor": 3175,
+    "reported_floor_check": {
+      "certified": false,
+      "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+      "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+      "raw_lower_nano": 103534813,
+      "remaining_budget_nano": 103654980,
+      "arrival_limit": 3174,
+      "edge_count": 5019,
+      "reachable_edge_times": 647782,
+      "sections": 12,
+      "snap_m": 1
+    },
+    "refined_reported_floor_check": {
+      "certified": false,
+      "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+      "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+      "raw_lower_nano": 103620457,
+      "remaining_budget_nano": 103654980,
+      "arrival_limit": 3174,
+      "edge_count": 5019,
+      "reachable_edge_times": 647782,
+      "sections": 24,
+      "snap_m": 1
+    },
+    "fine_reported_floor_check": {
+      "certified": true,
+      "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+      "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+      "raw_lower_nano": 103925964,
+      "remaining_budget_nano": 103654980,
+      "arrival_limit": 3174,
+      "edge_count": 5019,
+      "reachable_edge_times": 647782,
+      "sections": 32,
+      "snap_m": 0.5,
+      "spatial_scale": 2,
+      "time_scale": 8
+    },
+    "independently_certified_floor": 3175
+  },
+  "uiseong_andong_2025__20250323T010000Z_FT1": {
+    "route_sha256": "37b592e6edf700cd5f3d402c11412e45786fb5417d5146c5412f164d934a04a8",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3074,
+      "legs": 712,
+      "dwell": 120,
+      "occupied_cell_hours": 66,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.8919e-05,
+        5.2845e-05,
+        5.3567e-05,
+        5.3255e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.027109075,
+        0.020470429,
+        0.020959141,
+        0.020732882
+      ],
+      "dose_upper_nano": [
+        27109075,
+        20470429,
+        20959141,
+        20732882
+      ],
+      "span_m": 2,
+      "snap_m": 0.05,
+      "method": "directed solid-angle radial maxima"
+    },
+    "travel_only_arrival_floor": 2568,
+    "reported_arrival_floor": 3066,
+    "reported_floor_check": {
+      "certified": true,
+      "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+      "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+      "raw_lower_nano": 27297935,
+      "remaining_budget_nano": 27135751,
+      "arrival_limit": 3065,
+      "edge_count": 3820,
+      "reachable_edge_times": 1093677,
+      "sections": 12,
+      "snap_m": 1
+    },
+    "independently_certified_floor": 3066
+  },
+  "uiseong_andong_2025__20250323T010000Z_FW1": {
+    "route_sha256": "be5fcded1eab7cad15edd6d7b2343a46d2f9b08a8dd2d70a1c0ff5927b7d5cce",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1940,
+      "legs": 147,
+      "dwell": 120,
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.016e-06,
+        3.898e-06,
+        3.926e-06,
+        4.026e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004650354,
+        0.004516918,
+        0.004559419,
+        0.00463419
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FW2": {
+    "route_sha256": "f68e785f9e1cdec764ca7a690cf0fd7b65f608ccec5a8d0516b7f3576c4005c6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1212,
+      "legs": 171,
+      "dwell": 120,
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 1,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000171522,
+        0.000171522,
+        0.000188019,
+        0.000171934
+      ],
+      "dose_upper_kj_m2": [
+        0.141787549,
+        0.140935952,
+        0.150947055,
+        0.141287161
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 1227
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FX1": {
+    "route_sha256": "f47af9c13527b1993ed39074ab00a69fb074652a1702cbd52a1adaddc7da06e9",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3107,
+      "legs": 551,
+      "dwell": 120,
+      "occupied_cell_hours": 95,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.016988937,
+        0.000885553,
+        0.00110778,
+        0.000899096
+      ],
+      "dose_upper_kj_m2": [
+        0.941749533,
+        0.377644704,
+        0.432952855,
+        0.385984387
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250323T010000Z_FX2": {
+    "route_sha256": "5ec965c6d9627d4ee34cbffe73cbef2be58967b50496f6cd9a150785c1c72c41",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2540,
+      "legs": 322,
+      "dwell": 120,
+      "occupied_cell_hours": 67,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.016988937,
+        0.002147043,
+        0.012685817,
+        0.005141344
+      ],
+      "dose_upper_kj_m2": [
+        1.470684742,
+        0.885723926,
+        1.467935361,
+        1.170620746
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FD1": {
+    "route_sha256": "fa8a1d151899ee81fe33c26e5e79797b5db625c8311b382f806c328d3483619e",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 950,
+      "legs": 263,
+      "dwell": 120,
+      "occupied_cell_hours": 27,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000182948,
+        0.000182948,
+        0.00018682,
+        0.000183013
+      ],
+      "dose_upper_kj_m2": [
+        0.104477389,
+        0.104520815,
+        0.105878821,
+        0.108469244
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250325T170000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 4128
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250325T170000Z_FL3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 543
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250325T170000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 481
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250325T170000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 291
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250325T170000Z_FW1": {
+    "route_sha256": "76248ee3d382a5a2bd138f959958378c489a152e457d23720265bfc71f09d1d6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1064,
+      "legs": 163,
+      "dwell": 120,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000235236,
+        0.000223628,
+        0.000225766,
+        0.000224587
+      ],
+      "dose_upper_kj_m2": [
+        0.19672097,
+        0.191668266,
+        0.192966768,
+        0.192573142
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FW2": {
+    "route_sha256": "fb41f8fe1c8ecefc4028d18315f72087d08acbb7474204ba110ebcb1314facf6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1721,
+      "legs": 192,
+      "dwell": 120,
+      "occupied_cell_hours": 32,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00011517,
+        0.000116737,
+        0.004555012,
+        0.000118968
+      ],
+      "dose_upper_kj_m2": [
+        0.063754293,
+        0.064225534,
+        0.271241792,
+        0.069610718
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 190
+    }
+  },
+  "uiseong_andong_2025__20250325T170000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2826
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250325T170000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1276
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FL2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FL3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 1996
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FW1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FW2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 10736
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic time-dependent graph plus destination",
+        "processed": 3769
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FL1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 25647
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FL2": {
+    "route_sha256": "3fe6360663eb5ef574af03bca6f051c58d6255b33dde4de7d48fe9431168c816",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1922,
+      "legs": 657,
+      "dwell": 120,
+      "occupied_cell_hours": 64,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.165358061,
+        0.165351477,
+        0.165559159,
+        0.165354285
+      ],
+      "dose_upper_kj_m2": [
+        4.728804488,
+        4.714630528,
+        4.894508945,
+        4.73114758
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FL3": {
+    "route_sha256": "0ae34825492046fb3a2f4fb118c4b7963d3019d097e44b023dc7dc41d54b41a5",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1787,
+      "legs": 827,
+      "dwell": 120,
+      "occupied_cell_hours": 52,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        9.545e-06,
+        9.545e-06,
+        9.545e-06,
+        9.545e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.010423957,
+        0.010474383,
+        0.010615483,
+        0.010492983
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 4553
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 4744
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FW1": {
+    "route_sha256": "2f121965169456bc44e6dcfdfbef5e47fb142c4fc2923c8f45e024b0971afae7",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 765,
+      "legs": 216,
+      "dwell": 120,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000396473,
+        0.000394433,
+        0.000399482,
+        0.000463932
+      ],
+      "dose_upper_kj_m2": [
+        0.150579184,
+        0.149226171,
+        0.152772942,
+        0.163682709
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250325T230000Z_FW2": {
+    "route_sha256": "dca3a41dd5310ff0b12822f39eeb717c3d91097af55b8e31f19e06b4ae781cf1",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1249,
+      "legs": 877,
+      "dwell": 120,
+      "occupied_cell_hours": 26,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.7278e-05,
+        1.7291e-05,
+        1.7429e-05,
+        1.7344e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.020214973,
+        0.020563009,
+        0.020390118,
+        0.020203413
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FX1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 3895
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T230000Z_FX2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 7864
+      }
+    ]
+  },
+  "yeongdeok_2025__20250326T080000Z_FD1": {
+    "route_sha256": "835d3ac90fcbf4f0d31cbd380b145aece98c719686602a12d2647db7e291a8c2",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2446,
+      "legs": 1195,
+      "dwell": 120,
+      "occupied_cell_hours": 60,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000569693,
+        4.1398e-05,
+        4.623e-05,
+        0.001943298
+      ],
+      "dose_upper_kj_m2": [
+        0.102087483,
+        0.026786413,
+        0.030632309,
+        0.289222205
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FL1": {
+    "route_sha256": "e4b5e129d2a890eac7488bbaf458530f782547174cc085d31d0c844ab231d464",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1738,
+      "legs": 980,
+      "dwell": 120,
+      "occupied_cell_hours": 46,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.004207528,
+        0.004205547,
+        0.005044484,
+        0.004208232
+      ],
+      "dose_upper_kj_m2": [
+        0.935816759,
+        0.934277009,
+        1.106687104,
+        0.959545762
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FL2": {
+    "route_sha256": "cbae4435c8d49c80647136a416f3b09b2894249d9340c473e76982b24843dd86",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3121,
+      "legs": 1452,
+      "dwell": 120,
+      "occupied_cell_hours": 89,
+      "unsupported_cell_hours": 11,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.010805585,
+        4.651e-05,
+        0.039314622,
+        0.012818308
+      ],
+      "dose_upper_kj_m2": [
+        0.403579714,
+        0.041065364,
+        1.710065719,
+        0.686094166
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 17136
+      }
+    ]
+  },
+  "yeongdeok_2025__20250326T080000Z_FL3": {
+    "route_sha256": "dcfa9c63c585959876998f9fd3e21ebdd57e925cba6502f5eb98870a4c74066b",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3041,
+      "legs": 1660,
+      "dwell": 120,
+      "occupied_cell_hours": 79,
+      "unsupported_cell_hours": 4,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000165668,
+        0.000138845,
+        0.000136908,
+        0.000927578
+      ],
+      "dose_upper_kj_m2": [
+        0.109536733,
+        0.100715982,
+        0.103413154,
+        0.185240673
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250326T080000Z_FN1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "least static dose in earliest/latest edge occupancy cone",
+        "value_nano": 315779033,
+        "budget_nano": 229291638,
+        "nodes": 22367,
+        "edges": 44812,
+        "member": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0",
+        "tiles": 5,
+        "bin_s": 15
+      }
+    ]
+  },
+  "yeongdeok_2025__20250326T080000Z_FT1": {
+    "absence_bound": [
+      {
+        "certified": false,
+        "method": "optimistic feasible path; lower bound only",
+        "absolute_lower_bound": 1778,
+        "processed": 1047
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 100476
+      },
+      {
+        "certified": false,
+        "method": "relaxed target reachable; no independent optimum/no-route certificate",
+        "processed": 100476,
+        "contact_model": "closed geometry and exact source-law phases"
+      },
+      {
+        "nodes": 9709,
+        "edges": 19849,
+        "certified": true,
+        "method": "sparse conservative single-member dose frontier exhausted",
+        "member": "ffb1:20250326T080000Z:d8d21b8e3ced8a48:0",
+        "states": 146,
+        "visited_edge_times": 298,
+        "tiles": 25,
+        "remaining_dose_nano": 114416985
+      }
+    ]
+  },
+  "yeongdeok_2025__20250326T080000Z_FW1": {
+    "route_sha256": "ba3e4b5b5448c6af869a3542fa3c9c790476b03a65e28314aa6a8ee35e6492c9",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 896,
+      "legs": 135,
+      "dwell": 120,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.622e-06,
+        1.442e-06,
+        1.695e-06,
+        1.748e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.000892332,
+        0.000806943,
+        0.000914092,
+        0.000959644
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "yeongdeok_2025__20250326T080000Z_FW2": {
+    "route_sha256": "117373325d07427ca7a72ca89c7bbe62f9aa9aead6b7cdacfcdb3c9674276c77",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1057,
+      "legs": 477,
+      "dwell": 120,
+      "occupied_cell_hours": 16,
+      "unsupported_cell_hours": 16,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.356e-06,
+        1.091e-06,
+        1.231e-06,
+        1.566e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.001368,
+        0.00125498,
+        0.001391429,
+        0.001529485
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_COUNTERFACTUAL_BASELINE_FIRST": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_COUNTERFACTUAL_BASELINE_SECOND": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_DESTINATION_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ALTERNATE_FACILITY_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_COUNTERFACTUAL_BASELINE_FIRST": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_COUNTERFACTUAL_BASELINE_SECOND": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_DESTINATION_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_LONG_FACILITY_HOLD": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_HOLD1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_HOLD2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_LEG1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_LEG2": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_LEG3": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "uiseong_andong_2025__20250324T090000Z_FAC_UAG_ORIGINAL_REJECTED_EDGE": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_COUNTERFACTUAL_BASELINE_FIRST": {
+    "route_sha256": "0fe77d8bfb374c79027501ce401c22e8ab444e7eef8fefce2d8917f45e3a38dd",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3323,
+      "legs": 9,
+      "dwell": 20,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.014181656,
+        0.01310102,
+        0.013259249,
+        0.013092301
+      ],
+      "dose_upper_kj_m2": [
+        0.552819167,
+        0.490256276,
+        0.498093305,
+        0.489896872
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_COUNTERFACTUAL_BASELINE_SECOND": {
+    "route_sha256": "e331b21df1fb86b326b8ffedab0eee20030b2a99ebf79615efb9de4ad360123a",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3433,
+      "legs": 9,
+      "dwell": 20,
+      "occupied_cell_hours": 3,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.717172579,
+        0.01310102,
+        0.013259249,
+        0.013092301
+      ],
+      "dose_upper_kj_m2": [
+        23.563542379,
+        0.490256276,
+        0.498093305,
+        0.489896872
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_DESTINATION_HOLD": {
+    "route_sha256": "1249d25f9c3499134214ee4e25915009517b5bc0f1ab85f5341a94dbdb6cf5fb",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3353,
+      "legs": 0,
+      "dwell": 130,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.537250626,
+        0.013036745,
+        0.01319132,
+        0.013028029
+      ],
+      "dose_upper_kj_m2": [
+        69.84258138,
+        1.69477685,
+        1.7148716,
+        1.69364377
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "yeongdeok_2025__20250325T190000Z_FAC_YDK_ALT_FACILITY_HOLD": {
+    "route_sha256": "d36cf611b8ccd602cd23922150d9430c35fcfdcab6e051b6baa8b1335a3148a8",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 0,
+      "legs": 0,
+      "dwell": 3410,
+      "occupied_cell_hours": 1,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.012800728,
+        0.006636581,
+        0.006883158,
+        0.006629367
+      ],
+      "dose_upper_kj_m2": [
+        11.162239449,
+        22.63074121,
+        23.47156878,
+        22.60614147
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "Uiseong_Andong_20250324_0900_surviving_OD": {
+    "route_sha256": "18004d27401aecaac2486515ac687058dfc0c1a5629915612db71dae576fb0e6",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 297,
+      "legs": 54,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 1,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.003474636,
+        0.003474636,
+        0.003474636,
+        0.003474636
+      ],
+      "dose_upper_kj_m2": [
+        0.836043629,
+        0.836043629,
+        0.836043629,
+        0.836043629
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "Uiseong_Andong_20250325_1700_surviving_OD": {
+    "route_sha256": "f4c7afd245b41417ed8575e3d22906b784d94ad549d3567363e2bbc517e6debd",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 155,
+      "legs": 29,
+      "dwell": 120,
+      "occupied_cell_hours": 5,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000461431,
+        0.000461431,
+        0.000461431,
+        0.000461431
+      ],
+      "dose_upper_kj_m2": [
+        0.095565735,
+        0.095413935,
+        0.095436634,
+        0.095439531
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_A01_OCT10": {
+    "route_sha256": "8e4c13102591d6d5832ee0af1f206dc6271aacce10972c450467441d129c34e7",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 300,
+      "legs": 40,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 11,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.1974e-05,
+        1.1974e-05,
+        1.1974e-05,
+        1.1974e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.003531765,
+        0.003531765,
+        0.003531765,
+        0.003531765
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_A02_OCT10": {
+    "route_sha256": "04162c33d8c7845579e37fbbcdeaa533c56bbe208504a6af4486d7bdd904287d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 600,
+      "legs": 75,
+      "dwell": 120,
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 23,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.1257e-05,
+        2.1257e-05,
+        2.1257e-05,
+        2.1257e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.00646218,
+        0.00646218,
+        0.00646218,
+        0.00646218
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_A03_OCT10": {
+    "route_sha256": "fe3e781179b2e50998cd07a97e7cf05afffe51357b34fa8f0af9c64e330d68bf",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 899,
+      "legs": 72,
+      "dwell": 120,
+      "occupied_cell_hours": 33,
+      "unsupported_cell_hours": 33,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        7.946e-06,
+        7.946e-06,
+        7.946e-06,
+        7.946e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.005277555,
+        0.005277555,
+        0.005277555,
+        0.005277555
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_B01_OCT10": {
+    "route_sha256": "0b4fd137c276e11c480eba0be7331e6d26af5728c073d4562999356993199bba",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 289,
+      "legs": 48,
+      "dwell": 60,
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.767e-06,
+        6.767e-06,
+        6.767e-06,
+        6.767e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002075376,
+        0.002075376,
+        0.002075376,
+        0.002075376
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_B02_OCT10": {
+    "route_sha256": "4acea3faccd3a7dab2983f76f40a778ff603b621902117d3eec53c231d4ae285",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 960,
+      "legs": 73,
+      "dwell": 120,
+      "occupied_cell_hours": 18,
+      "unsupported_cell_hours": 18,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.1974e-05,
+        1.1974e-05,
+        1.1974e-05,
+        1.1974e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.006414322,
+        0.006414322,
+        0.006414322,
+        0.006414322
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_B03_OCT10": {
+    "route_sha256": "0efd370cefb4144cdd46be0d88b5975745bd1451227292e4af3cf4ba4010c21d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1620,
+      "legs": 135,
+      "dwell": 300,
+      "occupied_cell_hours": 18,
+      "unsupported_cell_hours": 18,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        9.494e-06,
+        9.494e-06,
+        9.494e-06,
+        9.494e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.008645146,
+        0.008645146,
+        0.008645146,
+        0.008645146
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_C01_OCT10": {
+    "route_sha256": "b09563bcf165d8f5c0af334f4b76a860519eaaf347fdf4d1dddef7e2aaed0146",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 301,
+      "legs": 53,
+      "dwell": 120,
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        8.664e-06,
+        8.664e-06,
+        8.664e-06,
+        8.664e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002848587,
+        0.002848587,
+        0.002848587,
+        0.002848587
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T030000Z_C02_OCT10": {
+    "route_sha256": "ad74ffcd43131be9b05c065a97bf107bd85c57fc17ea33365c14a2fd61763303",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 600,
+      "legs": 113,
+      "dwell": 120,
+      "occupied_cell_hours": 21,
+      "unsupported_cell_hours": 21,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        8.813e-06,
+        8.813e-06,
+        8.813e-06,
+        8.813e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.00474693,
+        0.00474693,
+        0.00474693,
+        0.00474693
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_A04_OCT10": {
+    "route_sha256": "b5194381ed663edbaf756f53a68b3a12f43f3afde08852264f054d362508bff0",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 300,
+      "legs": 62,
+      "dwell": 120,
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 10,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000307629,
+        0.000307629,
+        0.000307629,
+        0.000307629
+      ],
+      "dose_upper_kj_m2": [
+        0.102666162,
+        0.102666162,
+        0.102666162,
+        0.102666162
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_A05_OCT10": {
+    "route_sha256": "36b5203b3cd5fd9489c16fee364a80dc91765c531892b1ddb0402759e55c132b",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 600,
+      "legs": 103,
+      "dwell": 120,
+      "occupied_cell_hours": 23,
+      "unsupported_cell_hours": 23,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.00126688,
+        0.00126688,
+        0.00126688,
+        0.00126688
+      ],
+      "dose_upper_kj_m2": [
+        0.438141962,
+        0.438141962,
+        0.438141962,
+        0.438141962
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_A06_OCT10": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2612
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_B04_OCT10": {
+    "route_sha256": "1e5d8b44b82ba2061238731a529c254f32f355d4d9b562e8a2e927abce6ac6cd",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 300,
+      "legs": 33,
+      "dwell": 300,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 11,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000465996,
+        0.000465996,
+        0.000465996,
+        0.000465996
+      ],
+      "dose_upper_kj_m2": [
+        0.193059435,
+        0.193059435,
+        0.193059435,
+        0.193059435
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_B05_OCT10": {
+    "route_sha256": "0bb964ef69caec1993b3f7ef96f2bd316ca4149de4fde5cd177f0ab77ecd77df",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 3015,
+      "legs": 113,
+      "dwell": 60,
+      "occupied_cell_hours": 25,
+      "unsupported_cell_hours": 23,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.757121068,
+        0.757121068,
+        0.757121068,
+        0.757121068
+      ],
+      "dose_upper_kj_m2": [
+        56.22711479,
+        56.22711479,
+        56.22711479,
+        56.22711479
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2748
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_C03_OCT10": {
+    "route_sha256": "4c0ecb7f96a971f4199c44bba74dfab4c5ba43c87096d7909e2308e6f0d76881",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 2886,
+      "legs": 343,
+      "dwell": 120,
+      "occupied_cell_hours": 57,
+      "unsupported_cell_hours": 53,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        2.119289071,
+        2.119289071,
+        2.119289071,
+        2.119289071
+      ],
+      "dose_upper_kj_m2": [
+        26.582031849,
+        26.582031849,
+        26.582031849,
+        26.582031849
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "optimistic full reachable set exhausted before horizon or witness arrival",
+        "processed": 2064
+      }
+    ]
+  },
+  "uljin_2022__20220304T060000Z_C04_OCT10": {
+    "route_sha256": "e1395d8b7c61c061a1e27825573f3f8e684b04b3d64c75ced2e665453cb58a26",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 300,
+      "legs": 67,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 11,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000257048,
+        0.000257048,
+        0.000257048,
+        0.000257048
+      ],
+      "dose_upper_kj_m2": [
+        0.055208068,
+        0.055208068,
+        0.055208068,
+        0.055208068
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T060000Z_C05_OCT10": {
+    "route_sha256": "a647b4181645df775d00c392e413e2bb22aae67af8dd138af4ebddb8b089c348",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 600,
+      "legs": 131,
+      "dwell": 120,
+      "occupied_cell_hours": 21,
+      "unsupported_cell_hours": 21,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        4.4082e-05,
+        4.4082e-05,
+        4.4082e-05,
+        4.4082e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.023072901,
+        0.023072901,
+        0.023072901,
+        0.023072901
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_A07_OCT10": {
+    "route_sha256": "6e6e2e38b8f4ff5bcae7e403d05a9c7bbbff943314e0ea1f4e5706f45590901d",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 301,
+      "legs": 62,
+      "dwell": 120,
+      "occupied_cell_hours": 10,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        3.0566e-05,
+        3.0566e-05,
+        3.0566e-05,
+        3.0566e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.007552864,
+        0.007552864,
+        0.007552864,
+        0.007552864
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_A08_OCT10": {
+    "route_sha256": "5f86e08d036ee4ce192c5934224e42c89f54880db44fbf28f9af47425aebc0ba",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 600,
+      "legs": 54,
+      "dwell": 120,
+      "occupied_cell_hours": 22,
+      "unsupported_cell_hours": 15,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05,
+        1.0566e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.004887153,
+        0.004887153,
+        0.004887153,
+        0.004887153
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_B06_OCT10": {
+    "route_sha256": "6fa2f2051ef19a8012503507b5e726e5252b2e477710ddc56507bfe20cf10024",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1489,
+      "legs": 149,
+      "dwell": 120,
+      "occupied_cell_hours": 30,
+      "unsupported_cell_hours": 29,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05,
+        5.8594e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.022932075,
+        0.022932075,
+        0.022932075,
+        0.022932075
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_B07_OCT10": {
+    "route_sha256": "b1a94f8fbc28b6388ef3585848f129f80300a08f3e2058582a62f92082c19f79",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1261,
+      "legs": 30,
+      "dwell": 60,
+      "occupied_cell_hours": 9,
+      "unsupported_cell_hours": 9,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        5.948e-06,
+        5.948e-06,
+        5.948e-06,
+        5.948e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.001963934,
+        0.001963934,
+        0.001963934,
+        0.001963934
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_B08_OCT10": {
+    "route_sha256": "e98273d92d2d4e16dc422463e231b73741156c5bc0daafde3d2fba4785da0e54",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1980,
+      "legs": 73,
+      "dwell": 120,
+      "occupied_cell_hours": 24,
+      "unsupported_cell_hours": 16,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        1.3791e-05,
+        1.3791e-05,
+        1.3791e-05,
+        1.3791e-05
+      ],
+      "dose_upper_kj_m2": [
+        0.007810217,
+        0.007810217,
+        0.007810217,
+        0.007810217
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "necessary destination occupancy and static travel bound",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_C06_OCT10": {
+    "route_sha256": "3cc1f338e1261c5c91e77479baec6473e5c94a9982b32d09148d24e0ff4a715a",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 899,
+      "legs": 190,
+      "dwell": 120,
+      "occupied_cell_hours": 31,
+      "unsupported_cell_hours": 9,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        9.232e-06,
+        9.232e-06,
+        9.232e-06,
+        9.232e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.004812351,
+        0.004812351,
+        0.004812351,
+        0.004812351
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_C07_OCT10": {
+    "route_sha256": "c4f5a89102da128f503b0957130a917baa646f2ba728216a7b0d80e840e844e4",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 300,
+      "legs": 59,
+      "dwell": 120,
+      "occupied_cell_hours": 11,
+      "unsupported_cell_hours": 6,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.01e-06,
+        6.01e-06,
+        6.01e-06,
+        6.01e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002045486,
+        0.002045486,
+        0.002045486,
+        0.002045486
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "uljin_2022__20220304T120000Z_C08_OCT10": {
+    "route_sha256": "9b6943f04f2c3feeaf76a9096ab6cbcf18f7bebe232b12e99a7ff3315cc213ee",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 600,
+      "legs": 146,
+      "dwell": 120,
+      "occupied_cell_hours": 21,
+      "unsupported_cell_hours": 7,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        6.01e-06,
+        6.01e-06,
+        6.01e-06,
+        6.01e-06
+      ],
+      "dose_upper_kj_m2": [
+        0.002915968,
+        0.002915968,
+        0.002915968,
+        0.002915968
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "Caldor2021_G1": {
+    "absence_bound": [
+      {
+        "certified": true,
+        "method": "every journey contains an inadmissible initial state",
+        "facts": {
+          "in_contact": true,
+          "incurred_over_budget": false
+        }
+      }
+    ]
+  },
+  "Caldor2021_G2": {
+    "route_sha256": "830d1d9b4130c4d96fc7841b7cd46f232d4cf3be3c21b73ad6c27a99afeddc05",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1954,
+      "legs": 541,
+      "dwell": 120,
+      "occupied_cell_hours": 58,
+      "unsupported_cell_hours": 0,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.006919276,
+        0.006919276,
+        0.006919276,
+        0.006919276
+      ],
+      "dose_upper_kj_m2": [
+        0.568710297,
+        0.594605315,
+        0.571913884,
+        0.568123635
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  },
+  "Caldor2021_G3": {
+    "route_sha256": "e641c75aa80b6696de5e64a01291c6033cd71fa8614994ed117e880d75d1cd45",
+    "witness": {
+      "verified_feasible": true,
+      "arrival": 1595,
+      "legs": 475,
+      "dwell": 120,
+      "occupied_cell_hours": 46,
+      "unsupported_cell_hours": 14,
+      "flame_contact_cells": 0,
+      "peak_upper_kw_m2": [
+        0.000304522,
+        0.000304522,
+        0.000304522,
+        0.000304522
+      ],
+      "dose_upper_kj_m2": [
+        0.11541883,
+        0.11541883,
+        0.11541883,
+        0.11541883
+      ]
+    },
+    "arrival_bound": [
+      {
+        "certified": true,
+        "method": "travel-time potential or horizon",
+        "processed": 0
+      }
+    ],
+    "drive_proof": {
+      "result": "EXHAUSTED",
+      "states": 0
+    }
+  }
+}

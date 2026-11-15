@@ -1,0 +1,5 @@
+{
+  "graphs": 25,
+  "threshold_checks": 125,
+  "method": "exhaustive toy walks including forbidden turns"
+}

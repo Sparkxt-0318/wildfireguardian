@@ -1,0 +1,42 @@
+[
+  {
+    "candidate_floor": 3181,
+    "elapsed_s": 18.117780041066,
+    "proof": {
+      "states": 4519,
+      "transitions": 4902,
+      "certified": false,
+      "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+      "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+      "raw_lower_nano": 103587118,
+      "remaining_budget_nano": 103654980,
+      "arrival_limit": 3180,
+      "edge_count": 5069,
+      "reachable_edge_times": 472844,
+      "sections": 256,
+      "snap_m": 0.5,
+      "spatial_scale": 2,
+      "time_scale": 64
+    }
+  },
+  {
+    "candidate_floor": 3180,
+    "elapsed_s": 17.415743082994595,
+    "proof": {
+      "states": 4513,
+      "transitions": 4896,
+      "certified": true,
+      "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+      "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+      "raw_lower_nano": 103673200,
+      "remaining_budget_nano": 103654980,
+      "arrival_limit": 3179,
+      "edge_count": 5057,
+      "reachable_edge_times": 468750,
+      "sections": 256,
+      "snap_m": 0.5,
+      "spatial_scale": 2,
+      "time_scale": 64
+    }
+  }
+]

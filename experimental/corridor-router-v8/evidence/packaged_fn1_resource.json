@@ -1,0 +1,26 @@
+{
+  "includes_controller_rss": true,
+  "accepted_execution": true,
+  "cause": null,
+  "wall_s": 28.021838332992047,
+  "utc_elapsed_s": 28.021893978118896,
+  "sampled_peak_mib": 1249.375,
+  "samples": 431,
+  "returncode": 0,
+  "cleanup": {
+    "status": "CLEAN",
+    "signals": [],
+    "census": [
+      {
+        "utc": "2026-11-15T10:40:15.279890+00:00",
+        "pids": [],
+        "detached": []
+      }
+    ],
+    "remaining": [],
+    "detached": []
+  },
+  "wall_limit_s": 30.0,
+  "rss_guard_mib": 3072,
+  "guard_policy": "sampled process-family and controller RSS; unsampled peaks are unknown"
+}
