@@ -48,6 +48,11 @@ def prepare(template, graph, request, packet, output, cache, expected_template_s
         cache = Path(cache).absolute()
         if not cache.is_dir():
             raise ValueError("Cache must be a directory")
+    job["rebind_provenance"] = {
+        "template_sha256": expected_template_sha256,
+        "template_worker": job.get("worker"),
+        "template_worker_sha256": job.get("actual_worker_sha256"),
+    }
     job.update(
         {key: str(path) for key, path in paths.items()},
         source_directory=str(packet),
@@ -56,6 +61,7 @@ def prepare(template, graph, request, packet, output, cache, expected_template_s
         root=str(REPO),
         output_path=str(output),
         worker=str(HERE / "update.py"),
+        actual_worker_sha256=sha(HERE / "update.py"),
         update_arm="corridor",
         preparation_mode="AUTHENTICATED_ARTIFACT" if cache is not None else "COLD_FAST",
     )

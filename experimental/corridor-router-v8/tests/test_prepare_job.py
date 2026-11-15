@@ -32,6 +32,8 @@ class PrepareJobCLI(unittest.TestCase):
         phase = STACK / "phaseB"
         self.template = self.root / "template.json"
         self.template.write_text(json.dumps({
+            "worker": "/previous/worker.py",
+            "actual_worker_sha256": "a" * 64,
             "input_sha256": {
                 "graph_path": digest(self.graph),
                 "request_path": digest(self.request),
@@ -61,6 +63,12 @@ class PrepareJobCLI(unittest.TestCase):
         self.assertEqual(job["graph_path"], str(self.graph.resolve()))
         self.assertEqual(job["source_root"], str(STACK / "routing_candidate"))
         self.assertEqual(job["worker"], str(PACKAGE / "update.py"))
+        self.assertEqual(job["actual_worker_sha256"], digest(PACKAGE / "update.py"))
+        self.assertEqual(job["rebind_provenance"], {
+            "template_sha256": digest(self.template),
+            "template_worker": "/previous/worker.py",
+            "template_worker_sha256": "a" * 64,
+        })
         self.assertEqual(job["preparation_mode"], "COLD_FAST")
         self.assertFalse((self.output / "RESULT.json").exists())
 

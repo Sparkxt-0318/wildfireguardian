@@ -108,7 +108,7 @@ def cleanup(child, group, lineage):
 
 
 def supervise(command, out, env, wall_s=30.0, rss_mib=3072, require_result=True,
-              bound_job=None, job_sha256=None):
+              bound_job=None, job_sha256=None, bound_worker=None, worker_sha256=None):
     """Monitor a single worker and retain samples; no incomplete result is accepted."""
     out = Path(out)
     if wall_s <= 0 or rss_mib <= 0:
@@ -160,6 +160,12 @@ def supervise(command, out, env, wall_s=30.0, rss_mib=3072, require_result=True,
                 reason = "JOB_CHANGED_DURING_EXECUTION"
         except OSError:
             reason = "JOB_UNAVAILABLE_AFTER_EXECUTION"
+    if not reason and bound_worker is not None:
+        try:
+            if sha(bound_worker) != worker_sha256:
+                reason = "WORKER_CHANGED_DURING_EXECUTION"
+        except OSError:
+            reason = "WORKER_UNAVAILABLE_AFTER_EXECUTION"
     if not reason and proc.returncode:
         reason = "WORKER_ERROR"
     if not reason and clean["status"] != "CLEAN":
@@ -183,10 +189,19 @@ def supervise(command, out, env, wall_s=30.0, rss_mib=3072, require_result=True,
 
 def run(job_path, cache=None):
     job_path = Path(job_path).resolve(strict=True)
+    before = sha(job_path)
     job = read(job_path)
+    if sha(job_path) != before:
+        raise ValueError("Prepared job changed during loading")
     out = Path(job["output_path"]).resolve(strict=True)
     if job_path != out / "job.json":
         raise ValueError("job.json must reside inside its output directory")
+    worker = (HERE / "update.py").resolve(strict=True)
+    if Path(job["worker"]).resolve(strict=True) != worker:
+        raise ValueError("Prepared job worker does not match packaged worker")
+    worker_sha256 = sha(worker)
+    if worker_sha256 != job["actual_worker_sha256"]:
+        raise ValueError("Prepared job worker checksum mismatch")
     if not __debug__:
         raise RuntimeError("Python assertions must be enabled")
     if float(job["complete_budget_s"]) != 30 or float(job["memory_guard_mib"]) != 3072:
@@ -201,9 +216,9 @@ def run(job_path, cache=None):
                MKL_NUM_THREADS="1", VECLIB_MAXIMUM_THREADS="1", NUMEXPR_NUM_THREADS="1")
     if cache is not None:
         env["WFG_OWNER_PREPARED_CACHE"] = str(Path(cache).absolute())
-    before = sha(job_path)
-    receipt = supervise([sys.executable, "-B", str(HERE / "update.py"), str(job_path)], out, env,
-                        bound_job=job_path, job_sha256=before)
+    receipt = supervise([sys.executable, "-B", str(worker), str(job_path)], out, env,
+                        bound_job=job_path, job_sha256=before,
+                        bound_worker=worker, worker_sha256=worker_sha256)
     return receipt
 
 
