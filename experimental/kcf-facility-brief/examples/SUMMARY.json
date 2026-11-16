@@ -1,0 +1,159 @@
+{
+  "core_version": "kcf-brief-core/1.1.0",
+  "cases": {
+    "delayed_vehicle": {
+      "label": "사례 1 · 2호차 지연 (KCF-EX-DELAY-01)",
+      "inputs": {
+        "baseline": "fixtures/delayed_vehicle/baseline.json",
+        "revised": "fixtures/delayed_vehicle/revised.json",
+        "meta": "fixtures/delayed_vehicle/briefing_meta.json",
+        "sha256": {
+          "baseline": "aa6d2a02491183ebe288fda734bde70b868b6d7732b911005f37317a94fef9dd",
+          "revised": "b103038e3ac175dc835d3059f55962ff07322225174681c9e8618baf8c7b7661",
+          "meta": "ce352d8976580c27216420625d780df65199d6d8337a48350fb19e298e533174"
+        }
+      },
+      "before": {
+        "as_of_s": 300,
+        "status": "CHECKED_ROUTE",
+        "people_total": 18,
+        "checked": 18,
+        "unconfirmed": 0,
+        "final_unload_s": 2040,
+        "final_unload_display": "T0+34분 (14:34)",
+        "changes": [],
+        "requests": [],
+        "handoff_units": 133
+      },
+      "after": {
+        "as_of_s": 1500,
+        "status": "UNRESOLVED",
+        "people_total": 18,
+        "checked": 14,
+        "unconfirmed": 4,
+        "final_unload_s": null,
+        "final_unload_display": "모름",
+        "changes": [
+          "플래너 판정: 경로 계산 확인 (모델 범위 안) → 미해결",
+          "이송 배정 확인 18명 → 14명",
+          "이송 수단 미확정 0명 → 4명",
+          "전원 하차 예상 T0+34분 (14:34) → 모름 (이전 시각은 더 이상 유효하지 않음)",
+          "1호차: 대기→이동 중",
+          "2호차: 대기→지연, 배정 해제(4명), 출발 T0+16분 (14:16)→모름, 하차 T0+31분 (14:31)→모름",
+          "3호차: 대기→이동 중",
+          "새 미확인: 2호차 재출발 가능 시각",
+          "새 미확인: 대체 휠체어 리프트 차량 가용 여부"
+        ],
+        "requests": [
+          {
+            "text": "휠체어 리프트 차량 1대 지원",
+            "people": 4,
+            "who": "군 재난안전 상황실"
+          }
+        ],
+        "handoff_units": 144
+      },
+      "warnings": []
+    },
+    "unknown_input": {
+      "label": "사례 2 · 화재 입력 결측 (KCF-EX-UNKNOWN-02)",
+      "inputs": {
+        "baseline": "fixtures/unknown_input/baseline.json",
+        "revised": "fixtures/unknown_input/revised.json",
+        "meta": "fixtures/unknown_input/briefing_meta.json",
+        "sha256": {
+          "baseline": "d9c333d9549f43ed6a11e7fb53da0b4d84adf913b2322fb29416a26bf608c892",
+          "revised": "52ccbc265bed9a7ab369952c986a06a5be2299c2f2e029f4636601d4f8ee62f1",
+          "meta": "c86e524f00f31534a5818266fd011f6d2faaeb378ff1bfc699c3be3f5ce9b7d1"
+        }
+      },
+      "before": {
+        "as_of_s": 240,
+        "status": "CHECKED_ROUTE",
+        "people_total": 12,
+        "checked": 12,
+        "unconfirmed": 0,
+        "final_unload_s": 1680,
+        "final_unload_display": "T0+28분 (09:58)",
+        "changes": [],
+        "requests": [],
+        "handoff_units": 131
+      },
+      "after": {
+        "as_of_s": 960,
+        "status": "MISSING_INPUT",
+        "people_total": 12,
+        "checked": 0,
+        "unconfirmed": 12,
+        "final_unload_s": null,
+        "final_unload_display": "모름",
+        "changes": [
+          "플래너 판정: 경로 계산 확인 (모델 범위 안) → 입력 자료 결측 — 판정 불가",
+          "이송 배정 확인 12명 → 0명",
+          "이송 수단 미확정 0명 → 12명",
+          "전원 하차 예상 T0+28분 (09:58) → 모름 (이전 시각은 더 이상 유효하지 않음)",
+          "1호차: 배정 해제(9명), 출발 T0+10분 (09:40)→모름, 하차 T0+25분 (09:55)→모름",
+          "2호차: 배정 해제(3명), 출발 T0+13분 (09:43)→모름, 하차 T0+28분 (09:58)→모름",
+          "새 미확인: 갱신된 모델 화재 입력 결측 (진입로 일대) — 결측은 안전하다는 뜻 아님"
+        ],
+        "requests": [
+          {
+            "text": "진입로 경로 확인과 출발 판단",
+            "people": 3,
+            "who": "군 재난안전 상황실"
+          },
+          {
+            "text": "진입로 경로 확인과 출발 판단",
+            "people": 9,
+            "who": "군 재난안전 상황실"
+          }
+        ],
+        "handoff_units": 164
+      },
+      "warnings": []
+    },
+    "destination_pending": {
+      "label": "사례 3 · 목적지 수용 확인 대기 (KCF-EX-DEST-03)",
+      "inputs": {
+        "baseline": "fixtures/destination_pending/baseline.json",
+        "revised": "fixtures/destination_pending/revised.json",
+        "meta": "fixtures/destination_pending/briefing_meta.json",
+        "sha256": {
+          "baseline": "7c07251101cf7e0c3b670e3d36c073611a71d59aac574f922ecddf9f2b41279e",
+          "revised": "bd7cb58b6c7601dc9ea8f7bef57e96e53cf6505d72380d8d4821b8a98abd8d1f",
+          "meta": "137dc845357f62954aa818d7610e181e024c0be6aea9f15a733cad1fbd4c536c"
+        }
+      },
+      "before": {
+        "as_of_s": 360,
+        "status": "CHECKED_ROUTE",
+        "people_total": 15,
+        "checked": 15,
+        "unconfirmed": 0,
+        "final_unload_s": 2100,
+        "final_unload_display": "T0+35분 (16:35)",
+        "changes": [],
+        "requests": [],
+        "handoff_units": 130
+      },
+      "after": {
+        "as_of_s": 1200,
+        "status": "CHECKED_ROUTE",
+        "people_total": 15,
+        "checked": 15,
+        "unconfirmed": 0,
+        "final_unload_s": 2640,
+        "final_unload_display": "T0+44분 (16:44)",
+        "changes": [
+          "전원 하차 예상 T0+35분 (16:35) → T0+44분 (16:44)",
+          "1호차: 대기→이동 중",
+          "2호차: 대기→이동 중",
+          "3호차: 출발 T0+17분 (16:17)→T0+22분 (16:22), 하차 T0+35분 (16:35)→T0+44분 (16:44), 목적지 가상 임시대피소 (읍 체육관)→가상 협력병원 E, 수용 확인→수용 확인 대기"
+        ],
+        "requests": [],
+        "handoff_units": 146
+      },
+      "warnings": []
+    }
+  }
+}

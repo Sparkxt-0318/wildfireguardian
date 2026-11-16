@@ -1,0 +1,23 @@
+{
+  "tool": "kcf-facility-brief/tools/integrate.js",
+  "core_version": "kcf-brief-core/1.0.0",
+  "inputs": {
+    "baseline": {
+      "kind": "file",
+      "path": "/tmp/claude-0/-home-user-wildfireguardian/c1f895fd-7e3b-560e-9b2d-79aa44079590/scratchpad/planner-out/demo_base_result.json",
+      "sha256": "1995dc17ed5d54a99139e71da36040a23dd06aa8009bdd6fc3321f09d5bef188"
+    },
+    "revised": {
+      "kind": "file",
+      "path": "/tmp/claude-0/-home-user-wildfireguardian/c1f895fd-7e3b-560e-9b2d-79aa44079590/scratchpad/planner-out/demo_delayed_result.json",
+      "sha256": "2dcabde15ed7187e23fcd05d138c626a9406f48475546bc4482bdbf0dbba1da0"
+    },
+    "meta": null
+  },
+  "accepted": false,
+  "errors": [
+    "기준(baseline): schema_version 은 문자열이어야 함",
+    "변경(revised): schema_version 은 문자열이어야 함"
+  ],
+  "warnings": []
+}

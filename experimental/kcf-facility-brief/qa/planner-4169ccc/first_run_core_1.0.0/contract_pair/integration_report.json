@@ -1,0 +1,25 @@
+{
+  "tool": "kcf-facility-brief/tools/integrate.js",
+  "core_version": "kcf-brief-core/1.0.0",
+  "inputs": {
+    "baseline": {
+      "kind": "file",
+      "path": "/tmp/claude-0/-home-user-wildfireguardian/c1f895fd-7e3b-560e-9b2d-79aa44079590/scratchpad/planner-out/normal_result.json",
+      "sha256": "78fecdcd30d52d9435f06b495fffe6f1bbca00c47e160b2f8671eb55a9bfcf11"
+    },
+    "revised": {
+      "kind": "git-tag",
+      "tag": "4169cccc427e9e19be3851326a1225df89fe96f2",
+      "commit": "4169cccc427e9e19be3851326a1225df89fe96f2",
+      "path": "experimental/kcf-facility-planner/examples/sample_result_parallel_delayed.json",
+      "sha256": "ca590adb1f3c02c0d766832e101b535511907389e4eb8f79c236bebe6252b9c9"
+    },
+    "meta": null
+  },
+  "accepted": false,
+  "errors": [
+    "기준(baseline): schema_version 은 문자열이어야 함",
+    "변경(revised): schema_version 은 문자열이어야 함"
+  ],
+  "warnings": []
+}

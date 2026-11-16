@@ -1,0 +1,207 @@
+{
+  "passed": 30,
+  "failed": 0,
+  "results": [
+    {
+      "name": "launches offline and renders",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "default: delayed case, county view, final unload unknown",
+      "pass": true,
+      "detail": "모름"
+    },
+    {
+      "name": "bundled Korean font (regular + bold) loads offline from data URI",
+      "pass": true,
+      "detail": [
+        true,
+        true,
+        2
+      ]
+    },
+    {
+      "name": "exercise label visible on screen",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "before-only shows baseline number",
+      "pass": true,
+      "detail": "T0+34분 (14:34)"
+    },
+    {
+      "name": "after re-toggle the old number is gone from current fields",
+      "pass": true,
+      "detail": {
+        "case_id": "KCF-EX-DELAY-01",
+        "as_of": "T0+25분 (14:25)",
+        "prev_as_of": "T0+5분 (14:05)",
+        "unconfirmed": "4",
+        "people_total": "18",
+        "groups_total": "3",
+        "prev:unconfirmed": "0명",
+        "checked": "14",
+        "prev:checked": "18명",
+        "final_unload": "모름",
+        "prev:final_unload": "T0+34분 (14:34)",
+        "req:0:people": "4명",
+        "trip:T1:vstatus": "이동 중",
+        "trip:T1:people": "12명",
+        "trip:T1:checked": "확인",
+        "trip:T1:depart": "T0+12분 (14:12)",
+        "trip:T1:unload": "T0+27분 (14:27)",
+        "trip:T1:dstatus": "수용 확인",
+        "trip:T2:vstatus": "지연",
+        "trip:T2:people": "4명",
+        "trip:T2:checked": "미확정",
+        "trip:T2:depart": "모름",
+        "trip:T2:unload": "모름",
+        "trip:T2:dstatus": "수용 확인",
+        "trip:T3:vstatus": "이동 중",
+        "trip:T3:people": "2명",
+        "trip:T3:checked": "확인",
+        "trip:T3:depart": "T0+18분 (14:18)",
+        "trip:T3:unload": "T0+34분 (14:34)",
+        "trip:T3:dstatus": "수용 확인",
+        "handoff": "훈련 상황입니다. 가상 A요양병원 시설 당직 책임자입니다. 14시 25분 기준, 변경 사항 보고합니다. 2호차가 지연돼 출발 시각을 모릅니다. 전체 18명 중 휠체어 이용 4명이 아직 이송 수단 확정이 안 됐습니다. 휠체어 리프트 차량 1대 지원 요청합니다. 군 재난안전 상황실에서 확인 부탁드립니다. 전원 하차 예상 시각은 지금 모릅니다. 이상입니다."
+      }
+    },
+    {
+      "name": "facility view active",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "views agree (delayed_vehicle)",
+      "pass": true,
+      "detail": {
+        "n": 29,
+        "bad": []
+      }
+    },
+    {
+      "name": "views agree (unknown_input)",
+      "pass": true,
+      "detail": {
+        "n": 23,
+        "bad": []
+      }
+    },
+    {
+      "name": "views agree (destination_pending)",
+      "pass": true,
+      "detail": {
+        "n": 27,
+        "bad": []
+      }
+    },
+    {
+      "name": "updated time shown; previous only as prev",
+      "pass": true,
+      "detail": "T0+44분 (16:44)"
+    },
+    {
+      "name": "different-case revised rejected with message",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no brief numbers left after rejection",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "stale final_unload file rejected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "impossible timestamp file rejected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reversed update times rejected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "valid files load again after errors",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "print county: one A4 page",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "print county: PDF embeds bundled font",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "print county: toolbar hidden, Korean + exercise label kept",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "print county: only the selected view printed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "print facility: one A4 page",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "print facility: PDF embeds bundled font",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "print facility: toolbar hidden, Korean + exercise label kept",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "print facility: only the selected view printed",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "planner 4169ccc via file inputs, county: final T0+57분, one A4 page",
+      "pass": true,
+      "detail": {
+        "final": "T0+57분 (10:57)",
+        "pages": 1
+      }
+    },
+    {
+      "name": "planner 4169ccc via file inputs, facility: final T0+57분, one A4 page",
+      "pass": true,
+      "detail": {
+        "final": "T0+57분 (10:57)",
+        "pages": 1
+      }
+    },
+    {
+      "name": "phone width (390px): no horizontal page scroll",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "no network requests attempted",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no script errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

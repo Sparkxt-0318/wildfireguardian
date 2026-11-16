@@ -1,0 +1,100 @@
+{
+  "meta_version": "kcf-brief-meta/1",
+  "case_id": "KCF-EX-DELAY-01",
+  "exercise_label": "훈련 · 가상 상황 · 실제 상황 아님",
+  "facility": {
+    "label": "가상 산림인접 요양병원 A (훈련용)",
+    "short": "가상 A요양병원"
+  },
+  "time_origin": {
+    "label": "T0 = 시설 대피 결정 시각 (훈련 각본)",
+    "clock": "14:00"
+  },
+  "roles": {
+    "facility": "시설 당직 책임자",
+    "county": "군 재난안전 상황실",
+    "fire": "소방 구급 지원",
+    "police": "경찰 교통 담당",
+    "destination": "수용기관 담당자"
+  },
+  "groups": [
+    {
+      "group_id": "G1",
+      "label": "와상(침상) 환자",
+      "people": 2,
+      "need": "들것·눕힌 자세, 간호 인력 동승",
+      "spoken": "와상 환자",
+      "request": "들것 이송 차량",
+      "request_role": "fire"
+    },
+    {
+      "group_id": "G2",
+      "label": "휠체어 이용",
+      "people": 4,
+      "need": "휠체어 리프트 차량, 휠체어 4대 고정",
+      "spoken": "휠체어 이용",
+      "request": "휠체어 리프트 차량 1대",
+      "request_role": "county"
+    },
+    {
+      "group_id": "G3",
+      "label": "보행 가능 (부축 포함)",
+      "people": 12,
+      "need": "승합·버스, 부축 인력 2명",
+      "spoken": "보행 가능",
+      "request": "승합차 1대",
+      "request_role": "county"
+    }
+  ],
+  "vehicles": {
+    "V1": {
+      "label": "1호차 (시설 승합 15인승)",
+      "short": "1호차",
+      "owner_role": "facility"
+    },
+    "V2": {
+      "label": "2호차 (휠체어 리프트, 협약 차량)",
+      "short": "2호차",
+      "owner_role": "facility"
+    },
+    "V3": {
+      "label": "3호차 (구급 이송 지원)",
+      "short": "3호차",
+      "owner_role": "fire"
+    }
+  },
+  "destinations": {
+    "D1": {
+      "label": "가상 임시대피소 (읍 체육관)"
+    },
+    "D2": {
+      "label": "가상 협력병원 B"
+    }
+  },
+  "updates": {
+    "baseline": {
+      "at_s": 300,
+      "source_label": "플래너 1차 계산"
+    },
+    "revised": {
+      "at_s": 200,
+      "source_label": "플래너 재계산 — 2호차 지연 반영"
+    }
+  },
+  "field_reports": [
+    {
+      "at_s": 1080,
+      "text": "2호차 운전원(가상): 차고지에서 리프트 고장, 재출발 시각 미정",
+      "source_role": "facility"
+    }
+  ],
+  "road_status": [
+    {
+      "segment": "가상 군도 3호선 고개 구간",
+      "status": "UNKNOWN",
+      "note": "경로 계산은 통행 가능으로 가정",
+      "who_role": "police"
+    }
+  ],
+  "assistance_requests": []
+}
