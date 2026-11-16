@@ -1,0 +1,2482 @@
+{
+  "rows": [
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_SIMPLE",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG3",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          29,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GD1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          44,
+          44
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          52
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GL1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          25,
+          46
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          57,
+          55
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GL2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          24
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          47,
+          46
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GC1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          24
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          55,
+          56
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GX2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          41,
+          30
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          54,
+          53
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GC2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          46,
+          51
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          32,
+          24
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GX1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          50,
+          27
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          6,
+          36
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          29,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_DIFFICULT",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          16
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GN1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          49
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          42,
+          30
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GWw1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          6
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          12,
+          14
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GWn1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          25,
+          46
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          37,
+          54
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_supported_cold_OCT09",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          8,
+          38
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          9,
+          38
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_supported_near_positive_OCT09",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          42,
+          31
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          45,
+          37
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          29,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_TOPOLOGY_FIRST",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          4,
+          37
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GC1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          32,
+          35
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GL2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          53,
+          26
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          27,
+          38
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND024",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          41,
+          30
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND016",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          27,
+          43
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND017",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          27,
+          44
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND010",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          44,
+          37
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          45,
+          27
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GD1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          47,
+          35
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          55,
+          24
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_DIFFICULT",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          16
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GWw1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          25,
+          46
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          40,
+          56
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_supported_near_positive_OCT09",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          32,
+          34
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          34,
+          27
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GX2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          47,
+          35
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          35,
+          39
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND004",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          44,
+          38
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          46
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND023",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          31,
+          39
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_TOPOLOGY_FIRST",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          4,
+          37
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND028",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND014",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          42,
+          31
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GX1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          47,
+          35
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND006",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          28,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          27,
+          44
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND001",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          31,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          27,
+          42
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND021",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          34,
+          40
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND026",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          28,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          45,
+          31
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND009",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          31,
+          44
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          45
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND018",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          32,
+          34
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          27,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_SIMPLE",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND000",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          39,
+          28
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND013",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          29
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          41,
+          30
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GWn1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          47,
+          35
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          52,
+          56
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND002",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          46
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND027",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          27,
+          43
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          45,
+          30
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND020",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          30,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          32,
+          33
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_supported_cold_OCT09",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          8,
+          38
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          9,
+          38
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GL1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          47,
+          35
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          37,
+          51
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GD1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          39,
+          38
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          33,
+          24
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND021",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          32,
+          44
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GWn1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          37,
+          56
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          41,
+          50
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND012",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          41,
+          29
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GN1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          37,
+          56
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          15,
+          17
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND020",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GC1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          37,
+          56
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          4,
+          35
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND016",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          41,
+          29
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND013",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          27,
+          42
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND003",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          46,
+          32
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND018",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          27,
+          42
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND005",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_DIFFICULT",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          16
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND014",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GL2_C2",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_SIMPLE",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          11,
+          4
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GX1_C2",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          37,
+          56
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GC2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          12,
+          15
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          53
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND002",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND011",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          29,
+          40
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_supported_near_positive_OCT09",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          27,
+          45
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GL1_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          37,
+          56
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          8,
+          34
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GWw1_C2",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND000",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          26,
+          46
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          27,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND001",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_supported_cold_OCT09",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          54,
+          53
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          53,
+          51
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND015",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          32,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND008",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          41,
+          29
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          26,
+          44
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GX2_C2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          12,
+          15
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND007",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          27,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_TOPOLOGY_FIRST",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          4,
+          37
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          56,
+          49
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          41,
+          47
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          19,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          43,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          26,
+          38
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          51,
+          49
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          40,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FT1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          58,
+          21
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          32,
+          24
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL3",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          26,
+          38
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          15,
+          17
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FX1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          58,
+          21
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          2,
+          35
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FX2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          58,
+          21
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          6,
+          37
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FN1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          58,
+          21
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          19,
+          41
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          8,
+          36
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          6,
+          23
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FT1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          34,
+          26
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          19
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FX2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          13,
+          11
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          42
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FL3",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          58,
+          24
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          4,
+          35
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          10,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FL2",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          58,
+          24
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          13,
+          11
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          26,
+          45
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          61,
+          52
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          52
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FN1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          8
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          23,
+          46
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          29
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          46,
+          32
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FX1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          12,
+          11
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          52
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FT1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          52,
+          56
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          33,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          9,
+          8
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          22,
+          19
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          15,
+          17
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          9,
+          39
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL2",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          34,
+          26
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FX2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          12,
+          11
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          38,
+          57
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL1",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          45,
+          27
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL3",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          43,
+          56
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          21
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          2
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FW2",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          15,
+          11
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FX1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          2
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          3,
+          11
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FX2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          2
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          4,
+          12
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          0,
+          14
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FX1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          17,
+          2
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          0,
+          11
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          2,
+          0
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FX2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          1
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          7,
+          10
+        ]
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          15,
+          12
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FT1",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          16,
+          4
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FN1",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          0,
+          8
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          13,
+          7
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FW2",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          15,
+          7
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FW1",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          16,
+          8
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          6
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          2,
+          9
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          0,
+          7
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          13,
+          7
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FN1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          4,
+          7
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          7
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          2,
+          10
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FT1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          5,
+          6
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FD1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FX1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          1,
+          8
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FX2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FN1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          13,
+          9
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          5,
+          8
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FT1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          14,
+          7
+        ]
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          14,
+          4
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "case": "uiseong_andong_2025__20250323T010000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          61,
+          35
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FL3",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          64,
+          16
+        ]
+      ]
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FW1",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          11,
+          70
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FW2",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          18,
+          68
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          30,
+          68
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_C01_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          42,
+          31
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          45,
+          37
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A02_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          36,
+          26
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          48,
+          35
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B02_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          25,
+          45
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          34,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_C02_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          42,
+          31
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A01_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          31,
+          40
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          26,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B01_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          24,
+          44
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          25,
+          43
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B03_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          27,
+          45
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          19,
+          40
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A03_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          16,
+          42
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          36,
+          51
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_A05_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          33,
+          32
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          36,
+          38
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C05_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          44,
+          27
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          57,
+          23
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_A04_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          25,
+          39
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          30,
+          39
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C04_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          43,
+          33
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          45,
+          30
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C03_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          32,
+          34
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          44,
+          42
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_B04_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          27,
+          46
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          30,
+          39
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_B05_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          27,
+          45
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          37,
+          51
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B06_OCT10",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          24,
+          44
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B08_OCT10",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          27,
+          45
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B07_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          25,
+          45
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          28,
+          41
+        ]
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_C07_OCT10",
+      "origin_missing": true,
+      "destination_missing": false,
+      "origin_missing_cells": [
+        [
+          27,
+          44
+        ]
+      ],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_C06_OCT10",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_C08_OCT10",
+      "origin_missing": false,
+      "destination_missing": false,
+      "origin_missing_cells": [],
+      "destination_missing_cells": []
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_A08_OCT10",
+      "origin_missing": true,
+      "destination_missing": true,
+      "origin_missing_cells": [
+        [
+          26,
+          45
+        ]
+      ],
+      "destination_missing_cells": [
+        [
+          37,
+          51
+        ]
+      ]
+    },
+    {
+      "case": "Caldor2021_G3",
+      "origin_missing": false,
+      "destination_missing": true,
+      "origin_missing_cells": [],
+      "destination_missing_cells": [
+        [
+          37,
+          44
+        ]
+      ]
+    }
+  ],
+  "counts": {
+    "(True, True)": 116,
+    "(True, False)": 20,
+    "(False, True)": 17,
+    "(False, False)": 8
+  }
+}

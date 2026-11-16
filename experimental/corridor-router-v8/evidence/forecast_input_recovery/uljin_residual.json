@@ -1,0 +1,108 @@
+{
+  "schema": "wfg.technical-review.uljin-residual-endpoints/1",
+  "scope": "Previously unsupported endpoint-cell roles among the strict-run 161 unresolved flagged cases. 153 had one or more unsupported endpoint roles; 152 were Korean, and 122 of those were in Uljin. An individual mission can have multiple cells, roles, and overlapping reasons.",
+  "method": "Join original endpoint_analysis.json and the frozen 273-case binding to the effective Korean packet. For every former unsupported origin/destination cell, check all-member native q and the binary initial state mask and environmental validity in its 9 by 9 kernel neighborhood, including the measured spatial halo. Count each cause once per mission. The reason sets may overlap across different endpoint cells within a mission. An unknown state or environmental input is a missing model prerequisite; no unsafe-road inference is made.",
+  "cases": {
+    "originally_endpoint_unsupported_cases": 122,
+    "all_previously_unsupported_endpoint_cells_now_supported": 3,
+    "some_previously_unsupported_endpoint_cells_now_supported": 15,
+    "remaining_endpoint_gap": 119,
+    "unknown_endpoint_cell_fire_state": 60,
+    "unknown_fire_within_9_by_9": 117,
+    "unknown_environment_within_9_by_9": 54,
+    "both_fire_and_environment_in_9_by_9": 52,
+    "fire_only": 65,
+    "environment_only": 2
+  },
+  "by_clock": {
+    "2022-03-04T03:00:00+00:00": {
+      "originally_endpoint_unsupported_cases": 36,
+      "all_previously_unsupported_endpoint_cells_now_supported": 0,
+      "some_previously_unsupported_endpoint_cells_now_supported": 0,
+      "remaining_endpoint_gap": 36,
+      "unknown_endpoint_cell_fire_state": 33,
+      "unknown_fire_within_9_by_9": 36,
+      "unknown_environment_within_9_by_9": 17,
+      "both_fire_and_environment_in_9_by_9": 17,
+      "fire_only": 19,
+      "environment_only": 0
+    },
+    "2022-03-04T06:00:00+00:00": {
+      "originally_endpoint_unsupported_cases": 46,
+      "all_previously_unsupported_endpoint_cells_now_supported": 0,
+      "some_previously_unsupported_endpoint_cells_now_supported": 5,
+      "remaining_endpoint_gap": 46,
+      "unknown_endpoint_cell_fire_state": 17,
+      "unknown_fire_within_9_by_9": 46,
+      "unknown_environment_within_9_by_9": 15,
+      "both_fire_and_environment_in_9_by_9": 15,
+      "fire_only": 31,
+      "environment_only": 0
+    },
+    "2022-03-04T12:00:00+00:00": {
+      "originally_endpoint_unsupported_cases": 40,
+      "all_previously_unsupported_endpoint_cells_now_supported": 3,
+      "some_previously_unsupported_endpoint_cells_now_supported": 10,
+      "remaining_endpoint_gap": 37,
+      "unknown_endpoint_cell_fire_state": 10,
+      "unknown_fire_within_9_by_9": 35,
+      "unknown_environment_within_9_by_9": 22,
+      "both_fire_and_environment_in_9_by_9": 20,
+      "fire_only": 15,
+      "environment_only": 2
+    }
+  },
+  "original_forecast_geometry": [
+    {
+      "clock": "20220304T030000Z",
+      "total_registered_pixels": 3596,
+      "outside_2km_support": 889,
+      "state_file_sha256": "f054138d5cd51fd9fc99d09a49976973e3c83de1df071f17da8162bc3666aee6"
+    },
+    {
+      "clock": "20220304T060000Z",
+      "total_registered_pixels": 3596,
+      "outside_2km_support": 889,
+      "state_file_sha256": "5c9beb080b4494a2f34874ff122cdab28d2e663070f8285c05074c6b5a723f29"
+    },
+    {
+      "clock": "20220304T120000Z",
+      "total_registered_pixels": 3596,
+      "outside_2km_support": 889,
+      "state_file_sha256": "4cad30bbf6cd6184624e41cec4cfa5f7a9cdb5e6d0fc72ef4ee8e75db4af0db8"
+    }
+  ],
+  "measured_environment_source_intersection": {
+    "tree_cover": {
+      "original_missing": 400,
+      "missing_with_finite_original_product_value": 0
+    },
+    "biome": {
+      "original_missing": 405,
+      "missing_with_finite_original_product_value": 0
+    }
+  },
+  "other_Korean_cases": {
+    "originally_endpoint_unsupported_cases": 30,
+    "all_previously_unsupported_endpoint_cells_now_supported": 8,
+    "some_previously_unsupported_endpoint_cells_now_supported": 13,
+    "remaining_endpoint_gap": 22,
+    "unknown_endpoint_cell_fire_state": 2,
+    "unknown_fire_within_9_by_9": 14,
+    "unknown_environment_within_9_by_9": 10,
+    "both_fire_and_environment_in_9_by_9": 2,
+    "fire_only": 12,
+    "environment_only": 8
+  },
+  "source_digests": {
+    "case_cell_records_sha256": "4e885dc098ff49fdd1d5285902d8b2f774cc90f14080616f0e8fa0c8531c966c",
+    "same_product_raster_crosscheck_sha256": "a55529c3fc92a4c9fcd987a98cf1404edf8f83c612bfbb0ecc2dcec1276bbf73",
+    "checks_python_sha256": "40bff8f59801f11605860e18c7cdb187365445c38b191491d5f9fb8ff304b581",
+    "korean_forecast_ledger_sha256": "3851e858c4ff14faee4b6532a46a32ab8b8c0fa15ede4c83cd437c41965bdfe0"
+  },
+  "limitations": [
+    "A case recovering all former endpoint cells may still lack coverage along the road or fail another constraint.",
+    "The 889 geographically unsupported cells are counted per forecast grid at each revision. They are not summed across revisions and do not directly count unresolved journeys.",
+    "Cloud/non-detection uncertainty and missing terrestrial environmental classifications are different from absent archive objects."
+  ]
+}

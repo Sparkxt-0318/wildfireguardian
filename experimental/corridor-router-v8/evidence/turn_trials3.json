@@ -1,0 +1,126 @@
+{
+  "uiseong_andong_2025__20250323T010000Z_FT1": [
+    {
+      "candidate_floor": 3072,
+      "elapsed_s": 7.251112208934501,
+      "proof": {
+        "states": 3382,
+        "transitions": 3578,
+        "certified": false,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+        "raw_lower_nano": 27045176,
+        "remaining_budget_nano": 27135751,
+        "arrival_limit": 3071,
+        "edge_count": 3838,
+        "reachable_edge_times": 699487,
+        "sections": 128,
+        "snap_m": 0.5,
+        "spatial_scale": 2,
+        "time_scale": 32
+      }
+    },
+    {
+      "candidate_floor": 3071,
+      "elapsed_s": 6.688266208046116,
+      "proof": {
+        "states": 3381,
+        "transitions": 3576,
+        "certified": false,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+        "raw_lower_nano": 27096832,
+        "remaining_budget_nano": 27135751,
+        "arrival_limit": 3070,
+        "edge_count": 3836,
+        "reachable_edge_times": 696808,
+        "sections": 128,
+        "snap_m": 0.5,
+        "spatial_scale": 2,
+        "time_scale": 32
+      }
+    },
+    {
+      "candidate_floor": 3070,
+      "elapsed_s": 6.666065042023547,
+      "proof": {
+        "states": 3380,
+        "transitions": 3575,
+        "certified": true,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+        "raw_lower_nano": 27148556,
+        "remaining_budget_nano": 27135751,
+        "arrival_limit": 3069,
+        "edge_count": 3834,
+        "reachable_edge_times": 694128,
+        "sections": 128,
+        "snap_m": 0.5,
+        "spatial_scale": 2,
+        "time_scale": 32
+      }
+    }
+  ],
+  "uiseong_andong_2025__20250323T010000Z_FN1": [
+    {
+      "candidate_floor": 3182,
+      "elapsed_s": 9.192234416026622,
+      "proof": {
+        "states": 4523,
+        "transitions": 4906,
+        "certified": false,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+        "raw_lower_nano": 103480051,
+        "remaining_budget_nano": 103654980,
+        "arrival_limit": 3181,
+        "edge_count": 5077,
+        "reachable_edge_times": 476925,
+        "sections": 128,
+        "snap_m": 0.5,
+        "spatial_scale": 2,
+        "time_scale": 32
+      }
+    },
+    {
+      "candidate_floor": 3181,
+      "elapsed_s": 8.753987458068877,
+      "proof": {
+        "states": 4519,
+        "transitions": 4902,
+        "certified": false,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+        "raw_lower_nano": 103566242,
+        "remaining_budget_nano": 103654980,
+        "arrival_limit": 3180,
+        "edge_count": 5069,
+        "reachable_edge_times": 472844,
+        "sections": 128,
+        "snap_m": 0.5,
+        "spatial_scale": 2,
+        "time_scale": 32
+      }
+    },
+    {
+      "candidate_floor": 3180,
+      "elapsed_s": 8.727554166107439,
+      "proof": {
+        "states": 4513,
+        "transitions": 4896,
+        "certified": false,
+        "method": "time-expanded original roads, directed rectangular solid angle and Jensen lower bounds",
+        "member": "ffb1:20250323T010000Z:da4a13e53bc0b6a2:0",
+        "raw_lower_nano": 103652322,
+        "remaining_budget_nano": 103654980,
+        "arrival_limit": 3179,
+        "edge_count": 5057,
+        "reachable_edge_times": 468750,
+        "sections": 128,
+        "snap_m": 0.5,
+        "spatial_scale": 2,
+        "time_scale": 32
+      }
+    }
+  ]
+}

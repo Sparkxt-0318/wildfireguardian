@@ -1,0 +1,274 @@
+{
+  "packets": {
+    "uljin_2022/20220304T060000Z/new": {
+      "incident": "uljin_2022",
+      "valid_shape": [
+        1,
+        4,
+        62,
+        58
+      ],
+      "valid_native": 768,
+      "native_flags": 14384,
+      "all_members_valid": 192,
+      "cell_hours": 3596,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "uljin_2022/20220304T030000Z/new": {
+      "incident": "uljin_2022",
+      "valid_shape": [
+        1,
+        4,
+        62,
+        58
+      ],
+      "valid_native": 264,
+      "native_flags": 14384,
+      "all_members_valid": 66,
+      "cell_hours": 3596,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "uljin_2022/20220304T120000Z/new": {
+      "incident": "uljin_2022",
+      "valid_shape": [
+        1,
+        4,
+        62,
+        58
+      ],
+      "valid_native": 2308,
+      "native_flags": 14384,
+      "all_members_valid": 577,
+      "cell_hours": 3596,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "miryang_2022/20220601T020000Z/new": {
+      "incident": "miryang_2022",
+      "valid_shape": [
+        1,
+        4,
+        17,
+        11
+      ],
+      "valid_native": 12,
+      "native_flags": 748,
+      "all_members_valid": 3,
+      "cell_hours": 187,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "us_recovery/Caldor2021_G1/new": {
+      "incident": "Caldor2021",
+      "valid_shape": [
+        1,
+        4,
+        63,
+        68
+      ],
+      "valid_native": 13672,
+      "native_flags": 17136,
+      "all_members_valid": 3418,
+      "cell_hours": 4284,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "miryang_2022/20220531T100000Z/new": {
+      "incident": "miryang_2022",
+      "valid_shape": [
+        1,
+        4,
+        17,
+        11
+      ],
+      "valid_native": 232,
+      "native_flags": 748,
+      "all_members_valid": 58,
+      "cell_hours": 187,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "hongseong_2023/20230402T140000Z/new": {
+      "incident": "hongseong_2023",
+      "valid_shape": [
+        1,
+        4,
+        18,
+        18
+      ],
+      "valid_native": 412,
+      "native_flags": 1296,
+      "all_members_valid": 103,
+      "cell_hours": 324,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "miryang_2022/20220601T080000Z/new": {
+      "incident": "miryang_2022",
+      "valid_shape": [
+        1,
+        4,
+        17,
+        11
+      ],
+      "valid_native": 276,
+      "native_flags": 748,
+      "all_members_valid": 69,
+      "cell_hours": 187,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "fw1/forecast/17": {
+      "incident": "Gyeongbuk_2025",
+      "valid_shape": [
+        1,
+        4,
+        65,
+        73
+      ],
+      "valid_native": 17812,
+      "native_flags": 18980,
+      "all_members_valid": 4453,
+      "cell_hours": 4745,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "yeongdeok_2025/20250325T190000Z/new": {
+      "incident": "Gyeongbuk_2025",
+      "valid_shape": [
+        1,
+        4,
+        67,
+        71
+      ],
+      "valid_native": 16180,
+      "native_flags": 19028,
+      "all_members_valid": 4045,
+      "cell_hours": 4757,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "yeongdeok_2025/20250325T230000Z/new": {
+      "incident": "Gyeongbuk_2025",
+      "valid_shape": [
+        1,
+        4,
+        67,
+        71
+      ],
+      "valid_native": 15688,
+      "native_flags": 19028,
+      "all_members_valid": 3922,
+      "cell_hours": 4757,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "fl2_cutoff_replay_20261114/forecast/09": {
+      "incident": "Gyeongbuk_2025",
+      "valid_shape": [
+        1,
+        4,
+        65,
+        73
+      ],
+      "valid_native": 18500,
+      "native_flags": 18980,
+      "all_members_valid": 4625,
+      "cell_hours": 4745,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "uiseong_andong_2025/20250323T010000Z/new": {
+      "incident": "Gyeongbuk_2025",
+      "valid_shape": [
+        1,
+        4,
+        65,
+        73
+      ],
+      "valid_native": 17812,
+      "native_flags": 18980,
+      "all_members_valid": 4453,
+      "cell_hours": 4745,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "yeongdeok_2025/20250326T080000Z/new": {
+      "incident": "Gyeongbuk_2025",
+      "valid_shape": [
+        1,
+        4,
+        67,
+        71
+      ],
+      "valid_native": 15688,
+      "native_flags": 19028,
+      "all_members_valid": 3922,
+      "cell_hours": 4757,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "hongseong_2023/20230402T230000Z/new": {
+      "incident": "hongseong_2023",
+      "valid_shape": [
+        1,
+        4,
+        18,
+        18
+      ],
+      "valid_native": 388,
+      "native_flags": 1296,
+      "all_members_valid": 97,
+      "cell_hours": 324,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "us_recovery/Caldor2021_G3/new": {
+      "incident": "Caldor2021",
+      "valid_shape": [
+        1,
+        4,
+        63,
+        68
+      ],
+      "valid_native": 10428,
+      "native_flags": 17136,
+      "all_members_valid": 2607,
+      "cell_hours": 4284,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "hongseong_2023/20230402T070000Z/new": {
+      "incident": "hongseong_2023",
+      "valid_shape": [
+        1,
+        4,
+        18,
+        18
+      ],
+      "valid_native": 1296,
+      "native_flags": 1296,
+      "all_members_valid": 324,
+      "cell_hours": 324,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    },
+    "us_recovery/Caldor2021_G2/new": {
+      "incident": "Caldor2021",
+      "valid_shape": [
+        1,
+        4,
+        63,
+        68
+      ],
+      "valid_native": 12644,
+      "native_flags": 17136,
+      "all_members_valid": 3161,
+      "cell_hours": 4284,
+      "filled_support_all_true": true,
+      "source_crossmatch": true
+    }
+  }
+}

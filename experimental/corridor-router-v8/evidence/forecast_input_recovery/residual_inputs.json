@@ -1,0 +1,2602 @@
+{
+  "target_case_count": 153,
+  "visits": 269,
+  "overlapping_cases": {
+    "SOME_FIRE_STATE_IN_9X9_UNKNOWN": 132,
+    "SELF_STATE_UNKNOWN": 62,
+    "SOME_ENVIRONMENT_IN_9X9_UNKNOWN": 64,
+    "RECOVERED": 28
+  },
+  "overlapping_visits": {
+    "SOME_FIRE_STATE_IN_9X9_UNKNOWN": 222,
+    "SELF_STATE_UNKNOWN": 91,
+    "SOME_ENVIRONMENT_IN_9X9_UNKNOWN": 80,
+    "RECOVERED": 30
+  },
+  "distinct_combination_visit_counts": {
+    "SOME_FIRE_STATE_IN_9X9_UNKNOWN": 101,
+    "SELF_STATE_UNKNOWN & SOME_FIRE_STATE_IN_9X9_UNKNOWN & SOME_ENVIRONMENT_IN_9X9_UNKNOWN": 33,
+    "SOME_FIRE_STATE_IN_9X9_UNKNOWN & SOME_ENVIRONMENT_IN_9X9_UNKNOWN": 30,
+    "SELF_STATE_UNKNOWN & SOME_FIRE_STATE_IN_9X9_UNKNOWN": 58,
+    "RECOVERED": 30,
+    "SOME_ENVIRONMENT_IN_9X9_UNKNOWN": 17
+  },
+  "independent_agreement_korean_cases": 152,
+  "rows": [
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_SIMPLE",
+      "role": "origin",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_SIMPLE",
+      "role": "destination",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FT1",
+      "role": "origin",
+      "row": 34,
+      "col": 26,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FT1",
+      "role": "destination",
+      "row": 14,
+      "col": 19,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GC1_C2",
+      "role": "origin",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GC1_C2",
+      "role": "destination",
+      "row": 32,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FN1",
+      "role": "origin",
+      "row": 9,
+      "col": 8,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FN1",
+      "role": "destination",
+      "row": 23,
+      "col": 46,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GL2_C2",
+      "role": "origin",
+      "row": 53,
+      "col": 26,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GL2_C2",
+      "role": "destination",
+      "row": 27,
+      "col": 38,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FW2",
+      "role": "origin",
+      "row": 16,
+      "col": 6,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FW2",
+      "role": "destination",
+      "row": 2,
+      "col": 9,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GD1_C2",
+      "role": "origin",
+      "row": 39,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GD1_C2",
+      "role": "destination",
+      "row": 33,
+      "col": 24,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND024",
+      "role": "origin",
+      "row": 41,
+      "col": 30,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FT1",
+      "role": "destination",
+      "row": 16,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FW1",
+      "role": "origin",
+      "row": 56,
+      "col": 49,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FW1",
+      "role": "destination",
+      "row": 41,
+      "col": 47,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FD1",
+      "role": "origin",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FD1",
+      "role": "destination",
+      "row": 1,
+      "col": 9,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND016",
+      "role": "origin",
+      "row": 27,
+      "col": 43,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND021",
+      "role": "destination",
+      "row": 32,
+      "col": 44,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_C01_OCT10",
+      "role": "origin",
+      "row": 42,
+      "col": 31,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_C01_OCT10",
+      "role": "destination",
+      "row": 45,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B06_OCT10",
+      "role": "origin",
+      "row": 24,
+      "col": 44,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND017",
+      "role": "origin",
+      "row": 27,
+      "col": 44,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND010",
+      "role": "origin",
+      "row": 44,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND010",
+      "role": "destination",
+      "row": 45,
+      "col": 27,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL1",
+      "role": "origin",
+      "row": 19,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL1",
+      "role": "destination",
+      "row": 43,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL2",
+      "role": "origin",
+      "row": 26,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL2",
+      "role": "destination",
+      "row": 51,
+      "col": 49,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GD1_C2",
+      "role": "origin",
+      "row": 47,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GD1_C2",
+      "role": "destination",
+      "row": 55,
+      "col": 24,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FX1",
+      "role": "origin",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FX1",
+      "role": "destination",
+      "row": 1,
+      "col": 8,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A02_OCT10",
+      "role": "origin",
+      "row": 36,
+      "col": 26,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A02_OCT10",
+      "role": "destination",
+      "row": 48,
+      "col": 35,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GWn1_C2",
+      "role": "origin",
+      "row": 37,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GWn1_C2",
+      "role": "destination",
+      "row": 41,
+      "col": 50,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B08_OCT10",
+      "role": "origin",
+      "row": 27,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "Caldor2021_G3",
+      "role": "destination",
+      "row": 37,
+      "col": 44,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B02_OCT10",
+      "role": "origin",
+      "row": 25,
+      "col": 45,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B02_OCT10",
+      "role": "destination",
+      "row": 34,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B07_OCT10",
+      "role": "origin",
+      "row": 25,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_B07_OCT10",
+      "role": "destination",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND012",
+      "role": "destination",
+      "row": 41,
+      "col": 29,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_C07_OCT10",
+      "role": "origin",
+      "row": 27,
+      "col": 44,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG3",
+      "role": "origin",
+      "row": 29,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG3",
+      "role": "destination",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FW1",
+      "role": "origin",
+      "row": 0,
+      "col": 7,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FW1",
+      "role": "destination",
+      "row": 13,
+      "col": 7,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_A05_OCT10",
+      "role": "origin",
+      "row": 33,
+      "col": 32,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_A05_OCT10",
+      "role": "destination",
+      "row": 36,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GN1_C2",
+      "role": "origin",
+      "row": 37,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GN1_C2",
+      "role": "destination",
+      "row": 15,
+      "col": 17,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_DIFFICULT",
+      "role": "origin",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_DIFFICULT",
+      "role": "destination",
+      "row": 14,
+      "col": 16,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FX1",
+      "role": "origin",
+      "row": 17,
+      "col": 2,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FX1",
+      "role": "destination",
+      "row": 0,
+      "col": 11,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GD1_C2",
+      "role": "origin",
+      "row": 44,
+      "col": 44,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GD1_C2",
+      "role": "destination",
+      "row": 44,
+      "col": 52,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FW2",
+      "role": "origin",
+      "row": 33,
+      "col": 29,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FW2",
+      "role": "destination",
+      "row": 46,
+      "col": 32,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FN1",
+      "role": "origin",
+      "row": 4,
+      "col": 7,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FN1",
+      "role": "destination",
+      "row": 5,
+      "col": 6,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FW1",
+      "role": "origin",
+      "row": 2,
+      "col": 0,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GWw1_C2",
+      "role": "origin",
+      "row": 25,
+      "col": 46,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GWw1_C2",
+      "role": "destination",
+      "row": 40,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FN1",
+      "role": "destination",
+      "row": 0,
+      "col": 8,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GL1_C2",
+      "role": "origin",
+      "row": 25,
+      "col": 46,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GL1_C2",
+      "role": "destination",
+      "row": 57,
+      "col": 55,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FD1",
+      "role": "origin",
+      "row": 13,
+      "col": 7,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GC1_C2",
+      "role": "origin",
+      "row": 37,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GC1_C2",
+      "role": "destination",
+      "row": 4,
+      "col": 35,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND016",
+      "role": "destination",
+      "row": 41,
+      "col": 29,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FD1",
+      "role": "origin",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FD1",
+      "role": "destination",
+      "row": 40,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FW2",
+      "role": "destination",
+      "row": 15,
+      "col": 7,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GL2_C2",
+      "role": "origin",
+      "row": 33,
+      "col": 24,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GL2_C2",
+      "role": "destination",
+      "row": 47,
+      "col": 46,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND013",
+      "role": "destination",
+      "row": 27,
+      "col": 42,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GC1_C2",
+      "role": "origin",
+      "row": 33,
+      "col": 24,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GC1_C2",
+      "role": "destination",
+      "row": 55,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GX2_C2",
+      "role": "origin",
+      "row": 41,
+      "col": 30,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GX2_C2",
+      "role": "destination",
+      "row": 54,
+      "col": 53,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND003",
+      "role": "origin",
+      "row": 46,
+      "col": 32,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND018",
+      "role": "destination",
+      "row": 27,
+      "col": 42,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GC2_C2",
+      "role": "origin",
+      "row": 46,
+      "col": 51,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GC2_C2",
+      "role": "destination",
+      "row": 32,
+      "col": 24,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FT1",
+      "role": "origin",
+      "row": 58,
+      "col": 21,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FT1",
+      "role": "destination",
+      "row": 32,
+      "col": 24,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_supported_near_positive_OCT09",
+      "role": "origin",
+      "row": 32,
+      "col": 34,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_supported_near_positive_OCT09",
+      "role": "destination",
+      "row": 34,
+      "col": 27,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uiseong_andong_2025__20250323T010000Z_FW2",
+      "role": "origin",
+      "row": 61,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GX2_C2",
+      "role": "origin",
+      "row": 47,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GX2_C2",
+      "role": "destination",
+      "row": 35,
+      "col": 39,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FX2",
+      "role": "origin",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FX2",
+      "role": "destination",
+      "row": 5,
+      "col": 7,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_C02_OCT10",
+      "role": "origin",
+      "row": 42,
+      "col": 31,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_C02_OCT10",
+      "role": "destination",
+      "row": 44,
+      "col": 43,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GX1_C2",
+      "role": "origin",
+      "row": 50,
+      "col": 27,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GX1_C2",
+      "role": "destination",
+      "row": 6,
+      "col": 36,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND004",
+      "role": "origin",
+      "row": 44,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND004",
+      "role": "destination",
+      "row": 28,
+      "col": 46,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FX2",
+      "role": "origin",
+      "row": 13,
+      "col": 11,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FX2",
+      "role": "destination",
+      "row": 44,
+      "col": 42,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND023",
+      "role": "origin",
+      "row": 31,
+      "col": 39,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG2",
+      "role": "origin",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG2",
+      "role": "destination",
+      "row": 29,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_DIFFICULT",
+      "role": "origin",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_DIFFICULT",
+      "role": "destination",
+      "row": 14,
+      "col": 16,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FD1",
+      "role": "origin",
+      "row": 16,
+      "col": 2,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FD1",
+      "role": "destination",
+      "row": 2,
+      "col": 0,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FL3",
+      "role": "destination",
+      "row": 64,
+      "col": 16,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_TOPOLOGY_FIRST",
+      "role": "origin",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_TOPOLOGY_FIRST",
+      "role": "destination",
+      "row": 4,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FN1",
+      "role": "origin",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FN1",
+      "role": "destination",
+      "row": 13,
+      "col": 9,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FX2",
+      "role": "origin",
+      "row": 16,
+      "col": 1,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FX2",
+      "role": "destination",
+      "row": 7,
+      "col": 10,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL3",
+      "role": "origin",
+      "row": 26,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FL3",
+      "role": "destination",
+      "row": 15,
+      "col": 17,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FL3",
+      "role": "origin",
+      "row": 58,
+      "col": 24,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FL3",
+      "role": "destination",
+      "row": 4,
+      "col": 35,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220531T100000Z_FW1",
+      "role": "destination",
+      "row": 16,
+      "col": 8,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_DIFFICULT",
+      "role": "origin",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_DIFFICULT",
+      "role": "destination",
+      "row": 14,
+      "col": 16,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND028",
+      "role": "origin",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FD1",
+      "role": "origin",
+      "row": 16,
+      "col": 7,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FD1",
+      "role": "destination",
+      "row": 2,
+      "col": 10,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_SIMPLE",
+      "role": "origin",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_SIMPLE",
+      "role": "destination",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GX1_C2",
+      "role": "origin",
+      "row": 37,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GN1_C2",
+      "role": "origin",
+      "row": 33,
+      "col": 49,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GN1_C2",
+      "role": "destination",
+      "row": 42,
+      "col": 30,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FX1",
+      "role": "origin",
+      "row": 58,
+      "col": 21,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FX1",
+      "role": "destination",
+      "row": 2,
+      "col": 35,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND014",
+      "role": "origin",
+      "row": 42,
+      "col": 31,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GWw1_C2",
+      "role": "origin",
+      "row": 14,
+      "col": 6,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GWw1_C2",
+      "role": "destination",
+      "row": 12,
+      "col": 14,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A01_OCT10",
+      "role": "origin",
+      "row": 31,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A01_OCT10",
+      "role": "destination",
+      "row": 26,
+      "col": 43,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FW1",
+      "role": "origin",
+      "row": 11,
+      "col": 70,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C05_OCT10",
+      "role": "origin",
+      "row": 44,
+      "col": 27,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C05_OCT10",
+      "role": "destination",
+      "row": 57,
+      "col": 23,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GX1_C2",
+      "role": "origin",
+      "row": 47,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GX1_C2",
+      "role": "destination",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FX1",
+      "role": "origin",
+      "row": 12,
+      "col": 11,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FX1",
+      "role": "destination",
+      "row": 44,
+      "col": 52,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GC2_C2",
+      "role": "origin",
+      "row": 12,
+      "col": 15,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GC2_C2",
+      "role": "destination",
+      "row": 44,
+      "col": 53,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FW1",
+      "role": "origin",
+      "row": 10,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FW1",
+      "role": "destination",
+      "row": 15,
+      "col": 27,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FX2",
+      "role": "origin",
+      "row": 58,
+      "col": 21,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FX2",
+      "role": "destination",
+      "row": 6,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FW2",
+      "role": "destination",
+      "row": 15,
+      "col": 11,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FX1",
+      "role": "origin",
+      "row": 16,
+      "col": 2,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FX1",
+      "role": "destination",
+      "row": 3,
+      "col": 11,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND006",
+      "role": "origin",
+      "row": 28,
+      "col": 40,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND006",
+      "role": "destination",
+      "row": 27,
+      "col": 44,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B01_OCT10",
+      "role": "origin",
+      "row": 24,
+      "col": 44,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B01_OCT10",
+      "role": "destination",
+      "row": 25,
+      "col": 43,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_A04_OCT10",
+      "role": "origin",
+      "row": 25,
+      "col": 39,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_A04_OCT10",
+      "role": "destination",
+      "row": 30,
+      "col": 39,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FN1",
+      "role": "origin",
+      "row": 58,
+      "col": 21,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FN1",
+      "role": "destination",
+      "row": 19,
+      "col": 41,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GWn1_C2",
+      "role": "origin",
+      "row": 25,
+      "col": 46,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_GWn1_C2",
+      "role": "destination",
+      "row": 37,
+      "col": 54,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C04_OCT10",
+      "role": "origin",
+      "row": 43,
+      "col": 33,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C04_OCT10",
+      "role": "destination",
+      "row": 45,
+      "col": 30,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FT1",
+      "role": "origin",
+      "row": 52,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FT1",
+      "role": "destination",
+      "row": 33,
+      "col": 40,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FW2",
+      "role": "origin",
+      "row": 8,
+      "col": 36,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FW2",
+      "role": "destination",
+      "row": 6,
+      "col": 23,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND011",
+      "role": "origin",
+      "row": 29,
+      "col": 40,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND001",
+      "role": "origin",
+      "row": 31,
+      "col": 40,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND001",
+      "role": "destination",
+      "row": 27,
+      "col": 42,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C03_OCT10",
+      "role": "origin",
+      "row": 32,
+      "col": 34,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_C03_OCT10",
+      "role": "destination",
+      "row": 44,
+      "col": 42,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FW2",
+      "role": "origin",
+      "row": 5,
+      "col": 8,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FW2",
+      "role": "destination",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND021",
+      "role": "origin",
+      "row": 34,
+      "col": 40,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T230000Z_FW2",
+      "role": "origin",
+      "row": 15,
+      "col": 12,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_supported_near_positive_OCT09",
+      "role": "destination",
+      "row": 27,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND026",
+      "role": "origin",
+      "row": 28,
+      "col": 40,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND026",
+      "role": "destination",
+      "row": 45,
+      "col": 31,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GL1_C2",
+      "role": "origin",
+      "row": 37,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GL1_C2",
+      "role": "destination",
+      "row": 8,
+      "col": 34,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FD1",
+      "role": "origin",
+      "row": 9,
+      "col": 8,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FD1",
+      "role": "destination",
+      "row": 22,
+      "col": 19,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GWw1_C2",
+      "role": "destination",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FW2",
+      "role": "origin",
+      "row": 18,
+      "col": 68,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FW2",
+      "role": "destination",
+      "row": 30,
+      "col": 68,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND000",
+      "role": "origin",
+      "row": 26,
+      "col": 46,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND000",
+      "role": "destination",
+      "row": 27,
+      "col": 43,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FL2",
+      "role": "origin",
+      "row": 58,
+      "col": 24,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_A08_OCT10",
+      "role": "origin",
+      "row": 26,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_A08_OCT10",
+      "role": "destination",
+      "row": 37,
+      "col": 51,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND009",
+      "role": "origin",
+      "row": 31,
+      "col": 44,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND009",
+      "role": "destination",
+      "row": 28,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND018",
+      "role": "origin",
+      "row": 32,
+      "col": 34,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND018",
+      "role": "destination",
+      "row": 27,
+      "col": 43,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FW1",
+      "role": "origin",
+      "row": 15,
+      "col": 17,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FW1",
+      "role": "destination",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_supported_cold_OCT09",
+      "role": "origin",
+      "row": 8,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_supported_cold_OCT09",
+      "role": "destination",
+      "row": 9,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL2",
+      "role": "destination",
+      "row": 34,
+      "col": 26,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_SIMPLE",
+      "role": "origin",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_OCT08_SIMPLE",
+      "role": "destination",
+      "row": 11,
+      "col": 4,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B03_OCT10",
+      "role": "origin",
+      "row": 27,
+      "col": 45,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_B03_OCT10",
+      "role": "destination",
+      "row": 19,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND000",
+      "role": "origin",
+      "row": 39,
+      "col": 28,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND000",
+      "role": "destination",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND013",
+      "role": "origin",
+      "row": 33,
+      "col": 29,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND013",
+      "role": "destination",
+      "row": 41,
+      "col": 30,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FX2",
+      "role": "origin",
+      "row": 12,
+      "col": 11,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FX2",
+      "role": "destination",
+      "row": 38,
+      "col": 57,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_supported_cold_OCT09",
+      "role": "origin",
+      "row": 54,
+      "col": 53,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_supported_cold_OCT09",
+      "role": "destination",
+      "row": 53,
+      "col": 51,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FT1",
+      "role": "origin",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FT1",
+      "role": "destination",
+      "row": 14,
+      "col": 7,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND015",
+      "role": "destination",
+      "row": 32,
+      "col": 43,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_supported_near_positive_OCT09",
+      "role": "origin",
+      "row": 42,
+      "col": 31,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_supported_near_positive_OCT09",
+      "role": "destination",
+      "row": 45,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FD1",
+      "role": "origin",
+      "row": 13,
+      "col": 11,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FD1",
+      "role": "destination",
+      "row": 26,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GWn1_C2",
+      "role": "origin",
+      "row": 47,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GWn1_C2",
+      "role": "destination",
+      "row": 52,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_B04_OCT10",
+      "role": "origin",
+      "row": 27,
+      "col": 46,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_B04_OCT10",
+      "role": "destination",
+      "row": 30,
+      "col": 39,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL1",
+      "role": "destination",
+      "row": 45,
+      "col": 27,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FX2",
+      "role": "origin",
+      "row": 16,
+      "col": 2,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FX2",
+      "role": "destination",
+      "row": 4,
+      "col": 12,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND008",
+      "role": "origin",
+      "row": 41,
+      "col": 29,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND008",
+      "role": "destination",
+      "row": 26,
+      "col": 44,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A03_OCT10",
+      "role": "origin",
+      "row": 16,
+      "col": 42,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_A03_OCT10",
+      "role": "destination",
+      "row": 36,
+      "col": 51,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG1",
+      "role": "origin",
+      "row": 29,
+      "col": 40,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_FACILITY_LEG1",
+      "role": "destination",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GX2_C2",
+      "role": "origin",
+      "row": 12,
+      "col": 15,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_GX2_C2",
+      "role": "destination",
+      "row": 28,
+      "col": 40,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_B05_OCT10",
+      "role": "origin",
+      "row": 27,
+      "col": 45,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_B05_OCT10",
+      "role": "destination",
+      "row": 37,
+      "col": 51,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND002",
+      "role": "origin",
+      "row": 28,
+      "col": 41,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND002",
+      "role": "destination",
+      "row": 28,
+      "col": 46,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FW2",
+      "role": "origin",
+      "row": 61,
+      "col": 52,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_FW2",
+      "role": "destination",
+      "row": 44,
+      "col": 52,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_TOPOLOGY_FIRST",
+      "role": "origin",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T030000Z_OCT08_TOPOLOGY_FIRST",
+      "role": "destination",
+      "row": 4,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND007",
+      "role": "origin",
+      "row": 33,
+      "col": 40,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_RND007",
+      "role": "destination",
+      "row": 27,
+      "col": 43,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FW1",
+      "role": "origin",
+      "row": 0,
+      "col": 14,
+      "causes": [
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND027",
+      "role": "origin",
+      "row": 27,
+      "col": 43,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND027",
+      "role": "destination",
+      "row": 45,
+      "col": 30,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_TOPOLOGY_FIRST",
+      "role": "origin",
+      "row": 9,
+      "col": 39,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_OCT08_TOPOLOGY_FIRST",
+      "role": "destination",
+      "row": 4,
+      "col": 37,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL3",
+      "role": "origin",
+      "row": 43,
+      "col": 56,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T120000Z_FL3",
+      "role": "destination",
+      "row": 14,
+      "col": 21,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND020",
+      "role": "origin",
+      "row": 30,
+      "col": 39,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_RND020",
+      "role": "destination",
+      "row": 32,
+      "col": 33,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FW1",
+      "role": "origin",
+      "row": 14,
+      "col": 4,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T080000Z_FW1",
+      "role": "destination",
+      "row": 3,
+      "col": 9,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_supported_cold_OCT09",
+      "role": "origin",
+      "row": 8,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_supported_cold_OCT09",
+      "role": "destination",
+      "row": 9,
+      "col": 38,
+      "causes": [
+        "SELF_STATE_UNKNOWN",
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN",
+        "SOME_ENVIRONMENT_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GL1_C2",
+      "role": "origin",
+      "row": 47,
+      "col": 35,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "uljin_2022__20220304T060000Z_GL1_C2",
+      "role": "destination",
+      "row": 37,
+      "col": 51,
+      "causes": [
+        "RECOVERED"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FT1",
+      "role": "origin",
+      "row": 5,
+      "col": 6,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    },
+    {
+      "case": "miryang_2022__20220601T020000Z_FT1",
+      "role": "destination",
+      "row": 6,
+      "col": 6,
+      "causes": [
+        "SOME_FIRE_STATE_IN_9X9_UNKNOWN"
+      ]
+    }
+  ]
+}

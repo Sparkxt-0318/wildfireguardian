@@ -1,0 +1,104 @@
+{
+  "observations": {
+    "groups": {
+      "all": {
+        "refusal -> refusal": 78,
+        "unresolved -> unresolved": 124,
+        "unresolved -> refusal": 36,
+        "unresolved -> route": 7,
+        "route -> route": 28
+      },
+      "changed_packet": {
+        "refusal -> refusal": 49,
+        "unresolved -> unresolved": 124,
+        "unresolved -> refusal": 36,
+        "unresolved -> route": 7,
+        "route -> route": 25
+      },
+      "flagged163": {
+        "unresolved -> unresolved": 122,
+        "unresolved -> refusal": 32,
+        "unresolved -> route": 7,
+        "route -> route": 2
+      },
+      "target153": {
+        "unresolved -> unresolved": 114,
+        "unresolved -> refusal": 32,
+        "unresolved -> route": 7
+      },
+      "no_endpoint_gain": {
+        "unresolved -> unresolved": 102,
+        "unresolved -> refusal": 23
+      },
+      "both_endpoints_supported": {
+        "unresolved -> route": 7,
+        "unresolved -> unresolved": 3,
+        "unresolved -> refusal": 1
+      },
+      "partial_recovery": {
+        "unresolved -> unresolved": 9,
+        "unresolved -> refusal": 8
+      },
+      "supported_in_permissive_26": {
+        "route -> route": 26
+      },
+      "strict_prior_28": {
+        "route -> route": 28
+      },
+      "unaffected_packet": {
+        "route -> route": 3,
+        "refusal -> refusal": 29
+      }
+    },
+    "target_regions_by_endpoint_recovery": {
+      "uljin_2022": {
+        "no_endpoint_gain": 107,
+        "partial_recovery": 12,
+        "both_endpoints_supported": 3
+      },
+      "miryang_2022": {
+        "no_endpoint_gain": 6,
+        "both_endpoints_supported": 6,
+        "partial_recovery": 5
+      },
+      "Caldor2021": {
+        "no_endpoint_gain": 1
+      },
+      "hongseong_2023": {
+        "no_endpoint_gain": 8,
+        "both_endpoints_supported": 1
+      },
+      "Gyeongbuk_2025": {
+        "no_endpoint_gain": 3,
+        "both_endpoints_supported": 1
+      }
+    },
+    "original_missing_endpoint_cell_visits_by_transition": {
+      "target_state_known_rate_unavailable -> target_state_known_rate_unavailable": 40,
+      "target_initial_state_unknown -> target_state_known_rate_unavailable": 108,
+      "target_initial_state_unknown -> target_initial_state_unknown": 91,
+      "target_state_known_rate_unavailable -> supported": 15,
+      "target_initial_state_unknown -> supported": 15
+    },
+    "distinct_original_missing_endpoint_cells_by_transition": {
+      "target_state_known_rate_unavailable -> target_state_known_rate_unavailable": 35,
+      "target_initial_state_unknown -> target_state_known_rate_unavailable": 74,
+      "target_initial_state_unknown -> target_initial_state_unknown": 70,
+      "target_state_known_rate_unavailable -> supported": 9,
+      "target_initial_state_unknown -> supported": 11
+    },
+    "newly_supported_distinct_target_packet_cells": 20,
+    "newly_supported_target_endpoint_cell_visits": 30,
+    "all_initially_missing_target_endpoint_cell_visits": 269
+  },
+  "new_checked_routes": [
+    "miryang_2022__20220531T100000Z_FT1",
+    "miryang_2022__20220531T100000Z_FW2",
+    "uljin_2022__20220304T120000Z_RND018",
+    "yeongdeok_2025__20250326T080000Z_FL3",
+    "miryang_2022__20220601T080000Z_FN1",
+    "miryang_2022__20220531T100000Z_FW1",
+    "miryang_2022__20220601T080000Z_FT1"
+  ],
+  "prior_routes_without_current_checked_route": []
+}

@@ -1,0 +1,59 @@
+name: Experimental corridor router v8
+
+on:
+  pull_request:
+    paths:
+      - 'experimental/corridor-router-v8/**'
+      - 'experimental/forecast-input-recovery/**'
+      - '.github/workflows/corridor-router-v8.yml'
+  push:
+    paths:
+      - 'experimental/corridor-router-v8/**'
+      - 'experimental/forecast-input-recovery/**'
+      - '.github/workflows/corridor-router-v8.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  corridor-router:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install MPFR on Linux
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libmpfr6
+      - name: Install MPFR on macOS
+        if: runner.os == 'macOS'
+        run: brew list mpfr >/dev/null 2>&1 || brew install mpfr
+      - name: Install Python dependency
+        run: python -m pip install numpy==1.26.4
+      - name: Build native libraries
+        run: python -B experimental/corridor-router-v8/build_native.py
+      - name: Check waiting, turns and destination occupancy
+        run: python -B experimental/corridor-router-v8/tests/test_corridor.py -v
+      - name: Run synthetic candidate search and negative controls
+        run: python -B experimental/corridor-router-v8/tests/test_candidate.py -v
+      - name: Check native forecast support and unknown outcomes
+        run: python -B experimental/corridor-router-v8/tests/test_native_support.py -v
+      - name: Check portable job CLI and provenance failures
+        run: python -B experimental/corridor-router-v8/tests/test_prepare_job.py -v
+      - name: Check deadline, child memory and process cleanup
+        run: python -B experimental/corridor-router-v8/tests/test_guard.py -v
+      - name: Check numerical bounds against independent small cases
+        run: python -B experimental/corridor-router-v8/tests/check_numerical_regression.py
+      - name: Reconcile published forecast-recovery receipts
+        run: python -B experimental/forecast-input-recovery/verify_ledger.py
