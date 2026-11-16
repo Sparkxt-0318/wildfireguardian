@@ -1,0 +1,184 @@
+{
+ "A.jobs_total": {
+  "value": 9722,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum over 6 caches of jobs_all.total"
+ },
+ "A.recorded_checked_route_identical": {
+  "value": 7771,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of jobs_all['checked:identical_route_cert']"
+ },
+ "A.recorded_checked_route_match": {
+  "value": 7771,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of jobs_all['checked:match']"
+ },
+ "A.recorded_no_route_match": {
+  "value": 1468,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of jobs_all['no_route:match']"
+ },
+ "A.recorded_at_issue_failure": {
+  "value": 186,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of jobs_all['unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)']"
+ },
+ "A.unresolved_now_checked": {
+  "value": 199,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of jobs_all['unresolved[UNRESOLVED]:cert_feasible']"
+ },
+ "A.unresolved_now_no_route": {
+  "value": 98,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of jobs_all['unresolved[UNRESOLVED]:router_infeasible']"
+ },
+ "A.recorded_unresolved_timeout": {
+  "value": 297,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "cert_feasible + router_infeasible"
+ },
+ "A.job_mismatches": {
+  "value": 0,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of len(job_mismatches)"
+ },
+ "A.attempt_mismatches": {
+  "value": 0,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of len(mismatches)"
+ },
+ "A.deadline_witness_pass": {
+  "value": 1482,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of witness_checks['deadline_witness:PASS']"
+ },
+ "A.deadline_next_second_infeasible": {
+  "value": 1482,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of witness_checks['deadline_next_second_infeasible:True']"
+ },
+ "A.planner_deadlines_equal_recorded": {
+  "value": 528,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of deadlines['cert:equal']"
+ },
+ "A.planner_deadlines_field_later": {
+  "value": 2,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "sum of deadlines['cert:field_later']"
+ },
+ "A.origins": {
+  "value": 530,
+  "file": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json",
+  "how": "cert:equal + cert:field_later"
+ },
+ "B.permissive.cases": {
+  "value": 273,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "row count"
+ },
+ "B.permissive.route": {
+  "value": 189,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "count of rows with kind == route"
+ },
+ "B.permissive.refusal": {
+  "value": 84,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "count of rows with kind == refusal"
+ },
+ "B.permissive.unresolved": {
+  "value": 0,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "count of rows with kind == unresolved"
+ },
+ "B.permissive.max_wall_s": {
+  "value": 28.244437208981253,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "max of wall_s"
+ },
+ "B.permissive.over_30s": {
+  "value": 0,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "count wall_s > 30"
+ },
+ "B.coverage_required.cases": {
+  "value": 273,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "row count"
+ },
+ "B.coverage_required.route": {
+  "value": 35,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "count of rows with kind == route"
+ },
+ "B.coverage_required.refusal": {
+  "value": 114,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "count of rows with kind == refusal"
+ },
+ "B.coverage_required.unresolved": {
+  "value": 124,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "count of rows with kind == unresolved"
+ },
+ "B.coverage_required.max_wall_s": {
+  "value": 28.198025249992497,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "max of wall_s"
+ },
+ "B.coverage_required.over_30s": {
+  "value": 0,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "count wall_s > 30"
+ },
+ "B.coverage_required_before_input_recovery.cases": {
+  "value": 273,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv",
+  "how": "row count"
+ },
+ "B.coverage_required_before_input_recovery.route": {
+  "value": 28,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv",
+  "how": "count of rows with kind == route"
+ },
+ "B.coverage_required_before_input_recovery.refusal": {
+  "value": 78,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv",
+  "how": "count of rows with kind == refusal"
+ },
+ "B.coverage_required_before_input_recovery.unresolved": {
+  "value": 167,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv",
+  "how": "count of rows with kind == unresolved"
+ },
+ "B.coverage_required_before_input_recovery.max_wall_s": {
+  "value": 28.83405279100407,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv",
+  "how": "max of wall_s"
+ },
+ "B.coverage_required_before_input_recovery.over_30s": {
+  "value": 0,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv",
+  "how": "count wall_s > 30"
+ },
+ "B.permissive.routes_touching_unsupported_cell_hours": {
+  "value": 163,
+  "file": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv",
+  "how": "routes with unsupported_cell_hours > 0"
+ },
+ "B.coverage_required.routes_touching_unsupported_cell_hours": {
+  "value": "0 (column absent; summary.json unsupported_routes = 0)",
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/summary.json",
+  "how": "unsupported_routes"
+ },
+ "B.coverage_required.unresolved_reason": {
+  "value": {
+   "SUPPORT_RESTRICTED_SEARCH_NO_ROUTE": 124
+  },
+  "file": "research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv",
+  "how": "reason column of unresolved rows"
+ }
+}

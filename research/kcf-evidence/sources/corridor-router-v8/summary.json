@@ -1,0 +1,141 @@
+{
+  "cases": 273,
+  "kinds": {
+    "route": 189,
+    "refusal": 84
+  },
+  "target_cases": [
+    {
+      "case": "uljin_2022__20220304T060000Z_FN1",
+      "arm": "arrival",
+      "incident": "uljin_2022",
+      "target5": true,
+      "wait34": true,
+      "status": "FULL_MODEL_REFUSAL_PROVEN",
+      "kind": "refusal",
+      "arrival": null,
+      "driving_s": null,
+      "verified_feasible": null,
+      "verified_earliest": null,
+      "unsupported_cell_hours": null,
+      "declared_drive_minimum": null,
+      "verified_drive_minimum": null,
+      "peak_mib": 427.234375,
+      "wall_s": 3.1691008750349283,
+      "guard_cause": null,
+      "resource_sha256": "13d1a1713d6855e186db3af978be0028ff707779a304d39fcd1ee273e244b2df"
+    },
+    {
+      "case": "hongseong_2023__20230402T140000Z_FN1",
+      "arm": "arrival",
+      "incident": "hongseong_2023",
+      "target5": true,
+      "wait34": false,
+      "status": "FULL_MODEL_REFUSAL_PROVEN",
+      "kind": "refusal",
+      "arrival": null,
+      "driving_s": null,
+      "verified_feasible": null,
+      "verified_earliest": null,
+      "unsupported_cell_hours": null,
+      "declared_drive_minimum": null,
+      "verified_drive_minimum": null,
+      "peak_mib": 110.84375,
+      "wall_s": 0.72425479197409,
+      "guard_cause": null,
+      "resource_sha256": "81b9e2404bcab553735bd7d0ae8796158310d3427f4ade32ad88a0f365487329"
+    },
+    {
+      "case": "uiseong_andong_2025__20250323T010000Z_FN1",
+      "arm": "arrival",
+      "incident": "Gyeongbuk_2025",
+      "target5": true,
+      "wait34": false,
+      "status": "CHECKED_JOURNEY_FEASIBLE",
+      "kind": "route",
+      "arrival": 3187,
+      "driving_s": 2473,
+      "verified_feasible": true,
+      "verified_earliest": false,
+      "unsupported_cell_hours": 0,
+      "declared_drive_minimum": false,
+      "verified_drive_minimum": null,
+      "peak_mib": 1262.203125,
+      "wall_s": 28.244437208981253,
+      "guard_cause": null,
+      "resource_sha256": "8b2f638fa41335872a68d52a0babee6591687b457c3969c28f2623f943c9c0d3"
+    },
+    {
+      "case": "uiseong_andong_2025__20250323T010000Z_FT1",
+      "arm": "arrival",
+      "incident": "Gyeongbuk_2025",
+      "target5": true,
+      "wait34": false,
+      "status": "CHECKED_JOURNEY_FEASIBLE",
+      "kind": "route",
+      "arrival": 3074,
+      "driving_s": 2262,
+      "verified_feasible": true,
+      "verified_earliest": false,
+      "unsupported_cell_hours": 0,
+      "declared_drive_minimum": false,
+      "verified_drive_minimum": null,
+      "peak_mib": 1015.34375,
+      "wall_s": 23.6831172920065,
+      "guard_cause": null,
+      "resource_sha256": "ffcfed96f7cce6f5e0b11c3724708c7b9fb3af3cdb0f7cf9a908f9f78792fa9e"
+    },
+    {
+      "case": "yeongdeok_2025__20250326T080000Z_FN1",
+      "arm": "arrival",
+      "incident": "Gyeongbuk_2025",
+      "target5": true,
+      "wait34": false,
+      "status": "FULL_MODEL_REFUSAL_PROVEN",
+      "kind": "refusal",
+      "arrival": null,
+      "driving_s": null,
+      "verified_feasible": null,
+      "verified_earliest": null,
+      "unsupported_cell_hours": null,
+      "declared_drive_minimum": null,
+      "verified_drive_minimum": null,
+      "peak_mib": 1679.203125,
+      "wall_s": 8.461435458040796,
+      "guard_cause": null,
+      "resource_sha256": "bb9caaae11a80355fc7d0f8cdbbdff63c2ce845958a0a6981de02d53cb218302"
+    }
+  ],
+  "independently_verified_earliest": 187,
+  "independently_verified_drive_min": 168,
+  "returned_routes_with_unsupported_cell_hours": 163,
+  "drive_min_claims": 168,
+  "wall_limits_exceeded": 0,
+  "resource_guards": {
+    "None": 273
+  },
+  "max_wall_s": 28.244437208981253,
+  "max_sampled_rss_mib": 1679.203125,
+  "favorable_changes": [
+    {
+      "case": "uiseong_andong_2025__20250323T010000Z_FN1",
+      "previous_arrival": 3196,
+      "new_arrival": 3187,
+      "verified_earliest": false
+    },
+    {
+      "case": "uiseong_andong_2025__20250323T010000Z_FT1",
+      "previous_arrival": 3076,
+      "new_arrival": 3074,
+      "verified_earliest": false
+    }
+  ],
+  "issues": [
+    [
+      "yeongdeok_2025__20250325T230000Z_FW2",
+      "previous driving time changed without a verified improvement",
+      1011,
+      1197
+    ]
+  ]
+}
