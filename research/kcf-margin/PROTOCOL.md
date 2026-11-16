@@ -12,7 +12,7 @@ Frozen 2026-11-16, committed before any reach score was computed. Changes after 
 
 **Spread or separate fire (one rule, fixed now).** Split N into 8-connected components. A component whose nearest cell is more than **5 km** from K_t is a **separate new fire** and is left out of S. Every other component is spread, including spot fires up to 5 km out. Sensitivity runs (not headline): 2 km and no exclusion.
 
-**Unit of independence: the fire.** The worst hour per fire is never used. Calibration is **per issue time**. For each calibration fire, draw one issue hour uniformly at random (within the class), then apply split conformal to those n scores: R = the ⌈(n+1)(1−α)⌉-th smallest. Repeat for 2,000 draws (seed 20261116) and freeze the **median** R across draws. The claim reads: "for a randomly chosen hour of a randomly chosen fire like these, the fire's h-hour reach exceeds R with probability about α, on average over fires like these". It is not a per-hour or per-fire guarantee.
+**Unit of independence: the fire.** The worst hour per fire is never used. Calibration is **per issue time**. For each calibration fire, draw one issue hour uniformly at random (within the class), then apply split conformal to those n scores: R = the ⌈(n+1)(1−α)⌉-th smallest. Repeat for 2,000 draws (seed 20261116) and freeze the **median** R across draws. The claim reads: "for a randomly chosen hour of a randomly chosen fire like these, the fire's h-hour reach exceeds R with probability about α, on average over fires like these". It holds neither per hour nor per fire.
 
 **Miss targets.** α = 0.10 and 0.20.
 
