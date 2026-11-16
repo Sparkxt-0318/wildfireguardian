@@ -34,3 +34,10 @@ Frozen 2026-11-16, committed before any reach score was computed. Changes after 
 **Gyeongbuk stress test.** For 25 March 2025 KST, issue hours 00–23 KST. The known set at t is the union of FIRMS VIIRS detections (confidence not 'l', 375 m cells) and AHI B07/B14 hotspots up to t. An AHI pixel counts as a hotspot when B07 ≥ 320 K and B07 − B14 ≥ 25 K in at least 2 scans within the hour; both thresholds exceed the max of all four pre-ignition baseline windows. Each AHI pixel is drawn as a square of its pixel spacing on an EPSG:5179 375 m grid. The score and 5 km rule are the same as above. Apply frozen GOFER R(5), R(8) for all hours and for the prior-3 h class, and report every hour that failed. The AHI grid covers only the KFS_01 rectangle, so this is an approximation of perimeters, not perimeters.
 
 **Labels.** Every number is MEASURED (computed here from data) or ASSUMED (an input or proxy). The word "guarantee" only appears with "on average over fires like these", and n is always stated.
+
+## Amendments (after the freeze; each with its reason)
+
+1. **Before any score was viewed:** the first scoring pass ended issue hours at each fire's last growth hour. That was a bug against this protocol, fixed to "last perimeter hour" (`score_gofer.py`, T = number of perimeters) and rerun.
+2. **NIROPS:** R was computed at GOFER horizons 1, 2, 3, 5, 8, 12, 18, 24, 36, 48 h. For survey gaps between those horizons, R(g) is linearly interpolated (ASSUMED) instead of evaluated at round(g).
+3. **Pixel vs route, post hoc:** after the first route run, two hour-level measures were added. They are the share of spread hours with any missed pixel, and the route failure rate within those hours. Labelled post hoc in RESULTS.md.
+4. **Gyeongbuk:** the gust class (c) is not applied, because no Korean gust series was fetched. Only the all-hours and prior-3 h classes are applied.
