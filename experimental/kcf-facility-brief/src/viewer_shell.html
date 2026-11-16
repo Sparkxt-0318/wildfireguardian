@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:;">
+<title>시설 이송 브리핑 (훈련용)</title>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body>
+<div class="toolbar no-print" role="toolbar" aria-label="브리핑 도구">
+  <div class="tb-row">
+    <strong class="tb-title">훈련용 시설 이송 브리핑 · 오프라인</strong>
+    <div class="seg" role="group" aria-label="보기 선택">
+      <button type="button" data-view-btn="facility">시설 담당자</button>
+      <button type="button" data-view-btn="county">시군 재난안전 담당자</button>
+    </div>
+    <label class="chk-before"><input type="checkbox" id="beforeOnly"> 변경 전(기준)만 보기</label>
+    <button type="button" id="printBtn">A4 인쇄</button>
+  </div>
+  <div class="tb-row">
+    <label>예시 사례
+      <select id="caseSel"></select>
+    </label>
+    <label>기준 JSON <input type="file" id="fBaseline" accept=".json,application/json"></label>
+    <label>변경 JSON <input type="file" id="fRevised" accept=".json,application/json"></label>
+    <label>메타 JSON <input type="file" id="fMeta" accept=".json,application/json"></label>
+    <button type="button" id="clearRevised">변경 파일 비우기</button>
+  </div>
+  <div class="tb-row tb-status" id="status" aria-live="polite"></div>
+</div>
+<main id="out"></main>
+<script>
+/*__CORE__*/
+</script>
+<script>
+var KCF_FIXTURES = /*__FIXTURES__*/;
+</script>
+<script>
+(function () {
+  'use strict';
+  var K = window.KCFBrief;
+  var state = { baseline: null, revised: null, meta: null, view: 'county', beforeOnly: false, caseKey: null };
+  var out = document.getElementById('out');
+  var statusEl = document.getElementById('status');
+
+  function setStatus() {
+    function one(lbl, f) { return lbl + ': ' + (f ? f.name + ' (sha256 ' + K.sha256(f.text).slice(0, 12) + ')' : '없음'); }
+    statusEl.textContent = [one('기준', state.baseline), one('변경', state.beforeOnly ? null : state.revised) + (state.beforeOnly && state.revised ? ' — 변경 전 보기' : ''), one('메타', state.meta)].join('   ·   ');
+  }
+
+  function render() {
+    out.innerHTML = ''; // never leave a previous brief on screen
+    document.body.removeAttribute('data-rendered');
+    setStatus();
+    if (!state.baseline) { out.innerHTML = '<article class="sheet"><div class="band">훈련 · 가상 상황 · 실제 상황 아님</div><p>기준 JSON 을 불러오거나 예시 사례를 고르세요.</p></article>'; return; }
+    var r = K.brief({
+      baseline_text: state.baseline.text, baseline_name: state.baseline.name,
+      revised_text: state.beforeOnly || !state.revised ? null : state.revised.text, revised_name: state.revised && state.revised.name,
+      meta_text: state.meta ? state.meta.text : null, meta_name: state.meta && state.meta.name
+    });
+    if (!r.ok) {
+      out.innerHTML = K.renderError(r.errors, r.warnings);
+      document.body.setAttribute('data-rendered', 'error');
+      return;
+    }
+    out.innerHTML = r.facility + r.county;
+    fitSheets();
+    document.body.setAttribute('data-rendered', 'ok');
+    applyView();
+  }
+
+  // Lay each sheet out off-screen with the print rules at A4 printable size (210×297 mm minus 8 mm
+  // margins) and step the density class up until it fits one page.
+  function fitSheets() {
+    var pm = document.createElement('div');
+    pm.className = 'pm';
+    pm.style.cssText = 'position:absolute;left:-10000px;top:0;width:194mm;visibility:hidden;';
+    document.body.appendChild(pm);
+    var probe = document.createElement('div');
+    probe.style.height = '281mm';
+    pm.appendChild(probe);
+    var limit = probe.getBoundingClientRect().height - 8; // small safety margin
+    pm.removeChild(probe);
+    Array.prototype.forEach.call(out.querySelectorAll('.sheet[data-view]'), function (s) {
+      var c = s.cloneNode(true);
+      c.classList.add('active');
+      pm.appendChild(c);
+      var m = /density-(\d)/.exec(c.className), lvl = m ? Number(m[1]) : 0;
+      while (c.getBoundingClientRect().height > limit && lvl < 3) {
+        c.classList.remove('density-' + lvl); lvl += 1; c.classList.add('density-' + lvl);
+      }
+      s.className = s.className.replace(/density-\d/, 'density-' + lvl);
+      s.setAttribute('data-print-fit', c.getBoundingClientRect().height <= limit ? 'one-page' : 'overflow');
+      pm.removeChild(c);
+    });
+    document.body.removeChild(pm);
+  }
+
+  function applyView() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-view-btn]'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-view-btn') === state.view ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(out.querySelectorAll('.sheet[data-view]'), function (s) {
+      s.classList.toggle('active', s.getAttribute('data-view') === state.view || s.getAttribute('data-view') === 'error');
+    });
+    document.title = (state.view === 'county' ? '시군 담당자용' : '시설 담당자용') + ' 이송 브리핑 (훈련용)';
+  }
+
+  function load(kind, name, text) { state[kind] = text == null ? null : { name: name, text: text }; render(); }
+  function loadCase(key) {
+    var c = KCF_FIXTURES[key]; state.caseKey = key;
+    if (!c) return;
+    state.baseline = c.baseline; state.revised = c.revised; state.meta = c.meta;
+    render();
+  }
+  function readFile(input, kind) {
+    input.addEventListener('change', function () {
+      var f = input.files && input.files[0];
+      if (!f) return;
+      var fr = new FileReader();
+      fr.onload = function () { document.getElementById('caseSel').value = ''; load(kind, f.name, String(fr.result)); input.value = ''; };
+      fr.readAsText(f, 'utf-8');
+    });
+  }
+
+  var sel = document.getElementById('caseSel');
+  sel.innerHTML = '<option value="">— 직접 불러온 파일 —</option>' + Object.keys(KCF_FIXTURES).map(function (k) {
+    return '<option value="' + K.esc(k) + '">' + K.esc(KCF_FIXTURES[k].label) + '</option>';
+  }).join('');
+  sel.addEventListener('change', function () { if (sel.value) loadCase(sel.value); });
+  readFile(document.getElementById('fBaseline'), 'baseline');
+  readFile(document.getElementById('fRevised'), 'revised');
+  readFile(document.getElementById('fMeta'), 'meta');
+  document.getElementById('clearRevised').addEventListener('click', function () { load('revised', null, null); });
+  document.getElementById('beforeOnly').addEventListener('change', function (e) { state.beforeOnly = e.target.checked; render(); });
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-view-btn]'), function (b) {
+    b.addEventListener('click', function () { state.view = b.getAttribute('data-view-btn'); applyView(); });
+  });
+
+  // URL hash: #case=delayed_vehicle&view=facility&before=1
+  var h = {};
+  location.hash.replace(/^#/, '').split('&').forEach(function (kv) { var p = kv.split('='); if (p[0]) h[p[0]] = decodeURIComponent(p[1] || ''); });
+  if (h.view === 'facility' || h.view === 'county') state.view = h.view;
+  if (h.before === '1') { state.beforeOnly = true; document.getElementById('beforeOnly').checked = true; }
+  var first = h['case'] && KCF_FIXTURES[h['case']] ? h['case'] : Object.keys(KCF_FIXTURES)[0];
+  sel.value = first || '';
+  if (first) loadCase(first); else render();
+
+  window.KCFViewer = {
+    load: load, loadCase: loadCase, render: render, state: state,
+    setView: function (v) { state.view = v; applyView(); },
+    setBeforeOnly: function (b) { state.beforeOnly = !!b; document.getElementById('beforeOnly').checked = !!b; render(); }
+  };
+})();
+</script>
+</body>
+</html>

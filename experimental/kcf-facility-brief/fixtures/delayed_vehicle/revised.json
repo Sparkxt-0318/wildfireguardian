@@ -1,0 +1,80 @@
+{
+  "schema_version": "kcf-planner/1",
+  "case_id": "KCF-EX-DELAY-01",
+  "status": "UNRESOLVED",
+  "reason": "vehicle V2 has no departure time; group G2 (4) lacks checked transport",
+  "final_unload_s": null,
+  "groups_total": 3,
+  "people_total": 18,
+  "people_with_checked_transport": 14,
+  "trips": [
+    {
+      "trip_id": "T1",
+      "vehicle_id": "V1",
+      "group_id": "G3",
+      "people": 12,
+      "vehicle_status": "EN_ROUTE",
+      "assignment_checked": true,
+      "depart_s": 720,
+      "unload_s": 1620,
+      "boarding_s": 420,
+      "destination_id": "D1",
+      "destination_status": "CONFIRMED"
+    },
+    {
+      "trip_id": "T2",
+      "vehicle_id": "V2",
+      "group_id": "G2",
+      "people": 4,
+      "vehicle_status": "DELAYED",
+      "assignment_checked": false,
+      "depart_s": null,
+      "unload_s": null,
+      "boarding_s": 600,
+      "destination_id": "D1",
+      "destination_status": "CONFIRMED"
+    },
+    {
+      "trip_id": "T3",
+      "vehicle_id": "V3",
+      "group_id": "G1",
+      "people": 2,
+      "vehicle_status": "EN_ROUTE",
+      "assignment_checked": true,
+      "depart_s": 1080,
+      "unload_s": 2040,
+      "boarding_s": 480,
+      "destination_id": "D2",
+      "destination_status": "CONFIRMED"
+    }
+  ],
+  "missing_information": [
+    {
+      "code": "V2_ETA",
+      "text_ko": "2호차 재출발 가능 시각",
+      "who_role": "facility"
+    },
+    {
+      "code": "ALT_LIFT",
+      "text_ko": "대체 휠체어 리프트 차량 가용 여부",
+      "who_role": "county"
+    }
+  ],
+  "assumptions": [
+    {
+      "code": "FIRE_MASK",
+      "kind": "MODEL_FIRE_RESTRICTION",
+      "text_ko": "모델 화재 확산 결과의 제한 구역을 전 시간대 피해서 계산 (보수적 가정, 실제 통제 아님)"
+    },
+    {
+      "code": "BOARD",
+      "kind": "BOARDING",
+      "text_ko": "탑승 소요: 보행 7분, 휠체어 10분, 들것 8분 (훈련 가정, 실측 아님)"
+    },
+    {
+      "code": "NO_RETURN",
+      "kind": "OPERATIONS",
+      "text_ko": "차량은 1회 운행, 시설로 되돌아오지 않음"
+    }
+  ]
+}

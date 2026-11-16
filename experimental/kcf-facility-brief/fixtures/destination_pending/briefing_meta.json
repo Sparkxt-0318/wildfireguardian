@@ -1,0 +1,100 @@
+{
+  "meta_version": "kcf-brief-meta/1",
+  "case_id": "KCF-EX-DEST-03",
+  "exercise_label": "훈련 · 가상 상황 · 실제 상황 아님",
+  "facility": {
+    "label": "가상 산림인접 요양병원 D (훈련용)",
+    "short": "가상 D요양병원"
+  },
+  "time_origin": {
+    "label": "T0 = 시설 대피 결정 시각 (훈련 각본)",
+    "clock": "16:00"
+  },
+  "roles": {
+    "facility": "시설 당직 책임자",
+    "county": "군 재난안전 상황실",
+    "fire": "소방 구급 지원",
+    "police": "경찰 교통 담당",
+    "destination": "수용기관 담당자"
+  },
+  "groups": [
+    {
+      "group_id": "G1",
+      "label": "와상(침상) 환자",
+      "people": 2,
+      "need": "들것·산소 공급, 의료기관 수용",
+      "spoken": "와상 환자",
+      "request": "들것 이송 차량 지원",
+      "request_role": "fire"
+    },
+    {
+      "group_id": "G2",
+      "label": "휠체어 이용",
+      "people": 3,
+      "need": "휠체어 리프트 차량",
+      "spoken": "휠체어 이용",
+      "request": "휠체어 리프트 차량 지원",
+      "request_role": "county"
+    },
+    {
+      "group_id": "G3",
+      "label": "보행 가능",
+      "people": 10,
+      "need": "승합차, 인솔 1명",
+      "spoken": "보행 가능",
+      "request": "승합차 지원",
+      "request_role": "county"
+    }
+  ],
+  "vehicles": {
+    "V1": {
+      "label": "1호차 (시설 승합)",
+      "short": "1호차",
+      "owner_role": "facility"
+    },
+    "V2": {
+      "label": "2호차 (휠체어 리프트)",
+      "short": "2호차",
+      "owner_role": "facility"
+    },
+    "V3": {
+      "label": "3호차 (구급 이송 지원)",
+      "short": "3호차",
+      "owner_role": "fire"
+    }
+  },
+  "destinations": {
+    "D1": {
+      "label": "가상 임시대피소 (읍 체육관)"
+    },
+    "D2": {
+      "label": "가상 협력병원 E"
+    }
+  },
+  "updates": {
+    "baseline": {
+      "at_s": 360,
+      "source_label": "플래너 1차 계산"
+    },
+    "revised": {
+      "at_s": 1200,
+      "source_label": "플래너 재계산 — 와상 환자 목적지 변경"
+    }
+  },
+  "field_reports": [
+    {
+      "at_s": 1140,
+      "text": "대피소 담당(가상): 체육관에는 와상 환자 산소·침상 설비 없음",
+      "source_role": "destination"
+    }
+  ],
+  "road_status": [
+    {
+      "segment": "가상 국도 우회 구간",
+      "status": "UNKNOWN",
+      "note": "협력병원 E 방향, 계산은 통행 가정",
+      "who_role": "police"
+    }
+  ],
+  "assistance_requests": []
+}

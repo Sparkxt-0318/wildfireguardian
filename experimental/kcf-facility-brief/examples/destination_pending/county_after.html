@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src file: data:;">
+<title>변경 후 · 시군 담당자용 (훈련)</title><style>@font-face { font-family: "KCF Noto Sans KR Subset"; font-style: normal; font-weight: 400; font-display: block; src: url("../../assets/fonts/NotoSansKR-subset-400.woff2") format("woff2"); }
+@font-face { font-family: "KCF Noto Sans KR Subset"; font-style: normal; font-weight: 700; font-display: block; src: url("../../assets/fonts/NotoSansKR-subset-700.woff2") format("woff2"); }
+:root {
+  --ink: #111; --muted: #555; --line: #999; --soft: #f2f2f2;
+  --alert: #b00020; --alert-bg: #fde8eb; --ok: #1b5e20; --ok-bg: #e8f5e9;
+  --unknown: #7a4b00; --unknown-bg: #fff3d6; --band: #ffd400;
+  --model: #e8eefc; --field: #eef7ee; --road: #fff3d6;
+}
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  margin: 0; background: #d9d9d9; color: var(--ink);
+  font-family: "KCF Noto Sans KR Subset", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Nanum Gothic", "WenQuanYi Zen Hei", sans-serif;
+  font-size: 16px; line-height: 1.4; word-break: keep-all; overflow-wrap: anywhere;
+}
+.toolbar { position: sticky; top: 0; z-index: 5; background: #222; color: #fff; padding: 8px 12px; font-size: 15px; }
+.tb-row { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 4px 0; }
+.tb-title { margin-right: 8px; }
+.toolbar button, .toolbar select { font: inherit; padding: 6px 10px; border-radius: 4px; border: 1px solid #888; background: #fff; color: #111; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--band); border-color: #000; font-weight: 700; }
+.tb-status { color: #ccc; font-size: 13px; }
+.toolbar input[type=file] { color: #ddd; font-size: 13px; max-width: 230px; }
+
+#out { padding: 16px; }
+.sheet { display: none; background: #fff; width: 210mm; max-width: 100%; min-height: 200mm; margin: 0 auto 16px; padding: 9mm 10mm; box-shadow: 0 1px 6px rgba(0,0,0,.25); }
+.sheet.active, .sheet:only-child, body.static .sheet { display: block; }
+.band { background: var(--band); color: #000; font-weight: 800; text-align: center; font-size: 1.05em; letter-spacing: .08em; padding: 3px 0; margin: 0 0 3mm; border: 2px solid #000; }
+.hd { display: flex; justify-content: space-between; gap: 12px; border-bottom: 3px solid #000; padding-bottom: 4px; margin-bottom: 6px; }
+.view-name { font-weight: 800; font-size: 1.05em; background: #000; color: #fff; display: inline-block; padding: 1px 8px; }
+h1 { font-size: 1.45em; margin: 3px 0 1px; }
+.sub { color: var(--muted); font-size: .85em; }
+.hd-r { text-align: right; white-space: nowrap; }
+.asof-l { font-size: .8em; color: var(--muted); }
+.asof { font-size: 1.4em; font-weight: 800; }
+.asof-prev { font-size: .8em; color: var(--muted); }
+
+.tiles { display: grid; grid-template-columns: 1.15fr 1fr 1.15fr; gap: 8px; margin: 6px 0; }
+.tile { border: 2px solid #000; padding: 4px 8px; }
+.tile.alert { border-color: var(--alert); background: var(--alert-bg); }
+.tile.ok { border-color: var(--ok); background: var(--ok-bg); }
+.tl { font-weight: 700; font-size: .9em; }
+.tv { font-size: 2.3em; font-weight: 800; line-height: 1.1; }
+.tv small { font-size: .45em; margin-left: 2px; }
+.tv-time { font-size: 1.6em; padding: 4px 0; }
+.tn { font-size: .8em; color: var(--muted); }
+.was { font-size: .8em; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--alert); }
+.unknown { color: var(--unknown); background: var(--unknown-bg); font-weight: 700; padding: 0 3px; }
+.hot { color: var(--alert); font-weight: 800; }
+
+.blk { margin: 6px 0; }
+h2 { font-size: 1.02em; margin: 0 0 3px; border-left: 6px solid #000; padding-left: 6px; }
+h3 { font-size: .9em; margin: 0 0 2px; }
+h3 small { font-weight: 400; color: var(--muted); }
+ul { margin: 0; padding-left: 1.2em; }
+li { margin: 1px 0; }
+.changes ul li { font-weight: 600; }
+.changes { border: 2px solid var(--alert); padding: 4px 8px; }
+.view-facility .changes { border-color: var(--line); }
+.reason { font-size: .78em; color: var(--muted); margin: 3px 0 0; }
+.muted { color: var(--muted); }
+.small { font-size: .8em; }
+.t { width: 100%; border-collapse: collapse; font-size: .88em; }
+.t th, .t td { border: 1px solid var(--line); padding: 2px 5px; text-align: left; vertical-align: top; }
+.t th { background: var(--soft); font-weight: 700; }
+.row-open td { background: var(--alert-bg); }
+.st-DELAYED, .st-UNAVAILABLE { color: var(--alert); font-weight: 800; }
+.st-UNKNOWN { color: var(--unknown); font-weight: 800; }
+.ds { font-size: .9em; white-space: nowrap; }
+.t td [data-k$=":checked"], .t td [data-k$=":vstatus"] { white-space: nowrap; }
+.ds-AWAITING_CONFIRMATION, .ds-UNKNOWN { color: var(--unknown); background: var(--unknown-bg); font-weight: 700; }
+.conf .box { width: 1.4em; text-align: center; }
+.chk { list-style: none; padding-left: 0; }
+.chk i { color: var(--muted); font-style: normal; font-size: .9em; }
+.two { display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; }
+.cols3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; font-size: .85em; }
+.src { padding: 4px 6px; border: 1px solid var(--line); }
+.src-model { background: var(--model); }
+.src-field { background: var(--field); }
+.src-road { background: var(--road); }
+.src i { color: var(--muted); font-style: normal; }
+.handoff { border: 2px dashed #000; padding: 4px 8px; }
+.handoff p { margin: 2px 0; font-size: 1.02em; line-height: 1.5; }
+.prov { border-top: 2px solid #000; margin-top: 6px; padding-top: 3px; font-size: .68em; color: #333; line-height: 1.35; }
+.prov-h { font-weight: 700; }
+.prov code { font-size: 1em; }
+.warn { color: var(--unknown); }
+.disc { font-weight: 700; margin-top: 2px; }
+.errs li { color: var(--alert); font-weight: 700; }
+.view-error { display: block; }
+
+@page { size: A4 portrait; margin: 8mm; }
+@media print {
+  body { background: #fff; font-size: 9.6pt; }
+  .no-print, .toolbar { display: none !important; }
+  #out { padding: 0; }
+  .sheet { box-shadow: none; margin: 0; width: auto; min-height: 0; padding: 0; break-after: page; }
+  .sheet:not(.active) { display: none !important; }
+  body.static .sheet { display: block !important; }
+  .band { margin: 0 0 1.5mm; }
+  .blk { margin: 3.5px 0; }
+  .tiles { margin: 4px 0; }
+  .tv { font-size: 2.05em; }
+  .hd { margin-bottom: 4px; }
+  .prov { margin-top: 4px; }
+  .density-1 { font-size: .93em; }
+  .density-2 { font-size: .85em; }
+  .density-3 { font-size: .78em; }
+  .density-3 .tv { font-size: 1.8em; }
+  .t, .blk, .tile { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .tiles, .cols3, .two { grid-template-columns: 1fr; }
+  .hd { flex-direction: column; }
+  .hd-r { text-align: left; }
+}
+</style></head>
+<body class="static"><main id="out"><article class="sheet view-county density-0" data-view="county"><div class="band">훈련 · 가상 상황 · 실제 상황 아님</div><header class="hd"><div class="hd-l"><div class="view-name">시군 재난안전 담당자용 · 시설 이송 상황 인계</div><h1>가상 산림인접 요양병원 D (훈련용)</h1><div class="sub">사례 <span data-k="case_id">KCF-EX-DEST-03</span> · T0 = 시설 대피 결정 시각 (훈련 각본) · T0 = 16:00 (가상 시각)</div></div><div class="hd-r"><div class="asof-l">이번 갱신</div><div class="asof"><span data-k="as_of">T0+20분 (16:20)</span></div><div class="asof-prev">이전 보고 <span data-k="prev_as_of">T0+6분 (16:06)</span></div></div></header><section class="blk changes"><h2>1. 무엇이 바뀌었나</h2><ul><li data-change="final_unload">전원 하차 예상 T0+35분 (16:35) → T0+44분 (16:44)</li><li data-change="trip">1호차: 대기→이동 중</li><li data-change="trip">2호차: 대기→이동 중</li><li data-change="trip">3호차: 출발 T0+17분 (16:17)→T0+22분 (16:22), 하차 T0+35분 (16:35)→T0+44분 (16:44), 목적지 가상 임시대피소 (읍 체육관)→가상 협력병원 E, 수용 확인→수용 확인 대기</li></ul><p class="reason">플래너 사유(원문): G1 rerouted to D2; route checked within model scope; destination acceptance not confirmed</p></section><section class="tiles"><div class="tile ok"><div class="tl">이송 수단 미확정</div><div class="tv"><span data-k="unconfirmed">0</span><small>명</small></div><div class="tn">전체 <span data-k="people_total">15</span>명 · <span data-k="groups_total">3</span>개 그룹</div></div><div class="tile"><div class="tl">이송 배정 확인 (계산상)</div><div class="tv"><span data-k="checked">15</span><small>명</small></div><div class="tn">탑승·도착 확인 아님</div></div><div class="tile "><div class="tl">전원 하차 예상</div><div class="tv tv-time"><span data-k="final_unload">T0+44분 (16:44)</span></div><div class="tn">경로 계산 확인 (모델 범위 안)</div><div class="was">이전 <span data-k="prev:final_unload">T0+35분 (16:35)</span></div></div></section><section class="blk"><h2>2. 지원 요청 · 확인할 사람</h2><p>추가 지원 요청 없음 (현재 계산 기준).</p></section><section class="blk"><h2>3. 아직 확인 안 된 것</h2><table class="t conf"><thead><tr><th></th><th>확인할 내용</th><th>누가</th></tr></thead><tbody><tr><td class="box">□</td><td>가상 협력병원 E 수용 확인 (2명)</td><td>수용기관 담당자 → 군 재난안전 상황실</td></tr><tr><td class="box">□</td><td>가상 국도 우회 구간 통제 여부</td><td>경찰 교통 담당</td></tr><tr><td class="box">□</td><td>배정 확인 15명의 실제 탑승·하차 인원 (계산상 배정 ≠ 탑승·도착)</td><td>시설 당직 책임자</td></tr></tbody></table></section><section class="blk sources"><h2>정보 출처 — 섞지 말 것</h2><div class="cols3"><div class="src src-model"><h3>모델 산출 화재 제한<br><small>계산 가정 · 관측 통제 아님</small></h3><ul><li>모델 화재 확산 결과의 제한 구역을 전 시간대 피해서 계산 (보수적 가정, 실제 통제 아님)</li></ul></div><div class="src src-field"><h3>가상 현장 보고<br><small>훈련용 각본 · 실제 보고 아님</small></h3><ul><li><b>T0+19분 (16:19)</b> 대피소 담당(가상): 체육관에는 와상 환자 산소·침상 설비 없음 <i>(수용기관 담당자)</i></li></ul></div><div class="src src-road"><h3>도로 상태<br><small>확인 안 된 것은 모름</small></h3><ul><li class="unknown">가상 국도 우회 구간: 통제 여부 모름 — 협력병원 E 방향, 계산은 통행 가정</li></ul></div></div></section><section class="blk"><h2>4. 차량별 (현재 기준)</h2><table class="t trips"><thead><tr><th>차량</th><th>상태</th><th>대상</th><th>배정</th><th>출발</th><th>하차</th><th>목적지</th></tr></thead><tbody><tr class=""><td><b>1호차 (시설 승합)</b></td><td class="st st-EN_ROUTE"><span data-k="trip:T1:vstatus">이동 중</span></td><td>보행 가능 <span data-k="trip:T1:people">10명</span></td><td><span data-k="trip:T1:checked">확인</span></td><td><span data-k="trip:T1:depart">T0+13분 (16:13)</span></td><td><span data-k="trip:T1:unload">T0+25분 (16:25)</span></td><td>가상 임시대피소 (읍 체육관) <span class="ds ds-CONFIRMED"><span data-k="trip:T1:dstatus">수용 확인</span></span></td></tr><tr class=""><td><b>2호차 (휠체어 리프트)</b></td><td class="st st-EN_ROUTE"><span data-k="trip:T2:vstatus">이동 중</span></td><td>휠체어 이용 <span data-k="trip:T2:people">3명</span></td><td><span data-k="trip:T2:checked">확인</span></td><td><span data-k="trip:T2:depart">T0+15분 (16:15)</span></td><td><span data-k="trip:T2:unload">T0+29분 (16:29)</span></td><td>가상 임시대피소 (읍 체육관) <span class="ds ds-CONFIRMED"><span data-k="trip:T2:dstatus">수용 확인</span></span></td></tr><tr class=""><td><b>3호차 (구급 이송 지원)</b></td><td class="st st-READY"><span data-k="trip:T3:vstatus">대기</span></td><td>와상 환자 <span data-k="trip:T3:people">2명</span></td><td><span data-k="trip:T3:checked">확인</span></td><td><span data-k="trip:T3:depart">T0+22분 (16:22)</span></td><td><span data-k="trip:T3:unload">T0+44분 (16:44)</span></td><td>가상 협력병원 E <span class="ds ds-AWAITING_CONFIRMATION"><span data-k="trip:T3:dstatus">수용 확인 대기</span></span></td></tr></tbody></table></section><section class="blk handoff"><h2>30초 구두 인계 (시설 → 시군)</h2><p data-k="handoff">훈련 상황입니다. 가상 D요양병원 시설 당직 책임자입니다. 16시 20분 기준, 변경 사항 보고합니다. 3호차 출발이 16시 17분에서 16시 22분으로 늦어졌습니다. 전체 15명 모두 배정은 계산상 확인됐습니다. 가상 협력병원 E 수용 여부는 아직 확인 전입니다. 전원 하차는 계산상 16시 44분인데, 수용 확인 전 값입니다. 이상입니다.</p><div class="muted small">약 27초 분량 (음절 기준 추정)</div></section><footer class="prov"><div class="prov-h">출처 (Provenance)</div><div>기준(이전): 플래너 1차 계산 · 보고 T0+6분 (16:06) · <code>fixtures/destination_pending/baseline.json</code> · sha256 7c07251101cf · kcf-planner/1 · CHECKED_ROUTE</div><div>변경(현재): 플래너 재계산 — 와상 환자 목적지 변경 · 보고 T0+20분 (16:20) · <code>fixtures/destination_pending/revised.json</code> · sha256 bd7cb58b6c76 · kcf-planner/1 · CHECKED_ROUTE</div><div>메타: <code>fixtures/destination_pending/briefing_meta.json</code> · sha256 137dc845357f · kcf-brief-core/1.1.0 · 시각은 분 단위 올림</div><div class="disc">연구용 훈련 시안 · 기관 승인·검증 없음 · 실명·연락처·진료기록 입력 금지 · 훈련 · 가상 상황 · 실제 상황 아님</div></footer></article></main></body></html>

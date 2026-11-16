@@ -1,0 +1,42 @@
+{
+  "tool": "kcf-facility-brief/tools/integrate.js",
+  "core_version": "kcf-brief-core/1.1.0",
+  "inputs": {
+    "baseline": {
+      "kind": "file",
+      "path": "/home/user/wfg-kcf-brief/experimental/kcf-facility-brief/qa/planner-4169ccc/inputs/contract_normal.result.json",
+      "sha256": "78fecdcd30d52d9435f06b495fffe6f1bbca00c47e160b2f8671eb55a9bfcf11"
+    },
+    "revised": {
+      "kind": "file",
+      "path": "/home/user/wfg-kcf-brief/experimental/kcf-facility-brief/qa/planner-4169ccc/inputs/sample_result_parallel_delayed.json",
+      "sha256": "ca590adb1f3c02c0d766832e101b535511907389e4eb8f79c236bebe6252b9c9"
+    },
+    "meta": null
+  },
+  "accepted": false,
+  "errors": [
+    "다른 사례끼리 비교 불가: 기준 contract-normal / 변경 contract-delayed"
+  ],
+  "warnings": [
+    "기준(baseline): 정수 schema_version 1 → \"1\" 로 읽음",
+    "기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)",
+    "기준(baseline) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "기준(baseline) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "기준(baseline) trips[0]: 필드 별칭 end_node → destination_id 로 읽음",
+    "기준(baseline) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "기준(baseline) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "기준(baseline) trips[1]: 필드 별칭 end_node → destination_id 로 읽음",
+    "기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함",
+    "변경(revised): 정수 schema_version 1 → \"1\" 로 읽음",
+    "변경(revised): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)",
+    "변경(revised) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "변경(revised) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "변경(revised) trips[0]: 필드 별칭 end_node → destination_id 로 읽음",
+    "변경(revised) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "변경(revised) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "변경(revised) trips[1]: 필드 별칭 end_node → destination_id 로 읽음",
+    "변경(revised): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함",
+    "메타데이터 미제공 — 그룹·역할·보고 시각은 \"미제공\"으로 표시"
+  ]
+}

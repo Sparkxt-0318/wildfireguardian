@@ -1,0 +1,81 @@
+{
+  "tool": "kcf-facility-brief/tools/integrate.js",
+  "core_version": "kcf-brief-core/1.1.0",
+  "inputs": {
+    "baseline": {
+      "kind": "file",
+      "path": "/home/user/wfg-kcf-brief/experimental/kcf-facility-brief/qa/planner-4169ccc/inputs/demo_two_vehicle.result.json",
+      "sha256": "1995dc17ed5d54a99139e71da36040a23dd06aa8009bdd6fc3321f09d5bef188"
+    },
+    "revised": {
+      "kind": "file",
+      "path": "/home/user/wfg-kcf-brief/experimental/kcf-facility-brief/qa/planner-4169ccc/inputs/demo_two_vehicle_v2plus600.result.json",
+      "sha256": "2dcabde15ed7187e23fcd05d138c626a9406f48475546bc4482bdbf0dbba1da0"
+    },
+    "meta": {
+      "kind": "file",
+      "path": "/home/user/wfg-kcf-brief/experimental/kcf-facility-brief/qa/planner-4169ccc/inputs/demo_briefing_meta.json",
+      "sha256": "126ede2a1985e0d6581a4f4204a11683f88d10651186a8efd9e4f0ea886b960f"
+    }
+  },
+  "accepted": true,
+  "errors": [],
+  "warnings": [
+    "기준(baseline): 정수 schema_version 1 → \"1\" 로 읽음",
+    "기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)",
+    "기준(baseline) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "기준(baseline) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "기준(baseline) trips[0]: 필드 별칭 end_node → destination_id 로 읽음",
+    "기준(baseline) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "기준(baseline) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "기준(baseline) trips[1]: 필드 별칭 end_node → destination_id 로 읽음",
+    "기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함",
+    "변경(revised): 정수 schema_version 1 → \"1\" 로 읽음",
+    "변경(revised): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)",
+    "변경(revised) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "변경(revised) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "변경(revised) trips[0]: 필드 별칭 end_node → destination_id 로 읽음",
+    "변경(revised) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음",
+    "변경(revised) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음",
+    "변경(revised) trips[1]: 필드 별칭 end_node → destination_id 로 읽음",
+    "변경(revised): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함"
+  ],
+  "summary": {
+    "case_id": "kcf-demo-two-vehicle-v1",
+    "status": "CHECKED_ROUTE",
+    "people_total": 12,
+    "checked": 12,
+    "unconfirmed": 0,
+    "final_unload": "T0+57분 (10:57)",
+    "changes": [
+      "전원 하차 예상 T0+35분 (10:35) → T0+57분 (10:57)",
+      "2호차: 출발 T0+20분 (10:20)→T0+30분 (10:30), 하차 T0+35분 (10:35)→T0+57분 (10:57)"
+    ],
+    "requests": [],
+    "handoff": {
+      "text": "훈련 상황입니다. 가상 요양시설 시설 당직 책임자입니다. 10시 14분 기준, 변경 사항 보고합니다. 2호차 출발이 10시 20분에서 10시 30분으로 늦어졌습니다. 전체 12명 모두 배정은 계산상 확인됐습니다. 가상 대피소 (SH) 수용 여부는 아직 확인 전입니다. 전원 하차는 계산상 10시 57분인데, 수용 확인 전 값입니다. 이상입니다.",
+      "units": 145,
+      "budget": 165,
+      "over_budget": false,
+      "est_seconds": 26
+    }
+  },
+  "pdf": {
+    "county": {
+      "file": "county.a4.pdf",
+      "png": "county.png",
+      "pages": 1,
+      "one_page": true,
+      "density_start": 1,
+      "density_used": 1
+    },
+    "facility": {
+      "file": "facility.a4.pdf",
+      "png": "facility.png",
+      "pages": 1,
+      "one_page": true,
+      "density_start": 1,
+      "density_used": 2
+    }
+  }
+}

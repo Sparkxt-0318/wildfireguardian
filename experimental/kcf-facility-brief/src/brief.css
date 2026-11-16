@@ -1,0 +1,114 @@
+/*__FONT_FACE__*/
+:root {
+  --ink: #111; --muted: #555; --line: #999; --soft: #f2f2f2;
+  --alert: #b00020; --alert-bg: #fde8eb; --ok: #1b5e20; --ok-bg: #e8f5e9;
+  --unknown: #7a4b00; --unknown-bg: #fff3d6; --band: #ffd400;
+  --model: #e8eefc; --field: #eef7ee; --road: #fff3d6;
+}
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  margin: 0; background: #d9d9d9; color: var(--ink);
+  font-family: "KCF Noto Sans KR Subset", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Nanum Gothic", "WenQuanYi Zen Hei", sans-serif;
+  font-size: 16px; line-height: 1.4; word-break: keep-all; overflow-wrap: anywhere;
+}
+.toolbar { position: sticky; top: 0; z-index: 5; background: #222; color: #fff; padding: 8px 12px; font-size: 15px; }
+.tb-row { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 4px 0; }
+.tb-title { margin-right: 8px; }
+.toolbar button, .toolbar select { font: inherit; padding: 6px 10px; border-radius: 4px; border: 1px solid #888; background: #fff; color: #111; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--band); border-color: #000; font-weight: 700; }
+.tb-status { color: #ccc; font-size: 13px; }
+.toolbar input[type=file] { color: #ddd; font-size: 13px; max-width: 230px; }
+
+#out { padding: 16px; }
+.sheet { display: none; background: #fff; width: 210mm; max-width: 100%; min-height: 200mm; margin: 0 auto 16px; padding: 9mm 10mm; box-shadow: 0 1px 6px rgba(0,0,0,.25); }
+.sheet.active, .sheet:only-child, body.static .sheet { display: block; }
+.band { background: var(--band); color: #000; font-weight: 800; text-align: center; font-size: 1.05em; letter-spacing: .08em; padding: 3px 0; margin: 0 0 3mm; border: 2px solid #000; }
+.hd { display: flex; justify-content: space-between; gap: 12px; border-bottom: 3px solid #000; padding-bottom: 4px; margin-bottom: 6px; }
+.view-name { font-weight: 800; font-size: 1.05em; background: #000; color: #fff; display: inline-block; padding: 1px 8px; }
+h1 { font-size: 1.45em; margin: 3px 0 1px; }
+.sub { color: var(--muted); font-size: .85em; }
+.hd-r { text-align: right; white-space: nowrap; }
+.asof-l { font-size: .8em; color: var(--muted); }
+.asof { font-size: 1.4em; font-weight: 800; }
+.asof-prev { font-size: .8em; color: var(--muted); }
+
+.tiles { display: grid; grid-template-columns: 1.15fr 1fr 1.15fr; gap: 8px; margin: 6px 0; }
+.tile { border: 2px solid #000; padding: 4px 8px; }
+.tile.alert { border-color: var(--alert); background: var(--alert-bg); }
+.tile.ok { border-color: var(--ok); background: var(--ok-bg); }
+.tl { font-weight: 700; font-size: .9em; }
+.tv { font-size: 2.3em; font-weight: 800; line-height: 1.1; }
+.tv small { font-size: .45em; margin-left: 2px; }
+.tv-time { font-size: 1.6em; padding: 4px 0; }
+.tn { font-size: .8em; color: var(--muted); }
+.was { font-size: .8em; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--alert); }
+.unknown { color: var(--unknown); background: var(--unknown-bg); font-weight: 700; padding: 0 3px; }
+.hot { color: var(--alert); font-weight: 800; }
+
+.blk { margin: 6px 0; }
+h2 { font-size: 1.02em; margin: 0 0 3px; border-left: 6px solid #000; padding-left: 6px; }
+h3 { font-size: .9em; margin: 0 0 2px; }
+h3 small { font-weight: 400; color: var(--muted); }
+ul { margin: 0; padding-left: 1.2em; }
+li { margin: 1px 0; }
+.changes ul li { font-weight: 600; }
+.changes { border: 2px solid var(--alert); padding: 4px 8px; }
+.view-facility .changes { border-color: var(--line); }
+.reason { font-size: .78em; color: var(--muted); margin: 3px 0 0; }
+.muted { color: var(--muted); }
+.small { font-size: .8em; }
+.t { width: 100%; border-collapse: collapse; font-size: .88em; }
+.t th, .t td { border: 1px solid var(--line); padding: 2px 5px; text-align: left; vertical-align: top; }
+.t th { background: var(--soft); font-weight: 700; }
+.row-open td { background: var(--alert-bg); }
+.st-DELAYED, .st-UNAVAILABLE { color: var(--alert); font-weight: 800; }
+.st-UNKNOWN { color: var(--unknown); font-weight: 800; }
+.ds { font-size: .9em; white-space: nowrap; }
+.t td [data-k$=":checked"], .t td [data-k$=":vstatus"] { white-space: nowrap; }
+.ds-AWAITING_CONFIRMATION, .ds-UNKNOWN { color: var(--unknown); background: var(--unknown-bg); font-weight: 700; }
+.conf .box { width: 1.4em; text-align: center; }
+.chk { list-style: none; padding-left: 0; }
+.chk i { color: var(--muted); font-style: normal; font-size: .9em; }
+.two { display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; }
+.cols3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; font-size: .85em; }
+.src { padding: 4px 6px; border: 1px solid var(--line); }
+.src-model { background: var(--model); }
+.src-field { background: var(--field); }
+.src-road { background: var(--road); }
+.src i { color: var(--muted); font-style: normal; }
+.handoff { border: 2px dashed #000; padding: 4px 8px; }
+.handoff p { margin: 2px 0; font-size: 1.02em; line-height: 1.5; }
+.prov { border-top: 2px solid #000; margin-top: 6px; padding-top: 3px; font-size: .68em; color: #333; line-height: 1.35; }
+.prov-h { font-weight: 700; }
+.prov code { font-size: 1em; }
+.warn { color: var(--unknown); }
+.disc { font-weight: 700; margin-top: 2px; }
+.errs li { color: var(--alert); font-weight: 700; }
+.view-error { display: block; }
+
+@page { size: A4 portrait; margin: 8mm; }
+@media print {
+  body { background: #fff; font-size: 9.6pt; }
+  .no-print, .toolbar { display: none !important; }
+  #out { padding: 0; }
+  .sheet { box-shadow: none; margin: 0; width: auto; min-height: 0; padding: 0; break-after: page; }
+  .sheet:not(.active) { display: none !important; }
+  body.static .sheet { display: block !important; }
+  .band { margin: 0 0 1.5mm; }
+  .blk { margin: 3.5px 0; }
+  .tiles { margin: 4px 0; }
+  .tv { font-size: 2.05em; }
+  .hd { margin-bottom: 4px; }
+  .prov { margin-top: 4px; }
+  .density-1 { font-size: .93em; }
+  .density-2 { font-size: .85em; }
+  .density-3 { font-size: .78em; }
+  .density-3 .tv { font-size: 1.8em; }
+  .t, .blk, .tile { break-inside: avoid; }
+}
+@media (max-width: 700px) {
+  .tiles, .cols3, .two { grid-template-columns: 1fr; }
+  .hd { flex-direction: column; }
+  .hd-r { text-align: left; }
+}

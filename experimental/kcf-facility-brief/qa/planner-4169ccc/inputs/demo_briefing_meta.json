@@ -1,0 +1,21 @@
+{
+  "meta_version": "kcf-brief-meta/1",
+  "case_id": "kcf-demo-two-vehicle-v1",
+  "_provenance": "Written by the brief session (Chat 2) for this integration run, not by the planner. Group and vehicle labels copied from Chat 1's fictional fixture demo_two_vehicle.json at 4169ccc; update times, clock, field report and road row are invented exercise context.",
+  "exercise_label": "훈련 · 가상 상황 · 실제 상황 아님",
+  "facility": { "label": "가상 요양시설 — 차량 2대 동시 이송 (플래너 데모)", "short": "가상 요양시설" },
+  "time_origin": { "label": "T0 = 플래너 시각 원점 (훈련 각본상 대피 결정)", "clock": "10:00" },
+  "groups": [
+    { "group_id": "G1", "label": "1조 (입소자 6명, 가상)", "people": 6, "need": "미제공 — 플래너 입력에 이동 특성 없음", "spoken": "1조", "request": "1조 이송 차량 지원", "request_role": "county" },
+    { "group_id": "G2", "label": "2조 (입소자 6명, 가상)", "people": 6, "need": "미제공 — 플래너 입력에 이동 특성 없음", "spoken": "2조", "request": "2조 이송 차량 지원", "request_role": "county" }
+  ],
+  "vehicles": { "V1": { "label": "1호차 (6석)", "short": "1호차", "owner_role": "facility" }, "V2": { "label": "2호차 (6석)", "short": "2호차", "owner_role": "facility" } },
+  "destinations": { "SH": { "label": "가상 대피소 (SH)" }, "FAC": { "label": "시설 (복귀)" } },
+  "updates": {
+    "baseline": { "at_s": 300, "source_label": "플래너 4169ccc — demo_two_vehicle.json" },
+    "revised": { "at_s": 840, "source_label": "플래너 4169ccc — 같은 입력, 2호차 available_s +600초" }
+  },
+  "field_reports": [ { "at_s": 780, "text": "2호차 운전원(가상): 출발 가능 시각 10분 늦어짐", "source_role": "facility" } ],
+  "road_status": [ { "segment": "플래너 도로망 밖 실제 도로", "status": "UNKNOWN", "note": "플래너 통제 구간은 모의 화재 제한", "who_role": "police" } ],
+  "assistance_requests": []
+}

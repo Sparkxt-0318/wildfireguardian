@@ -1,0 +1,20 @@
+{
+  "tool": "kcf-facility-brief/tools/integrate.js",
+  "core_version": "kcf-brief-core/1.0.0",
+  "inputs": {
+    "baseline": {
+      "kind": "git-tag",
+      "tag": "4169cccc427e9e19be3851326a1225df89fe96f2",
+      "commit": "4169cccc427e9e19be3851326a1225df89fe96f2",
+      "path": "experimental/kcf-facility-planner/examples/sample_result_shuttle.json",
+      "sha256": "a680ccfa4d99a8fadfc2394f1cdc2b9d1b14addd01ff2ed4f82400b5db2505c8"
+    },
+    "revised": null,
+    "meta": null
+  },
+  "accepted": false,
+  "errors": [
+    "기준(baseline): schema_version 은 문자열이어야 함"
+  ],
+  "warnings": []
+}

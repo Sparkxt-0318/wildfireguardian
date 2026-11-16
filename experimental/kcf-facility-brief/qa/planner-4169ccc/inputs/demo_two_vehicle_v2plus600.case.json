@@ -1,0 +1,257 @@
+{
+ "schema_version": 1,
+ "fictional": true,
+ "title": "Fictional care facility \u2014 two vehicles",
+ "title_ko": "\uac00\uc0c1 \uc694\uc591\uc2dc\uc124 \u2014 \ucc28\ub7c9 2\ub300 \ub3d9\uc2dc \uc774\uc1a1",
+ "note": "FICTIONAL FIXTURE. Invented roads, times and residents; the closure is a simulated fire restriction, the unknown interval imitates a missing forecast input. Not a real place, road status or safety assessment.",
+ "note_ko": "\uac00\uc0c1 \uc0ac\ub840\uc785\ub2c8\ub2e4. \ub3c4\ub85c\u00b7\uc2dc\uac04\u00b7\uc785\uc18c\uc790\ub294 \ubaa8\ub450 \uc9c0\uc5b4\ub0b8 \uac12\uc774\uba70, \ud1b5\uc81c \uad6c\uac04\uc740 \ubaa8\uc758 \ud654\uc7ac \uc81c\ud55c, '\ubbf8\ud655\uc778' \uad6c\uac04\uc740 \uc608\uce21 \uc785\ub825 \ub204\ub77d\uc744 \ud749\ub0b4 \ub0b8 \uac83\uc785\ub2c8\ub2e4. \uc2e4\uc81c \ub3c4\ub85c \uc0c1\ud669\uc774\ub098 \uc548\uc804 \ud310\ub2e8\uc774 \uc544\ub2d9\ub2c8\ub2e4.",
+ "node_labels_ko": {
+  "FAC": "\ud574\uc624\ub984 \uc694\uc591\uc6d0(\uac00\uc0c1)",
+  "J1": "\uc0bc\uac70\ub9ac",
+  "BR": "\ud558\ucc9c\uad50",
+  "SH": "\uac00\uc0c1 \ub300\ud53c\uc18c",
+  "D1": "\uc6b0\ud68c \uace0\uac1c",
+  "D2": "\uc800\uc218\uc9c0\uae38",
+  "LP": "\ub300\ud53c\uc18c \ucd9c\uad6c \uc21c\ud658\ub85c"
+ },
+ "horizon_s": 4200,
+ "origin": "FAC",
+ "destination": "SH",
+ "edges": [
+  {
+   "id": "e_fac_j1",
+   "u": "FAC",
+   "v": "J1",
+   "travel_s": 120,
+   "closed": [],
+   "unknown": [],
+   "length_m": 1100,
+   "name_ko": "\uc2dc\uc124 \uc9c4\uc785\ub85c \u2192 \uc0bc\uac70\ub9ac"
+  },
+  {
+   "id": "e_j1_br",
+   "u": "J1",
+   "v": "BR",
+   "travel_s": 180,
+   "closed": [
+    [
+     1800,
+     9000
+    ]
+   ],
+   "unknown": [],
+   "length_m": 1600,
+   "name_ko": "\uc0bc\uac70\ub9ac \u2192 \ud558\ucc9c\uad50 (\uc8fc\ub3c4\ub85c)"
+  },
+  {
+   "id": "e_br_sh",
+   "u": "BR",
+   "v": "SH",
+   "travel_s": 300,
+   "closed": [],
+   "unknown": [],
+   "length_m": 2000,
+   "name_ko": "\ud558\ucc9c\uad50 \u2192 \ub300\ud53c\uc18c (\uc8fc\ub3c4\ub85c)"
+  },
+  {
+   "id": "e_j1_d1",
+   "u": "J1",
+   "v": "D1",
+   "travel_s": 400,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3400,
+   "name_ko": "\uc0bc\uac70\ub9ac \u2192 \uc6b0\ud68c \uace0\uac1c"
+  },
+  {
+   "id": "e_d1_d2",
+   "u": "D1",
+   "v": "D2",
+   "travel_s": 420,
+   "closed": [],
+   "unknown": [
+    [
+     2800,
+     3300
+    ]
+   ],
+   "length_m": 3900,
+   "name_ko": "\uc6b0\ud68c \uace0\uac1c \u2192 \uc800\uc218\uc9c0\uae38"
+  },
+  {
+   "id": "e_d2_sh",
+   "u": "D2",
+   "v": "SH",
+   "travel_s": 360,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3200,
+   "name_ko": "\uc800\uc218\uc9c0\uae38 \u2192 \ub300\ud53c\uc18c"
+  },
+  {
+   "id": "e_sh_lp",
+   "u": "SH",
+   "v": "LP",
+   "travel_s": 45,
+   "closed": [],
+   "unknown": [],
+   "length_m": 300,
+   "name_ko": "\ub300\ud53c\uc18c \ucd9c\uad6c \uc21c\ud658\ub85c"
+  },
+  {
+   "id": "e_lp_br",
+   "u": "LP",
+   "v": "BR",
+   "travel_s": 300,
+   "closed": [],
+   "unknown": [],
+   "length_m": 2000,
+   "name_ko": "\uc21c\ud658\ub85c \u2192 \ud558\ucc9c\uad50 (\uadc0\ub85c)"
+  },
+  {
+   "id": "e_sh_br",
+   "u": "SH",
+   "v": "BR",
+   "travel_s": 300,
+   "closed": [],
+   "unknown": [],
+   "length_m": 2000,
+   "name_ko": "\ub300\ud53c\uc18c \u2192 \ud558\ucc9c\uad50 (\ud68c\ucc28)"
+  },
+  {
+   "id": "e_br_j1",
+   "u": "BR",
+   "v": "J1",
+   "travel_s": 180,
+   "closed": [
+    [
+     1800,
+     9000
+    ]
+   ],
+   "unknown": [],
+   "length_m": 1600,
+   "name_ko": "\ud558\ucc9c\uad50 \u2192 \uc0bc\uac70\ub9ac (\uadc0\ub85c)"
+  },
+  {
+   "id": "e_j1_fac",
+   "u": "J1",
+   "v": "FAC",
+   "travel_s": 120,
+   "closed": [],
+   "unknown": [],
+   "length_m": 1100,
+   "name_ko": "\uc0bc\uac70\ub9ac \u2192 \uc2dc\uc124 (\uadc0\ub85c)"
+  },
+  {
+   "id": "e_sh_d2",
+   "u": "SH",
+   "v": "D2",
+   "travel_s": 360,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3200,
+   "name_ko": "\ub300\ud53c\uc18c \u2192 \uc800\uc218\uc9c0\uae38 (\uadc0\ub85c)"
+  },
+  {
+   "id": "e_d2_d1",
+   "u": "D2",
+   "v": "D1",
+   "travel_s": 420,
+   "closed": [],
+   "unknown": [
+    [
+     2800,
+     3300
+    ]
+   ],
+   "length_m": 3900,
+   "name_ko": "\uc800\uc218\uc9c0\uae38 \u2192 \uc6b0\ud68c \uace0\uac1c (\uadc0\ub85c)"
+  },
+  {
+   "id": "e_d1_j1",
+   "u": "D1",
+   "v": "J1",
+   "travel_s": 400,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3400,
+   "name_ko": "\uc6b0\ud68c \uace0\uac1c \u2192 \uc0bc\uac70\ub9ac (\uadc0\ub85c)"
+  }
+ ],
+ "vehicles": [
+  {
+   "id": "V1",
+   "available_s": 600,
+   "seats": 6,
+   "name_ko": "1\ud638\ucc28"
+  },
+  {
+   "id": "V2",
+   "available_s": 1500,
+   "seats": 6,
+   "name_ko": "2\ud638\ucc28"
+  }
+ ],
+ "groups": [
+  {
+   "id": "G1",
+   "people": 6,
+   "name_ko": "1\uc870 (\uc785\uc18c\uc790 6\uba85, \uac00\uc0c1)"
+  },
+  {
+   "id": "G2",
+   "people": 6,
+   "name_ko": "2\uc870 (\uc785\uc18c\uc790 6\uba85, \uac00\uc0c1)"
+  }
+ ],
+ "board_s": 300,
+ "unload_s": 300,
+ "destination_window": [
+  600,
+  4500
+ ],
+ "forbidden_turns": [
+  [
+   "e_br_sh",
+   "e_sh_br"
+  ],
+  [
+   "e_d2_sh",
+   "e_sh_d2"
+  ]
+ ],
+ "mode": "parallel",
+ "case_id": "kcf-demo-two-vehicle-v1",
+ "node_xy": {
+  "FAC": [
+   100,
+   300
+  ],
+  "J1": [
+   240,
+   300
+  ],
+  "BR": [
+   420,
+   220
+  ],
+  "SH": [
+   640,
+   240
+  ],
+  "D1": [
+   340,
+   440
+  ],
+  "D2": [
+   520,
+   450
+  ],
+  "LP": [
+   680,
+   130
+  ]
+ },
+ "provenance": "Fictional fixture written for the KCF interview demo (2026-11-11). Scale loosely echoes the archived Uiseong-Andong exercise (endpoints ~4.5 km apart) but no number is copied from or expected to match that case."
+}

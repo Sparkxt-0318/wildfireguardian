@@ -1,0 +1,307 @@
+== build viewer + examples
+viewer.html written; examples: delayed_vehicle, unknown_input, destination_pending
+   PASS
+== unit tests (node --test)
+TAP version 13
+# Subtest: all three fixture pairs validate, before and after
+ok 1 - all three fixture pairs validate, before and after
+  ---
+  duration_ms: 20.625004
+  type: 'test'
+  ...
+# Subtest: sha256 matches node crypto, including Korean text
+ok 2 - sha256 matches node crypto, including Korean text
+  ---
+  duration_ms: 1.836296
+  type: 'test'
+  ...
+# Subtest: facility and county views agree on every shared people/time field
+ok 3 - facility and county views agree on every shared people/time field
+  ---
+  duration_ms: 13.847683
+  type: 'test'
+  ...
+# Subtest: unavailable time: revised null replaces the old number everywhere current values are shown
+ok 4 - unavailable time: revised null replaces the old number everywhere current values are shown
+  ---
+  duration_ms: 2.731503
+  type: 'test'
+  ...
+# Subtest: updated time: destination change shows the new unload time, never the old one as current
+ok 5 - updated time: destination change shows the new unload time, never the old one as current
+  ---
+  duration_ms: 2.236958
+  type: 'test'
+  ...
+# Subtest: unknown-input case keeps 12 unresolved people visible and says missing ≠ safe
+ok 6 - unknown-input case keeps 12 unresolved people visible and says missing ≠ safe
+  ---
+  duration_ms: 1.028284
+  type: 'test'
+  ...
+# Subtest: checked assignment is never presented as boarding or arrival
+ok 7 - checked assignment is never presented as boarding or arrival
+  ---
+  duration_ms: 2.50357
+  type: 'test'
+  ...
+# Subtest: information sources stay separate: model restriction, fictional field report, road status
+ok 8 - information sources stay separate: model restriction, fictional field report, road status
+  ---
+  duration_ms: 1.58182
+  type: 'test'
+  ...
+# Subtest: 30-second handoff stays within the spoken budget and is labelled as an exercise
+ok 9 - 30-second handoff stays within the spoken budget and is labelled as an exercise
+  ---
+  duration_ms: 4.210361
+  type: 'test'
+  ...
+# Subtest: exercise label, time origin and provenance are visible in both views
+ok 10 - exercise label, time origin and provenance are visible in both views
+  ---
+  duration_ms: 1.322641
+  type: 'test'
+  ...
+# Subtest: rejects inconsistent totals
+ok 11 - rejects inconsistent totals
+  ---
+  duration_ms: 1.949066
+  type: 'test'
+  ...
+# Subtest: rejects a final unload number left behind while people are unconfirmed (stale number)
+ok 12 - rejects a final unload number left behind while people are unconfirmed (stale number)
+  ---
+  duration_ms: 1.170199
+  type: 'test'
+  ...
+# Subtest: rejects impossible timestamps
+ok 13 - rejects impossible timestamps
+  ---
+  duration_ms: 1.8802
+  type: 'test'
+  ...
+# Subtest: rejects comparison between different cases
+ok 14 - rejects comparison between different cases
+  ---
+  duration_ms: 0.543158
+  type: 'test'
+  ...
+# Subtest: rejects unknown status, missing fields and personal data
+ok 15 - rejects unknown status, missing fields and personal data
+  ---
+  duration_ms: 1.997507
+  type: 'test'
+  ...
+# Subtest: MODEL_SCOPED_NO_ROUTE is shown as model-scoped, with unknown times
+ok 16 - MODEL_SCOPED_NO_ROUTE is shown as model-scoped, with unknown times
+  ---
+  duration_ms: 1.331813
+  type: 'test'
+  ...
+# Subtest: adapter: planner output without metadata or per-trip flags still renders, with explicit gaps
+ok 17 - adapter: planner output without metadata or per-trip flags still renders, with explicit gaps
+  ---
+  duration_ms: 1.221015
+  type: 'test'
+  ...
+# Subtest: rendered HTML escapes planner text
+ok 18 - rendered HTML escapes planner text
+  ---
+  duration_ms: 0.88014
+  type: 'test'
+  ...
+# Subtest: planner 4169ccc demo pair: accepted, delay shown, both views agree, handoff names the later departure
+ok 19 - planner 4169ccc demo pair: accepted, delay shown, both views agree, handoff names the later departure
+  ---
+  duration_ms: 4.457807
+  type: 'test'
+  ...
+# Subtest: planner 4169ccc: integer schema_version accepted; INVALID_INPUT and structured missing info handled
+ok 20 - planner 4169ccc: integer schema_version accepted; INVALID_INPUT and structured missing info handled
+  ---
+  duration_ms: 4.720658
+  type: 'test'
+  ...
+# Subtest: planner 4169ccc contract pair has different case_ids and is rejected as a cross-case comparison
+ok 21 - planner 4169ccc contract pair has different case_ids and is rejected as a cross-case comparison
+  ---
+  duration_ms: 0.47041
+  type: 'test'
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 146.325764
+   PASS
+== render examples to A4 PDF/PNG
+delayed_vehicle/county_before: pages=1 overflowX=false hangul=694 ext=0
+delayed_vehicle/county_after: pages=1 overflowX=false hangul=933 ext=0
+delayed_vehicle/facility_after: pages=1 overflowX=false hangul=876 ext=0
+unknown_input/county_before: pages=1 overflowX=false hangul=657 ext=0
+unknown_input/county_after: pages=1 overflowX=false hangul=950 ext=0
+unknown_input/facility_after: pages=1 overflowX=false hangul=800 ext=0
+destination_pending/county_before: pages=1 overflowX=false hangul=687 ext=0
+destination_pending/county_after: pages=1 overflowX=false hangul=804 ext=0
+destination_pending/facility_after: pages=1 overflowX=false hangul=775 ext=0
+all_one_page=true no_external_requests=true korean_text_in_pdf=true
+bundled_font_in_pdf=true
+   PASS
+== offline viewer e2e (Playwright)
+PASS  launches offline and renders
+PASS  default: delayed case, county view, final unload unknown
+PASS  bundled Korean font (regular + bold) loads offline from data URI
+PASS  exercise label visible on screen
+PASS  before-only shows baseline number
+PASS  after re-toggle the old number is gone from current fields
+PASS  facility view active
+PASS  views agree (delayed_vehicle)
+PASS  views agree (unknown_input)
+PASS  views agree (destination_pending)
+PASS  updated time shown; previous only as prev
+PASS  different-case revised rejected with message
+PASS  no brief numbers left after rejection
+PASS  stale final_unload file rejected
+PASS  impossible timestamp file rejected
+PASS  reversed update times rejected
+PASS  valid files load again after errors
+PASS  print county: one A4 page
+PASS  print county: PDF embeds bundled font
+PASS  print county: toolbar hidden, Korean + exercise label kept
+PASS  print county: only the selected view printed
+PASS  print facility: one A4 page
+PASS  print facility: PDF embeds bundled font
+PASS  print facility: toolbar hidden, Korean + exercise label kept
+PASS  print facility: only the selected view printed
+PASS  planner 4169ccc via file inputs, county: final T0+57분, one A4 page
+PASS  planner 4169ccc via file inputs, facility: final T0+57분, one A4 page
+PASS  phone width (390px): no horizontal page scroll
+PASS  no network requests attempted
+PASS  no script errors
+30/30 passed
+   PASS
+== integration: contract fixture delayed_vehicle
+ACCEPTED  case=KCF-EX-DELAY-01  out=qa/integration-KCF-EX-DELAY-01
+  상태 UNRESOLVED · 전체 18명 · 배정 확인 14명 · 미확정 4명 · 전원 하차 모름
+  A4: county 1쪽, facility 1쪽
+   PASS
+== integration: contract fixture unknown_input
+ACCEPTED  case=KCF-EX-UNKNOWN-02  out=qa/integration-KCF-EX-UNKNOWN-02
+  상태 MISSING_INPUT · 전체 12명 · 배정 확인 0명 · 미확정 12명 · 전원 하차 모름
+  A4: county 1쪽, facility 1쪽
+   PASS
+== integration: contract fixture destination_pending
+ACCEPTED  case=KCF-EX-DEST-03  out=qa/integration-KCF-EX-DEST-03
+  상태 CHECKED_ROUTE · 전체 15명 · 배정 확인 15명 · 미확정 0명 · 전원 하차 T0+44분 (16:44)
+  A4: county 1쪽, facility 1쪽
+   PASS
+== planner 4169ccc: demo pair + briefing meta (expect accept)
+ACCEPTED  case=kcf-demo-two-vehicle-v1  out=qa/planner-4169ccc/demo_pair_with_meta
+  주의: 기준(baseline): 정수 schema_version 1 → "1" 로 읽음
+  주의: 기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 기준(baseline) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 변경(revised): 정수 schema_version 1 → "1" 로 읽음
+  주의: 변경(revised): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 변경(revised) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 변경(revised) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 변경(revised) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 변경(revised): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  상태 CHECKED_ROUTE · 전체 12명 · 배정 확인 12명 · 미확정 0명 · 전원 하차 T0+57분 (10:57)
+  A4: county 1쪽, facility 1쪽
+   PASS
+== planner 4169ccc: demo pair, no meta (expect accept)
+ACCEPTED  case=kcf-demo-two-vehicle-v1  out=qa/planner-4169ccc/demo_pair_no_meta
+  주의: 기준(baseline): 정수 schema_version 1 → "1" 로 읽음
+  주의: 기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 기준(baseline) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 변경(revised): 정수 schema_version 1 → "1" 로 읽음
+  주의: 변경(revised): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 변경(revised) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 변경(revised) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 변경(revised) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 변경(revised): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 메타데이터 미제공 — 그룹·역할·보고 시각은 "미제공"으로 표시
+  상태 CHECKED_ROUTE · 전체 12명 · 배정 확인 12명 · 미확정 0명 · 전원 하차 T0+57분
+  A4: county 1쪽, facility 1쪽
+   PASS
+== planner 4169ccc: shuttle sample (expect accept)
+ACCEPTED  case=contract-shuttle  out=qa/planner-4169ccc/shuttle_single
+  주의: 기준(baseline): 정수 schema_version 1 → "1" 로 읽음
+  주의: 기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 기준(baseline) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline) trips[2]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[2]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[2]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 메타데이터 미제공 — 그룹·역할·보고 시각은 "미제공"으로 표시
+  상태 CHECKED_ROUTE · 전체 12명 · 배정 확인 12명 · 미확정 0명 · 전원 하차 T0+1분
+  A4: county 1쪽, facility 1쪽
+   PASS
+== planner 4169ccc: missing-input sample (expect accept)
+ACCEPTED  case=contract-missing-input  out=qa/planner-4169ccc/missing_input_single
+  주의: 기준(baseline): 정수 schema_version 1 → "1" 로 읽음
+  주의: 기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 기준(baseline): conditional_trips 1건은 미확인 구간이 열려 있어야만 가능한 일정 — 확인된 운행으로 표시하지 않음
+  주의: 기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 메타데이터 미제공 — 그룹·역할·보고 시각은 "미제공"으로 표시
+  상태 MISSING_INPUT · 전체 6명 · 배정 확인 0명 · 미확정 6명 · 전원 하차 모름
+  A4: county 1쪽, facility 1쪽
+   PASS
+== planner 4169ccc: contract normal vs delayed (expect REJECT: different case_id)
+REJECTED  case=contract-normal  out=qa/planner-4169ccc/contract_pair
+  오류: 다른 사례끼리 비교 불가: 기준 contract-normal / 변경 contract-delayed
+  주의: 기준(baseline): 정수 schema_version 1 → "1" 로 읽음
+  주의: 기준(baseline): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 기준(baseline) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 기준(baseline) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 기준(baseline): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 변경(revised): 정수 schema_version 1 → "1" 로 읽음
+  주의: 변경(revised): kcf-facility-planner 형식 — trips 는 확인된 운행만 포함 (groups_with_checked_transport 기준으로 배정 확인 표시)
+  주의: 변경(revised) trips[0]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 변경(revised) trips[0]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 변경(revised) trips[0]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 departure_s → depart_s 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 unloading_end_s → unload_s 로 읽음
+  주의: 변경(revised) trips[1]: 필드 별칭 end_node → destination_id 로 읽음
+  주의: 변경(revised): 화재 제한 가정에 kind 표시가 없어 어댑터 해석 문구를 추가함
+  주의: 메타데이터 미제공 — 그룹·역할·보고 시각은 "미제공"으로 표시
+   PASS
+== every saved A4 PDF (examples + integration runs) is one page
+23 PDFs checked
+   PASS
+== planner ready tag probe
+TAG_ABSENT kcf/planner-delay-v1-ready (Chat 1's git proxy refused the tag push; the tagged commit was published as a branch instead).
+PINNED_COMMIT_PRESENT 4169cccc427e9e19be3851326a1225df89fe96f2 — read inputs as git:4169cccc427e9e19be3851326a1225df89fe96f2:<path>; recorded run in qa/planner-4169ccc/
+   (exit 3; 3 = tag absent, informational)
+ALL PASS
