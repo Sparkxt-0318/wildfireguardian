@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1130" width="1400" height="1130" role="img" aria-labelledby="t d" font-family="Helvetica, Arial, sans-serif">
+<title id="t">WildfireGuardian vehicle unit wiring</title>
+<desc id="d">Raspberry Pi 4/5 40-pin header with three MAX31855 thermocouple amplifiers (SPI0 CE0 plate, SPI0 CE1 housing, SPI1 CE0 air), BNO055 on I2C1 at 0x28, USB thermal camera, radar EVM and GNSS, and the fused 12 V to 5 V power chain. Design drawing, not verified on hardware.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="0" y="0" width="1400" height="1130" fill="#ffffff"/>
+<text x="30" y="38" font-size="22" text-anchor="start" font-weight="bold" fill="#111">WildfireGuardian vehicle unit: wiring (Raspberry Pi 4 / 5)</text>
+<text x="30" y="62" font-size="13" text-anchor="start" font-weight="normal" fill="#444">Design defaults from DESIGN.md and config/unit.yaml. Not built or verified on hardware as of 2026-11-17. Header viewed from above, pin 1 top left (SD-card end away from you).</text>
+<rect x="540" y="126" width="180" height="542" rx="6" fill="#f4f4f4" stroke="#333" stroke-width="2"/>
+<text x="630" y="118" font-size="14" text-anchor="middle" font-weight="bold" fill="#111">Raspberry Pi 40-pin header (J8)</text>
+<circle cx="605" cy="150" r="7" fill="#d62728" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="154" font-size="11" text-anchor="end" font-weight="bold" fill="#111">1</text>
+<line x1="540" y1="150" x2="420" y2="150" stroke="#d62728" stroke-width="2.5"/>
+<text x="532" y="145" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">MAX31855 VIN x3 &lt;- 3V3</text>
+<circle cx="655" cy="150" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="154" font-size="11" text-anchor="start" font-weight="normal" fill="#888">2</text>
+<text x="728" y="154" font-size="10" text-anchor="start" font-weight="normal" fill="#999">5V</text>
+<circle cx="605" cy="176" r="7" fill="#17becf" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="180" font-size="11" text-anchor="end" font-weight="bold" fill="#111">3</text>
+<line x1="540" y1="176" x2="420" y2="176" stroke="#17becf" stroke-width="2.5" stroke-dasharray="2 3"/>
+<text x="532" y="171" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">BNO055 SDA &lt;- GPIO2 SDA1</text>
+<circle cx="655" cy="176" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="180" font-size="11" text-anchor="start" font-weight="normal" fill="#888">4</text>
+<text x="728" y="180" font-size="10" text-anchor="start" font-weight="normal" fill="#999">5V</text>
+<circle cx="605" cy="202" r="7" fill="#e377c2" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="206" font-size="11" text-anchor="end" font-weight="bold" fill="#111">5</text>
+<line x1="540" y1="202" x2="420" y2="202" stroke="#e377c2" stroke-width="2.5" stroke-dasharray="2 3"/>
+<text x="532" y="197" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">BNO055 SCL &lt;- GPIO3 SCL1</text>
+<circle cx="655" cy="202" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="206" font-size="11" text-anchor="start" font-weight="normal" fill="#888">6</text>
+<text x="728" y="206" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GND</text>
+<circle cx="605" cy="228" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="232" font-size="11" text-anchor="end" font-weight="normal" fill="#888">7</text>
+<text x="532" y="232" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO4</text>
+<circle cx="655" cy="228" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="232" font-size="11" text-anchor="start" font-weight="normal" fill="#888">8</text>
+<text x="728" y="232" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO14 TXD</text>
+<circle cx="605" cy="254" r="7" fill="#222222" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="258" font-size="11" text-anchor="end" font-weight="bold" fill="#111">9</text>
+<line x1="540" y1="254" x2="420" y2="254" stroke="#222222" stroke-width="2.5"/>
+<text x="532" y="249" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">BNO055 GND &lt;- GND</text>
+<circle cx="655" cy="254" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="258" font-size="11" text-anchor="start" font-weight="normal" fill="#888">10</text>
+<text x="728" y="258" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO15 RXD</text>
+<circle cx="605" cy="280" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="284" font-size="11" text-anchor="end" font-weight="normal" fill="#888">11</text>
+<text x="532" y="284" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO17</text>
+<circle cx="655" cy="280" r="7" fill="#8c564b" stroke="#333" stroke-width="1.2"/>
+<text x="675" y="284" font-size="11" text-anchor="start" font-weight="bold" fill="#111">12</text>
+<line x1="720" y1="280" x2="860" y2="280" stroke="#8c564b" stroke-width="2.5" stroke-dasharray="8 4"/>
+<text x="728" y="275" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GPIO18 SPI1 CE0 -&gt; air CS</text>
+<circle cx="605" cy="306" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="310" font-size="11" text-anchor="end" font-weight="normal" fill="#888">13</text>
+<text x="532" y="310" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO27</text>
+<circle cx="655" cy="306" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="310" font-size="11" text-anchor="start" font-weight="normal" fill="#888">14</text>
+<text x="728" y="310" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GND</text>
+<circle cx="605" cy="332" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="336" font-size="11" text-anchor="end" font-weight="normal" fill="#888">15</text>
+<text x="532" y="336" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO22</text>
+<circle cx="655" cy="332" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="336" font-size="11" text-anchor="start" font-weight="normal" fill="#888">16</text>
+<text x="728" y="336" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO23</text>
+<circle cx="605" cy="358" r="7" fill="#d62728" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="362" font-size="11" text-anchor="end" font-weight="bold" fill="#111">17</text>
+<line x1="540" y1="358" x2="420" y2="358" stroke="#d62728" stroke-width="2.5"/>
+<text x="532" y="353" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">BNO055 VIN &lt;- 3V3</text>
+<circle cx="655" cy="358" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="362" font-size="11" text-anchor="start" font-weight="normal" fill="#888">18</text>
+<text x="728" y="362" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO24</text>
+<circle cx="605" cy="384" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="388" font-size="11" text-anchor="end" font-weight="normal" fill="#888">19</text>
+<text x="532" y="388" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO10 MOSI</text>
+<circle cx="655" cy="384" r="7" fill="#222222" stroke="#333" stroke-width="1.2"/>
+<text x="675" y="388" font-size="11" text-anchor="start" font-weight="bold" fill="#111">20</text>
+<line x1="720" y1="384" x2="860" y2="384" stroke="#222222" stroke-width="2.5"/>
+<text x="728" y="379" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GND -&gt; MAX31855 GND x3</text>
+<circle cx="605" cy="410" r="7" fill="#2ca02c" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="414" font-size="11" text-anchor="end" font-weight="bold" fill="#111">21</text>
+<line x1="540" y1="410" x2="420" y2="410" stroke="#2ca02c" stroke-width="2.5"/>
+<text x="532" y="405" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">plate+housing DO &lt;- GPIO9 MISO</text>
+<circle cx="655" cy="410" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="414" font-size="11" text-anchor="start" font-weight="normal" fill="#888">22</text>
+<text x="728" y="414" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO25</text>
+<circle cx="605" cy="436" r="7" fill="#ff7f0e" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="440" font-size="11" text-anchor="end" font-weight="bold" fill="#111">23</text>
+<line x1="540" y1="436" x2="420" y2="436" stroke="#ff7f0e" stroke-width="2.5"/>
+<text x="532" y="431" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">plate+housing CLK &lt;- GPIO11 SCLK</text>
+<circle cx="655" cy="436" r="7" fill="#1f77b4" stroke="#333" stroke-width="1.2"/>
+<text x="675" y="440" font-size="11" text-anchor="start" font-weight="bold" fill="#111">24</text>
+<line x1="720" y1="436" x2="860" y2="436" stroke="#1f77b4" stroke-width="2.5" stroke-dasharray="8 4"/>
+<text x="728" y="431" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GPIO8 CE0 -&gt; plate CS</text>
+<circle cx="605" cy="462" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="466" font-size="11" text-anchor="end" font-weight="normal" fill="#888">25</text>
+<text x="532" y="466" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GND</text>
+<circle cx="655" cy="462" r="7" fill="#9467bd" stroke="#333" stroke-width="1.2"/>
+<text x="675" y="466" font-size="11" text-anchor="start" font-weight="bold" fill="#111">26</text>
+<line x1="720" y1="462" x2="860" y2="462" stroke="#9467bd" stroke-width="2.5" stroke-dasharray="8 4"/>
+<text x="728" y="457" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GPIO7 CE1 -&gt; housing CS</text>
+<circle cx="605" cy="488" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="492" font-size="11" text-anchor="end" font-weight="normal" fill="#888">27</text>
+<text x="532" y="492" font-size="10" text-anchor="end" font-weight="normal" fill="#999">ID_SD</text>
+<circle cx="655" cy="488" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="492" font-size="11" text-anchor="start" font-weight="normal" fill="#888">28</text>
+<text x="728" y="492" font-size="10" text-anchor="start" font-weight="normal" fill="#999">ID_SC</text>
+<circle cx="605" cy="514" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="518" font-size="11" text-anchor="end" font-weight="normal" fill="#888">29</text>
+<text x="532" y="518" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO5</text>
+<circle cx="655" cy="514" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="518" font-size="11" text-anchor="start" font-weight="normal" fill="#888">30</text>
+<text x="728" y="518" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GND</text>
+<circle cx="605" cy="540" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="544" font-size="11" text-anchor="end" font-weight="normal" fill="#888">31</text>
+<text x="532" y="544" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO6</text>
+<circle cx="655" cy="540" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="544" font-size="11" text-anchor="start" font-weight="normal" fill="#888">32</text>
+<text x="728" y="544" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO12</text>
+<circle cx="605" cy="566" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="570" font-size="11" text-anchor="end" font-weight="normal" fill="#888">33</text>
+<text x="532" y="570" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO13</text>
+<circle cx="655" cy="566" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="570" font-size="11" text-anchor="start" font-weight="normal" fill="#888">34</text>
+<text x="728" y="570" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GND</text>
+<circle cx="605" cy="592" r="7" fill="#2ca02c" stroke="#333" stroke-width="1.2"/>
+<text x="585" y="596" font-size="11" text-anchor="end" font-weight="bold" fill="#111">35</text>
+<line x1="540" y1="592" x2="420" y2="592" stroke="#2ca02c" stroke-width="2.5" stroke-dasharray="12 3 3 3"/>
+<text x="532" y="587" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">air DO &lt;- GPIO19 SPI1 MISO</text>
+<circle cx="655" cy="592" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="596" font-size="11" text-anchor="start" font-weight="normal" fill="#888">36</text>
+<text x="728" y="596" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO16</text>
+<circle cx="605" cy="618" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="622" font-size="11" text-anchor="end" font-weight="normal" fill="#888">37</text>
+<text x="532" y="622" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GPIO26</text>
+<circle cx="655" cy="618" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="675" y="622" font-size="11" text-anchor="start" font-weight="normal" fill="#888">38</text>
+<text x="728" y="622" font-size="10" text-anchor="start" font-weight="normal" fill="#999">GPIO20</text>
+<circle cx="605" cy="644" r="7" fill="#fff" stroke="#999" stroke-width="1.2"/>
+<text x="585" y="648" font-size="11" text-anchor="end" font-weight="normal" fill="#888">39</text>
+<text x="532" y="648" font-size="10" text-anchor="end" font-weight="normal" fill="#999">GND</text>
+<circle cx="655" cy="644" r="7" fill="#ff7f0e" stroke="#333" stroke-width="1.2"/>
+<text x="675" y="648" font-size="11" text-anchor="start" font-weight="bold" fill="#111">40</text>
+<line x1="720" y1="644" x2="860" y2="644" stroke="#ff7f0e" stroke-width="2.5" stroke-dasharray="12 3 3 3"/>
+<text x="728" y="639" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GPIO21 SPI1 SCLK -&gt; air CLK</text>
+<polyline points="420,150 420,100 880,100 880,485" fill="none" stroke="#d62728" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="470" y="95" font-size="10.5" text-anchor="start" font-weight="normal" fill="#d62728">3V3 from pin 1 to MAX31855 VIN (3.0-3.6 V part: never 5 V)</text>
+<polyline points="860,384 900,384" fill="none" stroke="#222222" stroke-width="2.5" stroke-linejoin="round"/>
+<line x1="900" y1="165" x2="900" y2="505" stroke="#222222" stroke-width="2.5"/>
+<circle cx="900" cy="384" r="3.5" fill="#222222" stroke="#222222" stroke-width="1"/>
+<polyline points="420,410 360,410" fill="none" stroke="#2ca02c" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="360,410 360,700 920,700 920,185" fill="none" stroke="#2ca02c" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="1010" y="704" font-size="10.5" text-anchor="start" font-weight="normal" fill="#2ca02c">SPI0 MISO (pin 21): plate + housing boards only</text>
+<polyline points="420,436 375,436" fill="none" stroke="#ff7f0e" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="375,436 375,718 940,718 940,225" fill="none" stroke="#ff7f0e" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="1010" y="722" font-size="10.5" text-anchor="start" font-weight="normal" fill="#ff7f0e">SPI0 SCLK (pin 23): plate + housing boards only</text>
+<polyline points="420,592 345,592 345,738 1000,738 1000,525 1010,525" fill="none" stroke="#2ca02c" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="12 3 3 3"/>
+<text x="1010" y="742" font-size="10.5" text-anchor="start" font-weight="normal" fill="#2ca02c">SPI1 MISO (pin 35): air board only</text>
+<polyline points="860,644 970,644 970,565 1010,565" fill="none" stroke="#ff7f0e" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="12 3 3 3"/>
+<rect x="1010" y="120" width="140" height="125" rx="5" fill="#eef5ff" stroke="#1f3b66" stroke-width="1.8"/>
+<text x="1010" y="114" font-size="12.5" text-anchor="start" font-weight="bold" fill="#111">MAX31855 #1  tc_plate  (SPI0 CE0)</text>
+<text x="1018" y="149" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">VIN</text>
+<line x1="880" y1="145" x2="1010" y2="145" stroke="#d62728" stroke-width="2.5"/>
+<circle cx="880" cy="145" r="3.5" fill="#d62728" stroke="#d62728" stroke-width="1"/>
+<text x="1018" y="169" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GND</text>
+<line x1="900" y1="165" x2="1010" y2="165" stroke="#222222" stroke-width="2.5"/>
+<circle cx="900" cy="165" r="3.5" fill="#222222" stroke="#222222" stroke-width="1"/>
+<text x="1018" y="189" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">DO</text>
+<line x1="920" y1="185" x2="1010" y2="185" stroke="#2ca02c" stroke-width="2.5"/>
+<circle cx="920" cy="185" r="3.5" fill="#2ca02c" stroke="#2ca02c" stroke-width="1"/>
+<text x="1018" y="209" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CS</text>
+<text x="1018" y="229" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CLK</text>
+<line x1="940" y1="225" x2="1010" y2="225" stroke="#ff7f0e" stroke-width="2.5"/>
+<circle cx="940" cy="225" r="3.5" fill="#ff7f0e" stroke="#ff7f0e" stroke-width="1"/>
+<polyline points="860,436 990,436 990,205 1010,205" fill="none" stroke="#1f77b4" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 4"/>
+<text x="1142" y="170" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">T+</text>
+<text x="1142" y="200" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">T-</text>
+<line x1="1150" y1="166" x2="1215" y2="166" stroke="#c9a400" stroke-width="3"/>
+<line x1="1150" y1="196" x2="1215" y2="196" stroke="#d62728" stroke-width="3" stroke-dasharray="6 3"/>
+<text x="1157" y="161" font-size="9.5" text-anchor="start" font-weight="normal" fill="#7a6400">+ yellow</text>
+<text x="1157" y="212" font-size="9.5" text-anchor="start" font-weight="normal" fill="#a01010">- red</text>
+<rect x="1215" y="142" width="175" height="80" rx="4" fill="#fffbe6" stroke="#8a7300" stroke-width="1.4"/>
+<text x="1222" y="160" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Copper flux plate 50x50x1 mm</text>
+<text x="1222" y="175" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">junction peened into the plate,</text>
+<text x="1222" y="190" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">plate isolated from chassis</text>
+<text x="1222" y="215" font-size="9.5" text-anchor="start" font-weight="normal" fill="#7a6400" font-style="italic">type-K wire end to end</text>
+<rect x="1010" y="290" width="140" height="125" rx="5" fill="#eef5ff" stroke="#1f3b66" stroke-width="1.8"/>
+<text x="1010" y="284" font-size="12.5" text-anchor="start" font-weight="bold" fill="#111">MAX31855 #2  tc_housing  (SPI0 CE1)</text>
+<text x="1018" y="319" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">VIN</text>
+<line x1="880" y1="315" x2="1010" y2="315" stroke="#d62728" stroke-width="2.5"/>
+<circle cx="880" cy="315" r="3.5" fill="#d62728" stroke="#d62728" stroke-width="1"/>
+<text x="1018" y="339" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GND</text>
+<line x1="900" y1="335" x2="1010" y2="335" stroke="#222222" stroke-width="2.5"/>
+<circle cx="900" cy="335" r="3.5" fill="#222222" stroke="#222222" stroke-width="1"/>
+<text x="1018" y="359" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">DO</text>
+<line x1="920" y1="355" x2="1010" y2="355" stroke="#2ca02c" stroke-width="2.5"/>
+<circle cx="920" cy="355" r="3.5" fill="#2ca02c" stroke="#2ca02c" stroke-width="1"/>
+<text x="1018" y="379" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CS</text>
+<text x="1018" y="399" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CLK</text>
+<line x1="940" y1="395" x2="1010" y2="395" stroke="#ff7f0e" stroke-width="2.5"/>
+<circle cx="940" cy="395" r="3.5" fill="#ff7f0e" stroke="#ff7f0e" stroke-width="1"/>
+<polyline points="860,462 975,462 975,375 1010,375" fill="none" stroke="#9467bd" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 4"/>
+<text x="1142" y="340" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">T+</text>
+<text x="1142" y="370" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">T-</text>
+<line x1="1150" y1="336" x2="1215" y2="336" stroke="#c9a400" stroke-width="3"/>
+<line x1="1150" y1="366" x2="1215" y2="366" stroke="#d62728" stroke-width="3" stroke-dasharray="6 3"/>
+<text x="1157" y="331" font-size="9.5" text-anchor="start" font-weight="normal" fill="#7a6400">+ yellow</text>
+<text x="1157" y="382" font-size="9.5" text-anchor="start" font-weight="normal" fill="#a01010">- red</text>
+<rect x="1215" y="312" width="175" height="80" rx="4" fill="#fffbe6" stroke="#8a7300" stroke-width="1.4"/>
+<text x="1222" y="330" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Housing interior</text>
+<text x="1222" y="345" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">K probe taped to the wall</text>
+<text x="1222" y="360" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">away from Pi and buck</text>
+<text x="1222" y="385" font-size="9.5" text-anchor="start" font-weight="normal" fill="#7a6400" font-style="italic">type-K wire end to end</text>
+<rect x="1010" y="460" width="140" height="125" rx="5" fill="#eef5ff" stroke="#1f3b66" stroke-width="1.8"/>
+<text x="1010" y="454" font-size="12.5" text-anchor="start" font-weight="bold" fill="#111">MAX31855 #3  tc_air  (SPI1 CE0)</text>
+<text x="1018" y="489" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">VIN</text>
+<line x1="880" y1="485" x2="1010" y2="485" stroke="#d62728" stroke-width="2.5"/>
+<circle cx="880" cy="485" r="3.5" fill="#d62728" stroke="#d62728" stroke-width="1"/>
+<text x="1018" y="509" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GND</text>
+<line x1="900" y1="505" x2="1010" y2="505" stroke="#222222" stroke-width="2.5"/>
+<circle cx="900" cy="505" r="3.5" fill="#222222" stroke="#222222" stroke-width="1"/>
+<text x="1018" y="529" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">DO</text>
+<text x="1018" y="549" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CS</text>
+<text x="1018" y="569" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CLK</text>
+<polyline points="860,280 960,280 960,545 1010,545" fill="none" stroke="#8c564b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 4"/>
+<text x="1142" y="510" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">T+</text>
+<text x="1142" y="540" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">T-</text>
+<line x1="1150" y1="506" x2="1215" y2="506" stroke="#c9a400" stroke-width="3"/>
+<line x1="1150" y1="536" x2="1215" y2="536" stroke="#d62728" stroke-width="3" stroke-dasharray="6 3"/>
+<text x="1157" y="501" font-size="9.5" text-anchor="start" font-weight="normal" fill="#7a6400">+ yellow</text>
+<text x="1157" y="552" font-size="9.5" text-anchor="start" font-weight="normal" fill="#a01010">- red</text>
+<rect x="1215" y="482" width="175" height="80" rx="4" fill="#fffbe6" stroke="#8a7300" stroke-width="1.4"/>
+<text x="1222" y="500" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Intake-height air probe</text>
+<text x="1222" y="515" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">radiation-shielded, ungrounded</text>
+<text x="1222" y="530" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">separate type-K extension lead</text>
+<text x="1222" y="555" font-size="9.5" text-anchor="start" font-weight="normal" fill="#7a6400" font-style="italic">type-K wire end to end</text>
+<text x="1006" y="600" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">All chip selects are kernel CS, active low: plate spidev0.0, housing</text>
+<text x="1006" y="615" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">spidev0.1, air spidev1.0 (dtoverlay=spi1-1cs). No software CS needed.</text>
+<text x="1006" y="630" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Alternative (not default): air CS on GPIO25 pin 22 as a SOFTWARE CS</text>
+<text x="1006" y="645" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">on SPI0, needs spidev no_cs + lgpio in the driver (not implemented).</text>
+<text x="1006" y="660" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">10 nF across T+/T- at each MAX31855. MOSI pins unused (read-only).</text>
+<rect x="150" y="150" width="150" height="305" rx="5" fill="#f0fff4" stroke="#1d5e33" stroke-width="1.8"/>
+<text x="225" y="143" font-size="12.5" text-anchor="middle" font-weight="bold" fill="#111">BNO055 IMU breakout  (imu)</text>
+<line x1="420" y1="176" x2="300" y2="176" stroke="#17becf" stroke-width="2.5" stroke-dasharray="2 3"/>
+<text x="292" y="180" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">SDA</text>
+<line x1="420" y1="202" x2="300" y2="202" stroke="#e377c2" stroke-width="2.5" stroke-dasharray="2 3"/>
+<text x="292" y="206" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">SCL</text>
+<line x1="420" y1="254" x2="300" y2="254" stroke="#222222" stroke-width="2.5"/>
+<text x="292" y="258" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">GND</text>
+<line x1="420" y1="358" x2="300" y2="358" stroke="#d62728" stroke-width="2.5"/>
+<text x="292" y="362" font-size="10.5" text-anchor="end" font-weight="normal" fill="#111">VIN</text>
+<text x="158" y="382" font-size="10" text-anchor="start" font-weight="normal" fill="#111">ADR -&gt; GND: address 0x28</text>
+<text x="158" y="395" font-size="10" text-anchor="start" font-weight="normal" fill="#111">PS0, PS1 -&gt; GND: I2C mode</text>
+<text x="158" y="408" font-size="10" text-anchor="start" font-weight="normal" fill="#111">I2C1 (bus 1)</text>
+<text x="158" y="421" font-size="10" text-anchor="start" font-weight="normal" fill="#111">BNO055 stretches SCL; Pi I2C</text>
+<text x="158" y="434" font-size="10" text-anchor="start" font-weight="normal" fill="#111">mishandles it: set</text>
+<text x="158" y="447" font-size="10" text-anchor="start" font-weight="bold" fill="#111">i2c_arm_baudrate=10000</text>
+<text x="30" y="478" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">UART alternative (not the default): PS1 -&gt; 3V3,</text>
+<text x="30" y="493" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">BNO055 TX -&gt; GPIO15 RXD (pin 10), RX -&gt; GPIO14 TXD</text>
+<text x="30" y="508" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">(pin 8), 115200 baud, enable_uart=1, serial console off.</text>
+<text x="30" y="810" font-size="15" text-anchor="start" font-weight="bold" fill="#111">USB devices (Pi USB-A ports)</text>
+<rect x="30" y="830" width="150" height="200" rx="5" fill="#f4f4f4" stroke="#333" stroke-width="1.8"/>
+<text x="40" y="855" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Raspberry Pi</text>
+<text x="40" y="870" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">USB 3.0 x2 (blue)</text>
+<text x="40" y="885" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">USB 2.0 x2</text>
+<text x="40" y="900" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111"></text>
+<text x="40" y="915" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Pi 4: 1.2 A total</text>
+<text x="40" y="930" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Pi 5: 600 mA total</text>
+<text x="40" y="945" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">unless 5 V 5 A PD</text>
+<text x="40" y="960" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">(or usb_max_current</text>
+<text x="40" y="975" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">_enable=1)</text>
+<line x1="180" y1="860" x2="260" y2="860" stroke="#555555" stroke-width="2.5" stroke-dasharray="10 3 2 3"/>
+<rect x="260" y="840" width="420" height="56" rx="4" fill="#fafafa" stroke="#555" stroke-width="1.3"/>
+<text x="268" y="855" font-size="11.5" text-anchor="start" font-weight="bold" fill="#111">Topdon TC001 thermal camera (thermal)</text>
+<text x="268" y="871" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">USB-C plug -&gt; USB-C(f) to USB-A(m) OTG adapter or cable</text>
+<text x="268" y="886" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">UVC 256x384 YUYV, about 0.5-1 W</text>
+<line x1="180" y1="925" x2="260" y2="925" stroke="#555555" stroke-width="2.5" stroke-dasharray="10 3 2 3"/>
+<rect x="260" y="905" width="420" height="71" rx="4" fill="#fafafa" stroke="#555" stroke-width="1.3"/>
+<text x="268" y="920" font-size="11.5" text-anchor="start" font-weight="bold" fill="#111">TI IWR6843AOPEVM radar (radar), stock mmw demo</text>
+<text x="268" y="936" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">micro-USB, 5 V from USB (about 2-3 W). Two serial ports enumerate:</text>
+<text x="268" y="951" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CLI 115200 baud (config) + DATA 921600 baud (TLV frames).</text>
+<text x="268" y="966" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Board must be in functional mode (SOP switch), see WIRING.md.</text>
+<line x1="180" y1="1005" x2="260" y2="1005" stroke="#555555" stroke-width="2.5" stroke-dasharray="10 3 2 3"/>
+<rect x="260" y="985" width="420" height="56" rx="4" fill="#fafafa" stroke="#555" stroke-width="1.3"/>
+<text x="268" y="1000" font-size="11.5" text-anchor="start" font-weight="bold" fill="#111">USB GNSS receiver (gnss)</text>
+<text x="268" y="1016" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">NMEA over USB serial, about 0.2 W; antenna needs sky view</text>
+<text x="268" y="1031" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">(outside the aluminium box)</text>
+<text x="190" y="1055" font-size="10.5" text-anchor="start" font-weight="normal" fill="#444" font-style="italic">Option: powered USB hub fed from the 5 V buck if the Pi limits USB current.</text>
+<text x="730" y="810" font-size="15" text-anchor="start" font-weight="bold" fill="#111">Power: 12 V accessory socket to Pi</text>
+<rect x="730" y="830" width="112" height="70" rx="4" fill="#fff5f5" stroke="#7a1010" stroke-width="1.5"/>
+<text x="786" y="848" font-size="11.5" text-anchor="middle" font-weight="bold" fill="#111">12 V socket</text>
+<text x="786" y="866" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">vehicle accessory</text>
+<text x="786" y="880" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">plug (own fuse)</text>
+<line x1="842" y1="865" x2="856" y2="865" stroke="#d62728" stroke-width="3"/>
+<rect x="856" y="830" width="112" height="70" rx="4" fill="#fff5f5" stroke="#7a1010" stroke-width="1.5"/>
+<text x="912" y="848" font-size="11.5" text-anchor="middle" font-weight="bold" fill="#111">5 A blade fuse</text>
+<text x="912" y="866" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">inline, close</text>
+<text x="912" y="880" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">to the plug</text>
+<line x1="968" y1="865" x2="982" y2="865" stroke="#d62728" stroke-width="3"/>
+<rect x="982" y="830" width="112" height="70" rx="4" fill="#fff5f5" stroke="#7a1010" stroke-width="1.5"/>
+<text x="1038" y="848" font-size="11.5" text-anchor="middle" font-weight="bold" fill="#111">Reverse polarity</text>
+<text x="1038" y="866" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">ideal diode /</text>
+<text x="1038" y="880" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">P-FET (or Schottky)</text>
+<line x1="1094" y1="865" x2="1108" y2="865" stroke="#d62728" stroke-width="3"/>
+<rect x="1108" y="830" width="112" height="70" rx="4" fill="#fff5f5" stroke="#7a1010" stroke-width="1.5"/>
+<text x="1164" y="848" font-size="11.5" text-anchor="middle" font-weight="bold" fill="#111">TVS to GND</text>
+<text x="1164" y="866" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">load-dump clamp,</text>
+<text x="1164" y="880" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">unidirectional</text>
+<line x1="1220" y1="865" x2="1234" y2="865" stroke="#d62728" stroke-width="3"/>
+<rect x="1234" y="830" width="112" height="70" rx="4" fill="#fff5f5" stroke="#7a1010" stroke-width="1.5"/>
+<text x="1290" y="848" font-size="11.5" text-anchor="middle" font-weight="bold" fill="#111">12 -&gt; 5 V buck</text>
+<text x="1290" y="866" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">automotive, 5 V 5 A,</text>
+<text x="1290" y="880" font-size="10" text-anchor="middle" font-weight="normal" fill="#111">input &gt;= 36 V rated</text>
+<text x="740" y="920" font-size="10.5" text-anchor="start" font-weight="normal" fill="#d62728">+12 V nominal (9-16 V running; dips to about 6 V while cranking; transients above 24 V possible)</text>
+<polyline points="1290,900 1290,950 790,950 790,970" fill="none" stroke="#ff7f0e" stroke-width="3" stroke-linejoin="round"/>
+<rect x="730" y="970" width="300" height="60" rx="4" fill="#fffaf0" stroke="#a35400" stroke-width="1.5"/>
+<text x="740" y="988" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Pi 5: USB-C PD 5.1 V 5 A (27 W class)</text>
+<text x="740" y="1003" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Pi 4: USB-C 5.1 V 3 A</text>
+<text x="740" y="1018" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">do not back-feed 5 V via GPIO pins 2/4 unprotected</text>
+<text x="1240" y="945" font-size="10.5" text-anchor="start" font-weight="bold" fill="#ff7f0e">+5 V</text>
+<line x1="730" y1="1055" x2="1370" y2="1055" stroke="#222222" stroke-width="3"/>
+<text x="734" y="1073" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GND / 0 V: returns through the socket plug only. Copper plate and thermocouple sheaths stay isolated from chassis.</text>
+<text x="734" y="1088" font-size="10.5" text-anchor="start" font-weight="normal" fill="#444">(a grounded junction makes the MAX31855 report SHORT_GND)</text>
+<text x="30" y="545" font-size="13" text-anchor="start" font-weight="bold" fill="#111">Wire legend (colour + pattern + label)</text>
+<line x1="30" y1="561" x2="70" y2="561" stroke="#d62728" stroke-width="3"/>
+<text x="78" y="565" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">3V3 (red)</text>
+<line x1="30" y1="577" x2="70" y2="577" stroke="#222222" stroke-width="3"/>
+<text x="78" y="581" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">GND (black)</text>
+<line x1="30" y1="593" x2="70" y2="593" stroke="#ff7f0e" stroke-width="3"/>
+<text x="78" y="597" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">SPI0 SCLK (orange)</text>
+<line x1="30" y1="609" x2="70" y2="609" stroke="#2ca02c" stroke-width="3"/>
+<text x="78" y="613" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">SPI0 MISO (green)</text>
+<line x1="30" y1="625" x2="70" y2="625" stroke="#ff7f0e" stroke-width="3" stroke-dasharray="12 3 3 3"/>
+<text x="78" y="629" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">SPI1 SCLK (orange, dash-dot)</text>
+<line x1="30" y1="641" x2="70" y2="641" stroke="#2ca02c" stroke-width="3" stroke-dasharray="12 3 3 3"/>
+<text x="78" y="645" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">SPI1 MISO (green, dash-dot)</text>
+<line x1="30" y1="657" x2="70" y2="657" stroke="#1f77b4" stroke-width="3" stroke-dasharray="8 4"/>
+<text x="78" y="661" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CS plate, CE0 (blue, dashed)</text>
+<line x1="30" y1="673" x2="70" y2="673" stroke="#9467bd" stroke-width="3" stroke-dasharray="8 4"/>
+<text x="78" y="677" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CS housing, CE1 (purple, dashed)</text>
+<line x1="30" y1="689" x2="70" y2="689" stroke="#8c564b" stroke-width="3" stroke-dasharray="8 4"/>
+<text x="78" y="693" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">CS air, SPI1 CE0 (brown, dashed)</text>
+<line x1="30" y1="705" x2="70" y2="705" stroke="#17becf" stroke-width="3" stroke-dasharray="2 3"/>
+<text x="78" y="709" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">I2C1 SDA (cyan, dotted)</text>
+<line x1="30" y1="721" x2="70" y2="721" stroke="#e377c2" stroke-width="3" stroke-dasharray="2 3"/>
+<text x="78" y="725" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">I2C1 SCL (pink, dotted)</text>
+<line x1="30" y1="737" x2="70" y2="737" stroke="#c9a400" stroke-width="3"/>
+<text x="78" y="741" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Type-K + (yellow, ANSI)</text>
+<line x1="30" y1="753" x2="70" y2="753" stroke="#d62728" stroke-width="3" stroke-dasharray="6 3"/>
+<text x="78" y="757" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">Type-K - (red, ANSI, dashed here)</text>
+<line x1="30" y1="769" x2="70" y2="769" stroke="#555555" stroke-width="3" stroke-dasharray="10 3 2 3"/>
+<text x="78" y="773" font-size="10.5" text-anchor="start" font-weight="normal" fill="#111">USB cable (grey, dash-dot)</text>
+</svg>

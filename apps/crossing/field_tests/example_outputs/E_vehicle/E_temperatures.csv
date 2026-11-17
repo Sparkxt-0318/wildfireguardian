@@ -1,0 +1,4 @@
+simulated,session,what,sensor,n,min_c,median_c,max_c,missing_or_fault
+true,VU-SIM-E-drive,cpu,pi,1800,54.1,61.5,68.8,0
+true,VU-SIM-E-drive,housing,tc_housing,18000,24.75,31.5,38.25,0
+true,VU-SIM-E-drive,air,tc_air,17997,21.75,24.5,27.25,3

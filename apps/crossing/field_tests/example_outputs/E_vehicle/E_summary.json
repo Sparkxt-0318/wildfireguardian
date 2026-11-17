@@ -1,0 +1,73 @@
+{
+  "simulated": true,
+  "gnss": {
+    "n": 1800,
+    "fix_ratio": 0.9777777777777777,
+    "fix2_ratio": 0.2927777777777778,
+    "hdop": {
+      "n": 1760,
+      "mean": 1.0818863636363636,
+      "std": 0.5215478217217031,
+      "min": 0.8,
+      "p50": 0.95,
+      "p95": 2.64,
+      "max": 5.13
+    },
+    "sats": {
+      "n": 1800,
+      "mean": 9.591111111111111,
+      "std": 2.0239062854937835,
+      "min": 3.0,
+      "p50": 10.0,
+      "p95": 12.0,
+      "max": 12.0
+    },
+    "distance_km": 20.203276299397213,
+    "no_fix_stretches": 1,
+    "longest_no_fix_s": 41.0
+  },
+  "power": {
+    "n_readings": 1800,
+    "under_voltage_events": [
+      {
+        "start": 20005.0,
+        "end": 20007.0,
+        "duration_s": 2.0
+      }
+    ],
+    "n_under_voltage_events": 1,
+    "under_voltage_s": 2.0,
+    "readings_with_bit": {
+      "under-voltage now": 2,
+      "throttled now": 2
+    },
+    "occurred_since_boot": [
+      "under-voltage occurred",
+      "throttling occurred"
+    ],
+    "unknown_throttle_readings": 0,
+    "input_v_min": null,
+    "input_v_max": null
+  },
+  "link": {
+    "n_messages": 127310,
+    "count": 2,
+    "durations_s": [
+      1.4499999999788997,
+      4.500000014697434
+    ],
+    "starts_s": [
+      299.9999999956344,
+      1009.9999999853026
+    ],
+    "longest_s": 4.500000014697434,
+    "total_s": 5.950000014676334,
+    "span_s": 1799.9499999738073,
+    "disconnects": 1,
+    "max_gap_s": 4.500000014697434
+  },
+  "pi_dropped_events": 0,
+  "sessions": [
+    "pi_session_VU-SIM-E"
+  ]
+}

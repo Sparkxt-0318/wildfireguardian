@@ -1,0 +1,84 @@
+# Crossing app configuration (loaded by crossing/config.py; unknown keys are an error).
+# EVERY THRESHOLD AND LIMIT HERE IS A PLACEHOLDER for a fire service / the research team to set. Verdicts are
+# advisory for trained crews. Keys not listed keep the defaults documented in crossing/config.py.
+
+vehicle: fire_engine          # vehicles.yaml profile at start (UI can change it)
+fuel: DEFAULT                 # fuels.py code at start (UI can change it)
+tick_hz: 5.0                  # pipeline re-decides at this rate
+
+link:                         # DESIGN 5 freshness (laptop monotonic clock at receipt)
+  stale_s: 2.0
+  heartbeat_stale_s: 2.0
+  silence_s: 1.5              # no message at all for this long = link down
+  # value-freeze windows: identical thermal pixels / radar IQ for 1.0 s = frozen; tc/imu/gnss can repeat legitimately
+  # (long windows; a frozen Pi stream there is caught at once by the seq / t_mono check). See crossing/config.py.
+  freeze_s: {thermal: 1.0, radar: 1.0, imu: 2.0, tc_plate: 5.0, tc_housing: 5.0, tc_air: 5.0, gnss: 5.0, pi: null}
+
+use_max_age_s:                # a sensor value older than this is not used (decision closes)
+  thermal: 1.0
+  radar: 1.0
+  tc_plate: 1.0
+  tc_housing: 1.0
+  tc_air: 1.0
+  imu: 1.0
+  gnss: 1.5
+  pi: 1.6                     # 1 Hz Pi health; every sensor is required for every verdict (see crossing/config.py)
+
+thermal:
+  t_flame_c: 300.0            # flame-temperature pixel threshold (placeholder)
+  # FS-1: false until a lab check on a target hotter than 150 C confirms the TC001 is in LOW gain and the low-gain
+  # raw scale reads right. While false every live thermal frame is flame-unknown and every live verdict is CLOSED.
+  low_gain_verified: false
+
+mount:                        # measure on the vehicle (mirrors hardware/vehicle-unit/config/unit.yaml)
+  camera_height_m: 2.6
+  camera_pitch_deg: null      # null = from the unit (hello mount / vehicle-unit config/unit.yaml), else 0
+  camera_roll_deg: 0.0
+  camera_yaw_deg: 0.0
+  imu_mount_pitch_deg: 0.0
+  radar_height_m: 2.6
+  radar_yaw_deg: 0.0
+  imu_heading_trusted: null   # null = from the unit config (default false); IMU yaw is used for the REOPENED view only if true
+  imu_heading_offset_deg: 0.0
+
+geometry:
+  path_half_width_deg: 6.0    # near edge = nearest flame base within this of straight ahead
+  reopen_max_view_m: 40.0     # REOPENED: recorded crossing within this distance of the camera (placeholder)
+  reopen_fov_margin_deg: 4.0  # ... and this far inside the image edges (placeholder)
+  reopen_half_width_m: 4.0    # lateral half-width of the crossed road patch (placeholder)
+  reliable_course_speed_m_s: 2.0  # FS-3: GNSS course taken as the camera facing only at >= this (placeholder)
+  # FS-8: REOPENED needs a DEM (--dem) to show line of sight to the crossing (terrain only; placeholder checks)
+
+radar:
+  auto_baseline: false        # true = capture once stationary with no flame pixels (operator convenience)
+  moving_speed_m_s: 0.3
+  baseline_move_m: 3.0
+
+depth:                        # DESIGN 6.6 (DEPTH-HI rule)
+  # The dose uses an upper end >= the largest valid estimator upper end (spread_burn, byram, radar_loss_depth; never
+  # the experimental flicker extent). true lets it fall to the combined interval, and only for a fuel calibrated
+  # with >= narrow_decision_hi_min_pairs pairs. Keep false until real crossings justify it.
+  narrow_decision_hi: false
+  narrow_decision_hi_min_pairs: 30   # placeholder, >= 9
+  disagree_factor: 3.0               # ESTIMATORS_DISAGREE flag when max/min central value > this (placeholder)
+
+decision:                     # DESIGN 8 globals
+  stale_s: 2.0
+  verdict_ttl_s: 5.0
+  spray_margin: 0.25
+  reopen_hold_s: 30.0
+  reopen_flux_kw_m2: 1.0
+  reopen_hot_pixels: 0
+  q0_kw_m2: 0.0
+  approach_m: 30.0
+  min_flame_evidence_s: 3.0   # FLAME held continuously this long before CROSS FAST / SPRAY (placeholder)
+  reopen_max_speed_m_s: 1.0   # REOPENED only when stopped or slow (placeholder)
+
+crossing:                     # automatic crossing detection for calibration pairs (DESIGN 7)
+  thickness_q_kw_m2: 5.0
+  thickness_frac_of_peak: 0.5 # measured thickness threshold = max(5 kW/m2, 0.5 x pulse peak); see calibrate.py
+  min_speed_m_s: 0.5
+
+server:
+  host: 127.0.0.1
+  port: 8781

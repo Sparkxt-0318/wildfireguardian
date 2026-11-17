@@ -1,0 +1,12 @@
+# Crossing app (laptop, macOS, Python 3.12). Versions are the ones the tests were run with in apps/crossing/.venv.
+numpy==1.26.4
+PyYAML==6.0.2
+websockets==13.1
+fastapi==0.115.6
+uvicorn==0.32.1
+httpx==0.28.1            # FastAPI TestClient
+pyarrow==18.1.0          # optional: Parquet copies of the research log
+matplotlib==3.9.2        # analysis scripts (field_tests, virtual_fds)
+pyserial==3.5
+pyproj==3.7.0            # DEM in EPSG:5179 (crossing.terrain)
+pytest==8.3.4

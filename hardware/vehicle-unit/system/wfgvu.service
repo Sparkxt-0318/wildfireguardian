@@ -1,0 +1,24 @@
+# systemd unit for the WildfireGuardian vehicle unit sensor head.
+# Install: see system/README.md. Assumes the repo at /opt/wfgvu and a user "wfgvu" in the groups below.
+[Unit]
+Description=WildfireGuardian vehicle unit (sensor streaming and raw recording, no decisions)
+Wants=network-online.target
+After=network-online.target NetworkManager.service
+
+[Service]
+Type=simple
+User=wfgvu
+Group=wfgvu
+SupplementaryGroups=dialout video spi i2c gpio
+WorkingDirectory=/opt/wfgvu/hardware/vehicle-unit
+ExecStart=/opt/wfgvu/hardware/vehicle-unit/run_unit.sh
+Restart=always
+RestartSec=2
+# give drivers time to stop and the recorder time to flush and close its gzip files
+KillSignal=SIGTERM
+TimeoutStopSec=15
+Environment=PYTHONUNBUFFERED=1
+Nice=-5
+
+[Install]
+WantedBy=multi-user.target

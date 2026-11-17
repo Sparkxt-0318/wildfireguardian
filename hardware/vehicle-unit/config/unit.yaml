@@ -1,0 +1,96 @@
+# WildfireGuardian vehicle unit (roof sensor head) configuration.
+# The unit streams and records raw data only; it makes no decisions. Every port/bus below is the planned wiring,
+# not verified on hardware. Mount offsets are placeholders to be measured on the vehicle.
+
+unit_id: VU-01
+
+server:
+  host: 0.0.0.0          # the Pi's own hotspot address is 10.42.0.1 (system/hotspot.sh)
+  port: 8770
+  path: /stream
+  thermal_wire_hz: 4.0   # thermal frames sent to clients per second; the recorder keeps every frame
+  client_queue_max: 400  # per-client bounded queue; when full the oldest message is dropped and counted
+  heartbeat_s: 0.5
+  stop_timeout_s: 1.8    # SIGTERM / --duration end: drivers + clients + socket bounded by this, clients connected or not
+  recorder_close_s: 5.0  # then the recorder gets up to this long to write its backlog (systemd TimeoutStopSec=15)
+
+records:
+  dir: records           # relative to hardware/vehicle-unit/ (git-ignored)
+  flush_s: 1.0
+  rotate_mb: 256
+  low_free_mb: 1000      # event "disk_low" below this
+  stop_free_mb: 200      # recording pauses below this so the SD card never fills
+
+sensors:
+  thermal:
+    enabled: true
+    index: 0             # /dev/video0; check with v4l2-ctl --list-devices
+    gain: high           # configured, not read back from the camera
+    stale_s: 1.0
+  radar:
+    enabled: true
+    cli_port: /dev/ttyUSB0    # IWR6843AOP EVM CP2105 "Enhanced" port (CLI)
+    data_port: /dev/ttyUSB1   # CP2105 "Standard" port (data)
+    cli_baud: 115200
+    data_baud: 921600
+    cfg_file: config/iwr6843aop_vu.cfg   # default long range: 128 bins x 0.468 m, max 54 m, 10 Hz (UNTESTED on the EVM)
+    # alternatives: config/iwr6843aop_vu_short.cfg (old default, 512 x 0.049 m, max 22.5 m, over the UART budget at
+    # 10 Hz), config/iwr6843aop_vu_long_fine.cfg (512 x 0.117 m, max 54 m, 2.86 Hz). Arithmetic in each file.
+    stale_s: 1.0
+  tc_plate:              # blackened copper flux plate, K thermocouple
+    enabled: true
+    spi_bus: 0
+    spi_dev: 0           # CE0 (GPIO8)
+    rate_hz: 10
+    stale_s: 1.0
+  tc_housing:
+    enabled: true
+    spi_bus: 0
+    spi_dev: 1           # CE1 (GPIO7)
+    rate_hz: 10
+    stale_s: 1.0
+  tc_air:                # engine-intake-height air
+    enabled: true
+    spi_bus: 1
+    spi_dev: 0           # SPI1 CE0 (GPIO18), needs dtoverlay=spi1-1cs
+    rate_hz: 10
+    stale_s: 1.0
+  imu:
+    enabled: true
+    i2c_bus: 1
+    address: 0x28
+    rate_hz: 20
+    axis_map_config: 0x24   # BNO055 default axis map; set for the real mounting
+    axis_map_sign: 0x00
+    pitch_sign: 1           # UNVERIFIED: confirm pitch + = nose up with a tilt test on the vehicle
+    roll_sign: 1            # UNVERIFIED: confirm roll + = right side down
+    stale_s: 0.5
+  gnss:
+    enabled: true
+    port: /dev/ttyACM0
+    baud: 9600
+    stale_s: 2.0
+  pi:
+    enabled: true
+    rate_hz: 1
+    stale_s: 3.0
+
+mount:                   # PLACEHOLDERS, measure on the vehicle. Sent to the laptop in the hello message ("mount").
+  camera_height_m: 2.6
+  # Camera boresight pitch relative to the vehicle body, + UP (laptop CameraPose convention): -18 = 18 deg DOWN.
+  # Arithmetic (TC001 vertical FOV 42 deg, half 21 deg; h = 2.6 m; flat ground; vehicle level):
+  #   nearest visible ground  h / tan(pitch_down + 21) = 2.6 / tan(39 deg) = 3.21 m   (level camera: 2.6 / tan(21) = 6.77 m)
+  #   top image edge          21 - 18 = +3 deg above horizontal: the horizon is in frame, ~14.7 px below the top row
+  #                           (fy = 96 / tan 21 = 250.1 px; 250.1 * tan 18 = 81.3 px above the centre row 95.5)
+  #   tallest point in view   2.6 + d tan 3 deg: 3.12 m at 10 m, 3.65 m at 20 m, 4.17 m at 30 m (level: 6.4 / 10.3 / 14.1 m)
+  # Trade-off, stated: flames taller than that are cut by the TOP edge (flame height then reads low), and the horizon
+  # leaves the frame when the vehicle is nose-down by more than 3 deg (about a 5 % downgrade). UNVERIFIED: the bracket
+  # angle must be measured on the vehicle (inclinometer on the camera face) and entered here.
+  camera_pitch_deg: -18.0
+  camera_roll_deg: 0.0
+  camera_yaw_deg: 0.0
+  radar_height_m: 2.6
+  radar_yaw_deg: 0.0
+  plate_height_m: 2.5
+  tc_air_height_m: 1.0
+  antenna_offset_m: [0.0, 0.0, 0.0]
