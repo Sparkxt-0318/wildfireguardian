@@ -43,8 +43,8 @@
   var SCENE_JS = SRC.scene_js;
   var H = S.horizon_s || 28800, DWELL = S.dwell_s || 120, NK = (S.issues_s || []).length || 13;
   var STEP_TXT = {
-    LEAVE_NOW: ['LEAVE NOW', '위험구역 · 5 h reach'],
-    PREPARE_VULNERABLE_FIRST: ['VULNERABLE FIRST', '잠재적 위험구역 · 8 h reach'],
+    LEAVE_NOW: ['LEAVE NOW', '위험구역 (R(5 h) ≥ distance); "leave now" is this replay\'s reading'],
+    PREPARE_VULNERABLE_FIRST: ['VULNERABLE FIRST', '잠재적 위험구역 (R(8 h) ≥ distance): vulnerable people first'],
     NONE: ['no step', 'outside 8 h reach']
   };
   var STATE_TXT = {
@@ -118,7 +118,7 @@
   }
   function csvIssue(k) { var t = 12 + k; return t < 24 ? '03-25 ' + pad(t) + ':00' : '03-26 ' + pad(t - 24) + ':00'; } // per_place.csv issue_kst text
   function csvDetail(h, col, standin, k) {
-    return 'row ' + h.row + ', column ' + col + ' (standin = ' + (standin || st.standin) + ', horizon = 8h, issue_kst = ' + csvIssue(k) + ')';
+    return 'line ' + (h.row + 1) + ', column ' + col + ' (standin = ' + (standin || st.standin) + ', horizon = 8h, issue_kst = ' + csvIssue(k) + ')';
   }
   // the 13 issue times, the 8 h horizon and the 30-min planner grid are fixed by the frozen rule / the cache generator
   function issueSpan(k) { return '<span' + srcAttr(SRC.hotspot_rule, 'Issue times: 2025-03-25 03:00 … 15:00 UTC = 12:00 … 24:00 KST (scene.js issue_kst[' + k + '])') + '>' + esc(issueLabel(k)) + '</span>'; }
@@ -368,11 +368,11 @@
   function renderLegend() {
     var si = standinInfo();
     $('legend').setAttribute('data-src', SRC.hotspot_rule);
-    $('legend').setAttribute('data-detail', 'disc radii 375 m / 1 km / 2 km, 375 m routing cells, closure = T + distance / R, steps R(5 h) and R(8 h)');
+    $('legend').setAttribute('data-detail', 'disc radii 375 m / 1 km / 2 km, 375 m routing cells, closure = T + h* where R(h*) = distance, steps R(5 h) and R(8 h)');
     $('legend').innerHTML =
       '<div class="li"><span class="sw" style="background:' + COLORS.fireOld + '"></span>known fire area: detections before the issue hour (solid: FIRMS 375 m / 1 km; light: AHI "fire within 2 km")</div>' +
       '<div class="li"><span class="sw" style="background:' + COLORS.fire + '"></span>… detected in the last hour before it</div>' +
-      '<div class="li"><span class="sw" style="background:' + COLORS.closed + ';opacity:.8"></span>road cell (375 m) closed by this screen: issue time + distance / R(h); each hourly screen recomputes its closures from its own known fire area</div>' +
+      '<div class="li"><span class="sw" style="background:' + COLORS.closed + ';opacity:.8"></span>road cell (375 m) closed by this screen: issue time + the time R(h) takes to reach it; each hourly screen recomputes its closures from its own known fire area</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.leave + '"></span>위험구역 (5 h), read here as "leave now"</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.vuln + '"></span>잠재적 위험구역 (8 h): vulnerable first</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.none + '"></span>no step</div>' +
@@ -395,12 +395,12 @@
     var html = '<h3>Screen issued at ' + issueSpan(k) + ' KST</h3>';
     if (dc) html += '<div class="kv"><span class="muted">known fire area</span><span' + srcAttr(SRC.fire_discs, 'discs with t_utc strictly before ' + (S.issue_utc ? S.issue_utc[k] : issueLabel(k)) + ' (counted in ' + SCENE_JS + ' discCounts[' + k + '])') + '>' + fmtInt(dc.total) + ' detections (AHI ' + fmtInt(dc.AHI) + ' · FIRMS ' + fmtInt(dc.FIRMS) + ')</span></div>';
     html += '<div class="kv" style="margin-top:4px">' +
-      '<span class="step LEAVE_NOW">LEAVE NOW</span><span' + srcAttr(SRC.per_place, csvd + ', government_step = LEAVE_NOW') + '>' + counts.LEAVE_NOW + ' of ' + S.places.length + ' places</span>' +
+      '<span class="step LEAVE_NOW">LEAVE NOW*</span><span' + srcAttr(SRC.per_place, csvd + ', government_step = LEAVE_NOW') + '>' + counts.LEAVE_NOW + ' of ' + S.places.length + ' places</span>' +
+      '<span class="muted" style="padding-left:10px">… inside fire area</span><span' + srcAttr(SRC.per_place, csvd + ', departure_state = INSIDE_KNOWN_FIRE_AREA (all of them have government_step LEAVE_NOW)') + '>of which ' + inside + '</span>' +
       '<span class="step PREPARE_VULNERABLE_FIRST">VULNERABLE FIRST</span><span' + srcAttr(SRC.per_place, csvd + ', government_step = PREPARE_VULNERABLE_FIRST') + '>' + counts.PREPARE_VULNERABLE_FIRST + '</span>' +
       '<span class="step NONE">no step</span><span' + srcAttr(SRC.per_place, csvd + ', government_step = NONE') + '>' + counts.NONE + '</span>' +
-      '<span class="step INSIDE">inside fire area</span><span' + srcAttr(SRC.per_place, csvd + ', departure_state = INSIDE_KNOWN_FIRE_AREA') + '>' + inside + '</span>' +
       '<span class="muted">leave-by clock</span><span' + srcAttr(SRC.per_place, csvd + ', departure_state = LATEST_SAFE_DEPARTURE') + '>' + lsd + ' places</span></div>';
-    html += '<div class="note" style="margin-top:6px">Click a place, or a bookmark above. Same counts as RESULTS.md §3 (8 h).</div>';
+    html += '<div class="note" style="margin-top:6px"><span' + srcAttr(SRC.sources_md, '위험구역 = "leave now" is NOT stated in the sources; this replay\'s reading (also RESULTS.md section 7)') + '>* 위험구역 (5 h reach), read here as "leave now" — this replay\'s reading.</span> <span' + srcAttr(SRC.results_md, 'section 3 table (8 h): leave now / vulnerable first / none') + '>Step counts equal RESULTS.md §3 (8 h)</span>; inside and leave-by counts are counted from per_place.csv. Click a place, or a bookmark above.</div>';
     $('summary').innerHTML = html;
   }
 
@@ -472,7 +472,7 @@
       if (h.state === 'NOT_CUT_WITHIN_H' && h.last) html += '<div class="muted">last departure checked inside the horizon: <span' + srcAttr(SRC.per_place, csvDetail(h, 'last_departure_in_horizon_kst', null, k)) + '>' + esc(csvClock(h.last)) + '</span> (a horizon cap, not a deadline)</div>';
     }
     html += '<div class="grid2">';
-    html += '<div>government step</div><div><span class="step ' + esc(cls) + '"' + srcAttr(SRC.per_place, csvDetail(h, 'government_step', null, k)) + '>' + esc((STEP_TXT[h.step] || [h.step])[0]) + '</span> <span class="muted">' + esc((STEP_TXT[h.step] || ['', ''])[1]) + '</span></div>';
+    html += '<div>government step</div><div><span class="step ' + esc(cls) + '"' + srcAttr(SRC.per_place, csvDetail(h, 'government_step', null, k)) + '>' + esc((STEP_TXT[h.step] || [h.step])[0]) + '</span> <span class="muted"' + srcAttr(SRC.sources_md, 'rule and rate sources: 5 h → 위험구역, 8 h → 잠재적 위험구역 (YTN 2025-04-16); 위험구역 = "leave now" NOT stated, this replay\'s reading') + '>' + esc((STEP_TXT[h.step] || ['', ''])[1]) + '</span></div>';
     html += '<div>distance to known fire</div><div><span' + srcAttr(SRC.per_place, csvDetail(h, 'dist_known_fire_km', null, k)) + '>' + esc(h.d_km === '' ? '—' : h.d_km + ' km') + '</span></div>';
     if (h.shelter) {
       html += '<div>shelter</div><div>' + shelterSpan(h.shelter, h, k) + '</div>';
@@ -524,7 +524,7 @@
     html += '<div class="sec"><h4>All <span' + srcAttr(SRC.hotspot_rule, 'Issue times: thirteen issue times') + '>13</span> screens (' + esc(st.standin) + ', ' + horizonSpan() + ')</h4><table class="hours"><tr><th>issue</th><th>step</th><th>leave-by / state</th><th>shelter</th></tr>';
     for (var kk = 0; kk < NK; kk++) {
       var hh = hourly(p.id, kk); if (!hh) continue;
-      html += '<tr data-k="' + kk + '" class="' + (kk === k ? 'cur' : '') + '"><td>' + issueSpan(kk) + '</td><td><span class="step ' + esc(stepClass(hh)) + '"' + srcAttr(SRC.per_place, csvDetail(hh, 'government_step', null, kk)) + '>' + esc(stepClass(hh) === 'INSIDE' ? 'inside' : (hh.step === 'LEAVE_NOW' ? 'leave' : hh.step === 'NONE' ? '—' : 'vuln.')) + '</span></td><td' + srcAttr(SRC.per_place, csvDetail(hh, hh.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', null, kk)) + '>' + esc(placeClock(hh)) + '</td><td>' + (hh.shelter ? shelterSpan(hh.shelter, hh, kk) : '') + '</td></tr>';
+      html += '<tr data-k="' + kk + '" class="' + (kk === k ? 'cur' : '') + '"><td>' + issueSpan(kk) + '</td><td><span class="step ' + esc(hh.step) + '"' + srcAttr(SRC.per_place, csvDetail(hh, 'government_step', null, kk)) + '>' + esc(hh.step === 'LEAVE_NOW' ? 'leave' : hh.step === 'NONE' ? '—' : 'vuln.') + '</span></td><td' + srcAttr(SRC.per_place, csvDetail(hh, hh.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', null, kk)) + '>' + esc(placeClock(hh)) + '</td><td>' + (hh.shelter ? shelterSpan(hh.shelter, hh, kk) : '') + '</td></tr>';
     }
     html += '</table></div>';
     $('panel').innerHTML = html;
@@ -544,19 +544,19 @@
     var el = $('verdict'); if (!el) return;
     var c = st.check;
     if (!c || !st.place || c.placeId !== st.place.id || c.k !== kOf(st.s) || c.standin !== st.standin) { el.innerHTML = ''; return; }
-    var r = c.result, k = c.k, rt = r.rt, routeSrc = SCENE_JS + ' routes.' + c.standin + '["' + c.placeId + '"][' + k + ']';
+    var r = c.result, k = c.k, rt = r.rt, routeKey = 'routes.' + c.standin + '["' + c.placeId + '"][' + k + ']';
     var html = '';
     if (!c.done) {
-      html = '<div class="verdict"><div class="v">re-walking…</div><div class="muted"' + srcAttr(routeSrc, 'e (graph edges of the witness)') + '>edge ' + Math.min(c.shownEdges, r.edges || rt.e.length) + ' of ' + rt.e.length + '</div></div>';
+      html = '<div class="verdict"><div class="v">re-walking…</div><div class="muted"' + srcAttr(SCENE_JS, routeKey + ' → ' + 'e (graph edges of the witness)') + '>edge ' + Math.min(c.shownEdges, r.edges || rt.e.length) + ' of ' + rt.e.length + '</div></div>';
       el.innerHTML = html; return;
     }
     var dep = 3600 * k + r.depart;
     if (r.ok) {
       var match = r.arrival === rt.arr && c.offset === 0;
       html = '<div class="verdict pass"><div class="v">PASS</div>' +
-        '<div>leave <b' + srcAttr(routeSrc, 'ld (seconds after the issue hour) + offset ' + c.offset + ' s') + '>' + esc(kst(dep, true)) + '</b> → arrive <b' + srcAttr(routeSrc, 're-walked: departure + sum of edge travel ticks (graph travel_ticks)') + '>' + esc(kst(3600 * k + r.arrival, true)) + '</b> KST at <span' + srcAttr(routeSrc, 'sh (shelter of the witness)') + '>' + esc(shelterName(rt.sh)) + '</span></div>' +
-        '<div class="muted"><span' + srcAttr(routeSrc, 'e (graph edges of the witness)') + '>' + rt.e.length + ' edges</span> re-walked against the ' + issueSpan(k) + ' closures; dwell <span' + srcAttr(SRC.hotspot_rule, 'dwell 120 s at the shelter (replay.py DWELL)') + '>' + DWELL + ' s</span> ends before the shelter cell closes' + (r.shelterClose >= 0 ? ' (<span' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] for cell ' + rt.sh_cell) + '>' + esc(kst(3600 * k + r.shelterClose, true)) + '</span>)' : ' (not closed within 8 h)') + '.</div>';
-      if (c.offset === 0) html += '<div class="' + (match ? 'match' : 'mismatch') + '">' + (match ? '✓ same arrival second as committed' : '✗ differs from committed') + ': arr = <span' + srcAttr(routeSrc, 'arr (from out/runs, re-made by replay.py; checked against per_place.csv arrival_kst)') + '>' + fmtInt(rt.arr) + ' s</span> after ' + issueSpan(k) + ' (per_place.csv <span' + srcAttr(SRC.per_place, csvDetail(hourly(c.placeId, k, c.standin), 'arrival_kst', c.standin, k)) + '>' + esc(csvClock(hourly(c.placeId, k, c.standin).arr)) + '</span>)</div>';
+        '<div>leave <b' + srcAttr(SCENE_JS, routeKey + ' → ' + 'ld (seconds after the issue hour) + offset ' + c.offset + ' s') + '>' + esc(kst(dep, true)) + '</b> → arrive <b' + srcAttr(SCENE_JS, routeKey + ' → ' + 're-walked: departure + sum of edge travel ticks (graph travel_ticks)') + '>' + esc(kst(3600 * k + r.arrival, true)) + '</b> KST at <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'sh (shelter of the witness)') + '>' + esc(shelterName(rt.sh)) + '</span></div>' +
+        '<div class="muted"><span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'e (graph edges of the witness)') + '>' + rt.e.length + ' edges</span> re-walked against the ' + issueSpan(k) + ' closures; dwell <span' + srcAttr(SRC.replay_py, 'DWELL = 120 (seconds at the shelter); also planner cache generator.default_dwell_s') + '>' + DWELL + ' s</span> ends before the shelter cell closes' + (r.shelterClose >= 0 ? ' (<span' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] for cell ' + rt.sh_cell) + '>' + esc(kst(3600 * k + r.shelterClose, true)) + '</span>)' : ' (not closed within 8 h)') + '.</div>';
+      if (c.offset === 0) html += '<div class="' + (match ? 'match' : 'mismatch') + '">' + (match ? '✓ same arrival second as committed' : '✗ differs from committed') + ': arr = <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr (from out/runs, re-made by replay.py; checked against per_place.csv arrival_kst)') + '>' + fmtInt(rt.arr) + ' s</span> after ' + issueSpan(k) + ' (per_place.csv <span' + srcAttr(SRC.per_place, csvDetail(hourly(c.placeId, k, c.standin), 'arrival_kst', c.standin, k)) + '>' + esc(csvClock(hourly(c.placeId, k, c.standin).arr)) + '</span>)</div>';
       html += '</div>';
     } else {
       html = '<div class="verdict fail"><div class="v">FAIL</div>';
@@ -565,7 +565,7 @@
       } else if (r.shelterCell) {
         html += '<div>arrives ' + esc(kst(3600 * k + r.arrival, true)) + ', but the shelter cell closes at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell) + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>, before the ' + DWELL + ' s dwell ends.</div>';
       } else {
-        html += '<div>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle would leave road cell ' + r.cell + ' (edge ' + (r.edge + 1) + ' of ' + rt.e.length + ') at <b>' + esc(kst(3600 * k + r.leaveAt, true)) + '</b>; the ' + esc(issueLabel(k)) + ' screen closes that cell at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell + ' (T + distance / R, HOTSPOT_RULE.md)') + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>.</div>';
+        html += '<div>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle would leave road cell ' + r.cell + ' (edge ' + (r.edge + 1) + ' of ' + rt.e.length + ') at <b>' + esc(kst(3600 * k + r.leaveAt, true)) + '</b>; the ' + esc(issueLabel(k)) + ' screen closes that cell at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell + ' (T + h* where R(h*) = distance, HOTSPOT_RULE.md)') + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>.</div>';
       }
       var hh0 = hourly(c.placeId, k, c.standin);
       if (hh0 && hh0.state === 'LATEST_SAFE_DEPARTURE') html += '<div class="muted">This tests this road only. The deadline field (F-3.1) says no road to any of the 3 candidate shelters works after the latest safe departure.</div>';
@@ -579,7 +579,7 @@
   var MAP_SOURCES = function () {
     var out = [
       [SRC.fire_discs, 'known fire area: every kept FIRMS detection and AHI hotspot, drawn as its disc (r = 375 m VIIRS, 1 km MODIS, 2 km AHI), before the issue hour (HOTSPOT_RULE.md)'],
-      [SCENE_JS, 'closed road cells: close.' + st.standin + ' = issue + distance / R(h), computed with replay.py (closure_s) from ' + SRC.fire_discs + ' on the routing grid (graph.json, release research-final-20261015)'],
+      [SCENE_JS, 'closed road cells: close.' + st.standin + ' = issue + h* where R(h*) = distance, computed with replay.py (closure_s) from ' + SRC.fire_discs + ' on the routing grid (graph.json, release research-final-20261015)'],
       [SRC.per_place, 'map labels: latest_safe_departure_kst / departure_state, government_step (dot colour), stand-in ' + st.standin + ', horizon 8h'],
       ['planner/public/kcf-scene/data/terrain.js', 'terrain: Terrain Tiles (Mapzen, AWS Open Data), Terrarium z5–12'],
       ['planner/public/kcf-scene/data/basemap.js', 'roads, water, towns: OpenStreetMap (ODbL) via planner/research-map and planner/data/osm']
@@ -625,7 +625,7 @@
       '<h2>What this scene is</h2>' +
       '<p' + srcAttr(SRC.results_md, 'opening paragraph') + '>"This is a reconstruction of what a screen would have shown. It is not a claim about outcomes. It does not judge anyone\'s decisions, and it names no victims. Every number below depends on a stand-in for R(h)." — research/kcf-replay/RESULTS.md</p>' +
       '<p' + srcAttr(SRC.hotspot_rule, 'whole rule; frozen in commit 796e91c') + '><b>Known fire area</b>: FIRMS VIIRS/MODIS detections and Himawari-9 AHI hotspots time-stamped strictly before each issue hour (rule frozen first: HOTSPOT_RULE.md, commit 796e91c). Delivery latency is not modelled. ' +
-      '<b>Road cell closure</b> = issue time + distance / R(h), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
+      '<b>Road cell closure</b> = issue time + h*, where R(h*) = the cell\'s distance to the known fire area (RUNNING: distance / 8.2 km/h; WORST: (distance − 3 km) / 8.2 km/h), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
       '<b>Latest safe departure</b>: F-3.1 deadline field over the planner road graph, 3 candidate shelters per place.</p>' +
       '<p' + srcAttr(SRC.results_md, 'section 2 (R(h) stand-ins); research/kcf-replay/per_place.csv standin column has only ORDINARY, RUNNING, WORST') + '>R(h) stand-in now: <b>' + esc(si.label || st.standin) + '</b> — ' + esc(si.basis || '') + '. The frozen R(h) of research/kcf-margin was not applied to this replay (no MEASURED arm exists in research/kcf-replay).</p>' +
       '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; HOTSPOT_RULE.md: closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are four simulated city sessions), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
@@ -849,13 +849,14 @@
   }
   function renderHud(dv, pos) {
     var frac = dv.dur > 0 ? (dv.tau - dv.rt.ld) / dv.dur : 1;
-    var routeSrc = SCENE_JS + ' routes.' + dv.standin + '["' + dv.place.id + '"][' + dv.k + ']';
-    var html = '<div class="meta">' + esc(dv.place.label) + ' → <span' + srcAttr(routeSrc, 'sh') + '>' + esc(shelterName(dv.rt.sh)) + '</span> · witness road of the ' + issueSpan(dv.k) + ' screen · <span' + srcAttr(SRC.hotspot_rule, 'R(h) stand-ins') + '>' + esc(standinInfo(dv.standin).label || dv.standin) + '</span></div>' +
-      '<div class="clk"' + srcAttr(routeSrc, 'clock = departure ld + committed edge travel ticks (graph travel_ticks)') + '>' + esc(kst(3600 * dv.k + dv.tau, true)) + ' KST</div>' +
+    var routeKey = 'routes.' + dv.standin + '["' + dv.place.id + '"][' + dv.k + ']';
+    var html = '<div class="meta">' + esc(dv.place.label) + ' → <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'sh') + '>' + esc(shelterName(dv.rt.sh)) + '</span> · witness road of the ' + issueSpan(dv.k) + ' screen · <span' + srcAttr(SRC.hotspot_rule, 'R(h) stand-ins') + '>' + esc(standinInfo(dv.standin).label || dv.standin) + '</span></div>' +
+      '<div class="clk"' + srcAttr(SCENE_JS, routeKey + ' → ' + 'clock = departure ld + committed edge travel ticks (graph travel_ticks)') + '>' + esc(kst(3600 * dv.k + dv.tau, true)) + ' KST</div>' +
       '<div class="bar"><i style="width:' + (100 * Math.max(0, Math.min(1, frac))).toFixed(1) + '%"></i></div>' +
-      '<div class="meta">left <span' + srcAttr(routeSrc, 'ld') + '>' + esc(kst(3600 * dv.k + dv.rt.ld, true)) + '</span> (' + (dv.state === 'LATEST_SAFE_DEPARTURE' ? 'latest safe departure' : 'last departure inside the 8 h horizon: a cap, not a deadline') + ') · arrives <span' + srcAttr(routeSrc, 'arr') + '>' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: playback = (arr - ld) / 30 s, rounded') + '>playback ×' + dv.speed + (dv.speed < 1 ? ' (slowed: this road takes ' + dv.dur + ' s)' : dv.speed === 1 ? ' (real time)' : '') + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: BACK_M, EYE_M; terrain: data/terrain.js z12 (about 30 m)') + '>chase view ' + BACK_M + ' m behind and ' + EYE_M + ' m above the vehicle, over a 30 m terrain model</span></div>' +
-      '<div class="meta">fire: detections time-stamped before this moment (reconstruction; delivery latency not modelled) · violet: cells the ' + issueSpan(dv.k) + ' screen has closed by now</div>';
-    if (dv.done) html += '<div class="end"' + srcAttr(routeSrc, 'arr, sh') + '>Arrived ' + esc(shelterName(dv.rt.sh)) + ' at ' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + ' KST — the committed arrival second. Esc to go back.</div>';
+      '<div class="meta">left <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'ld') + '>' + esc(kst(3600 * dv.k + dv.rt.ld, true)) + '</span> (' + (dv.state === 'LATEST_SAFE_DEPARTURE' ? 'latest safe departure' : 'last departure inside the 8 h horizon: a cap, not a deadline') + ') · arrives <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr') + '>' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: playback = (arr - ld) / 30 s, rounded') + '>playback ×' + dv.speed + (dv.speed < 1 ? ' (slowed: this road takes ' + dv.dur + ' s)' : dv.speed === 1 ? ' (real time)' : '') + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: BACK_M, EYE_M; terrain: data/terrain.js z12 (about 30 m)') + '>chase view ' + BACK_M + ' m behind and ' + EYE_M + ' m above the vehicle, over a 30 m terrain model</span></div>' +
+      '<div class="meta">fire: detections time-stamped before this moment (reconstruction; delivery latency not modelled) · violet: cells the ' + issueSpan(dv.k) + ' screen has closed by now</div>' +
+      (3600 * dv.k + dv.tau > discS[discS.length - 1] ? '<div class="meta" style="color:#ffb48a"' + srcAttr(SRC.fire_discs, 'last disc t_utc 2025-03-25T17:58:00Z = 02:58 KST 26 Mar; RESULTS.md section 5: the reconstruction ends with the data') + '>The fire record ends at 02:58 KST, 26 March: no detection after that is shown, which does not mean the fire stopped.</div>' : '');
+    if (dv.done) html += '<div class="end"' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr, sh') + '>Arrived ' + esc(shelterName(dv.rt.sh)) + ' at ' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + ' KST — the committed arrival second. Esc to go back.</div>';
     $('hud').innerHTML = html;
   }
   var driveRaf = null;
@@ -1009,7 +1010,7 @@
   function tourSeek(t) {
     var P = tourPlan(), p = P.p, k = P.k;
     function enter(phase, fn) { if (tourState.phase !== phase) { tourState.phase = phase; fn(); } }
-    if (t < 22) caption('<b>1 · REGION</b>known fire area = satellite detections before each issue hour · violet road cells close at issue time + distance / R(h) · every place: government step and leave-by clock');
+    if (t < 22) caption('<b>1 · REGION</b>known fire area = satellite detections before each issue hour · violet road cells close when R(h) reaches them · every place: government step and leave-by clock');
     else if (t < 50) caption('<b>2 · PLACE</b>' + esc(p.name) + ': shelter, witness road on the terrain, latest safe departure · "Check it" re-walks the road against the ' + esc(issueLabel(k)) + ' closures' + (t >= 41 ? ' · one minute later: same road, 60 s later' : ''));
     else caption('<b>3 · ROAD</b>first-person drive along the witness road' + (st.drive ? ', playback ×' + st.drive.speed : '') + ' · fire = detections time-stamped before each moment · violet = cells the ' + esc(issueLabel(k)) + ' screen has closed');
     if (t < 22) {

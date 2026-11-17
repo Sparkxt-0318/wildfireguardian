@@ -135,6 +135,26 @@ try {
   await page.evaluate(() => window.KCF_APP.drive({ manual: true }));
   for (const f of [0, 0.5, 1]) { await page.evaluate((f) => window.KCF_APP.driveSeek(f), f); await record(`drive-${f}`); await shot(`3-drive-${f}`); }
   await page.evaluate(() => window.KCF_APP.stopDrive());
+  // horizon-capped rows (ORDINARY, NOT_CUT_WITHIN_H): one minute later, drive HUD
+  await page.evaluate(() => { window.KCF_APP.setStandin('ORDINARY'); window.KCF_APP.setIssue(0); window.KCF_APP.selectPlace(window.KCF.scene.named[0].id); });
+  report.checks.not_cut = await page.evaluate(() => {
+    const st = window.KCF_APP.state, h = window.KCF.scene.hourly.ORDINARY[st.place.id][0];
+    const a = window.KCF_APP.check(60); const v = document.querySelector('#verdict').textContent;
+    return { state: h.state, ok60: a.ok, overH: !!a.overH, verdict: v.slice(0, 300), nan: /NaN|undefined/.test(v) };
+  });
+  await record('notcut-check60');
+  await page.evaluate(() => window.KCF_APP.drive({ manual: true }));
+  await page.evaluate(() => window.KCF_APP.driveSeek(0.5));
+  report.checks.not_cut.hud = await page.evaluate(() => document.querySelector('#hud').textContent.slice(0, 400));
+  await record('notcut-drive');
+  await page.evaluate(() => { window.KCF_APP.stopDrive(); window.KCF_APP.setStandin('RUNNING'); });
+  // every path the sources panel names must be a committed file in this repository
+  const paths = new Set();
+  for (const id of named.slice(0, 2)) {
+    await page.evaluate((id) => { window.KCF_APP.setIssue(4); window.KCF_APP.selectPlace(id); window.KCF_APP.check(0); }, id);
+    (await page.evaluate(() => window.KCF_APP.sources())).forEach((p) => paths.add(p));
+  }
+  report.checks.source_paths = [...paths].map((p) => ({ path: p, exists: existsSync(join(root, p)) }));
   report.checks.views = views;
   report.checks.named_checks = checks;
   report.checks.http_errors = errs.slice(0, 50);

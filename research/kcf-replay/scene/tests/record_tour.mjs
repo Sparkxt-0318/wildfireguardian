@@ -3,6 +3,8 @@
 // slowly (headless Chromium draws WebGL in software here).
 //
 //   node research/kcf-replay/scene/tests/record_tour.mjs --out research/kcf-replay/scene/kcf_scene_tour_90s.mp4 [--fps 24] [--size 1920x1080]
+// Long captures can run in segments: --frames DIR --from N --to M --no-encode, then a last run with --encode-only.
+// Smoothing in the drive camera depends on the previous frame, so each segment first replays the 2 s before --from.
 import { createServer } from 'node:http';
 import { readFileSync, existsSync, mkdirSync, statSync, rmSync } from 'node:fs';
 import { join, resolve, extname, dirname } from 'node:path';
@@ -23,7 +25,15 @@ const FPS = Number(opt('--fps', '24'));
 const [W, H] = opt('--size', '1920x1080').split('x').map(Number);
 const FRAMES = resolve(opt('--frames', join(process.env.TMPDIR || tmpdir(), 'kcf_tour_frames')));
 const EXTRA = opt('--query', '');
-rmSync(FRAMES, { recursive: true, force: true }); mkdirSync(FRAMES, { recursive: true }); mkdirSync(dirname(OUT), { recursive: true });
+const FROM = Number(opt('--from', '0')), TO = opt('--to', null);
+const NO_ENCODE = args.includes('--no-encode'), ENCODE_ONLY = args.includes('--encode-only');
+function encode() {
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', join(FRAMES, 'f%05d.jpg'), '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', OUT]);
+  console.log('wrote', OUT, statSync(OUT).size, 'bytes at', FPS, 'fps');
+}
+if (ENCODE_ONLY) { encode(); process.exit(0); }
+if (!FROM) rmSync(FRAMES, { recursive: true, force: true });
+mkdirSync(FRAMES, { recursive: true }); mkdirSync(dirname(OUT), { recursive: true });
 
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css' };
 const srv = await new Promise((res) => {
@@ -43,12 +53,14 @@ await page.goto(`http://127.0.0.1:${srv.address().port}/wildfireguardian/kcf-sce
 await page.evaluate(() => window.KCF_APP.ready);
 const dur = await page.evaluate(() => window.KCF_APP.tour.duration);
 const n = Math.round(dur * FPS);
+const last = TO == null ? n : Math.min(n, Number(TO));
 const t0 = Date.now();
-for (let i = 0; i < n; i++) {
+for (let i = Math.max(0, FROM - 2 * FPS); i < FROM; i++) await page.evaluate((t) => window.KCF_APP.tour.seek(t), i / FPS); // warm-up
+for (let i = FROM; i < last; i++) {
   await page.evaluate((t) => window.KCF_APP.tour.seek(t), i / FPS);
   await page.screenshot({ path: join(FRAMES, `f${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 92 });
   if (i % (FPS * 5) === 0) console.log(`frame ${i}/${n} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 }
 await browser.close(); srv.close();
-execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', join(FRAMES, 'f%05d.jpg'), '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', OUT]);
-console.log('wrote', OUT, statSync(OUT).size, 'bytes,', n, 'frames at', FPS, 'fps');
+console.log('frames', FROM, '..', last - 1, 'of', n, 'in', ((Date.now() - t0) / 1000).toFixed(0), 's');
+if (!NO_ENCODE && last >= n) encode();
