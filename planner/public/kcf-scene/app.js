@@ -168,7 +168,7 @@
   function gustSpan(name, k) {
     var c = armClass(name, k);
     if (!c || c.gust_ms == null) return '';
-    return ' · next-8 h max gust <span' + srcAttr(SRC.gust_hours, 'kst_stamp ' + (12 + k) + ', fwd8.fire_wide_max (ERA5, maximum over five points; PROVISIONAL)') + '>' + c.gust_ms.toFixed(1) + ' m/s</span> (ERA5)';
+    return ' · <span' + srcAttr(SRC.gust_hours, 'kst_stamp ' + (12 + k) + ', fwd8.fire_wide_max (ERA5, maximum over five points; PROVISIONAL)') + '>next-8 h max gust ' + c.gust_ms.toFixed(1) + ' m/s (ERA5)</span>';
   }
 
   // ------------------------------------------------------------------ geometry
@@ -559,7 +559,7 @@
     order.forEach(function (a) {
       var ha = hourly(p.id, k, a); if (!ha) return;
       var ca = armClass(a, k);
-      html += '<tr data-arm="' + esc(a) + '" class="' + (a === st.standin ? 'cur' : '') + '"><td class="an"><span' + armSrc(a, k) + '>' + esc(shortLabel(a)) + '</span>' + (ca ? '<div class="cl">' + esc((CLS_TXT[ca.cls] || ca.cls).replace(/ \(.*\)$/, '')) + (ca.n_fires && ca.n_fires < 28 ? ' · ' + ca.n_fires + ' fires' : '') + '</div>' : '<div class="cl">stand-in, not the frozen R(h)</div>') + '</td>' +
+      html += '<tr data-arm="' + esc(a) + '" class="' + (a === st.standin ? 'cur' : '') + '"><td class="an"><span' + armSrc(a, k) + '>' + esc(shortLabel(a)) + '</span>' + (ca ? '<div class="cl">' + esc((CLS_TXT[ca.cls] || ca.cls).replace(/ \(.*\)$/, '')) + (ca.n_fires && ca.n_fires < 28 ? ' · <span' + srcAttr(SRC.margin_numbers, 'table, fire_set all28, alpha 0.10, class ' + ca.cls + ': n_fires at 5 h and 8 h') + '>' + ca.n_fires + ' fires</span>' : '') + '</div>' : '<div class="cl">stand-in, not the frozen R(h)</div>') + '</td>' +
         '<td><span class="step ' + esc(ha.step) + '"' + srcAttr(SRC.per_place, csvDetail(ha, 'government_step', a, k)) + '>' + esc(ha.step === 'LEAVE_NOW' ? 'leave' : ha.step === 'NONE' ? '—' : 'vuln.') + '</span></td>' +
         '<td class="ck"><span' + srcAttr(SRC.per_place, csvDetail(ha, ha.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', a, k)) + '>' + esc(ha.state === 'LATEST_SAFE_DEPARTURE' ? csvClock(ha.lsd) : (ARM_STATE[ha.state] || placeClock(ha))) + '</span>' +
         (ha.cut_before === 'yes' ? '<div class="cutb"' + srcAttr(SRC.per_place, csvDetail(ha, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', a, k)) + '>reached ' + esc(csvClock(ha.first_cut)) + '</div>' : '') + '</td></tr>';
@@ -598,7 +598,7 @@
       html += '<div class="note">Every reported time is single-source and was re-read at its source on <span' + srcAttr(SRC.sources_md, 'line 1: documented times, re-read at source (2026-11-16)') + '>2026-11-16</span> (SOURCES.md). A reported time is what an outlet wrote, not a result of this model.</div></div>';
     }
     // hour table
-    html += '<div class="sec"><h4>All <span' + srcAttr(SRC.hotspot_rule, 'Issue times: thirteen issue times') + '>13</span> screens (' + esc(shortLabel()) + ', ' + horizonSpan() + ')</h4><table class="hours"><tr><th>issue</th><th>step</th><th>leave-by / state</th><th>shelter</th></tr>';
+    html += '<div class="sec"><h4>All <span' + srcAttr(SRC.hotspot_rule, 'Issue times: thirteen issue times') + '>13</span> screens (<span' + armSrc(st.standin, k) + '>' + esc(shortLabel()) + '</span>, ' + horizonSpan() + ')</h4><table class="hours"><tr><th>issue</th><th>step</th><th>leave-by / state</th><th>shelter</th></tr>';
     for (var kk = 0; kk < NK; kk++) {
       var hh = hourly(p.id, kk); if (!hh) continue;
       html += '<tr data-k="' + kk + '" class="' + (kk === k ? 'cur' : '') + '"><td>' + issueSpan(kk) + '</td><td><span class="step ' + esc(hh.step) + '"' + srcAttr(SRC.per_place, csvDetail(hh, 'government_step', null, kk)) + '>' + esc(hh.step === 'LEAVE_NOW' ? 'leave' : hh.step === 'NONE' ? '—' : 'vuln.') + '</span></td><td' + srcAttr(SRC.per_place, csvDetail(hh, hh.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', null, kk)) + '>' + esc(placeClock(hh)) + '</td><td>' + (hh.shelter ? shelterSpan(hh.shelter, hh, kk) : '') + '</td></tr>';
