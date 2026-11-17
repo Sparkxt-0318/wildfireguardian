@@ -24,8 +24,10 @@ Unit-side source: Pi record session. 2 check(s) FAIL, 0 WARN (thresholds are pla
 | link_dropouts | FAIL | 3.20 | 2.00 | 1 laptop receipt gap(s) > 2 s, 1 disconnect(s) |
 | plate_faults | PASS | 0 | 0 |  |
 | plate_step | PASS | 0.50 | 5.00 | largest step between consecutive plate readings in hot_air_plate |
-| plate_rises_when_heated | PASS | 94.62 | 0.00 | end minus start of hot_air_plate (negative = polarity reversed?) |
+| plate_rises_when_heated | PASS | 35.50 | 0.00 | end minus start of hot_air_plate (negative = polarity reversed?) |
 | air_rise | PASS | 38.75 | 5.00 | tc_air rise during hot_air_probe; the laptop must CLOSE above the vehicle intake limit (test D/app) |
+| disc_limit | PASS | 60.25 | 70.00 | max tc_plate over the run; the hot air must not heat the disc to 70 C (user-set) |
+| disc_guard_stop | PASS |  |  | not stopped by the record script's disc guard |
 | checklist_water_inside | INFO | no (SIMULATED answer) |  | operator answer |
 | checklist_radome_damage | INFO | no (SIMULATED answer) |  | operator answer |
 | checklist_window_damage | INFO | no (SIMULATED answer) |  | operator answer |
@@ -38,9 +40,9 @@ Unit-side source: Pi record session. 2 check(s) FAIL, 0 WARN (thresholds are pla
 | spray | 300.0 | 24.2 | 53.4 | 24.2 | 22.5 | 2.0 |
 | dry | 60.0 | 24.2 | 52.9 | 24.2 | 22.2 | 2.0 |
 | hot_air_front | 240.0 | 44.2 | 70.6 | 24.2 | 22.2 | 2.0 |
-| hot_air_plate | 120.0 | 44.0 | 70.6 | 120.0 | 22.2 | 2.0 |
-| hot_air_probe | 120.0 | 33.0 | 60.8 | 120.0 | 61.5 | 2.0 |
-| cool | 60.5 | 28.2 | 56.6 | 28.8 | 61.0 | 2.0 |
+| hot_air_plate | 120.0 | 44.0 | 70.6 | 60.2 | 22.2 | 2.0 |
+| hot_air_probe | 120.0 | 33.0 | 60.8 | 60.2 | 61.5 | 2.0 |
+| cool | 60.5 | 28.2 | 56.6 | 26.0 | 61.0 | 2.0 |
 
 Hot-air gun is a stand-in for radiant heat; it is not a flame and says nothing about flame exposure.
 Files: F_checks.csv, F_phases.csv, F_timeline.png.

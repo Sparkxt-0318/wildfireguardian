@@ -11,8 +11,9 @@ Method (crossing.thermal + crossing.geometry + crossing.terrain, not re-implemen
 - The same is computed with the IMU ignored (attitude 0, 0) to show what the tilt correction is worth.
 Error = estimate - tape distance (m) and relative error (%). `covered` = tape distance inside [d_lo, d_hi].
 
-Assumptions: pinhole camera without distortion correction (TC001 lens distortion not calibrated); the tape distance
-is measured to the same edge the camera sees; the panel's bottom edge reads above t_detect_c.
+Assumptions: pinhole camera without distortion correction (InfiRay P2 Pro lens distortion not calibrated; its 56 x
+42 deg FOV is the TC001 vendor figure, UNVERIFIED); the tape distance is measured to the same edge the camera sees;
+the panel's bottom edge reads above t_detect_c.
 """
 from __future__ import annotations
 
@@ -140,11 +141,18 @@ def analyse(runs_root, out, sheet: Optional[dict] = None) -> dict:
         raise SystemExit("no test C runs under %s" % runs_root)
     out = common.out_dir(out)
     sim = common.is_simulated(*[r.simulated for r in runs])
-    rows = [analyse_run(r, sheet or r.trial.get("sheet") or {}) for r in runs]
+    rows = []
+    for r in runs:
+        row = analyse_run(r, sheet or r.trial.get("sheet") or {})
+        row["stop_reason"] = r.trial.get("stop_reason") or ""
+        lab = common.stop_label(r.trial)
+        if lab:                                 # disc guard stopped the recording: kept, reported as measured
+            row["flag"] = "; ".join(x for x in (lab, row.get("flag")) if x)
+        rows.append(row)
     rows.sort(key=lambda r: (r["tilt_deg"], r["distance_m"]))
     cols = ["run_id", "distance_m", "tilt_deg", "tilt_axis", "repeat", "imu_pitch_deg", "imu_roll_deg", "n_frames",
             "d_est_m", "d_lo_m", "d_hi_m", "d_frame_sd_m", "err_m", "err_pct", "covered", "d_no_imu_m",
-            "err_no_imu_pct", "d_min_visible_m", "t_detect_c", "n_bad_frames", "n_cut_off_frames", "flag"]
+            "err_no_imu_pct", "d_min_visible_m", "t_detect_c", "n_bad_frames", "n_cut_off_frames", "stop_reason", "flag"]
     common.write_csv(out / "C_runs.csv", rows, cols, sim)
     _plot(out / "C_error_vs_distance.png", rows, sim)
     good = [r for r in rows if "err_pct" in r]
@@ -166,6 +174,9 @@ def analyse(runs_root, out, sheet: Optional[dict] = None) -> dict:
                              "lo (m)", "hi (m)", "covered", "error, no IMU (%)", "nearest visible (m)"], nd=2)]
     if flagged:
         body += ["", "Flagged runs (as measured):"] + ["- %s: %s" % (r["run_id"], r["flag"]) for r in flagged]
+    stopped = common.stopped_lines(runs)
+    body += ["", "Flux-disc guard (disc on PETG tabs, 70 C user-set): %d run(s) stopped by the record script%s"
+             % (len(stopped), ":" if stopped else ".")] + stopped
     coverage = plan_coverage(rows, sheet or runs[0].trial.get("sheet") or {})
     body += ["", "Plan coverage (sheet distances x tilts): %s." % (
         "complete" if not coverage else "INCOMPLETE, protocol not completed")] + ["PROBLEM: " + c for c in coverage]

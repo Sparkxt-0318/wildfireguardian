@@ -1,18 +1,19 @@
-simulated,run_id,kind,ok,h_w_m2k,eps,rms_residual_w_m2,n,t_min_c,t_max_c,reason
-true,A_cooldown_r1_SIM,cooldown,true,11.008225573822394,0.95,49.72249160286978,4919,33.5,198.25,
-true,A_cooldown_r2_SIM,cooldown,true,10.999579496933382,0.95,44.51176103637334,4919,34.25,198.25,
-true,A_exposure_d0.100_r1_SIM,exposure,true,11.064899288284618,0.95,49.81674043706314,519,38.5,44.0,
-true,A_exposure_d0.100_r2_SIM,exposure,true,11.179762556239993,0.95,46.49807069641109,519,38.5,44.0,
-true,A_exposure_d0.100_r3_SIM,exposure,true,11.04721254399739,0.95,49.62739531838265,519,38.0,43.5,
-true,A_exposure_d0.150_r1_SIM,exposure,true,11.126866979927302,0.95,49.26469314745579,519,28.5,31.25,
-true,A_exposure_d0.150_r2_SIM,exposure,true,11.243783584782589,0.95,64.67773152215513,519,28.5,31.25,
-true,A_exposure_d0.150_r3_SIM,exposure,true,10.734131718430328,0.95,48.67781148376479,519,28.5,31.0,
-true,A_exposure_d0.200_r1_SIM,exposure,true,11.080980901861308,0.95,34.03822765970428,354,26.25,27.5,
-true,A_exposure_d0.200_r2_SIM,exposure,true,11.243309579677266,0.95,43.99570273663994,346,26.25,27.5,
-true,A_exposure_d0.200_r3_SIM,exposure,true,11.542810464980912,0.95,51.450515381887776,313,25.5,26.5,
-true,A_exposure_d0.300_r1_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0"
-true,A_exposure_d0.300_r2_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0"
-true,A_exposure_d0.300_r3_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0"
-true,A_exposure_d0.400_r1_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0"
-true,A_exposure_d0.400_r2_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0"
-true,A_exposure_d0.400_r3_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0"
+simulated,run_id,kind,ok,h_w_m2k,eps,rms_residual_w_m2,n,t_min_c,t_max_c,reason,n_disc_over_limit,stop_reason,flag
+true,A_cooldown_r1_SIM,cooldown,true,11.017530058569417,0.95,49.22051231912614,4054,26.0,57.5,,0,,
+true,A_cooldown_r2_SIM,cooldown,true,10.968244992194581,0.95,45.79867843705082,4048,26.5,57.75,,0,,
+true,A_cooldown_r3_SIM_overheated,cooldown,false,,,,,,,no cooldown mark,1,DISC_OVER_70C,"STOPPED: disc 70 C (flux disc at 70.00 C >= 70 C (PETG tabs)); 1 disc sample(s) >= 70 C (disc limit, PETG tabs)"
+true,A_exposure_d0.100_r1_SIM,exposure,true,10.962768445223162,0.95,39.73030279732688,519,39.0,44.25,,0,,
+true,A_exposure_d0.100_r2_SIM,exposure,true,11.084754014536948,0.95,50.466955102728015,519,39.0,44.25,,0,,
+true,A_exposure_d0.100_r3_SIM,exposure,true,10.942954560634162,0.95,54.59718254524801,519,38.25,43.5,,0,,
+true,A_exposure_d0.150_r1_SIM,exposure,true,10.76967674736081,0.95,54.79987807668886,519,28.25,30.75,,0,,
+true,A_exposure_d0.150_r2_SIM,exposure,true,11.091172026282191,0.95,46.655614545096064,519,28.5,31.25,,0,,
+true,A_exposure_d0.150_r3_SIM,exposure,true,11.005576917845069,0.95,39.782961812418456,519,28.75,31.25,,0,,
+true,A_exposure_d0.200_r1_SIM,exposure,true,10.251402340419732,0.95,37.523094112639164,324,25.75,26.75,,0,,
+true,A_exposure_d0.200_r2_SIM,exposure,true,10.296295483244096,0.95,36.721398984706234,331,26.0,27.25,,0,,
+true,A_exposure_d0.200_r3_SIM,exposure,true,10.820211574462956,0.95,42.93639306672882,344,25.25,26.5,,0,,
+true,A_exposure_d0.300_r1_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0",0,,
+true,A_exposure_d0.300_r2_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0",0,,
+true,A_exposure_d0.300_r3_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0",0,,
+true,A_exposure_d0.400_r1_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0",0,,
+true,A_exposure_d0.400_r2_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0",0,,
+true,A_exposure_d0.400_r3_SIM,exposure,false,,,,,,,"cool-down fit needs >= 20 usable points, got 0",0,,

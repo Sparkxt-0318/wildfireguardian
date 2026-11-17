@@ -65,6 +65,9 @@ RADAR_STATES = ("FLAME_EFFECT", "NO_EFFECT", "UNKNOWN")
 FUTURE_TOL_S = 0.5            # an input stamped later than now + this is malformed (laptop clock)
 AGE_ROUNDING_TOL_S = 1e-3     # a health age this far below 0 is float rounding (same-instant receipt), not future
 MAX_THERMAL_PIXELS = 256 * 192
+# A tc_plate fault string starting with this code (set by the pipeline when the plate thermocouple reads >= the
+# user-set flux.disc_max_c, 70 C: the copper disc sits on printed PETG tabs) also adds this reason code.
+PLATE_DISC_OVER_TEMP = "PLATE_DISC_OVER_TEMP"
 
 
 @dataclass
@@ -237,6 +240,8 @@ def _sensor_checks(inp: DecisionInputs, required: Sequence[str], cfg: DecisionCo
             out.append("SENSOR_NOT_FRESH:%s" % s)
         if faults.get(s):
             out.append("SENSOR_FAULT:%s" % s)
+            if str(faults[s]).startswith(PLATE_DISC_OVER_TEMP):
+                out.append(PLATE_DISC_OVER_TEMP)
         t = times.get(s)
         if t is None:
             out.append("INPUT_TIME_MISSING:%s" % s)

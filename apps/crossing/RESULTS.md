@@ -36,21 +36,21 @@ Paste each snippet below this table when its test has run, failures included.
 
 As of this writing the radar has not been run with this software. All three radar configs are untested on the EVM.
 
-**Thermal camera gain (FS-1).** The 300 °C flame threshold needs the TC001 in low gain, and nothing has verified
-that yet. `crossing.yaml` sets `thermal.low_gain_verified: false`, so **every live (non-simulated) verdict is
+**Thermal camera gain (FS-1).** The camera is an InfiRay P2 Pro (USB 0bda:5830, the same 256 x 384 frame as the
+Topdon TC001). The 300 °C flame threshold needs it in low gain, and nothing has verified that yet. `crossing.yaml` sets `thermal.low_gain_verified: false`, so **every live (non-simulated) verdict is
 CLOSED** until a lab check on a target hotter than 150 °C confirms low gain and its scale. Run this check early
 in test C (or A).
 
-## 2. Test suites (2026-11-17, laptop, Python 3.12 venv; loopback allowed)
+## 2. Test suites (2026-11-18, laptop, Python 3.12 venv; loopback allowed)
 
 | suite | result |
 |---|---|
-| `hardware/vehicle-unit` (Pi code, drivers, synth, docs) | 220 passed, 0 failed |
-| `apps/crossing` (app, decision, depth, simlink, step 8, field-test analyses, web) | 527 passed, 0 failed |
+| `hardware/vehicle-unit` (Pi code, drivers, synth, docs) | 285 passed, 0 failed |
+| `apps/crossing` (app, decision, depth, simlink, step 8, field-test analyses, web) | 559 passed, 0 failed |
 | `tests/api -m 'not golden and not panel'` (step 9 live input and existing API) | 125 passed, 2 deselected |
 
 Notes on the runs:
-- Pi code is parsed with the Python 3.11 grammar: 27 files, 0 errors. It has not been run on a real 3.11 interpreter
+- Pi code is parsed with the Python 3.11 grammar: 31 files, 0 errors. It has not been run on a real 3.11 interpreter
   or on a Pi.
 - `tools/verify_release.py`: PASS.
 
@@ -185,6 +185,42 @@ The full table is in `virtual_fds/REPORT.md`. Summary:
 10. **Timing constants.** freeze_s, use_max_age_s and silence_s were chosen to meet 2 s on loopback. They are
     unmeasured over Wi-Fi.
 11. **Samples size.** The `samples/` folder is at 4.93 MB of the 5 MB test budget.
+12. **Flux disc 70 °C stop (user limit, PETG tabs). Calculated, not measured**, with the flux.py plate model:
+    1 mm copper disc, loss h = 10 W/m²K, emissivity 0.95, air at 20 °C.
+    - The disc settles at 70 °C under only about 0.9 kW/m² of incident flux (about 1.9 kW/m² with airflow,
+      h = 30). That is about full sunshine, so a parked unit in strong sun with no wind may show
+      PLATE_DISC_OVER_TEMP and CLOSED with no fire. During test E (car roof) the recording would then stop.
+    - From 20 °C to 70 °C takes about 40 s at 5 kW/m², 19 s at 10 and 6 s at 30. Near a real front the unit
+      reports CLOSED within tens of seconds.
+    - After a crossing, the disc needs about 3-6 min to cool back below 70 °C. REOPENED cannot start its 30 s hold
+      until then.
+    - Real crossings will practically never give a plate-measured calibration pair.
+    - Test A can no longer fit the cool-down above about 60 °C. The loss term above that is extrapolated.
+    - The guard only stops the recording. It cannot turn off a burner or a hot-air gun.
+13. **Supplied housing, open questions (calculations, not measurements; `hardware/vehicle-unit/docs/HOUSING.md`).**
+    - **Heat shield openings.** A solid aluminium shield 10 mm in front blocks the radar, the camera and the flux
+      disc's view, so its openings need to be known. Minimum openings:
+      - camera: about 14 x 11 mm, or 20 x 14 mm if the camera is tilted 18° down;
+      - radar: about 49-55 mm square for ±60°, or 23-25 mm for the ±30° the app uses;
+      - flux disc: with a 30.6 mm opening, the disc sees only about 53 % of the scene in front.
+    - **Camera hole.** The 12 mm hole vignettes the image corners if the lens sits more than about 4-7 mm behind
+      the plate's front face. Is the camera tilted in the housing? The -18° pitch in `unit.yaml` is a placeholder.
+    - **Radar window.** The 1.2 mm PETG window is assumed to have eps_r 2.6-3.0 (unverified). It costs about
+      1 dB two-way and reflects about -11 dB back into the radar. A half-wave window (1.44-1.54 mm) would reflect
+      about -38 dB. Test B should measure it, dry and wet.
+    - **Disc size.** The disc's diameter and thickness, and whether it sits flush or recessed, are not known. The
+      app's plate model uses a 1 mm thick, 50 x 50 mm plate until they are measured.
+14. **Software chip select for tc_air (GPIO5).** Your pin map is implemented as given.
+    - The driver drives GPIO5 itself under a bus lock, with the kernel's no-chip-select mode read back.
+    - Kernel sources say the Pi 4 SPI driver supports this mode. On a Pi 5 it is unconfirmed: if it is refused,
+      tc_air faults and every verdict stays CLOSED.
+    - Contention between two chips cannot be detected in the data, only prevented. Check it on the bench: warm
+      one probe at a time while tccheck runs.
+    - A 10 kOhm pull-up from GPIO5 to 3.3 V is recommended. It is an addition, not a pin change.
+    - If a GPIO5 claim fails, all three thermocouples fault, because the bus state is then unknown.
+15. **P2 Pro gain over USB.** Two open-source projects set and read the gain with vendor USB control requests
+    (command 0x8514, parameter 5; a switch takes about 2.6 s). This could replace the manual FS-1 check with a
+    read-back. Not implemented and not tested.
 
 ## 8. Hardware results
 

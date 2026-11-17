@@ -15,12 +15,28 @@ sudo raspi-config nonint do_wifi_country KR      # set your own regulatory count
 `/boot/firmware/config.txt` additions:
 
 ```
-dtoverlay=spi1-1cs                 # third MAX31855 (tc_air) on SPI1 CE0 = GPIO18
 dtparam=i2c_arm_baudrate=10000     # BNO055 clock stretching; slow bus (or use the i2c-gpio overlay)
 ```
 
-Reboot, then check: `ls /dev/spidev*` (spidev0.0, spidev0.1, spidev1.0), `i2cdetect -y 1` (0x28 = BNO055),
-`v4l2-ctl --list-devices` (TC001), `ls /dev/ttyUSB* /dev/ttyACM*` (radar CP2105 pair, GNSS).
+No SPI overlay: all three MAX31855 are on SPI0 (`do_spi 0` above enables it). Pin map (user's printed build manual):
+shared 3.3 V pin 17, GND pin 20, CLK pin 23 (GPIO11), DO pin 21 (GPIO9); chip selects plate CE0 GPIO8 pin 24,
+housing CE1 GPIO7 pin 26, intake air GPIO5 pin 29 (software chip select: wfgvu opens `/dev/spidev0.0` with
+`no_cs` and drives GPIO5 itself with `python3-lgpio`). BNO055: 3.3 V pin 1, GND pin 6, SDA pin 3, SCL pin 5. If an
+older image has `dtoverlay=spi1-1cs` in `/boot/firmware/config.txt`, remove that line (GPIO18/19/21 are not used).
+
+Reboot, then check: `ls /dev/spidev*` (spidev0.0 and spidev0.1 only), `ls -l /dev/gpiochip*` (group `gpio`),
+`i2cdetect -y 1` (0x28 = BNO055), `lsusb` (InfiRay P2 Pro = `0bda:5830`), `v4l2-ctl --list-devices` (its
+capture node; `config/unit.yaml` `thermal.index: auto` finds it by that USB id), `ls /dev/ttyUSB* /dev/ttyACM*`
+(radar CP2105 pair, GNSS). Then the thermocouple check, with the service stopped:
+`sudo systemctl stop wfgvu; cd /opt/wfgvu/hardware/vehicle-unit && .venv/bin/python -m wfgvu.tccheck`
+(exit 0 OK, 1 fault, 2 flux disc >= 70 C, 3 SPI/GPIO busy or missing, 64 bad command line; see
+`python3 -m wfgvu.tccheck --help`).
+
+Software chip select, as built (untested on a Pi): every MAX31855 transfer runs under one SPI0 lock in the wfgvu
+process; GPIO5 is claimed HIGH before the first transfer and is low only inside that lock; while a channel is open
+the process holds an exclusive flock on the `/dev/spidev0.0` node itself (opened read-only, nothing created), so a
+second process (tccheck while the service runs, any user in group `spi`) gets exit 3 instead of interleaving reads. If the SPI controller refuses `no_cs` (possible on the Pi 5's RP1 SPI; not
+checked), `tc_air` reports `no_device` "no_cs unsupported" and is never read: every verdict stays CLOSED.
 
 ## 2. Code and Python environment
 
@@ -39,10 +55,14 @@ Install the apt packages before the venv: the minimums in `requirements-pi.txt` 
 (spidev 3.5, smbus2 0.4.2), so pip only adds websockets. Without `python3-spidev` pip would try to build spidev from
 source (no aarch64 wheel; needs `python3-dev`), and a failed build installs nothing, so the service would crash-loop
 on a missing module. `--only-binary=:all:` makes that case fail at once with a clear message. Check after install:
-`.venv/bin/python -c 'import websockets, spidev, smbus2, numpy, yaml, serial, cv2'` (untested on the target Pi).
+`.venv/bin/python -c 'import websockets, spidev, smbus2, numpy, yaml, serial, cv2, lgpio'` (untested on the target
+Pi; `lgpio` drives the GPIO5 chip select, `gpiod` is the fallback).
 
-Check ports and buses in `config/unit.yaml` (radar CLI/data ports, SPI bus/device per thermocouple, camera
-index, GNSS port). Mount offsets in that file are placeholders to measure on the vehicle.
+Check ports and buses in `config/unit.yaml` (radar CLI/data ports, SPI bus/device and `cs_gpio` per thermocouple,
+camera `index: auto` / `usb_id`, GNSS port). Mount heights and angles in that file are placeholders to measure on
+the vehicle; `mount.sensor_offsets_mm` holds the user's build-manual figures. This `/opt/wfgvu` install is the
+alternative to the main README's Quick start (clone in `~/wildfireguardian`, service installed for that clone and
+the login user): the service reads the `config/unit.yaml` of the clone in its unit file, so edit that one.
 
 Smoke test without sensors (replays a recorded or synthetic session, labelled `sim: true`):
 
@@ -104,6 +124,8 @@ dips will reset the Pi unless the converter rides through them; that has not bee
 
 ## Not verified
 
-Hotspot script, service unit, SPI1 overlay, BNO055 bus speed, CP2105 port order, TC001 V4L2 format and raw scale,
+Hotspot script, service unit, the GPIO5 software chip select (`no_cs` on the Pi 4 and the Pi 5, lgpio/gpiod chip
+choice), BNO055 bus speed, CP2105 port order, the InfiRay P2 Pro's V4L2 format and raw scale (TC001-compatible by
+the published format) and its discovery by USB id,
 the radar CLI config, achievable radar frame rate at 921600 baud (see `wfgvu/drivers/radar_iwr6843.py`),
 power ride-through. Every one of these needs a bench check on the real hardware before a vehicle test.

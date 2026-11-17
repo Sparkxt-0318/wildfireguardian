@@ -32,7 +32,11 @@ The simulators deliberately include failures (a Bunsen radiant fraction that dif
 below the radar noise at long range, a near edge outside the camera's field of view, one test D fault (imu_disconnect,
 latency set to 2.3-2.6 s for this demo only) that takes longer than 2 s to detect and so FAILS, a thermal_freeze
 whose operator mark is seconds off and is timed from the received thermal frames instead, a radar that stops while
-its heartbeat says ok, link dropouts) so that every "report failures as measured" path of the analysis is exercised.
+its heartbeat says ok, link dropouts, and one test A cool-down run heated too hard that the record scripts' flux-disc
+guard stops at 70 C: `A_cooldown_r3_SIM_overheated`, stop_reason DISC_OVER_70C, reported as "STOPPED: disc 70 C")
+so that every "report failures as measured" path of the analysis is exercised. The copper flux disc sits on printed
+PETG tabs: every record script stops a run at a disc temperature >= 70 C (user-set) and the simulated A and F runs
+pass through that same guard.
 
 | Folder | Test | Snippet |
 |---|---|---|

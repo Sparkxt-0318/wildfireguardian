@@ -1,93 +1,382 @@
-"""Generate docs/wiring.svg and docs/housing.svg for the WildfireGuardian vehicle unit.
+"""Generate docs/wiring.svg and docs/housing.svg, and the computed checks block in docs/HOUSING.md.
 
 Stdlib only, Python 3.11+. Run from anywhere:
 
-    python hardware/vehicle-unit/docs/make_drawings.py          # rewrite both SVGs
-    python hardware/vehicle-unit/docs/make_drawings.py --check  # exit 1 if the committed SVGs differ
+    python hardware/vehicle-unit/docs/make_drawings.py          # rewrite both SVGs and the HOUSING.md checks block
+    python hardware/vehicle-unit/docs/make_drawings.py --check  # exit 1 if any committed output differs
 
-The drawings are concept drawings, not a verified build. Every dimension is in millimetres and is a design
-value: nothing here has been fabricated or measured (status 2026-11-17). The housing dimensions in ``HOUSING``
-are mirrored by the top-level parameters of ``housing.scad``; ``docs/test_docs.py`` checks that they agree.
+Status 2026-11-17: nothing here has been wired, printed, fitted or measured by this project.
 
-Vehicle axes used for the housing (ISO 8855 style): X forward, Y to the vehicle's left, Z up; origin at the
-centre of the enclosure footprint on the car roof (Z = 0 is the roof skin under the magnets).
-
-Radome physics (stated, not measured): a dielectric slab is transparent at normal incidence when its electrical
-thickness is a whole number of half wavelengths, t_n = n * lambda0 / (2 * sqrt(eps_r)). With lambda0 = c / f,
-f = 60 GHz: polycarbonate eps_r ~ 2.9 gives t_1 ~ 1.47 mm, PTFE eps_r ~ 2.1 gives t_1 ~ 1.72 mm. The IWR6843 stock
-demo chirps span roughly 60-64 GHz, so the slab is only exactly matched at one frequency in the band.
+- ``PIN_MAP`` is the ONE pin list. It is the pin map from the user's printed build manual (2026-11-17).
+  ``wiring.svg``, the WIRING.md pin table (checked by ``test_docs.py``) and ``config/unit.yaml`` follow it.
+- ``SUPPLIED`` and ``SENSOR_OFFSETS_MM`` are the housing dimensions AS GIVEN BY THE USER. The housing exists and is
+  being printed; this project does not design it. ``housing.svg`` is a front-plate layout drawing of those numbers
+  only: documentation of the supplied housing, not a design. ``config/unit.yaml`` (``housing:`` and
+  ``mount.sensor_offsets_mm``) carries the same numbers; ``test_docs.py`` checks they agree.
+- The x offsets are recorded exactly as the build manual gives them. Their sign convention (+ to the right seen from
+  the front) is UNCONFIRMED; the drawing says so, and no check below depends on the sign.
+- ``checks()`` holds the arithmetic for HOUSING.md section "Checks on the supplied housing". Every number it gives
+  is a CALCULATION from stated assumptions (``ASSUMED``), not a measurement.
 """
 from __future__ import annotations
 
+import cmath
 import math
 import sys
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent
 C0 = 299_792_458.0  # speed of light, m/s
+SIGMA = 5.670374419e-8
 
 
 def radome_thickness_mm(eps_r: float, f_hz: float = 60e9, n: int = 1) -> float:
-    """Half-wave-multiple radome thickness in mm: n * lambda0 / (2 * sqrt(eps_r)), normal incidence."""
+    """Half-wave-multiple slab thickness in mm: n * lambda0 / (2 * sqrt(eps_r)), normal incidence."""
     lam_mm = C0 / f_hz * 1000.0
     return n * lam_mm / (2.0 * math.sqrt(eps_r))
 
 
 # --------------------------------------------------------------------------------------------------------------
-# Housing design values (mm). Mirrored in housing.scad; keep the names identical.
+# The supplied housing: numbers AS GIVEN BY THE USER (2026-11-17). Not a design. Mirrored in config/unit.yaml.
 # --------------------------------------------------------------------------------------------------------------
-HOUSING = {
-    "box_l": 160.0,          # enclosure length along X (forward), external
-    "box_w": 220.0,          # enclosure width along Y, external
-    "box_h": 90.0,           # enclosure height along Z, external
-    "wall": 3.0,             # die-cast aluminium wall
-    "base_l": 240.0,         # aluminium base plate along X
-    "base_w": 320.0,         # base plate along Y
-    "base_t": 5.0,           # base plate thickness
-    "magnet_d": 88.0,        # rubber-coated pot magnet diameter
-    "magnet_h": 15.0,        # magnet height incl. rubber boot
-    "radome_w": 60.0,        # radar window (Y) on the front face
-    "radome_h": 60.0,        # radar window (Z)
-    "radome_y": -45.0,       # window centre Y (negative = vehicle right)
-    "radome_z": 45.0,        # window centre height above enclosure bottom
-    "radome_eps_r": 2.1,     # PTFE (polycarbonate would be 2.9)
-    "radome_n": 2,           # number of half wavelengths (2 -> stiffer, see HOUSING.md)
-    "ir_win_d": 25.0,        # germanium LWIR window diameter
-    "ir_win_t": 2.0,         # germanium window thickness
-    "ir_win_y": 35.0,        # LWIR window centre Y (vehicle left of centre)
-    "ir_win_z": 55.0,        # LWIR window centre height above enclosure bottom
-    "plate_a": 50.0,         # copper flux plate edge
-    "plate_t": 1.0,          # copper flux plate thickness
-    "board_a": 70.0,         # ceramic fibre board backing edge
-    "board_t": 25.0,         # ceramic fibre board thickness
-    "plate_proud": 40.0,     # plate front face ahead of the enclosure front face (X)
-    "plate_y": 155.0,        # plate centre Y (vehicle left, outboard of the enclosure)
-    "plate_z": 50.0,         # plate centre height above enclosure bottom
-    "shield_gap": 20.0,      # air gap between lid and sun/heat shield
-    "shield_t": 1.0,         # shield sheet thickness
-    "shield_over": 20.0,     # shield overhang beyond the enclosure on every side
-    "gland_d": 16.0,         # M16 cable gland thread diameter (rear face)
-    "rf_win_w": 80.0,        # rear polycarbonate RF window (Wi-Fi) width, Y
-    "rf_win_h": 30.0,        # rear RF window height, Z
+SUPPLIED = {
+    "body_mm": (180, 140, 72),            # read as width x depth x height (the 172 x 66 plate fits the 180 x 72 face)
+    "wall_mm": 4,
+    "pi_standoff_pattern_mm": (58, 49),   # four standoffs; their position in the body is not given
+    "floor_rails": 3,
+    "rail_pilot_hole": "M3",
+    "rail_hole_pitch_mm": 10,
+    "front_plate_mm": (172, 66, 3),       # bolt-on
+    "sensor_centre_line_above_base_mm": 34,
+    "heat_shield": {"material": "aluminium", "gap_mm": 10},   # 10 mm in front of the front plate
+    "material": "PETG",                   # printed; material as told by the user
+}
+# x as in the build manual; sign convention (+ to the right seen from the front) UNCONFIRMED. z above the base.
+SENSOR_OFFSETS_MM = {
+    "camera": {"x": -52, "z": 34, "hole_d": 12},
+    "radar": {"x": -8, "z": 34, "window_w": 52, "window_h": 42, "window_t": 1.2},
+    "flux_disc": {"x": 45, "z": 34, "hole_d": 30.6},
 }
 
-GLAND_Y = (-75.0, -25.0, 25.0, 75.0)   # rear-face gland centres (Y), at height GLAND_Z above enclosure bottom
-GLAND_Z = 25.0
-VENT_Y = 95.0                          # membrane vent (M12) centre Y on the rear face
+# --------------------------------------------------------------------------------------------------------------
+# Assumptions for the checks (NOT given by the user; each is stated in HOUSING.md and must be verified)
+# --------------------------------------------------------------------------------------------------------------
+ASSUMED = {
+    "cam_hfov_deg": 56.0,     # InfiRay P2 Pro, vendor figure as we read it (verify); same as the laptop CameraModel
+    "cam_vfov_deg": 42.0,
+    "cam_pupil_d_mm": 3.0,    # entrance pupil ~ f / N = 3.2 mm / 1.1 (vendor-typical; UNVERIFIED)
+    "cam_pitch_deg": -18.0,   # config/unit.yaml mount.camera_pitch_deg (placeholder); 0 = square to the plate
+    "radar_half_deg": 60.0,   # IWR6843AOP antenna-on-package, about +-60 deg azimuth and elevation
+    "radar_decision_half_deg": 30.0,   # laptop beam grid -30..30 deg (DESIGN.md 6.3)
+    "radar_ant_mm": 10.0,     # radiating region of the AOP package, assumed (the package is 15 x 15 mm)
+    "disc_d_mm": 30.0,        # copper disc diameter (not given; the hole is 30.6 mm)
+    "disc_t_mm": 1.0,         # copper disc thickness (not given; crossing PlateSpec default 1 mm)
+    "disc_absorptivity": 0.95,
+    "rho_c_copper": 8960.0 * 385.0,    # J/(m3 K)
+    "petg_eps_r": (2.6, 3.0),          # at 60 GHz, assumed, unverified
+    "petg_tan_d": 0.01,                # assumed, unverified
+    "petg_k": 0.2,                     # W/(m K), vendor-typical
+    "petg_tg_c": 80.0,                 # glass transition, vendor-typical (about 75-85 C)
+    "radar_f_ghz": (60.00, 60.55),     # config/iwr6843aop_vu.cfg chirp sweep
+    "h_in": 6.0,                       # W/(m2 K) inside, natural convection + radiation, assumed
+    "h_out": (10.0, 30.0),             # W/(m2 K) outside: parked / driving, assumed
+    "unit_power_w": (7.0, 9.0, 17.0),  # MOUNTING_AND_POWER.md: Pi 4 typical, Pi 5 typical, Pi 5 worst (estimates)
+}
 
 
-def derived(h: dict) -> dict:
-    """Heights and extents derived from HOUSING (mm, vehicle axes)."""
-    d = {}
-    d["z_base0"] = h["magnet_h"]
-    d["z_box0"] = h["magnet_h"] + h["base_t"]
-    d["z_box1"] = d["z_box0"] + h["box_h"]
-    d["z_sh0"] = d["z_box1"] + h["shield_gap"]
-    d["z_sh1"] = d["z_sh0"] + h["shield_t"]
-    d["x_front"] = h["box_l"] / 2
-    d["x_plate"] = d["x_front"] + h["plate_proud"]
-    d["radome_t"] = radome_thickness_mm(h["radome_eps_r"], 60e9, int(h["radome_n"]))
-    return d
+# --------------------------------------------------------------------------------------------------------------
+# Check arithmetic (calculations, not measurements)
+# --------------------------------------------------------------------------------------------------------------
+def camera_boundary_slopes(hfov_deg: float, vfov_deg: float, pitch_deg: float, n: int = 41) -> list:
+    """(dx/dz, dy/dz) of pinhole rays on the image boundary in the front-plate frame (z out of the plate, y up),
+    for a camera pitched by pitch_deg (+ up) about the horizontal axis. Symmetric in x, so a sign flip of the
+    x offsets changes nothing."""
+    th, tv = math.tan(math.radians(hfov_deg / 2)), math.tan(math.radians(vfov_deg / 2))
+    p = math.radians(pitch_deg)
+    out = []
+    for i in range(n):
+        u = -1.0 + 2.0 * i / (n - 1)
+        for x, y in ((u * th, tv), (u * th, -tv), (th, u * tv), (-th, u * tv)):
+            y2 = y * math.cos(p) + math.sin(p)
+            z2 = -y * math.sin(p) + math.cos(p)
+            out.append((x / z2, y2 / z2))
+    return out
+
+
+def camera_hole_max_setback_mm(hole_d: float, pupil_d: float, pitch_deg: float) -> float:
+    """Largest distance from the entrance pupil back to the plate's FRONT face before the hole edge clips any image
+    ray (no vignetting at the corners): (hole_d - pupil_d) / 2 / max radial slope."""
+    s = camera_boundary_slopes(ASSUMED["cam_hfov_deg"], ASSUMED["cam_vfov_deg"], pitch_deg)
+    m = max(math.hypot(a, b) for a, b in s)
+    return (hole_d - pupil_d) / 2.0 / m
+
+
+def camera_aperture_mm(dist_mm: float, pupil_d: float, pitch_deg: float) -> tuple:
+    """Minimum rectangular opening (width, height, centre offset below the lens axis) at dist_mm in front of the
+    entrance pupil that clears the whole field of view."""
+    s = camera_boundary_slopes(ASSUMED["cam_hfov_deg"], ASSUMED["cam_vfov_deg"], pitch_deg)
+    xs = [a for a, _ in s]
+    ys = [b for _, b in s]
+    w = pupil_d + dist_mm * (max(xs) - min(xs))
+    up = pupil_d / 2 + dist_mm * max(ys)
+    down = pupil_d / 2 - dist_mm * min(ys)
+    return w, up + down, (down - up) / 2.0
+
+
+def radar_aperture_mm(dist_mm: float, half_deg: float, ant_mm: float = ASSUMED["radar_ant_mm"]) -> float:
+    """Opening that clears a +-half_deg cone from an antenna region of size ant_mm at dist_mm: a + 2 L tan."""
+    return ant_mm + 2.0 * dist_mm * math.tan(math.radians(half_deg))
+
+
+def radar_window_max_setback_mm(window_mm: float, half_deg: float, ant_mm: float = ASSUMED["radar_ant_mm"]) -> float:
+    """Largest antenna distance behind the window's limiting edge before the +-half_deg cone is clipped."""
+    return (window_mm - ant_mm) / 2.0 / math.tan(math.radians(half_deg))
+
+
+def disc_view_factor(r1: float, r2: float, h: float) -> float:
+    """View factor from a disc of radius r1 to a coaxial parallel disc (aperture) of radius r2 at distance h."""
+    R1, R2 = r1 / h, r2 / h
+    S = 1.0 + (1.0 + R2 * R2) / (R1 * R1)
+    return 0.5 * (S - math.sqrt(S * S - 4.0 * (R2 / R1) ** 2))
+
+
+def disc_aperture_for_view_factor(F: float, r1: float, h: float) -> float:
+    """Aperture DIAMETER (mm) giving view factor F from the disc (bisection)."""
+    lo, hi = 0.0, 10000.0
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if disc_view_factor(r1, mid, h) < F:
+            lo = mid
+        else:
+            hi = mid
+    return 2.0 * hi
+
+
+def slab_rt(eps_r: float, tan_d: float, d_mm: float, f_hz: float) -> tuple:
+    """Normal-incidence power reflection and transmission of a lossy dielectric slab in air (|Gamma|^2, |T|^2)."""
+    n = cmath.sqrt(complex(eps_r, -eps_r * tan_d))
+    lam = C0 / f_hz * 1000.0
+    delta = 2.0 * math.pi * n * d_mm / lam
+    r = (1 - n) / (1 + n)
+    e2 = cmath.exp(-2j * delta)
+    den = 1 - r * r * e2
+    gam = r * (1 - e2) / den
+    t = (1 - r * r) * cmath.exp(-1j * delta) / den
+    return abs(gam) ** 2, abs(t) ** 2
+
+
+def db(x: float) -> float:
+    return 10.0 * math.log10(x)
+
+
+def window_rt_band(eps_r: float, d_mm: float) -> dict:
+    """Worst case over the chirp band of one-way transmission, two-way loss and reflection (dB)."""
+    rs, ts = [], []
+    f0, f1 = ASSUMED["radar_f_ghz"]
+    for i in range(12):
+        f = (f0 + (f1 - f0) * i / 11) * 1e9
+        R, T = slab_rt(eps_r, ASSUMED["petg_tan_d"], d_mm, f)
+        rs.append(R)
+        ts.append(T)
+    return {"one_way_db": db(min(ts)), "two_way_db": 2 * db(min(ts)), "refl_db": db(max(rs)),
+            "refl_db_min": db(min(rs))}
+
+
+def body_area_m2() -> float:
+    w, d, h = (v / 1000.0 for v in SUPPLIED["body_mm"])
+    return 2.0 * (w * d + w * h + d * h)
+
+
+def box_rise_k(power_w: float, h_out: float) -> float:
+    """Steady inside-air rise over ambient for power_w dissipated inside the closed PETG box, no sun, no vents."""
+    u = 1.0 / (1.0 / ASSUMED["h_in"] + SUPPLIED["wall_mm"] / 1000.0 / ASSUMED["petg_k"] + 1.0 / h_out)
+    return power_w / (u * body_area_m2())
+
+
+def disc_rate_k_s(q_kw_m2: float) -> float:
+    """Copper disc heating rate (K/s) at incident flux q, losses ignored (upper bound on the rate)."""
+    rcd = ASSUMED["rho_c_copper"] * ASSUMED["disc_t_mm"] / 1000.0
+    return ASSUMED["disc_absorptivity"] * q_kw_m2 * 1000.0 / rcd
+
+
+def checks() -> dict:
+    """Every number quoted in HOUSING.md section 'Checks on the supplied housing'. Calculations only."""
+    o = SENSOR_OFFSETS_MM
+    gap = SUPPLIED["heat_shield"]["gap_mm"]
+    pt = SUPPLIED["front_plate_mm"][2]
+    pupil = ASSUMED["cam_pupil_d_mm"]
+    c: dict = {}
+    # camera
+    th, tv = math.tan(math.radians(28)), math.tan(math.radians(21))
+    c["cam_diag_half_deg"] = math.degrees(math.atan(math.hypot(th, tv)))
+    for name, pitch in (("level", 0.0), ("pitched", ASSUMED["cam_pitch_deg"])):
+        c["cam_setback_%s" % name] = camera_hole_max_setback_mm(o["camera"]["hole_d"], pupil, pitch)
+        c["cam_setback_pinhole_%s" % name] = camera_hole_max_setback_mm(o["camera"]["hole_d"], 0.0, pitch)
+        for s in (0.0, float(pt)):
+            c["cam_shield_%s_s%d" % (name, s)] = camera_aperture_mm(s + gap, pupil, pitch)
+    # radar
+    for half, tag in ((ASSUMED["radar_half_deg"], "full"), (ASSUMED["radar_decision_half_deg"], "dec")):
+        c["radar_win_setback_w_%s" % tag] = radar_window_max_setback_mm(o["radar"]["window_w"], half)
+        c["radar_win_setback_h_%s" % tag] = radar_window_max_setback_mm(o["radar"]["window_h"], half)
+        for s in (o["radar"]["window_t"], float(pt)):
+            c["radar_shield_%s_s%s" % (tag, s)] = radar_aperture_mm(s + gap, half)
+    # flux disc
+    r1 = ASSUMED["disc_d_mm"] / 2.0
+    c["disc_F_hole_recess3"] = disc_view_factor(r1, o["flux_disc"]["hole_d"] / 2.0, float(pt))
+    for h in (float(gap), float(gap + pt)):
+        for da in (o["flux_disc"]["hole_d"], 50.0, 80.0, 120.0):
+            c["disc_F_h%d_a%s" % (h, da)] = disc_view_factor(r1, da / 2.0, h)
+        for F in (0.5, 0.9, 0.95):
+            c["disc_ap_h%d_F%s" % (h, F)] = disc_aperture_for_view_factor(F, r1, h)
+    # radar window slab
+    f_mid = 0.5 * sum(ASSUMED["radar_f_ghz"]) * 1e9
+    for eps in ASSUMED["petg_eps_r"]:
+        c["half_wave_eps%s" % eps] = radome_thickness_mm(eps, f_mid, 1)
+        c["slab_1.2_eps%s" % eps] = window_rt_band(eps, o["radar"]["window_t"])
+        c["slab_hw_eps%s" % eps] = window_rt_band(eps, radome_thickness_mm(eps, f_mid, 1))
+        c["slab_3.0_eps%s" % eps] = window_rt_band(eps, float(pt))
+    c["refl_max_quarter_wave"] = {eps: db((2 * abs((1 - math.sqrt(eps)) / (1 + math.sqrt(eps)))
+                                         / (1 + ((1 - math.sqrt(eps)) / (1 + math.sqrt(eps))) ** 2)) ** 2)
+                                  for eps in ASSUMED["petg_eps_r"]}
+    # housing temperature
+    c["body_area_m2"] = body_area_m2()
+    for p in ASSUMED["unit_power_w"]:
+        for ho in ASSUMED["h_out"]:
+            c["rise_p%d_h%d" % (p, ho)] = box_rise_k(p, ho)
+    c["sol_air_lid_k"] = {(a, ho): a * 1000.0 / ho for a in (0.3, 0.9) for ho in ASSUMED["h_out"]}
+    # disc time to 70 C from 20 C, and margin to Tg after the stop
+    for q in (5.0, 20.0, 50.0, 78.2):
+        r = disc_rate_k_s(q)
+        c["disc_rate_q%s" % q] = r
+        c["disc_t70_q%s" % q] = 50.0 / r
+        c["disc_t_tg_q%s" % q] = (ASSUMED["petg_tg_c"] - 70.0) / r
+    rcd = ASSUMED["rho_c_copper"] * ASSUMED["disc_t_mm"] / 1000.0
+    c["disc_tau_s"] = rcd / 20.0
+    return c
+
+
+def _f1(v: float) -> str:
+    return "%.1f" % v
+
+
+def _f2(v: float) -> str:
+    return "%.2f" % v
+
+
+def checks_markdown() -> str:
+    """The generated block in HOUSING.md (between the checks markers). Calculations, not measurements."""
+    c = checks()
+    a = ASSUMED
+    o = SENSOR_OFFSETS_MM
+    gap = SUPPLIED["heat_shield"]["gap_mm"]
+    L = []
+    w = L.append
+    w("Generated by `make_drawings.py` from `SUPPLIED`, `SENSOR_OFFSETS_MM` and `ASSUMED`. Every number is a")
+    w("**calculation**, not a measurement. Pinhole optics, straight rays, normal incidence, handbook constants.")
+    w("")
+    w("**Camera (InfiRay P2 Pro, %g x %g deg FOV: verify).** Diagonal half-angle atan(sqrt(tan^2 28 + tan^2 21)) = "
+      "**%s deg**." % (a["cam_hfov_deg"], a["cam_vfov_deg"], _f1(c["cam_diag_half_deg"])))
+    w("Entrance pupil assumed %g mm (f / N ~ 3.2 mm / 1.1, unverified). Set-back s = distance from the pupil back to "
+      "the plate's FRONT face." % a["cam_pupil_d_mm"])
+    w("")
+    w("| Camera case | Max set-back before the %g mm hole vignettes the corners | Same, pinhole limit | "
+      "Shield opening (W x H) for s = 0 | for s = %d mm (pupil at the plate's back face) |"
+      % (o["camera"]["hole_d"], SUPPLIED["front_plate_mm"][2]))
+    w("|---|---|---|---|---|")
+    for name, lab in (("level", "square to the plate (pitch 0)"),
+                      ("pitched", "pitched %g deg (unit.yaml placeholder)" % a["cam_pitch_deg"])):
+        s0 = c["cam_shield_%s_s0" % name]
+        s3 = c["cam_shield_%s_s%d" % (name, SUPPLIED["front_plate_mm"][2])]
+        off = lambda t: "" if abs(t[2]) < 0.05 else ", centre %s mm below the lens axis" % _f1(t[2])  # noqa: E731
+        w("| %s | **%s mm** | %s mm | %s x %s mm%s | %s x %s mm%s |"
+          % (lab, _f1(c["cam_setback_%s" % name]), _f1(c["cam_setback_pinhole_%s" % name]),
+             _f1(s0[0]), _f1(s0[1]), off(s0), _f1(s3[0]), _f1(s3[1]), off(s3)))
+    w("")
+    w("**Radar (IWR6843AOP, about +-%g deg az/el).** Antenna region assumed %g mm square. Shield distance = s + %d mm."
+      % (a["radar_half_deg"], a["radar_ant_mm"], gap))
+    w("")
+    w("| Radar cone | Max set-back behind the 52 mm (width) edge | behind the 42 mm (height) edge | "
+      "Shield opening, antenna at s = %g mm | at s = %d mm |" % (o["radar"]["window_t"], SUPPLIED["front_plate_mm"][2]))
+    w("|---|---|---|---|---|")
+    for tag, half in (("full", a["radar_half_deg"]), ("dec", a["radar_decision_half_deg"])):
+        w("| +-%g deg%s | %s mm | %s mm | %s mm square | %s mm square |"
+          % (half, " (laptop beam grid)" if tag == "dec" else " (full field)",
+             _f1(c["radar_win_setback_w_%s" % tag]), _f1(c["radar_win_setback_h_%s" % tag]),
+             _f1(c["radar_shield_%s_s%s" % (tag, o["radar"]["window_t"])]),
+             _f1(c["radar_shield_%s_s%s" % (tag, float(SUPPLIED["front_plate_mm"][2]))])))
+    w("")
+    w("**Flux disc.** Disc assumed %g mm dia (hole %g mm). View factor F from the disc to a coaxial opening of "
+      "diameter D at distance H (parallel coaxial discs)." % (a["disc_d_mm"], o["flux_disc"]["hole_d"]))
+    w("Disc recessed 3 mm (at the plate's back face), no shield: F to the %g mm hole = **%s**."
+      % (o["flux_disc"]["hole_d"], _f2(c["disc_F_hole_recess3"])))
+    w("")
+    w("| H (disc to shield opening) | F, D = %g mm | F, D = 50 mm | F, D = 80 mm | F, D = 120 mm | D for F = 0.5 | "
+      "D for F = 0.9 | D for F = 0.95 |" % o["flux_disc"]["hole_d"])
+    w("|---|---|---|---|---|---|---|---|")
+    for h, lab in ((gap, "%d mm (disc flush with the plate front)" % gap),
+                   (gap + SUPPLIED["front_plate_mm"][2], "%d mm (disc 3 mm recessed)"
+                    % (gap + SUPPLIED["front_plate_mm"][2]))):
+        w("| %s | %s | %s | %s | %s | %s mm | %s mm | %s mm |"
+          % (lab, _f2(c["disc_F_h%d_a%s" % (h, o["flux_disc"]["hole_d"])]), _f2(c["disc_F_h%d_a50.0" % h]),
+             _f2(c["disc_F_h%d_a80.0" % h]), _f2(c["disc_F_h%d_a120.0" % h]), _f1(c["disc_ap_h%d_F0.5" % h]),
+             _f1(c["disc_ap_h%d_F0.9" % h]), _f1(c["disc_ap_h%d_F0.95" % h])))
+    w("")
+    w("**Radar window, PETG slab, %g-%g GHz, eps_r %g-%g and tan d %g (assumed, unverified).** Worst case over the "
+      "sweep." % (a["radar_f_ghz"][0], a["radar_f_ghz"][1], a["petg_eps_r"][0], a["petg_eps_r"][1], a["petg_tan_d"]))
+    w("")
+    w("| eps_r | Half-wave thickness | 1.2 mm: one-way | 1.2 mm: two-way loss | 1.2 mm: reflection into the radar | "
+      "Half-wave slab: two-way | Half-wave: reflection | Unthinned 3 mm: two-way | 3 mm: reflection |")
+    w("|---|---|---|---|---|---|---|---|---|")
+    for eps in a["petg_eps_r"]:
+        s12, shw, s3 = c["slab_1.2_eps%s" % eps], c["slab_hw_eps%s" % eps], c["slab_3.0_eps%s" % eps]
+        w("| %g | %s mm | %s dB | **%s dB** | **%s dB** | %s dB | %s dB | %s dB | %s dB |"
+          % (eps, _f2(c["half_wave_eps%s" % eps]), _f2(s12["one_way_db"]), _f2(s12["two_way_db"]),
+             _f1(s12["refl_db"]), _f2(shw["two_way_db"]), _f1(shw["refl_db"]), _f2(s3["two_way_db"]),
+             _f1(s3["refl_db"])))
+    w("")
+    w("Worst possible reflection (quarter-wave thickness): %s dB (eps_r %g), %s dB (eps_r %g)."
+      % (_f1(c["refl_max_quarter_wave"][a["petg_eps_r"][0]]), a["petg_eps_r"][0],
+         _f1(c["refl_max_quarter_wave"][a["petg_eps_r"][1]]), a["petg_eps_r"][1]))
+    w("")
+    w("**Housing temperature.** Body surface %s m2; 4 mm PETG, k %g W/(m K); h inside %g, outside %g (parked) / %g "
+      "(driving) W/(m2 K), all assumed. Steady inside-air rise over ambient, closed box, no sun:"
+      % (_f2(c["body_area_m2"]), a["petg_k"], a["h_in"], a["h_out"][0], a["h_out"][1]))
+    w("")
+    w("| Power dissipated inside (MOUNTING_AND_POWER.md estimate) | Parked | Driving |")
+    w("|---|---|---|")
+    for p in a["unit_power_w"]:
+        w("| %g W | +%s K | +%s K |" % (p, _f1(c["rise_p%d_h%d" % (p, a["h_out"][0])]),
+                                         _f1(c["rise_p%d_h%d" % (p, a["h_out"][1])])))
+    w("")
+    w("Sun on the lid (1000 W/m2): outside-surface rise alpha G / h = %s K (absorptivity 0.3, parked) to %s K "
+      "(0.9, parked); %s-%s K driving."
+      % (_f1(c["sol_air_lid_k"][(0.3, 10.0)]), _f1(c["sol_air_lid_k"][(0.9, 10.0)]),
+         _f1(c["sol_air_lid_k"][(0.3, 30.0)]), _f1(c["sol_air_lid_k"][(0.9, 30.0)])))
+    w("")
+    w("**Flux disc against the 70 C stop.** Copper disc %g mm thick (assumed), absorptivity %g, losses ignored "
+      "(so these are the fastest case)." % (a["disc_t_mm"], a["disc_absorptivity"]))
+    w("")
+    w("| Incident flux | Heating rate | 20 C -> 70 C stop | 70 C -> PETG Tg (%g C) if exposure continues |"
+      % a["petg_tg_c"])
+    w("|---|---|---|---|")
+    for q, lab in ((5.0, "5 kW/m2"), (20.0, "20 kW/m2"), (50.0, "50 kW/m2"),
+                   (78.2, "78.2 kW/m2 (FDS C064 in-flame reference, not a measurement)")):
+        w("| %s | %s K/s | %s s | %s s |" % (lab, _f1(c["disc_rate_q%s" % q]), _f1(c["disc_t70_q%s" % q]),
+                                              _f1(c["disc_t_tg_q%s" % q])))
+    w("")
+    w("Cooling time constant after a stop (h_eff ~ 20 W/(m2 K), assumed): about %d s." % round(c["disc_tau_s"]))
+    return "\n".join(L) + "\n"
+
+
+CHECKS_BEGIN = "<!-- checks:begin (generated by make_drawings.py; do not edit by hand) -->"
+CHECKS_END = "<!-- checks:end -->"
+
+
+def housing_md_with_checks(text: str) -> str:
+    i, j = text.find(CHECKS_BEGIN), text.find(CHECKS_END)
+    if i < 0 or j < i:
+        raise ValueError("HOUSING.md lacks the checks markers")
+    return text[:i + len(CHECKS_BEGIN)] + "\n" + checks_markdown() + text[j:]
 
 
 # --------------------------------------------------------------------------------------------------------------
@@ -162,28 +451,52 @@ class Svg:
 
 
 # --------------------------------------------------------------------------------------------------------------
-# Wiring diagram
+# Wiring: the ONE pin list (user's printed build manual, 2026-11-17)
 # --------------------------------------------------------------------------------------------------------------
+PIN_MAP_SOURCE = "pin map from the user's printed build manual (2026-11-17)"
+
+# Raspberry Pi J8 header, physical facts (Pi 4 and Pi 5 share it). Only the names; nothing here is a design choice.
 PI_PINS = {
     1: "3V3", 2: "5V", 3: "GPIO2 SDA1", 4: "5V", 5: "GPIO3 SCL1", 6: "GND", 7: "GPIO4", 8: "GPIO14 TXD",
-    9: "GND", 10: "GPIO15 RXD", 11: "GPIO17", 12: "GPIO18 SPI1 CE0", 13: "GPIO27", 14: "GND", 15: "GPIO22",
+    9: "GND", 10: "GPIO15 RXD", 11: "GPIO17", 12: "GPIO18", 13: "GPIO27", 14: "GND", 15: "GPIO22",
     16: "GPIO23", 17: "3V3", 18: "GPIO24", 19: "GPIO10 MOSI", 20: "GND", 21: "GPIO9 MISO", 22: "GPIO25",
     23: "GPIO11 SCLK", 24: "GPIO8 CE0", 25: "GND", 26: "GPIO7 CE1", 27: "ID_SD", 28: "ID_SC", 29: "GPIO5",
-    30: "GND", 31: "GPIO6", 32: "GPIO12", 33: "GPIO13", 34: "GND", 35: "GPIO19 SPI1 MISO", 36: "GPIO16", 37: "GPIO26",
-    38: "GPIO20", 39: "GND", 40: "GPIO21 SPI1 SCLK",
+    30: "GND", 31: "GPIO6", 32: "GPIO12", 33: "GPIO13", 34: "GND", 35: "GPIO19", 36: "GPIO16", 37: "GPIO26",
+    38: "GPIO20", 39: "GND", 40: "GPIO21",
+}
+
+# (pin, net, goes to, label on the wire in wiring.svg). This is the user's map, nothing else.
+PIN_MAP = (
+    (1, "3V3", "BNO055 VIN (3.3 V)", "BNO055 VIN"),
+    (3, "SDA", "BNO055 SDA", "BNO055 SDA"),
+    (5, "SCL", "BNO055 SCL", "BNO055 SCL"),
+    (6, "GND", "BNO055 GND", "BNO055 GND"),
+    (17, "3V3", "VIN of all three MAX31855 boards", "MAX31855 VIN x3"),
+    (20, "GND", "GND of all three MAX31855 boards", "MAX31855 GND x3"),
+    (21, "MISO", "DO (SO) of all three MAX31855 boards", "DO x3"),
+    (23, "SCLK", "CLK of all three MAX31855 boards", "CLK x3"),
+    (24, "CS_PLATE", "CS of MAX31855 #1 (`tc_plate`, flux plate)", "plate CS"),
+    (26, "CS_HOUSING", "CS of MAX31855 #2 (`tc_housing`)", "housing CS"),
+    (29, "CS_AIR", "CS of MAX31855 #3 (`tc_air`, intake air), software chip select", "air CS (software)"),
+)
+USED_PINS = {pin: (net, label) for pin, net, _to, label in PIN_MAP}
+
+# The user's map as stated, used by test_docs.py to check PIN_MAP and every document against it.
+USER_MAP = {
+    "max31855_3v3_pin": 17, "max31855_gnd_pin": 20, "max31855_clk": (23, 11), "max31855_do": (21, 9),
+    "cs_plate": (24, 8), "cs_housing": (26, 7), "cs_air": (29, 5),
+    "bno055_3v3_pin": 1, "bno055_gnd_pin": 6, "bno055_sda_pin": 3, "bno055_scl_pin": 5,
 }
 
 # Net colours. Every wire also carries a text label, so colour is never the only cue (accessibility).
 NETS = {
     "3V3": ("#d62728", None, "3V3 (red)"),
     "GND": ("#222222", None, "GND (black)"),
-    "SCLK": ("#ff7f0e", None, "SPI0 SCLK (orange)"),
-    "MISO": ("#2ca02c", None, "SPI0 MISO (green)"),
-    "SCLK1": ("#ff7f0e", "12 3 3 3", "SPI1 SCLK (orange, dash-dot)"),
-    "MISO1": ("#2ca02c", "12 3 3 3", "SPI1 MISO (green, dash-dot)"),
-    "CS_PLATE": ("#1f77b4", "8 4", "CS plate, CE0 (blue, dashed)"),
-    "CS_HOUSING": ("#9467bd", "8 4", "CS housing, CE1 (purple, dashed)"),
-    "CS_AIR": ("#8c564b", "8 4", "CS air, SPI1 CE0 (brown, dashed)"),
+    "SCLK": ("#ff7f0e", None, "SPI0 SCLK, GPIO11 pin 23 (orange)"),
+    "MISO": ("#2ca02c", None, "SPI0 MISO = DO, GPIO9 pin 21 (green)"),
+    "CS_PLATE": ("#1f77b4", "8 4", "CS plate, CE0 GPIO8 pin 24 (blue, dashed)"),
+    "CS_HOUSING": ("#9467bd", "8 4", "CS housing, CE1 GPIO7 pin 26 (purple, dashed)"),
+    "CS_AIR": ("#8c564b", "8 4", "CS air GPIO5 pin 29, software (brown, dashed)"),
     "SDA": ("#17becf", "2 3", "I2C1 SDA (cyan, dotted)"),
     "SCL": ("#e377c2", "2 3", "I2C1 SCL (pink, dotted)"),
     "TCP": ("#c9a400", None, "Type-K + (yellow, ANSI)"),
@@ -193,35 +506,18 @@ NETS = {
     "USB": ("#555555", "10 3 2 3", "USB cable (grey, dash-dot)"),
 }
 
-# Header pin -> (net, label on the wire). Matches config/unit.yaml (tc_plate SPI0 CE0, tc_housing SPI0 CE1,
-# tc_air SPI1 CE0, imu I2C1 0x28). test_docs.py checks this against the WIRING.md pin table and unit.yaml.
-USED_PINS = {
-    1: ("3V3", "MAX31855 VIN x3"),
-    3: ("SDA", "BNO055 SDA"),
-    5: ("SCL", "BNO055 SCL"),
-    9: ("GND", "BNO055 GND"),
-    12: ("CS_AIR", "air CS"),
-    17: ("3V3", "BNO055 VIN"),
-    20: ("GND", "MAX31855 GND x3"),
-    21: ("MISO", "plate+housing DO"),
-    23: ("SCLK", "plate+housing CLK"),
-    24: ("CS_PLATE", "plate CS"),
-    26: ("CS_HOUSING", "housing CS"),
-    35: ("MISO1", "air DO"),
-    40: ("SCLK1", "air CLK"),
-}
-
 
 def wiring_svg() -> str:
     W, H = 1400, 1130
     s = Svg(W, H, "WildfireGuardian vehicle unit wiring",
-            "Raspberry Pi 4/5 40-pin header with three MAX31855 thermocouple amplifiers (SPI0 CE0 plate, "
-            "SPI0 CE1 housing, SPI1 CE0 air), BNO055 on I2C1 at 0x28, USB thermal camera, radar "
-            "EVM and GNSS, and the fused 12 V to 5 V power chain. Design drawing, not verified on hardware.")
+            "Raspberry Pi 4/5 40-pin header wired per the user's printed build manual: three MAX31855 "
+            "thermocouple amplifiers sharing 3V3 pin 17, GND pin 20, CLK pin 23 and DO pin 21, chip selects "
+            "GPIO8 pin 24 (plate), GPIO7 pin 26 (housing) and GPIO5 pin 29 (air, software chip select); BNO055 on "
+            "I2C1 at 0x28 (3V3 pin 1, GND pin 6, SDA pin 3, SCL pin 5); USB thermal camera, radar EVM and GNSS; "
+            "fused 12 V to 5 V power chain. Not verified on hardware.")
     s.text(30, 38, "WildfireGuardian vehicle unit: wiring (Raspberry Pi 4 / 5)", size=22, weight="bold")
-    s.text(30, 62, "Design defaults from DESIGN.md and config/unit.yaml. Not built or verified on hardware as of "
-                   "2026-11-17. Header viewed from above, pin 1 top left (SD-card end away from you).",
-           size=13, fill="#444")
+    s.text(30, 62, "Pin map from the user's printed build manual (2026-11-17). Not wired or verified on hardware. "
+                   "Header viewed from above, pin 1 top left.", size=13, fill="#444")
 
     # Header
     Y0, S = 150, 26
@@ -246,6 +542,8 @@ def wiring_svg() -> str:
             net, lab = USED_PINS[pin]
             colr, dash, _ = NETS[net]
             xend = 420 if odd else 860
+            if pin == 6:
+                xend = 845
             s.line(hx0 if odd else hx1, py(pin), xend, py(pin), stroke=colr, width=2.5, dash=dash)
             s.text(hx0 - 8 if odd else hx1 + 8, py(pin) - 5, "%s <- %s" % (lab, name) if odd else
                    "%s -> %s" % (name, lab), size=10.5, anchor="end" if odd else "start", fill="#111")
@@ -255,45 +553,34 @@ def wiring_svg() -> str:
 
     # ---------------- MAX31855 boards (right) ----------------
     bx0, bx1 = 1010, 1150
-    boards = [("plate", "MAX31855 #1  tc_plate  (SPI0 CE0)", 120, "CS_PLATE", 990,
-               ["Copper flux plate 50x50x1 mm", "junction peened into the plate,", "plate isolated from chassis"]),
-              ("housing", "MAX31855 #2  tc_housing  (SPI0 CE1)", 290, "CS_HOUSING", 975,
+    boards = [("plate", "MAX31855 #1  tc_plate  (CE0, GPIO8)", 120, "CS_PLATE", 990,
+               ["Copper flux disc (30.6 mm hole)", "on printed PETG tabs:", "runs stop at 70 C disc"]),
+              ("housing", "MAX31855 #2  tc_housing  (CE1, GPIO7)", 290, "CS_HOUSING", 975,
                ["Housing interior", "K probe taped to the wall", "away from Pi and buck"]),
-              ("air", "MAX31855 #3  tc_air  (SPI1 CE0)", 460, "CS_AIR", 960,
+              ("air", "MAX31855 #3  tc_air  (GPIO5, software CS)", 460, "CS_AIR", 960,
                ["Intake-height air probe", "radiation-shielded, ungrounded", "separate type-K extension lead"])]
     bus = {"3V3": 880, "GND": 900, "MISO": 920, "SCLK": 940}
-    spi0_last_top = boards[1][2]
     pin_off = {"VIN": 25, "GND": 45, "DO": 65, "CS": 85, "CLK": 105}
     first_top = boards[0][2]
     last_top = boards[-1][2]
-    # 3V3 from pin 1: left, up over the header, right to the bus
-    c3 = NETS["3V3"][0]
-    s.poly([(420, py(1)), (420, 100), (bus["3V3"], 100), (bus["3V3"], last_top + pin_off["VIN"])],
-           stroke=c3, width=2.5)
-    s.text(470, 95, "3V3 from pin 1 to MAX31855 VIN (3.0-3.6 V part: never 5 V)", size=10.5, fill=c3)
-    # GND from pin 20
+    # GND from pin 20 straight to the bus
     cg = NETS["GND"][0]
     s.poly([(860, py(20)), (bus["GND"], py(20))], stroke=cg, width=2.5)
     s.line(bus["GND"], first_top + pin_off["GND"], bus["GND"], last_top + pin_off["GND"], stroke=cg, width=2.5)
     s.dot(bus["GND"], py(20), cg)
-    # MISO and SCLK from pins 21 / 23: left, down under the header, right, up
-    yb = {"MISO": 700, "SCLK": 718}
-    for net, pin, xl in (("MISO", 21, 360), ("SCLK", 23, 375)):
+    # 3V3 (pin 17), MISO (pin 21), SCLK (pin 23), CS air (pin 29): left, down under the header, right, up
+    routes = (("3V3", 17, 375, 700, bus["3V3"], "VIN"), ("MISO", 21, 360, 716, bus["MISO"], "DO"),
+              ("SCLK", 23, 345, 732, bus["SCLK"], "CLK"))
+    for net, pin, xl, yb, xbus, bpin in routes:
         colr = NETS[net][0]
-        s.poly([(420, py(pin)), (xl, py(pin))], stroke=colr, width=2.5)
-        s.poly([(xl, py(pin)), (xl, yb[net]), (bus[net], yb[net]), (bus[net], first_top + pin_off[
-            "DO" if net == "MISO" else "CLK"])], stroke=colr, width=2.5)
-        s.text(1010, yb[net] + 4, "SPI0 %s (pin %d): plate + housing boards only" % (net, pin), size=10.5,
-               fill=colr)
-    # SPI1 for the air board: MISO1 from pin 35 (left side, under the header), SCLK1 from pin 40 (right side)
+        s.poly([(420, py(pin)), (xl, py(pin)), (xl, yb), (xbus, yb), (xbus, first_top + pin_off[bpin])],
+               stroke=colr, width=2.5)
+    c_air, d_air, _ = NETS["CS_AIR"]
     air_top = boards[2][2]
-    c_m1, d_m1, _ = NETS["MISO1"]
-    s.poly([(420, py(35)), (345, py(35)), (345, 738), (1000, 738), (1000, air_top + pin_off["DO"]),
-            (bx0, air_top + pin_off["DO"])], stroke=c_m1, width=2.5, dash=d_m1)
-    s.text(1010, 742, "SPI1 MISO (pin 35): air board only", size=10.5, fill=c_m1)
-    c_s1, d_s1, _ = NETS["SCLK1"]
-    s.poly([(860, py(40)), (970, py(40)), (970, air_top + pin_off["CLK"]), (bx0, air_top + pin_off["CLK"])],
-           stroke=c_s1, width=2.5, dash=d_s1)
+    s.poly([(420, py(29)), (330, py(29)), (330, 748), (960, 748), (960, air_top + pin_off["CS"]),
+            (bx0, air_top + pin_off["CS"])], stroke=c_air, width=2.5, dash=d_air)
+    s.lines(1010, 704, ["3V3 pin 17 -> VIN x3 (3.3 V part: never 5 V)", "DO x3 <- GPIO9 MISO pin 21",
+                        "CLK x3 <- GPIO11 SCLK pin 23", "air CS <- GPIO5 pin 29 (software CS)"], size=10.5, step=16)
     for key, title, top, csnet, xcs, sensor in boards:
         s.rect(bx0, top, bx1 - bx0, 125, fill="#eef5ff", stroke="#1f3b66", width=1.8, rx=5)
         s.text(bx0, top - 6, title, size=12.5, weight="bold")
@@ -301,17 +588,15 @@ def wiring_svg() -> str:
             y = top + off
             s.text(bx0 + 8, y + 4, pn, size=10.5)
             net = {"VIN": "3V3", "GND": "GND", "DO": "MISO", "CLK": "SCLK"}.get(pn)
-            if net in ("MISO", "SCLK") and key == "air":
-                net = None       # the air board is on SPI1, drawn separately above
             if net:
                 colr, dash, _ = NETS[net]
                 s.line(bus[net], y, bx0, y, stroke=colr, width=2.5, dash=dash)
                 s.dot(bus[net], y, colr)
-        # CS
-        colr, dash, _ = NETS[csnet]
-        src_pin = {"CS_PLATE": 24, "CS_HOUSING": 26, "CS_AIR": 12}[csnet]
-        s.poly([(860, py(src_pin)), (xcs, py(src_pin)), (xcs, top + pin_off["CS"]), (bx0, top + pin_off["CS"])],
-               stroke=colr, width=2.5, dash=dash)
+        if key != "air":
+            colr, dash, _ = NETS[csnet]
+            src_pin = {"CS_PLATE": 24, "CS_HOUSING": 26}[csnet]
+            s.poly([(860, py(src_pin)), (xcs, py(src_pin)), (xcs, top + pin_off["CS"]), (bx0, top + pin_off["CS"])],
+                   stroke=colr, width=2.5, dash=dash)
         # thermocouple side
         s.text(bx1 - 8, top + 50, "T+", size=10.5, anchor="end")
         s.text(bx1 - 8, top + 80, "T-", size=10.5, anchor="end")
@@ -322,26 +607,31 @@ def wiring_svg() -> str:
         s.rect(1215, top + 22, 175, 80, fill="#fffbe6", stroke="#8a7300", width=1.4, rx=4)
         s.lines(1222, top + 40, sensor, size=10.5, step=15)
         s.text(1222, top + 95, "type-K wire end to end", size=9.5, fill="#7a6400", italic=True)
-    s.lines(bx0 - 4, 600, ["All chip selects are kernel CS, active low: plate spidev0.0, housing",
-                           "spidev0.1, air spidev1.0 (dtoverlay=spi1-1cs). No software CS needed.",
-                           "Alternative (not default): air CS on GPIO25 pin 22 as a SOFTWARE CS",
-                           "on SPI0, needs spidev no_cs + lgpio in the driver (not implemented).",
-                           "10 nF across T+/T- at each MAX31855. MOSI pins unused (read-only)."],
-            size=10.5, step=15)
+    s.lines(1006, 604, ["Chip selects, active low. Plate CE0 (spidev0.0), housing CE1 (spidev0.1):",
+                        "kernel CS. Air GPIO5: SOFTWARE CS, driver opens spidev0.0 with no_cs=True,",
+                        "drives GPIO5 under a lock shared with plate and housing.",
+                        "Advice: 10 kOhm pull-up GPIO5 -> 3V3. 10 nF across T+/T-.",
+                        "MOSI (pin 19) unused: the MAX31855 is read-only."],
+            size=10, step=15)
 
     # ---------------- BNO055 (left) ----------------
     cx0, cx1 = 150, 300
-    s.rect(cx0, 150, cx1 - cx0, 305, fill="#f0fff4", stroke="#1d5e33", width=1.8, rx=5)
-    s.text((cx0 + cx1) / 2, 143, "BNO055 IMU breakout  (imu)", size=12.5, anchor="middle", weight="bold")
-    for pn, pin in (("SDA", 3), ("SCL", 5), ("GND", 9), ("VIN", 17)):
+    s.rect(cx0, 120, cx1 - cx0, 335, fill="#f0fff4", stroke="#1d5e33", width=1.8, rx=5)
+    s.text((cx0 + cx1) / 2, 113, "BNO055 IMU breakout  (imu)", size=12.5, anchor="middle", weight="bold")
+    for pn, pin in (("VIN", 1), ("SDA", 3), ("SCL", 5)):
         net = USED_PINS[pin][0]
         colr, dash, _ = NETS[net]
         y = py(pin)
         s.line(420, y, cx1, y, stroke=colr, width=2.5, dash=dash)
         s.text(cx1 - 8, y + 4, pn, size=10.5, anchor="end")
-    s.lines(cx0 + 8, 382, ["ADR -> GND: address 0x28", "PS0, PS1 -> GND: I2C mode", "I2C1 (bus 1)",
-                           "BNO055 stretches SCL; Pi I2C", "mishandles it: set"], size=10, step=13)
-    s.text(cx0 + 8, 447, "i2c_arm_baudrate=10000", size=10, weight="bold")
+    # GND from pin 6 (right column): right, up over the header, left, down into the top of the box
+    s.poly([(845, py(6)), (845, 100), (125, 100), (125, 228), (cx0, 228)], stroke=cg, width=2.5)
+    s.text(cx0 + 8, 232, "GND", size=10.5)
+    s.text(470, 95, "GND pin 6 -> BNO055 GND", size=10.5, fill=cg)
+    s.lines(cx0 + 8, 260, ["3V3 pin 1, GND pin 6", "SDA pin 3, SCL pin 5", "ADR -> GND: address 0x28",
+                           "PS0, PS1 -> GND: I2C mode", "I2C1 (bus 1)", "BNO055 stretches SCL; Pi I2C",
+                           "mishandles it: set"], size=10, step=13)
+    s.text(cx0 + 8, 360, "i2c_arm_baudrate=10000", size=10, weight="bold")
     s.lines(30, 478, ["UART alternative (not the default): PS1 -> 3V3,",
                       "BNO055 TX -> GPIO15 RXD (pin 10), RX -> GPIO14 TXD",
                       "(pin 8), 115200 baud, enable_uart=1, serial console off."], size=10.5, step=15)
@@ -354,14 +644,15 @@ def wiring_svg() -> str:
                           "Pi 5: 600 mA total", "unless 5 V 5 A PD", "(or usb_max_current", "_enable=1)"],
             size=10.5, step=15)
     cu, du, _ = NETS["USB"]
-    devs = [(uy + 10, "Topdon TC001 thermal camera (thermal)",
-             ["USB-C plug -> USB-C(f) to USB-A(m) OTG adapter or cable", "UVC 256x384 YUYV, about 0.5-1 W"]),
+    devs = [(uy + 10, "InfiRay P2 Pro thermal camera (thermal), USB 0bda:5830",
+             ["USB-C plug -> USB-C(f) to USB-A(m) OTG adapter or cable",
+              "UVC 256x384 YUYV (same frame as the Topdon TC001)"]),
             (uy + 75, "TI IWR6843AOPEVM radar (radar), stock mmw demo",
              ["micro-USB, 5 V from USB (about 2-3 W). Two serial ports enumerate:",
               "CLI 115200 baud (config) + DATA 921600 baud (TLV frames).",
               "Board must be in functional mode (SOP switch), see WIRING.md."]),
             (uy + 155, "USB GNSS receiver (gnss)",
-             ["NMEA over USB serial, about 0.2 W; antenna needs sky view", "(outside the aluminium box)"])]
+             ["NMEA over USB serial, about 0.2 W; antenna needs sky view", "(clear of the aluminium heat shield)"])]
     for y, title, rows in devs:
         s.line(180, y + 20, 260, y + 20, stroke=cu, width=2.5, dash=du)
         s.rect(260, y, 420, 18 + 15 * len(rows) + 8, fill="#fafafa", stroke="#555", width=1.3, rx=4)
@@ -389,7 +680,6 @@ def wiring_svg() -> str:
             s.line(x + bw, uy + 35, x + bw + gap, uy + 35, stroke=c12, width=3)
     s.text(px + 10, uy + 90, "+12 V nominal (9-16 V running; dips to about 6 V while cranking; transients above "
                              "24 V possible)", size=10.5, fill=c12)
-    # 5 V out to Pi
     c5 = NETS["V5"][0]
     xb = px + 4 * (bw + gap) + bw / 2
     s.poly([(xb, uy + 70), (xb, uy + 120), (px + 60, uy + 120), (px + 60, uy + 140)], stroke=c5, width=3)
@@ -398,39 +688,44 @@ def wiring_svg() -> str:
                                 "do not back-feed 5 V via GPIO pins 2/4 unprotected"], size=10.5, step=15)
     s.text(xb - 50, uy + 115, "+5 V", size=10.5, fill=c5, weight="bold")
     s.line(px, uy + 225, px + 640, uy + 225, stroke=cg, width=3)
-    s.text(px + 4, uy + 243, "GND / 0 V: returns through the socket plug only. Copper plate and thermocouple "
+    s.text(px + 4, uy + 243, "GND / 0 V: returns through the socket plug only. Copper disc and thermocouple "
                              "sheaths stay isolated from chassis.", size=10.5)
     s.text(px + 4, uy + 258, "(a grounded junction makes the MAX31855 report SHORT_GND)", size=10.5, fill="#444")
 
     # ---------------- Legend ----------------
     lx, ly = 30, 545
     s.text(lx, ly, "Wire legend (colour + pattern + label)", size=13, weight="bold")
-    keys = ["3V3", "GND", "SCLK", "MISO", "SCLK1", "MISO1", "CS_PLATE", "CS_HOUSING", "CS_AIR", "SDA", "SCL", "TCP", "TCN", "USB"]
+    keys = ["3V3", "GND", "SCLK", "MISO", "CS_PLATE", "CS_HOUSING", "CS_AIR", "SDA", "SCL", "TCP", "TCN", "USB"]
     for i, k in enumerate(keys):
         colr, dash, lab = NETS[k]
         y = ly + 20 + i * 16
         s.line(lx, y - 4, lx + 40, y - 4, stroke=colr, width=3, dash=dash)
-        s.text(lx + 48, y, lab, size=10.5)
+        s.text(lx + 48, y, lab, size=10)
     return s.render()
 
 
 # --------------------------------------------------------------------------------------------------------------
-# Housing drawing (three orthographic views, mm)
+# Front-plate layout of the SUPPLIED housing (documentation of user-given dimensions; not a design)
 # --------------------------------------------------------------------------------------------------------------
+HOUSING_LABEL = "documentation of the supplied housing, dimensions as given by the user; not a design"
+
+
 def housing_svg() -> str:
-    h = HOUSING
-    d = derived(h)
-    W, H = 1400, 1110
-    s = Svg(W, H, "WildfireGuardian vehicle unit housing",
-            "Front, side and top views of the roof-box concept with dimensions in millimetres: aluminium "
-            "enclosure, PTFE radar radome, germanium LWIR window, copper flux plate on ceramic fibre board "
-            "proud of the front face, sun and heat shield, base plate and magnet mounts. Concept, unverified.")
-    s.text(30, 38, "WildfireGuardian vehicle unit: roof-box housing concept (dimensions in mm)", size=22,
-           weight="bold")
-    s.text(30, 62, "Design values, not a built or tested part (2026-11-17). Vehicle axes: X forward, Y left, Z up. "
-                   "Scale 1.6 px/mm in every view.", size=13, fill="#444")
-    k = 1.6
-    AL, AL_S = "#e6e9ee", "#3a4250"
+    o = SENSOR_OFFSETS_MM
+    bw, bd, bh = SUPPLIED["body_mm"]
+    pw, ph, pt = SUPPLIED["front_plate_mm"]
+    zc = SUPPLIED["sensor_centre_line_above_base_mm"]
+    gap = SUPPLIED["heat_shield"]["gap_mm"]
+    W, H = 1400, 900
+    s = Svg(W, H, "Supplied housing: front-plate layout",
+            "Front view and plan view of the user's printed PETG housing, drawn only from the dimensions the user "
+            "gave: body 180 x 140 x 72 mm, 4 mm walls, bolt-on front plate 172 x 66 x 3 mm with a 12 mm camera "
+            "hole at x = -52, a 52 x 42 mm radar window thinned to 1.2 mm at x = -8 and a 30.6 mm flux-disc hole "
+            "at x = +45, all on one centre line 34 mm above the base, aluminium heat shield 10 mm in front. "
+            "Documentation of the supplied housing, not a design.")
+    s.text(30, 38, "Supplied housing: front-plate layout (dimensions in mm)", size=22, weight="bold")
+    s.text(30, 62, HOUSING_LABEL + ". Printed PETG (material as told by the user), 2026-11-17.",
+           size=13, fill="#444")
     dim_c = "#0b5394"
 
     def dim_h(x1, x2, y, label, ext_from=None):
@@ -450,179 +745,96 @@ def housing_svg() -> str:
         tx = x - 6 if side == "left" else x + 6
         s.text(tx, (y1 + y2) / 2 + 4, label, size=11, anchor="end" if side == "left" else "start", fill=dim_c)
 
-    # ---------------- FRONT VIEW (from ahead; drawing right = vehicle left, +Y) ----------------
-    ox, oy = 420, 400  # px of (Y=0, Z=0)
-    U = lambda yv: ox + yv * k                     # noqa: E731
+    # ---------------- FRONT VIEW ----------------
+    k = 3.0
+    ox, oy = 420, 470          # px of (x = 0, z = 0 = housing base)
+    U = lambda xv: ox + xv * k                     # noqa: E731
     V = lambda zv: oy - zv * k                     # noqa: E731
-    s.text(U(0), 100, "FRONT VIEW  (from ahead of the vehicle)", size=14, anchor="middle", weight="bold")
-    s.text(U(-h["base_w"] / 2), 118, "<- vehicle right", size=10.5, fill="#555")
-    s.text(U(h["base_w"] / 2 + 40), 118, "vehicle left ->", size=10.5, anchor="end", fill="#555")
-    s.line(U(-230), V(0), U(230), V(0), stroke="#888", width=1, dash="6 4")
-    s.text(U(230), V(0) + 14, "roof skin", size=10, anchor="end", fill="#666")
-    for yy in (-h["base_w"] / 2 + 60, h["base_w"] / 2 - 60):
-        s.rect(U(yy - h["magnet_d"] / 2), V(h["magnet_h"]), h["magnet_d"] * k, h["magnet_h"] * k,
-               fill="#555", stroke="#222", width=1, rx=4)
-    s.rect(U(-h["base_w"] / 2), V(d["z_box0"]), h["base_w"] * k, h["base_t"] * k, fill="#c9ced6", stroke=AL_S)
-    s.rect(U(-h["box_w"] / 2), V(d["z_box1"]), h["box_w"] * k, h["box_h"] * k, fill=AL, stroke=AL_S, width=2, rx=4)
-    sw = h["box_w"] + 2 * h["shield_over"]
-    s.rect(U(-sw / 2), V(d["z_sh1"]), sw * k, max(h["shield_t"] * k, 2), fill="#9aa3ad", stroke=AL_S)
-    for yy in (-h["box_w"] / 2 + 20, h["box_w"] / 2 - 20):
-        s.line(U(yy), V(d["z_box1"]), U(yy), V(d["z_sh0"]), stroke=AL_S, width=3)
-    # radome
-    rz = d["z_box0"] + h["radome_z"]
-    s.rect(U(h["radome_y"] - h["radome_w"] / 2), V(rz + h["radome_h"] / 2), h["radome_w"] * k, h["radome_h"] * k,
-           fill="#f7f2d9", stroke="#7a6a1a", width=1.6)
-    s.text(U(h["radome_y"]), V(rz) - 4, "PTFE radome", size=10.5, anchor="middle")
-    s.text(U(h["radome_y"]), V(rz) + 10, "%.2f mm thick" % d["radome_t"], size=10.5, anchor="middle")
-    s.text(U(h["radome_y"]), V(rz) + 24, "(radar AOP behind)", size=9.5, anchor="middle", fill="#555")
-    # IR window
-    iz = d["z_box0"] + h["ir_win_z"]
-    s.circle(U(h["ir_win_y"]), V(iz), h["ir_win_d"] / 2 * k, fill="#d9e4f2", stroke="#22334d", width=1.6)
-    s.text(U(h["ir_win_y"]), V(iz) + 4, "Ge", size=11, anchor="middle", weight="bold")
-    s.text(U(h["ir_win_y"]), V(iz - h["ir_win_d"] / 2) + 14, "LWIR window", size=10, anchor="middle")
-    # plate assembly (outboard on vehicle-left)
-    pz = d["z_box0"] + h["plate_z"]
-    s.rect(U(h["plate_y"] - h["board_a"] / 2), V(pz + h["board_a"] / 2), h["board_a"] * k, h["board_a"] * k,
-           fill="#f2efe6", stroke="#8a7d5a", width=1.2)
-    s.rect(U(h["plate_y"] - h["plate_a"] / 2), V(pz + h["plate_a"] / 2), h["plate_a"] * k, h["plate_a"] * k,
-           fill="#1a1a1a", stroke="#000", width=1.2)
-    s.text(U(h["plate_y"]), V(pz) + 4, "Cu plate", size=10.5, anchor="middle", fill="#fff")
-    s.line(U(h["box_w"] / 2), V(pz), U(h["plate_y"] - h["board_a"] / 2), V(pz), stroke=AL_S, width=4)
-    # dims
-    dim_h(U(-h["box_w"] / 2), U(h["box_w"] / 2), V(0) + 38, "%d" % h["box_w"], ext_from=V(d["z_box0"]))
-    dim_h(U(-h["base_w"] / 2), U(h["base_w"] / 2), V(0) + 62, "base %d" % h["base_w"], ext_from=V(d["z_base0"]))
-    dim_v(U(-h["base_w"] / 2) - 18, V(d["z_box1"]), V(d["z_box0"]), "%d" % h["box_h"],
-          ext_from=U(-h["box_w"] / 2))
-    dim_v(U(-h["base_w"] / 2) - 70, V(d["z_sh1"]), V(0), "%d overall" % round(d["z_sh1"]),
-          ext_from=U(-sw / 2))
-    dim_h(U(h["radome_y"] - h["radome_w"] / 2), U(h["radome_y"] + h["radome_w"] / 2), V(d["z_box1"]) - 12,
-          "%d" % h["radome_w"])
-    dim_h(U(h["plate_y"] - h["plate_a"] / 2), U(h["plate_y"] + h["plate_a"] / 2), V(pz - h["board_a"] / 2) + 18,
-          "plate %d" % h["plate_a"])
-    s.text(U(h["plate_y"]), V(pz + h["board_a"] / 2) - 6, "board %d" % h["board_a"], size=10.5,
-           anchor="middle", fill=dim_c)
-    dim_h(U(h["ir_win_y"] - h["ir_win_d"] / 2), U(h["ir_win_y"] + h["ir_win_d"] / 2), V(d["z_box1"]) - 12,
-          "dia %d" % h["ir_win_d"])
-    dim_h(U(h["radome_y"]), U(h["ir_win_y"]), V(d["z_box0"] + 6), "%d" % (h["ir_win_y"] - h["radome_y"]))
-    s.text(U(0), V(d["z_sh1"]) - 8, "sun / heat shield, 1 mm Al, white top", size=10.5, anchor="middle")
+    s.text(ox, 120, "FRONT VIEW (from ahead of the vehicle), scale 3 px/mm", size=14, anchor="middle",
+           weight="bold")
+    s.text(ox, 138, "x as in the build manual; drawn + to the right seen from the front: sign convention UNCONFIRMED",
+           size=10.5, anchor="middle", fill="#a35400")
+    s.rect(U(-bw / 2), V(bh), bw * k, bh * k, fill="#f7f7f7", stroke="#666", width=1.4, dash="7 4")
+    s.lines(U(bw / 2) + 8, V(bh) + 10, ["body face", "180 x 72 (dashed)"], size=10, step=13, fill="#555")
+    z0 = (bh - ph) / 2.0       # plate drawn centred on the body face: an assumption for the drawing only
+    s.rect(U(-pw / 2), V(z0 + ph), pw * k, ph * k, fill="#e8f0e0", stroke="#2f4f1f", width=2)
+    for xa, xb in ((U(-pw / 2) - 20, U(-pw / 2) + 6), (U(pw / 2) - 6, U(pw / 2) + 20)):
+        s.line(xa, V(zc), xb, V(zc), stroke="#a35400", width=1.2, dash="10 4 2 4")
+    s.text(U(pw / 2) + 22, V(zc) + 4, "centre line", size=10, fill="#a35400")
+    s.line(U(0), V(z0), U(0), V(0) + 10, stroke="#888", width=0.8, dash="4 4")
+    s.text(U(0) + 4, V(0) + 12, "x = 0", size=10, fill="#555")
+    s.line(U(-bw / 2) - 30, V(0), U(bw / 2) + 30, V(0), stroke="#444", width=1.2)
+    s.text(U(-60), V(0) + 14, "housing base (z = 0)", size=10, fill="#444")
+    cam, rad, disc = o["camera"], o["radar"], o["flux_disc"]
+    s.circle(U(cam["x"]), V(cam["z"]), cam["hole_d"] / 2 * k, fill="#ffffff", stroke="#22334d", width=1.6)
+    s.text(U(cam["x"]), V(cam["z"]) - cam["hole_d"] / 2 * k - 6, "camera", size=10.5, anchor="middle")
+    s.rect(U(rad["x"] - rad["window_w"] / 2), V(rad["z"] + rad["window_h"] / 2), rad["window_w"] * k,
+           rad["window_h"] * k, fill="#f7f2d9", stroke="#7a6a1a", width=1.6)
+    s.text(U(rad["x"]), V(rad["z"]) - 8, "radar window", size=10.5, anchor="middle")
+    s.text(U(rad["x"]), V(rad["z"]) + 18, "thinned to %g" % rad["window_t"], size=10.5, anchor="middle")
+    s.circle(U(disc["x"]), V(disc["z"]), disc["hole_d"] / 2 * k, fill="#ffffff", stroke="#7a3a10", width=1.6)
+    s.text(U(disc["x"]), V(disc["z"]) + 24, "flux disc", size=10.5, anchor="middle")
+    # dimensions
+    dim_h(U(-pw / 2), U(pw / 2), V(z0) + 44, "plate %d x %d x %d" % (pw, ph, pt), ext_from=V(z0))
+    dim_h(U(-bw / 2), U(bw / 2), V(0) + 70, "body %d" % bw, ext_from=V(0))
+    dim_v(U(-bw / 2) - 40, V(bh), V(0), "%d" % bh, ext_from=U(-bw / 2))
+    dim_v(U(-pw / 2) - 14, V(zc), V(0), "%d" % zc, ext_from=U(-pw / 2))
+    yo = V(bh) - 18
+    for xv, lab in ((cam["x"], "x = %d" % cam["x"]), (rad["x"], "x = %d" % rad["x"]), (disc["x"], "x = +%d" % disc["x"])):
+        s.line(U(xv), V(bh), U(xv), yo + 4, stroke=dim_c, width=0.8)
+        s.line(U(xv), V(zc) - 7, U(xv), V(zc) + 7, stroke="#a35400", width=1.2)
+        s.line(U(xv) - 7, V(zc), U(xv) + 7, V(zc), stroke="#a35400", width=1.2)
+        s.text(U(xv), yo, lab, size=11, anchor="middle", fill=dim_c)
+    dim_h(U(cam["x"] - cam["hole_d"] / 2), U(cam["x"] + cam["hole_d"] / 2), V(zc) + cam["hole_d"] / 2 * k + 16,
+          "dia %d" % cam["hole_d"])
+    dim_h(U(rad["x"] - rad["window_w"] / 2), U(rad["x"] + rad["window_w"] / 2),
+          V(rad["z"] - rad["window_h"] / 2) + 16, "%d" % rad["window_w"])
+    dim_v(U(rad["x"] + rad["window_w"] / 2) + 14, V(rad["z"] + rad["window_h"] / 2),
+          V(rad["z"] - rad["window_h"] / 2), "%d" % rad["window_h"], side="right")
+    dim_h(U(disc["x"] - disc["hole_d"] / 2), U(disc["x"] + disc["hole_d"] / 2),
+          V(zc) + disc["hole_d"] / 2 * k + 16, "dia %g" % disc["hole_d"])
+    s.lines(60, 640, ["Plate drawn centred on the body face: its vertical position relative to the body",
+                      "is not given (assumption for this drawing only). The holes sit on the 34 mm line",
+                      "measured from the housing base, as given."], size=10.5, step=15, fill="#555", italic=True)
 
-    # ---------------- SIDE VIEW (from vehicle left; drawing left = forward) ----------------
-    sx, sy = 1050, 400  # px of (X=0, Z=0)
-    U2 = lambda xv: sx - xv * k                    # noqa: E731
-    s.text(sx, 100, "SIDE VIEW  (from the vehicle's left)", size=14, anchor="middle", weight="bold")
-    s.add('<line x1="%s" y1="118" x2="%s" y2="118" stroke="#333" stroke-width="1.4" marker-end="url(#arr)"/>'
-          % (f(sx - 40), f(sx - 120)))
-    s.text(sx - 30, 122, "FORWARD (X)", size=10.5, fill="#333")
-    s.line(U2(170), V(0), U2(-150), V(0), stroke="#888", width=1, dash="6 4")
-    for xx in (-h["base_l"] / 2 + 50, h["base_l"] / 2 - 50):
-        s.rect(U2(xx + h["magnet_d"] / 2), V(h["magnet_h"]), h["magnet_d"] * k, h["magnet_h"] * k,
-               fill="#555", stroke="#222", width=1, rx=4)
-    s.rect(U2(h["base_l"] / 2), V(d["z_box0"]), h["base_l"] * k, h["base_t"] * k, fill="#c9ced6", stroke=AL_S)
-    s.rect(U2(h["box_l"] / 2), V(d["z_box1"]), h["box_l"] * k, h["box_h"] * k, fill=AL, stroke=AL_S, width=2, rx=4)
-    sl = h["box_l"] + 2 * h["shield_over"]
-    s.rect(U2(sl / 2), V(d["z_sh1"]), sl * k, max(h["shield_t"] * k, 2), fill="#9aa3ad", stroke=AL_S)
-    for xx in (-h["box_l"] / 2 + 20, h["box_l"] / 2 - 20):
-        s.line(U2(xx), V(d["z_box1"]), U2(xx), V(d["z_sh0"]), stroke=AL_S, width=3)
-    # plate assembly side profile: plate front at x_plate, board behind it
-    s.rect(U2(d["x_plate"] - h["plate_t"]), V(pz + h["board_a"] / 2), h["board_t"] * k, h["board_a"] * k,
-           fill="#f2efe6", stroke="#8a7d5a", width=1.2)
-    s.rect(U2(d["x_plate"]), V(pz + h["plate_a"] / 2), max(h["plate_t"] * k, 2.5), h["plate_a"] * k,
-           fill="#1a1a1a", stroke="#000")
-    s.line(U2(d["x_plate"] - h["plate_t"] - h["board_t"]), V(pz), U2(d["x_front"] - 30), V(pz),
-           stroke=AL_S, width=4)
-    s.text(U2(d["x_plate"]), V(d["z_sh1"]) - 8, "Cu plate + ceramic fibre board", size=10.5)
-    # windows (hidden lines on the front face)
-    s.line(U2(d["x_front"]), V(rz + h["radome_h"] / 2), U2(d["x_front"]), V(rz - h["radome_h"] / 2),
-           stroke="#7a6a1a", width=4)
-    s.text(U2(d["x_front"]) + 8, V(rz - h["radome_h"] / 2) + 2, "radome", size=10, fill="#7a6a1a")
-    # rear glands
-    s.rect(U2(-h["box_l"] / 2) , V(d["z_box0"] + GLAND_Z + 8), 22, 16 * k * 0.6, fill="#444", stroke="#222")
-    s.text(U2(-h["box_l"] / 2) + 26, V(d["z_box0"] + GLAND_Z) + 4, "M16 glands (rear)", size=10.5)
-    # dims
-    dim_h(U2(h["box_l"] / 2), U2(-h["box_l"] / 2), V(0) + 38, "%d" % h["box_l"], ext_from=V(d["z_box0"]))
-    dim_h(U2(h["base_l"] / 2), U2(-h["base_l"] / 2), V(0) + 62, "base %d" % h["base_l"],
-          ext_from=V(d["z_base0"]))
-    dim_h(U2(d["x_plate"]), U2(d["x_front"]), V(pz - h["board_a"] / 2) + 22,
-          "%d proud" % h["plate_proud"], ext_from=V(pz - h["plate_a"] / 2))
-    dim_v(U2(-sl / 2) + 26, V(d["z_sh0"]), V(d["z_box1"]), "gap %d" % h["shield_gap"], side="right")
-    dim_v(U2(d["x_plate"]) - 40, V(pz), V(d["z_box0"]), "%d" % h["plate_z"], ext_from=U2(d["x_plate"]))
-    dim_h(U2(d["x_plate"]), U2(d["x_plate"] - h["plate_t"] - h["board_t"]), V(pz + h["board_a"] / 2) - 28,
-          "%d+%d" % (h["plate_t"], h["board_t"]))
-
-    # ---------------- TOP VIEW (from above; drawing up = forward, drawing right = vehicle right) ------------
-    tx, ty = 420, 800  # px of (X=0, Y=0)
-    U3 = lambda yv: tx - yv * k                    # noqa: E731
-    V3 = lambda xv: ty - xv * k                    # noqa: E731
-    s.text(tx, 545, "TOP VIEW  (shield removed; forward is up)", size=14, anchor="middle", weight="bold")
-    s.text(U3(h["base_w"] / 2 + 50), 563, "<- vehicle left", size=10.5, fill="#555")
-    s.text(U3(-h["base_w"] / 2), 563, "vehicle right ->", size=10.5, anchor="end", fill="#555")
-    s.rect(U3(h["base_w"] / 2), V3(h["base_l"] / 2), h["base_w"] * k, h["base_l"] * k, fill="#c9ced6", stroke=AL_S)
-    for yy in (-h["base_w"] / 2 + 60, h["base_w"] / 2 - 60):
-        for xx in (-h["base_l"] / 2 + 50, h["base_l"] / 2 - 50):
-            s.circle(U3(yy), V3(xx), h["magnet_d"] / 2 * k, fill="none", stroke="#222", width=1.2, dash="5 4")
-    s.rect(U3(h["box_w"] / 2), V3(h["box_l"] / 2), h["box_w"] * k, h["box_l"] * k, fill=AL, stroke=AL_S,
-           width=2, rx=4)
-    s.add('<rect x="%s" y="%s" width="%s" height="%s" fill="none" stroke="%s" stroke-width="1.2" '
-          'stroke-dasharray="10 5"/>' % (f(U3(sw / 2)), f(V3(sl / 2)), f(sw * k), f(sl * k), "#6b7480"))
-    s.text(U3(-sw / 2) - 4, V3(sl / 2) + 14, "shield outline", size=10, anchor="end", fill="#6b7480")
-    # plate assembly from above
-    s.rect(U3(h["plate_y"] + h["board_a"] / 2), V3(d["x_plate"]), h["board_a"] * k, (h["board_t"] + h["plate_t"]) * k,
-           fill="#f2efe6", stroke="#8a7d5a", width=1.2)
-    s.rect(U3(h["plate_y"] + h["plate_a"] / 2), V3(d["x_plate"]), h["plate_a"] * k, max(h["plate_t"] * k, 2.5),
-           fill="#1a1a1a", stroke="#000")
-    s.line(U3(h["plate_y"]), V3(d["x_plate"] - h["plate_t"] - h["board_t"]), U3(h["plate_y"]), V3(0),
-           stroke=AL_S, width=4)
-    s.line(U3(h["plate_y"]), V3(0), U3(h["box_w"] / 2), V3(0), stroke=AL_S, width=4)
-    s.text(U3(h["plate_y"]), V3(d["x_plate"]) - 8, "flux plate faces forward", size=10.5, anchor="middle")
-    # glands on rear
-    for gy in GLAND_Y:
-        s.rect(U3(gy) - 8, V3(-h["box_l"] / 2), 16, 14, fill="#444", stroke="#222")
-    s.circle(U3(VENT_Y), V3(-h["box_l"] / 2) + 6, 5, fill="#888", stroke="#222")
-    s.text(tx, V3(-h["base_l"] / 2) + 18, "rear face: 4 x M16 glands (12 V in, air TC lead, GNSS lead, spare), "
-                                         "M12 membrane vent, PC RF window", size=10.5, anchor="middle")
-    # radar / camera FOV wedges (illustrative)
-    for yy, half, lab in ((h["radome_y"], 60.0, "radar about +/-60 deg"), (h["ir_win_y"], 28.0, "TC001 56 deg")):
-        L = 38.0
-        a = math.radians(half)
-        x0, y0 = U3(yy), V3(h["box_l"] / 2)
-        s.poly([(x0 - L * k * math.sin(a), y0 - L * k * math.cos(a)), (x0, y0),
-                (x0 + L * k * math.sin(a), y0 - L * k * math.cos(a))], stroke="#b45f06", width=1, dash="3 3")
-        s.text(x0, y0 - L * k * math.cos(a) - 6, lab, size=10, anchor="middle", fill="#b45f06")
-    dim_h(U3(h["base_w"] / 2), U3(-h["base_w"] / 2), V3(-h["base_l"] / 2) + 48, "base %d" % h["base_w"],
-          ext_from=V3(-h["base_l"] / 2))
-    dim_v(U3(-h["base_w"] / 2) + 30, V3(h["box_l"] / 2), V3(-h["box_l"] / 2), "%d" % h["box_l"], side="right",
-          ext_from=U3(-h["box_w"] / 2))
-    dim_v(U3(-h["base_w"] / 2) + 80, V3(h["base_l"] / 2), V3(-h["base_l"] / 2), "base %d" % h["base_l"],
-          side="right", ext_from=U3(-h["base_w"] / 2))
-    dim_h(U3(h["plate_y"]), U3(0), V3(d["x_plate"]) - 30, "%d" % h["plate_y"])
-    s.text(U3(h["base_w"] / 2 - 60), V3(h["base_l"] / 2 - 50) + 4, "magnet dia %d" % h["magnet_d"], size=10,
-           anchor="middle", fill=dim_c)
+    # ---------------- PLAN VIEW ----------------
+    k2 = 2.0
+    qx, qy = 1050, 300         # px of (x = 0, front wall outer face)
+    P = lambda xv: qx + xv * k2                    # noqa: E731
+    s.text(qx, 120, "PLAN VIEW (from above, front up), scale 2 px/mm", size=14, anchor="middle", weight="bold")
+    s.rect(P(-bw / 2), qy, bw * k2, bd * k2, fill="#f7f7f7", stroke="#666", width=1.6)
+    s.rect(P(-bw / 2) + SUPPLIED["wall_mm"] * k2, qy + SUPPLIED["wall_mm"] * k2, (bw - 2 * SUPPLIED["wall_mm"]) * k2,
+           (bd - 2 * SUPPLIED["wall_mm"]) * k2, fill="#ffffff", stroke="#999", width=1, dash="4 3")
+    s.rect(P(-pw / 2), qy - pt * k2, pw * k2, pt * k2, fill="#2f4f1f", stroke="#2f4f1f", width=1)
+    ysh = qy - (pt + gap) * k2
+    s.line(P(-bw / 2) - 10, ysh, P(bw / 2) + 10, ysh, stroke="#6b7480", width=3, dash="12 4")
+    s.text(P(bw / 2) + 14, ysh + 4, "Al heat shield", size=10.5, fill="#3a4250")
+    s.text(P(bw / 2) + 14, ysh + 18, "(size, apertures:", size=10, fill="#3a4250")
+    s.text(P(bw / 2) + 14, ysh + 31, "not given)", size=10, fill="#3a4250")
+    for xv, lab in ((cam["x"], "cam"), (rad["x"], "radar"), (disc["x"], "disc")):
+        s.line(P(xv), qy - pt * k2, P(xv), qy + 26, stroke="#a35400", width=1.2)
+        s.text(P(xv), qy + 40, lab, size=10.5, anchor="middle", fill="#a35400")
+    dim_h(P(-bw / 2), P(bw / 2), qy + bd * k2 + 26, "%d" % bw, ext_from=qy + bd * k2)
+    dim_v(P(-bw / 2) - 26, qy, qy + bd * k2, "%d" % bd, ext_from=P(-bw / 2))
+    dim_v(P(-pw / 2) - 8, ysh, qy - pt * k2, "%d" % gap, side="left")
+    s.text(P(-pw / 2) - 40, ysh - 8, "gap %d mm" % gap, size=10.5, anchor="end", fill=dim_c)
+    s.text(qx, qy + 75, "walls %d mm" % SUPPLIED["wall_mm"], size=10.5, anchor="middle", fill="#555")
+    s.text(qx, qy + 92, "plate %d mm, bolt-on" % pt, size=10.5, anchor="middle", fill="#555")
 
     # ---------------- Notes ----------------
-    nx, ny = 850, 560
-    s.text(nx, ny, "Notes (all values are design values, unverified)", size=14, weight="bold")
+    nx, ny = 760, 660
+    s.text(nx, ny, "As given by the user (positions inside the body not given, so not drawn)", size=13, weight="bold")
     notes = [
-        "Radome: t = n * lambda0 / (2 * sqrt(eps_r)), lambda0 = c / 60 GHz = 5.00 mm.",
-        "  polycarbonate eps_r ~ 2.9: n=1 -> 1.47 mm, n=2 -> 2.94 mm",
-        "  PTFE eps_r ~ 2.1: n=1 -> 1.72 mm, n=2 -> 3.45 mm (drawn: PTFE n=%d, %.2f mm)"
-        % (h["radome_n"], d["radome_t"]),
-        "  PTFE preferred near flames (PC softens near 145 C). Check loss with test B.",
-        "LWIR window: germanium (AR 8-14 um) or chalcogenide. Glass, PC and acrylic",
-        "  are opaque in LWIR. Ge transmission falls when the window runs hot.",
-        "Flux plate: copper %d x %d x %d mm, blackened (Pyromark-type, absorptivity"
-        % (h["plate_a"], h["plate_a"], h["plate_t"]),
-        "  0.95 assumed, to be measured), on %d mm ceramic fibre board so the" % h["board_t"],
-        "  thin-skin (lumped) assumption holds; plate isolated from chassis.",
-        "Air thermocouple: separate lead to engine-intake height, radiation-shielded.",
-        "Shield: %d mm Al, %d mm air gap, %d mm overhang; keeps sun off the lid."
-        % (h["shield_t"], h["shield_gap"], h["shield_over"]),
-        "Mount: 4 rubber-coated magnets (steel roofs only) plus a tether strap, or",
-        "  roof-bar clamps through the base plate. IP65/66 is a target, untested.",
-        "Inside the box: Pi, IWR6843AOPEVM, 3 x MAX31855, BNO055, 12->5 V buck.",
-        "Aluminium blocks Wi-Fi and GNSS: PC RF window on the rear face, GNSS",
-        "  receiver/antenna outside on the roof.",
+        "Body %d x %d x %d mm (read as width x depth x height), %d mm walls, printed %s."
+        % (bw, bd, bh, SUPPLIED["wall_mm"], SUPPLIED["material"]),
+        "Raspberry Pi on four standoffs, %d x %d mm hole pattern." % SUPPLIED["pi_standoff_pattern_mm"],
+        "%d floor rails with %s pilot holes every %d mm."
+        % (SUPPLIED["floor_rails"], SUPPLIED["rail_pilot_hole"], SUPPLIED["rail_hole_pitch_mm"]),
+        "Bolt-on front plate %d x %d x %d mm; aluminium heat shield %d mm in front." % (pw, ph, pt, gap),
+        "Copper flux disc on printed PETG tabs: every flux run stops and warns at 70 C.",
+        "Questions about the shield, holes and window: HOUSING.md section 3 (calculations).",
     ]
-    s.lines(nx, ny + 22, notes, size=11, step=16.5)
+    s.lines(nx, ny + 22, notes, size=11, step=17)
     return s.render()
 
 
@@ -633,7 +845,10 @@ def outputs() -> dict:
 def main(argv: list[str]) -> int:
     check = "--check" in argv
     bad = []
-    for name, text in outputs().items():
+    files = dict(outputs())
+    hp = DOCS / "HOUSING.md"
+    files["HOUSING.md"] = housing_md_with_checks(hp.read_text(encoding="utf-8"))
+    for name, text in files.items():
         p = DOCS / name
         if check:
             if not p.is_file() or p.read_text(encoding="utf-8") != text:

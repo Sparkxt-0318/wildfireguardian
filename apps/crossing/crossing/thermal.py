@@ -1,11 +1,17 @@
-"""Thermal frames from the Topdon TC001: validity, hot/flame masks, bearings (DESIGN.md section 6.2).
+"""Thermal frames from the InfiRay P2 Pro (TC001-compatible): validity, hot/flame masks, bearings (DESIGN 6.2).
+
+Camera (user, 2026-11-17): an InfiRay P2 Pro, USB id 0bda:5830. It delivers the same 256 x 384 YUYV frame as the
+Topdon TC001 (lower half = 16-bit raw temperature, raw/64 = K), so the Pi driver keeps its name `thermal_tc001.py`
+and the sensor name `thermal`, and every TC001 figure below (gain ranges, 56 x 42 deg field of view) is the
+TC001 vendor figure carried over: P2 Pro FOV UNVERIFIED (vendor 56 deg); P2 Pro gain ranges UNVERIFIED. The
+constant names keep the TC001_ prefix for compatibility.
 
 Frames arrive as temperature in kelvin, float [h, w] = [192, 256]. Decoding of the wire format is
 `wfgvu.protocol.decode_thermal` (owned by the sensor-head code); `frame_from_reading` calls it lazily so this module
 works on plain numpy arrays and is testable without the vehicle-unit package.
 
 Physics and sensor assumptions (stated, not verified on hardware):
-- The TC001 is an uncooled microbolometer (8-14 um, LWIR). In its low-gain range it reads up to about 550 C;
+- The camera (P2 Pro; TC001 figures) is an uncooled microbolometer (8-14 um, LWIR). In its low-gain range it reads up to about 550 C;
   anything hotter saturates near that ceiling, so a reading of ~550 C means ">= 550 C", never a gas temperature.
   In its high-gain range (vendor ~-20..150 C) NO pixel can reach the 300 C flame threshold, so a high-gain frame
   (or one whose gain field is missing) can never show that flames are ABSENT: ``flame_evidence_mask`` then returns
@@ -40,13 +46,14 @@ C_TO_K = 273.15
 TC001_LOW_GAIN_MAX_C = 550.0           # approximate saturation of the low-gain range (vendor figure, unverified)
 TC001_HIGH_GAIN_MAX_C = 150.0          # approximate saturation of the high-gain range (vendor figure, unverified)
 GAIN_CEILING_C = {"low": TC001_LOW_GAIN_MAX_C, "high": TC001_HIGH_GAIN_MAX_C}
-VALID_MIN_K = 200.0                    # anything colder than -73 C is not a plausible TC001 value
-VALID_MAX_K = 1000.0                   # anything above ~727 C cannot come out of the TC001 low-gain range
+VALID_MIN_K = 200.0                    # anything colder than -73 C is not a plausible camera value (TC001-compatible)
+VALID_MAX_K = 1000.0                   # above ~727 C cannot come out of the low-gain range (TC001 vendor figure)
 
 
 @dataclass(frozen=True)
 class CameraModel:
-    """Pinhole camera. Defaults: TC001, 256 x 192 px, 56 x 42 deg field of view.
+    """Pinhole camera. Defaults: InfiRay P2 Pro / TC001 frame, 256 x 192 px, 56 x 42 deg field of view (the TC001
+    vendor figure; P2 Pro FOV UNVERIFIED (vendor 56 deg): measure it, field test C).
 
     fx = (w/2) / tan(hfov/2), fy = (h/2) / tan(vfov/2) in pixels; principal point (cx, cy) defaults to the image
     centre ((w-1)/2, (h-1)/2) in the pixel-centre convention.
@@ -137,7 +144,7 @@ def saturated_mask(temps_k, margin_c: float = 5.0, ceiling_c: float = TC001_LOW_
 
 
 def gain_ceiling_c(gain) -> Optional[float]:
-    """Approximate saturation of the TC001 range for ``gain`` ("low" ~550 C, "high" ~150 C, vendor ranges, NOT
+    """Approximate saturation of the camera range for ``gain`` (TC001 vendor figures, P2 Pro UNVERIFIED) ("low" ~550 C, "high" ~150 C, vendor ranges, NOT
     confirmed on our camera); None for a missing or unknown gain."""
     return GAIN_CEILING_C.get(gain) if isinstance(gain, str) else None
 

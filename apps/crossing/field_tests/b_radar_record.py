@@ -8,6 +8,9 @@ Flame source: as approved in the signed risk assessment; the analysis assumes a 
 condition needs --flame-kind bunsen|other (stored as trial.json `flame_kind` and `bunsen_burner`); the analysis
 flags every non-Bunsen flame run. The free-text --flame-source is recorded, never matched.
 
+Flux-disc stop (recordkit.DiscGuard): any run stops and warns when the flux disc (PETG tabs) reads >= 70 C; flame
+and smoke runs also stop when the disc temperature is missing / faulted for > 2 s during condition_on.
+
 Run roles: `baseline` (nothing in the path; the analysis builds crossing.radar_flame.RadarBaseline from it) and
 `trial` (pre -> condition_on -> condition_off, timed).
 
@@ -98,9 +101,9 @@ def main(argv=None) -> int:
                   ("condition_off", args.post_s, "Condition OFF / remove it")]
     run_dir = Path(args.out) / run_id
     print("TEST B - %s at %.1f m (%s). Recording to %s" % (args.condition, args.distance_m, args.role, run_dir))
-    recordkit.record_run(args.pi, run_dir, trial, phases)
-    print("Done: %s" % run_dir)
-    return 0
+    recordkit.record_run(args.pi, run_dir, trial, phases,
+                         plate_phases=("condition_on",) if args.condition in ("flame", "smoke") else None)
+    return recordkit.report_end(trial, run_dir)
 
 
 if __name__ == "__main__":

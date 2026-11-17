@@ -4,6 +4,9 @@ standing on the ground is the near-edge stand-in). See protocols/C_thermal.md an
 Each run records the thermal frames (wire rate, 4 Hz) and the IMU while the panel's bottom edge is at the
 tape-measured distance and the camera body is tilted by the nominal angle (wedge).
 
+Flux-disc stop (recordkit.DiscGuard): the run stops and warns if the flux disc (PETG tabs) reads >= 70 C (no heat
+source should reach it in test C).
+
 Usage (from apps/crossing):
   .venv/bin/python -m field_tests.c_thermal_record --sheet field_tests/sheets/C_inputs.yaml \
       --distance-m 8 --tilt-deg 5 --repeat 1
@@ -51,8 +54,7 @@ def main(argv=None) -> int:
     run_dir = Path(args.out) / run_id
     print("TEST C - recording to %s" % run_dir)
     recordkit.record_run(args.pi, run_dir, trial, phases)
-    print("Done: %s" % run_dir)
-    return 0
+    return recordkit.report_end(trial, run_dir)
 
 
 if __name__ == "__main__":

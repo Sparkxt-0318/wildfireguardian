@@ -31,6 +31,26 @@ the one approved in the signed risk assessment; the analysis assumes a Bunsen-si
 `--flame-kind bunsen|other` and `b_radar_analyse` flags every non-Bunsen run. Both analyses write a gate CSV
 (`A_gate.csv`, `B_gate.csv`); a gated run without the gate is listed as GATE MISSING, never dropped.
 
+## Flux-disc stop (70 C, PETG tabs)
+
+The copper flux disc sits on printed PETG tabs. **Every record script** (A, B, C, E, F through
+`recordkit.record_run`, and D's `d_failsafe_run`) runs `recordkit.DiscGuard`: a `tc_plate` reading without a
+MAX31855 fault at or above `flux.disc_max_c` (crossing.yaml, **70 C, user-set**; 69.75 C does not stop, 70.00 C
+does) stops the run at once and prints `STOP: flux disc at X C >= 70 C (PETG tabs)`. While a run needs the disc
+temperature (test A: whole run; test F: hot-air and cool phases; test B flame / smoke: condition_on), more than 2 s
+without a valid `tc_plate` reading (missing stream, link drop or thermocouple fault) also stops it
+(`DISC_TEMP_UNKNOWN`). Test D stops on the disc temperature in the app State (and the unit stream with `--pi`), not
+on a missing one (tc_plate_open is one of its faults). The run directory keeps everything up to the stop:
+`trial.json` gets `stop_reason` (`DISC_OVER_70C` / `DISC_TEMP_UNKNOWN`, null when not stopped), `stop_detail`,
+`disc_max_c` and a `disc_guard` summary; `marks.jsonl` a `disc_stop` mark; the script exits 3. The limit is never
+above 70 C (crossing.yaml refuses more; `DiscGuard` caps any other value at 70). A run that gets no data from the
+unit (nothing serving, wrong URL) prints `ABORTED: <reason>` (not `Done`), keeps `trial.json` with `aborted` set
+and exits 4. Record-script exit codes: 0 done, 3 stopped by the disc guard, 4 aborted. The guard stops the
+recording only: the operator removes the heat. Analyses report stopped runs as measured ("STOPPED: disc 70 C" /
+"STOPPED: disc temperature unknown") and never drop them; `a_flux_analyse` also flags any recorded disc sample
+>= 70 C (such runs are left out of the means and the loss fit, and listed), `f_housing_analyse` FAILs `disc_limit`
+and `disc_guard_stop`. Not tested on hardware.
+
 ## Files
 
 - `common.py`: paths, the risk gate, CSV / Markdown / PNG helpers (SIMULATED watermark), statistics.
@@ -56,8 +76,13 @@ other simulated inputs come from `simulate.py`.
 
 ## Findings from the simulated runs (design points, not hardware results)
 
-- Test C: with the TC001's 42 deg vertical field of view, a level camera cannot see ground nearer than about
-  2.6 x its height (6.8 m at the 2.6 m roof height). `crossing.geometry.near_edge` flags such a base
+- Test A: with the 70 C disc limit the cool-down loss fit covers only room temperature to about 60 C, and with the
+  unfitted plate model (1 mm copper, h = 10 W/m2K, air 20 C) the disc settles at 70 C under about 0.9 kW/m2 and
+  reaches it in about 2 min at a steady 2 kW/m2 (calculation, not measured). The old cool-down heating (8 kW/m2
+  for 120 s, about 200 C) is no longer allowed: the simulated set has one such run, stopped by the guard
+  (`A_cooldown_r3_SIM_overheated`, STOPPED: disc 70 C); the others heat at 1.5 kW/m2 (peak about 57 C).
+- Test C: with the camera's 42 deg vertical field of view (InfiRay P2 Pro; TC001 vendor figure, UNVERIFIED), a
+  level camera cannot see ground nearer than about 2.6 x its height (6.8 m at the 2.6 m roof height). `crossing.geometry.near_edge` flags such a base
   (`base_cut_off`, the app then gives CLOSED with NEAR_EDGE_NOT_OBSERVED); the test C analysis also reports it as
   "not observable".
 - Test D: link loss and power loss are noticed after `silence_s = 1.5 s`, frozen thermal data after `freeze_s =

@@ -14,6 +14,11 @@ is taken afterwards from the received thermal frames (the sim session's freeze t
 operator, so NOW can be off by seconds); the live number for it is provisional and the analysis is the result. No fire is involved; see protocols/D_failsafe.md for the safety notes
 (12 V plug, USB hot-unplug).
 
+Flux-disc stop (recordkit.DiscGuard): the run stops and warns when the flux disc (PETG tabs) reads >= 70 C, from the
+app State's flux.tc_plate_c (and from the unit stream with --pi). A missing / faulted disc temperature does not stop
+test D (tc_plate_open is one of its faults). A stop takes effect at once during timing waits and at the next prompt
+otherwise (the warning is printed immediately); trial.json records stop_reason.
+
 Usage (from apps/crossing, with the app running: python -m crossing --pi ws://10.42.0.1:8770/stream):
   .venv/bin/python -m field_tests.d_failsafe_run --faults thermal_unplug,radar_unplug,wifi_drop
 """
@@ -58,7 +63,7 @@ class StateLog:
         self.fh.close()
 
 
-async def app_client(url: str, log: StateLog, stop: asyncio.Event) -> None:
+async def app_client(url: str, log: StateLog, stop: asyncio.Event, on_state=None) -> None:
     import websockets
     while not stop.is_set():
         try:
@@ -75,7 +80,10 @@ async def app_client(url: str, log: StateLog, stop: asyncio.Event) -> None:
                     except (TypeError, ValueError):
                         continue
                     if isinstance(state, dict):
-                        log.add(state, time.monotonic())
+                        t_rx = time.monotonic()
+                        log.add(state, t_rx)
+                        if on_state is not None:
+                            on_state(state, t_rx)
         except asyncio.CancelledError:
             raise
         except Exception as exc:  # noqa: BLE001
@@ -93,13 +101,24 @@ async def ainput(prompt: str) -> str:
     return (await asyncio.get_running_loop().run_in_executor(None, sys.stdin.readline)).strip()
 
 
-async def run(args, run_dir: Path, marks: recordkit.SessionWriter, log: StateLog) -> None:
+async def run(args, run_dir: Path, marks: recordkit.SessionWriter, log: StateLog,
+              guard: recordkit.DiscGuard = None) -> None:
     stop = asyncio.Event()
-    tasks = [asyncio.create_task(app_client(args.app, log, stop))]
+    guard = guard if guard is not None else recordkit.DiscGuard(needs_plate=False)
+
+    def on_state(state, t_rx):
+        if guard.on_state(state, t_rx):
+            recordkit.guard_trigger(marks, guard, stop)
+
+    def on_pi(msg):
+        if guard.on_message(msg, time.monotonic()):
+            recordkit.guard_trigger(marks, guard, stop)
+
+    tasks = [asyncio.create_task(app_client(args.app, log, stop, on_state))]
     pi_writer = None
     if args.pi:
         pi_writer = recordkit.SessionWriter(run_dir / "pi")
-        tasks.append(asyncio.create_task(recordkit.run_ws(args.pi, pi_writer, stop)))
+        tasks.append(asyncio.create_task(recordkit.run_ws(args.pi, pi_writer, stop, on_message=on_pi)))
     try:
         t0 = time.monotonic()
         while log.latest is None and time.monotonic() - t0 < 15:
@@ -109,6 +128,9 @@ async def run(args, run_dir: Path, marks: recordkit.SessionWriter, log: StateLog
             marks.mark("abort", "no state from the app")
             return
         for fid in args.faults:
+            if guard.stop_reason:
+                print("Run stopped by the flux-disc guard (%s): remaining faults not run." % guard.stop_reason)
+                break
             f = FAULTS[fid]
             if fid == "thermal_freeze" and not args.pi:
                 print("WARNING: thermal_freeze without --pi: no thermal frames are recorded, so the fault time is "
@@ -139,7 +161,7 @@ async def run(args, run_dir: Path, marks: recordkit.SessionWriter, log: StateLog
             elif cause_before(pre, f.sensors):
                 print("    the fault's cause was already visible before NOW: cannot be timed (NOT_ATTRIBUTABLE)")
             else:
-                while time.monotonic() - t_m < args.timeout_s:
+                while time.monotonic() - t_m < args.timeout_s and not guard.stop_reason:
                     s = log.latest
                     if s is not None and s["t_rx"] >= t_m and attributable(s, f.sensors, pre):
                         got = s["t_rx"] - t_m
@@ -152,7 +174,7 @@ async def run(args, run_dir: Path, marks: recordkit.SessionWriter, log: StateLog
                       % (args.timeout_s, tag))
             await ainput("Restore: %s. Press Enter when done: " % f.restore)
             mr = marks.mark("fault_restore", f.restore, fault=fid)
-            while time.monotonic() - mr["t_rx"] < args.recover_s:
+            while time.monotonic() - mr["t_rx"] < args.recover_s and not guard.stop_reason:
                 s = log.latest
                 if s is not None and s["t_rx"] >= mr["t_rx"] and sensor_up(s, f.sensors):
                     print("    sensor fresh again after %.1f s" % (s["t_rx"] - mr["t_rx"]))
@@ -192,20 +214,22 @@ def main(argv=None) -> int:
     run_dir.mkdir(parents=True, exist_ok=True)
     marks = recordkit.SessionWriter(run_dir)       # used for marks.jsonl only (no Pi messages go into it)
     log = StateLog(run_dir)
+    guard = recordkit.DiscGuard(needs_plate=False)
     trial = common.base_meta("D", argv)
     trial.update({"run_id": run_id, "faults": args.faults, "app_url": args.app, "pi_url": args.pi,
                   "operator": args.operator, "simulated": False})
     try:
-        asyncio.run(run(args, run_dir, marks, log))
+        asyncio.run(run(args, run_dir, marks, log, guard))
     except KeyboardInterrupt:
         marks.mark("operator_stop", "Ctrl-C")
     finally:
         log.close()
         trial["n_states"] = log.n
+        guard.annotate(trial)
         marks.close(trial)
     res = analyse(run_dir / "analysis", run_dir=run_dir)
     print(res["markdown"])
-    return 0
+    return 3 if trial.get("stop_reason") else 0
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ air) and data completeness per sensor over a 30-minute drive.
 
 | Item | Notes | Tick |
 |---|---|---|
-| Car with roof bars or magnet mount rated for the unit's mass and the planned speed | | [ ] |
+| Car with the roof attachment as in the build manual, rated for the unit's mass and the planned speed | | [ ] |
 | Roof unit, cable through the door seal / flat window cable, 12 V socket power with the fused lead | | [ ] |
 | Laptop secured inside (not on a lap of the driver), joined to the unit hotspot | | [ ] |
 | Optional: the crossing app running with its research log (separate WebSocket client) | | [ ] |

@@ -6,6 +6,7 @@ Source: Pi record session(s); 1 Pi session(s); recorded span 30.0 min.
 Link (laptop receipt, gaps > 1.0 s): 2 dropout(s), longest 4.5 s, total 6.0 s; 1 disconnect event(s); largest gap 4.50 s. Pi-side queue-drop events: 0.
 GNSS: 1800 readings, fix ratio 0.978 (fix 2: 0.293), hdop median 0.95 / p95 2.64 / max 5.13, satellites median 10, 1 no-fix stretch(es) > 2 s (longest 41.0 s), distance 20.20 km.
 Power: 1 under-voltage event(s), 2.0 s in total; throttling-bit readings: {'under-voltage now': 2, 'throttled now': 2}; occurred since boot (last reading): under-voltage occurred, throttling occurred; 0 reading(s) without throttle data.
+Flux disc (PETG tabs, limit 70 C user-set): peak 40.2 C, 0 reading(s) >= the limit; laptop recording without a disc guard result (no laptop copy, or an older record script).
 
 | temperature | n | min (C) | median (C) | max (C) | missing/fault |
 |---|---|---|---|---|---|

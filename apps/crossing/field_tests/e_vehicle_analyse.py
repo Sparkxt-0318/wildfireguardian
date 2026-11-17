@@ -117,8 +117,17 @@ def analyse(out, pi_sessions: List[str], laptop: Optional[str] = None, gap_s: fl
     common.write_csv(out / "E_temperatures.csv", temp_rows, ["session", "what", "sensor", "n", "min_c", "median_c",
                                                               "max_c", "missing_or_fault"], sim)
     gsum = {k: v for k, v in gn.items() if not k.startswith("_")}
+    # flux disc (copper on PETG tabs; 70 C user-set): sun can heat a black disc; report the peak and the guard result
+    lim = float((lap.trial if lap else {}).get("disc_max_c") or common.disc_max_c())
+    pvals = [float(m["data"]["temp_c"]) for r in pis for m in r.readings("tc_plate")
+             if not m["data"].get("fault") and isinstance(m["data"].get("temp_c"), (int, float))]
+    disc = {"disc_max_c": lim, "peak_c": max(pvals) if pvals else None,
+            "n_over_limit": sum(1 for v in pvals if v >= lim),
+            "stop_reason": (lap.trial.get("stop_reason") if lap else None),
+            "stopped": common.stop_label(lap.trial) if lap else ""}
     common.write_json(out / "E_summary.json", {"simulated": sim, "gnss": gsum, "power": pw, "link": link,
-                                                "pi_dropped_events": pi_dropped, "sessions": [r.dir.name for r in pis]})
+                                                "pi_dropped_events": pi_dropped, "sessions": [r.dir.name for r in pis],
+                                                "disc": disc})
     _plot_track(out / "E_track.png", gn, sim)
     _plot_timeline(out / "E_timeline.png", pis, lap, link, sim)
 
@@ -143,6 +152,12 @@ def analyse(out, pi_sessions: List[str], laptop: Optional[str] = None, gap_s: fl
                     pw["n_under_voltage_events"], common.fmt(pw["under_voltage_s"], 1),
                     pw["readings_with_bit"] or "none", ", ".join(pw["occurred_since_boot"]) or "none",
                     pw["unknown_throttle_readings"]))
+    body.append("Flux disc (PETG tabs, limit %.0f C user-set): peak %s C, %d reading(s) >= the limit; laptop "
+                "recording %s." % (lim, common.fmt(disc["peak_c"], 1), disc["n_over_limit"],
+                                   (disc["stopped"] + " - " + str(lap.trial.get("stop_detail") or "") +
+                                    " (kept, analysed as recorded)") if disc["stopped"] else
+                                   ("not stopped by the disc guard" if lap is not None and "stop_reason" in lap.trial
+                                    else "without a disc guard result (no laptop copy, or an older record script)")))
     body += ["", common.md_table(temp_rows, ["what", "n", "min_c", "median_c", "max_c", "missing_or_fault"],
                                  ["temperature", "n", "min (C)", "median (C)", "max (C)", "missing/fault"], nd=1),
              "", common.md_table(comp_rows, ["sensor", "n_readings", "median_rate_hz", "nominal_hz", "completeness_pct",

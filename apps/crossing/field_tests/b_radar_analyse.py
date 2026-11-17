@@ -166,7 +166,10 @@ def analyse(runs_root, out, window_s: float = 3.0, echo=print) -> dict:
         sha, sup = r.trial.get("risk_assessment_sha256"), r.trial.get("supervisor")
         g = {"run_id": r.run_id, "distance_m": r.trial.get("distance_m"), "condition": cond,
              "risk_assessment_sha256": sha, "supervisor": sup, "flame_source": r.trial.get("flame_source") or "",
-             "bunsen_burner": r.trial.get("bunsen_burner"), "gate": ""}
+             "bunsen_burner": r.trial.get("bunsen_burner"), "gate": "",
+             "stop_reason": r.trial.get("stop_reason") or ""}
+        if common.stop_label(r.trial):
+            problems.append("%s: %s (run kept, analysed as recorded)" % (r.run_id, common.stop_label(r.trial)))
         if cond in GATED and not (sha and sup and str(sup).strip()):
             g["gate"] = "GATE MISSING"
             problems.append("%s: %s run without a recorded risk assessment and supervisor (GATE MISSING)"
@@ -293,7 +296,8 @@ def analyse(runs_root, out, window_s: float = 3.0, echo=print) -> dict:
     ccols += ["effect_below_noise", "frac_flame_effect", "frac_unknown", "noise_source"]
     common.write_csv(out / "B_conditions.csv", cond_rows, ccols, sim)
     common.write_csv(out / "B_gate.csv", gate_rows, ["run_id", "distance_m", "condition", "risk_assessment_sha256",
-                                                     "supervisor", "flame_source", "bunsen_burner", "gate"], sim)
+                                                     "supervisor", "flame_source", "bunsen_burner", "gate",
+                                                     "stop_reason"], sim)
     _plot(out / "B_radar_conditions.png", cond_rows, sim)
     body = ["Corner reflector at %s m; window %.0f s; noise = std of the 'nothing' windows; 'below noise' = "
             "|effect| < 3 sigma for loss, amplitude flicker and phase flicker." % (
@@ -312,6 +316,9 @@ def analyse(runs_root, out, window_s: float = 3.0, echo=print) -> dict:
              "Bunsen-size flame (non-Bunsen runs are flagged)." % (n_gated, n_missing),
              "Plan coverage (2, 3, 4, 5 m; >= 3 nothing, 3 flame, 2 smoke, 2 mist per distance): %s."
              % ("complete" if not coverage else "INCOMPLETE, %d gap(s) listed under Problems" % len(coverage))]
+    stopped = common.stopped_lines(runs)
+    body += ["", "Flux-disc guard (disc on PETG tabs, 70 C user-set): %d run(s) stopped by the record script%s"
+             % (len(stopped), ":" if stopped else ".")] + stopped
     if problems:
         body += ["", "Problems (as measured):"] + ["- " + p for p in problems]
     body += ["", "The radar alone never decides FLAME: the app needs the radar effect AND flame-temperature pixels "

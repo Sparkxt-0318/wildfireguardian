@@ -25,6 +25,13 @@ Fail-closed rules applied here (on top of decision.py's own):
 - Vehicle moving (GNSS speed > ``moving_speed_m_s``) or speed unknown -> radar UNKNOWN (echo phases change with
   any motion); moving or GNSS displacement > ``baseline_move_m`` invalidates the radar baseline.
 - Any exception inside the per-tick computation gives a CLOSED verdict with reason INTERNAL_ERROR.
+- Flux disc over temperature (user's build, 2026-11-17: the copper disc sits on printed PETG tabs): a tc_plate
+  reading >= ``flux.disc_max_c`` (70 C, USER-SET, not a placeholder) is a tc_plate fault ``PLATE_DISC_OVER_TEMP``
+  (every verdict CLOSED while it lasts, reason code PLATE_DISC_OVER_TEMP too), the plate flux sample is invalid
+  (no plate flux, dose marked incomplete, REOPENED quiet hold restarts) and a crossing pulse that saw it gives no
+  calibration pair (the pulse is held open while the disc is hot, so its far edge, recorded for REOPENED, is late:
+  conservative). State ``flux.disc`` carries the flag and the UI shows "Flux disc over 70 C: PETG tabs at risk".
+  It clears on the first fresh reading below the limit (no hysteresis; normal freshness rules).
 - Every sensor's health (reading, heartbeat, freeze) must be fresh for every go verdict (decision.ALL_SENSORS, D1).
 - Minimum flame evidence (D4): the fused FLAME must have held continuously for ``decision.min_flame_evidence_s``
   (3.0 s) on consecutive ticks before CROSS FAST / SPRAY (``flame_held_s``; a gap > stale_s restarts it).
@@ -50,6 +57,14 @@ Physics and geometry assumptions made here (the physics modules state theirs):
 - Radar ranges are slant ranges from the radar; the near edge from geometry is an along-course horizontal distance
   to the flame base on the ground. Conversion: slant = hypot(d, radar_height - ground_dz(d)); the first solid echo
   is converted back to a horizontal distance with the same height difference (echo assumed at ground level).
+- Sensor offsets (build manual; ``hello.mount.sensor_offsets_mm`` = unit.yaml ``mount.sensor_offsets_mm``): the
+  radar beam bearing is corrected for the camera-radar lateral offset at the near-edge range, atan(dx / r)
+  (camera x -52 mm, radar x -8 mm: 0.25 deg at 10 m, 1 deg at 2.5 m, against the 2.5 deg baseline-beam tolerance).
+  The manual's x sign is UNCONFIRMED: crossing.yaml ``mount.offset_x_sign`` is 0 by default (no correction, so a
+  sign flip cannot double the error; State reports the uncorrected size), +1 / -1 apply it. Radar height =
+  camera height + (radar z - camera z) when offsets are given (same 34 mm line: equal). A hello without offsets
+  (every session recorded before 2026-11-17, all committed samples) gives offsets 0 and the configured
+  ``radar_height_m``: unchanged behaviour. Other lateral offsets (camera to vehicle axis) are ignored as before.
 - Camera mount pitch: crossing.yaml ``mount.camera_pitch_deg`` when set, else the unit's own value (``hello.mount``
   / replayed session.json, else hardware/vehicle-unit/config/unit.yaml ``mount``), else 0 (state geometry.camera).
 - Local east/north metres from GNSS use an equirectangular projection about the first fix (error < 1 cm per km at
@@ -76,6 +91,7 @@ from __future__ import annotations
 import asyncio
 import base64
 import collections
+import dataclasses
 import heapq
 import json
 import logging
@@ -114,6 +130,27 @@ EARTH_R = 6371008.8
 ADVISORY = "Advisory only: verdicts are for trained crews. Every limit is a PLACEHOLDER for the fire service to set."
 HEAT_D_M = (0.0, 1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0)
 REOPEN_VIEW_HINT = "Face the crossed road: stop with the crossing in front of the camera, within %.0f m."
+CAMERA_MODEL = "InfiRay P2 Pro (TC001-compatible 256x192 temperature frame)"
+CAMERA_FOV_NOTE = "P2 Pro FOV UNVERIFIED (vendor 56 deg)"
+DISC_WARNING = "Flux disc over %.0f C: PETG tabs at risk"
+OFFSET_SIGN_NOTE = ("x as in the build manual; sign convention UNCONFIRMED (crossing.yaml mount.offset_x_sign: 0 = "
+                    "no parallax correction, +1 / -1 apply it)")
+
+
+def parse_sensor_offsets(mount: Any) -> Optional[Dict[str, Dict[str, float]]]:
+    """``mount.sensor_offsets_mm`` of a unit hello (camera / radar / flux_disc, each {x, z, ...} in mm, z above the
+    housing base) -> {name: {"x": mm, "z": mm}} for the entries with finite x and z, or None when absent or when the
+    camera or radar entry is unusable (then every offset counts as 0: backward compatible)."""
+    so = mount.get("sensor_offsets_mm") if isinstance(mount, dict) else None
+    if not isinstance(so, dict):
+        return None
+    out: Dict[str, Dict[str, float]] = {}
+    for name, v in so.items():
+        if isinstance(v, dict) and _num(v.get("x")) and _num(v.get("z")):
+            out[str(name)] = {"x": float(v["x"]), "z": float(v["z"])}
+    if "camera" not in out or "radar" not in out:
+        return None
+    return out
 
 
 def _unit_yaml_mount() -> dict:
@@ -210,6 +247,19 @@ class Pipeline:
         self.mount_info: Dict[str, Any] = {}
         self.imu_heading_trusted = False
         self._apply_unit_mount(_unit_yaml_mount(), "vehicle-unit config/unit.yaml")
+        # sensor offsets only from the unit's hello (sessions without them: 0, unchanged behaviour)
+        self._apply_sensor_offsets(None, "none (no unit hello with mount.sensor_offsets_mm)")
+        self.disc: Dict[str, Any] = {"over_temp": False, "max_c": float(c.flux.disc_max_c), "user_set": True,
+                                     "temp_c": None, "over_c": None, "since_rx": None, "n_events": 0,
+                                     "last_over_rx": None,
+                                     "warning": None}
+        self.disc_over_hist: Deque[float] = collections.deque()   # Pi t_mono of plate readings >= disc_max_c
+        # laptop rx and value of the newest tc_plate reading >= disc_max_c (latched by the reading handler, so a
+        # reading over the limit between two ticks still closes the next verdict: tc_plate arrives at 10 Hz, ticks
+        # run at 5 Hz) and the time of the previous tick
+        self._disc_over_rx: Optional[float] = None
+        self._disc_over_c: Optional[float] = None
+        self._disc_prev_tick: Optional[float] = None
         self.plate = fx.PlateSpec(**c.plate)
         loss = None
         if c.paths.plate_loss_file:
@@ -310,6 +360,45 @@ class Pipeline:
                                mount_yaw_deg=c.camera_yaw_deg)
         self._geo = None
 
+    def _apply_sensor_offsets(self, mount: Any, source: str) -> None:
+        """Sensor offsets (build manual) from the unit hello's mount; absent -> 0 and the configured radar height."""
+        c = self.cfg.mount
+        offs = parse_sensor_offsets(mount)
+        info: Dict[str, Any] = {"present": offs is not None, "source": source if offs is not None else
+                                "none (offsets 0: hello without mount.sensor_offsets_mm)",
+                                "offset_x_sign": int(c.offset_x_sign), "sign_confirmed": False,
+                                "note": OFFSET_SIGN_NOTE}
+        radar_h, rh_src = float(c.radar_height_m), "crossing.yaml mount.radar_height_m"
+        if offs is not None:
+            info.update({"%s_%s_mm" % (k, a): v[a] for k, v in offs.items() for a in ("x", "z")})
+            dz_m = (offs["radar"]["z"] - offs["camera"]["z"]) / 1000.0
+            radar_h = float(c.camera_height_m) + dz_m
+            rh_src = ("camera height (radar on the same %.0f mm line)" % offs["camera"]["z"] if dz_m == 0.0
+                      else "camera height %+.3f m (sensor offsets z)" % dz_m)
+            # lateral position of the camera relative to the radar, + right looking along the view, if the sign
+            # convention is +1 (UNCONFIRMED). offset_x_sign 0 (default while unconfirmed): no correction, so a
+            # sign flip cannot double the error; the uncorrected size is reported (parallax_abs_deg in State)
+            dx_mm = offs["camera"]["x"] - offs["radar"]["x"]
+            info["camera_minus_radar_x_m"] = int(c.offset_x_sign) * dx_mm / 1000.0
+            info["camera_radar_dx_abs_m"] = abs(dx_mm) / 1000.0
+        else:
+            info["camera_minus_radar_x_m"] = 0.0
+            info["camera_radar_dx_abs_m"] = 0.0
+        info["correction_applied"] = bool(offs is not None and int(c.offset_x_sign) != 0)
+        info.update(radar_height_m=radar_h, radar_height_source=rh_src)
+        self.sensor_offsets = info
+        self.radar_height_m = radar_h
+
+    def sensor_parallax_deg(self, range_m: Any) -> float:
+        """Radar-minus-camera bearing of a point straight ahead of the camera at horizontal range ``range_m``:
+        atan2(x_camera - x_radar, r) (deg, + right). 0 without offsets or a usable range. Build manual offsets:
+        -0.25 deg at 10 m with offset_x_sign +1 (+0.25 with -1); 0 with offset_x_sign 0 (default: the sign is
+        UNCONFIRMED, so no correction is applied)."""
+        dx = float(self.sensor_offsets.get("camera_minus_radar_x_m") or 0.0)
+        if dx == 0.0 or not (_num(range_m) and range_m > 0):
+            return 0.0
+        return math.degrees(math.atan2(dx, float(range_m)))
+
     def _recalibrate(self) -> None:
         try:
             self.calib = cal.recalibrate(self.store().load(), self.fuel.code)
@@ -351,6 +440,8 @@ class Pipeline:
             if msg["type"] == "hello":
                 if isinstance(msg.get("mount"), dict):
                     self._apply_unit_mount(msg["mount"], "unit hello")
+                # every hello resets the offsets: a session without them gets 0 (backward compatible)
+                self._apply_sensor_offsets(msg.get("mount"), "unit hello mount.sensor_offsets_mm")
                 if self.simlink is not None:
                     self.simlink.set_ids(msg.get("unit_id"), msg.get("session_id"))
             if msg["type"] == "reading":
@@ -417,11 +508,21 @@ class Pipeline:
         if air is not None and not air["data"].get("fault"):
             air_c = air["data"].get("temp_c")
         sample = self.flux_est.update(float(msg["t_mono"]), d.get("temp_c"), air_c, fault=d.get("fault"))
-        if not d.get("fault") and _num(d.get("temp_c")):
-            self.plate_hist.append((float(msg["t_mono"]), float(d["temp_c"]), air_c))
+        t_pi = float(msg["t_mono"])
+        over = self.disc_over_temp(d)
+        if over:
+            # PETG tabs at risk: the plate (and its contact) may no longer be where the flux model assumes it
+            sample = dataclasses.replace(sample, valid=False, reason="%s: disc %.2f C >= %.0f C (PETG tabs)" % (
+                dc.PLATE_DISC_OVER_TEMP, float(d["temp_c"]), self.cfg.flux.disc_max_c))
+            self.disc_over_hist.append(t_pi)
+            self._disc_over_rx, self._disc_over_c = now, float(d["temp_c"])
+        while self.disc_over_hist and self.disc_over_hist[0] < t_pi - self.cfg.crossing.buffer_s:
+            self.disc_over_hist.popleft()
+        if not d.get("fault") and _num(d.get("temp_c")) and not over:
+            self.plate_hist.append((t_pi, float(d["temp_c"]), air_c))
         else:
-            self.plate_hist.append((float(msg["t_mono"]), float("nan"), air_c))
-        while self.plate_hist and self.plate_hist[0][0] < float(msg["t_mono"]) - self.cfg.crossing.buffer_s:
+            self.plate_hist.append((t_pi, float("nan"), air_c))
+        while self.plate_hist and self.plate_hist[0][0] < t_pi - self.cfg.crossing.buffer_s:
             self.plate_hist.popleft()
         self._flux, self._flux_rx = sample, now
         if math.isfinite(sample.t):
@@ -435,8 +536,13 @@ class Pipeline:
                             "q_kw_m2": sample.q_kw_m2, "q_abs_kw_m2": sample.q_abs_kw_m2, "dTdt_k_s": sample.dTdt,
                             "valid": sample.valid, "reason": sample.reason, "dose_tdu": self.dose.dose_tdu,
                             "dose_complete": self.dose.complete, "uncounted_s": self.dose.uncounted_s})
-        self._crossing_update(sample, now)
+        self._crossing_update(sample, now, disc_over=over)
         return {}
+
+    def disc_over_temp(self, d: Optional[dict]) -> bool:
+        """True when a tc_plate reading (data dict) without a MAX31855 fault reads >= flux.disc_max_c (70 C)."""
+        return (isinstance(d, dict) and not d.get("fault") and _num(d.get("temp_c"))
+                and float(d["temp_c"]) >= float(self.cfg.flux.disc_max_c))
 
     def _on_gnss(self, msg: dict, now: float) -> dict:
         d = msg["data"]
@@ -576,13 +682,17 @@ class Pipeline:
         return f
 
     # ------------------------------------------------------------------------------------------- crossings
-    def _crossing_update(self, s: fx.FluxSample, now: float) -> None:
+    def _crossing_update(self, s: fx.FluxSample, now: float, disc_over: bool = False) -> None:
         cc, cr = self.cfg.crossing, self.crossing
         if not math.isfinite(s.t):
             return
         g = self._value("gnss", now)
         speed = g["data"].get("speed_m_s") if g else None
         above = s.valid and s.q_kw_m2 > cc.thickness_q_kw_m2
+        if disc_over and cr["active"]:
+            # disc >= disc_max_c: flux unknown, assume still in the heat, so the pulse (and the far edge recorded at
+            # its end) cannot end early on invalid samples; conservative (later far edge). It never STARTS a pulse.
+            above = True
         if not cr["active"]:
             if above and _num(speed) and speed >= cc.min_speed_m_s:
                 pred = self._last_go_depth or self._last_valid_depth
@@ -618,6 +728,26 @@ class Pipeline:
         predicted-vs-measured pair. The far edge is the GNSS position when the plate flux fell below the
         thickness threshold (``t_edge_pi``; the radiant zone beyond the flame makes this conservative, i.e. later),
         not the position when the pulse was declared over ``end_hold_s`` later."""
+        if measured_m is None and any(t0_pi - 10.0 <= t <= t1_pi + 1.0 for t in self.disc_over_hist):
+            # the disc was >= disc_max_c (PETG tabs) during this pulse: the plate cannot measure the thickness, so no
+            # calibration pair; the GNSS near / far edge are still recorded for REOPENED (the pulse was held open
+            # while the disc was hot, so the far edge is late = conservative)
+            edge = self.position_at(t_edge_pi) if t_edge_pi is not None else None
+            if edge is not None and self.course_deg is not None and source == "auto":
+                ux, uy = self._course_unit()
+                self.far_edge_ref = {"pos": edge, "dir": (ux, uy), "beyond_m": self.vehicle.length_m,
+                                     "rx": now, "kind": "far edge at crossing (disc over limit)", "t_pi": t_edge_pi}
+                near = self.position_at(t0_pi)
+                if near is not None:
+                    self.crossing_ref = {"near": near, "far": edge, "dir": (ux, uy), "rx": now,
+                                         "kind": "crossing recorded by the plate-flux pulse (GNSS near/far edge; "
+                                                 "disc over limit)"}
+            out = {"ok": False, "source": source, "rx_mono": now, "disc_over_temp": True,
+                   "reason": "%s: flux disc >= %.0f C during the pulse (PETG tabs); no calibration pair"
+                             % (dc.PLATE_DISC_OVER_TEMP, self.cfg.flux.disc_max_c)}
+            if self.rlog is not None:
+                self.rlog.event(now, "app", "crossing_no_pair", out["reason"])
+            return out
         thick = None
         pulse = None                     # FS-5: the measured flux pulse identifies the physical crossing
         if measured_m is None or self.flux_hist:
@@ -1050,16 +1180,20 @@ class Pipeline:
         # ---- radar
         speed = gnss_d.get("speed_m_s") if gnss_d else None
         moving = not (_num(speed) and speed <= c.radar.moving_speed_m_s)
-        radar_bearing = cam_bearing + c.mount.camera_yaw_deg - c.mount.radar_yaw_deg
+        # sensor offsets: radar beam corrected for the camera-radar lateral offset at the near-edge range (0 when
+        # the hello had no offsets); the x sign convention is UNCONFIRMED (mount.offset_x_sign)
+        parallax = self.sensor_parallax_deg(ne.d_m if ne is not None and math.isfinite(ne.d_m) else None)
+        radar_bearing = cam_bearing + c.mount.camera_yaw_deg - c.mount.radar_yaw_deg + parallax
+        radar_h = self.radar_height_m
         dz_ne = 0.0
         near_slant = None
         if ne is not None and math.isfinite(ne.d_m):
             dz_ne = ne.ground_dz_m if math.isfinite(ne.ground_dz_m) else 0.0
-            near_slant = math.hypot(ne.d_m, c.mount.radar_height_m - dz_ne)
+            near_slant = math.hypot(ne.d_m, radar_h - dz_ne)
         rs = self.detector.evaluate(now, near_edge_m=near_slant, bearing_deg=radar_bearing, moving=moving)
         far_h = None                     # horizontal distance of the first solid echo BEYOND the flame base
         if ne is not None and rs.far_echo_m is not None and math.isfinite(rs.far_echo_m):
-            hd = c.mount.radar_height_m - dz_ne
+            hd = radar_h - dz_ne
             if rs.far_echo_m > abs(hd):
                 far_h = math.sqrt(rs.far_echo_m ** 2 - hd ** 2)
         flame = rf.fuse_flame(rs, thermal_flag)
@@ -1139,7 +1273,10 @@ class Pipeline:
                 if ref and dc.has_passed(pos, ref["pos"], ref["dir"], ref["beyond_m"]):
                     passed = True
         flame_px = thl.flame_pixels if thl is not None and thl.valid else None
-        reopen_ok = all(hmap.get(s, {}).get("fresh") is True for s in dc.ALL_SENSORS)
+        disc_over = self._disc_update(now, data["tc_plate"])
+        if disc_over:
+            plate_q = None                    # flux not used while the disc is over its limit
+        reopen_ok = all(hmap.get(s, {}).get("fresh") is True for s in dc.ALL_SENSORS) and not disc_over
         hdg, hdg_src = self.heading(speed, imu_d)
         view = self.crossing_view(pos, hdg, imu_d, gnss_d,
                                   thl.temps_k if (thl is not None and thl.valid) else None)
@@ -1160,6 +1297,9 @@ class Pipeline:
         for s in protocol.TC_SENSORS:
             if data[s] is not None and data[s].get("fault"):
                 faults[s] = str(data[s]["fault"])
+        if disc_over and not faults["tc_plate"]:
+            faults["tc_plate"] = "%s: disc %.2f C >= %.0f C (PETG tabs at risk)" % (
+                dc.PLATE_DISC_OVER_TEMP, self.disc["over_c"], c.flux.disc_max_c)
         faults["thermal"] = thermal_fault
         faults["radar"] = radar_fault
         if data["pi"] is not None and data["pi"].get("under_voltage_now") is True:
@@ -1206,12 +1346,52 @@ class Pipeline:
 
         st = self._state(now, health, verdict, thl, geo, profile, rs, flame, thermal_flag, n_bear, cam_bearing,
                          radar_bearing, near_slant, far_h, moving, depth, inten, fs, plate_q, data, passed, quiet)
+        _dxa = float(self.sensor_offsets.get("camera_radar_dx_abs_m") or 0.0)
+        _rng = ne.d_m if ne is not None and _num(ne.d_m) and ne.d_m > 0 else None
+        st["geometry"]["sensor_offsets"] = protocol.sanitize(dict(self.sensor_offsets, parallax_deg=parallax,
+                                                                   parallax_abs_deg=(math.degrees(math.atan2(
+                                                                       _dxa, float(_rng))) if _rng else 0.0),
+                                                                   parallax_at_m=_f(ne.d_m) if ne is not None
+                                                                   else None))
         st["flame"]["held_s"] = flame_held
         st["flame"]["min_evidence_s"] = c.decision.min_flame_evidence_s
         st["reopen"]["view"] = protocol.sanitize(view)
         st["reopen"]["crossing_ref"] = protocol.sanitize(self.crossing_ref)
         st["reopen"]["max_speed_m_s"] = c.decision.reopen_max_speed_m_s
         return st
+
+    def _disc_update(self, now: float, plate_d: Optional[dict]) -> bool:
+        """Flux-disc over-temperature flag: the latest USED tc_plate reading is >= disc_max_c, OR any tc_plate
+        reading received since the previous tick was (latched in ``_on_tc_plate``; tc_plate runs at 10 Hz, ticks at
+        5 Hz, so a 70.5 / 69.5 C alternation must not depend on how readings line up with ticks). Logs on/off
+        transitions. No hold time beyond that: it clears on the first tick with no over-limit reading since the
+        previous tick."""
+        prev, self._disc_prev_tick = self._disc_prev_tick, now
+        over_latest = self.disc_over_temp(plate_d)
+        rx = self._disc_over_rx
+        latched = (rx is not None and (prev is None or rx > prev)
+                   and -dc.AGE_ROUNDING_TOL_S <= now - rx <= self.cfg.use_max_age_s.get("tc_plate",
+                                                                                   self.cfg.link.stale_s))
+        over = over_latest or latched
+        dsc = self.disc
+        dsc["temp_c"] = (plate_d or {}).get("temp_c") if isinstance(plate_d, dict) else None
+        over_c = float(plate_d["temp_c"]) if over_latest else (self._disc_over_c if latched else None)
+        dsc["over_c"] = over_c
+        if over and not dsc["over_temp"]:
+            dsc.update(over_temp=True, since_rx=now, n_events=dsc["n_events"] + 1)
+            if self.rlog is not None:
+                self.rlog.event(now, "app", "disc_over_temp", "%s: disc %.2f C >= %.0f C (PETG tabs at risk)" % (
+                    dc.PLATE_DISC_OVER_TEMP, over_c, dsc["max_c"]))
+            log.warning("flux disc %.2f C >= %.0f C: PLATE_DISC_OVER_TEMP", over_c, dsc["max_c"])
+        elif not over and dsc["over_temp"]:
+            dsc.update(over_temp=False, since_rx=None)
+            if self.rlog is not None:
+                self.rlog.event(now, "app", "disc_over_temp_cleared", "tc_plate below %.0f C or not fresh"
+                                % dsc["max_c"])
+        if over:
+            dsc["last_over_rx"] = now
+        dsc["warning"] = (DISC_WARNING % dsc["max_c"]) if over else None
+        return over
 
     # ------------------------------------------------------------------------------------------- state
     def _verdict_dict(self, now: float) -> dict:
@@ -1306,7 +1486,8 @@ class Pipeline:
                 "camera": {"height_m": self.pose.height_m, "mount_pitch_deg": self.pose.mount_pitch_deg,
                            "mount_roll_deg": self.pose.mount_roll_deg, "mount_yaw_deg": self.pose.mount_yaw_deg,
                            "hfov_deg": self.camera.hfov_deg, "vfov_deg": self.camera.vfov_deg,
-                           "pitch_source": self.mount_info.get("pitch_source")},
+                           "pitch_source": self.mount_info.get("pitch_source"), "model": CAMERA_MODEL,
+                           "fov_note": CAMERA_FOV_NOTE},
                 "imu": {"roll_deg": (data["imu"] or {}).get("roll_deg"),
                         "pitch_deg": (data["imu"] or {}).get("pitch_deg")},
                 "far_echo_m": far_h, "far_echo_slant_m": rs.far_echo_m}
@@ -1329,7 +1510,8 @@ class Pipeline:
                       "tc_housing_c": (data["tc_housing"] or {}).get("temp_c"),
                       "dose_tdu": self.dose.dose_tdu, "dose_complete": self.dose.complete,
                       "uncounted_s": self.dose.uncounted_s, "loss_model": self.flux_est.loss.to_dict(),
-                      "crossing": {k: v for k, v in self.crossing.items() if k != "prediction"}}
+                      "crossing": {k: v for k, v in self.crossing.items() if k != "prediction"},
+                      "disc": dict(self.disc)}
         st["heat"] = self._heat(depth, inten, ne)
         g = data["gnss"] or {}
         st["gnss"] = {k: g.get(k) for k in ("fix", "lat", "lon", "alt_m", "speed_m_s", "course_deg", "hdop", "sats",

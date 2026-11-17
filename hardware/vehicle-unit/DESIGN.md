@@ -42,10 +42,11 @@ hardware/vehicle-unit/                 # sensor head (Raspberry Pi 4/5)
   wfgvu/__init__.py                    # __version__ = "0.1.0"
   wfgvu/protocol.py                    # message envelope + encoders/decoders (shared with laptop)
   wfgvu/drivers/base.py                # Driver base: live/sim, heartbeat, reading callback
-  wfgvu/drivers/thermal_tc001.py       # Topdon TC001 via OpenCV UVC (cv2 optional import)
+  wfgvu/drivers/thermal_tc001.py       # InfiRay P2 Pro (TC001-compatible frame) via OpenCV UVC (cv2 optional)
   wfgvu/drivers/radar_iwr6843.py       # IWR6843AOP stock mmw demo: CLI config, UART frames
   wfgvu/drivers/tlv.py                 # pure TLV frame parser (no serial), unit-tested
-  wfgvu/drivers/max31855.py            # 3 x MAX31855 on SPI (spidev optional import)
+  wfgvu/drivers/max31855.py            # 3 x MAX31855 on SPI0, GPIO5 software CS (spidev, lgpio optional)
+  wfgvu/tccheck.py                     # python3 -m wfgvu.tccheck: thermocouple bench check (exit 0/1/2/3)
   wfgvu/drivers/bno055.py              # BNO055 on I2C (smbus2 optional import)
   wfgvu/drivers/gnss_nmea.py           # USB GNSS, NMEA GGA/RMC/VTG parser (pure + serial)
   wfgvu/drivers/pi_health.py           # CPU temp, throttling/under-voltage, input voltage if readable
@@ -56,7 +57,7 @@ hardware/vehicle-unit/                 # sensor head (Raspberry Pi 4/5)
   wfgvu/__main__.py                    # python -m wfgvu [--sim SESSION_DIR] [--config ...]
   system/hotspot.sh  system/wfgvu.service  system/README.md
   samples/<scenario>/                  # small synthetic sessions (committed, < 5 MB total)
-  docs/WIRING.md docs/wiring.svg docs/HOUSING.md docs/housing.svg docs/housing.scad docs/BOM.md
+  docs/WIRING.md docs/wiring.svg docs/HOUSING.md docs/housing.svg docs/BOM.md   # housing.scad deleted 2026-11-17
   tests/
 apps/crossing/                          # laptop app (macOS)
   README.md  RESULTS.md  LIMITS.md  requirements.txt  pytest.ini  run_crossing.sh  .gitignore
@@ -102,6 +103,15 @@ radar's main case now reads bins, spacing, IF-limited range and wavelength from 
 0.0488 m runs are labelled side cases. Main case: radar UNKNOWN in 9/9 windows (7 by the noise-rise gate: refractive
 phase flicker of the strong clutter in front of the flame raises the temporal residual 10.9-23.7 dB; 2 with no solid
 echo beyond), so fusion UNKNOWN 9/9; combined depth (a+b) [lo, hi_decision_m] covers 11.1 m in 9/9.
+Hardware as supplied (user, 2026-11-17; overrides the earlier docs): the housing is the user's printed PETG housing,
+documented in `docs/HOUSING.md` (front-plate layout `docs/housing.svg`, user-given dimensions only; questions with
+calculations about the aluminium shield, the 12 mm camera hole and the 1.2 mm radar window), NOT designed here; the
+roof-box concept and `docs/housing.scad` are withdrawn. Wiring = the pin map from the user's printed build manual
+(`docs/WIRING.md`, one pin list `PIN_MAP` in `docs/make_drawings.py`): MAX31855 x3 on 3V3 pin 17, GND pin 20, CLK
+pin 23 (GPIO11), DO pin 21 (GPIO9); CS tc_plate GPIO8 pin 24, tc_housing GPIO7 pin 26, tc_air GPIO5 pin 29
+(software chip select, spidev0.0 `no_cs`, lock shared with the other two); BNO055 3V3 pin 1, GND pin 6, SDA pin 3,
+SCL pin 5. Thermal camera = InfiRay P2 Pro (USB 0bda:5830, TC001 frame format). Flux disc on PETG tabs: every flux
+script stops and warns at 70 C (`sensors.tc_plate.disc_max_c`, user-set). None of it is verified on hardware.
 
 ## 2. Wire protocol (Pi -> laptop), `wfgvu/protocol.py`
 
@@ -214,6 +224,35 @@ if it still cannot finish, session.json says `closed_cleanly: false`, `writer_al
 
 Thermal: OpenCV `VideoCapture(index)`, `CAP_PROP_CONVERT_RGB = 0`, frame 256x384 YUYV; lower half (rows 192-383)
 holds 16-bit raw temperature: `k = (hi<<8 | lo) / 64`. Documented in the driver.
+As built (2026-11-17, user change 3; not run on the camera): the camera is an InfiRay P2 Pro (USB 0bda:5830), same
+256x384 frame as the TC001; module name `thermal_tc001.py` and sensor name `thermal` are kept. unit.yaml
+`sensors.thermal`: `model`, `usb_id`, `index: auto` = lowest /dev/videoN whose sysfs `index` is 0 (capture node)
+and whose USB parent has that idVendor:idProduct (an integer still forces N); nothing found -> `no_device` listing
+every node seen. 0bda:5830 is a generic Realtek bridge id; the 256x384 frame check at open is the second guard.
+Gain stays configured, not read back (FS-1).
+
+MAX31855 wiring and chip select (as built 2026-11-17, user change 2 = the printed build manual; not run on a Pi):
+all three on SPI0 (3.3 V pin 17, GND pin 20, CLK GPIO11 pin 23, DO GPIO9 pin 21); `tc_plate` CE0 GPIO8 pin 24,
+`tc_housing` CE1 GPIO7 pin 26 (kernel CS), `tc_air` `cs_gpio: 5` (pin 29, software CS: `/dev/spidev0.0` with
+`no_cs`, GPIO5 via lgpio, else gpiod). No SPI1, no spi1 overlay. BNO055: 3.3 V pin 1, GND pin 6, SDA pin 3, SCL
+pin 5. One process-wide `SpiBus` per bus: every transfer under its lock; software CS claimed HIGH before the first
+transfer of any channel (also for a disabled channel, `reserve_cs_from_config`), low only inside the lock, released
+in `finally`; a CS that cannot be released poisons the bus (all channels fault until all close). `no_cs` is a
+property of the shared spi_device, so on a bus with a software CS every transfer writes and reads back the value it
+needs (read back from the kernel: ioctl SPI_IOC_RD_MODE, not py-spidev's cached value); refused or wrong ->
+`NoCsUnsupported` ("no_cs unsupported", `no_device`, never read). An exclusive flock on the existing node
+`/dev/spidev<N>.0` (read-only open, never created: no fs.protected_regular clash between the service user and the
+login user) while any channel is open keeps a second process off the bus. Decoding: D17 or D3 set
+-> `fault: "spi"` with extra key `fault_detail` "bad frame ..." (wire fault set unchanged); clean contention of two
+valid chips is NOT detectable this way (both send 0 there), it is prevented by the lock. `tc_plate.disc_max_c` = 70
+(user-set, PETG tabs; never above 70): at or above it the driver logs and emits `event` `disc_over_temp` (readings
+unchanged; the Pi decides nothing). `python3 -m wfgvu.tccheck` (same driver classes and config): exit 0 OK, 1 fault
+or implausible (open/short/no chip/bad frame/no_cs, CJ spread > 5 C, hot junction outside -20..60 C), 2 disc >= 70 C
+(stops at once), 3 cannot open SPI/GPIO (service running), 64 bad command line; a missing `--config` file or
+non-distinct chip selects is exit 1; `--fake` uses a test-double bench.
+Mount: `mount.sensor_offsets_mm` (camera/radar/flux_disc x, z above the housing base; x sign UNCONFIRMED) goes to
+the laptop inside `hello.mount`; the `housing` block documents the supplied printed housing; `radar_height_m` and
+`plate_height_m` must equal `camera_height_m` (one centre line; `__main__.config_warnings` warns at start).
 
 ## 4. Recorded-session format (Pi recorder, sim replay, synth generator)
 
@@ -299,6 +338,13 @@ link.py is gone); a clearly future time is not fresh.
 - As built: `update(t_s, plate_c, air_c, fault=None)` (a MAX31855 fault string invalidates the sample);
   `FluxSample.t` is the centre of the derivative window (lag window/2); invalid also on missing air temperature or
   time going backwards. The live pipeline uses a 2.2 s window (see section 9).
+- Flux-disc limit (user, 2026-11-17: the copper disc sits on printed PETG tabs): crossing.yaml `flux.disc_max_c`
+  = 70 C, USER-SET (not a placeholder; config refuses values outside 40..70, never above the user's 70). The pipeline marks a plate sample at
+  or above it invalid (section 8: tc_plate fault PLATE_DISC_OVER_TEMP). With the unfitted loss (h = 10 W/m2K, eps
+  0.95, air 20 C) the 1 mm disc settles at 70 C under about 0.9 kW/m2 (h = 30: 1.9 kW/m2) and, from 20 C, reaches
+  70 C in about 40 s at 5 kW/m2, 19 s at 10 kW/m2, 6 s at 30 kW/m2 (calculation, not measured): near a real front
+  the plate is unusable and every verdict is CLOSED. The cool-down loss fit (field test A) can then only cover
+  room temperature to about 60 C.
 
 ### 6.2 `thermal.py`
 `ThermalFrame(t, temps_k [h,w])`; `flame_mask(temps_k, t_flame_c=300.0) -> bool [h,w]`;
@@ -320,6 +366,10 @@ it; shipped `config/unit.yaml` says `gain: high`), and the raw/64 K scale is doc
 lab check on a target hotter than 150 C confirms low gain and the low-gain scale, crossing.yaml
 `thermal.low_gain_verified` stays false (placeholder) and every live (non-simulated) frame is flame-unknown, so
 every live verdict is CLOSED; simulated frames count as verified.
+Camera (user, 2026-11-17): InfiRay P2 Pro, USB 0bda:5830, same 256x384 frame as the TC001, so `thermal.py`, the
+driver name `thermal_tc001.py` and the sensor name `thermal` are unchanged. Every TC001 figure here (56 x 42 deg FOV,
+gain ranges) is carried over UNVERIFIED for the P2 Pro: State `geometry.camera.fov_note` = "P2 Pro FOV UNVERIFIED
+(vendor 56 deg)", `geometry.camera.model` names the camera; the UI labels it.
 
 ### 6.3 `radar_flame.py` (step 3)
 - `RadarBaseline` captured from N >= 20 frames with no flame (operator action "capture baseline" in the UI, or
@@ -593,6 +643,17 @@ CROSS FAST or REOPENED. As built: every single-sensor failure (stale, heartbeat 
 Pi no_device / error, NaN, inf, out of range) of every sensor is checked against each candidate verdict (CROSS
 FAST, SPRAY THEN RE-CHECK, REOPENED); `pi` has no decision value, so NaN / out-of-range do not apply to it.
 
+Flux disc over temperature (user, 2026-11-17; 70 C user-set, not a placeholder): the pipeline sets the tc_plate
+fault `PLATE_DISC_OVER_TEMP: ...` when the latest used tc_plate reading (no MAX31855 fault) is >= `flux.disc_max_c`,
+or any tc_plate reading received since the previous tick was (latched by the reading handler: 10 Hz readings, 5 Hz ticks);
+`decide` then adds `SENSOR_FAULT:tc_plate` and `PLATE_DISC_OVER_TEMP`, so every verdict is CLOSED while it lasts.
+The plate flux sample is invalid (no plate flux, dose incomplete, REOPENED quiet hold not quiet), a crossing pulse
+held open while the disc is hot (far edge late = conservative) gives no calibration pair, State `flux.disc` carries
+the flag and the UI shows "Flux disc over 70 C: PETG tabs at risk". It clears on the first tick with no reading over
+the limit since the previous tick (no longer hold; a 70.5 / 69.5 C alternation stays CLOSED at either phase, tested). Tested on synthetic sessions (`apps/crossing/tests/test_disc_overtemp.py`: CLOSED within
+0.3 s at 70.0, not at 69.9, back to CROSS FAST within 1 s below; research log reasons and events); the committed
+samples peak at 53.25 C, so no committed verdict changes.
+
 ## 9. Pipeline, server, UI (`pipeline.py`, `server.py`, `web/`)
 `Pipeline(cfg, vehicle, fuel)` consumes parsed messages (live link or replay) and every 0.2 s publishes a
 `State` dict (JSON) with: verdict (effective), health, flame (thermal + radar + fused), geometry, depth (all
@@ -618,6 +679,21 @@ when GNSS shows motion or > 3 m displacement. Crossings for calibration: flux pu
 >= 0.5 m/s, paired with the depth of the last CROSS FAST / SPRAY (else last valid depth); simulated pairs go to a
 separate `pairs_sim.jsonl`, replays of recorded real sessions to `pairs_replay.jsonl` (FS-5, section 7). The live plate flux uses a 2.2 s FluxEstimator window (see apps/crossing/README.md:
 kept for noise against the 1.0 kW/m2 REOPENED threshold; placeholder).
+Sensor offsets (user's build manual, 2026-11-17): `hello.mount.sensor_offsets_mm` (camera x -52, radar x -8, flux
+disc x +45 mm, all z = 34 mm above the housing base) correct the radar beam bearing for the camera-radar parallax at
+the near-edge range, atan2(x_cam - x_radar, r) = -0.25 deg at 10 m (-1.0 deg at 2.5 m) against the 2.5 deg baseline
+beam tolerance; the radar height becomes the camera height (same z). The manual's x sign is UNCONFIRMED: crossing.yaml
+`mount.offset_x_sign` (+1 = +x to the right looking along the camera view, -1 = to the right seen from in front, 0 =
+default while unconfirmed: NO correction, so a sign flip cannot double the error) sets the correction; State
+`geometry.sensor_offsets` shows it (`sign_confirmed: false`, `correction_applied`, `parallax_deg`, `parallax_abs_deg`). Every hello resets the offsets; a hello
+without them (all committed samples) gives 0 and the configured radar height, so no committed verdict changes (the
+synthetic flame front gives the same verdict sequence with either sign; tested).
+Field tests (`apps/crossing/field_tests`, 2026-11-17): every record script runs `recordkit.DiscGuard` (stop and warn
+at tc_plate >= 70 C; also after > 2 s without a valid disc temperature while the run needs it: test A whole run, F
+hot-air/cool phases, B flame/smoke condition_on); `trial.json` `stop_reason` DISC_OVER_70C / DISC_TEMP_UNKNOWN; the
+analyses report stopped runs as measured ("STOPPED: disc 70 C"), never drop them; the limit is capped at 70 C; record
+scripts exit 0 done, 3 disc stop, 4 aborted (no data: prints "ABORTED", not "Done"); `a_flux_analyse` also flags any
+recorded disc sample >= 70 C. Not tested on hardware.
 
 ## 10. Live road state to the routing API (step 9)
 Flag-guarded on both ends. Laptop: `--sim-link ws://127.0.0.1:8765/v1/live/closures --region <id>`; sends only

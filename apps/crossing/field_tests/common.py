@@ -5,6 +5,11 @@ Honesty rules enforced here (used by every analysis script):
 - Any output built from simulated input carries "SIMULATED" in the PNG (diagonal watermark + title), in every CSV
   row (`simulated` column) and at the top of the Markdown snippet.
 - Every Markdown snippet ends with DISCLAIMER: results as measured, limits are placeholders, no readiness claim.
+- Flux-disc stop (user, 2026-11-17: the copper disc sits on printed PETG tabs): every record script stops a run and
+  warns at a disc (tc_plate) temperature >= DISC_MAX_C (70 C, crossing.yaml `flux.disc_max_c`, USER-SET, not a
+  placeholder), and also when the disc temperature is missing / faulted for > 2 s while the run needs it
+  (recordkit.DiscGuard). The run directory records `stop_reason` (DISC_OVER_70C / DISC_TEMP_UNKNOWN) in trial.json
+  and a `disc_stop` mark; every analysis reports such runs as measured ("STOPPED: disc 70 C"), never drops them.
 """
 from __future__ import annotations
 
@@ -44,6 +49,62 @@ SIM_BANNER = ("SIMULATED DATA: these numbers come from field_tests/simulate.py, 
 
 RISK_EXTENSIONS = (".pdf", ".png", ".jpg", ".jpeg", ".tif", ".tiff", ".heic")
 _RISK_MAGIC = (b"%PDF", b"\x89PNG", b"\xff\xd8\xff", b"II*\x00", b"MM\x00*")
+
+
+# ---------------------------------------------------------------------------------------------- flux-disc limit
+DISC_MAX_C_DEFAULT = 70.0          # user-set (PETG tabs under the copper disc), not a placeholder
+STOP_DISC_OVER = "DISC_OVER_70C"
+STOP_DISC_UNKNOWN = "DISC_TEMP_UNKNOWN"
+STOP_LABELS = {STOP_DISC_OVER: "STOPPED: disc 70 C", STOP_DISC_UNKNOWN: "STOPPED: disc temperature unknown"}
+
+
+def disc_max_c(config_path=None) -> float:
+    """The flux-disc limit from crossing.yaml (`flux.disc_max_c`, validated 40..70 by crossing.config); 70 C (the
+    user's value) when the config cannot be loaded (a warning is printed). Never above 70 C (cap_disc_max_c)."""
+    try:
+        from crossing.config import load_config
+        return cap_disc_max_c(load_config(config_path).flux.disc_max_c)
+    except Exception as exc:  # noqa: BLE001 - never run without a limit: fall back to the user's 70 C
+        print("WARNING: could not read flux.disc_max_c from crossing.yaml (%s); using %.0f C"
+              % (exc, DISC_MAX_C_DEFAULT), file=sys.stderr)
+        return DISC_MAX_C_DEFAULT
+
+
+def cap_disc_max_c(v) -> float:
+    """A disc limit capped at the user's 70 C (PETG tabs): above 70, non-finite or <= 0 -> 70 with a warning."""
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        f = float("nan")
+    if not math.isfinite(f) or f <= 0 or f > DISC_MAX_C_DEFAULT:
+        print("WARNING: flux-disc limit %r refused (the user's limit is %.0f C, PETG tabs); using %.0f C"
+              % (v, DISC_MAX_C_DEFAULT, DISC_MAX_C_DEFAULT), file=sys.stderr)
+        return DISC_MAX_C_DEFAULT
+    return f
+
+
+def stop_label(trial: Optional[dict]) -> str:
+    """'STOPPED: disc 70 C' / 'STOPPED: disc temperature unknown' for a run the disc guard stopped, else ''."""
+    r = (trial or {}).get("stop_reason")
+    if not r:
+        return ""
+    lab = STOP_LABELS.get(str(r), "STOPPED: %s" % r)
+    lim = (trial or {}).get("disc_max_c")
+    if r == STOP_DISC_OVER and lim is not None and float(lim) != 70.0:
+        lab = "STOPPED: disc %.0f C" % float(lim)
+    return lab
+
+
+def stopped_lines(runs: Iterable[Any]) -> List[str]:
+    """Markdown lines listing runs stopped by the disc guard (objects with .run_id and .trial, or (id, trial))."""
+    out = []
+    for r in runs:
+        rid, trial = (r if isinstance(r, tuple) else (getattr(r, "run_id", "?"), getattr(r, "trial", {}) or {}))
+        lab = stop_label(trial)
+        if lab:
+            det = trial.get("stop_detail") or ""
+            out.append("- %s: %s%s (run kept, reported as measured)" % (rid, lab, (" - " + det) if det else ""))
+    return out
 
 
 # ---------------------------------------------------------------------------------------------- risk gate

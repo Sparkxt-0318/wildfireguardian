@@ -69,5 +69,12 @@
   "pi_dropped_events": 0,
   "sessions": [
     "pi_session_VU-SIM-E"
-  ]
+  ],
+  "disc": {
+    "disc_max_c": 70.0,
+    "peak_c": 40.25,
+    "n_over_limit": 0,
+    "stop_reason": null,
+    "stopped": ""
+  }
 }

@@ -5,8 +5,12 @@ afterwards with scp/rsync). This script records what reached the laptop plus the
 which the analysis needs for link dropouts. The crossing app with its research log may run at the same time (it is
 a separate WebSocket client). No fire in test E. See protocols/E_vehicle.md.
 
+Flux-disc stop (recordkit.DiscGuard): the recording stops and warns if the flux disc (PETG tabs) reads >= 70 C (a
+black disc in strong sun with no airflow can approach that: about 0.9 kW/m2 absorbed holds it at 70 C with the
+unfitted plate model). A missing disc temperature does not stop test E (no heat source).
+
 Usage (from apps/crossing):
-  .venv/bin/python -m field_tests.e_vehicle_record --duration-s 1800 --vehicle "car, magnet roof mount"
+  .venv/bin/python -m field_tests.e_vehicle_record --duration-s 1800 --vehicle "car, roof attachment as in the build manual"
 """
 from __future__ import annotations
 
@@ -40,8 +44,9 @@ def main(argv=None) -> int:
     run_dir = Path(a.out) / run_id
     print("TEST E - recording to %s. Type a note + Enter to mark an event (tunnel, bump, stop)." % run_dir)
     recordkit.record_run(a.pi, run_dir, trial, phases)
-    print("Done: %s\nNow copy the Pi session (records/<session_id>/) next to it and run e_vehicle_analyse." % run_dir)
-    return 0
+    rc = recordkit.report_end(trial, run_dir)
+    print("Now copy the Pi session (records/<session_id>/) next to it and run e_vehicle_analyse.")
+    return rc
 
 
 if __name__ == "__main__":

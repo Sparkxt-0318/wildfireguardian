@@ -14,7 +14,7 @@ and its heartbeat ``status`` are never trusted alone: a sensor is fresh only whe
    ``None`` = not checked). The value is the raw pixels (``pix``) for thermal and the IQ heatmap / range profile /
    points for radar (their frame counters and flags are ignored, so a driver that re-sends old raw data with a new
    frame number is still frozen; D2b); for the other sensors the whole ``data``. Thermal and radar raw values
-   never repeat byte for byte while the sensor works (sensor noise), so 1.0 s is enough; a TC001 shutter / FFC pause
+   never repeat byte for byte while the sensor works (sensor noise), so 1.0 s is enough; a P2 Pro shutter / FFC pause
    longer than 1.0 s therefore gives a short CLOSED (fail closed, documented). Thermocouples (0.25 C steps), the IMU
    (1/16 deg steps on a still vehicle) and a GNSS without a fix can repeat legitimately, so their value windows
    stay long and a Pi-side freeze there is caught by rule 4 instead (D2c). GNSS payloads carry the fix time, so a

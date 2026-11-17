@@ -15,6 +15,8 @@ shows one of **CLOSED / CROSS FAST / SPRAY THEN RE-CHECK / REOPENED**.
 
 Design contract: `hardware/vehicle-unit/DESIGN.md` (sections 5 to 11 are this app).
 
+First run on the real unit (thermocouple check, simulated mode, real mode, this app): `hardware/vehicle-unit/README.md`, section "First run".
+
 ## Run
 
 ```
@@ -79,6 +81,27 @@ Physics and decision modules (`flux`, `thermal`, `radar_flame`, `terrain`, `geom
 - The crossing is evaluated on the vehicle's path: near edge = nearest flame base within `path_half_width_deg`
   (6 deg) of straight ahead; thermal flag and radar beam at that bearing.
 - Radar UNKNOWN (no baseline, vehicle moving or speed unknown, stale, ...) -> flame UNKNOWN -> CLOSED.
+- Flux disc over temperature: the copper flux disc sits on printed PETG tabs, so a `tc_plate` reading >=
+  `flux.disc_max_c` (crossing.yaml, **70 C, user-set, not a placeholder**; config refuses values outside 40..70: never above the user's 70 C, as on the Pi)
+  is a `tc_plate` fault: reasons `SENSOR_FAULT:tc_plate` and `PLATE_DISC_OVER_TEMP`, every verdict CLOSED while
+  it lasts, the plate flux is invalid (no flux, running dose marked incomplete, REOPENED quiet hold restarts), a
+  crossing pulse that saw it gives no calibration pair (the pulse is held open while the disc is hot, so the far edge
+  recorded for REOPENED is late: conservative), and the UI shows "Flux disc over 70 C: PETG tabs at risk".
+  Every tc_plate reading counts, not only the newest at a tick: a reading >= the limit received since the previous
+  tick (tc_plate 10 Hz, ticks 5 Hz) also sets it, so a disc hovering at 70 C stays CLOSED whatever the reading phase.
+  It clears on the first tick with no reading over the limit since the previous tick (no longer hold time). The research log records the reason codes in
+  `verdicts.csv` and `disc_over_temp` / `disc_over_temp_cleared` events in `events.csv`. With the unfitted plate
+  model (1 mm copper, h = 10 W/m2K, eps 0.95, air 20 C) the disc settles at 70 C under only about 0.9 kW/m2
+  (about full sunshine) and reaches 70 C in about 40 s at 5 kW/m2, 19 s at 10 kW/m2 and 6 s at 30 kW/m2 (from
+  20 C): near a real front the unit will report `PLATE_DISC_OVER_TEMP` and CLOSED (calculation, not measured).
+- Sensor offsets (build manual, sent by the unit in `hello.mount.sensor_offsets_mm`; camera x -52 mm, radar x
+  -8 mm, flux disc x +45 mm, all 34 mm above the housing base): the radar beam bearing is corrected for the
+  camera-radar parallax at the near-edge range, atan(dx / r): about 0.25 deg at 10 m (1.0 deg at 2.5 m) against the
+  2.5 deg baseline-beam tolerance. The manual's x sign convention is UNCONFIRMED: `mount.offset_x_sign` (+1 / -1) sets
+  the correction; the default 0 applies NO correction while the sign is unconfirmed (insensitive to a flip; a wrong
+  sign would double the error), and State reports the uncorrected size. The radar height is the camera height (same
+  34 mm line). A hello without offsets (every
+  committed sample) gives offsets 0: verdicts unchanged.
 - A tick that raises an exception gives CLOSED (`INTERNAL_ERROR`). The State served between ticks re-checks the
   verdict's 5 s expiry at send time.
 
@@ -128,7 +151,8 @@ Top level:
 |---|---|
 | `state` | `CLOSED`, `CROSS FAST`, `SPRAY THEN RE-CHECK`, `REOPENED` |
 | `decided_state` | the state decided at the last tick (differs from `state` only when it expired) |
-| `reasons` | reason codes (`CODE` or `CODE:detail`), e.g. `LINK_DOWN`, `SENSOR_NOT_FRESH:radar`, `RADAR_UNKNOWN`, `FLAME_NOT_CONFIRMED`, `NO_FAR_ECHO`, `DEPTH_INVALID`, `DOSE_OVER_LIMIT`, `INTAKE_AIR_OVER_LIMIT`, `VERDICT_EXPIRED`, `DOSE_WITHIN_LIMIT`, `REOPEN_CONDITIONS_HELD`. Display only: the UI lists codes it does not know as sent (marked "code not known to this UI") and never derives a verdict from a reason; `REOPEN_..._NOT_IN_VIEW`, `NEAR_EDGE_..._NOT_OBSERVED` and `FLAME_..._TOO_SHORT` style codes also show a crew instruction (e.g. face the crossed road) |
+| `reasons` | reason codes (`CODE` or `CODE:detail`), e.g. `LINK_DOWN`, `SENSOR_NOT_FRESH:radar`, `RADAR_UNKNOWN`, `FLAME_NOT_CONFIRMED`, `NO_FAR_ECHO`, `DEPTH_INVALID`, `DOSE_OVER_LIMIT`, `INTAKE_AIR_OVER_LIMIT`,
+`PLATE_DISC_OVER_TEMP` (flux disc >= 70 C, with `SENSOR_FAULT:tc_plate`; crew instruction: move away and let it cool), `VERDICT_EXPIRED`, `DOSE_WITHIN_LIMIT`, `REOPEN_CONDITIONS_HELD`. Display only: the UI lists codes it does not know as sent (marked "code not known to this UI") and never derives a verdict from a reason; `REOPEN_..._NOT_IN_VIEW`, `NEAR_EDGE_..._NOT_OBSERVED` and `FLAME_..._TOO_SHORT` style codes also show a crew instruction (e.g. face the crossed road) |
 | `verdict_id`, `issued_mono`, `expires_mono`, `age_s` | identity and timing (laptop clock) |
 | `min_speed_m_s`, `min_speed_km_h` | CROSS FAST: smallest speed meeting the dose limit; SPRAY: max safe speed |
 | `time_in_flame_s` | (depth upper end used for decision, `depth.hi_decision_m` + vehicle length) / speed |
@@ -142,7 +166,7 @@ Top level:
 | key | meaning |
 |---|---|
 | `status`, `reason` | fused `FLAME` / `NO_FLAME` / `UNKNOWN` (FLAME only if radar effect AND thermal flame at the path bearing) |
-| `thermal` | `valid`, `reason`, `flame_pixels` (>= `t_flame_c`), `hot_pixels` (>= 60 C), `t_max_c`, `flame_at_bearing`, `pixels_at_bearing`, `bearing_deg` (path bearing in the camera), `t_flame_c`, `shutter`, `age_s`, `thumb` |
+| `thermal` | thermal camera (InfiRay P2 Pro, TC001-compatible frame): `valid`, `reason`, `flame_pixels` (>= `t_flame_c`), `hot_pixels` (>= 60 C), `t_max_c`, `flame_at_bearing`, `pixels_at_bearing`, `bearing_deg` (path bearing in the camera), `t_flame_c`, `shutter`, `age_s`, `thumb` |
 | `thermal.thumb` | null or `{w: 64, h: 48, enc: "u8-b64", pool: "max", t_min_c, t_max_c, pix}`: base64 of w*h uint8, row-major from the top-left, value v -> temperature `t_min_c + v/255*(t_max_c - t_min_c)` (4x4 max-pooled) |
 | `radar` | `status` (`FLAME_EFFECT` / `NO_EFFECT` / `UNKNOWN`), `reason`, `loss_db`, `loss_z`, `flicker_phase_rad`, `flicker_phase_z`, `flicker_amp_db`, `flicker_amp_z`, `far_echo_m` (SLANT range of the first solid echo beyond the near edge), `source` (`heatmap`/`profile`), `noise_db`, `n_frames`, `window_span_s`, `effect_ranges_m`, `bearing_deg`, `near_edge_slant_m`, `moving`, `baseline` (`present`, `reason`, `n_frames`, `utc`, `forced`, ...), `latest_frame`, `per_bin` |
 | `radar.per_bin` | `{}` or `{pool_factor, range_m[], window_max_db[], window_mean_db[], baseline_db[], loss_db[], loss_z[], flicker_amp_db[], flicker_amp_z[], flicker_phase_rad[], flicker_phase_z[], present_frac[], target[]}`: at most 128 entries, max-pooled by `pool_factor` bins (`range_m` = range of the first bin of each group; `target` = any target bin in the group). Entries may be null |
@@ -158,7 +182,8 @@ Top level:
 | `far_echo_m`, `far_echo_slant_m` | first solid radar echo beyond the flame (horizontal, slant) |
 | `slope_source` | `dem` or `imu` (**show it**) |
 | `profile` | road profile `{source, valid, reason, s_m[], dz_m[]}`: along-course distance and ground height relative to the vehicle's ground point (for the 3D road) |
-| `camera` | `height_m`, `mount_pitch_deg`, `mount_roll_deg`, `mount_yaw_deg`, `hfov_deg`, `vfov_deg` |
+| `camera` | `height_m`, `mount_pitch_deg`, `mount_roll_deg`, `mount_yaw_deg`, `hfov_deg`, `vfov_deg`, `pitch_source`, `model` ("InfiRay P2 Pro (TC001-compatible 256x192 temperature frame)"), `fov_note` ("P2 Pro FOV UNVERIFIED (vendor 56 deg)": the 56 x 42 deg FOV is the TC001 vendor figure) |
+| `sensor_offsets` | `present` (false = the hello had no `mount.sensor_offsets_mm`: offsets 0), `source`, `camera_x_mm`, `camera_z_mm`, `radar_x_mm`, `radar_z_mm`, `flux_disc_x_mm`, `flux_disc_z_mm` (build manual, x as given, z above the housing base), `offset_x_sign` (crossing.yaml; 0 = sign unconfirmed, no correction), `sign_confirmed` (false: UNCONFIRMED), `correction_applied` (bool), `note`, `camera_minus_radar_x_m`, `camera_radar_dx_abs_m`, `radar_height_m`, `radar_height_source`, `parallax_deg` (radar beam correction applied this tick, deg, + right), `parallax_abs_deg` (size of the camera-radar parallax at that range, whether applied or not), `parallax_at_m` (near-edge range it was computed at) |
 | `imu` | `roll_deg` (+ right side down), `pitch_deg` (+ nose up) |
 
 `depth` (`depth.DepthResult`): `valid`, `depth_m`, `lo_m`, `hi_m` (90 % interval; draw the value solid and the
@@ -180,7 +205,10 @@ row says "used" (fail closed).
 `tc_plate_c`, `tc_air_c`, `tc_housing_c`, `dose_tdu` (running TDU since start), `dose_complete` (false = lower
 bound), `uncounted_s`, `loss_model`, `crossing` (`active`, `t_start_pi`, `below_since_pi`, `last` = result of the
 last crossing pairing `{ok, source, reason | measured_m, predicted_m, lo_m, hi_m, store, sim, ...}`, `n_auto`,
-`n_manual`).
+`n_manual`), `disc` = flux-disc protection `{over_temp (bool: the latest used tc_plate reading or any reading since
+the previous tick >= max_c), max_c (70, user-set), user_set (true), temp_c (latest used tc_plate reading), over_c
+(the over-limit reading that set over_temp, else null), since_rx, n_events, last_over_rx, warning ("Flux disc over 70 C:
+PETG tabs at risk" while over, else null)}`. While `over_temp` the UI shows the warning above the panel.
 
 `heat`: `label` = "FDS C064 reference, not a measurement", `chi`, `valid`, `reason`, `depth_m`, `intensity_kw_m`
 (central values), `curve[]` = `{d_m, closed_form_kw_m2, fds_ref_kw_m2, fds_ref_extrapolated}` at d = 0, 1, 2, 5, 10,
@@ -248,8 +276,8 @@ R9-09; `crossing/simlink.py` docstring has the full list):
 
 ## Not verified / open issues
 
-- Nothing in this app has run against the real roof unit, the TC001, the IWR6843AOP, the thermocouples, the BNO055
-  or a GNSS receiver. Timing, Wi-Fi jitter and real frame rates are untested.
+- Nothing in this app has run against the real roof unit, the InfiRay P2 Pro (TC001 frame format), the IWR6843AOP,
+  the thermocouples, the BNO055 or a GNSS receiver. Timing, Wi-Fi jitter and real frame rates are untested.
 - The plate flux estimator runs with a 2.2 s derivative window (config `flux_window_s`) instead of DESIGN's 1.0 s.
   The original reason (FluxEstimator rejecting about half of jittered 10 Hz samples at 1.0 s) is fixed in
   `flux.py`; 2.2 s is kept because at 1.0 s the flux noise of a quiet plate keeps crossing the 1.0 kW/m2 REOPENED

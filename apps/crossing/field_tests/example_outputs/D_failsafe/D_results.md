@@ -3,6 +3,7 @@
 > **SIMULATED DATA: these numbers come from field_tests/simulate.py, not from hardware. They only exercise the analysis; they are not a measurement.**
 
 Source: live app states (D_SIM). Criterion: CLOSED attributable to the fault (a matching reason code or health flag that APPEARED after the fault time) within 2.0 s of the fault time. 9 of 10 faults passed; 0 not attributable, 0 not measured (neither is a pass).
+Flux-disc guard (disc on PETG tabs, 70 C user-set): no guard result recorded.
 
 | fault | verdict before | to CLOSED (s) | to not fresh (s) | result | why | recovery (s) |
 |---|---|---|---|---|---|---|

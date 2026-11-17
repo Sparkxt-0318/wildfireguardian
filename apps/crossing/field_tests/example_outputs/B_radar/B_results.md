@@ -39,6 +39,8 @@ Corner reflector at 2, 3, 4, 5 m; window 3 s; noise = std of the 'nothing' windo
 Safety gate (B_gate.csv): 20 flame/smoke run(s), 0 without a recorded risk assessment and supervisor. Flame source: as approved in the signed risk assessment; the analysis assumes a Bunsen-size flame (non-Bunsen runs are flagged).
 Plan coverage (2, 3, 4, 5 m; >= 3 nothing, 3 flame, 2 smoke, 2 mist per distance): complete.
 
+Flux-disc guard (disc on PETG tabs, 70 C user-set): 0 run(s) stopped by the record script.
+
 The radar alone never decides FLAME: the app needs the radar effect AND flame-temperature pixels at the same bearing.
 Files: B_conditions.csv, B_windows.csv, B_gate.csv, B_radar_conditions.png.
 

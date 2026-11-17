@@ -13,7 +13,7 @@ the error when the IMU is ignored.
 
 | Item | Notes | Tick |
 |---|---|---|
-| Roof unit (TC001 + BNO055) on a tripod or the vehicle, streaming | Same mount as planned | [ ] |
+| Roof unit (InfiRay P2 Pro thermal camera + BNO055) on a tripod or the vehicle, streaming | Same mount as planned | [ ] |
 | Heat source: electric hot plate (or heated steel panel) standing on its edge, about 0.4 x 0.5 m | Bottom edge on the ground | [ ] |
 | Stable non-flammable stand / bricks so it cannot tip over | | [ ] |
 | Tape measure (30 m), ground marks at 3, 5, 8, 11, 15 m | Measured from the point under the lens | [ ] |
@@ -36,7 +36,7 @@ the error when the IMU is ignored.
    camera is about h / tan(21 deg) = 2.6 x h (vertical field of view 42 deg): 2.6 m for h = 1.0 m, 3.9 m for
    h = 1.5 m, 6.8 m for the 2.6 m roof height. Nose-up tilt makes it farther. A run whose panel base is below the
    image is reported as "not observable", which is a valid result. For the 3 m point use h <= 1.0 m.
-3. Set the threshold in the sheet (`t_detect_c`) below what the panel reads (the TC001 reads a painted panel
+3. Set the threshold in the sheet (`t_detect_c`) below what the panel reads (the camera reads a painted panel
    lower than a contact thermometer); 150 C is the template value.
 
 ## Steps
@@ -63,4 +63,5 @@ Analysis: `python -m field_tests.c_thermal_analyse --runs records/field_tests/C 
 - Flat surveyed ground; the DEM and IMU-plane slope sources of the app are not tested here.
 - A panel edge is sharper and hotter than a real flame base; a vegetation-hidden or cool flame base makes the real
   near edge read farther away, which this test cannot show.
-- TC001 lens distortion is not corrected in the app; the error at the image edges is therefore part of the result.
+- The P2 Pro lens distortion is not corrected in the app (and its 56 deg FOV is the TC001 vendor figure,
+  UNVERIFIED); the error at the image edges is therefore part of the result.

@@ -17,8 +17,10 @@ true,under_voltage,PASS,0,0,0.0 s in total
 true,link_dropouts,FAIL,3.2000000163388904,2.0,"1 laptop receipt gap(s) > 2 s, 1 disconnect(s)"
 true,plate_faults,PASS,0,0,
 true,plate_step,PASS,0.5,5.0,largest step between consecutive plate readings in hot_air_plate
-true,plate_rises_when_heated,PASS,94.625,0.0,end minus start of hot_air_plate (negative = polarity reversed?)
+true,plate_rises_when_heated,PASS,35.5,0.0,end minus start of hot_air_plate (negative = polarity reversed?)
 true,air_rise,PASS,38.75,5.0,tc_air rise during hot_air_probe; the laptop must CLOSE above the vehicle intake limit (test D/app)
+true,disc_limit,PASS,60.25,70.0,max tc_plate over the run; the hot air must not heat the disc to 70 C (user-set)
+true,disc_guard_stop,PASS,,,not stopped by the record script's disc guard
 true,checklist_water_inside,INFO,no (SIMULATED answer),,operator answer
 true,checklist_radome_damage,INFO,no (SIMULATED answer),,operator answer
 true,checklist_window_damage,INFO,no (SIMULATED answer),,operator answer

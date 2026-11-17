@@ -65,6 +65,7 @@
       <span id="verdict-override" class="override" hidden>shown by the browser</span>
     </div>
     <ul id="verdict-reasons" class="reasons"></ul>
+    <div id="disc-warning" class="disc-warning" role="alert" hidden>Flux disc over 70 &deg;C: PETG tabs at risk</div>
 
     <section class="card" aria-label="Crossing figures">
       <dl class="kv">
@@ -99,7 +100,7 @@
         <table class="tbl" id="est-table"><thead><tr><th>estimator</th><th>value</th><th>interval</th><th>status</th></tr></thead><tbody></tbody></table>
       </details>
       <div class="thumb-wrap">
-        <canvas id="thumb" width="64" height="48" aria-label="thermal camera thumbnail"></canvas>
+        <canvas id="thumb" width="64" height="48" aria-label="thermal camera (InfiRay P2 Pro) thumbnail"></canvas>
         <div class="sub" id="thumb-cap">thermal thumbnail &mdash;</div>
       </div>
     </section>
@@ -108,6 +109,7 @@
       <h2>Heat flux</h2>
       <dl class="kv">
         <dt>Plate flux now</dt><dd id="plate-q">&mdash;</dd>
+        <dt>Flux disc</dt><dd id="disc-temp">&mdash;</dd>
         <dt>Plate dose so far</dt><dd id="plate-dose">&mdash;</dd>
         <dt>Intake air</dt><dd id="intake">&mdash;</dd>
         <dt>Intensity</dt><dd id="intensity">&mdash;</dd>

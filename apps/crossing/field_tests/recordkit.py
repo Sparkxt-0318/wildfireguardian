@@ -18,6 +18,15 @@ Clock mapping: the Pi t_mono and the laptop monotonic clock are unrelated. For e
 offset = t_rx - t_mono = (true offset) + (network + processing delay >= 0); the smallest offset over the last 200
 messages is the best estimate of the true offset (delays are positive). Marks store `pi_t_mono = t_rx - offset`.
 Accuracy is limited by the minimum link delay (normally a few ms on a local hotspot); not measured on hardware.
+
+Flux-disc guard (DiscGuard, used by every record script through record_run, and by test D): the copper flux disc
+sits on printed PETG tabs, so a run STOPS and prints "STOP: flux disc at X C >= 70 C (PETG tabs)" as soon as a
+tc_plate reading (no MAX31855 fault) is >= the limit (crossing.yaml flux.disc_max_c, 70 C, user-set; 69.75 C does
+not stop, 70.00 C does), and, while the run needs the disc temperature (whole run, or only the listed phases),
+when no valid tc_plate reading arrived for more than 2 s (missing stream, link drop or thermocouple fault).
+trial.json gets stop_reason DISC_OVER_70C / DISC_TEMP_UNKNOWN (null when not stopped), stop_detail and a
+disc_guard summary (limit, peak, readings); marks.jsonl gets a `disc_stop` mark. The guard only stops the
+RECORDING and warns: the operator must remove the heat source. Not tested on hardware.
 """
 from __future__ import annotations
 
@@ -33,6 +42,143 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 from . import common  # noqa: F401  (sets sys.path for wfgvu)
 from wfgvu import protocol
+
+
+def _num(v) -> bool:
+    return isinstance(v, (int, float)) and not isinstance(v, bool) and v == v and abs(v) != float("inf")
+
+
+class DiscGuard:
+    """Stop rule for the flux disc (see module docstring). Feed it every received message (``on_message``) or crossing
+    app State (``on_state``) with this laptop's receipt time, and call ``check(now)`` periodically (missing-data
+    rule). Both return the stop reason once triggered (it latches), else None. Times are seconds on one clock."""
+
+    MISSING_S = 2.0
+
+    def __init__(self, disc_max_c: Optional[float] = None, needs_plate: bool = True,
+                 missing_s: float = MISSING_S):
+        # never above the user's 70 C (PETG tabs), whatever crossing.yaml or the caller says
+        self.disc_max_c = common.cap_disc_max_c(common.disc_max_c() if disc_max_c is None else disc_max_c)
+        self.missing_s = float(missing_s)
+        self.needs_plate = bool(needs_plate)
+        self.need_since: Optional[float] = None       # when the current "needs plate" stretch began
+        self.armed_t: Optional[float] = None          # first message received
+        self.last_ok_t: Optional[float] = None        # last valid tc_plate reading (receipt time)
+        self.last_c: Optional[float] = None
+        self.peak_c: Optional[float] = None
+        self.n_readings = 0
+        self.n_bad = 0
+        self.stop_reason: Optional[str] = None
+        self.stop_detail = ""
+        self.stop_t: Optional[float] = None
+        self.stop_pi_t: Optional[float] = None
+        self.stop_c: Optional[float] = None
+
+    def set_needs_plate(self, flag: bool, t: float) -> None:
+        """Start / end a stretch during which a missing disc temperature stops the run (2 s grace from ``t``)."""
+        flag = bool(flag)
+        if flag and not self.needs_plate:
+            self.need_since = float(t)
+        self.needs_plate = flag
+
+    def _stop(self, reason: str, t: float, detail: str, pi_t=None, temp_c=None) -> str:
+        self.stop_reason, self.stop_detail, self.stop_t = reason, detail, float(t)
+        self.stop_pi_t = None if pi_t is None else float(pi_t)
+        self.stop_c = temp_c
+        return reason
+
+    def _reading(self, temp_c, fault, t: float, pi_t=None) -> Optional[str]:
+        if self.stop_reason:
+            return self.stop_reason
+        self.n_readings += 1
+        if fault or not _num(temp_c):
+            self.n_bad += 1
+            return self.check(t)
+        v = float(temp_c)
+        self.last_c = v
+        self.peak_c = v if self.peak_c is None else max(self.peak_c, v)
+        if v >= self.disc_max_c:
+            return self._stop(common.STOP_DISC_OVER, t, "flux disc at %.2f C >= %.0f C (PETG tabs)"
+                              % (v, self.disc_max_c), pi_t, v)
+        self.last_ok_t = float(t)
+        return None
+
+    def on_message(self, msg: dict, t: float) -> Optional[str]:
+        """One parsed unit message received at time t."""
+        if self.stop_reason:
+            return self.stop_reason
+        if self.armed_t is None:
+            self.armed_t = float(t)
+        if msg.get("type") == "reading" and msg.get("sensor") == "tc_plate":
+            d = msg.get("data") or {}
+            return self._reading(d.get("temp_c"), d.get("fault"), t, msg.get("t_mono"))
+        return self.check(t)
+
+    def on_state(self, state: dict, t: float) -> Optional[str]:
+        """One crossing-app State (test D without --pi): flux.tc_plate_c and tc.tc_plate.fault."""
+        if self.stop_reason:
+            return self.stop_reason
+        if self.armed_t is None:
+            self.armed_t = float(t)
+        fl = state.get("flux") if isinstance(state, dict) else None
+        tc = ((state.get("tc") or {}).get("tc_plate") if isinstance(state, dict) else None) or {}
+        if isinstance(fl, dict) and "tc_plate_c" in fl:
+            return self._reading(fl.get("tc_plate_c"), tc.get("fault") if isinstance(tc, dict) else None, t)
+        return self.check(t)
+
+    def check(self, t: float) -> Optional[str]:
+        """Missing-data rule: while the run needs the disc temperature, > missing_s without a valid reading stops."""
+        if self.stop_reason or not self.needs_plate or self.armed_t is None:
+            return self.stop_reason
+        ref = max(x for x in (self.last_ok_t, self.armed_t, self.need_since) if x is not None)
+        if float(t) - ref > self.missing_s:
+            last = "never" if self.last_ok_t is None else "%.1f s ago" % (float(t) - self.last_ok_t)
+            return self._stop(common.STOP_DISC_UNKNOWN, t, "no valid flux-disc temperature for > %.0f s (missing or "
+                              "faulted tc_plate; last valid reading %s)" % (self.missing_s, last))
+        return None
+
+    def warning(self) -> str:
+        if self.stop_reason == common.STOP_DISC_OVER:
+            return ("STOP: flux disc at %.2f C >= %.0f C (PETG tabs). Remove the heat source NOW. Run stopped "
+                    "(stop_reason %s)." % (self.stop_c, self.disc_max_c, self.stop_reason))
+        if self.stop_reason == common.STOP_DISC_UNKNOWN:
+            return ("STOP: flux disc temperature unknown (%s). Remove the heat source until tc_plate reads again. "
+                    "Run stopped (stop_reason %s)." % (self.stop_detail, self.stop_reason))
+        return ""
+
+    def summary(self) -> dict:
+        return {"disc_max_c": self.disc_max_c, "disc_max_user_set": True, "missing_s": self.missing_s,
+                "needs_plate_at_end": self.needs_plate, "n_plate_readings": self.n_readings,
+                "n_plate_bad": self.n_bad, "peak_c": self.peak_c, "last_c": self.last_c,
+                "stop_reason": self.stop_reason, "stop_detail": self.stop_detail, "stop_pi_t_mono": self.stop_pi_t,
+                "stop_disc_c": self.stop_c}
+
+    def annotate(self, trial: dict) -> dict:
+        """Write stop_reason / stop_detail / disc_max_c / disc_guard into ``trial`` (in place) and return it."""
+        trial["stop_reason"] = self.stop_reason
+        trial["stop_detail"] = self.stop_detail
+        trial["disc_max_c"] = self.disc_max_c
+        trial["disc_guard"] = self.summary()
+        return trial
+
+
+EXIT_DISC_STOP = 3
+EXIT_ABORTED = 4
+
+
+def report_end(trial: dict, run_dir, out=sys.stdout) -> int:
+    """Print how a recorded run ended and return the record script's exit code: 3 when the disc guard stopped it,
+    4 when the run was aborted (e.g. no data from the unit; trial.json "aborted"), else 0."""
+    if trial.get("stop_reason"):
+        print("STOPPED (%s): %s\nRun kept in %s; the analysis reports it as measured."
+              % (trial["stop_reason"], trial.get("stop_detail", ""), run_dir), file=out)
+        return EXIT_DISC_STOP
+    if trial.get("aborted"):
+        print("ABORTED: %s\nNothing was measured; run directory kept (recorded as aborted): %s"
+              % (trial["aborted"], run_dir), file=out)
+        return EXIT_ABORTED
+    print("Done: %s" % run_dir, file=out)
+    return 0
 
 
 class SessionWriter:
@@ -204,17 +350,25 @@ Phase = Tuple[str, float, str]          # (mark kind, duration s, instruction pr
 
 
 async def run_phases(writer: SessionWriter, phases: Sequence[Phase], stop: asyncio.Event,
-                     out=sys.stdout, countdown_s: int = 5, sleep=asyncio.sleep) -> None:
+                     out=sys.stdout, countdown_s: int = 5, sleep=asyncio.sleep,
+                     guard: Optional[DiscGuard] = None, plate_phases: Optional[Sequence[str]] = None) -> None:
     """Run a timed protocol: before each phase print a countdown, then mark `<kind>` at "NOW" and print the
-    instruction. The operator acts on "NOW" (human timing error of a few tenths of a second, not measured)."""
+    instruction. The operator acts on "NOW" (human timing error of a few tenths of a second, not measured).
+    With ``plate_phases``, ``guard`` needs the disc temperature only during those phases (missing-data rule)."""
     for kind, dur, text in phases:
         if stop.is_set():
             return
         print("\nNext: %s" % text, file=out)
         for k in range(countdown_s, 0, -1):
+            if stop.is_set():
+                return
             print("  %d ..." % k, file=out, flush=True)
             await sleep(1.0)
+        if stop.is_set():
+            return
         writer.mark(kind, text)
+        if guard is not None and plate_phases is not None:
+            guard.set_needs_plate(kind in plate_phases, writer.clock())
         print(">>> NOW: %s   (phase %s, %.0f s)" % (text, kind, dur), file=out, flush=True)
         t_end = time.monotonic() + dur
         while not stop.is_set():
@@ -222,6 +376,9 @@ async def run_phases(writer: SessionWriter, phases: Sequence[Phase], stop: async
             if left <= 0:
                 break
             await sleep(min(1.0, left))
+    if stop.is_set():                    # stopped (disc guard / operator q) during the last phase: no "end" mark
+        print("\nProtocol stopped before the end.", file=out, flush=True)
+        return
     writer.mark("end", "protocol finished")
     print("\nProtocol finished.", file=out, flush=True)
 
@@ -242,17 +399,61 @@ async def stdin_marks(writer: SessionWriter, stop: asyncio.Event) -> None:
         print("  marked: %s" % (line or "(no note)"), flush=True)
 
 
+def guard_trigger(writer: SessionWriter, guard: DiscGuard, stop: Optional[asyncio.Event] = None,
+                  out=sys.stderr) -> None:
+    """Once the guard has a stop reason: mark `disc_stop`, print the warning (stderr and stdout), set ``stop``."""
+    if not guard.stop_reason or getattr(guard, "_reported", False):
+        return
+    guard._reported = True
+    writer.mark("disc_stop", guard.stop_detail, stop_reason=guard.stop_reason, disc_c=guard.stop_c,
+                disc_max_c=guard.disc_max_c, pi_t_mono_reading=guard.stop_pi_t)
+    msg = "\a\n" + "!" * 78 + "\n" + guard.warning() + "\n" + "!" * 78
+    print(msg, file=out, flush=True)
+    if out is not sys.stdout:
+        print(msg, flush=True)
+    if stop is not None:
+        stop.set()
+
+
+async def _wait_or_stop(stop: asyncio.Event, seconds: float) -> None:
+    try:
+        await asyncio.wait_for(stop.wait(), timeout=max(0.0, seconds))
+    except asyncio.TimeoutError:
+        pass
+
+
 def record_run(url: str, run_dir, trial: dict, phases: Sequence[Phase], tail_s: float = 0.0,
                warmup_s: float = 3.0, interactive: bool = True, countdown_s: int = 5,
-               no_data_timeout_s: float = 15.0) -> Path:
+               no_data_timeout_s: float = 15.0, guard: Optional[DiscGuard] = None, needs_plate: bool = False,
+               plate_phases: Optional[Sequence[str]] = None) -> Path:
     """Connect, wait `warmup_s` for data, run the timed phases, record `tail_s` more, close and write trial.json.
-    Refuses to start the protocol if nothing arrives within 15 s of connecting (prints the reason)."""
+    Refuses to start the protocol if nothing arrives within 15 s of connecting (prints the reason).
+
+    Every run is guarded (DiscGuard): disc >= 70 C stops it at once. The missing / faulted disc-temperature rule
+    applies for the whole run when ``needs_plate``, or only during ``plate_phases`` when given. On a stop the
+    protocol ends, nothing more is recorded after the tail of the current receive, and trial.json says why."""
     writer = SessionWriter(run_dir, {"session_extra": {"trial": trial.get("run_id")}})
+    if guard is None:
+        guard = DiscGuard(needs_plate=bool(needs_plate) and plate_phases is None)
+    if plate_phases is not None:
+        guard.needs_plate = False
 
     async def main():
         stop = asyncio.Event()
-        rx = asyncio.create_task(run_ws(url, writer, stop))
-        tasks = [rx]
+
+        def on_msg(msg: dict) -> None:
+            if guard.on_message(msg, writer.clock()):
+                guard_trigger(writer, guard, stop)
+
+        async def watchdog():
+            while not stop.is_set():
+                if guard.check(writer.clock()):
+                    guard_trigger(writer, guard, stop)
+                    return
+                await _wait_or_stop(stop, 0.2)
+
+        rx = asyncio.create_task(run_ws(url, writer, stop, on_message=on_msg))
+        tasks = [rx, asyncio.create_task(watchdog())]
         if interactive and sys.stdin and sys.stdin.isatty():
             tasks.append(asyncio.create_task(stdin_marks(writer, stop)))
         try:
@@ -265,10 +466,10 @@ def record_run(url: str, run_dir, trial: dict, phases: Sequence[Phase], tail_s: 
                 print("%s (%s): run aborted (recorded as such)." % (why, url), file=sys.stderr)
                 trial["aborted"] = why
                 return
-            await asyncio.sleep(warmup_s)
-            await run_phases(writer, phases, stop, countdown_s=countdown_s)
+            await _wait_or_stop(stop, warmup_s)
+            await run_phases(writer, phases, stop, countdown_s=countdown_s, guard=guard, plate_phases=plate_phases)
             if tail_s > 0:
-                await asyncio.sleep(tail_s)
+                await _wait_or_stop(stop, tail_s)
         finally:
             stop.set()
             for t in tasks[1:]:
@@ -286,6 +487,7 @@ def record_run(url: str, run_dir, trial: dict, phases: Sequence[Phase], tail_s: 
     trial["counts"] = dict(writer.counts)
     trial["bad_messages"] = writer.bad
     trial["sim"] = True in writer.sim_flags
+    guard.annotate(trial)
     return writer.close(trial)
 
 

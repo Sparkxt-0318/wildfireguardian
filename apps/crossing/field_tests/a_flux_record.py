@@ -8,6 +8,12 @@ Run kinds (timed protocol; the script counts down and marks each phase at "NOW")
 - cooldown: heat (plate heated by the burner at close range, as allowed by the risk assessment) -> cooldown
   (burner removed, gas off, nobody touches the plate). Feeds crossing.flux.fit_cooldown in the analysis.
 
+Flux-disc stop: the copper disc sits on printed PETG tabs. The run STOPS and warns ("STOP: flux disc at X C >= 70 C
+(PETG tabs)") as soon as the disc reads >= 70 C (crossing.yaml flux.disc_max_c, user-set), or when no valid disc
+temperature arrived for > 2 s (missing / faulted tc_plate); trial.json then has stop_reason DISC_OVER_70C /
+DISC_TEMP_UNKNOWN and the script exits 3. Start far, step closer between runs; heat cool-down runs only to about
+60 C. The guard stops the recording, not the burner: shield the burner / turn the gas off when it fires.
+
 Usage (from apps/crossing):
   .venv/bin/python -m field_tests.a_flux_record --risk-assessment ~/ra_signed.pdf --supervisor "A. Adult" \
       --sheet field_tests/sheets/A_inputs.yaml --kind exposure --distance-m 0.15 --repeat 1
@@ -77,9 +83,10 @@ def main(argv=None) -> int:
                   ("cooldown", args.cooldown_s, "Move the burner away and turn the gas OFF. Do not touch the plate")]
     run_dir = Path(args.out) / run_id
     print("Recording to %s (type a note + Enter for an operator mark, q to stop)" % run_dir)
-    recordkit.record_run(args.pi, run_dir, trial, phases)
-    print("Done: %s" % run_dir)
-    return 0
+    print("Flux-disc stop at %.0f C (PETG tabs): the run stops and warns at that disc temperature or when the disc "
+          "temperature is missing for > 2 s." % common.disc_max_c())
+    recordkit.record_run(args.pi, run_dir, trial, phases, needs_plate=True)
+    return recordkit.report_end(trial, run_dir)
 
 
 if __name__ == "__main__":

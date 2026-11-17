@@ -20,6 +20,12 @@ Models drawn beside the measurement (inputs from the sheet; all ASSUMED, none fi
 
 Failures are reported as measured: a run with missing phase marks, thermocouple faults, < 80 % valid flux samples
 or no air temperature is flagged and left out of the per-distance means (listed in the snippet).
+
+Flux-disc limit (copper disc on printed PETG tabs; 70 C, crossing.yaml flux.disc_max_c, user-set): a run the record
+script's disc guard stopped (trial.json stop_reason) is KEPT and reported as "STOPPED: disc 70 C" (or "STOPPED: disc
+temperature unknown"), and this analysis also checks the recorded disc temperature itself: every run with any sample
+>= the limit is flagged ("N samples >= 70 C") and left out of the means and of the pooled loss fit (the tabs may have
+moved the disc), but listed with its numbers.
 """
 from __future__ import annotations
 
@@ -117,11 +123,28 @@ def flux_series(run: Run, loss: flux.LossModel, spec: flux.PlateSpec) -> Dict[st
             "t_raw": t, "plate_c": plate, "n_faults": int(sum(1 for f in faults if f))}
 
 
-def fit_cooldown_run(run: Run, spec: flux.PlateSpec) -> Dict[str, object]:
+def disc_check(run: Run, plate_c: np.ndarray, limit_c: float) -> Dict[str, object]:
+    """Stop reason recorded by the disc guard and the recorded disc samples at or above the limit (flags)."""
+    lim = float(run.trial.get("disc_max_c") or limit_c)
+    n_over = int(np.sum(plate_c[np.isfinite(plate_c)] >= lim))
+    flags = []
+    lab = common.stop_label(run.trial)
+    if lab:
+        flags.append(lab + (" (%s)" % run.trial["stop_detail"] if run.trial.get("stop_detail") else ""))
+    if n_over:
+        flags.append("%d disc sample(s) >= %.0f C (disc limit, PETG tabs)" % (n_over, lim))
+    return {"stop_reason": run.trial.get("stop_reason"), "stopped": lab, "disc_max_c": lim,
+            "n_disc_over_limit": n_over, "disc_flags": flags}
+
+
+def fit_cooldown_run(run: Run, spec: flux.PlateSpec, limit_c: float = common.DISC_MAX_C_DEFAULT) -> Dict[str, object]:
     t, plate, faults, at, air = plate_air(run)
     t0 = run.mark_t("cooldown")
     t1 = run.mark_t("end")
-    row = {"run_id": run.run_id, "kind": run.trial.get("kind"), "ok": False, "reason": ""}
+    dc = disc_check(run, plate, limit_c)
+    row = {"run_id": run.run_id, "kind": run.trial.get("kind"), "ok": False, "reason": "",
+           "stop_reason": dc["stop_reason"], "n_disc_over_limit": dc["n_disc_over_limit"],
+           "flag": "; ".join(dc["disc_flags"])}
     if t0 is None:
         row["reason"] = "no cooldown mark"
         return row
@@ -145,7 +168,9 @@ def fit_cooldown_run(run: Run, spec: flux.PlateSpec) -> Dict[str, object]:
 
 
 def pooled_loss(fits: List[dict], spec: flux.PlateSpec) -> flux.LossModel:
-    good = [f for f in fits if f.get("ok") and f.get("kind") == "cooldown"] or [f for f in fits if f.get("ok")]
+    clean_fits = [f for f in fits if not f.get("flag")]          # disc-limit flags: left out of the pooled fit
+    good = [f for f in clean_fits if f.get("ok") and f.get("kind") == "cooldown"] or \
+        [f for f in clean_fits if f.get("ok")]
     if not good:
         return flux.LossModel(h=10.0, eps=spec.emissivity, note="UNFITTED default h = 10 W/m2K (no usable cool-down)")
     h = float(np.median([f["h_w_m2k"] for f in good]))
@@ -186,12 +211,17 @@ def batch_se(x: np.ndarray, k: int = 5) -> float:
     return float(np.std(means, ddof=1) / math.sqrt(k))
 
 
-def analyse_exposure(run: Run, loss: flux.LossModel, spec: flux.PlateSpec, settle_s: float = 10.0) -> dict:
+def analyse_exposure(run: Run, loss: flux.LossModel, spec: flux.PlateSpec, settle_s: float = 10.0,
+                     limit_c: float = common.DISC_MAX_C_DEFAULT) -> dict:
     row = {"run_id": run.run_id, "distance_m": run.trial.get("distance_m"), "repeat": run.trial.get("repeat"),
            "flag": ""}
+    _, plate_raw, _, _, _ = plate_air(run)
+    dc = disc_check(run, plate_raw, limit_c)
+    row.update(stop_reason=dc["stop_reason"], n_disc_over_limit=dc["n_disc_over_limit"],
+               plate_max_c=float(np.nanmax(plate_raw)) if np.isfinite(plate_raw).any() else float("nan"))
     tb, te, tc, tend = (run.mark_t("background"), run.mark_t("exposure"), run.mark_t("cooldown"), run.mark_t("end"))
     if None in (tb, te, tc):
-        row["flag"] = "missing phase marks (background/exposure/cooldown)"
+        row["flag"] = "; ".join(dc["disc_flags"] + ["missing phase marks (background/exposure/cooldown)"])
         return row
     fs = flux_series(run, loss, spec)
     t, q, v = fs["t"], fs["q"], fs["valid"]
@@ -211,7 +241,7 @@ def analyse_exposure(run: Run, loss: flux.LossModel, spec: flux.PlateSpec, settl
     se_ex = batch_se(q[vx])
     row["q_net_se_kw_m2"] = math.sqrt(se_ex ** 2 + (se_bg if math.isfinite(se_bg) else 0.0) ** 2) \
         if math.isfinite(se_ex) else float("nan")
-    flags = []
+    flags = list(dc["disc_flags"])
     if n_ex == 0:
         flags.append("no samples in exposure phase")
     elif row["valid_frac"] < MIN_VALID_FRAC:
@@ -259,10 +289,11 @@ def analyse(runs_root, out, sheet: Optional[dict] = None, settle_s: float = 10.0
     out = common.out_dir(out)
     sim = common.is_simulated(*[r.simulated for r in runs])
     spec = plate_spec(sheet)
-    fits = [fit_cooldown_run(r, spec) for r in runs]
+    limit_c = common.disc_max_c()
+    fits = [fit_cooldown_run(r, spec, limit_c) for r in runs]
     loss = pooled_loss(fits, spec)
     loss.save(out / "plate_loss.json")
-    exp_rows = [analyse_exposure(r, loss, spec, settle_s) for r in runs if r.trial.get("kind") == "exposure"]
+    exp_rows = [analyse_exposure(r, loss, spec, settle_s, limit_c) for r in runs if r.trial.get("kind") == "exposure"]
     gate_rows = [{"run_id": r.run_id, "supervisor": r.trial.get("supervisor"),
                   "risk_assessment_sha256": r.trial.get("risk_assessment_sha256")} for r in runs]
 
@@ -300,9 +331,10 @@ def analyse(runs_root, out, sheet: Optional[dict] = None, settle_s: float = 10.0
 
     run_cols = ["run_id", "distance_m", "repeat", "q_background_kw_m2", "q_background_se_kw_m2", "q_exposure_kw_m2", "q_exposure_std_kw_m2",
                 "q_net_kw_m2", "q_net_se_kw_m2", "valid_frac", "n_exposure_samples", "n_faults", "plate_max_c",
-                "flag"]
+                "n_disc_over_limit", "stop_reason", "flag"]
     common.write_csv(out / "A_runs.csv", exp_rows, run_cols, sim)
-    fit_cols = ["run_id", "kind", "ok", "h_w_m2k", "eps", "rms_residual_w_m2", "n", "t_min_c", "t_max_c", "reason"]
+    fit_cols = ["run_id", "kind", "ok", "h_w_m2k", "eps", "rms_residual_w_m2", "n", "t_min_c", "t_max_c", "reason",
+                "n_disc_over_limit", "stop_reason", "flag"]
     common.write_csv(out / "A_cooldown_fits.csv", fits, fit_cols, sim)
     dist_cols = ["distance_m", "n_runs", "n_used", "q_meas_mean_kw_m2", "q_meas_std_kw_m2", "q_point_kw_m2",
                  "q_point_lo_kw_m2", "q_point_hi_kw_m2", "q_closed_form_kw_m2", "q_fds_ref_kw_m2",
@@ -335,6 +367,17 @@ def analyse(runs_root, out, sheet: Optional[dict] = None, settle_s: float = 10.0
             "point source for r >> flame width."]
     if flagged:
         body += ["", "Flagged runs (as measured):"] + ["- %s: %s" % (r["run_id"], r["flag"]) for r in flagged]
+    stopped = common.stopped_lines(runs)
+    over = [r for r in list(exp_rows) + list(fits) if r.get("n_disc_over_limit")]
+    body += ["", "Flux-disc limit %.0f C (copper disc on PETG tabs; user-set): %d run(s) stopped by the record script's "
+             "disc guard, %d run(s) with recorded disc samples >= the limit (left out of the means and the loss fit, "
+             "listed here as measured)." % (limit_c, len(stopped), len(over))]
+    body += stopped
+    body += ["- %s: %d disc sample(s) >= %.0f C" % (r["run_id"], r["n_disc_over_limit"], limit_c) for r in over]
+    flagged_fits = [f for f in fits if f.get("flag")]
+    if flagged_fits:
+        body += ["Cool-down fits flagged (not pooled): " + ", ".join("%s (%s)" % (f["run_id"], f["flag"])
+                                                                      for f in flagged_fits)]
     coverage = plan_coverage(exp_rows, sheet)
     body += ["", "Plan coverage (sheet: %s m x %s repeats): %s." % (
         ", ".join("%g" % float(x) for x in (sheet.get("distances_m") or [])) or "?", sheet.get("repeats", "?"),

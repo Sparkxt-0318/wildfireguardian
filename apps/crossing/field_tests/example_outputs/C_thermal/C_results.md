@@ -29,6 +29,8 @@ Flagged runs (as measured):
 - C_d3.00_tilt+5.0_r1_SIM: no near edge in any frame (8 frame(s) with no pixel above 150 C in view, or invalid)
 - C_d5.00_tilt+5.0_r1_SIM: hot area touches the bottom image row in all 8 frames: base below the field of view (nearest visible ground about 5.3 m), not observable
 
+Flux-disc guard (disc on PETG tabs, 70 C user-set): 0 run(s) stopped by the record script.
+
 Plan coverage (sheet distances x tilts): complete.
 
 A frame whose hot area is cut off by the image (lowest hot pixel on the bottom row, or hot pixels in the outermost columns at either side: crossing.geometry.near_edge base_cut_off) is not used: the base may be outside the field of view, the estimate would only be a bound and its interval would start at 0 m (trivially covering the tape distance).

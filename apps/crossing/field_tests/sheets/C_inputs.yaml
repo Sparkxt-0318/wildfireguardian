@@ -1,5 +1,5 @@
 # Test C inputs (thermal near-edge distance). Copied into every run's trial.json; the analysis reads that copy.
-camera_height_m: 1.00          # MEASURED: TC001 lens centre above the ground under the camera. Nearest visible
+camera_height_m: 1.00          # MEASURED: camera (P2 Pro) lens centre above the ground under the camera. Nearest visible
                                # ground for a level camera is ~2.6 x this height (vfov 42 deg), so 1.0 m is needed
                                # for the 3 m point; at the 2.6 m roof height it is ~6.8 m
 mount_pitch_deg: 0.0           # camera boresight relative to the IMU body (calibration; 0 if unknown)

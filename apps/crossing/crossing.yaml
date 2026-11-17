@@ -26,8 +26,9 @@ use_max_age_s:                # a sensor value older than this is not used (deci
 
 thermal:
   t_flame_c: 300.0            # flame-temperature pixel threshold (placeholder)
-  # FS-1: false until a lab check on a target hotter than 150 C confirms the TC001 is in LOW gain and the low-gain
-  # raw scale reads right. While false every live thermal frame is flame-unknown and every live verdict is CLOSED.
+  # FS-1: false until a lab check on a target hotter than 150 C confirms the camera (InfiRay P2 Pro, same frame as
+  # the TC001) is in LOW gain and the low-gain raw scale reads right. While false every live thermal frame is
+  # flame-unknown and every live verdict is CLOSED.
   low_gain_verified: false
 
 mount:                        # measure on the vehicle (mirrors hardware/vehicle-unit/config/unit.yaml)
@@ -40,6 +41,19 @@ mount:                        # measure on the vehicle (mirrors hardware/vehicle
   radar_yaw_deg: 0.0
   imu_heading_trusted: null   # null = from the unit config (default false); IMU yaw is used for the REOPENED view only if true
   imu_heading_offset_deg: 0.0
+  # Sensor x offsets come from the unit (hello.mount.sensor_offsets_mm, build manual: camera -52, radar -8,
+  # flux disc +45 mm on one line 34 mm above the base). Sign convention of the manual's x is UNCONFIRMED:
+  # +1 = +x to the right looking along the camera view, -1 = to the right seen from in front of the unit (the
+  # working reading in unit.yaml, "+ to the right seen from the front"), 0 = unconfirmed: NO lateral parallax
+  # correction (insensitive to a sign flip; residual bearing error atan(44 mm / r), 0.25 deg at 10 m, while a
+  # wrong sign would double it). Set +1 / -1 only once the build manual's convention is confirmed.
+  offset_x_sign: 0            # UNCONFIRMED sign: no correction applied (State geometry.sensor_offsets shows it)
+
+flux:
+  # The copper flux disc sits on printed PETG tabs: tc_plate >= disc_max_c = tc_plate fault PLATE_DISC_OVER_TEMP
+  # (every verdict CLOSED, plate flux invalid, no calibration pair). USER-SET 70 C, not a placeholder; config
+  # refuses values above 70 (and below 40).
+  disc_max_c: 70
 
 geometry:
   path_half_width_deg: 6.0    # near edge = nearest flame base within this of straight ahead

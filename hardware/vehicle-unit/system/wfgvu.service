@@ -1,5 +1,7 @@
 # systemd unit for the WildfireGuardian vehicle unit sensor head.
 # Install: see system/README.md. Assumes the repo at /opt/wfgvu and a user "wfgvu" in the groups below.
+# The main README's Quick start step 6 instead installs it (sed) for the clone in ~/wildfireguardian and the login
+# user, so that the service reads the same config/unit.yaml as First run steps 1-3.
 [Unit]
 Description=WildfireGuardian vehicle unit (sensor streaming and raw recording, no decisions)
 Wants=network-online.target

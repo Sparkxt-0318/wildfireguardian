@@ -4,36 +4,49 @@ Status 2026-11-17: this is the plan for test E (the unit on a car roof, driven).
 power figure below is approximate, from published typical values, and **must be measured** with a USB power meter
 and a bench supply before the test.
 
+The housing is the user's **supplied printed PETG housing** (HOUSING.md): body 180 x 140 x 72 mm, 4 mm walls, the
+Pi on four standoffs (58 x 49 mm pattern), boards on three floor rails with M3 pilot holes every 10 mm, a bolt-on
+front plate with the camera, radar and flux disc on one line 34 mm above the housing base, and an aluminium heat
+shield 10 mm in front. This page does not design any part of it. How the housing attaches to the vehicle is not
+given here: follow the user's build manual.
+
 ## 1. Car-roof installation for test E
 
 Test E is a car on public or closed roads, with no fire. It checks that the unit stays on the roof, stays
 powered, keeps the link to the laptop, and records clean data while driving.
 
-1. **Roof.** Magnets hold only on a steel roof. Aluminium, composite and glass roofs need roof bars and the
-   U-bolt clamps instead. Clean the roof and the magnet rubber (grit scratches paint and lowers grip).
-2. **Placement.** Put the unit on the centre line, forward of any sunroof, with the radar and camera facing
+1. **Roof attachment.** As in the build manual. Whatever holds the housing, add a secondary retention (a tether
+   strap hooked into the door frames), so a failed mount does not drop the unit onto the road.
+2. **Inside the housing.** The boards sit on the floor rails (M3 pilot holes every 10 mm) and the Pi on its four
+   standoffs. Fix the BNO055 rigidly to a rail, square to the housing, so its axes follow the vehicle (WIRING.md
+   section 5). Keep the three MAX31855 boards away from the Pi and the buck (cold-junction error), and keep every
+   thermocouple lead clear of the aluminium heat shield.
+3. **Placement.** Put the unit on the centre line, forward of any sunroof, with the radar and camera facing
    forward over the bonnet and nothing in the field of view: no roof-bar fairing, aerial or light bar.
-   - Measure and record in `config/unit.yaml` the **sensor height above the road** (camera and radar), the
-     **mount pitch/roll/yaw** offsets relative to the car, and the lever arm from the GNSS antenna to the
-     sensor head. The laptop's geometry (DESIGN.md section 6.4) depends on these.
+   - **Mounting height.** The camera and the radar sit on the same line, 34 mm above the housing base, so they
+     share one height: road surface to that line = road to the housing base on the roof + 34 mm. Measure it on the
+     vehicle and write the same number into `mount.camera_height_m` and `mount.radar_height_m` in
+     `config/unit.yaml` (both 2.6 m placeholders today). The flux disc is on the same line (`mount.plate_height_m`).
+     Their horizontal offsets (`mount.sensor_offsets_mm`: camera x = -52, radar x = -8, disc x = +45 mm, sign
+     convention unconfirmed) are already in `config/unit.yaml` and go to the laptop in `hello.mount`.
+   - Measure and record the **mount pitch/roll/yaw** offsets relative to the car, and the lever arm from the GNSS
+     antenna to the sensor head. The laptop's geometry (DESIGN.md section 6.4) depends on these.
    - Static levelling: with the car on level ground, record the IMU roll and pitch as the mount offset.
-   - **Camera pitch.** The thermal camera is designed to sit **18 deg nose-down** relative to the enclosure
-     (`mount.camera_pitch_deg: -18.0`, + up; arithmetic in `config/unit.yaml` and HOUSING.md section 3), so that
-     ground from about 3.2 m outwards is in view (a level camera at 2.6 m sees no ground nearer than 6.8 m). Measure
-     the bracket's actual angle with an inclinometer on the camera face and write it into `config/unit.yaml`; the
-     unit sends `mount` to the laptop in its `hello`. Check on a laptop thermal view that the horizon is just
-     inside the top of the image with the car level.
-3. **Retention.** Fit four magnets (or two clamps) **plus a tether strap** hooked into the door frames, so a
-   magnet failure does not drop the box onto the road. Do a pull test by hand in every direction before each
-   drive.
-4. **Speed limit for test E (placeholder):** keep below the magnet maker's rated speed for the load and frontal
-   area, and in any case below the speed that the fire service sets for the test. No value has been
-   calculated or tested here.
-5. **Air thermocouple.** Run its lead along the A-pillar or the bonnet edge to the engine-intake height (for
+   - **Camera pitch.** `mount.camera_pitch_deg: -18.0` (+ up) is a placeholder from the earlier concept (18 deg
+     down puts ground from about 3.2 m outwards in view; a level camera at 2.6 m sees no ground nearer than 6.8 m).
+     Whether the supplied housing holds the P2 Pro square to the front plate or tilted is not known here (HOUSING.md
+     section 2). Measure the real angle with an inclinometer on the camera face (or the housing, if the camera is
+     square to it) and write it into `config/unit.yaml`; the unit sends `mount` to the laptop in its `hello`. Check
+     on a laptop thermal view where the horizon sits with the car level.
+4. **Pull test.** Pull the mounted housing by hand in every direction before each drive.
+5. **Speed limit for test E (placeholder):** keep below the rating of the roof attachment for the load and frontal
+   area, and in any case below the speed that the fire service sets for the test. No value has been calculated or
+   tested here.
+6. **Air thermocouple.** Run its lead along the A-pillar or the bonnet edge to the engine-intake height (for
    example in front of the grille). Clip it in its radiation shield clear of the radiator outflow. Tape the
    lead every 20-30 cm. It must not touch the exhaust or hot engine parts, or flap onto the paint.
-6. **GNSS antenna.** Put the puck on the roof clear of the box shadow, at least about 10 cm from it, and
-   measure its offset.
+7. **GNSS antenna.** Put the puck on the roof clear of the housing and the aluminium heat shield, at least about
+   10 cm from them, and measure its offset.
 
 ## 2. Cable routing into the cabin
 
@@ -46,7 +59,7 @@ fallback for the bench, not for the roof.)
 - **Through a window gap.** Use a flat pass-through ribbon under a closed window. Do not leave the window
   partly open with the cable resting in the gap.
 - Leave a **drip loop** outside before the cable enters the door seal, so water runs off and does not follow the
-  cable inside. Add strain relief at the gland and at the socket plug.
+  cable inside. Add strain relief where the cable enters the housing and at the socket plug.
 - The inline 5 A fuse sits **near the 12 V socket**, so the whole lead is protected.
 - Keep the 12 V lead apart from the thermocouple leads (noise), and away from airbags and pedals inside the cabin.
 
@@ -57,12 +70,12 @@ fallback for the bench, not for the roof.)
 | Raspberry Pi 4 | ~3-6 W | Idle to busy. More with heavy USB load. |
 | Raspberry Pi 5 | up to ~12 W and more | Peak under load. Sized for a 27 W supply because of the USB budget. |
 | Pi 5 Active Cooler | ~0.5 W | Fan at speed. |
-| Topdon TC001 | ~0.5-1 W | Through Pi USB. |
+| InfiRay P2 Pro | ~0.5-1 W | Through Pi USB. |
 | IWR6843AOPEVM, stock demo | ~2-3 W | Through Pi USB. Peaks during chirps. |
 | USB GNSS | ~0.2 W | |
 | BNO055 | ~0.04 W | 3V3 from the Pi |
 | 3 x MAX31855 | < 0.02 W | 3V3 from the Pi |
-| USB Wi-Fi adapter (only if fitted) | ~0.5-1.5 W | Alternative to the RF window |
+| USB Wi-Fi adapter (only if fitted) | ~0.5-1.5 W | Only if the Pi's own Wi-Fi does not reach the cabin |
 
 | Total at 5 V (estimate) | Pi 4 build | Pi 5 build |
 |---|---|---|
@@ -72,8 +85,9 @@ fallback for the bench, not for the roof.)
 | 12 V input current while cranking (at 8 V) | up to ~1.6 A | up to ~2.4 A |
 
 A 5 A fuse and a 5 V 5 A buck leave margin. USB current, not total power, is the tighter limit: the Pi 5 caps
-its USB ports at 600 mA without a negotiated 5 V 5 A supply (WIRING.md section 6). TC001 + EVM + GNSS together
-are estimated at 0.6-0.9 A at 5 V.
+its USB ports at 600 mA without a negotiated 5 V 5 A supply (WIRING.md section 6). Camera + EVM + GNSS together
+are estimated at 0.6-0.9 A at 5 V. Nearly all of this power ends up as heat inside the closed PETG housing:
+HOUSING.md section 3 (d) estimates the inside air at about 16-51 K above ambient (calculation).
 
 **Measure** each load separately with a USB power meter (idle, streaming, and radar running), then the whole unit
 from the bench supply at 12.0 V, 9 V and 14.4 V. Replace this table with the measured values and the date.
@@ -109,6 +123,6 @@ What the design does about it:
 
 - None of the power figures above has been measured on these parts.
 - The buck's behaviour during cranking, the TVS clamping, and the reverse-polarity protection are untested.
-- Magnet retention at speed, wind loads, and roof-seal leakage are untested.
-- Wi-Fi range from the roof box (through the rear RF window) to a laptop inside the cabin is untested.
+- Roof attachment at speed, wind loads, and housing leakage are untested.
+- Wi-Fi range from the housing on the roof to a laptop inside the cabin is untested.
 - The SD-card behaviour after power loss is untested.

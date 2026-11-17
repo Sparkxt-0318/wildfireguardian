@@ -32,7 +32,7 @@ SENSORS = ("thermal", "radar", "tc_plate", "tc_housing", "tc_air", "imu", "gnss"
 def _freeze_defaults() -> Dict[str, Optional[float]]:
     # VALUE freeze windows (orchestrator decision D2, 2026-11-17; DESIGN 5 as built). Thermal and radar are noisy
     # sensors whose raw values never repeat byte for byte while working: identical thermal pixels or identical radar
-    # IQ / range profile for >= 1.0 s = frozen (a TC001 shutter/FFC pause longer than 1 s therefore gives a brief
+    # IQ / range profile for >= 1.0 s = frozen (a P2 Pro (TC001-compatible) shutter/FFC pause > 1 s gives a brief
     # fail-closed CLOSED). Thermocouples (0.25 C steps), the IMU (1/16 deg steps, still vehicle) and a GNSS without
     # a fix can legitimately repeat identical values, so their value windows stay long (imu 2.0, tc_* 5.0,
     # gnss 5.0); for them a frozen Pi stream is caught at once by the wire seq / t_mono check in link.py instead.
@@ -74,6 +74,8 @@ class ThermalConfig:
     t_hot_c: float = 60.0                # hot-pixel threshold (display only)
     bearing_tol_deg: float = 3.0         # flame_at_bearing tolerance
     min_pixels: int = 2                  # a single hot pixel is not a flame
+    # InfiRay P2 Pro (TC001-compatible 256 x 192 temperature frame). 56 x 42 deg is the TC001 vendor figure kept
+    # for the P2 Pro: P2 Pro FOV UNVERIFIED (vendor 56 deg); measure it (test C) before trusting near-edge ranges.
     hfov_deg: float = 56.0
     vfov_deg: float = 42.0
     width: int = 256
@@ -103,6 +105,26 @@ class MountConfig:
     radar_yaw_deg: float = 0.0
     imu_heading_trusted: Optional[bool] = None
     imu_heading_offset_deg: float = 0.0  # added to the IMU (magnetic) heading when trusted: declination + mount yaw
+    # Sign of the build manual's sensor x offsets (unit hello.mount.sensor_offsets_mm, from
+    # hardware/vehicle-unit/config/unit.yaml). +1 = manual +x is to the RIGHT when looking along the camera's view
+    # (from behind the unit); -1 = manual +x is to the right as seen standing in FRONT of the unit (the working
+    # reading noted in unit.yaml: "+ to the right seen from the front"); 0 (default) = sign UNCONFIRMED, no lateral
+    # parallax correction is applied (insensitive to a sign flip: the bearing error stays atan(44 mm / r), 0.25 deg
+    # at 10 m; a wrong sign would double it). Only the radar-bearing parallax correction uses it (camera x -52 mm,
+    # radar x -8 mm, against the 2.5 deg baseline-beam tolerance), see pipeline.sensor_parallax_deg. Set +1 or -1
+    # only once the build manual's convention is confirmed.
+    offset_x_sign: int = 0
+
+
+@dataclass
+class FluxConfig:
+    """Flux-disc protection. The copper disc sits on printed PETG tabs (user's build, 2026-11-17), so a plate
+    thermocouple (tc_plate) reading >= ``disc_max_c`` is a tc_plate FAULT (PLATE_DISC_OVER_TEMP): every verdict is
+    CLOSED while it lasts, the plate flux is marked invalid, no calibration pair is recorded and the REOPENED quiet
+    hold restarts. 70 C is the USER-SET limit (not a placeholder); allowed range 40..70 C (never above the user's
+    70 C, as on the Pi; the lower bound only catches a typo). The field-test record
+    scripts stop a run at the same value (field_tests/recordkit.DiscGuard)."""
+    disc_max_c: float = 70.0
 
 
 @dataclass
@@ -211,6 +233,7 @@ class Config:
     crossing: CrossingDetectConfig = field(default_factory=CrossingDetectConfig)
     decision: DecisionConfig = field(default_factory=DecisionConfig)
     plate: Dict[str, float] = field(default_factory=dict)     # flux.PlateSpec overrides
+    flux: FluxConfig = field(default_factory=FluxConfig)       # disc_max_c (70 C, user-set: PETG tabs)
     # Derivative window of flux.FluxEstimator. 2.2 s, not the 1.0 s default of DESIGN 6.1. First chosen because
     # FluxEstimator rejected about half of jittered 10 Hz samples at 1.0 s; that pruning bug is fixed in flux.py
     # (integration, 2026-11-17), but 2.2 s is KEPT for noise: at 1.0 s the flux noise of a quiet plate (0.1 C
@@ -285,6 +308,7 @@ def _check(where: str, v, lo: Optional[float] = None, hi: Optional[float] = None
 # PLACEHOLDERS like the limits themselves; they bracket the shipped defaults.
 FREEZE_MAX_S = {"thermal": 2.0, "radar": 2.0}      # noisy sensors: value freeze must be caught fast
 FREEZE_OTHER_MAX_S = 5.0                            # tc_* / imu / gnss repeat legitimately (shipped 5.0 / 2.0)
+DISC_MAX_C_USER = 70.0                             # user's flux-disc limit (PETG tabs): hard upper bound
 WINDOW_MAX_S = 2.0                                  # link staleness and use_max_age_s (shipped max: pi 1.6)
 
 
@@ -327,6 +351,12 @@ def validate(cfg: Config) -> None:
     for s, v in cfg.use_max_age_s.items():
         _check("use_max_age_s.%s" % s, v, 0.0, WINDOW_MAX_S, lo_open=True)
     _validate_decision(cfg.decision)
+    # 70 C is the user's limit for the PETG tabs under the copper disc: never above it (the Pi caps it at 70 too);
+    # the lower bound only stops a typo
+    _check("flux.disc_max_c", cfg.flux.disc_max_c, 40.0, DISC_MAX_C_USER)
+    if cfg.mount.offset_x_sign not in (1, 0, -1) or isinstance(cfg.mount.offset_x_sign, bool):
+        raise ValueError("mount.offset_x_sign must be +1, 0 (unconfirmed: no correction) or -1, got %r"
+                         % (cfg.mount.offset_x_sign,))
     if not isinstance(cfg.thermal.low_gain_verified, bool):
         raise ValueError("thermal.low_gain_verified must be true or false")
     _check("thermal.t_flame_c", cfg.thermal.t_flame_c, 0.0)

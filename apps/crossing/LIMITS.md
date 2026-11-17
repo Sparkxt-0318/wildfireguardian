@@ -1,6 +1,7 @@
 # Limits sheet: WildfireGuardian vehicle unit and crossing app
 
-**Every number on this page is a PLACEHOLDER.** None was set by a fire service, and none was checked on a real fire.
+**Every number on this page is a PLACEHOLDER, except the 70 °C flux disc limit, which you set for the PETG tabs.**
+None was set by a fire service, and none was checked on a real fire.
 The verdicts are advisory for trained crews and never an instruction. The unit is not operationally ready.
 
 The only claim allowed, and only after tests A-F have run and been reported in `RESULTS.md`:
@@ -45,6 +46,8 @@ time_in_flame = (decision depth upper end + vehicle length) / speed.
 | maximum age of a value used | 1.0 s (GNSS 1.5 s, Pi health 1.6 s) | `use_max_age_s` |
 | flame pixel threshold | 300 °C, camera in low gain only | `thermal.t_flame_c` |
 | low gain verified | **false**: every LIVE verdict is CLOSED until a lab check on a target > 150 °C | `thermal.low_gain_verified` |
+| **flux disc maximum (user-set, not a placeholder)** | **70 °C**: a reading at or above it is a tc_plate fault, PLATE_DISC_OVER_TEMP, and gives CLOSED. Every flux recording script and `wfgvu.tccheck` stop the run and warn. It cannot be set above 70. | `flux.disc_max_c`, `unit.yaml sensors.tc_plate.disc_max_c` |
+| camera-radar parallax correction | off (`offset_x_sign: 0`) until the build manual's x sign is confirmed; about 0.25° at 10 m | `mount.offset_x_sign` |
 | path half-width for the near edge | 6° | `geometry.path_half_width_deg` |
 | IMU calibration minimum | 1 (BNO055 accel and gyro) | `geometry.imu_min_calib` |
 | GNSS course trusted as heading | >= 2.0 m/s | `geometry.reliable_course_speed_m_s` |
@@ -79,6 +82,6 @@ time_in_flame = (decision depth upper end + vehicle length) / speed.
 ## What is not covered
 
 - Smoke, steam and water mist are not targets and must never give FLAME. This was tested on simulated samples only.
-- The following were not measured: radar on the EVM, the TC001's gain, flux plate absorptivity, housing
+- The following were not measured: radar on the EVM, the P2 Pro camera's gain and FOV, flux plate absorptivity, housing
   temperatures, and power.
 - The camera pitch (-18°) and mounting height (2.6 m) are configured values. Measure them on the vehicle.

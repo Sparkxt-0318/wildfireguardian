@@ -50,6 +50,7 @@ export const REASON_TEXT = {
   DOSE_WITHIN_SPRAY_MARGIN: "dose within the PLACEHOLDER spray margin only",
   NO_WATER_FOR_SPRAY: "vehicle has no water for spraying",
   INTAKE_AIR_OVER_LIMIT: "intake air over the PLACEHOLDER vehicle limit",
+  PLATE_DISC_OVER_TEMP: "flux disc at or over its 70 °C limit (user-set): PETG tabs at risk, plate flux not used",
   FLAME_PRESENT: "flame still present",
   FLAME_PIXELS_PRESENT: "flame-temperature pixels still in view",
   PLATE_FLUX_ABOVE_REOPEN: "plate flux above the PLACEHOLDER reopen threshold",
@@ -76,6 +77,8 @@ export const REASON_ACTIONS = [
     say: "Face the crossed road: turn the vehicle so the sensor head looks at the road just crossed. REOPENED needs it in view." },
   { re: /^NEAR_EDGE_.*(NOT_OBSERVED|NOT_SEEN|NOT_IN_VIEW|MISSING)/,
     say: "Keep the flame base on the road in the sensor view; no crossing verdict without it." },
+  { re: /^PLATE_DISC_OVER_TEMP$/,
+    say: "Flux disc over 70 °C: PETG tabs at risk. Move away from the heat and let the disc cool." },
   { re: /^FLAME_.*(TOO_SHORT|NOT_PERSISTENT|NOT_STABLE)/,
     say: "Hold position and wait for a new verdict; the flame has not been seen long enough." },
 ];

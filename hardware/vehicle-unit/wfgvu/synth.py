@@ -41,7 +41,7 @@ laptop's REOPENED view check (crossing in the camera view, within reopen_max_vie
   and named in session.json ``dem``. The laptop needs it (``--dem``) to show line of sight (FS-8). Bare earth only.
 
 EVERYTHING HERE IS SIMULATED AND ILLUSTRATIVE ONLY. The physics below is a plausible toy model chosen so that the
-laptop pipeline has something with the right shape to chew on. None of it is calibrated against the TC001, the
+laptop pipeline has something with the right shape to chew on. None of it is calibrated against the P2 Pro, the
 IWR6843AOP, a real flame, real smoke or a real crossing, and none of it is evidence of how a real flame looks to
 these sensors. In particular the radar "flame effect" is an ASSUMPTION of this project, not a measured signature.
 
@@ -57,8 +57,8 @@ Scene and frames
   roll + right side down; intrinsic, in that order). Camera height = vertical height above the ground point under
   the vehicle (``cam_height_m``, default 2.6 m from config/unit.yaml ``mount.camera_height_m``).
 
-Thermal (TC001, 256 x 192 px, 56 x 42 deg, pinhole, no distortion)
--------------------------------------------------------------------
+Thermal (P2 Pro, TC001-compatible, 256 x 192 px, 56 x 42 deg, pinhole, no distortion)
+-------------------------------------------------------------------------------------
 - Pixel (row i, col j) has its centre at continuous image coordinates (i, j); principal point ((w-1)/2, (h-1)/2);
   fx = (w/2)/tan(hfov/2), fy = (h/2)/tan(vfov/2). Camera ray of pixel (i, j) = (1, -(j-cx)/fx, -(i-cy)/fy) in
   (forward, left, up). This is the same model the laptop's ``crossing.thermal.CameraModel`` documents, so its
@@ -82,7 +82,7 @@ Thermal (TC001, 256 x 192 px, 56 x 42 deg, pinhole, no distortion)
   (no pixel noise or banding, scene in 0.25 K steps, a whole-frame offset walk of 1-2 raw counts per frame) so the
   files stay small while consecutive frames still always differ.
   Encoding is the protocol's u16-zlib-b64 (raw/64 = K); only the zlib level differs (9 instead of 1, smaller files).
-- The thermal stream is generated at ``thermal_hz`` (default 4 Hz, the wire rate) rather than the TC001's ~25 Hz.
+- The thermal stream is generated at ``thermal_hz`` (default 4 Hz, the wire rate) rather than the camera's ~25 Hz.
 
 Radar (IWR6843AOP stock demo, illustrative)
 -------------------------------------------
@@ -773,7 +773,7 @@ class Scene:
 # ================================================================================================ thermal
 
 class ThermalRenderer:
-    """Ray-traced TC001 frames (see module docstring). Returns apparent temperature in K, [192, 256]."""
+    """Ray-traced TC001-compatible frames (see module docstring). Returns apparent temperature in K, [192, 256]."""
 
     W, H = 256, 192
     HFOV, VFOV = 56.0, 42.0

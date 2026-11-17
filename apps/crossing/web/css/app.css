@@ -226,6 +226,9 @@ button, select, input { font: inherit; }
 .v-reopen { background: var(--reopen-bg); color: var(--reopen-fg); }
 .meta { display: flex; justify-content: space-between; gap: 8px; margin: 6px 2px; color: var(--muted); }
 .override { color: var(--bad-fg); font-weight: 700; }
+.disc-warning { color: var(--bad-fg); font-weight: 800; font-size: 15px; margin: 6px 0; padding: 4px 0;
+  border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+.disc-warning[hidden] { display: none; }
 .override[hidden] { display: none; }
 .reasons { margin: 0 0 8px; padding-left: 18px; }
 .reasons li { margin: 1px 0; }

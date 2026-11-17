@@ -4,8 +4,8 @@ Inputs: the laptop run directory from f_housing_record.py (phase marks, rx recei
 and, preferably, the Pi's own record session of the same time (--pi-session). Unit-side checks use the Pi session
 when given; otherwise they use the laptop copy, where a Wi-Fi loss also looks like a unit gap (stated in the output).
 
-Checks (thresholds are placeholders from hardware/vehicle-unit/docs/HOUSING.md section 7/8, to be set from this
-test; each is PASS / FAIL / WARN / INFO, as measured):
+Checks (thresholds are placeholders from hardware/vehicle-unit/docs/HOUSING.md sections 6 and 7, to be set from
+this test; each is PASS / FAIL / WARN / INFO, as measured):
 - unit_heartbeat_gaps: server ("unit") heartbeats with a gap > 2 s -> FAIL (unit stalled or rebooted).
 - <sensor>_heartbeat_gaps: per-sensor heartbeat gap > 2 s -> FAIL.
 - reboot: more than one session id, or Pi t_mono going backwards -> FAIL.
@@ -17,7 +17,11 @@ test; each is PASS / FAIL / WARN / INFO, as measured):
 - plate_faults / plate_step: thermocouple faults, or a step > 5 C between consecutive 10 Hz plate readings during
   hot_air_plate -> FAIL; plate falling while heated (polarity) -> FAIL if the phase ends below its start.
 - air_rise: tc_air must rise during hot_air_probe -> FAIL if it does not rise by >= 5 C.
-- checklist: operator answers (water inside, radome / window damage, plate) reported as given.
+- checklist: operator answers (water inside, radar window damage, plate) reported as given.
+- disc_limit: the hot air must not heat the flux disc (copper on printed PETG tabs) to 70 C (crossing.yaml
+  flux.disc_max_c, user-set): any tc_plate reading >= the limit -> FAIL.
+- disc_guard_stop: the record script's disc guard stopped the run (trial.json stop_reason) -> FAIL, reported as
+  "STOPPED: disc 70 C" / "STOPPED: disc temperature unknown"; the run is analysed as recorded, never dropped.
 """
 from __future__ import annotations
 
@@ -37,7 +41,7 @@ from field_tests.sessions import Run, find_runs, load_run, scalar_series, segmen
 
 SENSORS = ("thermal", "radar", "tc_plate", "tc_housing", "tc_air", "imu", "gnss", "pi")
 HB_GAP_S = 2.0
-HOUSING_WARN_C, HOUSING_LIMIT_C = 50.0, 60.0          # PLACEHOLDERS (HOUSING.md section 7)
+HOUSING_WARN_C, HOUSING_LIMIT_C = 50.0, 60.0          # PLACEHOLDERS (HOUSING.md section 6)
 CPU_LIMIT_C = 80.0                                     # Pi SoC soft throttle point
 PLATE_STEP_C = 5.0                                     # placeholder
 
@@ -132,6 +136,19 @@ def analyse(out, run_dir, pi_session: Optional[str] = None, gap_s: float = HB_GA
         rise = float(fin.max() - np.median(fin[:10])) if fin.size > 10 else float("nan")
         _check(checks, "air_rise", "PASS" if math.isfinite(rise) and rise >= 5.0 else "FAIL", rise, 5.0,
                "tc_air rise during hot_air_probe; the laptop must CLOSE above the vehicle intake limit (test D/app)")
+    lim = float(lap.trial.get("disc_max_c") or common.disc_max_c())
+    _, pv = scalar_series(segment(unit.readings("tc_plate"), *span), "temp_c")
+    pmax = float(np.nanmax(pv)) if np.isfinite(pv).any() else float("nan")
+    n_over = int(np.sum(pv[np.isfinite(pv)] >= lim))
+    _check(checks, "disc_limit", "FAIL" if n_over or not math.isfinite(pmax) else "PASS", pmax, lim,
+           ("%d tc_plate reading(s) >= %.0f C (PETG tabs)" % (n_over, lim)) if n_over else
+           ("max tc_plate over the run; the hot air must not heat the disc to %.0f C (user-set)" % lim
+            if math.isfinite(pmax) else "no tc_plate reading"))
+    lab = common.stop_label(lap.trial)
+    _check(checks, "disc_guard_stop", "FAIL" if lab else "PASS", lap.trial.get("stop_reason"), None,
+           (lab + ": " + str(lap.trial.get("stop_detail") or "") + " (run kept, analysed as recorded)") if lab
+           else ("not stopped by the record script's disc guard" if "stop_reason" in lap.trial
+                 else "run recorded without a disc guard result (older record script)"))
     for k, v in (lap.trial.get("checklist") or {}).items():
         _check(checks, "checklist_%s" % k, "INFO", v, None, "operator answer")
 

@@ -80,6 +80,9 @@ export const F = {
   profileS: "geometry.profile.s_m",
   profileDz: "geometry.profile.dz_m",
   cameraHeight: "geometry.camera.height_m",
+  // thermal camera: InfiRay P2 Pro (TC001-compatible frame); its FOV is the TC001 vendor figure, UNVERIFIED
+  cameraModel: "geometry.camera.model",
+  cameraFovNote: "geometry.camera.fov_note",
   imuPitch: "geometry.imu.pitch_deg",
   imuRoll: "geometry.imu.roll_deg",
   // depth (combined value solid, 90 % interval translucent)
@@ -110,6 +113,11 @@ export const F = {
   fluxDose: "flux.dose_tdu",
   fluxDoseComplete: "flux.dose_complete",
   tcAir: "flux.tc_air_c",
+  // flux-disc protection (copper disc on printed PETG tabs): tc_plate >= max_c (70 C, user-set) = CLOSED
+  discOverTemp: "flux.disc.over_temp",
+  discMax: "flux.disc.max_c",
+  discTemp: "flux.disc.temp_c",
+  discWarning: "flux.disc.warning",
   // heat: closed-form law vs FDS C064 reference (reference never decides)
   heatLabel: "heat.label",
   heatValid: "heat.valid",

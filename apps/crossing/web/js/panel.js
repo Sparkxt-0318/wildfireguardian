@@ -137,6 +137,16 @@ export function renderPanel(state, client, shown) {
 
   renderThumb(s);
 
+  // flux disc protection: copper disc on printed PETG tabs; 70 C is the user's limit (not a placeholder)
+  const discOver = sv(s, F.discOverTemp) === true;
+  const dw = $("disc-warning");
+  if (dw) dw.hidden = !discOver;
+  const dMax = num(sv(s, F.discMax));
+  const dWarn = sv(s, F.discWarning);
+  if (discOver) setText("disc-warning", (typeof dWarn === "string" && dWarn ? dWarn : "Flux disc over " + (dMax !== null ? dMax.toFixed(0) : "70") +
+    " °C: PETG tabs at risk") + " (" + fmt(sv(s, F.discTemp), 1, "°C") + "). Every verdict CLOSED until it cools.");
+  setText("disc-temp", fmt(sv(s, F.discTemp), 1, "°C") + " / limit " + fmt(dMax, 0, "°C") + " (user-set, PETG tabs)" + (discOver ? "  OVER LIMIT" : ""));
+
   // heat flux
   setText("plate-q", num(sv(s, F.fluxQ)) === null ? "—" + (sv(s, F.fluxReason) ? " (" + sv(s, F.fluxReason) + ")" : "") : fmt(sv(s, F.fluxQ), 2, "kW/m²"));
   setText("plate-dose", fmt(sv(s, F.fluxDose), 1, "TDU") + (sv(s, F.fluxDoseComplete) === false ? " (lower bound: gaps)" : ""));
@@ -269,7 +279,9 @@ function renderThumb(s) {
     img.data[4 * i] = r; img.data[4 * i + 1] = g; img.data[4 * i + 2] = b; img.data[4 * i + 3] = 255;
   }
   ctx.putImageData(img, 0, 0);
-  setText("thumb-cap", "thermal " + w + "×" + h + " (max-pooled), " + fmt(sv(s, F.thumbTmin), 0, "°C") + " to " + fmt(sv(s, F.thumbTmax), 0, "°C"));
+  const cm = sv(s, F.cameraModel), fovn = sv(s, F.cameraFovNote);
+  setText("thumb-cap", (typeof cm === "string" && cm ? cm.split(" (")[0] + " " : "thermal ") + w + "×" + h + " (max-pooled), " + fmt(sv(s, F.thumbTmin), 0, "°C") + " to " + fmt(sv(s, F.thumbTmax), 0, "°C") +
+    (typeof fovn === "string" && fovn ? "; " + fovn : ""));
 }
 
 export { reasonText };

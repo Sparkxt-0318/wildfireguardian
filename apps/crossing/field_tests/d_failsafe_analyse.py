@@ -90,8 +90,8 @@ class Fault:
 
 
 FAULTS: Dict[str, Fault] = {f.id: f for f in (
-    Fault("thermal_unplug", ("thermal",), "UNPLUG the TC001 USB cable", "Plug the TC001 back in",
-          "Hand on the TC001 USB plug", "driver read error -> no_device heartbeat at once; expect < 1 s"),
+    Fault("thermal_unplug", ("thermal",), "UNPLUG the thermal camera (InfiRay P2 Pro) USB cable", "Plug the camera back in",
+          "Hand on the camera USB plug", "driver read error -> no_device heartbeat at once; expect < 1 s"),
     Fault("radar_unplug", ("radar",), "UNPLUG the radar EVM USB cable", "Plug the radar back in (config resend)",
           "Hand on the radar USB plug", "driver read error -> no_device heartbeat; expect < 1 s"),
     Fault("gnss_unplug", ("gnss",), "UNPLUG the GNSS USB cable", "Plug the GNSS back in",
@@ -537,9 +537,13 @@ def analyse(out, run_dir=None, research_log=None, marks=None, timeout_s: float =
             "Expected by design (not measured): link loss and power loss after silence_s = 1.5 s (1.4-1.7 s), frozen "
             "thermal data after freeze_s = 1.0 s of identical pixels (0.8-1.3 s); every row is reported as measured.",
             "Files: D_faults.csv, D_time_to_closed.png."]
+    lab = common.stop_label(trial)
+    body.insert(1, "Flux-disc guard (disc on PETG tabs, 70 C user-set): %s." % (
+        "%s - %s; faults after the stop were not run (rows reported as measured)" % (lab, trial.get("stop_detail", ""))
+        if lab else ("run not stopped" if "stop_reason" in trial else "no guard result recorded")))
     md = common.md_snippet("Test D - fail-safe: fault to CLOSED", sim, body)
     (out / "D_results.md").write_text(md)
-    return {"simulated": sim, "faults": rows, "markdown": md}
+    return {"simulated": sim, "faults": rows, "markdown": md, "stop_reason": trial.get("stop_reason")}
 
 
 def _plot(path, rows, sim):

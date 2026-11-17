@@ -51,8 +51,12 @@ CJ_TABLE = [(127.0000, 0x7F0), (100.5625, 0x649), (25.0000, 0x190), (0.0000, 0x0
 @pytest.mark.parametrize("cj_c,cj_bits", CJ_TABLE[::3])
 def test_max31855_datasheet_words(tc_c, tc_bits, cj_c, cj_bits):
     word = (tc_bits << 18) | (cj_bits << 4)
-    if word in (0, 0xFFFFFFFF):
-        word |= 1 << 17                     # reserved bit, keeps the all-zero word distinct from "no chip"
+    if word == 0:
+        # 0.00 C hot and 0.0000 C cold junction is the all-zero word = "no chip" (fail closed); setting reserved
+        # D17 to tell them apart is now a bad frame, also fail closed
+        assert max31855.decode_max31855(0)["fault"] == "spi"
+        assert max31855.decode_max31855(1 << 17)["fault"] == "spi"
+        return
     d = max31855.decode_max31855(word)
     assert d["fault"] is None
     assert d["temp_c"] == pytest.approx(tc_c)

@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import copy
+import errno
 import logging
 import signal
 import sys
@@ -21,7 +22,7 @@ from typing import Any, Dict, Optional
 from . import protocol, replay
 from .drivers.bno055 import Bno055Driver
 from .drivers.gnss_nmea import GnssDriver
-from .drivers.max31855 import Max31855Driver
+from .drivers.max31855 import DISC_MAX_C_USER, Max31855Driver, reserve_cs_from_config
 from .drivers.pi_health import PiHealthDriver
 from .drivers.radar_iwr6843 import RadarDriver
 from .drivers.thermal_tc001 import ThermalTC001Driver
@@ -60,6 +61,37 @@ def load_config(path: Optional[Path] = None) -> dict:
         import yaml
         data = yaml.safe_load(p.read_text()) or {}
     return _merge(DEFAULTS, data)
+
+
+def config_warnings(cfg: dict) -> list:
+    """Warnings about the unit config (logged at start; nothing is refused here).
+
+    - ``mount.radar_height_m`` and ``mount.plate_height_m`` must equal ``mount.camera_height_m``: on the supplied
+      housing the camera hole, the radar window and the flux-disc hole are on one horizontal centre line
+      (``housing.sensor_centre_line_above_base_mm``).
+    - ``sensors.tc_plate.disc_max_c`` should be the user's 70 C (PETG tabs); the driver never uses more than 70."""
+    out = []
+    m = cfg.get("mount") or {}
+    cam = m.get("camera_height_m")
+    for key in ("radar_height_m", "plate_height_m"):
+        other = m.get(key)
+        if cam is None or other is None:
+            continue
+        try:
+            if abs(float(cam) - float(other)) > 1e-6:
+                out.append("mount.%s (%s) != mount.camera_height_m (%s): on the supplied housing both sit on one "
+                           "centre line; set them equal" % (key, other, cam))
+        except (TypeError, ValueError):
+            out.append("mount.camera_height_m / %s are not numbers" % key)
+    plate = (cfg.get("sensors") or {}).get("tc_plate") or {}
+    v = plate.get("disc_max_c")
+    try:
+        bad = v is None or float(v) > DISC_MAX_C_USER or float(v) <= 0
+    except (TypeError, ValueError):
+        bad = True
+    if bad:
+        out.append("sensors.tc_plate.disc_max_c is %r; using %.0f C (user-set limit, PETG tabs)" % (v, DISC_MAX_C_USER))
+    return out
 
 
 def _abs(p: str) -> Path:
@@ -116,6 +148,9 @@ def build(cfg: dict, sim_dir: Optional[Path] = None, speed: float = 1.0, loop: b
         # The recorder never reuses a directory (two boots can share a wall-clock id: no RTC, no GNSS time); every
         # message must carry the id it really used, so set it before the server or any driver sends anything.
         ctx.session_id = recorder.session_id
+    if session is None:
+        # hold every MAX31855 software chip select (enabled or not) HIGH before any SPI transfer on its bus
+        reserve_cs_from_config(cfg.get("sensors") or {})
     server = UnitServer(ctx, cfg, recorder, host=host or srv_cfg["host"], port=srv_cfg["port"] if port is None
                         else port, path=srv_cfg["path"], thermal_wire_hz=srv_cfg.get("thermal_wire_hz"),
                         client_queue_max=int(srv_cfg["client_queue_max"]),
@@ -168,6 +203,13 @@ def main(argv=None) -> int:
     logging.basicConfig(level=logging.DEBUG if a.verbose else logging.INFO,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     cfg = load_config(a.config)
+    cfg_path = Path(a.config) if a.config else DEFAULT_CONFIG
+    if not cfg_path.exists():
+        logging.getLogger("wfgvu").warning("config: %s not found: running on built-in DEFAULTS (not the build "
+                                           "manual's pin map or mount); pass --config or run from "
+                                           "hardware/vehicle-unit", cfg_path)
+    for w in config_warnings(cfg):
+        logging.getLogger("wfgvu").warning("config: %s", w)
     try:
         server = build(cfg, a.sim, a.speed, a.loop, a.record, a.host, a.port, a.records)
     except (FileNotFoundError, ValueError) as exc:          # ValueError includes json.JSONDecodeError
@@ -184,7 +226,15 @@ def main(argv=None) -> int:
                 pass
         await server.run(a.duration, stop, exit_on_sim_end=a.exit_on_end)
 
-    asyncio.run(_run())
+    try:
+        asyncio.run(_run())
+    except OSError as exc:
+        if exc.errno != errno.EADDRINUSE:
+            raise
+        print("error: port %s is already in use (%s). Is wfgvu.service (or another wfgvu) running? "
+              "Stop it first: sudo systemctl stop wfgvu" % (a.port if a.port else (cfg.get("server") or {}).get("port"), exc.strerror),
+              file=sys.stderr)
+        return 2
     return 0
 
 

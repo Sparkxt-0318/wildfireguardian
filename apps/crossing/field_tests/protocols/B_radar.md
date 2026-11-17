@@ -20,7 +20,7 @@ result.
 
 | Item | Notes | Tick |
 |---|---|---|
-| Roof unit with the IWR6843AOP EVM streaming (radar baseline uses the heatmap) | Radome fitted as on the vehicle | [ ] |
+| Roof unit with the IWR6843AOP EVM streaming (radar baseline uses the heatmap) | Front plate with the 1.2 mm radar window (and the aluminium heat shield) fitted as on the vehicle | [ ] |
 | Aluminium trihedral corner reflector, edge ____ mm | On a non-metallic stand at radar height | [ ] |
 | Tape measure; floor marks at 2, 3, 4, 5 m from the radar face to the reflector apex | | [ ] |
 | Flame source as approved in the risk assessment (e.g. Bunsen burner) on a non-flammable base | Mid-way on the line of sight | [ ] |

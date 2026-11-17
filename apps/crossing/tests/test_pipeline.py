@@ -6,7 +6,7 @@ also run every sample / synth scenario through the pipeline and check the scenar
 FLAME / CROSS FAST; a failure overlay forces CLOSED).
 
 Illustrative synthetic physics (stated, not verified):
-- Scene: vehicle stopped on a flat road (GNSS speed 0, IMU level). Camera 2.6 m above the road, pinhole TC001 model.
+- Scene: vehicle stopped on a flat road (GNSS speed 0, IMU level). Camera 2.6 m above the road, pinhole P2 Pro model.
   A flame front across the road at ``near_m`` (default 10 m) with height ``flame_h`` (1.5 m): pixels whose rays meet
   the ground at >= near_m and lie below the flame top read 800 K; background 293 K + 0.3 K noise; road below the
   horizon 300 K.
