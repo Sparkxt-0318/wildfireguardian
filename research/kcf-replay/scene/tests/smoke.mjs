@@ -192,8 +192,11 @@ try {
   // ---- load time with throttling (a slow 2020 laptop on venue Wi-Fi)
   if (!QUICK) {
     const net = { offline: false, latency: 40, downloadThroughput: (20 * 1e6) / 8, uploadThroughput: (5 * 1e6) / 8 };
-    for (const [label, o] of [['http cold, CPU x' + THROTTLE + ', 20 Mbit/s', { throttle: THROTTLE, network: net }], ['file:// cold, CPU x' + THROTTLE, { throttle: THROTTLE, file: true }]]) {
-      const { ctx, page } = await open(browser, o.file ? fileUrl : base, { ...o, label });
+    for (const [label, o] of [
+      ['file:// cold, full quality (?full), no throttling', { file: true, q: '?full' }],
+      ['http cold, CPU x' + THROTTLE + ', 20 Mbit/s', { throttle: THROTTLE, network: net }],
+      ['file:// cold, CPU x' + THROTTLE, { throttle: THROTTLE, file: true }]]) {
+      const { ctx, page } = await open(browser, (o.file ? fileUrl : base) + (o.q || ''), { ...o, label });
       // interaction latency under throttling: issue-hour step and place selection
       const lat = await page.evaluate(async () => {
         const t = performance.now(); window.KCF_APP.setIssue(7); await window.KCF_APP.idle(); const a = performance.now() - t;

@@ -65,5 +65,13 @@
 <script src="data/basemap.js"></script>
 <script src="data/scene.js"></script>
 <script src="app.js"></script>
+<script>
+  // watchdog: if the scene has not started (app.js missing, folder opened inside a zip, a script error), say so
+  setTimeout(function () {
+    if (window.KCF_APP) return;
+    var m = document.getElementById('loadingMsg');
+    if (m && !m.style.color) { m.textContent = 'The scene has not started. Copy or unzip the whole kcf-scene folder and open its index.html in Chrome, Edge, Firefox or Safari. Fallback: the 90-s recording kcf_scene_tour_90s.mp4.'; m.style.color = '#ffb4a8'; }
+  }, 25000);
+</script>
 </body>
 </html>

@@ -24,6 +24,22 @@
   if (!window.maplibregl) fatal('vendor/maplibre-gl.js did not load');
   if (!S) fatal('data/scene.js did not load');
   if (!TER) fatal('data/terrain.js did not load');
+  if (!FONTS) fatal('data/fonts.js did not load (the map labels cannot show clocks without it)');
+  if (!BM && window.console) console.warn('data/basemap.js did not load: no roads or water on the map');
+  function webglInfo() {
+    try {
+      var c = document.createElement('canvas'), gl = c.getContext('webgl2') || c.getContext('webgl');
+      if (!gl) return null;
+      var ext = gl.getExtension('WEBGL_debug_renderer_info');
+      return { renderer: String(ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER)) };
+    } catch (e) { return null; }
+  }
+  var GL = webglInfo();
+  if (!GL) fatal('This browser cannot draw 3D (WebGL is off or blocked: hardware acceleration off, remote desktop or a VM). Turn on hardware acceleration, or play the 90-s recording kcf_scene_tour_90s.mp4.');
+  // a software renderer (no GPU) draws each frame in seconds: switch to lite unless ?full
+  var SOFT = /SwiftShader|llvmpipe|softpipe|Basic Render|Software/i.test(GL.renderer);
+  if (SOFT && !Q.has('full')) LITE = true;
+  timings.renderer = GL.renderer; timings.software_gl = SOFT; timings.lite = LITE;
 
   // ------------------------------------------------------------------ constants and paths
   var SRC = Object.assign({
@@ -239,7 +255,8 @@
   }
 
   var bounds0 = [[128.40, 36.22], [129.50, 36.62]];
-  var map = new maplibregl.Map({
+  var map;
+  try { map = new maplibregl.Map({
     container: 'map',
     bounds: bounds0,
     fitBoundsOptions: { padding: { top: 80, bottom: 150, left: 40, right: 40 } },
@@ -305,7 +322,9 @@
       terrain: { source: 'dem', exaggeration: EXAG.region },
       sky: { 'sky-color': '#0d1220', 'horizon-color': '#3b2a26', 'fog-color': '#151a22', 'fog-ground-blend': 0.55, 'horizon-fog-blend': 0.7, 'sky-horizon-blend': 0.6, 'atmosphere-blend': 0 }
     }
-  });
+  }); } catch (e) { fatal('The 3D map could not start (' + (e && e.message) + '). Turn on hardware acceleration, or play the 90-s recording kcf_scene_tour_90s.mp4.'); }
+  // lite: one DEM-derived layer fewer (no colour relief), cheaper drive camera
+  if (LITE) map.once('styledata', function () { if (map.getLayer('relief')) map.removeLayer('relief'); map.setPaintProperty('bg', 'background-color', '#27322b'); });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('load', function () { var a = document.querySelector('.maplibregl-ctrl-attrib'); if (a) a.classList.remove('maplibregl-compact-show'); });
   map.on('error', function (e) { if (window.console) console.warn('map error', e && e.error && e.error.message); });
@@ -659,7 +678,8 @@
   }
   function setStandin(name) {
     if (!S.hourly[name]) return;
-    if (st.drive) { // leave the drive first: its road and closures belong to the old stand-in
+    var wasDriving = !!st.drive;
+    if (wasDriving) { // leave the drive first: its road and closures belong to the old stand-in
       stopDrive(true);
       st.view = st.place ? 'place' : 'region';
       map.setTerrain({ source: 'dem', exaggeration: st.place ? EXAG.place : EXAG.region });
@@ -668,6 +688,10 @@
     map.getSource('cells').setData(buildCellsFC());
     lastCellKey = null; lastPlacesKey = null;
     refreshAll();
+    if (wasDriving && st.place) {
+      var cam = cameraFor(st.place, routeOf(st.place.id, kOf(st.s)));
+      if (cam) map.flyTo({ center: cam.center, zoom: Math.min(cam.zoom, 14.2), pitch: 58, bearing: cam.bearing, duration: TOUR ? 0 : 1600 });
+    }
   }
   function cycleStandin() {
     var names = Object.keys(S.standins || S.hourly);
@@ -785,10 +809,20 @@
     var dur = rt.arr - rt.ld;
     // about 30 s of playback: a whole-number speed-up, or a labelled slow-down when the road takes under 30 s
     var speed = dur >= 30 ? Math.max(1, Math.round(dur / 30)) : Math.max(0.05, Math.round(dur / 30 * 100) / 100);
-    // closures of the issue-k screen on this route, sorted (for cheap filter updates)
-    var closeTimes = S.close[st.standin][p.region][k].filter(function (b) { return b >= 0; }).sort(function (a, b) { return a - b; });
+    // closures of the issue-k screen in cells within about 3 km of the route (what the chase view can show), sorted
+    var W = 180, Sx = 90, E2 = -180, N = -90;
+    pts.forEach(function (c) { W = Math.min(W, c[0]); E2 = Math.max(E2, c[0]); Sx = Math.min(Sx, c[1]); N = Math.max(N, c[1]); });
+    var rings = S.roadCells[p.region].ring, cl = S.close[st.standin][p.region][k], closeTimes = [];
+    for (var ci = 0; ci < cl.length; ci++) {
+      if (cl[ci] < 0) continue;
+      var r0 = rings[ci][0], r2 = rings[ci][2], cx = (r0[0] + r2[0]) / 2, cy = (r0[1] + r2[1]) / 2;
+      if (cx >= W - 0.035 && cx <= E2 + 0.035 && cy >= Sx - 0.028 && cy <= N + 0.028) closeTimes.push(cl[ci]);
+    }
+    closeTimes.sort(function (a, b) { return a - b; });
     var hk = hourly(p.id, k);
-    return { state: hk && hk.state, place: p, k: k, rt: rt, pts: pts, times: times, dist: dist, total: d, dur: dur, speed: speed, tau: rt.ld, closeTimes: closeTimes,
+    // map layers follow the drive in steps of about 1/60 of it (at least 20 s of scene time): a few updates per second
+    var quantum = Math.max(20, Math.ceil(dur / 60));
+    return { state: hk && hk.state, place: p, k: k, rt: rt, pts: pts, times: times, dist: dist, total: d, dur: dur, speed: speed, tau: rt.ld, closeTimes: closeTimes, quantum: quantum,
       eye: null, bearing: null, playStart: null, done: false, standin: st.standin };
   }
   function posAtTime(dv, tau) {
@@ -832,17 +866,18 @@
     var angV = Math.atan2(dv.eye - gV, BACK_M) * 180 / Math.PI, a = Math.max(2, angV - 11) * Math.PI / 180;
     var lookAlt = dv.eye - Math.tan(a) * (BACK_M + AHEAD_M);
     var cam = map.calculateCameraOptionsFromTo(maplibregl.LngLat.convert(camLL), dv.eye, maplibregl.LngLat.convert(lookLL), lookAlt);
-    if (cam) { cam.pitch = Math.min(82, cam.pitch); map.jumpTo(cam); }
-    // fire: detections time-stamped before this moment; closures: the issue-k screen's
-    setFire(now);
-    var nClosed = upperBound(dv.closeTimes, tau);
-    if (nClosed !== dv.nClosed) { dv.nClosed = nClosed; lastCellKey = null; setCells(dv.k, tau); }
-    setWalk(dv.pts.slice(0, pos.i + 1).concat([pos.p]));
-    var sh = S.shelters[dv.rt.sh];
-    map.getSource('mark').setData({ type: 'FeatureCollection', features: [
-      { type: 'Feature', properties: { kind: 'vehicle' }, geometry: { type: 'Point', coordinates: pos.p } },
-      sh ? { type: 'Feature', properties: { kind: 'shelter', label: '대피소 · ' + shelterName(dv.rt.sh) }, geometry: { type: 'Point', coordinates: sh.entry || [sh.lon, sh.lat] } } : null
-    ].filter(Boolean) });
+    if (cam) { cam.pitch = Math.min(LITE ? 72 : 82, cam.pitch); map.jumpTo(cam); }
+    // fire: detections time-stamped before this moment; closures: the issue-k screen's (both stepped by dv.quantum)
+    var tq = tau >= dv.rt.arr ? tau : dv.rt.ld + Math.floor((tau - dv.rt.ld) / dv.quantum) * dv.quantum;
+    setFire(3600 * dv.k + tq);
+    var nClosed = upperBound(dv.closeTimes, tq);
+    if (nClosed !== dv.nClosed) { dv.nClosed = nClosed; lastCellKey = null; setCells(dv.k, tq); }
+    // the travelled road: redrawn when the vehicle reaches a new vertex (a draped source; not every frame)
+    if (pos.i !== dv.walkI || tau >= dv.rt.arr) { dv.walkI = pos.i; setWalk(dv.pts.slice(0, pos.i + 1).concat([pos.p])); }
+    // the vehicle is a DOM marker, so moving it does not re-drape the terrain
+    if (!vehicleMarker) { var el = document.createElement('div'); el.className = 'vehicle'; vehicleMarker = new maplibregl.Marker({ element: el }); }
+    vehicleMarker.setLngLat(pos.p);
+    if (!vehicleMarker._map) vehicleMarker.addTo(map);
     st.drive = dv;
     renderHud(dv, pos);
     renderClock();
@@ -858,8 +893,10 @@
       (3600 * dv.k + dv.tau > discS[discS.length - 1] ? '<div class="meta" style="color:#ffb48a"' + srcAttr(SRC.fire_discs, 'last disc t_utc 2025-03-25T17:58:00Z = 02:58 KST 26 Mar; RESULTS.md section 5: the reconstruction ends with the data') + '>The fire record ends at 02:58 KST, 26 March: no detection after that is shown, which does not mean the fire stopped.</div>' : '');
     if (dv.done) html += '<div class="end"' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr, sh') + '>Arrived ' + esc(shelterName(dv.rt.sh)) + ' at ' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + ' KST — the committed arrival second. Esc to go back.</div>';
     $('hud').innerHTML = html;
+    var sig = (dv.done ? 'd' : '') + (3600 * dv.k + dv.tau > discS[discS.length - 1] ? 'e' : '');
+    if (sig !== dv.srcSig) { dv.srcSig = sig; renderSources(); }
   }
-  var driveRaf = null;
+  var driveRaf = null, vehicleMarker = null;
   function startDrive(opts) {
     var p = st.place; if (!p) return null;
     var k = kOf(st.s);
@@ -873,10 +910,13 @@
     map.setTerrain({ source: 'dem', exaggeration: EXAG.drive });
     setFireOpacity(true);
     lastFireKey = null; lastCellKey = null;
+    var sh0 = S.shelters[dv.rt.sh];
+    map.getSource('mark').setData({ type: 'FeatureCollection', features: sh0 ? [{ type: 'Feature', properties: { kind: 'shelter', label: '대피소 · ' + shelterName(dv.rt.sh) }, geometry: { type: 'Point', coordinates: sh0.entry || [sh0.lon, sh0.lat] } }] : [] });
     renderCrumbs();
-    if (opts && opts.manual) { driveFrame(dv, dv.rt.ld, { snap: true }); return dv; }
+    if (opts && opts.manual) { driveFrame(dv, dv.rt.ld, { snap: true }); renderSources(); return dv; }
     // approach: put the camera at the start, give tiles a moment, then play
     driveFrame(dv, dv.rt.ld, { snap: true });
+    renderSources();
     var started = null;
     return new Promise(function (resolve) {
       dv.resolve = resolve;
@@ -889,7 +929,7 @@
           var tau = Math.min(dv.rt.arr, dv.rt.ld + el * dv.speed);
           driveFrame(dv, tau);
           if (tau < dv.rt.arr) driveRaf = requestAnimationFrame(step);
-          else { dv.done = true; renderHud(dv); driveRaf = null; resolve(dv); }
+          else { dv.done = true; renderHud(dv); renderSources(); driveRaf = null; resolve(dv); }
         })();
       });
     });
@@ -899,6 +939,7 @@
     var tau = dv.rt.ld + Math.max(0, Math.min(1, frac)) * dv.dur;
     dv.done = frac >= 1;
     driveFrame(dv, tau);
+    if (dv.done) renderHud(dv);
   }
   function stopDrive(silent) {
     if (driveRaf) cancelAnimationFrame(driveRaf); driveRaf = null;
@@ -907,6 +948,7 @@
     st.drive = null;
     document.body.classList.remove('driving');
     $('hud').hidden = true;
+    if (vehicleMarker) vehicleMarker.remove();
     setFireOpacity(false);
     map.resize();
     if (dv.resolve) dv.resolve(null);
@@ -919,6 +961,7 @@
       if (cam) map.flyTo({ center: cam.center, zoom: Math.min(cam.zoom, 14.2), pitch: 58, bearing: cam.bearing, duration: 1600 });
     } else {
       lastFireKey = null; lastCellKey = null;
+      renderSources();
     }
   }
 
@@ -1086,6 +1129,13 @@
       timings.first_idle_ms = Math.round(performance.now() - T0);
       fontReady.then(function () {
         $('loading').classList.add('gone');
+        if (SOFT) {
+          var n = document.createElement('div'); n.id = 'notice';
+          n.innerHTML = 'No GPU in use (' + esc(GL.renderer) + '): drawing is slow on this machine' + (LITE ? ', lite mode is on' : '') + '. Turn on hardware acceleration, or play the 90-s recording. <button type="button">×</button>';
+          document.body.appendChild(n);
+          n.querySelector('button').addEventListener('click', function () { n.remove(); });
+          if (!TOUR) setTimeout(function () { if (n.parentNode) n.remove(); }, 15000); else n.remove();
+        }
         timings.ready_ms = Math.round(performance.now() - T0);
         readyResolve(timings);
       });
