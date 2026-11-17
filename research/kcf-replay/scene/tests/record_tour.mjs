@@ -58,7 +58,8 @@ const t0 = Date.now();
 for (let i = Math.max(0, FROM - 2 * FPS); i < FROM; i++) await page.evaluate((t) => window.KCF_APP.tour.seek(t), i / FPS); // warm-up
 for (let i = FROM; i < last; i++) {
   await page.evaluate((t) => window.KCF_APP.tour.seek(t), i / FPS);
-  await page.screenshot({ path: join(FRAMES, `f${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 92 });
+  // software GL can take well over Playwright's default 30 s for one 1920x1080 frame of the drive (more when segments run in parallel)
+  await page.screenshot({ path: join(FRAMES, `f${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 92, timeout: 600000 });
   if (i % (FPS * 5) === 0) console.log(`frame ${i}/${n} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 }
 await browser.close(); srv.close();
