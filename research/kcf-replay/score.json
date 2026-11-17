@@ -59,12 +59,24 @@
    "route_cut_earlier_by_reconstruction": 181,
    "places_with_latest_safe_departure": 140,
    "places_with_any_earlier_cut": 114
+  },
+  "MEASURED_GUST_KMA/5h": {
+   "rows_with_latest_safe_departure": 351,
+   "route_cut_earlier_by_reconstruction": 199,
+   "places_with_latest_safe_departure": 137,
+   "places_with_any_earlier_cut": 107
+  },
+  "MEASURED_GUST_KMA/8h": {
+   "rows_with_latest_safe_departure": 482,
+   "route_cut_earlier_by_reconstruction": 280,
+   "places_with_latest_safe_departure": 138,
+   "places_with_any_earlier_cut": 112
   }
  },
  "witness_recheck": {
   "ok": 6316
  },
- "rows": 22620,
+ "rows": 27144,
  "steps_by_issue": {
   "ORDINARY/8h/03-25 12:00": {
    "NONE": 128,
@@ -335,9 +347,72 @@
    "LEAVE_NOW": 170,
    "NONE": 2,
    "PREPARE_VULNERABLE_FIRST": 2
+  },
+  "MEASURED_GUST_KMA/8h/03-25 12:00": {
+   "LEAVE_NOW": 69,
+   "PREPARE_VULNERABLE_FIRST": 12,
+   "NONE": 93
+  },
+  "MEASURED_GUST_KMA/8h/03-25 13:00": {
+   "LEAVE_NOW": 74,
+   "PREPARE_VULNERABLE_FIRST": 9,
+   "NONE": 91
+  },
+  "MEASURED_GUST_KMA/8h/03-25 14:00": {
+   "LEAVE_NOW": 74,
+   "PREPARE_VULNERABLE_FIRST": 9,
+   "NONE": 91
+  },
+  "MEASURED_GUST_KMA/8h/03-25 15:00": {
+   "LEAVE_NOW": 78,
+   "PREPARE_VULNERABLE_FIRST": 6,
+   "NONE": 90
+  },
+  "MEASURED_GUST_KMA/8h/03-25 16:00": {
+   "LEAVE_NOW": 83,
+   "PREPARE_VULNERABLE_FIRST": 1,
+   "NONE": 90
+  },
+  "MEASURED_GUST_KMA/8h/03-25 17:00": {
+   "LEAVE_NOW": 84,
+   "NONE": 87,
+   "PREPARE_VULNERABLE_FIRST": 3
+  },
+  "MEASURED_GUST_KMA/8h/03-25 18:00": {
+   "LEAVE_NOW": 103,
+   "NONE": 57,
+   "PREPARE_VULNERABLE_FIRST": 14
+  },
+  "MEASURED_GUST_KMA/8h/03-25 19:00": {
+   "LEAVE_NOW": 128,
+   "NONE": 27,
+   "PREPARE_VULNERABLE_FIRST": 19
+  },
+  "MEASURED_GUST_KMA/8h/03-25 20:00": {
+   "LEAVE_NOW": 135,
+   "NONE": 17,
+   "PREPARE_VULNERABLE_FIRST": 22
+  },
+  "MEASURED_GUST_KMA/8h/03-25 21:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED_GUST_KMA/8h/03-25 22:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED_GUST_KMA/8h/03-25 23:00": {
+   "LEAVE_NOW": 163,
+   "PREPARE_VULNERABLE_FIRST": 2,
+   "NONE": 9
+  },
+  "MEASURED_GUST_KMA/8h/03-26 00:00": {
+   "LEAVE_NOW": 165,
+   "NONE": 9
   }
  },
  "witness_recheck_new_arms": {
   "ok": 4528
+ },
+ "witness_recheck_kma_arm": {
+  "ok": 2262
  }
 }

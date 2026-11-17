@@ -5,9 +5,9 @@ times re-read at source: [SOURCES.md](SOURCES.md).
 
 | file | content |
 |---|---|
-| `per_place.csv` | 174 places × 13 issue hours × 5 R(h) arms (3 stand-ins, MEASURED, MEASURED+GUST) × 2 horizons (22,620 rows): step, latest safe departure, shelter, arrival, witness road (OSM ways), reconstruction cut time, score flag |
+| `per_place.csv` | 174 places × 13 issue hours × 6 R(h) arms (3 stand-ins, MEASURED, MEASURED+GUST (ERA5, provisional), MEASURED+GUST (KMA)) × 2 horizons (27,144 rows): step, latest safe departure, shelter, arrival, witness road (OSM ways), reconstruction cut time, score flag |
 | `named_places_timeline.csv` | 6 named places, every hour/stand-in/horizon, with documented times |
-| `timeline.png` | timeline figure for the 6 named places: 3 stand-ins + MEASURED + MEASURED+GUST (PROVISIONAL) |
+| `timeline.png` | timeline figure for the 6 named places: 3 stand-ins + MEASURED + MEASURED+GUST (ERA5, PROVISIONAL) + MEASURED+GUST (KMA) |
 | `frames/frame_*.png` | 13 hourly map frames (RUNNING, 8 h); `map_sequence.mp4` = all 73 ten-minute frames, 73 s |
 | `planner_cache/{RUNNING,MEASURED,MEASURED_GUST}_8h/` | planner caches (schema `wfg.planner.cache/1`), 13 issue hours × 2 regions each; MEASURED_GUST is PROVISIONAL |
 | `score.json`, `fixed_point.json`, `ahi_firms_agreement.json` | score, F-3.1 certificate, AHI/FIRMS diagnostic |

@@ -117,9 +117,10 @@ def timeline(R, out):
     plt.close(fig)
 
 
-ARM_LANES = ("ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST")
+ARM_LANES = ("ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA")
 ARM_LABEL = {"ORDINARY": "ORDINARY", "RUNNING": "RUNNING", "WORST": "WORST", "MEASURED": "MEASURED (spread class)",
-             "MEASURED_GUST": "MEASURED+GUST (ERA5, PROVISIONAL)"}
+             "MEASURED_GUST": "MEASURED+GUST (ERA5, PROVISIONAL)",
+             "MEASURED_GUST_KMA": "MEASURED+GUST (KMA ASOS)"}
 
 
 def timeline_csv(per_place_csv, out, hz="8h"):
@@ -131,7 +132,7 @@ def timeline_csv(per_place_csv, out, hz="8h"):
         if r["region"] == "yeongdeok_2025" and r["horizon"] == hz:
             rows[(r["place_id"], r["standin"], r["issue_kst"])] = r
     issues = sorted({key[2] for key in rows})
-    fig, axes = plt.subplots(len(NAMED), 1, figsize=(15, 3.1 * len(NAMED)), sharex=True)
+    fig, axes = plt.subplots(len(NAMED), 1, figsize=(15, 3.4 * len(NAMED)), sharex=True)
     x0, x1 = k(11, 50), k(1, 10, 26)
     n = len(ARM_LANES)
     for ax, (pid, label) in zip(axes, NAMED):
@@ -178,7 +179,7 @@ def timeline_csv(per_place_csv, out, hz="8h"):
                                                   "documented road closure", "documented fire at the place", "other documented event"]
     fig.legend(handles, labels, loc="lower center", ncol=5, fontsize=8, frameon=False)
     fig.suptitle("What the screen would have shown, hour by hour (each block = one issue hour; row = R(h) arm:\n"
-                 "3 stand-ins + MEASURED + MEASURED+GUST, the gust arm PROVISIONAL, ERA5 only), vs documented times (all single-source; SOURCES.md)",
+                 "3 stand-ins + MEASURED + MEASURED+GUST (ERA5, PROVISIONAL) + MEASURED+GUST (KMA)), vs documented times (all single-source; SOURCES.md)",
                  fontsize=10)
     fig.tight_layout(rect=(0.03, 0.04, 1, 0.97))
     fig.savefig(out, dpi=130)
