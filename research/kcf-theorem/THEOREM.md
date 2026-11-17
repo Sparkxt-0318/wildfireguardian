@@ -16,12 +16,18 @@ commit `a697d14` (Main after PR #189). The code is not changed. Line numbers ref
 * `Instance` accepts arbitrary interval sets, so M1–M4 are **not enforced**. On the six recorded caches, measured
   (`results/assumptions_real.json`): **M1 fails on 88 edges** and **M2 on 2 waitable nodes**, all in
   `uiseong_andong_2025/20250324T090000Z` (for example edge 1413, D = 10: closed for starts 0–3490, open again at
-  3491–3590). That is fire burning before the issue time that burns out inside the hour. **M3 fails for 2
+  3491–3590). This shape (closed from 0, open before H) fits fire already burning at the issue time that burns out inside the hour. That is my inference from the intervals; I did not trace it to the packet. **M3 fails for 2
   shelter windows** that open late (896 s in `yeongdeok_2025/20250326T080000Z`, 1064 s in
   `uiseong_andong_2025/20250325T170000Z`). M4 holds everywhere. Both contact rules (router and cert) give the same
-  counts. Out of 6,237 (edge, cache) pairs with any closure, 88 reopen.
-  Even so, every feasible set measured on those caches is a prefix (37,630,603 non-empty state sets G_s and 1,574 origin sets over 551 shelter specs, per contact rule, 0 non-prefix). That holds on that data. It is
-  **not** a consequence of Theorem 2, and it can change with other data.
+  counts. Out of 6,237 (edge, cache) pairs with any closure, 88 reopen. This contradicts row 6 of
+  `research/kcf-evidence/ASSUMPTIONS.md` ("within the hour an ignited cell never burns out and its roads never
+  reopen"). If the inference above is right, that row holds for cells ignited inside the hour but not for cells already burning at the issue time.
+* Even so, every feasible set measured on those caches is a prefix: 0 non-prefix among 37,630,603 non-empty state
+  sets G_s and 1,574 origin sets over 551 shelter specs, for each contact rule. That holds **on that data only**. It
+  is **not** a consequence of Theorem 2, and it can change with other data.
+* The independent checker (`checker.py`, which imports nothing from the repository) accepts all **7,771** recorded
+  checked routes and all **1,482** field witnesses at exact deadlines. Exhaustive search finds no route at L + 1 for
+  any of the 1,482 (`results/differential_real.json`).
 
 ## 1. Model
 
@@ -224,8 +230,8 @@ pushes onto the heap (O(log P)). ∎
 
 **Under M1–M4**, Theorem 2(b) is a reverse Dijkstra on ℓ (the max-heap pops values in non-increasing order and
 τ_j strictly decreases), so the deadlines can be computed in O(|E| log |E|), independent of H. The implementation
-does not exploit this, but measured on real data its sets have one interval each (κ = 1, committed
-`F-3.1/results/SUMMARY_final_70f70d7.json`, `piece_stats`), so it behaves almost like that.
+does not exploit this. On the recorded caches (which do not satisfy M1–M4, §0) every R_s still has a single
+interval (κ = 1, committed `F-3.1/results/SUMMARY_final_70f70d7.json`, `piece_stats`).
 
 **One departure at a time.** Checking one (origin, t) exhaustively explores up to |E|·(H + 1) configurations,
 because a non-waitable node forbids "earliest arrival dominates". Checking every t ∈ T is O(|E|·H²) per origin
@@ -263,7 +269,7 @@ All counts below are measured by the files in this directory. Commands are in `R
 | same | Deadline certificate: field witness at L passes `check_route`; brute force finds no route at L + 1 | 16,841 / 16,841 non-empty sets confirmed |
 | same | Corollary 3 on the reopening family: hull set is a prefix and a subset of the truth | 24,059 / 24,059 hold; the hull gives up 50,107 truly feasible departure seconds |
 | `test_theorem.py::Mutants` | five bugs in a copy of `backward` (`mutants.py`), 3,000 + 3,000 cases each | see table below |
-| `differential_witnesses.py` | `check_route` on every recorded checked route of the six caches, both contact rules; field witness at every exact deadline; exhaustive search at L + 1 | __DIFF_RESULT__ |
+| `differential_witnesses.py` | `check_route` on every recorded checked route of the six caches, both contact rules; field witness at every exact deadline; exhaustive search at L + 1 | **7,771 / 7,771** recorded checked routes VALID under each contact rule (router, cert); 0 INVALID. **1,482 / 1,482** deadline witnesses VALID; at L + 1, **1,482 / 1,482** exhaustive searches find no route (42,730,042 configurations explored in total, no search hit its cap; 92 (spec, origin) pairs have an empty feasible set). In two caches the fire-free travel-time bound settles the L + 1 searches almost at once (0 and 47 configurations in total), so there the check is close to trivial; the substantive L + 1 searches are in the other four caches |
 | `measure_assumptions.py` | M1–M4 and the prefix conclusion on the six caches | M1 broken on 88 edges, M2 on 2 nodes, M3 on 2 shelter specs, M4 never; yet 0 of 37,630,603 G_s and 0 of 1,574 origin sets are non-prefix (each contact rule) |
 
 **Mutation tests** (cases caught out of 3,000 per family; "caught" = brute-force disagreement, or `check_route`

@@ -61,7 +61,7 @@
  ],
  "seconds": {
   "backward_and_issue_sets": 0.43,
-  "brute_force_one_second_at_a_time": 4.11
+  "brute_force_one_second_at_a_time": 4.06
  },
  "mismatches": 0
 }
