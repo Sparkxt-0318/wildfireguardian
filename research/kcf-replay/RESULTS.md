@@ -8,8 +8,8 @@ reached the route shown before that time.
 This is a reconstruction of what a screen would have shown. It is not a claim about outcomes. It does not judge
 anyone's decisions, and it names no victims. Every number below depends on a stand-in for R(h) (see 2). The frozen
 R(h) from `research/kcf-margin` has since landed (PR 179) and is added as two further arms, MEASURED and MEASURED+GUST (2b). The
-three stand-ins are unchanged. **The MEASURED+GUST arm is PROVISIONAL: its gust series is ERA5 only (no KMA key was available),
-and its gust >= 20 m/s class rests on 9 fires.**
+three stand-ins are unchanged. **The MEASURED+GUST arm is PROVISIONAL: its gust series is ERA5 only (KMA gave no hourly gust series),
+and its gust >= 20 m/s class rests on 9 fires. KMA data.go.kr gave only daily maxima and hourly mean wind, no hourly gust, so no KMA series could drive the class (see research/kcf-gust/RESULTS.md).**
 
 ## 1 What fills the gap
 

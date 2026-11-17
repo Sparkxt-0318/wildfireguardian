@@ -1,8 +1,10 @@
 # RESULTS: gusts on 25 March 2025 and the frozen gust-class margin (kcf-gust)
 
-**PROVISIONAL.** The primary series (KMA ASOS/AWS hourly maximum gust via data.go.kr) was **not fetched**: `DATA_GO_KR_KEY`
-is not set in this session, and data.go.kr is not reachable from it. Everything below is ERA5 only (the secondary series),
-at five county-seat points. Rules: `PROTOCOL.md`, committed before any gust value was read (a4ff4f1c). Every table is PROVISIONAL.
+**PROVISIONAL (hour-by-hour tables).** KMA observations were added after the first version of this file (see "KMA ASOS observations",
+amendment 1 in `PROTOCOL.md`), but only what data.go.kr serves: **daily** maximum instantaneous gust with its time, and **hourly mean wind**.
+The **hourly maximum gust** series (apihub.kma.go.kr, `KMA_API_KEY`, which also holds AWS) was not available in this session, so the
+hour-by-hour class and R-held tables below are still ERA5 only and PROVISIONAL. Rules: `PROTOCOL.md`, committed before any gust value
+was read (a4ff4f1c); amendment 1 committed before any KMA value was read (3be97228).
 
 **Result.** ERA5 gusts were below 20 m/s at every point until 15:00 KST, and the fire-wide maximum at the 10:00 and 11:00
 stamps was 10.6 and 12.6 m/s. So gusts as observed at the issue hour gave no warning at 10-11 KST either. A gust >= 20 m/s
@@ -24,12 +26,94 @@ Each value is the maximum over the hour before its stamp. Raw responses: `work/e
 | Yeongyang | 36.75 N 129.0 E | 2026-11-17T02:01:19+00:00 |
 | Yeongdeok | 36.5 N 129.25 E | 2026-11-17T02:01:20+00:00 |
 
-KMA observations: **not fetched** (no key; host not reachable). Repo note (`research-scout/LOG.md:822`, Newsis 2025-03-27) reports gusts
-of about 27 m/s for this fire. ERA5 here peaks at 22.4 m/s (Yeongyang cell, 17:00 KST). The user's recollection of about 14 m/s
-reanalysis in the repo's record was not found in the repo by search, so it is not used; ERA5 may still read low against stations (not
-tested: that needs the KMA series).
+KMA ASOS via data.go.kr (`AsosDalyInfoService`, `AsosHourlyInfoService`), key held outside the repo and never logged:
 
-## Hour by hour, 25 March 2025 KST, 00 to 24
+| point | station | daily fetched (UTC) | hourly fetched (UTC) |
+|---|---|---|---|
+| Uiseong | ASOS 278 | 2026-11-17T02:46:28+00:00 | 2026-11-17T02:46:29+00:00 |
+| Andong | ASOS 136 | 2026-11-17T02:46:29+00:00 | 2026-11-17T02:46:30+00:00 |
+| Cheongsong | ASOS 276 | 2026-11-17T02:46:34+00:00 | 2026-11-17T02:46:35+00:00 |
+| Yeongdeok | ASOS 277 | 2026-11-17T02:46:36+00:00 | 2026-11-17T02:46:37+00:00 |
+| Yeongyang | none (no ASOS id assumed; an AWS site would come from apihub only) | - | - |
+
+Repo note (`research-scout/LOG.md:822`, Newsis 2025-03-27) reports gusts of about 27 m/s for this fire. ERA5 here peaks at 22.4 m/s
+(Yeongyang cell, 17:00 KST). The user's recollection of about 14 m/s reanalysis in the repo's record was not found in the repo by search.
+
+## KMA ASOS observations beside ERA5 (data.go.kr; added by amendment 1)
+
+KMA daily maximum **instantaneous** gust (`maxInsWs`) and its time, against the ERA5 daily maximum of the same KST day (ERA5 stamp =
+end of the hour). n = 4 stations x 5 days for KMA; Yeongyang has no ASOS here, so ERA5 only. These are daily maxima, not hourly gusts: they
+do not enter any class, R or score above.
+
+| point | KMA ASOS station | day | KMA max instantaneous gust m/s (time KST) | ERA5 max gust m/s (stamp KST) | ERA5 minus KMA |
+|---|---|---|---|---|---|
+| Uiseong | 의성 (278) | 2025-03-22 | 17.9 (15:57) | 17.4 (15:00) | -0.5 |
+| Uiseong | 의성 (278) | 2025-03-23 | 8.1 (14:34) | 8.0 (01:00) | -0.1 |
+| Uiseong | 의성 (278) | 2025-03-24 | 10.3 (13:48) | 18.7 (11:00) | +8.4 |
+| Uiseong | 의성 (278) | 2025-03-25 | 14.5 (17:10) | 19.2 (17:00) | +4.7 |
+| Uiseong | 의성 (278) | 2025-03-26 | 8.2 (16:00) | 11.5 (16:00) | +3.3 |
+| Andong | 안동 (136) | 2025-03-22 | 15.4 (14:26) | 16.5 (16:00) | +1.1 |
+| Andong | 안동 (136) | 2025-03-23 | 7.5 (15:15) | 7.8 (16:00) | +0.3 |
+| Andong | 안동 (136) | 2025-03-24 | 13.4 (15:11) | 17.9 (12:00) | +4.5 |
+| Andong | 안동 (136) | 2025-03-25 | 19.7 (17:44) | 19.8 (16:00) | +0.1 |
+| Andong | 안동 (136) | 2025-03-26 | 5.7 (00:08) | 10.4 (01:00) | +4.7 |
+| Cheongsong | 청송군 (276) | 2025-03-22 | 16.5 (15:09) | 18.4 (16:00) | +1.9 |
+| Cheongsong | 청송군 (276) | 2025-03-23 | 7.1 (13:17) | 9.9 (01:00) | +2.8 |
+| Cheongsong | 청송군 (276) | 2025-03-24 | 12.0 (14:23) | 19.4 (12:00) | +7.4 |
+| Cheongsong | 청송군 (276) | 2025-03-25 | 25.1 (18:15) | 20.6 (18:00) | -4.5 |
+| Cheongsong | 청송군 (276) | 2025-03-26 | 7.8 (01:58) | 14.7 (01:00) | +6.9 |
+| Yeongyang | none assumed (no ASOS id; AWS needs apihub) | 2025-03-22 | - | 18.3 (16:00) | - |
+| Yeongyang | none assumed (no ASOS id; AWS needs apihub) | 2025-03-23 | - | 7.9 (01:00) | - |
+| Yeongyang | none assumed (no ASOS id; AWS needs apihub) | 2025-03-24 | - | 21.4 (12:00) | - |
+| Yeongyang | none assumed (no ASOS id; AWS needs apihub) | 2025-03-25 | - | 22.4 (17:00) | - |
+| Yeongyang | none assumed (no ASOS id; AWS needs apihub) | 2025-03-26 | - | 13.4 (01:00) | - |
+| Yeongdeok | 영덕 (277) | 2025-03-22 | 17.8 (14:28) | 16.4 (15:00) | -1.4 |
+| Yeongdeok | 영덕 (277) | 2025-03-23 | 11.6 (05:08) | 11.0 (01:00) | -0.6 |
+| Yeongdeok | 영덕 (277) | 2025-03-24 | 15.2 (09:15) | 18.6 (12:00) | +3.4 |
+| Yeongdeok | 영덕 (277) | 2025-03-25 | 25.4 (21:56) | 20.4 (23:00) | -5.0 |
+| Yeongdeok | 영덕 (277) | 2025-03-26 | 9.9 (15:52) | 15.8 (01:00) | +5.9 |
+
+- On 25 March KMA observed >= 20 m/s at two of four stations: Cheongsong 25.1 m/s at 18:15 and Yeongdeok 25.4 m/s at 21:56 KST (Andong 19.7 at
+  17:44, Uiseong 14.5 at 17:10). Neither >= 20 gust falls at 10-11 KST. ERA5 read **lower** than KMA at the two stations that peaked
+  (-4.5 and -5.0 m/s) and **higher** at Uiseong (+4.7); on 22 March the differences are -1.4 to +1.9. So ERA5 reads low here at the two peak
+  stations only; one day, four stations, no general bias is claimed.
+- The daily series cannot say what the maximum gust was in any given hour, and a gust >= 20 m/s earlier in the day is not excluded by it. It
+  shows that the daily maximum at every station occurred at 14:26 or later on 22 and 25 March; the 25 March times are 17:10 to 21:56.
+- The >= 20 m/s class rests on **9 fires**; the observed 25.1 and 25.4 m/s are above anything this calibration can speak to.
+
+KMA hourly **mean** wind `ws` on 25 March (m/s, KST hour; mean, not gust; Cheongsong has no value from 21:00):
+
+| KST hour | Uiseong | Andong | Cheongsong | Yeongdeok |
+|---|---|---|---|---|
+| 00:00 | 0.2 | 0.2 | 0.5 | 1.5 |
+| 01:00 | 0.1 | 1.2 | 0.2 | 2.1 |
+| 02:00 | 0.3 | 1.5 | 0.8 | 2.0 |
+| 03:00 | 0.0 | 0.9 | 0.6 | 2.8 |
+| 04:00 | 0.4 | 0.6 | 0.4 | 2.1 |
+| 05:00 | 0.1 | 1.3 | 0.6 | 4.1 |
+| 06:00 | 0.0 | 1.3 | 0.4 | 4.2 |
+| 07:00 | 0.2 | 1.0 | 0.9 | 4.2 |
+| 08:00 | 0.1 | 0.1 | 0.3 | 2.7 |
+| 09:00 | 0.4 | 1.4 | 0.5 | 2.6 |
+| 10:00 | 0.5 | 1.4 | 0.5 | 1.8 |
+| 11:00 | 2.7 | 0.6 | 1.8 | 3.8 |
+| 12:00 | 2.0 | 1.5 | 4.7 | 2.8 |
+| 13:00 | 3.4 | 2.1 | 3.4 | 2.4 |
+| 14:00 | 4.3 | 3.5 | 2.9 | 3.6 |
+| 15:00 | 3.8 | 4.5 | 3.1 | 4.7 |
+| 16:00 | 5.9 | 7.8 | 4.6 | 4.0 |
+| 17:00 | 6.2 | 6.5 | 5.4 | 2.6 |
+| 18:00 | 5.6 | 8.7 | 8.7 | 3.4 |
+| 19:00 | 6.5 | 7.7 | 8.5 | 4.8 |
+| 20:00 | 4.7 | 6.9 | 7.0 | 8.8 |
+| 21:00 | 2.1 | 3.4 | n/a | 10.5 |
+| 22:00 | 1.6 | 3.5 | n/a | 12.2 |
+| 23:00 | 2.5 | 2.0 | n/a | 10.5 |
+
+At 10:00 and 11:00 KST the hourly mean wind is 0.5 to 3.8 m/s at all four stations. That is a mean, so it is only an indication that the
+hours had no strong wind; it does not bound the gust.
+
+## Hour by hour, 25 March 2025 KST, 00 to 24 (ERA5 only, PROVISIONAL)
 
 Columns 2-6: ERA5 gust at the stamp (m/s, max over the previous hour). Class at stamp: < 10, 10-20, >= 20. Forward columns:
 issue hour t = the row, window (t, t+h], maximum over the five points, class, frozen R(h) at the 10% target (km), reach from
@@ -83,7 +167,8 @@ end of AHI coverage. n = 1 fire, 1 day. R values: gust < 10: 2.6 / 3.0; 10-20: 4
 
 ## What this does not show
 
-- No KMA observation was used: ERA5 at 0.25 degrees smooths gusts, and each point is one grid cell near a county seat, not the fire.
+- The hour-by-hour tables use no KMA hourly gust (only daily maxima and hourly means were available): ERA5 at 0.25 degrees smooths gusts, and each point is one grid cell near a county seat, not the fire. Where KMA is available it read higher than ERA5 at the two peak stations.
+- Answer to "was a gust >= 20 m/s present at 10-11 KST, observed or in ERA5": ERA5, no (10.6 and 12.6 m/s fire-wide at the stamps); KMA, not shown by the data that could be fetched (the >= 20 m/s gusts it recorded came at 18:15 and 21:56 KST; hourly gust was not available).
 - The class for a window uses the realised gust over the next h hours (a perfect forecast; ASSUMED). At the issue time itself the
   gust was < 20 m/s until 15:00 KST (ERA5).
 - The >= 20 m/s class has 9 fires behind it. 0 of 9 missed in the calibration, with 95% CI 0-34%.
