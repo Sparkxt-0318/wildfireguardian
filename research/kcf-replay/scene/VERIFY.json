@@ -1,5 +1,5 @@
 {
- "bytes": 8136908,
+ "bytes": 12640035,
  "checks": {
   "arms:2b_R_text": 7,
   "arms:2b_class_column": 7,
@@ -77,16 +77,16 @@
   "roadCells:ring_closed": 2,
   "roadCells:rings": 2,
   "roadCells:sorted_unique": 2,
-  "routeEdges:seg_cells_in_roadCells": 23402,
-  "routes:arr_text": 1130,
-  "routes:chain": 1130,
-  "routes:included_when_complete": 1,
-  "routes:last_text": 1130,
-  "routes:present_iff_departure": 2262,
-  "routes:runs_complete": 1,
-  "routes:sh_cell_in_roadCells": 1130,
-  "routes:shelter": 1130,
-  "routes:shelter_known": 1130,
+  "routeEdges:seg_cells_in_roadCells": 25433,
+  "routes:arr_text": 6552,
+  "routes:chain": 6552,
+  "routes:included_when_complete": 6,
+  "routes:last_text": 6552,
+  "routes:present_iff_departure": 13572,
+  "routes:runs_complete": 6,
+  "routes:sh_cell_in_roadCells": 6552,
+  "routes:shelter": 6552,
+  "routes:shelter_known": 6552,
   "schema": 1,
   "score": 1,
   "standins:a_v_vs_RESULTS": 3,
@@ -97,15 +97,15 @@
   "time:issues_s": 1,
   "time:t0": 1,
   "top_keys_missing": 1,
-  "walk:ld+60_fails": 1130,
-  "walk:pass_and_arrival": 1130
+  "walk:ld+60_fails": 6552,
+  "walk:pass_and_arrival": 6552
  },
  "failures": [],
  "inputs": [
   {
-   "bytes": 8136908,
+   "bytes": 12640035,
    "path": "planner/public/kcf-scene/data/scene.js",
-   "sha256": "175512768bf71e04d2f29b169acff500abb542a1290034e4e4998f840b0c0235"
+   "sha256": "cd1c6272a88fd205435cb21699cc678232a9efa8b8505f6ba97558f8abc54a9d"
   },
   {
    "bytes": 15623,
@@ -305,23 +305,33 @@
  ],
  "ok": true,
  "scene_built": {
-  "commit": "f673565d2f03889a1c692405214782f2d4d0ea58",
-  "generated_utc": "2026-11-17T15:14:43Z",
+  "commit": "da5392213077adcf207501ae0431dea841ea1968",
+  "generated_utc": "2026-11-17T16:11:42Z",
   "runs": {
-   "MEASURED": "absent",
-   "MEASURED_GUST": "absent",
+   "MEASURED": "complete",
+   "MEASURED_GUST": "complete",
    "MEASURED_GUST_KMA": "complete",
-   "ORDINARY": "absent",
-   "RUNNING": "absent",
-   "WORST": "absent"
+   "ORDINARY": "complete",
+   "RUNNING": "complete",
+   "WORST": "complete"
   },
   "script": "research/kcf-replay/scene/build_scene.py"
  },
  "scene_js": "planner/public/kcf-scene/data/scene.js",
  "script": "research/kcf-replay/scene/verify_scene.py",
- "sha256": "175512768bf71e04d2f29b169acff500abb542a1290034e4e4998f840b0c0235",
+ "sha256": "cd1c6272a88fd205435cb21699cc678232a9efa8b8505f6ba97558f8abc54a9d",
  "witness_walk": {
+  "MEASURED:PASS": 1134,
+  "MEASURED:ld+60:FAIL": 1134,
+  "MEASURED_GUST:PASS": 1130,
+  "MEASURED_GUST:ld+60:FAIL": 1130,
   "MEASURED_GUST_KMA:PASS": 1130,
-  "MEASURED_GUST_KMA:ld+60:FAIL": 1130
+  "MEASURED_GUST_KMA:ld+60:FAIL": 1130,
+  "ORDINARY:PASS": 1135,
+  "ORDINARY:ld+60:FAIL": 1135,
+  "RUNNING:PASS": 1093,
+  "RUNNING:ld+60:FAIL": 1093,
+  "WORST:PASS": 930,
+  "WORST:ld+60:FAIL": 930
  }
 }
