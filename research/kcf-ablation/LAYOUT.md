@@ -122,4 +122,7 @@ after the full-system outputs are known. Row 3 is NOT RUN on every fire unless t
 
 ## Amendments
 
-(none)
+1. **2026-11-17, before any V2 result was read.** N2 also re-runs the **full** arm on the six caches with the same runner,
+   because the committed files hold per-origin leave-bys but not the per-job verdict counts (cases decided, routes found)
+   under heat + dose. The run also adds the contact-only (`cert`) field, whose job count must equal F-3.1's 7,970
+   feasible jobs (a check, not a row). `run_v2.py` therefore emits `jobs` and `job_feasible`. No row or metric changes.
