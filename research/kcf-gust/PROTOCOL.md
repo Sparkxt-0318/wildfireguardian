@@ -63,3 +63,19 @@ and is reported as such.
      from apihub only). Presence is decided by the service, not by assumption.
    - "Gust >= 20 m/s observed at 10-11 KST" is answerable from the daily series only if `maxInsWsHrmt` falls in that window; otherwise
      the daily series can bound it (a daily maximum below 20 m/s rules out >= 20 at that station that day) but not locate it.
+
+2. **2026-11-17, before any KMA hourly value was fetched or read.** The apihub key is now approved for `kma_sfctm2.php` (ASOS hourly,
+   columns include `GST_WS` gust m/s, `GST_WD`, `GST_TM` time of the gust) and `nph-aws2_min` (AWS per minute; has `WSS`).
+   - **Primary series (KMA, ASOS hourly):** `kma_sfctm2.php?tm=YYYYMMDDHH00&stn=0` for every KST hour 2025-03-22 00:00 to 2025-03-26 23:00
+     (120 calls, EUC-KR), stations Uiseong 278, Andong 136, Cheongsong 276, Yeongdeok 277. The value for stamp H is `GST_WS` of the row
+     with `tm` = H, read as the maximum gust over the preceding hour (same convention as the ERA5 stamp). One check, reported as it
+     comes out: `GST_TM` should fall in (H-1 h, H]; violations are listed. Missing or negative codes (-9, -99) are dropped, not zeroed.
+   - **Fire-wide KMA value** = maximum over the stations present at that stamp. Yeongyang has no ASOS here and AWS minute data would take
+     about 2,000 calls for the windows needed, so **Yeongyang AWS is not used**; KMA therefore covers four of the five points. Stated next
+     to every KMA table.
+   - Classes, frozen R, window (t, t+h], "held" test and the 10-11 KST question are exactly as above, once with KMA (primary) and once
+     with ERA5 (secondary), side by side. A hole in the KMA series for a window is reported, not filled with ERA5.
+   - The >= 20 m/s class rests on 9 fires; stated next to every number that uses it.
+   - With the KMA series, the hour-by-hour tables are no longer labelled PROVISIONAL (the KMA gust is observed, not a perfect forecast,
+     for hours already past; for the forward window it is still the realised series read as a perfect forecast, ASSUMED).
+
