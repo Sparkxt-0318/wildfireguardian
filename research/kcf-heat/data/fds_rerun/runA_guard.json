@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "stop": null,
+  "fds_success_marker": true,
+  "elapsed_s": 385.57980816601776,
+  "sampled_process_tree_peak_rss_bytes": 1837912064,
+  "sampled_min_free_bytes": 11156471808,
+  "sampled_max_dir_bytes": 174977913,
+  "fds_binary": "<FDS_ROOT>/bin/fds"
+}

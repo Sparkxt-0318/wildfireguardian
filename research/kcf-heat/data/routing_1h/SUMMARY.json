@@ -1,0 +1,202 @@
+{
+ "per_cache": [
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "origins": 86,
+   "with_leave_by": 85,
+   "moved": 2,
+   "moved_grid": 0,
+   "lost": 0,
+   "shift_median_s": 84.0,
+   "shift_max_s": 84,
+   "shift_min_s": 84,
+   "cert_reproduces_F31": "86/86",
+   "heat_rule": {
+    "q_vehicle_kw_m2": 10.0,
+    "q_person_kw_m2": 2.5,
+    "chi": 0.3,
+    "energy_kj_m2": 18608.0,
+    "residence_s": 11.52,
+    "spread_m_s": 0.09472222222222222,
+    "lead_scale": 1.0,
+    "lead_vehicle_s": 84,
+    "halo_vehicle_m": 7.96,
+    "lead_person_s": 350,
+    "halo_person_m": 33.16
+   },
+   "field_time_s": {
+    "cert": 16.54091029020492,
+    "cert_heat": 16.88380958500784
+   },
+   "peak_rss_mib": 473312.0
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "origins": 85,
+   "with_leave_by": 85,
+   "moved": 4,
+   "moved_grid": 2,
+   "lost": 0,
+   "shift_median_s": 84.0,
+   "shift_max_s": 346,
+   "shift_min_s": 76,
+   "cert_reproduces_F31": "85/85",
+   "heat_rule": {
+    "q_vehicle_kw_m2": 10.0,
+    "q_person_kw_m2": 2.5,
+    "chi": 0.3,
+    "energy_kj_m2": 18608.0,
+    "residence_s": 11.52,
+    "spread_m_s": 0.09472222222222222,
+    "lead_scale": 1.0,
+    "lead_vehicle_s": 84,
+    "halo_vehicle_m": 7.96,
+    "lead_person_s": 350,
+    "halo_person_m": 33.16
+   },
+   "field_time_s": {
+    "cert": 16.501079663983546,
+    "cert_heat": 16.31601446098648
+   },
+   "peak_rss_mib": 834592.0
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "origins": 85,
+   "with_leave_by": 73,
+   "moved": 0,
+   "moved_grid": 0,
+   "lost": 0,
+   "shift_median_s": null,
+   "shift_max_s": null,
+   "shift_min_s": null,
+   "cert_reproduces_F31": "85/85",
+   "heat_rule": {
+    "q_vehicle_kw_m2": 10.0,
+    "q_person_kw_m2": 2.5,
+    "chi": 0.3,
+    "energy_kj_m2": 18608.0,
+    "residence_s": 11.52,
+    "spread_m_s": 0.09472222222222222,
+    "lead_scale": 1.0,
+    "lead_vehicle_s": 84,
+    "halo_vehicle_m": 7.96,
+    "lead_person_s": 350,
+    "halo_person_m": 33.16
+   },
+   "field_time_s": {
+    "cert": 14.537868746789172,
+    "cert_heat": 14.317352584912442
+   },
+   "peak_rss_mib": 938256.0
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "origins": 92,
+   "with_leave_by": 85,
+   "moved": 0,
+   "moved_grid": 0,
+   "lost": 0,
+   "shift_median_s": null,
+   "shift_max_s": null,
+   "shift_min_s": null,
+   "cert_reproduces_F31": "92/92",
+   "heat_rule": {
+    "q_vehicle_kw_m2": 10.0,
+    "q_person_kw_m2": 2.5,
+    "chi": 0.3,
+    "energy_kj_m2": 18608.0,
+    "residence_s": 11.52,
+    "spread_m_s": 0.09472222222222222,
+    "lead_scale": 1.0,
+    "lead_vehicle_s": 84,
+    "halo_vehicle_m": 7.96,
+    "lead_person_s": 350,
+    "halo_person_m": 33.16
+   },
+   "field_time_s": {
+    "cert": 158.74945449375082,
+    "cert_heat": 157.27559299801942
+   },
+   "peak_rss_mib": 1180400.0
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "origins": 91,
+   "with_leave_by": 91,
+   "moved": 0,
+   "moved_grid": 1,
+   "lost": 1,
+   "shift_median_s": null,
+   "shift_max_s": null,
+   "shift_min_s": null,
+   "cert_reproduces_F31": "91/91",
+   "heat_rule": {
+    "q_vehicle_kw_m2": 10.0,
+    "q_person_kw_m2": 2.5,
+    "chi": 0.3,
+    "energy_kj_m2": 18608.0,
+    "residence_s": 11.52,
+    "spread_m_s": 0.09472222222222222,
+    "lead_scale": 1.0,
+    "lead_vehicle_s": 84,
+    "halo_vehicle_m": 7.96,
+    "lead_person_s": 350,
+    "halo_person_m": 33.16
+   },
+   "field_time_s": {
+    "cert": 150.00590350118,
+    "cert_heat": 148.12051929091103
+   },
+   "peak_rss_mib": 786016.0
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "origins": 91,
+   "with_leave_by": 89,
+   "moved": 0,
+   "moved_grid": 0,
+   "lost": 0,
+   "shift_median_s": null,
+   "shift_max_s": null,
+   "shift_min_s": null,
+   "cert_reproduces_F31": "91/91",
+   "heat_rule": {
+    "q_vehicle_kw_m2": 10.0,
+    "q_person_kw_m2": 2.5,
+    "chi": 0.3,
+    "energy_kj_m2": 18608.0,
+    "residence_s": 11.52,
+    "spread_m_s": 0.09472222222222222,
+    "lead_scale": 1.0,
+    "lead_vehicle_s": 84,
+    "halo_vehicle_m": 7.96,
+    "lead_person_s": 350,
+    "halo_person_m": 33.16
+   },
+   "field_time_s": {
+    "cert": 126.53846933040768,
+    "cert_heat": 128.4237021706067
+   },
+   "peak_rss_mib": 918720.0
+  }
+ ],
+ "total": {
+  "origins": 530,
+  "with_leave_by": 508,
+  "moved": 6,
+  "moved_grid": 3,
+  "lost": 1,
+  "reproduced": 530,
+  "compared": 530,
+  "shift_median_s": 84.0,
+  "shift_max_s": 346,
+  "shift_min_s": 76,
+  "shift_hist": {
+   "1-60": 0,
+   "61-120": 5,
+   "121-350": 1,
+   ">350": 0
+  }
+ }
+}

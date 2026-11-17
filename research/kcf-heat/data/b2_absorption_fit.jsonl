@@ -1,0 +1,13 @@
+{"kappa_flame_per_m": 0.0, "kappa_path_per_m": 0.0, "geomean_model_over_fds": 40.53619212555834, "d_lt_8": 10.473661096538404, "d_ge_20": 65.31172394939706, "rms_log": 3.783832361376159, "n": 95}
+{"kappa_flame_per_m": 0.0, "kappa_path_per_m": 0.03, "geomean_model_over_fds": 12.992947161272358, "d_lt_8": 7.001637807609407, "d_ge_20": 15.7564777717425, "rms_log": 2.592245810015727, "n": 95}
+{"kappa_flame_per_m": 0.0, "kappa_path_per_m": 0.06, "geomean_model_over_fds": 4.272162639805369, "d_lt_8": 4.78830956532686, "d_ge_20": 3.899034745927199, "rms_log": 1.4987468766510461, "n": 95}
+{"kappa_flame_per_m": 0.3, "kappa_path_per_m": 0.0, "geomean_model_over_fds": 4.049843414456845, "d_lt_8": 1.2179268268675967, "d_ge_20": 6.404282429751247, "rms_log": 1.597071752414403, "n": 95}
+{"kappa_flame_per_m": 0.3, "kappa_path_per_m": 0.03, "geomean_model_over_fds": 1.4378752368727854, "d_lt_8": 0.9127479459124715, "d_ge_20": 1.6986603295551246, "rms_log": 0.5249995272927513, "n": 95}
+{"kappa_flame_per_m": 0.3, "kappa_path_per_m": 0.06, "geomean_model_over_fds": 0.5197264247491935, "d_lt_8": 0.6901269909625238, "d_ge_20": 0.4597331762388561, "rms_log": 0.7767691472430295, "n": 95}
+{"kappa_flame_per_m": 0.6, "kappa_path_per_m": 0.0, "geomean_model_over_fds": 0.9805902664649552, "d_lt_8": 0.31939198302311606, "d_ge_20": 1.5210757152534435, "rms_log": 0.7547257599382773, "n": 95}
+{"kappa_flame_per_m": 0.6, "kappa_path_per_m": 0.03, "geomean_model_over_fds": 0.3717812484604882, "d_lt_8": 0.25407588402177234, "d_ge_20": 0.4307826211496854, "rms_log": 1.0556833548602744, "n": 95}
+{"kappa_flame_per_m": 0.6, "kappa_path_per_m": 0.06, "geomean_model_over_fds": 0.14354412590130836, "d_lt_8": 0.20351411166892358, "d_ge_20": 0.12459240743760483, "rms_log": 1.987780044378338, "n": 95}
+{"kappa_flame_per_m": 1.0, "kappa_path_per_m": 0.0, "geomean_model_over_fds": 0.32585467309794963, "d_lt_8": 0.10830778796175748, "d_ge_20": 0.502147646708655, "rms_log": 1.349014074906784, "n": 95}
+{"kappa_flame_per_m": 1.0, "kappa_path_per_m": 0.03, "geomean_model_over_fds": 0.1304482651386216, "d_lt_8": 0.09010844864056096, "d_ge_20": 0.15029352590886585, "rms_log": 2.0653406740267486, "n": 95}
+{"kappa_flame_per_m": 1.0, "kappa_path_per_m": 0.06, "geomean_model_over_fds": 0.053138081554155704, "d_lt_8": 0.07533540224199983, "d_ge_20": 0.0459285780253543, "rms_log": 2.9608405385385397, "n": 95}
+best {"kappa_flame_per_m": 0.3, "kappa_path_per_m": 0.03, "geomean_model_over_fds": 1.4378752368727854, "d_lt_8": 0.9127479459124715, "d_ge_20": 1.6986603295551246, "rms_log": 0.5249995272927513, "n": 95}

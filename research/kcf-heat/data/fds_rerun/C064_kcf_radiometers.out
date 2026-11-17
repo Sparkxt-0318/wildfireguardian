@@ -1,0 +1,716 @@
+
+ Fire Dynamics Simulator
+
+ Current Date     : November 17, 2026  08:04:57
+ Revision         : FDS-6.11.1-0-gff928db-release
+ Revision Date    : Thu Jul 9 17:24:07 2026 -0400
+ Compiler         : Intel(R) Fortran Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, Version 2021.10.0 Build 20230609_000000
+ Compilation Date : Jul 10, 2026  12:51:24
+
+ Number of MPI Processes:  6
+
+ MPI version: 3.1
+ MPI library version: Open MPI v5.0.10, package: Open MPI mnv@wildfire.campus.nist.gov Distribution, ident: 5.0.10, repo rev: v5.0.10, Feb 23, 2026
+ Hypre library version: v3.0.0
+ Sundials library version: v7.5.0
+
+ Job TITLE        : (Concatenated) Australian Grassland Fire Experiment, Case C064
+ Job ID string    : C064_kcf_radiometers
+
+
+ Miscellaneous Parameters
+
+   Total Number of Grid Cells      288000
+   Maximum Cell Aspect Ratio        1.000
+   Initial Time Step (s)            0.217
+   CFL Velocity Norm                    2
+   Simulation Start Time (s)          0.0
+   Simulation End Time (s)          140.0
+   Background Pressure (Pa)     101325.00
+   Ambient Temperature (C)          32.33
+
+   3D Cartesian
+   SVLES Calculation
+   Eddy Viscosity Model:  Deardorff (C_DEARDORFF = 0.10)
+   Surface IGNITION Eddy Viscosity Model:  WALE (C_WALE = 0.60)
+   Surface ROAD Eddy Viscosity Model:  WALE (C_WALE = 0.60)
+   Surface GROUND Eddy Viscosity Model:  WALE (C_WALE = 0.60)
+   Surface wet vegetation Eddy Viscosity Model:  WALE (C_WALE = 0.60)
+   Turbulent Prandtl Number:         0.50
+   Turbulent Schmidt Number:         0.50
+
+
+ Pressure solver information
+
+   Solver:                            FFT
+   Velocity tolerance (m/s):    5.000E-01
+   Press eqn res tol (1/s^2):   2.000E+01
+   Max pressure iterations:            10
+
+
+ Mass Fraction Transformation Matrix to Convert Species Mixtures (Columns) to Primitive Species (Rows)
+
+                         AIR       PRODUCTS  FUEL VAP  WATER VA
+   NITROGEN              0.757776  0.637664  0.000000  0.000000
+   OXYGEN                0.229575  0.000000  0.000000  0.000000
+   CARBON DIOXIDE        0.000588  0.216540  0.000000  0.000000
+   CARBON MONOXIDE       0.000000  0.000000  0.000000  0.000000
+   SOOT                  0.000000  0.001585  0.000000  0.000000
+   HYDROGEN              0.000000  0.000000  0.000000  0.000000
+   HYDROGEN CYANIDE      0.000000  0.000000  0.000000  0.000000
+   FUEL VAPOR            0.000000  0.000000  1.000000  0.000000
+   WATER VAPOR           0.012061  0.144211  0.000000  1.000000
+
+
+ Primitive Species Information
+
+   NITROGEN
+   Gas Species
+   Molecular Weight (g/mol)                28.01340
+   Ambient Density (kg/m^3)                1.118
+           Enthalpy of Formation (J/kg)  0.000E+00
+
+   OXYGEN
+   Gas Species
+   Molecular Weight (g/mol)                31.99880
+   Ambient Density (kg/m^3)                1.277
+           Enthalpy of Formation (J/kg)  0.000E+00
+
+   CARBON DIOXIDE
+   Gas Species
+   Molecular Weight (g/mol)                44.00950
+   Ambient Density (kg/m^3)                1.756
+           Enthalpy of Formation (J/kg) -8.941E+06
+
+   CARBON MONOXIDE
+   Gas Species
+   Molecular Weight (g/mol)                28.01010
+   Ambient Density (kg/m^3)                1.117
+           Enthalpy of Formation (J/kg) -3.946E+06
+
+   SOOT
+   Gas Species
+   Molecular Weight (g/mol)                12.01070
+   Ambient Density (kg/m^3)                0.479
+           Enthalpy of Formation (J/kg)  0.000E+00
+
+   HYDROGEN
+   Gas Species
+   Molecular Weight (g/mol)                 2.01588
+   Ambient Density (kg/m^3)                0.080
+           Enthalpy of Formation (J/kg)  0.000E+00
+
+   HYDROGEN CYANIDE
+   Gas Species
+   Molecular Weight (g/mol)                27.02534
+   Ambient Density (kg/m^3)                1.078
+           Enthalpy of Formation (J/kg)  4.924E+06
+
+   FUEL VAPOR
+   Gas Species
+   Molecular Weight (g/mol)                66.03040
+   Ambient Density (kg/m^3)                2.634
+   Assumed Enthalpy of Formation (J/kg)  1.779E+07
+
+   WATER VAPOR
+   Gas Species
+   Molecular Weight (g/mol)                18.01528
+   Ambient Density (kg/m^3)                0.719
+           Enthalpy of Formation (J/kg) -1.342E+07
+
+
+ Tracked (Lumped) Species Information
+
+   AIR
+   Molecular Weight (g/mol)            28.64687
+   Ambient Density (kg/m^3)            1.143
+   Initial Mass Fraction               1.000
+   Enthalpy of Formation (J/kg)      3.029E+05
+
+   Sub Species                    Mass Fraction     Mole Fraction
+   NITROGEN                       7.577757E-01      7.749114E-01
+   OXYGEN                         2.295752E-01      2.055268E-01
+   CARBON DIOXIDE                 5.878235E-04      3.826289E-04
+   WATER VAPOR                    1.206129E-02      1.917917E-02
+ 
+     Viscosity (kg/m/s) Ambient,  305 K:  1.843E-05
+                                  500 K:  2.606E-05
+                                 1000 K:  4.121E-05
+                                 1500 K:  5.370E-05
+                                 2000 K:  6.477E-05
+   Therm. Cond. (W/m/K) Ambient,  305 K:  2.617E-02
+                                  500 K:  3.697E-02
+                                 1000 K:  5.848E-02
+                                 1500 K:  7.622E-02
+                                 2000 K:  9.194E-02
+        Enthalpy (J/kg) Ambient,  305 K:  3.103E+05
+                                  500 K:  5.079E+05
+                                 1000 K:  1.016E+06
+                                 1500 K:  1.524E+06
+                                 2000 K:  2.032E+06
+    Spec. Heat (J/kg/K) Ambient,  305 K:  1.016E+03
+                                  500 K:  1.016E+03
+                                 1000 K:  1.016E+03
+                                 1500 K:  1.016E+03
+                                 2000 K:  1.016E+03
+   Diff. Coeff. (m^2/s) Ambient,  305 K:  2.135E-05
+                                  500 K:  4.969E-05
+                                 1000 K:  1.584E-04
+                                 1500 K:  3.103E-04
+                                 2000 K:  4.998E-04
+     Gibbs Energy Amb. (kJ/mol),  305 K:  0.000E+00
+                                  500 K:  0.000E+00
+                                 1000 K:  0.000E+00
+                                 1500 K:  0.000E+00
+                                 2000 K:  0.000E+00
+
+   PRODUCTS
+   Molecular Weight (g/mol)            27.91736
+   Ambient Density (kg/m^3)            1.114
+   Initial Mass Fraction               0.000
+   Enthalpy of Formation (J/kg)      3.108E+05
+
+   Sub Species                    Mass Fraction     Mole Fraction
+   NITROGEN                       6.376640E-01      6.354778E-01
+   CARBON DIOXIDE                 2.165402E-01      1.373619E-01
+   CARBON MONOXIDE                0.000000E+00      0.000000E+00
+   SOOT                           1.585055E-03      3.684261E-03
+   HYDROGEN CYANIDE               0.000000E+00      0.000000E+00
+   WATER VAPOR                    1.442107E-01      2.234760E-01
+ 
+     Viscosity (kg/m/s) Ambient,  305 K:  1.619E-05
+                                  500 K:  2.346E-05
+                                 1000 K:  3.873E-05
+                                 1500 K:  5.145E-05
+                                 2000 K:  6.264E-05
+   Therm. Cond. (W/m/K) Ambient,  305 K:  2.249E-02
+                                  500 K:  3.253E-02
+                                 1000 K:  5.383E-02
+                                 1500 K:  7.169E-02
+                                 2000 K:  8.741E-02
+        Enthalpy (J/kg) Ambient,  305 K:  3.184E+05
+                                  500 K:  5.212E+05
+                                 1000 K:  1.042E+06
+                                 1500 K:  1.564E+06
+                                 2000 K:  2.085E+06
+    Spec. Heat (J/kg/K) Ambient,  305 K:  1.042E+03
+                                  500 K:  1.042E+03
+                                 1000 K:  1.042E+03
+                                 1500 K:  1.042E+03
+                                 2000 K:  1.042E+03
+   Diff. Coeff. (m^2/s) Ambient,  305 K:  2.093E-05
+                                  500 K:  4.983E-05
+                                 1000 K:  1.618E-04
+                                 1500 K:  3.187E-04
+                                 2000 K:  5.144E-04
+     Gibbs Energy Amb. (kJ/mol),  305 K:  0.000E+00
+                                  500 K:  0.000E+00
+                                 1000 K:  0.000E+00
+                                 1500 K:  0.000E+00
+                                 2000 K:  0.000E+00
+
+   FUEL VAPOR
+   Molecular Weight (g/mol)            66.03040
+   Ambient Density (kg/m^3)            2.634
+   Initial Mass Fraction               0.000
+   Enthalpy of Formation (J/kg)      1.779E+07
+
+   Sub Species                    Mass Fraction     Mole Fraction
+   FUEL VAPOR                     1.000000E+00      1.000000E+00
+ 
+     Viscosity (kg/m/s) Ambient,  305 K:  2.749E-05
+                                  500 K:  3.856E-05
+                                 1000 K:  6.062E-05
+                                 1500 K:  7.886E-05
+                                 2000 K:  9.504E-05
+   Therm. Cond. (W/m/K) Ambient,  305 K:  1.706E-02
+                                  500 K:  2.394E-02
+                                 1000 K:  3.763E-02
+                                 1500 K:  4.895E-02
+                                 2000 K:  5.899E-02
+        Enthalpy (J/kg) Ambient,  305 K:  1.779E+07
+                                  500 K:  1.787E+07
+                                 1000 K:  1.809E+07
+                                 1500 K:  1.831E+07
+                                 2000 K:  1.854E+07
+    Spec. Heat (J/kg/K) Ambient,  305 K:  4.407E+02
+                                  500 K:  4.407E+02
+                                 1000 K:  4.407E+02
+                                 1500 K:  4.407E+02
+                                 2000 K:  4.407E+02
+   Diff. Coeff. (m^2/s) Ambient,  305 K:  1.796E-05
+                                  500 K:  4.164E-05
+                                 1000 K:  1.323E-04
+                                 1500 K:  2.591E-04
+                                 2000 K:  4.172E-04
+
+   WATER VAPOR
+   Molecular Weight (g/mol)            18.01528
+   Ambient Density (kg/m^3)            0.719
+   Initial Mass Fraction               0.000
+   Enthalpy of Formation (J/kg)      4.816E+05
+
+   Sub Species                    Mass Fraction     Mole Fraction
+   WATER VAPOR                    1.000000E+00      1.000000E+00
+ 
+     Viscosity (kg/m/s) Ambient,  305 K:  1.092E-05
+                                  500 K:  1.770E-05
+                                 1000 K:  3.583E-05
+                                 1500 K:  5.206E-05
+                                 2000 K:  6.615E-05
+   Therm. Cond. (W/m/K) Ambient,  305 K:  1.764E-02
+                                  500 K:  2.858E-02
+                                 1000 K:  5.788E-02
+                                 1500 K:  8.410E-02
+                                 2000 K:  1.069E-01
+        Enthalpy (J/kg) Ambient,  305 K:  4.935E+05
+                                  500 K:  8.077E+05
+                                 1000 K:  1.615E+06
+                                 1500 K:  2.423E+06
+                                 2000 K:  3.231E+06
+    Spec. Heat (J/kg/K) Ambient,  305 K:  1.615E+03
+                                  500 K:  1.615E+03
+                                 1000 K:  1.615E+03
+                                 1500 K:  1.615E+03
+                                 2000 K:  1.615E+03
+   Diff. Coeff. (m^2/s) Ambient,  305 K:  2.266E-05
+                                  500 K:  5.775E-05
+                                 1000 K:  1.976E-04
+                                 1500 K:  3.947E-04
+                                 2000 K:  6.404E-04
+     Gibbs Energy Amb. (kJ/mol),  305 K:  0.000E+00
+                                  500 K:  0.000E+00
+                                 1000 K:  0.000E+00
+                                 1500 K:  0.000E+00
+                                 2000 K:  0.000E+00
+
+
+ Gas Phase Reaction Information
+
+   Solver Details:  
+
+      ODE Solver:  EXPLICIT EULER
+
+      Fuel                                           Heat of Combustion (kJ/kg)
+      FUEL VAPOR                                                     17432.2239
+      EPUMO2:                                                        14302.7967
+
+      Primitive Species Stoich. Coeff.
+      Species ID                                                          Molar
+      OXYGEN                                                          -2.515024
+      CARBON DIOXIDE                                                   2.045024
+      SOOT                                                             0.054976
+      FUEL VAPOR                                                      -1.000000
+      WATER VAPOR                                                      3.100000
+
+      Tracked (Lumped) Species Stoich. Coeff.
+      Species ID                                             Molar         Mass
+      AIR                                               -12.236960    -5.308928
+      PRODUCTS                                           14.921937     6.308928
+      FUEL VAPOR                                         -1.000000    -1.000000
+
+      Reaction Kinetics
+
+      Fast chemistry
+
+      Extinction Model:  EXTINCTION 1
+      Auto-Ignition Temperature (C):            -273.1
+      Critical Flame Temperature (C):           1427.0
+
+      Prescribed Radiative Fraction:             0.350
+
+
+ Material Information
+
+   1 DIRT
+     Emissivity:                                  0.900
+     Density (kg/m3):                            1300.0
+     Specific Heat (kJ/kg/K) Ambient,  305 K:  2.000E+00
+                                       350 K:  2.000E+00
+                                       500 K:  2.000E+00
+                                       800 K:  2.000E+00
+     Therm. Cond. (W/m/K) Ambient,     305 K:  2.500E-01
+                                       350 K:  2.500E-01
+                                       500 K:  2.500E-01
+                                       800 K:  2.500E-01
+     Enthalpy (kJ/kg) Ambient,         305 K:  6.100E+02
+                                       350 K:  7.000E+02
+                                       500 K:  1.000E+03
+                                       800 K:  1.600E+03
+
+   2 GENERIC VEGETATION
+     Emissivity:                                  0.900
+     Density (kg/m3):                             500.0
+     Specific Heat (kJ/kg/K) Ambient,  305 K:  1.243E+00
+                                       350 K:  1.446E+00
+                                       500 K:  2.000E+00
+                                       800 K:  2.000E+00
+     Therm. Cond. (W/m/K) Ambient,     305 K:  2.000E-01
+                                       350 K:  2.000E-01
+                                       500 K:  2.000E-01
+                                       800 K:  2.000E-01
+     Enthalpy (kJ/kg) Ambient,         305 K:  1.885E+04
+                                       350 K:  1.891E+04
+                                       500 K:  1.918E+04
+                                       800 K:  1.978E+04
+     Reaction  1
+        Residue Yields:
+        CHAR                                                        :  0.250
+        Gaseous Yields:
+        AIR                                                         :  0.000
+        PRODUCTS                                                    :  0.000
+        FUEL VAPOR                                                  :  0.750
+        WATER VAPOR                                                 :  0.000
+        A (1/s):                      1.040E+03
+        E (J/mol):                    6.104E+04
+        H_R (kJ/kg) TMP_REF,  557 K:  4.182E+02
+                              517 K:  4.650E+02
+                              597 K:  3.714E+02
+        N_S:                              1.00
+        N_T:                              0.00
+
+   3 CHAR
+     Emissivity:                                  0.900
+     Density (kg/m3):                             300.0
+     Specific Heat (kJ/kg/K) Ambient,  305 K:  1.243E+00
+                                       350 K:  1.446E+00
+                                       500 K:  2.000E+00
+                                       800 K:  2.000E+00
+     Therm. Cond. (W/m/K) Ambient,     305 K:  5.200E-02
+                                       350 K:  5.200E-02
+                                       500 K:  5.200E-02
+                                       800 K:  5.200E-02
+     Enthalpy (kJ/kg) Ambient,         305 K:  2.469E+04
+                                       350 K:  2.475E+04
+                                       500 K:  2.502E+04
+                                       800 K:  2.562E+04
+     Reaction  1
+        Residue Yields:
+        ASH                                                         :  0.040
+        Gaseous Yields:
+        AIR                                                         : -7.170
+        PRODUCTS                                                    :  8.130
+        FUEL VAPOR                                                  :  0.000
+        WATER VAPOR                                                 :  0.000
+        A (1/s):                      4.650E+02
+        E (J/mol):                    6.800E+04
+        H_R (kJ/kg) TMP_REF, 1262 K: -2.500E+04
+                             1222 K: -2.497E+04
+                             1302 K: -2.503E+04
+        N_S:                              0.00
+        N_T:                              0.00
+        N_O2:                             1.00
+        Gas diffusion depth (m):   0.0010
+
+   4 ASH
+     Emissivity:                                  0.900
+     Density (kg/m3):                              67.0
+     Specific Heat (kJ/kg/K) Ambient,  305 K:  1.243E+00
+                                       350 K:  1.446E+00
+                                       500 K:  2.000E+00
+                                       800 K:  2.000E+00
+     Therm. Cond. (W/m/K) Ambient,     305 K:  1.000E-01
+                                       350 K:  1.000E-01
+                                       500 K:  1.000E-01
+                                       800 K:  1.000E-01
+     Enthalpy (kJ/kg) Ambient,         305 K: -8.215E+02
+                                       350 K: -7.609E+02
+                                       500 K: -4.947E+02
+                                       800 K:  1.053E+02
+
+   5 MOISTURE
+     Emissivity:                                  0.900
+     Density (kg/m3):                            1000.0
+     Specific Heat (kJ/kg/K) Ambient,  305 K:  4.184E+00
+                                       350 K:  4.184E+00
+                                       500 K:  4.184E+00
+                                       800 K:  4.184E+00
+     Therm. Cond. (W/m/K) Ambient,     305 K:  6.200E-01
+                                       350 K:  6.200E-01
+                                       500 K:  6.200E-01
+                                       800 K:  6.200E-01
+     Enthalpy (kJ/kg) Ambient,         305 K: -1.950E+03
+                                       350 K: -1.762E+03
+                                       500 K: -1.134E+03
+                                       800 K:  1.213E+02
+     Reaction  1
+        Residue Yields:
+        Gaseous Yields:
+        AIR                                                         :  0.000
+        PRODUCTS                                                    :  0.000
+        FUEL VAPOR                                                  :  0.000
+        WATER VAPOR                                                 :  1.000
+        A (1/s):                      6.000E+05
+        E (J/mol):                    4.820E+04
+        H_R (kJ/kg) TMP_REF,  362 K:  2.296E+03
+                              322 K:  2.399E+03
+                              402 K:  2.193E+03
+        N_S:                              1.00
+        N_T:                             -0.50
+
+
+ Surface Conditions
+
+   0 INERT
+
+   1 IGNITION
+     Wall or Vent Temperature (C)   100.0
+     HRR Per Unit Area (kW/m2)       1500.0
+     FUEL VAPOR Mass Flux (kg/s/m2)   8.605E-02
+
+   2 ROAD
+     Material List
+          1  DIRT
+     Layer  1
+        Thickness   (m):  0.20000
+        Density (kg/m3):  1300.00
+        DIRT, Mass fraction:    1.00
+     Reaction products considered from the first -1.00 layers.
+     Total surface density   260.000 kg/m2
+     Solid Phase Node, Layer, Coordinates(m):
+                    0      1       0.0000000
+                    1      1       0.0002611
+                    2      1       0.0007833
+                    3      1       0.0018277
+                    4      1       0.0039164
+                    5      1       0.0080940
+                    6      1       0.0164491
+                    7      1       0.0331593
+                    8      1       0.0665796
+                    9      1       0.1334204
+                   10      1       0.1668407
+                   11      1       0.1835509
+                   12      1       0.1919060
+                   13      1       0.1960836
+                   14      1       0.1981723
+                   15      1       0.1992167
+                   16      1       0.1997389
+                   17      1       0.2000000
+     Exposed Backing
+
+   3 GROUND (DEFAULT)
+     Material List
+          1  DIRT
+     Layer  1
+        Thickness   (m):  0.20000
+        Density (kg/m3):  1300.00
+        DIRT, Mass fraction:    1.00
+     Reaction products considered from the first -1.00 layers.
+     Total surface density   260.000 kg/m2
+     Solid Phase Node, Layer, Coordinates(m):
+                    0      1       0.0000000
+                    1      1       0.0002611
+                    2      1       0.0007833
+                    3      1       0.0018277
+                    4      1       0.0039164
+                    5      1       0.0080940
+                    6      1       0.0164491
+                    7      1       0.0331593
+                    8      1       0.0665796
+                    9      1       0.1334204
+                   10      1       0.1668407
+                   11      1       0.1835509
+                   12      1       0.1919060
+                   13      1       0.1960836
+                   14      1       0.1981723
+                   15      1       0.1992167
+                   16      1       0.1997389
+                   17      1       0.2000000
+     Exposed Backing
+
+   4 wet vegetation
+     Material List
+          1  GENERIC VEGETATION
+          2  CHAR
+          3  ASH
+          4  MOISTURE
+     Layer  1
+        Thickness   (m):  0.00020
+        Density (kg/m3):   531.50
+        GENERIC VEGETATION, Mass fraction:    0.94
+        MOISTURE, Mass fraction:    0.06
+     Total surface density     0.054 kg/m2
+     Solid Phase Node, Layer, Coordinates(m):
+                    0      1       0.0000000
+                    1      1       0.0002047
+     Assumed cylindrical surface
+     Convection length scale (m)  4.094E-04
+
+   5 OPEN
+     Passive Vent to Atmosphere
+
+   6 MIRROR
+     Symmetry Plane
+
+   7 INTERPOLATED
+
+   8 PERIODIC
+
+   9 HVAC
+
+  10 MASSLESS TRACER
+
+  11 DROPLET
+
+  12 MASSLESS TARGET
+
+  13 PERIODIC FLOW ONLY
+
+
+ Lagrangian Particle Classes
+
+   1 blade of grass
+     SURFace ID: wet vegetation
+     # Reals: 159
+     # Integers: 42
+     # Logicals: 8
+
+   2 RESERVED TARGET PARTICLE
+     SURFace ID: MASSLESS TARGET
+     # Reals: 189
+     # Integers: 23
+     # Logicals: 6
+
+
+ PROPerty Information
+
+   1 grass image
+     Smokeview ID                TUBE
+
+
+ Cut-off Density and Temperature
+
+    Minimum Temperature:  -259.1 C
+    Maximum Temperature:  2726.8 C
+    Minimum Density:  1.000E-02 kg/m3
+    Maximum Density:  1.000E+02 kg/m3
+
+
+ Device Information
+
+   1 ID: x
+     QUANTITY: TEMPERATURE
+     Coordinates (X,Y,Z):    4.999000E+01   -5.000000E-01    5.000000E-01
+     SPATIAL STATISTIC: MAXLOC X
+     TEMPORAL STATISTIC: TIME AVERAGE
+   2 ID: D
+     QUANTITY: FIRE DEPTH
+     Coordinates (X,Y,Z):    4.999000E+01   -1.000000E-02    1.000000E-01
+     TEMPORAL STATISTIC: TIME AVERAGE
+   3 ID: RAD_X102
+     QUANTITY: RADIATIVE HEAT FLUX
+     Coordinates (X,Y,Z):    1.020000E+02   -1.000000E-02    1.500000E+00
+     TEMPORAL STATISTIC: TIME AVERAGE
+   4 ID: RAD_X105
+     QUANTITY: RADIATIVE HEAT FLUX
+     Coordinates (X,Y,Z):    1.050000E+02   -1.000000E-02    1.500000E+00
+     TEMPORAL STATISTIC: TIME AVERAGE
+   5 ID: RAD_X108
+     QUANTITY: RADIATIVE HEAT FLUX
+     Coordinates (X,Y,Z):    1.080000E+02   -1.000000E-02    1.500000E+00
+     TEMPORAL STATISTIC: TIME AVERAGE
+   6 ID: RAD_X080
+     QUANTITY: RADIATIVE HEAT FLUX
+     Coordinates (X,Y,Z):    8.000000E+01   -1.000000E-02    1.500000E+00
+     TEMPORAL STATISTIC: TIME AVERAGE
+   7 ID: RAD_X090
+     QUANTITY: RADIATIVE HEAT FLUX
+     Coordinates (X,Y,Z):    8.999000E+01   -1.000000E-02    1.500000E+00
+     TEMPORAL STATISTIC: TIME AVERAGE
+
+
+ Slice File Information, Mesh     2
+
+   1 Nodes:  20  20   0  20   0  20, Quantity: HRRPUV
+
+
+ Slice File Information, Mesh     3
+
+   1 Nodes:   0  20   0  20   0  20, Quantity: HRRPUV
+
+
+ Slice File Information, Mesh     4
+
+   1 Nodes:   0  20   0  20   0  20, Quantity: HRRPUV
+
+
+ Slice File Information, Mesh     5
+
+   1 Nodes:   0  20   0  20   0  20, Quantity: HRRPUV
+
+
+ Slice File Information, Mesh     6
+
+   1 Nodes:   0  20   0  20   0  20, Quantity: HRRPUV
+
+
+ Radiation Model Information
+
+   Number of control angles  104
+   Time step increment         3
+   Angle increment             5
+   Theta band N_phi   Solid angle
+     1:        4     0.120
+     2:       12     0.114
+     3:       16     0.127
+     4:       20     0.120
+     5:       20     0.120
+     6:       16     0.127
+     7:       12     0.114
+     8:        4     0.120
+   Using gray gas absorption.
+   Mean beam length  1.000E-01 m
+ 
+ 
+
+ Run Time Diagnostics
+
+ Time Step:       1, Simulation Time:   0.12512 s, Step Size: 0.125E+00 s, Pressure Iterations: 3
+ Time Step:       2, Simulation Time:   0.25025 s, Step Size: 0.125E+00 s, Pressure Iterations: 2
+ Time Step:       3, Simulation Time:   0.37537 s, Step Size: 0.125E+00 s, Pressure Iterations: 2
+ Time Step:       4, Simulation Time:   0.50049 s, Step Size: 0.125E+00 s, Pressure Iterations: 2
+ Time Step:       5, Simulation Time:   0.62562 s, Step Size: 0.125E+00 s, Pressure Iterations: 2
+ Time Step:       6, Simulation Time:   0.75074 s, Step Size: 0.125E+00 s, Pressure Iterations: 2
+ Time Step:       7, Simulation Time:   0.87586 s, Step Size: 0.125E+00 s, Pressure Iterations: 2
+ Time Step:       8, Simulation Time:   1.00098 s, Step Size: 0.125E+00 s, Pressure Iterations: 1
+ Time Step:       9, Simulation Time:   1.12611 s, Step Size: 0.125E+00 s, Pressure Iterations: 1
+ Time Step:      10, Simulation Time:   1.25123 s, Step Size: 0.125E+00 s, Pressure Iterations: 1
+ Time Step:      20, Simulation Time:   2.50246 s, Step Size: 0.125E+00 s, Pressure Iterations: 1
+ Time Step:      30, Simulation Time:   3.75369 s, Step Size: 0.125E+00 s, Pressure Iterations: 1
+ Time Step:      40, Simulation Time:   5.00492 s, Step Size: 0.125E+00 s, Pressure Iterations: 1
+ Time Step:      50, Simulation Time:   6.03764 s, Step Size: 0.644E-01 s, Pressure Iterations: 10
+ Time Step:      60, Simulation Time:   6.76236 s, Step Size: 0.732E-01 s, Pressure Iterations: 5
+ Time Step:      70, Simulation Time:   7.56805 s, Step Size: 0.974E-01 s, Pressure Iterations: 8
+ Time Step:      80, Simulation Time:   8.26319 s, Step Size: 0.875E-01 s, Pressure Iterations: 5
+ Time Step:      90, Simulation Time:   9.13364 s, Step Size: 0.860E-01 s, Pressure Iterations: 4
+ Time Step:     100, Simulation Time:   9.99381 s, Step Size: 0.860E-01 s, Pressure Iterations: 5
+ Time Step:     200, Simulation Time:  16.64159 s, Step Size: 0.521E-01 s, Pressure Iterations: 3
+ Time Step:     300, Simulation Time:  21.79552 s, Step Size: 0.547E-01 s, Pressure Iterations: 4
+ Time Step:     400, Simulation Time:  26.04798 s, Step Size: 0.422E-01 s, Pressure Iterations: 4
+ Time Step:     500, Simulation Time:  29.97729 s, Step Size: 0.416E-01 s, Pressure Iterations: 4
+ Time Step:     600, Simulation Time:  34.11974 s, Step Size: 0.444E-01 s, Pressure Iterations: 4
+ Time Step:     700, Simulation Time:  38.46277 s, Step Size: 0.472E-01 s, Pressure Iterations: 5
+ Time Step:     800, Simulation Time:  43.13147 s, Step Size: 0.481E-01 s, Pressure Iterations: 4
+ Time Step:     900, Simulation Time:  47.74968 s, Step Size: 0.456E-01 s, Pressure Iterations: 4
+ Time Step:    1000, Simulation Time:  52.47828 s, Step Size: 0.452E-01 s, Pressure Iterations: 7
+ Time Step:    1100, Simulation Time:  57.20083 s, Step Size: 0.467E-01 s, Pressure Iterations: 4
+ Time Step:    1200, Simulation Time:  62.13810 s, Step Size: 0.498E-01 s, Pressure Iterations: 4
+ Time Step:    1300, Simulation Time:  66.68839 s, Step Size: 0.477E-01 s, Pressure Iterations: 5
+ Time Step:    1400, Simulation Time:  71.06215 s, Step Size: 0.453E-01 s, Pressure Iterations: 4
+ Time Step:    1500, Simulation Time:  75.54422 s, Step Size: 0.456E-01 s, Pressure Iterations: 7
+ Time Step:    1600, Simulation Time:  79.98877 s, Step Size: 0.404E-01 s, Pressure Iterations: 6
+ Time Step:    1700, Simulation Time:  84.40476 s, Step Size: 0.444E-01 s, Pressure Iterations: 4
+ Time Step:    1800, Simulation Time:  88.86785 s, Step Size: 0.474E-01 s, Pressure Iterations: 3
+ Time Step:    1900, Simulation Time:  94.10270 s, Step Size: 0.657E-01 s, Pressure Iterations: 3
+ Time Step:    2000, Simulation Time: 102.66848 s, Step Size: 0.101E+00 s, Pressure Iterations: 2
+ Time Step:    2100, Simulation Time: 112.24555 s, Step Size: 0.912E-01 s, Pressure Iterations: 2
+ Time Step:    2200, Simulation Time: 121.36365 s, Step Size: 0.912E-01 s, Pressure Iterations: 2
+ Time Step:    2300, Simulation Time: 130.48175 s, Step Size: 0.912E-01 s, Pressure Iterations: 2
+ Time Step:    2400, Simulation Time: 139.59985 s, Step Size: 0.912E-01 s, Pressure Iterations: 2
+ Time Step:    2405, Simulation Time: 140.00000 s, Step Size: 0.354E-01 s, Pressure Iterations: 1
+
+
+ Time Stepping Wall Clock Time (s):      418.369
+ Total Elapsed Wall Clock Time (s):      421.443
+
+STOP: FDS completed successfully (CHID: C064_kcf_radiometers)
