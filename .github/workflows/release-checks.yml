@@ -43,4 +43,14 @@ jobs:
           done
           echo "::error title=Public site down::$SITE_URL answered HTTP $code, not 200. If the deploy job says 'Ensure GitHub Pages has been enabled', set Settings -> Pages -> Source to 'GitHub Actions'."
           exit 1
-
+      - name: 3D scene (/kcf-scene/) returns 200
+        run: |
+          url="${SITE_URL%/}/kcf-scene/"
+          for i in 1 2 3 4 5; do
+            code=$(curl -sS -L -o /dev/null -w '%{http_code}' --max-time 30 "$url" || echo 000)
+            echo "attempt $i: $url -> HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 15
+          done
+          echo "::error title=3D scene down::$url answered HTTP $code, not 200. It ships from planner/public/kcf-scene/ with the planner Pages build (planner-pages.yml)."
+          exit 1

@@ -1,27 +1,32 @@
 {
- "bytes": 11173532,
+ "bytes": 8136908,
  "checks": {
-  "arms:2b_R_text": 5,
-  "arms:2b_class_column": 5,
-  "arms:2b_class_runs": 2,
+  "arms:2b_R_text": 7,
+  "arms:2b_class_column": 7,
+  "arms:2b_class_runs": 3,
   "arms:2b_head": 1,
-  "arms:2b_row": 2,
-  "arms:2b_text": 2,
-  "arms:R_vs_numbers": 26,
-  "arms:class": 26,
-  "arms:close_curve_cells": 84396,
-  "arms:close_on_class_curve": 2,
-  "arms:gust_ms": 13,
-  "arms:gust_ms_equals_rule": 12,
+  "arms:2b_kma_R": 1,
+  "arms:2b_kma_row_present": 1,
+  "arms:2b_row": 3,
+  "arms:2b_text": 3,
+  "arms:R_vs_numbers": 39,
+  "arms:class": 39,
+  "arms:close_curve_cells": 126594,
+  "arms:close_on_class_curve": 3,
+  "arms:gust_ms": 26,
+  "arms:gust_ms_equals_rule": 24,
   "arms:gust_provisional_label": 1,
   "arms:hourly": 1,
-  "arms:kind": 2,
-  "arms:n_fires": 26,
+  "arms:kind": 3,
+  "arms:kma_not_provisional": 1,
+  "arms:labels": 1,
+  "arms:n_fires": 39,
   "arms:order": 1,
-  "arms:results_line": 2,
+  "arms:order_kma_before_era5": 1,
+  "arms:results_line": 3,
   "arms:standins": 1,
-  "close:range": 10,
-  "close:shape": 10,
+  "close:range": 12,
+  "close:shape": 12,
   "close:standin_order": 52,
   "countyLog:line_has_entry": 14,
   "countyLog:lines": 1,
@@ -38,11 +43,11 @@
   "format:json_payload": 1,
   "format:lines": 1,
   "hourly:covers_all_8h_rows_once": 1,
-  "hourly:entries": 11310,
-  "hourly:field": 113100,
-  "hourly:len13": 870,
-  "hourly:places": 5,
-  "hourly:row_key": 11310,
+  "hourly:entries": 13572,
+  "hourly:field": 135720,
+  "hourly:len13": 1044,
+  "hourly:places": 6,
+  "hourly:row_key": 13572,
   "named:flags": 1,
   "named:names": 1,
   "named:order": 1,
@@ -63,25 +68,25 @@
   "reported:url_at_source": 18,
   "results3:head": 1,
   "results3:rows": 1,
-  "results3:steps": 65,
+  "results3:steps": 78,
   "results4:cell": 108,
   "results4:hours": 3,
   "results4:places": 3,
-  "results5:counts": 5,
-  "results5:row": 5,
+  "results5:counts": 6,
+  "results5:row": 6,
   "roadCells:ring_closed": 2,
   "roadCells:rings": 2,
   "roadCells:sorted_unique": 2,
-  "routeEdges:seg_cells_in_roadCells": 25433,
-  "routes:arr_text": 5422,
-  "routes:chain": 5422,
-  "routes:included_when_complete": 5,
-  "routes:last_text": 5422,
-  "routes:present_iff_departure": 11310,
-  "routes:runs_complete": 5,
-  "routes:sh_cell_in_roadCells": 5422,
-  "routes:shelter": 5422,
-  "routes:shelter_known": 5422,
+  "routeEdges:seg_cells_in_roadCells": 23402,
+  "routes:arr_text": 1130,
+  "routes:chain": 1130,
+  "routes:included_when_complete": 1,
+  "routes:last_text": 1130,
+  "routes:present_iff_departure": 2262,
+  "routes:runs_complete": 1,
+  "routes:sh_cell_in_roadCells": 1130,
+  "routes:shelter": 1130,
+  "routes:shelter_known": 1130,
   "schema": 1,
   "score": 1,
   "standins:a_v_vs_RESULTS": 3,
@@ -92,15 +97,15 @@
   "time:issues_s": 1,
   "time:t0": 1,
   "top_keys_missing": 1,
-  "walk:ld+60_fails": 5422,
-  "walk:pass_and_arrival": 5422
+  "walk:ld+60_fails": 1130,
+  "walk:pass_and_arrival": 1130
  },
  "failures": [],
  "inputs": [
   {
-   "bytes": 11173532,
+   "bytes": 8136908,
    "path": "planner/public/kcf-scene/data/scene.js",
-   "sha256": "339b8aaaec7cdb15911a145a4f4d9b2c00ead0d8df40b9d3c46fdc14215d26bc"
+   "sha256": "175512768bf71e04d2f29b169acff500abb542a1290034e4e4998f840b0c0235"
   },
   {
    "bytes": 15623,
@@ -113,19 +118,29 @@
    "sha256": "9fde3d290e2723fd0ef733f4e73f93c29ba1768615c366f3916174bb585e5824"
   },
   {
+   "bytes": 18839,
+   "path": "research/kcf-gust/work/gust_hours_kma.json",
+   "sha256": "ec4758efbafa8658f6748fc33a2a4bc4aeef9f256ac26683d0737ac2f0b3deb1"
+  },
+  {
+   "bytes": 63599,
+   "path": "research/kcf-gust/work/kma_asos_hourly.json",
+   "sha256": "77837826dd6d8e590c0f9cdb630ca6ed2d371f87ef1dae2595e6356300813541"
+  },
+  {
    "bytes": 57766,
    "path": "research/kcf-margin/numbers.json",
    "sha256": "0e34874c0fdab6fd4349042985f9f170863b148e1184a066d18c8702ac3c72da"
   },
   {
-   "bytes": 2785,
+   "bytes": 3637,
    "path": "research/kcf-replay/MEASURED_RULE.md",
-   "sha256": "771fd9d93a4e5d66fb98a3947134a6103ae3e30332f1b27b7e41a7dfd18e3d90"
+   "sha256": "e358f59222a0561195f3128f410efe8573590210e759cffa42b48dce950931b2"
   },
   {
-   "bytes": 14115,
+   "bytes": 16087,
    "path": "research/kcf-replay/RESULTS.md",
-   "sha256": "3f1802b243bf3b00f607fddc4c9ef1a990829b973383befcbcc642f5bd0c4799"
+   "sha256": "4ab9ac7b3d70b2a3eea17acf8f77f02d7d0f8ac59a89b0b2dd7bb1b866eabfb5"
   },
   {
    "bytes": 6226,
@@ -138,19 +153,19 @@
    "sha256": "ad417ad6640b01685e75950cf95cc8beefaa6b9c27823235f7547962d0b8743b"
   },
   {
-   "bytes": 3107,
+   "bytes": 4401,
    "path": "research/kcf-replay/measured_arms.py",
-   "sha256": "06025b0c1255329c17c113cfdd31c6aa7751f9cbb661a1ba8a729dc57d531282"
+   "sha256": "8068993eee4e207edad1d74c6ad19698bb371cd251d7f89f95dc1f0898675546"
   },
   {
-   "bytes": 61875,
+   "bytes": 68118,
    "path": "research/kcf-replay/named_places_timeline.csv",
-   "sha256": "d6985c25a96e4df3db79a54f2a098f67e80c2dbd05d8fec262aa3ffab8d7f814"
+   "sha256": "04a4b2bd3cd970a83a43c8c3588b100c4d9ecfd01c33c9990415dc7c462261ac"
   },
   {
-   "bytes": 5297575,
+   "bytes": 6402250,
    "path": "research/kcf-replay/per_place.csv",
-   "sha256": "73c7f6a923ba0043b65f2176d590afde1c0f0a56a8d72df4feff69eb41d5f327"
+   "sha256": "0b847bea4876d3fe04aec96c45f1ce46cc0192990d1d7ba38439f5e6a5d20ed6"
   },
   {
    "bytes": 1464720,
@@ -283,37 +298,30 @@
    "sha256": "1e99fa14932ec383928189900de2408b93b225fe89f20b7ec919e815230f9434"
   },
   {
-   "bytes": 7681,
+   "bytes": 9486,
    "path": "research/kcf-replay/score.json",
-   "sha256": "afc3bbeb2ad7996684e9aa515d3c13e5dc75a465ac286ee9d3a61ed2be7a7b72"
+   "sha256": "1697a208ba011c268415648da5f9b10083d94ee020488a996401b2b306248b06"
   }
  ],
  "ok": true,
  "scene_built": {
-  "commit": "f896ad0a9adfec7b347dc96e410993cca5ee0804",
-  "generated_utc": "2026-11-17T08:25:29Z",
+  "commit": "f673565d2f03889a1c692405214782f2d4d0ea58",
+  "generated_utc": "2026-11-17T15:14:43Z",
   "runs": {
-   "MEASURED": "complete",
-   "MEASURED_GUST": "complete",
-   "ORDINARY": "complete",
-   "RUNNING": "complete",
-   "WORST": "complete"
+   "MEASURED": "absent",
+   "MEASURED_GUST": "absent",
+   "MEASURED_GUST_KMA": "complete",
+   "ORDINARY": "absent",
+   "RUNNING": "absent",
+   "WORST": "absent"
   },
   "script": "research/kcf-replay/scene/build_scene.py"
  },
  "scene_js": "planner/public/kcf-scene/data/scene.js",
  "script": "research/kcf-replay/scene/verify_scene.py",
- "sha256": "339b8aaaec7cdb15911a145a4f4d9b2c00ead0d8df40b9d3c46fdc14215d26bc",
+ "sha256": "175512768bf71e04d2f29b169acff500abb542a1290034e4e4998f840b0c0235",
  "witness_walk": {
-  "MEASURED:PASS": 1134,
-  "MEASURED:ld+60:FAIL": 1134,
-  "MEASURED_GUST:PASS": 1130,
-  "MEASURED_GUST:ld+60:FAIL": 1130,
-  "ORDINARY:PASS": 1135,
-  "ORDINARY:ld+60:FAIL": 1135,
-  "RUNNING:PASS": 1093,
-  "RUNNING:ld+60:FAIL": 1093,
-  "WORST:PASS": 930,
-  "WORST:ld+60:FAIL": 930
+  "MEASURED_GUST_KMA:PASS": 1130,
+  "MEASURED_GUST_KMA:ld+60:FAIL": 1130
  }
 }

@@ -38,17 +38,19 @@ H = replay.HORIZONS[HZ]
 T0 = datetime(2025, 3, 25, 3, 0, tzinfo=timezone.utc)
 TR = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
 NAMED = ["화매리", "지품리", "옥류리", "매정리", "노물리", "강구리"]   # RESULTS.md section 4, in table order
-ARMS = list(replay.STANDINS) + list(MA.ARMS)      # per_place.csv standin values: ORDINARY RUNNING WORST MEASURED MEASURED_GUST
-ARM_ORDER = ["RUNNING", "MEASURED", "MEASURED_GUST", "WORST", "ORDINARY"]   # the scene's R key cycle (RUNNING has the planner cache)
+ARMS = list(replay.STANDINS) + list(MA.ARMS)      # per_place.csv standin values: ORDINARY RUNNING WORST MEASURED MEASURED_GUST MEASURED_GUST_KMA
+ARM_ORDER = ["RUNNING", "MEASURED", "MEASURED_GUST_KMA", "MEASURED_GUST", "WORST", "ORDINARY"]   # the scene's R key cycle (RUNNING has the planner cache)
 # RESULTS.md section 2b "class picked at each issue hour", restated per issue hour 12:00 .. 24:00 KST; asserted below both
 # against that cell's text and against measured_arms.curve() and the runs' arm_class.
 ARM_CLASSES = {
     "MEASURED": (["quiet"] * 3 + ["slow"] + ["running"] * 9, "quiet 12-14 KST, slow 15, running 16-24 KST"),
     "MEASURED_GUST": (["g>=20"] * 11 + ["g10-20"] * 2, ">= 20 m/s (9 fires) at 12-22 KST, 10-20 m/s at 23-24 KST"),
+    # the scene runs the 8 h horizon: RESULTS.md 2b "8 h run >= 20 (9 fires) at 12-22 KST, < 10 at 23-24 KST"
+    "MEASURED_GUST_KMA": (["g>=20"] * 11 + ["g<10"] * 2, "8 h run >= 20 (9 fires) at 12-22 KST, < 10 at 23-24 KST"),
 }
 ARM_R_TEXT = {"quiet": "quiet {} / {}", "slow": "slow {} / {}", "running": "running {} / {}",
               "g<10": "< 10: {} / {}", "g10-20": "10-20: {} / {}", "g>=20": ">= 20: {} / {}"}
-ARM_LABEL = {"MEASURED": "MEASURED", "MEASURED_GUST": "MEASURED+GUST"}
+ARM_LABEL = {"MEASURED": "MEASURED", "MEASURED_GUST_KMA": "MEASURED+GUST (KMA)", "MEASURED_GUST": "MEASURED+GUST (ERA5, secondary)"}
 
 # RESULTS.md section 4 "documented" column -> SOURCES.md rows. Keys: ("county", KST) = a row of the 뉴스로 county action
 # log table; ("village", Place cell, KST) = a row of the "Village-level times" table. Checked below in both directions
@@ -178,7 +180,7 @@ def main():
     # ---------------------------------------------------------------- per_place.csv (8 h rows)
     pp_path = KCF / "per_place.csv"
     pp_rows = list(csv.DictReader(io.StringIO(inp.text(pp_path), newline="")))
-    assert len(pp_rows) == 22620, len(pp_rows)   # 5 arms x 2 horizons x 174 places x 13 issue hours
+    assert len(pp_rows) == 27144, len(pp_rows)   # 6 arms x 2 horizons x 174 places x 13 issue hours
     csv_by = {}
     for n, r in enumerate(pp_rows, 1):
         if r["horizon"] != HZ:
@@ -557,11 +559,18 @@ def main():
     for n, c in brows:
         lab = unbold(c[0]).split(" (")[0]
         brow[{"MEASURED": "MEASURED", "MEASURED+GUST": "MEASURED_GUST"}[lab]] = (n, [unbold(x) for x in c])
+    # the KMA arm's row sits in the second table of section 2b (no header of its own), one line, label "MEASURED+GUST (KMA)"
+    kma_n, kma_line = next((j + 1, l) for j, l in enumerate(res_lines[:j2b]) if l.startswith("| MEASURED+GUST (KMA) |"))
+    kma_cells = [unbold(x) for x in md_cells(kma_line)]
+    assert kma_cells[1] == "same R values as MEASURED+GUST", kma_cells
+    brow["MEASURED_GUST_KMA"] = (kma_n, [kma_cells[0], brow["MEASURED_GUST"][1][1], kma_cells[2]])
     assert set(brow) == set(MA.ARMS), brow
     rule_path = KCF / "MEASURED_RULE.md"
     rule_text = inp.text(rule_path)
     gust_path = KCF.parent / "kcf-gust/work/gust_hours.json"
     gust_hours = {e["kst_stamp"]: e for e in inp.json(gust_path)}
+    gust_kma_path = KCF.parent / "kcf-gust/work/gust_hours_kma.json"
+    gust_hours_kma = {e["kst_stamp"]: e for e in inp.json(gust_kma_path)}
     numbers_path = KCF.parent / "kcf-margin/numbers.json"
     numbers = inp.json(numbers_path)              # MA._check() asserted R_KM against it at import
     NUM_CLS = {"all": "all", "quiet": "quiet", "slow": "slow", "running": "running", "g<10": "gust<10",
@@ -571,7 +580,7 @@ def main():
               and r["h"] in (5, 8) and r["cls"] == NUM_CLS[cls_]}
         assert len(ns) == 1, (cls_, ns)
         return ns.pop()
-    inp.read(KCF / "measured_arms.py"); inp.read(KCF.parent / "kcf-gust/work/era5_gusts.json")
+    inp.read(KCF / "measured_arms.py"); inp.read(KCF.parent / "kcf-gust/work/era5_gusts.json"); inp.read(KCF.parent / "kcf-gust/work/kma_asos_hourly.json")
     for st in MA.ARMS:
         n, c = brow[st]
         want, phrase = ARM_CLASSES[st]
@@ -583,19 +592,20 @@ def main():
             assert (r5, r8) == (MA.R_KM[cls_][0] * 1000.0, MA.R_KM[cls_][1] * 1000.0)
             assert ARM_R_TEXT[cls_].format(f"{MA.R_KM[cls_][0]:.1f}", f"{MA.R_KM[cls_][1]:.1f}") in c[1], (st, cls_, c[1])
             e = {"cls": cls_, "r5_m": r5, "r8_m": r8, "n_fires": n_fires(cls_)}
-            if st == "MEASURED_GUST":   # the committed next-8 h fire-wide maximum gust at that KST stamp, same value
-                gh = gust_hours[12 + k].get("fwd8")
+            if st in ("MEASURED_GUST", "MEASURED_GUST_KMA"):   # the committed next-8 h fire-wide maximum gust at that KST stamp, same value
+                gh = (gust_hours if st == "MEASURED_GUST" else gust_hours_kma)[12 + k].get("fwd8")
                 if gh:
                     assert abs(gh["fire_wide_max"] - info) < 1e-9, (k, gh, info)
-                    assert gh["cls"].replace("†", "") == cls_[1:], (k, gh["cls"], cls_)
+                    assert gh["cls"].replace("†", "") == cls_[1:], (k, gh["cls"], cls_)   # "g>=20" -> ">=20"
                     e["gust_ms"] = gh["fire_wide_max"]
                 else:   # gust_hours.json has no forward window at the 24:00 stamp; the class is RESULTS.md 2b's
                     assert k == 12, k
             classes.append(e)
-        standins[st] = {"kind": "measured", "label": ARM_LABEL[st], "provisional": st == "MEASURED_GUST",
+        standins[st] = {"kind": "measured", "label": ARM_LABEL[st], "provisional": st == "MEASURED_GUST", "secondary": st == "MEASURED_GUST",
                         "r_text": c[1], "basis": c[2], "results_line": n, "classes": classes,
                         "src": rel(rule_path), "code": "research/kcf-replay/measured_arms.py", "numbers": rel(numbers_path),
-                        "gust_hours": rel(gust_path) if st == "MEASURED_GUST" else None}
+                        "gust_hours": rel(gust_path) if st == "MEASURED_GUST" else rel(gust_kma_path) if st == "MEASURED_GUST_KMA" else None,
+                        "gust_source": {"MEASURED_GUST": "ERA5", "MEASURED_GUST_KMA": "KMA ASOS"}.get(st)}
     assert "PROVISIONAL" in brow["MEASURED_GUST"][1][0], brow["MEASURED_GUST"]
     assert "(9 fires)" in brow["MEASURED_GUST"][1][1] and n_fires("g>=20") == 9   # RESULTS.md 2b states it next to the class
     assert "(0 h, 0 km), (5 h, R5), (8 h, R8)" in rule_text

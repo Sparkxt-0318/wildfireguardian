@@ -14,17 +14,17 @@ from the committed results of [`research/kcf-replay`](../../../research/kcf-repl
   (merge the pull request; `.github/workflows/planner-pages.yml` then copies `planner/public` verbatim into the static build and
   deploys it). No login, no install. Open it once cold before the talk to confirm the deploy.
 * `?lite` forces lite mode (no colour relief, 1× pixel ratio, coarser fire discs, lower drive camera); it switches on by itself when
-  the browser has no GPU (a notice says so), and `?full` overrides that. Deep links: `?t=18:00`, `?place=지품리`, `?standin=MEASURED` (or `RUNNING`, `MEASURED_GUST`, `WORST`, `ORDINARY`).
+  the browser has no GPU (a notice says so), and `?full` overrides that. Deep links: `?t=18:00`, `?place=지품리`, `?standin=MEASURED` (or `RUNNING`, `MEASURED_GUST_KMA`, `MEASURED_GUST`, `WORST`, `ORDINARY`).
 
 ## R(h) arms
 
-Every number depends on R(h), the fire's reach after h hours. The scene has the five arms of `research/kcf-replay`, cycled with
+Every number depends on R(h), the fire's reach after h hours. The scene has the six arms of `research/kcf-replay`, cycled with
 **R** (bottom right shows the active one): **RUNNING** (default, 8.2 km/h; the only arm with a planner cache), **MEASURED**,
 **MEASURED+GUST**, **WORST** and **ORDINARY**. RUNNING, WORST and ORDINARY are labelled stand-ins. The two MEASURED arms are the
 frozen R(h) of `research/kcf-margin` (`MEASURED_RULE.md`): one class per issue hour for all places, picked by the prior-3 h
-spread of the known fire area (quiet / slow / running) or by the ERA5 maximum gust over the next 8 h, with R(5 h) and R(8 h)
-from `research/kcf-margin/numbers.json` and the curve through (0, 0), (5 h, R5), (8 h, R8). **MEASURED+GUST is PROVISIONAL**
-(ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). Each place panel shows the same screen under all five arms; they are
+spread of the known fire area (quiet / slow / running) or by the maximum gust over the next 8 h (KMA ASOS hourly series, primary; ERA5, secondary), with R(5 h) and R(8 h)
+from `research/kcf-margin/numbers.json` and the curve through (0, 0), (5 h, R5), (8 h, R8). **MEASURED+GUST (ERA5, secondary) is
+PROVISIONAL** (ERA5 gusts only); MEASURED+GUST (KMA) is the primary gust arm. The ≥ 20 m/s class rests on 9 fires in both. Each place panel shows the same screen under all six arms; they are
 different R(h), not a ranking.
 
 ## The three levels

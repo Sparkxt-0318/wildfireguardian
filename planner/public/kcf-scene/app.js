@@ -168,7 +168,8 @@
   function gustSpan(name, k) {
     var c = armClass(name, k);
     if (!c || c.gust_ms == null) return '';
-    return ' · <span' + srcAttr(SRC.gust_hours, 'kst_stamp ' + (12 + k) + ', fwd8.fire_wide_max (ERA5, maximum over five points; PROVISIONAL)') + '>next-8 h max gust ' + c.gust_ms.toFixed(1) + ' m/s (ERA5)</span>';
+    var si = standinInfo(name), kma = si.gust_source === 'KMA ASOS';
+    return ' · <span' + srcAttr(si.gust_hours || SRC.gust_hours, 'kst_stamp ' + (12 + k) + ', fwd8.fire_wide_max (' + (kma ? 'KMA ASOS hourly gust, maximum over the stations present; primary series' : 'ERA5, maximum over five points; PROVISIONAL, secondary series') + ')') + '>next-8 h max gust ' + c.gust_ms.toFixed(1) + ' m/s (' + (kma ? 'KMA' : 'ERA5') + ')</span>';
   }
 
   // ------------------------------------------------------------------ geometry
@@ -565,7 +566,7 @@
         '<td class="ck"><span' + srcAttr(SRC.per_place, csvDetail(ha, ha.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', a, k)) + '>' + esc(ha.state === 'LATEST_SAFE_DEPARTURE' ? csvClock(ha.lsd) : (ARM_STATE[ha.state] || placeClock(ha))) + '</span>' +
         (ha.cut_before === 'yes' ? '<div class="cutb"' + srcAttr(SRC.per_place, csvDetail(ha, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', a, k)) + '>reached ' + esc(csvClock(ha.first_cut)) + '</div>' : '') + '</td></tr>';
     });
-    html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b and section 7: MEASURED+GUST is PROVISIONAL, ERA5 gusts only; its >= 20 m/s class rests on 9 fires; the margins were calibrated on 28 fires. Spread-class and all-hours margins failed at every issue hour 10-20 KST (research/kcf-margin/RESULTS.md); the gust >= 20 m/s R(5 h) failed from 12 to 20 KST (research/kcf-gust/RESULTS.md)') + '>MEASURED+GUST is PROVISIONAL (ERA5 gusts only; ≥ 20 m/s class = 9 fires).</span> Click a row to switch (R).</div></div>';
+    html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b and section 7: MEASURED+GUST (ERA5, secondary) is PROVISIONAL, ERA5 gusts only; MEASURED+GUST (KMA) uses KMA ASOS hourly gusts; its >= 20 m/s class rests on 9 fires; the margins were calibrated on 28 fires. Spread-class and all-hours margins failed at every issue hour 10-20 KST (research/kcf-margin/RESULTS.md); the gust >= 20 m/s R(5 h) failed from 12 to 20 KST (research/kcf-gust/RESULTS.md)') + '>MEASURED+GUST (ERA5, secondary) is PROVISIONAL (ERA5 gusts only); MEASURED+GUST (KMA) uses the KMA ASOS series; the ≥ 20 m/s class = 9 fires in both.</span> Click a row to switch (R).</div></div>';
     // planner strip
     var pl = S.planner && S.planner[p.id] && S.planner[p.id][k];
     if (pl && st.standin === 'RUNNING') {
@@ -673,7 +674,8 @@
     if (isArm()) {
       out.push([SRC.measured_rule, 'MEASURED arms: class per issue hour, closure curve, step rule (frozen before any outcome)']);
       out.push([SRC.margin_numbers, 'R(5 h), R(8 h) per class (table, fire set all28, alpha 0.10), asserted by measured_arms.py']);
-      if (standinInfo().provisional) out.push([SRC.gust_hours, 'ERA5 next-8 h maximum gust per issue hour (PROVISIONAL)']);
+      var gsi = standinInfo();
+      if (gsi.gust_hours) out.push([gsi.gust_hours, (gsi.gust_source === 'KMA ASOS' ? 'KMA ASOS (primary series)' : 'ERA5 (secondary series, PROVISIONAL)') + ' next-8 h maximum gust per issue hour']);
     }
     return out;
   };
@@ -717,7 +719,7 @@
       '<p' + srcAttr(SRC.hotspot_rule, 'whole rule; frozen in commit 796e91c') + '><b>Known fire area</b>: FIRMS VIIRS/MODIS detections and Himawari-9 AHI hotspots time-stamped strictly before each issue hour (rule frozen first: HOTSPOT_RULE.md, commit 796e91c). Delivery latency is not modelled. ' +
       '<b>Road cell closure</b> = issue time + h*, where R(h*) = the cell\'s distance to the known fire area (RUNNING: distance / 8.2 km/h; WORST: (distance − 3 km) / 8.2 km/h; ORDINARY: distance / 0.341 km/h; <span' + srcAttr(SRC.measured_rule, 'R(h) values; closure curve through (0 h, 0 km), (5 h, R5), (8 h, R8), beyond 8 h never (part below 5 h ASSUMED linear)') + '>MEASURED arms: the curve through (0, 0), (5 h, R5), (8 h, R8) of the issue hour\'s class, never beyond R8</span>), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
       '<b>Latest safe departure</b>: F-3.1 deadline field over the planner road graph, 3 candidate shelters per place.</p>' +
-      '<p' + srcAttr(SRC.results_md, 'sections 2 (stand-ins) and 2b (MEASURED arms); section 7 (limits)') + '>R(h) now: <b>' + esc(isArm() ? armText(st.standin, kOf(st.s)) : (si.label || st.standin)) + '</b> — ' + esc(si.basis || '') + '. Five R(h) arms (R cycles them): RUNNING, WORST and ORDINARY are labelled stand-ins; <b>MEASURED</b> and <b>MEASURED+GUST</b> are the frozen R(h) of research/kcf-margin (10 % target, 28 GOFER fires), one class per issue hour for all 174 places, picked by the prior-3 h spread of the known fire area or by the ERA5 maximum gust over the next 8 h. <b>MEASURED+GUST is PROVISIONAL</b> (ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). The curve below 5 h is assumed linear. On this fire the spread-class and all-hours margins failed at every issue hour from 10 to 20 KST (research/kcf-margin/RESULTS.md), and the gust ≥ 20 m/s R(5 h) from 12 to 20 KST (research/kcf-gust/RESULTS.md). Each arm is its own R(h): not a ranking.</p>' +
+      '<p' + srcAttr(SRC.results_md, 'sections 2 (stand-ins) and 2b (MEASURED arms); section 7 (limits)') + '>R(h) now: <b>' + esc(isArm() ? armText(st.standin, kOf(st.s)) : (si.label || st.standin)) + '</b> — ' + esc(si.basis || '') + '. Six R(h) arms (R cycles them): RUNNING, WORST and ORDINARY are labelled stand-ins; <b>MEASURED</b>, <b>MEASURED+GUST (KMA)</b> and <b>MEASURED+GUST (ERA5, secondary)</b> are the frozen R(h) of research/kcf-margin (10 % target, 28 GOFER fires), one class per issue hour for all 174 places, picked by the prior-3 h spread of the known fire area or by the maximum gust over the next 8 h: from the KMA ASOS hourly series (primary) or from ERA5 (secondary, <b>PROVISIONAL</b>, ERA5 gusts only). The ≥ 20 m/s class rests on 9 fires in both. The curve below 5 h is assumed linear. On this fire the spread-class and all-hours margins failed at every issue hour from 10 to 20 KST (research/kcf-margin/RESULTS.md), and the gust ≥ 20 m/s R(5 h) from 12 to 20 KST (research/kcf-gust/RESULTS.md). Each arm is its own R(h): not a ranking.</p>' +
       '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; also hardware/phone_export/samples (synthetic test walks); HOTSPOT_RULE.md: within a screen a closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are synthetic: four simulated city sessions and the phone exporter\'s test walks), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
       '<p><b>Keys</b>: <kbd>←</kbd>/<kbd>→</kbd> issue hour · <kbd>Space</kbd> play · <kbd>1</kbd>–<kbd>6</kbd> bookmarks · <kbd>C</kbd> check it · <kbd>L</kbd> one minute later · <kbd>D</kbd> drive · <kbd>Esc</kbd> back · <kbd>H</kbd> region · <kbd>R</kbd> R(h) arm · <kbd>S</kbd> sources · <kbd>?</kbd> this box. URL: <code>?lite</code> for slow machines.</p>' +
       '<p class="note">Terrain: Terrain Tiles (Mapzen, AWS Open Data). Roads, water, names: © OpenStreetMap contributors (ODbL). MapLibre GL JS (BSD-3-Clause). Pretendard, Noto Sans (SIL OFL). Scene data built from committed files by research/kcf-replay/scene/build_scene.py; checks in research/kcf-replay/scene/VERIFY.json.</p>';
@@ -767,7 +769,7 @@
   }
   function cycleStandin() {
     var names = Object.keys(S.standins || S.hourly);
-    var order = (S.standin_order || ['RUNNING', 'MEASURED', 'MEASURED_GUST', 'WORST', 'ORDINARY']).filter(function (n) { return names.indexOf(n) >= 0 && S.hourly[n]; });
+    var order = (S.standin_order || ['RUNNING', 'MEASURED', 'MEASURED_GUST_KMA', 'MEASURED_GUST', 'WORST', 'ORDINARY']).filter(function (n) { return names.indexOf(n) >= 0 && S.hourly[n]; });
     setStandin(order[(order.indexOf(st.standin) + 1) % order.length]);
   }
   function showRoute() {
