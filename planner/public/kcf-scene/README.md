@@ -14,7 +14,18 @@ from the committed results of [`research/kcf-replay`](../../../research/kcf-repl
   (merge the pull request; `.github/workflows/planner-pages.yml` then copies `planner/public` verbatim into the static build and
   deploys it). No login, no install. Open it once cold before the talk to confirm the deploy.
 * `?lite` forces lite mode (no colour relief, 1× pixel ratio, coarser fire discs, lower drive camera); it switches on by itself when
-  the browser has no GPU (a notice says so), and `?full` overrides that. Deep links: `?t=18:00`, `?place=지품리`, `?standin=WORST`.
+  the browser has no GPU (a notice says so), and `?full` overrides that. Deep links: `?t=18:00`, `?place=지품리`, `?standin=MEASURED` (or `RUNNING`, `MEASURED_GUST`, `WORST`, `ORDINARY`).
+
+## R(h) arms
+
+Every number depends on R(h), the fire's reach after h hours. The scene has the five arms of `research/kcf-replay`, cycled with
+**R** (bottom right shows the active one): **RUNNING** (default, 8.2 km/h; the only arm with a planner cache), **MEASURED**,
+**MEASURED+GUST**, **WORST** and **ORDINARY**. RUNNING, WORST and ORDINARY are labelled stand-ins. The two MEASURED arms are the
+frozen R(h) of `research/kcf-margin` (`MEASURED_RULE.md`): one class per issue hour for all places, picked by the prior-3 h
+spread of the known fire area (quiet / slow / running) or by the ERA5 maximum gust over the next 8 h, with R(5 h) and R(8 h)
+from `research/kcf-margin/numbers.json` and the curve through (0, 0), (5 h, R5), (8 h, R8). **MEASURED+GUST is PROVISIONAL**
+(ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). Each place panel shows the same screen under all five arms; they are
+different R(h), not a ranking.
 
 ## The three levels
 
@@ -33,14 +44,12 @@ the panel lists the committed files behind everything visible.
   event: the only logger recordings are synthetic (four simulated city sessions in `hardware/field_logger_demo/sessions`, and the
   phone exporter's synthetic test walks in `hardware/phone_export/samples`), and the frozen rule has no reopening event: within one
   screen a closed cell stays closed to the end of its 8 h horizon (`HOTSPOT_RULE.md`).
-* **MEASURED arms.** `research/kcf-replay` has only the three labelled R(h) stand-ins (ORDINARY, RUNNING, WORST); the frozen R(h) of
-  `research/kcf-margin` has not been run through this replay, so no MEASURED arm is shown.
 
 ## Files
 
 | file | built by | from |
 |---|---|---|
-| `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/RUNNING_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
+| `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/RUNNING_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `RESULTS.md` (§2–5), `MEASURED_RULE.md` + `measured_arms.py` + `research/kcf-margin/numbers.json` + `research/kcf-gust/work/gust_hours.json` (MEASURED arms), `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
 | `data/terrain.js` | `build_terrain.py` | Terrain Tiles (Mapzen, AWS Open Data; SRTM, GMTED, ETOPO1), Terrarium z5–12, 1 m steps |
 | `data/basemap.js` | `build_basemap.py` | `planner/research-map/site/regions/*.osm.js`, `planner/data/osm/*.overpass.json` (© OpenStreetMap contributors, ODbL) |
 | `data/fonts.js` | `build_fonts.py` | Noto Sans glyphs from `planner/public/basemap/fonts`; a subset of Pretendard (SIL OFL, renamed "KCF UI Sans") |

@@ -1,4 +1,4 @@
-# KCF replay 3D scene — presenter click script (one page, about 4 minutes)
+# KCF replay 3D scene — presenter click script (one page, about 4½ minutes)
 
 **Open** the `kcf-scene` folder on the laptop: `index.html` in **Chrome or Edge** (the tested engine). Online alternative, only after
 the pull request is merged and the Pages deploy has run: `https://sparkxt-0318.github.io/wildfireguardian/kcf-scene/` (open it once
@@ -18,11 +18,13 @@ is off. Top left must show **시험 데이터 · 평가 호스트 아님** and *
 | 6 | Point at the panel | "route reached earlier by the reconstruction: **yes** (first cut 18:02)"; pink ◆ on the slider and the REPORTED list: 18:00 order + CBS, 18:25, 18:58, 19:04, 20:25 (뉴스로, SINGLE) | "We show where it fails: the full record reached this road at 18:02 — one of the 108 place-hours counted in RESULTS §5. Pink diamonds are reported times, single-source, not outcomes." |
 | 7 | **D** (Drive it) | Level 3 Road: about 30 s chase view behind the vehicle, clock 18:33:40 → 18:38:29, ×10; dark red = detections before each moment, orange = those of the last hour; red warning: the vehicle is inside a detection disc and the record reached this road at 18:02 | "The drive starts at the departure second. The red box is the point: the 16:00 screen could not see what the satellites saw later. The arrival is the screen's projection, not an outcome." |
 | 8 | **Esc**, then **→** **→** **→** | 17:00: leave by 18:18 · 18:00: **18:03** · 19:00: inside known fire area | "Each later screen leaves less time, until the place is inside the known fire area." |
-| 9 | **S**, then **H** | Sources panel: every file behind what is on screen; back to the region | "Every number on screen comes from a committed file; this panel names it." |
+| 9 | **←** (back to 18:00), then **R** | R(h) box turns blue: **MEASURED** · running class at 18:00: 7.6 km at 5 h, 10.0 km at 8 h. **Leave by 18:19**, "reached 18:02". Table "this screen under each R(h)": RUNNING 18:03 · MEASURED 18:19 · MEASURED+GUST 18:16 (PROVISIONAL) · WORST no safe departure · ORDINARY 19:24 | "This is the measured margin, frozen from 28 fires. It says 18:19, after the record reached the road; at 16:00 it gave 지품리 no step at all. On this fire every frozen margin was exceeded between 10 and 20 KST. One fire, one day: no rate is claimed." |
+| 10 | **S**, then **H** | Sources panel: every file behind what is on screen; back to the region (H also returns to RUNNING) | "Every number on screen comes from a committed file; this panel names it." |
 
 **Keys** ←/→ issue hour · Space play · 1–6 the six places of RESULTS §4 · C check · L one minute later · D drive · Esc back ·
-H region (full reset: stops play, back to RUNNING) · R stand-in (RUNNING / WORST / ORDINARY) · S sources · ? about.
+H region (full reset: stops play, back to RUNNING) · R R(h) arm (RUNNING → MEASURED → MEASURED+GUST → WORST → ORDINARY) · S sources · ? about.
 **If something goes wrong:** H. Reload (F5) restarts at 12:00. Deep link: `index.html?t=16:00&place=지품리`.
 **Do not say:** "they would have been safe", "would have saved", "the fire arrived at …" ("latest safe departure" is the model's
-name for a computed time; reported times are reports, not outcomes). No victim is named anywhere in the scene.
-**Not in the scene:** crossing view / REOPENED (no vehicle-unit log for this event), MEASURED arms (not run through this replay).
+name for a computed time; reported times are reports, not outcomes), and do not rank the R(h) arms ("MEASURED is better"): each is a
+different R(h). MEASURED+GUST is PROVISIONAL (ERA5 gusts only; ≥ 20 m/s class = 9 fires). No victim is named anywhere in the scene.
+**Not in the scene:** crossing view / REOPENED (no vehicle-unit log for this event; the frozen rule never reopens a road).

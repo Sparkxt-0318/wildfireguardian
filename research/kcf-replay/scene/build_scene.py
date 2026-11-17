@@ -3,8 +3,10 @@
 Every number written comes from a file in the repository (or from the SHA-pinned routing graph / the run files that
 committed code re-makes); every file read is listed in built.inputs with its byte size and SHA-256.
 
-Re-runnable: a stand-in's witness routes are included only when all 26 run files (2 regions x 13 issue hours, 8 h)
-exist and parse; run it again when out/runs/ gains WORST / ORDINARY. Before using a stand-in's runs it ASSERTS that
+Five R(h) arms: the three labelled stand-ins of HOTSPOT_RULE.md (ORDINARY, RUNNING, WORST) and the two MEASURED arms of
+MEASURED_RULE.md (MEASURED, MEASURED_GUST; class per issue hour, closure curve measured_arms.closure_s).
+Re-runnable: an arm's witness routes are included only when all 26 run files (2 regions x 13 issue hours, 8 h)
+exist and parse; run it again when out/runs/ gains an arm. Before using an arm's runs it ASSERTS that
 the runs reproduce per_place.csv exactly (state, step, latest safe departure, last departure, shelter, arrival,
 distance, pieces, OSM ways) and that its own closure seconds equal the runs' close_s.
 
@@ -25,6 +27,7 @@ KCF = HERE.parent                                 # research/kcf-replay
 ROOT = KCF.parents[1]                             # repository root
 sys.path.insert(0, str(KCF))
 import replay   # noqa: E402  (frozen rule: STANDINS, closure_s, Region.cell_distance, ISSUES, HORIZONS, DWELL)
+import measured_arms as MA  # noqa: E402  (MEASURED_RULE.md: ARMS, R_KM, curve, closure_s; asserts R_KM against kcf-margin/numbers.json)
 import analyze  # noqa: E402  (kst() formatting used by per_place.csv)
 
 SCHEMA = "kcf-scene/1"
@@ -35,6 +38,17 @@ H = replay.HORIZONS[HZ]
 T0 = datetime(2025, 3, 25, 3, 0, tzinfo=timezone.utc)
 TR = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
 NAMED = ["화매리", "지품리", "옥류리", "매정리", "노물리", "강구리"]   # RESULTS.md section 4, in table order
+ARMS = list(replay.STANDINS) + list(MA.ARMS)      # per_place.csv standin values: ORDINARY RUNNING WORST MEASURED MEASURED_GUST
+ARM_ORDER = ["RUNNING", "MEASURED", "MEASURED_GUST", "WORST", "ORDINARY"]   # the scene's R key cycle (RUNNING has the planner cache)
+# RESULTS.md section 2b "class picked at each issue hour", restated per issue hour 12:00 .. 24:00 KST; asserted below both
+# against that cell's text and against measured_arms.curve() and the runs' arm_class.
+ARM_CLASSES = {
+    "MEASURED": (["quiet"] * 3 + ["slow"] + ["running"] * 9, "quiet 12-14 KST, slow 15, running 16-24 KST"),
+    "MEASURED_GUST": (["g>=20"] * 11 + ["g10-20"] * 2, ">= 20 m/s (9 fires) at 12-22 KST, 10-20 m/s at 23-24 KST"),
+}
+ARM_R_TEXT = {"quiet": "quiet {} / {}", "slow": "slow {} / {}", "running": "running {} / {}",
+              "g<10": "< 10: {} / {}", "g10-20": "10-20: {} / {}", "g>=20": ">= 20: {} / {}"}
+ARM_LABEL = {"MEASURED": "MEASURED", "MEASURED_GUST": "MEASURED+GUST"}
 
 # RESULTS.md section 4 "documented" column -> SOURCES.md rows. Keys: ("county", KST) = a row of the 뉴스로 county action
 # log table; ("village", Place cell, KST) = a row of the "Village-level times" table. Checked below in both directions
@@ -164,7 +178,7 @@ def main():
     # ---------------------------------------------------------------- per_place.csv (8 h rows)
     pp_path = KCF / "per_place.csv"
     pp_rows = list(csv.DictReader(io.StringIO(inp.text(pp_path), newline="")))
-    assert len(pp_rows) == 13572, len(pp_rows)
+    assert len(pp_rows) == 22620, len(pp_rows)   # 5 arms x 2 horizons x 174 places x 13 issue hours
     csv_by = {}
     for n, r in enumerate(pp_rows, 1):
         if r["horizon"] != HZ:
@@ -174,7 +188,7 @@ def main():
         csv_by[key] = (n, r)
     assert {k[2] for k in csv_by} == set(issue_kst_csv), sorted({k[2] for k in csv_by})
     standin_names = sorted({k[0] for k in csv_by})
-    assert set(standin_names) == set(replay.STANDINS), standin_names
+    assert set(standin_names) == set(ARMS), standin_names
     place_region = {}
     for (_, pid, _), (_, r) in csv_by.items():
         assert place_region.setdefault(pid, r["region"]) == r["region"], pid
@@ -193,7 +207,7 @@ def main():
                             "first_cut": r["route_first_cut_by_reconstruction_kst"],
                             "pieces": r["departure_set_pieces"], "row": n})
             hourly[st][pid] = lst
-    assert sum(len(v) for st in hourly for v in hourly[st].values()) == len(csv_by) == 3 * 174 * 13
+    assert sum(len(v) for st in hourly for v in hourly[st].values()) == len(csv_by) == len(ARMS) * 174 * 13
 
     # ---------------------------------------------------------------- regions, places, shelters
     idx = inp.json(ROOT / "planner/public/data/regions/index.json")
@@ -236,7 +250,7 @@ def main():
 
     # ---------------------------------------------------------------- runs (gitignored; re-made by replay.py)
     runs, runs_state = {}, {}
-    for st in replay.STANDINS:
+    for st in ARMS:
         files = [runs_dir / f"{region}__{st}__{HZ}__{T.strftime('%H')}.json" for region in REGIONS for T in issues]
         ok = all(p.is_file() for p in files)
         docs = {}
@@ -350,18 +364,27 @@ def main():
     discs_path = KCF / "fire_discs.json"
     discs_doc = inp.json(discs_path)
     replay.init(REGIONS, str(discs_path))       # builds replay.REG (Region per region) and replay.DISCS exactly as run_one sees them
-    close = {st: {region: [] for region in REGIONS} for st in replay.STANDINS}
+    close = {st: {region: [] for region in REGIONS} for st in ARMS}
     close_cmp = Counter()
+    arm_cls = {st: [None] * 13 for st in MA.ARMS}   # (class, info, R5_m, R8_m) per issue hour; the same for both regions
     for region in REGIONS:
         R = replay.REG[region]
         assert (R.grid.W, R.grid.H) == (graphs[region]["g"]["width"], graphs[region]["g"]["height"])
         for k, T in enumerate(issues):
             dist = R.cell_distance(replay.DISCS, datetime.fromisoformat(T.isoformat()))
-            for st in replay.STANDINS:
+            for st in ARMS:
+                if st in MA.ARMS:   # replay.run_one: one curve per (T, H) for all places
+                    r5, r8, cls_, info = MA.curve(st, replay.DISCS, datetime.fromisoformat(T.isoformat()), H // 3600)
+                    got_cls = (cls_, info, r5, r8)
+                    assert arm_cls[st][k] in (None, got_cls), (st, k, arm_cls[st][k], got_cls)
+                    arm_cls[st][k] = got_cls
+                    if st in runs:
+                        assert runs[st][(region, k)]["arm_class"] == [cls_, info], (st, region, k, runs[st][(region, k)]["arm_class"])
+                        close_cmp[f"{st}:arm_class"] += 1
                 full = {}
                 for c in range(len(dist)):
                     if np.isfinite(dist[c]):
-                        s = replay.closure_s(st, float(dist[c]))
+                        s = MA.closure_s(r5, r8, float(dist[c])) if st in MA.ARMS else replay.closure_s(st, float(dist[c]))
                         if s <= H:
                             full[c] = int(math.ceil(s))
                 close[st][region].append([full.get(c, -1) for c in road_cells[region]["cells"]])
@@ -524,8 +547,50 @@ def main():
     standins = {}
     for st, (a_m, v) in replay.STANDINS.items():
         lab = f"{st} · " + (f"{a_m / 1000:g} km + " if a_m else "") + f"{v / 1000:g} km/h"
-        standins[st] = {"a_m": a_m, "v_m_per_h": v, "label": lab, "basis": basis[st],
+        standins[st] = {"kind": "standin", "a_m": a_m, "v_m_per_h": v, "label": lab, "basis": basis[st],
                         "src": "research/kcf-replay/HOTSPOT_RULE.md"}
+    # MEASURED arms: RESULTS.md section 2b table, MEASURED_RULE.md, kcf-gust/work/gust_hours.json
+    i2b, j2b = section(res_lines, "## 2b ")
+    bhead, brows = md_tables(res_lines[:j2b], res_lines[i2b].strip())
+    assert bhead == ["label", "R(5 h), R(8 h) km", "class picked at each issue hour"], bhead
+    brow = {}
+    for n, c in brows:
+        lab = unbold(c[0]).split(" (")[0]
+        brow[{"MEASURED": "MEASURED", "MEASURED+GUST": "MEASURED_GUST"}[lab]] = (n, [unbold(x) for x in c])
+    assert set(brow) == set(MA.ARMS), brow
+    rule_path = KCF / "MEASURED_RULE.md"
+    rule_text = inp.text(rule_path)
+    gust_path = KCF.parent / "kcf-gust/work/gust_hours.json"
+    gust_hours = {e["kst_stamp"]: e for e in inp.json(gust_path)}
+    numbers_path = KCF.parent / "kcf-margin/numbers.json"
+    inp.read(numbers_path)                        # MA._check() asserted R_KM against it at import
+    inp.read(KCF / "measured_arms.py"); inp.read(KCF.parent / "kcf-gust/work/era5_gusts.json")
+    for st in MA.ARMS:
+        n, c = brow[st]
+        want, phrase = ARM_CLASSES[st]
+        assert phrase in c[2], (st, c[2])
+        got = [x[0] for x in arm_cls[st]]
+        assert got == want, (st, got, want)
+        classes = []
+        for k, (cls_, info, r5, r8) in enumerate(arm_cls[st]):
+            assert (r5, r8) == (MA.R_KM[cls_][0] * 1000.0, MA.R_KM[cls_][1] * 1000.0)
+            assert ARM_R_TEXT[cls_].format(f"{MA.R_KM[cls_][0]:.1f}", f"{MA.R_KM[cls_][1]:.1f}") in c[1], (st, cls_, c[1])
+            e = {"cls": cls_, "r5_m": r5, "r8_m": r8}
+            if st == "MEASURED_GUST":   # the committed next-8 h fire-wide maximum gust at that KST stamp, same value
+                gh = gust_hours[12 + k].get("fwd8")
+                if gh:
+                    assert abs(gh["fire_wide_max"] - info) < 1e-9, (k, gh, info)
+                    assert gh["cls"].replace("†", "") == cls_[1:], (k, gh["cls"], cls_)
+                    e["gust_ms"] = gh["fire_wide_max"]
+                else:   # gust_hours.json has no forward window at the 24:00 stamp; the class is RESULTS.md 2b's
+                    assert k == 12, k
+            classes.append(e)
+        standins[st] = {"kind": "measured", "label": ARM_LABEL[st], "provisional": st == "MEASURED_GUST",
+                        "r_text": c[1], "basis": c[2], "results_line": n, "classes": classes,
+                        "src": rel(rule_path), "code": "research/kcf-replay/measured_arms.py", "numbers": rel(numbers_path),
+                        "gust_hours": rel(gust_path) if st == "MEASURED_GUST" else None}
+    assert "PROVISIONAL" in brow["MEASURED_GUST"][1][0], brow["MEASURED_GUST"]
+    assert "(0 h, 0 km), (5 h, R5), (8 h, R8)" in rule_text
     score_path = KCF / "score.json"
     score = inp.json(score_path)["score"]
     regions = {}
@@ -548,6 +613,9 @@ def main():
     src = {
         "per_place": rel(pp_path), "named_timeline": rel(nt_path), "sources_md": rel(sources_path),
         "results_md": rel(results_path), "fire_discs": rel(discs_path), "hotspot_rule": "research/kcf-replay/HOTSPOT_RULE.md",
+        "measured_rule": "research/kcf-replay/MEASURED_RULE.md", "measured_arms_py": "research/kcf-replay/measured_arms.py",
+        "margin_numbers": "research/kcf-margin/numbers.json", "gust_hours": "research/kcf-gust/work/gust_hours.json",
+        "gust_results": "research/kcf-gust/RESULTS.md", "margin_results": "research/kcf-margin/RESULTS.md",
         "replay_py": "research/kcf-replay/replay.py", "analyze_py": "research/kcf-replay/analyze.py",
         "make_planner_cache": "research/kcf-replay/make_planner_cache.py",
         "planner_cache_dir": rel(cache_dir), "score": rel(score_path),
@@ -571,7 +639,7 @@ def main():
         "t0_utc": T0.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "issues_s": [int((T - T0).total_seconds()) for T in issues], "issue_kst": issue_kst, "issue_utc": issue_utc,
         "horizon": HZ, "horizon_s": H, "dwell_s": replay.DWELL,
-        "standins": standins, "default_standin": "RUNNING",
+        "standins": standins, "default_standin": "RUNNING", "standin_order": ARM_ORDER,
         "regions": regions, "places": places, "named": named, "shelters": shelters,
         "hourly": hourly, "routes": routes, "routeEdges": route_edges, "roadCells": road_cells, "close": close,
         "discs": {"fields": ["s", "lon", "lat", "r_m", "src"], "rows": rows}, "discCounts": disc_counts,

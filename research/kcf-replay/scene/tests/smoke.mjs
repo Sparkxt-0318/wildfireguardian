@@ -158,6 +158,29 @@ try {
   report.checks.not_cut.hud = await page.evaluate(() => document.querySelector('#hud').textContent.slice(0, 400));
   await record('notcut-drive');
   await page.evaluate(() => { window.KCF_APP.stopDrive(); window.KCF_APP.setStandin('RUNNING'); });
+  // MEASURED arms (MEASURED_RULE.md): region class line, place panel at 18:00 (지품리), arms table, check it, drive HUD
+  report.checks.arms = [];
+  for (const arm of ['MEASURED', 'MEASURED_GUST']) {
+    await page.evaluate((arm) => { window.KCF_APP.home(); window.KCF_APP.setStandin(arm); window.KCF_APP.setIssue(6); }, arm);
+    await record(`region-${arm}`);
+    const region = await page.evaluate(() => ({ btn: document.querySelector('#standinBtn').textContent, armline: (document.querySelector('#summary .armline') || {}).textContent || '' }));
+    await page.evaluate((id) => window.KCF_APP.selectPlace(id), named[1]);
+    await record(`place-${arm}`);
+    const r = await page.evaluate(() => {
+      const a = window.KCF_APP.check(0), st = window.KCF_APP.state, h = window.KCF.scene.hourly[st.standin][st.place.id][6];
+      const rows = [...document.querySelectorAll('#panel tr[data-arm]')].map((tr) => [tr.getAttribute('data-arm'), tr.children[2].textContent]);
+      return { state: h.state, lsd: h.lsd, cut_before: h.cut_before, ok: a && a.ok, arrival: a && a.arrival, arms_table: rows, verdict: document.querySelector('#verdict').textContent.slice(0, 200) };
+    });
+    await record(`check-${arm}`);
+    if (arm === 'MEASURED') await shot('2-place-measured');
+    await page.evaluate(() => window.KCF_APP.drive({ manual: true }));
+    await page.evaluate(() => window.KCF_APP.driveSeek(0.5));
+    r.hud = await page.evaluate(() => document.querySelector('#hud').textContent.slice(0, 400));
+    await record(`drive-${arm}`);
+    await page.evaluate(() => window.KCF_APP.stopDrive());
+    report.checks.arms.push({ arm, ...region, ...r });
+  }
+  await page.evaluate(() => { window.KCF_APP.home(); });
   // every path the sources panel names must be a committed file in this repository
   const paths = new Set();
   for (const id of named.slice(0, 2)) {

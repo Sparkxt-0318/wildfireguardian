@@ -17,9 +17,10 @@ times re-read at source: [SOURCES.md](SOURCES.md).
 
 One browser scene with three zoom levels (region, place, road) replays these results on 3D terrain:
 [`planner/public/kcf-scene/`](../../planner/public/kcf-scene/README.md), published with the planner demo at
-`https://sparkxt-0318.github.io/wildfireguardian/kcf-scene/` and runnable offline by double-clicking its `index.html`.
-Builders, checks (`scene/VERIFY.json`), load-time measurement, the presenter's one-page click script and the 90 s fallback
-recording are in [`scene/`](scene/DESIGN.md).
+`https://sparkxt-0318.github.io/wildfireguardian/kcf-scene/` (live once the scene is merged to `Main`) and runnable offline
+by double-clicking its `index.html`. It carries all five R(h) arms (R cycles them; MEASURED+GUST marked PROVISIONAL).
+Builders, checks (`scene/VERIFY.json`), load-time measurement and the presenter's one-page click script are in
+[`scene/`](scene/DESIGN.md); the 90 s fallback recording ships in the scene folder (`kcf_scene_tour_90s.mp4`).
 
 ## Play it in the planner demo
 

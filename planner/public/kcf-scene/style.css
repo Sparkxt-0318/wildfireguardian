@@ -191,3 +191,11 @@ body.driving #caption { bottom: 118px; }
 .kcf-tip .maplibregl-popup-content { background: #141922; color: #e9edf3; border: 1px solid #2a3242; border-radius: 8px; padding: 6px 9px; font-size: 12.5px; line-height: 1.4; }
 .kcf-tip .maplibregl-popup-tip { display: none; }
 .kcf-tip small { color: #7b8597; }
+
+/* R(h) arms (MEASURED, MEASURED+GUST) */
+#timebar button.standin.arm { background: #10233a; color: #b9dcff; border-color: #2f6aa6; }
+#timebar button.standin.arm.prov { background: #2a1838; color: #e6c8ff; border-color: #7b4aa6; }
+#summary .armline { margin: 2px 0 4px; padding: 3px 6px; border-radius: 6px; background: #10233a; color: #b9dcff; font-size: 12px; line-height: 1.3; }
+#summary .armline.prov { background: #2a1838; color: #e6c8ff; }
+table.arms td:first-child { white-space: nowrap; }
+table.arms .cutb { color: #ff9f8a; font-size: 11px; }

@@ -70,9 +70,10 @@ Terrain dominates: base64 PNG tiles barely compress.
 
 ## Checks in the same run
 
-* Labels: the test-data badge and "reconstruction from the 2025 record" visible in ${(res.checks.views || []).filter((v) => v.labels.test && v.labels.recon).length} of ${(res.checks.views || []).length} views checked (region, place, check it, one minute later, drive, horizon-capped rows).
+* Labels: the test-data badge and "reconstruction from the 2025 record" visible in ${(res.checks.views || []).filter((v) => v.labels.test && v.labels.recon).length} of ${(res.checks.views || []).length} views checked (region, place, check it, one minute later, drive, horizon-capped rows, both MEASURED arms).
 * Numbers without a source tag in the panels: ${(res.checks.views || []).reduce((n, v) => n + v.unsourced.length, 0)}.
 * Witness re-walk by the page's own code against every committed arrival second: ${Object.entries(rw).map(([k, v]) => `${k} ${v.same_arrival}/${v.routes}`).join(', ')} identical; departing 60 s later fails in ${Object.values(rw).reduce((n, v) => n + v.later_fail, 0)} of ${Object.values(rw).reduce((n, v) => n + v.routes, 0)}: a road cell closes before the vehicle leaves it in ${Object.values(rw).reduce((n, v) => n + (v.later_road || 0), 0)}, the shelter cell closes during the dwell in ${Object.values(rw).reduce((n, v) => n + (v.later_shelter || 0), 0)}, and arrival + dwell passes the 8 h horizon in ${Object.values(rw).reduce((n, v) => n + (v.later_horizon || 0), 0)} (the horizon-capped ORDINARY rows: not a closure).
+* MEASURED arms (지품리, 18:00 screen): ${(res.checks.arms || []).map((a) => `${a.arm}: leave-by ${String(a.lsd).slice(6)}, Check it ${a.ok ? 'PASS' : 'FAIL'}, ${a.arms_table.length} rows in the each-R(h) table, button "${a.btn.replace(/\s+/g, ' ').slice(0, 60)}…"`).join('; ') || 'not run'}.
 * Sources panel paths that are not files in the repository: ${(res.checks.source_paths || []).filter((p) => !p.exists).length} (of ${(res.checks.source_paths || []).length} checked).
 * Page errors and requests leaving the page: ${(res.checks.http_errors || []).length + (res.checks.file_url?.errors || []).length}.
 `;
