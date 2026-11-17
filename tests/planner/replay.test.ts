@@ -16,7 +16,7 @@ import { bestCheckedAttempt, deadlineHeadline } from '../../planner/src/domain/p
 import type { Attempt } from '../../planner/src/domain/types';
 import { packSets, parseNamedPlaces, type NamedPlacesDoc } from '../../planner/src/features/replay/data';
 // @ts-expect-error plain ES module script without types
-import { buildNamedPlaces, kstToUtc } from '../../planner/scripts/build_replay_named_places.mjs';
+import { buildNamedPlaces, kstToUtc, parseCsv } from '../../planner/scripts/build_replay_named_places.mjs';
 
 const PLANNER = fileURLToPath(new URL('../../planner/', import.meta.url));
 const REPO = fileURLToPath(new URL('../../', import.meta.url));
@@ -27,16 +27,21 @@ const NAMED_FILE = join(PLANNER, 'public', String(RUNNING.namedPlaces));
 const NAMED = JSON.parse(readFileSync(NAMED_FILE, 'utf8')) as NamedPlacesDoc;
 
 describe('replay pack registry', () => {
-  it('the RUNNING 8 h pack is available, the MEASURED arms are a pending hook with no data', () => {
-    expect(availablePacks().map((p) => p.id)).toEqual(['kcf-replay-RUNNING_8h']);
-    const measured = REPLAY_PACKS.find((p) => p.standin === 'MEASURED')!;
-    expect(measured.status).toBe('pending');
-    expect(measured.source).toBeNull();
-    expect(measured.namedPlaces).toBeNull();
+  it('RUNNING, MEASURED and MEASURED+GUST (provisional) are available; nothing is pending', () => {
+    expect(availablePacks().map((p) => p.id)).toEqual(['kcf-replay-RUNNING_8h', 'kcf-replay-MEASURED_8h', 'kcf-replay-MEASURED_GUST_8h']);
+    expect(REPLAY_PACKS.filter((p) => p.status === 'pending')).toEqual([]);
+    expect(REPLAY_PACKS.filter((p) => p.provisional).map((p) => p.standin)).toEqual(['MEASURED_GUST']);
+    for (const p of availablePacks()) {
+      expect(p.namedPlaces, p.id).not.toBeNull();
+      expect(p.source, p.id).not.toBeNull();
+    }
   });
 
   it('scenario ids map to their pack by prefix; booth ids map to none', () => {
     expect(packOfScenario('kcf-replay:RUNNING:8h:20250325T030000Z')?.id).toBe('kcf-replay-RUNNING_8h');
+    // MEASURED's prefix must not swallow MEASURED_GUST
+    expect(packOfScenario('kcf-replay:MEASURED:8h:20250325T030000Z')?.id).toBe('kcf-replay-MEASURED_8h');
+    expect(packOfScenario('kcf-replay:MEASURED_GUST:8h:20250325T030000Z')?.id).toBe('kcf-replay-MEASURED_GUST_8h');
     expect(packOfScenario('ffb1:20250325T190000Z:abc')).toBeNull();
     expect(packOfScenario(null)).toBeNull();
   });
@@ -90,48 +95,112 @@ describe('evidence tie-break (route line)', () => {
   });
 });
 
-describe('the replay cache in the planner model', () => {
-  const entries = parseCacheIndex(RAW_INDEX, RUNNING);
+interface CsvRow { region: string; place_id: string; issue_kst: string; standin: string; horizon: string; departure_state: string; latest_safe_departure_kst: string; last_departure_in_horizon_kst: string }
+const CSV: CsvRow[] = (() => {
+  const text = readFileSync(join(REPO, 'research/kcf-replay/per_place.csv'), 'utf8');
+  return parseCsv(text) as CsvRow[];
+})();
 
-  it('every place-hour with a checked route shows the witness route at its deadline (drawable line, labelled test data)', () => {
-    let withRoute = 0;
-    let checked = 0;
+describe.each(availablePacks().map((p) => [p.id, p] as const))('replay cache %s in the planner model', (_id, pack) => {
+  const dir = join(PLANNER, String(pack.source));
+  const entries = parseCacheIndex(JSON.parse(readFileSync(join(dir, 'INDEX.json'), 'utf8')), pack);
+
+  it('13 issue hours in both regions; every place-hour matches per_place.csv on the 30-minute grid and draws its witness route', () => {
+    expect(entries).toHaveLength(26);
+    const rows = new Map(CSV.filter((r) => r.standin === pack.standin && r.horizon === pack.horizon).map((r) => [`${r.region}|${r.place_id}|${kstToUtc(r.issue_kst)}`, r]));
+    let cut = 0;
+    let compared = 0;
     for (const e of entries) {
-      const doc = JSON.parse(readFileSync(join(PACK_DIR, ...e.path.slice(packCacheDir(RUNNING.id).length + 1).split('/')), 'utf8')) as WireCacheFile;
+      const doc = JSON.parse(readFileSync(join(dir, ...e.path.slice(packCacheDir(pack.id).length + 1).split('/')), 'utf8')) as WireCacheFile;
       const model = cacheToModel(doc, e);
       expect(model.meta.testData).toBe(true);
       expect(isTestDataHost(model.meta.computeHost, false)).toBe(true);
+      const T = Date.parse(e.inputTime);
+      const last = Math.max(...model.offsetsS);
       for (const plan of Object.values(model.plans)) {
+        const row = rows.get(`${e.regionId}|${plan.originId}|${e.inputTime.replace(/\.\d+Z$/, 'Z')}`);
+        expect(row, `${e.scenarioSetId} ${plan.originId}`).toBeDefined();
+        compared += 1;
+        // the latest checked grid departure is the field's latest safe departure rounded down to the grid
+        if (row!.departure_state === 'LATEST_SAFE_DEPARTURE') {
+          cut += 1;
+          const ldS = (Date.parse(kstToUtc(row!.latest_safe_departure_kst)!) - T) / 1000;
+          const want = Math.min(last, Math.floor(ldS / 1800) * 1800);
+          if (ldS >= 0) expect(plan.latestSafeDepartureS, `${e.scenarioSetId} ${plan.originId}`).toBe(want);
+        } else if (row!.departure_state === 'NOT_CUT_WITHIN_H') {
+          // no road cut inside the horizon: the last departure that still arrives (plus the dwell) within it
+          const lastS = (Date.parse(kstToUtc(row!.last_departure_in_horizon_kst)!) - T) / 1000;
+          expect(plan.latestSafeDepartureS, `${e.scenarioSetId} ${plan.originId}`).toBe(Math.min(last, Math.floor(lastS / 1800) * 1800));
+        } else {
+          expect(plan.bestVerdict, `${e.scenarioSetId} ${plan.originId} ${row!.departure_state}`).not.toBe('checked_route');
+        }
+        // wherever a leave-by time is shown, its witness route is drawable
         const h = deadlineHeadline(plan);
         if (h.kind !== 'deadline' || h.deadlineS === null) continue;
-        checked += 1;
         const cell = plan.sweep.find((c) => c.offsetS === h.deadlineS)!;
         const route = cell.best?.jobId ? model.route(cell.best.jobId) : null;
         expect(route?.verdict, `${e.scenarioSetId} ${plan.originId}`).toBe('checked_route');
         expect(route?.coordinates?.length ?? 0).toBeGreaterThan(1);
-        withRoute += 1;
       }
     }
-    // RESULTS.md §5: 1,093 place-hours with a latest safe departure (RUNNING, 8 h)
-    expect(checked).toBe(1093);
-    expect(withRoute).toBe(1093);
-  }, 60_000);
+    // 174 places × 13 hours; RESULTS.md §5 place-hours with a latest safe departure, 8 h: RUNNING 1,093, MEASURED 349, MEASURED+GUST 492
+    expect(compared).toBe(2262);
+    expect(cut).toBe({ RUNNING: 1093, MEASURED: 349, MEASURED_GUST: 492 }[pack.standin]);
+  }, 120_000);
 });
 
 describe('six named places (RESULTS.md §4)', () => {
-  it('the committed file is exactly what the generator writes from per_place.csv', () => {
+  it.each(availablePacks().map((p) => [p.id, p] as const))('%s: the committed file is exactly what the generator writes from per_place.csv', (_id, pack) => {
     const buf = readFileSync(join(REPO, 'research/kcf-replay/per_place.csv'));
     const doc = buildNamedPlaces({
       csvText: buf.toString('utf8'),
       csvSha256: createHash('sha256').update(buf).digest('hex'),
       reported: JSON.parse(readFileSync(join(PLANNER, 'scripts/kcf_reported_times.json'), 'utf8')),
-      standin: 'RUNNING',
-      horizon: '8h',
-      pack: RUNNING.id,
+      standin: pack.standin,
+      horizon: pack.horizon,
+      pack: pack.id,
     });
-    expect(`${JSON.stringify(doc, null, 1)}\n`).toBe(readFileSync(NAMED_FILE, 'utf8'));
-    expect(parseNamedPlaces(NAMED, RUNNING.id)).not.toBeNull();
-    expect(parseNamedPlaces(NAMED, 'other-pack')).toBeNull();
+    const file = join(PLANNER, 'public', String(pack.namedPlaces));
+    expect(`${JSON.stringify(doc, null, 1)}\n`).toBe(readFileSync(file, 'utf8'));
+    const named = JSON.parse(readFileSync(file, 'utf8'));
+    expect(parseNamedPlaces(named, pack.id)).not.toBeNull();
+    expect(parseNamedPlaces(named, 'other-pack')).toBeNull();
+  });
+
+  it('MEASURED and MEASURED+GUST match their RESULTS.md §4 tables (8 h, 16:00–21:00 KST; "+1" = 26 March)', () => {
+    const tables: Record<string, Record<string, (string | null)[]>> = {
+      MEASURED: {
+        화매리: ['not cut', 'not cut', '20:27', null, null, null],
+        지품리: ['not cut', 'not cut', '18:19', null, null, null],
+        옥류리: ['not cut', 'not cut', 'not cut', '20:54', '20:51', null],
+        매정리: ['not cut', 'not cut', 'not cut', 'not cut', 'not cut', '22:50'],
+        노물리: ['not cut', 'not cut', 'not cut', 'not cut', 'not cut', '23:36'],
+        강구리: ['not cut', 'not cut', 'not cut', 'not cut', 'not cut', '+1 00:26'],
+      },
+      MEASURED_GUST: {
+        화매리: ['not cut', 'not cut', '20:10', null, null, null],
+        지품리: ['not cut', '23:51', '18:16', null, null, null],
+        옥류리: ['not cut', 'not cut', '+1 01:46', '20:41', '20:45', null],
+        매정리: ['not cut', 'not cut', 'not cut', 'not cut', '+1 03:27', '22:37'],
+        노물리: ['not cut', 'not cut', 'not cut', 'not cut', 'not cut', '23:17'],
+        강구리: ['not cut', 'not cut', 'not cut', 'not cut', 'not cut', '+1 00:02'],
+      },
+    };
+    const hours = ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00'].map((h) => kstToUtc(`03-25 ${h}`));
+    for (const [standin, table] of Object.entries(tables)) {
+      const pack = availablePacks().find((p) => p.standin === standin)!;
+      const named = JSON.parse(readFileSync(join(PLANNER, 'public', String(pack.namedPlaces)), 'utf8')) as NamedPlacesDoc;
+      for (const p of named.places) {
+        hours.forEach((iu, i) => {
+          const h = p.hours.find((x) => x.issue_utc === iu)!;
+          const want = table[p.name]![i]!;
+          const where = `${standin} ${p.name} ${iu}`;
+          if (want === null) expect(h.state, where).toBe('INSIDE_KNOWN_FIRE_AREA');
+          else if (want === 'not cut') expect(h.state, where).toBe('NOT_CUT_WITHIN_H');
+          else expect(h.latest_safe_departure_utc, where).toBe(kstToUtc(want.startsWith('+1 ') ? `03-26 ${want.slice(3)}` : `03-25 ${want}`));
+        });
+      }
+    }
   });
 
   it('matches the RESULTS.md §4 table (RUNNING, 8 h, 16:00–21:00 KST)', () => {

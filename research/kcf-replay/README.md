@@ -9,7 +9,7 @@ times re-read at source: [SOURCES.md](SOURCES.md).
 | `named_places_timeline.csv` | 6 named places, every hour/stand-in/horizon, with documented times |
 | `timeline.png` | timeline figure for the 6 named places: 3 stand-ins + MEASURED + MEASURED+GUST (PROVISIONAL) |
 | `frames/frame_*.png` | 13 hourly map frames (RUNNING, 8 h); `map_sequence.mp4` = all 73 ten-minute frames, 73 s |
-| `planner_cache/RUNNING_8h/` | planner cache (schema `wfg.planner.cache/1`), 13 issue hours × 2 regions |
+| `planner_cache/{RUNNING,MEASURED,MEASURED_GUST}_8h/` | planner caches (schema `wfg.planner.cache/1`), 13 issue hours × 2 regions each; MEASURED_GUST is PROVISIONAL |
 | `score.json`, `fixed_point.json`, `ahi_firms_agreement.json` | score, F-3.1 certificate, AHI/FIRMS diagnostic |
 | `fire_discs.json` | the known-fire-area inputs (every kept FIRMS detection and AHI hotspot with time and radius) |
 
