@@ -1,0 +1,470 @@
+[
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T030000Z",
+  "input_time": "2025-03-25T03:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T030000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1464720,
+  "sha256": "d62471b8b612dae7c4315bfbf3a6be80d4111b51aaa40746b8766ab0978eb2b6"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T040000Z",
+  "input_time": "2025-03-25T04:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T040000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1455051,
+  "sha256": "4b8bce3125dafbfd9fbf4e004a0a8014738b9368c036f2d616655162a6dd36f7"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T050000Z",
+  "input_time": "2025-03-25T05:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T050000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1455051,
+  "sha256": "2bd85ed67d8a3d47180d25481d6b499d87a2a2a7a91c236ff1685bff01012a7d"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T060000Z",
+  "input_time": "2025-03-25T06:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T060000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1485049,
+  "sha256": "d9f31eb8c1cf7b0f0d4913141493a92a372dc4e1852c6e1bf7053cca3009b43e"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T070000Z",
+  "input_time": "2025-03-25T07:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T070000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1268815,
+  "sha256": "f5b8b4015ffdece09aa652baa181bcb67924257e9aaf0fad623fb83b5d6e2704"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T080000Z",
+  "input_time": "2025-03-25T08:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T080000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1082685,
+  "sha256": "3b618c0e13b81cf869f333e8fa589279984b7c167e43bd47ad3222cf0e37f550"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T090000Z",
+  "input_time": "2025-03-25T09:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T090000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "7feabbaa1e1e2ed2a356d1b042e8fe006d990bf0b1633d82eff1a174454b54c7"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T100000Z",
+  "input_time": "2025-03-25T10:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T100000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "2c3d01a4dac3cb47986005e8b2973fee6b409b7c4d92e0f6034750a3661e1a8a"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T110000Z",
+  "input_time": "2025-03-25T11:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T110000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "87804570adb606deafce65fece580aabc997ab161bc2184693a27659735a21fe"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T120000Z",
+  "input_time": "2025-03-25T12:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T120000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "c5a5f30abac02711dad661544c7c7500a50708fa3044c02c471479936675a976"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T130000Z",
+  "input_time": "2025-03-25T13:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T130000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "7045d25ef7672d0d43a9a7927057a095ac07a23f9886a43652cd8df0ce861c00"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T140000Z",
+  "input_time": "2025-03-25T14:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T140000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "168aafc99b5a2686161423e0ecc70b8f878740e057d33526ef62d891c3c3658b"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T150000Z",
+  "input_time": "2025-03-25T15:00:00Z",
+  "path": "uiseong_andong_2025/RUNNING_8h_20250325T150000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 84,
+  "bytes": 1075306,
+  "sha256": "927b5121d449ea35af248374232e2678259d805e30673ee002959bdd1526a446"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T030000Z",
+  "input_time": "2025-03-25T03:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T030000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1660558,
+  "sha256": "f5f5086c4a6e95fddebce2b1b2931c174b455917b9ebee2bb261e0aa87e86f21"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T040000Z",
+  "input_time": "2025-03-25T04:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T040000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1653253,
+  "sha256": "30f3cad7b0d028c7b5680b74938fae7b572b55a37bac8107a131e283b351f93b"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T050000Z",
+  "input_time": "2025-03-25T05:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T050000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1653253,
+  "sha256": "5c77574c06fca38775374d4c255c9a77fe1588aa7b9e1373d9ae6efe12344f8d"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T060000Z",
+  "input_time": "2025-03-25T06:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T060000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1654510,
+  "sha256": "47aaca165eb437bfbb9c697fa45edaa32ba760b0cc02544174b1335553e7318f"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T070000Z",
+  "input_time": "2025-03-25T07:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T070000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1653916,
+  "sha256": "cec7d89066d9d266c77214e848355e0fd2db02c412648ab866e825b293055909"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T080000Z",
+  "input_time": "2025-03-25T08:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T080000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1660790,
+  "sha256": "c56f4ac53c6e61d86d20baa2588f8aad51e78a01f738645dd966b224542977bf"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T090000Z",
+  "input_time": "2025-03-25T09:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T090000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1672185,
+  "sha256": "09c3733fef96bf27da64aae6d6f7db3d0ffdf564bc863108eef5c86fba31ed3d"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T100000Z",
+  "input_time": "2025-03-25T10:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T100000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1499609,
+  "sha256": "c7c8bcfcbf436237ad1b0e702a6a206093db62e7739bccba67b07e33ea5b2e55"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T110000Z",
+  "input_time": "2025-03-25T11:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T110000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1469528,
+  "sha256": "96ad273a8e64d7aa4f483607c00135ec6b56122d81702dcd691f698e7566b8f0"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T120000Z",
+  "input_time": "2025-03-25T12:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T120000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1362553,
+  "sha256": "340a8bf5b352c39eef10e071623a19ec9f317d33c16dd928fe5576ad8e4d2ffe"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T130000Z",
+  "input_time": "2025-03-25T13:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T130000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1251057,
+  "sha256": "ac3fdbc4895b4b75d4825072040b6324320818b3c16b1693fb0be7dc66a9dddd"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T140000Z",
+  "input_time": "2025-03-25T14:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T140000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1251057,
+  "sha256": "b75af8e6bda8cc2eadb9cc5f13c2c7d25893bdaf6eb75f4fcdd7b27c562edfae"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:RUNNING:8h:20250325T150000Z",
+  "input_time": "2025-03-25T15:00:00Z",
+  "path": "yeongdeok_2025/RUNNING_8h_20250325T150000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T00:00:18.837152+00:00",
+  "origins": 90,
+  "bytes": 1231214,
+  "sha256": "1e99fa14932ec383928189900de2408b93b225fe89f20b7ec919e815230f9434"
+ }
+]
