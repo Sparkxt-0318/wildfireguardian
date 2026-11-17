@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" width="980" height="470" role="img" aria-labelledby="ta da"><title id="ta">Figure A: one backward pass replaces 9,722 searches</title><desc id="da">Outcome of the 9,722 recorded route checks and of the same checks read off the deadline field: zero disagreements, 297 undecided cases decided, deadlines exact to one second.</desc>
+<style>
+:root{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#6f6e69;--grid:#d9d8d3;--ok:#1a9e55;--okink:#ffffff;
+--no:#2b2b2e;--noink:#ffffff;--un:#9a9aa0;--unink:#0b0b0b;--warn:#b5560a}
+@media (prefers-color-scheme: dark){:root{--bg:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#9a998f;--grid:#3a3a37;
+--ok:#2fbf74;--okink:#0b0b0b;--no:#e8e7e3;--noink:#0b0b0b;--un:#6f6f76;--unink:#f0efec;--warn:#e08a3a}}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;fill:var(--ink)}
+.t{font-size:20px;font-weight:600}.s{font-size:13px;fill:var(--ink2)}.l{font-size:13px;font-weight:600}
+.n{font-size:15px;font-weight:600}.f{font-size:11px;fill:var(--muted)}.k{font-size:13px}
+</style>
+<defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+<rect width="7" height="7" fill="var(--un)"/><line x1="0" y1="0" x2="0" y2="7" stroke="var(--bg)" stroke-width="2"/></pattern></defs>
+<rect width="980" height="470" fill="var(--bg)"/>
+<text class="t" x="24" y="36">One backward pass replaces 9,722 searches</text>
+<text class="s" x="24" y="58">The six recorded 2025 planner caches: every route check read off one backward field per shelter, compared with the recorded forward check.</text>
+<text class="l" x="24" y="102">Recorded: 9,722 forward route checks, 30 s budget each</text>
+<rect x="24.0" y="112" width="743.0" height="44" rx="3" fill="var(--ok)"/>
+<text class="n" x="395.5" y="139.0" text-anchor="middle" style="fill:var(--okink)">7,771</text>
+<rect x="769.0" y="112" width="138.7" height="44" rx="3" fill="var(--no)"/>
+<text class="n" x="838.3" y="139.0" text-anchor="middle" style="fill:var(--noink)">1,468</text>
+<rect x="909.7" y="112" width="26.5" height="44" rx="3" fill="var(--un)"/>
+<rect x="909.7" y="112" width="26.5" height="44" rx="3" fill="url(#hatch)"/>
+<rect x="938.2" y="112" width="15.8" height="44" rx="3" fill="var(--un)"/>
+<rect x="938.2" y="112" width="15.8" height="44" rx="3" fill="url(#hatch)"/>
+<text class="s" x="24" y="178">checked route 7,771 · model no-route 1,468 · unresolved/timeout 297 · unresolved/at-issue 186</text>
+<text class="l" x="24" y="218">Deadline field: the same 9,722 checks, read off</text>
+<rect x="24.0" y="228" width="762.0" height="44" rx="3" fill="var(--ok)"/>
+<text class="n" x="405.0" y="255.0" text-anchor="middle" style="fill:var(--okink)">7,970</text>
+<rect x="788.0" y="228" width="148.1" height="44" rx="3" fill="var(--no)"/>
+<text class="n" x="862.1" y="255.0" text-anchor="middle" style="fill:var(--noink)">1,566</text>
+<rect x="938.2" y="228" width="15.8" height="44" rx="3" fill="var(--no)"/>
+<text class="s" x="24" y="294">checked route 7,970 · model no-route 1,566 · origin point in flame at that second (definite: no journey departing then) 186</text>
+<rect x="24" y="311" width="14" height="14" rx="2" fill="var(--ok)"/>
+<text class="k" x="44" y="322">checked route</text>
+<rect x="143.0" y="311" width="14" height="14" rx="2" fill="var(--no)"/>
+<text class="k" x="163.0" y="322">model no-route / no journey</text>
+<rect x="360.0" y="311" width="14" height="14" rx="2" fill="url(#hatch)"/>
+<text class="k" x="380.0" y="322">unresolved in the record</text>
+<text x="24" y="386" style="font-size:34px;font-weight:700">0</text>
+<text class="l" x="24" y="408">disagreements</text>
+<text class="s" x="24" y="426">with any of the 7,771 recorded routes (same arrival second, same legs)</text>
+<text class="s" x="24" y="442">or 1,468 recorded no-route verdicts</text>
+<text x="339" y="386" style="font-size:34px;font-weight:700">297</text>
+<text class="l" x="339" y="408">undecided cases decided</text>
+<text class="s" x="339" y="426">199 now have a checked route (full checker passes),</text>
+<text class="s" x="339" y="442">98 are proven no-route in the model</text>
+<text x="654" y="386" style="font-size:34px;font-weight:700">1 s</text>
+<text class="l" x="654" y="408">deadlines exact</text>
+<text class="s" x="654" y="426">1,482 of 1,482 deadline witnesses pass; departing one second</text>
+<text class="s" x="654" y="442">later is infeasible in all 1,482</text>
+<text class="f" x="24" y="448">Sources: research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json (jobs_all, witness_checks, deadlines per cache; summed over the six caches); run notes research/harness-2026-11/F-3.1/RESULTS.md §1–§3.</text>
+<text class="f" x="24" y="462">Model-relative contact field on the recorded one-hour scenarios; not a physical-safety claim. Planner deadlines: 528 of 530 origins equal the record; the other 2 were unresolved in the record.</text>
+</svg>
