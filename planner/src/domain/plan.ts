@@ -114,13 +114,19 @@ export function cellVerdict(attempts: Attempt[]): Verdict {
   return combineVerdicts(attempts.map((a) => a.verdict));
 }
 
-/** Earliest-arrival checked attempt (ties → destination id). */
+/**
+ * Earliest-arrival checked attempt (ties → the attempt whose route check is stored, then
+ * destination id). The evidence tie-break matters only when arrivals are unknown or equal: a replay
+ * cache (research/kcf-replay) stores one witness route per place and leaves the other checked
+ * shelters at that departure without a route, so the shown attempt must be the one whose route can
+ * be drawn. Booth and API results store a route check for every attempt, so nothing changes there.
+ */
 export function bestCheckedAttempt(attempts: Attempt[]): Attempt | undefined {
   const checked = attempts.filter((a) => a.verdict === 'checked_route');
   checked.sort((a, b) => {
     const aa = a.arrivalS ?? Number.POSITIVE_INFINITY;
     const bb = b.arrivalS ?? Number.POSITIVE_INFINITY;
-    return aa - bb || a.destinationId.localeCompare(b.destinationId);
+    return aa - bb || Number(!a.jobId) - Number(!b.jobId) || a.destinationId.localeCompare(b.destinationId);
   });
   return checked[0];
 }

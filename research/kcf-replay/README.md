@@ -15,6 +15,9 @@ times re-read at source: [SOURCES.md](SOURCES.md).
 
 ## Play it in the planner demo
 
+The public demo (<https://sparkxt-0318.github.io/wildfireguardian/>) lists this cache as "25 March 2025 replay ·
+12:00–24:00 KST" in the left panel (planner/src/data/replayPacks.ts). Locally:
+
 ```bash
 cd planner && npm ci
 ```

@@ -1,0 +1,61 @@
+{
+  "_comment": "Documented times for the six named places of research/kcf-replay/RESULTS.md section 4, copied from research/kcf-replay/SOURCES.md (each re-read at its source on 2026-11-16; every one SINGLE = one outlet). They are REPORTED times, never outcomes of the replay: the app shows them in their own 'reported' column with the outlet, the date and the link. Times are KST. scope says what the entry is about: the village itself, its 면 or the whole county.",
+  "sources": {
+    "newsro": { "outlet": "뉴스로", "outlet_en": "Newsro", "date": "2025-03-29", "url": "https://www.newsro.kr/articles/832886", "what_ko": "영덕군 3.25 조치사항 (군 조치 기록을 한 매체가 전재)", "what_en": "Yeongdeok county action log for 25 March, reproduced by one outlet" },
+    "imaeil": { "outlet": "매일신문", "outlet_en": "Maeil Shinmun", "date": "2025-03-26", "url": "https://www.imaeil.com/page/view/2025032616432400355" },
+    "hankook": { "outlet": "한국일보", "outlet_en": "Hankook Ilbo", "date": "2025-03-27", "url": "https://www.hankookilbo.com/news/article/A2025032714350000238" },
+    "idaegu": { "outlet": "대구신문", "outlet_en": "Daegu Shinmun", "date": "2025-03-31", "url": "https://www.idaegu.co.kr/news/articleView.html?idxno=505161" },
+    "khan": { "outlet": "경향신문", "outlet_en": "Kyunghyang Shinmun", "date": "2025-03-26", "url": "https://www.khan.co.kr/article/202503261311001" }
+  },
+  "places": {
+    "화매리": {
+      "items": [
+        { "kst": "03-25 18:00", "approx": true, "scope": "village", "source": "imaeil", "flags": ["SINGLE"], "ko": "이장 스마트 방송 음성 안내 (46가구)", "en": "Village head's voice message to 46 households" },
+        { "kst": "03-25 18:00", "approx": true, "scope": "village", "source": "imaeil", "flags": ["SINGLE"], "ko": "화염이 마을 가장자리까지 왔다는 보도", "en": "Reported: flames at the village edge" }
+      ],
+      "note_ko": "영양군 공식 경보 시각은 확인하지 못했습니다.",
+      "note_en": "No official Yeongyang county alert time was found."
+    },
+    "지품리": {
+      "items": [
+        { "kst": "03-25 18:00", "approx": false, "scope": "myeon", "source": "newsro", "flags": ["SINGLE"], "ko": "주민대피 명령 공고 및 CBS 발송 (지품면, 달산면)", "en": "Evacuation order and CBS text (Jipum-myeon, Dalsan-myeon)" },
+        { "kst": "03-25 18:25", "approx": false, "scope": "road", "source": "newsro", "flags": ["SINGLE"], "ko": "황장재 통행제한 CBS 발송", "en": "CBS text: traffic restricted at Hwangjangjae" },
+        { "kst": "03-25 18:58", "approx": false, "scope": "road", "source": "newsro", "flags": ["SINGLE"], "ko": "국도34호선(구미~황장) 교통 통제", "en": "Route 34 (Gumi–Hwangjang) closed" },
+        { "kst": "03-25 19:04", "approx": false, "scope": "road", "source": "newsro", "flags": ["SINGLE"], "ko": "지품면 도계 → 영양군 방향 도로통제", "en": "Road closed from Dogye towards Yeongyang" },
+        { "kst": "03-25 20:25", "approx": false, "scope": "village", "source": "newsro", "flags": ["SINGLE"], "ko": "단전 (지품리 등 11개 리) — 화재 도달 시각이 아님", "en": "Power cut (Jipum-ri and 10 other villages) — not a fire-arrival time" }
+      ],
+      "note_ko": "기록된 화재 도달 시각이 없습니다.",
+      "note_en": "No documented fire-arrival time."
+    },
+    "옥류리": {
+      "items": [
+        { "kst": "03-25 18:00", "approx": false, "scope": "myeon", "source": "newsro", "flags": ["SINGLE"], "ko": "주민대피 명령 공고 및 CBS 발송 (지품면)", "en": "Evacuation order and CBS text (Jipum-myeon)" },
+        { "kst": "03-25 18:52", "approx": false, "scope": "village", "source": "newsro", "flags": ["SINGLE"], "ko": "지품면 옥류리 주민대피 CBS 발송", "en": "CBS evacuation text for Okryu-ri" }
+      ],
+      "note_ko": "기록된 화재 도달 시각이 없습니다.",
+      "note_en": "No documented fire-arrival time."
+    },
+    "매정리": {
+      "items": [
+        { "kst": "03-25 19:30", "approx": false, "scope": "county", "source": "newsro", "flags": ["SINGLE"], "ko": "주민대피 명령 공고 (영덕군 9개 읍·면)", "en": "Evacuation order for all 9 eup/myeon of Yeongdeok" },
+        { "kst": "03-25 20:40", "approx": true, "scope": "village", "source": "hankook", "flags": ["SINGLE", "ONE_RESIDENT", "DERIVED"], "ko": "주민 한 명의 증언: 마을에 불길 (대피 20:30쯤 + 10분)", "en": "One resident's account: fire in the village (left ~20:30, + 10 min)" },
+        { "kst": "03-25 21:00", "approx": false, "scope": "county", "source": "newsro", "flags": ["SINGLE"], "ko": "영덕군 주민대피 CBS 발송", "en": "County-wide CBS evacuation text" }
+      ]
+    },
+    "노물리": {
+      "items": [
+        { "kst": "03-25 19:30", "approx": false, "scope": "county", "source": "newsro", "flags": ["SINGLE"], "ko": "주민대피 명령 공고 (영덕군 9개 읍·면)", "en": "Evacuation order for all 9 eup/myeon of Yeongdeok" },
+        { "kst": "03-25 21:00", "approx": false, "scope": "county", "source": "newsro", "flags": ["SINGLE"], "ko": "영덕군 주민대피 CBS 발송", "en": "County-wide CBS evacuation text" },
+        { "kst": "03-26 00:00", "approx": true, "scope": "village", "source": "idaegu", "flags": ["SINGLE"], "ko": "주민들이 자정이 돼서야 알았다고 '알려졌다' (도달 시각이 아님)", "en": "Residents 'reportedly' became aware only around midnight (not an arrival time)" }
+      ]
+    },
+    "강구리": {
+      "items": [
+        { "kst": "03-25 21:58", "approx": false, "scope": "road", "source": "newsro", "flags": ["SINGLE"], "ko": "국도7호선 송라면 지경삼거리에서 영덕 방향 교통 통제", "en": "Route 7 closed towards Yeongdeok at Jigyeong junction, Songna" },
+        { "kst": "03-26 00:07", "approx": false, "scope": "myeon", "source": "khan", "flags": ["SINGLE"], "ko": "군 문자 (강구면·남정면)", "en": "County text (Ganggu-myeon, Namjeong-myeon)" },
+        { "kst": "03-26 00:37", "approx": true, "scope": "myeon", "source": "khan", "flags": ["SINGLE", "DERIVED"], "ko": "문자 약 30분 뒤 산불이 들이닥쳤다는 보도 (면 단위)", "en": "Reported: fire arrived about 30 min after the text (myeon level)" },
+        { "kst": "03-26 00:41", "approx": false, "scope": "myeon", "source": "khan", "flags": ["SINGLE"], "ko": "두 번째 문자", "en": "Second text" }
+      ]
+    }
+  }
+}
