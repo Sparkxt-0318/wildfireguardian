@@ -21,11 +21,12 @@ Every other pixel keeps its source R and G exactly.
 
 Each tile is then re-encoded losslessly as PNG (Pillow optimize=True, then oxipng when pyoxipng is installed) with
 the blue channel set to 0, i.e. elevation floored to whole metres (error B/256 < 1 m). The builder checks, for every
-tile, that the PNG decodes to exactly the intended pixels, that unrepaired pixels keep their source R and G, and that
-the elevation differs from the (repaired) source by less than 1 m.
+tile, that the PNG decodes to exactly the intended pixels, that pixels neither repaired nor clipped keep their source R
+and G (built.check.all_tiles.unrepaired_rg_unchanged), and that the elevation differs from the repaired and clipped
+source by less than 1 m.
 `flat` is a 256x256 tile of 0 m (rgb 128,0,0) for the scene's tile handler to return outside the bounds.
 
-Usage (from anywhere): python3 research/kcf-replay/scene/build_terrain.py [--offline] [--no-repair]
+Usage (from anywhere): python3 research/kcf-replay/scene/build_terrain.py [--offline] [--no-repair] [--no-clip]
 """
 from __future__ import annotations
 

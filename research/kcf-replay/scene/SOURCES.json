@@ -107,8 +107,8 @@
   {
    "attribution": "Terrain Tiles: Mapzen / AWS Open Data (SRTM, GMTED, ETOPO1 and others)",
    "built_by": "research/kcf-replay/scene/build_terrain.py",
-   "built_commit": "d4169672cc6aa993e792238a9f63b2389ef45922",
-   "bytes": 9439512,
+   "built_commit": "4fcda6fbac49cc94d78b88217858305ec18c52d0",
+   "bytes": 6260489,
    "inputs": {
     "aggregate_sha256": "e090eb4796dab3fc417072ec6a7f890021ab97065591e362064f4d2cc2cf2913",
     "aggregate_sha256_definition": "sha256 over lines '<url> <sha256> <bytes>\\n' in built.inputs order",
@@ -125,7 +125,7 @@
    },
    "license": "AWS Open Data Terrain Tiles; the sources in these tiles (x-amz-meta-x-imagery-sources) are etopo1, gmted, srtm only, US Government (NASA / USGS / NOAA) datasets; terms: https://github.com/tilezen/joerd/blob/master/docs/attribution.md",
    "path": "planner/public/kcf-scene/data/terrain.js",
-   "sha256": "2b708a4993f53ee7b71a8a96f8aa273d5eed5ff6d936c73ecfb3f59e8d6175ea"
+   "sha256": "dd8fbcd2905ba427f45fad77b41aba36ea09b074d19ae6b3bbce10a205b7e937"
   },
   {
    "attribution": "MapLibre GL JS 5.24.0, Copyright (c) 2023, MapLibre contributors",

@@ -511,7 +511,8 @@
       rows[row].push(x);
       html += '<span class="m ' + mk.cls + '" style="left:' + (100 * mk.s / 43200) + '%;top:' + (row === 0 ? 4 : 0) + 'px"' + mk.attr + '>' + esc(mk.text) + '</span>';
     });
-    $('markLegend').innerHTML = marks.some(function (m) { return m.tick; }) ? '<span' + srcAttr(SRC.sources_md, 'reported times: outlet, URL and SINGLE flag per line') + '>◆ = reported time (SOURCES.md), not an outcome</span>' : '';
+    // the legend sits at the left of the diamonds' row: every reported time on this slider is 18:00 or later (SOURCES.md)
+    if (marks.some(function (m) { return m.tick; })) html += '<span class="m legend"' + srcAttr(SRC.sources_md, 'reported times: outlet, URL and SINGLE flag per line') + '>◆ = reported time (SOURCES.md), not an outcome</span>';
     $('sliderMarks').innerHTML = html;
   }
 
@@ -1003,6 +1004,7 @@
     // keep the centre elevation the chase camera sets: by default MapLibre re-clamps the centre to the ground when it
     // renders, which moves the camera after jumpTo and leaves the vehicle marker where the old camera would draw it
     map.setCenterClampedToGround(false);
+    map.setLayoutProperty('mark-label', 'text-anchor', 'bottom'); map.setLayoutProperty('mark-label', 'text-offset', [0, -1.0]);
     setFireOpacity(true);
     lastFireKey = null; lastCellKey = null;
     var sh0 = S.shelters[dv.rt.sh];
@@ -1045,6 +1047,7 @@
     $('hud').hidden = true;
     if (vehicleMarker) vehicleMarker.remove();
     map.setCenterClampedToGround(true);
+    map.setLayoutProperty('mark-label', 'text-anchor', 'top'); map.setLayoutProperty('mark-label', 'text-offset', [0, 1.0]);
     clearWalk(); // the travelled-road line belongs to the drive only
     setFireOpacity(false);
     map.resize();
@@ -1087,8 +1090,9 @@
       pending = Number(sl.value);
       if (!wire._raf) wire._raf = requestAnimationFrame(function () { wire._raf = null; if (pending != null) setTime(pending); pending = null; });
     });
-    $('prevBtn').addEventListener('click', function () { setTime(3600 * (kOf(st.s - 1) )); });
-    $('nextBtn').addEventListener('click', function () { setTime(3600 * Math.min(NK - 1, kOf(st.s) + 1)); });
+    // like the arrow keys: the issue hour does not change under a drive (Esc first)
+    $('prevBtn').addEventListener('click', function () { if (!st.drive) setTime(3600 * kOf(st.s - 1)); });
+    $('nextBtn').addEventListener('click', function () { if (!st.drive) setTime(3600 * Math.min(NK - 1, kOf(st.s) + 1)); });
     $('playBtn').addEventListener('click', togglePlay);
     $('standinBtn').addEventListener('click', cycleStandin);
     $('aboutBtn').addEventListener('click', function () { if ($('about').hidden) renderAbout(); $('about').hidden = !$('about').hidden; });
@@ -1158,6 +1162,8 @@
     function ensurePlace() { if (kOf(st.s) !== k || st.s !== 3600 * k) setTime(3600 * k, { full: true }); if (!st.place || st.place.id !== p.id) selectPlace(p.id, { noCamera: true }); }
     function enter(phase, fn) { if (tourState.phase !== phase) { tourState.phase = phase; fn(); } }
     function arm(name) { if (st.standin !== name && S.hourly[name]) setStandin(name); }
+    // leaving the drive by seeking back: stopDrive(true) keeps the drive's terrain, layers and view, so restore the place's
+    function leaveDrive() { var was = !!st.drive; stopDrive(true); if (was) { st.view = 'place'; map.setTerrain({ source: 'dem', exaggeration: EXAG.place }); lastFireKey = null; lastCellKey = null; refreshAll(); } }
     var ARM2 = (S.standin_order || [])[1], h2 = ARM2 ? hourly(p.id, k, ARM2) : null, h1 = hourly(p.id, k, 'RUNNING');
     function captions() {
     if (t < 22) caption('<b>1 · REGION</b>known fire area = satellite detections before each issue hour · violet road cells close when R(h) reaches them · every place: government step and leave-by clock');
@@ -1173,10 +1179,10 @@
       setTime(Math.min(3600 * k, 3600 * k * Math.max(0, Math.min(1, f))), { full: true });
       map.jumpTo(lerpCam(P.region, P.near, ease(Math.max(0, (t - 8) / 14))));
     } else if (t < 27) {
-      enter('fly', function () { stopDrive(true); arm('RUNNING'); ensurePlace(); });
+      enter('fly', function () { leaveDrive(); arm('RUNNING'); ensurePlace(); });
       map.jumpTo(lerpCam(P.near, P.placeCam, ease((t - 22) / 5)));
     } else if (t < 50) {
-      enter('place', function () { stopDrive(true); ensurePlace(); map.jumpTo(P.placeCam); });
+      enter('place', function () { leaveDrive(); ensurePlace(); map.jumpTo(P.placeCam); });
       if (t < 44 || !h2) arm('RUNNING'); else arm(ARM2);
       if (t >= 31 && t < 38) {
         if (!st.check || st.check.offset !== 0) runCheck(0, { manual: true });
