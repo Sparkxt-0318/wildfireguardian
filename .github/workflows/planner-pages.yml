@@ -18,11 +18,16 @@ on:
     paths:
       - 'planner/**'
       - 'tests/planner/**'
+      # the 25 March replay pack ships from here (planner/src/data/replayPacks.ts)
+      - 'research/kcf-replay/planner_cache/**'
+      - 'research/kcf-replay/per_place.csv'
       - '.github/workflows/planner-pages.yml'
   pull_request:
     paths:
       - 'planner/**'
       - 'tests/planner/**'
+      - 'research/kcf-replay/planner_cache/**'
+      - 'research/kcf-replay/per_place.csv'
       - '.github/workflows/planner-pages.yml'
   workflow_dispatch:
 
@@ -57,6 +62,8 @@ jobs:
         run: npm ci
       - name: Unit tests (Vitest, incl. the static-demo data flow against the committed cache)
         run: npm test
+      - name: Six-place replay file matches research/kcf-replay/per_place.csv
+        run: node scripts/build_replay_named_places.mjs --check
       - name: Static build + checks (no API, CSP, every file < 100 MB, cache identical to INDEX.json)
         # build:static = tsc -b && vite build --mode static && scripts/check_static_dist.mjs
         run: npm run build:static
@@ -73,6 +80,8 @@ jobs:
     permissions:
       pages: write
       id-token: write
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -80,3 +89,32 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # After every deploy: the published site root must answer 200, and a clean browser at desktop and
+  # phone width must load it, open every first-screen link and button without error, and show the
+  # 25 March replay (planner/scripts/check_live_site.mjs). Screenshots and report.json are uploaded.
+  verify-live:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright + Chromium (outside planner/, no lockfile change)
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Check the published site (root 200, desktop + phone, links, buttons, replay)
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/pw/node_modules/playwright
+        run: node planner/scripts/check_live_site.mjs --url "${{ needs.deploy.outputs.page_url || format('https://{0}.github.io/{1}/', github.repository_owner, github.event.repository.name) }}" --out site-check
+      - name: Upload screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-check
+          path: site-check
+

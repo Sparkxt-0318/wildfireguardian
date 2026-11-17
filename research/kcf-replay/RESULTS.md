@@ -136,4 +136,6 @@ A route reached later than that is not counted.
   * Verdicts come from the field, not the Route-Check API, on a 30-minute grid.
   * The app labels the input "2025년 실제 산불 기록 기반 시나리오 재현" and shows its test-data badge
     (시험 데이터 · 평가 호스트 아님).
-  * The route line is not drawn in the static demo.
+  * The planner draws the witness route line at each place-hour's leave-by time (1,093 of 1,093 place-hours; until
+    17 Nov 2026 the static demo omitted it). The public demo lists this cache as its own scenario with an hour
+    slider and the six named places (planner/README.md, "25 March 2025 replay").

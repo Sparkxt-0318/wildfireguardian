@@ -139,6 +139,35 @@ npm run smoke:static        # headless Chromium smoke test against that dist-onl
 (`npm run preview:static` also works; in static mode `vite preview` serves `dist/` only, without the
 `/cache` middleware of the other modes.)
 
+**25 March 2025 replay (research reconstruction, its own scenario).** Under the recorded inputs, the left
+panel lists "2025년 3월 25일 재현 · 12:00–24:00 KST": the replay of
+[`research/kcf-replay`](../research/kcf-replay/RESULTS.md) (174 places × 13 issue hours, RUNNING stand-in
+8.2 km/h, 8 h). It is registered in [`src/data/replayPacks.ts`](src/data/replayPacks.ts); the build copies
+`research/kcf-replay/planner_cache/RUNNING_8h` unchanged to `dist/cache/packs/kcf-replay-RUNNING_8h/` (its own
+`INDEX.json`, never merged into the booth cache's) and `check_static_dist.mjs` checks every file's bytes and
+SHA-256. On screen:
+
+- the label "2025년 실제 산불 기록에서 재구성한 화면 … 결과에 대한 주장이 아닙니다" and the test-data badge
+  (시험 데이터 · 평가 호스트 아님; the cache was written on a Linux host by the F-3.1 deadline field, not by the
+  Route-Check API);
+- an hour slider over the 13 issue hours under the map (the selected place is kept);
+- the witness route line at the leave-by time (the cache stores one witness per place-hour; a checked attempt with a
+  stored route now wins ties over one without, `bestCheckedAttempt` in `src/domain/plan.ts`; 1,093 of 1,093
+  place-hours draw a line);
+- the six named places of RESULTS.md §4 with the latest safe departure at every issue hour (to the minute, from
+  `per_place.csv` via [`scripts/build_replay_named_places.mjs`](scripts/build_replay_named_places.mjs)) and their
+  documented times under "보도된 시각 (결과가 아님)", each with outlet, date, link and the single-source flag
+  ([`scripts/kcf_reported_times.json`](scripts/kcf_reported_times.json), from SOURCES.md).
+
+The MEASURED R(h) arms (research/kcf-margin put through the replay) are listed as "아직 없음" and disabled: no
+planner cache for them exists yet. The hook is described at the top of `src/data/replayPacks.ts`.
+
+**Checks of the published site.** `release-checks.yml` fails when the site root does not answer HTTP 200 (on every
+push and pull request to `Main`, and daily). After every deploy, `planner-pages.yml` runs
+[`scripts/check_live_site.mjs`](scripts/check_live_site.mjs) against the published URL: a clean browser at 1440×900
+and 390×844, every first-screen link requested, every first-screen button clicked on a fresh page, the replay opened;
+screenshots and `report.json` are uploaded as the `site-check` artifact (also on demand: "Public demo check").
+
 **What it shows and what it does not do**
 
 - Everything is read from static files under the base path: `data/regions/**` (places, footprints),

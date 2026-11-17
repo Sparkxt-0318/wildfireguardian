@@ -172,6 +172,8 @@ export interface ScenarioSet {
   hazardSha256: string | null;
   /** where the planner learned about this scenario set */
   source: 'api' | 'cache' | 'places';
+  /** replay pack id when the set comes from a research replay (never a booth / API result) */
+  pack?: string;
 }
 
 /** Region as listed in /data/regions/index.json (static, always available offline). */
@@ -370,6 +372,8 @@ export interface CacheEntry {
   origins: number;
   bytes: number;
   sha256: string;
+  /** replay pack id (src/data/replayPacks.ts) for results written outside the Route-Check API; absent for the booth cache */
+  pack?: string;
 }
 
 export interface CacheMeta {

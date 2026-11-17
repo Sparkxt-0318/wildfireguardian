@@ -37,7 +37,11 @@ function Dialogs() {
   // deadline provenance of the recorded cache on screen (stream 3; staff outputs only)
   const regionId = useStore((s) => s.regionId);
   const cacheIndex = useStore((s) => s.cacheIndex);
-  const provEntry = useMemo(() => (regionId && scenarioId && scenarioId !== DRAWN_SCENARIO ? findCacheEntry(cacheIndex, regionId, scenarioId) : null), [cacheIndex, regionId, scenarioId]);
+  // replay packs have no deadline-provenance file (features/replay): never "not established" on their outputs
+  const provEntry = useMemo(() => {
+    const e = regionId && scenarioId && scenarioId !== DRAWN_SCENARIO ? findCacheEntry(cacheIndex, regionId, scenarioId) : null;
+    return e && !e.pack ? e : null;
+  }, [cacheIndex, regionId, scenarioId]);
   const provenance = useProvenanceFile(provEntry);
   const sheets = useMemo(
     () => (dialogs.planSheet ? buildPlanSheets(getState(), t, lang, provenance) : []),

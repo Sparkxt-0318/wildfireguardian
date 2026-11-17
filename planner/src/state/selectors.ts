@@ -31,7 +31,9 @@ export function scenarioSetsOf(s: Pick<PlannerState, 'apiRegions' | 'cacheIndex'
   for (const set of s.apiRegions[s.regionId]?.scenarioSets ?? []) out.set(set.id, set);
   for (const e of s.cacheIndex) {
     if (e.regionId !== s.regionId || out.has(e.scenarioSetId)) continue;
-    out.set(e.scenarioSetId, { id: e.scenarioSetId, inputTime: e.inputTime, scenarioIds: [], horizonS: null, hazardSha256: null, source: 'cache' });
+    const set: ScenarioSet = { id: e.scenarioSetId, inputTime: e.inputTime, scenarioIds: [], horizonS: null, hazardSha256: null, source: 'cache' };
+    if (e.pack) set.pack = e.pack;
+    out.set(e.scenarioSetId, set);
   }
   for (const set of scenarioSetsFromPlaces(s.places)) if (!out.has(set.id)) out.set(set.id, set);
   return [...out.values()].sort((a, b) => a.inputTime.localeCompare(b.inputTime));
@@ -96,7 +98,8 @@ export function isDrawnMode(s: Pick<PlannerState, 'scenarioId'>): boolean {
 /** The region's RECORDED input times (contract: spread_zones input_time must be one of them). */
 export function recordedInputTimes(s: Pick<PlannerState, 'apiRegions' | 'cacheIndex' | 'places' | 'regionId'>): string[] {
   const out = new Set<string>(s.regionId ? s.apiRegions[s.regionId]?.inputTimes ?? [] : []);
-  for (const set of scenarioSetsOf(s)) out.add(set.inputTime);
+  // replay packs are not recorded inputs (drawn zones never start from one)
+  for (const set of scenarioSetsOf(s)) if (!set.pack) out.add(set.inputTime);
   return [...out].sort();
 }
 
