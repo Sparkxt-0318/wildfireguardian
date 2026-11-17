@@ -1,0 +1,17 @@
+{
+ "what": "classifier validation before the first G6b job: G6a rows for yeongdeok 0325T19 (known answer 62 optimum confirmed, rest unchanged)",
+ "first_run_with_bug": {
+  "unchanged": 224,
+  "failure:frozen_checker_rejects_route": 62
+ },
+ "bug": "g2_recheck rows are keyed by the resolved run path; the classifier looked them up by the unresolved (symlinked) path, so every lookup missed and defaulted to rejection (fail-safe). Fixed: lookup by resolved path, and a missing row now asserts.",
+ "after_fix": {
+  "unchanged": 224,
+  "allowed_optimum_confirmed": 62
+ },
+ "listed_after_fix": {
+  "ties": 0,
+  "raw_status_differences": 42,
+  "pre_existing_parent_vs_record": 2
+ }
+}
