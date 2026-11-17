@@ -13,6 +13,14 @@ times re-read at source: [SOURCES.md](SOURCES.md).
 | `score.json`, `fixed_point.json`, `ahi_firms_agreement.json` | score, F-3.1 certificate, AHI/FIRMS diagnostic |
 | `fire_discs.json` | the known-fire-area inputs (every kept FIRMS detection and AHI hotspot with time and radius) |
 
+## 3D scene (presentation)
+
+One browser scene with three zoom levels (region, place, road) replays these results on 3D terrain:
+[`planner/public/kcf-scene/`](../../planner/public/kcf-scene/README.md), published with the planner demo at
+`https://sparkxt-0318.github.io/wildfireguardian/kcf-scene/` and runnable offline by double-clicking its `index.html`.
+Builders, checks (`scene/VERIFY.json`), load-time measurement, the presenter's one-page click script and the 90 s fallback
+recording are in [`scene/`](scene/DESIGN.md).
+
 ## Play it in the planner demo
 
 ```bash
