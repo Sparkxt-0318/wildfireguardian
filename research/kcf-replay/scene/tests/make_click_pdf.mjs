@@ -1,4 +1,5 @@
-// Renders research/kcf-replay/scene/CLICK_SCRIPT.md to a one-page A4 landscape PDF (CLICK_SCRIPT.pdf) with Playwright.
+// Renders research/kcf-replay/scene/CLICK_SCRIPT.md to a one-page A4 landscape PDF (CLICK_SCRIPT.pdf) with Playwright
+// (the body size steps down from 10.4 pt to fit one page; it fails below 8.6 pt).
 // The markdown is small and regular (headings, one table, bold, code), so a tiny converter is enough.
 //   node research/kcf-replay/scene/tests/make_click_pdf.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -54,7 +55,16 @@ const fonts = readFileSync(resolve(dir, '../../../planner/public/kcf-scene/data/
 const m = /"src":"(data:font\/woff2;base64,[^"]+)"/.exec(fonts);
 if (m) await p.addStyleTag({ content: `@font-face { font-family: 'KCF UI Sans'; src: url(${m[1]}); font-weight: 45 930; } body { font-family: 'KCF UI Sans', 'Noto Sans CJK KR', sans-serif; }` });
 await p.evaluate(() => document.fonts.ready);
-const n = await p.evaluate(() => Math.ceil(document.body.scrollHeight / (190 / 25.4 * 96)));
-await p.pdf({ path: join(dir, 'CLICK_SCRIPT.pdf'), format: 'A4', landscape: true, printBackground: true });
+// one page: step the body size down from 10.4 pt until the PDF has a single page (floor 8.6 pt, still readable)
+const pages = (buf) => (buf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
+let size = 10.4, buf;
+for (;;) {
+  await p.evaluate((pt) => { document.body.style.fontSize = pt + 'pt'; document.querySelectorAll('code').forEach((c) => { c.style.fontSize = (pt - 1) + 'pt'; }); }, size);
+  buf = await p.pdf({ format: 'A4', landscape: true, printBackground: true });
+  if (pages(buf) <= 1 || size <= 8.6) break;
+  size = Math.round((size - 0.2) * 10) / 10;
+}
+writeFileSync(join(dir, 'CLICK_SCRIPT.pdf'), buf);
 await browser.close();
-console.log('wrote CLICK_SCRIPT.pdf; estimated pages', n);
+console.log('wrote CLICK_SCRIPT.pdf:', pages(buf), 'page(s) at', size, 'pt');
+if (pages(buf) > 1) { console.error('CLICK_SCRIPT.md does not fit one page at 8.6 pt: shorten it'); process.exit(1); }
