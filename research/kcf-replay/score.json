@@ -35,12 +35,36 @@
    "route_cut_earlier_by_reconstruction": 26,
    "places_with_latest_safe_departure": 125,
    "places_with_any_earlier_cut": 15
+  },
+  "MEASURED_GUST/5h": {
+   "rows_with_latest_safe_departure": 394,
+   "route_cut_earlier_by_reconstruction": 201,
+   "places_with_latest_safe_departure": 136,
+   "places_with_any_earlier_cut": 107
+  },
+  "MEASURED_GUST/8h": {
+   "rows_with_latest_safe_departure": 492,
+   "route_cut_earlier_by_reconstruction": 280,
+   "places_with_latest_safe_departure": 138,
+   "places_with_any_earlier_cut": 112
+  },
+  "MEASURED/5h": {
+   "rows_with_latest_safe_departure": 297,
+   "route_cut_earlier_by_reconstruction": 137,
+   "places_with_latest_safe_departure": 134,
+   "places_with_any_earlier_cut": 103
+  },
+  "MEASURED/8h": {
+   "rows_with_latest_safe_departure": 349,
+   "route_cut_earlier_by_reconstruction": 181,
+   "places_with_latest_safe_departure": 140,
+   "places_with_any_earlier_cut": 114
   }
  },
  "witness_recheck": {
   "ok": 6316
  },
- "rows": 13572,
+ "rows": 22620,
  "steps_by_issue": {
   "ORDINARY/8h/03-25 12:00": {
    "NONE": 128,
@@ -194,6 +218,126 @@
   },
   "WORST/8h/03-26 00:00": {
    "LEAVE_NOW": 174
+  },
+  "MEASURED/8h/03-25 12:00": {
+   "NONE": 125,
+   "LEAVE_NOW": 45,
+   "PREPARE_VULNERABLE_FIRST": 4
+  },
+  "MEASURED/8h/03-25 13:00": {
+   "NONE": 122,
+   "LEAVE_NOW": 48,
+   "PREPARE_VULNERABLE_FIRST": 4
+  },
+  "MEASURED/8h/03-25 14:00": {
+   "NONE": 122,
+   "LEAVE_NOW": 48,
+   "PREPARE_VULNERABLE_FIRST": 4
+  },
+  "MEASURED/8h/03-25 15:00": {
+   "NONE": 104,
+   "PREPARE_VULNERABLE_FIRST": 6,
+   "LEAVE_NOW": 64
+  },
+  "MEASURED/8h/03-25 16:00": {
+   "LEAVE_NOW": 81,
+   "PREPARE_VULNERABLE_FIRST": 3,
+   "NONE": 90
+  },
+  "MEASURED/8h/03-25 17:00": {
+   "LEAVE_NOW": 84,
+   "NONE": 90
+  },
+  "MEASURED/8h/03-25 18:00": {
+   "LEAVE_NOW": 99,
+   "NONE": 68,
+   "PREPARE_VULNERABLE_FIRST": 7
+  },
+  "MEASURED/8h/03-25 19:00": {
+   "LEAVE_NOW": 122,
+   "NONE": 36,
+   "PREPARE_VULNERABLE_FIRST": 16
+  },
+  "MEASURED/8h/03-25 20:00": {
+   "LEAVE_NOW": 130,
+   "NONE": 31,
+   "PREPARE_VULNERABLE_FIRST": 13
+  },
+  "MEASURED/8h/03-25 21:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED/8h/03-25 22:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED/8h/03-25 23:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED/8h/03-26 00:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED_GUST/8h/03-25 12:00": {
+   "LEAVE_NOW": 69,
+   "PREPARE_VULNERABLE_FIRST": 12,
+   "NONE": 93
+  },
+  "MEASURED_GUST/8h/03-25 13:00": {
+   "LEAVE_NOW": 74,
+   "PREPARE_VULNERABLE_FIRST": 9,
+   "NONE": 91
+  },
+  "MEASURED_GUST/8h/03-25 14:00": {
+   "LEAVE_NOW": 74,
+   "PREPARE_VULNERABLE_FIRST": 9,
+   "NONE": 91
+  },
+  "MEASURED_GUST/8h/03-25 15:00": {
+   "LEAVE_NOW": 78,
+   "PREPARE_VULNERABLE_FIRST": 6,
+   "NONE": 90
+  },
+  "MEASURED_GUST/8h/03-25 16:00": {
+   "LEAVE_NOW": 83,
+   "PREPARE_VULNERABLE_FIRST": 1,
+   "NONE": 90
+  },
+  "MEASURED_GUST/8h/03-25 17:00": {
+   "LEAVE_NOW": 84,
+   "NONE": 87,
+   "PREPARE_VULNERABLE_FIRST": 3
+  },
+  "MEASURED_GUST/8h/03-25 18:00": {
+   "LEAVE_NOW": 103,
+   "NONE": 57,
+   "PREPARE_VULNERABLE_FIRST": 14
+  },
+  "MEASURED_GUST/8h/03-25 19:00": {
+   "LEAVE_NOW": 128,
+   "NONE": 27,
+   "PREPARE_VULNERABLE_FIRST": 19
+  },
+  "MEASURED_GUST/8h/03-25 20:00": {
+   "LEAVE_NOW": 135,
+   "NONE": 17,
+   "PREPARE_VULNERABLE_FIRST": 22
+  },
+  "MEASURED_GUST/8h/03-25 21:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED_GUST/8h/03-25 22:00": {
+   "LEAVE_NOW": 174
+  },
+  "MEASURED_GUST/8h/03-25 23:00": {
+   "LEAVE_NOW": 170,
+   "NONE": 2,
+   "PREPARE_VULNERABLE_FIRST": 2
+  },
+  "MEASURED_GUST/8h/03-26 00:00": {
+   "LEAVE_NOW": 170,
+   "NONE": 2,
+   "PREPARE_VULNERABLE_FIRST": 2
   }
+ },
+ "witness_recheck_new_arms": {
+  "ok": 4528
  }
 }

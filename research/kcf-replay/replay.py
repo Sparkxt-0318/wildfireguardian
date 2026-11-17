@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 from deadline_field import core, intervals as iv  # noqa: E402
 from tools.explain_deadlines.roads import RoadGraph  # noqa: E402
 from tools.explain_deadlines.geometry import ceil_q, exact  # noqa: E402
+import measured_arms as MA  # noqa: E402
 
 ISSUES = [datetime(2025, 3, 25, h, 0, tzinfo=timezone.utc) for h in range(3, 16)]
 STANDINS = {  # R(h) in metres; frozen in HOTSPOT_RULE.md
@@ -153,9 +154,13 @@ def run_one(args):
     discs = DISCS
     dist = R.cell_distance(discs, T)
     close_s = {}
+    arm = None
+    if standin in MA.ARMS:  # MEASURED_RULE.md: class fixed per (T, H); one curve for all places
+        r5, r8, cls_, info = MA.curve(standin, discs, T, H // 3600)
+        arm = (r5, r8)
     for c in range(len(dist)):
         if np.isfinite(dist[c]):
-            s = closure_s(standin, float(dist[c]))
+            s = MA.closure_s(r5, r8, float(dist[c])) if arm else closure_s(standin, float(dist[c]))
             if s <= H:
                 close_s[c] = int(math.ceil(s))
     inst = R.instance(close_s, H)
@@ -203,7 +208,8 @@ def run_one(args):
     for oid, (o, near) in R.cands.items():
         on = R.nidx[o["properties"]["entry"]["node"]]
         d = float(dist[R.node_cell[on]])
-        step = "LEAVE_NOW" if reach_m(standin, 5) >= d else ("PREPARE_VULNERABLE_FIRST" if reach_m(standin, 8) >= d else "NONE")
+        q5, q8 = arm if arm else (reach_m(standin, 5), reach_m(standin, 8))
+        step = "LEAVE_NOW" if q5 >= d else ("PREPARE_VULNERABLE_FIRST" if q8 >= d else "NONE")
         b = best.get(oid)
         r = {"region": region, "place_id": oid, "standin": standin, "horizon": hz, "issue_utc": T_iso,
              "dist_known_fire_m": None if not np.isfinite(d) else round(d, 1), "step": step,
@@ -222,7 +228,7 @@ def run_one(args):
             r.update({"ld_s": None, "cut_within_H": None, "shelter_id": None})
         rows.append(r)
     return {"region": region, "standin": standin, "horizon": hz, "issue_utc": T_iso, "rows": rows,
-            "closed_cells": len(close_s), "wall_s": round(time.time() - t0, 1),
+            "closed_cells": len(close_s), "arm_class": (cls_, info) if arm else None, "wall_s": round(time.time() - t0, 1),
             "close_s": {str(k): v for k, v in close_s.items()}}
 
 
@@ -242,7 +248,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("discs"); ap.add_argument("out")
     ap.add_argument("--regions", nargs="+", default=["yeongdeok_2025", "uiseong_andong_2025"])
-    ap.add_argument("--standins", nargs="+", default=list(STANDINS))
+    ap.add_argument("--standins", nargs="+", default=list(STANDINS) + list(MA.ARMS))
     ap.add_argument("--horizons", nargs="+", default=list(HORIZONS))
     ap.add_argument("--issues", nargs="+", type=int, default=list(range(3, 16)))
     ap.add_argument("--workers", type=int, default=4)
