@@ -1,0 +1,286 @@
+[
+ {
+  "cache": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+  "H": 3600,
+  "specs": 32,
+  "router": {
+   "counts": {
+    "edges": 43826,
+    "edges_with_block": 122,
+    "waitable_nodes": 554,
+    "dest_specs": 32,
+    "origin_issue_checks": 254,
+    "G_nonempty": 1239346,
+    "origin_sets": 254
+   },
+   "examples": {}
+  },
+  "cert": {
+   "counts": {
+    "edges": 43826,
+    "edges_with_block": 122,
+    "waitable_nodes": 554,
+    "dest_specs": 32,
+    "origin_issue_checks": 254,
+    "G_nonempty": 1239346,
+    "origin_sets": 254
+   },
+   "examples": {}
+  },
+  "seconds": 54.3
+ },
+ {
+  "cache": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+  "H": 3600,
+  "specs": 31,
+  "router": {
+   "counts": {
+    "edges": 43826,
+    "edges_with_block": 275,
+    "B_not_suffix": 88,
+    "waitable_nodes": 554,
+    "W_not_suffix": 2,
+    "dest_specs": 31,
+    "origin_issue_checks": 253,
+    "G_nonempty": 1130634,
+    "origin_sets": 253
+   },
+   "examples": {
+    "B_not_suffix": [
+     1413,
+     [
+      [
+       0,
+       3490
+      ]
+     ],
+     10
+    ],
+    "W_not_suffix": [
+     20500,
+     [
+      [
+       0,
+       3495
+      ]
+     ]
+    ]
+   }
+  },
+  "cert": {
+   "counts": {
+    "edges": 43826,
+    "edges_with_block": 275,
+    "B_not_suffix": 88,
+    "waitable_nodes": 554,
+    "W_not_suffix": 2,
+    "dest_specs": 31,
+    "origin_issue_checks": 253,
+    "G_nonempty": 1130634,
+    "origin_sets": 253
+   },
+   "examples": {
+    "B_not_suffix": [
+     1413,
+     [
+      [
+       0,
+       3490
+      ]
+     ],
+     10
+    ],
+    "W_not_suffix": [
+     20500,
+     [
+      [
+       0,
+       3495
+      ]
+     ]
+    ]
+   }
+  },
+  "seconds": 55.9
+ },
+ {
+  "cache": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+  "H": 3600,
+  "specs": 31,
+  "router": {
+   "counts": {
+    "edges": 43826,
+    "edges_with_block": 2058,
+    "waitable_nodes": 554,
+    "dest_specs": 31,
+    "origin_issue_checks": 253,
+    "G_nonempty": 777089,
+    "origin_sets": 253,
+    "A_not_prefix": 1
+   },
+   "examples": {
+    "A_not_prefix": [
+     "osm:12616949379",
+     [
+      1064,
+      3600
+     ],
+     [
+      [
+       1064,
+       3480
+      ]
+     ]
+    ]
+   }
+  },
+  "cert": {
+   "counts": {
+    "edges": 43826,
+    "edges_with_block": 2058,
+    "waitable_nodes": 554,
+    "dest_specs": 31,
+    "origin_issue_checks": 253,
+    "G_nonempty": 777089,
+    "origin_sets": 253,
+    "A_not_prefix": 1
+   },
+   "examples": {
+    "A_not_prefix": [
+     "osm:12616949379",
+     [
+      1064,
+      3600
+     ],
+     [
+      [
+       1064,
+       3480
+      ]
+     ]
+    ]
+   }
+  },
+  "seconds": 51.6
+ },
+ {
+  "cache": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+  "H": 3600,
+  "specs": 153,
+  "router": {
+   "counts": {
+    "edges": 111924,
+    "edges_with_block": 2547,
+    "waitable_nodes": 1527,
+    "dest_specs": 153,
+    "origin_issue_checks": 272,
+    "G_nonempty": 9631496,
+    "origin_sets": 272
+   },
+   "examples": {}
+  },
+  "cert": {
+   "counts": {
+    "edges": 111924,
+    "edges_with_block": 2547,
+    "waitable_nodes": 1527,
+    "dest_specs": 153,
+    "origin_issue_checks": 272,
+    "G_nonempty": 9631496,
+    "origin_sets": 272
+   },
+   "examples": {}
+  },
+  "seconds": 590.9
+ },
+ {
+  "cache": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+  "H": 3600,
+  "specs": 152,
+  "router": {
+   "counts": {
+    "edges": 111924,
+    "edges_with_block": 1047,
+    "waitable_nodes": 1527,
+    "dest_specs": 152,
+    "origin_issue_checks": 271,
+    "G_nonempty": 11009600,
+    "origin_sets": 271
+   },
+   "examples": {}
+  },
+  "cert": {
+   "counts": {
+    "edges": 111924,
+    "edges_with_block": 1047,
+    "waitable_nodes": 1527,
+    "dest_specs": 152,
+    "origin_issue_checks": 271,
+    "G_nonempty": 11009600,
+    "origin_sets": 271
+   },
+   "examples": {}
+  },
+  "seconds": 673.8
+ },
+ {
+  "cache": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+  "H": 3600,
+  "specs": 152,
+  "router": {
+   "counts": {
+    "edges": 111924,
+    "edges_with_block": 188,
+    "waitable_nodes": 1527,
+    "dest_specs": 152,
+    "origin_issue_checks": 271,
+    "G_nonempty": 13842438,
+    "origin_sets": 271,
+    "A_not_prefix": 1
+   },
+   "examples": {
+    "A_not_prefix": [
+     "osm:11786567709",
+     [
+      896,
+      3600
+     ],
+     [
+      [
+       896,
+       3480
+      ]
+     ]
+    ]
+   }
+  },
+  "cert": {
+   "counts": {
+    "edges": 111924,
+    "edges_with_block": 188,
+    "waitable_nodes": 1527,
+    "dest_specs": 152,
+    "origin_issue_checks": 271,
+    "G_nonempty": 13842438,
+    "origin_sets": 271,
+    "A_not_prefix": 1
+   },
+   "examples": {
+    "A_not_prefix": [
+     "osm:11786567709",
+     [
+      896,
+      3600
+     ],
+     [
+      [
+       896,
+       3480
+      ]
+     ]
+    ]
+   }
+  },
+  "seconds": 691.3
+ }
+]
