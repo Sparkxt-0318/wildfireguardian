@@ -14,8 +14,13 @@ commit `a697d14` (Main after PR #189). The code is not changed. Line numbers ref
   **only** under hypotheses M1–M4 below: closures are permanent ("no re-entry") and shelters accept from time 0
   (Theorem 2). Under M1–M4, L is given by a scalar recursion (Theorem 2(b)).
 * `Instance` accepts arbitrary interval sets, so M1–M4 are **not enforced**. On the six recorded caches, measured
-  (`results/assumptions_real.json`): __REAL_VIOLATIONS__.
-  Even so, every feasible set measured on those caches is a prefix (__REAL_PREFIX__). That holds on that data. It is
+  (`results/assumptions_real.json`): **M1 fails on 88 edges** and **M2 on 2 waitable nodes**, all in
+  `uiseong_andong_2025/20250324T090000Z` (for example edge 1413, D = 10: closed for starts 0–3490, open again at
+  3491–3590). That is fire burning before the issue time that burns out inside the hour. **M3 fails for 2
+  shelter windows** that open late (896 s in `yeongdeok_2025/20250326T080000Z`, 1064 s in
+  `uiseong_andong_2025/20250325T170000Z`). M4 holds everywhere. Both contact rules (router and cert) give the same
+  counts. Out of 6,237 (edge, cache) pairs with any closure, 88 reopen.
+  Even so, every feasible set measured on those caches is a prefix (37,630,603 non-empty state sets G_s and 1,574 origin sets over 551 shelter specs, per contact rule, 0 non-prefix). That holds on that data. It is
   **not** a consequence of Theorem 2, and it can change with other data.
 
 ## 1. Model
@@ -259,7 +264,7 @@ All counts below are measured by the files in this directory. Commands are in `R
 | same | Corollary 3 on the reopening family: hull set is a prefix and a subset of the truth | 24,059 / 24,059 hold; the hull gives up 50,107 truly feasible departure seconds |
 | `test_theorem.py::Mutants` | five bugs in a copy of `backward` (`mutants.py`), 3,000 + 3,000 cases each | see table below |
 | `differential_witnesses.py` | `check_route` on every recorded checked route of the six caches, both contact rules; field witness at every exact deadline; exhaustive search at L + 1 | __DIFF_RESULT__ |
-| `measure_assumptions.py` | M1–M4 and the prefix conclusion on the six caches | __REAL_RESULT__ |
+| `measure_assumptions.py` | M1–M4 and the prefix conclusion on the six caches | M1 broken on 88 edges, M2 on 2 nodes, M3 on 2 shelter specs, M4 never; yet 0 of 37,630,603 G_s and 0 of 1,574 origin sets are non-prefix (each contact rule) |
 
 **Mutation tests** (cases caught out of 3,000 per family; "caught" = brute-force disagreement, or `check_route`
 rejects the route the mutant's own extractor builds, or the mutant's extractor dead-ends, or
