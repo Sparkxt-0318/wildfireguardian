@@ -175,7 +175,8 @@ body.panel-open .maplibregl-ctrl-bottom-right { right: 408px; }
   background: rgba(8, 10, 15, .9); border: 1px solid #3a465c; font-size: 17px; line-height: 1.35; text-align: center; }
 #caption b { color: #5ef0ff; margin-right: 6px; }
 body.driving .maplibregl-ctrl-group { display: none; }
-body.driving #sliderWrap, body.driving #sources { display: none; }
+body.driving #sliderWrap { display: none; }
+body.driving #sources { bottom: 80px; }
 body.driving #map { bottom: 72px; }
 body.panel-open #caption { max-width: calc(100% - 430px); }
 body.driving #caption { bottom: 84px; }

@@ -116,8 +116,9 @@
     if (short && h.state === 'INSIDE_KNOWN_FIRE_AREA') return 'inside fire area';
     return STATE_TXT[h.state] || h.state;
   }
+  function csvIssue(k) { var t = 12 + k; return t < 24 ? '03-25 ' + pad(t) + ':00' : '03-26 ' + pad(t - 24) + ':00'; } // per_place.csv issue_kst text
   function csvDetail(h, col, standin, k) {
-    return 'row ' + h.row + ', column ' + col + ' (stand-in ' + (standin || st.standin) + ', horizon 8h, issue ' + issueLabel(k) + ' KST)';
+    return 'row ' + h.row + ', column ' + col + ' (standin = ' + (standin || st.standin) + ', horizon = 8h, issue_kst = ' + csvIssue(k) + ')';
   }
   // the 13 issue times, the 8 h horizon and the 30-min planner grid are fixed by the frozen rule / the cache generator
   function issueSpan(k) { return '<span' + srcAttr(SRC.hotspot_rule, 'Issue times: 2025-03-25 03:00 … 15:00 UTC = 12:00 … 24:00 KST (scene.js issue_kst[' + k + '])') + '>' + esc(issueLabel(k)) + '</span>'; }
@@ -371,7 +372,7 @@
     $('legend').innerHTML =
       '<div class="li"><span class="sw" style="background:' + COLORS.fireOld + '"></span>known fire area: detections before the issue hour (solid: FIRMS 375 m / 1 km; light: AHI "fire within 2 km")</div>' +
       '<div class="li"><span class="sw" style="background:' + COLORS.fire + '"></span>… detected in the last hour before it</div>' +
-      '<div class="li"><span class="sw" style="background:' + COLORS.closed + ';opacity:.8"></span>road cell closed (375 m; T + distance / R)</div>' +
+      '<div class="li"><span class="sw" style="background:' + COLORS.closed + ';opacity:.8"></span>road cell (375 m) closed by this screen: issue time + distance / R(h); each hourly screen recomputes its closures from its own known fire area</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.leave + '"></span>위험구역 (5 h), read here as "leave now"</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.vuln + '"></span>잠재적 위험구역 (8 h): vulnerable first</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.none + '"></span>no step</div>' +
@@ -390,7 +391,7 @@
       if (h.state === 'INSIDE_KNOWN_FIRE_AREA') inside++;
       if (h.state === 'LATEST_SAFE_DEPARTURE') lsd++;
     });
-    var csvd = 'count of the ' + S.places.length + ' rows with stand-in ' + st.standin + ', horizon 8h, issue_kst ' + issueLabel(k);
+    var csvd = 'count of the ' + S.places.length + ' rows with standin = ' + st.standin + ', horizon = 8h, issue_kst = ' + csvIssue(k);
     var html = '<h3>Screen issued at ' + issueSpan(k) + ' KST</h3>';
     if (dc) html += '<div class="kv"><span class="muted">known fire area</span><span' + srcAttr(SRC.fire_discs, 'discs with t_utc strictly before ' + (S.issue_utc ? S.issue_utc[k] : issueLabel(k)) + ' (counted in ' + SCENE_JS + ' discCounts[' + k + '])') + '>' + fmtInt(dc.total) + ' detections (AHI ' + fmtInt(dc.AHI) + ' · FIRMS ' + fmtInt(dc.FIRMS) + ')</span></div>';
     html += '<div class="kv" style="margin-top:4px">' +
@@ -419,7 +420,7 @@
     var m = /(\d{1,2}):(\d\d)/.exec(t || ''); if (!m) return null;
     var h = Number(m[1]), mi = Number(m[2]);
     var s = (h - 12) * 3600 + mi * 60;
-    if (/26/.test(t) || h < 12) s += 24 * 3600;
+    if (/\(26 Mar\)|\b03-26\b/.test(t) || h < 12) s += 24 * 3600;
     return s;
   }
   function renderSliderMarks() {
@@ -559,12 +560,17 @@
       html += '</div>';
     } else {
       html = '<div class="verdict fail"><div class="v">FAIL</div>';
-      if (r.shelterCell) {
+      if (r.overH) {
+        html += '<div>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle arrives <b>' + esc(kst(3600 * k + r.arrival, true)) + '</b>, and arrival + the ' + DWELL + ' s dwell ends after the <span' + srcAttr(SCENE_JS, 'horizon_s = 28800 (HOTSPOT_RULE.md, horizon H)') + '>8 h</span> horizon of the ' + issueSpan(k) + ' screen. No road cell on the way is closed.</div>';
+      } else if (r.shelterCell) {
         html += '<div>arrives ' + esc(kst(3600 * k + r.arrival, true)) + ', but the shelter cell closes at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell) + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>, before the ' + DWELL + ' s dwell ends.</div>';
       } else {
         html += '<div>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle would leave road cell ' + r.cell + ' (edge ' + (r.edge + 1) + ' of ' + rt.e.length + ') at <b>' + esc(kst(3600 * k + r.leaveAt, true)) + '</b>; the ' + esc(issueLabel(k)) + ' screen closes that cell at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell + ' (T + distance / R, HOTSPOT_RULE.md)') + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>.</div>';
       }
-      html += '<div class="muted">This tests this road only. The deadline field (F-3.1) says no road to any of the 3 candidate shelters works after the latest safe departure.</div></div>';
+      var hh0 = hourly(c.placeId, k, c.standin);
+      if (hh0 && hh0.state === 'LATEST_SAFE_DEPARTURE') html += '<div class="muted">This tests this road only. The deadline field (F-3.1) says no road to any of the 3 candidate shelters works after the latest safe departure.</div>';
+      else html += '<div class="muted">This road is not cut within 8 h; its departure is the horizon cap, not a deadline (HOTSPOT_RULE.md).</div>';
+      html += '</div>';
     }
     el.innerHTML = html;
   }
@@ -619,10 +625,10 @@
       '<h2>What this scene is</h2>' +
       '<p' + srcAttr(SRC.results_md, 'opening paragraph') + '>"This is a reconstruction of what a screen would have shown. It is not a claim about outcomes. It does not judge anyone\'s decisions, and it names no victims. Every number below depends on a stand-in for R(h)." — research/kcf-replay/RESULTS.md</p>' +
       '<p' + srcAttr(SRC.hotspot_rule, 'whole rule; frozen in commit 796e91c') + '><b>Known fire area</b>: FIRMS VIIRS/MODIS detections and Himawari-9 AHI hotspots time-stamped strictly before each issue hour (rule frozen first: HOTSPOT_RULE.md, commit 796e91c). Delivery latency is not modelled. ' +
-      '<b>Road cell closure</b> = issue time + distance / R(h), permanent. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
+      '<b>Road cell closure</b> = issue time + distance / R(h), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
       '<b>Latest safe departure</b>: F-3.1 deadline field over the planner road graph, 3 candidate shelters per place.</p>' +
       '<p' + srcAttr(SRC.results_md, 'section 2 (R(h) stand-ins); research/kcf-replay/per_place.csv standin column has only ORDINARY, RUNNING, WORST') + '>R(h) stand-in now: <b>' + esc(si.label || st.standin) + '</b> — ' + esc(si.basis || '') + '. The frozen R(h) of research/kcf-margin was not applied to this replay (no MEASURED arm exists in research/kcf-replay).</p>' +
-      '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; HOTSPOT_RULE.md: closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are four simulated city sessions), and the frozen rule never reopens a road.</p>' +
+      '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; HOTSPOT_RULE.md: closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are four simulated city sessions), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
       '<p><b>Keys</b>: <kbd>←</kbd>/<kbd>→</kbd> issue hour · <kbd>Space</kbd> play · <kbd>1</kbd>–<kbd>6</kbd> bookmarks · <kbd>C</kbd> check it · <kbd>L</kbd> one minute later · <kbd>D</kbd> drive · <kbd>Esc</kbd> back · <kbd>H</kbd> region · <kbd>R</kbd> stand-in · <kbd>S</kbd> sources · <kbd>?</kbd> this box. URL: <code>?lite</code> for slow machines.</p>' +
       '<p class="note">Terrain: Terrain Tiles (Mapzen, AWS Open Data). Roads, water, names: © OpenStreetMap contributors (ODbL). MapLibre GL JS (BSD-3-Clause). Pretendard, Noto Sans (SIL OFL). Scene data built from committed files by research/kcf-replay/scene/build_scene.py; checks in research/kcf-replay/scene/VERIFY.json.</p>';
     $('aboutClose').addEventListener('click', function () { $('about').hidden = true; });
@@ -653,6 +659,11 @@
   }
   function setStandin(name) {
     if (!S.hourly[name]) return;
+    if (st.drive) { // leave the drive first: its road and closures belong to the old stand-in
+      stopDrive(true);
+      st.view = st.place ? 'place' : 'region';
+      map.setTerrain({ source: 'dem', exaggeration: st.place ? EXAG.place : EXAG.region });
+    }
     st.standin = name; st.check = null; clearWalk();
     map.getSource('cells').setData(buildCellsFC());
     lastCellKey = null; lastPlacesKey = null;
@@ -730,8 +741,10 @@
     st.check = { placeId: p.id, k: k, standin: st.standin, offset: offset || 0, result: result, done: false, shownEdges: 0 };
     if (checkAnim) cancelAnimationFrame(checkAnim);
     var coords = routeCoords(p.region, rt);
-    var nEdges = result.ok ? rt.e.length : (result.shelterCell ? rt.e.length : result.edge + 1);
+    var nEdges = (result.edge != null) ? result.edge + 1 : rt.e.length;
+    var chk = st.check;
     function show(frac) {
+      if (st.check !== chk) return; // interrupted (new hour, place, stand-in or drive)
       var ne = Math.max(1, Math.round(frac * nEdges));
       st.check.shownEdges = ne;
       setWalk(coords.slice(0, Math.min(coords.length, ne + 1)));
@@ -744,6 +757,7 @@
     var t0 = performance.now(), dur = 1800;
     (function step() {
       var f = Math.min(1, (performance.now() - t0) / dur);
+      if (st.check !== chk) { checkAnim = null; return; }
       show(f);
       if (f < 1) checkAnim = requestAnimationFrame(step); else checkAnim = null;
     })();
@@ -769,10 +783,12 @@
       t += e.D;
     });
     var dur = rt.arr - rt.ld;
-    var speed = Math.max(1, Math.round(dur / 30)); // about 30 s of playback; a drive shorter than 30 s plays in real time
+    // about 30 s of playback: a whole-number speed-up, or a labelled slow-down when the road takes under 30 s
+    var speed = dur >= 30 ? Math.max(1, Math.round(dur / 30)) : Math.max(0.05, Math.round(dur / 30 * 100) / 100);
     // closures of the issue-k screen on this route, sorted (for cheap filter updates)
     var closeTimes = S.close[st.standin][p.region][k].filter(function (b) { return b >= 0; }).sort(function (a, b) { return a - b; });
-    return { place: p, k: k, rt: rt, pts: pts, times: times, dist: dist, total: d, dur: dur, speed: speed, tau: rt.ld, closeTimes: closeTimes,
+    var hk = hourly(p.id, k);
+    return { state: hk && hk.state, place: p, k: k, rt: rt, pts: pts, times: times, dist: dist, total: d, dur: dur, speed: speed, tau: rt.ld, closeTimes: closeTimes,
       eye: null, bearing: null, playStart: null, done: false, standin: st.standin };
   }
   function posAtTime(dv, tau) {
@@ -837,7 +853,7 @@
     var html = '<div class="meta">' + esc(dv.place.label) + ' → <span' + srcAttr(routeSrc, 'sh') + '>' + esc(shelterName(dv.rt.sh)) + '</span> · witness road of the ' + issueSpan(dv.k) + ' screen · <span' + srcAttr(SRC.hotspot_rule, 'R(h) stand-ins') + '>' + esc(standinInfo(dv.standin).label || dv.standin) + '</span></div>' +
       '<div class="clk"' + srcAttr(routeSrc, 'clock = departure ld + committed edge travel ticks (graph travel_ticks)') + '>' + esc(kst(3600 * dv.k + dv.tau, true)) + ' KST</div>' +
       '<div class="bar"><i style="width:' + (100 * Math.max(0, Math.min(1, frac))).toFixed(1) + '%"></i></div>' +
-      '<div class="meta">left <span' + srcAttr(routeSrc, 'ld') + '>' + esc(kst(3600 * dv.k + dv.rt.ld, true)) + '</span> (latest safe departure) · arrives <span' + srcAttr(routeSrc, 'arr') + '>' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: playback = round((arr - ld) / 30 s), at least 1') + '>playback ×' + dv.speed + (dv.speed === 1 ? ' (real time)' : '') + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: BACK_M, EYE_M; terrain: data/terrain.js z12 (about 30 m)') + '>chase view ' + BACK_M + ' m behind and ' + EYE_M + ' m above the vehicle, over a 30 m terrain model</span></div>' +
+      '<div class="meta">left <span' + srcAttr(routeSrc, 'ld') + '>' + esc(kst(3600 * dv.k + dv.rt.ld, true)) + '</span> (' + (dv.state === 'LATEST_SAFE_DEPARTURE' ? 'latest safe departure' : 'last departure inside the 8 h horizon: a cap, not a deadline') + ') · arrives <span' + srcAttr(routeSrc, 'arr') + '>' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: playback = (arr - ld) / 30 s, rounded') + '>playback ×' + dv.speed + (dv.speed < 1 ? ' (slowed: this road takes ' + dv.dur + ' s)' : dv.speed === 1 ? ' (real time)' : '') + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: BACK_M, EYE_M; terrain: data/terrain.js z12 (about 30 m)') + '>chase view ' + BACK_M + ' m behind and ' + EYE_M + ' m above the vehicle, over a 30 m terrain model</span></div>' +
       '<div class="meta">fire: detections time-stamped before this moment (reconstruction; delivery latency not modelled) · violet: cells the ' + issueSpan(dv.k) + ' screen has closed by now</div>';
     if (dv.done) html += '<div class="end"' + srcAttr(routeSrc, 'arr, sh') + '>Arrived ' + esc(shelterName(dv.rt.sh)) + ' at ' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + ' KST — the committed arrival second. Esc to go back.</div>';
     $('hud').innerHTML = html;
