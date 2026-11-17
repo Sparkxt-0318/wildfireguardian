@@ -1,0 +1,81 @@
+{
+  "source_input": "<zip>/c064-refinement-study/fire-data/full-5s-evidence/Case_C064_crude_cat.fds",
+  "source_sha256": "d23221dd27b783f10c9d2b0db0c0be76b9106ee8ca29fe4a221bda20e46616b0",
+  "derived_input_sha256": "d6b0b29b02686554bdb0e3b936960e3aa1224f1d4f523a863301ae0cf7046a90",
+  "chid": "C064_kcf_radiometers",
+  "t_end_s": 140.0,
+  "dt_devc_s": 0.5,
+  "radiometers": [
+    {
+      "id": "RAD_X102",
+      "xyz_m": [
+        102.0,
+        0.0,
+        1.5
+      ],
+      "orientation": [
+        -1,
+        0,
+        0
+      ],
+      "role": "requested"
+    },
+    {
+      "id": "RAD_X105",
+      "xyz_m": [
+        105.0,
+        0.0,
+        1.5
+      ],
+      "orientation": [
+        -1,
+        0,
+        0
+      ],
+      "role": "requested"
+    },
+    {
+      "id": "RAD_X108",
+      "xyz_m": [
+        108.0,
+        0.0,
+        1.5
+      ],
+      "orientation": [
+        -1,
+        0,
+        0
+      ],
+      "role": "requested"
+    },
+    {
+      "id": "RAD_X080",
+      "xyz_m": [
+        80.0,
+        0.0,
+        1.5
+      ],
+      "orientation": [
+        -1,
+        0,
+        0
+      ],
+      "role": "supplementary"
+    },
+    {
+      "id": "RAD_X090",
+      "xyz_m": [
+        90.0,
+        0.0,
+        1.5
+      ],
+      "orientation": [
+        -1,
+        0,
+        0
+      ],
+      "role": "supplementary"
+    }
+  ],
+  "edits": "Derive the radiometer rerun input from the packaged C064 input (B.2).\n\nReads the concatenated FDS input that produced fire-data/csiro-volume-dt5-120.npz and applies only these edits:\n\n  * CHID renamed (so outputs cannot be confused with the earlier run);\n  * T_END 120 s -> 140 s, so the head can reach the end of the fuel bed (x = 100 m) and the\n    radiometers see distances down to ~2 m (the earlier run stopped with the head near x = 93 m);\n  * DUMP: DT_DEVC 0.5 s (as requested), DT_HRR 0.5 s, DT_SLCF 1 s and DT_SL3D 1 s (3D slices follow DT_SL3D; a\n    first run without it wrote only 6 volume frames and is kept as run A, see FDS_CHECK.md);\n  * all output-only SLCF/BNDF records removed and replaced by one 3D HRRPUV slice over\n    x 30..110 m (for the same-run voxel-sum comparison); output records do not change the solution;\n  * gas-phase radiometers added: QUANTITY='RADIATIVE HEAT FLUX GAS', ORIENTATION=-1,0,0 (facing the\n    fire, which arrives from -x), on the centreline y = 0, z = 1.5 m, at x = 102, 105, 108 m\n    (requested) and x = 80, 90 m (supplementary, inside the fuel bed, used only while the front is behind them)."
+}
