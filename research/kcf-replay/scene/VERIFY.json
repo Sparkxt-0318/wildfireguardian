@@ -1,16 +1,22 @@
 {
- "bytes": 11173205,
+ "bytes": 11173532,
  "checks": {
   "arms:2b_R_text": 5,
+  "arms:2b_class_column": 5,
+  "arms:2b_class_runs": 2,
   "arms:2b_head": 1,
   "arms:2b_row": 2,
   "arms:2b_text": 2,
+  "arms:R_vs_numbers": 26,
   "arms:class": 26,
+  "arms:close_curve_cells": 84396,
+  "arms:close_on_class_curve": 2,
   "arms:gust_ms": 13,
   "arms:gust_ms_equals_rule": 12,
   "arms:gust_provisional_label": 1,
   "arms:hourly": 1,
   "arms:kind": 2,
+  "arms:n_fires": 26,
   "arms:order": 1,
   "arms:results_line": 2,
   "arms:standins": 1,
@@ -86,19 +92,35 @@
   "time:issues_s": 1,
   "time:t0": 1,
   "top_keys_missing": 1,
+  "walk:ld+60_fails": 5422,
   "walk:pass_and_arrival": 5422
  },
  "failures": [],
  "inputs": [
   {
-   "bytes": 11173205,
+   "bytes": 11173532,
    "path": "planner/public/kcf-scene/data/scene.js",
-   "sha256": "e255f61f3289c33aaead1259f6aadeeb131c17f7d0a9dc5299f54e4a3b6d2995"
+   "sha256": "339b8aaaec7cdb15911a145a4f4d9b2c00ead0d8df40b9d3c46fdc14215d26bc"
+  },
+  {
+   "bytes": 15623,
+   "path": "research/kcf-gust/work/era5_gusts.json",
+   "sha256": "e02f9d3d5e2019b0d8c1e14f38078e78c40aa8d19f1097f87b58dd9192f1cc60"
   },
   {
    "bytes": 26037,
    "path": "research/kcf-gust/work/gust_hours.json",
    "sha256": "9fde3d290e2723fd0ef733f4e73f93c29ba1768615c366f3916174bb585e5824"
+  },
+  {
+   "bytes": 57766,
+   "path": "research/kcf-margin/numbers.json",
+   "sha256": "0e34874c0fdab6fd4349042985f9f170863b148e1184a066d18c8702ac3c72da"
+  },
+  {
+   "bytes": 2785,
+   "path": "research/kcf-replay/MEASURED_RULE.md",
+   "sha256": "771fd9d93a4e5d66fb98a3947134a6103ae3e30332f1b27b7e41a7dfd18e3d90"
   },
   {
    "bytes": 14115,
@@ -114,6 +136,11 @@
    "bytes": 645597,
    "path": "research/kcf-replay/fire_discs.json",
    "sha256": "ad417ad6640b01685e75950cf95cc8beefaa6b9c27823235f7547962d0b8743b"
+  },
+  {
+   "bytes": 3107,
+   "path": "research/kcf-replay/measured_arms.py",
+   "sha256": "06025b0c1255329c17c113cfdd31c6aa7751f9cbb661a1ba8a729dc57d531282"
   },
   {
    "bytes": 61875,
@@ -263,8 +290,8 @@
  ],
  "ok": true,
  "scene_built": {
-  "commit": "ba46d0c576a797248e8223346c32d5a98373173c",
-  "generated_utc": "2026-11-17T07:43:36Z",
+  "commit": "f896ad0a9adfec7b347dc96e410993cca5ee0804",
+  "generated_utc": "2026-11-17T08:25:29Z",
   "runs": {
    "MEASURED": "complete",
    "MEASURED_GUST": "complete",
@@ -276,7 +303,7 @@
  },
  "scene_js": "planner/public/kcf-scene/data/scene.js",
  "script": "research/kcf-replay/scene/verify_scene.py",
- "sha256": "e255f61f3289c33aaead1259f6aadeeb131c17f7d0a9dc5299f54e4a3b6d2995",
+ "sha256": "339b8aaaec7cdb15911a145a4f4d9b2c00ead0d8df40b9d3c46fdc14215d26bc",
  "witness_walk": {
   "MEASURED:PASS": 1134,
   "MEASURED:ld+60:FAIL": 1134,

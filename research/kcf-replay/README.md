@@ -61,5 +61,6 @@ cd research/kcf-replay && python3 analyze.py out/fire_discs.json out/runs out/an
 
 ## MEASURED arms (landed)
 
-Put the frozen R(h) into `STANDINS` in `replay.py` as a new label (keep the three stand-ins), rerun `replay.py` with
-`--standins <LABEL>`, then rerun the post-processing. `HOTSPOT_RULE.md` does not change.
+MEASURED and MEASURED_GUST are defined in `MEASURED_RULE.md` and `measured_arms.py` (not in `STANDINS`); `replay.py` runs all
+five arms by default (`--standins MEASURED MEASURED_GUST` for these two only), and `merge_arms.py` appends their rows to
+`per_place.csv` and `score.json`. `HOTSPOT_RULE.md` is unchanged.

@@ -1,9 +1,11 @@
 """Independent check of planner/public/kcf-scene/data/scene.js (window.KCF.scene, schema kcf-scene/1).
 
 Reads ONLY scene.js and the committed files it compares against (per_place.csv, fire_discs.json, the planner cache,
-score.json, named_places_timeline.csv, SOURCES.md, RESULTS.md, kcf-gust/work/gust_hours.json). Does not import build_scene.py.
+score.json, named_places_timeline.csv, SOURCES.md, RESULTS.md, MEASURED_RULE.md, measured_arms.py, kcf-margin/numbers.json,
+kcf-gust/work/era5_gusts.json and gust_hours.json). Does not import build_scene.py.
 The MEASURED arms' class per issue hour is recomputed with the committed measured_arms.curve() from fire_discs.json and
-checked against RESULTS.md section 2b; step counts, the six places' leave-by tables and the score counts are checked against
+era5_gusts.json and checked against the hour ranges of RESULTS.md section 2b's class column, its R column and numbers.json
+(R and n_fires); their closures are checked against the class curve using the distance bounds implied by close.RUNNING; step counts, the six places' leave-by tables and the score counts are checked against
 RESULTS.md sections 3, 4 and 5 for all five arms (8 h). The witness re-walk is
 analyze.py's own `recheck` fed with scene data only (edge D, seg [cell, end], close via roadCells, sh_cell, dwell_s,
 horizon_s). Writes research/kcf-replay/scene/VERIFY.json; exits non-zero on any mismatch.
@@ -197,6 +199,7 @@ def main():
                 walk[f"{st}:PASS" if ok and arr == w["arr"] else f"{st}:FAIL"] += 1
                 ok60, _ = recheck(w["e"], edges, close_s, w["ld"] + 60, None, w["sh_cell"], H)
                 walk[f"{st}:ld+60:{'PASS' if ok60 else 'FAIL'}"] += 1
+                C.true("walk:ld+60_fails", not ok60, f"{st} {pid} {k}")   # ld is the LATEST departure (or the horizon cap)
                 T = issues[k]
                 C.eq("routes:last_text", kst(T + timedelta(seconds=w["ld"])), h["last"], f"{st} {pid} {k}")
                 C.eq("routes:arr_text", kst(T + timedelta(seconds=w["arr"])), h["arr"], f"{st} {pid} {k}")
@@ -258,6 +261,12 @@ def main():
     C.eq("arms:standins", sorted(S["standins"]), sorted(ARMS))
     C.eq("arms:order", sorted(S.get("standin_order", [])), sorted(ARMS))
     # MEASURED arms: class per issue hour recomputed from fire_discs.json with measured_arms.curve (8 h)
+    for q in (KCF / "MEASURED_RULE.md", KCF / "measured_arms.py", KCF.parent / "kcf-gust/work/era5_gusts.json"):
+        read(q)
+    numbers = json.loads(read(KCF.parent / "kcf-margin/numbers.json"))   # MA._check() asserted R_KM against it at import
+    NUM_CLS = {"all": "all", "quiet": "quiet", "slow": "slow", "running": "running", "g<10": "gust<10",
+               "g10-20": "gust10-20", "g>=20": "gust>=20"}
+    num = {(r["cls"], r["h"]): r for r in numbers["table"] if r["fire_set"] == "all28" and abs(r["alpha"] - .1) < 1e-9}
     discs_rule = [dict(x, t=datetime.fromisoformat(x["t_utc"])) for x in fd]
     gust_hours = {e["kst_stamp"]: e for e in json.loads(read(KCF.parent / "kcf-gust/work/gust_hours.json"))}
     bhead, brows = md_table_after(res, lambda l: l.startswith("## 2b "))
@@ -274,17 +283,57 @@ def main():
             r5, r8, cls_, info = MA.curve(st, discs_rule, T, H // 3600)
             e = v["classes"][k]
             C.eq("arms:class", (e["cls"], e["r5_m"], e["r8_m"]), (cls_, r5, r8), f"{st} {k}")
+            n5, n8 = num[(NUM_CLS[cls_], 5)], num[(NUM_CLS[cls_], 8)]
+            C.eq("arms:R_vs_numbers", (round(n5["R_km"], 1), round(n8["R_km"], 1)), (r5 / 1000, r8 / 1000), f"{st} {k}")
+            C.eq("arms:n_fires", e.get("n_fires"), n5["n_fires"] if n5["n_fires"] == n8["n_fires"] else None, f"{st} {k}")
             if st == "MEASURED_GUST":
                 gh = gust_hours[12 + k].get("fwd8")
                 C.eq("arms:gust_ms", e.get("gust_ms"), gh["fire_wide_max"] if gh else None, str(k))
                 if gh:
                     C.true("arms:gust_ms_equals_rule", abs(gh["fire_wide_max"] - info) < 1e-9, str(k))
-        # every class used is named in the 2b R column with its R5 / R8, and in the class column
+        # the class column's hour ranges, rebuilt from the scene's 13 classes (run-length over 12 .. 24 KST)
+        tok = {"quiet": "quiet", "slow": "slow", "running": "running", "g<10": "< 10 m/s", "g10-20": "10-20 m/s", "g>=20": ">= 20 m/s"}
+        runs_ = []
+        for k, e in enumerate(v["classes"]):
+            if runs_ and runs_[-1][0] == e["cls"]:
+                runs_[-1][2] = 12 + k
+            else:
+                runs_.append([e["cls"], 12 + k, 12 + k])
+        parts = [x for x in (row[2] if row else "").rsplit(": ", 1)[-1].split(", ")   # after "<what is measured>: "
+                 if any(tk in x for tk in tok.values())]                             # (drops e.g. "for both horizons")
+        C.eq("arms:2b_class_runs", len(parts), len(runs_), st)
+        for part, (c_, h0, h1) in zip(parts, runs_):
+            hrs = f"{h0}-{h1}" if h1 > h0 else f"{h0}"
+            C.true("arms:2b_class_column", tok[c_] in part and re.search(rf"(^|\D){hrs}(\D|$)", part) is not None, f"{st} {part!r} {c_} {hrs}")
+        # every class used is named in the 2b R column with its R5 / R8
         names = {"quiet": "quiet", "slow": "slow", "running": "running", "g<10": "< 10", "g10-20": "10-20", "g>=20": ">= 20"}
         for c_ in {e["cls"] for e in v["classes"]}:
             r5k, r8k = MA.R_KM[c_]
             C.true("arms:2b_R_text", f"{names[c_]}{':' if c_.startswith('g') else ''} {r5k:.1f} / {r8k:.1f}" in (row[1] if row else ""), f"{st} {c_}")
     C.true("arms:gust_provisional_label", "PROVISIONAL" in b2["MEASURED+GUST"][0])
+    # closures of the MEASURED arms on the class curve: close.RUNNING = ceil(d / 8200 m/h) gives d in (a-1, a] x 8200/3600 m
+    def curve_s(r5, r8, d):
+        return MA.closure_s(r5, r8, d)
+    for st in ("MEASURED", "MEASURED_GUST"):
+        bad = 0
+        for region in S["roadCells"]:
+            for k in range(13):
+                c = S["standins"][st]["classes"][k]
+                r5, r8 = c["r5_m"], c["r8_m"]
+                for a_, m_ in zip(S["close"]["RUNNING"][region][k], S["close"][st][region][k]):
+                    if a_ == -1:
+                        ok_ = m_ == -1                       # beyond 65.6 km (or no fire): beyond R8 too
+                    elif a_ == 0:
+                        ok_ = m_ == 0                        # inside the known fire area
+                    else:
+                        d_lo, d_hi = (a_ - 1) * 8200 / 3600, a_ * 8200 / 3600
+                        if m_ == -1:
+                            ok_ = d_hi > r8 - 1e-6
+                        else:
+                            ok_ = d_lo < r8 + 1e-6 and int(curve_s(r5, r8, d_lo)) - 1 <= m_ <= -(-curve_s(r5, r8, min(d_hi, r8)) // 1) + 1
+                    bad += not ok_
+                    C.counts["arms:close_curve_cells"] += 1
+        C.eq("arms:close_on_class_curve", bad, 0, st)
     # RESULTS.md section 3: steps per issue hour (8 h), every arm
     h3, r3 = md_table_after(res, lambda l: l.startswith("## 3 "))
     C.eq("results3:head", [x.split(" (")[0] for x in h3], ["issue KST"] + [RES_LABEL[a] for a in ARMS])

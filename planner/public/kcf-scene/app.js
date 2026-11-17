@@ -146,23 +146,24 @@
   // R(h) arms: three labelled stand-ins (HOTSPOT_RULE.md) and two MEASURED arms (MEASURED_RULE.md, one class per issue hour)
   var CLS_TXT = { all: 'all hours', quiet: 'quiet class (prior-3 h spread < 1 km)', slow: 'slow class (prior-3 h spread 1–3 km)',
     running: 'running class (prior-3 h spread ≥ 3 km)', 'g<10': 'gust < 10 m/s class', 'g10-20': 'gust 10–20 m/s class',
-    'g>=20': 'gust ≥ 20 m/s class (rests on 9 fires)' };
+    'g>=20': 'gust ≥ 20 m/s class' };
   var ARM_STATE = { NOT_CUT_WITHIN_H: 'not cut in 8 h', INSIDE_KNOWN_FIRE_AREA: 'inside fire area', NO_SAFE_DEPARTURE: 'no safe departure' };
   function isArm(name) { return standinInfo(name).kind === 'measured'; }
   function armClass(name, k) { var si = standinInfo(name); return si.classes ? si.classes[k] : null; }
   function kmTxt(m) { return (m / 1000).toFixed(1); }
   function shortLabel(name) { var si = standinInfo(name); return si.kind === 'measured' ? si.label + (si.provisional ? ' (PROVISIONAL)' : '') : (si.label || name || st.standin); }
   // "MEASURED · running class (…) · R(5 h) 7.6 km, R(8 h) 10.0 km" for the issue-k screen
+  function firesTxt(c) { return c && c.n_fires ? (c.n_fires === 28 ? 'R from all 28 calibration fires' : 'R from ' + c.n_fires + ' of the 28 calibration fires') : ''; }
   function armText(name, k) {
     var si = standinInfo(name), c = armClass(name, k);
     if (!c) return shortLabel(name);
-    return shortLabel(name) + ' · ' + (CLS_TXT[c.cls] || c.cls) + ' at ' + issueLabel(k) + ' · R(5 h) ' + kmTxt(c.r5_m) + ' km, R(8 h) ' + kmTxt(c.r8_m) + ' km';
+    return shortLabel(name) + ' · ' + (CLS_TXT[c.cls] || c.cls) + ' at ' + issueLabel(k) + ' · R(5 h) ' + kmTxt(c.r5_m) + ' km, R(8 h) ' + kmTxt(c.r8_m) + ' km (' + firesTxt(c) + ')';
   }
   function armSrc(name, k) {
     var si = standinInfo(name);
     if (si.kind !== 'measured') return srcAttr(SRC.hotspot_rule, 'R(h) stand-ins: ' + (si.basis || ''));
     var c = armClass(name, k) || {};
-    return srcAttr(SRC.results_md, 'section 2b, line ' + si.results_line + ': R(5 h), R(8 h) ' + si.r_text + '; class picked: ' + si.basis + ' (rule ' + (si.src || SRC.measured_rule) + '; R from ' + (si.numbers || SRC.margin_numbers) + '; class at ' + issueLabel(k) + ' = ' + (c.cls || '?') + ' by ' + (si.code || SRC.measured_arms_py) + ')');
+    return srcAttr(SRC.results_md, 'section 2b, line ' + si.results_line + ': R(5 h), R(8 h) ' + si.r_text + '; class picked: ' + si.basis + ' (rule ' + (si.src || SRC.measured_rule) + '; R and n_fires (' + (c.n_fires || '?') + ') from ' + (si.numbers || SRC.margin_numbers) + ' table, all28, alpha 0.10; class at ' + issueLabel(k) + ' = ' + (c.cls || '?') + ' by ' + (si.code || SRC.measured_arms_py) + ')');
   }
   function gustSpan(name, k) {
     var c = armClass(name, k);
@@ -394,13 +395,15 @@
     var si = standinInfo(), k = kOf(st.drive ? 3600 * st.drive.k : st.s), c = armClass(st.standin, k);
     if (si.kind === 'measured' && c) {
       $('standinBtn').innerHTML = 'R(h): ' + esc(shortLabel()) + ' · ' + esc((CLS_TXT[c.cls] || c.cls).replace(/ \(.*\)$/, '')) + ' at ' + esc(issueLabel(k)) + ': ' + kmTxt(c.r5_m) + ' km at 5 h, ' + kmTxt(c.r8_m) + ' km at 8 h' +
-        ' <em>frozen margin, 28 fires' + (si.provisional ? '; ERA5 gusts only' : '') + ' · R to change</em>';
+        ' <em>frozen margin: R from ' + (c.n_fires === 28 ? 'all 28' : c.n_fires + ' of 28') + ' calibration fires' + (si.provisional ? ' · ERA5 gusts only' : '') + ' · R to change</em>';
       $('standinBtn').setAttribute('data-src', SRC.results_md);
-      $('standinBtn').setAttribute('data-detail', 'section 2b (MEASURED arms): ' + si.r_text + '; ' + si.basis);
+      $('standinBtn').setAttribute('data-detail', 'section 2b (MEASURED arms): ' + si.r_text + '; ' + si.basis + '; n_fires per class: ' + (si.numbers || SRC.margin_numbers));
+      $('standinBtn').title = 'R(h) arm ' + si.label + ' (' + (si.src || SRC.measured_rule) + '; R per class from ' + (si.numbers || SRC.margin_numbers) + '). Click or press R to change.';
     } else {
       $('standinBtn').innerHTML = 'R(h) stand-in: ' + esc(si.label || st.standin) + ' <em>a stand-in, not the frozen R(h) · R to change</em>';
       $('standinBtn').setAttribute('data-src', SRC.hotspot_rule);
       $('standinBtn').setAttribute('data-detail', 'R(h) stand-ins table; ' + (si.basis || ''));
+      $('standinBtn').title = 'R(h) stand-in (HOTSPOT_RULE.md), not the frozen R(h). Click or press R to change.';
     }
     $('standinBtn').classList.toggle('arm', si.kind === 'measured');
     $('standinBtn').classList.toggle('prov', !!si.provisional);
@@ -556,12 +559,12 @@
     order.forEach(function (a) {
       var ha = hourly(p.id, k, a); if (!ha) return;
       var ca = armClass(a, k);
-      html += '<tr data-arm="' + esc(a) + '" class="' + (a === st.standin ? 'cur' : '') + '"><td class="an"><span' + armSrc(a, k) + '>' + esc(shortLabel(a)) + '</span>' + (ca ? '<div class="cl">' + esc((CLS_TXT[ca.cls] || ca.cls).replace(/ \(.*\)$/, '')) + '</div>' : '') + '</td>' +
+      html += '<tr data-arm="' + esc(a) + '" class="' + (a === st.standin ? 'cur' : '') + '"><td class="an"><span' + armSrc(a, k) + '>' + esc(shortLabel(a)) + '</span>' + (ca ? '<div class="cl">' + esc((CLS_TXT[ca.cls] || ca.cls).replace(/ \(.*\)$/, '')) + (ca.n_fires && ca.n_fires < 28 ? ' · ' + ca.n_fires + ' fires' : '') + '</div>' : '<div class="cl">stand-in, not the frozen R(h)</div>') + '</td>' +
         '<td><span class="step ' + esc(ha.step) + '"' + srcAttr(SRC.per_place, csvDetail(ha, 'government_step', a, k)) + '>' + esc(ha.step === 'LEAVE_NOW' ? 'leave' : ha.step === 'NONE' ? '—' : 'vuln.') + '</span></td>' +
         '<td class="ck"><span' + srcAttr(SRC.per_place, csvDetail(ha, ha.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', a, k)) + '>' + esc(ha.state === 'LATEST_SAFE_DEPARTURE' ? csvClock(ha.lsd) : (ARM_STATE[ha.state] || placeClock(ha))) + '</span>' +
         (ha.cut_before === 'yes' ? '<div class="cutb"' + srcAttr(SRC.per_place, csvDetail(ha, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', a, k)) + '>reached ' + esc(csvClock(ha.first_cut)) + '</div>' : '') + '</td></tr>';
     });
-    html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b and section 7: MEASURED+GUST is PROVISIONAL, ERA5 gusts only; its >= 20 m/s class rests on 9 fires; the margin was calibrated on 28 fires and on this fire every frozen margin was exceeded at 10-20 KST (research/kcf-margin/RESULTS.md)') + '>MEASURED+GUST is PROVISIONAL (ERA5 gusts only; ≥ 20 m/s class = 9 fires).</span> Click a row to switch (R).</div></div>';
+    html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b and section 7: MEASURED+GUST is PROVISIONAL, ERA5 gusts only; its >= 20 m/s class rests on 9 fires; the margins were calibrated on 28 fires. Spread-class and all-hours margins failed at every issue hour 10-20 KST (research/kcf-margin/RESULTS.md); the gust >= 20 m/s R(5 h) failed from 12 to 20 KST (research/kcf-gust/RESULTS.md)') + '>MEASURED+GUST is PROVISIONAL (ERA5 gusts only; ≥ 20 m/s class = 9 fires).</span> Click a row to switch (R).</div></div>';
     // planner strip
     var pl = S.planner && S.planner[p.id] && S.planner[p.id][k];
     if (pl && st.standin === 'RUNNING') {
@@ -711,9 +714,9 @@
       '<h2>What this scene is</h2>' +
       '<p' + srcAttr(SRC.results_md, 'opening paragraph') + '>"This is a reconstruction of what a screen would have shown. It is not a claim about outcomes. It does not judge anyone\'s decisions, and it names no victims. Every number below depends on a stand-in for R(h)." — research/kcf-replay/RESULTS.md</p>' +
       '<p' + srcAttr(SRC.hotspot_rule, 'whole rule; frozen in commit 796e91c') + '><b>Known fire area</b>: FIRMS VIIRS/MODIS detections and Himawari-9 AHI hotspots time-stamped strictly before each issue hour (rule frozen first: HOTSPOT_RULE.md, commit 796e91c). Delivery latency is not modelled. ' +
-      '<b>Road cell closure</b> = issue time + h*, where R(h*) = the cell\'s distance to the known fire area (RUNNING: distance / 8.2 km/h; WORST: (distance − 3 km) / 8.2 km/h; ORDINARY: distance / 0.341 km/h; MEASURED arms: the curve through (0, 0), (5 h, R5), (8 h, R8) of the issue hour\'s class, never beyond R8), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
+      '<b>Road cell closure</b> = issue time + h*, where R(h*) = the cell\'s distance to the known fire area (RUNNING: distance / 8.2 km/h; WORST: (distance − 3 km) / 8.2 km/h; ORDINARY: distance / 0.341 km/h; <span' + srcAttr(SRC.measured_rule, 'R(h) values; closure curve through (0 h, 0 km), (5 h, R5), (8 h, R8), beyond 8 h never (part below 5 h ASSUMED linear)') + '>MEASURED arms: the curve through (0, 0), (5 h, R5), (8 h, R8) of the issue hour\'s class, never beyond R8</span>), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
       '<b>Latest safe departure</b>: F-3.1 deadline field over the planner road graph, 3 candidate shelters per place.</p>' +
-      '<p' + srcAttr(SRC.results_md, 'sections 2 (stand-ins) and 2b (MEASURED arms); section 7 (limits)') + '>R(h) now: <b>' + esc(isArm() ? armText(st.standin, kOf(st.s)) : (si.label || st.standin)) + '</b> — ' + esc(si.basis || '') + '. Five R(h) arms (R cycles them): RUNNING, WORST and ORDINARY are labelled stand-ins; <b>MEASURED</b> and <b>MEASURED+GUST</b> are the frozen R(h) of research/kcf-margin (10 % target, 28 GOFER fires), one class per issue hour for all 174 places, picked by the prior-3 h spread of the known fire area or by the ERA5 maximum gust over the next 8 h. <b>MEASURED+GUST is PROVISIONAL</b> (ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). The curve below 5 h is assumed linear, and on this fire every frozen margin was exceeded at 10–20 KST (research/kcf-margin/RESULTS.md). Each arm is its own R(h): not a ranking.</p>' +
+      '<p' + srcAttr(SRC.results_md, 'sections 2 (stand-ins) and 2b (MEASURED arms); section 7 (limits)') + '>R(h) now: <b>' + esc(isArm() ? armText(st.standin, kOf(st.s)) : (si.label || st.standin)) + '</b> — ' + esc(si.basis || '') + '. Five R(h) arms (R cycles them): RUNNING, WORST and ORDINARY are labelled stand-ins; <b>MEASURED</b> and <b>MEASURED+GUST</b> are the frozen R(h) of research/kcf-margin (10 % target, 28 GOFER fires), one class per issue hour for all 174 places, picked by the prior-3 h spread of the known fire area or by the ERA5 maximum gust over the next 8 h. <b>MEASURED+GUST is PROVISIONAL</b> (ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). The curve below 5 h is assumed linear. On this fire the spread-class and all-hours margins failed at every issue hour from 10 to 20 KST (research/kcf-margin/RESULTS.md), and the gust ≥ 20 m/s R(5 h) from 12 to 20 KST (research/kcf-gust/RESULTS.md). Each arm is its own R(h): not a ranking.</p>' +
       '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; also hardware/phone_export/samples (synthetic test walks); HOTSPOT_RULE.md: within a screen a closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are synthetic: four simulated city sessions and the phone exporter\'s test walks), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
       '<p><b>Keys</b>: <kbd>←</kbd>/<kbd>→</kbd> issue hour · <kbd>Space</kbd> play · <kbd>1</kbd>–<kbd>6</kbd> bookmarks · <kbd>C</kbd> check it · <kbd>L</kbd> one minute later · <kbd>D</kbd> drive · <kbd>Esc</kbd> back · <kbd>H</kbd> region · <kbd>R</kbd> R(h) arm · <kbd>S</kbd> sources · <kbd>?</kbd> this box. URL: <code>?lite</code> for slow machines.</p>' +
       '<p class="note">Terrain: Terrain Tiles (Mapzen, AWS Open Data). Roads, water, names: © OpenStreetMap contributors (ODbL). MapLibre GL JS (BSD-3-Clause). Pretendard, Noto Sans (SIL OFL). Scene data built from committed files by research/kcf-replay/scene/build_scene.py; checks in research/kcf-replay/scene/VERIFY.json.</p>';
@@ -726,6 +729,7 @@
     setPlaces(k);
     if (!st.drive) { setFire(3600 * k); setCells(k, st.s - 3600 * k); }
     renderClock(); renderSummary(); renderPanel(); renderSliderMarks(); renderCrumbs(); renderLegend(); renderStandinBtn(); renderSources();
+    if (!$('about').hidden) renderAbout();
     showRoute();
   }
   function setTime(s, opts) {
@@ -1037,6 +1041,7 @@
     document.body.classList.remove('driving');
     $('hud').hidden = true;
     if (vehicleMarker) vehicleMarker.remove();
+    clearWalk(); // the travelled-road line belongs to the drive only
     setFireOpacity(false);
     map.resize();
     if (dv.resolve) dv.resolve(null);
@@ -1082,7 +1087,7 @@
     $('nextBtn').addEventListener('click', function () { setTime(3600 * Math.min(NK - 1, kOf(st.s) + 1)); });
     $('playBtn').addEventListener('click', togglePlay);
     $('standinBtn').addEventListener('click', cycleStandin);
-    $('aboutBtn').addEventListener('click', function () { $('about').hidden = !$('about').hidden; });
+    $('aboutBtn').addEventListener('click', function () { if ($('about').hidden) renderAbout(); $('about').hidden = !$('about').hidden; });
     Array.prototype.forEach.call(document.querySelectorAll('#crumbs button[data-level]'), function (b) {
       b.addEventListener('click', function () {
         var lv = b.getAttribute('data-level');
@@ -1115,7 +1120,7 @@
       else if (key === 'h' || key === 'H') home();
       else if (key === 'r' || key === 'R') cycleStandin();
       else if (key === 's' || key === 'S') { st.sourcesOpen = !st.sourcesOpen; renderSources(); }
-      else if (key === '?') { $('about').hidden = !$('about').hidden; }
+      else if (key === '?') { if ($('about').hidden) renderAbout(); $('about').hidden = !$('about').hidden; }
     });
   }
 
@@ -1149,11 +1154,15 @@
     function ensurePlace() { if (kOf(st.s) !== k || st.s !== 3600 * k) setTime(3600 * k, { full: true }); if (!st.place || st.place.id !== p.id) selectPlace(p.id, { noCamera: true }); }
     function enter(phase, fn) { if (tourState.phase !== phase) { tourState.phase = phase; fn(); } }
     function arm(name) { if (st.standin !== name && S.hourly[name]) setStandin(name); }
-    var ARM2 = (S.standin_order || [])[1], h2 = ARM2 ? hourly(p.id, k, ARM2) : null;
+    var ARM2 = (S.standin_order || [])[1], h2 = ARM2 ? hourly(p.id, k, ARM2) : null, h1 = hourly(p.id, k, 'RUNNING');
+    function captions() {
     if (t < 22) caption('<b>1 · REGION</b>known fire area = satellite detections before each issue hour · violet road cells close when R(h) reaches them · every place: government step and leave-by clock');
     else if (t < 44 || !h2) caption('<b>2 · PLACE</b>' + esc(p.name) + ': shelter, witness road on the terrain, latest safe departure · "Check it" re-walks the road against the ' + esc(issueLabel(k)) + ' closures' + (t >= 38 ? ' · one minute later: same road, 60 s later' : ''));
-    else if (t < 50) caption('<b>2 · PLACE</b>R → ' + esc(shortLabel(ARM2)) + ' (frozen margin, 28 fires): the ' + esc(issueLabel(k)) + ' screen gives ' + esc(p.name) + ' ' + esc(h2.step === 'NONE' ? 'no step' : (STEP_TXT[h2.step] || [h2.step])[0]) + ', ' + esc(placeClock(h2)) + (h2.first_cut ? ' · the full record first reached its road at ' + esc(csvClock(h2.first_cut)) : '') + ' · each R(h) in the table: not a ranking');
+    else if (t < 50) caption('<b>2 · PLACE</b>R → <span' + armSrc(ARM2, k) + '>' + esc(shortLabel(ARM2)) + ' (frozen margin)</span>: the ' + esc(issueLabel(k)) + ' screen gives ' + esc(p.name) + ' <span' + srcAttr(SRC.per_place, csvDetail(h2, 'government_step / departure_state', ARM2, k)) + '>' + esc(h2.step === 'NONE' ? 'no step' : (STEP_TXT[h2.step] || [h2.step])[0]) + ', ' + esc(placeClock(h2)) + '</span>' +
+      (h2.cut_before === 'yes' ? ' · the full record reached its road at <span' + srcAttr(SRC.per_place, csvDetail(h2, 'route_first_cut_by_reconstruction_kst', ARM2, k)) + '>' + esc(csvClock(h2.first_cut)) + '</span>, before that departure' : '') +
+      (h1 && ARM2 !== 'RUNNING' ? ' · under RUNNING: <span' + srcAttr(SRC.per_place, csvDetail(h1, h1.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', 'RUNNING', k)) + '>' + esc(h1.state === 'LATEST_SAFE_DEPARTURE' ? 'leave by ' + csvClock(h1.lsd) : placeClock(h1)) + '</span>' : '') + ' · each R(h) is its own: not a ranking');
     else caption('<b>3 · ROAD</b>drive along the witness road from the latest safe departure (chase view' + (st.drive ? ', playback ×' + st.drive.speed : '') + ') · fire = detections time-stamped before each moment · violet = cells the ' + esc(issueLabel(k)) + ' screen has closed');
+    }
     if (t < 22) {
       enter('region', function () { stopDrive(true); arm('RUNNING'); st.place = null; st.view = 'region'; st.check = null; clearWalk(); map.setTerrain({ source: 'dem', exaggeration: EXAG.region }); refreshAll(); });
       var f = t < 3 ? 0 : (t - 3) / 17;
@@ -1179,6 +1188,7 @@
     } else {
       enter('end', function () { if (!st.drive) { arm('RUNNING'); ensurePlace(); startDrive({ manual: true }); } driveSeek(1); });
     }
+    captions();
     return waitIdle();
   }
   function waitIdle() {
@@ -1221,7 +1231,7 @@
     map.getSource('cells').setData(buildCellsFC());
     // deep links: ?t=18:00 ?place=옥류리 ?standin=WORST
     var t = Q.get('t'); if (t) { var s = parseKstToS(t); if (s != null) st.s = Math.max(0, Math.min(43200, s)); }
-    var si = Q.get('standin'); if (si === 'MEASURED+GUST') si = 'MEASURED_GUST'; if (si && S.hourly[si]) { st.standin = si; map.getSource('cells').setData(buildCellsFC()); }
+    var si = Q.get('standin'); if (si) si = si.replace(/[ +]/g, '_'); if (si && S.hourly[si]) { st.standin = si; map.getSource('cells').setData(buildCellsFC()); }
     refreshAll();
     var pl = Q.get('place'); if (pl) selectPlace(pl);
     map.once('idle', function () {

@@ -563,7 +563,14 @@ def main():
     gust_path = KCF.parent / "kcf-gust/work/gust_hours.json"
     gust_hours = {e["kst_stamp"]: e for e in inp.json(gust_path)}
     numbers_path = KCF.parent / "kcf-margin/numbers.json"
-    inp.read(numbers_path)                        # MA._check() asserted R_KM against it at import
+    numbers = inp.json(numbers_path)              # MA._check() asserted R_KM against it at import
+    NUM_CLS = {"all": "all", "quiet": "quiet", "slow": "slow", "running": "running", "g<10": "gust<10",
+               "g10-20": "gust10-20", "g>=20": "gust>=20"}
+    def n_fires(cls_):   # fires the class's R rests on (table, all28, alpha 0.10), the same at 5 h and 8 h
+        ns = {r["n_fires"] for r in numbers["table"] if r["fire_set"] == "all28" and abs(r["alpha"] - .1) < 1e-9
+              and r["h"] in (5, 8) and r["cls"] == NUM_CLS[cls_]}
+        assert len(ns) == 1, (cls_, ns)
+        return ns.pop()
     inp.read(KCF / "measured_arms.py"); inp.read(KCF.parent / "kcf-gust/work/era5_gusts.json")
     for st in MA.ARMS:
         n, c = brow[st]
@@ -575,7 +582,7 @@ def main():
         for k, (cls_, info, r5, r8) in enumerate(arm_cls[st]):
             assert (r5, r8) == (MA.R_KM[cls_][0] * 1000.0, MA.R_KM[cls_][1] * 1000.0)
             assert ARM_R_TEXT[cls_].format(f"{MA.R_KM[cls_][0]:.1f}", f"{MA.R_KM[cls_][1]:.1f}") in c[1], (st, cls_, c[1])
-            e = {"cls": cls_, "r5_m": r5, "r8_m": r8}
+            e = {"cls": cls_, "r5_m": r5, "r8_m": r8, "n_fires": n_fires(cls_)}
             if st == "MEASURED_GUST":   # the committed next-8 h fire-wide maximum gust at that KST stamp, same value
                 gh = gust_hours[12 + k].get("fwd8")
                 if gh:
@@ -590,6 +597,7 @@ def main():
                         "src": rel(rule_path), "code": "research/kcf-replay/measured_arms.py", "numbers": rel(numbers_path),
                         "gust_hours": rel(gust_path) if st == "MEASURED_GUST" else None}
     assert "PROVISIONAL" in brow["MEASURED_GUST"][1][0], brow["MEASURED_GUST"]
+    assert "(9 fires)" in brow["MEASURED_GUST"][1][1] and n_fires("g>=20") == 9   # RESULTS.md 2b states it next to the class
     assert "(0 h, 0 km), (5 h, R5), (8 h, R8)" in rule_text
     score_path = KCF / "score.json"
     score = inp.json(score_path)["score"]

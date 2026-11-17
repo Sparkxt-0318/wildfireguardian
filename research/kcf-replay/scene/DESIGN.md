@@ -25,10 +25,11 @@ planner/public/kcf-scene/
   data/basemap.js    window.KCF.basemap   (build_basemap.py)
   data/fonts.js      window.KCF.fonts     (build_fonts.py; UI face = Pretendard subset renamed "KCF UI Sans" per the OFL)
   README.md          how to open it, what every layer is, sources
+  kcf_scene_tour_90s.mp4   the 90 s fallback recording (tests/record_tour.mjs, from the scene's own ?tour=1)
 research/kcf-replay/scene/
   DESIGN.md (this file), build_*.py, verify_scene.py, VERIFY.json, SOURCES.json,
   tests/ (Playwright smoke, file:// check, load-time measurement), MEASUREMENTS.md,
-  CLICK_SCRIPT.md (+ .pdf), recording (90 s, mp4)
+  CLICK_SCRIPT.md (+ .pdf)
 ```
 
 Every builder writes deterministic output (sorted keys, fixed float rounding) and records, in its output, the
