@@ -1,0 +1,199 @@
+{
+ "score": {
+  "ORDINARY/5h": {
+   "rows_with_latest_safe_departure": 118,
+   "route_cut_earlier_by_reconstruction": 44,
+   "places_with_latest_safe_departure": 51,
+   "places_with_any_earlier_cut": 34
+  },
+  "ORDINARY/8h": {
+   "rows_with_latest_safe_departure": 164,
+   "route_cut_earlier_by_reconstruction": 73,
+   "places_with_latest_safe_departure": 72,
+   "places_with_any_earlier_cut": 50
+  },
+  "RUNNING/5h": {
+   "rows_with_latest_safe_departure": 952,
+   "route_cut_earlier_by_reconstruction": 100,
+   "places_with_latest_safe_departure": 133,
+   "places_with_any_earlier_cut": 61
+  },
+  "RUNNING/8h": {
+   "rows_with_latest_safe_departure": 1093,
+   "route_cut_earlier_by_reconstruction": 108,
+   "places_with_latest_safe_departure": 133,
+   "places_with_any_earlier_cut": 61
+  },
+  "WORST/5h": {
+   "rows_with_latest_safe_departure": 855,
+   "route_cut_earlier_by_reconstruction": 26,
+   "places_with_latest_safe_departure": 125,
+   "places_with_any_earlier_cut": 15
+  },
+  "WORST/8h": {
+   "rows_with_latest_safe_departure": 930,
+   "route_cut_earlier_by_reconstruction": 26,
+   "places_with_latest_safe_departure": 125,
+   "places_with_any_earlier_cut": 15
+  }
+ },
+ "witness_recheck": {
+  "ok": 6316
+ },
+ "rows": 13572,
+ "steps_by_issue": {
+  "ORDINARY/8h/03-25 12:00": {
+   "NONE": 128,
+   "LEAVE_NOW": 43,
+   "PREPARE_VULNERABLE_FIRST": 3
+  },
+  "ORDINARY/8h/03-25 13:00": {
+   "NONE": 125,
+   "LEAVE_NOW": 45,
+   "PREPARE_VULNERABLE_FIRST": 4
+  },
+  "ORDINARY/8h/03-25 14:00": {
+   "NONE": 125,
+   "LEAVE_NOW": 45,
+   "PREPARE_VULNERABLE_FIRST": 4
+  },
+  "ORDINARY/8h/03-25 15:00": {
+   "NONE": 121,
+   "LEAVE_NOW": 49,
+   "PREPARE_VULNERABLE_FIRST": 4
+  },
+  "ORDINARY/8h/03-25 16:00": {
+   "NONE": 111,
+   "LEAVE_NOW": 62,
+   "PREPARE_VULNERABLE_FIRST": 1
+  },
+  "ORDINARY/8h/03-25 17:00": {
+   "LEAVE_NOW": 83,
+   "PREPARE_VULNERABLE_FIRST": 1,
+   "NONE": 90
+  },
+  "ORDINARY/8h/03-25 18:00": {
+   "LEAVE_NOW": 86,
+   "NONE": 85,
+   "PREPARE_VULNERABLE_FIRST": 3
+  },
+  "ORDINARY/8h/03-25 19:00": {
+   "LEAVE_NOW": 103,
+   "NONE": 69,
+   "PREPARE_VULNERABLE_FIRST": 2
+  },
+  "ORDINARY/8h/03-25 20:00": {
+   "LEAVE_NOW": 106,
+   "NONE": 66,
+   "PREPARE_VULNERABLE_FIRST": 2
+  },
+  "ORDINARY/8h/03-25 21:00": {
+   "LEAVE_NOW": 133,
+   "NONE": 36,
+   "PREPARE_VULNERABLE_FIRST": 5
+  },
+  "ORDINARY/8h/03-25 22:00": {
+   "LEAVE_NOW": 157,
+   "PREPARE_VULNERABLE_FIRST": 7,
+   "NONE": 10
+  },
+  "ORDINARY/8h/03-25 23:00": {
+   "LEAVE_NOW": 157,
+   "PREPARE_VULNERABLE_FIRST": 7,
+   "NONE": 10
+  },
+  "ORDINARY/8h/03-26 00:00": {
+   "LEAVE_NOW": 162,
+   "NONE": 9,
+   "PREPARE_VULNERABLE_FIRST": 3
+  },
+  "RUNNING/8h/03-25 12:00": {
+   "LEAVE_NOW": 142,
+   "PREPARE_VULNERABLE_FIRST": 32
+  },
+  "RUNNING/8h/03-25 13:00": {
+   "LEAVE_NOW": 142,
+   "PREPARE_VULNERABLE_FIRST": 32
+  },
+  "RUNNING/8h/03-25 14:00": {
+   "LEAVE_NOW": 142,
+   "PREPARE_VULNERABLE_FIRST": 32
+  },
+  "RUNNING/8h/03-25 15:00": {
+   "LEAVE_NOW": 154,
+   "PREPARE_VULNERABLE_FIRST": 20
+  },
+  "RUNNING/8h/03-25 16:00": {
+   "LEAVE_NOW": 154,
+   "PREPARE_VULNERABLE_FIRST": 20
+  },
+  "RUNNING/8h/03-25 17:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-25 18:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-25 19:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-25 20:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-25 21:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-25 22:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-25 23:00": {
+   "LEAVE_NOW": 174
+  },
+  "RUNNING/8h/03-26 00:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 12:00": {
+   "LEAVE_NOW": 156,
+   "PREPARE_VULNERABLE_FIRST": 18
+  },
+  "WORST/8h/03-25 13:00": {
+   "LEAVE_NOW": 157,
+   "PREPARE_VULNERABLE_FIRST": 17
+  },
+  "WORST/8h/03-25 14:00": {
+   "LEAVE_NOW": 157,
+   "PREPARE_VULNERABLE_FIRST": 17
+  },
+  "WORST/8h/03-25 15:00": {
+   "LEAVE_NOW": 166,
+   "PREPARE_VULNERABLE_FIRST": 8
+  },
+  "WORST/8h/03-25 16:00": {
+   "LEAVE_NOW": 167,
+   "PREPARE_VULNERABLE_FIRST": 7
+  },
+  "WORST/8h/03-25 17:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 18:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 19:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 20:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 21:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 22:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-25 23:00": {
+   "LEAVE_NOW": 174
+  },
+  "WORST/8h/03-26 00:00": {
+   "LEAVE_NOW": 174
+  }
+ }
+}

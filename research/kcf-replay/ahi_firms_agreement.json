@@ -1,0 +1,9 @@
+{
+ "ahi_hotspots": 358,
+ "with_firms_within_2km_any_time": 277,
+ "never_confirmed_by_firms": 81,
+ "firms_before_ahi": 69,
+ "ahi_before_firms": 208,
+ "median_ahi_lead_h_when_ahi_first": 4.520833333333334,
+ "firms_window_utc": "kept FIRMS rows span 2025-03-22 to 2025-03-25T17:58 UTC (last overpass in the files before 2025-03-26T00:00)"
+}

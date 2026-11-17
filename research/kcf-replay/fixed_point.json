@@ -1,0 +1,32 @@
+[
+ {
+  "region": "uiseong_andong_2025",
+  "standin": "RUNNING",
+  "horizon": "8h",
+  "issue_utc": "2025-03-25T06:00:00+00:00",
+  "shelter_node": "osm:9674448300",
+  "states_checked": 43826,
+  "closed_cells": 4745,
+  "fixed_point": "PASS"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "standin": "WORST",
+  "horizon": "5h",
+  "issue_utc": "2025-03-25T09:00:00+00:00",
+  "shelter_node": "osm:12121532317",
+  "states_checked": 111924,
+  "closed_cells": 4757,
+  "fixed_point": "PASS"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "standin": "RUNNING",
+  "horizon": "8h",
+  "issue_utc": "2025-03-25T11:00:00+00:00",
+  "shelter_node": "osm:12121532317",
+  "states_checked": 111924,
+  "closed_cells": 4757,
+  "fixed_point": "PASS"
+ }
+]

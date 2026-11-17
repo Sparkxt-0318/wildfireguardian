@@ -94,7 +94,7 @@ def main():
             if best_rc and r.get("route_edges"):
                 rc_id, d, off = best_rc
                 ids = [edges[e]["u"] for e in r["route_edges"]] + [edges[r["route_edges"][-1]]["v"]]
-                coords = [list(TR.transform(*nodes[n])) for n in ids]
+                coords = [[round(c, 6) for c in TR.transform(*nodes[n])] for n in ids]
                 t, times = off, [off]
                 for e in r["route_edges"]:
                     t += edges[e]["travel_ticks"]; times.append(t)
@@ -109,8 +109,9 @@ def main():
                                "raw_reason": None, "departure_s": off, "arrival_s": t, "lower_bound_L_s": None,
                                "lower_bounds": [], "dwell_end_s": t + DWELL,
                                "route": {"type": "Feature", "geometry": {"type": "LineString", "coordinates": coords},
-                                         "properties": {"times_s": times, "node_ids": ids, "segment_count": len(ids) - 1,
-                                                        "edge_ids": r["route_edges"], "waits": [], "legs_total": len(ids) - 1}},
+                                         "properties": {"times_s": times, "node_ids": [], "segment_count": len(ids) - 1,
+                                                        "waits": [], "legs_total": len(ids) - 1,
+                                                        "note": "edge ids: research/kcf-replay/per_place.csv route_osm_ways"}},
                                "exposure": [], "compute_s": None, "within_budget": True, "policy": "full", "limits": None,
                                "independent_check": None, "assumptions": None,
                                "notes": ["kcf-replay: witness from the F-3.1 deadline field with stand-in road-cell closures; "

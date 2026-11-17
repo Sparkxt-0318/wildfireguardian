@@ -67,7 +67,7 @@ def load_runs(runs):
 
 def timeline(R, out):
     issues = sorted({key[3] for key in R})
-    fig, axes = plt.subplots(len(NAMED), 1, figsize=(15, 2.1 * len(NAMED)), sharex=True)
+    fig, axes = plt.subplots(len(NAMED), 1, figsize=(15, 2.5 * len(NAMED)), sharex=True)
     x0, x1 = k(11, 50), k(1, 10, 26)
     for ax, (pid, label) in zip(axes, NAMED):
         for lane, st in enumerate(("ORDINARY", "RUNNING", "WORST")):
@@ -91,10 +91,10 @@ def timeline(R, out):
             m, c = KIND_STYLE[kind]
             ax.plot(t, 3.15, marker=m, color=c, ms=9 if kind == "fire" else 7)
             ax.axvline(t, color=c, lw=0.6, ls=":" if kind != "fire" else "-", alpha=0.8)
-        ys = 3.6
         for i, (t, kind, txt) in enumerate(sorted(DOC.get(pid, []))):
-            ax.text(t, ys + 0.55 * (i % 2), txt, fontsize=7, color=KIND_STYLE[kind][1], ha="left", va="bottom")
-        ax.set_ylim(-0.6, 5.0)
+            ax.text(t + timedelta(minutes=2), 3.45 + 0.62 * (i % 4), txt, fontsize=7, color=KIND_STYLE[kind][1], ha="left",
+                    va="bottom", bbox=dict(fc="white", ec="none", pad=0.5, alpha=0.8))
+        ax.set_ylim(-0.6, 6.1)
         ax.set_yticks([])
         ax.set_title(label, loc="left", fontsize=11, fontweight="bold")
         for s in ("top", "right", "left"):
@@ -148,7 +148,7 @@ def frames(discs_path, R, out, standin="RUNNING", hz="8h"):
     t = k(12, 0)
     i = 0
     names = dict(NAMED)
-    ev_all = sorted({(tt, txt) for v in DOC.values() for tt, _, txt in v})
+    ev_all = sorted({(tt, txt) for v in DOC.values() for tt, _, txt in v if not txt.startswith("18:58 국도34호선 통제")})
     while t <= k(0, 0, 26):
         T = max(x for x in issues if datetime.fromisoformat(x) <= t)
         fig, ax = plt.subplots(figsize=(16, 7.6))
