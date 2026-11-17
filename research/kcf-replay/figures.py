@@ -177,8 +177,9 @@ def timeline_csv(per_place_csv, out, hz="8h"):
     labels = [STEP_KO[s] for s in STEP_COL] + [f"latest safe departure shown at that hour ({hz})", "documented alert/order",
                                                   "documented road closure", "documented fire at the place", "other documented event"]
     fig.legend(handles, labels, loc="lower center", ncol=5, fontsize=8, frameon=False)
-    fig.suptitle("What the screen would have shown, hour by hour (each block = one issue hour; row = R(h) arm: 3 stand-ins + MEASURED + "
-                 "MEASURED+GUST, the gust arm PROVISIONAL, ERA5 only), vs documented times (all single-source; SOURCES.md)", fontsize=10)
+    fig.suptitle("What the screen would have shown, hour by hour (each block = one issue hour; row = R(h) arm:\n"
+                 "3 stand-ins + MEASURED + MEASURED+GUST, the gust arm PROVISIONAL, ERA5 only), vs documented times (all single-source; SOURCES.md)",
+                 fontsize=10)
     fig.tight_layout(rect=(0.03, 0.04, 1, 0.97))
     fig.savefig(out, dpi=130)
     plt.close(fig)
