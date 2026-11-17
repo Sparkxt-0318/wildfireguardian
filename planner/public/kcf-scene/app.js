@@ -511,7 +511,7 @@
       rows[row].push(x);
       html += '<span class="m ' + mk.cls + '" style="left:' + (100 * mk.s / 43200) + '%;top:' + (row === 0 ? 4 : 0) + 'px"' + mk.attr + '>' + esc(mk.text) + '</span>';
     });
-    if (marks.some(function (m) { return m.tick; })) html += '<span class="m legend">◆ = reported time (SOURCES.md), not an outcome</span>';
+    $('markLegend').innerHTML = marks.some(function (m) { return m.tick; }) ? '<span' + srcAttr(SRC.sources_md, 'reported times: outlet, URL and SINGLE flag per line') + '>◆ = reported time (SOURCES.md), not an outcome</span>' : '';
     $('sliderMarks').innerHTML = html;
   }
 
@@ -1000,6 +1000,9 @@
     $('hud').hidden = false;
     map.resize(); // the map stops above the compact time bar while driving
     map.setTerrain({ source: 'dem', exaggeration: EXAG.drive });
+    // keep the centre elevation the chase camera sets: by default MapLibre re-clamps the centre to the ground when it
+    // renders, which moves the camera after jumpTo and leaves the vehicle marker where the old camera would draw it
+    map.setCenterClampedToGround(false);
     setFireOpacity(true);
     lastFireKey = null; lastCellKey = null;
     var sh0 = S.shelters[dv.rt.sh];
@@ -1041,6 +1044,7 @@
     document.body.classList.remove('driving');
     $('hud').hidden = true;
     if (vehicleMarker) vehicleMarker.remove();
+    map.setCenterClampedToGround(true);
     clearWalk(); // the travelled-road line belongs to the drive only
     setFireOpacity(false);
     map.resize();
@@ -1181,7 +1185,6 @@
         if (!st.check || st.check.offset !== 60) runCheck(60, { manual: true });
         st.check.show(Math.min(1, (t - 38) / 2.5));
       }
-      renderSources();
     } else if (t < 86) {
       enter('drive', function () { arm('RUNNING'); ensurePlace(); st.check = null; clearWalk(); startDrive({ manual: true }); });
       driveSeek(Math.max(0, Math.min(1, (t - 53) / 30)));
@@ -1189,6 +1192,7 @@
       enter('end', function () { if (!st.drive) { arm('RUNNING'); ensurePlace(); startDrive({ manual: true }); } driveSeek(1); });
     }
     captions();
+    renderSources(); // after the caption: it lists the files behind what is on screen, the caption included
     return waitIdle();
   }
   function waitIdle() {

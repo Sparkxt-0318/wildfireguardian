@@ -50,7 +50,7 @@ the panel lists the committed files behind everything visible.
 | file | built by | from |
 |---|---|---|
 | `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/RUNNING_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `RESULTS.md` (§2–5), `MEASURED_RULE.md` + `measured_arms.py` + `research/kcf-margin/numbers.json` + `research/kcf-gust/work/gust_hours.json` (MEASURED arms), `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
-| `data/terrain.js` | `build_terrain.py` | Terrain Tiles (Mapzen, AWS Open Data; SRTM, GMTED, ETOPO1), Terrarium z5–12, 1 m steps |
+| `data/terrain.js` | `build_terrain.py` | Terrain Tiles (Mapzen, AWS Open Data; SRTM, GMTED, ETOPO1), Terrarium z5–12, 1 m steps, clipped to the scene's bbox at every zoom |
 | `data/basemap.js` | `build_basemap.py` | `planner/research-map/site/regions/*.osm.js`, `planner/data/osm/*.overpass.json` (© OpenStreetMap contributors, ODbL) |
 | `data/fonts.js` | `build_fonts.py` | Noto Sans glyphs from `planner/public/basemap/fonts`; a subset of Pretendard (SIL OFL, renamed "KCF UI Sans") |
 | `vendor/` | `build_vendor.py` | MapLibre GL JS 5.24.0 (BSD-3-Clause) |

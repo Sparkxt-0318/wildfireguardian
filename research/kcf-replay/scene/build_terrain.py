@@ -13,6 +13,10 @@ Repair (default on; --no-repair turns it off), recorded with per-zoom counts in 
 2. Sea level. Elevations below 0 m are set to 0 m. There is no land below sea level in the bbox; this flattens the sea
    (the source mixes ETOPO1 bathymetry, about -300 m off the coast at z10, with about -4 m at z12, which pops when
    MapLibre changes zoom level) and removes what is left of the land pits.
+Clip (default on; --no-clip turns it off), recorded with per-zoom counts in built.clip: pixels whose centre lies
+outside the bbox are set to 0 m at every zoom. A tile reaches further beyond the bbox the lower its zoom (z9 to about
+37.16 N, z12 to about 36.67 N), so without the clip the edge of the terrain moves, and notches open in it, when
+MapLibre mixes zoom levels across the view. With it, the terrain ends at the bbox at every zoom, as the basemap does.
 Every other pixel keeps its source R and G exactly.
 
 Each tile is then re-encoded losslessly as PNG (Pillow optimize=True, then oxipng when pyoxipng is installed) with
@@ -159,6 +163,15 @@ def repair(h0, z):
     return h, changed & ~sea, sea
 
 
+def outside_bbox(z, x, y):
+    """Mask of the tile's pixels whose centre lies outside the bbox."""
+    W, S, E, N = BBOX
+    n = float(1 << z)
+    lon = (x + (np.arange(256) + 0.5) / 256.0) / n * 360.0 - 180.0
+    lat = np.degrees(np.arctan(np.sinh(np.pi * (1.0 - 2.0 * (y + (np.arange(256) + 0.5) / 256.0) / n))))
+    return ((lon < W) | (lon > E))[None, :] | ((lat < S) | (lat > N))[:, None]
+
+
 def encode_rgb(h):
     v = np.floor(h).astype(np.int64) + 32768
     if v.min() < 0 or v.max() > 65535:
@@ -194,20 +207,24 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--offline", action="store_true", help="use the cache only; fail if a tile is missing")
     ap.add_argument("--no-repair", action="store_true", help="skip the despike and sea-level repair")
+    ap.add_argument("--no-clip", action="store_true", help="keep the pixels outside the bbox")
     a = ap.parse_args()
     ensure_cache()
     log = load_log()
-    do_repair = not a.no_repair
+    do_repair, do_clip = not a.no_repair, not a.no_clip
 
     tiles, inputs, per_zoom = {}, [], {}
     check_all = {"tiles": 0, "max_abs_quantization_m": 0.0, "unrepaired_rg_unchanged": True, "decode_exact": True,
                  "min_m": None, "max_m": None}
     rep = {"enabled": do_repair, "spike_threshold_m": SPIKE_M, "window": "5x5 median of max(h, 0), edge-padded, 2 passes",
            "per_zoom": {}, "largest": []}
+    clip = {"enabled": do_clip, "rule": "pixel centre outside the bbox -> 0 m, at every zoom", "bbox": list(BBOX),
+            "per_zoom": {}}
     for z in range(ZMIN, ZMAX + 1):
         zt = tiles_for(z)
         per_zoom[str(z)] = {"tiles": len(zt), "png_bytes": 0, "b64_bytes": 0, "original_bytes": 0}
         rz = rep["per_zoom"][str(z)] = {"despiked_px": 0, "below_sea_level_px": 0, "tiles_touched": 0}
+        cz = clip["per_zoom"][str(z)] = {"clipped_px": 0, "clipped_nonzero_px": 0, "tiles_touched": 0}
         for (z_, x, y) in zt:
             raw = fetch(z_, x, y, log, a.offline)
             key = f"{z}/{x}/{y}"
@@ -217,7 +234,14 @@ def main():
                 h, spikes, sea = repair(h0, z)
             else:
                 h, spikes, sea = h0, np.zeros(h0.shape, bool), np.zeros(h0.shape, bool)
-            changed = spikes | sea
+            out = outside_bbox(z, x, y) if do_clip else np.zeros(h0.shape, bool)
+            if out.any():
+                cz["clipped_px"] += int(out.sum()); cz["clipped_nonzero_px"] += int((h[out] != 0.0).sum())
+                cz["tiles_touched"] += 1
+            hr = h  # repaired, before the clip (the repair statistics below describe the repair alone)
+            if out.any():
+                h = h.copy(); h[out] = 0.0
+            changed = spikes | sea | out
             q = encode_rgb(h)
             png = encode_png(q)
             back = decode_rgb(png)
@@ -234,12 +258,12 @@ def main():
             check_all["min_m"] = lo if check_all["min_m"] is None else min(check_all["min_m"], lo)
             check_all["max_m"] = hi if check_all["max_m"] is None else max(check_all["max_m"], hi)
             rz["despiked_px"] += int(spikes.sum()); rz["below_sea_level_px"] += int(sea.sum())
-            rz["tiles_touched"] += int(changed.any())
+            rz["tiles_touched"] += int((spikes | sea).any())
             if spikes.any():
-                d = np.where(spikes, np.abs(h - h0), 0.0)
+                d = np.where(spikes, np.abs(hr - h0), 0.0)
                 py, px = np.unravel_index(int(np.argmax(d)), d.shape)
                 rep["largest"].append({"tile": key, "pixel": [int(px), int(py)], "px": int(spikes.sum()),
-                                       "from_m": round(float(h0[py, px]), 1), "to_m": round(float(h[py, px]), 1)})
+                                       "from_m": round(float(h0[py, px]), 1), "to_m": round(float(hr[py, px]), 1)})
             b64 = base64.b64encode(png).decode("ascii")
             tiles[key] = b64
             pz = per_zoom[str(z)]
@@ -281,6 +305,8 @@ def main():
         "repaired": ("water-edge spikes and pits replaced by the 5x5 median (|h - median| > 250 m at z >= 9, "
                      "> 1000 m at z <= 8); elevations below 0 m set to 0 m (flat sea); counts in built.repair")
         if do_repair else "none",
+        "clipped": "pixels outside the bbox set to 0 m at every zoom, so the terrain ends at the bbox at every zoom; "
+                   "counts in built.clip" if do_clip else "none",
         "tiles": tiles, "flat": base64.b64encode(flat).decode("ascii"),
         "attribution": ATTRIBUTION,
         "source": {"url_template": URL, "fetched_utc": fetched[-1], "fetched_utc_first": fetched[0],
@@ -290,6 +316,7 @@ def main():
                   "encoder": encoder_info(),
                   "check": {"all_tiles": check_all, "spot": spot},
                   "repair": rep,
+                  "clip": clip,
                   "per_zoom": per_zoom,
                   "inputs": inputs},
     }
@@ -304,6 +331,8 @@ def main():
     print(f"  all tiles: {json.dumps(check_all, sort_keys=True)}")
     print(f"  repair: despiked {rep['despiked_px']} px, below sea level -> 0 m {rep['below_sea_level_px']} px; "
           + ", ".join(f"z{z}: {r['despiked_px']}/{r['below_sea_level_px']}" for z, r in rep["per_zoom"].items()))
+    print("  clip: " + ", ".join(f"z{z}: {c['clipped_px']} px ({c['clipped_nonzero_px']} non-zero) in {c['tiles_touched']} tiles"
+                                 for z, c in clip["per_zoom"].items()))
     for r in rep["largest"][:6]:
         print(f"    {r['tile']} px {r['pixel']}: {r['from_m']} -> {r['to_m']} m ({r['px']} px in tile)")
     print(f"  spot check: {json.dumps(spot, sort_keys=True, ensure_ascii=False)}")

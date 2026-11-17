@@ -62,7 +62,9 @@ small, em { font-style: normal; }
 #summary .muted, #panel .muted { color: var(--ink-3); font-size: 12px; }
 
 /* place panel */
-#panel { position: absolute; top: 62px; right: 12px; bottom: 132px; z-index: 12; width: 392px; padding: 12px 14px; overflow-y: auto; font-size: 13.5px; }
+#panel { position: absolute; top: 62px; right: 12px; bottom: 132px; z-index: 12; width: 392px; padding: 12px 14px 28px; overflow-y: auto; font-size: 13.5px;
+  /* the bottom edge fades so a list that continues below reads as scrollable, not cut */
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); }
 #panel .name { font-size: 22px; font-weight: 800; }
 #panel .sub { color: var(--ink-2); font-size: 12.5px; margin-bottom: 8px; }
 #panel .close { float: right; background: none; border: 0; color: var(--ink-2); font-size: 18px; cursor: pointer; }
@@ -121,7 +123,8 @@ table.hours tr { cursor: pointer; }
 #sliderMarks .m { position: absolute; transform: translateX(-50%); top: 0; font-size: 10.5px; white-space: nowrap; padding: 0 4px; border-radius: 4px; }
 #sliderMarks .m.rep { border: 1px solid var(--reported); color: var(--reported); background: #1a0f15; }
 #sliderMarks .m.rep.tick { border: 0; background: none; padding: 0; font-size: 13px; line-height: 1; }
-#sliderMarks .m.legend { left: 0 !important; transform: none; top: 4px; color: var(--reported); font-size: 11px; }
+#markLegend { color: var(--reported); font-size: 11.5px; margin-left: 6px; min-width: 0; }
+body.driving #markLegend { display: none; }
 #sliderMarks .m.lsd { background: var(--leave); color: #201a00; font-weight: 700; }
 
 #legend { position: absolute; right: 12px; top: 60px; z-index: 9; padding: 8px 10px; font-size: 12px; width: 268px; }
@@ -180,7 +183,7 @@ body.driving #sources { bottom: 80px; }
 body.driving #map { bottom: 72px; }
 body.panel-open #caption { max-width: calc(100% - 430px); }
 body.driving #caption { bottom: 118px; }
-.note span[data-src] { word-break: break-all; }
+.note span[data-src] { overflow-wrap: anywhere; }
 
 .vehicle { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #0b0d12; box-shadow: 0 0 0 3px #5ef0ff; }
 #notice { position: absolute; top: 58px; left: 50%; transform: translateX(-50%); z-index: 25; background: #3a2a0a; color: #ffd98a; border: 1px solid #7a5a1c; border-radius: 8px; padding: 6px 10px; font-size: 13px; max-width: 80vw; }

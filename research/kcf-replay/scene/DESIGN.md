@@ -8,7 +8,9 @@ planner's static build and served at `<pages>/kcf-scene/`) and from a local fold
 ## Stack
 
 * MapLibre GL JS 5.24.0 (vendored from `planner/node_modules/maplibre-gl/dist`, BSD-3), 3D terrain from a
-  `raster-dem` source, every other layer draped on or extruded from that terrain.
+  `raster-dem` source, every other layer draped on or extruded from that terrain. The terrain is clipped to the bbox
+  (lon 128.28–129.50, lat 36.20–36.62) at every zoom: a lower-zoom tile reaches further beyond the bbox, so unclipped
+  tiles made the terrain's edge move, and notches open in it, when MapLibre mixed zoom levels across the view.
 * No three.js / deck.gl: nothing in levels 1–3 needs a second renderer (see "Level 3 crossing view" below).
 * Classic `<script>` tags only (ES modules and `fetch()` are blocked on `file://`). All data ships as `.js` files
   that assign to `window.KCF.*`. Tiles and glyphs are served to MapLibre through `maplibregl.addProtocol`
