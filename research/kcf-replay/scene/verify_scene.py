@@ -290,9 +290,9 @@ def main():
     C.eq("results3:head", [x.split(" (")[0] for x in h3], ["issue KST"] + [RES_LABEL[a] for a in ARMS])
     for row in r3:
         k = S["issue_kst"].index(row[0])
-        for a, cell in zip(ARMS, row[1:]):
-            got = Counter(S["hourly"][a][pid][k]["step"] for pid in ids)
-            C.eq("results3:steps", f"{got['LEAVE_NOW']} / {got['PREPARE_VULNERABLE_FIRST']} / {got['NONE']}", cell, f"{a} {row[0]}")
+        for arm, cell in zip(ARMS, row[1:]):
+            got = Counter(S["hourly"][arm][pid][k]["step"] for pid in ids)
+            C.eq("results3:steps", f"{got['LEAVE_NOW']} / {got['PREPARE_VULNERABLE_FIRST']} / {got['NONE']}", cell, f"{arm} {row[0]}")
     C.eq("results3:rows", len(r3), 13)
     # RESULTS.md section 4: the six named places, 16:00 .. 21:00, RUNNING / MEASURED / MEASURED+GUST (8 h)
     name_id = {n["name"]: n["id"] for n in S["named"]}
@@ -316,13 +316,13 @@ def main():
     # RESULTS.md section 5: score counts (8 h rows), every arm
     h5, r5_ = md_table_after(res, lambda l: l.startswith("## 5 "))
     s5 = {r[0].split(" (")[0]: r for r in r5_}
-    for a in ARMS:
-        row = s5.get(f"{RES_LABEL[a]} / 8 h")
-        C.true("results5:row", row is not None, a)
-        lsd_rows = [(pid, k) for pid in ids for k in range(13) if S["hourly"][a][pid][k]["state"] == "LATEST_SAFE_DEPARTURE"]
-        early = [(pid, k) for pid, k in lsd_rows if S["hourly"][a][pid][k]["cut_before"] == "yes"]
+    for arm in ARMS:
+        row = s5.get(f"{RES_LABEL[arm]} / 8 h")
+        C.true("results5:row", row is not None, arm)
+        lsd_rows = [(pid, k) for pid in ids for k in range(13) if S["hourly"][arm][pid][k]["state"] == "LATEST_SAFE_DEPARTURE"]
+        early = [(pid, k) for pid, k in lsd_rows if S["hourly"][arm][pid][k]["cut_before"] == "yes"]
         got = [f"{len(lsd_rows):,}", f"{len(early):,}", str(len({p for p, _ in lsd_rows})), str(len({p for p, _ in early}))]
-        C.eq("results5:counts", got, row[1:5] if row else None, a)
+        C.eq("results5:counts", got, row[1:5] if row else None, arm)
     for st, v in S["standins"].items():
         if v.get("kind") == "measured":
             continue

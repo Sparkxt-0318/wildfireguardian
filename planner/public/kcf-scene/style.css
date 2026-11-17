@@ -197,5 +197,7 @@ body.driving #caption { bottom: 118px; }
 #timebar button.standin.arm.prov { background: #2a1838; color: #e6c8ff; border-color: #7b4aa6; }
 #summary .armline { margin: 2px 0 4px; padding: 3px 6px; border-radius: 6px; background: #10233a; color: #b9dcff; font-size: 12px; line-height: 1.3; }
 #summary .armline.prov { background: #2a1838; color: #e6c8ff; }
-table.arms td:first-child { white-space: nowrap; }
+table.arms td { vertical-align: top; padding-top: 4px; padding-bottom: 4px; }
+table.arms td.an .cl { font-size: 11px; color: var(--ink-3); }
+table.arms td.ck { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
 table.arms .cutb { color: #ff9f8a; font-size: 11px; }

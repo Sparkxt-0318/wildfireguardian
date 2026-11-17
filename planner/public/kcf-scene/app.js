@@ -147,6 +147,7 @@
   var CLS_TXT = { all: 'all hours', quiet: 'quiet class (prior-3 h spread < 1 km)', slow: 'slow class (prior-3 h spread 1–3 km)',
     running: 'running class (prior-3 h spread ≥ 3 km)', 'g<10': 'gust < 10 m/s class', 'g10-20': 'gust 10–20 m/s class',
     'g>=20': 'gust ≥ 20 m/s class (rests on 9 fires)' };
+  var ARM_STATE = { NOT_CUT_WITHIN_H: 'not cut in 8 h', INSIDE_KNOWN_FIRE_AREA: 'inside fire area', NO_SAFE_DEPARTURE: 'no safe departure' };
   function isArm(name) { return standinInfo(name).kind === 'measured'; }
   function armClass(name, k) { var si = standinInfo(name); return si.classes ? si.classes[k] : null; }
   function kmTxt(m) { return (m / 1000).toFixed(1); }
@@ -555,10 +556,10 @@
     order.forEach(function (a) {
       var ha = hourly(p.id, k, a); if (!ha) return;
       var ca = armClass(a, k);
-      html += '<tr data-arm="' + esc(a) + '" class="' + (a === st.standin ? 'cur' : '') + '"><td><span' + armSrc(a, k) + '>' + esc(shortLabel(a)) + '</span>' + (ca ? ' <span class="muted">' + esc((CLS_TXT[ca.cls] || ca.cls).replace(/ class.*$/, '')) + '</span>' : '') + '</td>' +
+      html += '<tr data-arm="' + esc(a) + '" class="' + (a === st.standin ? 'cur' : '') + '"><td class="an"><span' + armSrc(a, k) + '>' + esc(shortLabel(a)) + '</span>' + (ca ? '<div class="cl">' + esc((CLS_TXT[ca.cls] || ca.cls).replace(/ \(.*\)$/, '')) + '</div>' : '') + '</td>' +
         '<td><span class="step ' + esc(ha.step) + '"' + srcAttr(SRC.per_place, csvDetail(ha, 'government_step', a, k)) + '>' + esc(ha.step === 'LEAVE_NOW' ? 'leave' : ha.step === 'NONE' ? '—' : 'vuln.') + '</span></td>' +
-        '<td' + srcAttr(SRC.per_place, csvDetail(ha, ha.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', a, k)) + '>' + esc(placeClock(ha)) + '</td>' +
-        '<td>' + (ha.cut_before === 'yes' ? '<span class="cutb"' + srcAttr(SRC.per_place, csvDetail(ha, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', a, k)) + '>reached ' + esc(csvClock(ha.first_cut)) + '</span>' : '') + '</td></tr>';
+        '<td class="ck"><span' + srcAttr(SRC.per_place, csvDetail(ha, ha.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', a, k)) + '>' + esc(ha.state === 'LATEST_SAFE_DEPARTURE' ? csvClock(ha.lsd) : (ARM_STATE[ha.state] || placeClock(ha))) + '</span>' +
+        (ha.cut_before === 'yes' ? '<div class="cutb"' + srcAttr(SRC.per_place, csvDetail(ha, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', a, k)) + '>reached ' + esc(csvClock(ha.first_cut)) + '</div>' : '') + '</td></tr>';
     });
     html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b and section 7: MEASURED+GUST is PROVISIONAL, ERA5 gusts only; its >= 20 m/s class rests on 9 fires; the margin was calibrated on 28 fires and on this fire every frozen margin was exceeded at 10-20 KST (research/kcf-margin/RESULTS.md)') + '>MEASURED+GUST is PROVISIONAL (ERA5 gusts only; ≥ 20 m/s class = 9 fires).</span> Click a row to switch (R).</div></div>';
     // planner strip
