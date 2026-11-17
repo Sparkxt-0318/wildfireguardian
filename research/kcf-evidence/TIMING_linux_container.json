@@ -1,0 +1,202 @@
+{
+ "host_recorded_in_run_json": {
+  "platform": "Linux-6.18.44-fc-v509-x86_64-with-glibc2.39",
+  "python": "3.13.18",
+  "machine": "x86_64",
+  "cpu_count": 4
+ },
+ "rows": [
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "jobs_all": 1523,
+   "attempts": 1523,
+   "recorded_compute_s_all_jobs": 16005.504069055663,
+   "recorded_compute_s_attempts": 16005.504069055663,
+   "field_s_total_wall_3_variants": 96.86639365999997,
+   "field_s_router_plus_cert": 69.35829043099994,
+   "field_s_cert_only": 35.88912755899992,
+   "timing_s": {
+    "prepare_packet_model": 1.0243550420000247,
+    "fields": {
+     "router": 32.01176048899981,
+     "cert": 33.33552677099988,
+     "free": 24.889045669000325
+    },
+    "issue_and_witness": {
+     "router": 1.4574023830002147,
+     "cert": 1.529245746000015,
+     "free": 1.4504418780000492
+    },
+    "fixed_point_certificate_check": {},
+    "witness_full_checker": {},
+    "total_wall": 96.86639365999997
+   },
+   "peak_rss_mib": 457.69140625,
+   "run_json": "t2/20250323T010000Z.json"
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "jobs_all": 1518,
+   "attempts": 1518,
+   "recorded_compute_s_all_jobs": 14749.448635333567,
+   "recorded_compute_s_attempts": 14749.448635333567,
+   "field_s_total_wall_3_variants": 749.1786082599999,
+   "field_s_router_plus_cert": 711.6450437319997,
+   "field_s_cert_only": 359.2256164610003,
+   "timing_s": {
+    "prepare_packet_model": 1.0170576550000305,
+    "fields": {
+     "router": 31.266833948000226,
+     "cert": 35.37698841000065,
+     "free": 34.55324469199968
+    },
+    "issue_and_witness": {
+     "router": 321.1525933229992,
+     "cert": 322.8315703959996,
+     "free": 1.7229716989995723
+    },
+    "fixed_point_certificate_check": {},
+    "witness_full_checker": {},
+    "total_wall": 749.1786082599999
+   },
+   "peak_rss_mib": 701.8671875,
+   "run_json": "t2/20250324T090000Z.json"
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "jobs_all": 1557,
+   "attempts": 1518,
+   "recorded_compute_s_all_jobs": 23624.406197336328,
+   "recorded_compute_s_attempts": 22448.141895125387,
+   "field_s_total_wall_3_variants": 358.66065270499985,
+   "field_s_router_plus_cert": 321.77846827200096,
+   "field_s_cert_only": 163.49713298600136,
+   "timing_s": {
+    "prepare_packet_model": 1.186012742999992,
+    "fields": {
+     "router": 25.90324463199954,
+     "cert": 28.22008786800029,
+     "free": 29.295619610999665
+    },
+    "issue_and_witness": {
+     "router": 132.37809065400006,
+     "cert": 134.09103237500108,
+     "free": 6.584101467999972
+    },
+    "fixed_point_certificate_check": {},
+    "witness_full_checker": {},
+    "total_wall": 358.66065270499985
+   },
+   "peak_rss_mib": 850.18359375,
+   "run_json": "t2/20250325T170000Z.json"
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "jobs_all": 1810,
+   "attempts": 1631,
+   "recorded_compute_s_all_jobs": 40527.47875115118,
+   "recorded_compute_s_attempts": 35199.78074103373,
+   "field_s_total_wall_3_variants": 1033.238496912,
+   "field_s_router_plus_cert": 680.9328068549999,
+   "field_s_cert_only": 343.33417823700324,
+   "timing_s": {
+    "prepare_packet_model": 2.790764556000113,
+    "fields": {
+     "router": 305.76736985499974,
+     "cert": 309.9987451310028,
+     "free": 341.4344522200008
+    },
+    "issue_and_witness": {
+     "router": 31.831258762996868,
+     "cert": 30.544668550000324,
+     "free": 7.250997871001346
+    },
+    "fixed_point_certificate_check": {},
+    "witness_full_checker": {},
+    "total_wall": 1033.238496912
+   },
+   "peak_rss_mib": 1132.6953125,
+   "run_json": "t2/20250325T190000Z.json"
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "jobs_all": 1673,
+   "attempts": 1626,
+   "recorded_compute_s_all_jobs": 32176.851287558035,
+   "recorded_compute_s_attempts": 30786.256746723084,
+   "field_s_total_wall_3_variants": 1051.870935731,
+   "field_s_router_plus_cert": 691.336974330999,
+   "field_s_cert_only": 348.5399138609996,
+   "timing_s": {
+    "prepare_packet_model": 2.616564500000095,
+    "fields": {
+     "router": 335.6140295460009,
+     "cert": 338.7459467029985,
+     "free": 349.0441035829972
+    },
+    "issue_and_witness": {
+     "router": 7.183030923998558,
+     "cert": 7.177402658001029,
+     "free": 7.578756374998193
+    },
+    "fixed_point_certificate_check": {},
+    "witness_full_checker": {},
+    "total_wall": 1051.870935731
+   },
+   "peak_rss_mib": 697.79296875,
+   "run_json": "t2/20250325T230000Z.json"
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "jobs_all": 1641,
+   "attempts": 1627,
+   "recorded_compute_s_all_jobs": 29128.47895957029,
+   "recorded_compute_s_attempts": 28711.016401278495,
+   "field_s_total_wall_3_variants": 1103.1297795100004,
+   "field_s_router_plus_cert": 736.8966414770002,
+   "field_s_cert_only": 371.79475668300256,
+   "timing_s": {
+    "prepare_packet_model": 2.591628609000054,
+    "fields": {
+     "router": 350.54537715000106,
+     "cert": 353.83357079199914,
+     "free": 346.7480326599939
+    },
+    "issue_and_witness": {
+     "router": 14.55650764399661,
+     "cert": 15.36955728200337,
+     "free": 15.59507624400203
+    },
+    "fixed_point_certificate_check": {},
+    "witness_full_checker": {},
+    "total_wall": 1103.1297795100004
+   },
+   "peak_rss_mib": 735.671875,
+   "run_json": "t2/20250326T080000Z.json"
+  }
+ ],
+ "totals": {
+  "jobs_all": 9722,
+  "attempts": 9443,
+  "recorded_compute_s_all_jobs": 156212.16790000506,
+  "recorded_compute_s_attempts": 147900.14848854992,
+  "field_s_total_wall_3_variants": 4392.944866778,
+  "field_s_router_plus_cert": 3211.948225098,
+  "field_s_cert_only": 1622.280725787007,
+  "peak_rss_mib_max": 1132.6953125
+ },
+ "ratios_recorded_over_field": {
+  "all_9722_jobs_vs_total_wall_3_variants": 35.55978338844455,
+  "all_9722_jobs_vs_router_plus_cert": 48.634709202150624,
+  "all_9722_jobs_vs_cert_only": 96.29169934458959,
+  "attempts_9443_vs_total_wall_3_variants": 33.667654153152874
+ },
+ "outer_wall_lines": [
+  "20250323T010000Z rc=0 wall=97.906",
+  "20250324T090000Z rc=0 wall=750.357",
+  "20250325T170000Z rc=0 wall=359.720",
+  "20250325T190000Z rc=0 wall=1034.592",
+  "20250325T230000Z rc=0 wall=1053.191",
+  "20250326T080000Z rc=0 wall=1104.354"
+ ]
+}

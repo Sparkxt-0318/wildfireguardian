@@ -149,17 +149,32 @@ def legend(x, y, items):
 
 
 # ------------------------------------------------------------------ Figure A
-W, Hh = 980, 470
-a = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {Hh}" width="{W}" height="{Hh}" role="img" '
-     f'aria-labelledby="ta da"><title id="ta">Figure A: one backward pass replaces {fmt(n_total)} searches</title>'
-     f'<desc id="da">Outcome of the {fmt(n_total)} recorded route checks and of the same checks read off the deadline '
-     f'field: zero disagreements, {n_unres} undecided cases decided, deadlines exact to one second.</desc>',
-     f"<style>{CSS}</style>", DEFS, f'<rect width="{W}" height="{Hh}" fill="var(--bg)"/>',
-     f'<text class="t" x="24" y="36">One backward pass replaces {fmt(n_total)} searches</text>',
-     f'<text class="s" x="24" y="58">The six recorded 2025 planner caches: every route check read off one backward '
-     f'field per shelter, compared with the recorded forward check.</text>']
-x0, bw = 24, 932
-# rows
+import textwrap
+
+
+def wrap(x, y, text, cls, chars, lh):
+    """Wrapped text block; returns (svg, next_y)."""
+    out = []
+    for line in textwrap.wrap(text, chars):
+        out.append(f'<text class="{cls}" x="{x}" y="{y}">{esc(line)}</text>')
+        y += lh
+    return "\n".join(out), y
+
+
+def svg_open(W, Hh, tid, title, desc):
+    return [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {Hh}" width="{W}" height="{Hh}" role="img" '
+            f'aria-labelledby="{tid}t {tid}d"><title id="{tid}t">{esc(title)}</title><desc id="{tid}d">{esc(desc)}</desc>',
+            f"<style>{CSS}</style>", DEFS, f'<rect width="{W}" height="{Hh}" fill="var(--bg)"/>']
+
+
+W, Hh = 1100, 640
+x0, bw = 24, 1052
+a = svg_open(W, Hh, "a", f"Figure A: one backward pass replaces {fmt(n_total)} searches",
+             f"Outcome of the {fmt(n_total)} recorded route checks and of the same checks read off the deadline field: "
+             f"zero disagreements, {n_unres} undecided cases decided, deadlines exact to one second.")
+a.append(f'<text class="t" x="{x0}" y="36">One backward pass replaces {fmt(n_total)} searches</text>')
+a.append(wrap(x0, 58, "The six recorded 2025 planner caches: every route check read off one backward field per shelter, "
+              "compared with the recorded forward check.", "s", 150, 16)[0])
 a.append(f'<text class="l" x="{x0}" y="102">Recorded: {fmt(n_total)} forward route checks, 30 s budget each</text>')
 a.append(bar(x0, 112, bw, 44, [
     (n_checked, "--ok", "--okink", "route", False), (n_nr, "--no", "--noink", "no route", False),
@@ -171,45 +186,49 @@ a.append(f'<text class="l" x="{x0}" y="218">Deadline field: the same {fmt(n_tota
 a.append(bar(x0, 228, bw, 44, [
     (f_chk, "--ok", "--okink", "route", False), (f_nr, "--no", "--noink", "no route", False),
     (n_at_issue, "--no", "--noink", "origin in flame", False)], n_total))
-a.append(f'<text class="s" x="{x0}" y="294">checked route {fmt(f_chk)} · model no-route {fmt(f_nr)} · origin point in '
-         f'flame at that second (definite: no journey departing then) {fmt(n_at_issue)}</text>')
-a.append(legend(x0, 322, [("--ok", "checked route", False), ("--no", "model no-route / no journey", False),
+a.append(f'<text class="s" x="{x0}" y="294">checked route {fmt(f_chk)} · model no-route {fmt(f_nr)} · origin in flame at that '
+         f'second (no journey departing then) {fmt(n_at_issue)}</text>')
+a.append(legend(x0, 326, [("--ok", "checked route", False), ("--no", "model no-route / no journey", False),
                           ("--un", "unresolved in the record", True)]))
-# three claims
-cy = 352
+cy = 362
 cols = [
     (f"{mism + mism2}", "disagreements",
-     f"with any of the {fmt(n_checked)} recorded routes (same arrival second, same legs)\nor {fmt(n_nr)} recorded no-route verdicts"),
+     f"with any of the {fmt(n_checked)} recorded routes (same arrival second, same legs) or the {fmt(n_nr)} recorded no-route verdicts"),
     (f"{n_unres}", "undecided cases decided",
-     f"{n_u_chk} now have a checked route (full checker passes),\n{n_u_nr} are proven no-route in the model"),
+     f"{n_u_chk} now have a checked route (full checker passes); {n_u_nr} are proven no-route in the model"),
     ("1 s", "deadlines exact",
-     f"{fmt(w_pass)} of {fmt(w_next)} deadline witnesses pass; departing one second\nlater is infeasible in all {fmt(w_next)}"),
+     f"{fmt(w_pass)} of {fmt(w_next)} deadline witnesses pass, and departing one second later is infeasible in all {fmt(w_next)}"),
 ]
+colw = 350
 for i, (big, lab, sub) in enumerate(cols):
-    cx = x0 + i * 315
+    cx = x0 + i * colw
     a.append(f'<text x="{cx}" y="{cy + 34}" style="font-size:34px;font-weight:700">{esc(big)}</text>')
-    a.append(f'<text class="l" x="{cx}" y="{cy + 56}">{esc(lab)}</text>')
-    for k, line in enumerate(sub.split("\n")):
-        a.append(f'<text class="s" x="{cx}" y="{cy + 74 + 16 * k}">{esc(line)}</text>')
-a.append(f'<text class="f" x="{x0}" y="{Hh - 22}">Sources: {F31} (jobs_all, witness_checks, deadlines per cache; '
-         f'summed over the six caches); run notes research/harness-2026-11/F-3.1/RESULTS.md §1–§3.</text>')
-a.append(f'<text class="f" x="{x0}" y="{Hh - 8}">Model-relative contact field on the recorded one-hour scenarios; not a physical-safety claim. '
-         f'Planner deadlines: {dl_eq} of {n_origins} origins equal the record; the other {dl_later} were unresolved in the record.</text>')
+    a.append(f'<text class="l" x="{cx}" y="{cy + 58}">{esc(lab)}</text>')
+    a.append(wrap(cx, cy + 78, sub, "s", 48, 16)[0])
+fy = 500
+txt = (f"Sources: {F31} (jobs_all, witness_checks and deadlines per cache, summed over the six caches); run notes "
+       f"research/harness-2026-11/F-3.1/RESULTS.md sections 1 to 3. Per-number sources: research/kcf-evidence/figures/FIGURE_NUMBERS.json.")
+blk, fy = wrap(x0, fy, txt, "f", 175, 14); a.append(blk)
+txt = (f"Model-relative contact field on the recorded one-hour scenarios; not a physical-safety claim. Planner deadlines: "
+       f"{dl_eq} of {n_origins} origins equal the record; the other {dl_later} were unresolved in the record and are resolved by the field. "
+       f"The 186 at-issue cells were recorded as unresolved (AT_ISSUE_FAILURE) and are definite in the field; they are separate from the 297.")
+blk, fy = wrap(x0, fy + 6, txt, "f", 175, 14); a.append(blk)
+a[2:2] = []
 a.append("</svg>")
-(OUT / "FIGURE_A_one_backward_pass.svg").write_text("\n".join(a))
+(OUT / "FIGURE_A_one_backward_pass.svg").write_text("\n".join(a).replace('height="640"', f'height="{fy + 16}"', 1)
+                                                    .replace('viewBox="0 0 1100 640"', f'viewBox="0 0 1100 {fy + 16}"', 1)
+                                                    .replace('<rect width="1100" height="640"', f'<rect width="1100" height="{fy + 16}"', 1))
 
 # ------------------------------------------------------------------ Figure B
-W, Hh = 980, 440
-b = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {Hh}" width="{W}" height="{Hh}" role="img" '
-     f'aria-labelledby="tb db"><title id="tb">Figure B: corridor router, {cp["route"] + cp["refusal"]} of {len(perm)} '
-     f'requests decided within 30 s</title><desc id="db">Same 273 requests under two missing-input policies: '
-     f'{cp["route"]} routes, {cp["refusal"]} no-route proofs, {cp["unresolved"]} unresolved; and when native forecast '
-     f'coverage is required {cc["route"]}, {cc["refusal"]}, {cc["unresolved"]}.</desc>',
-     f"<style>{CSS}</style>", DEFS, f'<rect width="{W}" height="{Hh}" fill="var(--bg)"/>',
-     f'<text class="t" x="24" y="36">Corridor router: {cp["route"] + cp["refusal"]} of {len(perm)} requests decided '
-     f'within 30 s</text>',
-     f'<text class="s" x="24" y="58">The same {len(perm)} requests (five historical fires, reconstructed forecasts), '
-     f'two policies for cells where the forecast has no native value.</text>']
+W, Hh = 1100, 640
+b = svg_open(W, Hh, "b", f"Figure B: corridor router, {cp['route'] + cp['refusal']} of {len(perm)} requests decided within 30 s; "
+             f"{cc['route'] + cc['refusal']} when native forecast coverage is required",
+             f"Same {len(perm)} requests under two missing-input policies: {cp['route']} routes, {cp['refusal']} no-route proofs, "
+             f"{cp['unresolved']} unresolved; and when native forecast coverage is required {cc['route']}, {cc['refusal']}, {cc['unresolved']}.")
+b.append(f'<text class="t" x="{x0}" y="36">Corridor router: {cp["route"] + cp["refusal"]} of {len(perm)} requests decided within 30 s;'
+         f' {cc["route"] + cc["refusal"]} when forecast coverage is required</text>')
+b.append(wrap(x0, 58, f"The same {len(perm)} requests (five historical fires, reconstructed forecasts), two policies for cells "
+              f"where the forecast has no native value.", "s", 150, 16)[0])
 tot = len(perm)
 b.append(f'<text class="l" x="{x0}" y="102">Missing forecast input allowed (zero-filled): the historical v8 run</text>')
 b.append(bar(x0, 112, bw, 44, [(cp["route"], "--ok", "--okink", "", False), (cp["refusal"], "--no", "--noink", "", False),
@@ -223,21 +242,20 @@ b.append(f'<text class="s" x="{x0}" y="298">{cc["route"]} routes · {cc["refusal
          f'{cc["unresolved"]} unresolved · slowest request {nums["B.coverage_required.max_wall_s"]["value"]:.3f} s of 30 s</text>')
 b.append(legend(x0, 326, [("--ok", "checked route", False), ("--no", "model no-route proof", False),
                           ("--un", "unresolved (not a no-route proof)", True)]))
-why1 = (f"Why: {unsup163} of the {cp['route']} routes in the first bar occupied at least one cell-hour with no native forecast "
-        f"value (zero-filled), so they are withheld when coverage is required;")
-why2 = (f"absent forecast data is not proof that no route exists, so a request with no covered route and no "
-        f"unrestricted no-route proof is reported unresolved ({cc['unresolved']}).")
-b.append(f'<text class="k" x="{x0}" y="360">{esc(why1)}</text>')
-b.append(f'<text class="k" x="{x0}" y="378">{esc(why2)}</text>')
-b.append(f'<text class="f" x="{x0}" y="{Hh - 36}">Sources: {SRC}receipts.csv (first bar; kind, wall_s, unsupported_cell_hours), '
-         f'{SRC}forecast_input_recovery/receipts.csv (second bar; reason = SUPPORT_RESTRICTED_SEARCH_NO_ROUTE for all {cc["unresolved"]}).</text>')
-b.append(f'<text class="f" x="{x0}" y="{Hh - 22}">Intermediate run on the same requests before forecast inputs were recovered: '
-         f'{cm["route"]} / {cm["refusal"]} / {cm["unresolved"]} ({SRC}support_273_receipts.csv). '
-         f'Branch: codex/experimental-corridor-router-v8, evidence/ copied byte-for-byte.</text>')
-b.append(f'<text class="f" x="{x0}" y="{Hh - 8}">Retrospective reconstructions, 30 s / 3,072 MiB guard, one Mac, run once per request; '
-         f'model-scoped results, not field safety.</text>')
+why = (f"Why: {unsup163} of the {cp['route']} routes in the first bar occupied at least one cell-hour with no native forecast value "
+       f"(zero-filled), so they are withheld when coverage is required. Absent forecast data is not proof that no route exists, so a "
+       f"request with no covered route and no unrestricted no-route proof is reported unresolved ({cc['unresolved']}).")
+blk, y = wrap(x0, 362, why, "k", 140, 19); b.append(blk)
+txt = (f"Sources: {SRC}receipts.csv (first bar: kind, wall_s, unsupported_cell_hours); {SRC}forecast_input_recovery/receipts.csv "
+       f"(second bar; reason = SUPPORT_RESTRICTED_SEARCH_NO_ROUTE for all {cc['unresolved']} unresolved). Intermediate run on the same "
+       f"requests before forecast inputs were recovered: {cm['route']} / {cm['refusal']} / {cm['unresolved']} ({SRC}support_273_receipts.csv). "
+       f"Evidence copied byte-for-byte from branch codex/experimental-corridor-router-v8. Retrospective reconstructions; 30 s / 3,072 MiB guard; "
+       f"one Mac; run once per request; model-scoped results, not field safety.")
+blk, y = wrap(x0, y + 12, txt, "f", 175, 14); b.append(blk)
 b.append("</svg>")
-(OUT / "FIGURE_B_corridor_router.svg").write_text("\n".join(b))
+(OUT / "FIGURE_B_corridor_router.svg").write_text("\n".join(b).replace('height="640"', f'height="{y + 12}"', 1)
+                                                  .replace('viewBox="0 0 1100 640"', f'viewBox="0 0 1100 {y + 12}"', 1)
+                                                  .replace('<rect width="1100" height="640"', f'<rect width="1100" height="{y + 12}"', 1))
 
 (OUT / "FIGURE_NUMBERS.json").write_text(json.dumps(nums, indent=1, ensure_ascii=False))
 print(json.dumps({k: v["value"] for k, v in nums.items()}, indent=1, ensure_ascii=False))

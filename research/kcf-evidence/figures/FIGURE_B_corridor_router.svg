@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" width="980" height="440" role="img" aria-labelledby="tb db"><title id="tb">Figure B: corridor router, 273 of 273 requests decided within 30 s</title><desc id="db">Same 273 requests under two missing-input policies: 189 routes, 84 no-route proofs, 0 unresolved; and when native forecast coverage is required 35, 114, 124.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 499" width="1100" height="499" role="img" aria-labelledby="bt bd"><title id="bt">Figure B: corridor router, 273 of 273 requests decided within 30 s; 149 when native forecast coverage is required</title><desc id="bd">Same 273 requests under two missing-input policies: 189 routes, 84 no-route proofs, 0 unresolved; and when native forecast coverage is required 35, 114, 124.</desc>
 <style>
 :root{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#6f6e69;--grid:#d9d8d3;--ok:#1a9e55;--okink:#ffffff;
 --no:#2b2b2e;--noink:#ffffff;--un:#9a9aa0;--unink:#0b0b0b;--warn:#b5560a}
@@ -10,23 +10,23 @@ text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 </style>
 <defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
 <rect width="7" height="7" fill="var(--un)"/><line x1="0" y1="0" x2="0" y2="7" stroke="var(--bg)" stroke-width="2"/></pattern></defs>
-<rect width="980" height="440" fill="var(--bg)"/>
-<text class="t" x="24" y="36">Corridor router: 273 of 273 requests decided within 30 s</text>
+<rect width="1100" height="499" fill="var(--bg)"/>
+<text class="t" x="24" y="36">Corridor router: 273 of 273 requests decided within 30 s; 149 when forecast coverage is required</text>
 <text class="s" x="24" y="58">The same 273 requests (five historical fires, reconstructed forecasts), two policies for cells where the forecast has no native value.</text>
 <text class="l" x="24" y="102">Missing forecast input allowed (zero-filled): the historical v8 run</text>
-<rect x="24.0" y="112" width="643.2" height="44" rx="3" fill="var(--ok)"/>
-<text class="n" x="345.6" y="139.0" text-anchor="middle" style="fill:var(--okink)">189</text>
-<rect x="669.2" y="112" width="284.8" height="44" rx="3" fill="var(--no)"/>
-<text class="n" x="811.6" y="139.0" text-anchor="middle" style="fill:var(--noink)">84</text>
+<rect x="24.0" y="112" width="726.3" height="44" rx="3" fill="var(--ok)"/>
+<text class="n" x="387.2" y="139.0" text-anchor="middle" style="fill:var(--okink)">189</text>
+<rect x="752.3" y="112" width="321.7" height="44" rx="3" fill="var(--no)"/>
+<text class="n" x="913.2" y="139.0" text-anchor="middle" style="fill:var(--noink)">84</text>
 <text class="s" x="24" y="178">189 routes · 84 model no-route proofs · 0 unresolved · slowest request 28.244 s of 30 s</text>
 <text class="l" x="24" y="222">Native forecast coverage required for every cell-hour a journey touches</text>
-<rect x="24.0" y="232" width="117.5" height="44" rx="3" fill="var(--ok)"/>
-<text class="n" x="82.7" y="259.0" text-anchor="middle" style="fill:var(--okink)">35</text>
-<rect x="143.5" y="232" width="387.2" height="44" rx="3" fill="var(--no)"/>
-<text class="n" x="337.1" y="259.0" text-anchor="middle" style="fill:var(--noink)">114</text>
-<rect x="532.7" y="232" width="421.3" height="44" rx="3" fill="var(--un)"/>
-<rect x="532.7" y="232" width="421.3" height="44" rx="3" fill="url(#hatch)"/>
-<text class="n" x="743.3" y="259.0" text-anchor="middle" style="fill:var(--unink)">124</text>
+<rect x="24.0" y="232" width="132.9" height="44" rx="3" fill="var(--ok)"/>
+<text class="n" x="90.4" y="259.0" text-anchor="middle" style="fill:var(--okink)">35</text>
+<rect x="158.9" y="232" width="437.3" height="44" rx="3" fill="var(--no)"/>
+<text class="n" x="377.5" y="259.0" text-anchor="middle" style="fill:var(--noink)">114</text>
+<rect x="598.2" y="232" width="475.8" height="44" rx="3" fill="var(--un)"/>
+<rect x="598.2" y="232" width="475.8" height="44" rx="3" fill="url(#hatch)"/>
+<text class="n" x="836.1" y="259.0" text-anchor="middle" style="fill:var(--unink)">124</text>
 <text class="s" x="24" y="298">35 routes · 114 model no-route proofs · 124 unresolved · slowest request 28.198 s of 30 s</text>
 <rect x="24" y="315" width="14" height="14" rx="2" fill="var(--ok)"/>
 <text class="k" x="44" y="326">checked route</text>
@@ -34,9 +34,11 @@ text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 <text class="k" x="163.0" y="326">model no-route proof</text>
 <rect x="311.0" y="315" width="14" height="14" rx="2" fill="url(#hatch)"/>
 <text class="k" x="331.0" y="326">unresolved (not a no-route proof)</text>
-<text class="k" x="24" y="360">Why: 163 of the 189 routes in the first bar occupied at least one cell-hour with no native forecast value (zero-filled), so they are withheld when coverage is required;</text>
-<text class="k" x="24" y="378">absent forecast data is not proof that no route exists, so a request with no covered route and no unrestricted no-route proof is reported unresolved (124).</text>
-<text class="f" x="24" y="404">Sources: research/kcf-evidence/sources/corridor-router-v8/receipts.csv (first bar; kind, wall_s, unsupported_cell_hours), research/kcf-evidence/sources/corridor-router-v8/forecast_input_recovery/receipts.csv (second bar; reason = SUPPORT_RESTRICTED_SEARCH_NO_ROUTE for all 124).</text>
-<text class="f" x="24" y="418">Intermediate run on the same requests before forecast inputs were recovered: 28 / 78 / 167 (research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv). Branch: codex/experimental-corridor-router-v8, evidence/ copied byte-for-byte.</text>
-<text class="f" x="24" y="432">Retrospective reconstructions, 30 s / 3,072 MiB guard, one Mac, run once per request; model-scoped results, not field safety.</text>
+<text class="k" x="24" y="362">Why: 163 of the 189 routes in the first bar occupied at least one cell-hour with no native forecast value (zero-filled), so they are</text>
+<text class="k" x="24" y="381">withheld when coverage is required. Absent forecast data is not proof that no route exists, so a request with no covered route and no</text>
+<text class="k" x="24" y="400">unrestricted no-route proof is reported unresolved (124).</text>
+<text class="f" x="24" y="431">Sources: research/kcf-evidence/sources/corridor-router-v8/receipts.csv (first bar: kind, wall_s, unsupported_cell_hours); research/kcf-evidence/sources/corridor-</text>
+<text class="f" x="24" y="445">router-v8/forecast_input_recovery/receipts.csv (second bar; reason = SUPPORT_RESTRICTED_SEARCH_NO_ROUTE for all 124 unresolved). Intermediate run on the same requests before</text>
+<text class="f" x="24" y="459">forecast inputs were recovered: 28 / 78 / 167 (research/kcf-evidence/sources/corridor-router-v8/support_273_receipts.csv). Evidence copied byte-for-byte from branch</text>
+<text class="f" x="24" y="473">codex/experimental-corridor-router-v8. Retrospective reconstructions; 30 s / 3,072 MiB guard; one Mac; run once per request; model-scoped results, not field safety.</text>
 </svg>
