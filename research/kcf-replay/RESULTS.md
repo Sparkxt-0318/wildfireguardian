@@ -186,7 +186,9 @@ A route reached later than that is not counted.
 * **Routing scope:** no congestion, no return trips, and travel between a place and its 진입 지점 is not modelled (as in
   the planner).
 * **Road names:** roads are OSM way ids; names are not resolved.
-* **Planner cache** ([planner_cache/RUNNING_8h](planner_cache/RUNNING_8h)):
+* **Planner cache** ([planner_cache/RUNNING_8h](planner_cache/RUNNING_8h); also [MEASURED_8h](planner_cache/MEASURED_8h) and
+  [MEASURED_GUST_8h](planner_cache/MEASURED_GUST_8h), PROVISIONAL, written 17 Nov 2026 from a re-run of `replay.py` for those two
+  arms at 8 h; every place-hour matches `per_place.csv` on the 30-minute grid, `tests/planner/replay.test.ts`):
   * Verdicts come from the field, not the Route-Check API, on a 30-minute grid.
   * The app labels the input "2025년 실제 산불 기록 기반 시나리오 재현" and shows its test-data badge
     (시험 데이터 · 평가 호스트 아님).
