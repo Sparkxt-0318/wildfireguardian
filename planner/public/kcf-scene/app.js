@@ -139,7 +139,7 @@
   }
   // the 13 issue times, the 8 h horizon and the 30-min planner grid are fixed by the frozen rule / the cache generator
   function issueSpan(k) { return '<span' + srcAttr(SRC.hotspot_rule, 'Issue times: 2025-03-25 03:00 … 15:00 UTC = 12:00 … 24:00 KST (scene.js issue_kst[' + k + '])') + '>' + esc(issueLabel(k)) + '</span>'; }
-  function horizonSpan() { return '<span' + srcAttr(SRC.hotspot_rule, 'horizon H = 8 h (Latest safe departure; replay.py HORIZONS)') + '>8 h</span>'; }
+  function horizonSpan() { return '<span class="nc"' + srcAttr(SRC.hotspot_rule, 'horizon H = 8 h (Latest safe departure; replay.py HORIZONS)') + '>8 h</span>'; }
   function shelterSpan(id, h, k) { return '<span' + srcAttr(SRC.per_place, h ? csvDetail(h, 'shelter_name / shelter_id', null, k) : 'shelter_name / shelter_id') + '>' + esc(shelterName(id)) + '</span>'; }
   var APP_JS = 'planner/public/kcf-scene/app.js';
   function standinInfo(name) { return (S.standins && S.standins[name || st.standin]) || { label: name || st.standin }; }
@@ -178,6 +178,9 @@
     ring.push(ring[0]);
     return ring;
   }
+  // a place is drawn at its road entry: per_place.csv evaluates its distance, step and clock there, and its witness road
+  // starts there (the OSM place point can be up to 1.9 km away)
+  function placeLL(p) { return p.entry || [p.lon, p.lat]; }
   function distM(a, b) {
     var R = 6371008.8, la1 = a[1] * Math.PI / 180, la2 = b[1] * Math.PI / 180, dla = la2 - la1, dlo = (b[0] - a[0]) * Math.PI / 180;
     var h = Math.sin(dla / 2) * Math.sin(dla / 2) + Math.cos(la1) * Math.cos(la2) * Math.sin(dlo / 2) * Math.sin(dlo / 2);
@@ -278,7 +281,7 @@
         id: p.id, name: p.label, step: h.step || 'NONE', inside: h.state === 'INSIDE_KNOWN_FIRE_AREA' ? 1 : 0,
         label: p.label + '\n' + clock, named: p.named ? 1 : 0, vul: p.vulnerable ? 1 : 0,
         sort: p.named ? 0 : (h.state === 'LATEST_SAFE_DEPARTURE' ? 1 + lsdMin : 5000)
-      }, geometry: { type: 'Point', coordinates: [p.lon, p.lat] } };
+      }, geometry: { type: 'Point', coordinates: placeLL(p) } };
     }) };
   }
 
@@ -310,6 +313,7 @@
         places: { type: 'geojson', data: emptyFC() },
         route: { type: 'geojson', data: emptyFC() },
         walk: { type: 'geojson', data: emptyFC() },
+        walkTip: { type: 'geojson', data: emptyFC() },
         mark: { type: 'geojson', data: emptyFC() }
       },
       layers: [
@@ -329,6 +333,7 @@
         { id: 'route-casing', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#05080c', 'line-width': ['interpolate', ['linear'], ['zoom'], 10, 5, 16, 13, 19, 22] } },
         { id: 'route-line', type: 'line', source: 'route', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': COLORS.route, 'line-width': ['interpolate', ['linear'], ['zoom'], 10, 2.5, 16, 8, 19, 14] } },
         { id: 'walk-line', type: 'line', source: 'walk', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': ['interpolate', ['linear'], ['zoom'], 10, 2.5, 16, 6, 19, 10] } },
+        { id: 'walk-tip-line', type: 'line', source: 'walkTip', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': ['interpolate', ['linear'], ['zoom'], 10, 2.5, 16, 6, 19, 10] } },
         { id: 'mark-cell', type: 'line', source: 'mark', filter: ['==', ['get', 'kind'], 'failcell'], paint: { 'line-color': COLORS.fail, 'line-width': 4 } },
         { id: 'towns', type: 'symbol', source: 'towns', maxzoom: 12.5, layout: { 'text-field': ['get', 'name'], 'text-font': ['Noto Sans Regular'], 'text-size': 12, 'text-allow-overlap': false }, paint: { 'text-color': '#aeb7c6', 'text-halo-color': '#0b0e14', 'text-halo-width': 1.4 } },
         { id: 'places-circle', type: 'circle', source: 'places', paint: {
@@ -438,7 +443,7 @@
       '<div class="li"><span class="dot" style="background:' + COLORS.none + '"></span>no step</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.inside + ';border-color:' + COLORS.insideStroke + '"></span>inside the known fire area</div>' +
       '<div class="li"><span class="sw" style="background:' + COLORS.route + '"></span>witness road · <span style="color:' + COLORS.shelter + '">●</span> shelter</div>' +
-      '<div class="note" style="margin-top:4px">Label: latest safe departure under ' + esc(shortLabel()) + ', 8 h horizon.</div>';
+      '<div class="note" style="margin-top:4px">Label: latest safe departure under ' + esc(shortLabel()) + ', 8 h horizon. A place is drawn at its road entry, where per_place.csv evaluates it on the 375 m cells.</div>';
   }
 
   // ------------------------------------------------------------------ UI: summary card (level 1)
@@ -556,7 +561,7 @@
     html += '<div id="verdict"></div>';
     // the same place and screen under every R(h) arm (per_place.csv rows); a row click switches the arm
     var order = S.standin_order || Object.keys(S.hourly);
-    html += '<div class="sec"><h4>This screen under each R(h) (' + horizonSpan() + ')</h4><table class="hours arms">';
+    html += '<div class="sec"><h4>This screen under each <span class="nc">R(h)</span> (' + horizonSpan() + ')</h4><table class="hours arms">';
     order.forEach(function (a) {
       var ha = hourly(p.id, k, a); if (!ha) return;
       var ca = armClass(a, k);
@@ -695,6 +700,7 @@
     $('sources').innerHTML = '<div class="hd" id="sourcesHd">' + (st.sourcesOpen ? '▾' : '▸') + ' Sources of what is on screen (' + order.length + ' files) · S</div><div class="bd">' + body +
       '<div class="d">Every file above is committed. Built ' + esc((S.built && S.built.commit || '').slice(0, 10)) + ' by ' + esc(SRC.build_scene) + '; check: research/kcf-replay/scene/VERIFY.json.</div></div>';
     $('sources').classList.toggle('collapsed', !st.sourcesOpen);
+    document.body.classList.toggle('sources-open', !!st.sourcesOpen);
     $('sourcesHd').addEventListener('click', function () { st.sourcesOpen = !st.sourcesOpen; renderSources(); });
   }
 
@@ -774,7 +780,7 @@
     var p = st.place, k = kOf(st.s);
     var feats = [], marks = [];
     if (p) {
-      marks.push({ type: 'Feature', properties: { kind: 'place' }, geometry: { type: 'Point', coordinates: [p.lon, p.lat] } });
+      marks.push({ type: 'Feature', properties: { kind: 'place' }, geometry: { type: 'Point', coordinates: placeLL(p) } });
       var rt = routeOf(p.id, k);
       if (rt) {
         feats.push({ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: routeCoords(p.region, rt) } });
@@ -789,13 +795,13 @@
     map.getSource('route').setData({ type: 'FeatureCollection', features: feats });
     map.getSource('mark').setData({ type: 'FeatureCollection', features: marks });
   }
-  function clearWalk() { if (map.getSource('walk')) map.getSource('walk').setData(emptyFC()); }
+  function clearWalk() { if (map.getSource('walk')) map.getSource('walk').setData(emptyFC()); if (map.getSource('walkTip')) map.getSource('walkTip').setData(emptyFC()); }
   function setWalk(coordsUpTo) {
     map.getSource('walk').setData(coordsUpTo.length >= 2 ? { type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: coordsUpTo } }] } : emptyFC());
   }
 
   function cameraFor(p, rt) {
-    var pts = [[p.lon, p.lat]];
+    var pts = [placeLL(p)];
     if (rt) pts = pts.concat(routeCoords(p.region, rt));
     var b = new maplibregl.LngLatBounds(pts[0], pts[0]);
     pts.forEach(function (c) { b.extend(c); });
@@ -940,8 +946,11 @@
     var gV = elevAt(pos.p) || 0, gC = Math.max(elevAt(camLL) || 0, elevAt(offset(pos.p, dv.heading, -BACK_M / 2)) || 0);
     var eyeTarget = Math.max(gV + EYE_M, gC + 15);
     dv.eye = (dv.eye == null || (opts && opts.snap)) ? eyeTarget : dv.eye + (eyeTarget - dv.eye) * 0.12;
-    // aim so the vehicle sits about 11 degrees below the view centre, whatever the ground does
-    var angV = Math.atan2(dv.eye - gV, BACK_M) * 180 / Math.PI, a = Math.max(2, angV - 11) * Math.PI / 180;
+    dv.eye = Math.max(gV + EYE_M, dv.eye); // smoothing may lag a climb, never below EYE_M above the vehicle
+    // aim so the vehicle sits about 11 degrees below the view centre, whatever the ground does. The aim never asks for
+    // more than the pitch cap (pitch = 90 - aim): clamping the pitch afterwards would move the camera and drop the
+    // vehicle under the caption
+    var angV = Math.atan2(dv.eye - gV, BACK_M) * 180 / Math.PI, a = Math.max(90 - (LITE ? 72 : 82), angV - 11) * Math.PI / 180;
     var lookAlt = dv.eye - Math.tan(a) * (BACK_M + AHEAD_M);
     var cam = map.calculateCameraOptionsFromTo(maplibregl.LngLat.convert(camLL), dv.eye, maplibregl.LngLat.convert(lookLL), lookAlt);
     if (cam) { cam.pitch = Math.min(LITE ? 72 : 82, cam.pitch); map.jumpTo(cam); }
@@ -957,8 +966,13 @@
     setFire(3600 * dv.k + tq);
     var nClosed = upperBound(dv.closeTimes, tq);
     if (nClosed !== dv.nClosed) { dv.nClosed = nClosed; lastCellKey = null; setCells(dv.k, tq); }
-    // the travelled road: redrawn when the vehicle reaches a new vertex (a draped source; not every frame)
+    // the travelled road: redrawn when the vehicle reaches a new vertex (a draped source; not every frame), plus a
+    // two-point tip from the last vertex to the vehicle so the trail does not fall behind on long edges
     if (pos.i !== dv.walkI || tau >= dv.rt.arr) { dv.walkI = pos.i; setWalk(dv.pts.slice(0, pos.i + 1).concat([pos.p])); }
+    if (!dv.tipP || dv.tipP[0] !== pos.p[0] || dv.tipP[1] !== pos.p[1]) {
+      dv.tipP = pos.p;
+      map.getSource('walkTip').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [dv.pts[pos.i], pos.p] } }] });
+    }
     // the vehicle is a DOM marker, so moving it does not re-drape the terrain
     if (!vehicleMarker) { var el = document.createElement('div'); el.className = 'vehicle'; vehicleMarker = new maplibregl.Marker({ element: el }); }
     vehicleMarker.setLngLat(pos.p);
@@ -1111,7 +1125,7 @@
       map.getCanvas().style.cursor = 'pointer';
       var f = e.features && e.features[0]; if (!f || st.drive) return;
       var p = placeById[f.properties.id], k = kOf(st.s), h = hourly(p.id, k); if (!h) return;
-      tip.setLngLat([p.lon, p.lat]).setHTML('<b>' + esc(p.label) + '</b><br><span class="step ' + esc(stepClass(h)) + '"' + srcAttr(SRC.per_place, csvDetail(h, 'government_step', null, k)) + '>' + esc((STEP_TXT[h.step] || [h.step])[0]) + '</span> <span' + srcAttr(SRC.per_place, csvDetail(h, h.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', null, k)) + '>' + esc(h.state === 'LATEST_SAFE_DEPARTURE' ? 'leave by ' + csvClock(h.lsd) : placeClock(h)) + '</span><br><small>per_place.csv line ' + (h.row + 1) + ' · ' + esc(issueLabel(k)) + ' screen · click for the place view</small>').addTo(map);
+      tip.setLngLat(placeLL(p)).setHTML('<b>' + esc(p.label) + '</b><br><span class="step ' + esc(stepClass(h)) + '"' + srcAttr(SRC.per_place, csvDetail(h, 'government_step', null, k)) + '>' + esc((STEP_TXT[h.step] || [h.step])[0]) + '</span> <span' + srcAttr(SRC.per_place, csvDetail(h, h.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', null, k)) + '>' + esc(h.state === 'LATEST_SAFE_DEPARTURE' ? 'leave by ' + csvClock(h.lsd) : placeClock(h)) + '</span><br><small>per_place.csv line ' + (h.row + 1) + ' · ' + esc(issueLabel(k)) + ' screen · click for the place view</small>').addTo(map);
     });
     map.on('mouseleave', 'places-circle', function () { map.getCanvas().style.cursor = ''; tip.remove(); });
     document.addEventListener('keydown', function (e) {
@@ -1149,7 +1163,7 @@
     var k = Q.has('tourIssue') ? Number(Q.get('tourIssue')) : 4;
     var c0 = map.cameraForBounds(new maplibregl.LngLatBounds(bounds0[0], bounds0[1]), { padding: { top: 80, bottom: 150, left: 40, right: 40 }, bearing: -8 });
     var region = { center: [c0.center.lng, c0.center.lat], zoom: c0.zoom, pitch: 52, bearing: -8 };
-    var near = { center: [lerp(region.center[0], p.lon, 0.55), lerp(region.center[1], p.lat, 0.55)], zoom: region.zoom + 0.7, pitch: 55, bearing: 4 };
+    var pll = placeLL(p), near = { center: [lerp(region.center[0], pll[0], 0.55), lerp(region.center[1], pll[1], 0.55)], zoom: region.zoom + 0.7, pitch: 55, bearing: 4 };
     var pc = cameraFor(p, routeOf(p.id, k));
     var placeCam = { center: [pc.center.lng, pc.center.lat], zoom: Math.min(pc.zoom, 14.2), pitch: 58, bearing: 4 };
     TOUR_PLAN = { p: p, k: k, region: region, near: near, placeCam: placeCam, duration: 90 };
@@ -1198,6 +1212,7 @@
       enter('end', function () { if (!st.drive) { arm('RUNNING'); ensurePlace(); startDrive({ manual: true }); } driveSeek(1); });
     }
     captions();
+    st.sourcesOpen = t >= 34 && t < 38; // the recording shows the source paths once, next to the PASS result
     renderSources(); // after the caption: it lists the files behind what is on screen, the caption included
     return waitIdle();
   }

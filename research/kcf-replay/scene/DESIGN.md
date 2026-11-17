@@ -122,7 +122,7 @@ curve (0, 0), (5 h, R5), (8 h, R8), never beyond R8. Every place panel shows the
 state, step, and whether the full record reached the road first), labelled "not a ranking".
 
 * **Level 1, region.** Terrain of 의성·안동–영덕. Slider over the 13 issue hours. Known fire area (discs before the issue
-  hour). Road cells drawn closed from their closure time. Every place: a dot coloured by its government step and a label
+  hour). Road cells drawn closed from their closure time. Every place: a dot at its road entry (where per_place.csv evaluates it) coloured by its government step and a label
   with its leave-by clock (latest safe departure) or its state ("not cut in 8 h", "inside known fire area", "no safe
   departure"). Labels that would overlap are hidden by MapLibre at region zoom; hovering a dot shows its step and clock.
 * **Level 2, place.** Click a place (or one of the six bookmarks). Shelter, witness route on the terrain, latest safe

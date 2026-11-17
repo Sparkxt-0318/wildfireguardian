@@ -31,7 +31,7 @@ small, em { font-style: normal; }
 
 /* top bar: always visible, every level */
 #topbar { position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 14px;
-  padding: 8px 12px; background: linear-gradient(#0b0e14f2, #0b0e14d9); border-bottom: 1px solid var(--line); }
+  padding: 8px 12px; background: #0b0e14; border-bottom: 1px solid var(--line); } /* opaque: map labels must not show through */
 #topbar .title { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
 #topbar .title strong { font-size: 16px; }
 #topbar .title span { color: var(--ink-2); font-size: 12px; white-space: nowrap; }
@@ -95,6 +95,7 @@ small, em { font-style: normal; }
 .verdict .mismatch { color: var(--fail); font-weight: 700; }
 .sec { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--line); }
 .sec h4 { margin: 0 0 6px; font-size: 13px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .4px; }
+.sec h4 .nc { text-transform: none; } /* notation and units keep their case: R(h), 8 h */
 .strip { display: grid; grid-template-columns: 96px repeat(16, 1fr); gap: 2px; align-items: center; font-size: 11px; margin-bottom: 3px; }
 .strip .sh { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .strip i { display: block; height: 12px; border-radius: 2px; background: #2a2f39; }
@@ -188,6 +189,9 @@ body.driving #sources { bottom: 80px; }
 body.driving #map { bottom: 72px; }
 body.panel-open #caption { max-width: calc(100% - 430px); }
 body.driving #caption { bottom: 118px; }
+/* the open sources panel sits where the caption starts: move the caption to its right */
+body.sources-open #caption { left: 444px; max-width: calc(100% - 456px); }
+body.sources-open.panel-open #caption { max-width: calc(100% - 930px); } /* clear of the zoom buttons */
 .note span[data-src] { overflow-wrap: anywhere; }
 
 .vehicle { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #0b0d12; box-shadow: 0 0 0 3px #5ef0ff; }
