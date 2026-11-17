@@ -79,3 +79,15 @@ and is reported as such.
    - With the KMA series, the hour-by-hour tables are no longer labelled PROVISIONAL (the KMA gust is observed, not a perfect forecast,
      for hours already past; for the forward window it is still the realised series read as a perfect forecast, ASSUMED).
 
+3. **2026-11-17, after a data-quality look at the KMA hourly file (missing codes, `GST_TM`, agreement with the daily maxima), before any class,
+   R-held or 10-11 KST result was computed.** What the file turned out to be: `GST_WS` is `-9` in 370 of 474 station-hours and a number in 104;
+   the smallest number is 10.0; numbers are whole m/s (the daily 17.9 appears as 17, 25.1 as 25); and 30 of the 104 numbers carry a `GST_TM` outside the
+   hour of their row (an earlier gust repeated in later rows). Against the daily `maxInsWs` of the same stations (data.go.kr), a gust record
+   exists on a day exactly when the daily maximum is >= 10 m/s, in 20 of 20 station-days, and its time matches. Rules, fixed now:
+   - A record counts for stamp H only if `GST_TM` is in (H-1 h, H]. A record outside that hour is a repeat of an earlier gust and is dropped.
+   - No record (`-9`) is read as "no gust >= 10 m/s", so class < 10. **This is inferred** from the minimum of 10.0 and the 20-of-20 agreement; the help text I read does not
+     state the threshold. All three classes can then be assigned from KMA.
+   - Values are truncated to whole m/s, so a true gust of 19.x reads 19 and a >= 20 can be understated by under 1 m/s.
+   - Cheongsong (276) has no row from 21:00 on 25 March to 02:00 on 26 March (6 stamps); the fire-wide value is the maximum over the stations present.
+     Yeongyang is not covered (amendment 2).
+   - ERA5 stays as the secondary series, unchanged, and is shown beside KMA.
