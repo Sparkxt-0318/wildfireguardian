@@ -52,8 +52,9 @@ export const REPLAY_PACKS: readonly ReplayPack[] = [
     results: 'research/kcf-replay/RESULTS.md',
   },
   {
-    // research/kcf-margin (MEASURED R(h)) has landed; the replay re-run with it has not:
-    // no planner cache for a MEASURED arm exists in research/kcf-replay/planner_cache.
+    // The MEASURED and MEASURED_GUST arms are in research/kcf-replay/per_place.csv and RESULTS.md (2b), but no planner
+    // cache for them exists in research/kcf-replay/planner_cache: it needs replay.py's out/runs for that arm, then
+    // make_planner_cache.py out/runs planner_cache/MEASURED_8h --standin MEASURED --horizon 8h (see the HOOK above).
     id: 'kcf-replay-MEASURED',
     status: 'pending',
     source: null,
