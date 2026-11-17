@@ -95,7 +95,7 @@ jobs:
   # 25 March replay (planner/scripts/check_live_site.mjs). Screenshots and report.json are uploaded.
   verify-live:
     needs: deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright's Chromium install supports 24.04; ubuntu-latest is 26.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
