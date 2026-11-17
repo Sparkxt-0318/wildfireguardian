@@ -579,12 +579,15 @@
       html += '</div>';
     } else {
       html = '<div class="verdict fail"><div class="v">FAIL</div>';
+      var depA = srcAttr(SCENE_JS, routeKey + ' → ld + ' + c.offset + ' s (re-walk start)');
+      var walkA = srcAttr(SCENE_JS, routeKey + ' → re-walked: start + edge travel ticks (graph travel_ticks)');
+      var dwellA = srcAttr(SRC.replay_py, 'DWELL = 120 (seconds at the shelter)');
       if (r.overH) {
-        html += '<div>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle arrives <b>' + esc(kst(3600 * k + r.arrival, true)) + '</b>, and arrival + the ' + DWELL + ' s dwell ends after the <span' + srcAttr(SCENE_JS, 'horizon_s = 28800 (HOTSPOT_RULE.md, horizon H)') + '>8 h</span> horizon of the ' + issueSpan(k) + ' screen. No road cell on the way is closed.</div>';
+        html += '<div' + walkA + '>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle arrives <b>' + esc(kst(3600 * k + r.arrival, true)) + '</b>, and arrival + the <span' + dwellA + '>' + DWELL + ' s</span> dwell ends after the <span' + srcAttr(SCENE_JS, 'horizon_s = 28800 (HOTSPOT_RULE.md, horizon H)') + '>8 h</span> horizon of the ' + issueSpan(k) + ' screen. No road cell on the way is closed.</div>';
       } else if (r.shelterCell) {
-        html += '<div>arrives ' + esc(kst(3600 * k + r.arrival, true)) + ', but the shelter cell closes at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell) + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>, before the ' + DWELL + ' s dwell ends.</div>';
+        html += '<div>arrives <span' + walkA + '>' + esc(kst(3600 * k + r.arrival, true)) + '</span>, but the shelter cell closes at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell) + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>, before the <span' + dwellA + '>' + DWELL + ' s</span> dwell ends.</div>';
       } else {
-        html += '<div>leaving <b>' + esc(kst(dep, true)) + '</b>, the vehicle would leave road cell ' + r.cell + ' (edge ' + (r.edge + 1) + ' of ' + rt.e.length + ') at <b>' + esc(kst(3600 * k + r.leaveAt, true)) + '</b>; the ' + esc(issueLabel(k)) + ' screen closes that cell at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell + ' (T + h* where R(h*) = distance, HOTSPOT_RULE.md)') + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>.</div>';
+        html += '<div>leaving <b' + depA + '>' + esc(kst(dep, true)) + '</b>, the vehicle would leave <span' + srcAttr(SCENE_JS, routeKey + ' → e[' + r.edge + '] segment in road cell ' + r.cell + ' (routeEdges seg, graph.json)') + '>road cell ' + r.cell + ' (edge ' + (r.edge + 1) + ' of ' + rt.e.length + ')</span> at <b' + walkA + '>' + esc(kst(3600 * k + r.leaveAt, true)) + '</b>; the ' + issueSpan(k) + ' screen closes that cell at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell + ' (T + h* where R(h*) = distance, HOTSPOT_RULE.md)') + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>.</div>';
       }
       var hh0 = hourly(c.placeId, k, c.standin);
       if (hh0 && hh0.state === 'LATEST_SAFE_DEPARTURE') html += '<div class="muted">This tests this road only. The deadline field (F-3.1) says no road to any of the 3 candidate shelters works after the latest safe departure.</div>';

@@ -127,7 +127,10 @@ try {
         return { ok0: a.ok, arr0: a.arrival, committed: rt.arr, ok60: b.ok, v1: v1.slice(0, 160), v2: v2.slice(0, 160) };
       });
       checks.push({ id, k, ...r });
-      if (k === 6) { await page.evaluate(() => window.KCF_APP.check(0)); await record(`check-${i + 1}`); if (i === 2) await shot('2-place-check'); }
+      if (k === 6) {
+        await page.evaluate(() => window.KCF_APP.check(0)); await record(`check-${i + 1}`); if (i === 1) await shot('2-place-check');
+        await page.evaluate(() => window.KCF_APP.check(60)); await record(`later-${i + 1}`);
+      }
     }
   }
   // drive (level 3) at 18:00 for bookmark 3
