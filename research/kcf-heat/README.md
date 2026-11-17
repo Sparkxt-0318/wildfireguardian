@@ -11,7 +11,8 @@ called from `experimental/flame-front-radiation` unchanged.
 |---|---|
 | [DERIVATION.md](DERIVATION.md) | why 0.703; the line-source law; T\* = χE_A/(2πq\*) − t_r/2; packet values; verdict and limits |
 | [FDS_CHECK.md](FDS_CHECK.md) | B.1 reproduction with corrections; B.2 FDS radiometer rerun; one figure; the v2 factor-of-three gate decision |
-| [ROUTING_EFFECT.md](ROUTING_EFFECT.md) | the closure rule; one table of leave-by shifts, lost routes and witness TDU; the multi-hour status |
+| [ROUTING_EFFECT.md](ROUTING_EFFECT.md) | the closure rule; leave-by shifts, lost routes and witness TDU; the dose budget inside the field; the 48 multi-hour HEADLINE packets |
+| [TDU_FIELD.md](TDU_FIELD.md) | how the thermal-dose budget is enforced inside the deadline field, why it is exact, and its checks |
 
 ## Results in brief
 
@@ -27,8 +28,15 @@ called from `experimental/flame-front-radiation` unchanged.
   its route. Witness doses:
   * 30 of 15,727 witnesses exceed the pain / first-degree thresholds (92 / 105 TDU), none the second-degree one
     (290 TDU; HSL/2004/04);
-  * without heat, 16 exceed 1000 TDU;
-  * the multi-hour runs are NOT RUN (inputs absent here).
+  * without heat, 16 exceed 1000 TDU.
+* **C.4.** The dose budget is enforced inside the field: an exact minimum-dose search, checked against an exhaustive
+  oracle and independent dose bounds.
+  * **1-hour panel:** it moves 4 of 507 leave-bys at 92 TDU (184–453 s) and 3 at 290 TDU (21–51 s). No route is
+    lost.
+  * **Multi-hour HEADLINE** (48 F-DYN scenario packets; F-3.1's `cert` reproduced for 4,176 / 4,176 place-runs):
+    * heat moves 28 of 286 places, by 84–350 s;
+    * the dose limit then moves 22 / 21 / 16 places at 92 / 105 / 290 TDU, by up to 529 s;
+    * 2 places lose their route, only when the 120 s shelter stay is counted as outdoors.
 
 ## Layout
 
@@ -39,15 +47,20 @@ called from `experimental/flame-front-radiation` unchanged.
 | `kcf_heat/v2_adapter.py` | evaluates the repo's v2 panel law on a straight front |
 | `kcf_heat/closure.py` | `HeatRule`, `HeatPacketModel` (variant `cert_heat`) |
 | `kcf_heat/exposure.py` | flux along witness routes, TDU |
-| `scripts/` | B.1, FDS input and guarded run, slice stitching, B.2 comparison and absorption fit, figure, C.2 1-hour and multi-hour runners, summary, TDU |
-| `tests/` | 28 tests: numerical-integration checks of the derivation, voxel and TDU, and closure against a sampling oracle on a real packet |
-| `data/` | small evidence files: FDS inputs, devices, HRR, guards, both runs, orientation check; B.1 and B.2 JSON; 1-hour summaries and TDU counts |
+| `kcf_heat/dose.py` | per-move dose (edges, waits, dwells) as integer run-length costs, from an upper flux bound per second |
+| `kcf_heat/tdu_field.py` | minimum-dose deadline field (Dijkstra on dose over F-3.1's time-expanded graph), issue values, witnesses |
+| `kcf_heat/dose_check.py` | independent sampled lower / upper dose bounds for checking witnesses |
+| `scripts/` | B.1, FDS input and guarded run, slice stitching, B.2 comparison and absorption fit, figure, C.2 1-hour and multi-hour runners, summary, TDU witness check, C.4 1-hour TDU runner, multi-hour batch and summary, F-DYN input rebuild |
+| `tests/` | 34 tests: numerical-integration checks of the derivation, voxel and TDU, closure against a sampling oracle on a real packet, the TDU field against an exhaustive oracle, the dose model against independent bounds |
+| `data/` | small evidence files: FDS inputs, devices, HRR, guards, both runs, orientation check; B.1 and B.2 JSON; 1-hour summaries and TDU counts; C.4 1-hour results (`tdu_1h/`) and multi-hour summaries (`multihour/`) |
 | `figures/fds_check.png` | the FDS_CHECK figure |
 
 ## Requirements
 
 * Python 3.12, numpy (1.26.4 used), matplotlib, pytest.
 * The frozen routing inputs (`python tools/fetch_routing_inputs.py`). The closure tests skip without them.
+* For the multi-hour runs: a Python with numpy, pandas, pyproj, rasterio and scipy (F-DYN's builders), and the
+  repository refs listed in `scripts/fdyn_rebuild_inputs.sh`.
 * For B.1 and B.2: the attached study zip `WildfireGuardian_C064_Temporal_Helicopter_Study.zip` (sha256 `5524404f…`)
   and FDS 6.11.1.
 
