@@ -1,9 +1,9 @@
 # KCF replay 3D scene — presenter click script (one page, about 4 minutes)
 
 **Open** `https://sparkxt-0318.github.io/wildfireguardian/kcf-scene/` — or offline: the `kcf-scene` folder on the laptop, double-click
-`index.html`. Press **F11**. Wait until the loading screen goes (measured cold load: see `MEASUREMENTS.md`). Top left must show
+`index.html`. Press **F11**. Wait until the loading screen goes: 17–20 s measured on a machine with **no GPU** (upper bound; `MEASUREMENTS.md`). Time one cold load on the presentation laptop the day before. A "No GPU in use" notice means hardware acceleration is off: turn it on or use the fallback. Top left must show
 **시험 데이터 · 평가 호스트 아님** and **reconstruction from the 2025 record**; they stay on every view.
-**Fallback:** play `kcf_scene_tour_90s.mp4` (same three levels, 90 s, captioned).
+**Fallback:** play `research/kcf-replay/scene/kcf_scene_tour_90s.mp4` (copy it next to the folder) (same three levels, 90 s, captioned).
 
 | # | Do | Screen shows (all from committed files) | Say |
 |---|---|---|---|
@@ -13,7 +13,7 @@
 | 4 | **C** (Check it) | Road re-walked edge by edge: **PASS**, arrive 18:38:29, "same arrival second as committed" | "The button re-walks the road against every closure, in the browser — and lands on the committed arrival second." |
 | 5 | **L** (One minute later) | **FAIL**: leaving 18:34:40, cell 3128 closes 18:33:44 | "One minute later, the same road is cut." |
 | 6 | Point at the panel | "route reached earlier by the reconstruction: **yes** (first cut 18:02)"; pink ◆ on the slider and the REPORTED list: 18:00 order + CBS, 18:25, 18:58, 19:04, 20:25 (뉴스로, SINGLE) | "We show where it fails: the full record reached this road at 18:02 — one of the 108 place-hours counted in RESULTS §5. Pink diamonds are reported times, single-source, not outcomes." |
-| 7 | **D** (Drive it) | Level 3 Road: about 30 s chase view, clock 18:33:40 → 18:38:29, ×10; orange = detections before each moment | "The drive starts at the departure second; the fire is what the satellites had seen at each moment." |
+| 7 | **D** (Drive it) | Level 3 Road: about 30 s chase view behind the vehicle, clock 18:33:40 → 18:38:29, ×10; orange = detections before each moment | "The drive starts at the departure second; the fire is what the satellites had seen at each moment." |
 | 8 | **Esc**, then **→** **→** **→** | 17:00: leave by 18:18 · 18:00: **18:03** · 19:00: inside known fire area | "Each later screen leaves less time, until the place is inside the known fire area." |
 | 9 | **S**, then **H** | Sources panel: every file behind what is on screen; back to the region | "Every number on screen comes from a committed file; this panel names it." |
 

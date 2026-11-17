@@ -391,7 +391,7 @@
     $('legend').innerHTML =
       '<div class="li"><span class="sw" style="background:' + COLORS.fireOld + '"></span>known fire area: detections before the issue hour (solid: FIRMS 375 m / 1 km; light: AHI "fire within 2 km")</div>' +
       '<div class="li"><span class="sw" style="background:' + COLORS.fire + '"></span>… detected in the last hour before it</div>' +
-      '<div class="li"><span class="sw" style="background:' + COLORS.closed + ';opacity:.8"></span>road cell (375 m) closed by this screen: issue time + the time R(h) takes to reach it; each hourly screen recomputes its closures from its own known fire area</div>' +
+      '<div class="li"><span class="sw" style="background:' + COLORS.closed + ';opacity:.8"></span>road cell (375 m) closed by this screen (when R(h) reaches it; recomputed every hour)</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.leave + '"></span>위험구역 (5 h), read here as "leave now"</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.vuln + '"></span>잠재적 위험구역 (8 h): vulnerable first</div>' +
       '<div class="li"><span class="dot" style="background:' + COLORS.none + '"></span>no step</div>' +
@@ -1055,20 +1055,21 @@
   function caption(html) { var c = $('caption'); c.hidden = !html; if (html && c.innerHTML !== html) c.innerHTML = html; }
   function tourSeek(t) {
     var P = tourPlan(), p = P.p, k = P.k;
+    function ensurePlace() { if (kOf(st.s) !== k || st.s !== 3600 * k) setTime(3600 * k, { full: true }); if (!st.place || st.place.id !== p.id) selectPlace(p.id, { noCamera: true }); }
     function enter(phase, fn) { if (tourState.phase !== phase) { tourState.phase = phase; fn(); } }
     if (t < 22) caption('<b>1 · REGION</b>known fire area = satellite detections before each issue hour · violet road cells close when R(h) reaches them · every place: government step and leave-by clock');
     else if (t < 50) caption('<b>2 · PLACE</b>' + esc(p.name) + ': shelter, witness road on the terrain, latest safe departure · "Check it" re-walks the road against the ' + esc(issueLabel(k)) + ' closures' + (t >= 41 ? ' · one minute later: same road, 60 s later' : ''));
-    else caption('<b>3 · ROAD</b>first-person drive along the witness road' + (st.drive ? ', playback ×' + st.drive.speed : '') + ' · fire = detections time-stamped before each moment · violet = cells the ' + esc(issueLabel(k)) + ' screen has closed');
+    else caption('<b>3 · ROAD</b>drive along the witness road from the latest safe departure (chase view' + (st.drive ? ', playback ×' + st.drive.speed : '') + ') · fire = detections time-stamped before each moment · violet = cells the ' + esc(issueLabel(k)) + ' screen has closed');
     if (t < 22) {
       enter('region', function () { stopDrive(true); st.place = null; st.view = 'region'; st.check = null; clearWalk(); map.setTerrain({ source: 'dem', exaggeration: EXAG.region }); refreshAll(); });
       var f = t < 3 ? 0 : (t - 3) / 17;
       setTime(Math.min(3600 * k, 3600 * k * Math.max(0, Math.min(1, f))), { full: true });
       map.jumpTo(lerpCam(P.region, P.near, ease(Math.max(0, (t - 8) / 14))));
     } else if (t < 27) {
-      enter('fly', function () { stopDrive(true); setTime(3600 * k, { full: true }); selectPlace(p.id, { noCamera: true }); });
+      enter('fly', function () { stopDrive(true); ensurePlace(); });
       map.jumpTo(lerpCam(P.near, P.placeCam, ease((t - 22) / 5)));
     } else if (t < 50) {
-      enter('place', function () { map.jumpTo(P.placeCam); });
+      enter('place', function () { stopDrive(true); ensurePlace(); map.jumpTo(P.placeCam); });
       if (t >= 31 && t < 41) {
         if (!st.check || st.check.offset !== 0) runCheck(0, { manual: true });
         st.check.show(Math.min(1, (t - 31) / 3));
@@ -1078,10 +1079,10 @@
       }
       renderSources();
     } else if (t < 86) {
-      enter('drive', function () { st.check = null; clearWalk(); startDrive({ manual: true }); });
+      enter('drive', function () { ensurePlace(); st.check = null; clearWalk(); startDrive({ manual: true }); });
       driveSeek(Math.max(0, Math.min(1, (t - 53) / 30)));
     } else {
-      enter('end', function () { if (st.drive) { st.drive.done = true; renderHud(st.drive); } });
+      enter('end', function () { if (!st.drive) { ensurePlace(); startDrive({ manual: true }); } driveSeek(1); });
     }
     return waitIdle();
   }

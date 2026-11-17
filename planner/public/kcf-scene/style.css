@@ -171,7 +171,7 @@ body.panel-open .maplibregl-ctrl-bottom-right { right: 408px; }
 .maplibregl-ctrl-bottom-left { display: none; }
 
 /* tour caption (recorded fallback only) */
-#caption { position: absolute; left: 12px; bottom: 128px; z-index: 17; max-width: min(1100px, calc(100% - 24px)); padding: 8px 16px; border-radius: 10px;
+#caption { position: absolute; left: 12px; bottom: 170px; z-index: 17; max-width: min(1100px, calc(100% - 24px)); padding: 8px 16px; border-radius: 10px;
   background: rgba(8, 10, 15, .9); border: 1px solid #3a465c; font-size: 17px; line-height: 1.35; text-align: center; }
 #caption b { color: #5ef0ff; margin-right: 6px; }
 body.driving .maplibregl-ctrl-group { display: none; }
@@ -179,7 +179,7 @@ body.driving #sliderWrap { display: none; }
 body.driving #sources { bottom: 80px; }
 body.driving #map { bottom: 72px; }
 body.panel-open #caption { max-width: calc(100% - 430px); }
-body.driving #caption { bottom: 84px; }
+body.driving #caption { bottom: 118px; }
 .note span[data-src] { word-break: break-all; }
 
 .vehicle { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #0b0d12; box-shadow: 0 0 0 3px #5ef0ff; }
