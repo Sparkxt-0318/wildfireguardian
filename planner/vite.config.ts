@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { defineConfig, loadEnv, type Plugin, type ProxyOptions } from 'vite';
 import react from '@vitejs/plugin-react';
+import { availablePacks, packCacheDir } from './src/data/replayPacks';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -112,7 +113,10 @@ function staticBasemaps(CACHE_DIR: string): Plugin {
  * WFG_CACHE_DIR (relative to planner/ or absolute; environment or .env) points elsewhere, e.g.
  * planner/.test-cache for results computed on a non-evaluation host (ARCHITECTURE.md §6).
  */
-function plannerCache(CACHE_DIR: string, basePath: string, { preview = true }: { preview?: boolean } = {}): Plugin {
+/** cache/packs/<id> → the pack's source folder, for every available replay pack. */
+const PACK_DIRS: Record<string, string> = Object.fromEntries(availablePacks().map((p) => [packCacheDir(p.id), resolve(here, String(p.source))]));
+
+function plannerCache(CACHE_DIR: string, basePath: string, { preview = true, requirePacks = false }: { preview?: boolean; requirePacks?: boolean } = {}): Plugin {
   let outDir = resolve(here, 'dist');
   let isBuild = false;
   const middleware = (req: IncomingMessage, res: ServerResponse, next: () => void) => {
@@ -128,10 +132,19 @@ function plannerCache(CACHE_DIR: string, basePath: string, { preview = true }: {
       res.end('bad path');
       return;
     }
-    const file = normalize(join(CACHE_DIR, rel));
+    // replay packs (src/data/replayPacks.ts): cache/packs/<id>/** is served from the pack's own folder
+    let root = CACHE_DIR;
+    for (const [dir, src] of Object.entries(PACK_DIRS)) {
+      if (rel.startsWith(`${dir}/`)) {
+        root = src;
+        rel = rel.slice(dir.length + 1);
+        break;
+      }
+    }
+    const file = normalize(join(root, rel));
     // never serve the precompute's resumable working state
     const hidden = rel.split('/').some((part) => part.startsWith('.'));
-    if (hidden || !file.startsWith(CACHE_DIR + sep) || !existsSync(file) || !statSync(file).isFile()) {
+    if (hidden || !file.startsWith(root + sep) || !existsSync(file) || !statSync(file).isFile()) {
       res.statusCode = 404;
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       res.end(JSON.stringify({ error: { code: 'NOT_FOUND', message: `no cache file ${rel}` } }));
@@ -180,6 +193,22 @@ function plannerCache(CACHE_DIR: string, basePath: string, { preview = true }: {
         recursive: true,
         filter: (src) => !src.slice(CACHE_DIR.length).split(sep).some((part) => part.startsWith('.')),
       });
+      // replay packs: copied unchanged next to the booth cache (never merged into its INDEX.json)
+      for (const [dir, src] of Object.entries(PACK_DIRS)) {
+        if (!existsSync(join(src, 'INDEX.json'))) {
+          // the public demo must carry it; other builds (e.g. the Docker planner image, whose context has no
+          // research/) go without it and the app lists only the packs whose INDEX.json it finds
+          const msg = `replay pack ${dir}: ${src}/INDEX.json not found (src/data/replayPacks.ts lists it as available)`;
+          if (requirePacks) throw new Error(msg);
+          this.warn(`${msg} — not shipped in this build`);
+          continue;
+        }
+        this.warn(`replay pack ${dir}: copying ${src} (research replay, not Route-Check API results; labelled test data in the app)`);
+        cpSync(src, join(outDir, 'cache', ...dir.split('/')), {
+          recursive: true,
+          filter: (p) => !p.slice(src.length).split(sep).some((part) => part.startsWith('.')),
+        });
+      }
     },
   };
 }
@@ -209,7 +238,7 @@ export default defineConfig(({ mode }) => {
     base,
     // the static demo's public bundle never carries the optional VWorld key
     envPrefix: apiMode === 'static' ? ['VITE_'] : ['VITE_', 'VWORLD_'],
-    plugins: [react(), plannerCache(cacheDir, base, { preview: apiMode !== 'static' }), ...(apiMode === 'static' ? [staticCsp(), staticBasemaps(cacheDir)] : [])],
+    plugins: [react(), plannerCache(cacheDir, base, { preview: apiMode !== 'static', requirePacks: apiMode === 'static' }), ...(apiMode === 'static' ? [staticCsp(), staticBasemaps(cacheDir)] : [])],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
     build: {

@@ -1,0 +1,87 @@
+/* 25 March replay (features/replay). Ink and greys only: green stays reserved for checked routes. */
+.replay-select { display: flex; flex-direction: column; gap: 6px; }
+.replay-packs { display: grid; gap: 6px; grid-template-columns: 1fr; }
+.replay-packs .scenario-btn { min-width: 0; }
+.replay-packs .label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.replay-pack:disabled { opacity: 0.55; cursor: not-allowed; }
+.replay-pending { font-size: 11px; line-height: 1.45; color: var(--text-2); }
+.replay-pending summary, .replay-how summary { cursor: pointer; }
+.replay-how { font-size: 11px; color: var(--text-2); }
+.replay-how[open] summary { margin-bottom: 2px; }
+/* with a replay on screen the whole left panel scrolls (notice, six places, then the list), as on phones */
+@media (min-width: 901px) {
+  .panel-left.replay-on { overflow-y: auto; }
+  .panel-left.replay-on .origin-list { flex: none; overflow: visible; }
+}
+
+.replay-notice { padding: 8px 16px; border-bottom: 1px solid var(--hairline); background: var(--surface); display: flex; flex-direction: column; gap: 4px; flex: 0 0 auto; }
+.replay-label { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.replay-method { font-size: 11px; color: var(--text-2); line-height: 1.45; overflow-wrap: anywhere; }
+.replay-method.mono { font-family: var(--mono); font-size: 10.5px; }
+
+.replay-hour { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-2); min-width: 0; }
+.replay-hour-label { white-space: nowrap; font-weight: 600; color: var(--ink); }
+.replay-hour-value { white-space: nowrap; font-weight: 700; color: var(--ink); min-width: 92px; text-align: right; }
+.replay-step { height: 24px; padding: 0 4px; flex: 0 0 auto; }
+.replay-track { position: relative; flex: 1 1 auto; min-width: 120px; height: 34px; }
+.replay-track input[type='range'] { position: absolute; left: 0; right: 0; top: 2px; width: 100%; margin: 0; height: 20px; background: transparent; appearance: none; z-index: 2; }
+.replay-track input[type='range']::-webkit-slider-runnable-track { height: 4px; background: var(--ink); border-radius: 2px; opacity: 0.25; }
+.replay-track input[type='range']::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 4px; background: var(--paper); border: 2px solid var(--ink); margin-top: -7px; }
+.replay-track input[type='range']::-moz-range-track { height: 4px; background: var(--grey); border-radius: 2px; }
+.replay-track input[type='range']::-moz-range-thumb { width: 14px; height: 14px; border-radius: 4px; background: var(--paper); border: 2px solid var(--ink); }
+.replay-ticks { position: absolute; left: 9px; right: 9px; top: 16px; height: 18px; pointer-events: none; }
+.replay-tick { position: absolute; top: 0; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 1px; font-size: 9.5px; color: var(--text-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.replay-tick i { display: block; width: 1px; height: 4px; background: var(--grey); }
+.replay-tick.on { color: var(--ink); font-weight: 700; }
+.replay-tick.on i { width: 2px; background: var(--ink); }
+
+.replay-places { padding: 10px 8px 12px; border-bottom: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 6px; }
+.replay-places h3 { margin: 0; font-size: 12.5px; font-weight: 700; }
+.replay-places h4 { margin: 6px 0 0; font-size: 12px; font-weight: 700; }
+.replay-places.muted, .replay-places .muted { color: var(--text-2); font-size: 11.5px; }
+.replay-other-region { font-size: 11.5px; color: var(--text-2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.replay-table-wrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: var(--radius-s); }
+.replay-table { border-collapse: separate; border-spacing: 0; font-size: 11px; width: max-content; }
+.replay-table th, .replay-table td { padding: 4px 6px; text-align: center; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
+.replay-table tbody tr:last-child th, .replay-table tbody tr:last-child td { border-bottom: 0; }
+.replay-table thead th { font-weight: 600; color: var(--text-2); background: var(--surface); }
+.replay-table th:first-child { position: sticky; left: 0; z-index: 1; background: var(--paper); text-align: left; border-right: 1px solid var(--hairline); }
+.replay-table thead th:first-child { background: var(--surface); }
+.replay-table th.cur, .replay-table td.cur { background: var(--grey-tint); }
+.replay-table thead th.cur { color: var(--ink); }
+.replay-table td.cur { font-weight: 700; color: var(--ink); box-shadow: inset 1px 0 0 var(--ink), inset -1px 0 0 var(--ink); }
+.replay-table td.inside { color: var(--text-2); background-image: var(--hatch); background-size: 6px 6px; }
+.replay-table td.inside.cur { color: var(--ink); }
+.replay-table tr.sel th:first-child { box-shadow: inset 3px 0 0 var(--ink); }
+.replay-place-btn { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.replay-hour-btn { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+.replay-hour-btn[aria-pressed='true'] { color: var(--ink); font-weight: 700; }
+.replay-cut { color: var(--ink); font-size: 8px; margin-left: 2px; vertical-align: super; }
+.replay-foot { margin: 0; font-size: 10.5px; color: var(--text-2); line-height: 1.45; }
+
+.replay-reported { border: 1px solid var(--hairline); border-radius: var(--radius-s); padding: 4px 8px; }
+.replay-reported summary { font-size: 11.5px; font-weight: 600; cursor: pointer; padding: 2px 0; }
+.replay-reported ul { list-style: none; margin: 4px 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.replay-reported-item { display: grid; grid-template-columns: 92px 1fr; gap: 8px; font-size: 11px; line-height: 1.4; }
+.replay-reported-time { font-weight: 700; color: var(--ink); white-space: nowrap; display: flex; align-items: baseline; gap: 4px; }
+.replay-reported-tag { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--text-2); border: 1px dashed var(--grey); border-radius: 3px; padding: 0 3px; }
+.replay-day { font-size: 9px; color: var(--text-2); }
+.replay-reported-text { display: flex; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+.replay-reported-meta { color: var(--text-2); font-size: 10.5px; }
+.replay-reported-meta a { color: var(--ink); }
+.scenario-btn.replay-pack { flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px; min-height: 32px; width: 100%; font-size: 12px; }
+.scenario-btn.replay-pack .radio { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid var(--ink); flex: 0 0 auto; }
+.scenario-btn.replay-pack[aria-pressed='true'] .radio { border: 4px solid var(--ink); }
+
+.replay-tick b { font-weight: inherit; display: none; }
+.replay-tick.even b, .replay-tick.on b { display: inline; }
+/* phones: label and value on one line, the track on its own line; tick labels at the ends and the current hour only */
+@media (max-width: 900px) {
+  .replay-hour { flex-wrap: wrap; row-gap: 2px; }
+  .replay-hour-value { order: 1; margin-left: auto; min-width: 0; }
+  .replay-hour .replay-step { display: none; }
+  .replay-track { order: 3; flex: 1 1 100%; }
+  .replay-tick.even b { display: none; }
+  .replay-tick.edge b, .replay-tick.on b { display: inline; }
+}
+.replay-provisional { font-size: 11px; font-weight: 600; color: var(--ink); border: 1px dashed var(--ink); border-radius: 4px; padding: 3px 6px; line-height: 1.4; }

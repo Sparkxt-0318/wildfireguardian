@@ -1,0 +1,470 @@
+[
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T030000Z",
+  "input_time": "2025-03-25T03:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T030000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1518013,
+  "sha256": "1c9cab8327014aefa80ae17e29657c67bbe8c7d26dfb4db9d7b341ca5c51a013"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T040000Z",
+  "input_time": "2025-03-25T04:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T040000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1497806,
+  "sha256": "4c4a0ca91ce7ba6400c5210802c2693844f2f067fafadbddafdb82baff8cd359"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T050000Z",
+  "input_time": "2025-03-25T05:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T050000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1495139,
+  "sha256": "ea3767043f689bc75d2860b6efc22965c0ef6110baffb342a95481a205965b0f"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T060000Z",
+  "input_time": "2025-03-25T06:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T060000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1604837,
+  "sha256": "f6ed3c3f59c489182adffc104b6dac260fb1f9c093d116ae6cf504578510fada"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T070000Z",
+  "input_time": "2025-03-25T07:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T070000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1273353,
+  "sha256": "2d24ea05d0f0a75bba2f29769d408798365855bada5c23affdf3d8f3646352f7"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T080000Z",
+  "input_time": "2025-03-25T08:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T080000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1089543,
+  "sha256": "0c31be03fb760f9f8d12abb1012a5308deb34cdde1a213fc060344ddac45405d"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T090000Z",
+  "input_time": "2025-03-25T09:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T090000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082174,
+  "sha256": "3db163fc0d2455826446ef6970ee370a3b252307aab4f0580d2847e033eb4815"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T100000Z",
+  "input_time": "2025-03-25T10:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T100000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082174,
+  "sha256": "fc157c30e164636df3a9fd7f1ffaa8c2f3b5a254cd714b6ac1dc760a0026670a"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T110000Z",
+  "input_time": "2025-03-25T11:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T110000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082174,
+  "sha256": "5be93484e4865aaaa08c16efd6efb7bf7e064b8a951d133baf18f123841290f2"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T120000Z",
+  "input_time": "2025-03-25T12:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T120000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082174,
+  "sha256": "9108044716fe6de02b9fe8a7277ad42eab3b441c7a7e1cc32fa6b17542ca0848"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T130000Z",
+  "input_time": "2025-03-25T13:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T130000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082174,
+  "sha256": "354a873ed5a380ffe6ab1e18d73fd3a4965a936270417f191891885444684f06"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T140000Z",
+  "input_time": "2025-03-25T14:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T140000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082086,
+  "sha256": "4074484a99e406a012b799bd98e590b5fac7ad0e38e5fd5da8538eb05dd873db"
+ },
+ {
+  "region_id": "uiseong_andong_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T150000Z",
+  "input_time": "2025-03-25T15:00:00Z",
+  "path": "uiseong_andong_2025/MEASURED_GUST_8h_20250325T150000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 84,
+  "bytes": 1082086,
+  "sha256": "508da2f7728f211d883439cc1df314ba0718118a6a6f6d85caef8001cea0a387"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T030000Z",
+  "input_time": "2025-03-25T03:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T030000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1439576,
+  "sha256": "ea0afb5a69edda65eb76fbbc652955de14d6aaadd75f3757db3e26d25313146f"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T040000Z",
+  "input_time": "2025-03-25T04:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T040000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1439576,
+  "sha256": "d0451ba4d12884c90fbff4ba97343a3f6b04f6bf85e7c68025c6b2c4637b6837"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T050000Z",
+  "input_time": "2025-03-25T05:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T050000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1439576,
+  "sha256": "63bff3ececd3771db969ed36a0f74b7f26080f97f2e60ff049a23340122f8689"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T060000Z",
+  "input_time": "2025-03-25T06:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T060000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1439576,
+  "sha256": "b4e7e44d3fd333b4237a53cfb214cbb8fa26aa91af4c1d969140ff0ce5c69255"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T070000Z",
+  "input_time": "2025-03-25T07:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T070000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1439576,
+  "sha256": "46e62e2d7fa2978ab6d345d8ecebd35fef71c0355bc72826512c0bf3c78ad682"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T080000Z",
+  "input_time": "2025-03-25T08:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T080000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1527309,
+  "sha256": "959b931d441513c7a820b8d05017d1e64064fc43820e3f41da3c8aed4ac5733e"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T090000Z",
+  "input_time": "2025-03-25T09:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T090000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1586969,
+  "sha256": "f3a7e1cc25ef66adf5c2120d9894277e893a01f113b06a4d6fd3c7c50ef06a45"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T100000Z",
+  "input_time": "2025-03-25T10:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T100000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1531892,
+  "sha256": "9bf2120a32c7a60da5e2104cc0bfb3ccc655810c209a184c0b67ee7b2f7396dc"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T110000Z",
+  "input_time": "2025-03-25T11:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T110000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1549037,
+  "sha256": "cad5576fb8dd69595d64ee07112204e3f436769d3b2f7c1611cd71f4617fc199"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T120000Z",
+  "input_time": "2025-03-25T12:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T120000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1430908,
+  "sha256": "d1b332cd3ce157745f2ce534795b5f27fd9cdc116c6459a5686e9b652c39e7e5"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T130000Z",
+  "input_time": "2025-03-25T13:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T130000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1281621,
+  "sha256": "68b8064db377897a8c06070bf1bb98461bfbd8285de6e577ea135413d85944ee"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T140000Z",
+  "input_time": "2025-03-25T14:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T140000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1279110,
+  "sha256": "50a89e6391febbfd49075ea01d186bc869051c4527119ecca56f9c1936d538b7"
+ },
+ {
+  "region_id": "yeongdeok_2025",
+  "scenario_set_id": "kcf-replay:MEASURED_GUST:8h:20250325T150000Z",
+  "input_time": "2025-03-25T15:00:00Z",
+  "path": "yeongdeok_2025/MEASURED_GUST_8h_20250325T150000Z.json",
+  "api_mode": "kcf-replay-offline",
+  "purpose": "kcf-replay",
+  "api_version": null,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.13.18"
+  },
+  "created_at": "2026-11-17T05:49:18.305854+00:00",
+  "origins": 90,
+  "bytes": 1258165,
+  "sha256": "df759352453cbdb16cb8fc9d20f8b5d85c91903590e8657fb3f1b6fa65a1d238"
+ }
+]
