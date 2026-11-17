@@ -36,9 +36,12 @@ def main():
     ap.add_argument("--data-root", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--variants", default="router,cert")
+    ap.add_argument("--only", help="substring of the cache path to run (default: all six)")
     a = ap.parse_args()
     report = []
     for cp in sorted(glob.glob(str(ROOT / "planner/cache/*/*.json"))):
+        if a.only and a.only not in cp:
+            continue
         t0 = time.perf_counter()
         doc = json.loads(Path(cp).read_text())
         region, compact = doc["region_id"], doc["input_time"].replace("-", "").replace(":", "")
