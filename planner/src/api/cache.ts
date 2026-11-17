@@ -19,6 +19,7 @@ import type { WireCacheFile, WireCacheRejected, WireCacheIndexEntry, WireDispatc
 import type { CacheData, CacheEntry, CacheMeta, HostInfo, OriginPlan, RouteDetail, SkipReason, Attempt } from '../domain/types';
 import { adaptDispatchJob, adaptHealth, adaptHost, adaptRouteJob, attemptFromRoute, isMockHealth } from './adapter';
 import { planFromAttempts, unresolvedPlan } from '../domain/plan';
+import { availablePacks, packCacheDir, type ReplayPack } from '../data/replayPacks';
 
 /** Dispatch-plan jobs of a cache file; refused requests are stored as null and skipped here. */
 function planJobs(doc: WireCacheFile): WireDispatchPlanJob[] {
@@ -53,36 +54,55 @@ function str(v: unknown): string | null {
   return typeof v === 'string' && v.length > 0 ? v : null;
 }
 
-export function parseCacheIndex(raw: unknown): CacheEntry[] {
+/**
+ * `pack`: entries of a replay pack's own INDEX.json. Their paths become relative to the cache base
+ * ("packs/<id>/<path>") and each entry is tagged with the pack id. An entry whose scenario set id
+ * does not carry the pack's prefix is dropped (a pack never adds booth scenarios).
+ */
+export function parseCacheIndex(raw: unknown, pack?: Pick<ReplayPack, 'id' | 'scenarioPrefix'>): CacheEntry[] {
   const list = Array.isArray(raw) ? raw : raw && typeof raw === 'object' && Array.isArray((raw as { entries?: unknown }).entries) ? (raw as { entries: unknown[] }).entries : [];
   const out: CacheEntry[] = [];
   for (const e of list as Partial<WireCacheIndexEntry>[]) {
     if (!e || !str(e.region_id) || !str(e.scenario_set_id) || !str(e.path)) continue;
-    out.push({
+    if (pack && !String(e.scenario_set_id).startsWith(pack.scenarioPrefix)) continue;
+    const entry: CacheEntry = {
       regionId: String(e.region_id),
       scenarioSetId: String(e.scenario_set_id),
       inputTime: String(e.input_time ?? ''),
-      path: String(e.path),
+      path: pack ? `${packCacheDir(pack.id)}/${String(e.path)}` : String(e.path),
       apiMode: String(e.api_mode ?? 'unknown'),
       createdAt: String(e.created_at ?? ''),
       origins: num(e.origins) ?? 0,
       bytes: num(e.bytes) ?? 0,
       sha256: String(e.sha256 ?? ''),
-    });
+    };
+    if (pack) entry.pack = pack.id;
+    out.push(entry);
   }
   return out;
 }
 
-/** INDEX.json; a missing cache is normal (returns []). */
-export async function loadCacheIndex(signal?: AbortSignal): Promise<CacheEntry[]> {
-  try {
-    const r = await fetch(`${CACHE_BASE}/INDEX.json`, { signal, cache: 'no-cache', headers: { Accept: 'application/json' } });
-    if (!r.ok) return [];
-    if ((r.headers.get('content-type') ?? '').includes('text/html')) return [];
-    return parseCacheIndex(await r.json());
-  } catch {
-    return [];
-  }
+async function fetchIndex(path: string, signal?: AbortSignal): Promise<unknown> {
+  const r = await fetch(`${CACHE_BASE}/${path}`, { signal, cache: 'no-cache', headers: { Accept: 'application/json' } });
+  if (!r.ok) return [];
+  if ((r.headers.get('content-type') ?? '').includes('text/html')) return [];
+  return r.json();
+}
+
+/**
+ * INDEX.json of the booth cache, followed by the INDEX.json of every available replay pack
+ * (cache/packs/<id>/INDEX.json). A missing cache or pack is normal (contributes nothing).
+ */
+export async function loadCacheIndex(signal?: AbortSignal, packs: readonly ReplayPack[] = availablePacks()): Promise<CacheEntry[]> {
+  const one = async (path: string, pack?: ReplayPack): Promise<CacheEntry[]> => {
+    try {
+      return parseCacheIndex(await fetchIndex(path, signal), pack);
+    } catch {
+      return [];
+    }
+  };
+  const parts = await Promise.all([one('INDEX.json'), ...packs.map((p) => one(`${packCacheDir(p.id)}/INDEX.json`, p))]);
+  return parts.flat();
 }
 
 export function findCacheEntry(index: CacheEntry[], regionId: string, scenarioSetId: string): CacheEntry | null {

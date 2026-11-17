@@ -494,8 +494,9 @@ export async function selectRegion(
   const s = getState();
   const sets = scenarioSetsOf(s);
   const wanted = resolveScenarioParam(opts.scenarioId, sets);
-  const cached = sets.find((x) => findCacheEntry(s.cacheIndex, regionId, x.id));
-  const scenarioId = wanted ?? cached?.id ?? sets[0]?.id ?? null;
+  // the default is a booth result; a replay pack opens only when asked for (selector or link)
+  const cached = sets.find((x) => !x.pack && findCacheEntry(s.cacheIndex, regionId, x.id));
+  const scenarioId = wanted ?? cached?.id ?? sets.find((x) => !x.pack)?.id ?? sets[0]?.id ?? null;
   const so: { originId?: string; inputTime?: string; preset?: boolean } = {};
   if (opts.originId) so.originId = opts.originId;
   if (opts.inputTime) so.inputTime = opts.inputTime;

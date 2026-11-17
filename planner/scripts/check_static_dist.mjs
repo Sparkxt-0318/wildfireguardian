@@ -112,6 +112,51 @@ else {
   }
 }
 
+// replay packs (src/data/replayPacks.ts): dist/cache/packs/<id>/ with its own INDEX.json; every shipped file has the
+// bytes and SHA-256 its INDEX.json records, every listed file is shipped, every scenario set is a replay id, and the
+// registry's available packs are shipped while pending ones are not
+const packReport = [];
+const packsDir = join(dist, 'cache', 'packs');
+const registry = (() => {
+  const src = join(resolve(dist, '..'), 'src', 'data', 'replayPacks.ts');
+  if (!existsSync(src)) return null;
+  const text = readFileSync(src, 'utf8');
+  return [...text.matchAll(/id: '([^']+)',\s*status: '(available|pending)'/g)].map((m) => ({ id: m[1], status: m[2] }));
+})();
+const shippedPacks = existsSync(packsDir) ? readdirSync(packsDir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name) : [];
+for (const r of registry ?? []) {
+  if (r.status === 'available' && !shippedPacks.includes(r.id)) fail(`replay pack ${r.id} is available in src/data/replayPacks.ts but not shipped`);
+  if (r.status === 'pending' && shippedPacks.includes(r.id)) fail(`replay pack ${r.id} is pending but shipped`);
+}
+for (const id of shippedPacks) {
+  const dir = join(packsDir, id);
+  const ip = join(dir, 'INDEX.json');
+  if (!existsSync(ip)) {
+    fail(`replay pack ${id}: INDEX.json missing`);
+    continue;
+  }
+  const entries = JSON.parse(readFileSync(ip, 'utf8'));
+  if (!Array.isArray(entries) || !entries.length) fail(`replay pack ${id}: INDEX.json lists no file`);
+  const listed = new Set();
+  for (const e of Array.isArray(entries) ? entries : []) {
+    listed.add(String(e.path));
+    if (!String(e.scenario_set_id ?? '').startsWith('kcf-replay:')) fail(`replay pack ${id}: ${e.path} has scenario set ${e.scenario_set_id}, not a replay id`);
+    const p = join(dir, ...String(e.path).split('/'));
+    if (!existsSync(p)) {
+      fail(`replay pack ${id}: listed but missing: ${e.path}`);
+      continue;
+    }
+    const bytes = statSync(p).size;
+    const digest = await sha256(p);
+    if (bytes !== e.bytes) fail(`replay pack ${id}: ${e.path}: ${bytes} bytes, INDEX.json says ${e.bytes}`);
+    if (digest !== e.sha256) fail(`replay pack ${id}: ${e.path}: sha256 ${digest} ≠ INDEX.json ${e.sha256}`);
+    packReport.push({ pack: id, path: e.path, bytes, sha256: digest, region: e.region_id, input_time: e.input_time });
+  }
+  for (const f of files.filter((x) => x.path.startsWith(`cache/packs/${id}/`) && x.path !== `cache/packs/${id}/INDEX.json`)) {
+    if (!listed.has(f.path.slice(`cache/packs/${id}/`.length))) fail(`replay pack ${id}: ${f.path} shipped but not in its INDEX.json`);
+  }
+}
+
 // forecast cells of the cached scenarios (the static demo's forecast layer)
 const cacheEntries = existsSync(indexPath) ? (JSON.parse(readFileSync(indexPath, 'utf8')) ?? []) : [];
 const compact = (iso) => String(iso).replace(/[-:]/g, '').replace(/\.\d+/, '');
@@ -172,6 +217,7 @@ const report = {
   cache: cacheReport,
   cache_checks_total: cacheReport.reduce((n, c) => n + (c.checks ?? 0), 0),
   forecast: forecastReport,
+  replay_packs: packReport,
   basemaps,
   failures,
 };
@@ -181,6 +227,7 @@ console.log(`[check] by folder (MiB): ${JSON.stringify(report.by_folder_mb)}`);
 console.log(`[check] largest: ${report.largest.slice(0, 6).map((f) => `${f.path} ${f.mb} MiB`).join(' · ')}`);
 console.log(`[check] cache: ${cacheReport.length} files verified against INDEX.json sha256, ${report.cache_checks_total} recorded checks`);
 console.log(`[check] forecast: ${forecastReport.length} files verified against data/forecast/INDEX.json sha256 (${forecastReport.reduce((n, f) => n + (f.cells ?? 0), 0)} cells)`);
+console.log(`[check] replay packs: ${shippedPacks.join(', ') || '—'} (${packReport.length} files verified against their INDEX.json sha256)`);
 console.log(`[check] basemaps: ${basemaps.listed.join(', ') || '—'} shipped; not listed, not shipped: ${basemaps.removed.join(', ') || '—'}`);
 console.log(`[check] CSP: ${csp ?? '—'}`);
 if (jsonOut) writeFileSync(jsonOut, JSON.stringify(report, null, 2));

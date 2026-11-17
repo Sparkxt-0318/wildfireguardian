@@ -4,10 +4,15 @@ on:
     branches: [Main]
   pull_request:
     branches: [Main]
+  # the public demo can break without a push (Pages switched off, as on 3–17 Nov 2026): check daily too
+  schedule:
+    - cron: '17 21 * * *'
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
   source-and-showcase:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,3 +26,21 @@ jobs:
         run: python tools/verify_release.py
       - name: Check showcase controls
         run: node --test demos/showcase/tests/*.test.mjs
+
+  # The public demo judges open. Fails unless the site root answers HTTP 200 (after redirects).
+  site-root:
+    runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://sparkxt-0318.github.io/wildfireguardian/' }}
+    steps:
+      - name: Site root returns 200
+        run: |
+          for i in 1 2 3 4 5; do
+            code=$(curl -sS -L -o /dev/null -w '%{http_code}' --max-time 30 "$SITE_URL" || echo 000)
+            echo "attempt $i: $SITE_URL -> HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 15
+          done
+          echo "::error title=Public site down::$SITE_URL answered HTTP $code, not 200. If the deploy job says 'Ensure GitHub Pages has been enabled', set Settings -> Pages -> Source to 'GitHub Actions'."
+          exit 1
+

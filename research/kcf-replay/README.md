@@ -5,9 +5,9 @@ times re-read at source: [SOURCES.md](SOURCES.md).
 
 | file | content |
 |---|---|
-| `per_place.csv` | 174 places × 13 issue hours × 3 R(h) stand-ins × 2 horizons (13,572 rows): step, latest safe departure, shelter, arrival, witness road (OSM ways), reconstruction cut time, score flag |
+| `per_place.csv` | 174 places × 13 issue hours × 5 R(h) arms (3 stand-ins, MEASURED, MEASURED+GUST) × 2 horizons (22,620 rows): step, latest safe departure, shelter, arrival, witness road (OSM ways), reconstruction cut time, score flag |
 | `named_places_timeline.csv` | 6 named places, every hour/stand-in/horizon, with documented times |
-| `timeline.png` | timeline figure for the 6 named places |
+| `timeline.png` | timeline figure for the 6 named places: 3 stand-ins + MEASURED + MEASURED+GUST (PROVISIONAL) |
 | `frames/frame_*.png` | 13 hourly map frames (RUNNING, 8 h); `map_sequence.mp4` = all 73 ten-minute frames, 73 s |
 | `planner_cache/RUNNING_8h/` | planner cache (schema `wfg.planner.cache/1`), 13 issue hours × 2 regions |
 | `score.json`, `fixed_point.json`, `ahi_firms_agreement.json` | score, F-3.1 certificate, AHI/FIRMS diagnostic |
@@ -22,6 +22,9 @@ Builders, checks (`scene/VERIFY.json`), load-time measurement, the presenter's o
 recording are in [`scene/`](scene/DESIGN.md).
 
 ## Play it in the planner demo
+
+The public demo (<https://sparkxt-0318.github.io/wildfireguardian/>) lists this cache as "25 March 2025 replay ·
+12:00–24:00 KST" in the left panel (planner/src/data/replayPacks.ts). Locally:
 
 ```bash
 cd planner && npm ci
@@ -55,7 +58,7 @@ cd research/kcf-replay && python3 analyze.py out/fire_discs.json out/runs out/an
 
 `replay.py` takes about 1 h on 4 cores (Yeongdeok: 151 shelters, about 3.5 min per issue-hour job).
 
-## When research/kcf-margin lands
+## MEASURED arms (landed)
 
 Put the frozen R(h) into `STANDINS` in `replay.py` as a new label (keep the three stand-ins), rerun `replay.py` with
 `--standins <LABEL>`, then rerun the post-processing. `HOTSPOT_RULE.md` does not change.
