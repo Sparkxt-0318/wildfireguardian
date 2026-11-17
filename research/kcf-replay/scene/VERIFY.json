@@ -72,7 +72,7 @@
   {
    "bytes": 7988530,
    "path": "planner/public/kcf-scene/data/scene.js",
-   "sha256": "a4a0db29635632b94802a20a87648b49378b3a70b307022f1cf81404505faf2a"
+   "sha256": "41d4954ebd07e7114405ab5413a0f44a47f5ddf5f8c75c6f40c0fe1b70107946"
   },
   {
    "bytes": 9100,
@@ -237,8 +237,8 @@
  ],
  "ok": true,
  "scene_built": {
-  "commit": "d4169672cc6aa993e792238a9f63b2389ef45922",
-  "generated_utc": "2026-11-17T02:41:03Z",
+  "commit": "0b765a8e6c9b67ca84aa6cf8cf345416695ad569",
+  "generated_utc": "2026-11-17T04:50:13Z",
   "runs": {
    "ORDINARY": "complete",
    "RUNNING": "complete",
@@ -248,7 +248,7 @@
  },
  "scene_js": "planner/public/kcf-scene/data/scene.js",
  "script": "research/kcf-replay/scene/verify_scene.py",
- "sha256": "a4a0db29635632b94802a20a87648b49378b3a70b307022f1cf81404505faf2a",
+ "sha256": "41d4954ebd07e7114405ab5413a0f44a47f5ddf5f8c75c6f40c0fe1b70107946",
  "witness_walk": {
   "ORDINARY:PASS": 1135,
   "ORDINARY:ld+60:FAIL": 1135,

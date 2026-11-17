@@ -44,7 +44,14 @@ function serve() {
   });
 }
 
-const report = { started_utc: new Date().toISOString(), runs: [], checks: {}, errors: [] };
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+const git = (...a) => execFileSync('git', a, { cwd: root }).toString().trim();
+const report = { started_utc: new Date().toISOString(), commit: git('rev-parse', '--short', 'HEAD'),
+  scene_dirty: git('status', '--porcelain', '--', 'planner/public/kcf-scene').split('\n').filter(Boolean),
+  scene_sha256: Object.fromEntries(['index.html', 'app.js', 'style.css', 'data/scene.js', 'data/terrain.js', 'data/basemap.js', 'data/fonts.js']
+    .map((f) => [f, createHash('sha256').update(readFileSync(join(pub, 'kcf-scene', f))).digest('hex')])),
+  runs: [], checks: {}, errors: [] };
 const IGNORE = /GL Driver Message|GPU stall|WebGL-|Automatic fallback to software WebGL|swiftshader/i;
 
 async function open(browser, url, { throttle = 0, network = null, label }) {
@@ -166,20 +173,42 @@ try {
   report.checks.rewalk_all = await page.evaluate(() => {
     const S = window.KCF.scene, out = {};
     for (const sd of Object.keys(S.routes)) {
-      const o = { routes: 0, pass: 0, same_arrival: 0, later_fail: 0, later_pass: 0, mismatches: [] };
+      const o = { routes: 0, pass: 0, same_arrival: 0, later_fail: 0, later_pass: 0, later_road: 0, later_shelter: 0, later_horizon: 0, mismatches: [] };
       for (const pid of Object.keys(S.routes[sd])) S.routes[sd][pid].forEach((rt, k) => {
         if (!rt) return;
         o.routes++;
         const r = window.KCF_APP.rewalk(pid, k, rt.ld, sd);
         if (r.ok) o.pass++;
         if (r.ok && r.arrival === rt.arr) o.same_arrival++; else if (o.mismatches.length < 10) o.mismatches.push({ pid, k, ok: r.ok, arrival: r.arrival, arr: rt.arr });
-        const l = window.KCF_APP.rewalk(pid, k, rt.ld + 60, sd); if (l.ok) o.later_pass++; else o.later_fail++;
+        const l = window.KCF_APP.rewalk(pid, k, rt.ld + 60, sd);
+        if (l.ok) o.later_pass++; else { o.later_fail++; if (l.overH) o.later_horizon++; else if (l.shelterCell) o.later_shelter++; else o.later_road++; }
       });
       out[sd] = o;
     }
     return out;
   });
   console.log('rewalk', JSON.stringify(report.checks.rewalk_all));
+  // real-time level 3 (the drive the click script uses) and real-time Play: frame times and long tasks
+  report.checks.realtime = await page.evaluate(async (id) => {
+    const out = {};
+    async function sample(run) {
+      const d = []; let last = performance.now(), on = true; const lt = [];
+      const po = new PerformanceObserver((l) => l.getEntries().forEach((e) => lt.push(e.duration)));
+      try { po.observe({ type: 'longtask', buffered: false }); } catch (e) {}
+      (function f() { if (!on) return; const t = performance.now(); d.push(t - last); last = t; requestAnimationFrame(f); })();
+      const t0 = performance.now(); await run(); const wall = performance.now() - t0; on = false; po.disconnect();
+      d.sort((a, b) => a - b); const q = (x) => Math.round(d[Math.min(d.length - 1, Math.floor(x * (d.length - 1)))]);
+      return { wall_s: +(wall / 1000).toFixed(1), frames: d.length, p50_ms: q(0.5), p95_ms: q(0.95), max_ms: Math.round(d[d.length - 1] || 0), longtask_max_ms: Math.round(Math.max(0, ...lt)), longtasks: lt.length };
+    }
+    window.KCF_APP.setStandin('RUNNING'); window.KCF_APP.setIssue(4); window.KCF_APP.selectPlace(id);
+    await window.KCF_APP.idle();
+    out.drive = await sample(() => window.KCF_APP.drive());
+    window.KCF_APP.stopDrive(); window.KCF_APP.home(); await window.KCF_APP.idle();
+    window.KCF_APP.setIssue(0); await window.KCF_APP.idle();
+    out.play = await sample(() => new Promise((res) => { document.getElementById('playBtn').click(); (function w() { if (!window.KCF_APP.state.playing) res(); else setTimeout(w, 200); })(); }));
+    return out;
+  }, named[1]);
+  console.log('realtime', JSON.stringify(report.checks.realtime));
   await ctx.close();
 
   // ---- offline: file://

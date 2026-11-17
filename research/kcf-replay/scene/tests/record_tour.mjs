@@ -2,7 +2,7 @@
 // (?tour=1, window.KCF_APP.tour.seek(t)). Frame-by-frame capture makes the video smooth even where the browser renders
 // slowly (headless Chromium draws WebGL in software here).
 //
-//   node research/kcf-replay/scene/tests/record_tour.mjs --out research/kcf-replay/scene/kcf_scene_tour_90s.mp4 [--fps 24] [--size 1920x1080]
+//   node research/kcf-replay/scene/tests/record_tour.mjs [--out planner/public/kcf-scene/kcf_scene_tour_90s.mp4] [--fps 24] [--size 1920x1080] [--query full]
 // Long captures can run in segments: --frames DIR --from N --to M --no-encode, then a last run with --encode-only.
 // Smoothing in the drive camera depends on the previous frame, so each segment first replays the 2 s before --from.
 import { createServer } from 'node:http';
@@ -20,7 +20,7 @@ const root = resolve(here, '../../../..');
 const pub = join(root, 'planner/public');
 const args = process.argv.slice(2);
 const opt = (n, d) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : d; };
-const OUT = resolve(opt('--out', join(here, 'out/kcf_scene_tour_90s.mp4')));
+const OUT = resolve(opt('--out', join(root, 'planner/public/kcf-scene/kcf_scene_tour_90s.mp4'))); // ships with the scene folder
 const FPS = Number(opt('--fps', '24'));
 const [W, H] = opt('--size', '1920x1080').split('x').map(Number);
 const FRAMES = resolve(opt('--frames', join(process.env.TMPDIR || tmpdir(), 'kcf_tour_frames')));

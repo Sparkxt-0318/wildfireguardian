@@ -34,8 +34,8 @@
   {
    "attribution": "Noto Sans glyph PBFs (protomaps/basemaps-assets); Pretendard, Copyright (c) 2021, Kil Hyung-jin (https://github.com/orioncactus/pretendard), subset renamed 'KCF UI Sans' (Reserved Font Name not used)",
    "built_by": "research/kcf-replay/scene/build_fonts.py",
-   "built_commit": "d4169672cc6aa993e792238a9f63b2389ef45922",
-   "bytes": 294660,
+   "built_commit": "0b765a8e6c9b67ca84aa6cf8cf345416695ad569",
+   "bytes": 294806,
    "inputs": [
     {
      "bytes": 76044,
@@ -48,28 +48,28 @@
      "sha256": "8ea977a587352fe31b4159ffdbc9a40be79056f2472017c742ea1e4a931864b9"
     },
     {
-     "bytes": 2985,
+     "bytes": 3594,
      "path": "planner/public/kcf-scene/index.html",
      "role": "scanned for characters",
-     "sha256": "a7c2a4ae8b828f3de8c126b70aa5db7b2abea2be335bba6a00fae158167bae18"
+     "sha256": "4e15c2f1d2e9a78684343fcef5810c5080c87a4d2321c79a5cf46b9ca0c36b28"
     },
     {
-     "bytes": 68396,
+     "bytes": 88205,
      "path": "planner/public/kcf-scene/app.js",
      "role": "scanned for characters",
-     "sha256": "e871813f6bf6995bc25c00f7c26e709b82fbb53650fc90778c8b82e604628d83"
+     "sha256": "80347cbbc13a9a9779961576de0ed6fec46f2f237434731a337ac060685b8709"
     },
     {
-     "bytes": 11989,
+     "bytes": 13640,
      "path": "planner/public/kcf-scene/style.css",
      "role": "scanned for characters",
-     "sha256": "d1014f37b6bccddba468181ae11d703a159dab6d6dffae454fd1af159b1f06a6"
+     "sha256": "d5c46e295e26595077a175bb829a751ac3c336d459619faee05423e70536fbfd"
     },
     {
-     "bytes": 6142520,
+     "bytes": 7988530,
      "path": "planner/public/kcf-scene/data/scene.js",
      "role": "scanned for characters",
-     "sha256": "c115305edacf5c25783b6fc960e1bd85807bd3a53565e4235fb81848f62e3f77"
+     "sha256": "41d4954ebd07e7114405ab5413a0f44a47f5ddf5f8c75c6f40c0fe1b70107946"
     },
     {
      "bytes": 1934036,
@@ -102,7 +102,7 @@
    ],
    "license": "glyphs: Noto Sans, SIL OFL 1.1 (no Noto license text in the repository; provenance in planner/public/basemap/ATTRIBUTION.md and SOURCES.json); ui face: SIL OFL 1.1, planner/public/kcf-scene/vendor/LICENSE-pretendard.txt",
    "path": "planner/public/kcf-scene/data/fonts.js",
-   "sha256": "4c526b05b53e149d3a4727b15e922dec03f6db5362f8e52f80bb502709766050"
+   "sha256": "007d0cb4abf65ad55c6c7ddb9dbf61ed06edf30b967b8228e2fb7ef5c7a28fcd"
   },
   {
    "attribution": "Terrain Tiles: Mapzen / AWS Open Data (SRTM, GMTED, ETOPO1 and others)",

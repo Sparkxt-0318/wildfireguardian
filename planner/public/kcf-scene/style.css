@@ -185,3 +185,9 @@ body.driving #caption { bottom: 118px; }
 .vehicle { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #0b0d12; box-shadow: 0 0 0 3px #5ef0ff; }
 #notice { position: absolute; top: 58px; left: 50%; transform: translateX(-50%); z-index: 25; background: #3a2a0a; color: #ffd98a; border: 1px solid #7a5a1c; border-radius: 8px; padding: 6px 10px; font-size: 13px; max-width: 80vw; }
 #notice button { background: none; border: 0; color: #ffd98a; font-size: 15px; cursor: pointer; margin-left: 6px; }
+#hud .warn { margin-top: 5px; padding: 5px 8px; border-radius: 6px; background: #3a0d14; border: 1px solid #ff2d55; color: #ffd0d8; font-size: 12.5px; line-height: 1.35; }
+#hud .end.muted-end { color: #e9edf3; font-weight: 600; }
+#sliderTicks[data-src], #clock[data-src] { text-decoration: none; }
+.kcf-tip .maplibregl-popup-content { background: #141922; color: #e9edf3; border: 1px solid #2a3242; border-radius: 8px; padding: 6px 9px; font-size: 12.5px; line-height: 1.4; }
+.kcf-tip .maplibregl-popup-tip { display: none; }
+.kcf-tip small { color: #7b8597; }

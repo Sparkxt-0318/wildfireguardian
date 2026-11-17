@@ -35,7 +35,7 @@
     } catch (e) { return null; }
   }
   var GL = webglInfo();
-  if (!GL) fatal('This browser cannot draw 3D (WebGL is off or blocked: hardware acceleration off, remote desktop or a VM). Turn on hardware acceleration, or play the 90-s recording kcf_scene_tour_90s.mp4.');
+  if (!GL) fatal('This browser cannot draw 3D (WebGL is off or blocked: hardware acceleration off, remote desktop or a VM). Turn on hardware acceleration, or play the 90-s recording kcf_scene_tour_90s.mp4 in this folder.');
   // a software renderer (no GPU) draws each frame in seconds: switch to lite unless ?full
   var SOFT = /SwiftShader|llvmpipe|softpipe|Basic Render|Software/i.test(GL.renderer);
   if (SOFT && !Q.has('full')) LITE = true;
@@ -80,6 +80,7 @@
   };
   var placeById = {}, placeByName = {};
   var CAT_KO = { nursing_home: '요양시설', social_facility: '사회복지시설', village: '마을', hamlet: '마을' };
+  var CAT_EN = { nursing_home: 'nursing home', social_facility: 'social facility', village: 'village', hamlet: 'hamlet' };
   S.places.forEach(function (p, i) {
     p._i = i; placeById[p.id] = p;
     p.label = p.name || ((CAT_KO[p.category] || p.category) + ' (이름 없음)');
@@ -260,7 +261,7 @@
     container: 'map',
     bounds: bounds0,
     fitBoundsOptions: { padding: { top: 80, bottom: 150, left: 40, right: 40 } },
-    pitch: 52, bearing: -8, maxPitch: 85,
+    pitch: 52, bearing: -8, maxPitch: 85, keyboard: false,
     pixelRatio: LITE ? 1 : Math.min(window.devicePixelRatio || 1, 2),
     fadeDuration: TOUR ? 0 : 200,
     attributionControl: { compact: true },
@@ -322,7 +323,7 @@
       terrain: { source: 'dem', exaggeration: EXAG.region },
       sky: { 'sky-color': '#0d1220', 'horizon-color': '#3b2a26', 'fog-color': '#151a22', 'fog-ground-blend': 0.55, 'horizon-fog-blend': 0.7, 'sky-horizon-blend': 0.6, 'atmosphere-blend': 0 }
     }
-  }); } catch (e) { fatal('The 3D map could not start (' + (e && e.message) + '). Turn on hardware acceleration, or play the 90-s recording kcf_scene_tour_90s.mp4.'); }
+  }); } catch (e) { fatal('The 3D map could not start (' + (e && e.message) + '). Turn on hardware acceleration, or play the 90-s recording kcf_scene_tour_90s.mp4 in this folder.'); }
   // lite: one DEM-derived layer fewer (no colour relief), cheaper drive camera
   if (LITE) map.once('styledata', function () { if (map.getLayer('relief')) map.removeLayer('relief'); map.setPaintProperty('bg', 'background-color', '#27322b'); });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
@@ -383,6 +384,8 @@
     var html = '';
     for (var k = 0; k < NK; k++) html += '<span style="left:' + (100 * k / (NK - 1)) + '%">' + esc(issueLabel(k)) + '</span>';
     $('sliderTicks').innerHTML = html;
+    $('sliderTicks').setAttribute('data-src', SRC.hotspot_rule);
+    $('sliderTicks').setAttribute('data-detail', 'Issue times: 2025-03-25 03:00 … 15:00 UTC = 12:00 … 24:00 KST (scene.js issue_kst)');
   }
   function renderLegend() {
     var si = standinInfo();
@@ -426,6 +429,8 @@
   // ------------------------------------------------------------------ UI: clock, slider marks
   function renderClock() {
     var k = kOf(st.s);
+    $('clock').setAttribute('data-src', st.drive ? SCENE_JS : APP_JS);
+    $('clock').setAttribute('data-detail', st.drive ? 'routes.' + st.drive.standin + '["' + st.drive.place.id + '"][' + st.drive.k + ']: departure ld + edge travel ticks' : 'slider position (presentation clock, 12:00 + slider seconds); the screen shown is the issue hour at or before it');
     if (st.drive) {
       $('clock').textContent = kst(3600 * st.drive.k + st.drive.tau, true) + ' KST';
       $('clockNote').innerHTML = 'driving the witness road of the ' + issueSpan(st.drive.k) + ' screen';
@@ -481,7 +486,7 @@
     var cls = stepClass(h);
     var html = '<button class="close" type="button" id="panelClose" title="back to region (Esc)">×</button>';
     html += '<div class="name">' + esc(p.label) + '</div>';
-    html += '<div class="sub">' + esc(p.category) + ' · ' + esc(p.sigungu || '') + (p.vulnerable ? ' · <b>care facility (vulnerable)</b>' : '') + ' · ' + esc(p.id) + '</div>';
+    html += '<div class="sub">' + esc(CAT_EN[p.category] || String(p.category || '').replace(/_/g, ' ')) + ' · ' + esc(p.sigungu || '') + (p.vulnerable ? ' · <b>care facility (vulnerable)</b>' : '') + ' · ' + esc(p.id) + '</div>';
     html += '<div class="muted">Screen issued at <b>' + issueSpan(k) + ' KST</b> · <span' + srcAttr(SRC.hotspot_rule, 'R(h) stand-ins: ' + (si.basis || '')) + '>' + esc(si.label || st.standin) + '</span> · ' + horizonSpan() + ' horizon</div>';
     // big clock
     if (h.state === 'LATEST_SAFE_DEPARTURE') {
@@ -504,7 +509,7 @@
     html += '<div class="btns">' +
       '<button type="button" class="primary" id="checkBtn"' + (canRoute ? '' : ' disabled') + ' title="re-walk the witness road against the closures (C)">Check it</button>' +
       '<button type="button" id="laterBtn"' + (canRoute ? '' : ' disabled') + ' title="same road, leaving 60 s later (L)">One minute later</button>' +
-      '<button type="button" id="driveBtn"' + (canRoute ? '' : ' disabled') + ' title="first-person drive, about 30 s (D)">Drive it ▶</button></div>';
+      '<button type="button" id="driveBtn"' + (canRoute ? '' : ' disabled') + ' title="drive the witness road (chase view), about 30 s (D)">Drive it ▶</button></div>';
     if (!canRoute) {
       html += '<div class="note">' + (routesAvailable() ? 'No witness road at this issue hour (' + esc(STATE_TXT[h.state] || h.state) + ').' : 'Witness roads for this stand-in are not in the scene data (' + esc(SCENE_JS) + ' built.runs).') + '</div>';
     }
@@ -537,7 +542,7 @@
           '<div class="src">' + esc(r.source || '') + (r.flag ? ' · <b>' + esc(r.flag) + '</b>' : '') + (r.url ? ' · <a href="' + esc(r.url) + '" target="_blank" rel="noopener noreferrer">source</a>' : '') + '</div></li>';
       });
       html += '</ul><div class="note"' + srcAttr(SRC.named_timeline, 'column documented') + '>' + esc(rep.documented || '') + '</div>';
-      html += '<div class="note">Every reported time is single-source and was re-read at its source on 2026-11-16 (SOURCES.md). A reported time is what an outlet wrote, not a result of this model.</div></div>';
+      html += '<div class="note">Every reported time is single-source and was re-read at its source on <span' + srcAttr(SRC.sources_md, 'line 1: documented times, re-read at source (2026-11-16)') + '>2026-11-16</span> (SOURCES.md). A reported time is what an outlet wrote, not a result of this model.</div></div>';
     }
     // hour table
     html += '<div class="sec"><h4>All <span' + srcAttr(SRC.hotspot_rule, 'Issue times: thirteen issue times') + '>13</span> screens (' + esc(st.standin) + ', ' + horizonSpan() + ')</h4><table class="hours"><tr><th>issue</th><th>step</th><th>leave-by / state</th><th>shelter</th></tr>';
@@ -590,7 +595,7 @@
         html += '<div>leaving <b' + depA + '>' + esc(kst(dep, true)) + '</b>, the vehicle would leave <span' + srcAttr(SCENE_JS, routeKey + ' → e[' + r.edge + '] segment in road cell ' + r.cell + ' (routeEdges seg, graph.json)') + '>road cell ' + r.cell + ' (edge ' + (r.edge + 1) + ' of ' + rt.e.length + ')</span> at <b' + walkA + '>' + esc(kst(3600 * k + r.leaveAt, true)) + '</b>; the ' + issueSpan(k) + ' screen closes that cell at <b' + srcAttr(SCENE_JS, 'close.' + c.standin + '.' + st.place.region + '[' + k + '] cell ' + r.cell + ' (T + h* where R(h*) = distance, HOTSPOT_RULE.md)') + '>' + esc(kst(3600 * k + r.closeAt, true)) + '</b>.</div>';
       }
       var hh0 = hourly(c.placeId, k, c.standin);
-      if (hh0 && hh0.state === 'LATEST_SAFE_DEPARTURE') html += '<div class="muted">This tests this road only. The deadline field (F-3.1) says no road to any of the 3 candidate shelters works after the latest safe departure.</div>';
+      if (hh0 && hh0.state === 'LATEST_SAFE_DEPARTURE') html += '<div class="muted">This tests this road only. The deadline field (F-3.1) says no road to any of the <span' + srcAttr(SRC.results_md, 'section 1: the planner\'s own 3 candidate shelters per place (replay.py K = 3)') + '>3</span> candidate shelters works after the latest safe departure.</div>';
       else html += '<div class="muted">This road is not cut within 8 h; its departure is the horizon cap, not a deadline (HOTSPOT_RULE.md).</div>';
       html += '</div>';
     }
@@ -650,7 +655,7 @@
       '<b>Road cell closure</b> = issue time + h*, where R(h*) = the cell\'s distance to the known fire area (RUNNING: distance / 8.2 km/h; WORST: (distance − 3 km) / 8.2 km/h), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
       '<b>Latest safe departure</b>: F-3.1 deadline field over the planner road graph, 3 candidate shelters per place.</p>' +
       '<p' + srcAttr(SRC.results_md, 'section 2 (R(h) stand-ins); research/kcf-replay/per_place.csv standin column has only ORDINARY, RUNNING, WORST') + '>R(h) stand-in now: <b>' + esc(si.label || st.standin) + '</b> — ' + esc(si.basis || '') + '. The frozen R(h) of research/kcf-margin was not applied to this replay (no MEASURED arm exists in research/kcf-replay).</p>' +
-      '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; HOTSPOT_RULE.md: closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are four simulated city sessions), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
+      '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; also hardware/phone_export/samples (synthetic test walks); HOTSPOT_RULE.md: within a screen a closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are synthetic: four simulated city sessions and the phone exporter\'s test walks), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
       '<p><b>Keys</b>: <kbd>←</kbd>/<kbd>→</kbd> issue hour · <kbd>Space</kbd> play · <kbd>1</kbd>–<kbd>6</kbd> bookmarks · <kbd>C</kbd> check it · <kbd>L</kbd> one minute later · <kbd>D</kbd> drive · <kbd>Esc</kbd> back · <kbd>H</kbd> region · <kbd>R</kbd> stand-in · <kbd>S</kbd> sources · <kbd>?</kbd> this box. URL: <code>?lite</code> for slow machines.</p>' +
       '<p class="note">Terrain: Terrain Tiles (Mapzen, AWS Open Data). Roads, water, names: © OpenStreetMap contributors (ODbL). MapLibre GL JS (BSD-3-Clause). Pretendard, Noto Sans (SIL OFL). Scene data built from committed files by research/kcf-replay/scene/build_scene.py; checks in research/kcf-replay/scene/VERIFY.json.</p>';
     $('aboutClose').addEventListener('click', function () { $('about').hidden = true; });
@@ -748,6 +753,9 @@
   }
   function home() {
     stopDrive(true);
+    if (st.playing) togglePlay();
+    var d0 = S.default_standin || 'RUNNING';
+    if (st.standin !== d0 && S.hourly[d0]) { st.standin = d0; map.getSource('cells').setData(buildCellsFC()); lastCellKey = null; lastPlacesKey = null; }
     st.place = null; st.view = 'region'; st.check = null; clearWalk();
     map.setTerrain({ source: 'dem', exaggeration: EXAG.region });
     refreshAll();
@@ -791,7 +799,7 @@
     return result;
   }
 
-  // ------------------------------------------------------------------ level 3: first-person drive
+  // ------------------------------------------------------------------ level 3: drive along the witness road (chase view)
   function buildDrive(p, k) {
     var rt = routeOf(p.id, k); if (!rt) return null;
     var E = S.routeEdges[p.region];
@@ -825,7 +833,10 @@
     var hk = hourly(p.id, k);
     // map layers follow the drive in steps of about 1/60 of it (at least 20 s of scene time): a few updates per second
     var quantum = Math.max(20, Math.ceil(dur / 60));
-    return { state: hk && hk.state, place: p, k: k, rt: rt, pts: pts, times: times, dist: dist, total: d, dur: dur, speed: speed, tau: rt.ld, closeTimes: closeTimes, quantum: quantum,
+    // detection discs near the route, to say when the vehicle is inside one (reconstruction, not the screen's input)
+    var near = S.discs.rows.filter(function (d) { return d[1] >= W - 0.05 && d[1] <= E2 + 0.05 && d[2] >= Sx - 0.04 && d[2] <= N + 0.04; });
+    return { cutBefore: hk && hk.cut_before, firstCut: hk && hk.first_cut, hrow: hk, nearDiscs: near, inFire: null,
+      state: hk && hk.state, place: p, k: k, rt: rt, pts: pts, times: times, dist: dist, total: d, dur: dur, speed: speed, tau: rt.ld, closeTimes: closeTimes, quantum: quantum,
       eye: null, bearing: null, playStart: null, done: false, standin: st.standin };
   }
   function posAtTime(dv, tau) {
@@ -872,6 +883,13 @@
     if (cam) { cam.pitch = Math.min(LITE ? 72 : 82, cam.pitch); map.jumpTo(cam); }
     // fire: detections time-stamped before this moment; closures: the issue-k screen's (both stepped by dv.quantum)
     var tq = tau >= dv.rt.arr ? tau : dv.rt.ld + Math.floor((tau - dv.rt.ld) / dv.quantum) * dv.quantum;
+    // sticky: the first moment the vehicle is inside a detection disc time-stamped before that moment
+    if (dv.inFire == null) {
+      for (var di = 0; di < dv.nearDiscs.length; di++) {
+        var dd = dv.nearDiscs[di];
+        if (dd[0] < now && distM(pos.p, [dd[1], dd[2]]) <= dd[3]) { dv.inFire = { at: now, disc: dd }; break; }
+      }
+    }
     setFire(3600 * dv.k + tq);
     var nClosed = upperBound(dv.closeTimes, tq);
     if (nClosed !== dv.nClosed) { dv.nClosed = nClosed; lastCellKey = null; setCells(dv.k, tq); }
@@ -894,9 +912,16 @@
       '<div class="meta">left <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'ld') + '>' + esc(kst(3600 * dv.k + dv.rt.ld, true)) + '</span> (' + (dv.state === 'LATEST_SAFE_DEPARTURE' ? 'latest safe departure' : 'last departure inside the 8 h horizon: a cap, not a deadline') + ') · arrives <span' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr') + '>' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: playback = (arr - ld) / 30 s, rounded') + '>playback ×' + dv.speed + (dv.speed < 1 ? ' (slowed: this road takes ' + dv.dur + ' s)' : dv.speed === 1 ? ' (real time)' : '') + '</span> · <span' + srcAttr(APP_JS, 'presentation setting, not data: BACK_M, EYE_M; terrain: data/terrain.js z12 (about 30 m)') + '>chase view ' + BACK_M + ' m behind and ' + EYE_M + ' m above the vehicle, over a 30 m terrain model</span></div>' +
       '<div class="meta">fire: detections time-stamped before this moment (reconstruction; delivery latency not modelled) · violet: cells the ' + issueSpan(dv.k) + ' screen has closed by now</div>' +
       (3600 * dv.k + dv.tau > discS[discS.length - 1] ? '<div class="meta" style="color:#ffb48a"' + srcAttr(SRC.fire_discs, 'last disc t_utc 2025-03-25T17:58:00Z = 02:58 KST 26 Mar; RESULTS.md section 5: the reconstruction ends with the data') + '>The fire record ends at 02:58 KST, 26 March: no detection after that is shown, which does not mean the fire stopped.</div>' : '');
-    if (dv.done) html += '<div class="end"' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr, sh') + '>Arrived ' + esc(shelterName(dv.rt.sh)) + ' at ' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + ' KST — the committed arrival second. Esc to go back.</div>';
+    var warnFire = dv.inFire || dv.cutBefore === 'yes';
+    if (warnFire) {
+      html += '<div class="warn">';
+      if (dv.inFire) html += '<span' + srcAttr(SRC.fire_discs, dv.inFire.disc[4] + ' disc, t_utc = issue 12:00 KST + ' + dv.inFire.disc[0] + ' s, r = ' + dv.inFire.disc[3] + ' m') + '>Since ' + esc(kst(dv.inFire.at, true)) + ' the vehicle is inside a ' + esc(String(dv.inFire.disc[4]).indexOf('AHI') === 0 ? 'Himawari hotspot (fire within 2 km)' : 'satellite fire detection') + ' disc detected before that moment.</span> ';
+      if (dv.cutBefore === 'yes') html += '<span' + srcAttr(SRC.per_place, csvDetail(dv.hrow, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', dv.standin, dv.k)) + '>The full record reached this road at ' + esc(csvClock(dv.firstCut)) + ', before this departure (RESULTS.md §5 counts it).</span> ';
+      html += 'The ' + issueSpan(dv.k) + ' screen used only detections before ' + issueSpan(dv.k) + '; this drive shows its projection, not an outcome.</div>';
+    }
+    if (dv.done) html += '<div class="end' + (warnFire ? ' muted-end' : '') + '"' + srcAttr(SCENE_JS, routeKey + ' → ' + 'arr, sh') + '>The ' + esc(issueLabel(dv.k)) + ' screen\'s projection: arrival at ' + esc(shelterName(dv.rt.sh)) + ' ' + esc(kst(3600 * dv.k + dv.rt.arr, true)) + ' KST (the committed arrival second' + (warnFire ? '; see the warning above' : '') + '). Esc to go back.</div>';
     $('hud').innerHTML = html;
-    var sig = (dv.done ? 'd' : '') + (3600 * dv.k + dv.tau > discS[discS.length - 1] ? 'e' : '');
+    var sig = (dv.done ? 'd' : '') + (3600 * dv.k + dv.tau > discS[discS.length - 1] ? 'e' : '') + (dv.inFire ? 'f' : '');
     if (sig !== dv.srcSig) { dv.srcSig = sig; renderSources(); }
   }
   var driveRaf = null, vehicleMarker = null;
@@ -904,6 +929,7 @@
     var p = st.place; if (!p) return null;
     var k = kOf(st.s);
     var dv = buildDrive(p, k); if (!dv) return null;
+    if (st.playing) togglePlay();
     stopDrive(true);
     st.check = null; clearWalk();
     st.view = 'drive'; st.drive = dv;
@@ -1008,8 +1034,14 @@
     });
     map.on('click', 'places-circle', function (e) { if (e.features && e.features[0]) selectPlace(e.features[0].properties.id); });
     map.on('click', 'places-label', function (e) { if (e.features && e.features[0]) selectPlace(e.features[0].properties.id); });
-    map.on('mouseenter', 'places-circle', function () { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', 'places-circle', function () { map.getCanvas().style.cursor = ''; });
+    var tip = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, className: 'kcf-tip' });
+    map.on('mousemove', 'places-circle', function (e) {
+      map.getCanvas().style.cursor = 'pointer';
+      var f = e.features && e.features[0]; if (!f || st.drive) return;
+      var p = placeById[f.properties.id], k = kOf(st.s), h = hourly(p.id, k); if (!h) return;
+      tip.setLngLat([p.lon, p.lat]).setHTML('<b>' + esc(p.label) + '</b><br><span class="step ' + esc(stepClass(h)) + '"' + srcAttr(SRC.per_place, csvDetail(h, 'government_step', null, k)) + '>' + esc((STEP_TXT[h.step] || [h.step])[0]) + '</span> <span' + srcAttr(SRC.per_place, csvDetail(h, h.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', null, k)) + '>' + esc(h.state === 'LATEST_SAFE_DEPARTURE' ? 'leave by ' + csvClock(h.lsd) : placeClock(h)) + '</span><br><small>per_place.csv line ' + (h.row + 1) + ' · ' + esc(issueLabel(k)) + ' screen · click for the place view</small>').addTo(map);
+    });
+    map.on('mouseleave', 'places-circle', function () { map.getCanvas().style.cursor = ''; tip.remove(); });
     document.addEventListener('keydown', function (e) {
       if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName) && e.target.type !== 'range') return;
       var key = e.key;
@@ -1031,7 +1063,7 @@
   // ------------------------------------------------------------------ tour (deterministic, for the recorded fallback)
   // tour.seek(t) puts the scene in the state of tour time t (seconds) without animations, so a recorder can capture
   // frame by frame at any speed. Story: region 12:00 -> 18:00; one bookmarked place; check it; one minute later;
-  // first-person drive; back to the region.
+  // chase-view drive; back to the region.
   var TOUR_PLAN = null;
   function lerp(a, b, f) { return a + (b - a) * f; }
   function ease(f) { f = Math.max(0, Math.min(1, f)); return f < 0.5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2; }
@@ -1135,7 +1167,7 @@
         $('loading').classList.add('gone');
         if (SOFT) {
           var n = document.createElement('div'); n.id = 'notice';
-          n.innerHTML = 'No GPU in use (' + esc(GL.renderer) + '): drawing is slow on this machine' + (LITE ? ', lite mode is on' : '') + '. Turn on hardware acceleration, or play the 90-s recording. <button type="button">×</button>';
+          n.innerHTML = 'No GPU in use (' + esc(GL.renderer) + '): drawing is slow on this machine' + (LITE ? ', lite mode is on' : '') + '. Turn on hardware acceleration, or play the <a href="kcf_scene_tour_90s.mp4" style="color:#ffd98a">90-s recording</a>. <button type="button">×</button>';
           document.body.appendChild(n);
           n.querySelector('button').addEventListener('click', function () { n.remove(); });
           if (!TOUR) setTimeout(function () { if (n.parentNode) n.remove(); }, 15000); else n.remove();

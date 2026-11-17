@@ -45,7 +45,9 @@ Committed:
 * `planner/public/data/regions/<region>/places.geojson` — place and shelter entry nodes.
 * `planner/research-map/site/regions/<region>.osm.js` — roads, water (from the committed planner PMTiles).
 * `planner/data/osm/<region>.overpass.json` — town / 읍·면 names.
-* `planner/public/basemap/fonts/Noto Sans Regular/0-255.pbf`, `planner/node_modules/pretendard` (OFL) — glyphs, UI font.
+* `planner/public/basemap/fonts/Noto Sans Regular/0-255.pbf` — glyphs.
+* UI font: Pretendard (OFL) from `planner/node_modules/pretendard`, i.e. the version pinned in `planner/package-lock.json`
+  (installed by `npm ci`, not committed); the subset ships in `data/fonts.js`.
 
 Not committed, SHA-pinned: `data/routing/graphs/<region>/graph.json` from release `research-final-20261015`
 (`tools/fetch_routing_inputs.py`, zip SHA-256 `d7e0a5fc…`), and `research/kcf-replay/out/runs/*.json` re-made by
@@ -104,21 +106,24 @@ stand-in ("RUNNING 8.2 km/h — a stand-in, not the frozen R(h)").
 * **Level 1, region.** Terrain of 의성·안동–영덕. Slider over the 13 issue hours. Known fire area (discs before the issue
   hour). Road cells drawn closed from their closure time. Every place: a dot coloured by its government step and a label
   with its leave-by clock (latest safe departure) or its state ("not cut in 8 h", "inside known fire area", "no safe
-  departure").
+  departure"). Labels that would overlap are hidden by MapLibre at region zoom; hovering a dot shows its step and clock.
 * **Level 2, place.** Click a place (or one of the six bookmarks). Shelter, witness route on the terrain, latest safe
   departure, planner 30-min strip, and "Check it": re-walks the witness edge by edge from its departure second against
   the issue hour's cell closures (the `analyze.py` `recheck` rule) and shows PASS/FAIL with the arrival second, next to
   the committed arrival it must equal. "One minute later" re-walks the same road from `ld + 60 s` (labelled "this road
   only"). Named places show their reported times as "reported", with outlet, date, URL and SINGLE flag.
-* **Level 3, road.** Drive along the witness at a speed-up that makes it about 30 s (real time when the drive is shorter):
+* **Level 3, road.** Drive along the witness in about 30 s (a whole-number speed-up; a road under 30 s is slowed down and labelled):
   a chase view 115 m behind and 38 m above the vehicle (a road-level eye over a 30 m terrain model sinks into the slopes),
   terrain exaggeration 1.0. Clock = departure second + committed edge travel ticks; fire = discs time-stamped before that
   moment (reconstruction, delivery latency not modelled) and the issue-hour closures.
 * **Sources panel.** Every number element carries `data-src`; a small panel lists the sources of what is on screen.
 * **Level 3 crossing view (vehicle, flame wall, verdict) and REOPENED event: not built.** The only logger recordings in
-  the repository are four explicitly simulated sessions in a synthetic city (`hardware/field_logger_demo/sessions`);
+  the repository are synthetic: four simulated sessions in a synthetic city (`hardware/field_logger_demo/sessions`) and the
+  phone exporter's synthetic test walks (`hardware/phone_export/samples`);
   there is no vehicle-unit or crossing log for this event, and the frozen rule has no reopening (closures are
   permanent, HOTSPOT_RULE.md).
 
-Test hooks: `window.KCF_APP` = `{ ready: Promise, timings, setTime(s), setStandin(name), selectPlace(id), check(offsetS),
-drive({seek}), view: "region"|"place"|"drive", tour }`.
+Test hooks: `window.KCF_APP` = `{ ready: Promise, timings, state (state.view = "region"|"place"|"drive", state.place,
+state.drive, …), map, setTime(s), setIssue(k), setStandin(name), selectPlace(idOrName), home(), back(), check(offsetS),
+rewalk(placeId, k, departS, standin), drive({manual}?), driveSeek(frac), stopDrive(), idle(), tour: { duration: 90, seek(t),
+plan() }, sources() }`.
