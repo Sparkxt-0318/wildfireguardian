@@ -1,8 +1,9 @@
 # Effect of the radiant-heat closure on leave-by times and witness routes
 
-**Scope:** the F-3.1 deadline field on the six recorded 2025 planner caches (1-hour panel), rerun with the heat
-closure rule. These results are model-relative; they make no physical-safety claim. The multi-hour runs could not be
-run here (see "Multi-hour" below).
+**Scope:** the F-3.1 deadline field rerun with the heat closure rule (C.1–C.2) and with a thermal-dose budget
+enforced inside the field (C.4). It runs on the six recorded 2025 planner caches (1-hour panel) and on F-3.1's 48
+multi-hour HEADLINE packets (F-DYN scenarios; "Multi-hour runs" below). These results are model-relative; they make
+no physical-safety claim.
 
 ## C.1 Rule
 
@@ -49,7 +50,8 @@ For each burning router cell with flame phase [b, x) in a hazard member:
 | Yeongdeok 03-25 23Z | 91 (91) | 0 | 1 | — | **1** | 3,000 → 2,988 | 12 → 0 | 0 → 0 | 0 → 0 | 181 → 26 |
 | Yeongdeok 03-26 08Z | 91 (89) | 0 | 0 | — | 0 | 3,032 → 3,032 | 0 → 0 | 0 → 0 | 0 → 0 | 0 → 0 |
 | **total, 1-hour panel** | **530 (508)** | **6** | **3** | **median 84, range 76–346** | **1** | **15,751 → 15,727** | **58 → 30** | **16 → 0** | **16 → 0** | **3,320 → 168** |
-| multi-hour HEADLINE (48 no_reentry/2 packets) | NOT RUN | — | — | — | — | — | — | — | — | — |
+
+The multi-hour HEADLINE packets have their own tables in "Multi-hour runs" below.
 
 ### Reading the table
 
@@ -116,27 +118,178 @@ Appendix II describes it as "3 minutes or longer with no serious detrimental eff
 These are unshielded-person doses along the drive. Vehicle shielding is not modelled, so for occupants of a closed
 vehicle they are upper-side numbers.
 
-**Not done: enforcing TDU inside the field.** The field's interval algebra assumes the full policy reduces to contact,
-and F-3.1 checks that precondition. Under the new law that assumption fails, because dose can bind (30 witnesses
-exceed 92 TDU). A TDU limit inside the backward field needs a resource-constrained search, which is not implemented.
+**Why this is not enough on its own.** The check above is post hoc: it tests one witness route per attempt. The
+field's interval algebra assumes the full policy reduces to contact, and F-3.1 checks that precondition. Under the new
+law the assumption fails, because dose can bind (30 witnesses exceed 92 TDU). With q\* = 10 kW/m² closure alone, the
+pain threshold can still be reached near the halo edge: 92 TDU takes 4.3 s at 10 kW/m² and 11 s at 5 kW/m². So the
+dose is now enforced inside the search (C.4).
 
-The TDU check here is a post-hoc test of witnesses. Its result: with q\* = 10 kW/m² closure alone, the pain threshold
-can still be reached near the halo edge. 92 TDU takes 4.3 s at 10 kW/m² and 11 s at 5 kW/m². **Recommendation:** either a lower vehicle q\*
-or a TDU budget in the search. Not tested.
+## C.4 Dose budget enforced inside the field
+
+Method and checks: [TDU_FIELD.md](TDU_FIELD.md). Code: `kcf_heat/dose.py`, `kcf_heat/tdu_field.py`.
+
+* For every origin and second, the field gives the **minimum dose over all legal routes** under the `cert_heat` masks.
+  A departure is feasible at budget B iff that minimum is ≤ B. This is exact for the model, not a heuristic, because
+  the dose is one additive, non-negative resource.
+* The dose counts the drive and the waits (TDU, q₀ = 1.42 kW/m²), with the flux bounded **above** in every second.
+* **The shelter stay** (destination dwell, 120 s in every spec here) is run both ways:
+  * **counted**: the router's dose span, departure to the end of the dwell, as if the stay is outdoors;
+  * **excluded**: the stay is indoors.
+* **Budgets:** 92 TDU (pain), 105 TDU (first-degree burn), 290 TDU (second-degree burn), from HSL/2004/04 Table 1.
+* The comparison is `cert_heat` → `cert_heat` + dose ≤ B, so every change is caused by the dose limit.
+
+**Checks, in every run.** Each per-(origin, destination, budget) deadline gets a witness route, and each witness must
+pass three tests:
+
+* it replays as a legal journey under the `cert_heat` masks, independently of both fields;
+* its dose lies within independent sampled bounds (`kcf_heat/dose_check.py`) and is ≤ the budget;
+* the next second is infeasible, or the planner range ends.
+
+On top of that, `cert_heat` must reproduce the committed 1-hour results, and F-3.1's `cert` must reproduce the
+multi-hour HEADLINE results.
+
+### 1-hour panel
+
+Scope: 530 origins, 507 with a `cert_heat` leave-by. The exact 1 s leave-by is used, under the same rule as the table
+above. `cert_heat` reproduces the C.2 result for every origin; all 4,443 witnesses pass (each dwell mode).
+
+| budget | leave-bys moved earlier | shift (s) | places that lose their route | 10-min grid value changed |
+|---|---:|---|---:|---:|
+| 92 TDU (pain) | 4 | Uiseong 03-23: 261, 453; Uiseong 03-24: 184, 184 | 0 | 2 |
+| 105 TDU (first-degree burn) | 4 | 226, 252; 157, 157 | 0 | 1 |
+| 290 TDU (second-degree burn) | 3 | 51; 21, 21 | 0 | 0 |
+
+* **The places:**
+  * Uiseong 03-23 01Z: `osm:node/415160424`, `osm:node/415160476`;
+  * Uiseong 03-24 09Z: `osm:node/415160428`, `osm:node/415160434`.
+* **The shelter stay makes no difference here.** Counted and excluded give identical results, so on this panel the
+  limit binds only through the drive.
+* **Why only 4 moves.** C.3 found 30 heat-on witnesses above 92 TDU. Two things separate those from this table:
+  * C.3 tested one route per attempt, at every planner offset. The field takes the minimum over all routes.
+  * A leave-by changes only if the latest feasible second changes.
+* Data: `data/tdu_1h/` (one file per cache and dwell mode); script: `scripts/c4_tdu_1h.py`.
 
 ## Multi-hour runs
 
-**NOT RUN, blocked on inputs.** The HEADLINE no_reentry/2 packets (48 pairs) are built by F-DYN
-(`research/harness-2026-11/F-DYN/fdyn/build.py`, branch `leo/f-c1-see-before-leave`, `MANIFEST_v3_7.json`) from
-`F-DYN/_data/`. That directory holds the kriged arrival rasters, FIRMS bracket rasters, full-grid exports, regridded
-graphs and `INSTANCE.json`. It is gitignored and exists only on the host that built the F-3.1 run; none of it is on any
-fetched branch, on this machine, or in the attached study zip.
+These are **scenarios** (F-DYN), not what happened. Roads are limited to the recorded windows.
 
-`scripts/c2_deadlines_multihour.py` takes the same arguments as `deadline_field/headline.py` and is ready to run there.
+### Inputs and reproduction
 
-* Expected direction: deadlines can only move earlier.
-* On multi-hour horizons T\* (84 / 350 s) is small next to horizons of 5–8 h, but present-fire cells burn for hours
-  there, so the lateral halo may bind more often. **UNVERIFIED.**
+F-3.1's HEADLINE uses 48 no_reentry/2 packets from F-DYN (`MANIFEST_v3_7.json`, recorded starts): 2 regions × 3
+starts × {5 h, 8 h} × 4 variants. Three variants are timing variants (`kriged_mean`, `firms_early`, `envelope`); the
+fourth, `envelope_burnset`, is the static final footprint.
+
+* **Rebuilt inputs.** F-DYN's `_data/` is gitignored. It was rebuilt from this repository's own branches with
+  `scripts/fdyn_rebuild_inputs.sh`, in a scratch checkout of the F-DYN commit that F-3.1's headline batch used
+  (819bcb91). The rebuild's own checks pass:
+  * the kriged TOA sha256 equals build.py's `KRIGED_TOA_SHA256`;
+  * `envelope_sound_counts.json` is identical to the committed file;
+  * the burn set has 16,176 cells;
+  * `INSTANCE.json` has 12 instances and 1,044 origin-instances.
+* **Packets.** Each packet was built with its manifest command unchanged, run, then deleted
+  (`scripts/c2_multihour_batch.py`, runner `scripts/c2_deadlines_multihour.py`).
+* **Reproduction.** The HAZARD files' sha256 differ from F-3.1's, from float rounding across environments (F-3.1
+  RESULTS row 72a records the same effect). So the inputs are checked by their output instead: **F-3.1's `cert`
+  leave-by is reproduced for 4,176 / 4,176 place-runs** (48 packets × 84 or 90 places). This includes the static
+  final-footprint row.
+* All 96 runs (48 packets × 2 dwell modes) built and ran without failure.
+
+### Units
+
+* A **place** is (region, start, origin): 522 places, each run at 5 h and at 8 h. 286 of them have a `cert` leave-by
+  in at least one timing variant.
+* **Leave-by:** the latest second of the union, over the place's destinations, of its feasible departures, provided
+  the union starts at 0 (headline.py's rule).
+* Following MULTIHOUR_HEADLINE_RULE.md (2), a place's result is the **range over the three timing variants**.
+  * The first table follows the range's **earliest edge**: the earliest leave-by among the variants.
+  * Where the two horizons differ, it takes the larger shift.
+* **Place-runs** (second table) count every packet × place separately.
+
+### Results
+
+**Places** (286 with a leave-by), each step against the one before it:
+
+| step | shelter stay | earliest leave-by moves earlier | shift: range (median) | places that lose a route |
+|---|---|---:|---|---:|
+| heat rule: `cert` → `cert_heat` | — | 28 | 84–350 s (304.5 s) | 0 |
+| then dose ≤ 92 TDU (pain) | counted | 22 | 12–529 s (301 s) | 2 |
+| then dose ≤ 105 TDU (first-degree burn) | counted | 21 | 25–521 s (268 s) | 2 |
+| then dose ≤ 290 TDU (second-degree burn) | counted | 16 | 27–257 s (117.5 s) | 2 |
+| then dose ≤ 92 TDU (pain) | excluded | 21 | 12–529 s (307 s) | 0 |
+| then dose ≤ 105 TDU (first-degree burn) | excluded | 19 | 25–521 s (268 s) | 0 |
+| then dose ≤ 290 TDU (second-degree burn) | excluded | 12 | 27–245 s (116 s) | 0 |
+
+Heat and dose together, against `cert`:
+
+* **At 92 TDU:** with the stay counted, 26 places move 328–613 s (median 497 s) and 2 lose a route. With the stay
+  excluded, 28 move 328–613 s (median 391 s).
+* **At 290 TDU:** with the stay counted, 26 places move 111–478 s (median 313.5 s) and 2 lose a route. With the stay
+  excluded, 28 move 111–350 s (median 319 s).
+
+**Place-runs** (the 36 timing-variant packets: 3,132 place-runs, 1,612 with a `cert` leave-by):
+
+| step | shelter stay | moved earlier | shift: range (median) | lose their route |
+|---|---|---:|---|---:|
+| heat rule: `cert` → `cert_heat` | — | 80 | 84–350 s (321.5 s) | 0 |
+| then dose ≤ 92 TDU | counted | 60 | 12–529 s (285.5 s) | 8 |
+| then dose ≤ 105 TDU | counted | 54 | 25–521 s (268 s) | 8 |
+| then dose ≤ 290 TDU | counted | 44 | 27–257 s (118 s) | 8 |
+| then dose ≤ 92 TDU | excluded | 57 | 12–529 s (295 s) | 0 |
+| then dose ≤ 105 TDU | excluded | 45 | 25–521 s (288 s) | 0 |
+| then dose ≤ 290 TDU | excluded | 32 | 27–245 s (117 s) | 0 |
+
+**Static final footprint** (12 `envelope_burnset` packets; 81 places with a `cert` route): heat removes the route of
+3 places (6 place-runs). The dose limit changes nothing further, at any budget, whichever way the stay is treated.
+
+### Reading the results
+
+* **Heat binds far more often over hours.** It moves 28 of 286 places here, against 6 of 508 leave-bys on the
+  1-hour panel. This fits the earlier expectation that present-fire cells burn for hours on these horizons, so the
+  lateral halo binds more often.
+* **The dose limit then moves 12–22 further places**, by up to 529 s (8.8 min). The shifts shrink as the budget
+  rises: the median falls from about 300 s at 92 TDU to about 117 s at 290 TDU.
+* **Two places lose their route, and only when the shelter stay counts.** Both are in Uiseong with start 03-24 09Z:
+  * Ibam-ri, `osm:node/415160345`: all three timing variants, both horizons;
+  * Geumhak-ri, `osm:node/415160343`: `kriged_mean`, both horizons.
+* **What happens at those two places:**
+  * With the stay counted, no departure second at either place is under 290 TDU.
+  * For Ibam-ri (5 h, `kriged_mean`), the minimum over departures is 344 TDU. Of that, 337 TDU is the 120 s stay
+    and 6.6 TDU is the drive.
+  * 337 TDU in 120 s equals a steady 2.2 kW/m². That is below the heat rule's 2.5 kW/m² person limit, which is why
+    the heat rule alone keeps the route.
+  * With the stay excluded, both keep their routes, to destination `osm:368196874`:
+    * Ibam-ri's leave-by moves 33 s at 92 TDU and does not move at 105 or 290 TDU (drive dose at the leave-by
+      91.9–99.8 TDU);
+    * Geumhak-ri's does not move (drive dose 91.7 TDU).
+  * So **the shelter stay alone removes these routes.**
+  * Two things are open:
+    * Whether the stay is outdoors is not known to the model. **UNVERIFIED.**
+    * About 2 kW/m² held for minutes is the low-flux, long-exposure regime, where the TDU thresholds and the q₀
+      cut-off are least certain (C.3).
+
+### Checks and cost
+
+* **Witnesses.** Every per-(origin, destination, budget) deadline witness passes all three checks in C.4:
+  * 14,442 witnesses with the stay counted;
+  * 14,466 witnesses with the stay excluded.
+* **Early results rerun.** The first 11 packets in stay-counted mode were computed before a speed-only change: the
+  issue values were vectorised, the core was reused, and the independent check got a cell prefilter.
+  All 11 were rerun with the final code, and every result is identical:
+  * leave-bys;
+  * witnesses (deadline, arrival, dose and bounds);
+  * comparisons, reproduction counts and field statistics.
+
+  Only the count of lazily evaluated edges differs, and that measures work, not a result.
+* **Cost per packet** (stay counted, 3 packets in parallel):
+  * total 33–2,804 s, median 460 s;
+  * TDU field 3–2,179 s (median 42 s), against 7–164 s (median 52 s) for the `cert_heat` field;
+  * peak memory ≤ 4.0 GiB;
+  * burning cells 554–16,176;
+  * the slowest packet is Yeongdeok 03-25 19Z, 5 h, `kriged_mean`.
+* **Data:** `data/multihour/summary_dwell_count.json` and `summary_dwell_exclude.json`.
+  * Per packet: reproduction, witness checks, comparisons and timing.
+  * Per place: the range of every field.
+  * The per-packet run files (about 100 KB each) are not kept; the batch script reproduces them.
 * The F-DYN halo uses the packet spread rate, not the local one (UNVERIFIED there).
 
 ## Not covered
@@ -158,5 +311,16 @@ cd research/kcf-heat
 python scripts/c2_deadlines_1h.py --data-root ../../data/routing --out-dir /tmp/kcf ../../planner/cache/*/*.json   # ~20 min, 3 in parallel
 python scripts/c2_summarize.py /tmp/kcf/SUMMARY.json /tmp/kcf/*.summary.json
 python scripts/c3_tdu_witness.py --data-root ../../data/routing /tmp/kcf/TDU.json /tmp/kcf/*.full.json
+python scripts/c4_tdu_1h.py --data-root ../../data/routing --out-dir /tmp/kcf/tdu --dwell-dose count ../../planner/cache/*/*.json
 python -m pytest -q -p no:cacheprovider tests
+```
+
+Multi-hour (inputs about 400 MB plus one packet at a time; 1 h 40 min per dwell mode on one machine with 3 workers,
+builds included):
+
+```sh
+scripts/fdyn_rebuild_inputs.sh REPO /tmp/leo819 ../../data/routing PY_WITH_RASTERIO
+python scripts/c2_multihour_batch.py --leo /tmp/leo819 --out-dir /tmp/kcf/mh --builder-python PY_WITH_RASTERIO \
+    --dwell-dose count          # and again with --dwell-dose exclude into another directory
+python scripts/c2_multihour_summarize.py /tmp/kcf/mh /tmp/kcf/mh_summary.json
 ```
