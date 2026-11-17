@@ -1,0 +1,67 @@
+{
+ "cases_per_family": 6000,
+ "counts": {
+  "closure:cases": 6000,
+  "closure:deadline_confirmed": 8430,
+  "closure:departure_seconds_compared": 312958,
+  "closure:nonempty": 8430,
+  "closure:origin_sets": 23993,
+  "closure:scalar_recursion_equal": 23993,
+  "general:NOT_prefix": 3826,
+  "general:cases": 6000,
+  "general:deadline_confirmed": 8411,
+  "general:departure_seconds_compared": 312214,
+  "general:hull_loses_seconds": 50107,
+  "general:hull_prefix_and_subset": 24059,
+  "general:nonempty": 8411,
+  "general:origin_sets": 24059
+ },
+ "non_prefix_examples": [
+  {
+   "family": "general",
+   "seed": 1,
+   "origin": 0,
+   "feasible": [
+    [
+     0,
+     12
+    ],
+    [
+     14,
+     16
+    ]
+   ]
+  },
+  {
+   "family": "general",
+   "seed": 1,
+   "origin": 1,
+   "feasible": [
+    [
+     0,
+     0
+    ],
+    [
+     6,
+     14
+    ]
+   ]
+  },
+  {
+   "family": "general",
+   "seed": 3,
+   "origin": 0,
+   "feasible": [
+    [
+     10,
+     12
+    ]
+   ]
+  }
+ ],
+ "seconds": {
+  "backward_and_issue_sets": 0.43,
+  "brute_force_one_second_at_a_time": 4.11
+ },
+ "mismatches": 0
+}
