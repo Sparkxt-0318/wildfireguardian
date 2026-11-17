@@ -48,4 +48,18 @@ and is reported as such.
 **Not done.** No claim about what anyone should have done. One fire, one day: no rate is claimed.
 
 ## Amendments
-(none)
+
+1. **2026-11-17, before any KMA value was fetched or read.** A key for data.go.kr (`DATA_GO_KR_KEY`) became available, and the KMA
+   hub key (`KMA_API_KEY`, apihub.kma.go.kr) is stored in the user's environment but was not present in this session. Keys are never
+   printed, logged or committed. What the data.go.kr services give (checked by field names only, no values): the hourly ASOS service
+   (`AsosHourlyInfoService/getWthrDataList`) returns the mean wind `ws`, **not** a maximum gust; the daily ASOS service
+   (`AsosDalyInfoService/getWthrDataList`) returns the maximum instantaneous wind speed `maxInsWs` and its time `maxInsWsHrmt`. So:
+   - The KMA hourly maximum gust series needed for the hour-by-hour class table can only come from apihub (`KMA_API_KEY`). If it is
+     not available, the hour-by-hour class and R-held tables stay **PROVISIONAL (ERA5 only)**.
+   - From data.go.kr, for each ASOS station nearest to a point (distance recorded; stations with no data for the dates are listed as
+     such), 22-26 March 2025: daily `maxInsWs` and `maxInsWsHrmt`, and hourly `ws` on 25 March. Reported side by side with ERA5;
+     none of it is used to change a class, R, or any score.
+   - Station ids tried: Uiseong 278, Andong 136, Cheongsong 276, Yeongdeok 277, Yeongyang: no ASOS id assumed (an AWS site would come
+     from apihub only). Presence is decided by the service, not by assumption.
+   - "Gust >= 20 m/s observed at 10-11 KST" is answerable from the daily series only if `maxInsWsHrmt` falls in that window; otherwise
+     the daily series can bound it (a daily maximum below 20 m/s rules out >= 20 at that station that day) but not locate it.
