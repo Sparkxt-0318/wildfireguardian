@@ -140,6 +140,12 @@ body.panel-open #legend { display: none; }
 #sources { position: absolute; left: 12px; bottom: 132px; z-index: 11; width: 420px; max-height: 42vh; overflow: auto; padding: 6px 10px; font-size: 11.5px; }
 #sources .hd { cursor: pointer; color: var(--ink-2); font-weight: 700; font-size: 12px; user-select: none; }
 #sources.collapsed .bd { display: none; }
+/* open: the bottom edge fades like the place panel's, so a list that continues below reads as scrollable, not cut */
+#sources:not(.collapsed) { padding-bottom: 20px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent), linear-gradient(#000, #000);
+  -webkit-mask-size: calc(100% - 16px) 100%, 16px 100%; -webkit-mask-position: 0 0, 100% 0; -webkit-mask-repeat: no-repeat;
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent), linear-gradient(#000, #000);
+  mask-size: calc(100% - 16px) 100%, 16px 100%; mask-position: 0 0, 100% 0; mask-repeat: no-repeat; }
 #sources .bd { margin-top: 4px; }
 #sources .p { color: #9ecbff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; word-break: break-all; }
 #sources .d { color: var(--ink-3); margin: 0 0 4px 10px; }
