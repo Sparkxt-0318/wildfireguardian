@@ -153,3 +153,10 @@ Forbes and Taimre, "Logic-Based Benders Decomposition for Wildfire Suppression".
 study differs. The search does not change §1–§8.
 
 ## Amendments
+
+1. **2026-11-18 ~15:50 UTC, before any delay was evaluated and before the gate was run.** A FRONT tile (§3) is defined on
+   the known-fire discs, which are shared by both region grids. A tile is therefore **one candidate across both
+   regions**: its benefit, village-minutes and villages helped are summed over the villages of both regions (cells of
+   both grids are delayed together). ROAD candidates belong to one region. In §3 "cells with 0 < b_c ≤ H" and "d_c > 0"
+   both apply to ROAD candidates (under WORST, cells within 3 km of the known area have d_c > 0 but b_c = 0 and are not
+   ROAD candidates; a FRONT hold still delays them, as §3 says).
