@@ -275,3 +275,10 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
     avenue→ave, street→st, boulevard→blvd, highway→hwy, place→pl, trail→trl, way→way) and case, strips source tokens such as `PPD-02,`, and takes a road name from the text
     only if it equals a normalised Overture primary name; texts with more than two names and no "between" use the first two names in reading order. Rows with only one
     road name and no place, or none, are not geocoded.
+
+11. **2026-11-19 ~00:05 UTC, after the first geocoding run (coverage: progression 255 of 392, burnovers 5 of 19, traffic rows 71 of 132; no field and no comparison built),
+    before the second.** The first run's output showed two defects, fixed here: (a) road names must be **distinct** (a road mentioned twice counted as two names and sent the
+    "between" rule to the road's own geometry; the 12:00 Clark Rd closure row landed near the airport); (b) the TN 2252 closure rows are multi-clause narrative, so a closure
+    row is geocoded on **its first sentence that contains `clos|block|impass`** (not on the whole row). Everything else in amendments 9-10 is unchanged. Burnover rows with one
+    road name only (Hoffman Rd, Concow Rd, Chapman Ln, Windermere Ln, Pentz Rd, Pearson Rd, Bille Rd, Wagstaff Rd, Coutolenc Rd, Chestnut Cir, Ponderosa Way, Rattlesnake Flats Rd,
+    Jordan Hill Rd/Granite Hill Rd, Concow Fire Station 37) stay not geocoded: the record gives no position along the road.
