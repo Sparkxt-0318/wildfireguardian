@@ -1,0 +1,75 @@
+{
+ "cases_per_family": 1000,
+ "mutants": {
+  "tent_off_by_one": "level function = distance to the closure (not distance - 1): every closure widened one second too little",
+  "wait_ignores_mask": "waiting closure ignores the wait mask omega (waits through fire)",
+  "shift_off_by_one": "edge travel taken as D - 1 when shifting back",
+  "ignore_turns": "forbidden turns not removed from the predecessor lists",
+  "drop_dirty_low": "only the top second of a changed region is re-delivered (dirty hull collapsed)"
+ },
+ "results": {
+  "None": {
+   "closure:cases": 1000,
+   "closure:caught": 0,
+   "general:cases": 1000,
+   "general:caught": 0
+  },
+  "tent_off_by_one": {
+   "closure:by_existing_field": 164,
+   "closure:by_oracle": 163,
+   "closure:cases": 1000,
+   "closure:caught": 203,
+   "general:by_existing_field": 209,
+   "general:by_oracle": 252,
+   "general:cases": 1000,
+   "general:caught": 270
+  },
+  "wait_ignores_mask": {
+   "closure:by_certificate": 4,
+   "closure:by_existing_field": 4,
+   "closure:cases": 1000,
+   "closure:caught": 4,
+   "general:by_certificate": 100,
+   "general:by_existing_field": 100,
+   "general:by_oracle": 52,
+   "general:cases": 1000,
+   "general:caught": 100
+  },
+  "shift_off_by_one": {
+   "closure:by_certificate": 371,
+   "closure:by_existing_field": 371,
+   "closure:by_oracle": 146,
+   "closure:cases": 1000,
+   "closure:caught": 371,
+   "general:by_certificate": 377,
+   "general:by_existing_field": 377,
+   "general:by_oracle": 234,
+   "general:cases": 1000,
+   "general:caught": 377
+  },
+  "ignore_turns": {
+   "closure:by_certificate": 257,
+   "closure:by_existing_field": 257,
+   "closure:by_oracle": 62,
+   "closure:cases": 1000,
+   "closure:caught": 257,
+   "general:by_certificate": 297,
+   "general:by_existing_field": 297,
+   "general:by_oracle": 127,
+   "general:cases": 1000,
+   "general:caught": 297
+  },
+  "drop_dirty_low": {
+   "closure:by_certificate": 152,
+   "closure:by_existing_field": 152,
+   "closure:by_oracle": 23,
+   "closure:cases": 1000,
+   "closure:caught": 152,
+   "general:by_certificate": 200,
+   "general:by_existing_field": 200,
+   "general:by_oracle": 91,
+   "general:cases": 1000,
+   "general:caught": 200
+  }
+ }
+}
