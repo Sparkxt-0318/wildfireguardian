@@ -3,8 +3,10 @@
 Every number written comes from a file in the repository (or from the SHA-pinned routing graph / the run files that
 committed code re-makes); every file read is listed in built.inputs with its byte size and SHA-256.
 
-Five R(h) arms: the three labelled stand-ins of HOTSPOT_RULE.md (ORDINARY, RUNNING, WORST) and the two MEASURED arms of
-MEASURED_RULE.md (MEASURED, MEASURED_GUST; class per issue hour, closure curve measured_arms.closure_s).
+Six R(h) arms: the three labelled stand-ins of HOTSPOT_RULE.md (ORDINARY, RUNNING, WORST) and the three MEASURED arms of
+MEASURED_RULE.md (MEASURED; MEASURED_GUST, ERA5 gusts, PROVISIONAL; MEASURED_GUST_KMA, KMA ASOS hourly gusts, amendment 1;
+class per issue hour, closure curve measured_arms.closure_s). The planner's 30-min strip is included for every arm with a
+committed planner cache (planner_cache/<arm>_8h: RUNNING, MEASURED, MEASURED_GUST).
 Re-runnable: an arm's witness routes are included only when all 26 run files (2 regions x 13 issue hours, 8 h)
 exist and parse; run it again when out/runs/ gains an arm. Before using an arm's runs it ASSERTS that
 the runs reproduce per_place.csv exactly (state, step, latest safe departure, last departure, shelter, arrival,
@@ -38,17 +40,24 @@ H = replay.HORIZONS[HZ]
 T0 = datetime(2025, 3, 25, 3, 0, tzinfo=timezone.utc)
 TR = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
 NAMED = ["화매리", "지품리", "옥류리", "매정리", "노물리", "강구리"]   # RESULTS.md section 4, in table order
-ARMS = list(replay.STANDINS) + list(MA.ARMS)      # per_place.csv standin values: ORDINARY RUNNING WORST MEASURED MEASURED_GUST
-ARM_ORDER = ["RUNNING", "MEASURED", "MEASURED_GUST", "WORST", "ORDINARY"]   # the scene's R key cycle (RUNNING has the planner cache)
+ARMS = list(replay.STANDINS) + list(MA.ARMS)   # per_place.csv standin values: ORDINARY RUNNING WORST MEASURED MEASURED_GUST MEASURED_GUST_KMA
+assert sorted(ARMS) == sorted(["ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA"]), ARMS
+ARM_ORDER = ["RUNNING", "MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA", "WORST", "ORDINARY"]   # the R key cycle (RESULTS.md 3 order, RUNNING first)
 # RESULTS.md section 2b "class picked at each issue hour", restated per issue hour 12:00 .. 24:00 KST; asserted below both
 # against that cell's text and against measured_arms.curve() and the runs' arm_class.
 ARM_CLASSES = {
     "MEASURED": (["quiet"] * 3 + ["slow"] + ["running"] * 9, "quiet 12-14 KST, slow 15, running 16-24 KST"),
     "MEASURED_GUST": (["g>=20"] * 11 + ["g10-20"] * 2, ">= 20 m/s (9 fires) at 12-22 KST, 10-20 m/s at 23-24 KST"),
+    "MEASURED_GUST_KMA": (["g>=20"] * 11 + ["g<10"] * 2, "8 h run >= 20 (9 fires) at 12-22 KST, < 10 at 23-24 KST"),
 }
 ARM_R_TEXT = {"quiet": "quiet {} / {}", "slow": "slow {} / {}", "running": "running {} / {}",
               "g<10": "< 10: {} / {}", "g10-20": "10-20: {} / {}", "g>=20": ">= 20: {} / {}"}
-ARM_LABEL = {"MEASURED": "MEASURED", "MEASURED_GUST": "MEASURED+GUST"}
+# display labels = the RESULTS.md section 3 column headers (asserted below)
+ARM_LABEL = {"MEASURED": "MEASURED", "MEASURED_GUST": "MEASURED+GUST (ERA5, PROVISIONAL)", "MEASURED_GUST_KMA": "MEASURED+GUST (KMA)"}
+GUST = {  # gust arm -> (committed per-stamp file of kcf-gust, series named on screen)
+    "MEASURED_GUST": ("kcf-gust/work/gust_hours.json", "ERA5"),
+    "MEASURED_GUST_KMA": ("kcf-gust/work/gust_hours_kma.json", "KMA ASOS"),
+}
 
 # RESULTS.md section 4 "documented" column -> SOURCES.md rows. Keys: ("county", KST) = a row of the 뉴스로 county action
 # log table; ("village", Place cell, KST) = a row of the "Village-level times" table. Checked below in both directions
@@ -178,7 +187,7 @@ def main():
     # ---------------------------------------------------------------- per_place.csv (8 h rows)
     pp_path = KCF / "per_place.csv"
     pp_rows = list(csv.DictReader(io.StringIO(inp.text(pp_path), newline="")))
-    assert len(pp_rows) == 22620, len(pp_rows)   # 5 arms x 2 horizons x 174 places x 13 issue hours
+    assert len(pp_rows) == len(ARMS) * 2 * 174 * 13 == 27144, len(pp_rows)   # 6 arms x 2 horizons x 174 places x 13 issue hours
     csv_by = {}
     for n, r in enumerate(pp_rows, 1):
         if r["horizon"] != HZ:
@@ -414,58 +423,66 @@ def main():
         assert c["AHI"] + c["FIRMS"] == c["total"]
         disc_counts.append(c)
 
-    # ---------------------------------------------------------------- planner cache (RUNNING, 8 h)
-    cache_dir = KCF / "planner_cache/RUNNING_8h"
-    planner = {pid: [None] * 13 for pid in sorted(place_region)}
+    # ---------------------------------------------------------------- planner caches (8 h): every arm with planner_cache/<arm>_8h
     shelter_ids = {r["shelter_id"] for r in pp_rows if r["shelter_id"]}
-    geo = Counter()
-    for region in REGIONS:
-        for k, T in enumerate(issues):
-            compact = T.strftime("%Y%m%dT%H%M%SZ")
-            p = cache_dir / region / f"RUNNING_8h_{compact}.json"
-            doc = inp.json(p)
-            assert doc["region_id"] == region and doc["input_time"] == issue_utc[k]
-            step = doc["generator"]["step_min"] * 60
-            for job in doc["plans"]:
-                req = job["request"]
-                offs = req["depart_offsets_s"]
-                assert offs == list(range(0, H - replay.DWELL, step)), offs
-                (plan,) = job["result"]["plans"]
-                pid = plan["origin_id"]
-                assert place_region[pid] == region and planner[pid][k] is None
-                verdict = {}
-                for at in plan["attempts"]:
-                    key = (at["destination_id"], at["depart_offset_s"])
-                    assert key not in verdict
-                    verdict[key] = "1" if at["verdict"] == "checked_route" else "0"
-                dests = [d["id"] for d in req["destinations"]]
-                assert len(verdict) == len(dests) * len(offs)
-                shelter_ids.update(dests)
-                b = plan["best"]
-                planner[pid][k] = {"file": rel(p), "offsets_step_s": step,
-                                   "shelters": [[d, "".join(verdict[(d, o)] for o in offs)] for d in dests],
-                                   "contiguous_s": plan["latest_contiguous_checked_depart_offset_s"],
-                                   "best": None if b is None else {"shelter": b["destination_id"], "off_s": b["depart_offset_s"],
-                                                                   "arr_s": b["arrival_s"]}}
-                if "RUNNING" in routes:
-                    w = routes["RUNNING"][pid][k]
-                    if b is None:
-                        geo["no_cache_best_with_witness" if w else "no_cache_best_no_witness"] += 1
-                        continue
-                    if w is None:
-                        geo["mismatch"] += 1
-                        continue
-                    coords = doc["route_checks"][b["route_check_job_id"]]["result"]["route"]["geometry"]["coordinates"]
-                    E = route_edges[region]
-                    chain = [E[w["e"][0]]["c"][0]] + [E[i]["c"][1] for i in w["e"]]
-                    for i, j in zip(w["e"], w["e"][1:]):
-                        assert E[i]["c"][1] == E[j]["c"][0]
-                    same = coords == chain and b["destination_id"] == w["sh"]
-                    geo["match" if same else "mismatch"] += 1
-    assert all(v is not None for lst in planner.values() for v in lst)
-    if "RUNNING" in routes:
-        assert geo["mismatch"] == 0, geo
-    report["planner_geometry"] = dict(geo)
+    planner, cache_dirs, geo_by = {}, {}, {}
+    for st in ARM_ORDER:
+        cache_dir = KCF / f"planner_cache/{st}_{HZ}"
+        if not cache_dir.is_dir():
+            continue
+        cache_dirs[st] = cache_dir
+        planner[st] = pl = {pid: [None] * 13 for pid in sorted(place_region)}
+        geo = Counter()
+        for region in REGIONS:
+            for k, T in enumerate(issues):
+                compact = T.strftime("%Y%m%dT%H%M%SZ")
+                p = cache_dir / region / f"{st}_{HZ}_{compact}.json"
+                doc = inp.json(p)
+                assert doc["region_id"] == region and doc["input_time"] == issue_utc[k]
+                assert (doc["generator"]["standin"], doc["generator"]["horizon"]) == (st, HZ), (p, doc["generator"])
+                step = doc["generator"]["step_min"] * 60
+                for job in doc["plans"]:
+                    req = job["request"]
+                    offs = req["depart_offsets_s"]
+                    assert offs == list(range(0, H - replay.DWELL, step)), offs
+                    (plan,) = job["result"]["plans"]
+                    pid = plan["origin_id"]
+                    assert place_region[pid] == region and pl[pid][k] is None
+                    verdict = {}
+                    for at in plan["attempts"]:
+                        key = (at["destination_id"], at["depart_offset_s"])
+                        assert key not in verdict
+                        verdict[key] = "1" if at["verdict"] == "checked_route" else "0"
+                    dests = [d["id"] for d in req["destinations"]]
+                    assert len(verdict) == len(dests) * len(offs)
+                    shelter_ids.update(dests)
+                    b = plan["best"]
+                    pl[pid][k] = {"file": rel(p), "offsets_step_s": step,
+                                  "shelters": [[d, "".join(verdict[(d, o)] for o in offs)] for d in dests],
+                                  "contiguous_s": plan["latest_contiguous_checked_depart_offset_s"],
+                                  "best": None if b is None else {"shelter": b["destination_id"], "off_s": b["depart_offset_s"],
+                                                                  "arr_s": b["arrival_s"]}}
+                    if st in routes:   # the cache's best route = the scene's witness road, edge for edge
+                        w = routes[st][pid][k]
+                        if b is None:
+                            geo["no_cache_best_with_witness" if w else "no_cache_best_no_witness"] += 1
+                            continue
+                        if w is None:
+                            geo["mismatch"] += 1
+                            continue
+                        coords = doc["route_checks"][b["route_check_job_id"]]["result"]["route"]["geometry"]["coordinates"]
+                        E = route_edges[region]
+                        chain = [E[w["e"][0]]["c"][0]] + [E[i]["c"][1] for i in w["e"]]
+                        for i, j in zip(w["e"], w["e"][1:]):
+                            assert E[i]["c"][1] == E[j]["c"][0]
+                        same = coords == chain and b["destination_id"] == w["sh"]
+                        geo["match" if same else "mismatch"] += 1
+        assert all(v is not None for lst in pl.values() for v in lst), st
+        if st in routes:
+            assert geo["mismatch"] == 0, (st, geo)
+        geo_by[st] = dict(geo)
+    assert "RUNNING" in planner, sorted(cache_dirs)
+    report["planner_geometry"] = geo_by
 
     shelters = {}
     for sid in sorted(shelter_ids):
@@ -557,11 +574,18 @@ def main():
     for n, c in brows:
         lab = unbold(c[0]).split(" (")[0]
         brow[{"MEASURED": "MEASURED", "MEASURED+GUST": "MEASURED_GUST"}[lab]] = (n, [unbold(x) for x in c])
+    # the KMA arm's row stands on its own after the table (amendment 1 of MEASURED_RULE.md; "same R values as MEASURED+GUST")
+    (kn,) = [n for n in range(i2b + 1, j2b + 1) if res_lines[n - 1].startswith("| MEASURED+GUST (KMA) |")]
+    kc = [unbold(x) for x in md_cells(res_lines[kn - 1])]
+    assert len(kc) == 3 and kc[1] == "same R values as MEASURED+GUST", kc
+    brow["MEASURED_GUST_KMA"] = (kn, [kc[0], f"same R values as MEASURED+GUST: {brow['MEASURED_GUST'][1][1]}", kc[2]])
     assert set(brow) == set(MA.ARMS), brow
+    # RESULTS.md section 3 column headers = the labels shown on screen
+    h3, _ = md_tables(res_lines, next(l for l in res_lines if l.startswith("## 3 ")).strip())
+    assert [unbold(x) for x in h3] == ["issue KST", "ORDINARY", "RUNNING", "WORST"] + [ARM_LABEL[a] for a in MA.ARMS], h3
     rule_path = KCF / "MEASURED_RULE.md"
     rule_text = inp.text(rule_path)
-    gust_path = KCF.parent / "kcf-gust/work/gust_hours.json"
-    gust_hours = {e["kst_stamp"]: e for e in inp.json(gust_path)}
+    gust_hours = {st: {e["kst_stamp"]: e for e in inp.json(KCF.parent / path)} for st, (path, _) in GUST.items()}
     numbers_path = KCF.parent / "kcf-margin/numbers.json"
     numbers = inp.json(numbers_path)              # MA._check() asserted R_KM against it at import
     NUM_CLS = {"all": "all", "quiet": "quiet", "slow": "slow", "running": "running", "g<10": "gust<10",
@@ -572,6 +596,7 @@ def main():
         assert len(ns) == 1, (cls_, ns)
         return ns.pop()
     inp.read(KCF / "measured_arms.py"); inp.read(KCF.parent / "kcf-gust/work/era5_gusts.json")
+    inp.read(KCF.parent / "kcf-gust/work/kma_asos_hourly.json")   # measured_arms.gust_class_kma reads it
     for st in MA.ARMS:
         n, c = brow[st]
         want, phrase = ARM_CLASSES[st]
@@ -583,21 +608,23 @@ def main():
             assert (r5, r8) == (MA.R_KM[cls_][0] * 1000.0, MA.R_KM[cls_][1] * 1000.0)
             assert ARM_R_TEXT[cls_].format(f"{MA.R_KM[cls_][0]:.1f}", f"{MA.R_KM[cls_][1]:.1f}") in c[1], (st, cls_, c[1])
             e = {"cls": cls_, "r5_m": r5, "r8_m": r8, "n_fires": n_fires(cls_)}
-            if st == "MEASURED_GUST":   # the committed next-8 h fire-wide maximum gust at that KST stamp, same value
-                gh = gust_hours[12 + k].get("fwd8")
+            if st in GUST:   # the committed next-8 h fire-wide maximum gust at that KST stamp (kcf-gust), same value as the rule's
+                gh = gust_hours[st][12 + k].get("fwd8")
                 if gh:
                     assert abs(gh["fire_wide_max"] - info) < 1e-9, (k, gh, info)
                     assert gh["cls"].replace("†", "") == cls_[1:], (k, gh["cls"], cls_)
                     e["gust_ms"] = gh["fire_wide_max"]
-                else:   # gust_hours.json has no forward window at the 24:00 stamp; the class is RESULTS.md 2b's
-                    assert k == 12, k
+                else:   # neither gust file has a forward window at the 24:00 stamp; the class is RESULTS.md 2b's
+                    assert k == 12, (st, k)
             classes.append(e)
         standins[st] = {"kind": "measured", "label": ARM_LABEL[st], "provisional": st == "MEASURED_GUST",
                         "r_text": c[1], "basis": c[2], "results_line": n, "classes": classes,
                         "src": rel(rule_path), "code": "research/kcf-replay/measured_arms.py", "numbers": rel(numbers_path),
-                        "gust_hours": rel(gust_path) if st == "MEASURED_GUST" else None}
-    assert "PROVISIONAL" in brow["MEASURED_GUST"][1][0], brow["MEASURED_GUST"]
+                        "gust_hours": f"research/{GUST[st][0]}" if st in GUST else None,
+                        "gust_series": GUST[st][1] if st in GUST else None}
+    assert "PROVISIONAL" in brow["MEASURED_GUST"][1][0] and "PROVISIONAL" not in brow["MEASURED_GUST_KMA"][1][0], brow
     assert "(9 fires)" in brow["MEASURED_GUST"][1][1] and n_fires("g>=20") == 9   # RESULTS.md 2b states it next to the class
+    assert "Amendments" in rule_text and "MEASURED_GUST_KMA" in rule_text, "MEASURED_RULE.md amendment 1"
     assert "(0 h, 0 km), (5 h, R5), (8 h, R8)" in rule_text
     score_path = KCF / "score.json"
     score = inp.json(score_path)["score"]
@@ -623,10 +650,12 @@ def main():
         "results_md": rel(results_path), "fire_discs": rel(discs_path), "hotspot_rule": "research/kcf-replay/HOTSPOT_RULE.md",
         "measured_rule": "research/kcf-replay/MEASURED_RULE.md", "measured_arms_py": "research/kcf-replay/measured_arms.py",
         "margin_numbers": "research/kcf-margin/numbers.json", "gust_hours": "research/kcf-gust/work/gust_hours.json",
+        "gust_hours_kma": "research/kcf-gust/work/gust_hours_kma.json", "kma_asos_hourly": "research/kcf-gust/work/kma_asos_hourly.json",
         "gust_results": "research/kcf-gust/RESULTS.md", "margin_results": "research/kcf-margin/RESULTS.md",
         "replay_py": "research/kcf-replay/replay.py", "analyze_py": "research/kcf-replay/analyze.py",
         "make_planner_cache": "research/kcf-replay/make_planner_cache.py",
-        "planner_cache_dir": rel(cache_dir), "score": rel(score_path),
+        "planner_cache": {st: rel(d) for st, d in cache_dirs.items()}, "planner_cache_root": "research/kcf-replay/planner_cache",
+        "score": rel(score_path),
         "places_geojson": {r: f"planner/public/data/regions/{r}/places.geojson" for r in REGIONS},
         "regions_index": "planner/public/data/regions/index.json",
         "graph": {r: f"data/routing/graphs/{r}/graph.json" for r in REGIONS},

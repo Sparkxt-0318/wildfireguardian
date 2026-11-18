@@ -18,14 +18,16 @@ from the committed results of [`research/kcf-replay`](../../../research/kcf-repl
 
 ## R(h) arms
 
-Every number depends on R(h), the fire's reach after h hours. The scene has the five arms of `research/kcf-replay`, cycled with
-**R** (bottom right shows the active one): **RUNNING** (default, 8.2 km/h; the only arm with a planner cache), **MEASURED**,
-**MEASURED+GUST**, **WORST** and **ORDINARY**. RUNNING, WORST and ORDINARY are labelled stand-ins. The two MEASURED arms are the
-frozen R(h) of `research/kcf-margin` (`MEASURED_RULE.md`): one class per issue hour for all places, picked by the prior-3 h
-spread of the known fire area (quiet / slow / running) or by the ERA5 maximum gust over the next 8 h, with R(5 h) and R(8 h)
-from `research/kcf-margin/numbers.json` and the curve through (0, 0), (5 h, R5), (8 h, R8). **MEASURED+GUST is PROVISIONAL**
-(ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). Each place panel shows the same screen under all five arms; they are
-different R(h), not a ranking.
+Every number depends on R(h), the fire's reach after h hours. The scene has the six arms of `research/kcf-replay`, cycled with
+**R** (bottom right shows the active one): **RUNNING** (default, 8.2 km/h), **MEASURED**, **MEASURED+GUST (ERA5, PROVISIONAL)**,
+**MEASURED+GUST (KMA)**, **WORST** and **ORDINARY**. RUNNING, WORST and ORDINARY are labelled stand-ins. The three MEASURED arms
+are the frozen R(h) of `research/kcf-margin` (`MEASURED_RULE.md`): one class per issue hour for all places, picked by the
+prior-3 h spread of the known fire area (quiet / slow / running) or by the maximum gust over the next 8 h (ERA5 at five points,
+or KMA ASOS hourly gusts at four stations, `MEASURED_RULE.md` amendment 1), with R(5 h) and R(8 h) from
+`research/kcf-margin/numbers.json` and the curve through (0, 0), (5 h, R5), (8 h, R8). **The ERA5 gust arm is PROVISIONAL**
+(ERA5 gusts only); both gust arms' ≥ 20 m/s class rests on 9 fires. Each place panel shows the same screen under all six arms;
+they are different R(h), not a ranking. The planner's 30-min strip is shown for the arms with a committed planner cache
+(`planner_cache/RUNNING_8h`, `MEASURED_8h`, `MEASURED_GUST_8h`); the KMA arm and the WORST and ORDINARY stand-ins have none.
 
 ## The three levels
 
@@ -49,7 +51,7 @@ the panel lists the committed files behind everything visible.
 
 | file | built by | from |
 |---|---|---|
-| `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/RUNNING_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `RESULTS.md` (§2–5), `MEASURED_RULE.md` + `measured_arms.py` + `research/kcf-margin/numbers.json` + `research/kcf-gust/work/gust_hours.json` (MEASURED arms), `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
+| `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/{RUNNING,MEASURED,MEASURED_GUST}_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `RESULTS.md` (§2–5), `MEASURED_RULE.md` + `measured_arms.py` + `research/kcf-margin/numbers.json` + `research/kcf-gust/work/gust_hours.json`, `gust_hours_kma.json`, `kma_asos_hourly.json` (MEASURED arms), `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
 | `data/terrain.js` | `build_terrain.py` | Terrain Tiles (Mapzen, AWS Open Data; SRTM, GMTED, ETOPO1), Terrarium z5–12, 1 m steps, clipped to the scene's bbox at every zoom |
 | `data/basemap.js` | `build_basemap.py` | `planner/research-map/site/regions/*.osm.js`, `planner/data/osm/*.overpass.json` (© OpenStreetMap contributors, ODbL) |
 | `data/fonts.js` | `build_fonts.py` | Noto Sans glyphs from `planner/public/basemap/fonts`; a subset of Pretendard (SIL OFL, renamed "KCF UI Sans") |

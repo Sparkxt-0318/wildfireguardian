@@ -51,7 +51,8 @@
     hotspot_rule: 'research/kcf-replay/HOTSPOT_RULE.md',
     replay_py: 'research/kcf-replay/replay.py',
     analyze_py: 'research/kcf-replay/analyze.py',
-    planner_cache_dir: 'research/kcf-replay/planner_cache/RUNNING_8h',
+    planner_cache: { RUNNING: 'research/kcf-replay/planner_cache/RUNNING_8h' },
+    planner_cache_root: 'research/kcf-replay/planner_cache',
     score: 'research/kcf-replay/score.json',
     scene_js: 'planner/public/kcf-scene/data/scene.js',
     build_scene: 'research/kcf-replay/scene/build_scene.py'
@@ -143,7 +144,7 @@
   function shelterSpan(id, h, k) { return '<span' + srcAttr(SRC.per_place, h ? csvDetail(h, 'shelter_name / shelter_id', null, k) : 'shelter_name / shelter_id') + '>' + esc(shelterName(id)) + '</span>'; }
   var APP_JS = 'planner/public/kcf-scene/app.js';
   function standinInfo(name) { return (S.standins && S.standins[name || st.standin]) || { label: name || st.standin }; }
-  // R(h) arms: three labelled stand-ins (HOTSPOT_RULE.md) and two MEASURED arms (MEASURED_RULE.md, one class per issue hour)
+  // R(h) arms: three labelled stand-ins (HOTSPOT_RULE.md) and three MEASURED arms (MEASURED_RULE.md, one class per issue hour)
   var CLS_TXT = { all: 'all hours', quiet: 'quiet class (prior-3 h spread < 1 km)', slow: 'slow class (prior-3 h spread 1–3 km)',
     running: 'running class (prior-3 h spread ≥ 3 km)', 'g<10': 'gust < 10 m/s class', 'g10-20': 'gust 10–20 m/s class',
     'g>=20': 'gust ≥ 20 m/s class' };
@@ -151,7 +152,8 @@
   function isArm(name) { return standinInfo(name).kind === 'measured'; }
   function armClass(name, k) { var si = standinInfo(name); return si.classes ? si.classes[k] : null; }
   function kmTxt(m) { return (m / 1000).toFixed(1); }
-  function shortLabel(name) { var si = standinInfo(name); return si.kind === 'measured' ? si.label + (si.provisional ? ' (PROVISIONAL)' : '') : (si.label || name || st.standin); }
+  // a MEASURED arm's label is the RESULTS.md section 3 column header (the ERA5 gust arm's carries PROVISIONAL)
+  function shortLabel(name) { var si = standinInfo(name); return si.label || name || st.standin; }
   // "MEASURED · running class (…) · R(5 h) 7.6 km, R(8 h) 10.0 km" for the issue-k screen
   function firesTxt(c) { return c && c.n_fires ? (c.n_fires === 28 ? 'R from all 28 calibration fires' : 'R from ' + c.n_fires + ' of the 28 calibration fires') : ''; }
   function armText(name, k) {
@@ -165,11 +167,19 @@
     var c = armClass(name, k) || {};
     return srcAttr(SRC.results_md, 'section 2b, line ' + si.results_line + ': R(5 h), R(8 h) ' + si.r_text + '; class picked: ' + si.basis + ' (rule ' + (si.src || SRC.measured_rule) + '; R and n_fires (' + (c.n_fires || '?') + ') from ' + (si.numbers || SRC.margin_numbers) + ' table, all28, alpha 0.10; class at ' + issueLabel(k) + ' = ' + (c.cls || '?') + ' by ' + (si.code || SRC.measured_arms_py) + ')');
   }
+  // the gust arms' next-8 h fire-wide maximum gust (research/kcf-gust): ERA5 at five points (PROVISIONAL), or KMA ASOS hourly
+  // gusts at four stations, recorded only from 10 m/s and in whole m/s (0 = no gust >= 10 m/s recorded)
   function gustSpan(name, k) {
-    var c = armClass(name, k);
-    if (!c || c.gust_ms == null) return '';
-    return ' · <span' + srcAttr(SRC.gust_hours, 'kst_stamp ' + (12 + k) + ', fwd8.fire_wide_max (ERA5, maximum over five points; PROVISIONAL)') + '>next-8 h max gust ' + c.gust_ms.toFixed(1) + ' m/s (ERA5)</span>';
+    var si = standinInfo(name), c = armClass(name, k);
+    if (!c || c.gust_ms == null || !si.gust_hours) return '';
+    var kma = si.gust_series === 'KMA ASOS';
+    var what = kma ? 'KMA ASOS hourly gust, maximum over the stations present (278, 136, 276, 277; Yeongyang uncovered); recorded only from 10 m/s, whole m/s'
+      : 'ERA5, maximum over five points; PROVISIONAL';
+    var txt = kma && c.gust_ms < 10 ? 'no gust ≥ 10 m/s recorded in the next 8 h (KMA ASOS)'
+      : 'next-8 h max gust ' + (kma ? String(c.gust_ms) : c.gust_ms.toFixed(1)) + ' m/s (' + si.gust_series + ')';
+    return ' · <span' + srcAttr(si.gust_hours, 'kst_stamp ' + (12 + k) + ', fwd8.fire_wide_max (' + what + ')') + '>' + esc(txt) + '</span>';
   }
+  function gustOnly(si) { return si.gust_series ? (si.provisional ? ' · ' + si.gust_series + ' gusts only' : ' · ' + si.gust_series + ' gusts') : ''; }
 
   // ------------------------------------------------------------------ geometry
   function circleRing(lon, lat, r, n) {
@@ -400,7 +410,7 @@
     var si = standinInfo(), k = kOf(st.drive ? 3600 * st.drive.k : st.s), c = armClass(st.standin, k);
     if (si.kind === 'measured' && c) {
       $('standinBtn').innerHTML = 'R(h): ' + esc(shortLabel()) + ' · ' + esc((CLS_TXT[c.cls] || c.cls).replace(/ \(.*\)$/, '')) + ' at ' + esc(issueLabel(k)) + ': ' + kmTxt(c.r5_m) + ' km at 5 h, ' + kmTxt(c.r8_m) + ' km at 8 h' +
-        ' <em>frozen margin: R from ' + (c.n_fires === 28 ? 'all 28' : c.n_fires + ' of 28') + ' calibration fires' + (si.provisional ? ' · ERA5 gusts only' : '') + ' · R to change</em>';
+        ' <em>frozen margin: R from ' + (c.n_fires === 28 ? 'all 28' : c.n_fires + ' of 28') + ' calibration fires' + gustOnly(si) + ' · R to change</em>';
       $('standinBtn').setAttribute('data-src', SRC.results_md);
       $('standinBtn').setAttribute('data-detail', 'section 2b (MEASURED arms): ' + si.r_text + '; ' + si.basis + '; n_fires per class: ' + (si.numbers || SRC.margin_numbers));
       $('standinBtn').title = 'R(h) arm ' + si.label + ' (' + (si.src || SRC.measured_rule) + '; R per class from ' + (si.numbers || SRC.margin_numbers) + '). Click or press R to change.';
@@ -570,13 +580,17 @@
         '<td class="ck"><span' + srcAttr(SRC.per_place, csvDetail(ha, ha.state === 'LATEST_SAFE_DEPARTURE' ? 'latest_safe_departure_kst' : 'departure_state', a, k)) + '>' + esc(ha.state === 'LATEST_SAFE_DEPARTURE' ? csvClock(ha.lsd) : (ARM_STATE[ha.state] || placeClock(ha))) + '</span>' +
         (ha.cut_before === 'yes' ? '<div class="cutb"' + srcAttr(SRC.per_place, csvDetail(ha, 'route_cut_before_departure / route_first_cut_by_reconstruction_kst', a, k)) + '>reached ' + esc(csvClock(ha.first_cut)) + '</div>' : '') + '</td></tr>';
     });
-    html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b and section 7: MEASURED+GUST is PROVISIONAL, ERA5 gusts only; its >= 20 m/s class rests on 9 fires; the margins were calibrated on 28 fires. Spread-class and all-hours margins failed at every issue hour 10-20 KST (research/kcf-margin/RESULTS.md); the gust >= 20 m/s R(5 h) failed from 12 to 20 KST (research/kcf-gust/RESULTS.md)') + '>MEASURED+GUST is PROVISIONAL (ERA5 gusts only; ≥ 20 m/s class = 9 fires).</span> Click a row to switch (R).</div></div>';
-    // planner strip
-    var pl = S.planner && S.planner[p.id] && S.planner[p.id][k];
-    if (pl && st.standin === 'RUNNING') {
-      html += '<div class="sec"><h4>Planner screen at ' + issueSpan(k) + ' (<span' + srcAttr(pl.file, 'generator.step_min (make_planner_cache.py STEP = 1800 s)') + '>30-min</span> grid)</h4>';
+    html += '</table><div class="note">Leave-by clock (latest safe departure) of this screen under each R(h); "reached" = the full record reached the road before that departure (RESULTS.md §5). Not a ranking: each row is a different R(h). <span' + srcAttr(SRC.results_md, 'section 2b, section 3 and section 7: MEASURED+GUST (ERA5) is PROVISIONAL, ERA5 gusts only; MEASURED+GUST (KMA) takes the class from KMA ASOS hourly gusts at four stations (Yeongyang uncovered; MEASURED_RULE.md amendment 1); both gust arms\' >= 20 m/s class rests on 9 fires; the margins were calibrated on 28 fires. Spread-class and all-hours margins failed at every issue hour 10-20 KST (research/kcf-margin/RESULTS.md); the gust >= 20 m/s R(5 h) failed from 12 to 20 KST on ERA5 classes and from 14 to 20 KST on KMA classes (research/kcf-gust/RESULTS.md)') + '>MEASURED+GUST (ERA5) is PROVISIONAL (ERA5 gusts only); MEASURED+GUST (KMA) uses KMA ASOS gusts at four stations. Both: ≥ 20 m/s class = 9 fires.</span> Click a row to switch (R).</div></div>';
+    // planner strip: the committed planner cache of the arm shown (planner_cache/<arm>_8h), where one exists
+    var plArm = S.planner && S.planner[st.standin], pl = plArm && plArm[p.id] && plArm[p.id][k];
+    var plArms = (S.standin_order || Object.keys(S.planner || {})).filter(function (a) { return S.planner && S.planner[a]; });
+    function armName(a) { var si = standinInfo(a); return si.kind === 'measured' ? si.label : a; }
+    function listAnd(xs) { return xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1]; }
+    if (pl) {
+      html += '<div class="sec"><h4>Planner screen at ' + issueSpan(k) + ', <span class="nc"' + srcAttr(pl.file, 'generator.standin = ' + st.standin + ', generator.horizon = 8h') + '>' + esc(shortLabel()) + '</span> (<span' + srcAttr(pl.file, 'generator.step_min (make_planner_cache.py STEP = 1800 s)') + '>30-min</span> grid)</h4>';
       html += '<div class="strip head"><span></span>';
-      for (var i = 0; i < 16; i++) html += '<span>' + (i % 4 === 0 ? esc(kst(3600 * k + i * (pl.offsets_step_s || 1800))) : '') + '</span>';
+      // hour marks every 2 h; past midnight the day is in the cell's title, not the narrow header
+      for (var i = 0; i < 16; i++) html += '<span>' + (i % 4 === 0 ? esc(kst(3600 * k + i * (pl.offsets_step_s || 1800)).replace(/ \(\d+ Mar\)$/, '')) : '') + '</span>';
       html += '</div>';
       pl.shelters.forEach(function (row) {
         html += '<div class="strip"><span class="sh"' + srcAttr(pl.file, 'requests[].destinations / plans[].attempts verdicts for ' + p.id) + '>' + esc(shelterName(row[0])) + '</span>';
@@ -587,9 +601,9 @@
         }
         html += '</div>';
       });
-      html += '<div class="note">Green = checked_route, grey = model_no_route, per departure time (' + '<span' + srcAttr(pl.file, 'plans[0].attempts') + '>' + esc(pl.file) + '</span>). Verdicts come from the F-3.1 field with stand-in closures, not from the Route-Check API.</div></div>';
-    } else if (pl) {
-      html += '<div class="note"' + srcAttr(SRC.planner_cache_dir, 'the only planner cache in research/kcf-replay') + '>The planner\'s 30-min screen exists for RUNNING only (planner_cache/RUNNING_8h).</div>';
+      html += '<div class="note">Green = checked_route, grey = model_no_route, per departure time (' + '<span' + srcAttr(pl.file, 'plans[0].attempts') + '>' + esc(pl.file) + '</span>). Verdicts come from the F-3.1 field with this R(h)\'s closures, not from the Route-Check API.</div></div>';
+    } else if (plArms.length) {
+      html += '<div class="note"' + srcAttr(SRC.planner_cache_root, 'committed planner caches: ' + plArms.map(function (a) { return a + '_8h'; }).join(', ')) + '>No planner cache for ' + esc(armName(st.standin)) + '; the planner\'s 30-min screen exists for ' + esc(listAnd(plArms.map(armName))) + ' (planner_cache/).</div>';
     }
     // reported times (named places)
     var rep = S.reported && S.reported[p.id];
@@ -674,11 +688,15 @@
       ['planner/public/kcf-scene/data/terrain.js', 'terrain: Terrain Tiles (Mapzen, AWS Open Data), Terrarium z5–12'],
       ['planner/public/kcf-scene/data/basemap.js', 'roads, water, towns: OpenStreetMap (ODbL) via planner/research-map and planner/data/osm']
     ];
-    if (st.place) out.push([SCENE_JS, 'witness road: routes.' + st.standin + ' + routeEdges (graph edges of the F-3.1 witness, re-made by replay.py' + (st.standin === 'RUNNING' ? '; geometry identical to the planner cache route)' : ')')]);
+    if (st.place) out.push([SCENE_JS, 'witness road: routes.' + st.standin + ' + routeEdges (graph edges of the F-3.1 witness, re-made by replay.py' + (S.planner && S.planner[st.standin] ? '; geometry identical to the planner cache route)' : ')')]);
     if (isArm()) {
-      out.push([SRC.measured_rule, 'MEASURED arms: class per issue hour, closure curve, step rule (frozen before any outcome)']);
+      var si = standinInfo();
+      out.push([SRC.measured_rule, 'MEASURED arms: class per issue hour, closure curve, step rule (frozen before any outcome; amendment 1: the KMA gust arm)']);
       out.push([SRC.margin_numbers, 'R(5 h), R(8 h) per class (table, fire set all28, alpha 0.10), asserted by measured_arms.py']);
-      if (standinInfo().provisional) out.push([SRC.gust_hours, 'ERA5 next-8 h maximum gust per issue hour (PROVISIONAL)']);
+      if (si.gust_series === 'KMA ASOS') {
+        out.push([si.gust_hours, 'KMA ASOS next-8 h maximum gust per issue hour (four stations; recorded only from 10 m/s)']);
+        out.push([SRC.kma_asos_hourly || 'research/kcf-gust/work/kma_asos_hourly.json', 'KMA ASOS hourly gust records read by measured_arms.gust_class_kma']);
+      } else if (si.gust_hours) out.push([si.gust_hours, 'ERA5 next-8 h maximum gust per issue hour (PROVISIONAL)']);
     }
     return out;
   };
@@ -723,7 +741,7 @@
       '<p' + srcAttr(SRC.hotspot_rule, 'whole rule; frozen in commit 796e91c') + '><b>Known fire area</b>: FIRMS VIIRS/MODIS detections and Himawari-9 AHI hotspots time-stamped strictly before each issue hour (rule frozen first: HOTSPOT_RULE.md, commit 796e91c). Delivery latency is not modelled. ' +
       '<b>Road cell closure</b> = issue time + h*, where R(h*) = the cell\'s distance to the known fire area (RUNNING: distance / 8.2 km/h; WORST: (distance − 3 km) / 8.2 km/h; ORDINARY: distance / 0.341 km/h; <span' + srcAttr(SRC.measured_rule, 'R(h) values; closure curve through (0 h, 0 km), (5 h, R5), (8 h, R8), beyond 8 h never (part below 5 h ASSUMED linear)') + '>MEASURED arms: the curve through (0, 0), (5 h, R5), (8 h, R8) of the issue hour\'s class, never beyond R8</span>), permanent within that screen\'s 8 h horizon; each hourly screen recomputes every closure from its own known fire area, so on the next screen a cell far from new detections can show open again until its new closure time. <b>Government step</b>: R(5 h) ≥ distance → 위험구역 (read here as "leave now"; this reading is the replay\'s own); R(8 h) ≥ distance → 잠재적 위험구역, vulnerable first. ' +
       '<b>Latest safe departure</b>: F-3.1 deadline field over the planner road graph, 3 candidate shelters per place.</p>' +
-      '<p' + srcAttr(SRC.results_md, 'sections 2 (stand-ins) and 2b (MEASURED arms); section 7 (limits)') + '>R(h) now: <b>' + esc(isArm() ? armText(st.standin, kOf(st.s)) : (si.label || st.standin)) + '</b> — ' + esc(si.basis || '') + '. Five R(h) arms (R cycles them): RUNNING, WORST and ORDINARY are labelled stand-ins; <b>MEASURED</b> and <b>MEASURED+GUST</b> are the frozen R(h) of research/kcf-margin (10 % target, 28 GOFER fires), one class per issue hour for all 174 places, picked by the prior-3 h spread of the known fire area or by the ERA5 maximum gust over the next 8 h. <b>MEASURED+GUST is PROVISIONAL</b> (ERA5 gusts only; its ≥ 20 m/s class rests on 9 fires). The curve below 5 h is assumed linear. On this fire the spread-class and all-hours margins failed at every issue hour from 10 to 20 KST (research/kcf-margin/RESULTS.md), and the gust ≥ 20 m/s R(5 h) from 12 to 20 KST (research/kcf-gust/RESULTS.md). Each arm is its own R(h): not a ranking.</p>' +
+      '<p' + srcAttr(SRC.results_md, 'sections 2 (stand-ins) and 2b (MEASURED arms); section 7 (limits)') + '>R(h) now: <b>' + esc(isArm() ? armText(st.standin, kOf(st.s)) : (si.label || st.standin)) + '</b> — ' + esc(si.basis || '') + '. Six R(h) arms (R cycles them): RUNNING, WORST and ORDINARY are labelled stand-ins; <b>MEASURED</b>, <b>MEASURED+GUST (ERA5)</b> and <b>MEASURED+GUST (KMA)</b> are the frozen R(h) of research/kcf-margin (10 % target, 28 GOFER fires), one class per issue hour for all 174 places, picked by the prior-3 h spread of the known fire area or by the maximum gust over the next 8 h (the realised series read as a perfect forecast, ASSUMED): ERA5 at five points, or KMA ASOS hourly gusts at four stations (Yeongyang uncovered; MEASURED_RULE.md amendment 1). <b>MEASURED+GUST (ERA5) is PROVISIONAL</b> (ERA5 gusts only). Both gust arms\' ≥ 20 m/s class rests on 9 fires. The curve below 5 h is assumed linear. On this fire the spread-class and all-hours margins failed at every issue hour from 10 to 20 KST (research/kcf-margin/RESULTS.md), and the gust ≥ 20 m/s R(5 h) from 12 to 20 KST on ERA5 classes and from 14 to 20 KST on KMA classes (research/kcf-gust/RESULTS.md). Each arm is its own R(h): not a ranking.</p>' +
       '<p' + srcAttr('hardware/field_logger_demo/sessions/sessions.json', '4 sessions, all sim/*.wfg in area sim_city; also hardware/phone_export/samples (synthetic test walks); HOTSPOT_RULE.md: within a screen a closure is permanent') + '><b>Not in this scene:</b> the crossing view (vehicle, flame wall, verdict) and a REOPENED event. The repository has no vehicle-unit or crossing log for this event (the only logger recordings are synthetic: four simulated city sessions and the phone exporter\'s test walks), and the frozen rule has no reopening event: within a screen a closed cell stays closed.</p>' +
       '<p><b>Keys</b>: <kbd>←</kbd>/<kbd>→</kbd> issue hour · <kbd>Space</kbd> play · <kbd>1</kbd>–<kbd>6</kbd> bookmarks · <kbd>C</kbd> check it · <kbd>L</kbd> one minute later · <kbd>D</kbd> drive · <kbd>Esc</kbd> back · <kbd>H</kbd> region · <kbd>R</kbd> R(h) arm · <kbd>S</kbd> sources · <kbd>?</kbd> this box. URL: <code>?lite</code> for slow machines.</p>' +
       '<p class="note">Terrain: Terrain Tiles (Mapzen, AWS Open Data). Roads, water, names: © OpenStreetMap contributors (ODbL). MapLibre GL JS (BSD-3-Clause). Pretendard, Noto Sans (SIL OFL). Scene data built from committed files by research/kcf-replay/scene/build_scene.py; checks in research/kcf-replay/scene/VERIFY.json.</p>';
@@ -773,7 +791,7 @@
   }
   function cycleStandin() {
     var names = Object.keys(S.standins || S.hourly);
-    var order = (S.standin_order || ['RUNNING', 'MEASURED', 'MEASURED_GUST', 'WORST', 'ORDINARY']).filter(function (n) { return names.indexOf(n) >= 0 && S.hourly[n]; });
+    var order = (S.standin_order || ['RUNNING', 'MEASURED', 'MEASURED_GUST', 'MEASURED_GUST_KMA', 'WORST', 'ORDINARY']).filter(function (n) { return names.indexOf(n) >= 0 && S.hourly[n]; });
     setStandin(order[(order.indexOf(st.standin) + 1) % order.length]);
   }
   function showRoute() {

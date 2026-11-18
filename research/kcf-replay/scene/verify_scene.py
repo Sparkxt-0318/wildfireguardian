@@ -1,12 +1,14 @@
 """Independent check of planner/public/kcf-scene/data/scene.js (window.KCF.scene, schema kcf-scene/1).
 
-Reads ONLY scene.js and the committed files it compares against (per_place.csv, fire_discs.json, the planner cache,
+Reads ONLY scene.js and the committed files it compares against (per_place.csv, fire_discs.json, the planner caches,
 score.json, named_places_timeline.csv, SOURCES.md, RESULTS.md, MEASURED_RULE.md, measured_arms.py, kcf-margin/numbers.json,
-kcf-gust/work/era5_gusts.json and gust_hours.json). Does not import build_scene.py.
-The MEASURED arms' class per issue hour is recomputed with the committed measured_arms.curve() from fire_discs.json and
-era5_gusts.json and checked against the hour ranges of RESULTS.md section 2b's class column, its R column and numbers.json
-(R and n_fires); their closures are checked against the class curve using the distance bounds implied by close.RUNNING; step counts, the six places' leave-by tables and the score counts are checked against
-RESULTS.md sections 3, 4 and 5 for all five arms (8 h). The witness re-walk is
+kcf-gust/work/era5_gusts.json, gust_hours.json, kma_asos_hourly.json and gust_hours_kma.json). Does not import build_scene.py.
+The three MEASURED arms' class per issue hour is recomputed with the committed measured_arms.curve() from fire_discs.json,
+era5_gusts.json (MEASURED_GUST) and kma_asos_hourly.json (MEASURED_GUST_KMA) and checked against the hour ranges of RESULTS.md
+section 2b's class column, its R column and numbers.json (R and n_fires); their closures are checked against the class curve
+using the distance bounds implied by close.RUNNING; step counts, the six places' leave-by tables and the score counts are
+checked against RESULTS.md sections 3, 4 and 5 for all six arms (8 h). Planner strips are checked against every committed
+planner cache (planner_cache/<arm>_8h). The witness re-walk is
 analyze.py's own `recheck` fed with scene data only (edge D, seg [cell, end], close via roadCells, sh_cell, dwell_s,
 horizon_s). Writes research/kcf-replay/scene/VERIFY.json; exits non-zero on any mismatch.
 
@@ -38,9 +40,13 @@ HOURLY_FIELDS = {"step": "government_step", "state": "departure_state", "lsd": "
                  "d_km": "dist_known_fire_km", "cut_before": "route_cut_before_departure",
                  "first_cut": "route_first_cut_by_reconstruction_kst", "pieces": "departure_set_pieces"}
 NAMED = ["화매리", "지품리", "옥류리", "매정리", "노물리", "강구리"]
-ARMS = ["ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST"]
-RES_LABEL = {"ORDINARY": "ORDINARY", "RUNNING": "RUNNING", "WORST": "WORST", "MEASURED": "MEASURED",
-             "MEASURED_GUST": "MEASURED+GUST"}
+ARMS = ["ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA"]   # RESULTS.md section 3 column order
+MEASURED_ARMS = ("MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA")
+RES_LABEL = {"ORDINARY": "ORDINARY", "RUNNING": "RUNNING", "WORST": "WORST", "MEASURED": "MEASURED",   # section 3 headers
+             "MEASURED_GUST": "MEASURED+GUST (ERA5, PROVISIONAL)", "MEASURED_GUST_KMA": "MEASURED+GUST (KMA)"}
+RES5_LABEL = {a: f"{a} / 8 h" for a in ARMS} | {"MEASURED_GUST": "MEASURED+GUST (ERA5) / 8 h",       # section 5 row labels
+                                                  "MEASURED_GUST_KMA": "MEASURED+GUST (KMA) / 8 h"}
+GUST_FILE = {"MEASURED_GUST": "kcf-gust/work/gust_hours.json", "MEASURED_GUST_KMA": "kcf-gust/work/gust_hours_kma.json"}
 
 
 def md_table_after(lines, start_pred):
@@ -230,29 +236,38 @@ def main():
         C.eq("discCounts", S["discCounts"][k], want, str(k))
         C.eq("discCounts:from_scene_rows", sum(r[0] < 3600 * k for r in S["discs"]["rows"]), want["total"], str(k))
 
-    # ---------------------------------------------------------------- (4) planner strips == cache
+    # ---------------------------------------------------------------- (4) planner strips == every committed planner cache
     cache = {}
-    for pid, lst in S["planner"].items():
-        C.eq("planner:len13", len(lst), 13, pid)
-        for k, e in enumerate(lst):
-            if e["file"] not in cache:
-                cache[e["file"]] = json.loads(read(ROOT / e["file"]))
-            doc = cache[e["file"]]
-            C.eq("planner:file_issue", (doc["region_id"], doc["input_time"]), (region_of[pid], S["issue_utc"][k]), f"{pid} {k}")
-            (job,) = [j for j in doc["plans"] if j["result"]["plans"][0]["origin_id"] == pid]
-            plan, req = job["result"]["plans"][0], job["request"]
-            offs = req["depart_offsets_s"]
-            C.eq("planner:offsets", offs, list(range(0, len(offs) * e["offsets_step_s"], e["offsets_step_s"])), f"{pid} {k}")
-            v = {(x["destination_id"], x["depart_offset_s"]): x["verdict"] for x in plan["attempts"]}
-            want = [[d["id"], "".join("1" if v[(d["id"], o)] == "checked_route" else "0" for o in offs)] for d in req["destinations"]]
-            C.eq("planner:strips", e["shelters"], want, f"{pid} {k}")
-            C.eq("planner:contiguous", e["contiguous_s"], plan["latest_contiguous_checked_depart_offset_s"], f"{pid} {k}")
-            b = plan["best"]
-            C.eq("planner:best", e["best"], None if b is None else
-                 {"shelter": b["destination_id"], "off_s": b["depart_offset_s"], "arr_s": b["arrival_s"]}, f"{pid} {k}")
-            for sid, _ in e["shelters"]:
-                C.true("planner:shelter_known", sid in S["shelters"], sid)
-    C.eq("planner:files", len(cache), 26)
+    cache_arms = sorted(p.name[:-3] for p in (KCF / "planner_cache").iterdir() if p.is_dir() and p.name.endswith("_8h"))
+    C.eq("planner:arms", sorted(S["planner"]), cache_arms)
+    for arm, by_place in S["planner"].items():
+        C.eq("planner:places", sorted(by_place), ids, arm)
+        files = set()
+        for pid, lst in by_place.items():
+            C.eq("planner:len13", len(lst), 13, f"{arm} {pid}")
+            for k, e in enumerate(lst):
+                C.true("planner:file_dir", e["file"].startswith(f"research/kcf-replay/planner_cache/{arm}_8h/"), f"{arm} {pid} {k}")
+                if e["file"] not in cache:
+                    cache[e["file"]] = json.loads(read(ROOT / e["file"]))
+                files.add(e["file"])
+                doc = cache[e["file"]]
+                C.eq("planner:file_issue", (doc["region_id"], doc["input_time"]), (region_of[pid], S["issue_utc"][k]), f"{arm} {pid} {k}")
+                C.eq("planner:file_arm", (doc["generator"]["standin"], doc["generator"]["horizon"]), (arm, "8h"), f"{arm} {pid} {k}")
+                (job,) = [j for j in doc["plans"] if j["result"]["plans"][0]["origin_id"] == pid]
+                plan, req = job["result"]["plans"][0], job["request"]
+                offs = req["depart_offsets_s"]
+                C.eq("planner:offsets", offs, list(range(0, len(offs) * e["offsets_step_s"], e["offsets_step_s"])), f"{arm} {pid} {k}")
+                v = {(x["destination_id"], x["depart_offset_s"]): x["verdict"] for x in plan["attempts"]}
+                want = [[d["id"], "".join("1" if v[(d["id"], o)] == "checked_route" else "0" for o in offs)] for d in req["destinations"]]
+                C.eq("planner:strips", e["shelters"], want, f"{arm} {pid} {k}")
+                C.eq("planner:contiguous", e["contiguous_s"], plan["latest_contiguous_checked_depart_offset_s"], f"{arm} {pid} {k}")
+                b = plan["best"]
+                C.eq("planner:best", e["best"], None if b is None else
+                     {"shelter": b["destination_id"], "off_s": b["depart_offset_s"], "arr_s": b["arrival_s"]}, f"{arm} {pid} {k}")
+                for sid, _ in e["shelters"]:
+                    C.true("planner:shelter_known", sid in S["shelters"], sid)
+        C.eq("planner:files", len(files), 26, arm)
+    C.eq("planner:src", S["src"].get("planner_cache"), {a: f"research/kcf-replay/planner_cache/{a}_8h" for a in cache_arms})
 
     # ---------------------------------------------------------------- score, stand-ins
     C.eq("score", S["score"], json.loads(read(KCF / "score.json"))["score"])
@@ -268,17 +283,31 @@ def main():
                "g10-20": "gust10-20", "g>=20": "gust>=20"}
     num = {(r["cls"], r["h"]): r for r in numbers["table"] if r["fire_set"] == "all28" and abs(r["alpha"] - .1) < 1e-9}
     discs_rule = [dict(x, t=datetime.fromisoformat(x["t_utc"])) for x in fd]
-    gust_hours = {e["kst_stamp"]: e for e in json.loads(read(KCF.parent / "kcf-gust/work/gust_hours.json"))}
+    read(KCF.parent / "kcf-gust/work/kma_asos_hourly.json")   # measured_arms.gust_class_kma reads it
+    gust_hours = {st: {e["kst_stamp"]: e for e in json.loads(read(KCF.parent / f))} for st, f in GUST_FILE.items()}
     bhead, brows = md_table_after(res, lambda l: l.startswith("## 2b "))
     C.eq("arms:2b_head", bhead, ["label", "R(5 h), R(8 h) km", "class picked at each issue hour"])
     b2 = {r[0].split(" (")[0]: r for r in brows}
-    for st in ("MEASURED", "MEASURED_GUST"):
+    b2 = {"MEASURED": b2.get("MEASURED"), "MEASURED_GUST": b2.get("MEASURED+GUST")}
+    # the KMA row stands on its own line after the 2b table: "| MEASURED+GUST (KMA) | same R values as MEASURED+GUST | ... |"
+    i2b = next(i for i, l in enumerate(res) if l.startswith("## 2b "))
+    j2b = next(j for j in range(i2b + 1, len(res)) if res[j].startswith("## "))
+    kma = [l for l in res[i2b:j2b] if l.startswith("| MEASURED+GUST (KMA) |")]
+    C.eq("arms:2b_kma_row", len(kma), 1)
+    b2["MEASURED_GUST_KMA"] = [c.strip().replace("**", "") for c in kma[0].strip()[1:-1].split("|")] if kma else None
+    C.eq("arms:2b_kma_R", b2["MEASURED_GUST_KMA"][1] if kma else None, "same R values as MEASURED+GUST")
+    R_COL = {st: (b2[st][1] if st != "MEASURED_GUST_KMA" else b2["MEASURED_GUST"][1]) if b2[st] else "" for st in MEASURED_ARMS}
+    for st in MEASURED_ARMS:
         v = S["standins"][st]
-        row = b2.get(RES_LABEL[st])
+        row = b2.get(st)
         C.true("arms:2b_row", row is not None, st)
         C.eq("arms:kind", (v["kind"], v["provisional"]), ("measured", st == "MEASURED_GUST"), st)
-        C.eq("arms:2b_text", (v["r_text"], v["basis"]), (row[1], row[2]) if row else None, st)
+        C.eq("arms:label", v["label"], RES_LABEL[st], st)
+        want_r = R_COL[st] if st != "MEASURED_GUST_KMA" else f"same R values as MEASURED+GUST: {R_COL[st]}"
+        C.eq("arms:2b_text", (v["r_text"], v["basis"]), (want_r, row[2]) if row else None, st)
         C.eq("arms:results_line", res[v["results_line"] - 1].replace("**", "").startswith(f"| {row[0]} |") if row else False, True, st)
+        C.eq("arms:gust_file", (v.get("gust_hours"), v.get("gust_series")),
+             (f"research/{GUST_FILE[st]}", {"MEASURED_GUST": "ERA5", "MEASURED_GUST_KMA": "KMA ASOS"}[st]) if st in GUST_FILE else (None, None), st)
         for k, T in enumerate(issues):
             r5, r8, cls_, info = MA.curve(st, discs_rule, T, H // 3600)
             e = v["classes"][k]
@@ -286,11 +315,12 @@ def main():
             n5, n8 = num[(NUM_CLS[cls_], 5)], num[(NUM_CLS[cls_], 8)]
             C.eq("arms:R_vs_numbers", (round(n5["R_km"], 1), round(n8["R_km"], 1)), (r5 / 1000, r8 / 1000), f"{st} {k}")
             C.eq("arms:n_fires", e.get("n_fires"), n5["n_fires"] if n5["n_fires"] == n8["n_fires"] else None, f"{st} {k}")
-            if st == "MEASURED_GUST":
-                gh = gust_hours[12 + k].get("fwd8")
-                C.eq("arms:gust_ms", e.get("gust_ms"), gh["fire_wide_max"] if gh else None, str(k))
+            if st in GUST_FILE:
+                gh = gust_hours[st][12 + k].get("fwd8")
+                C.eq("arms:gust_ms", e.get("gust_ms"), gh["fire_wide_max"] if gh else None, f"{st} {k}")
                 if gh:
-                    C.true("arms:gust_ms_equals_rule", abs(gh["fire_wide_max"] - info) < 1e-9, str(k))
+                    C.true("arms:gust_ms_equals_rule", abs(gh["fire_wide_max"] - info) < 1e-9, f"{st} {k}")
+                    C.eq("arms:gust_cls_equals_rule", gh["cls"].replace("†", ""), cls_[1:], f"{st} {k}")
         # the class column's hour ranges, rebuilt from the scene's 13 classes (run-length over 12 .. 24 KST)
         tok = {"quiet": "quiet", "slow": "slow", "running": "running", "g<10": "< 10 m/s", "g10-20": "10-20 m/s", "g>=20": ">= 20 m/s"}
         runs_ = []
@@ -299,8 +329,12 @@ def main():
                 runs_[-1][2] = 12 + k
             else:
                 runs_.append([e["cls"], 12 + k, 12 + k])
-        parts = [x for x in (row[2] if row else "").rsplit(": ", 1)[-1].split(", ")   # after "<what is measured>: "
-                 if any(tk in x for tk in tok.values())]                             # (drops e.g. "for both horizons")
+        if st == "MEASURED_GUST_KMA":   # "...: 5 h run ..., < 10 at 23-24 KST; 8 h run >= 20 (9 fires) at 12-22 KST, < 10 at 23-24 KST"
+            tok = {"g<10": "< 10", "g10-20": "10-20", "g>=20": ">= 20"}
+            col = (row[2] if row else "").split("8 h run ", 1)[-1]
+        else:
+            col = (row[2] if row else "").rsplit(": ", 1)[-1]                        # after "<what is measured>: "
+        parts = [x for x in col.split(", ") if any(tk in x for tk in tok.values())]  # (drops e.g. "for both horizons")
         C.eq("arms:2b_class_runs", len(parts), len(runs_), st)
         for part, (c_, h0, h1) in zip(parts, runs_):
             hrs = f"{h0}-{h1}" if h1 > h0 else f"{h0}"
@@ -309,12 +343,13 @@ def main():
         names = {"quiet": "quiet", "slow": "slow", "running": "running", "g<10": "< 10", "g10-20": "10-20", "g>=20": ">= 20"}
         for c_ in {e["cls"] for e in v["classes"]}:
             r5k, r8k = MA.R_KM[c_]
-            C.true("arms:2b_R_text", f"{names[c_]}{':' if c_.startswith('g') else ''} {r5k:.1f} / {r8k:.1f}" in (row[1] if row else ""), f"{st} {c_}")
-    C.true("arms:gust_provisional_label", "PROVISIONAL" in b2["MEASURED+GUST"][0])
+            C.true("arms:2b_R_text", f"{names[c_]}{':' if c_.startswith('g') else ''} {r5k:.1f} / {r8k:.1f}" in R_COL[st], f"{st} {c_}")
+    C.true("arms:gust_provisional_label", "PROVISIONAL" in (b2["MEASURED_GUST"] or [""])[0])
+    C.true("arms:kma_not_provisional", "PROVISIONAL" not in (b2["MEASURED_GUST_KMA"] or ["PROVISIONAL"])[0])
     # closures of the MEASURED arms on the class curve: close.RUNNING = ceil(d / 8200 m/h) gives d in (a-1, a] x 8200/3600 m
     def curve_s(r5, r8, d):
         return MA.closure_s(r5, r8, d)
-    for st in ("MEASURED", "MEASURED_GUST"):
+    for st in MEASURED_ARMS:
         bad = 0
         for region in S["roadCells"]:
             for k in range(13):
@@ -336,14 +371,15 @@ def main():
         C.eq("arms:close_on_class_curve", bad, 0, st)
     # RESULTS.md section 3: steps per issue hour (8 h), every arm
     h3, r3 = md_table_after(res, lambda l: l.startswith("## 3 "))
-    C.eq("results3:head", [x.split(" (")[0] for x in h3], ["issue KST"] + [RES_LABEL[a] for a in ARMS])
+    C.eq("results3:head", h3, ["issue KST"] + [RES_LABEL[a] for a in ARMS])
     for row in r3:
         k = S["issue_kst"].index(row[0])
         for arm, cell in zip(ARMS, row[1:]):
             got = Counter(S["hourly"][arm][pid][k]["step"] for pid in ids)
             C.eq("results3:steps", f"{got['LEAVE_NOW']} / {got['PREPARE_VULNERABLE_FIRST']} / {got['NONE']}", cell, f"{arm} {row[0]}")
     C.eq("results3:rows", len(r3), 13)
-    # RESULTS.md section 4: the six named places, 16:00 .. 21:00, RUNNING / MEASURED / MEASURED+GUST (8 h)
+    # RESULTS.md section 4: the six named places, 16:00 .. 21:00, RUNNING / MEASURED / MEASURED+GUST (ERA5) (8 h); the KMA arm is
+    # stated there to be identical to the ERA5 table in every cell, so its cells are checked against that table
     name_id = {n["name"]: n["id"] for n in S["named"]}
     def cell_of(h):
         if h["state"] == "INSIDE_KNOWN_FIRE_AREA":
@@ -353,7 +389,8 @@ def main():
         return h["lsd"][6:] if h["state"] == "LATEST_SAFE_DEPARTURE" else h["state"]
     for st, pred in (("RUNNING", lambda l: l.startswith("Latest safe departure shown at each issue hour, RUNNING, 8 h")),
                      ("MEASURED", lambda l: l.startswith("MEASURED, 8 h (KST")),
-                     ("MEASURED_GUST", lambda l: l.startswith("MEASURED+GUST (PROVISIONAL), 8 h"))):
+                     ("MEASURED_GUST", lambda l: l.startswith("MEASURED+GUST (ERA5, PROVISIONAL), 8 h")),
+                     ("MEASURED_GUST_KMA", lambda l: l.startswith("MEASURED+GUST (ERA5, PROVISIONAL), 8 h"))):
         h4, r4 = md_table_after(res, pred)
         C.eq("results4:hours", h4[1:7], ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"], st)
         C.eq("results4:places", [r[0].split(" ")[0] for r in r4], NAMED, st)
@@ -362,11 +399,14 @@ def main():
             for j, hh in enumerate(h4[1:7]):
                 k = S["issue_kst"].index(hh)
                 C.eq("results4:cell", cell_of(S["hourly"][st][pid][k]), r[1 + j], f"{st} {r[0]} {hh}")
+    C.eq("results4:kma_identical_sentence", sum(l.startswith("MEASURED+GUST (KMA), 8 h: identical to the ERA5 arm in every cell") for l in res), 1)
     # RESULTS.md section 5: score counts (8 h rows), every arm
     h5, r5_ = md_table_after(res, lambda l: l.startswith("## 5 "))
-    s5 = {r[0].split(" (")[0]: r for r in r5_}
     for arm in ARMS:
-        row = s5.get(f"{RES_LABEL[arm]} / 8 h")
+        lab = RES5_LABEL[arm]
+        hit = [r for r in r5_ if r[0] == lab or r[0].startswith(lab + " (")]
+        C.eq("results5:one_row", len(hit), 1, arm)
+        row = hit[0] if len(hit) == 1 else None
         C.true("results5:row", row is not None, arm)
         lsd_rows = [(pid, k) for pid in ids for k in range(13) if S["hourly"][arm][pid][k]["state"] == "LATEST_SAFE_DEPARTURE"]
         early = [(pid, k) for pid, k in lsd_rows if S["hourly"][arm][pid][k]["cut_before"] == "yes"]

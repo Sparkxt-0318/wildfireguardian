@@ -160,7 +160,7 @@ try {
   await page.evaluate(() => { window.KCF_APP.stopDrive(); window.KCF_APP.setStandin('RUNNING'); });
   // MEASURED arms (MEASURED_RULE.md): region class line, place panel at 18:00 (지품리), arms table, check it, drive HUD
   report.checks.arms = [];
-  for (const arm of ['MEASURED', 'MEASURED_GUST']) {
+  for (const arm of ['MEASURED', 'MEASURED_GUST', 'MEASURED_GUST_KMA']) {
     await page.evaluate((arm) => { window.KCF_APP.home(); window.KCF_APP.setStandin(arm); window.KCF_APP.setIssue(6); }, arm);
     await record(`region-${arm}`);
     const region = await page.evaluate(() => ({ btn: document.querySelector('#standinBtn').textContent, armline: (document.querySelector('#summary .armline') || {}).textContent || '' }));
@@ -169,7 +169,8 @@ try {
     const r = await page.evaluate(() => {
       const a = window.KCF_APP.check(0), st = window.KCF_APP.state, h = window.KCF.scene.hourly[st.standin][st.place.id][6];
       const rows = [...document.querySelectorAll('#panel tr[data-arm]')].map((tr) => [tr.getAttribute('data-arm'), tr.children[2].textContent]);
-      return { state: h.state, lsd: h.lsd, cut_before: h.cut_before, ok: a && a.ok, arrival: a && a.arrival, arms_table: rows, verdict: document.querySelector('#verdict').textContent.slice(0, 200) };
+      const strip = document.querySelectorAll('#panel .strip:not(.head)').length, plNote = [...document.querySelectorAll('#panel .note')].map((e) => e.textContent).find((t) => /planner cache/.test(t)) || '';
+      return { state: h.state, lsd: h.lsd, cut_before: h.cut_before, ok: a && a.ok, arrival: a && a.arrival, arms_table: rows, planner_strip_rows: strip, planner_note: plNote.slice(0, 200), has_cache: !!(window.KCF.scene.planner[st.standin]), verdict: document.querySelector('#verdict').textContent.slice(0, 200) };
     });
     await record(`check-${arm}`);
     if (arm === 'MEASURED') await shot('2-place-measured');
