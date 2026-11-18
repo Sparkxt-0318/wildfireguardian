@@ -210,7 +210,7 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
    Reported: V, r per section-direction-day, group medians of r, next to the closure statements. Classes for reading only: r < 0.15, 0.15-0.60, ≥ 0.60.
    A better baseline (weekdays 17-21 March) can be downloaded from the same portal page; not supplied.
 
-6. **2026-11-18 ~23:40 UTC, after the first run of `jaenan_compare.py` printed candidate times and after I listed the highway-related and
+6. **2026-11-18 ~23:21 UTC (commit 367e375), after the first run of `jaenan_compare.py` printed candidate times and after I listed the highway-related and
    whole-county official messages (records only), before any recomputed model error was viewed** (the `*_new` columns were written to
    `out/jaenan_replacement.csv` but not opened). The first run showed that amendment 4's rule was too loose or too narrow in four places; each is
    fixed here, and the first run's output is kept in git history (commit before this amendment's code change):
@@ -228,3 +228,15 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
      RD13: 국도7호선|지경삼거리, unchanged otherwise).
    Also reported (context, no model): the official timeline of every 한국도로공사 expressway closure and reopening message of 22-27 March, as
    `out/kec_official_closure_events.csv`, parsed by regex from the 312 messages (effective time as stated; "created time" where none is stated).
+
+7. **2026-11-18 ~23:23 UTC, after the amendment-6 run (kept as `out/jaenan_replacement_amend6_run.csv`) printed its official times, before any recomputed model
+   error was viewed.** Reading the candidates showed three defects of amendment 6; fixed, with the reason:
+   * The fire-word requirement was meant for whole-county rows (it excluded a dam-release notice). Applied to all EV rows it made EV3 and EV7 choose the 18:26
+     황장재 road-ban text over the 18:21 지품면·달산면 evacuation message (which has no fire word). **Fire word is now required for whole-county rows only.**
+   * The interchange token `영덕` matched the route name 서산영덕선 (RD2, RD5 matched a 안동JC~청송IC closure). Tokens are now `영덕IC` and `영덕TG`.
+   * "Earliest candidate" let a looser section beat the exact one (RD7 chose the 18:00 의성IC~예천IC closure over the 21:26 의성IC~풍기IC closure). **Specificity
+     first:** a candidate naming both ends of the row's section (RD1 안동JC+청송IC; RD2 서의성IC+영덕IC|TG; RD3 의성IC+서안동|남안동; RD4 의성IC+예천IC; RD5/RD6 동상주IC+영덕IC|TG;
+     RD7 의성IC+풍기IC; RD8 의성IC+예천IC) beats one naming a single end; ties → earliest official time. Window ±6 h unchanged.
+
+8. **2026-11-18 ~23:26 UTC, after the third-pass results.** Clerical (and the times first written for amendments 6-8, 23:40, 23:55 and "00:20 on 19 Nov", were estimates and are corrected here to the commit/clock times above): §5's sentence "the count of replaced rows is 0" is superseded by amendments 4, 6 and 7:
+   **23 of the 29 REPORTED rows** carry an official 재난문자 time (RESULTS.md rows 2a-2c); 6 stay REPORTED. Nothing else in §1-§5 changes.
