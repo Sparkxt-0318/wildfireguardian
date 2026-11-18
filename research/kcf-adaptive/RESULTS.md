@@ -1,4 +1,4 @@
-# RESULTS (DRAFT until the Arm 1 leakage runs finish): does adapting to the fire's own recent behaviour help? (kcf-adaptive)
+# RESULTS: does adapting to the fire's own recent behaviour help? (kcf-adaptive)
 
 Rules: `PROTOCOL.md`, frozen at commit a7bf180 before any score in this folder was computed; two amendments
 (7f57699), both registered before the scores they concern. Every number below is in `numbers.json` or
@@ -69,15 +69,26 @@ What this shows:
 - 168 parameters add almost nothing over 4.
 - Windows with at least one earlier window (267 of 273) give the same picture: -0.00121 (-0.00300 to -0.00030).
 
+Figure: `fig/fig1_arm1_scores.png`.
+
 Verdict (PROTOCOL 2.6): Brier interval below zero, area lower, expected miss higher: **trade-off, not help**.
 The two weaker-penalty runs are sensitivity only (Amendment 1) and do not change the verdict; they make the
 trade-off steeper, not better.
 
 ### Leakage test
 
-DRAFT, runs still computing. So far (MEASURED): with everything at or after the issue time replaced by noise
-(labels, later fire states, later weather), the 4-parameter method gives bitwise identical parameters and
-predictions on 273 of 273 windows. The 168-parameter rerun and the leaky positive control are not finished.
+All MEASURED, on all 273 windows.
+
+- **History filter (L1).** Every window used for adaptation has its outcome time at or before the target's issue
+  time; checked by assertion on every call.
+- **Future scramble (L2).** Everything at or after the issue time was replaced by noise (the target's and later
+  windows' labels, later fire states, later weather) and the method rerun. Parameters and predictions are bitwise
+  identical on 273 of 273 windows for the 4-parameter set and 273 of 273 for the 168-parameter set (largest
+  difference 0.0). **Passes.**
+- **Positive control (L3).** With the target window deliberately added to its own history, the same scramble
+  changes the predictions on 273 of 273 windows (largest difference 0.185). The test does detect a leak when one
+  exists. That leaky run scores Brier 0.008498 (LEAKY, NOT A RESULT), only slightly better than the honest
+  0.008719.
 
 ### Korea and 25 March (Arm 1)
 
