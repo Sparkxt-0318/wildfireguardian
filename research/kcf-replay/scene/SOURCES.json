@@ -1,0 +1,265 @@
+{
+ "entries": [
+  {
+   "attribution": "© OpenStreetMap contributors (ODbL)",
+   "built_by": "research/kcf-replay/scene/build_basemap.py",
+   "built_commit": "d4169672cc6aa993e792238a9f63b2389ef45922",
+   "bytes": 1934036,
+   "inputs": [
+    {
+     "bytes": 1268481,
+     "path": "planner/research-map/site/regions/uiseong_andong_2025.osm.js",
+     "sha256": "60ef6f569f203ca94e2d5eb3ad87624201c77137066267bf8d689271f6dee201"
+    },
+    {
+     "bytes": 49638,
+     "path": "planner/data/osm/uiseong_andong_2025.overpass.json",
+     "sha256": "ee4b4e0143e3530985bf30d4158a03664d2d09b82831068049f2de419790696c"
+    },
+    {
+     "bytes": 1080431,
+     "path": "planner/research-map/site/regions/yeongdeok_2025.osm.js",
+     "sha256": "c9b3013363bed5facce908a1e5e8904369741ef7327d49fe7a97ed2d3fb4c20d"
+    },
+    {
+     "bytes": 76022,
+     "path": "planner/data/osm/yeongdeok_2025.overpass.json",
+     "sha256": "5de04f405ca135fdb1e75e54dd1daa8c82d14b767e5654fab8c1159a20254d84"
+    }
+   ],
+   "license": "ODbL 1.0 (OpenStreetMap data)",
+   "path": "planner/public/kcf-scene/data/basemap.js",
+   "sha256": "b25665f4f0d3c073110de3bff552a69b9d49277fadb2551b3d2556f205b7e367"
+  },
+  {
+   "attribution": "Noto Sans glyph PBFs (protomaps/basemaps-assets); Pretendard, Copyright (c) 2021, Kil Hyung-jin (https://github.com/orioncactus/pretendard), subset renamed 'KCF UI Sans' (Reserved Font Name not used)",
+   "built_by": "research/kcf-replay/scene/build_fonts.py",
+   "built_commit": "0b765a8e6c9b67ca84aa6cf8cf345416695ad569",
+   "bytes": 294806,
+   "inputs": [
+    {
+     "bytes": 76044,
+     "path": "planner/public/basemap/fonts/Noto Sans Regular/0-255.pbf",
+     "sha256": "62c6d49b15fa836eb6aa45e259c7ca6762f44b011b09e47776efbe4a6db1b397"
+    },
+    {
+     "bytes": 64220,
+     "path": "planner/public/basemap/fonts/Noto Sans Regular/8192-8447.pbf",
+     "sha256": "8ea977a587352fe31b4159ffdbc9a40be79056f2472017c742ea1e4a931864b9"
+    },
+    {
+     "bytes": 3594,
+     "path": "planner/public/kcf-scene/index.html",
+     "role": "scanned for characters",
+     "sha256": "4e15c2f1d2e9a78684343fcef5810c5080c87a4d2321c79a5cf46b9ca0c36b28"
+    },
+    {
+     "bytes": 88205,
+     "path": "planner/public/kcf-scene/app.js",
+     "role": "scanned for characters",
+     "sha256": "80347cbbc13a9a9779961576de0ed6fec46f2f237434731a337ac060685b8709"
+    },
+    {
+     "bytes": 13640,
+     "path": "planner/public/kcf-scene/style.css",
+     "role": "scanned for characters",
+     "sha256": "d5c46e295e26595077a175bb829a751ac3c336d459619faee05423e70536fbfd"
+    },
+    {
+     "bytes": 7988530,
+     "path": "planner/public/kcf-scene/data/scene.js",
+     "role": "scanned for characters",
+     "sha256": "41d4954ebd07e7114405ab5413a0f44a47f5ddf5f8c75c6f40c0fe1b70107946"
+    },
+    {
+     "bytes": 1934036,
+     "path": "planner/public/kcf-scene/data/basemap.js",
+     "role": "scanned for characters",
+     "sha256": "b25665f4f0d3c073110de3bff552a69b9d49277fadb2551b3d2556f205b7e367"
+    },
+    {
+     "bytes": 6739336,
+     "path": "planner/node_modules/pretendard/dist/public/variable/PretendardVariable.ttf",
+     "sha256": "3090ccde0442bb347aa7685d9ba8b17436a60682df6e8f92a9a670de14056e22"
+    },
+    {
+     "bytes": 4419,
+     "path": "planner/node_modules/pretendard/dist/LICENSE.txt",
+     "sha256": "b04538c9abec39a3db75108cf0af0fd9c77032fe8aa2cf38345b4d250e98e38e"
+    },
+    {
+     "bytes": 1162,
+     "path": "planner/public/basemap/ATTRIBUTION.md",
+     "role": "glyph provenance",
+     "sha256": "482d8b58d59c979d2c6c5bcf6448e92fd42da3efe60ab12ab3101f9a829331c7"
+    },
+    {
+     "bytes": 23094,
+     "path": "planner/public/basemap/SOURCES.json",
+     "role": "glyph provenance",
+     "sha256": "fe7fbcaa3eab36f5a428a4c9ade43c3e18be95ea0ffc50951d6740e099576719"
+    }
+   ],
+   "license": "glyphs: Noto Sans, SIL OFL 1.1 (no Noto license text in the repository; provenance in planner/public/basemap/ATTRIBUTION.md and SOURCES.json); ui face: SIL OFL 1.1, planner/public/kcf-scene/vendor/LICENSE-pretendard.txt",
+   "path": "planner/public/kcf-scene/data/fonts.js",
+   "sha256": "007d0cb4abf65ad55c6c7ddb9dbf61ed06edf30b967b8228e2fb7ef5c7a28fcd"
+  },
+  {
+   "attribution": "Terrain Tiles: Mapzen / AWS Open Data (SRTM, GMTED, ETOPO1 and others)",
+   "built_by": "research/kcf-replay/scene/build_terrain.py",
+   "built_commit": "4fcda6fbac49cc94d78b88217858305ec18c52d0",
+   "bytes": 6260489,
+   "inputs": {
+    "aggregate_sha256": "e090eb4796dab3fc417072ec6a7f890021ab97065591e362064f4d2cc2cf2913",
+    "aggregate_sha256_definition": "sha256 over lines '<url> <sha256> <bytes>\\n' in built.inputs order",
+    "bytes": 9254960,
+    "count": 171,
+    "fetched_utc": "2026-11-17T02:18:51Z",
+    "imagery_sources": [
+     "etopo1",
+     "gmted",
+     "srtm"
+    ],
+    "listed_in": "planner/public/kcf-scene/data/terrain.js built.inputs (url, bytes, sha256, etag, imagery_sources)",
+    "url_template": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+   },
+   "license": "AWS Open Data Terrain Tiles; the sources in these tiles (x-amz-meta-x-imagery-sources) are etopo1, gmted, srtm only, US Government (NASA / USGS / NOAA) datasets; terms: https://github.com/tilezen/joerd/blob/master/docs/attribution.md",
+   "path": "planner/public/kcf-scene/data/terrain.js",
+   "sha256": "dd8fbcd2905ba427f45fad77b41aba36ea09b074d19ae6b3bbce10a205b7e937"
+  },
+  {
+   "attribution": "MapLibre GL JS 5.24.0, Copyright (c) 2023, MapLibre contributors",
+   "built_by": "research/kcf-replay/scene/build_vendor.py (verbatim copy)",
+   "bytes": 5984,
+   "inputs": [
+    {
+     "bytes": 5984,
+     "check": {
+      "files_identical_to_tarball": true,
+      "npm_tarball": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-5.24.0.tgz",
+      "sha512_equals_lockfile_integrity": true
+     },
+     "note": "planner/node_modules is not committed; pinned by the lockfile",
+     "npm": {
+      "integrity": "sha512-ALyFxgtd5R+65UqZ/++lOqwWcC0SNho9c27fYSyLmG7AfnAul2o46F05aDJGPbFU57wos9dgcIySHs0Xe6ia3A==",
+      "license": "BSD-3-Clause",
+      "lockfile": "planner/package-lock.json",
+      "package": "maplibre-gl",
+      "resolved": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-5.24.0.tgz",
+      "version": "5.24.0"
+     },
+     "path": "planner/node_modules/maplibre-gl/LICENSE.txt",
+     "sha256": "ee5fc05a0677eaf69601d2c7db0d9ecd6cc27c3abc1d0733bc9ed34707cf8ef2"
+    },
+    {
+     "bytes": 109936,
+     "path": "planner/package-lock.json",
+     "sha256": "1bc8604420e4051041f0e2f8345df0cf1e32589deafcff36bbe2de5f79ac6f31"
+    }
+   ],
+   "license": "BSD-3-Clause (planner/public/kcf-scene/vendor/LICENSE-maplibre-gl.txt)",
+   "path": "planner/public/kcf-scene/vendor/LICENSE-maplibre-gl.txt",
+   "sha256": "ee5fc05a0677eaf69601d2c7db0d9ecd6cc27c3abc1d0733bc9ed34707cf8ef2"
+  },
+  {
+   "attribution": "Pretendard, Copyright (c) 2021, Kil Hyung-jin (https://github.com/orioncactus/pretendard)",
+   "built_by": "research/kcf-replay/scene/build_fonts.py (verbatim copy)",
+   "bytes": 4419,
+   "inputs": [
+    {
+     "bytes": 4419,
+     "note": "planner/node_modules is not committed; pinned by the lockfile",
+     "npm": {
+      "integrity": "sha512-PaQAADyLY5v4kYFwkpSJHbSSYIkiriY/1xXw75TKoZ9UQQqeU+tvP05yTdZAWibiIYoo8ZKtRv8PM7w0IaywSw==",
+      "license": "OFL-1.1",
+      "lockfile": "planner/package-lock.json",
+      "package": "pretendard",
+      "resolved": "https://registry.npmjs.org/pretendard/-/pretendard-1.3.9.tgz",
+      "version": "1.3.9"
+     },
+     "path": "planner/node_modules/pretendard/dist/LICENSE.txt",
+     "sha256": "b04538c9abec39a3db75108cf0af0fd9c77032fe8aa2cf38345b4d250e98e38e"
+    },
+    {
+     "bytes": 109936,
+     "path": "planner/package-lock.json",
+     "sha256": "1bc8604420e4051041f0e2f8345df0cf1e32589deafcff36bbe2de5f79ac6f31"
+    }
+   ],
+   "license": "SIL Open Font License 1.1 (this file)",
+   "path": "planner/public/kcf-scene/vendor/LICENSE-pretendard.txt",
+   "sha256": "b04538c9abec39a3db75108cf0af0fd9c77032fe8aa2cf38345b4d250e98e38e"
+  },
+  {
+   "attribution": "MapLibre GL JS 5.24.0, Copyright (c) 2023, MapLibre contributors",
+   "built_by": "research/kcf-replay/scene/build_vendor.py (verbatim copy)",
+   "bytes": 70024,
+   "inputs": [
+    {
+     "bytes": 70024,
+     "check": {
+      "files_identical_to_tarball": true,
+      "npm_tarball": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-5.24.0.tgz",
+      "sha512_equals_lockfile_integrity": true
+     },
+     "note": "planner/node_modules is not committed; pinned by the lockfile",
+     "npm": {
+      "integrity": "sha512-ALyFxgtd5R+65UqZ/++lOqwWcC0SNho9c27fYSyLmG7AfnAul2o46F05aDJGPbFU57wos9dgcIySHs0Xe6ia3A==",
+      "license": "BSD-3-Clause",
+      "lockfile": "planner/package-lock.json",
+      "package": "maplibre-gl",
+      "resolved": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-5.24.0.tgz",
+      "version": "5.24.0"
+     },
+     "path": "planner/node_modules/maplibre-gl/dist/maplibre-gl.css",
+     "sha256": "ab1e70d59ec40465bae7e7030da2f3ccf28133fd502e62bd598eefbadfd7a732"
+    },
+    {
+     "bytes": 109936,
+     "path": "planner/package-lock.json",
+     "sha256": "1bc8604420e4051041f0e2f8345df0cf1e32589deafcff36bbe2de5f79ac6f31"
+    }
+   ],
+   "license": "BSD-3-Clause (planner/public/kcf-scene/vendor/LICENSE-maplibre-gl.txt)",
+   "path": "planner/public/kcf-scene/vendor/maplibre-gl.css",
+   "sha256": "ab1e70d59ec40465bae7e7030da2f3ccf28133fd502e62bd598eefbadfd7a732"
+  },
+  {
+   "attribution": "MapLibre GL JS 5.24.0, Copyright (c) 2023, MapLibre contributors",
+   "built_by": "research/kcf-replay/scene/build_vendor.py (verbatim copy)",
+   "bytes": 1056837,
+   "inputs": [
+    {
+     "bytes": 1056837,
+     "check": {
+      "files_identical_to_tarball": true,
+      "npm_tarball": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-5.24.0.tgz",
+      "sha512_equals_lockfile_integrity": true
+     },
+     "note": "planner/node_modules is not committed; pinned by the lockfile",
+     "npm": {
+      "integrity": "sha512-ALyFxgtd5R+65UqZ/++lOqwWcC0SNho9c27fYSyLmG7AfnAul2o46F05aDJGPbFU57wos9dgcIySHs0Xe6ia3A==",
+      "license": "BSD-3-Clause",
+      "lockfile": "planner/package-lock.json",
+      "package": "maplibre-gl",
+      "resolved": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-5.24.0.tgz",
+      "version": "5.24.0"
+     },
+     "path": "planner/node_modules/maplibre-gl/dist/maplibre-gl.js",
+     "sha256": "45a9b07a9189ce56054c620a947ccf41e291e58c95e9b61533b740aaa65ee5cb"
+    },
+    {
+     "bytes": 109936,
+     "path": "planner/package-lock.json",
+     "sha256": "1bc8604420e4051041f0e2f8345df0cf1e32589deafcff36bbe2de5f79ac6f31"
+    }
+   ],
+   "license": "BSD-3-Clause (planner/public/kcf-scene/vendor/LICENSE-maplibre-gl.txt)",
+   "path": "planner/public/kcf-scene/vendor/maplibre-gl.js",
+   "sha256": "45a9b07a9189ce56054c620a947ccf41e291e58c95e9b61533b740aaa65ee5cb"
+  }
+ ],
+ "generated_by": "research/kcf-replay/scene/build_sources.py",
+ "rule": "every shipped static asset: repository path, byte size, SHA-256, the script that made it, its inputs",
+ "schema": "kcf-scene-sources/1"
+}

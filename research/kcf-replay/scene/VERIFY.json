@@ -1,0 +1,605 @@
+{
+ "bytes": 14185303,
+ "checks": {
+  "arms:2b_R_text": 7,
+  "arms:2b_class_column": 7,
+  "arms:2b_class_runs": 3,
+  "arms:2b_head": 1,
+  "arms:2b_kma_R": 1,
+  "arms:2b_kma_row": 1,
+  "arms:2b_row": 3,
+  "arms:2b_text": 3,
+  "arms:R_vs_numbers": 39,
+  "arms:class": 39,
+  "arms:close_curve_cells": 126594,
+  "arms:close_on_class_curve": 3,
+  "arms:gust_cls_equals_rule": 24,
+  "arms:gust_file": 3,
+  "arms:gust_ms": 26,
+  "arms:gust_ms_equals_rule": 24,
+  "arms:gust_provisional_label": 1,
+  "arms:hourly": 1,
+  "arms:kind": 3,
+  "arms:kma_not_provisional": 1,
+  "arms:label": 3,
+  "arms:n_fires": 39,
+  "arms:order": 1,
+  "arms:results_line": 3,
+  "arms:standins": 1,
+  "close:range": 12,
+  "close:shape": 12,
+  "close:standin_order": 52,
+  "countyLog:line_has_entry": 14,
+  "countyLog:lines": 1,
+  "countyLog:source_line": 1,
+  "discCounts": 13,
+  "discCounts:from_scene_rows": 13,
+  "discs:count": 1,
+  "discs:fields": 1,
+  "discs:row": 5138,
+  "format:assignment": 1,
+  "format:header": 1,
+  "format:js_equals_json": 1,
+  "format:js_eval_exit": 1,
+  "format:json_payload": 1,
+  "format:lines": 1,
+  "hourly:covers_all_8h_rows_once": 1,
+  "hourly:entries": 13572,
+  "hourly:field": 135720,
+  "hourly:len13": 1044,
+  "hourly:places": 6,
+  "hourly:row_key": 13572,
+  "named:flags": 1,
+  "named:names": 1,
+  "named:order": 1,
+  "places:count": 1,
+  "places:sorted_unique": 1,
+  "planner:arms": 1,
+  "planner:best": 6786,
+  "planner:contiguous": 6786,
+  "planner:file_arm": 6786,
+  "planner:file_dir": 6786,
+  "planner:file_issue": 6786,
+  "planner:files": 3,
+  "planner:len13": 522,
+  "planner:offsets": 6786,
+  "planner:places": 3,
+  "planner:shelter_known": 20358,
+  "planner:src": 1,
+  "planner:strips": 6786,
+  "reported:documented": 6,
+  "reported:line_has_kst_what": 18,
+  "reported:places": 1,
+  "reported:rows": 6,
+  "reported:url_at_source": 18,
+  "results3:head": 1,
+  "results3:rows": 1,
+  "results3:steps": 78,
+  "results4:cell": 144,
+  "results4:hours": 4,
+  "results4:kma_identical_sentence": 1,
+  "results4:places": 4,
+  "results5:counts": 6,
+  "results5:one_row": 6,
+  "results5:row": 6,
+  "roadCells:ring_closed": 2,
+  "roadCells:rings": 2,
+  "roadCells:sorted_unique": 2,
+  "routeEdges:seg_cells_in_roadCells": 25433,
+  "routes:arr_text": 6552,
+  "routes:chain": 6552,
+  "routes:included_when_complete": 6,
+  "routes:last_text": 6552,
+  "routes:present_iff_departure": 13572,
+  "routes:runs_complete": 6,
+  "routes:sh_cell_in_roadCells": 6552,
+  "routes:shelter": 6552,
+  "routes:shelter_known": 6552,
+  "schema": 1,
+  "score": 1,
+  "standins:a_v_vs_RESULTS": 3,
+  "standins:basis_vs_RESULTS": 3,
+  "time:horizon": 1,
+  "time:issue_kst": 1,
+  "time:issue_utc": 1,
+  "time:issues_s": 1,
+  "time:t0": 1,
+  "top_keys_missing": 1,
+  "walk:ld+60_fails": 6552,
+  "walk:pass_and_arrival": 6552
+ },
+ "failures": [],
+ "inputs": [
+  {
+   "bytes": 14185303,
+   "path": "planner/public/kcf-scene/data/scene.js",
+   "sha256": "9778381c98a3112f999213c00cb298ef0cec2b5c11354afbf9efb19a83f2e3a2"
+  },
+  {
+   "bytes": 15623,
+   "path": "research/kcf-gust/work/era5_gusts.json",
+   "sha256": "e02f9d3d5e2019b0d8c1e14f38078e78c40aa8d19f1097f87b58dd9192f1cc60"
+  },
+  {
+   "bytes": 26037,
+   "path": "research/kcf-gust/work/gust_hours.json",
+   "sha256": "9fde3d290e2723fd0ef733f4e73f93c29ba1768615c366f3916174bb585e5824"
+  },
+  {
+   "bytes": 18839,
+   "path": "research/kcf-gust/work/gust_hours_kma.json",
+   "sha256": "ec4758efbafa8658f6748fc33a2a4bc4aeef9f256ac26683d0737ac2f0b3deb1"
+  },
+  {
+   "bytes": 63599,
+   "path": "research/kcf-gust/work/kma_asos_hourly.json",
+   "sha256": "77837826dd6d8e590c0f9cdb630ca6ed2d371f87ef1dae2595e6356300813541"
+  },
+  {
+   "bytes": 57766,
+   "path": "research/kcf-margin/numbers.json",
+   "sha256": "0e34874c0fdab6fd4349042985f9f170863b148e1184a066d18c8702ac3c72da"
+  },
+  {
+   "bytes": 3637,
+   "path": "research/kcf-replay/MEASURED_RULE.md",
+   "sha256": "e358f59222a0561195f3128f410efe8573590210e759cffa42b48dce950931b2"
+  },
+  {
+   "bytes": 16087,
+   "path": "research/kcf-replay/RESULTS.md",
+   "sha256": "4ab9ac7b3d70b2a3eea17acf8f77f02d7d0f8ac59a89b0b2dd7bb1b866eabfb5"
+  },
+  {
+   "bytes": 6226,
+   "path": "research/kcf-replay/SOURCES.md",
+   "sha256": "81aa84ee3b1165145944abafc55a7c0e028f3736e5f3143ac79e5b629475263f"
+  },
+  {
+   "bytes": 645597,
+   "path": "research/kcf-replay/fire_discs.json",
+   "sha256": "ad417ad6640b01685e75950cf95cc8beefaa6b9c27823235f7547962d0b8743b"
+  },
+  {
+   "bytes": 4401,
+   "path": "research/kcf-replay/measured_arms.py",
+   "sha256": "8068993eee4e207edad1d74c6ad19698bb371cd251d7f89f95dc1f0898675546"
+  },
+  {
+   "bytes": 68118,
+   "path": "research/kcf-replay/named_places_timeline.csv",
+   "sha256": "04a4b2bd3cd970a83a43c8c3588b100c4d9ecfd01c33c9990415dc7c462261ac"
+  },
+  {
+   "bytes": 6402250,
+   "path": "research/kcf-replay/per_place.csv",
+   "sha256": "0b847bea4876d3fe04aec96c45f1ce46cc0192990d1d7ba38439f5e6a5d20ed6"
+  },
+  {
+   "bytes": 1381377,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T030000Z.json",
+   "sha256": "85c21440c4309488b91d0c937ce922e705edd60b5c982b90af78b12ba261a2d6"
+  },
+  {
+   "bytes": 1434757,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T040000Z.json",
+   "sha256": "33d71bcb683ddc989da3f7aaeeb251d0892407d7080cd6dc35524d1440240255"
+  },
+  {
+   "bytes": 1424673,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T050000Z.json",
+   "sha256": "e5326e7576bded54f014f8846584205c9c117c6e36fa7895455e5cbbd9dc86fd"
+  },
+  {
+   "bytes": 1684970,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T060000Z.json",
+   "sha256": "4f47a72d5a1063d0c92a645f0cb13b41806e40c220448680ce0c35bd52291259"
+  },
+  {
+   "bytes": 1271938,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T070000Z.json",
+   "sha256": "aa3ffebb703246de94cfccf597074371ca3ea18737785783e08829ed848b6262"
+  },
+  {
+   "bytes": 1088279,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T080000Z.json",
+   "sha256": "7e4f7ddbefeee3829fda09b8ec8e6e2c92777a73a37061695364c4b24d371ee9"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T090000Z.json",
+   "sha256": "8895bead2e429152c290383aaa73eb8114e9fbff17e28cf42bba49efe54f0a6b"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T100000Z.json",
+   "sha256": "6e8fd081ba6262189df22f7ce79fc2d57ac9f8474787e6f7d5014b5921bac609"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T110000Z.json",
+   "sha256": "d5af70eacd08a33e0621e3ad3c983dcf3a5b1a25e93814f16092d106f75f3547"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T120000Z.json",
+   "sha256": "fcca780e83beb3cf960ad2d77ea04198338424cbf71ca5d15dba7e74b164a20d"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T130000Z.json",
+   "sha256": "76bb407e8703f1361c90981177370982949641f16d7bc62c17017c3a78017ad4"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T140000Z.json",
+   "sha256": "73ced56e97d64e866193f6e7a112e0e7dcd9ebee798b7797fcb67e4eb346c28b"
+  },
+  {
+   "bytes": 1080845,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/uiseong_andong_2025/MEASURED_8h_20250325T150000Z.json",
+   "sha256": "4612128d7059e2dd0731fac53b85559c9c46292e29fdfe861153534305b2a838"
+  },
+  {
+   "bytes": 1437761,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T030000Z.json",
+   "sha256": "51182a2179f541605816ba927b3d6f7ef8b37e4c49345d5c58f182319b51fab5"
+  },
+  {
+   "bytes": 1437761,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T040000Z.json",
+   "sha256": "6276f42a78de7363be04263699dce315b3320b2b91ef1b49c11e46dec3f4cae7"
+  },
+  {
+   "bytes": 1437761,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T050000Z.json",
+   "sha256": "35dadb2339adab9d34c07dd48f79c9f45b1e1dda06cee2486b2f7189d73395bf"
+  },
+  {
+   "bytes": 1437761,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T060000Z.json",
+   "sha256": "4e5ec83c9b2242c19b0103e7a25c4337c57cdeaffe091511cf655acf6c365d21"
+  },
+  {
+   "bytes": 1437761,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T070000Z.json",
+   "sha256": "0348d0d4791efb705719508b95d679a9aefbde5c682428cc015afd923a8fb93a"
+  },
+  {
+   "bytes": 1437761,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T080000Z.json",
+   "sha256": "a1a711a0f124ef053d714034db75a0e4f55480e06ae222162161ddc18320d603"
+  },
+  {
+   "bytes": 1566824,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T090000Z.json",
+   "sha256": "292f1ccbc93cc2bcca7a4c5639729adf78035b5dcde2064e684a454c84c26e4e"
+  },
+  {
+   "bytes": 1482115,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T100000Z.json",
+   "sha256": "c7bf81373e84cad47248dc85b7cdc20562983db61b826389b32b6f7f58a8b5be"
+  },
+  {
+   "bytes": 1492983,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T110000Z.json",
+   "sha256": "72567ba10955816b2bb559a3083a259768f888848bd935ee05b3b69057648256"
+  },
+  {
+   "bytes": 1430523,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T120000Z.json",
+   "sha256": "9247c7cf94f6932bf00e8f05d9f1ada831ece296c73b876cd8d9bdaf4c013dfb"
+  },
+  {
+   "bytes": 1279505,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T130000Z.json",
+   "sha256": "583c1142f29f787dafbf1425800f63d81974a3bba7d49753dd6fc30726994347"
+  },
+  {
+   "bytes": 1279505,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T140000Z.json",
+   "sha256": "2b4ef3051501b45db236ae22afd095924d1fdbee2f9283fc2192c9a5e539d88e"
+  },
+  {
+   "bytes": 1257632,
+   "path": "research/kcf-replay/planner_cache/MEASURED_8h/yeongdeok_2025/MEASURED_8h_20250325T150000Z.json",
+   "sha256": "e71bb74d58fa738e100ef4a879171766ab8e34486af7a6aff6a8d3599f3327be"
+  },
+  {
+   "bytes": 1518013,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T030000Z.json",
+   "sha256": "1c9cab8327014aefa80ae17e29657c67bbe8c7d26dfb4db9d7b341ca5c51a013"
+  },
+  {
+   "bytes": 1497806,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T040000Z.json",
+   "sha256": "4c4a0ca91ce7ba6400c5210802c2693844f2f067fafadbddafdb82baff8cd359"
+  },
+  {
+   "bytes": 1495139,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T050000Z.json",
+   "sha256": "ea3767043f689bc75d2860b6efc22965c0ef6110baffb342a95481a205965b0f"
+  },
+  {
+   "bytes": 1604837,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T060000Z.json",
+   "sha256": "f6ed3c3f59c489182adffc104b6dac260fb1f9c093d116ae6cf504578510fada"
+  },
+  {
+   "bytes": 1273353,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T070000Z.json",
+   "sha256": "2d24ea05d0f0a75bba2f29769d408798365855bada5c23affdf3d8f3646352f7"
+  },
+  {
+   "bytes": 1089543,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T080000Z.json",
+   "sha256": "0c31be03fb760f9f8d12abb1012a5308deb34cdde1a213fc060344ddac45405d"
+  },
+  {
+   "bytes": 1082174,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T090000Z.json",
+   "sha256": "3db163fc0d2455826446ef6970ee370a3b252307aab4f0580d2847e033eb4815"
+  },
+  {
+   "bytes": 1082174,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T100000Z.json",
+   "sha256": "fc157c30e164636df3a9fd7f1ffaa8c2f3b5a254cd714b6ac1dc760a0026670a"
+  },
+  {
+   "bytes": 1082174,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T110000Z.json",
+   "sha256": "5be93484e4865aaaa08c16efd6efb7bf7e064b8a951d133baf18f123841290f2"
+  },
+  {
+   "bytes": 1082174,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T120000Z.json",
+   "sha256": "9108044716fe6de02b9fe8a7277ad42eab3b441c7a7e1cc32fa6b17542ca0848"
+  },
+  {
+   "bytes": 1082174,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T130000Z.json",
+   "sha256": "354a873ed5a380ffe6ab1e18d73fd3a4965a936270417f191891885444684f06"
+  },
+  {
+   "bytes": 1082086,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T140000Z.json",
+   "sha256": "4074484a99e406a012b799bd98e590b5fac7ad0e38e5fd5da8538eb05dd873db"
+  },
+  {
+   "bytes": 1082086,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/uiseong_andong_2025/MEASURED_GUST_8h_20250325T150000Z.json",
+   "sha256": "508da2f7728f211d883439cc1df314ba0718118a6a6f6d85caef8001cea0a387"
+  },
+  {
+   "bytes": 1439576,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T030000Z.json",
+   "sha256": "ea0afb5a69edda65eb76fbbc652955de14d6aaadd75f3757db3e26d25313146f"
+  },
+  {
+   "bytes": 1439576,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T040000Z.json",
+   "sha256": "d0451ba4d12884c90fbff4ba97343a3f6b04f6bf85e7c68025c6b2c4637b6837"
+  },
+  {
+   "bytes": 1439576,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T050000Z.json",
+   "sha256": "63bff3ececd3771db969ed36a0f74b7f26080f97f2e60ff049a23340122f8689"
+  },
+  {
+   "bytes": 1439576,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T060000Z.json",
+   "sha256": "b4e7e44d3fd333b4237a53cfb214cbb8fa26aa91af4c1d969140ff0ce5c69255"
+  },
+  {
+   "bytes": 1439576,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T070000Z.json",
+   "sha256": "46e62e2d7fa2978ab6d345d8ecebd35fef71c0355bc72826512c0bf3c78ad682"
+  },
+  {
+   "bytes": 1527309,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T080000Z.json",
+   "sha256": "959b931d441513c7a820b8d05017d1e64064fc43820e3f41da3c8aed4ac5733e"
+  },
+  {
+   "bytes": 1586969,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T090000Z.json",
+   "sha256": "f3a7e1cc25ef66adf5c2120d9894277e893a01f113b06a4d6fd3c7c50ef06a45"
+  },
+  {
+   "bytes": 1531892,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T100000Z.json",
+   "sha256": "9bf2120a32c7a60da5e2104cc0bfb3ccc655810c209a184c0b67ee7b2f7396dc"
+  },
+  {
+   "bytes": 1549037,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T110000Z.json",
+   "sha256": "cad5576fb8dd69595d64ee07112204e3f436769d3b2f7c1611cd71f4617fc199"
+  },
+  {
+   "bytes": 1430908,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T120000Z.json",
+   "sha256": "d1b332cd3ce157745f2ce534795b5f27fd9cdc116c6459a5686e9b652c39e7e5"
+  },
+  {
+   "bytes": 1281621,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T130000Z.json",
+   "sha256": "68b8064db377897a8c06070bf1bb98461bfbd8285de6e577ea135413d85944ee"
+  },
+  {
+   "bytes": 1279110,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T140000Z.json",
+   "sha256": "50a89e6391febbfd49075ea01d186bc869051c4527119ecca56f9c1936d538b7"
+  },
+  {
+   "bytes": 1258165,
+   "path": "research/kcf-replay/planner_cache/MEASURED_GUST_8h/yeongdeok_2025/MEASURED_GUST_8h_20250325T150000Z.json",
+   "sha256": "df759352453cbdb16cb8fc9d20f8b5d85c91903590e8657fb3f1b6fa65a1d238"
+  },
+  {
+   "bytes": 1464720,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T030000Z.json",
+   "sha256": "d62471b8b612dae7c4315bfbf3a6be80d4111b51aaa40746b8766ab0978eb2b6"
+  },
+  {
+   "bytes": 1455051,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T040000Z.json",
+   "sha256": "4b8bce3125dafbfd9fbf4e004a0a8014738b9368c036f2d616655162a6dd36f7"
+  },
+  {
+   "bytes": 1455051,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T050000Z.json",
+   "sha256": "2bd85ed67d8a3d47180d25481d6b499d87a2a2a7a91c236ff1685bff01012a7d"
+  },
+  {
+   "bytes": 1485049,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T060000Z.json",
+   "sha256": "d9f31eb8c1cf7b0f0d4913141493a92a372dc4e1852c6e1bf7053cca3009b43e"
+  },
+  {
+   "bytes": 1268815,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T070000Z.json",
+   "sha256": "f5b8b4015ffdece09aa652baa181bcb67924257e9aaf0fad623fb83b5d6e2704"
+  },
+  {
+   "bytes": 1082685,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T080000Z.json",
+   "sha256": "3b618c0e13b81cf869f333e8fa589279984b7c167e43bd47ad3222cf0e37f550"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T090000Z.json",
+   "sha256": "7feabbaa1e1e2ed2a356d1b042e8fe006d990bf0b1633d82eff1a174454b54c7"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T100000Z.json",
+   "sha256": "2c3d01a4dac3cb47986005e8b2973fee6b409b7c4d92e0f6034750a3661e1a8a"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T110000Z.json",
+   "sha256": "87804570adb606deafce65fece580aabc997ab161bc2184693a27659735a21fe"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T120000Z.json",
+   "sha256": "c5a5f30abac02711dad661544c7c7500a50708fa3044c02c471479936675a976"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T130000Z.json",
+   "sha256": "7045d25ef7672d0d43a9a7927057a095ac07a23f9886a43652cd8df0ce861c00"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T140000Z.json",
+   "sha256": "168aafc99b5a2686161423e0ecc70b8f878740e057d33526ef62d891c3c3658b"
+  },
+  {
+   "bytes": 1075306,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/uiseong_andong_2025/RUNNING_8h_20250325T150000Z.json",
+   "sha256": "927b5121d449ea35af248374232e2678259d805e30673ee002959bdd1526a446"
+  },
+  {
+   "bytes": 1660558,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T030000Z.json",
+   "sha256": "f5f5086c4a6e95fddebce2b1b2931c174b455917b9ebee2bb261e0aa87e86f21"
+  },
+  {
+   "bytes": 1653253,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T040000Z.json",
+   "sha256": "30f3cad7b0d028c7b5680b74938fae7b572b55a37bac8107a131e283b351f93b"
+  },
+  {
+   "bytes": 1653253,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T050000Z.json",
+   "sha256": "5c77574c06fca38775374d4c255c9a77fe1588aa7b9e1373d9ae6efe12344f8d"
+  },
+  {
+   "bytes": 1654510,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T060000Z.json",
+   "sha256": "47aaca165eb437bfbb9c697fa45edaa32ba760b0cc02544174b1335553e7318f"
+  },
+  {
+   "bytes": 1653916,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T070000Z.json",
+   "sha256": "cec7d89066d9d266c77214e848355e0fd2db02c412648ab866e825b293055909"
+  },
+  {
+   "bytes": 1660790,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T080000Z.json",
+   "sha256": "c56f4ac53c6e61d86d20baa2588f8aad51e78a01f738645dd966b224542977bf"
+  },
+  {
+   "bytes": 1672185,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T090000Z.json",
+   "sha256": "09c3733fef96bf27da64aae6d6f7db3d0ffdf564bc863108eef5c86fba31ed3d"
+  },
+  {
+   "bytes": 1499609,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T100000Z.json",
+   "sha256": "c7c8bcfcbf436237ad1b0e702a6a206093db62e7739bccba67b07e33ea5b2e55"
+  },
+  {
+   "bytes": 1469528,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T110000Z.json",
+   "sha256": "96ad273a8e64d7aa4f483607c00135ec6b56122d81702dcd691f698e7566b8f0"
+  },
+  {
+   "bytes": 1362553,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T120000Z.json",
+   "sha256": "340a8bf5b352c39eef10e071623a19ec9f317d33c16dd928fe5576ad8e4d2ffe"
+  },
+  {
+   "bytes": 1251057,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T130000Z.json",
+   "sha256": "ac3fdbc4895b4b75d4825072040b6324320818b3c16b1693fb0be7dc66a9dddd"
+  },
+  {
+   "bytes": 1251057,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T140000Z.json",
+   "sha256": "b75af8e6bda8cc2eadb9cc5f13c2c7d25893bdaf6eb75f4fcdd7b27c562edfae"
+  },
+  {
+   "bytes": 1231214,
+   "path": "research/kcf-replay/planner_cache/RUNNING_8h/yeongdeok_2025/RUNNING_8h_20250325T150000Z.json",
+   "sha256": "1e99fa14932ec383928189900de2408b93b225fe89f20b7ec919e815230f9434"
+  },
+  {
+   "bytes": 9486,
+   "path": "research/kcf-replay/score.json",
+   "sha256": "1697a208ba011c268415648da5f9b10083d94ee020488a996401b2b306248b06"
+  }
+ ],
+ "ok": true,
+ "scene_built": {
+  "commit": "a472a1244cfacd0219a3a637c0df4f5e3f852831",
+  "generated_utc": "2026-11-18T00:22:53Z",
+  "runs": {
+   "MEASURED": "complete",
+   "MEASURED_GUST": "complete",
+   "MEASURED_GUST_KMA": "complete",
+   "ORDINARY": "complete",
+   "RUNNING": "complete",
+   "WORST": "complete"
+  },
+  "script": "research/kcf-replay/scene/build_scene.py"
+ },
+ "scene_js": "planner/public/kcf-scene/data/scene.js",
+ "script": "research/kcf-replay/scene/verify_scene.py",
+ "sha256": "9778381c98a3112f999213c00cb298ef0cec2b5c11354afbf9efb19a83f2e3a2",
+ "witness_walk": {
+  "MEASURED:PASS": 1134,
+  "MEASURED:ld+60:FAIL": 1134,
+  "MEASURED_GUST:PASS": 1130,
+  "MEASURED_GUST:ld+60:FAIL": 1130,
+  "MEASURED_GUST_KMA:PASS": 1130,
+  "MEASURED_GUST_KMA:ld+60:FAIL": 1130,
+  "ORDINARY:PASS": 1135,
+  "ORDINARY:ld+60:FAIL": 1135,
+  "RUNNING:PASS": 1093,
+  "RUNNING:ld+60:FAIL": 1093,
+  "WORST:PASS": 930,
+  "WORST:ld+60:FAIL": 930
+ }
+}
