@@ -1,0 +1,12 @@
+{
+  "_note": "Frozen with TEST.md. No value here was fitted to any fire. Sources and ranges: IDEA.md section 2.",
+  "c": 0.1,
+  "sets": {
+    "primary":   {"w_t": 5.0, "t_b": 150.0, "t_i": 300.0, "z0": 20.0, "u_crest": "wind_speed_100m"},
+    "ti0":       {"w_t": 5.0, "t_b": 150.0, "t_i": 0.0,   "z0": 20.0, "u_crest": "wind_speed_100m"},
+    "ti900":     {"w_t": 5.0, "t_b": 150.0, "t_i": 900.0, "z0": 20.0, "u_crest": "wind_speed_100m"},
+    "wt2p5":     {"w_t": 2.5, "t_b": 150.0, "t_i": 300.0, "z0": 20.0, "u_crest": "wind_speed_100m"},
+    "wt8":       {"w_t": 8.0, "t_b": 150.0, "t_i": 300.0, "z0": 20.0, "u_crest": "wind_speed_100m"},
+    "gust":      {"w_t": 5.0, "t_b": 150.0, "t_i": 300.0, "z0": 20.0, "u_crest": "wind_gusts_10m"}
+  }
+}
