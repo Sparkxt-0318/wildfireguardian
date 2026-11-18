@@ -38,4 +38,7 @@ python3 evt.py --out derived/evt.json
 python3 make_numbers.py --abstain "$W/abstain_numbers.json" --evt derived/evt.json --hours "$W/hours_full.csv.gz" \
   --nwp "$W/nwp" --out numbers.json --hours-out derived/hours.csv.gz
 python3 figures.py --numbers numbers.json --fig fig
+python3 tables.py numbers.json derived/hours.csv.gz > derived/tables.md
+# POST HOC (PROTOCOL amendment 1): ECMWF IFS 850 hPa wind beside GFS on 25 March; changes nothing above
+python3 crosscheck_ecmwf.py --hours derived/hours.csv.gz --nwp "$W/nwp" --out derived/ecmwf_crosscheck.json
 python3 -m pytest -q tests

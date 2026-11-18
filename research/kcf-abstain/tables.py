@@ -95,15 +95,15 @@ def main():
             if not c:
                 return "not scored"
             return "held" if v else "**missed**"
-        P(f"| {r['kst_hour']:02d}:00 | {r['cycle_utc'][5:13]} | {f2(r['gust_ms'], 1)} | {f2(r['w850_ms'], 1)} | "
+        P(f"| {int(r['kst_hour']):02d}:00 | {r['cycle_utc'][5:13]} | {f2(r['gust_ms'], 1)} | {f2(r['w850_ms'], 1)} | "
           f"{f2(r['rhmin_pct'], 0)} | {f2(r['hdw'], 0)} | {f2(r['prior3_km'], 2)} | {f2(r['score'], 4)} | "
           f"{'**yes**' if r['abstain'] else 'no'} | {r['min_predictor']} | {f2(r['reach5_km'], 1)} | {held(r['held5'], r['complete5'])} | "
           f"{f2(r['reach8_km'], 1)} | {held(r['held8'], r['complete8'])} |")
     P(f"\nThreshold tau = {nb['thresholds_for_test_fires']['primary']:.5f}.")
     P("\nSecondary arms on the same hours (abstain flags): S1 two-sided",
-      [(r["kst_hour"], r["abstain_two_sided"]) for r in nb["march25"]["hours_10_20_kst"]],
-      "; S2 GFS-only", [(r["kst_hour"], r["abstain_gfs_only"]) for r in nb["march25"]["hours_10_20_kst"]])
-    P("\nAll 24 hours (00-23 KST):", [(r["kst_hour"], round(r["score"], 4) if r["score"] is not None else None,
+      [(int(r["kst_hour"]), r["abstain_two_sided"]) for r in nb["march25"]["hours_10_20_kst"]],
+      "; S2 GFS-only", [(int(r["kst_hour"]), r["abstain_gfs_only"]) for r in nb["march25"]["hours_10_20_kst"]])
+    P("\nAll 24 hours (00-23 KST):", [(int(r["kst_hour"]), round(r["score"], 4) if r["score"] is not None else None,
                                         r["abstain"]) for r in nb["march25"]["hours"]])
 
     P("\n## G. S3 product cross-check (same fire, same issue hours, frozen R)\n")
@@ -122,6 +122,21 @@ def main():
 
     P("\n## I. Calibration hours not scored\n")
     P(nb["calibration_not_scored"])
+
+    if len(sys.argv) > 2:  # per-hour table: Korean fires day by day (counts)
+        import pandas as pd
+        d = pd.read_csv(sys.argv[2], low_memory=False)
+        k = d[(d.country == "KR") & (d["product"] == "CHOI") & d.score.notna()].copy()
+        k["day"] = (pd.to_datetime(k.t_utc) + pd.Timedelta(hours=9)).dt.strftime("%Y-%m-%d")
+        k["ab"] = k.abstain.astype(str) == "True"
+        k["m5"] = k.reach5_km > k.R_km_5
+        P("\n## J. Korean fires day by day (KST days; Choi rasters; 5 h; counts)\n")
+        P("| fire | KST day | scored hours | abstained | 5 h misses | misses abstained | max 5 h reach km | max forecast 850 hPa m/s | max forecast gust m/s |")
+        P("|---|---|---|---|---|---|---|---|---|")
+        for (f, day), g in k.groupby(["fire", "day"]):
+            v = g[g.reach5_km.notna()]
+            P(f"| {f} | {day} | {len(v)} | {int(v.ab.sum())} | {int(v.m5.sum())} | {int((v.ab & v.m5).sum())} | "
+              f"{v.reach5_km.max():.1f} | {g.w850_ms.max():.1f} | {g.gust_ms.max():.1f} |")
 
 
 if __name__ == "__main__":

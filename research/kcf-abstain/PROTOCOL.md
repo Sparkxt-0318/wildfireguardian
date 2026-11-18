@@ -190,3 +190,9 @@ cannot bound it, and gives xi's interval and the extrapolation ratio (40 km / la
   the rest is reported as not done.
 
 ## Amendments
+
+1. **2026-11-18, after the 25 March result had been seen. Post hoc check, no rule changed.** The 25 March abstentions were
+   driven by the GFS 850 hPa wind. To rule out an artefact of one model, `crosscheck_ecmwf.py` reads the ECMWF IFS 0.25 deg
+   open-data forecasts (AWS `ecmwf-forecasts`, 3-hourly steps) with the same cycle rule and lattice points, and puts the
+   25 March predictor values beside the calibration distribution. It is labelled POST HOC wherever it is reported, and no
+   score, threshold, hour or conclusion depends on it.
