@@ -231,7 +231,7 @@ def main():
     with ProcessPoolExecutor(a.workers, initializer=init, initargs=(a.regions,)) as ex:
         for res in ex.map(run_job, jobs):
             p = out / f"{res['region']}__{res['arm']}__{res['horizon']}__{res['issue_utc'][11:13]}.json"
-            p.write_text(json.dumps(res))
+            p.write_text(json.dumps(res, default=lambda o: o.item()))
             print(p.name, "road", res["n_road_candidates"], "front", res["n_front_candidates"],
                   "with gain", sum(1 for c in res["candidates"] if c["gains"]), res["wall_s"], "s", flush=True)
 
