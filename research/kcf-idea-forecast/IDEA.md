@@ -92,4 +92,17 @@ With r = c·U10 the advance is quadratic in wind above U_c, where the 10% rule i
 
 It says nothing about fuel, moisture or crown-fire transition; those sit inside r. It treats the flow above the valley as horizontal and uniform, which ignores lee eddies and crest speed-up. It uses one fall speed where real embers have a distribution.
 
-PRIOR_WORK_PLACEHOLDER
+## 8. Search record for this exact idea (18 November 2026)
+
+Queries, run by a sub-agent and by me: firebrand "descent angle" OR "fall angle" "terminal velocity" "lee slope" spotting across valley ridge-to-ridge; ember "landing angle" OR "trajectory angle" "leeward slope" "steeper than" terminal velocity ratio; firebrand trajectory "terminal velocity" "wind speed" angle compared "slope angle"; spot fire "lee slope" skip OR "leapfrog" ridge "rate of spread" formula "ridge to ridge"; "effective rate of spread" formula spot fires "leapfrog" OR "hopping"; effective rate of spread across ridges and valleys undulating terrain harmonic mean; firebrand "opposite slope" OR "across the valley"; wildfire spotting across valley "ridge to ridge" embers effective rate of spread rugged terrain. One further query failed with a tool error and was not rerun.
+
+**Result.** The mechanism is in print in words. The criterion Π = U tan θ_l / w_t > 1 and the rate v = r(1 + Π) were not found. So the claim of novelty is limited to the closed form.
+
+**Three closest prior works.**
+
+1. **Storey, Price, Almeida, Ribeiro, Bradstock & Sharples 2021**, "Experiments on the influence of spot fire and topography interaction on fire rate of spread", PLoS One 16(1):e0245132. Wind-tunnel hill (21° up, 31° down, 1.5 m/s) with spot fires placed by hand beyond the crest. Finding: spot fires let the fire overcome the slow downslope; it also reports McArthur's remark that slope becomes negligible when spotting crosses several ridges. *Difference:* spot positions are prescribed, not computed. There is no ember trajectory, no wind threshold, and no formula; spread is given as ratios for one geometry.
+2. **FARSITE spotting module** (Finney; FARSITE technical documentation) and **Albini 1979**. FARSITE lets each ember fall at terminal velocity along the wind and checks the ground height at each step; Albini's maximum-distance model takes ridge-to-valley relief, horizontal distance and source position. *Difference:* both compute where one ember lands. Neither states the condition under which a lee slope is cleared, and neither turns landing positions into a rate of advance across repeated ridges. `terrain.py` uses the same ray-trace as FARSITE; that part is not new.
+3. **Dold, Scott & Sanders 2011**, "The processes driving an ember storm", MODSIM 2011. A continuum model of spotting-dominated spread on flat ground with the result R ≈ w·t_e/(t_e + 0.3·t_s). *Difference:* no terrain. Its speed depends on ember lifetime and spotting time; the present idea's threshold and factor depend on the lee-slope angle, and on flat ground it reduces to r.
+
+Also relevant: Hilton et al. 2019 (CFD of firebrands over a ridge; no criterion or rate); Sharples et al. 2012 (lee-slope lateral spread, with empirical thresholds of 20–25° and 20 km/h that concern the lee eddy, not the ember path); CSIRO Kataburn 2015 (assumes undulating terrain averages to the flat rate).
+
