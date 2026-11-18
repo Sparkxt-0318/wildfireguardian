@@ -147,3 +147,13 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
    **primary** map stays on raw DN (identical definition to roadcut's map, so the two are comparable); a **sensitivity** map
    applies (DN − 1000)/10000 to both bands in both scenes (pixel valid only if the corrected value stays > 0 in B12 and B8A) and
    is reported next to the primary at the same two dNBR thresholds. No other change.
+
+2. **2026-11-18 ~15:45 UTC, after the 24 truth-arm roadlayer runs finished, before any system-arm or control-arm output was read.** Only the
+   truth arm's status vocabulary and counts were looked at: statuses are "cut", "not cut within the horizon", "already cut at the issue time
+   (fire at the village)", "already cut at the issue time", and blank (refused). Truth place-pairs: 221 CUT (118 cut inside the horizon, 103
+   already cut at issue), 1,939 NOT CUT, 24 refused (one place per pair). §3 item 2 is clarified, no outcome rule changes: a place is CUT
+   whenever `road cut (s after issue)` is numeric, which includes the two "already cut at the issue time" statuses (cut time 0 or earlier).
+   Because "already cut at issue" is decided by what the detections already show, not by forecasting, **every place-level number is reported
+   three times**: all CUT places; only places whose truth status is "cut" (cut inside the horizon, the forecast part); only places whose
+   truth status is "already cut at the issue time…". NOT CUT places enter all three for the false-cut-off count. No region was added (the
+   truth reaches the 영덕 roads in 20 of 24 pairs).

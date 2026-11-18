@@ -53,6 +53,9 @@ res = {"label": "Twin experiment: a simulator is the truth. Model output on synt
 for arm in ("system", "control"):
     pr = [r for r in places if r["arm"] == arm]; cr = [r for r in cells if r["arm"] == arm]
     A = {"cells_pooled": cell_metrics(cr), "places_pooled": place_metrics(pr), "per_seed": {}, "by_issue": {}}
+    A["places_split"] = {
+        "truth_cut_inside_horizon": place_metrics([r for r in pr if r["true_state"] == "NOT_CUT" or r["truth_status"] == "cut"]),
+        "truth_already_cut_at_issue": place_metrics([r for r in pr if r["true_state"] == "NOT_CUT" or r["truth_status"].startswith("already cut")])}
     for h in sorted({int(r["issue_offset_h"]) for r in cr}):
         A["by_issue"][str(h)] = {"cells": cell_metrics([r for r in cr if int(r["issue_offset_h"]) == h]),
                                  "places": place_metrics([r for r in pr if int(r["issue_offset_h"]) == h])}
@@ -85,3 +88,5 @@ for arm, A in res["arms"].items():
     print(arm, "cells:", {k: c[k] for k in ("true_reach_cells", "late", "late_rate", "late_ge60", "false_reach_cells")})
     print(arm, "places:", {k: p[k] for k in ("places_pairs", "true_CUT", "system_CUT", "both_CUT", "true_CUT_system_NOT_CUT", "missed_cutoff_gt0", "missed_cutoff_ge15min", "missed_cutoff_ge60min", "false_cutoff_system_CUT_truth_NOT_CUT")})
     print("   boot", A["bootstrap_over_seeds_95"], A["bootstrap_n_valid"])
+    for k, v in A["places_split"].items():
+        print("   ", k, {x: v[x] for x in ("true_CUT", "both_CUT", "true_CUT_system_NOT_CUT", "missed_cutoff_gt0", "missed_cutoff_ge15min", "missed_cutoff_ge60min", "false_cutoff_system_CUT_truth_NOT_CUT")})
