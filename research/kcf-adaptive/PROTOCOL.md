@@ -271,4 +271,15 @@ kcf-margin reproduction gate. `run_all.sh` regenerates every number; all numbers
 
 ## Amendments
 
-(none)
+1. **2026-11-18 16:15 UTC, before any weight-level score existed.** While the first adaptation runs were
+   starting, their progress lines showed the fitted offsets of the mixing coefficients in the first few windows
+   (about 0.001 to 0.04 in size). No prediction of an adapted model had been scored or looked at. The offsets are
+   small because the frozen penalty (0.01 x squared distance) is in absolute units while the Brier objective is
+   of order 0.01, so the penalty dominates. **Nothing frozen is changed:** P4 and P+ with penalty 0.01 remain the
+   primary and secondary results and the verdict rule of 2.6 applies to P4 at 0.01 only. **Added, labelled
+   SENSITIVITY (not part of the verdict):** P4 with penalty 0.001 and with penalty 0.0001, everything else as
+   frozen. They show whether a looser leash changes the answer. The leakage test L2 covers the same code path
+   (the penalty is one number in the objective) and is not repeated for them.
+2. **2026-11-18, consequence of the frozen rules, not a change.** With 27 fires, split conformal has no finite
+   static size at the 2% target (it needs at least 49 fires). Static arms at alpha = 0.02 are reported as NOT
+   ATTAINABLE; the equal-miss curve of the static arms uses 0.05 to 0.30.

@@ -93,8 +93,10 @@ def main():
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--fires", nargs="*")
     ap.add_argument("--seed", type=int, default=20261118)
+    ap.add_argument("--penalty", type=float, default=tta.PENALTY, help="frozen value 0.01; others are sensitivity runs")
     a = ap.parse_args()
     torch.set_num_threads(1)
+    tta.PENALTY = a.penalty
     a.out.mkdir(parents=True, exist_ok=True)
     fires = load_windows()
     model = tta.C651Model()
