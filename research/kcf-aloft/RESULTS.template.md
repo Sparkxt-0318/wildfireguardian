@@ -22,10 +22,17 @@ consistently earlier. It warned more only at thresholds that fire on a large par
   on California fires describes an ordinary Korean spring day. It is not a usable trigger.
 - **Adding A to G.** A-cal or G is the same as A-cal alone. A30 or G warned the same 4 days as G, up to 1 h
   earlier on three of them, for 4.5 alarm days per point and season against 3.7.
+- **The observed-gust rule (G-obs)**, run for all 12 fires with every KMA ASOS station within 50 km (added
+  2026-11-18 under amendment 2), was firing at the first run hour on **1 of the 9** run fire-days (Gangneung,
+  5 March 2022, 1 h ahead) and missed 49 of the 55 run hours. It fired on none of the 34 fire-days without a run.
+  At Uljin on 4 and 5 March 2022 no station within 50 km recorded more than 14 m/s while the fire ran.
+  {{GOBS_BURDEN}}
 - **25 March 2025.** G fired from 09 KST, one hour before the first run hour (10 KST), on the same forecast cycle
   and at the same hour as A30. A25 fired from 08 KST and A-cal from 02 KST. What gave no warning that morning was
-  the **observed** gust (G-obs: silent until 19 KST). The forecast gust carried the warning that kcf-abstain found
-  in the 850 hPa wind. Without 25 March the counts are G 3 of 8, A at equal cost 2 of 8, A25 3 of 8, A-cal 7 of 8.
+  the **observed** gust: the first 20 m/s within 50 km of the fire was recorded at 14:48 (Gumi), so G-obs first
+  fired at 15 KST, five hours after the first run hour. The forecast gust carried the warning that kcf-abstain
+  found in the 850 hPa wind. Without 25 March the counts are G 3 of 8, A at equal cost 2 of 8, A25 3 of 8,
+  A-cal 7 of 8, G-obs 1 of 8.
 - **Five of the 9 run fire-days had no warning from G or from any A at 25 m/s or more:** Uiseong 22, 23 and
   26 March 2025, Sancheong 22 March 2025 and Uljin 10 March 2022. These runs came on forecast wind below either
   trigger.
@@ -37,7 +44,8 @@ consistently earlier. It warned more only at thresholds that fire on a large par
   "wind aloft is worse".
 
 Labels: MEASURED unless marked. ASSUMED: the 5 h availability delay, the persistence definition, the independence
-behind the exact intervals. PARTIAL: G-obs (four stations, one fire). COARSE: seasons 2019-2020. All numbers are in
+behind the exact intervals, and that KMA reports every gust of 20 m/s or more. PARTIAL: the first G-obs run (four
+stations, one fire), kept in section 7 for the record. COARSE: seasons 2019-2020. All numbers are in
 `numbers.json`; every table below is printed from it by `tables.py` (`derived/tables.md`) and placed here by
 `make_results.py`. Intervals in brackets are exact 95% intervals for the share behind a count (Clopper-Pearson) or
 for a mean count (Poisson); they treat days as independent, which they are not, so they are too narrow.
@@ -62,7 +70,8 @@ were not known. 25 March is therefore not an independent test; every count is gi
 - **Rules.**
   - **G**: forecast gust >= 20 m/s at two consecutive hourly forecast times in the next 8 h ("persist" = lasts at
     least one hour).
-  - **G-obs**: KMA station gust >= 20 m/s in the hour ending at the issue hour, station within 50 km.
+  - **G-obs**: KMA ASOS station gust >= 20 m/s in the hour ending at the issue hour, any station within 50 km
+    (2 to 10 stations per fire position; hourly values from KMA apihub, station positions from KMA's table).
   - **A-cal**: forecast 850 hPa wind above 15.2 m/s (the value at which kcf-abstain's frozen rule abstains on that
     predictor alone; set by the 28 California fires). **A25**, **A30**: 25 and 30 m/s. **A+G**: either.
   - **A-match** (secondary, my addition): the 850 hPa threshold that fires on as many burden point-days as G.
@@ -137,14 +146,30 @@ run hour.
 
 {{T9b:1}}
 
+**G-obs from all stations within 50 km, every fire (amendment 2; added after the first results were merged).**
+
+{{T13}}
+
+- **Where it fired.** In the whole fire set G-obs fired at 13 issue hours: 11 at Gangneung on 5 March 2022 (gusts
+  to 23 m/s), and 15 KST and 19 KST at Uiseong on 25 March 2025 (Gumi 20 m/s at 14:48; Cheongsong 25 m/s at
+  18:15). It also fired before ignition at Gangneung (evening of 4 March 2022) and at Yeongdeok (16 February 2022).
+- **Where it did not.** Uljin, 4-5 March 2022: the three or four stations within 50 km recorded at most 14 m/s.
+  Uiseong on 22, 23 and 26 March and Sancheong on 22 March 2025: at most 17 m/s inside any hour. The forecast gust rule G warned three run
+  fire-days that G-obs did not (Uljin 4 and 5 March 2022, Uiseong 25 March 2025) and G-obs warned none that G
+  missed.
+- **A limit of the station file (amendment 3, post hoc).** At the three-hourly stamps a row can show the largest
+  gust of the previous 3-6 h in place of the hour's own, so an hour's gust can be hidden behind an earlier one.
+  The frozen reading drops such rows. Counting every hidden hour as firing (an upper bound) changes 10 fire hours
+  and leaves the count of warned run fire-days at 1 of 9.
+- G-obs uses ASOS stations only. KMA's denser AWS network was not read (the key is approved for the ASOS hourly
+  endpoint alone), so a gust between stations is not seen. Values are whole m/s.
+
+**The first G-obs run (PARTIAL: four stations, Uiseong only), kept for the record.**
+
 {{T9}}
 
-- G-obs is PARTIAL: four KMA stations (Uiseong, Andong, Cheongsong, Yeongdeok), 22-26 March 2025, the only station
-  gusts committed in the repo. It fired at one issue hour (19 KST on 25 March, after Cheongsong's 25 m/s at
-  18:15). It warned none of Uiseong's four run fire-days.
-- **G-obs is NOT RUN for every other fire and for the burden set.** The KMA key is not in this session, the KMA
-  hosts are blocked by its network policy, and NOAA ISD and GSOD carry no gust for these stations (checked). Nothing
-  was substituted.
+- This was the only G-obs possible before the KMA key was provided: the four stations committed by kcf-gust. With
+  all stations within 50 km the 25 March result gains one earlier firing hour (15 KST, from Gumi).
 
 ## 8. Sensitivity (declared; changes no verdict)
 
@@ -204,7 +229,9 @@ older model version, with the any-time gust form only.
   22-26 March 2025) plus one day. Days of one fire are not independent.
 - **Not the official rule as applied.** The official text was not read; "persist" is my definition. Officials use
   KMA forecasts and KMA stations, not GFS. GFS gust is a model diagnostic on a 0.25 deg grid.
-- **Not the observed-gust rule.** G-obs ran on one fire with four stations.
+- **Not the observed-gust rule as an official sees it.** G-obs reads ASOS stations only (2-10 within 50 km), in
+  whole m/s, from a field that can hide a gust at three-hourly stamps. Officials also see AWS stations and their
+  own reports.
 - **Not seasons 2019-2020 as specified,** and season 2021 only from 27 February.
 - **Not independent of 25 March.** The predictor was known to flag that day before the protocol.
 - **Not a test of timing as experienced.** Issued forecasts are assumed available 5 h after the cycle. The run
@@ -217,7 +244,7 @@ older model version, with the any-time gust form only.
 
 ## Not done
 
-- G-obs beyond KFS_01 (no KMA key or host in this session).
+{{GOBS_NOT_DONE}}
 - A second model for the 2022 fires.
 - Seasons 2019-2020 under the frozen rules (S5 is a coarse substitute).
 
@@ -234,8 +261,10 @@ older model version, with the any-time gust form only.
   2023-04-26 12 UTC to 2023-05-02 18 UTC are not in the bucket, so 7 days of season 2023 have no IFS reading.
 - **GEFS (S5).** Control forecast from AWS `noaa-gefs-pds`: 838 cycles, 0.5 GB. One cycle (2019-02-19 06 UTC) has
   no gust file in the archive (20 point-days without the coarse gust).
-- **Station gusts.** `research/kcf-gust/work/kma_asos_hourly.json` (KMA ASOS hourly, four stations, 22-26 March
-  2025), with kcf-gust's amendment-3 conventions.
+- **Station gusts.** KMA apihub `kma_sfctm2.php` (ASOS hourly, all stations, one call per KST hour), fetched
+  2026-11-18 from 22:58 UTC with a key held outside the repo and never logged: {{KMA_FETCH}} Every gust record is
+  in `derived/kma_gust_records.csv.gz`; station positions are KMA's data-wiki table as of 2023-09-01
+  (`derived/kma_asos_stations.csv`). The first, four-station run used `research/kcf-gust/work/kma_asos_hourly.json`.
 - **Terrain.** SRTM 1 arc-second tiles from AWS `elevation-tiles-prod`.
 - **Committed here.** `derived/fire_hours.csv.gz` (every fire hour with its rule levels), `derived/burden_days.csv.gz`
   (every point-day), the IFS and coarse day tables, `derived/tables.md`, `numbers.json`. Fetch logs with per-cycle
@@ -256,6 +285,9 @@ python3 fetch_ifs.py --out $W/nwp --seasons 2023 2024 2025 --ranges 2023-03-06T0
 python3 fetch_gefs.py --out $W/nwp --seasons 2019 2020
 python3 fire_set.py --nwp $W/nwp/gfs_KOR --out derived/fire_hours.csv.gz
 python3 burden.py --nwp $W/nwp/gfs_KOR --seasons 2021 2022 2023 2024 2025 --out derived/burden_days.csv.gz
+KMA_KEY_FILE=/path/to/key python3 fetch_kma.py --out $W/kma_hours.jsonl --fire derived/fire_hours.csv.gz \
+  --seasons 2025 2024 2023 2022 2021 2020 2019
+python3 gobs.py --kma $W/kma_hours.jsonl --fire derived/fire_hours.csv.gz --out-dir derived
 python3 analyze.py --fire derived/fire_hours.csv.gz --burden derived/burden_days.csv.gz --out derived/analysis.json
 python3 crosscheck_ifs.py --ifs $W/nwp/ifs_KOR --gfs $W/nwp/gfs_KOR --fire derived/fire_hours.csv.gz \
   --burden derived/burden_days.csv.gz --out derived/ifs_crosscheck.json
@@ -268,5 +300,6 @@ python3 -m pytest -q tests
 ```
 
 Needs numpy, pandas, scipy, pygrib, matplotlib, and network access to the AWS open-data buckets `noaa-gfs-bdp-pds`,
-`noaa-gefs-pds`, `ecmwf-forecasts` and `elevation-tiles-prod`. The forecast extracts (about 80 GB of GRIB byte
+`noaa-gefs-pds`, `ecmwf-forecasts` and `elevation-tiles-prod`, and to `apihub.kma.go.kr` with a KMA key approved for
+`kma_sfctm2.php`. The forecast extracts (about 80 GB of GRIB byte
 ranges read, 0.3 GB kept) stay outside git.

@@ -4,7 +4,7 @@ import json
 import sys
 
 n = json.load(open(sys.argv[1]))
-ORDER = ["G", "A-cal", "A25", "A30", "A+G", "A25+G", "A30+G", "A-match"]
+ORDER = ["G", "G-obs", "A-cal", "A25", "A30", "A+G", "A25+G", "A30+G", "A-match"]
 ORDER = [r for r in ORDER if r in n["fire_set"]]
 
 
@@ -54,6 +54,7 @@ for label, key in (("all run fire-days", "full"), ("without 25 March 2025", "wit
 print("## T2 Every run fire-day\n")
 days = {r: {(d["fire"], d["kst_day"]): d for d in n["fire_set"][r]["fire_days"] if d["run_hours"] > 0} for r in ORDER}
 go = {(d["fire"], d["kst_day"]): d for d in n["gobs"]["within_50km"]["fire_days"] if d["run_hours"] > 0}
+COLS = [r for r in ORDER if r in ("G", "G-obs", "A-cal", "A25", "A30", "A-match")]
 
 
 def cell(d):
@@ -68,10 +69,10 @@ rows = []
 for k in sorted(days["G"]):
     d = days["G"][k]
     rows.append([d["name"], k[0], k[1], f"{d['first_run_kst_hour']:02d}", d["run_hours"]] +
-                [cell(days[r][k]) for r in ORDER if r in ("G", "A-cal", "A25", "A30", "A-match")] + [cell(go.get(k))] +
+                [cell(days[r][k]) for r in COLS] + ([] if "G-obs" in ORDER else [cell(go.get(k))]) +
                 [f"{days['G'][k]['run_hours_missed']} / {days['A-cal'][k]['run_hours_missed']}"])
-table(["fire", "id", "KST day", "first run hour KST", "run hours"] + [r for r in ORDER if r in ("G", "A-cal", "A25", "A30", "A-match")] +
-      ["G-obs (PARTIAL)", "run hours missed G / A-cal"], rows)
+table(["fire", "id", "KST day", "first run hour KST", "run hours"] + COLS +
+      ([] if "G-obs" in ORDER else ["G-obs (PARTIAL)"]) + ["run hours missed G / A-cal"], rows)
 
 print("## T3 Leave-one-fire-out: run fire-days warned\n")
 fires = sorted(n["fire_set"]["G"]["leave_one_fire_out"])
@@ -95,12 +96,11 @@ table(["rule", "warned, rule vs G", "without 25 March", "leave-one-fire-out: rul
        "more reliably", "lead, rule minus G, h (days warned by both)", "earlier"], rows)
 
 print("## T5 Burden set season by season\n")
-seasons = n["burden"]["G"]["all_seasons_evaluated"]
 rows = []
 for r in ORDER:
     b = n["burden"][r]["per_season"]
-    for s in seasons:
-        x = b[str(s)]
+    for s in sorted(b):
+        x = b[s]
         rows.append([r, s, f"{x['days_evaluated']} of {x['full_season_days']}", x["alarm_point_days"], f"{x['mean_alarm_days_per_point']:.1f}",
                      f"{x['min_point'][0]} {x['min_point'][1]}", f"{x['max_point'][0]} {x['max_point'][1]}", x["days_any_point"],
                      x["false_alarm_point_days"]])
@@ -108,7 +108,7 @@ table(["rule", "season", "days evaluated", "alarm point-days", "mean alarm days 
        "days with an alarm at any point", "false-alarm point-days"], rows)
 print("By point, alarm days per full season (mean):\n")
 pts = list(n["burden"]["G"]["per_point"])
-table(["rule"] + pts, [[r] + [f"{n['burden'][r]['per_point'][p]['mean']:.1f}" for p in pts] for r in ORDER])
+table(["rule"] + pts, [[r] + [f"{n['burden'][r]['per_point'][p]['mean']:.1f}" if p in n["burden"][r]["per_point"] else "-" for p in pts] for r in ORDER])
 
 print("## T6 Sensitivity\n")
 rows = []
@@ -135,7 +135,7 @@ for label, key in (("forecast gust, two consecutive hours (k = 2)", "gust_k2"), 
 print("## T8 Secondary timelines and hour sets\n")
 rows = []
 for label, key in (("S1 KFS_01 from the Choi raster on every day", "fire_set_choi_timeline"), ("S6 kcf-abstain's scored hours only", "fire_set_abstain_hours")):
-    for r in ORDER:
+    for r in [x for x in ORDER if x in n[key]]:
         f, w = n[key][r]["full"], n[key][r]["without_25_march"]
         rows.append([label, r, f["run_fire_days"], c(f["warned"]), c(w["warned"]), leads(f["leads_h"]), c(f["run_hours_missed"]),
                      c(f["alarm_days_without_run"])])
@@ -144,7 +144,32 @@ print("S4 pooled issue hours (counts):\n")
 table(["rule", "fires and run hour", "fires, no run", "silent and run hour", "silent, no run"],
       [[r, p["fires_and_run"], p["fires_no_run"], p["silent_and_run"], p["silent_no_run"]] for r, p in n["pooled_hours"].items()])
 
-print("## T9 G-obs, KFS_01 only (PARTIAL: four stations, 22-26 March 2025)\n")
+if "against_gobs" in n:
+    print("## T13 G-obs from all KMA ASOS stations within 50 km (amendment 2)\n")
+    q = n["gobs_quality"]
+    print(f"Hours fetched {q['hours_fetched']}, failed {len(q['hours_failed'])}; station-hours {q['station_hours']}; gust records {q['gust_records']} "
+          f"({100*q['share_of_station_hours_with_a_record']:.1f}% of station-hours); smallest recorded gust {q['smallest_recorded_gust_ms']} m/s; "
+          f"records timed outside their hour {q['records_timed_outside_their_hour']} (dropped); records not in whole m/s {q['records_not_whole_ms']}; "
+          f"records of 20 m/s or more inside their hour {q['records_20_or_more_inside_hour']}. Fire hours {q['fire_hours']}, with no station row within 50 km "
+          f"{q['fire_hours_unknown']}; stations within 50 km of a fire position: {q['fire_stations_50km_min_max'][0]} to {q['fire_stations_50km_min_max'][1]}.\n")
+    rows = []
+    for r, v in n["against_gobs"].items():
+        f, w = v["full"], v["without_25_march"]
+        lo = [x["warned_a"] - x["warned_g"] for x in v["leave_one_fire_out"].values()]
+        rows.append([r, f"{f['warned_a']} vs {f['warned_g']} of {f['run_fire_days']}", f"{w['warned_a']} vs {w['warned_g']} of {w['run_fire_days']}",
+                     f"{min(lo):+d} to {max(lo):+d}", f"{f['warned_by_a_only']} / {f['warned_by_g_only']} (p = {f['sign_test_p']})",
+                     ", ".join(f"{x:+d}" for x in f["lead_a_minus_g_h"]) or "-"])
+    table(["rule", "warned, rule vs G-obs", "without 25 March", "leave-one-fire-out: rule minus G-obs",
+           "warned by rule only / by G-obs only (sign test)", "lead, rule minus G-obs, h (days warned by both)"], rows)
+    print("Stations within 50 km of each burden point: " + "; ".join(f"{p} {len(v)}" for p, v in q["stations_within_50km_of_points"].items()) + ".\n")
+    u = n["gobs_upper_bound"]
+    print(f"Post hoc bound, hours hidden by an earlier gust counted as firing ({q['fire_hours_hidden_by_earlier_gust']} fire hours): warned "
+          f"{c(u['full']['warned'])}, without 25 March {c(u['without_25_march']['warned'])}, lead times {leads(u['full']['leads_h'])} h, run hours missed "
+          f"{c(u['full']['run_hours_missed'])}, alarm fire-days with no run {c(u['full']['alarm_days_without_run'])}.\n")
+    fd = [d for d in n["fire_set"]["G-obs"]["fire_days"] if d["run_hours"] == 0 and d["alarm_no_run"]]
+    print("G-obs alarm fire-days with no run: " + ("; ".join(f"{d['name']} {d['kst_day']} ({d['alarm_hours']} h)" for d in fd) or "none") + ".\n")
+
+print("## T9 G-obs, KFS_01 only (PARTIAL: four stations, 22-26 March 2025; the first version, kept for the record)\n")
 rows = []
 for label in ("within_50km", "all_four_stations"):
     f, w, p = n["gobs"][label]["full"], n["gobs"][label]["without_25_march"], n["gobs"][label]["pooled_hours"]
@@ -159,10 +184,11 @@ table(["rule", "run fire-days", "warned", "without 25 March", "warned, lapsed co
 
 print("## T9b 25 March 2025 hour by hour (KFS_01, detection product)\n")
 yn = lambda v: "-" if v is None else ("**fires**" if v else "no")
-table(["KST", "GFS cycle (UTC)", "forecast gust, any hour m/s", "gust held 2 h m/s", "850 hPa m/s", "G", "A-cal", "A25", "A30", "G-obs",
-       "5 h reach km", "run hour"],
+table(["KST", "GFS cycle (UTC)", "forecast gust, any hour m/s", "gust held 2 h m/s", "850 hPa m/s", "G", "A-cal", "A25", "A30",
+       "G-obs (all stations within 50 km)", "G-obs (four stations)", "5 h reach km", "run hour"],
       [[f"{h['kst_hour']:02d}", h["cycle_utc"][5:13], h["gust_any_hour_ms"], h["gust_two_hours_ms"], h["w850_ms"], yn(h["G"]), yn(h["A_cal"]),
-        yn(h["A25"]), yn(h["A30"]), yn(h["G_obs"]), "-" if h["reach5_km"] is None else h["reach5_km"], "yes" if h["run"] else ""]
+        yn(h["A25"]), yn(h["A30"]), yn(h.get("G_obs_all_stations")), yn(h["G_obs"]), "-" if h["reach5_km"] is None else h["reach5_km"],
+        "yes" if h["run"] else ""]
        for h in n["march25_hours"]])
 print("Burden point-days not counted as false alarms (a fire-set run within 100 km that KST day): "
       + "; ".join(f"{p} {d}" for p, d in n["excluded_point_days"]) + "\n")

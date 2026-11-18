@@ -1,0 +1,53 @@
+{
+ "gfs": {
+  "cycles": 2120,
+  "first_cycle": "2021013106",
+  "last_cycle": "2025051506",
+  "gigabytes": 70.85,
+  "fetched_utc": [
+   "2026-11-18T15:33:20Z",
+   "2026-11-18T16:10:48Z"
+  ],
+  "cycles_with_missing": 103,
+  "first_missing": [
+   "2021013106"
+  ],
+  "last_missing": [
+   "2021022518"
+  ]
+ },
+ "ifs": {
+  "cycles": 1255,
+  "first_cycle": "2023013106",
+  "last_cycle": "2025051506",
+  "gigabytes": 11.57,
+  "fetched_utc": [
+   "2026-11-18T15:39:45Z",
+   "2026-11-18T16:48:10Z"
+  ],
+  "cycles_with_missing": 26,
+  "first_missing": [
+   "2023042612"
+  ],
+  "last_missing": [
+   "2023050218"
+  ]
+ },
+ "gefs": {
+  "cycles": 838,
+  "first_cycle": "2019013106",
+  "last_cycle": "2020051506",
+  "gigabytes": 0.5,
+  "fetched_utc": [
+   "2026-11-18T15:44:56Z",
+   "2026-11-18T16:01:35Z"
+  ],
+  "cycles_with_missing": 1,
+  "first_missing": [
+   "2019021906"
+  ],
+  "last_missing": [
+   "2019021906"
+  ]
+ }
+}
