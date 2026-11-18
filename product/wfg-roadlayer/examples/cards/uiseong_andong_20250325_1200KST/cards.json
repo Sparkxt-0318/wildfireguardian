@@ -1,0 +1,96 @@
+{
+ "schema": "wfg.roadlayer.cards/1",
+ "tool": "wfg-roadlayer 0.1.0",
+ "notice": {
+  "ko": "이 자료는 모델 출력입니다. 참고용이며 대피 명령이 아닙니다. 대피 결정은 권한 있는 기관이 현장 정보로 내립니다.",
+  "en": "This is model output. It is advisory and not an evacuation order. Decisions rest with the competent authority and field information."
+ },
+ "region": "uiseong_andong_2025",
+ "issue_utc": "2025-03-25T03:00:00Z",
+ "fire_input_sha256": "747f15135f3857f5394a0b8a714e99ee25316671aa1e47c2a0e7ca8c7a75e731",
+ "horizon_s": 28800,
+ "as_of_utc": "2025-03-25T03:00:00Z",
+ "card_settings": {
+  "trigger": {
+   "margin_min": 30
+  },
+  "exits": {
+   "max_exits": 8
+  },
+  "traffic": {
+   "vehicles_per_household": 1.198,
+   "no_car_share": 0.36,
+   "cap_motorway": 4400,
+   "cap_trunk": 4400,
+   "cap_primary": 1700,
+   "cap_secondary": 1700,
+   "cap_tertiary": 1700,
+   "cap_other": 800
+  },
+  "pickup": {
+   "van_seats": 15,
+   "vans": 3,
+   "board_s_per_person": 20,
+   "unload_s": 300
+  }
+ },
+ "card_settings_files": [
+  "cards.toml"
+ ],
+ "settings": {
+  "stage": {
+   "standby_hours": 8,
+   "immediate_hours": 5
+  },
+  "routing": {
+   "shelters_per_village": 3,
+   "dwell_s": 120
+  },
+  "freshness": {
+   "max_fire_input_age_min": 90,
+   "max_issue_ahead_min": 5,
+   "max_road_age_days": 365,
+   "max_places_age_days": 365
+  },
+  "run": {
+   "workers": 0
+  }
+ },
+ "data": {
+  "edges_forest_sha256": "13c6d43dd24febe0334395a661135ebe0e84461e14eb5a3cc785b38c511d3616",
+  "edges_ways_sha256": "c042259ea4dc553850713cd1da00f57feacc6003afd7580eb98306ebc1bb60e6",
+  "households_sha256": "ee25992a689fd3f4255193356404f0177003cb954d9581f4178c3f5e35c363cb",
+  "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4"
+ },
+ "pickup_depot": "일직초등학교",
+ "counts": {
+  "cards": 84,
+  "dangerous_road_cuts_all": 2,
+  "deadline_missed_with_clearance": 3,
+  "departure_groups": 8,
+  "departure_short": 3,
+  "exits_1": 58,
+  "exits_2": 26,
+  "in_departure_group": 46,
+  "pickup_after_leave_by": 7,
+  "pickup_persons": 7734,
+  "pickup_persons_unserved_within_horizon": 4032,
+  "pickup_places": 84,
+  "refused": 2,
+  "single_exit": 58,
+  "trigger_beyond_horizon": 34,
+  "trigger_line": 10,
+  "trigger_passed": 40
+ },
+ "files_sha256": {
+  "audit_uiseong_andong_2025.csv": "6cc342ce7179f65243d747b34839833d23bb23e7324cdff9b1739c1a92919e9d",
+  "cards_en_uiseong_andong_2025.pdf": "2e148333f90a6ed7d9f829005edc4387ba30c34f076dc2f7f081c3c60750cb44",
+  "cards_ko_uiseong_andong_2025.pdf": "5a0beec08b44e8fe6a6527d75043612aa7d0ae7ae63f8d130ce552b89b2acc20",
+  "pickup_uiseong_andong_2025.csv": "7abf1fa9ab513254cf6da1f325f2fec41fb0a16c1a037396bfa0aa593fc80a28"
+ },
+ "run_time_s": {
+  "total": 19.2,
+  "compute": 13.0,
+  "outputs": 6.2
+ }
+}

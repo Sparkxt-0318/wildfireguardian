@@ -1,0 +1,104 @@
+{
+ "schema": "wfg.roadlayer.traffic_sources/1",
+ "note": "Every number the village cards use for traffic, with its source. 'CITED' = copied from the named public source; 'DERIVED' = arithmetic on CITED numbers only; 'ASSUMED' = not from a source (or a source used outside what it measures). These pages were found by web search on 2026-11-18; the container could not open gb.go.kr, yd.go.kr, kosis.kr or codil.or.kr directly, so each CITED value is the text the search returned for that page, not a line-by-line reading. Re-check against the URL before operational use.",
+ "households": {
+  "county_2024_11_30": {
+   "status": "CITED",
+   "source": "경상북도, 시ㆍ군별 주민등록 인구현황 (2024.11.30. 기준, 외국인 제외)",
+   "url": "https://www.gb.go.kr/page/10578/10258.do",
+   "values": {
+    "안동시": {"households": 80279, "population": 153444},
+    "의성군": {"households": 29120, "population": 48780},
+    "청송군": {"households": 13988, "population": 23737},
+    "영양군": {"households": 8955, "population": 15335},
+    "영덕군": {"households": 19506, "population": 33243}
+   }
+  },
+  "yeongdeok_eupmyeon_2025_12": {
+   "status": "CITED",
+   "source": "영덕군청, 행정구역 (세대·인구, 행정안전부 주민등록 인구통계 2025년 12월)",
+   "url": "https://www.yd.go.kr/?p=788",
+   "caveat": "Nine months after the March 2025 fire (the fire destroyed homes); the only per-읍·면 figures found. The nine add up to 19,389, the province's 2025-12-31 county total.",
+   "values": {
+    "영덕읍": {"households": 5404, "population": 10029},
+    "강구면": {"households": 3259, "population": 5493},
+    "영해면": {"households": 3417, "population": 5804},
+    "축산면": {"households": 1438, "population": 2292},
+    "지품면": {"households": 1164, "population": 1872},
+    "달산면": {"households": 685, "population": 1055},
+    "창수면": {"households": 991, "population": 1489},
+    "병곡면": {"households": 1602, "population": 2482},
+    "남정면": {"households": 1429, "population": 2182}
+   }
+  },
+  "per_place_rule": {
+   "status": "ASSUMED",
+   "rule": "Households of a village = households of its 읍·면 (영덕군, yd.go.kr) or of its 시·군 (의성군, 청송군, 영양군; gb.go.kr) divided EQUALLY among the live 법정리 (and 법정동) of that 읍·면 or 시·군 in the 법정동코드 table (PublicDataReader 1.1.1.post2, SHA-256 pinned in data/sources.json). 안동시 is mostly urban 동, so its county average would overstate a rural 리: 안동시 villages take the 의성군 average per 법정리/동 instead (ASSUMED). Per-리 household counts were not found from any public source the session could reach."
+  },
+  "care_facility": {
+   "status": "ASSUMED",
+   "residents": 30,
+   "rule": "A care facility (OSM social_facility / nursing_home) counts as 30 residents (ASSUMED; no public resident count found), none with a car of their own: all go on the pickup list. Staff cars are not counted."
+  }
+ },
+ "vehicles": {
+  "gyeongbuk_vehicles_2024_12": {
+   "status": "CITED",
+   "value": 1552434,
+   "source": "대구MBC, 자동차 누적 등록 대수 약 2,630만 대 (citing 국토교통부 자동차 등록 현황, end of 2024): \"경북은 155만 2,434대가 등록돼\"",
+   "url": "http://dgmbc.com/article/78tX-RRVax72loVH95iQ5T"
+  },
+  "gyeongbuk_households_2025_12_31": {
+   "status": "CITED",
+   "value": 1295685,
+   "source": "경상북도, 시ㆍ군별 주민등록 인구현황 (2025.12.31. 기준, 외국인 포함), 계",
+   "url": "https://www.gb.go.kr/Main/economy/page.do?mnu_uid=6816"
+  },
+  "vehicles_per_household": {
+   "status": "DERIVED",
+   "value": 1.198,
+   "rule": "1,552,434 / 1,295,685. Province, not county (no county vehicle count found); dates differ by a year; all vehicle types (trucks, business vehicles included). Vehicles leaving a village = households x 1.198 (ASSUMED: every registered vehicle drives out, a conservative count; the no-car share is used only for the pickup list)."
+  },
+  "no_car_share": {
+   "status": "ASSUMED",
+   "value": 0.36,
+   "basis": "KREI, 통계로 살펴보는 농어촌 주민의 삶의 질 (D374, 2013): 2010 census, 6,317 thousand of 17,342 thousand Korean households (36 %) own no car; 면 areas lowest ownership. National, 2010: applying it to 2025 villages is ASSUMED. A setting ([traffic] no_car_share).",
+   "url": "https://repository.krei.re.kr/"
+  },
+  "context_not_used": [
+   "65+ share: 의성군 46.4 % (세계일보 2024-07-11, MOIS), 영덕군 43.5 % (영덕군 건강도시 프로파일, 2024)",
+   "청송군 2025-03-25: 3 large buses held at the county office for residents; 299 care-facility residents readied for 30 buses (한국경제, https://www.hankyung.com/article/202503258253i)"
+  ]
+ },
+ "capacity": {
+  "two_lane": {
+   "status": "CITED",
+   "pcph_per_direction": 1700,
+   "pcph_both": 3200,
+   "source": "국토교통부, 도로용량편람 (KHCM) 2013, p.170, 2차로도로 — as encoded in the KHCMinR package R/capa_2l.R (\"Bi-directional value (3200 pcph). One-direction capacity is 1700 pcphpl. ... KHCM(2013), p.170\"); the manual PDF (codil.or.kr) could not be opened",
+   "url": "https://github.com/regenesis90/KHCMinR/blob/main/R/capa_2l.R"
+  },
+  "multilane_per_lane": {
+   "status": "CITED",
+   "pcphpl_100kph": 2200,
+   "pcphpl_80kph": 2000,
+   "source": "KHCM 2013 p.144, 다차로도로 유형 I, via KHCMinR R/capa_ml.R",
+   "url": "https://github.com/regenesis90/KHCMinR/blob/main/R/capa_ml.R"
+  },
+  "one_way_base": {
+   "status": "CITED",
+   "pcph": 1600,
+   "source": "FHWA HPMS Field Manual, Appendix N (HCM 2000 based): \"Change the base capacity from 3,200 pch to 1,600 pch\" for one-way operation",
+   "url": "https://www.fhwa.dot.gov/ohim/hpmsmanl/appn1.cfm"
+  },
+  "narrow_road": {
+   "status": "ASSUMED",
+   "pcph": 800,
+   "rule": "KHCM gives no capacity for 1-lane or village roads. Half the HPMS one-way base (1,600), for a single shared lane at village speeds: ASSUMED."
+  },
+  "lanes": {
+   "status": "ASSUMED",
+   "rule": "The graph and basemap carry no lane counts. motorway / trunk: 2 lanes per direction at 2,200 pcphpl; primary, secondary, tertiary: two-lane road, 1,700 per direction; every other class (unclassified, residential, service, track, living_street, unmatched): narrow road 800. Passenger-car units = vehicles (ASSUMED: no heavy-vehicle factor)."
+  }
+ }
+}
