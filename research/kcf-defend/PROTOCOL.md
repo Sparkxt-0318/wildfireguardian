@@ -160,3 +160,12 @@ study differs. The search does not change §1–§8.
    both grids are delayed together). ROAD candidates belong to one region. In §3 "cells with 0 < b_c ≤ H" and "d_c > 0"
    both apply to ROAD candidates (under WORST, cells within 3 km of the known area have d_c > 0 but b_c = 0 and are not
    ROAD candidates; a FRONT hold still delays them, as §3 says).
+2. **2026-11-18 ~16:40 UTC, after the gate (§2.1) passed and before any production delay run.** Gate result: part 1, all
+   27,144 rows equal on latest departure (minute) and shelter; 9 rows differ only on the CUT / NOT_CUT label, because
+   the replay labels by a greedy (not earliest) witness arrival while the fast solver compares with the exact fire-free
+   value. Window gains do not use that label (`gate1.json`). Part 2, 0 mismatching places in the 4 base jobs (348
+   place-rows, exact seconds) and in 32 delayed instances (8 of the 40 draws had no candidate of the drawn kind and were
+   skipped); pruned = unpruned in all 32 (`gate2.json`). Only 3 of the 32 had any gain (8 gaining places), so one
+   **extra check** is added (no method change): after the production run, for the primary configuration and Δ = 60,
+   the rank-1 candidate of every issue hour that has one is re-evaluated with `core.backward` for every gaining place,
+   and the gains must be equal to the second. Results reported in RESULTS.md.
