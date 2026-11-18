@@ -1,0 +1,100 @@
+{
+ "total": {
+  "L_plus_1:configs_explored": 42730042,
+  "L_plus_1:none": 1482,
+  "deadline:empty_set": 92,
+  "deadline_witness:VALID": 1482,
+  "recorded_cert:VALID": 7771,
+  "recorded_router:VALID": 7771
+ },
+ "per_cache": [
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "counts": {
+    "L_plus_1:configs_explored": 3222997,
+    "L_plus_1:none": 250,
+    "deadline:empty_set": 4,
+    "deadline_witness:VALID": 250,
+    "recorded_cert:VALID": 1188,
+    "recorded_router:VALID": 1188
+   },
+   "failures": [],
+   "seconds": 63.9,
+   "cap": 2000000
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "counts": {
+    "L_plus_1:configs_explored": 21522097,
+    "L_plus_1:none": 252,
+    "deadline:empty_set": 1,
+    "deadline_witness:VALID": 252,
+    "recorded_cert:VALID": 1158,
+    "recorded_router:VALID": 1158
+   },
+   "failures": [],
+   "seconds": 92.6,
+   "cap": 2000000
+  },
+  {
+   "cache": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "counts": {
+    "L_plus_1:configs_explored": 13436723,
+    "L_plus_1:none": 215,
+    "deadline:empty_set": 38,
+    "deadline_witness:VALID": 215,
+    "recorded_cert:VALID": 1029,
+    "recorded_router:VALID": 1029
+   },
+   "failures": [],
+   "L_plus_1_capped": [],
+   "seconds": 79.5,
+   "cap": 20000000
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "counts": {
+    "L_plus_1:configs_explored": 4548178,
+    "L_plus_1:none": 244,
+    "deadline:empty_set": 28,
+    "deadline_witness:VALID": 244,
+    "recorded_cert:VALID": 1400,
+    "recorded_router:VALID": 1400
+   },
+   "failures": [],
+   "L_plus_1_capped": [],
+   "seconds": 504.1,
+   "cap": 20000000
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "counts": {
+    "L_plus_1:configs_explored": 47,
+    "L_plus_1:none": 259,
+    "deadline:empty_set": 12,
+    "deadline_witness:VALID": 259,
+    "recorded_cert:VALID": 1486,
+    "recorded_router:VALID": 1486
+   },
+   "failures": [],
+   "seconds": 537.1,
+   "cap": 2000000
+  },
+  {
+   "cache": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "counts": {
+    "L_plus_1:configs_explored": 0,
+    "L_plus_1:none": 262,
+    "deadline:empty_set": 9,
+    "deadline_witness:VALID": 262,
+    "recorded_cert:VALID": 1510,
+    "recorded_router:VALID": 1510
+   },
+   "failures": [],
+   "L_plus_1_capped": [],
+   "seconds": 546.4,
+   "cap": 20000000
+  }
+ ],
+ "note": "caches run with cap 2,000,000 hit no cap; three caches rerun with cap 20,000,000 (two had capped searches at 2M)"
+}

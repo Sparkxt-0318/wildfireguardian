@@ -40,4 +40,11 @@ Score as in HOTSPOT_RULE: count of place-hours with a latest safe departure whos
 reconstructed fire earlier, places, places with >= 1.
 
 ## Amendments
-(none)
+
+1. **2026-11-17, before any KMA hourly value was read.** A KMA-based gust arm is added as a **new arm, MEASURED_GUST_KMA** (sixth arm).
+   Its class comes from the KMA ASOS hourly gust series (`research/kcf-gust`, amendment 2: stations 278, 136, 276, 277, maximum over the
+   stations present, window (T, T+H]); everything else is as arm 5. The ERA5-based arm keeps its label **MEASURED_GUST** and its committed
+   rows and stays PROVISIONAL (the planner and its tests depend on that label and on its counts); nothing is renamed or recomputed. Where the
+   KMA class and the ERA5 class of an issue hour and horizon are the same, the closure curve is identical, so the existing ERA5 run is
+   reused; where they differ, the replay is rerun for that hour and horizon. The >= 20 m/s class rests on 9 fires. Yeongyang is not
+   covered by KMA (no ASOS id used).

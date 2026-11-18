@@ -9,7 +9,7 @@ This is a reconstruction of what a screen would have shown. It is not a claim ab
 anyone's decisions, and it names no victims. Every number below depends on a stand-in for R(h) (see 2). The frozen
 R(h) from `research/kcf-margin` has since landed (PR 179) and is added as two further arms, MEASURED and MEASURED+GUST (2b). The
 three stand-ins are unchanged. **The MEASURED+GUST arm is PROVISIONAL: its gust series is ERA5 only (KMA gave no hourly gust series),
-and its gust >= 20 m/s class rests on 9 fires. KMA data.go.kr gave only daily maxima and hourly mean wind, no hourly gust, so no KMA series could drive the class (see research/kcf-gust/RESULTS.md).**
+and its gust >= 20 m/s class rests on 9 fires.** A sixth arm, **MEASURED+GUST (KMA)**, takes the gust class from KMA ASOS hourly gusts at four stations (Yeongyang uncovered; amendment 1 of MEASURED_RULE.md, `research/kcf-gust`) and is not provisional in that sense; the ERA5 arm is kept as it was.
 
 ## 1 What fills the gap
 
@@ -57,27 +57,29 @@ Same hotspot rule, 174 places, 13 issue hours, two horizons and score; only R(h)
 | MEASURED | quiet 2.6 / 3.5, slow 5.0 / 6.4, running 7.6 / 10.0 | prior-3 h spread of the known fire area: quiet 12-14 KST, slow 15, running 16-24 KST |
 | MEASURED+GUST (**PROVISIONAL**, ERA5 only) | gust < 10: 2.6 / 3.0, 10-20: 4.7 / 5.9, **>= 20: 8.6 / 12.0 (9 fires)** | max gust over (T, T+H] at five points: >= 20 m/s (9 fires) at 12-22 KST, 10-20 m/s at 23-24 KST, for both horizons |
 
+| MEASURED+GUST (KMA) | same R values as MEASURED+GUST | KMA ASOS hourly gust, max over the stations present in (T, T+H] (no record = < 10): 5 h run 10-20 at 12-13 KST, >= 20 (9 fires) at 14-22 KST, < 10 at 23-24 KST; 8 h run >= 20 (9 fires) at 12-22 KST, < 10 at 23-24 KST |
+
 Both arms use one class per issue hour for all 174 places. Gust series and fetch times: `research/kcf-gust/RESULTS.md`.
 
 ## 3 Government step per issue hour (174 places, 8 h horizon; leave now / vulnerable first / none)
 
-MEASURED+GUST is PROVISIONAL (ERA5 only); its >= 20 m/s class (12-22 KST) rests on 9 fires.
+MEASURED+GUST (ERA5) is PROVISIONAL; both gust arms' >= 20 m/s class (12-22 KST) rests on 9 fires. The KMA arm equals the ERA5 arm at 12:00-22:00 and differs at 23:00 and 24:00 (class < 10 against 10-20).
 
-| issue KST | ORDINARY | RUNNING | WORST | MEASURED | MEASURED+GUST (PROVISIONAL) |
-|---|---|---|---|---|---|
-| 12:00 | 43 / 3 / 128 | 142 / 32 / 0 | 156 / 18 / 0 | 45 / 4 / 125 | 69 / 12 / 93 |
-| 13:00 | 45 / 4 / 125 | 142 / 32 / 0 | 157 / 17 / 0 | 48 / 4 / 122 | 74 / 9 / 91 |
-| 14:00 | 45 / 4 / 125 | 142 / 32 / 0 | 157 / 17 / 0 | 48 / 4 / 122 | 74 / 9 / 91 |
-| 15:00 | 49 / 4 / 121 | 154 / 20 / 0 | 166 / 8 / 0 | 64 / 6 / 104 | 78 / 6 / 90 |
-| 16:00 | 62 / 1 / 111 | 154 / 20 / 0 | 167 / 7 / 0 | 81 / 3 / 90 | 83 / 1 / 90 |
-| 17:00 | 83 / 1 / 90 | 174 / 0 / 0 | 174 / 0 / 0 | 84 / 0 / 90 | 84 / 3 / 87 |
-| 18:00 | 86 / 3 / 85 | 174 / 0 / 0 | 174 / 0 / 0 | 99 / 7 / 68 | 103 / 14 / 57 |
-| 19:00 | 103 / 2 / 69 | 174 / 0 / 0 | 174 / 0 / 0 | 122 / 16 / 36 | 128 / 19 / 27 |
-| 20:00 | 106 / 2 / 66 | 174 / 0 / 0 | 174 / 0 / 0 | 130 / 13 / 31 | 135 / 22 / 17 |
-| 21:00 | 133 / 5 / 36 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 |
-| 22:00 | 157 / 7 / 10 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 |
-| 23:00 | 157 / 7 / 10 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 170 / 2 / 2 |
-| 24:00 | 162 / 3 / 9 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 170 / 2 / 2 |
+| issue KST | ORDINARY | RUNNING | WORST | MEASURED | MEASURED+GUST (ERA5, PROVISIONAL) | MEASURED+GUST (KMA) |
+|---|---|---|---|---|---|---|
+| 12:00 | 43 / 3 / 128 | 142 / 32 / 0 | 156 / 18 / 0 | 45 / 4 / 125 | 69 / 12 / 93 | 69 / 12 / 93 |
+| 13:00 | 45 / 4 / 125 | 142 / 32 / 0 | 157 / 17 / 0 | 48 / 4 / 122 | 74 / 9 / 91 | 74 / 9 / 91 |
+| 14:00 | 45 / 4 / 125 | 142 / 32 / 0 | 157 / 17 / 0 | 48 / 4 / 122 | 74 / 9 / 91 | 74 / 9 / 91 |
+| 15:00 | 49 / 4 / 121 | 154 / 20 / 0 | 166 / 8 / 0 | 64 / 6 / 104 | 78 / 6 / 90 | 78 / 6 / 90 |
+| 16:00 | 62 / 1 / 111 | 154 / 20 / 0 | 167 / 7 / 0 | 81 / 3 / 90 | 83 / 1 / 90 | 83 / 1 / 90 |
+| 17:00 | 83 / 1 / 90 | 174 / 0 / 0 | 174 / 0 / 0 | 84 / 0 / 90 | 84 / 3 / 87 | 84 / 3 / 87 |
+| 18:00 | 86 / 3 / 85 | 174 / 0 / 0 | 174 / 0 / 0 | 99 / 7 / 68 | 103 / 14 / 57 | 103 / 14 / 57 |
+| 19:00 | 103 / 2 / 69 | 174 / 0 / 0 | 174 / 0 / 0 | 122 / 16 / 36 | 128 / 19 / 27 | 128 / 19 / 27 |
+| 20:00 | 106 / 2 / 66 | 174 / 0 / 0 | 174 / 0 / 0 | 130 / 13 / 31 | 135 / 22 / 17 | 135 / 22 / 17 |
+| 21:00 | 133 / 5 / 36 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 |
+| 22:00 | 157 / 7 / 10 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 |
+| 23:00 | 157 / 7 / 10 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 170 / 2 / 2 | 163 / 2 / 9 |
+| 24:00 | 162 / 3 / 9 | 174 / 0 / 0 | 174 / 0 / 0 | 174 / 0 / 0 | 170 / 2 / 2 | 165 / 0 / 9 |
 
 Of the 2,262 place-hours per configuration, 1,077 are inside the known fire area at the issue hour (distance 0, no
 departure computed). These are mostly 의성·안동 places inside detections accumulated since 22 March.
@@ -110,7 +112,7 @@ MEASURED, 8 h (KST; "not cut" = no route cut inside the horizon; MEASURED+GUST i
 | 노물리 | not cut | not cut | not cut | not cut | not cut | 23:36 |
 | 강구리 | not cut | not cut | not cut | not cut | not cut | 00:26 |
 
-MEASURED+GUST (PROVISIONAL), 8 h:
+MEASURED+GUST (ERA5, PROVISIONAL), 8 h:
 
 | place | 16:00 | 17:00 | 18:00 | 19:00 | 20:00 | 21:00 |
 |---|---|---|---|---|---|---|
@@ -120,6 +122,8 @@ MEASURED+GUST (PROVISIONAL), 8 h:
 | 매정리 | not cut | not cut | not cut | not cut | 03:27 | 22:37 |
 | 노물리 | not cut | not cut | not cut | not cut | not cut | 23:17 |
 | 강구리 | not cut | not cut | not cut | not cut | not cut | 00:02 |
+
+MEASURED+GUST (KMA), 8 h: identical to the ERA5 arm in every cell of the table above (same class at 16:00-21:00); the >= 20 m/s class rests on 9 fires.
 
 First leave-now step: RUNNING 12:00 (화매리, 지품리, 옥류리), 15:00 (강구리), 17:00 (매정리, 노물리); MEASURED and MEASURED+GUST 18:00 (화매리, 지품리), 19:00 (옥류리), 21:00 (매정리, 노물리, 강구리).
 Under RUNNING, all six places are in the leave-now step from 17:00 KST. Before that, 매정리 and 노물리 are in the
@@ -144,8 +148,10 @@ For each place-hour with a latest safe departure cut within the horizon, the que
 | WORST / 8 h | 930 | 26 | 125 | 15 |
 | MEASURED / 5 h | 297 | 137 | 134 | 103 |
 | MEASURED / 8 h | 349 | 181 | 140 | 114 |
-| MEASURED+GUST / 5 h (PROVISIONAL; >= 20 m/s class = 9 fires) | 394 | 201 | 136 | 107 |
-| MEASURED+GUST / 8 h (PROVISIONAL; >= 20 m/s class = 9 fires) | 492 | 280 | 138 | 112 |
+| MEASURED+GUST (ERA5) / 5 h (PROVISIONAL; >= 20 m/s class = 9 fires) | 394 | 201 | 136 | 107 |
+| MEASURED+GUST (ERA5) / 8 h (PROVISIONAL; >= 20 m/s class = 9 fires) | 492 | 280 | 138 | 112 |
+| MEASURED+GUST (KMA) / 5 h (>= 20 m/s class = 9 fires) | 351 | 199 | 137 | 107 |
+| MEASURED+GUST (KMA) / 8 h (>= 20 m/s class = 9 fires) | 482 | 280 | 138 | 112 |
 
 Under the two MEASURED arms the margin is narrower than RUNNING until 21:00, so fewer routes are shown as cut within the horizon
 and a larger share of those shown are reached earlier by the reconstruction (181 of 349 for MEASURED / 8 h against 108 of 1,093 for RUNNING / 8 h).
@@ -164,12 +170,17 @@ A route reached later than that is not counted.
   * Daytime false alarms were not tested: no fire-free daytime window at the same hours exists after 20 March.
 * **Witness re-check:** every witness road is re-walked from its departure second against the cell closures, and the
   dwell is checked at the shelter. **6,316 / 6,316 pass**, with identical arrival seconds; the MEASURED and MEASURED+GUST
-  arms add **4,528 / 4,528 pass**.
+  arms add **4,528 / 4,528 pass**, and the KMA gust arm **2,262 / 2,262 pass**.
 * **F-3.1 certificate** (`check_fixed_point`) on 3 instances: 43,826, 111,924 and 111,924 states. **PASS**
   ([fixed_point.json](fixed_point.json)).
 * **Planner shelter candidates:** identical to `planner/cache` requests for 174/174 places.
 
 ## 7 Limits (stated, not corrected)
+
+* **MEASURED+GUST (KMA):** four ASOS stations (278, 136, 276, 277); Yeongyang uncovered; Cheongsong has no row 21:00-02:00 KST on 25-26 March. KMA records hourly gusts only from 10 m/s
+  (inferred), so no record is read as class < 10; values are whole m/s. Where its class equals the ERA5 arm's class the existing run is reused (40 of 52 region-hour-horizon files;
+  12 rerun, those at 12-13, 23-24 KST for 5 h and 23-24 KST for 8 h). The class is one value per (T, H) for all places and the realised series is read as a perfect forecast (ASSUMED).
+  The >= 20 m/s class rests on 9 fires.
 
 * **MEASURED arms:** the class is one value per issue hour for all places; the prior-3 h spread is taken from detection discs (5 km
   separate-fire rule applied per disc, not per component); the closure curve below 5 h is ASSUMED linear. The gust class is
@@ -186,7 +197,9 @@ A route reached later than that is not counted.
 * **Routing scope:** no congestion, no return trips, and travel between a place and its 진입 지점 is not modelled (as in
   the planner).
 * **Road names:** roads are OSM way ids; names are not resolved.
-* **Planner cache** ([planner_cache/RUNNING_8h](planner_cache/RUNNING_8h)):
+* **Planner cache** ([planner_cache/RUNNING_8h](planner_cache/RUNNING_8h); also [MEASURED_8h](planner_cache/MEASURED_8h) and
+  [MEASURED_GUST_8h](planner_cache/MEASURED_GUST_8h), PROVISIONAL, written 17 Nov 2026 from a re-run of `replay.py` for those two
+  arms at 8 h; every place-hour matches `per_place.csv` on the 30-minute grid, `tests/planner/replay.test.ts`):
   * Verdicts come from the field, not the Route-Check API, on a 30-minute grid.
   * The app labels the input "2025년 실제 산불 기록 기반 시나리오 재현" and shows its test-data badge
     (시험 데이터 · 평가 호스트 아님).

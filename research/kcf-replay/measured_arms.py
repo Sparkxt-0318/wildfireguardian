@@ -11,7 +11,7 @@ R_KM = {  # class -> (R5, R8) km
     "all": (3.8, 5.0), "quiet": (2.6, 3.5), "slow": (5.0, 6.4), "running": (7.6, 10.0),
     "g<10": (2.6, 3.0), "g10-20": (4.7, 5.9), "g>=20": (8.6, 12.0),
 }
-ARMS = ("MEASURED", "MEASURED_GUST")
+ARMS = ("MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA")
 
 
 def _check():
@@ -62,10 +62,43 @@ def gust_class(T, H_h):
     return ("g<10" if m < 10 else "g10-20" if m < 20 else "g>=20"), m
 
 
+_KMA = None
+def _kma_val(stn, stamp_utc):
+    """KMA ASOS hourly gust at a stamp (UTC datetime = end of hour), PROTOCOL amendments 2-3 of research/kcf-gust: a record counts only if
+    GST_TM is inside the hour before the stamp; no record (-9) = no gust >= 10 m/s = 0; no row = None."""
+    global _KMA
+    if _KMA is None:
+        rows = json.loads((HERE.parent / "kcf-gust/work/kma_asos_hourly.json").read_text())
+        _KMA = {(r["tm"], r["stn"]): r for r in rows}
+    k = stamp_utc + timedelta(hours=9)
+    r = _KMA.get((k.strftime("%Y%m%d%H00"), stn))
+    if r is None:
+        return None
+    g = float(r["gst_ws"])
+    if g < 0:
+        return 0.0
+    gm = int(r["gst_tm"].zfill(4)[:2]) * 60 + int(r["gst_tm"].zfill(4)[2:])
+    hd = k.hour; lo = ((hd - 1) % 24) * 60; hi = hd * 60 if hd else 1440
+    ok = (lo < gm <= hi) if hd else (gm > 1380 or gm == 0)
+    return g if ok else 0.0
+
+
+def gust_class_kma(T, H_h):
+    m = -1.0
+    for k in range(1, H_h + 1):
+        for stn in (278, 136, 276, 277):
+            v = _kma_val(stn, T + timedelta(hours=k))
+            if v is not None:
+                m = max(m, v)
+    return ("g<10" if m < 10 else "g10-20" if m < 20 else "g>=20"), m
+
+
 def curve(arm, discs, T, H_h):
     """-> (R5_m, R8_m, label, info)"""
     if arm == "MEASURED":
         c, info = spread_class(discs, T)
+    elif arm == "MEASURED_GUST_KMA":
+        c, info = gust_class_kma(T, H_h)
     else:
         c, info = gust_class(T, H_h)
     r5, r8 = R_KM[c]

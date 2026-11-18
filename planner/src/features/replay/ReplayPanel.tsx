@@ -82,6 +82,11 @@ export function ReplayNotice({ pack }: { pack: ReplayPack }) {
   return (
     <div className="replay-notice" role="note" data-testid="replay-notice">
       <div className="replay-label">{t('replay.label')}</div>
+      {pack.provisional ? (
+        <div className="replay-provisional" data-testid="replay-provisional">
+          {t('replay.provisional')}
+        </div>
+      ) : null}
       <details className="replay-how">
         <summary>{t('replay.how')}</summary>
         <div className="replay-method">{t('replay.method', { rate: pack.rate ?? pack.standin })}</div>
@@ -145,6 +150,11 @@ export function ReplayHourSlider({ pack }: { pack: ReplayPack }) {
   );
 }
 
+/** A latest safe departure after midnight KST (26 March): marked "+1" next to the clock time. */
+function nextDay(h: NamedHour | undefined): boolean {
+  return !!h?.latest_safe_departure_utc && Date.parse(h.latest_safe_departure_utc) >= Date.parse('2025-03-25T15:00:00Z');
+}
+
 function cellText(h: NamedHour | undefined, t: (k: string) => string): string {
   if (!h) return '—';
   if (h.latest_safe_departure_utc) return kstClock(h.latest_safe_departure_utc, 0);
@@ -205,6 +215,11 @@ function PlaceRow({ place, hours, curIdx, selected, onPick }: { place: NamedPlac
         return (
           <td key={iu} className={`${i === curIdx ? 'cur' : ''}${inside ? ' inside' : ''}${h?.step === 'LEAVE_NOW' ? ' leave' : ''}`} title={title} data-hour={hourLabel(iu)}>
             <span className="tnum">{cellText(h, t)}</span>
+            {nextDay(h) ? (
+              <span className="replay-day" title={t('replay.nextDay')}>
+                +1
+              </span>
+            ) : null}
             {h?.route_cut_before_departure ? (
               <span className="replay-cut" aria-label={t('replay.cutEarlierShort')}>
                 ●

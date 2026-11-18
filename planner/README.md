@@ -140,7 +140,7 @@ npm run smoke:static        # headless Chromium smoke test against that dist-onl
 `/cache` middleware of the other modes.)
 
 **25 March 2025 replay (research reconstruction, its own scenario).** Under the recorded inputs, the left
-panel lists "2025년 3월 25일 재현 · 12:00–24:00 KST": the replay of
+panel lists "2025년 3월 25일 재현 · 12:00–24:00 KST" with three R(h) arms. The first is the replay of
 [`research/kcf-replay`](../research/kcf-replay/RESULTS.md) (174 places × 13 issue hours, RUNNING stand-in
 8.2 km/h, 8 h). It is registered in [`src/data/replayPacks.ts`](src/data/replayPacks.ts); the build copies
 `research/kcf-replay/planner_cache/RUNNING_8h` unchanged to `dist/cache/packs/kcf-replay-RUNNING_8h/` (its own
@@ -159,8 +159,12 @@ SHA-256. On screen:
   documented times under "보도된 시각 (결과가 아님)", each with outlet, date, link and the single-source flag
   ([`scripts/kcf_reported_times.json`](scripts/kcf_reported_times.json), from SOURCES.md).
 
-The MEASURED R(h) arms (research/kcf-margin put through the replay) are listed as "아직 없음" and disabled: no
-planner cache for them exists yet. The hook is described at the top of `src/data/replayPacks.ts`.
+Two more packs carry the MEASURED R(h) arms of the same replay (RESULTS.md §2b): **MEASURED** (kcf-margin R(h) by the
+prior-3 h spread class) and **MEASURED+GUST**, labelled PROVISIONAL everywhere it is named (ERA5 gusts only; the ≥ 20 m/s
+class rests on 9 fires). Their caches (`research/kcf-replay/planner_cache/MEASURED_8h`, `MEASURED_GUST_8h`) were written
+by `replay.py --standins MEASURED MEASURED_GUST --horizons 8h` and `make_planner_cache.py`; `tests/planner/replay.test.ts`
+checks every place-hour of every pack against `per_place.csv` on the 30-minute grid. How to add another arm: the comment
+at the top of `src/data/replayPacks.ts`.
 
 **Checks of the published site.** `release-checks.yml` fails when the site root does not answer HTTP 200 (on every
 push and pull request to `Main`, and daily). After every deploy, `planner-pages.yml` runs

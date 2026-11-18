@@ -10,14 +10,13 @@
  *
  * Plain data on purpose: vite.config.ts imports this file at build time.
  *
- * HOOK for the MEASURED arms (research/kcf-margin R(h) put through research/kcf-replay/replay.py):
- * when their planner cache lands (research/kcf-replay/make_planner_cache.py --standin <LABEL>),
- *   1. set `source` to that folder, `scenarioPrefix` to its scenario_set_id prefix and
- *      `status` to 'available';
+ * To add another arm (a new R(h) put through research/kcf-replay/replay.py):
+ *   1. write its planner cache: make_planner_cache.py out/runs planner_cache/<LABEL>_8h --standin <LABEL> --horizon 8h;
  *   2. write its six-place file: node scripts/build_replay_named_places.mjs --standin <LABEL> --horizon 8h;
- *   3. set `namedPlaces` to that file.
+ *   3. add an entry here (status 'available', its `source`, exact `scenarioPrefix` and `namedPlaces`) and the
+ *      button label `replay.pack.<id>` in features/replay/strings.ts.
  * Nothing else in the app changes: the pack is picked up by the scenario selector, the hour
- * slider and the six-place panel.
+ * slider and the six-place panel. A `pending` entry is listed disabled with a note.
  */
 export type ReplayPackStatus = 'available' | 'pending';
 
@@ -37,6 +36,8 @@ export interface ReplayPack {
   namedPlaces: string | null;
   /** where the numbers are explained (repository path) */
   results: string;
+  /** shown as PROVISIONAL wherever the pack is named (MEASURED+GUST: ERA5 gusts only) */
+  provisional?: boolean;
 }
 
 export const REPLAY_PACKS: readonly ReplayPack[] = [
@@ -52,17 +53,30 @@ export const REPLAY_PACKS: readonly ReplayPack[] = [
     results: 'research/kcf-replay/RESULTS.md',
   },
   {
-    // research/kcf-margin (MEASURED R(h)) has landed; the replay re-run with it has not:
-    // no planner cache for a MEASURED arm exists in research/kcf-replay/planner_cache.
-    id: 'kcf-replay-MEASURED',
-    status: 'pending',
-    source: null,
-    scenarioPrefix: 'kcf-replay:MEASURED',
+    // research/kcf-replay MEASURED arm (MEASURED_RULE.md): kcf-margin R(h) by the prior-3 h spread class, one class per
+    // issue hour; planner cache from replay.py --standins MEASURED + make_planner_cache.py --standin MEASURED --horizon 8h
+    id: 'kcf-replay-MEASURED_8h',
+    status: 'available',
+    source: '../research/kcf-replay/planner_cache/MEASURED_8h',
+    scenarioPrefix: 'kcf-replay:MEASURED:8h:',
     standin: 'MEASURED',
     horizon: '8h',
-    rate: null,
-    namedPlaces: null,
-    results: 'research/kcf-margin/RESULTS.md',
+    rate: 'R(8 h) quiet 3.5 / slow 6.4 / running 10.0 km',
+    namedPlaces: 'data/replay/kcf-replay-MEASURED_8h.named_places.json',
+    results: 'research/kcf-replay/RESULTS.md §2b',
+  },
+  {
+    // MEASURED+GUST arm: R(h) by the max ERA5 gust over (T, T+H]; PROVISIONAL (ERA5 only, >= 20 m/s class rests on 9 fires)
+    id: 'kcf-replay-MEASURED_GUST_8h',
+    status: 'available',
+    source: '../research/kcf-replay/planner_cache/MEASURED_GUST_8h',
+    scenarioPrefix: 'kcf-replay:MEASURED_GUST:8h:',
+    standin: 'MEASURED_GUST',
+    horizon: '8h',
+    rate: 'R(8 h) gust <10 m/s 3.0 / 10–20 m/s 5.9 / ≥20 m/s 12.0 km',
+    namedPlaces: 'data/replay/kcf-replay-MEASURED_GUST_8h.named_places.json',
+    results: 'research/kcf-replay/RESULTS.md §2b',
+    provisional: true,
   },
 ];
 

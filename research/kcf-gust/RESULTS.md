@@ -1,19 +1,26 @@
 # RESULTS: gusts on 25 March 2025 and the frozen gust-class margin (kcf-gust)
 
-**PROVISIONAL (hour-by-hour tables).** KMA observations were added after the first version of this file (see "KMA ASOS observations",
-amendment 1 in `PROTOCOL.md`), but only what data.go.kr serves: **daily** maximum instantaneous gust with its time, and **hourly mean wind**.
-The **hourly maximum gust** series (apihub.kma.go.kr, `KMA_API_KEY`, which also holds AWS) was not available in this session, so the
-hour-by-hour class and R-held tables below are still ERA5 only and PROVISIONAL. Rules: `PROTOCOL.md`, committed before any gust value
-was read (a4ff4f1c); amendment 1 committed before any KMA value was read (3be97228).
+**Primary series: KMA ASOS hourly gust (apihub.kma.go.kr `kma_sfctm2.php`), four stations: Uiseong 278, Andong 136, Cheongsong 276, Yeongdeok 277.
+Secondary: ERA5 at five county-seat points.** Yeongyang has no ASOS station and its AWS series was not used, so KMA covers four of the five points.
+KMA hourly gust is recorded only from 10 m/s (inferred, see amendment 3), so "0" below means "no gust >= 10 m/s recorded"; values are whole m/s (truncated).
+The hour-by-hour KMA tables are observations for hours already past; the forward-window class reads the realised series as a perfect forecast (ASSUMED).
+Rules: `PROTOCOL.md` (a4ff4f1c); amendment 1 (3be97228), amendment 2 (3628d7a8) and amendment 3 (7f74c9e0) each committed before the values they cover were read or classified.
+Every >= 20 m/s class number below rests on **9 fires** (†).
 
-**Result.** ERA5 gusts were below 20 m/s at every point until 15:00 KST, and the fire-wide maximum at the 10:00 and 11:00
-stamps was 10.6 and 12.6 m/s. So gusts as observed at the issue hour gave no warning at 10-11 KST either. A gust >= 20 m/s
-appears only *ahead* of those hours: the next-5 h maximum from 10 KST is 21.0 m/s (15:00, Yeongyang grid cell), and from 11 KST
-21.9 m/s. Reading that forward window as a perfect forecast (ASSUMED, as in the margin protocol), the gust >= 20† class would
-have applied from the 10 KST issue hour on, and the frozen R(5 h) = 8.6 km held at 10 and 11 KST (reach 4.9, 6.6 km) and failed
-from 12 KST (reach 12.4 km) to 20 KST. † The gust >= 20 m/s class rests on **9 fires**.
+**Result (KMA, n = 1 fire, 1 day).** At the 10:00 and 11:00 KST stamps KMA recorded no gust >= 10 m/s at any of the four stations (the first
+record is 10 m/s at 13:00). The next-5 h maximum from the 10 KST issue hour is 13 m/s and from 11 KST 14 m/s, so a gust >= 20 m/s was **not** present, in
+KMA observations, at 10-11 KST or within the following 5 h. The first KMA gust >= 20 m/s is 25 m/s at Cheongsong at 18:15 KST (in the stamp 19:00 row), about 7-8 h after
+the 10-11 KST issue hours; Yeongdeok recorded 21 m/s at 20:39 and 25 m/s at 21:56 and 22:40. ERA5 (secondary) put its first >= 20 m/s at the 15:00 stamp.
+So gusts, observed or in ERA5, gave no warning at the issue stamps of 10-11 KST; only a window reaching 7-8 h ahead sees a >= 20 gust in KMA (at 11 KST, 8 h: 25 m/s), and that
+class' R(8 h) = 12.0 km† would not have held (reach 34.7 km).
+
+With the frozen gust-class R (10% target) on KMA classes: 5 h, 12 of 23 complete issue hours held (ERA5: 14); 8 h, 8 of 20 held (ERA5: 9).
+By class: 5 h: < 10: 8 of 8 held; 10-20: 2 of 6; >= 20†: 2 of 9 (21 and 22 KST). 8 h: < 10: 5 of 5; 10-20: 3 of 6; >= 20†: 0 of 9. For the 10-11 KST issue hours the KMA class is 10-20, R(5 h) = 4.7 km, and the reach was 4.9 km (10 KST,
+missed by 0.2 km) and 6.6 km (11 KST). The KMA and ERA5 classes agree in 16 of 23 (5 h) and 13 of 20 (8 h) issue hours. This is one fire on one day: no rate is claimed.
 
 ## Sources and fetch times
+
+KMA hourly: `apihub.kma.go.kr` `kma_sfctm2.php` (ASOS hourly, EUC-KR), 120 calls (every KST hour 22-26 March 2025), all succeeded; first call 2026-11-17T09:50:34+00:00 UTC, last 2026-11-17T09:52:28+00:00 UTC; per-hour log `work/fetch_log_kma_hourly.json`, data `work/kma_asos_hourly.json` (no key stored).
 
 ERA5 10 m wind gust, Open-Meteo archive API (`models=era5`, `hourly=wind_gusts_10m`, m/s, GMT), 2025-03-22 to 2025-03-26.
 Each value is the maximum over the hour before its stamp. Raw responses: `work/era5_gusts.json` and `work/fetch_log.json` (both committed).
@@ -39,7 +46,42 @@ KMA ASOS via data.go.kr (`AsosDalyInfoService`, `AsosHourlyInfoService`), key he
 Repo note (`research-scout/LOG.md:822`, Newsis 2025-03-27) reports gusts of about 27 m/s for this fire. ERA5 here peaks at 22.4 m/s
 (Yeongyang cell, 17:00 KST). The user's recollection of about 14 m/s reanalysis in the repo's record was not found in the repo by search.
 
-## KMA ASOS observations beside ERA5 (data.go.kr; added by amendment 1)
+## Hour by hour, 25 March 2025 KST, 00 to 24: KMA (primary), ERA5 beside it
+
+Columns 2-5: KMA gust at the stamp (m/s; 0 = no gust >= 10 recorded; a record counts only if its `GST_TM` is inside the hour before the stamp). Fire-wide = maximum over stations present
+(Cheongsong has no row 21:00-02:00). Forward columns: issue hour t = the row, window (t, t+h], maximum over the four stations, class, frozen R(h) at the 10% target (km),
+reach from detections (km, `numbers.json` -> `gyeongbuk_stress`), and whether reach <= R. "Not scored" = the h-hour window runs past the end of AHI coverage. R: < 10: 2.6 / 3.0; 10-20: 4.7 / 5.9; >= 20†: 8.6 / 12.0 km.
+† >= 20 m/s class: **9 fires**.
+
+| KST stamp | Uiseong | Andong | Cheongsong | Yeongdeok | fire-wide max (class) | ERA5 fire-wide (class) | 5 h: fwd max / class / R / reach / verdict | 8 h: fwd max / class / R / reach / verdict |
+|---|---|---|---|---|---|---|---|---|
+| 00:00 | 0 | 0 | 0 | 0 | 0 (<10) | 9.3 (<10) | 0 / <10 / R 2.6 / reach 0.8 / held | 0 / <10 / R 3 / reach 0.8 / held |
+| 01:00 | 0 | 0 | 0 | 0 | 0 (<10) | 8.8 (<10) | 0 / <10 / R 2.6 / reach 0.8 / held | 0 / <10 / R 3 / reach 0.8 / held |
+| 02:00 | 0 | 0 | 0 | 0 | 0 (<10) | 8.1 (<10) | 0 / <10 / R 2.6 / reach 0.8 / held | 0 / <10 / R 3 / reach 0.8 / held |
+| 03:00 | 0 | 0 | 0 | 0 | 0 (<10) | 7.2 (<10) | 0 / <10 / R 2.6 / reach 0.4 / held | 0 / <10 / R 3 / reach 0.4 / held |
+| 04:00 | 0 | 0 | 0 | 0 | 0 (<10) | 6.1 (<10) | 0 / <10 / R 2.6 / reach 0.0 / held | 0 / <10 / R 3 / reach 2.2 / held |
+| 05:00 | 0 | 0 | 0 | 0 | 0 (<10) | 6.4 (<10) | 0 / <10 / R 2.6 / reach 0.0 / held | 10 / 10-20 / R 5.9 / reach 2.2 / held |
+| 06:00 | 0 | 0 | 0 | 0 | 0 (<10) | 6.3 (<10) | 0 / <10 / R 2.6 / reach 0.0 / held | 12 / 10-20 / R 5.9 / reach 2.2 / held |
+| 07:00 | 0 | 0 | 0 | 0 | 0 (<10) | 6.1 (<10) | 0 / <10 / R 2.6 / reach 2.2 / held | 13 / 10-20 / R 5.9 / reach 4.9 / held |
+| 08:00 | 0 | 0 | 0 | 0 | 0 (<10) | 6.4 (<10) | 10 / 10-20 / R 4.7 / reach 2.2 / held | 14 / 10-20 / R 5.9 / reach 6.6 / **MISSED** |
+| 09:00 | 0 | 0 | 0 | 0 | 0 (<10) | 9.2 (<10) | 12 / 10-20 / R 4.7 / reach 2.2 / held | 19 / 10-20 / R 5.9 / reach 12.4 / **MISSED** |
+| 10:00 | 0 | 0 | 0 | 0 | 0 (<10) | 10.6 (10-20) | 13 / 10-20 / R 4.7 / reach 4.9 / **MISSED** | 19 / 10-20 / R 5.9 / reach 23.9 / **MISSED** |
+| 11:00 | 0 | 0 | 0 | 0 | 0 (<10) | 12.6 (10-20) | 14 / 10-20 / R 4.7 / reach 6.6 / **MISSED** | 25 / >=20† / R 12 / reach 34.7 / **MISSED** |
+| 12:00 | 0 | 0 | 0 | 0 | 0 (<10) | 14.0 (10-20) | 19 / 10-20 / R 4.7 / reach 12.4 / **MISSED** | 25 / >=20† / R 12 / reach 34.9 / **MISSED** |
+| 13:00 | 0 | 0 | 10 | 0 | 10 (10-20) | 15.4 (10-20) | 19 / 10-20 / R 4.7 / reach 23.9 / **MISSED** | 25 / >=20† / R 12 / reach 44.0 / **MISSED** |
+| 14:00 | 0 | 0 | 0 | 12 | 12 (10-20) | 17.6 (10-20) | 25 / >=20† / R 8.6 / reach 34.7 / **MISSED** | 25 / >=20† / R 12 / reach 50.3 / **MISSED** |
+| 15:00 | 0 | 13 | 10 | 0 | 13 (10-20) | 21.0 (>=20) | 25 / >=20† / R 8.6 / reach 32.9 / **MISSED** | 25 / >=20† / R 12 / reach 46.6 / **MISSED** |
+| 16:00 | 13 | 14 | 13 | 12 | 14 (10-20) | 21.9 (>=20) | 25 / >=20† / R 8.6 / reach 40.1 / **MISSED** | 25 / >=20† / R 12 / reach 46.4 / **MISSED** |
+| 17:00 | 12 | 19 | 14 | 12 | 19 (10-20) | 22.4 (>=20) | 25 / >=20† / R 8.6 / reach 38.6 / **MISSED** | 25 / >=20† / R 12 / reach 38.6 / **MISSED** |
+| 18:00 | 14 | 19 | 19 | 0 | 19 (10-20) | 22.1 (>=20) | 25 / >=20† / R 8.6 / reach 27.3 / **MISSED** | 25 / >=20† / R 12 / reach 27.3 / **MISSED** |
+| 19:00 | 13 | 15 | 25 | 12 | 25 (>=20†) | 19.5 (10-20) | 25 / >=20† / R 8.6 / reach 20.3 / **MISSED** | 25 / >=20† / R 12 / reach 20.3 / **MISSED** |
+| 20:00 | 14 | 13 | 16 | 17 | 17 (10-20) | 18.4 (10-20) | 25 / >=20† / R 8.6 / reach 15.7 / **MISSED** | 25 / >=20† / R 12 / reach 15.7 / not scored (truncated) |
+| 21:00 | 0 | 0 | no row | 21 | 21 (>=20†) | 19.0 (10-20) | 25 / >=20† / R 8.6 / reach 6.5 / held | 25 / >=20† / R 12 / reach 6.8 / not scored (truncated) |
+| 22:00 | 0 | 0 | no row | 25 | 25 (>=20†) | 20.2 (>=20) | 25 / >=20† / R 8.6 / reach 4.9 / held | 25 / >=20† / R 12 / reach 4.9 / not scored (truncated) |
+| 23:00 | 0 | 0 | no row | 25 | 25 (>=20†) | 20.4 (>=20) | 0 / <10 / R 2.6 / reach 3.0 / not scored (truncated) | 0 / <10 / R 3 / reach 3.0 / not scored (truncated) |
+| 24:00 | 0 | 0 | no row | 0 | 0 (<10) | 18.9 (10-20) | - | - |
+
+## KMA ASOS daily observations beside ERA5 (data.go.kr; added by amendment 1)
 
 KMA daily maximum **instantaneous** gust (`maxInsWs`) and its time, against the ERA5 daily maximum of the same KST day (ERA5 stamp =
 end of the hour). n = 4 stations x 5 days for KMA; Yeongyang has no ASOS here, so ERA5 only. These are daily maxima, not hourly gusts: they
@@ -113,13 +155,13 @@ KMA hourly **mean** wind `ws` on 25 March (m/s, KST hour; mean, not gust; Cheong
 At 10:00 and 11:00 KST the hourly mean wind is 0.5 to 3.8 m/s at all four stations. That is a mean, so it is only an indication that the
 hours had no strong wind; it does not bound the gust.
 
-## Hour by hour, 25 March 2025 KST, 00 to 24 (ERA5 only, PROVISIONAL)
+## Hour by hour, 25 March 2025 KST, 00 to 24: ERA5 (secondary series; five points)
 
 Columns 2-6: ERA5 gust at the stamp (m/s, max over the previous hour). Class at stamp: < 10, 10-20, >= 20. Forward columns:
 issue hour t = the row, window (t, t+h], maximum over the five points, class, frozen R(h) at the 10% target (km), reach from
 detections (km, `numbers.json` -> `gyeongbuk_stress`), and whether reach <= R. "Not scored" = the h-hour window runs past the
 end of AHI coverage. n = 1 fire, 1 day. R values: gust < 10: 2.6 / 3.0; 10-20: 4.7 / 5.9; >= 20†: 8.6 / 12.0 km.
-**PROVISIONAL, ERA5 only.**
+ERA5 as secondary series; the KMA table above is the primary one.
 
 | KST stamp | Uiseong | Andong | Cheongsong | Yeongyang | Yeongdeok | fire-wide max | class at stamp | 5 h: fwd max / class / R / reach / verdict | 8 h: fwd max / class / R / reach / verdict |
 |---|---|---|---|---|---|---|---|---|---|
@@ -151,7 +193,7 @@ end of AHI coverage. n = 1 fire, 1 day. R values: gust < 10: 2.6 / 3.0; 10-20: 4
 
 † gust >= 20 m/s class: **9 fires**.
 
-## Counts (PROVISIONAL, ERA5 only; one fire, one day; no rate)
+## Counts, ERA5 (secondary; one fire, one day; no rate). The KMA counts are in the Result paragraph at the top
 
 | | 5 h | 8 h |
 |---|---|---|
@@ -167,8 +209,9 @@ end of AHI coverage. n = 1 fire, 1 day. R values: gust < 10: 2.6 / 3.0; 10-20: 4
 
 ## What this does not show
 
-- The hour-by-hour tables use no KMA hourly gust (only daily maxima and hourly means were available): ERA5 at 0.25 degrees smooths gusts, and each point is one grid cell near a county seat, not the fire. Where KMA is available it read higher than ERA5 at the two peak stations.
-- Answer to "was a gust >= 20 m/s present at 10-11 KST, observed or in ERA5": ERA5, no (10.6 and 12.6 m/s fire-wide at the stamps); KMA, not shown by the data that could be fetched (the >= 20 m/s gusts it recorded came at 18:15 and 21:56 KST; hourly gust was not available).
+- ERA5 is a 0.25 degree grid, one cell near a county seat per point, not the fire. KMA read higher than ERA5 at the two peak stations (daily maxima).
+- KMA: four stations only (Yeongyang uncovered); gusts below 10 m/s are not recorded in the hourly file (inferred threshold); values are whole m/s; an observed >= 20 can read 19 if it was 19.x. The forward-window class is the realised series read as a perfect forecast (ASSUMED).
+- Answer to "was a gust >= 20 m/s present at 10-11 KST, observed or in ERA5": KMA, no (no gust >= 10 m/s recorded at the 10:00 and 11:00 stamps; maximum 13 and 14 m/s in the next 5 h; the first >= 20 is 25 m/s at 18:15 KST); ERA5, no at the stamps (10.6 and 12.6 m/s), >= 20 only in the forward window (21.0 m/s at 15:00). Yeongyang is not covered by KMA here.
 - The class for a window uses the realised gust over the next h hours (a perfect forecast; ASSUMED). At the issue time itself the
   gust was < 20 m/s until 15:00 KST (ERA5).
 - The >= 20 m/s class has 9 fires behind it. 0 of 9 missed in the calibration, with 95% CI 0-34%.

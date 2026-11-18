@@ -1,0 +1,101 @@
+[
+ {
+  "grid": "3x3",
+  "edges": 24,
+  "H": 30,
+  "pushes": 36,
+  "pushes_per_edge": 1.5,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0003,
+  "one_at_a_time_ONE_origin_s": 0.0019,
+  "one_at_a_time_all_origins_est_s": 0.02
+ },
+ {
+  "grid": "3x3",
+  "edges": 24,
+  "H": 60,
+  "pushes": 38,
+  "pushes_per_edge": 1.58,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0003,
+  "one_at_a_time_ONE_origin_s": 0.0047,
+  "one_at_a_time_all_origins_est_s": 0.04
+ },
+ {
+  "grid": "3x3",
+  "edges": 24,
+  "H": 120,
+  "pushes": 29,
+  "pushes_per_edge": 1.21,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0002,
+  "one_at_a_time_ONE_origin_s": 0.0065,
+  "one_at_a_time_all_origins_est_s": 0.06
+ },
+ {
+  "grid": "4x4",
+  "edges": 48,
+  "H": 60,
+  "pushes": 65,
+  "pushes_per_edge": 1.35,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0005,
+  "one_at_a_time_ONE_origin_s": 0.0172,
+  "one_at_a_time_all_origins_est_s": 0.28
+ },
+ {
+  "grid": "4x4",
+  "edges": 48,
+  "H": 120,
+  "pushes": 59,
+  "pushes_per_edge": 1.23,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0003,
+  "one_at_a_time_ONE_origin_s": 0.0204,
+  "one_at_a_time_all_origins_est_s": 0.33
+ },
+ {
+  "grid": "4x4",
+  "edges": 48,
+  "H": 240,
+  "pushes": 87,
+  "pushes_per_edge": 1.81,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0003,
+  "one_at_a_time_ONE_origin_s": 0.0689,
+  "one_at_a_time_all_origins_est_s": 1.1
+ },
+ {
+  "grid": "5x5",
+  "edges": 80,
+  "H": 120,
+  "pushes": 119,
+  "pushes_per_edge": 1.49,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0005,
+  "one_at_a_time_ONE_origin_s": 0.0613,
+  "one_at_a_time_all_origins_est_s": 1.53
+ },
+ {
+  "grid": "5x5",
+  "edges": 80,
+  "H": 240,
+  "pushes": 378,
+  "pushes_per_edge": 4.72,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0013,
+  "one_at_a_time_ONE_origin_s": 0.0531,
+  "one_at_a_time_all_origins_est_s": 1.33
+ },
+ {
+  "grid": "6x6",
+  "edges": 120,
+  "H": 240,
+  "pushes": 256,
+  "pushes_per_edge": 2.13,
+  "max_pieces_per_state": 1,
+  "field_all_origins_s": 0.0009,
+  "one_at_a_time_ONE_origin_s": 0.419,
+  "one_at_a_time_all_origins_est_s": 15.08
+ }
+]
