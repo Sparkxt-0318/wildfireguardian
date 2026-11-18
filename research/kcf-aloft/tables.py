@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Print every table of RESULTS.md from numbers.json.   python3 tables.py numbers.json > derived/tables.md"""
 import json
-import statistics
 import sys
 
 n = json.load(open(sys.argv[1]))
@@ -20,7 +19,7 @@ def c(x, pct=True):
 def leads(v):
     if not v:
         return "-"
-    return f"{', '.join(str(x) for x in sorted(v))} (median {statistics.median(v):g})"
+    return ", ".join(str(x) for x in sorted(v))
 
 
 def m(x):
@@ -157,6 +156,16 @@ for r in ORDER:
                  c(f["alarm_days_without_run"]), "", ""])
 table(["rule", "run fire-days", "warned", "without 25 March", "warned, lapsed counted", "run hours missed", "alarm fire-days with no run",
        "issue hours firing: run / no run", "issue hours with no station data"], rows)
+
+print("## T9b 25 March 2025 hour by hour (KFS_01, detection product)\n")
+yn = lambda v: "-" if v is None else ("**fires**" if v else "no")
+table(["KST", "GFS cycle (UTC)", "forecast gust, any hour m/s", "gust held 2 h m/s", "850 hPa m/s", "G", "A-cal", "A25", "A30", "G-obs",
+       "5 h reach km", "run hour"],
+      [[f"{h['kst_hour']:02d}", h["cycle_utc"][5:13], h["gust_any_hour_ms"], h["gust_two_hours_ms"], h["w850_ms"], yn(h["G"]), yn(h["A_cal"]),
+        yn(h["A25"]), yn(h["A30"]), yn(h["G_obs"]), "-" if h["reach5_km"] is None else h["reach5_km"], "yes" if h["run"] else ""]
+       for h in n["march25_hours"]])
+print("Burden point-days not counted as false alarms (a fire-set run within 100 km that KST day): "
+      + "; ".join(f"{p} {d}" for p, d in n["excluded_point_days"]) + "\n")
 
 x = n.get("second_model_ifs")
 if isinstance(x, dict):

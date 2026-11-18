@@ -31,19 +31,25 @@ BOX = (32.8, 39.2, 124.8, 131.2)
 LAYOUTS = [("ifs/0p25", 0.25), ("0p25", 0.25), ("ifs/0p4-beta", 0.4), ("0p4-beta", 0.4)]
 
 
-def one(cyc, step):
+def layout_of(cyc):
+    """The layout this cycle is stored in (first that has the 6 h index); one layout per cycle, never mixed."""
+    d, hh = cyc[:8], cyc[8:10]
+    stream = "oper" if hh in ("00", "12") else "scda"
+    for _ in range(2):
+        for lay, r in LAYOUTS:
+            if get(f"{B}/{d}/{hh}z/{lay}/{stream}/{d}{hh}0000-{STEPS[0]}h-{stream}-fc.index", attempts=3) is not None:
+                return lay, r
+    return None, None
+
+
+def one(cyc, step, lay, res):
     import pygrib
     d, hh = cyc[:8], cyc[8:10]
     stream = "oper" if hh in ("00", "12") else "scda"
-    idx = base = res = None
-    for lay, r in LAYOUTS:
-        base = f"{B}/{d}/{hh}z/{lay}/{stream}/{d}{hh}0000-{step}h-{stream}-fc"
-        idx = get(base + ".index", attempts=3)
-        if idx is not None:
-            res = r
-            break
+    base = f"{B}/{d}/{hh}z/{lay}/{stream}/{d}{hh}0000-{step}h-{stream}-fc"
+    idx = get(base + ".index", attempts=5)
     if idx is None:
-        return step, None, "no_index", 0, None
+        return step, None, "no_index", 0, res
     ent = [json.loads(x) for x in idx.decode().splitlines() if x.strip()]
     out, miss, nb, grid = {}, [], 0, None
     for f in FIELDS:
@@ -82,6 +88,7 @@ def main():
     ap.add_argument("--ranges", nargs="*", default=[])
     ap.add_argument("--seasons", nargs="*", type=int, default=[])
     ap.add_argument("--procs", type=int, default=5)
+    ap.add_argument("--retry-missing", action="store_true", help="fetch again the cycles whose last log line has a missing step")
     a = ap.parse_args()
     d = os.path.join(a.out, "ifs_KOR")
     os.makedirs(d, exist_ok=True)
@@ -92,13 +99,29 @@ def main():
             k = c.strftime("%Y%m%d%H")
             if k not in cyc:
                 cyc.append(k)
+    if a.retry_missing and os.path.exists(os.path.join(d, "log.jsonl")):
+        last = {}
+        for l in open(os.path.join(d, "log.jsonl")):
+            r = json.loads(l)
+            last[r["cycle"]] = r
+        for c, r in last.items():
+            if r["missing"] and c in cyc and os.path.exists(os.path.join(d, c + ".npz")):
+                os.remove(os.path.join(d, c + ".npz"))
     todo = [c for c in cyc if not os.path.exists(os.path.join(d, c + ".npz"))]
     print(f"ifs KOR: {len(cyc)} cycles, {len(todo)} to fetch", flush=True)
     with ProcessPoolExecutor(a.procs) as ex:
         for c in todo:
             t0 = time.time()
             res = {}
-            for f in as_completed([ex.submit(one, c, s) for s in STEPS]):
+            lay, r0 = layout_of(c)
+            if lay is None:
+                with open(os.path.join(d, "log.jsonl"), "a") as fh:
+                    fh.write(json.dumps(dict(cycle=c, missing={s: "no_layout" for s in STEPS}, bytes=0, saved=False, res=None,
+                                             seconds=round(time.time() - t0, 1),
+                                             fetched_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))) + "\n")
+                print(c, "no layout found", flush=True)
+                continue
+            for f in as_completed([ex.submit(one, c, s, lay, r0) for s in STEPS]):
                 step, got, m, b, r = f.result()
                 res[step] = (got, m, b, r)
             ok = [s for s in STEPS if res[s][0] is not None]

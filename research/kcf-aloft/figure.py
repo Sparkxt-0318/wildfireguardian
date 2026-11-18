@@ -24,7 +24,7 @@ def main():
     n = json.load(open(a.numbers))
     days = {r: {(d["fire"], d["kst_day"]): d for d in n["fire_set"][r]["fire_days"] if d["run_hours"] > 0} for r in COL}
     keys = sorted(days["G"])
-    fig, ax = plt.subplots(figsize=(9.2, 0.62 * len(keys) + 2.1), dpi=200)
+    fig, ax = plt.subplots(figsize=(9.6, 0.6 * len(keys) + 2.3), dpi=200)
     fig.patch.set_facecolor(SURFACE)
     ax.set_facecolor(SURFACE)
     h = 0.24
@@ -44,17 +44,17 @@ def main():
                 ax.text(-0.7, yy, "not firing at the run hour", ha="right", va="center", fontsize=8, color=INK2)
         d = days["G"][k]
         name = d["name"] + ("" if k != ("KFS_01", "2025-03-25") else "")
-        ax.text(-29.6, y, f"{name}  {k[1][5:]}\nfirst run hour {d['first_run_kst_hour']:02d} KST", ha="left", va="center",
+        ax.text(-39.6, y, f"{name}  {k[1]}\nfirst run hour {d['first_run_kst_hour']:02d} KST", ha="left", va="center",
                 fontsize=8.5, color=INK, linespacing=1.35)
     ax.axvline(0, color=INK2, lw=1)
     for x in (-24, -18, -12, -6):
         ax.axvline(x, color=GRID, lw=1, zorder=0)
-    ax.set_xlim(-30, 1.2)
+    ax.set_xlim(-40, 1.2)
     ax.set_ylim(-0.7, len(keys) - 0.3)
     ax.set_xticks([-24, -18, -12, -6, 0])
     ax.set_xticklabels(["24", "18", "12", "6", "0"], fontsize=8.5, color=INK2)
     ax.set_xlabel("hours the rule had been firing without a break before the first run hour of the day (capped at 24 h)",
-                  fontsize=8.5, color=INK2)
+                  fontsize=8.5, color=INK2, x=0.62)
     ax.set_yticks([])
     for s in ax.spines.values():
         s.set_visible(False)
@@ -67,13 +67,14 @@ def main():
                  % (g["run_fire_days"], g["fires_with_run"]), x=0.012, y=0.985, ha="left", fontsize=11, color=INK, weight="bold")
     b = n["burden"]
     fig.text(0.012, 0.012,
-             "Run hour: 5 h reach above 3.75 km. Forecasts: GFS as issued, 5 h availability delay. Lead counts hours before ignition "
-             "at the fire's first position.\nCost, seasons %s, ten points: G fires on %.1f days per point and season, A-cal on %.1f. "
-             "Counts only; 25 March 2025 was known to be flagged by the 850 hPa wind before the protocol."
+             "Run hour: an issue hour whose 5 h reach is above 3.75 km. Forecasts: GFS as issued, assumed available 5 h after the cycle.\n"
+             "Lead counts hours before ignition, at the fire's first position. x: the rule was not firing at the first run hour.\n"
+             "Cost in the burden set (seasons %s, ten points): G fires on %.1f days per point and season, A-cal on %.1f.\n"
+             "Counts only. 25 March 2025 was known to be flagged by the 850 hPa wind before the protocol was written."
              % ("-".join(str(x) for x in (b["G"]["full_seasons"][0], b["G"]["full_seasons"][-1])),
                 b["G"]["alarm_days_per_point_season"]["mean"], b["A-cal"]["alarm_days_per_point_season"]["mean"]),
-             fontsize=7.5, color=INK2, ha="left", va="bottom", linespacing=1.4)
-    fig.subplots_adjust(left=0.012, right=0.988, top=0.9, bottom=0.2)
+             fontsize=7.5, color=INK2, ha="left", va="bottom", linespacing=1.45)
+    fig.subplots_adjust(left=0.012, right=0.988, top=0.9, bottom=0.215)
     fig.savefig(a.out, facecolor=SURFACE)
     print("wrote", a.out)
 

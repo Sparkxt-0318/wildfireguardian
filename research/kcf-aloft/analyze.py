@@ -309,6 +309,16 @@ def main():
                            burden_alarm_days_per_point_season=b["alarm_days_per_point_season"]["mean"] if b["alarm_days_per_point_season"] else None,
                            burden_alarm_point_days=b["alarm_point_days_all_evaluated"]))
         out["sweep"][label] = sw
+    # 25 March 2025, hour by hour (KFS_01, primary timeline)
+    d = fh[(fh.fire == "KFS_01") & (fh.timeline == "primary")].sort_values("t_utc").reset_index(drop=True)
+    go = gobs(d)
+    st = {n: fns[n](d) for n in ("G", "A-cal", "A25", "A30")}
+    out["march25_hours"] = [
+        dict(kst_hour=int(r.kst_hour), cycle_utc=r.cycle_utc, gust_any_hour_ms=round(r.g_k1, 1), gust_two_hours_ms=round(r.g_k2, 1),
+             w850_ms=round(r.w_k1, 1), G=int(st["G"][i]), A_cal=int(st["A-cal"][i]), A25=int(st["A25"][i]), A30=int(st["A30"][i]),
+             G_obs=None if math.isnan(go[i]) else int(go[i]), reach5_km=None if pd.isna(r.reach5_km) else round(r.reach5_km, 1),
+             run=bool(r.run))
+        for i, r in enumerate(d.itertuples(index=False)) if r.kst_day == "2025-03-25"]
     out["burden_meta"] = dict(
         point_days_total=int(len(bd_all)), point_days_complete=int(len(bd)),
         incomplete_by_season={int(s): int(((g.hours_evaluated < 24)).sum()) for s, g in bd_all.groupby("season")},
