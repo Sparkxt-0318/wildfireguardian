@@ -18,6 +18,12 @@ num = {
         "6_prospective_log": {"status": "STARTED_NO_ENTRY", "why": "no active Korean fire identified (web search only; FIRMS/KFS unreachable)"},
     },
     "reported_rows_replaced_by_official_records": 0,
+    "reported_rows_in_roadcut_validation_table": 29,
+    "reading_notes": [
+        "source5_twin.arms.*.places_pooled.cutoff_err_min_system_minus_true has median 0 and p90 0 only because 103 of 214 places were already cut at issue (error exactly 0). Quote places_split.truth_cut_inside_horizon instead (n=111, median -175.6 min).",
+        "source3 primary map is maps.raw_dnbr0.1 (frozen); the other three maps are sensitivity, and burned area differs more than 13-fold between them.",
+        "source3 coverage_newly_burned_* counts burned cells outside the known area at the issue time; the exploratory block shows none was detected by FIRMS/AHI between issue and t_S.",
+    ],
     "source3_sentinel2_24mar": {"t_S_utc": S3["t_S_utc"], "choi_hours_at_t_S": S3["choi_hours_at_t_S"], "zones": S3["zones"],
                                 "maps": S3["maps"], "exploratory": S3X},
     "source5_twin": TW,
