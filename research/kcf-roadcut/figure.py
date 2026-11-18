@@ -22,12 +22,13 @@ COL = {"ROAD_CELL": "#2a78d6", "ORIGIN_CELL": "#eb6834", "SHELTER_CELL": "#1baf7
 LAB = {"ROAD_CELL": "last window ends on a road cell (road cut before the village is reached)",
        "ORIGIN_CELL": "last window ends on the village's own cell",
        "SHELTER_CELL": "last window ends at the shelter (dwell)",
-       "NO_WINDOW": "no window at the issue hour (lower bound: T_village - issue)",
+       "NO_WINDOW": "open grey ▷ = no departure window at the issue hour (lower bound: T_village − issue)",
        "UNCLEAR": "binding unclear (slack > 60 s)"}
 
 
 def korean_font():
-    for f in font_manager.findSystemFonts():
+    fs = sorted(font_manager.findSystemFonts(), key=lambda f: ("Coding" in f, "Bold" in f, len(f)))
+    for f in fs:
         if any(k in f for k in ("NanumGothic", "NotoSansCJK", "NotoSansKR", "UnDotum", "Noto Sans CJK")):
             font_manager.fontManager.addfont(f)
             return font_manager.FontProperties(fname=f).get_name()
@@ -85,19 +86,19 @@ def main(rows_path, out, arm="MEASURED", hz="8h"):
     hd = [Line2D([], [], marker="o", ls="", color=COL[k], markersize=6, label=LAB[k]) for k in
           ("ROAD_CELL", "ORIGIN_CELL", "SHELTER_CELL", "UNCLEAR") if k in seen]
     hd += [Line2D([], [], marker=">", ls="", markerfacecolor="none", markeredgecolor=INK2, markersize=6,
-                  label="open ▷ = lower bound (village not reached within the horizon, or no window)")]
+                  label="open ▷ in a series colour = lower bound: road cut, village not reached within the horizon")]
     if "NO_WINDOW" in seen:
         hd += [Line2D([], [], marker=">", ls="", markerfacecolor="none", markeredgecolor=COL["NO_WINDOW"], markersize=6,
                       label=LAB["NO_WINDOW"])]
-    ax.legend(handles=hd, loc="upper left", bbox_to_anchor=(0, -0.9 / h * 2.2 - 0.02), frameon=False, fontsize=7.5,
-              labelcolor=INK)
+    fig.legend(handles=hd, loc="upper left", bbox_to_anchor=(0.01, 1 - 1.0 / h), frameon=False, fontsize=7.5,
+               labelcolor=INK, ncol=1, handletextpad=0.4, borderaxespad=0)
     title = f"How much earlier the last road is cut than the village is reached — {arm}, {hz} horizon"
     sub = (f"kcf-replay, 25 Mar 2025 12:00–24:00 KST issues; one dot per place and issue hour; {len(order)} places "
            f"shown (sorted by median), {n_other} with no cut window in any hour not shown.\n"
            "Model output on reconstructed inputs. Not what happened to people.")
     fig.suptitle(title, x=0.01, ha="left", fontsize=11, color=INK, y=1 - 0.25 / h)
     fig.text(0.01, 1 - 0.62 / h, sub, ha="left", va="top", fontsize=7.5, color=INK2)
-    fig.subplots_adjust(left=0.24, right=0.98, top=1 - 1.15 / h, bottom=1.55 / h)
+    fig.subplots_adjust(left=0.24, right=0.98, top=1 - 2.35 / h, bottom=0.75 / h)
     fig.savefig(out, dpi=150, facecolor=SURFACE)
     print(out, len(order), n_other, fam)
 

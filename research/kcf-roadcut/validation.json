@@ -1,0 +1,2567 @@
+{
+ "label": "Model output on reconstructed inputs. Not what happened to people.",
+ "roads": [
+  {
+   "id": "RD1",
+   "kind": "road closure",
+   "what": "서산영덕선 안동JC~청송IC both ways, closure (도로공사)",
+   "recorded_kst": "2025-03-25 15:30",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "머니투데이 (mt.co.kr). ATTRIBUTION UNCERTAIN: one search summary tied this sentence to this MT article, and another said it could not find the 도로공사 sentence in the MT snippet.",
+    "url": "https://www.mt.co.kr/policy/2025/03/25/2025032516313321381",
+    "published": "2025-03-25 16:31 (inferred from URL ID 2025032516313321381)",
+    "retrieved": "2026-11-18T10:39Z",
+    "access": "search snippet only"
+   },
+   "location": "route 30: all in-grid cells east of 안동JC",
+   "n_cells": 72,
+   "issue_kst": "03-25 14:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 14:00",
+    "error_min": null,
+    "error_bound_min": -90,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 14:00",
+    "error_min": null,
+    "error_bound_min": -90,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 14:00",
+    "error_min": null,
+    "error_bound_min": -90,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 14:00",
+    "error_min": null,
+    "error_bound_min": -90,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 14:00",
+    "error_min": null,
+    "error_bound_min": -90,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 14:00",
+    "error_min": null,
+    "error_bound_min": -90,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-24 12:44",
+   "reconstruction_error_min": -1606,
+   "toa_kst": "03-24 17:21",
+   "toa_error_min": -1328
+  },
+  {
+   "id": "RD2",
+   "kind": "road closure",
+   "what": "서산영덕선 서의성IC~영덕IC both ways, closure",
+   "recorded_kst": "2025-03-25 17:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "서울신문 (m.seoul.co.kr), article '안동·청송 대피령… 천년고찰 고운사도 불탔다'. Two separate search summaries attributed this to 서울신문; the page itself was not opened.",
+    "url": "https://m.seoul.co.kr/news/2025/03/26/20250326001006",
+    "published": "2025-03-26 (print edition; time unknown)",
+    "retrieved": "2026-11-18T10:42Z",
+    "access": "search snippet only"
+   },
+   "location": "route 30: all in-grid cells",
+   "n_cells": 182,
+   "issue_kst": "03-25 16:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-23 03:23",
+   "reconstruction_error_min": -3697,
+   "toa_kst": "03-24 16:25",
+   "toa_error_min": -1474
+  },
+  {
+   "id": "RD3",
+   "kind": "road closure",
+   "what": "중앙선 의성IC~서안동IC both ways, closure",
+   "recorded_kst": "2025-03-25 17:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "서울신문 (m.seoul.co.kr), article '안동·청송 대피령… 천년고찰 고운사도 불탔다'. Two separate search summaries attributed this to 서울신문; the page itself was not opened.",
+    "url": "https://m.seoul.co.kr/news/2025/03/26/20250326001006",
+    "published": "2025-03-26 (print edition; time unknown)",
+    "retrieved": "2026-11-18T10:42Z",
+    "access": "search snippet only"
+   },
+   "location": "route 55: all in-grid cells",
+   "n_cells": 98,
+   "issue_kst": "03-25 16:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 16:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-25 01:28",
+   "reconstruction_error_min": -932,
+   "toa_kst": "03-25 14:17",
+   "toa_error_min": -163
+  },
+  {
+   "id": "RD4",
+   "kind": "road closure",
+   "what": "중앙선 의성IC~예천IC, closure 'from 18:00' (outlet unidentified)",
+   "recorded_kst": "2025-03-25 18:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "UNIDENTIFIED. Appeared in a result set made up of kbmaeil.com and imaeil.com items (likely candidates: https://kbmaeil.com/article/202503270913776 or https://www.imaeil.com/page/view/2025032617143805869). A follow-up exact-phrase search could not pin it down.",
+    "url": null,
+    "published": "after 2025-03-25 (says '지난 25일'; probably 26-27 Mar)",
+    "retrieved": "2026-11-18T10:41Z",
+    "access": "search snippet only"
+   },
+   "location": "route 55: all in-grid cells",
+   "n_cells": 98,
+   "issue_kst": "03-25 17:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-25 01:28",
+   "reconstruction_error_min": -992,
+   "toa_kst": "03-25 14:17",
+   "toa_error_min": -223
+  },
+  {
+   "id": "RD5",
+   "kind": "road closure",
+   "what": "서산영덕선 동상주IC~영덕IC, closure 'from 18:00' (outlet unidentified)",
+   "recorded_kst": "2025-03-25 18:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "UNIDENTIFIED. Appeared in a result set made up of kbmaeil.com and imaeil.com items (likely candidates: https://kbmaeil.com/article/202503270913776 or https://www.imaeil.com/page/view/2025032617143805869). A follow-up exact-phrase search could not pin it down.",
+    "url": null,
+    "published": "after 2025-03-25 (says '지난 25일'; probably 26-27 Mar)",
+    "retrieved": "2026-11-18T10:41Z",
+    "access": "search snippet only"
+   },
+   "location": "route 30: all in-grid cells",
+   "n_cells": 182,
+   "issue_kst": "03-25 17:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 17:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-23 03:23",
+   "reconstruction_error_min": -3757,
+   "toa_kst": "03-24 16:25",
+   "toa_error_min": -1534
+  },
+  {
+   "id": "RD6",
+   "kind": "road closure",
+   "what": "서산영덕선 동상주IC~영덕IC both ways, closure",
+   "recorded_kst": "2025-03-25 22:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "한국경제 (hankyung.com), apparently Yonhap copy (Yonhap photo caption). The same sentence appeared under several result sets.",
+    "url": "https://www.hankyung.com/article/2025032583907",
+    "published": "2025-03-25 (inferred from article ID; time unknown)",
+    "retrieved": "2026-11-18T10:39Z",
+    "access": "search snippet only"
+   },
+   "location": "route 30: all in-grid cells",
+   "n_cells": 182,
+   "issue_kst": "03-25 21:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-23 03:23",
+   "reconstruction_error_min": -3997,
+   "toa_kst": "03-24 16:25",
+   "toa_error_min": -1774
+  },
+  {
+   "id": "RD7",
+   "kind": "road closure",
+   "what": "중앙선 의성IC~풍기IC both ways, closure",
+   "recorded_kst": "2025-03-25 22:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "한국경제 (hankyung.com), apparently Yonhap copy (Yonhap photo caption). The same sentence appeared under several result sets.",
+    "url": "https://www.hankyung.com/article/2025032583907",
+    "published": "2025-03-25 (inferred from article ID; time unknown)",
+    "retrieved": "2026-11-18T10:39Z",
+    "access": "search snippet only"
+   },
+   "location": "route 55: all in-grid cells",
+   "n_cells": 98,
+   "issue_kst": "03-25 21:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 21:00",
+    "error_min": null,
+    "error_bound_min": -60,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-25 01:28",
+   "reconstruction_error_min": -1232,
+   "toa_kst": "03-25 14:17",
+   "toa_error_min": -463
+  },
+  {
+   "id": "RD8",
+   "kind": "road closure",
+   "what": "중앙선 의성IC~예천IC both ways, closure 'from 07:55'",
+   "recorded_kst": "2025-03-26 07:55",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "뉴시스 (newsis), '중앙고속도로 의성IC~예천IC 양방향 전면 통제'",
+    "url": "https://mobile.newsis.com/view/NISX20250326_0003114647",
+    "published": "2025-03-26 (after 17:00, since it reports '오후 5시 기준')",
+    "retrieved": "2026-11-18T10:42Z",
+    "access": "search snippet only"
+   },
+   "location": "route 55: all in-grid cells",
+   "n_cells": 98,
+   "issue_kst": "03-26 00:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-26 00:00",
+    "error_min": null,
+    "error_bound_min": -475,
+    "status": "closed at issue (error <= bound)"
+   },
+   "RUNNING": {
+    "model_kst": "03-26 00:00",
+    "error_min": null,
+    "error_bound_min": -475,
+    "status": "closed at issue (error <= bound)"
+   },
+   "ORDINARY": {
+    "model_kst": "03-26 00:00",
+    "error_min": null,
+    "error_bound_min": -475,
+    "status": "closed at issue (error <= bound)"
+   },
+   "WORST": {
+    "model_kst": "03-26 00:00",
+    "error_min": null,
+    "error_bound_min": -475,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-26 00:00",
+    "error_min": null,
+    "error_bound_min": -475,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-26 00:00",
+    "error_min": null,
+    "error_bound_min": -475,
+    "status": "closed at issue (error <= bound)"
+   },
+   "reconstruction_kst": "03-25 01:28",
+   "reconstruction_error_min": -1827,
+   "toa_kst": "03-25 14:17",
+   "toa_error_min": -1058
+  },
+  {
+   "id": "RD9",
+   "kind": "road closure",
+   "what": "지방도 911 지품면 황장리~석보면 화매리, control (time of the county text)",
+   "recorded_kst": "2025-03-25 19:09",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "아시아경제 English edition (asiae.co.kr/en), 'Mega Wildfire Spreads to Yeongyang and Yeongdeok... Fire Agency Raises Response to Level 3 (Comprehensive)'",
+    "url": "https://www.asiae.co.kr/en/article/2025032520253844170",
+    "published": "2025-03-25 20:25 (inferred from URL ID)",
+    "retrieved": "2026-11-18T10:43Z",
+    "access": "search snippet only"
+   },
+   "location": "shortest path 황장리→화매리, 620 edges; share on route 34 0.15, 911 0.82",
+   "n_cells": 16,
+   "issue_kst": "03-25 18:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 19:29",
+    "error_min": 20,
+    "status": "compared"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 18:16",
+    "error_min": -52,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "model_kst": "03-26 00:37",
+    "error_min": 329,
+    "status": "compared"
+   },
+   "WORST": {
+    "model_kst": "03-25 18:00",
+    "error_min": null,
+    "error_bound_min": -69,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 19:18",
+    "error_min": 10,
+    "status": "compared"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 19:18",
+    "error_min": 10,
+    "status": "compared"
+   },
+   "reconstruction_kst": "03-25 18:02",
+   "reconstruction_error_min": -66,
+   "toa_kst": "03-26 01:53",
+   "toa_error_min": 404
+  },
+  {
+   "id": "RD10",
+   "kind": "road closure",
+   "what": "황장재 통행제한 (CBS time)",
+   "recorded_kst": "2025-03-25 18:25",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "location": "route-34 cells in 지품면 west of 황장리 (284 edges)",
+   "n_cells": 7,
+   "issue_kst": "03-25 17:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "",
+    "error_min": null,
+    "status": "MISS: not closed by 03-26 01:00"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 18:14",
+    "error_min": -11,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "model_kst": "",
+    "error_min": null,
+    "status": "MISS: not closed by 03-26 01:00"
+   },
+   "WORST": {
+    "model_kst": "03-25 17:52",
+    "error_min": -33,
+    "status": "compared"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 23:22",
+    "error_min": 297,
+    "status": "compared"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 23:22",
+    "error_min": 297,
+    "status": "compared"
+   },
+   "reconstruction_kst": "03-25 18:00",
+   "reconstruction_error_min": -25,
+   "toa_kst": "03-26 01:53",
+   "toa_error_min": 448
+  },
+  {
+   "id": "RD11",
+   "kind": "road closure",
+   "what": "국도 34 (구미~황장) 교통 통제",
+   "recorded_kst": "2025-03-25 18:58",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "location": "shortest path 구미리→황장리, 1115 edges; share on route 34 0.71, 911 0.0",
+   "n_cells": 81,
+   "issue_kst": "03-25 17:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "",
+    "error_min": null,
+    "status": "MISS: not closed by 03-26 01:00"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 18:26",
+    "error_min": -31,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "model_kst": "",
+    "error_min": null,
+    "status": "MISS: not closed by 03-26 01:00"
+   },
+   "WORST": {
+    "model_kst": "03-25 18:04",
+    "error_min": -53,
+    "status": "compared"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-26 00:51",
+    "error_min": 353,
+    "status": "compared"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-26 00:51",
+    "error_min": 353,
+    "status": "compared"
+   },
+   "reconstruction_kst": "03-25 18:02",
+   "reconstruction_error_min": -56,
+   "toa_kst": "03-26 01:44",
+   "toa_error_min": 406
+  },
+  {
+   "id": "RD12",
+   "kind": "road closure",
+   "what": "지품면 도계 → 영양 방향 도로통제",
+   "recorded_kst": "2025-03-25 19:04",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "location": "shortest path 도계리→화매리, 1444 edges; share on route 34 0.42, 911 0.35",
+   "n_cells": 72,
+   "issue_kst": "03-25 18:00",
+   "lead_ge_1h": true,
+   "MEASURED": {
+    "model_kst": "03-25 19:33",
+    "error_min": 30,
+    "status": "compared"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 18:17",
+    "error_min": -47,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "model_kst": "03-26 00:56",
+    "error_min": 353,
+    "status": "compared"
+   },
+   "WORST": {
+    "model_kst": "03-25 18:00",
+    "error_min": null,
+    "error_bound_min": -64,
+    "status": "closed at issue (error <= bound)"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 19:22",
+    "error_min": 19,
+    "status": "compared"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 19:22",
+    "error_min": 19,
+    "status": "compared"
+   },
+   "reconstruction_kst": "03-25 18:02",
+   "reconstruction_error_min": -62,
+   "toa_kst": "03-26 01:45",
+   "toa_error_min": 402
+  },
+  {
+   "id": "RD13",
+   "kind": "road closure",
+   "what": "국도 7 송라면 지경삼거리 → 영덕 방향 교통 통제",
+   "recorded_kst": "2025-03-25 21:58",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "location": "outside model domain (포항 송라면, south of the 영덕 grid)",
+   "n_cells": 0,
+   "status": "NOT COMPARED: outside model domain (포항 송라면, south of the 영덕 grid)"
+  }
+ ],
+ "roads_excluded": {
+  "R2": "same closure as R1 with a different end (청송JC); reported as a conflict, not a second record",
+  "R6": "no clock time",
+  "R8": "reopening, not a closure",
+  "R10": "status snapshot, not a start time",
+  "R11_context_24Mar": "24 March, before the replay window"
+ },
+ "road_error_summary": {
+  "MEASURED": {
+   "n_compared": 2,
+   "n_miss": 2,
+   "n_closed_at_issue": 8,
+   "n_not_compared": 1,
+   "median_abs_error_min": null,
+   "median_error_min": null,
+   "within_30": null,
+   "within_60": null
+  },
+  "RUNNING": {
+   "n_compared": 4,
+   "n_miss": 0,
+   "n_closed_at_issue": 8,
+   "n_not_compared": 1,
+   "median_abs_error_min": 39.0,
+   "median_error_min": -39.0,
+   "within_30": 1,
+   "within_60": 4
+  },
+  "ORDINARY": {
+   "n_compared": 2,
+   "n_miss": 2,
+   "n_closed_at_issue": 8,
+   "n_not_compared": 1,
+   "median_abs_error_min": null,
+   "median_error_min": null,
+   "within_30": null,
+   "within_60": null
+  },
+  "WORST": {
+   "n_compared": 2,
+   "n_miss": 0,
+   "n_closed_at_issue": 10,
+   "n_not_compared": 1,
+   "median_abs_error_min": null,
+   "median_error_min": null,
+   "within_30": null,
+   "within_60": null
+  },
+  "MEASURED_GUST_KMA": {
+   "n_compared": 4,
+   "n_miss": 0,
+   "n_closed_at_issue": 8,
+   "n_not_compared": 1,
+   "median_abs_error_min": 158.0,
+   "median_error_min": 158.0,
+   "within_30": 2,
+   "within_60": 2
+  },
+  "MEASURED_GUST": {
+   "n_compared": 4,
+   "n_miss": 0,
+   "n_closed_at_issue": 8,
+   "n_not_compared": 1,
+   "median_abs_error_min": 158.0,
+   "median_error_min": 158.0,
+   "within_30": 2,
+   "within_60": 2
+  }
+ },
+ "evacuation": [
+  {
+   "id": "EV1",
+   "kind": "evacuation order",
+   "what": "안동시 ['어담리', '금계리', '인금리']",
+   "recorded_kst": "2025-03-25 15:31",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "머니투데이",
+    "url": "https://www.mt.co.kr/policy/2025/03/25/2025032516313321381",
+    "published": "2025-03-25 (URL id suggests 16:31 KST)",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only"
+   },
+   "n_places": 2,
+   "issue_kst": "03-25 15:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 1,
+     "NONE": 1
+    },
+    "states": {
+     "CUT": 2
+    },
+    "n_cut": 2,
+    "median_T_road_kst": "03-25 18:13",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 17:44",
+    "order_minus_median_T_road_min": -163
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 2
+    },
+    "states": {
+     "CUT": 2
+    },
+    "n_cut": 2,
+    "median_T_road_kst": "03-25 15:18",
+    "n_T_village_within_H": 2,
+    "median_T_village_kst": "03-25 15:35",
+    "order_minus_median_T_road_min": 12
+   }
+  },
+  {
+   "id": "EV2",
+   "kind": "evacuation order",
+   "what": "의성군 ['단촌면']",
+   "recorded_kst": "2025-03-25 16:14",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "뉴스타파",
+    "url": "https://newstapa.org/article/Z7eDJ",
+    "published": "2025-04-02",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only"
+   },
+   "n_places": 9,
+   "issue_kst": "03-25 16:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 9
+    },
+    "states": {
+     "INSIDE": 8,
+     "NO_WINDOW": 1
+    },
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 16:39",
+    "order_minus_median_T_road_min": null
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 9
+    },
+    "states": {
+     "INSIDE": 8,
+     "NO_WINDOW": 1
+    },
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 16:07",
+    "order_minus_median_T_road_min": null
+   }
+  },
+  {
+   "id": "EV3",
+   "kind": "evacuation order",
+   "what": "영덕군 ['지품면']",
+   "recorded_kst": "2025-03-25 16:30",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "대구MBC",
+    "url": "https://dgmbc.com/NewsArticle/628364",
+    "published": "2025 (exact date not captured)",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only",
+    "note": "면장's own order, '4시 반경' (approximate)"
+   },
+   "n_places": 19,
+   "issue_kst": "03-25 16:00",
+   "MEASURED": {
+    "steps": {
+     "NONE": 19
+    },
+    "states": {
+     "NOT_CUT_WITHIN_H": 19
+    },
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 0,
+    "median_T_village_kst": "",
+    "order_minus_median_T_road_min": null
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 19
+    },
+    "states": {
+     "CUT": 19
+    },
+    "n_cut": 19,
+    "median_T_road_kst": "03-25 19:25",
+    "n_T_village_within_H": 19,
+    "median_T_village_kst": "03-25 19:26",
+    "order_minus_median_T_road_min": -176
+   }
+  },
+  {
+   "id": "EV4",
+   "kind": "evacuation order",
+   "what": "안동시 ['하회리']",
+   "recorded_kst": "2025-03-25 16:55",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "세계일보",
+    "url": "https://www.segye.com/newsView/20250325516986",
+    "published": "2025-03-25",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only",
+    "note": "'4시 55분쯤' (approximate)"
+   },
+   "n_places": 0,
+   "issue_kst": "03-25 16:00",
+   "MEASURED": {
+    "steps": {},
+    "states": {},
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 0,
+    "median_T_village_kst": "",
+    "order_minus_median_T_road_min": null
+   },
+   "RUNNING": {
+    "steps": {},
+    "states": {},
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 0,
+    "median_T_village_kst": "",
+    "order_minus_median_T_road_min": null
+   }
+  },
+  {
+   "id": "EV5",
+   "kind": "evacuation order",
+   "what": "안동시 (whole county)",
+   "recorded_kst": "2025-03-25 17:00",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "아시아경제 (English edition); YTN",
+    "url": "https://www.asiae.co.kr/en/article/2025032614215723715 ; https://www.asiae.co.kr/en/article/2025032517294405842 ; https://www.ytn.co.kr/_ln/0134_202503251735218136",
+    "published": "asiae 2025-03-26 ~14:21 KST and 2025-03-25 ~17:29 KST (URL ids); YTN 2025-03-25 ~17:35 KST (URL id)",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only",
+    "note": "English edition; called 대피령 by some outlets, 권고 by YTN"
+   },
+   "n_places": 37,
+   "issue_kst": "03-25 17:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 37
+    },
+    "states": {
+     "CUT": 1,
+     "NO_WINDOW": 5,
+     "INSIDE": 31
+    },
+    "n_cut": 1,
+    "median_T_road_kst": "03-25 17:28",
+    "n_T_village_within_H": 6,
+    "median_T_village_kst": "03-25 17:24",
+    "order_minus_median_T_road_min": -28
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 37
+    },
+    "states": {
+     "CUT": 1,
+     "NO_WINDOW": 5,
+     "INSIDE": 31
+    },
+    "n_cut": 1,
+    "median_T_road_kst": "03-25 17:02",
+    "n_T_village_within_H": 6,
+    "median_T_village_kst": "03-25 17:04",
+    "order_minus_median_T_road_min": -2
+   }
+  },
+  {
+   "id": "EV6",
+   "kind": "evacuation order",
+   "what": "청송군 (whole county)",
+   "recorded_kst": "2025-03-25 17:44",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "쿠키뉴스",
+    "url": "https://www.kukinews.com/article/view/kuk202503250280",
+    "published": "2025-03-25",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only",
+    "note": "'5시 44분쯤' (approximate); 안전안내문자"
+   },
+   "n_places": 3,
+   "issue_kst": "03-25 17:00",
+   "MEASURED": {
+    "steps": {
+     "NONE": 3
+    },
+    "states": {
+     "NOT_CUT_WITHIN_H": 3
+    },
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 0,
+    "median_T_village_kst": "",
+    "order_minus_median_T_road_min": null
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 3
+    },
+    "states": {
+     "CUT": 3
+    },
+    "n_cut": 3,
+    "median_T_road_kst": "03-25 18:17",
+    "n_T_village_within_H": 3,
+    "median_T_village_kst": "03-25 18:52",
+    "order_minus_median_T_road_min": -33
+   }
+  },
+  {
+   "id": "EV7",
+   "kind": "evacuation order",
+   "what": "영덕군 ['지품면', '달산면']",
+   "recorded_kst": "2025-03-25 18:00",
+   "flag": "REPORTED (county log via one outlet)",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "n_places": 30,
+   "issue_kst": "03-25 18:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 10,
+     "NONE": 15,
+     "PREPARE_VULNERABLE_FIRST": 5
+    },
+    "states": {
+     "CUT": 15,
+     "NOT_CUT_WITHIN_H": 15
+    },
+    "n_cut": 15,
+    "median_T_road_kst": "03-25 21:45",
+    "n_T_village_within_H": 15,
+    "median_T_village_kst": "03-25 21:49",
+    "order_minus_median_T_road_min": -225
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 30
+    },
+    "states": {
+     "CUT": 30
+    },
+    "n_cut": 30,
+    "median_T_road_kst": "03-25 19:09",
+    "n_T_village_within_H": 30,
+    "median_T_village_kst": "03-25 19:11",
+    "order_minus_median_T_road_min": -69
+   }
+  },
+  {
+   "id": "EV8",
+   "kind": "evacuation order",
+   "what": "영양군 ['석보면']",
+   "recorded_kst": "2025-03-25 18:47",
+   "flag": "REPORTED",
+   "source": {
+    "outlet": "Korean outlet not pinned (snippet surfaced among 경북매일 kbmaeil 202503250913432 / 세계일보 20250326520531 results); English: 아시아경제",
+    "url": "https://kbmaeil.com/article/202503250913432 ; https://www.asiae.co.kr/en/article/2025032520253844170",
+    "published": "kbmaeil 2025-03-25; asiae EN 2025-03-25 ~20:25 KST (URL id)",
+    "retrieved": "2026-11-18 (search session 10:38-10:47 UTC)",
+    "access": "search snippet only",
+    "note": "'6시 47분쯤' (approximate)"
+   },
+   "n_places": 5,
+   "issue_kst": "03-25 18:00",
+   "MEASURED": {
+    "steps": {
+     "PREPARE_VULNERABLE_FIRST": 1,
+     "LEAVE_NOW": 4
+    },
+    "states": {
+     "CUT": 5
+    },
+    "n_cut": 5,
+    "median_T_road_kst": "03-25 20:27",
+    "n_T_village_within_H": 5,
+    "median_T_village_kst": "03-25 20:32",
+    "order_minus_median_T_road_min": -101
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 5
+    },
+    "states": {
+     "CUT": 5
+    },
+    "n_cut": 5,
+    "median_T_road_kst": "03-25 18:23",
+    "n_T_village_within_H": 5,
+    "median_T_village_kst": "03-25 18:28",
+    "order_minus_median_T_road_min": 23
+   }
+  },
+  {
+   "id": "EV9",
+   "kind": "evacuation order",
+   "what": "영덕군 ['옥류리']",
+   "recorded_kst": "2025-03-25 18:52",
+   "flag": "REPORTED (county log via one outlet)",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "n_places": 1,
+   "issue_kst": "03-25 18:00",
+   "MEASURED": {
+    "steps": {
+     "NONE": 1
+    },
+    "states": {
+     "NOT_CUT_WITHIN_H": 1
+    },
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 0,
+    "median_T_village_kst": "",
+    "order_minus_median_T_road_min": null
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 1
+    },
+    "states": {
+     "CUT": 1
+    },
+    "n_cut": 1,
+    "median_T_road_kst": "03-25 19:24",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 19:26",
+    "order_minus_median_T_road_min": -32
+   }
+  },
+  {
+   "id": "EV10",
+   "kind": "evacuation order",
+   "what": "영덕군 ['대리']",
+   "recorded_kst": "2025-03-25 19:18",
+   "flag": "REPORTED (county log via one outlet)",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "n_places": 1,
+   "issue_kst": "03-25 19:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 1
+    },
+    "states": {
+     "CUT": 1
+    },
+    "n_cut": 1,
+    "median_T_road_kst": "03-25 19:08",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 19:24",
+    "order_minus_median_T_road_min": 10
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 1
+    },
+    "states": {
+     "NO_WINDOW": 1
+    },
+    "n_cut": 0,
+    "median_T_road_kst": "",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 19:04",
+    "order_minus_median_T_road_min": null
+   }
+  },
+  {
+   "id": "EV11",
+   "kind": "evacuation order",
+   "what": "영덕군 (whole county)",
+   "recorded_kst": "2025-03-25 19:30",
+   "flag": "REPORTED (county log via one outlet)",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "n_places": 82,
+   "issue_kst": "03-25 19:00",
+   "MEASURED": {
+    "steps": {
+     "NONE": 36,
+     "PREPARE_VULNERABLE_FIRST": 14,
+     "LEAVE_NOW": 32
+    },
+    "states": {
+     "NOT_CUT_WITHIN_H": 37,
+     "CUT": 36,
+     "INSIDE": 9
+    },
+    "n_cut": 36,
+    "median_T_road_kst": "03-25 22:47",
+    "n_T_village_within_H": 37,
+    "median_T_village_kst": "03-25 22:53",
+    "order_minus_median_T_road_min": -198
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 82
+    },
+    "states": {
+     "CUT": 72,
+     "INSIDE": 9,
+     "NO_WINDOW": 1
+    },
+    "n_cut": 72,
+    "median_T_road_kst": "03-25 20:13",
+    "n_T_village_within_H": 73,
+    "median_T_village_kst": "03-25 20:13",
+    "order_minus_median_T_road_min": -43
+   }
+  },
+  {
+   "id": "EV12",
+   "kind": "evacuation order",
+   "what": "영덕군 ['창수면']",
+   "recorded_kst": "2025-03-25 19:40",
+   "flag": "REPORTED (county log via one outlet)",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "n_places": 1,
+   "issue_kst": "03-25 19:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 1
+    },
+    "states": {
+     "CUT": 1
+    },
+    "n_cut": 1,
+    "median_T_road_kst": "03-25 22:05",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 22:06",
+    "order_minus_median_T_road_min": -145
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 1
+    },
+    "states": {
+     "CUT": 1
+    },
+    "n_cut": 1,
+    "median_T_road_kst": "03-25 19:33",
+    "n_T_village_within_H": 1,
+    "median_T_village_kst": "03-25 19:34",
+    "order_minus_median_T_road_min": 6
+   }
+  },
+  {
+   "id": "EV13",
+   "kind": "evacuation order",
+   "what": "영덕군 (whole county)",
+   "recorded_kst": "2025-03-25 21:00",
+   "flag": "REPORTED (county log via one outlet)",
+   "source": {
+    "outlet": "뉴스로 (영덕군 조치사항 log, one outlet)",
+    "url": "https://www.newsro.kr/articles/832886",
+    "published": "2025-03-29 14:43",
+    "retrieved": "2026-11-16 (page read, HTTP 200; research/kcf-replay/SOURCES.md)",
+    "access": "full page"
+   },
+   "n_places": 82,
+   "issue_kst": "03-25 21:00",
+   "MEASURED": {
+    "steps": {
+     "LEAVE_NOW": 82
+    },
+    "states": {
+     "CUT": 49,
+     "INSIDE": 32,
+     "NO_WINDOW": 1
+    },
+    "n_cut": 49,
+    "median_T_road_kst": "03-25 23:09",
+    "n_T_village_within_H": 50,
+    "median_T_village_kst": "03-25 23:17",
+    "order_minus_median_T_road_min": -130
+   },
+   "RUNNING": {
+    "steps": {
+     "LEAVE_NOW": 82
+    },
+    "states": {
+     "CUT": 46,
+     "INSIDE": 32,
+     "NO_WINDOW": 4
+    },
+    "n_cut": 46,
+    "median_T_road_kst": "03-25 21:23",
+    "n_T_village_within_H": 50,
+    "median_T_village_kst": "03-25 21:25",
+    "order_minus_median_T_road_min": -24
+   }
+  }
+ ],
+ "evacuation_excluded": {
+  "AND-02": "count of texts; same start as AND-01",
+  "AND-05": "no clock time",
+  "AND-06": "university, not a planner place",
+  "AND-07": "no clock time",
+  "AND-08": "24 March",
+  "AND-09": "24 March",
+  "AND-10": "no clock time",
+  "AND-11": "26 March evening, after the replay",
+  "CS-02": "no clock time",
+  "CS-03": "plan, no time",
+  "YY-02": "no clock time",
+  "YD-01": "no explicit time (17:54 + 6 min is arithmetic); the 뉴스로 18:00 row is EV7",
+  "YD-02": "21:00 = EV13 (뉴스로); conflicts with 뉴스로's 18:00 CBS",
+  "YD-03": "19:30 = EV11 (English edition)",
+  "YD-04": "a road-control text (RD9), not an evacuation",
+  "YD-06": "facility notice, English edition only, approximate",
+  "US-02": "24 March",
+  "US-03": "no clock time"
+ },
+ "burned_area": {
+  "map": {
+   "yeongdeok_2025": {
+    "pre": "S2B_52SEF_20250314_0_L2A",
+    "post": "S2C_52SEF_20250408_0_L2A",
+    "pixels_in_grid": 1671336,
+    "valid_pixels": 1555156,
+    "burned_area_km2": {
+     "0.1": 211.68,
+     "0.27": 101.08
+    },
+    "cells": {
+     "0.1": {
+      "B": 1854,
+      "U": 2580,
+      "N": 323
+     },
+     "0.27": {
+      "B": 1082,
+      "U": 3352,
+      "N": 323
+     }
+    }
+   },
+   "uiseong_andong_2025": {
+    "pre": "S2B_52SDF_20250314_0_L2A",
+    "post": "S2C_52SDF_20250428_0_L2A",
+    "pixels_in_grid": 1667718,
+    "valid_pixels": 1554828,
+    "burned_area_km2": {
+     "0.1": 235.99,
+     "0.27": 174.13
+    },
+    "cells": {
+     "0.1": {
+      "B": 2147,
+      "U": 2302,
+      "N": 296
+     },
+     "0.27": {
+      "B": 1789,
+      "U": 2660,
+      "N": 296
+     }
+    }
+   }
+  },
+  "places": {
+   "R/MEASURED/8h/dNBR>=0.1": {
+    "false_alarm": 117,
+    "hit": 55,
+    "not_assessable": 2
+   },
+   "R/RUNNING/8h/dNBR>=0.1": {
+    "false_alarm": 117,
+    "hit": 55,
+    "not_assessable": 2
+   },
+   "R/ORDINARY/8h/dNBR>=0.1": {
+    "false_alarm": 108,
+    "hit": 55,
+    "not_assessable": 2,
+    "correct_negative": 9
+   },
+   "R/WORST/8h/dNBR>=0.1": {
+    "false_alarm": 117,
+    "hit": 55,
+    "not_assessable": 2
+   },
+   "R/MEASURED_GUST_KMA/8h/dNBR>=0.1": {
+    "false_alarm": 117,
+    "hit": 55,
+    "not_assessable": 2
+   },
+   "R/MEASURED_GUST/8h/dNBR>=0.1": {
+    "false_alarm": 117,
+    "hit": 55,
+    "not_assessable": 2
+   },
+   "M/kriged_mean/8h/dNBR>=0.1": {
+    "false_alarm": 54,
+    "correct_negative": 63,
+    "hit": 53,
+    "not_assessable": 2,
+    "miss": 2
+   },
+   "M/firms_early/8h/dNBR>=0.1": {
+    "false_alarm": 55,
+    "correct_negative": 62,
+    "hit": 53,
+    "not_assessable": 2,
+    "miss": 2
+   },
+   "M/envelope/8h/dNBR>=0.1": {
+    "false_alarm": 55,
+    "correct_negative": 62,
+    "hit": 53,
+    "not_assessable": 2,
+    "miss": 2
+   },
+   "R/MEASURED/8h/dNBR>=0.27": {
+    "false_alarm": 144,
+    "hit": 28,
+    "not_assessable": 2
+   },
+   "R/RUNNING/8h/dNBR>=0.27": {
+    "false_alarm": 144,
+    "hit": 28,
+    "not_assessable": 2
+   },
+   "R/ORDINARY/8h/dNBR>=0.27": {
+    "false_alarm": 135,
+    "hit": 28,
+    "not_assessable": 2,
+    "correct_negative": 9
+   },
+   "R/WORST/8h/dNBR>=0.27": {
+    "false_alarm": 144,
+    "hit": 28,
+    "not_assessable": 2
+   },
+   "R/MEASURED_GUST_KMA/8h/dNBR>=0.27": {
+    "false_alarm": 144,
+    "hit": 28,
+    "not_assessable": 2
+   },
+   "R/MEASURED_GUST/8h/dNBR>=0.27": {
+    "false_alarm": 144,
+    "hit": 28,
+    "not_assessable": 2
+   },
+   "M/kriged_mean/8h/dNBR>=0.27": {
+    "false_alarm": 80,
+    "correct_negative": 64,
+    "hit": 27,
+    "not_assessable": 2,
+    "miss": 1
+   },
+   "M/firms_early/8h/dNBR>=0.27": {
+    "false_alarm": 81,
+    "correct_negative": 63,
+    "hit": 27,
+    "not_assessable": 2,
+    "miss": 1
+   },
+   "M/envelope/8h/dNBR>=0.27": {
+    "false_alarm": 81,
+    "correct_negative": 63,
+    "hit": 27,
+    "not_assessable": 2,
+    "miss": 1
+   }
+  },
+  "cells": {
+   "R/MEASURED/8h@24:00KST/dNBR>=0.1": {
+    "false_alarm": 4882,
+    "hit": 4001,
+    "not_assessable": 619
+   },
+   "R/RUNNING/8h@24:00KST/dNBR>=0.1": {
+    "false_alarm": 4882,
+    "hit": 4001,
+    "not_assessable": 619
+   },
+   "R/ORDINARY/8h@24:00KST/dNBR>=0.1": {
+    "correct_negative": 486,
+    "miss": 7,
+    "not_assessable": 619,
+    "false_alarm": 4396,
+    "hit": 3994
+   },
+   "R/WORST/8h@24:00KST/dNBR>=0.1": {
+    "false_alarm": 4882,
+    "hit": 4001,
+    "not_assessable": 619
+   },
+   "R/MEASURED_GUST_KMA/8h@24:00KST/dNBR>=0.1": {
+    "correct_negative": 444,
+    "miss": 5,
+    "not_assessable": 619,
+    "false_alarm": 4438,
+    "hit": 3996
+   },
+   "R/MEASURED_GUST/8h@24:00KST/dNBR>=0.1": {
+    "false_alarm": 4817,
+    "hit": 4000,
+    "correct_negative": 65,
+    "not_assessable": 619,
+    "miss": 1
+   },
+   "reconstruction (all detections to 26 Mar 02:58 KST)/dNBR>=0.1": {
+    "correct_negative": 1059,
+    "miss": 13,
+    "not_assessable": 619,
+    "false_alarm": 3823,
+    "hit": 3988
+   },
+   "R/MEASURED/8h@24:00KST/dNBR>=0.27": {
+    "false_alarm": 6012,
+    "not_assessable": 619,
+    "hit": 2871
+   },
+   "R/RUNNING/8h@24:00KST/dNBR>=0.27": {
+    "false_alarm": 6012,
+    "not_assessable": 619,
+    "hit": 2871
+   },
+   "R/ORDINARY/8h@24:00KST/dNBR>=0.27": {
+    "correct_negative": 493,
+    "not_assessable": 619,
+    "false_alarm": 5519,
+    "hit": 2871
+   },
+   "R/WORST/8h@24:00KST/dNBR>=0.27": {
+    "false_alarm": 6012,
+    "not_assessable": 619,
+    "hit": 2871
+   },
+   "R/MEASURED_GUST_KMA/8h@24:00KST/dNBR>=0.27": {
+    "correct_negative": 449,
+    "not_assessable": 619,
+    "false_alarm": 5563,
+    "hit": 2871
+   },
+   "R/MEASURED_GUST/8h@24:00KST/dNBR>=0.27": {
+    "false_alarm": 5946,
+    "correct_negative": 66,
+    "not_assessable": 619,
+    "hit": 2871
+   },
+   "reconstruction (all detections to 26 Mar 02:58 KST)/dNBR>=0.27": {
+    "correct_negative": 1072,
+    "not_assessable": 619,
+    "false_alarm": 4940,
+    "hit": 2871
+   }
+  }
+ },
+ "village_accounts": [
+  {
+   "id": "VA1",
+   "kind": "village fire arrival (account)",
+   "what": "매정리: fire in the village, one resident's account (20:30 + 10 min, derived)",
+   "recorded_kst": "2025-03-25 20:40",
+   "flag": "REPORTED, single source",
+   "source": "한국일보 2025-03-27, https://www.hankookilbo.com/news/article/A2025032714350000238",
+   "issue_kst": "03-25 19:00",
+   "n_places": 1,
+   "MEASURED": {
+    "status": "MISS: not reached by 03-26 03:00"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 20:38",
+    "error_min": -2,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "status": "MISS: not reached by 03-26 03:00"
+   },
+   "WORST": {
+    "model_kst": "03-25 20:16",
+    "error_min": -24,
+    "status": "compared"
+   },
+   "MEASURED_GUST_KMA": {
+    "status": "MISS: not reached by 03-26 03:00"
+   },
+   "MEASURED_GUST": {
+    "status": "MISS: not reached by 03-26 03:00"
+   }
+  },
+  {
+   "id": "VA2",
+   "kind": "village fire arrival (account)",
+   "what": "화매리: '화염이 마을 가장자리까지' ~18:00",
+   "recorded_kst": "2025-03-25 18:00",
+   "flag": "REPORTED, single source",
+   "source": "매일신문 2025-03-26, https://www.imaeil.com/page/view/2025032616432400355",
+   "issue_kst": "03-25 17:00",
+   "n_places": 1,
+   "MEASURED": {
+    "status": "MISS: not reached by 03-26 01:00"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 18:42",
+    "error_min": 43,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "status": "MISS: not reached by 03-26 01:00"
+   },
+   "WORST": {
+    "model_kst": "03-25 18:20",
+    "error_min": 21,
+    "status": "compared"
+   },
+   "MEASURED_GUST_KMA": {
+    "status": "MISS: not reached by 03-26 01:00"
+   },
+   "MEASURED_GUST": {
+    "status": "MISS: not reached by 03-26 01:00"
+   }
+  },
+  {
+   "id": "VA3",
+   "kind": "village fire arrival (account)",
+   "what": "강구리: 면-level: fire ~30 min after the 00:07 text (derived)",
+   "recorded_kst": "2025-03-26 00:37",
+   "flag": "REPORTED, single source",
+   "source": "경향신문 2025-03-26, https://www.khan.co.kr/article/202503261311001",
+   "issue_kst": "03-25 23:00",
+   "n_places": 1,
+   "MEASURED": {
+    "model_kst": "03-25 23:09",
+    "error_min": -88,
+    "status": "compared"
+   },
+   "RUNNING": {
+    "model_kst": "03-25 23:01",
+    "error_min": -95,
+    "status": "compared"
+   },
+   "ORDINARY": {
+    "model_kst": "03-25 23:40",
+    "error_min": -57,
+    "status": "compared"
+   },
+   "WORST": {
+    "model_kst": "03-25 23:00",
+    "error_min": -97,
+    "status": "compared"
+   },
+   "MEASURED_GUST_KMA": {
+    "model_kst": "03-25 23:26",
+    "error_min": -71,
+    "status": "compared"
+   },
+   "MEASURED_GUST": {
+    "model_kst": "03-25 23:14",
+    "error_min": -82,
+    "status": "compared"
+   }
+  }
+ ],
+ "place_town": {
+  "osm:node/11753630207": [
+   "영덕군",
+   "영해면",
+   "괴시리전통마을"
+  ],
+  "osm:node/415160154": [
+   "영덕군",
+   "강구면",
+   "강구리"
+  ],
+  "osm:node/415160201": [
+   "영덕군",
+   "축산면",
+   "경정리"
+  ],
+  "osm:node/415160204": [
+   "영덕군",
+   "축산면",
+   "고곡리"
+  ],
+  "osm:node/415158186": [
+   "영덕군",
+   "영해면",
+   "괴시리"
+  ],
+  "osm:node/415160206": [
+   "영덕군",
+   "영덕읍",
+   "구미리"
+  ],
+  "osm:node/415160155": [
+   "영덕군",
+   "강구면",
+   "금진리"
+  ],
+  "osm:node/415160156": [
+   "영덕군",
+   "강구면",
+   "금호리"
+  ],
+  "osm:node/415160309": [
+   "영덕군",
+   "지품면",
+   "기사리"
+  ],
+  "osm:node/415160190": [
+   "영덕군",
+   "축산면",
+   "기암리"
+  ],
+  "osm:node/415160311": [
+   "영덕군",
+   "지품면",
+   "낙평리"
+  ],
+  "osm:node/415160164": [
+   "영덕군",
+   "영덕읍",
+   "남산리"
+  ],
+  "osm:node/415160162": [
+   "영덕군",
+   "영덕읍",
+   "남석리"
+  ],
+  "osm:node/415160150": [
+   "영덕군",
+   "남정면",
+   "남정리"
+  ],
+  "osm:node/415160143": [
+   "영덕군",
+   "남정면",
+   "남호리"
+  ],
+  "osm:node/415160319": [
+   "청송군",
+   "주왕산면",
+   "내룡리"
+  ],
+  "osm:node/415160193": [
+   "영덕군",
+   "영덕읍",
+   "노물리"
+  ],
+  "osm:node/415160189": [
+   "영덕군",
+   "지품면",
+   "눌곡리"
+  ],
+  "osm:node/415160197": [
+   "영덕군",
+   "축산면",
+   "대곡리"
+  ],
+  "osm:node/415158166": [
+   "영덕군",
+   "영해면",
+   "대리"
+  ],
+  "osm:node/415160159": [
+   "영덕군",
+   "영덕읍",
+   "대부리"
+  ],
+  "osm:node/415160168": [
+   "영덕군",
+   "달산면",
+   "대지리"
+  ],
+  "osm:node/415160205": [
+   "영덕군",
+   "영덕읍",
+   "대탄리"
+  ],
+  "osm:node/415160157": [
+   "영덕군",
+   "영덕읍",
+   "덕곡리"
+  ],
+  "osm:node/415160315": [
+   "영덕군",
+   "달산면",
+   "덕산리"
+  ],
+  "osm:node/415160183": [
+   "영덕군",
+   "지품면",
+   "도계리"
+  ],
+  "osm:node/415158184": [
+   "영덕군",
+   "축산면",
+   "도곡리"
+  ],
+  "osm:node/415160171": [
+   "영덕군",
+   "달산면",
+   "매일리"
+  ],
+  "osm:node/415160192": [
+   "영덕군",
+   "영덕읍",
+   "매정리"
+  ],
+  "osm:node/415158181": [
+   "영덕군",
+   "영해면",
+   "묘곡리"
+  ],
+  "osm:node/415158183": [
+   "영덕군",
+   "영해면",
+   "벌영리"
+  ],
+  "osm:node/415160313": [
+   "영덕군",
+   "지품면",
+   "복곡리"
+  ],
+  "osm:node/415160317": [
+   "영덕군",
+   "달산면",
+   "봉산리"
+  ],
+  "osm:node/415158182": [
+   "영덕군",
+   "축산면",
+   "부곡리"
+  ],
+  "osm:node/415160132": [
+   "영덕군",
+   "남정면",
+   "사암리"
+  ],
+  "osm:node/415158212": [
+   "영덕군",
+   "영해면",
+   "사진리"
+  ],
+  "osm:node/415160209": [
+   "영덕군",
+   "영덕읍",
+   "삼계리"
+  ],
+  "osm:node/415160153": [
+   "영덕군",
+   "강구면",
+   "삼사리"
+  ],
+  "osm:node/415158320": [
+   "영양군",
+   "석보면",
+   "삼의리"
+  ],
+  "osm:node/415160187": [
+   "영덕군",
+   "지품면",
+   "삼화리"
+  ],
+  "osm:node/415160203": [
+   "영덕군",
+   "축산면",
+   "상원리"
+  ],
+  "osm:node/415160163": [
+   "영덕군",
+   "강구면",
+   "상직리"
+  ],
+  "osm:node/415160200": [
+   "영덕군",
+   "영덕읍",
+   "석리"
+  ],
+  "osm:node/415158185": [
+   "영덕군",
+   "영해면",
+   "성내리"
+  ],
+  "osm:node/415160151": [
+   "영덕군",
+   "강구면",
+   "소월리"
+  ],
+  "osm:node/415160185": [
+   "영덕군",
+   "지품면",
+   "속곡리"
+  ],
+  "osm:node/415160314": [
+   "영덕군",
+   "지품면",
+   "송천리"
+  ],
+  "osm:node/415160310": [
+   "영덕군",
+   "지품면",
+   "수암리"
+  ],
+  "osm:node/415158168": [
+   "영덕군",
+   "창수면",
+   "신기리"
+  ],
+  "osm:node/415160182": [
+   "영덕군",
+   "지품면",
+   "신안리"
+  ],
+  "osm:node/415160166": [
+   "영덕군",
+   "지품면",
+   "신애리"
+  ],
+  "osm:node/415160167": [
+   "영덕군",
+   "지품면",
+   "신양리"
+  ],
+  "osm:node/415158259": [
+   "영양군",
+   "석보면",
+   "신평리"
+  ],
+  "osm:node/415158187": [
+   "영덕군",
+   "영해면",
+   "연평리"
+  ],
+  "osm:node/415160194": [
+   "영덕군",
+   "영덕읍",
+   "오보리"
+  ],
+  "osm:node/415160184": [
+   "영덕군",
+   "지품면",
+   "오천리"
+  ],
+  "osm:node/415160148": [
+   "영덕군",
+   "강구면",
+   "오포리"
+  ],
+  "osm:node/415160130": [
+   "영덕군",
+   "달산면",
+   "옥계리"
+  ],
+  "osm:node/415160188": [
+   "영덕군",
+   "지품면",
+   "옥류리"
+  ],
+  "osm:node/415160173": [
+   "영덕군",
+   "달산면",
+   "옥산리"
+  ],
+  "osm:node/415160178": [
+   "영덕군",
+   "지품면",
+   "용덕리"
+  ],
+  "osm:node/415160175": [
+   "영덕군",
+   "달산면",
+   "용전리"
+  ],
+  "osm:node/415160176": [
+   "영덕군",
+   "달산면",
+   "용평리"
+  ],
+  "osm:node/415160146": [
+   "영덕군",
+   "남정면",
+   "우곡리"
+  ],
+  "osm:node/415160158": [
+   "영덕군",
+   "영덕읍",
+   "우곡리"
+  ],
+  "osm:node/415158176": [
+   "영덕군",
+   "영해면",
+   "원구리"
+  ],
+  "osm:node/415160312": [
+   "영덕군",
+   "지품면",
+   "원전리"
+  ],
+  "osm:node/415160147": [
+   "영덕군",
+   "강구면",
+   "원직리"
+  ],
+  "osm:node/415160181": [
+   "영덕군",
+   "지품면",
+   "율전리"
+  ],
+  "osm:node/415160177": [
+   "영덕군",
+   "달산면",
+   "인곡리"
+  ],
+  "osm:node/415160196": [
+   "영덕군",
+   "축산면",
+   "조항리"
+  ],
+  "osm:node/415160316": [
+   "청송군",
+   "주왕산면",
+   "주산지리"
+  ],
+  "osm:node/415160172": [
+   "영덕군",
+   "달산면",
+   "주응리"
+  ],
+  "osm:node/415160169": [
+   "영덕군",
+   "남정면",
+   "중화리"
+  ],
+  "osm:node/415160302": [
+   "영덕군",
+   "지품면",
+   "지품리"
+  ],
+  "osm:node/415160202": [
+   "영덕군",
+   "영덕읍",
+   "창포리"
+  ],
+  "osm:node/415160165": [
+   "영덕군",
+   "영덕읍",
+   "천전리"
+  ],
+  "osm:node/415158213": [
+   "영덕군",
+   "축산면",
+   "축산리"
+  ],
+  "osm:node/415160195": [
+   "영덕군",
+   "축산면",
+   "칠성리"
+  ],
+  "osm:node/415158318": [
+   "영양군",
+   "석보면",
+   "택전리"
+  ],
+  "osm:node/415158321": [
+   "영양군",
+   "석보면",
+   "포산리"
+  ],
+  "osm:node/415160160": [
+   "영덕군",
+   "강구면",
+   "하저리"
+  ],
+  "osm:node/415160318": [
+   "청송군",
+   "주왕산면",
+   "항리"
+  ],
+  "osm:node/415160207": [
+   "영덕군",
+   "영덕읍",
+   "화개리"
+  ],
+  "osm:node/415158322": [
+   "영양군",
+   "석보면",
+   "화매리"
+  ],
+  "osm:node/415160208": [
+   "영덕군",
+   "영덕읍",
+   "화수리"
+  ],
+  "osm:node/415160149": [
+   "영덕군",
+   "강구면",
+   "화전리"
+  ],
+  "osm:node/415160199": [
+   "영덕군",
+   "영덕읍",
+   "화천리"
+  ],
+  "osm:node/415160303": [
+   "영덕군",
+   "지품면",
+   "황장리"
+  ],
+  "osm:node/415160170": [
+   "영덕군",
+   "달산면",
+   "흥기리"
+  ],
+  "osm:way/1372113459": [
+   "의성군",
+   null,
+   ""
+  ],
+  "osm:node/5344430780": [
+   "안동시",
+   null,
+   "마지경로당"
+  ],
+  "osm:node/5344420465": [
+   "안동시",
+   null,
+   "용상3구경로당"
+  ],
+  "osm:way/1265051875": [
+   "의성군",
+   null,
+   "의성장애인복지센터"
+  ],
+  "osm:way/1265051876": [
+   "의성군",
+   null,
+   ""
+  ],
+  "osm:node/415160356": [
+   "의성군",
+   "옥산면",
+   "감계리"
+  ],
+  "osm:node/415158550": [
+   "안동시",
+   "남후면",
+   "개곡리"
+  ],
+  "osm:node/415158421": [
+   "안동시",
+   "남후면",
+   "검암리"
+  ],
+  "osm:node/415158418": [
+   "안동시",
+   "남후면",
+   "고상리"
+  ],
+  "osm:node/415158419": [
+   "안동시",
+   "남후면",
+   "고하리"
+  ],
+  "osm:node/415160468": [
+   "의성군",
+   "단촌면",
+   "관덕리"
+  ],
+  "osm:node/415160467": [
+   "안동시",
+   "일직면",
+   "광연리"
+  ],
+  "osm:node/415158420": [
+   "안동시",
+   "남후면",
+   "광음리"
+  ],
+  "osm:node/415160420": [
+   "의성군",
+   "안평면",
+   "괴산리"
+  ],
+  "osm:node/415160471": [
+   "의성군",
+   "단촌면",
+   "구계리"
+  ],
+  "osm:node/415158324": [
+   "안동시",
+   "남선면",
+   "구미리"
+  ],
+  "osm:node/415160350": [
+   "의성군",
+   "옥산면",
+   "구성리"
+  ],
+  "osm:node/415160353": [
+   "의성군",
+   "점곡면",
+   "구암리"
+  ],
+  "osm:node/415160464": [
+   "안동시",
+   "일직면",
+   "구천리"
+  ],
+  "osm:node/415160457": [
+   "안동시",
+   "일직면",
+   "국곡리"
+  ],
+  "osm:node/415160465": [
+   "안동시",
+   "일직면",
+   "귀미리"
+  ],
+  "osm:node/415160343": [
+   "의성군",
+   "옥산면",
+   "금학리"
+  ],
+  "osm:node/415160438": [
+   "의성군",
+   "안평면",
+   "기도리"
+  ],
+  "osm:node/415158434": [
+   "안동시",
+   "남후면",
+   "단호리"
+  ],
+  "osm:node/415160439": [
+   "의성군",
+   "춘산면",
+   "대사리"
+  ],
+  "osm:node/415160483": [
+   "의성군",
+   "의성읍",
+   "도동리"
+  ],
+  "osm:node/415158537": [
+   "안동시",
+   "남선면",
+   "도로리"
+  ],
+  "osm:node/415160421": [
+   "의성군",
+   "안평면",
+   "도옥리"
+  ],
+  "osm:node/415160361": [
+   "의성군",
+   "점곡면",
+   "동변리"
+  ],
+  "osm:node/415160440": [
+   "의성군",
+   "안평면",
+   "마전리"
+  ],
+  "osm:node/415160466": [
+   "안동시",
+   "일직면",
+   "망호리"
+  ],
+  "osm:node/415160474": [
+   "의성군",
+   "점곡면",
+   "명고리"
+  ],
+  "osm:node/415160460": [
+   "안동시",
+   "일직면",
+   "명진리"
+  ],
+  "osm:node/415158553": [
+   "안동시",
+   "남후면",
+   "무릉리"
+  ],
+  "osm:node/415160424": [
+   "의성군",
+   "안평면",
+   "박곡리"
+  ],
+  "osm:node/415160434": [
+   "의성군",
+   "단촌면",
+   "방하리"
+  ],
+  "osm:node/415160475": [
+   "의성군",
+   "단촌면",
+   "병방리"
+  ],
+  "osm:node/415160415": [
+   "의성군",
+   null,
+   "분토리"
+  ],
+  "osm:node/415160358": [
+   "의성군",
+   "점곡면",
+   "사촌리"
+  ],
+  "osm:node/415160437": [
+   "의성군",
+   "안평면",
+   "삼춘리"
+  ],
+  "osm:node/415160497": [
+   "의성군",
+   "의성읍",
+   "상리리"
+  ],
+  "osm:node/415158432": [
+   "안동시",
+   "남후면",
+   "상아리"
+  ],
+  "osm:node/415160478": [
+   "의성군",
+   "단촌면",
+   "상화리"
+  ],
+  "osm:node/415160359": [
+   "의성군",
+   "점곡면",
+   "서변리"
+  ],
+  "osm:node/415160428": [
+   "의성군",
+   "안평면",
+   "석탑리"
+  ],
+  "osm:node/415160432": [
+   "의성군",
+   "단촌면",
+   "세촌리"
+  ],
+  "osm:node/415160470": [
+   "의성군",
+   "점곡면",
+   "송내리"
+  ],
+  "osm:node/415160454": [
+   "안동시",
+   "일직면",
+   "송리리"
+  ],
+  "osm:node/415160362": [
+   "의성군",
+   "옥산면",
+   "신계리"
+  ],
+  "osm:node/415158335": [
+   "안동시",
+   "임하면",
+   "신덕리"
+  ],
+  "osm:node/415158323": [
+   "안동시",
+   "남선면",
+   "신석리"
+  ],
+  "osm:node/415160416": [
+   "의성군",
+   "안평면",
+   "신안리"
+  ],
+  "osm:node/415160429": [
+   "의성군",
+   "안평면",
+   "신월리"
+  ],
+  "osm:node/415160360": [
+   "안동시",
+   "남선면",
+   "신흥리"
+  ],
+  "osm:node/415160451": [
+   "안동시",
+   "풍천면",
+   "어담리"
+  ],
+  "osm:node/415160476": [
+   "의성군",
+   "의성읍",
+   "업리"
+  ],
+  "osm:node/415160473": [
+   "안동시",
+   "남선면",
+   "외하리"
+  ],
+  "osm:node/415160458": [
+   "안동시",
+   "일직면",
+   "용각리"
+  ],
+  "osm:node/415160449": [
+   "의성군",
+   null,
+   "용봉리"
+  ],
+  "osm:node/415160456": [
+   "안동시",
+   "일직면",
+   "운산리"
+  ],
+  "osm:node/415160430": [
+   "의성군",
+   "의성읍",
+   "원당리"
+  ],
+  "osm:node/415160463": [
+   "안동시",
+   "일직면",
+   "원리"
+  ],
+  "osm:node/415158538": [
+   "안동시",
+   "남선면",
+   "원림리"
+  ],
+  "osm:node/415160455": [
+   "안동시",
+   "일직면",
+   "원호리"
+  ],
+  "osm:node/415160355": [
+   "의성군",
+   "점곡면",
+   "윤암리"
+  ],
+  "osm:node/415158334": [
+   "안동시",
+   "남선면",
+   "이천리"
+  ],
+  "osm:node/415158417": [
+   "안동시",
+   "풍천면",
+   "인금리"
+  ],
+  "osm:node/415160345": [
+   "의성군",
+   "옥산면",
+   "입암리"
+  ],
+  "osm:node/415160433": [
+   "의성군",
+   "단촌면",
+   "장림리"
+  ],
+  "osm:node/415160351": [
+   "의성군",
+   "옥산면",
+   "정자리"
+  ],
+  "osm:node/415160461": [
+   "안동시",
+   "일직면",
+   "조탑리"
+  ],
+  "osm:node/415160480": [
+   "의성군",
+   "의성읍",
+   "중리리"
+  ],
+  "osm:node/415160435": [
+   "의성군",
+   "안평면",
+   "창길리"
+  ],
+  "osm:node/415158338": [
+   "안동시",
+   "임하면",
+   "천전리"
+  ],
+  "osm:node/415160431": [
+   "의성군",
+   "의성읍",
+   "철파리"
+  ],
+  "osm:node/415160363": [
+   "안동시",
+   "임하면",
+   "추목리"
+  ],
+  "osm:node/415160459": [
+   "안동시",
+   "일직면",
+   "평팔리"
+  ],
+  "osm:node/415160436": [
+   "의성군",
+   "안평면",
+   "하령리"
+  ],
+  "osm:node/415158416": [
+   "안동시",
+   "남후면",
+   "하아리"
+  ],
+  "osm:node/415160477": [
+   "의성군",
+   "단촌면",
+   "하화리"
+  ],
+  "osm:node/415158533": [
+   "안동시",
+   "남선면",
+   "현내리"
+  ],
+  "osm:node/415160357": [
+   "의성군",
+   "점곡면",
+   "황룡리"
+  ],
+  "osm:node/415160479": [
+   "의성군",
+   "의성읍",
+   "후죽리"
+  ],
+  "osm:node/415160469": [
+   "의성군",
+   "단촌면",
+   "후평리"
+  ]
+ }
+}
