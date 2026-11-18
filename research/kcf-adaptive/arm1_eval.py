@@ -2,7 +2,8 @@
 
     python arm1_eval.py --env ENVDIR --runs WORK/arm1 --out derived/arm1.json [--gate-only]
 
-RUNS holds the outputs of arm1_run.py: P4_real, P4_scramble, P+_real, P+_scramble, leak_real, leak_scramble.
+RUNS holds the outputs of arm1_run.py: P4_real, P4_scramble, P+_real, P+_scramble, leak_real, leak_scramble,
+and the SENSITIVITY runs P4_pen1e-3 and P4_pen1e-4 (PROTOCOL amendment 1; not part of the verdict).
 """
 import argparse
 import json
@@ -95,7 +96,7 @@ def main():
         return
 
     runs = {name: load_run(a.runs / name, fires) for name in
-            ("P4_real", "P4_scramble", "P+_real", "P+_scramble", "leak_real", "leak_scramble")}
+            ("P4_real", "P4_scramble", "P+_real", "P+_scramble", "leak_real", "leak_scramble", "P4_pen1e-3", "P4_pen1e-4")}
     n_windows = sum(len(ws) for ws in fires.values())
     res["runs_windows"] = {k: len(v) for k, v in runs.items()}
     res["leakage"] = dict(
@@ -134,7 +135,7 @@ def main():
         s["paired_brier_difference"] = {f"{x}_minus_{y_}": paired_bootstrap(se[x], se[y_], n) for x, y_ in pairs}
         return s
 
-    main_names = [n for n in ("P4_real", "P+_real") if len(runs[n]) == n_windows]
+    main_names = [n for n in ("P4_real", "P+_real", "P4_pen1e-3", "P4_pen1e-4") if len(runs[n]) == n_windows]
     res["complete_runs"] = main_names
     if main_names:
         res["all_windows"] = report(main_names)
