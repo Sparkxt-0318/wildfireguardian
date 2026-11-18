@@ -1,0 +1,630 @@
+{
+ "label": "Model output on reconstructed inputs. Not what happened to people.",
+ "protocol": "research/kcf-validate/PROTOCOL.md \u00a72 + amendment 1",
+ "t_S_utc": "2025-03-24T02:17:30+00:00",
+ "choi_t0_utc": "2025-03-22T02:24:00+00:00",
+ "choi_hours_at_t_S": 47.891666666666666,
+ "scene_sha256": {
+  "S2B_52SDF_20250314_0_L2A_B12.tif": "d89573f73f192d4fc7e517ca9b5a3cfa19906008d5c7ccbe9da775e520411bf5",
+  "S2B_52SDF_20250314_0_L2A_B8A.tif": "d81139b2483e92aa0a900a4521e8e39529eeb5611a19c37cdf1d210aa8a7f597",
+  "S2B_52SDF_20250314_0_L2A_SCL.tif": "d6d0b2d99f5a51a8bcae2b9d4f505709fd48eb96b4086f7f21c7163f336966b8",
+  "S2B_52SDF_20250324_0_L2A_B12.tif": "a5222fef7a5563fe23bf68707db785901f79376ca156e46b6faf91e6c36704fa",
+  "S2B_52SDF_20250324_0_L2A_B8A.tif": "50d852519227c7ff5c68ef41578378f16aa14ebb138ce051c60adb6b5439188d",
+  "S2B_52SDF_20250324_0_L2A_SCL.tif": "3807640e759d2da6d678725e23c072013757af6295e5778d18acd853196cfe77",
+  "S2B_52SEF_20250314_0_L2A_B12.tif": "13d99bcb4054fcc42d9407f5048ec53c264b7f919f96b0f6cfd5ab290168d82f",
+  "S2B_52SEF_20250314_0_L2A_B8A.tif": "0bb6d9feb5fceccadde99f67d0b32b83770aa10dca10f0bc622582dc4d31cad5",
+  "S2B_52SEF_20250314_0_L2A_SCL.tif": "dc123bb713085530e41eed928855109245344fbddcf806f0b86979ee3e157d07",
+  "S2B_52SEF_20250324_0_L2A_B12.tif": "637754d73fcec9a5138508295b2efe6cc8ce201b477f578825d9cc968faa0c87",
+  "S2B_52SEF_20250324_0_L2A_B8A.tif": "6b2633a16857a6bf1b27ea7ea1900d3f06085d56d0716e65ef42e4bd1d70cf0c",
+  "S2B_52SEF_20250324_0_L2A_SCL.tif": "d61cca0ddaee468f0c45d72480b219f4593b5e188b6959c37ef6b29e62b017ac"
+ },
+ "lattice": {
+  "x0": 1085250.0,
+  "y0": 1845375.0,
+  "res": 375.0,
+  "cols": 237,
+  "rows": 79
+ },
+ "zones": {
+  "8": {
+   "T_utc": "2025-03-23T18:00:00+00:00",
+   "class": "quiet",
+   "R5_km": 2.6,
+   "R8_km": 3.5,
+   "R_used_km": 3.5,
+   "discs_before_T": 708,
+   "zone_target_time_utc": "2025-03-24T02:00:00+00:00"
+  },
+  "5": {
+   "T_utc": "2025-03-23T21:00:00+00:00",
+   "class": "quiet",
+   "R5_km": 2.6,
+   "R8_km": 3.5,
+   "R_used_km": 2.6,
+   "discs_before_T": 709,
+   "zone_target_time_utc": "2025-03-24T02:00:00+00:00"
+  }
+ },
+ "maps": {
+  "raw_dnbr0.1": {
+   "cells": 18723,
+   "burned": 567,
+   "unburned": 11736,
+   "not_assessable": 6420,
+   "burned_area_km2_375m_cells": 79.734375,
+   "V1_Choi_toa": {
+    "D1_all_assessable": {
+     "hit": 513,
+     "miss": 54,
+     "false_alarm": 408,
+     "correct_negative": 11328,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 567,
+     "model_reached": 921,
+     "POD": 0.9047619047619048,
+     "FAR": 0.44299674267100975,
+     "CSI": 0.5261538461538462
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 513,
+     "miss": 49,
+     "false_alarm": 408,
+     "correct_negative": 11099,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 562,
+     "model_reached": 921,
+     "POD": 0.9128113879003559,
+     "FAR": 0.44299674267100975,
+     "CSI": 0.5288659793814433
+    }
+   },
+   "V2_known_area_discs": {
+    "D1_all_assessable": {
+     "hit": 501,
+     "miss": 66,
+     "false_alarm": 378,
+     "correct_negative": 11358,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 567,
+     "model_reached": 879,
+     "POD": 0.8835978835978836,
+     "FAR": 0.4300341296928328,
+     "CSI": 0.5301587301587302
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 501,
+     "miss": 61,
+     "false_alarm": 378,
+     "correct_negative": 11129,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 562,
+     "model_reached": 879,
+     "POD": 0.891459074733096,
+     "FAR": 0.4300341296928328,
+     "CSI": 0.5329787234042553
+    }
+   },
+   "V3_MEASURED_8h_zone": {
+    "D1_all_assessable": {
+     "hit": 541,
+     "miss": 26,
+     "false_alarm": 2288,
+     "correct_negative": 9448,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 567,
+     "model_reached": 2829,
+     "POD": 0.9541446208112875,
+     "FAR": 0.8087663485330505,
+     "CSI": 0.18949211908931698
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 541,
+     "miss": 21,
+     "false_alarm": 2288,
+     "correct_negative": 9219,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 562,
+     "model_reached": 2829,
+     "POD": 0.9626334519572953,
+     "FAR": 0.8087663485330505,
+     "CSI": 0.18982456140350878
+    }
+   },
+   "V4_MEASURED_5h_zone": {
+    "D1_all_assessable": {
+     "hit": 540,
+     "miss": 27,
+     "false_alarm": 1867,
+     "correct_negative": 9869,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 567,
+     "model_reached": 2407,
+     "POD": 0.9523809523809523,
+     "FAR": 0.7756543415039469,
+     "CSI": 0.2218570254724733
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 540,
+     "miss": 22,
+     "false_alarm": 1867,
+     "correct_negative": 9640,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 562,
+     "model_reached": 2407,
+     "POD": 0.9608540925266904,
+     "FAR": 0.7756543415039469,
+     "CSI": 0.22231370934540964
+    }
+   },
+   "coverage_newly_burned_8h": {
+    "n_burned_not_in_known_area_at_T": 66,
+    "n_inside_zone": 40,
+    "coverage": 0.6060606060606061,
+    "dist_km_p10_p50_p90_max": [
+     0.045827262050357545,
+     0.7770960723787687,
+     17.18002732116196,
+     18.077128812305553
+    ],
+    "R_km": 3.5,
+    "n_beyond_R": 26
+   },
+   "coverage_newly_burned_5h": {
+    "n_burned_not_in_known_area_at_T": 66,
+    "n_inside_zone": 39,
+    "coverage": 0.5909090909090909,
+    "dist_km_p10_p50_p90_max": [
+     0.045827262050357545,
+     0.6192711627729606,
+     17.056947137800474,
+     17.691371446537147
+    ],
+    "R_km": 2.6,
+    "n_beyond_R": 27
+   }
+  },
+  "raw_dnbr0.27": {
+   "cells": 18723,
+   "burned": 186,
+   "unburned": 12117,
+   "not_assessable": 6420,
+   "burned_area_km2_375m_cells": 26.15625,
+   "V1_Choi_toa": {
+    "D1_all_assessable": {
+     "hit": 185,
+     "miss": 1,
+     "false_alarm": 736,
+     "correct_negative": 11381,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 186,
+     "model_reached": 921,
+     "POD": 0.9946236559139785,
+     "FAR": 0.7991313789359392,
+     "CSI": 0.20065075921908893
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 185,
+     "miss": 1,
+     "false_alarm": 736,
+     "correct_negative": 11147,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 186,
+     "model_reached": 921,
+     "POD": 0.9946236559139785,
+     "FAR": 0.7991313789359392,
+     "CSI": 0.20065075921908893
+    }
+   },
+   "V2_known_area_discs": {
+    "D1_all_assessable": {
+     "hit": 177,
+     "miss": 9,
+     "false_alarm": 702,
+     "correct_negative": 11415,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 186,
+     "model_reached": 879,
+     "POD": 0.9516129032258065,
+     "FAR": 0.7986348122866894,
+     "CSI": 0.19932432432432431
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 177,
+     "miss": 9,
+     "false_alarm": 702,
+     "correct_negative": 11181,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 186,
+     "model_reached": 879,
+     "POD": 0.9516129032258065,
+     "FAR": 0.7986348122866894,
+     "CSI": 0.19932432432432431
+    }
+   },
+   "V3_MEASURED_8h_zone": {
+    "D1_all_assessable": {
+     "hit": 186,
+     "miss": 0,
+     "false_alarm": 2643,
+     "correct_negative": 9474,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 186,
+     "model_reached": 2829,
+     "POD": 1.0,
+     "FAR": 0.9342523860021209,
+     "CSI": 0.06574761399787911
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 186,
+     "miss": 0,
+     "false_alarm": 2643,
+     "correct_negative": 9240,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 186,
+     "model_reached": 2829,
+     "POD": 1.0,
+     "FAR": 0.9342523860021209,
+     "CSI": 0.06574761399787911
+    }
+   },
+   "V4_MEASURED_5h_zone": {
+    "D1_all_assessable": {
+     "hit": 186,
+     "miss": 0,
+     "false_alarm": 2221,
+     "correct_negative": 9896,
+     "assessable": 12303,
+     "not_assessable_in_domain": 6420,
+     "satellite_burned": 186,
+     "model_reached": 2407,
+     "POD": 1.0,
+     "FAR": 0.9227253842958039,
+     "CSI": 0.0772746157041961
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 186,
+     "miss": 0,
+     "false_alarm": 2221,
+     "correct_negative": 9662,
+     "assessable": 12069,
+     "not_assessable_in_domain": 6355,
+     "satellite_burned": 186,
+     "model_reached": 2407,
+     "POD": 1.0,
+     "FAR": 0.9227253842958039,
+     "CSI": 0.0772746157041961
+    }
+   },
+   "coverage_newly_burned_8h": {
+    "n_burned_not_in_known_area_at_T": 9,
+    "n_inside_zone": 9,
+    "coverage": 1.0,
+    "dist_km_p10_p50_p90_max": [
+     0.030049048730612527,
+     0.08578548158365669,
+     0.17611849453704922,
+     0.18607051649074344
+    ],
+    "R_km": 3.5,
+    "n_beyond_R": 0
+   },
+   "coverage_newly_burned_5h": {
+    "n_burned_not_in_known_area_at_T": 9,
+    "n_inside_zone": 9,
+    "coverage": 1.0,
+    "dist_km_p10_p50_p90_max": [
+     0.030049048730612527,
+     0.08578548158365669,
+     0.17611849453704922,
+     0.18607051649074344
+    ],
+    "R_km": 2.6,
+    "n_beyond_R": 0
+   }
+  },
+  "offset_dnbr0.1": {
+   "cells": 18723,
+   "burned": 2505,
+   "unburned": 8774,
+   "not_assessable": 7444,
+   "burned_area_km2_375m_cells": 352.265625,
+   "V1_Choi_toa": {
+    "D1_all_assessable": {
+     "hit": 376,
+     "miss": 2129,
+     "false_alarm": 521,
+     "correct_negative": 8253,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 2505,
+     "model_reached": 897,
+     "POD": 0.1500998003992016,
+     "FAR": 0.5808249721293199,
+     "CSI": 0.12425644415069398
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 376,
+     "miss": 2043,
+     "false_alarm": 521,
+     "correct_negative": 8106,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 2419,
+     "model_reached": 897,
+     "POD": 0.15543613063249276,
+     "FAR": 0.5808249721293199,
+     "CSI": 0.12789115646258503
+    }
+   },
+   "V2_known_area_discs": {
+    "D1_all_assessable": {
+     "hit": 391,
+     "miss": 2114,
+     "false_alarm": 469,
+     "correct_negative": 8305,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 2505,
+     "model_reached": 860,
+     "POD": 0.1560878243512974,
+     "FAR": 0.5453488372093023,
+     "CSI": 0.13147276395427035
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 391,
+     "miss": 2028,
+     "false_alarm": 469,
+     "correct_negative": 8158,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 2419,
+     "model_reached": 860,
+     "POD": 0.16163704009921456,
+     "FAR": 0.5453488372093023,
+     "CSI": 0.13538781163434904
+    }
+   },
+   "V3_MEASURED_8h_zone": {
+    "D1_all_assessable": {
+     "hit": 843,
+     "miss": 1662,
+     "false_alarm": 1923,
+     "correct_negative": 6851,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 2505,
+     "model_reached": 2766,
+     "POD": 0.33652694610778444,
+     "FAR": 0.6952277657266811,
+     "CSI": 0.19037940379403795
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 843,
+     "miss": 1576,
+     "false_alarm": 1923,
+     "correct_negative": 6704,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 2419,
+     "model_reached": 2766,
+     "POD": 0.34849111202976435,
+     "FAR": 0.6952277657266811,
+     "CSI": 0.1941501612160295
+    }
+   },
+   "V4_MEASURED_5h_zone": {
+    "D1_all_assessable": {
+     "hit": 748,
+     "miss": 1757,
+     "false_alarm": 1604,
+     "correct_negative": 7170,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 2505,
+     "model_reached": 2352,
+     "POD": 0.29860279441117765,
+     "FAR": 0.6819727891156463,
+     "CSI": 0.18203942565100997
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 748,
+     "miss": 1671,
+     "false_alarm": 1604,
+     "correct_negative": 7023,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 2419,
+     "model_reached": 2352,
+     "POD": 0.30921868540719305,
+     "FAR": 0.6819727891156463,
+     "CSI": 0.1859308973402933
+    }
+   },
+   "coverage_newly_burned_8h": {
+    "n_burned_not_in_known_area_at_T": 2115,
+    "n_inside_zone": 453,
+    "coverage": 0.21418439716312057,
+    "dist_km_p10_p50_p90_max": [
+     1.3369316416069725,
+     11.028612545793642,
+     24.293456876628206,
+     33.22678692943617
+    ],
+    "R_km": 3.5,
+    "n_beyond_R": 1662
+   },
+   "coverage_newly_burned_5h": {
+    "n_burned_not_in_known_area_at_T": 2114,
+    "n_inside_zone": 357,
+    "coverage": 0.16887417218543047,
+    "dist_km_p10_p50_p90_max": [
+     1.3215349604490585,
+     10.895167782687864,
+     24.299268370361617,
+     33.22678692943617
+    ],
+    "R_km": 2.6,
+    "n_beyond_R": 1757
+   }
+  },
+  "offset_dnbr0.27": {
+   "cells": 18723,
+   "burned": 182,
+   "unburned": 11097,
+   "not_assessable": 7444,
+   "burned_area_km2_375m_cells": 25.59375,
+   "V1_Choi_toa": {
+    "D1_all_assessable": {
+     "hit": 115,
+     "miss": 67,
+     "false_alarm": 782,
+     "correct_negative": 10315,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 182,
+     "model_reached": 897,
+     "POD": 0.6318681318681318,
+     "FAR": 0.8717948717948718,
+     "CSI": 0.11929460580912864
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 115,
+     "miss": 67,
+     "false_alarm": 782,
+     "correct_negative": 10082,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 182,
+     "model_reached": 897,
+     "POD": 0.6318681318681318,
+     "FAR": 0.8717948717948718,
+     "CSI": 0.11929460580912864
+    }
+   },
+   "V2_known_area_discs": {
+    "D1_all_assessable": {
+     "hit": 116,
+     "miss": 66,
+     "false_alarm": 744,
+     "correct_negative": 10353,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 182,
+     "model_reached": 860,
+     "POD": 0.6373626373626373,
+     "FAR": 0.8651162790697674,
+     "CSI": 0.12526997840172785
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 116,
+     "miss": 66,
+     "false_alarm": 744,
+     "correct_negative": 10120,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 182,
+     "model_reached": 860,
+     "POD": 0.6373626373626373,
+     "FAR": 0.8651162790697674,
+     "CSI": 0.12526997840172785
+    }
+   },
+   "V3_MEASURED_8h_zone": {
+    "D1_all_assessable": {
+     "hit": 144,
+     "miss": 38,
+     "false_alarm": 2622,
+     "correct_negative": 8475,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 182,
+     "model_reached": 2766,
+     "POD": 0.7912087912087912,
+     "FAR": 0.9479392624728851,
+     "CSI": 0.05135520684736091
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 144,
+     "miss": 38,
+     "false_alarm": 2622,
+     "correct_negative": 8242,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 182,
+     "model_reached": 2766,
+     "POD": 0.7912087912087912,
+     "FAR": 0.9479392624728851,
+     "CSI": 0.05135520684736091
+    }
+   },
+   "V4_MEASURED_5h_zone": {
+    "D1_all_assessable": {
+     "hit": 143,
+     "miss": 39,
+     "false_alarm": 2209,
+     "correct_negative": 8888,
+     "assessable": 11279,
+     "not_assessable_in_domain": 7444,
+     "satellite_burned": 182,
+     "model_reached": 2352,
+     "POD": 0.7857142857142857,
+     "FAR": 0.9392006802721088,
+     "CSI": 0.059807611877875366
+    },
+    "D2_within_10km_of_Choi_footprint": {
+     "hit": 143,
+     "miss": 39,
+     "false_alarm": 2209,
+     "correct_negative": 8655,
+     "assessable": 11046,
+     "not_assessable_in_domain": 7378,
+     "satellite_burned": 182,
+     "model_reached": 2352,
+     "POD": 0.7857142857142857,
+     "FAR": 0.9392006802721088,
+     "CSI": 0.059807611877875366
+    }
+   },
+   "coverage_newly_burned_8h": {
+    "n_burned_not_in_known_area_at_T": 66,
+    "n_inside_zone": 28,
+    "coverage": 0.42424242424242425,
+    "dist_km_p10_p50_p90_max": [
+     0.09489300663543315,
+     3.8422064262051143,
+     17.260339392786342,
+     18.905329958156493
+    ],
+    "R_km": 3.5,
+    "n_beyond_R": 38
+   },
+   "coverage_newly_burned_5h": {
+    "n_burned_not_in_known_area_at_T": 66,
+    "n_inside_zone": 27,
+    "coverage": 0.4090909090909091,
+    "dist_km_p10_p50_p90_max": [
+     0.09489300663543315,
+     3.8422064262051143,
+     16.623021383531842,
+     18.223414204177878
+    ],
+    "R_km": 2.6,
+    "n_beyond_R": 39
+   }
+  }
+ }
+}
