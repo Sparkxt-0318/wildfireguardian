@@ -1,0 +1,19 @@
+# Raspberry Pi OS bookworm (Python 3.11). Install the native packages from apt FIRST, then create the venv with
+# --system-site-packages so pip sees them and installs only what apt lacks (websockets 13.1):
+#   sudo apt install -y python3-venv python3-numpy python3-yaml python3-serial python3-opencv python3-spidev \
+#       python3-smbus2 python3-lgpio v4l-utils i2c-tools
+#   python3 -m venv --system-site-packages .venv && .venv/bin/pip install --only-binary=:all: -r requirements-pi.txt
+# Every minimum below is met by the bookworm apt version (numpy 1.24.2, PyYAML 6.0, pyserial 3.5, spidev 3.5 from
+# python3-spidev 20200602~200721, smbus2 0.4.2 from python3-smbus2 0.4.2-1), so pip builds nothing. Do not raise a
+# minimum above the apt version: pip would then try to build spidev from its sdist (no aarch64 wheel on PyPI,
+# piwheels is armhf only, no Python.h without python3-dev) and the failed build aborts the WHOLE install, so
+# websockets is never installed and the service crash-loops. --only-binary=:all: makes a missing wheel fail with a
+# clear message instead of starting a native build. docs/test_docs.py checks these minimums against the apt versions.
+numpy>=1.24,<2.1
+PyYAML>=6.0
+websockets==13.1
+pyserial>=3.5
+spidev>=3.5
+smbus2>=0.4.2
+# OpenCV: prefer the apt package python3-opencv (V4L2 backend). If pip is used instead:
+# opencv-python-headless>=4.8

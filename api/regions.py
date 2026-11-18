@@ -95,6 +95,10 @@ class GraphIndex:
     node_count: int
     edge_count: int
     bbox: tuple
+    # edge chords for nearest_edge (step 9 live closures); filled by load(), rebuilt on demand when empty
+    edge_ids: tuple = ()
+    edge_uv: np.ndarray = field(default_factory=lambda: _ro(np.zeros((0, 2), dtype=np.int64)))
+    reverse_edges: MappingProxyType = field(default_factory=lambda: MappingProxyType({}))
 
     @classmethod
     def load(cls, region: str, path: Path) -> "GraphIndex":
@@ -104,11 +108,18 @@ class GraphIndex:
         xy = np.array([[n["x"], n["y"]] for n in g["nodes"]], dtype=float)
         lon, lat = to_wgs84(xy[:, 0], xy[:, 1])
         out_deg, in_deg = {}, {}
-        edges = {}
+        edges, reverse = {}, {}
+        node_k = {n: k for k, n in enumerate(ids)}
         for e in g["edges"]:
             out_deg[e["u"]] = out_deg.get(e["u"], 0) + 1
             in_deg[e["v"]] = in_deg.get(e["v"], 0) + 1
             edges[e["id"]] = (e["u"], e["v"], int(e["travel_ticks"]))
+            if e.get("reverse_edge"):
+                reverse[e["id"]] = e["reverse_edge"]
+        # chord table for nearest_edge; an edge naming a node that is not in ``nodes`` is left out of it (never an error
+        # here: the graph loads exactly as it did before step 9, whatever the live-closure flag)
+        edge_ids = tuple(i for i in edges if edges[i][0] in node_k and edges[i][1] in node_k)
+        edge_uv = np.array([[node_k[edges[i][0]], node_k[edges[i][1]]] for i in edge_ids], dtype=np.int64).reshape(-1, 2)
         allowed = np.array([out_deg.get(i, 0) > 0 and in_deg.get(i, 0) > 0 for i in ids], dtype=bool)
         grid = dict(g["grid"])
         res = float(grid["resolution"])
@@ -125,7 +136,8 @@ class GraphIndex:
                    grid=MappingProxyType(grid), node_ids=ids, node_index=MappingProxyType({n: k for k, n in enumerate(ids)}),
                    xy=_ro(xy), lonlat=_ro(np.column_stack([lon, lat])), allowed=_ro(allowed),
                    waitable=_ro(np.array([bool(n.get("waitable")) for n in g["nodes"]], dtype=bool)),
-                   edges=MappingProxyType(edges), node_count=len(ids), edge_count=len(g["edges"]), bbox=bbox)
+                   edges=MappingProxyType(edges), node_count=len(ids), edge_count=len(g["edges"]), bbox=bbox,
+                   edge_ids=edge_ids, edge_uv=_ro(edge_uv), reverse_edges=MappingProxyType(reverse))
 
     def content_ok(self) -> bool:
         try:
@@ -165,6 +177,92 @@ class GraphIndex:
                                 {"role": role, "distance_m": round(dist, 3), "nearest_node_id": self.node_ids[k], "limit_m": SNAP_MAX_M})
         nlon, nlat = self.node_lonlat(self.node_ids[k])
         return {"node_id": self.node_ids[k], "distance_m": round(dist, 3), "lon": nlon, "lat": nlat, "input": "lonlat"}
+
+
+    def _chords(self) -> tuple:
+        """(edge ids, uv node-index array) of every edge whose two end nodes are known."""
+        ids, uv = self.edge_ids, self.edge_uv
+        if not ids and self.edges:               # constructed without load(): rebuild the chord table
+            ni = self.node_index
+            ids = tuple(i for i in self.edges if self.edges[i][0] in ni and self.edges[i][1] in ni)
+            uv = np.array([[ni[self.edges[i][0]], ni[self.edges[i][1]]] for i in ids], dtype=np.int64).reshape(-1, 2)
+        return ids, uv
+
+    def nearest_edge(self, lon, lat, max_m: float = SNAP_MAX_M, margin_m: float = 0.0) -> dict:
+        """Match a WGS84 point to the nearest edge chord (step 9 live closures).
+
+        Distance is planar EPSG:5179 metres from the point to the straight segment between the edge's two end nodes
+        (the study graphs carry no intermediate edge geometry, so a curved road is approximated by its chord). Returns
+        {"edge_id", "reverse_edge_id", "edge_ids", "distance_m", "fraction", "close_edge_ids", "margin_m"}:
+        ``edge_id`` is the argmin chord (ties go to the edge listed first in graph.json); ``edge_ids`` is it plus its
+        ``reverse_edge`` (or, when a graph has no reverse_edge field, every edge on the same chord in the opposite
+        direction); ``fraction`` is the position of the foot point along u->v (0..1).
+
+        ``close_edge_ids`` widens the match so a few metres of GNSS error near a junction cannot leave the road the
+        vehicle is on open: every edge whose chord is within ``dmin + margin_m`` of the point, and, when a matched
+        edge's foot point is within ``margin_m`` of one of its end nodes, every edge incident to that node; each with its
+        reverse (or same-chord opposite). It always starts with ``edge_ids``. With ``margin_m`` = 0 it is ``edge_ids``
+        plus exact ties. Raises SNAP_TOO_FAR beyond ``max_m`` and VALIDATION_ERROR for non-finite input.
+        """
+        lon, lat = float(lon), float(lat)
+        if not (np.isfinite(lon) and np.isfinite(lat)):
+            raise unprocessable("VALIDATION_ERROR", "coordinates must be finite numbers")
+        margin_m = float(margin_m)
+        if not (np.isfinite(margin_m) and margin_m >= 0):
+            raise unprocessable("VALIDATION_ERROR", "margin_m must be a finite number >= 0")
+        x, y = to_5179(lon, lat)
+        x, y = float(x), float(y)
+        if not (np.isfinite(x) and np.isfinite(y)):
+            raise unprocessable("SNAP_TOO_FAR", "point cannot be projected to EPSG:5179")
+        ids, uv = self._chords()
+        if not ids:
+            raise unprocessable("SNAP_TOO_FAR", "the %s road graph has no edges" % self.region)
+        a, b = self.xy[uv[:, 0]], self.xy[uv[:, 1]]
+        d = b - a
+        L2 = (d * d).sum(axis=1)
+        safe = np.where(L2 > 0, L2, 1.0)
+        t = np.where(L2 > 0, ((x - a[:, 0]) * d[:, 0] + (y - a[:, 1]) * d[:, 1]) / safe, 0.0)
+        t = np.clip(t, 0.0, 1.0)
+        dist = np.hypot(a[:, 0] + t * d[:, 0] - x, a[:, 1] + t * d[:, 1] - y)
+        k = int(np.argmin(dist))
+        dmin = float(dist[k])
+        if dmin > max_m:
+            raise unprocessable("SNAP_TOO_FAR", "point is %.1f m from the nearest road edge (limit %.0f m)" % (dmin, max_m),
+                                {"distance_m": round(dmin, 3), "nearest_edge_id": ids[k], "limit_m": max_m})
+
+        def pair_of(j: int) -> list:
+            eid = ids[j]
+            rev = self.reverse_edges.get(eid)
+            if rev is not None and rev not in self.edges:
+                rev = None
+            out = [eid]
+            if rev is not None:
+                out.append(rev)
+            elif not self.reverse_edges:         # graph without reverse_edge fields: same chord, opposite direction
+                u, v = int(uv[j, 0]), int(uv[j, 1])
+                out += [ids[i] for i in np.flatnonzero((uv[:, 0] == v) & (uv[:, 1] == u))]
+            return out
+
+        pair = pair_of(k)
+        close = list(pair)
+        cand = np.flatnonzero(dist <= dmin + margin_m)
+        L = np.sqrt(L2)
+        near_nodes = set()
+        for j in cand:
+            if t[j] * L[j] <= margin_m:
+                near_nodes.add(int(uv[j, 0]))
+            if (1.0 - t[j]) * L[j] <= margin_m:
+                near_nodes.add(int(uv[j, 1]))
+        if near_nodes:
+            nn = np.array(sorted(near_nodes), dtype=np.int64)
+            cand = np.union1d(cand, np.flatnonzero(np.isin(uv[:, 0], nn) | np.isin(uv[:, 1], nn)))
+        for j in sorted(int(c) for c in cand):
+            for e in pair_of(j):
+                if e not in close:
+                    close.append(e)
+        rev = pair[1] if len(pair) > 1 and self.reverse_edges.get(pair[0]) == pair[1] else None
+        return {"edge_id": ids[k], "reverse_edge_id": rev, "edge_ids": pair, "distance_m": round(dmin, 3),
+                "fraction": round(float(t[k]), 6), "close_edge_ids": close, "margin_m": margin_m}
 
 
 @dataclass(frozen=True)

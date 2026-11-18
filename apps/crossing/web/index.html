@@ -1,0 +1,174 @@
+<!doctype html>
+<!-- WildfireGuardian crossing app web UI (DESIGN.md section 9). Reads the State JSON from WS /ws
+     (schema crossing.state/1: apps/crossing/README.md, STATE_SCHEMA). three.js r180 is vendored under
+     vendor/three/ and mapped with the import map below; nothing is loaded from the network.
+     The UI makes no decision: it shows the app's effective verdict and shows CLOSED itself when it has no
+     current State. ADVISORY for trained crews; every limit is a PLACEHOLDER for the fire service to set. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crossing advisory</title>
+<link rel="stylesheet" href="css/app.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<header id="banner" role="note">
+  <strong>Advisory for trained crews.</strong>
+  <span id="advisory-text">Verdicts are advisory. Every limit is a PLACEHOLDER for the fire service to set.</span>
+  <span id="sim-badge" class="sim-badge" hidden>SIMULATED DATA</span>
+</header>
+
+<div id="layout">
+  <main id="view-wrap" aria-label="3D view of the road, vehicle and flame">
+    <div id="view"></div>
+    <div id="labels" aria-hidden="true"></div>
+    <div id="sim-watermark" hidden aria-hidden="true">SIMULATED</div>
+    <div id="view-fallback" hidden>
+      <p><strong>3D view unavailable</strong></p>
+      <p id="view-fallback-why">WebGL is not available in this browser.</p>
+      <p>The panel still shows the verdict and all values.</p>
+    </div>
+    <div id="view-tools">
+      <button type="button" id="btn-reset-view" title="Reset the 3D camera">Reset view</button>
+    </div>
+    <div id="legend" aria-label="3D legend">
+      <div><span class="sw sw-flame"></span>flame depth (combined)</div>
+      <div><span class="sw sw-flame-int"></span>90&nbsp;% interval</div>
+      <div><span class="sw sw-near"></span>near-edge interval</div>
+      <div><span class="sw sw-echo"></span>first solid echo</div>
+      <div><span class="sw sw-vehicle"></span>vehicle (to scale)</div>
+      <div class="legend-note" id="legend-note">Road width drawn 7&nbsp;m (illustrative). Sensor head assumed at the front of the roof.</div>
+    </div>
+  </main>
+
+  <aside id="panel" aria-label="Verdict and measurements">
+    <section id="verdict-box" class="verdict v-closed" aria-live="assertive" aria-atomic="true">
+      <div class="verdict-glyph" id="verdict-glyph" aria-hidden="true">&#x2716;</div>
+      <div class="verdict-main">
+        <div class="verdict-state" id="verdict-state">CLOSED</div>
+        <div class="verdict-say" id="verdict-say">Do not cross.</div>
+        <div class="verdict-action" id="verdict-action" hidden></div>
+        <div class="sim-tag" id="verdict-sim" hidden>SIMULATED DATA</div>
+      </div>
+    </section>
+    <div id="verdict-meta" class="meta">
+      <span id="verdict-expiry">expires &mdash;</span>
+      <span id="verdict-override" class="override" hidden>shown by the browser</span>
+    </div>
+    <ul id="verdict-reasons" class="reasons"></ul>
+    <div id="disc-warning" class="disc-warning" role="alert" hidden>Flux disc over 70 &deg;C: PETG tabs at risk</div>
+
+    <section class="card" aria-label="Crossing figures">
+      <dl class="kv">
+        <dt>Min speed</dt><dd><span id="min-speed" class="big">&mdash;</span></dd>
+        <dt>Time in flame</dt><dd id="time-in-flame">&mdash;</dd>
+        <dt>Dose / limit</dt>
+        <dd>
+          <span id="dose">&mdash;</span>
+          <div class="bar" role="img" id="dose-bar-wrap" aria-label="dose versus limit"><div class="bar-fill" id="dose-bar"></div><div class="bar-limit"></div></div>
+          <div class="placeholder-note" id="dose-note">PLACEHOLDER limit: set by fire service</div>
+          <div class="sub" id="dose-fds">FDS C064 reference dose: &mdash; (reference only, never decides)</div>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="card" aria-label="Flame and geometry">
+      <h2>Flame on the path</h2>
+      <dl class="kv">
+        <dt>Flame (fused)</dt><dd id="flame-status">&mdash;</dd>
+        <dt>Thermal</dt><dd id="flame-thermal">&mdash;</dd>
+        <dt>Radar</dt><dd id="flame-radar">&mdash;</dd>
+        <dt>Near edge</dt><dd id="near-edge">&mdash;</dd>
+        <dt>Flame height</dt><dd id="flame-height">&mdash;</dd>
+        <dt>Depth (combined)</dt><dd id="depth">&mdash;</dd>
+        <dt>Depth upper end used for decision</dt><dd id="depth-hi-decision">&mdash;</dd>
+        <dt>First solid echo</dt><dd id="far-echo">&mdash;</dd>
+        <dt>Slope source</dt><dd><span id="slope-source" class="tag">&mdash;</span></dd>
+        <dt>IMU pitch / roll</dt><dd id="imu">&mdash;</dd>
+      </dl>
+      <details>
+        <summary>Depth estimators</summary>
+        <table class="tbl" id="est-table"><thead><tr><th>estimator</th><th>value</th><th>interval</th><th>status</th></tr></thead><tbody></tbody></table>
+      </details>
+      <div class="thumb-wrap">
+        <canvas id="thumb" width="64" height="48" aria-label="thermal camera (InfiRay P2 Pro) thumbnail"></canvas>
+        <div class="sub" id="thumb-cap">thermal thumbnail &mdash;</div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Heat flux">
+      <h2>Heat flux</h2>
+      <dl class="kv">
+        <dt>Plate flux now</dt><dd id="plate-q">&mdash;</dd>
+        <dt>Flux disc</dt><dd id="disc-temp">&mdash;</dd>
+        <dt>Plate dose so far</dt><dd id="plate-dose">&mdash;</dd>
+        <dt>Intake air</dt><dd id="intake">&mdash;</dd>
+        <dt>Intensity</dt><dd id="intensity">&mdash;</dd>
+      </dl>
+      <table class="tbl" id="heat-table">
+        <thead><tr><th></th><th>closed form</th><th>FDS ref.</th></tr></thead>
+        <tbody>
+          <tr><th>in flame</th><td id="heat-in-cf">&mdash;</td><td id="heat-in-fds">&mdash;</td></tr>
+          <tr><th id="heat-at-label">at vehicle</th><td id="heat-at-cf">&mdash;</td><td id="heat-at-fds">&mdash;</td></tr>
+        </tbody>
+      </table>
+      <div class="sub" id="heat-label">FDS C064 reference, not a measurement</div>
+    </section>
+
+    <section class="card" aria-label="Sensor health">
+      <h2>Sensors</h2>
+      <div id="link-status" class="link-status">&mdash;</div>
+      <ul id="health" class="health"></ul>
+      <div class="sub" id="gnss-line">&mdash;</div>
+      <div class="sub" id="reopen-line">&mdash;</div>
+      <div class="sub" id="simlink-line" role="status" hidden></div>
+    </section>
+
+    <section class="card" aria-label="Vehicle and fuel">
+      <h2>Vehicle and fuel</h2>
+      <label class="row">Vehicle <select id="sel-vehicle" disabled><option>loading&hellip;</option></select></label>
+      <div class="sub" id="vehicle-line">&mdash;</div>
+      <div class="placeholder-note">PLACEHOLDER limits: to be set by the fire service</div>
+      <label class="row">Fuel <select id="sel-fuel" disabled><option>loading&hellip;</option></select></label>
+      <div class="sub" id="fuel-line">&mdash;</div>
+      <div class="sub" id="cal-line">&mdash;</div>
+    </section>
+
+    <section class="card" aria-label="Operator actions">
+      <h2>Operator</h2>
+      <div class="row buttons">
+        <button type="button" id="btn-baseline">Capture radar baseline</button>
+        <button type="button" id="btn-baseline-clear" class="secondary">Clear baseline</button>
+      </div>
+      <div class="sub" id="baseline-line">&mdash;</div>
+      <div class="row buttons">
+        <label>measured depth <input id="measured-m" type="number" min="0" max="500" step="0.1" placeholder="m (optional)" inputmode="decimal"></label>
+        <button type="button" id="btn-mark">Mark crossing</button>
+      </div>
+      <div class="sub" id="action-result" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card" id="replay-card" hidden aria-label="Replay controls">
+      <h2>Replay</h2>
+      <div class="row buttons">
+        <button type="button" id="btn-play">Play</button>
+        <button type="button" id="btn-pause">Pause</button>
+        <label>speed <select id="sel-speed"><option>0.5</option><option selected>1</option><option>2</option><option>4</option></select></label>
+      </div>
+      <div class="sub" id="replay-line">&mdash;</div>
+    </section>
+
+    <footer class="sub" id="footer">&mdash;</footer>
+  </aside>
+</div>
+</body>
+</html>
