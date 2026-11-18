@@ -259,3 +259,15 @@ Rule states are computed for every issue hour of each fire and for the 24 h befo
      frozen verdicts of section 4 stay A against G. The data-quality counts of kcf-gust amendment 3 (share of hours
      with no record, smallest recorded gust, records timed outside their hour) are reported for the new file.
    - Nothing else changes. No threshold, window or definition of any rule is touched.
+
+3. **2026-11-18 23:11 UTC. Post hoc, after the fire-set station values had been read. No rule changed.** The new
+   file shows what the hourly gust field is: at the three-hourly stamps (00, 03, ... 21 KST) a row can carry the
+   largest gust of the previous 3 to 6 h in place of the hour's own (3,062 of 9,100 records in the fire-set hours
+   are timed outside their hour, all at those stamps, none older than 6 h; 96 of them are 20 m/s or more, and every
+   one of those repeats a record that was counted in its own hour). The frozen convention drops such a record, so
+   at those stamps an hour's own gust of 20 m/s or more can be hidden behind an earlier, larger one, and G-obs can
+   read "not firing" when it was. This cannot remove an alarm day or delay the first firing hour of an episode; it
+   can break a run of firing hours and miss a later hour. The frozen reading stays primary. Beside it a **post hoc
+   upper bound** is reported in which every such hidden hour counts as firing. Also found: the smallest recorded
+   gust is 7 m/s, not the 10 m/s kcf-gust inferred from five days; "no record" therefore means "no gust reported",
+   and that a gust of 20 m/s or more is always reported is ASSUMED.

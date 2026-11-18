@@ -1563,6 +1563,1242 @@
     }
    ]
   },
+  "G-obs": {
+   "full": {
+    "fires": 12,
+    "fire_days": 43,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     1
+    ],
+    "leads_h_since_ignition": [
+     1
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 49,
+     "n": 55,
+     "ci95": [
+      0.778,
+      0.959
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 34,
+     "ci95": [
+      0.0,
+      0.103
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "without_25_march": {
+    "fires": 12,
+    "fire_days": 42,
+    "run_fire_days": 8,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 8,
+     "ci95": [
+      0.032,
+      0.651
+     ]
+    },
+    "leads_h": [
+     1
+    ],
+    "leads_h_since_ignition": [
+     1
+    ],
+    "run_hours": 42,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 38,
+     "n": 42,
+     "ci95": [
+      0.774,
+      0.973
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 34,
+     "ci95": [
+      0.0,
+      0.103
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "fires": 11,
+     "fire_days": 37,
+     "run_fire_days": 5,
+     "fires_with_run": 3,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 26,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 22,
+      "n": 26,
+      "ci95": [
+       0.651,
+       0.956
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 32,
+      "ci95": [
+       0.0,
+       0.109
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_02": {
+     "fires": 11,
+     "fire_days": 34,
+     "run_fire_days": 6,
+     "fires_with_run": 3,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 6,
+      "ci95": [
+       0.004,
+       0.641
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 6,
+      "ci95": [
+       0.004,
+       0.641
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 6,
+      "ci95": [
+       0.043,
+       0.777
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 39,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 33,
+      "n": 39,
+      "ci95": [
+       0.695,
+       0.941
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 28,
+      "ci95": [
+       0.0,
+       0.123
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_03": {
+     "fires": 11,
+     "fire_days": 40,
+     "run_fire_days": 8,
+     "fires_with_run": 3,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 8,
+      "ci95": [
+       0.0,
+       0.369
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 8,
+      "ci95": [
+       0.0,
+       0.369
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 8,
+      "ci95": [
+       0.003,
+       0.527
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 50,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 48,
+      "n": 50,
+      "ci95": [
+       0.863,
+       0.995
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 32,
+      "ci95": [
+       0.0,
+       0.109
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "KFS_04": {
+     "fires": 11,
+     "fire_days": 35,
+     "run_fire_days": 8,
+     "fires_with_run": 3,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 8,
+      "ci95": [
+       0.003,
+       0.527
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 8,
+      "ci95": [
+       0.003,
+       0.527
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 8,
+      "ci95": [
+       0.032,
+       0.651
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 50,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 44,
+      "n": 50,
+      "ci95": [
+       0.757,
+       0.955
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 27,
+      "ci95": [
+       0.0,
+       0.128
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_05": {
+     "fires": 11,
+     "fire_days": 41,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 32,
+      "ci95": [
+       0.0,
+       0.109
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_06": {
+     "fires": 11,
+     "fire_days": 38,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 29,
+      "ci95": [
+       0.0,
+       0.119
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_07": {
+     "fires": 11,
+     "fire_days": 41,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 32,
+      "ci95": [
+       0.0,
+       0.109
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_11": {
+     "fires": 11,
+     "fire_days": 40,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 31,
+      "ci95": [
+       0.0,
+       0.112
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_12": {
+     "fires": 11,
+     "fire_days": 42,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 33,
+      "ci95": [
+       0.0,
+       0.106
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_13": {
+     "fires": 11,
+     "fire_days": 41,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 32,
+      "ci95": [
+       0.0,
+       0.109
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_15": {
+     "fires": 11,
+     "fire_days": 42,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 33,
+      "ci95": [
+       0.0,
+       0.106
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    },
+    "KFS_17": {
+     "fires": 11,
+     "fire_days": 42,
+     "run_fire_days": 9,
+     "fires_with_run": 4,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 9,
+      "ci95": [
+       0.003,
+       0.482
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 9,
+      "ci95": [
+       0.028,
+       0.6
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 55,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 49,
+      "n": 55,
+      "ci95": [
+       0.778,
+       0.959
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 33,
+      "ci95": [
+       0.0,
+       0.106
+      ]
+     },
+     "fires_all_run_days_warned": 1
+    }
+   },
+   "fire_days": [
+    {
+     "kst_day": "2025-03-22",
+     "issue_hours": 5,
+     "run_hours": 2,
+     "first_run_utc": "2025-03-22 13:00:00",
+     "first_run_kst_hour": 22,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 2,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-23",
+     "issue_hours": 24,
+     "run_hours": 9,
+     "first_run_utc": "2025-03-22 15:00:00",
+     "first_run_kst_hour": 0,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 9,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-24",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-25",
+     "issue_hours": 23,
+     "run_hours": 13,
+     "first_run_utc": "2025-03-25 01:00:00",
+     "first_run_kst_hour": 10,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 11,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-26",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2025-03-25 15:00:00",
+     "first_run_kst_hour": 0,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": true,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-27",
+     "issue_hours": 1,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2022-03-04",
+     "issue_hours": 12,
+     "run_hours": 6,
+     "first_run_utc": "2022-03-04 03:00:00",
+     "first_run_kst_hour": 12,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 6,
+     "run_hours_unknown": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-05",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2022-03-04 15:00:00",
+     "first_run_kst_hour": 0,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-06",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-07",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-08",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-09",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-10",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2022-03-09 20:00:00",
+     "first_run_kst_hour": 5,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-11",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-12",
+     "issue_hours": 9,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-05",
+     "issue_hours": 22,
+     "run_hours": 5,
+     "first_run_utc": "2022-03-04 23:00:00",
+     "first_run_kst_hour": 8,
+     "warned": true,
+     "state_known": true,
+     "lead_h": 1,
+     "lead_h_since_ignition": 1,
+     "warned_lapsed": true,
+     "run_hours_missed": 1,
+     "run_hours_unknown": 0,
+     "fire": "KFS_03",
+     "name": "Gangneung"
+    },
+    {
+     "kst_day": "2022-03-06",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_03",
+     "name": "Gangneung"
+    },
+    {
+     "kst_day": "2022-03-07",
+     "issue_hours": 23,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_03",
+     "name": "Gangneung"
+    },
+    {
+     "kst_day": "2025-03-21",
+     "issue_hours": 2,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-22",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2025-03-22 09:00:00",
+     "first_run_kst_hour": 18,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-23",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-24",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-25",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-26",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-27",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-28",
+     "issue_hours": 23,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2023-04-02",
+     "issue_hours": 11,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_05",
+     "name": "Hongseong"
+    },
+    {
+     "kst_day": "2023-04-03",
+     "issue_hours": 23,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_05",
+     "name": "Hongseong"
+    },
+    {
+     "kst_day": "2025-03-22",
+     "issue_hours": 10,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-23",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-24",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-25",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-26",
+     "issue_hours": 17,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2023-04-02",
+     "issue_hours": 10,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_07",
+     "name": "Geumsan"
+    },
+    {
+     "kst_day": "2023-04-03",
+     "issue_hours": 11,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_07",
+     "name": "Geumsan"
+    },
+    {
+     "kst_day": "2022-05-31",
+     "issue_hours": 11,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_11",
+     "name": "Miryang"
+    },
+    {
+     "kst_day": "2022-06-01",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_11",
+     "name": "Miryang"
+    },
+    {
+     "kst_day": "2022-06-02",
+     "issue_hours": 7,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_11",
+     "name": "Miryang"
+    },
+    {
+     "kst_day": "2022-02-16",
+     "issue_hours": 7,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_12",
+     "name": "Yeongdeok"
+    },
+    {
+     "kst_day": "2025-04-29",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_13",
+     "name": "Buk-gu"
+    },
+    {
+     "kst_day": "2025-04-30",
+     "issue_hours": 14,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_13",
+     "name": "Buk-gu"
+    },
+    {
+     "kst_day": "2022-04-11",
+     "issue_hours": 6,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_15",
+     "name": "Gunwi"
+    },
+    {
+     "kst_day": "2023-03-09",
+     "issue_hours": 16,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_17",
+     "name": "Hapcheon"
+    }
+   ]
+  },
   "A-cal": {
    "full": {
     "fires": 12,
@@ -11159,6 +12395,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -11202,6 +12444,19 @@
    "alarm_point_days_all_evaluated": 169,
    "false_alarm_point_days_all_evaluated": 154,
    "point_days_evaluated": 4950
+  },
+  "G-obs": {
+   "per_season": {},
+   "per_point": {},
+   "full_seasons": [],
+   "all_seasons_evaluated": [],
+   "complete_seasons": [],
+   "alarm_days_per_point_season": null,
+   "false_alarm_days_per_point_season": null,
+   "days_any_point_per_season": null,
+   "alarm_point_days_all_evaluated": 0,
+   "false_alarm_point_days_all_evaluated": 0,
+   "point_days_evaluated": 0
   },
   "A-cal": {
    "per_season": {
@@ -11443,6 +12698,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -11727,6 +12988,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -12011,6 +13278,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -12295,6 +13568,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -12579,6 +13858,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -12863,6 +14148,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -13147,6 +14438,12 @@
      ]
     }
    },
+   "complete_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "full_seasons": [
     2022,
     2023,
@@ -15525,6 +16822,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -15938,6 +17241,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -16347,6 +17656,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -16754,6 +18069,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -17157,6 +18478,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -17570,6 +18897,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -17977,6 +19310,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -18406,6 +19745,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -18835,6 +20180,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -19264,6 +20615,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -19677,6 +21034,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -20086,6 +21449,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -20495,6 +21864,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -20904,6 +22279,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -21311,6 +22692,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -21714,6 +23101,12 @@
       ]
      }
     },
+    "complete_seasons": [
+     2022,
+     2023,
+     2024,
+     2025
+    ],
     "full_seasons": [
      2022,
      2023,
@@ -22652,6 +24045,13 @@
    "silent_no_run": 716,
    "state_unknown": 0
   },
+  "G-obs": {
+   "fires_and_run": 6,
+   "fires_no_run": 7,
+   "silent_and_run": 49,
+   "silent_no_run": 729,
+   "state_unknown": 0
+  },
   "A-cal": {
    "fires_and_run": 45,
    "fires_no_run": 306,
@@ -23143,6 +24543,112 @@
       "ci95": [
        0.565,
        0.897
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 2,
+      "ci95": [
+       0.0,
+       0.842
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 1,
+     "fire_days": 5,
+     "run_fire_days": 3,
+     "fires_with_run": 1,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 3,
+      "ci95": [
+       0.0,
+       0.708
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 3,
+      "ci95": [
+       0.0,
+       0.708
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 3,
+      "ci95": [
+       0.008,
+       0.906
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 16,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 16,
+      "n": 16,
+      "ci95": [
+       0.794,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 2,
+      "ci95": [
+       0.0,
+       0.842
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    }
+   },
+   "G-obs": {
+    "full": {
+     "fires": 1,
+     "fire_days": 6,
+     "run_fire_days": 4,
+     "fires_with_run": 1,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 29,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 27,
+      "n": 29,
+      "ci95": [
+       0.772,
+       0.992
       ]
      },
      "alarm_days_without_run": {
@@ -29194,6 +30700,563 @@
     }
    ]
   },
+  "G-obs": {
+   "full": {
+    "fires": 12,
+    "fire_days": 42,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     1
+    ],
+    "leads_h_since_ignition": [
+     1
+    ],
+    "run_hours": 53,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 53,
+     "ci95": [
+      0.77,
+      0.957
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 33,
+     "ci95": [
+      0.0,
+      0.106
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "without_25_march": {
+    "fires": 12,
+    "fire_days": 41,
+    "run_fire_days": 8,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 8,
+     "ci95": [
+      0.032,
+      0.651
+     ]
+    },
+    "leads_h": [
+     1
+    ],
+    "leads_h_since_ignition": [
+     1
+    ],
+    "run_hours": 40,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 36,
+     "n": 40,
+     "ci95": [
+      0.763,
+      0.972
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 33,
+     "ci95": [
+      0.0,
+      0.106
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "fire_days": [
+    {
+     "kst_day": "2025-03-22",
+     "issue_hours": 2,
+     "run_hours": 2,
+     "first_run_utc": "2025-03-22 13:00:00",
+     "first_run_kst_hour": 22,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 2,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-23",
+     "issue_hours": 24,
+     "run_hours": 9,
+     "first_run_utc": "2025-03-22 15:00:00",
+     "first_run_kst_hour": 0,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 9,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-24",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-25",
+     "issue_hours": 23,
+     "run_hours": 13,
+     "first_run_utc": "2025-03-25 01:00:00",
+     "first_run_kst_hour": 10,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 11,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-26",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2025-03-25 15:00:00",
+     "first_run_kst_hour": 0,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": true,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2025-03-27",
+     "issue_hours": 1,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_01",
+     "name": "Uiseong"
+    },
+    {
+     "kst_day": "2022-03-04",
+     "issue_hours": 9,
+     "run_hours": 4,
+     "first_run_utc": "2022-03-04 11:00:00",
+     "first_run_kst_hour": 20,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 4,
+     "run_hours_unknown": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-05",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2022-03-04 15:00:00",
+     "first_run_kst_hour": 0,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-06",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-07",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-08",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-09",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-10",
+     "issue_hours": 24,
+     "run_hours": 5,
+     "first_run_utc": "2022-03-09 20:00:00",
+     "first_run_kst_hour": 5,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-11",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-12",
+     "issue_hours": 9,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_02",
+     "name": "Uljin"
+    },
+    {
+     "kst_day": "2022-03-05",
+     "issue_hours": 19,
+     "run_hours": 5,
+     "first_run_utc": "2022-03-04 23:00:00",
+     "first_run_kst_hour": 8,
+     "warned": true,
+     "state_known": true,
+     "lead_h": 1,
+     "lead_h_since_ignition": 1,
+     "warned_lapsed": true,
+     "run_hours_missed": 1,
+     "run_hours_unknown": 0,
+     "fire": "KFS_03",
+     "name": "Gangneung"
+    },
+    {
+     "kst_day": "2022-03-06",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_03",
+     "name": "Gangneung"
+    },
+    {
+     "kst_day": "2022-03-07",
+     "issue_hours": 23,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_03",
+     "name": "Gangneung"
+    },
+    {
+     "kst_day": "2025-03-22",
+     "issue_hours": 23,
+     "run_hours": 5,
+     "first_run_utc": "2025-03-22 09:00:00",
+     "first_run_kst_hour": 18,
+     "warned": false,
+     "state_known": true,
+     "lead_h": null,
+     "lead_h_since_ignition": null,
+     "warned_lapsed": false,
+     "run_hours_missed": 5,
+     "run_hours_unknown": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-23",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-24",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-25",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-26",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-27",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2025-03-28",
+     "issue_hours": 23,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_04",
+     "name": "Sancheong"
+    },
+    {
+     "kst_day": "2023-04-02",
+     "issue_hours": 8,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_05",
+     "name": "Hongseong"
+    },
+    {
+     "kst_day": "2023-04-03",
+     "issue_hours": 23,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_05",
+     "name": "Hongseong"
+    },
+    {
+     "kst_day": "2025-03-22",
+     "issue_hours": 7,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-23",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-24",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-25",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2025-03-26",
+     "issue_hours": 17,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_06",
+     "name": "Ulju"
+    },
+    {
+     "kst_day": "2023-04-02",
+     "issue_hours": 7,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_07",
+     "name": "Geumsan"
+    },
+    {
+     "kst_day": "2023-04-03",
+     "issue_hours": 11,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_07",
+     "name": "Geumsan"
+    },
+    {
+     "kst_day": "2022-05-31",
+     "issue_hours": 8,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_11",
+     "name": "Miryang"
+    },
+    {
+     "kst_day": "2022-06-01",
+     "issue_hours": 24,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_11",
+     "name": "Miryang"
+    },
+    {
+     "kst_day": "2022-06-02",
+     "issue_hours": 7,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_11",
+     "name": "Miryang"
+    },
+    {
+     "kst_day": "2022-02-16",
+     "issue_hours": 4,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_12",
+     "name": "Yeongdeok"
+    },
+    {
+     "kst_day": "2025-04-29",
+     "issue_hours": 21,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_13",
+     "name": "Buk-gu"
+    },
+    {
+     "kst_day": "2025-04-30",
+     "issue_hours": 14,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_13",
+     "name": "Buk-gu"
+    },
+    {
+     "kst_day": "2022-04-11",
+     "issue_hours": 3,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_15",
+     "name": "Gunwi"
+    },
+    {
+     "kst_day": "2023-03-09",
+     "issue_hours": 13,
+     "run_hours": 0,
+     "alarm_no_run": false,
+     "alarm_hours": 0,
+     "fire": "KFS_17",
+     "name": "Hapcheon"
+    }
+   ]
+  },
   "A-cal": {
    "full": {
     "fires": 12,
@@ -33188,6 +35251,3410 @@
    ]
   }
  },
+ "against_gobs": {
+  "G": {
+   "rule": "G",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 4,
+    "warned_g": 1,
+    "warned_by_a_only": 3,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.25,
+    "lead_a_minus_g_h": [
+     20
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 3,
+    "warned_g": 1,
+    "warned_by_a_only": 2,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.5,
+    "lead_a_minus_g_h": [
+     20
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 2,
+     "sign_test_p": 0.5,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 2,
+     "warned_g": 1,
+     "warned_by_a_only": 1,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 0,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      20
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "A warned more run fire-days than G",
+   "more_reliably_fails_in": [],
+   "earlier": "A earlier"
+  },
+  "A-cal": {
+   "rule": "A-cal",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 8,
+    "warned_g": 1,
+    "warned_by_a_only": 7,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 1,
+    "sign_test_p": 0.0156,
+    "lead_a_minus_g_h": [
+     23
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 7,
+    "warned_g": 1,
+    "warned_by_a_only": 6,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 1,
+    "sign_test_p": 0.0312,
+    "lead_a_minus_g_h": [
+     23
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 6,
+     "warned_g": 1,
+     "warned_by_a_only": 5,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 0,
+     "sign_test_p": 0.0625,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 7,
+     "warned_g": 0,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 7,
+     "warned_g": 1,
+     "warned_by_a_only": 6,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0312,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "A warned more run fire-days than G",
+   "more_reliably_fails_in": [],
+   "earlier": "A earlier"
+  },
+  "A25": {
+   "rule": "A25",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 4,
+    "warned_g": 1,
+    "warned_by_a_only": 3,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.25,
+    "lead_a_minus_g_h": [
+     22
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 3,
+    "warned_g": 1,
+    "warned_by_a_only": 2,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.5,
+    "lead_a_minus_g_h": [
+     22
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 2,
+     "sign_test_p": 0.5,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 2,
+     "warned_g": 1,
+     "warned_by_a_only": 1,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 0,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "A warned more run fire-days than G",
+   "more_reliably_fails_in": [],
+   "earlier": "A earlier"
+  },
+  "A30": {
+   "rule": "A30",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 3,
+    "warned_g": 1,
+    "warned_by_a_only": 3,
+    "warned_by_g_only": 1,
+    "warned_by_both": 0,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.625,
+    "lead_a_minus_g_h": [],
+    "a_earlier": 0,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 2,
+    "warned_g": 1,
+    "warned_by_a_only": 2,
+    "warned_by_g_only": 1,
+    "warned_by_both": 0,
+    "warned_by_neither": 5,
+    "sign_test_p": 1.0,
+    "lead_a_minus_g_h": [],
+    "a_earlier": 0,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 2,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 2,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 1,
+     "warned_g": 1,
+     "warned_by_a_only": 1,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 4,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 0,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 4,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "not robust",
+   "more_reliably_fails_in": [
+    "without KFS_02"
+   ],
+   "earlier": "no run fire-day warned by both"
+  },
+  "A+G": {
+   "rule": "A+G",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 8,
+    "warned_g": 1,
+    "warned_by_a_only": 7,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 1,
+    "sign_test_p": 0.0156,
+    "lead_a_minus_g_h": [
+     23
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 7,
+    "warned_g": 1,
+    "warned_by_a_only": 6,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 1,
+    "sign_test_p": 0.0312,
+    "lead_a_minus_g_h": [
+     23
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 6,
+     "warned_g": 1,
+     "warned_by_a_only": 5,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 0,
+     "sign_test_p": 0.0625,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 7,
+     "warned_g": 0,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 7,
+     "warned_g": 1,
+     "warned_by_a_only": 6,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0312,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 8,
+     "warned_g": 1,
+     "warned_by_a_only": 7,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 1,
+     "sign_test_p": 0.0156,
+     "lead_a_minus_g_h": [
+      23
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "A warned more run fire-days than G",
+   "more_reliably_fails_in": [],
+   "earlier": "A earlier"
+  },
+  "A25+G": {
+   "rule": "A25+G",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 4,
+    "warned_g": 1,
+    "warned_by_a_only": 3,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.25,
+    "lead_a_minus_g_h": [
+     22
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 3,
+    "warned_g": 1,
+    "warned_by_a_only": 2,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.5,
+    "lead_a_minus_g_h": [
+     22
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 2,
+     "sign_test_p": 0.5,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 2,
+     "warned_g": 1,
+     "warned_by_a_only": 1,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 0,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      22
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "A warned more run fire-days than G",
+   "more_reliably_fails_in": [],
+   "earlier": "A earlier"
+  },
+  "A30+G": {
+   "rule": "A30+G",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 4,
+    "warned_g": 1,
+    "warned_by_a_only": 3,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.25,
+    "lead_a_minus_g_h": [
+     21
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 3,
+    "warned_g": 1,
+    "warned_by_a_only": 2,
+    "warned_by_g_only": 0,
+    "warned_by_both": 1,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.5,
+    "lead_a_minus_g_h": [
+     21
+    ],
+    "a_earlier": 1,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 2,
+     "sign_test_p": 0.5,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 2,
+     "warned_g": 1,
+     "warned_by_a_only": 1,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 0,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 4,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      21
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "A warned more run fire-days than G",
+   "more_reliably_fails_in": [],
+   "earlier": "A earlier"
+  },
+  "A-match": {
+   "rule": "A-match",
+   "against": "G-obs",
+   "full": {
+    "run_fire_days": 9,
+    "warned_a": 3,
+    "warned_g": 1,
+    "warned_by_a_only": 3,
+    "warned_by_g_only": 1,
+    "warned_by_both": 0,
+    "warned_by_neither": 5,
+    "sign_test_p": 0.625,
+    "lead_a_minus_g_h": [],
+    "a_earlier": 0,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "without_25_march": {
+    "run_fire_days": 8,
+    "warned_a": 2,
+    "warned_g": 1,
+    "warned_by_a_only": 2,
+    "warned_by_g_only": 1,
+    "warned_by_both": 0,
+    "warned_by_neither": 5,
+    "sign_test_p": 1.0,
+    "lead_a_minus_g_h": [],
+    "a_earlier": 0,
+    "same": 0,
+    "g_earlier": 0,
+    "both_at_24h_cap": 0
+   },
+   "leave_one_fire_out": {
+    "KFS_01": {
+     "run_fire_days": 5,
+     "warned_a": 2,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 2,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_02": {
+     "run_fire_days": 6,
+     "warned_a": 1,
+     "warned_g": 1,
+     "warned_by_a_only": 1,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 4,
+     "sign_test_p": 1.0,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_03": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 0,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_04": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 4,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_05": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_06": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_07": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_11": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_12": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_13": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_15": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "KFS_17": {
+     "run_fire_days": 9,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 1,
+     "warned_by_both": 0,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.625,
+     "lead_a_minus_g_h": [],
+     "a_earlier": 0,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    }
+   },
+   "more_reliably": "not robust",
+   "more_reliably_fails_in": [
+    "without KFS_02"
+   ],
+   "earlier": "no run fire-day warned by both"
+  }
+ },
+ "gobs_upper_bound": {
+  "full": {
+   "fires": 12,
+   "fire_days": 43,
+   "run_fire_days": 9,
+   "fires_with_run": 4,
+   "run_fire_days_state_unknown": 0,
+   "warned": {
+    "k": 1,
+    "n": 9,
+    "ci95": [
+     0.003,
+     0.482
+    ]
+   },
+   "warned_1h_ahead": {
+    "k": 1,
+    "n": 9,
+    "ci95": [
+     0.003,
+     0.482
+    ]
+   },
+   "warned_lapsed_12h": {
+    "k": 2,
+    "n": 9,
+    "ci95": [
+     0.028,
+     0.6
+    ]
+   },
+   "leads_h": [
+    13
+   ],
+   "leads_h_since_ignition": [
+    6
+   ],
+   "run_hours": 55,
+   "run_hours_state_unknown": 0,
+   "run_hours_missed": {
+    "k": 47,
+    "n": 55,
+    "ci95": [
+     0.733,
+     0.935
+    ]
+   },
+   "alarm_days_without_run": {
+    "k": 0,
+    "n": 34,
+    "ci95": [
+     0.0,
+     0.103
+    ]
+   },
+   "fires_all_run_days_warned": 1
+  },
+  "without_25_march": {
+   "fires": 12,
+   "fire_days": 42,
+   "run_fire_days": 8,
+   "fires_with_run": 4,
+   "run_fire_days_state_unknown": 0,
+   "warned": {
+    "k": 1,
+    "n": 8,
+    "ci95": [
+     0.003,
+     0.527
+    ]
+   },
+   "warned_1h_ahead": {
+    "k": 1,
+    "n": 8,
+    "ci95": [
+     0.003,
+     0.527
+    ]
+   },
+   "warned_lapsed_12h": {
+    "k": 2,
+    "n": 8,
+    "ci95": [
+     0.032,
+     0.651
+    ]
+   },
+   "leads_h": [
+    13
+   ],
+   "leads_h_since_ignition": [
+    6
+   ],
+   "run_hours": 42,
+   "run_hours_state_unknown": 0,
+   "run_hours_missed": {
+    "k": 36,
+    "n": 42,
+    "ci95": [
+     0.715,
+     0.946
+    ]
+   },
+   "alarm_days_without_run": {
+    "k": 0,
+    "n": 34,
+    "ci95": [
+     0.0,
+     0.103
+    ]
+   },
+   "fires_all_run_days_warned": 1
+  },
+  "leave_one_fire_out": {
+   "KFS_01": {
+    "fires": 11,
+    "fire_days": 37,
+    "run_fire_days": 5,
+    "fires_with_run": 3,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 5,
+     "ci95": [
+      0.005,
+      0.716
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 5,
+     "ci95": [
+      0.005,
+      0.716
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 1,
+     "n": 5,
+     "ci95": [
+      0.005,
+      0.716
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 26,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 21,
+     "n": 26,
+     "ci95": [
+      0.606,
+      0.934
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 32,
+     "ci95": [
+      0.0,
+      0.109
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_02": {
+    "fires": 11,
+    "fire_days": 34,
+    "run_fire_days": 6,
+    "fires_with_run": 3,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 6,
+     "ci95": [
+      0.004,
+      0.641
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 6,
+     "ci95": [
+      0.004,
+      0.641
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 6,
+     "ci95": [
+      0.043,
+      0.777
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 39,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 31,
+     "n": 39,
+     "ci95": [
+      0.635,
+      0.907
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 28,
+     "ci95": [
+      0.0,
+      0.123
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_03": {
+    "fires": 11,
+    "fire_days": 40,
+    "run_fire_days": 8,
+    "fires_with_run": 3,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 0,
+     "n": 8,
+     "ci95": [
+      0.0,
+      0.369
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 0,
+     "n": 8,
+     "ci95": [
+      0.0,
+      0.369
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "leads_h": [],
+    "leads_h_since_ignition": [],
+    "run_hours": 50,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 50,
+     "ci95": [
+      0.835,
+      0.987
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 32,
+     "ci95": [
+      0.0,
+      0.109
+     ]
+    },
+    "fires_all_run_days_warned": 0
+   },
+   "KFS_04": {
+    "fires": 11,
+    "fire_days": 35,
+    "run_fire_days": 8,
+    "fires_with_run": 3,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 8,
+     "ci95": [
+      0.003,
+      0.527
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 8,
+     "ci95": [
+      0.032,
+      0.651
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 50,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 42,
+     "n": 50,
+     "ci95": [
+      0.709,
+      0.928
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 27,
+     "ci95": [
+      0.0,
+      0.128
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_05": {
+    "fires": 11,
+    "fire_days": 41,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 32,
+     "ci95": [
+      0.0,
+      0.109
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_06": {
+    "fires": 11,
+    "fire_days": 38,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 29,
+     "ci95": [
+      0.0,
+      0.119
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_07": {
+    "fires": 11,
+    "fire_days": 41,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 32,
+     "ci95": [
+      0.0,
+      0.109
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_11": {
+    "fires": 11,
+    "fire_days": 40,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 31,
+     "ci95": [
+      0.0,
+      0.112
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_12": {
+    "fires": 11,
+    "fire_days": 42,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 33,
+     "ci95": [
+      0.0,
+      0.106
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_13": {
+    "fires": 11,
+    "fire_days": 41,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 32,
+     "ci95": [
+      0.0,
+      0.109
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_15": {
+    "fires": 11,
+    "fire_days": 42,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 33,
+     "ci95": [
+      0.0,
+      0.106
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   },
+   "KFS_17": {
+    "fires": 11,
+    "fire_days": 42,
+    "run_fire_days": 9,
+    "fires_with_run": 4,
+    "run_fire_days_state_unknown": 0,
+    "warned": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_1h_ahead": {
+     "k": 1,
+     "n": 9,
+     "ci95": [
+      0.003,
+      0.482
+     ]
+    },
+    "warned_lapsed_12h": {
+     "k": 2,
+     "n": 9,
+     "ci95": [
+      0.028,
+      0.6
+     ]
+    },
+    "leads_h": [
+     13
+    ],
+    "leads_h_since_ignition": [
+     6
+    ],
+    "run_hours": 55,
+    "run_hours_state_unknown": 0,
+    "run_hours_missed": {
+     "k": 47,
+     "n": 55,
+     "ci95": [
+      0.733,
+      0.935
+     ]
+    },
+    "alarm_days_without_run": {
+     "k": 0,
+     "n": 33,
+     "ci95": [
+      0.0,
+      0.106
+     ]
+    },
+    "fires_all_run_days_warned": 1
+   }
+  },
+  "fire_days": [
+   {
+    "kst_day": "2025-03-22",
+    "issue_hours": 5,
+    "run_hours": 2,
+    "first_run_utc": "2025-03-22 13:00:00",
+    "first_run_kst_hour": 22,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 2,
+    "run_hours_unknown": 0,
+    "fire": "KFS_01",
+    "name": "Uiseong"
+   },
+   {
+    "kst_day": "2025-03-23",
+    "issue_hours": 24,
+    "run_hours": 9,
+    "first_run_utc": "2025-03-22 15:00:00",
+    "first_run_kst_hour": 0,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 9,
+    "run_hours_unknown": 0,
+    "fire": "KFS_01",
+    "name": "Uiseong"
+   },
+   {
+    "kst_day": "2025-03-24",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_01",
+    "name": "Uiseong"
+   },
+   {
+    "kst_day": "2025-03-25",
+    "issue_hours": 23,
+    "run_hours": 13,
+    "first_run_utc": "2025-03-25 01:00:00",
+    "first_run_kst_hour": 10,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 11,
+    "run_hours_unknown": 0,
+    "fire": "KFS_01",
+    "name": "Uiseong"
+   },
+   {
+    "kst_day": "2025-03-26",
+    "issue_hours": 24,
+    "run_hours": 5,
+    "first_run_utc": "2025-03-25 15:00:00",
+    "first_run_kst_hour": 0,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": true,
+    "run_hours_missed": 4,
+    "run_hours_unknown": 0,
+    "fire": "KFS_01",
+    "name": "Uiseong"
+   },
+   {
+    "kst_day": "2025-03-27",
+    "issue_hours": 1,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_01",
+    "name": "Uiseong"
+   },
+   {
+    "kst_day": "2022-03-04",
+    "issue_hours": 12,
+    "run_hours": 6,
+    "first_run_utc": "2022-03-04 03:00:00",
+    "first_run_kst_hour": 12,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 6,
+    "run_hours_unknown": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-05",
+    "issue_hours": 24,
+    "run_hours": 5,
+    "first_run_utc": "2022-03-04 15:00:00",
+    "first_run_kst_hour": 0,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 5,
+    "run_hours_unknown": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-06",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-07",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-08",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-09",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-10",
+    "issue_hours": 24,
+    "run_hours": 5,
+    "first_run_utc": "2022-03-09 20:00:00",
+    "first_run_kst_hour": 5,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 5,
+    "run_hours_unknown": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-11",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-12",
+    "issue_hours": 9,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_02",
+    "name": "Uljin"
+   },
+   {
+    "kst_day": "2022-03-05",
+    "issue_hours": 22,
+    "run_hours": 5,
+    "first_run_utc": "2022-03-04 23:00:00",
+    "first_run_kst_hour": 8,
+    "warned": true,
+    "state_known": true,
+    "lead_h": 13,
+    "lead_h_since_ignition": 6,
+    "warned_lapsed": true,
+    "run_hours_missed": 0,
+    "run_hours_unknown": 0,
+    "fire": "KFS_03",
+    "name": "Gangneung"
+   },
+   {
+    "kst_day": "2022-03-06",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_03",
+    "name": "Gangneung"
+   },
+   {
+    "kst_day": "2022-03-07",
+    "issue_hours": 23,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_03",
+    "name": "Gangneung"
+   },
+   {
+    "kst_day": "2025-03-21",
+    "issue_hours": 2,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-22",
+    "issue_hours": 24,
+    "run_hours": 5,
+    "first_run_utc": "2025-03-22 09:00:00",
+    "first_run_kst_hour": 18,
+    "warned": false,
+    "state_known": true,
+    "lead_h": null,
+    "lead_h_since_ignition": null,
+    "warned_lapsed": false,
+    "run_hours_missed": 5,
+    "run_hours_unknown": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-23",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-24",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-25",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-26",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-27",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2025-03-28",
+    "issue_hours": 23,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_04",
+    "name": "Sancheong"
+   },
+   {
+    "kst_day": "2023-04-02",
+    "issue_hours": 11,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_05",
+    "name": "Hongseong"
+   },
+   {
+    "kst_day": "2023-04-03",
+    "issue_hours": 23,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_05",
+    "name": "Hongseong"
+   },
+   {
+    "kst_day": "2025-03-22",
+    "issue_hours": 10,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_06",
+    "name": "Ulju"
+   },
+   {
+    "kst_day": "2025-03-23",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_06",
+    "name": "Ulju"
+   },
+   {
+    "kst_day": "2025-03-24",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_06",
+    "name": "Ulju"
+   },
+   {
+    "kst_day": "2025-03-25",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_06",
+    "name": "Ulju"
+   },
+   {
+    "kst_day": "2025-03-26",
+    "issue_hours": 17,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_06",
+    "name": "Ulju"
+   },
+   {
+    "kst_day": "2023-04-02",
+    "issue_hours": 10,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_07",
+    "name": "Geumsan"
+   },
+   {
+    "kst_day": "2023-04-03",
+    "issue_hours": 11,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_07",
+    "name": "Geumsan"
+   },
+   {
+    "kst_day": "2022-05-31",
+    "issue_hours": 11,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_11",
+    "name": "Miryang"
+   },
+   {
+    "kst_day": "2022-06-01",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_11",
+    "name": "Miryang"
+   },
+   {
+    "kst_day": "2022-06-02",
+    "issue_hours": 7,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_11",
+    "name": "Miryang"
+   },
+   {
+    "kst_day": "2022-02-16",
+    "issue_hours": 7,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_12",
+    "name": "Yeongdeok"
+   },
+   {
+    "kst_day": "2025-04-29",
+    "issue_hours": 24,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_13",
+    "name": "Buk-gu"
+   },
+   {
+    "kst_day": "2025-04-30",
+    "issue_hours": 14,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_13",
+    "name": "Buk-gu"
+   },
+   {
+    "kst_day": "2022-04-11",
+    "issue_hours": 6,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_15",
+    "name": "Gunwi"
+   },
+   {
+    "kst_day": "2023-03-09",
+    "issue_hours": 16,
+    "run_hours": 0,
+    "alarm_no_run": false,
+    "alarm_hours": 0,
+    "fire": "KFS_17",
+    "name": "Hapcheon"
+   }
+  ],
+  "pooled_hours": {
+   "fires_and_run": 8,
+   "fires_no_run": 12,
+   "silent_and_run": 47,
+   "silent_no_run": 724,
+   "state_unknown": 0
+  },
+  "against": {
+   "G": {
+    "rule": "G",
+    "against": "G-obs upper bound",
+    "full": {
+     "run_fire_days": 9,
+     "warned_a": 4,
+     "warned_g": 1,
+     "warned_by_a_only": 3,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.25,
+     "lead_a_minus_g_h": [
+      8
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "without_25_march": {
+     "run_fire_days": 8,
+     "warned_a": 3,
+     "warned_g": 1,
+     "warned_by_a_only": 2,
+     "warned_by_g_only": 0,
+     "warned_by_both": 1,
+     "warned_by_neither": 5,
+     "sign_test_p": 0.5,
+     "lead_a_minus_g_h": [
+      8
+     ],
+     "a_earlier": 1,
+     "same": 0,
+     "g_earlier": 0,
+     "both_at_24h_cap": 0
+    },
+    "leave_one_fire_out": {
+     "KFS_01": {
+      "run_fire_days": 5,
+      "warned_a": 3,
+      "warned_g": 1,
+      "warned_by_a_only": 2,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 2,
+      "sign_test_p": 0.5,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_02": {
+      "run_fire_days": 6,
+      "warned_a": 2,
+      "warned_g": 1,
+      "warned_by_a_only": 1,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 4,
+      "sign_test_p": 1.0,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_03": {
+      "run_fire_days": 8,
+      "warned_a": 3,
+      "warned_g": 0,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 0,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [],
+      "a_earlier": 0,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_04": {
+      "run_fire_days": 8,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 4,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_05": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_06": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_07": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_11": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_12": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_13": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_15": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     },
+     "KFS_17": {
+      "run_fire_days": 9,
+      "warned_a": 4,
+      "warned_g": 1,
+      "warned_by_a_only": 3,
+      "warned_by_g_only": 0,
+      "warned_by_both": 1,
+      "warned_by_neither": 5,
+      "sign_test_p": 0.25,
+      "lead_a_minus_g_h": [
+       8
+      ],
+      "a_earlier": 1,
+      "same": 0,
+      "g_earlier": 0,
+      "both_at_24h_cap": 0
+     }
+    },
+    "more_reliably": "A warned more run fire-days than G",
+    "more_reliably_fails_in": [],
+    "earlier": "A earlier"
+   }
+  }
+ },
  "march25_hours": [
   {
    "kst_hour": 0,
@@ -33200,6 +38667,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.8,
    "run": false
   },
@@ -33214,6 +38682,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.8,
    "run": false
   },
@@ -33228,6 +38697,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.8,
    "run": false
   },
@@ -33242,6 +38712,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.4,
    "run": false
   },
@@ -33256,6 +38727,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.0,
    "run": false
   },
@@ -33270,6 +38742,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.0,
    "run": false
   },
@@ -33284,6 +38757,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 0.0,
    "run": false
   },
@@ -33298,6 +38772,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 2.2,
    "run": false
   },
@@ -33312,6 +38787,7 @@
    "A25": 1,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 2.2,
    "run": false
   },
@@ -33326,6 +38802,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 2.2,
    "run": false
   },
@@ -33340,6 +38817,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 4.9,
    "run": true
   },
@@ -33354,6 +38832,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 6.6,
    "run": true
   },
@@ -33368,6 +38847,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 12.4,
    "run": true
   },
@@ -33382,6 +38862,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 23.9,
    "run": true
   },
@@ -33396,6 +38877,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 34.7,
    "run": true
   },
@@ -33410,6 +38892,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 1,
    "reach5_km": 32.9,
    "run": true
   },
@@ -33424,6 +38907,7 @@
    "A25": 1,
    "A30": 1,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 40.1,
    "run": true
   },
@@ -33438,6 +38922,7 @@
    "A25": 1,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 38.6,
    "run": true
   },
@@ -33452,6 +38937,7 @@
    "A25": 1,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 27.3,
    "run": true
   },
@@ -33466,6 +38952,7 @@
    "A25": 1,
    "A30": 0,
    "G_obs": 1,
+   "G_obs_all_stations": 1,
    "reach5_km": 20.3,
    "run": true
   },
@@ -33480,6 +38967,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 15.7,
    "run": true
   },
@@ -33494,6 +38982,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 6.5,
    "run": true
   },
@@ -33508,6 +38997,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": 4.9,
    "run": true
   },
@@ -33522,6 +39012,7 @@
    "A25": 0,
    "A30": 0,
    "G_obs": 0,
+   "G_obs_all_stations": 0,
    "reach5_km": null,
    "run": false
   }
@@ -33550,6 +39041,107 @@
    "2024": 105,
    "2025": 104
   }
+ },
+ "gobs_quality": {
+  "hours_fetched": 697,
+  "hours_failed": [],
+  "station_hours": 67245,
+  "gust_records": 9100,
+  "share_of_station_hours_with_a_record": 0.1353,
+  "smallest_recorded_gust_ms": 7.0,
+  "records_timed_outside_their_hour": 3062,
+  "records_not_whole_ms": 0,
+  "records_20_or_more_inside_hour": 141,
+  "records_20_or_more_outside_hour": 96,
+  "stamp_hours_of_outside_records": {
+   "00": 200,
+   "03": 294,
+   "06": 129,
+   "09": 200,
+   "12": 202,
+   "15": 562,
+   "17": 1,
+   "18": 709,
+   "19": 2,
+   "20": 2,
+   "21": 761
+  },
+  "fire_hours_hidden_by_earlier_gust": 10,
+  "burden_alarm_days_only_if_hidden_hours_count": 0,
+  "stations_within_50km_of_points": {
+   "Sokcho": [
+    90,
+    211
+   ],
+   "Gangneung": [
+    100,
+    104,
+    105,
+    106,
+    217
+   ],
+   "Taebaek": [
+    106,
+    121,
+    130,
+    216,
+    217,
+    271
+   ],
+   "Chuncheon": [
+    93,
+    95,
+    101,
+    211,
+    212
+   ],
+   "Wonju": [
+    114,
+    202,
+    203,
+    212,
+    221
+   ],
+   "Uljin": [
+    130,
+    216,
+    271
+   ],
+   "Yeongdeok": [
+    276,
+    277
+   ],
+   "Pohang": [
+    138,
+    281,
+    283
+   ],
+   "Andong": [
+    136,
+    271,
+    272,
+    273,
+    276,
+    278
+   ],
+   "Sangju": [
+    135,
+    137,
+    226,
+    273,
+    278,
+    279
+   ]
+  },
+  "fire_hours": 1080,
+  "fire_hours_unknown": 0,
+  "fire_stations_50km_min_max": [
+   2,
+   10
+  ],
+  "burden_point_days": 0,
+  "burden_point_days_complete": 0,
+  "burden_days_by_season": {}
  },
  "second_model_ifs": {
   "label": "cross-check; enters no verdict",

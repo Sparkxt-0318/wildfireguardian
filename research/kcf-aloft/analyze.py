@@ -130,7 +130,7 @@ def compare(rows_a, rows_g, drop_day=None, drop_fire=None):
                 both_at_24h_cap=capped)
 
 
-def verdicts(fh, name_a, fn_a, fn_g, timeline="primary", hours="all"):
+def verdicts(fh, name_a, fn_a, fn_g, timeline="primary", hours="all", against="G"):
     ra, rg = per_day(fh, fn_a, timeline, hours), per_day(fh, fn_g, timeline, hours)
     fires_ = sorted({r["fire"] for r in ra})
     full = compare(ra, rg)
@@ -157,7 +157,7 @@ def verdicts(fh, name_a, fn_a, fn_g, timeline="primary", hours="all"):
         return "mixed"
     e_full, e_wo = earlier(full), earlier(wo)
     early = e_full if e_full == e_wo else f"depends on 25 March (with: {e_full}; without: {e_wo})"
-    return dict(rule=name_a, against="G", full=full, without_25_march=wo, leave_one_fire_out=lofo,
+    return dict(rule=name_a, against=against, full=full, without_25_march=wo, leave_one_fire_out=lofo,
                 more_reliably=rel, more_reliably_fails_in=dep, earlier=early)
 
 
@@ -181,7 +181,7 @@ def burden_alarm(bd, spec):
     return (bd[col].values > thr) if strict else (bd[col].values >= thr)
 
 
-def burden_counts(bd, alarm, excluded):
+def burden_counts(bd, alarm, excluded, mean_seasons=None):
     """bd: complete point-days. alarm: bool per row. excluded: set of (point, kst_day) with a fire-set run within 100 km."""
     d = bd.assign(alarm=alarm)
     d["false_alarm"] = d.alarm & ~d.apply(lambda r: (r.point, r.kst_day) in excluded, axis=1)
@@ -197,7 +197,9 @@ def burden_counts(bd, alarm, excluded):
             min_point=[pp.idxmin(), int(pp.min())], max_point=[pp.idxmax(), int(pp.max())],
             days_any_point=int(days.sum()), by_point={p: int(v) for p, v in pp.items()})
     seasons = sorted(out["per_season"])
-    full = [s for s in seasons if out["per_season"][s]["days_evaluated"] == FULL_SEASON_DAYS[s]]
+    full = [s for s in seasons if out["per_season"][s]["days_evaluated"] == FULL_SEASON_DAYS[s]
+            and (mean_seasons is None or s in mean_seasons)]
+    out["complete_seasons"] = [s for s in seasons if out["per_season"][s]["days_evaluated"] == FULL_SEASON_DAYS[s]]
     npt = d.point.nunique()
 
     def mean_ci(total, units):
@@ -226,6 +228,12 @@ def main():
     fh = pd.read_csv(a.fire, low_memory=False)
     for c in ("pre", "issue", "run", "scored_abstain", "in_gap"):
         fh[c] = fh[c].astype(bool)
+    gpath = Path(a.fire).parent / "gobs_fire_hours.csv.gz"
+    have_gobs = gpath.exists()
+    if have_gobs:                                  # G-obs from KMA stations (amendment 2), primary timeline only
+        g = pd.read_csv(gpath)[["fire", "t_utc", "gobs", "gobs_upper"]].rename(columns={"gobs": "gobs_kma"})
+        g["timeline"] = "primary"
+        fh = fh.merge(g, on=["fire", "t_utc", "timeline"], how="left")
     bd_all = pd.read_csv(a.burden)
     bd = bd_all[bd_all.hours_evaluated == 24].reset_index(drop=True)
 
@@ -253,6 +261,8 @@ def main():
         specs["A-match"] = ("w_k1", match, False)
         fns["A-match"] = spec_state(specs["A-match"])
     gobs, gobs4 = GObs(50.0), GObs(None)
+    if have_gobs:
+        fns = {"G": fns["G"], "G-obs": (lambda tl: tl.gobs_kma.values.astype(float)), **{k: v for k, v in fns.items() if k != "G"}}
 
     out = dict(s_match=dict(g_alarm_point_days=n_g, threshold_ms=match,
                             a_alarm_point_days=None if match is None else int((bd.w_k1.values >= match).sum())),
@@ -268,16 +278,35 @@ def main():
     for n, fn in fns.items():
         out["fire_set"][n] = block(fn)
         out["pooled_hours"][n] = pooled_hours(fh, fn)
+        if n == "G-obs":
+            try:
+                gb = pd.read_csv(Path(a.fire).parent / "gobs_burden_days.csv.gz")
+                gb = gb[gb.hours_evaluated == 24].reset_index(drop=True)
+            except pd.errors.EmptyDataError:
+                gb = pd.DataFrame()
+            if len(gb):
+                out["burden"][n] = burden_counts(gb, gb.gobs_max_ms.values >= 20.0, excluded, mean_seasons=out["burden"]["G"]["full_seasons"])
+            else:                                   # burden not fetched yet: NOT RUN
+                out["burden"][n] = dict(per_season={}, per_point={}, full_seasons=[], all_seasons_evaluated=[], complete_seasons=[],
+                                        alarm_days_per_point_season=None, false_alarm_days_per_point_season=None,
+                                        days_any_point_per_season=None, alarm_point_days_all_evaluated=0,
+                                        false_alarm_point_days_all_evaluated=0, point_days_evaluated=0)
+            continue
         alarm = (burden_alarm(bd, specs[n]) if n in specs else
                  burden_alarm(bd, RULES[COMBOS[n][0]]) | burden_alarm(bd, RULES[COMBOS[n][1]]))
         out["burden"][n] = burden_counts(bd, alarm, excluded)
     out["fire_set_choi_timeline"] = {n: {k: v for k, v in block(fn, timeline="choi").items() if k != "leave_one_fire_out"}
-                                     for n, fn in fns.items()}
+                                     for n, fn in fns.items() if n != "G-obs"}
     out["fire_set_abstain_hours"] = {n: {k: v for k, v in block(fn, hours="abstain").items() if k != "leave_one_fire_out"}
                                      for n, fn in fns.items()}
     for n in fns:
-        if n != "G":
+        if n not in ("G", "G-obs"):
             out["verdicts"][n] = verdicts(fh, n, fns[n], fns["G"])
+    if have_gobs:                                  # descriptive (amendment 2): every forecast rule against G-obs
+        out["against_gobs"] = {n: verdicts(fh, n, fns[n], fns["G-obs"], against="G-obs") for n in fns if n != "G-obs"}
+        up = lambda tl: tl.gobs_upper.values.astype(float)      # post hoc bound: hours hidden by an earlier gust count as firing
+        out["gobs_upper_bound"] = dict(block(up), pooled_hours=pooled_hours(fh, up),
+                                       against=dict(G=verdicts(fh, "G", fns["G"], up, against="G-obs upper bound")))
     # G-obs: KFS_01 only, PARTIAL (four committed stations, 22-26 March 2025)
     k1 = fh[fh.fire == "KFS_01"]
     for label, fn in (("within_50km", gobs), ("all_four_stations", gobs4)):
@@ -313,10 +342,11 @@ def main():
     d = fh[(fh.fire == "KFS_01") & (fh.timeline == "primary")].sort_values("t_utc").reset_index(drop=True)
     go = gobs(d)
     st = {n: fns[n](d) for n in ("G", "A-cal", "A25", "A30")}
+    gk = fns["G-obs"](d) if have_gobs else np.full(len(d), np.nan)
     out["march25_hours"] = [
         dict(kst_hour=int(r.kst_hour), cycle_utc=r.cycle_utc, gust_any_hour_ms=round(r.g_k1, 1), gust_two_hours_ms=round(r.g_k2, 1),
              w850_ms=round(r.w_k1, 1), G=int(st["G"][i]), A_cal=int(st["A-cal"][i]), A25=int(st["A25"][i]), A30=int(st["A30"][i]),
-             G_obs=None if math.isnan(go[i]) else int(go[i]), reach5_km=None if pd.isna(r.reach5_km) else round(r.reach5_km, 1),
+             G_obs=None if math.isnan(go[i]) else int(go[i]), G_obs_all_stations=None if math.isnan(gk[i]) else int(gk[i]), reach5_km=None if pd.isna(r.reach5_km) else round(r.reach5_km, 1),
              run=bool(r.run))
         for i, r in enumerate(d.itertuples(index=False)) if r.kst_day == "2025-03-25"]
     out["burden_meta"] = dict(
