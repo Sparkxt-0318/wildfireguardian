@@ -1,0 +1,1298 @@
+{
+ "towns": {
+  "영덕군 영덕읍": [
+   "구미리",
+   "우곡리",
+   "삼계리",
+   "천전리",
+   "석리",
+   "노물리",
+   "오보리",
+   "대탄리",
+   "대부리",
+   "창포리",
+   "덕곡리",
+   "화개리",
+   "남석리",
+   "남산리",
+   "화수리",
+   "매정리",
+   "화천리"
+  ],
+  "영덕군 강구면": [
+   "강구리",
+   "오포리",
+   "화전리",
+   "상직리",
+   "원직리",
+   "금호리",
+   "금진리",
+   "삼사리",
+   "소월리",
+   "하저리"
+  ],
+  "영덕군 남정면": [
+   "부경리",
+   "부흥리",
+   "남호리",
+   "남정리",
+   "중화리",
+   "우곡리",
+   "구계리",
+   "도천리",
+   "사암리",
+   "쟁암리",
+   "원척리",
+   "봉전리",
+   "양성리",
+   "장사리",
+   "회리"
+  ],
+  "영덕군 달산면": [
+   "대지리",
+   "매일리",
+   "흥기리",
+   "주응리",
+   "옥산리",
+   "덕산리",
+   "용평리",
+   "인곡리",
+   "봉산리",
+   "옥계리",
+   "용전리"
+  ],
+  "영덕군 지품면": [
+   "삼화리",
+   "오천리",
+   "용덕리",
+   "송천리",
+   "도계리",
+   "신양리",
+   "눌곡리",
+   "낙평리",
+   "신안리",
+   "속곡리",
+   "율전리",
+   "옥류리",
+   "수암리",
+   "복곡리",
+   "원전리",
+   "지품리",
+   "기사리",
+   "황장리",
+   "신애리"
+  ],
+  "영덕군 축산면": [
+   "기암리",
+   "대곡리",
+   "조항리",
+   "칠성리",
+   "부곡리",
+   "상원리",
+   "도곡리",
+   "고곡리",
+   "경정리",
+   "축산리"
+  ],
+  "영덕군 영해면": [
+   "성내리",
+   "괴시리",
+   "대진리",
+   "사진리",
+   "연평리",
+   "벌영리",
+   "원구리",
+   "묘곡리",
+   "대동리"
+  ],
+  "영덕군 병곡면": [
+   "삼읍리",
+   "금곡리",
+   "백석리",
+   "병곡리",
+   "영리",
+   "거무역리",
+   "아곡리",
+   "원황리",
+   "이천리",
+   "각리리",
+   "사천리",
+   "신평리",
+   "송천리",
+   "덕천리"
+  ],
+  "영덕군 창수면": [
+   "인량리",
+   "가산리",
+   "신기리",
+   "신리리",
+   "갈천리",
+   "창수리",
+   "미곡리",
+   "오촌리",
+   "삼계리",
+   "수리",
+   "인천리",
+   "보림리",
+   "백청리"
+  ],
+  "영양군 영양읍": [
+   "감천리",
+   "기산리",
+   "대천리",
+   "동부리",
+   "무창리",
+   "무학리",
+   "삼지리",
+   "상원리",
+   "서부리",
+   "양구리",
+   "전곡리",
+   "하원리",
+   "현리",
+   "화천리",
+   "황용리"
+  ],
+  "영양군 입암면": [
+   "교리",
+   "금학리",
+   "노달리",
+   "대천리",
+   "방전리",
+   "병옥리",
+   "산해리",
+   "삼산리",
+   "신구리",
+   "신사리",
+   "양항리",
+   "연당리",
+   "흥구리"
+  ],
+  "영양군 석보면": [
+   "답곡리",
+   "삼의리",
+   "소계리",
+   "신평리",
+   "옥계리",
+   "요원리",
+   "원리리",
+   "주남리",
+   "지경리",
+   "택전리",
+   "포산리",
+   "홍계리",
+   "화매리"
+  ],
+  "청송군 청송읍": [
+   "월막리",
+   "덕리",
+   "금곡리",
+   "청운리",
+   "송생리",
+   "교리",
+   "거대리",
+   "월외리",
+   "부곡리"
+  ],
+  "청송군 주왕산면": [
+   "상평리",
+   "지리",
+   "하의리",
+   "상의리",
+   "부일리",
+   "신점리",
+   "주산지리",
+   "내룡리",
+   "라리",
+   "항리"
+  ],
+  "청송군 부남면": [
+   "감연리",
+   "대전리",
+   "홍원리",
+   "하속리",
+   "구천리",
+   "화장리",
+   "이현리",
+   "중기리",
+   "양숙리"
+  ],
+  "청송군 안덕면": [
+   "명당리",
+   "감은리",
+   "장전리",
+   "문거리",
+   "신성리",
+   "근곡리",
+   "노래리",
+   "지소리",
+   "고와리",
+   "복리",
+   "덕성리",
+   "성재리"
+  ],
+  "청송군 파천면": [
+   "관리",
+   "중평리",
+   "덕천리",
+   "신흥리",
+   "신기리",
+   "지경리",
+   "병부리",
+   "황목리",
+   "어천리",
+   "송강리",
+   "옹점리"
+  ],
+  "청송군 진보면": [
+   "각산리",
+   "고현리",
+   "광덕리",
+   "괴정리",
+   "기곡리",
+   "부곡리",
+   "월전리",
+   "세장리",
+   "시량리",
+   "신촌리",
+   "이촌리",
+   "진안리",
+   "추현리",
+   "합강리",
+   "후평리"
+  ],
+  "안동시 길안면": [
+   "고란리",
+   "구수리",
+   "금곡리",
+   "대곡리",
+   "대사리",
+   "만음리",
+   "묵계리",
+   "배방리",
+   "백자리",
+   "송사리",
+   "용계리",
+   "천지리",
+   "현하리"
+  ],
+  "안동시 임하면": [
+   "임하리",
+   "천전리",
+   "추목리",
+   "신덕리",
+   "금소리",
+   "고곡리",
+   "오대리",
+   "노산리"
+  ],
+  "안동시 남후면": [
+   "광음리",
+   "무릉리",
+   "개곡리",
+   "검암리",
+   "고하리",
+   "고상리",
+   "상아리",
+   "하아리",
+   "단호리"
+  ],
+  "안동시 일직면": [
+   "운산리",
+   "귀미리",
+   "구천리",
+   "망호리",
+   "원리",
+   "광연리",
+   "평팔리",
+   "명진리",
+   "용각리",
+   "국곡리",
+   "조탑리",
+   "송리리",
+   "원호리"
+  ],
+  "안동시 남선면": [
+   "구미리",
+   "이천리",
+   "신석리",
+   "신흥리",
+   "도로리",
+   "현내리",
+   "원림리",
+   "외하리"
+  ],
+  "안동시 임동면": [
+   "갈전리",
+   "고천리",
+   "대곡리",
+   "마리",
+   "마령리",
+   "망천리",
+   "박곡리",
+   "사월리",
+   "수곡리",
+   "위리",
+   "중평리",
+   "지리"
+  ],
+  "안동시 풍천면": [
+   "가곡리",
+   "갈전리",
+   "광덕리",
+   "구담리",
+   "구호리",
+   "금계리",
+   "기산리",
+   "도양리",
+   "병산리",
+   "신성리",
+   "어담리",
+   "인금리",
+   "하회리"
+  ],
+  "의성군 의성읍": [
+   "후죽리",
+   "중리리",
+   "상리리",
+   "도동리",
+   "도서리",
+   "치선리",
+   "오로리",
+   "비봉리",
+   "팔성리",
+   "용연리",
+   "원당리",
+   "철파리",
+   "업리"
+  ],
+  "의성군 단촌면": [
+   "세촌리",
+   "하화리",
+   "상화리",
+   "관덕리",
+   "병방리",
+   "구계리",
+   "방하리",
+   "장림리",
+   "후평리"
+  ],
+  "의성군 점곡면": [
+   "서변리",
+   "황룡리",
+   "구암리",
+   "명고리",
+   "동변리",
+   "사촌리",
+   "송내리",
+   "윤암리"
+  ],
+  "의성군 옥산면": [
+   "구성리",
+   "정자리",
+   "감계리",
+   "실업리",
+   "오류리",
+   "금봉리",
+   "전흥리",
+   "입암리",
+   "신계리",
+   "금학리"
+  ],
+  "의성군 사곡면": [
+   "양지리",
+   "음지리",
+   "오상리",
+   "신감리",
+   "매곡리",
+   "공정리",
+   "화전리",
+   "신리리",
+   "작승리",
+   "토현리"
+  ],
+  "의성군 춘산면": [
+   "옥정리",
+   "금오리",
+   "신흥리",
+   "대사리",
+   "금천리",
+   "빙계리",
+   "사미리",
+   "효선리"
+  ],
+  "의성군 가음면": [
+   "장리",
+   "이리",
+   "양지리",
+   "가산리",
+   "귀천리",
+   "순호리",
+   "현리리"
+  ],
+  "의성군 금성면": [
+   "탑리리",
+   "대리리",
+   "학미리",
+   "제오리",
+   "운곡리",
+   "만천리",
+   "하리",
+   "초전리",
+   "구련리",
+   "명덕리",
+   "도경리",
+   "개일리",
+   "청로리",
+   "산운리",
+   "수정리"
+  ],
+  "의성군 안평면": [
+   "창길리",
+   "괴산리",
+   "박곡리",
+   "석탑리",
+   "신월리",
+   "신안리",
+   "대사리",
+   "도옥리",
+   "마전리",
+   "기도리",
+   "금곡리",
+   "하령리",
+   "삼춘리"
+  ],
+  "의성군 안계면": [
+   "용기리",
+   "토매리",
+   "위양리",
+   "교촌리",
+   "안정리",
+   "봉양리",
+   "도덕리",
+   "양곡리",
+   "시안리"
+  ],
+  "의성군 단북면": [
+   "이연리",
+   "노연리",
+   "정안리",
+   "연제리",
+   "효제리",
+   "성암리",
+   "신하리"
+  ]
+ },
+ "village_matches": {
+  "영덕/영양/청송": {
+   "강구리": [
+    "영덕군 강구면"
+   ],
+   "경정리": [
+    "영덕군 축산면"
+   ],
+   "고곡리": [
+    "영덕군 축산면",
+    "안동시 임하면"
+   ],
+   "괴시리": [
+    "영덕군 영해면"
+   ],
+   "구미리": [
+    "영덕군 영덕읍",
+    "안동시 남선면"
+   ],
+   "금진리": [
+    "영덕군 강구면"
+   ],
+   "금호리": [
+    "영덕군 강구면"
+   ],
+   "기사리": [
+    "영덕군 지품면"
+   ],
+   "기암리": [
+    "영덕군 축산면"
+   ],
+   "낙평리": [
+    "영덕군 지품면"
+   ],
+   "남산리": [
+    "영덕군 영덕읍"
+   ],
+   "남석리": [
+    "영덕군 영덕읍"
+   ],
+   "남정리": [
+    "영덕군 남정면"
+   ],
+   "남호리": [
+    "영덕군 남정면"
+   ],
+   "내룡리": [
+    "청송군 주왕산면"
+   ],
+   "노물리": [
+    "영덕군 영덕읍"
+   ],
+   "눌곡리": [
+    "영덕군 지품면"
+   ],
+   "대곡리": [
+    "영덕군 축산면",
+    "안동시 길안면",
+    "안동시 임동면"
+   ],
+   "대리": [
+    "영덕군 영해면"
+   ],
+   "대부리": [
+    "영덕군 영덕읍"
+   ],
+   "대지리": [
+    "영덕군 달산면"
+   ],
+   "대탄리": [
+    "영덕군 영덕읍"
+   ],
+   "덕곡리": [
+    "영덕군 영덕읍"
+   ],
+   "덕산리": [
+    "영덕군 달산면"
+   ],
+   "도계리": [
+    "영덕군 지품면"
+   ],
+   "도곡리": [
+    "영덕군 축산면"
+   ],
+   "매일리": [
+    "영덕군 달산면"
+   ],
+   "매정리": [
+    "영덕군 영덕읍"
+   ],
+   "묘곡리": [
+    "영덕군 영해면"
+   ],
+   "벌영리": [
+    "영덕군 영해면"
+   ],
+   "복곡리": [
+    "영덕군 지품면"
+   ],
+   "봉산리": [
+    "영덕군 달산면"
+   ],
+   "부곡리": [
+    "영덕군 축산면",
+    "청송군 청송읍",
+    "청송군 진보면"
+   ],
+   "사암리": [
+    "영덕군 남정면"
+   ],
+   "사진리": [
+    "영덕군 영해면"
+   ],
+   "삼계리": [
+    "영덕군 영덕읍",
+    "영덕군 창수면"
+   ],
+   "삼사리": [
+    "영덕군 강구면"
+   ],
+   "삼의리": [
+    "영양군 석보면"
+   ],
+   "삼화리": [
+    "영덕군 지품면"
+   ],
+   "상원리": [
+    "영덕군 축산면",
+    "영양군 영양읍"
+   ],
+   "상의리": [
+    "청송군 주왕산면"
+   ],
+   "상직리": [
+    "영덕군 강구면"
+   ],
+   "석리": [
+    "영덕군 영덕읍"
+   ],
+   "성내리": [
+    "영덕군 영해면"
+   ],
+   "소월리": [
+    "영덕군 강구면"
+   ],
+   "속곡리": [
+    "영덕군 지품면"
+   ],
+   "송천리": [
+    "영덕군 지품면",
+    "영덕군 병곡면"
+   ],
+   "수암리": [
+    "영덕군 지품면"
+   ],
+   "신기리": [
+    "영덕군 창수면",
+    "청송군 파천면"
+   ],
+   "신안리": [
+    "영덕군 지품면",
+    "의성군 안평면"
+   ],
+   "신애리": [
+    "영덕군 지품면"
+   ],
+   "신양리": [
+    "영덕군 지품면"
+   ],
+   "신평리": [
+    "영덕군 병곡면",
+    "영양군 석보면"
+   ],
+   "연평리": [
+    "영덕군 영해면"
+   ],
+   "오보리": [
+    "영덕군 영덕읍"
+   ],
+   "오천리": [
+    "영덕군 지품면"
+   ],
+   "오포리": [
+    "영덕군 강구면"
+   ],
+   "옥계리": [
+    "영덕군 달산면",
+    "영양군 석보면"
+   ],
+   "옥류리": [
+    "영덕군 지품면"
+   ],
+   "옥산리": [
+    "영덕군 달산면"
+   ],
+   "용덕리": [
+    "영덕군 지품면"
+   ],
+   "용전리": [
+    "영덕군 달산면"
+   ],
+   "용평리": [
+    "영덕군 달산면"
+   ],
+   "우곡리": [
+    "영덕군 영덕읍",
+    "영덕군 남정면"
+   ],
+   "원구리": [
+    "영덕군 영해면"
+   ],
+   "원전리": [
+    "영덕군 지품면"
+   ],
+   "원직리": [
+    "영덕군 강구면"
+   ],
+   "율전리": [
+    "영덕군 지품면"
+   ],
+   "인곡리": [
+    "영덕군 달산면"
+   ],
+   "조항리": [
+    "영덕군 축산면"
+   ],
+   "주응리": [
+    "영덕군 달산면"
+   ],
+   "중화리": [
+    "영덕군 남정면"
+   ],
+   "지품리": [
+    "영덕군 지품면"
+   ],
+   "창포리": [
+    "영덕군 영덕읍"
+   ],
+   "천전리": [
+    "영덕군 영덕읍",
+    "안동시 임하면"
+   ],
+   "축산리": [
+    "영덕군 축산면"
+   ],
+   "칠성리": [
+    "영덕군 축산면"
+   ],
+   "택전리": [
+    "영양군 석보면"
+   ],
+   "포산리": [
+    "영양군 석보면"
+   ],
+   "하저리": [
+    "영덕군 강구면"
+   ],
+   "항리": [
+    "청송군 주왕산면"
+   ],
+   "화개리": [
+    "영덕군 영덕읍"
+   ],
+   "화매리": [
+    "영양군 석보면"
+   ],
+   "화수리": [
+    "영덕군 영덕읍"
+   ],
+   "화전리": [
+    "영덕군 강구면",
+    "의성군 사곡면"
+   ],
+   "화천리": [
+    "영덕군 영덕읍",
+    "영양군 영양읍"
+   ],
+   "황장리": [
+    "영덕군 지품면"
+   ],
+   "흥기리": [
+    "영덕군 달산면"
+   ]
+  },
+  "의성/안동": {
+   "감계리": [
+    "의성군 옥산면"
+   ],
+   "개곡리": [
+    "안동시 남후면"
+   ],
+   "검암리": [
+    "안동시 남후면"
+   ],
+   "고곡리": [
+    "영덕군 축산면",
+    "안동시 임하면"
+   ],
+   "고상리": [
+    "안동시 남후면"
+   ],
+   "고하리": [
+    "안동시 남후면"
+   ],
+   "관덕리": [
+    "의성군 단촌면"
+   ],
+   "광연리": [
+    "안동시 일직면"
+   ],
+   "광음리": [
+    "안동시 남후면"
+   ],
+   "괴산리": [
+    "의성군 안평면"
+   ],
+   "구계리": [
+    "영덕군 남정면",
+    "의성군 단촌면"
+   ],
+   "구미리": [
+    "영덕군 영덕읍",
+    "안동시 남선면"
+   ],
+   "구성리": [
+    "의성군 옥산면"
+   ],
+   "구암리": [
+    "의성군 점곡면"
+   ],
+   "구천리": [
+    "청송군 부남면",
+    "안동시 일직면"
+   ],
+   "국곡리": [
+    "안동시 일직면"
+   ],
+   "귀미리": [
+    "안동시 일직면"
+   ],
+   "금학리": [
+    "영양군 입암면",
+    "의성군 옥산면"
+   ],
+   "기도리": [
+    "의성군 안평면"
+   ],
+   "단호리": [
+    "안동시 남후면"
+   ],
+   "대사리": [
+    "안동시 길안면",
+    "의성군 춘산면",
+    "의성군 안평면"
+   ],
+   "도동리": [
+    "의성군 의성읍"
+   ],
+   "도로리": [
+    "안동시 남선면"
+   ],
+   "도옥리": [
+    "의성군 안평면"
+   ],
+   "동변리": [
+    "의성군 점곡면"
+   ],
+   "마전리": [
+    "의성군 안평면"
+   ],
+   "망호리": [
+    "안동시 일직면"
+   ],
+   "명고리": [
+    "의성군 점곡면"
+   ],
+   "명진리": [
+    "안동시 일직면"
+   ],
+   "무릉리": [
+    "안동시 남후면"
+   ],
+   "박곡리": [
+    "안동시 임동면",
+    "의성군 안평면"
+   ],
+   "방하리": [
+    "의성군 단촌면"
+   ],
+   "병방리": [
+    "의성군 단촌면"
+   ],
+   "분토리": [],
+   "사촌리": [
+    "의성군 점곡면"
+   ],
+   "삼춘리": [
+    "의성군 안평면"
+   ],
+   "상리리": [
+    "의성군 의성읍"
+   ],
+   "상아리": [
+    "안동시 남후면"
+   ],
+   "상화리": [
+    "의성군 단촌면"
+   ],
+   "서변리": [
+    "의성군 점곡면"
+   ],
+   "석탑리": [
+    "의성군 안평면"
+   ],
+   "세촌리": [
+    "의성군 단촌면"
+   ],
+   "송내리": [
+    "의성군 점곡면"
+   ],
+   "송리리": [
+    "안동시 일직면"
+   ],
+   "신계리": [
+    "의성군 옥산면"
+   ],
+   "신덕리": [
+    "안동시 임하면"
+   ],
+   "신석리": [
+    "안동시 남선면"
+   ],
+   "신안리": [
+    "영덕군 지품면",
+    "의성군 안평면"
+   ],
+   "신월리": [
+    "의성군 안평면"
+   ],
+   "신흥리": [
+    "청송군 파천면",
+    "안동시 남선면",
+    "의성군 춘산면"
+   ],
+   "어담리": [
+    "안동시 풍천면"
+   ],
+   "업리": [
+    "의성군 의성읍"
+   ],
+   "외하리": [
+    "안동시 남선면"
+   ],
+   "용각리": [
+    "안동시 일직면"
+   ],
+   "용봉리": [],
+   "운산리": [
+    "안동시 일직면"
+   ],
+   "원당리": [
+    "의성군 의성읍"
+   ],
+   "원리": [
+    "안동시 일직면"
+   ],
+   "원림리": [
+    "안동시 남선면"
+   ],
+   "원호리": [
+    "안동시 일직면"
+   ],
+   "윤암리": [
+    "의성군 점곡면"
+   ],
+   "이천리": [
+    "영덕군 병곡면",
+    "안동시 남선면"
+   ],
+   "인금리": [
+    "안동시 풍천면"
+   ],
+   "입암리": [
+    "의성군 옥산면"
+   ],
+   "장림리": [
+    "의성군 단촌면"
+   ],
+   "정자리": [
+    "의성군 옥산면"
+   ],
+   "조탑리": [
+    "안동시 일직면"
+   ],
+   "중리리": [
+    "의성군 의성읍"
+   ],
+   "창길리": [
+    "의성군 안평면"
+   ],
+   "천전리": [
+    "영덕군 영덕읍",
+    "안동시 임하면"
+   ],
+   "철파리": [
+    "의성군 의성읍"
+   ],
+   "추목리": [
+    "안동시 임하면"
+   ],
+   "평팔리": [
+    "안동시 일직면"
+   ],
+   "하령리": [
+    "의성군 안평면"
+   ],
+   "하아리": [
+    "안동시 남후면"
+   ],
+   "하화리": [
+    "의성군 단촌면"
+   ],
+   "현내리": [
+    "안동시 남선면"
+   ],
+   "화신리": [],
+   "황룡리": [
+    "영양군 영양읍",
+    "의성군 점곡면"
+   ],
+   "후죽리": [
+    "의성군 의성읍"
+   ],
+   "후평리": [
+    "청송군 진보면",
+    "의성군 단촌면"
+   ]
+  }
+ },
+ "notes": {
+  "대리": "영덕군 영해면 대리 was officially renamed back to 대동리 on 2025-06-30 (kbmaeil.com 2025-07-08); Wikipedia now lists 대동리.",
+  "황룡리": "영양읍 village is written 황용리 on the 영양읍 page and 황룡리 on 영양군의 행정 구역 page.",
+  "분토리": "Not in any listed town; search snippets place it in 의성군 봉양면 (low confidence, auction-site listing).",
+  "용봉리": "Not in any listed town; search snippets place it in 의성군 신평면 (low confidence).",
+  "화신리": "Not in any listed town; search snippets place it in 의성군 비안면 (low confidence, auction-site listing)."
+ },
+ "caveats": [
+  "Lists come from search-engine summaries of ko.wikipedia pages (영덕군/영양군/청송군/안동시/의성군의 행정 구역 and per-면 pages); pages themselves could not be fetched.",
+  "안동시의 행정 구역 lists 갈전리 under both 임동면 and 풍천면; possibly an editing error.",
+  "영해면 has 9 법정리 per Wikipedia; 대리 now 대동리."
+ ],
+ "sources": [
+  {
+   "town": "영덕군 영덕읍",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 강구면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 남정면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 달산면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 지품면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 축산면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 영해면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 병곡면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 창수면",
+   "url": "https://ko.wikipedia.org/wiki/영덕군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영양군 영양읍",
+   "url": "https://ko.wikipedia.org/wiki/영양군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영양군 입암면",
+   "url": "https://ko.wikipedia.org/wiki/영양군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영양군 석보면",
+   "url": "https://ko.wikipedia.org/wiki/영양군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "청송군 청송읍",
+   "url": "https://ko.wikipedia.org/wiki/청송군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "청송군 주왕산면",
+   "url": "https://ko.wikipedia.org/wiki/청송군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "청송군 부남면",
+   "url": "https://ko.wikipedia.org/wiki/청송군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "청송군 안덕면",
+   "url": "https://ko.wikipedia.org/wiki/청송군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "청송군 파천면",
+   "url": "https://ko.wikipedia.org/wiki/청송군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "청송군 진보면",
+   "url": "https://ko.wikipedia.org/wiki/청송군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 길안면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 임하면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 남후면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 일직면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 남선면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 임동면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "안동시 풍천면",
+   "url": "https://ko.wikipedia.org/wiki/안동시의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 의성읍",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 단촌면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 점곡면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 옥산면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 사곡면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 춘산면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 가음면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 금성면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 안평면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 안계면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "의성군 단북면",
+   "url": "https://ko.wikipedia.org/wiki/의성군의_행정_구역",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text (ko.wikipedia.org fetch blocked by session network allowlist)"
+  },
+  {
+   "town": "영덕군 영해면",
+   "url": "https://kbmaeil.com/article/20250708500306",
+   "read_full_page": false,
+   "retrieved_utc": "2026-11-18",
+   "method": "WebSearch result text: 대리 -> 대동리 rename"
+  }
+ ]
+}

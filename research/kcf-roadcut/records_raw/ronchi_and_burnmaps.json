@@ -1,0 +1,1066 @@
+{
+ "ronchi_citation": {
+  "authors": "Ronchi E, Wahlqvist J, Ardinge A, Rohaert A, Gwynne SMV, Rein G, Mitchell H, Kalogeropoulos N, Kinateder M, Bénichou N, Kuligowski E, Kimball A",
+  "title": "The verification of wildland–urban interface fire evacuation models",
+  "journal": "Natural Hazards",
+  "volume": 117,
+  "issue": 2,
+  "pages": "1493–1519",
+  "year": 2023,
+  "doi": "10.1007/s11069-023-05913-2",
+  "doi_note": "The DOI suggested in the request (…05913-y) is wrong; the correct suffix is -2 (from the JATS XML article-id and the Springer URL).",
+  "dates": {
+   "received": "2022-12-01",
+   "accepted": "2023-03-07",
+   "published_online": "2023-03-28"
+  },
+  "pmcid": "PMC10220130",
+  "pmid": "37251348",
+  "licence": "CC BY 4.0",
+  "funding": "NIST grant 60NANB20D191; Lund University",
+  "supplementary": "Supplementary file1 (DOCX 250 kb), 11069_2023_5913_MOESM1_ESM.docx; plus full report: Ronchi E, Wahlqvist J, Rohaert A et al (2021a) WUI-NITY 2: the integration, verification, and validation of the wildfire evacuation platform WUI-NITY. Fire Protection Research Foundation, Quincy, MA.",
+  "source_read": {
+   "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=10220130&rettype=xml",
+   "equivalent_human_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10220130/",
+   "retrieved_utc": "2026-11-18T10:41:15Z",
+   "full_text_read": true,
+   "note": "Full JATS XML of the article (body, tables 1-4, figure captions, references) read in full. Last PMC change 2025-09-27."
+  },
+  "access_notes": [
+   "link.springer.com and lup.lub.lu.se are not reachable from this session (outside the network allowlist); the Springer page was not read.",
+   "The supplement DOCX on pmc.ncbi.nlm.nih.gov returned a Google reCAPTCHA challenge page instead of the file (tried 2026-11-18 10:41 UTC); not read.",
+   "The FPRF/NFPA full report (nfpa.org) and the WUI-NITY GitHub repo (bran-jnw/wuinity) could not be fetched (host not allowed / repo access not granted). So per-test geometry and numeric expected results exist in the paper's main text only for T.14 (and qualitatively for B.1-B.5)."
+  ]
+ },
+ "ronchi_tests": {
+  "structure_per_test_ISO20414": [
+   "Objective",
+   "Geometry",
+   "Scenario(s)",
+   "Expected result",
+   "Test method",
+   "User's actions"
+  ],
+  "core_components": [
+   "Population",
+   "Pre-evacuation",
+   "Movement",
+   "Route/destination selection",
+   "Flow constraints",
+   "Events",
+   "Wildfire spread",
+   "Trigger buffers"
+  ],
+  "code_letters": "W wildfires, P pedestrians, T traffic, B trigger buffer (paper text); PT = pedestrian+traffic, WT = wildfire+traffic",
+  "acceptance_criteria": "None. Quote: 'it is here left up to the model user to judge if a given testing result is acceptable or not. This approach is in line with current practice for other verification protocols (e.g., in ISO 20414 ...), where no acceptance criteria are specifically provided along with the testing protocol.' Expected results are generally hand calculations 'in accordance with the modelling assumptions adopted'.",
+  "count_note": "Abstract: 'a total of 24 verification tests, including (1) 4 tests related to pedestrians, (2) 15 tests for traffic evacuation, (3) 5 tests concerning the interaction between different modelling layers, along with 5 tests for wildfire spread and trigger buffers.' Table 3 lists 29 codes: P.1-P.4, PT.1, T.1-T.15, WT.1-WT.4, B.1-B.5 (24 + 5 B tests). T.1 has sub-tests T.1a/T.1b.",
+  "table2_wildfire_scenarios": [
+   [
+    "Homogenous",
+    "Base case with flat land, uniform fuel type and zero wind"
+   ],
+   [
+    "Varying Fuel",
+    "Fuel types"
+   ],
+   [
+    "Set wind",
+    "Wind"
+   ],
+   [
+    "Valley",
+    "Topography"
+   ],
+   [
+    "Heterogeneous",
+    "Fuel type, wind, topography"
+   ]
+  ],
+  "table1_variables_by_category": {
+   "Pre-evacuation": [
+    "Pedestrian re-distribution",
+    "Response curve"
+   ],
+   "Movement": [
+    "Uni-directional single vehicle flow (one road type)",
+    "Uni-directional single vehicle flow (multiple road types)",
+    "Background traffic",
+    "Speed–density and flow–density relationships",
+    "Group evacuation",
+    "Lane changing/overtaking",
+    "Acceleration/deceleration",
+    "Type of intersection",
+    "Vehicle demand versus arrival distribution"
+   ],
+   "Route/destination selection": [
+    "Forced destination",
+    "Destination choice in traffic",
+    "Route choice in traffic"
+   ],
+   "Flow constraints": [
+    "Change in carriageway configuration",
+    "Flow at destination"
+   ],
+   "Population": [
+    "Max vehicles per household",
+    "Pedestrian walking speed",
+    "Pedestrian distance to vehicle"
+   ],
+   "Events": [
+    "Vehicle speed reduction in reduced visibility conditions",
+    "Road crash",
+    "Route loss",
+    "Lane reversal",
+    "Loss of shelter or exit",
+    "Refuge capacity"
+   ]
+  },
+  "inconsistencies_in_paper": [
+   "Table 1 puts 'Pedestrian re-distribution' under Pre-evacuation but Table 3 lists P.1 under Population; Table 1 puts Pedestrian walking speed under Population, Table 3 under Movement.",
+   "T.5 sub-test says 'Five optical density levels' but lists four values (0.05, 0.10, 0.15, 0.20 m-1).",
+   "Table 4 note for T.7 (group evacuation, N) repeats the P.4 wording about movement on foot."
+  ],
+  "tests": [
+   {
+    "id": "P.1",
+    "name_table3": "Pedestrian re-distribution",
+    "name_section_heading": "Test P.1: pedestrian re-distribution",
+    "name_table4": "Pedestrian re-distribution",
+    "layer": "pedestrian",
+    "core_components": [
+     "Population"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "The spatial map used to perform evacuation simulation contains a traffic network and households. This test aims at verifying that households can connect to the traffic network through a traffic node and investigate how the software addresses the case in which households are not directly connected to the road network.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "P.2",
+    "name_table3": "Max number of available vehicles per household",
+    "name_section_heading": "Test P.2: maximum number of available vehicles per household",
+    "name_table4": "Max number of available vehicles per household",
+    "layer": "pedestrian",
+    "core_components": [
+     "Population"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "The number of vehicles to which a household has access and uses in an evacuation varies. The more vehicles used, the more capacity there is for additional evacuees, belongings, and supplies. The assumptions of number of vehicles available at each household should be tested with a probability to take additional vehicles. This test ensures that the number of vehicles entering the traffic model correspond to the implemented numbers of vehicles assigned to each household and that the number of vehicles on the road does not exceed the population number (e.g., each vehicle needs at least one driver).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "P.3",
+    "name_table3": "Response curve",
+    "name_section_heading": "Test P.3: response curve",
+    "name_table4": "Response curve",
+    "layer": "pedestrian",
+    "core_components": [
+     "Pre-evacuation"
+    ],
+    "sub_tests": [
+     "Default",
+     "Linear",
+     "Custom"
+    ],
+    "what_it_checks_paper_text_verbatim": "The response curve represents the time it takes for people to pick up on cues from an approaching wildfire and start evacuating. Cues can be smoke from wildfire, neighbourhood activity, radio messages, evacuation warnings, etc. (McLennan et al. 2012, 2019; Ronchi et al. 2017; Sutton and Kuligowski 2019). People can start evacuating before evacuation orders are issued, delay their evacuation, or not evacuate at all (Kuligowski 2020).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "P.4",
+    "name_table3": "Pedestrian walking speed",
+    "name_section_heading": "Test P.4: pedestrian walking speed",
+    "name_table4": "Pedestrian walking speed",
+    "layer": "pedestrian",
+    "core_components": [
+     "Movement"
+    ],
+    "sub_tests": [
+     "Two values of walking speed (based on multipliers)"
+    ],
+    "what_it_checks_paper_text_verbatim": "The pedestrian walking speed checks that a pedestrian can walk from their starting location to a destination to either reach safety or a traffic node to evacuate the area with an assigned walking speed. The walking speed may vary between people in relation to their physical abilities (Gwynne et al. 2016).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "N",
+     "comment": "WUI-NITY does not include a model for evacuation movement on foot"
+    }
+   },
+   {
+    "id": "PT.1",
+    "name_table3": "Pedestrian distance to vehicles",
+    "name_section_heading": "Test PT.1: pedestrian distance to vehicle",
+    "name_table4": "Pedestrian distance to vehicle",
+    "layer": "pedestrian and traffic",
+    "core_components": [
+     "Movement"
+    ],
+    "sub_tests": [
+     "Two values of walking speed (based on multipliers)"
+    ],
+    "what_it_checks_paper_text_verbatim": "The pedestrian walking distance variable investigates whether pedestrians can walk from their starting location to a destination to either reach safety or a traffic node to evacuate the area using their vehicle. The walking distance varies between pedestrians, i.e., some are further away from the access to the traffic system or must move around obstacles and adopt a higher walking distance than others.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Small differences (< 2%) were observed due to the random placement of the population"
+    }
+   },
+   {
+    "id": "T.1",
+    "name_table3": "Uni-directional single-vehicle flow",
+    "name_section_heading": "Test T.1: uni-directional single vehicle flow",
+    "name_table4": "T.1a Uni-directional single-vehicle flow (one road type); T.1b Uni-directional single-vehicle flow (multiple road types)",
+    "layer": "traffic",
+    "core_components": [
+     "Movement"
+    ],
+    "sub_tests": [
+     "T.1a: one road type",
+     "T.1b: Multiple road types"
+    ],
+    "what_it_checks_paper_text_verbatim": "Each road type has a corresponding speed limit which can be adopted by vehicles driving at free-flow speed. The free-flow speed should change if the vehicle enters another road type with a different speed limit.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "T.1a: difference for the 90 km/h configuration was 2% (approximation of speed-density relationship); T.1b: difference 0.9%"
+    }
+   },
+   {
+    "id": "T.2",
+    "name_table3": "Background traffic",
+    "name_section_heading": "Test T.2: background traffic",
+    "name_table4": "Background traffic",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "The background traffic represents vehicles present on a road which are not actively evacuating (Intini et al. 2019). This type of traffic can affect the speed for all other vehicles since the road becomes more occupied and slower driving behaviour is adapted to the new traffic conditions.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Difference 1% vs hand-calculation (speed-density approximation)"
+    }
+   },
+   {
+    "id": "T.3",
+    "name_table3": "Change in carriageway configuration",
+    "name_section_heading": "Test T.3: change in carriageway configuration",
+    "name_table4": "Change in carriageway configuration",
+    "layer": "traffic",
+    "core_components": [
+     "Movement"
+    ],
+    "sub_tests": [
+     "Five traffic density levels (from no traffic to the jam-density, intended as flow equal to 0)"
+    ],
+    "what_it_checks_paper_text_verbatim": "Change in carriageway configuration refers to a change in the type of cross section. For example, this includes the case of two consecutive roads with different number of lanes, widths, etc.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Density level 5 configuration differed by 6% (stall speed 1.08 km/h in WUI-NITY vs 1 km/h in hand calculation)"
+    }
+   },
+   {
+    "id": "T.4",
+    "name_table3": "Relationships between speed–density and flow–density",
+    "name_section_heading": "Test T.4: speed–density and flow–density relationships",
+    "name_table4": "Speed–density and flow–density relationships",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [
+     "Five traffic density levels (from no traffic to jam-density)"
+    ],
+    "what_it_checks_paper_text_verbatim": "This test evaluates the relationships used to relate speed–density and flow–density (Dixit and Wolshon 2014; Rohaert et al. 2023) and how an increase in traffic density changes the speed and flow of the traffic. The speed is generally reduced with increases in density, while the flow increases with increasing density to a point where maximum flow (capacity) is reached; at which point, the flow reduces with increasing density.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "T.5",
+    "name_table3": "Vehicle speed reduction in reduced visibility conditions",
+    "name_section_heading": "Test T.5: vehicle speed reduction in reduced visibility conditions",
+    "name_table4": "Vehicle speed reduction in reduced visibility conditions",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [
+     "Five traffic density levels (from no traffic to jam-density)",
+     "Five optical density levels (0.05 m−1, 0.10 m−1, 0.15 m−1 and 0.20 m−1) [sic: four values listed]"
+    ],
+    "what_it_checks_paper_text_verbatim": "Traffic during wildfire evacuation can encounter smoke which can obscure the drivers’ views and make it unsafe to drive at the usual speeds for that specific road type. This causes the adopted speeds to decrease with decreasing visibility conditions, in addition to the potential speed reduction already adopted for increasing traffic densities (Wetterberg et al. 2021; Intini et al. 2022).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Observed differences all below 3.3% (stall speed)"
+    }
+   },
+   {
+    "id": "T.6",
+    "name_table3": "Flow at destination",
+    "name_section_heading": "Test T.6: flow at destination",
+    "name_table4": "Flow at destination",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [
+     "Five traffic density levels (from no traffic to jam-density)"
+    ],
+    "what_it_checks_paper_text_verbatim": "The area where an evacuation is taking place usually has destinations or exits for leaving the area where evacuees can reach safety. The flows at these destinations should not exceed a maximum arrival flow rate and the remaining traffic density is reduced as speed and flow increases.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "T.7",
+    "name_table3": "Group evacuation",
+    "name_section_heading": "Test T.7: group evacuation",
+    "name_table4": "Group evacuation",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Route/destination selection"
+    ],
+    "sub_tests": [
+     "No initial traffic",
+     "Initial traffic density halfway the critical density"
+    ],
+    "what_it_checks_paper_text_verbatim": "Group evacuation with friends and family can occur if the members of a household (or more than one household) take one or multiple vehicles with the goal of evacuating close together on the roadways (Lovreglio et al. 2019). Multiple vehicles in close proximity within the traffic flow can be difficult to model with the presence of surrounding traffic, but the vehicles should be leaving the household at about same time.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "N",
+     "comment": "WUI-NITY does not include a model for evacuation movement on foot [as printed in Table 4]"
+    }
+   },
+   {
+    "id": "T.8",
+    "name_table3": "Lane changing / overtaking",
+    "name_section_heading": "Test T.8: lane changing/overtaking",
+    "name_table4": "Lane changing/overtaking",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "The speed at which people drive at for specific road types varies between drivers. People drive differently because they have different vehicles, driving experience, personal behaviours, etc. (Gray and Regan 2005). This difference in speed can cause the faster vehicles to change lanes and overtake to keep their current driving speed.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "N",
+     "comment": "WUI-NITY adopts a macroscopic modelling approach"
+    }
+   },
+   {
+    "id": "T.9",
+    "name_table3": "Acceleration / deceleration",
+    "name_section_heading": "Test T.9: acceleration/deceleration",
+    "name_table4": "Acceleration/deceleration",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Acceleration and deceleration of individual vehicles occur during evacuation in response to surrounding traffic or approaching intersections or roundabouts (Zhi et al. 2010). Vehicles can also alter their speed due to other reasons, such as encountering a slope (Martens et al. 1997).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "N",
+     "comment": "WUI-NITY adopts a macroscopic modelling approach"
+    }
+   },
+   {
+    "id": "T.10",
+    "name_table3": "Road crash",
+    "name_section_heading": "Test T.10: road crash",
+    "name_table4": "Road crash",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints",
+     "Event"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Road crashes can occur during evacuations—especially when environmental conditions deteriorate (Collins et al. 2014). With the increase in traffic density and an ongoing emergency, a higher number of vehicles are at risk of causing, engaging in or encountering a road crash (Dixit and Wolshon 2014). A road crash could cause certain lanes to be blocked or stop the traffic flow completely.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "One configuration (stall speed 1 km/h) differed by 0.007 [as printed]"
+    }
+   },
+   {
+    "id": "T.11",
+    "name_table3": "Intersection",
+    "name_section_heading": "Test T.11: intersection",
+    "name_table4": "Intersection",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Intersections where two or more roads meet can be signalised or unsignalised in relation to how designers manage the traffic evacuation flow (Parr et al. 2016). Other types of intersections can include roundabouts which can handle higher flows, and on- and off-ramps to highways, where the flows merge or disperse.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Macroscopic: only vehicles at aggregated levels are considered at intersections"
+    }
+   },
+   {
+    "id": "T.12",
+    "name_table3": "Forced Destination",
+    "name_section_heading": "Test T.12: forced destination",
+    "name_table4": "Forced Destination",
+    "layer": "traffic",
+    "core_components": [
+     "Route/destination selection"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "During evacuation, the destination chosen may not necessarily be the closest or one with the shortest journey time. Movement to a destination can also be linked to a set of activities or events such as evacuees picking up family members, avoiding road closures, and choosing a destination that is more familiar or offers higher levels of comfort (Murray-Tuite and Mahmassani 2003; Akbarzadeh and Wilmot 2015). A forced destination may be used to represent the case of choosing (either voluntary or due to a mandatory order) a destination to avoid the fire threat. Forced destinations, in this case, are used to override a given destination choice.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "T.13",
+    "name_table3": "Destination choice in traffic",
+    "name_section_heading": "Test T.13: destination choice in traffic",
+    "name_table4": "Destination choice in traffic",
+    "layer": "traffic",
+    "core_components": [
+     "Route/destination selection"
+    ],
+    "sub_tests": [
+     "Fastest",
+     "Closest",
+     "Other conditions…"
+    ],
+    "what_it_checks_paper_text_verbatim": "Destination choice refers to the evacuees’ decision on what destination to travel to reach safety during a wildfire (Wong et al. 2020, 2022). The decision can be based on the shortest, fastest, or a specified route to a destination, and their availability. Other conditions may also affect this decision, such as the presence of smoke (Wetterberg et al. 2021) or the choice of familiar routes by evacuees (Akbarzadeh and Wilmot 2015).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Slight differences (speed-density approximation)"
+    }
+   },
+   {
+    "id": "T.14",
+    "name_table3": "Route choice in traffic",
+    "name_section_heading": "Test T.14: route choice in traffic",
+    "name_table4": "Route choice in traffic (example case presented earlier)",
+    "layer": "traffic",
+    "core_components": [
+     "Route/destination selection"
+    ],
+    "sub_tests": [
+     "Fastest",
+     "Closest",
+     "Other conditions…"
+    ],
+    "what_it_checks_paper_text_verbatim": "Route choice in traffic refers to the evacuee’s decision on which route to take to reach a destination (Wong et al. 2020). This decision is tested separately from destination choice and can depend on the time or distance to traverse the route (faster or shorter) but can also be affected by other conditions such as route familiarity (Colonna et al. 2016), or the smoke/fire conditions blocking or impeding a route (Wetterberg et al. 2021). In other words, the traffic modeller should be able to consider the case in which the shortest route does not correspond to the fastest route (due to congestion).",
+    "full_specification": {
+     "objective": "Assess consistency between the conceptual implementation of route choice and model representation of route choice.",
+     "geometry": "A road with a single carriageway considering movement on a single lane with a starting point connecting two separate roads leading to the same destination for a total length of either 4000 m or 2000 m (see Fig. 3). The road type for the longer route should correspond to a speed limit equal to 120 km/h. The road type for the shorter route should correspond to a speed limit equal to 30 km/h.",
+     "scenario": "One vehicle with an assigned free-flow speed corresponding to the speed limits (30 km/h and 120 km/h) moving along the road (from start to destination). Repeat the test for each destination choice method that is available (e.g., destination based on shortest route, fastest route, any other condition such as smoke that affects the selection). While running the test case, the user should turn off any non-relevant models, except the traffic simulation model.",
+     "expected_result": "The vehicle should drive to the appropriate route that corresponds to the route choice made and cover the distance of the road in the expected time (to be calculated in accordance with the modelling assumptions adopted).",
+     "test_method": "The test method is a quantitative verification of model results, i.e., the difference between the expected and the simulation results.",
+     "users_actions": "The effectiveness of this test can be improved by setting additional prescriptions in relation to the type of model under consideration. The method for setting up the route should be reported.",
+     "source": "main text, section 'Description of test T.14' (verbatim)"
+    },
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Long route: simulated 123 s vs expected 122 s (0.8%); short route: 245 s vs 243 s (0.8%)"
+    }
+   },
+   {
+    "id": "T.15",
+    "name_table3": "Vehicle demand versus arrival distribution",
+    "name_section_heading": "Test T.15: vehicle demand versus arrival distribution",
+    "name_table4": "Vehicle demand versus arrival distribution",
+    "layer": "traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints"
+    ],
+    "sub_tests": [
+     "Different numbers of vehicles"
+    ],
+    "what_it_checks_paper_text_verbatim": "Vehicle demand versus arrival distribution refers to the number of vehicles that leave the starting point of the road network and the number that arrive at the destination within the road network. In principle, the number of vehicles starting the evacuation should be the same as the number of vehicles that reach the destination and successfully evacuate unless the model assumes vehicles can break down or stop along the way.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "WT.1",
+    "name_table3": "Route loss",
+    "name_section_heading": "Test WT.1: route loss",
+    "name_table4": "Route loss",
+    "layer": "wildfire and traffic",
+    "core_components": [
+     "Route/destination selection"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Route loss refers to an event during which a road section is no longer available for use during evacuation. When a route is closed, other routes need to be used to allow the remaining traffic to evacuate. A route may be closed due to its the proximity to the fire front or smoke, due to a crash, due to downed trees or hazardous power lines.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "N",
+     "comment": "A given route could be considered lost implicitly by blocking an adjacent destination"
+    }
+   },
+   {
+    "id": "WT.2",
+    "name_table3": "Lane reversal",
+    "name_section_heading": "Test WT.2: lane reversal",
+    "name_table4": "Lane reversal",
+    "layer": "wildfire and traffic",
+    "core_components": [
+     "Movement",
+     "Event"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Lane reversal (contraflow) is an option that can be implemented on roads with larger capacity (i.e., a higher number of lanes) by officials to increase the number of lanes open in the direction of evacuation (Wolshon 2001). This also means that the number of lanes for emergency personnel are reduced. The increase of capacity offered by lane reversal helps to increase traffic flow and reduce evacuation times (Akbarzadeh and Wilmot 2015). Considering contraflow a policy decision, it may be argued that this feature is not inherent in an evacuation model. Nevertheless, it was decided to have a test concerning this feature as it may be implemented into a wildfire evacuation model as a consequence of wildfire spread.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Fourth configuration differed by 1%"
+    }
+   },
+   {
+    "id": "WT.3",
+    "name_table3": "Loss of exit or shelter",
+    "name_section_heading": "Test WT.3: loss of exit or shelter",
+    "name_table4": "Loss of exit or shelter",
+    "layer": "wildfire and traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints",
+     "Event"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Loss of exit or shelter refers to when a destination of the evacuating traffic is no longer available for use. Reasons for exit/shelter closure can include cases where the wildfire is blocking access to the destination and the remaining traffic needs to be redirected to another destination.",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "WT.4",
+    "name_table3": "Refuge capacity",
+    "name_section_heading": "Test WT.4: refuge capacity",
+    "name_table4": "Refuge capacity",
+    "layer": "wildfire and traffic",
+    "core_components": [
+     "Movement",
+     "Flow constraints",
+     "Event"
+    ],
+    "sub_tests": [],
+    "what_it_checks_paper_text_verbatim": "Refuge capacity refers to the number of people allowed within an emergency shelter. When a shelter has reached maximum capacity, any additional newcomers are required to find another shelter (Blanchi et al. 2018). The notification of a shelter being full can be announced by different means (Sutton and Kuligowski 2019).",
+    "setup_from_main_text": null,
+    "expected_result_from_main_text": null,
+    "note": "Geometry, scenario, numeric inputs and expected result are given only in Supplementary file 1 (11069_2023_5913_MOESM1_ESM.docx) and the FPRF report WUI-NITY 2 (Ronchi et al. 2021a); not readable from this session (see ronchi_citation.access_notes).",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": null
+    }
+   },
+   {
+    "id": "B.1",
+    "name_table3": "Homogenous",
+    "name_section_heading": "Test B.1: homogenous",
+    "name_table4": "Wildfire and Trigger Buffer – Homogenous",
+    "layer": "wildfire and trigger buffer",
+    "core_components": [
+     "Base case (wildfire model)",
+     "Base case for trigger buffers (PERIL)",
+     "Base case for trigger buffers (k-PERIL)"
+    ],
+    "sub_tests": [
+     "wildfire model",
+     "PERIL",
+     "k-PERIL"
+    ],
+    "what_it_checks_paper_text_verbatim": "This test refers to the evaluation of a trigger buffer model in case of homogenous characteristics. This means that this case (Fig. 2a) has flat topology (constant elevation and zero incline), uniform vegetation (fuel type, fuel moisture, canopy density, canopy height), spatially and temporally constant ambient temperature and humidity, and zero wind. For the TB1–TB5 verification tests, the populated regions are located at the midpoint of each quadrant of the map, each with an identical set evacuation time.",
+    "setup_from_main_text": "Map with ignition point at the midpoint of the map (Fig. 2 caption); for the trigger-buffer part, 'the populated regions are located at the midpoint of each quadrant of the map, each with an identical set evacuation time' (B.1 text, applies to TB1-TB5). Fig. 4: 'Four test communities are positioned in each quadrant'. Compare predicted fire isochrones (wildfire model) and trigger-buffer perimeters (PERIL / k-PERIL). The paper reports WUI-NITY isochrones were identical to FARSITE for B1-B5.",
+    "expected_result_from_main_text": "Expected (from Discussion): uniform spread rate regardless of direction, i.e., uniform circular isochrones / uniform circle of trigger buffer around each community. (paraphrased from Table 4 and Discussion; the formal expected-result wording is in the supplement, not read)",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Uniform wildfire isochrones given by wildfire model and approximately uniform trigger buffer perimeters from PERIL and k-PERIL. Slight difference between PERIL and k-PERIL for TB1-TB5 due to faster but less accurate shortest path algorithm used"
+    }
+   },
+   {
+    "id": "B.2",
+    "name_table3": "Fuel types",
+    "name_section_heading": "Test B.2: varying fuel",
+    "name_table4": "Wildfire and Trigger Buffer – Fuel Types",
+    "layer": "wildfire and trigger buffer",
+    "core_components": [
+     "Varying fuel types (wildfire model)",
+     "Varying fuel types for trigger buffers (PERIL)",
+     "Varying fuel types for trigger buffers (k-PERIL)"
+    ],
+    "sub_tests": [
+     "wildfire model",
+     "PERIL",
+     "k-PERIL"
+    ],
+    "what_it_checks_paper_text_verbatim": "This test refers to the evaluation of a trigger buffer model according to varying fuel. This means that the vegetation is different than the homogenous case (Fig. 2b) while the rest is the same as case B.1 (flat topology, spatially and temporally constant ambient temperature and humidity, and zero wind). The vegetation is divided into four identical quadrants, each with a different predefined fuel model, driving a different rate of spread in the wildfire model.",
+    "setup_from_main_text": "Map with ignition point at the midpoint of the map (Fig. 2 caption); for the trigger-buffer part, 'the populated regions are located at the midpoint of each quadrant of the map, each with an identical set evacuation time' (B.1 text, applies to TB1-TB5). Fig. 4: 'Four test communities are positioned in each quadrant'. Compare predicted fire isochrones (wildfire model) and trigger-buffer perimeters (PERIL / k-PERIL). The paper reports WUI-NITY isochrones were identical to FARSITE for B1-B5.",
+    "expected_result_from_main_text": "Expected: more flammable fuel -> larger trigger-buffer radius around the community (greater rate of spread); different sizes per quadrant. (paraphrased from Table 4 and Discussion; the formal expected-result wording is in the supplement, not read)",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Wildfire isochrones and trigger buffers of different sizes in each quadrant depending on fuel type"
+    }
+   },
+   {
+    "id": "B.3",
+    "name_table3": "Wind",
+    "name_section_heading": "Test B.3: set wind",
+    "name_table4": "Wildfire and Trigger Buffer – Wind",
+    "layer": "wildfire and trigger buffer",
+    "core_components": [
+     "Varying wind (wildfire model)",
+     "Varying wind for trigger buffers (PERIL)",
+     "Varying wind for trigger buffers (k-PERIL)"
+    ],
+    "sub_tests": [
+     "wildfire model",
+     "PERIL",
+     "k-PERIL"
+    ],
+    "what_it_checks_paper_text_verbatim": "The set wind case (Fig. 2c) includes a flat topology (constant elevation and zero incline), uniform vegetation (fuel type, fuel moisture, canopy density, canopy height), spatially and temporally constant ambient temperature and humidity. The wind is fixed at a constant speed, directed towards the south of the map, promoting spread of the wildfire model in the south, and impeding it towards the north end of the case map.",
+    "setup_from_main_text": "Map with ignition point at the midpoint of the map (Fig. 2 caption); for the trigger-buffer part, 'the populated regions are located at the midpoint of each quadrant of the map, each with an identical set evacuation time' (B.1 text, applies to TB1-TB5). Fig. 4: 'Four test communities are positioned in each quadrant'. Compare predicted fire isochrones (wildfire model) and trigger-buffer perimeters (PERIL / k-PERIL). The paper reports WUI-NITY isochrones were identical to FARSITE for B1-B5.",
+    "expected_result_from_main_text": "Expected: elliptical isochrones elongated downwind (south); trigger buffers larger on the south side than on the north side. (paraphrased from Table 4 and Discussion; the formal expected-result wording is in the supplement, not read)",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Elliptical wildfire isochrones larger in the direction of wind. Trigger buffers larger in the south compared to the north"
+    }
+   },
+   {
+    "id": "B.4",
+    "name_table3": "Valley",
+    "name_section_heading": "Test B.4: valley",
+    "name_table4": "Wildfire and Trigger Buffer—Valley",
+    "layer": "wildfire and trigger buffer",
+    "core_components": [
+     "Topography (wildfire model)",
+     "Topography for trigger buffers (PERIL)",
+     "Topography for trigger buffers (k-PERIL)"
+    ],
+    "sub_tests": [
+     "wildfire model",
+     "PERIL",
+     "k-PERIL"
+    ],
+    "what_it_checks_paper_text_verbatim": "The valley case (Fig. 2d) includes uniform vegetation (fuel type, fuel moisture, canopy density, canopy height), spatially and temporally constant ambient temperature and humidity, and zero wind. The topography roughly forms a valley running through the centre of the map from north to south. Towards the east side of the map the land has a 5 degree elevation, and towards the west side of the map the land has a 15 degree elevation.",
+    "setup_from_main_text": "Map with ignition point at the midpoint of the map (Fig. 2 caption); for the trigger-buffer part, 'the populated regions are located at the midpoint of each quadrant of the map, each with an identical set evacuation time' (B.1 text, applies to TB1-TB5). Fig. 4: 'Four test communities are positioned in each quadrant'. Compare predicted fire isochrones (wildfire model) and trigger-buffer perimeters (PERIL / k-PERIL). The paper reports WUI-NITY isochrones were identical to FARSITE for B1-B5.",
+    "expected_result_from_main_text": "Expected: slope strongly affects trigger perimeters; isochrones and buffers larger on the steeper (15 deg, west) side than the 5 deg east side. (paraphrased from Table 4 and Discussion; the formal expected-result wording is in the supplement, not read)",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Complex wildfire isochrones and trigger buffers, both larger in west compared to east"
+    }
+   },
+   {
+    "id": "B.5",
+    "name_table3": "Heterogenous",
+    "name_section_heading": "Test B.5: heterogenous",
+    "name_table4": "Wildfire and Trigger Buffer—Heterogeneous",
+    "layer": "wildfire and trigger buffer",
+    "core_components": [
+     "Fuel types, wind, topography (wildfire model)",
+     "Fuel types, wind, topography (PERIL)",
+     "Fuel types, wind, topography (k-PERIL)"
+    ],
+    "sub_tests": [
+     "wildfire model",
+     "PERIL",
+     "k-PERIL"
+    ],
+    "what_it_checks_paper_text_verbatim": "The heterogenous case (Fig. 2e) includes vegetation divided into four identical quadrants, each with a different predefined fuel model, driving a different rate of spread in the wildfire model. The wind is fixed at a constant speed, directed towards the south of the map, promoting spread of the wildfire model in the south, and impeding it towards the north end of the case map. The topography roughly forms a valley running through the centre of the map from north to south. Towards the east side of the map the land has a 5 degree elevation, and towards the west side of the map the land has a 15 degree elevation. This case represents a complex environment that may be expected when modelling wildfire in a “real life” scenario.",
+    "setup_from_main_text": "Map with ignition point at the midpoint of the map (Fig. 2 caption); for the trigger-buffer part, 'the populated regions are located at the midpoint of each quadrant of the map, each with an identical set evacuation time' (B.1 text, applies to TB1-TB5). Fig. 4: 'Four test communities are positioned in each quadrant'. Compare predicted fire isochrones (wildfire model) and trigger-buffer perimeters (PERIL / k-PERIL). The paper reports WUI-NITY isochrones were identical to FARSITE for B1-B5.",
+    "expected_result_from_main_text": "Expected: complex isochrones and trigger perimeters; thicker boundaries along directions of greater fire spread. (paraphrased from Table 4 and Discussion; the formal expected-result wording is in the supplement, not read)",
+    "wui_nity_result_table4": {
+     "modelled_explicitly": "Y",
+     "comment": "Complex wildfire isochrones and trigger buffers"
+    }
+   }
+  ]
+ },
+ "burned_area_products": [
+  {
+   "publisher": "NASA Earth Observatory",
+   "product": "'South Korea Charred by Fire' (image story, burn scar)",
+   "sensor": "Landsat 9 OLI-2",
+   "acquisition_dates": [
+    "2025-04-04"
+   ],
+   "spatial_resolution": "30 m (Landsat OLI multispectral; image is a rendered JPEG)",
+   "format": "JPEG/PNG image only; underlying Landsat 9 scenes free from USGS EarthExplorer",
+   "data_downloadable": "Image only; raw Landsat L1/L2 scenes downloadable separately (USGS, public domain)",
+   "page_url": "https://science.nasa.gov/earth/earth-observatory/south-korea-charred-by-fire-154142/",
+   "alt_url": "https://visibleearth.nasa.gov/images/154142/south-korea-charred-by-fire",
+   "download_url": "https://earthexplorer.usgs.gov/ (Landsat 9 C2 L2, scene for 2025-04-04)",
+   "licence": "NASA imagery: generally free of copyright (NASA media guidelines); Landsat data public domain",
+   "published": "2025-04-08",
+   "notes": "Burn scar ~80 km from Uiseong through Andong, Cheongsong, Yeongyang to Yeongdeok (per Asiae, REPORTED). No vector perimeter or area figure published.",
+   "retrieved_utc": "2026-11-18T10:44Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "NASA Earth Observatory",
+   "product": "'Outbreak of Fire Across South Korea' (active fire / smoke image)",
+   "sensor": "Aqua MODIS (true colour)",
+   "acquisition_dates": [
+    "2025-03-25"
+   ],
+   "spatial_resolution": "250-500 m",
+   "format": "JPEG image",
+   "data_downloadable": "Image only",
+   "page_url": "https://earthobservatory.nasa.gov/images/154083/outbreak-of-fire-across-south-korea",
+   "licence": "NASA imagery, free use with credit",
+   "published": "~2025-03-26 (not confirmed)",
+   "notes": "Says fires reported to have burned at least 8,700 ha at that time. Not a burned-area product.",
+   "retrieved_utc": "2026-11-18T10:44Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "NASA Earthdata (Worldview Image of the Week) / OPERA project (JPL) with UMD GLAD",
+   "product": "'Vegetation Loss Due to South Korea's March Wildfires' - OPERA Land Surface Disturbance Alert from HLS (OPERA_L3_DIST-ALERT-HLS_V1)",
+   "sensor": "Harmonized Landsat Sentinel-2 (Landsat 8/9 OLI + Sentinel-2 MSI)",
+   "acquisition_dates": [
+    "late March - April 2025 (exact granule dates not confirmed)"
+   ],
+   "spatial_resolution": "30 m",
+   "format": "Cloud-optimized GeoTIFF granules (MGRS tiles); also WMTS layer in NASA Worldview",
+   "data_downloadable": "YES - DIST-ALERT granules downloadable (NASA Earthdata Search / LP DAAC, free Earthdata login); classes: first detection / provisional / confirmed, with <50% and >=50% vegetation-cover loss",
+   "page_url": "https://www.earthdata.nasa.gov/news/worldview-image-archive/vegetation-loss-due-south-koreas-march-wildfires",
+   "download_url": "https://search.earthdata.nasa.gov/ (collection OPERA_L3_DIST-ALERT-HLS_V1); Worldview layer at https://worldview.earthdata.nasa.gov/",
+   "licence": "NASA open data (no restrictions)",
+   "published": "2025-05 (exact day not confirmed)",
+   "notes": "Best openly downloadable gridded disturbance/burn proxy found at 30 m. It is a vegetation-loss product, not a dedicated burned-area/severity product.",
+   "retrieved_utc": "2026-11-18T10:45Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "NASA / USGS LP DAAC (Univ. of Maryland algorithm)",
+   "product": "MCD64A1 v061 MODIS Burned Area Monthly Global 500 m",
+   "sensor": "Terra + Aqua MODIS",
+   "acquisition_dates": [
+    "monthly composite, March 2025 (and April 2025 for late detections)"
+   ],
+   "spatial_resolution": "500 m",
+   "format": "HDF-EOS2 sinusoidal tiles (Korea ~ tile h28v05); also in Google Earth Engine as MODIS/061/MCD64A1",
+   "data_downloadable": "YES (global product, not an event map). GEE catalogue lists coverage to at least 2026-02-01, so March 2025 is available.",
+   "page_url": "https://lpdaac.usgs.gov/products/mcd64a1v061/",
+   "alt_url": "https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD64A1",
+   "licence": "No restrictions on use, sale, or redistribution (LP DAAC)",
+   "published": "rolling",
+   "notes": "Burn-date layer lets you compute per-day progression at 500 m. No Korea-specific publication found; area figure NOT computed here.",
+   "retrieved_utc": "2026-11-18T10:46Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "NASA / LP DAAC",
+   "product": "VNP64A1 / VJ164A1 VIIRS Burned Area Monthly 500 m",
+   "sensor": "Suomi NPP / NOAA-20 VIIRS",
+   "acquisition_dates": [
+    "monthly, March 2025"
+   ],
+   "spatial_resolution": "500 m",
+   "format": "HDF5 sinusoidal tiles",
+   "data_downloadable": "Probably; availability of the March 2025 granule NOT verified in this session",
+   "page_url": "https://lpdaac.usgs.gov/products/vnp64a1v002/",
+   "licence": "NASA open data",
+   "published": "rolling",
+   "retrieved_utc": null,
+   "access": "Not checked (no search result confirming the 2025 granule)"
+  },
+  {
+   "publisher": "GDACS (JRC/UN OCHA), burned area sourced from GWIS",
+   "product": "GDACS wildfire event WF 1023634 'Overall Green Forest fire in Republic of Korea from 22 Mar 2025 to 26 Mar 2025'",
+   "sensor": "MODIS/VIIRS active fire + GWIS burned area",
+   "acquisition_dates": [
+    "2025-03-22 to 2025-03-26; last GWIS update 2025-04-01 14:00 UTC"
+   ],
+   "spatial_resolution": "MODIS-based (~250-500 m)",
+   "format": "Web report; GDACS normally offers the event polygon as KML/shapefile on its 'resources' page (not verified for this event)",
+   "data_downloadable": "Probably (GDACS KML/GeoJSON endpoints); not verified",
+   "page_url": "https://gdacs.org/report.aspx?eventtype=WF&eventid=1023634",
+   "alt_url": "https://gdacs.org/Wildfires/report.aspx?eventtype=WF&eventid=1023634&episodeid=3",
+   "licence": "GDACS terms (free, attribution)",
+   "published": "2025-03-22 onward",
+   "burned_area_estimate": "28,203 ha (GWIS, final update 2025-04-01); an ECHO update of 26 Mar quoted >17,500 ha total, Uiseong >15,150 ha",
+   "notes": "This is the only GWIS-derived number found. It is much smaller than the KFS figure because it reflects the MODIS-mapped event polygon(s) at an early date.",
+   "retrieved_utc": "2026-11-18T10:45Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "GWIS / EFFIS (JRC, Copernicus)",
+   "product": "GWIS current-situation burned areas and country statistics",
+   "sensor": "MODIS (and VIIRS) burned area",
+   "acquisition_dates": [
+    "2025"
+   ],
+   "spatial_resolution": "MODIS (~250-500 m)",
+   "format": "Web viewer; shapefile/WMS via GWIS data download",
+   "data_downloadable": "Generally yes (GWIS downloads), not verified for Korea 2025",
+   "page_url": "https://gwis.jrc.ec.europa.eu/apps/gwis.statistics/",
+   "licence": "Copernicus/JRC open data, attribution",
+   "notes": "No Korea 2025 GWIS country figure retrieved directly. EFFIS proper covers Europe/MENA only, so Korea is in GWIS, not EFFIS.",
+   "retrieved_utc": null,
+   "access": "NOT read; no search result returned the GWIS Korea 2025 statistics page"
+  },
+  {
+   "publisher": "Copernicus (EU) - Image of the Day",
+   "product": "'Devastating wildfire in South Korea'",
+   "sensor": "Credit says Sentinel-2; text describes a Sentinel-3 image of 2025-03-25 (smoke over Sea of Japan)",
+   "acquisition_dates": [
+    "2025-03-25"
+   ],
+   "spatial_resolution": "10-20 m (S2) / 300 m (S3)",
+   "format": "Image only",
+   "data_downloadable": "Image only; raw Sentinel data free via Copernicus Data Space Ecosystem",
+   "page_url": "https://www.copernicus.eu/en/media/image-day-gallery/devastating-wildfire-south-korea",
+   "alt_url": "https://eu-space.europa.eu/components/earth-observation-copernicus/image-of-day/devastating-wildfire-south-korea",
+   "licence": "Copernicus free and open, attribution",
+   "published": "2025-03-28",
+   "notes": "Quotes >33,000 ha burned at the time.",
+   "retrieved_utc": "2026-11-18T10:42Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "Copernicus Emergency Management Service (Rapid Mapping)",
+   "product": "EMSR activation for South Korea, March 2025",
+   "status": "NONE FOUND. Searches of mapping.emergency.copernicus.eu returned only European activations (e.g. EMSR807, EMSR837); no EMSR for Korea 2025 surfaced.",
+   "page_url": "https://mapping.emergency.copernicus.eu/activations/",
+   "retrieved_utc": "2026-11-18T10:43Z",
+   "access": "Search only; activation list not browsed (host not reachable)"
+  },
+  {
+   "publisher": "International Charter Space and Major Disasters",
+   "product": "Activation for Korea, March 2025 wildfires",
+   "status": "NONE FOUND. Korea fire activation exists only for April 2019 (Activation 602, Gangwon, requested by NDMI); 2025 Korean activations found are floods (e.g. Activation 974, 17 Jul 2025).",
+   "page_url": "https://disasterscharter.org/activations/fire-in-korea-republic-of-activation-602-",
+   "related": "https://disasterscharter.org/activations/flood-in-korea-republic-of-activation-974-",
+   "retrieved_utc": "2026-11-18T10:43Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "Sentinel Asia (JAXA/ADRC)",
+   "product": "Emergency Observation Request for Korea wildfire, March 2025",
+   "status": "NONE FOUND in search of sentinel-asia.org newsletters (Apr-Dec 2025 newsletters surfaced; no Korea wildfire EOR). The April 2025 newsletter was not read.",
+   "page_url": "https://sentinel-asia.org/sanews/2025/sanews202504.pdf",
+   "retrieved_utc": "2026-11-18T10:43Z",
+   "access": "Search only; PDF not read"
+  },
+  {
+   "publisher": "UNOSAT",
+   "product": "Burned-area analysis, Korea March 2025",
+   "status": "NONE FOUND",
+   "retrieved_utc": "2026-11-18T10:44Z",
+   "access": "Search only"
+  },
+  {
+   "publisher": "국토교통부 국토지리정보원 (NGII) / 국토위성센터",
+   "product": "국토위성 영상 기반 '긴급 공간정보' (산불 피해지 분석: 경남 산청, 경북 의성, 울산 울주)",
+   "sensor": "국토위성 1호 (CAS500-1) + foreign satellite imagery + aerial photos + digital topographic maps",
+   "acquisition_dates": [
+    "late March - early April 2025 (exact not confirmed)"
+   ],
+   "spatial_resolution": "0.5 m panchromatic / 2 m multispectral; NIR/R/G false-colour composites",
+   "format": "Imagery/maps supplied to local governments and 산림청; public pages show images only",
+   "data_downloadable": "NO public download found; data delivered to agencies. User manual and case book posted on www.ngii.go.kr and nlsc.ngii.go.kr",
+   "page_url": "https://www.korea.kr/news/policyNewsView.do?newsId=148941842",
+   "published": "2025-04-15",
+   "licence": "Government (KOGL type unknown); imagery distribution restricted to public institutions",
+   "retrieved_utc": "2026-11-18T10:44Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "산림청 / 국립산림과학원 (NIFoS)",
+   "product": "Fire-line / 산불영향구역 maps during the event; burn-severity (심·중·경) grading technology",
+   "sensor": "Mapping drones, infrared aircraft, VIIRS (Suomi NPP) per Newsis 2025-03-27 (REPORTED)",
+   "acquisition_dates": [
+    "2025-03-22 to 2025-03-28"
+   ],
+   "format": "Situation-map images in briefings",
+   "data_downloadable": "NO public burned-area or severity GIS data found. NIFoS reports an automated severity-grading tool developed with Kyungpook National Univ. (REPORTED, 나무신문).",
+   "page_url": "https://www.newsis.com/view/NISX20250327_0003116059",
+   "alt_url": "https://www.imwood.co.kr/news/articleView.html?idxno=34075",
+   "licence": "n/a",
+   "notes": "Impact-zone (영향구역) estimates: 45,157 ha (27 Mar), 48,238 ha (end of March). KFS stresses these are for suppression and differ from the damage area from field survey.",
+   "retrieved_utc": "2026-11-18T10:44Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session) (REPORTED - news media)"
+  },
+  {
+   "publisher": "한국항공우주연구원 (KARI) / 국가위성정보활용지원센터",
+   "product": "KOMPSAT / CAS500 analysis of Gyeongbuk fires",
+   "status": "NONE FOUND. No KARI or NSIC public burned-area release surfaced. Related: GK2A geostationary-based wildfire extent studies (academic, KoreaScience) and a NextSat-2 SAR burned-area study (Research Square preprint rs-8441032, ~99,490 ha, images of 14 and 29 Mar 2025).",
+   "page_url": "https://assets-eu.researchsquare.com/files/rs-8441032/v1/c75374872a9415ee833fcbfd.html",
+   "retrieved_utc": "2026-11-18T10:45Z",
+   "access": "Search only"
+  },
+  {
+   "publisher": "Civil-society joint survey (서울환경연합, 불교환경연대, 안동환경운동연합, 생명다양성재단, 홍석환 부산대 연구팀) / Greenpeace Korea",
+   "product": "Satellite + 1,050-plot field survey of burn extent and severity",
+   "sensor": "Satellite imagery (Sentinel-2-type dNBR; details not read)",
+   "acquisition_dates": [
+    "2025"
+   ],
+   "format": "Report PDF (Greenpeace final report, March 2026); press releases",
+   "data_downloadable": "Report only; no GIS data found",
+   "page_url": "https://www.greenpeace.org/static/planet4-korea-stateless/2026/03/d2fe67f5-2025-%EC%98%81%EB%82%A8-%EC%B4%88%EB%8C%80%ED%98%95-%EC%82%B0%EB%B6%88-%EC%8B%A4%ED%83%9C%EC%A1%B0%EC%82%AC-%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf",
+   "alt_url": "https://mobile.newsis.com/view/NISX20260323_0003559768",
+   "published": "2026-02 / 2026-03",
+   "burned_area_estimate": "116,333 ha (17.17% / 17,044 ha more than KFS 99,289 ha) - REPORTED",
+   "retrieved_utc": "2026-11-18T10:45Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  },
+  {
+   "publisher": "Academic (MDPI Fire)",
+   "product": "Burn severity of 2025 Uiseong wildfire, Sentinel-2 dNBR",
+   "sensor": "Sentinel-2 MSI L2A",
+   "spatial_resolution": "10-20 m",
+   "page_url": "https://doi.org/10.3390/fire9100439",
+   "burned_area_estimate": "High severity 32,588 ha (~32% of total)",
+   "data_downloadable": "Not checked (see data availability statement)",
+   "retrieved_utc": "2026-11-18T10:45Z",
+   "access": "Web search result snippet/summary only; page itself NOT read (host not reachable from this session)"
+  }
+ ],
+ "official_areas": {
+  "source_primary": {
+   "description": "산림청 provisional damage area by county (현장조사 기반 산림피해면적), announced 2025-04-18; final figure to be confirmed by 중앙재난안전대책본부",
+   "url_official_found": null,
+   "urls_reporting": [
+    "https://www.khan.co.kr/article/202504181000011",
+    "https://www.nongmin.com/article/20250418500598",
+    "https://daily.hankooki.com/news/articleView.html?idxno=1206031"
+   ],
+   "status": "REPORTED (news citing 산림청 2025-04-18 release; the korea.kr press release itself was not found/read)",
+   "retrieved_utc": "2026-11-18T10:43Z"
+  },
+  "by_county_ha_provisional_2025_04_18": {
+   "의성군 (Uiseong)": 28853,
+   "안동시 (Andong)": 26709,
+   "청송군 (Cheongsong)": 20655,
+   "영양군 (Yeongyang)": 6864,
+   "영덕군 (Yeongdeok)": 16208,
+   "total_Gyeongbuk_5": 99289
+  },
+  "check": "Sum 28853+26709+20655+6864+16208 = 99289 (consistent). 경향신문 printed 청송 as 1만665ha (typo); 데일리한국 headline 9만1289ha (typo).",
+  "yeongnam_total_ha": {
+   "value": 104000,
+   "note": "Gyeongbuk 99,289 + Gyeongnam (산청·하동) 3,397 + Ulsan; ~104,000 ha 'provisional'. Same breakdown appears in a 산림청 기고문 on korea.kr (search snippet).",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156689025&call_from=rsslink"
+  },
+  "later_figures": [
+   {
+    "value_ha": 99417,
+    "what": "Gyeongbuk 5-county total after detailed survey, used for restoration (경북도 / 산림청 '우리나라의 대형산불' table: 2025-03-22 의성 등 경북 5개 시군, 99,417 ha, 피해액 6조3,443억원)",
+    "url": "https://www.forest.go.kr/kfsweb/kfi/kfs/cms/cmsView.do?cmsId=FC_001157&mn=AR04_01_04_04",
+    "status": "Search snippet only; page not read; no per-county split found for this figure"
+   },
+   {
+    "value_ha": 99529.16,
+    "what": "산림청 산불발생현황 statistics: 경북 2025, 60 fires, 99,529.16 ha (all Gyeongbuk fires in 2025, not only this complex)",
+    "url": "https://www.forest.go.kr/kfsweb/kfi/kfs/frfr/selectFrfrStats.do?mn=AR04_01_03",
+    "status": "Search snippet only"
+   },
+   {
+    "value_ha": 105099.44,
+    "what": "산림청: national 2025 total, 459 fires",
+    "url": "https://www.forest.go.kr/kfsweb/kfi/kfs/frfr/selectFrfrStats.do?mn=AR04_01_03",
+    "status": "Search snippet only"
+   },
+   {
+    "value_ha": 48238,
+    "what": "산불영향구역 (suppression impact zone), end of March 2025 - not damage area",
+    "status": "REPORTED"
+   },
+   {
+    "value_ha": 45157,
+    "what": "중대본 27 Mar 2025 impact-zone figure for Gyeongbuk",
+    "status": "REPORTED"
+   }
+  ],
+  "per_county_final": "No final per-county figure confirmed by 중대본 was found. The 2025 산불통계연보 (registered 2026-04-03 on index.go.kr) and data.go.kr dataset 15121380 '산림청_산불통계데이터' should hold final per-fire figures but were not readable from this session.",
+  "gwis_estimate": {
+   "value_ha": 28203,
+   "source": "GDACS WF 1023634, GWIS-sourced, last update 2025-04-01",
+   "url": "https://gdacs.org/report.aspx?eventtype=WF&eventid=1023634"
+  }
+ },
+ "meta": {
+  "generated_utc": "2026-11-18T10:48Z",
+  "network_limits": "This session could reach only pmc.ncbi.nlm.nih.gov / eutils.ncbi.nlm.nih.gov among the needed hosts. All Part 2 items come from web-search result summaries, not full-page reads, unless stated. Items from news media are marked REPORTED."
+ }
+}

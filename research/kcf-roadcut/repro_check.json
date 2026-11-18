@@ -1,0 +1,8 @@
+{
+ "committed_rows": 27144,
+ "rerun_rows": 27144,
+ "keys_only_in_one": 0,
+ "rows_with_any_mismatch": 0,
+ "mismatches_by_column": {},
+ "mismatch_rows": []
+}
