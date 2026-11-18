@@ -105,3 +105,74 @@ def simulate(seed: int, t_ign: datetime, P=PARAMS):
                     heapq.heappush(heap, (t2, v_))
     return {"arrival_s": arr.reshape(H, W), "v0_kmh": v0 * HOUR / 1000.0, "wind_deg": math.degrees(th0),
             "shift_deg": math.degrees(shift), "t_shift_h": t_shift / HOUR, "ignition_cell": (ign_r, ign_c)}
+
+
+# ---------------------------------------------------------------- detections (PROTOCOL.md section 3)
+DET = dict(viirs_p=0.70, modis_p=0.35, pass_cloud_p=0.20, block_cloud_p=0.20, ahi_block_cells=5, ahi_min_burning=4,
+           ahi_scan_min=10, r_viirs=375.0, r_modis=1000.0, r_ahi=2000.0)
+SENSORS = {"FIRMS-N": "viirs", "FIRMS-N20": "viirs", "FIRMS-Terra": "modis", "FIRMS-Aqua": "modis"}
+
+
+def pass_schedule(discs_json_path):
+    """Per sensor, the day/night centre times-of-day (minutes after 00:00 UTC) from the committed real detections."""
+    import json
+    d = json.loads(open(discs_json_path).read())["discs"]
+    out = {}
+    for src in SENSORS:
+        tm = sorted({int(x["t_utc"][11:13]) * 60 + int(x["t_utc"][14:16]) for x in d if x["src"] == src})
+        clusters, cur = [], [tm[0]]
+        for a in tm[1:]:
+            if a - cur[-1] > 360:
+                clusters.append(cur); cur = [a]
+            else:
+                cur.append(a)
+        clusters.append(cur)
+        out[src] = [float(np.mean(c)) for c in clusters]
+    return out
+
+
+def detections(arrival_s, t_ign: datetime, t_end: datetime, schedule, seed: int, perfect: bool = False, P=PARAMS, D=DET):
+    """Discs {src, t (datetime UTC), x, y, r_m} the system may see, from the truth only. perfect=True: control arm."""
+    rng = np.random.default_rng([seed, 7777, int(perfect)])
+    CX, CY = cell_xy()
+    arr = arrival_s
+    burn_s = P["flaming_h"] * HOUR
+    discs = []
+    day0 = datetime(t_ign.year, t_ign.month, t_ign.day, tzinfo=timezone.utc)
+    ndays = int((t_end - day0).days) + 2
+    for src, kind in SENSORS.items():
+        p = 1.0 if perfect else (D["viirs_p"] if kind == "viirs" else D["modis_p"])
+        rad = D["r_viirs"] if kind == "viirs" else D["r_modis"]
+        for dd in range(ndays):
+            for mins in schedule[src]:
+                s = day0 + timedelta(days=dd, minutes=mins)
+                if s < t_ign or s >= t_end:
+                    continue
+                lost = (not perfect) and rng.random() < D["pass_cloud_p"]
+                sec = (s - t_ign).total_seconds()
+                burning = (arr <= sec) & (sec < arr + burn_s)
+                if lost or not burning.any():
+                    continue
+                det = burning & (rng.random(burning.shape) < p)
+                for r, c in zip(*np.where(det)):
+                    discs.append({"src": src, "t": s, "x": float(CX[r, c]), "y": float(CY[r, c]), "r_m": rad})
+    # geostationary-like hotspots: 5 x 5-cell blocks, >= 4 burning cells, persistence of two consecutive flagged scans
+    b = D["ahi_block_cells"]; nbr, nbc = H // b, W // b
+    scans = np.arange(0.0, (t_end - t_ign).total_seconds(), D["ahi_scan_min"] * 60.0)
+    first = np.full((nbr, nbc), np.inf)
+    prev = np.zeros((nbr, nbc), bool)
+    cloudy = {}
+    for sc in scans:
+        hr = int(sc // HOUR)
+        if hr not in cloudy:
+            cloudy[hr] = np.zeros((nbr, nbc), bool) if perfect else (rng.random((nbr, nbc)) < D["block_cloud_p"])
+        burning = (arr <= sc) & (sc < arr + burn_s)
+        cnt = burning[:nbr * b, :nbc * b].reshape(nbr, b, nbc, b).sum((1, 3))
+        flag = (cnt >= D["ahi_min_burning"]) & ~cloudy[hr]
+        new = flag & prev & ~np.isfinite(first)
+        first[new] = sc
+        prev = flag
+    for i, j in zip(*np.where(np.isfinite(first))):
+        cx = X0 + (j * b + b / 2.0) * RES; cy = Y0 + (i * b + b / 2.0) * RES
+        discs.append({"src": "AHI", "t": t_ign + timedelta(seconds=float(first[i, j])), "x": float(cx), "y": float(cy), "r_m": D["r_ahi"]})
+    return discs
