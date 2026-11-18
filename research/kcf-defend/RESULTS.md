@@ -118,7 +118,7 @@ How to read the table:
 | same, CUT / NOT_CUT label | 27,144 | 9 differ: the replay labels from a greedy, non-earliest witness arrival; gains do not use the label (`gate1.json`) |
 | Fast vs `core.backward` + `core.issue_set`, exact seconds, base jobs | 4 jobs, 348 place-rows | 0 mismatches (`gate2.json`) |
 | same, seeded delayed instances | 32 (+8 draws with no candidate of the drawn kind) | 0 mismatches; pruned = unpruned in 32/32; only 3 had any gain |
-| Rank-1 candidate per hour (primary, Δ = 60), every gaining place, `core.backward` before and after the delay | 13 hours | see `check_top.json`: CHECK_TOP_RESULT |
+| Rank-1 candidate per hour (primary, Δ = 60), every gaining place, `core.backward` before and after the delay | 13 hours | **13 / 13 equal to the second** (100 gaining place-gains; `check_top.json`) |
 | Issue sets with more than one piece (`core`) | 4 base jobs, 348 place-rows | 0 (prefix property; kcf-roadcut found none in all 27,144) |
 
 ## 3 Stability across arms (PROTOCOL §6)
