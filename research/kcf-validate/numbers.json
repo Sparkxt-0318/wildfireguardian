@@ -3,20 +3,20 @@
  "protocol": "research/kcf-validate/PROTOCOL.md (amendments 1-2)",
  "sources": {
   "1_KEC_traffic": {
-   "status": "NOT_OBTAINED",
-   "why": "data.ex.co.kr refused by the network policy (CONNECT 403)"
+   "status": "PARTLY_OBTAINED_DAILY_ONLY",
+   "why": "user-supplied dataset 512 daily section volumes 22-27 Mar; 15-minute API 0305 needs a key, 15-minute files need a login; closure times and surges not derivable"
   },
   "2_emergency_texts": {
-   "status": "NOT_OBTAINED",
-   "why": "safekorea.go.kr, data.go.kr, apis.data.go.kr, mois.go.kr refused (CONNECT 403)"
+   "status": "OBTAINED",
+   "why": "user-supplied export (62,192 rows), 312 messages for the five counties + \uacbd\ubd81 \uc804\uccb4, 22-27 Mar 2025; 23 of 29 REPORTED rows replaced"
   },
   "3_satellite": {
    "status": "OBTAINED_IN_PART",
-   "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A refused; Landsat not used"
+   "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A needs data.kma.go.kr + login (not attempted); Landsat not used"
   },
   "4_NIST_Camp_Fire": {
-   "status": "NOT_OBTAINED",
-   "why": "nvlpubs.nist.gov, www.nist.gov, tsapps.nist.gov, data.nist.gov refused (CONNECT 403)"
+   "status": "PARTLY_OBTAINED",
+   "why": "tables extracted from the two PDFs; no fire-arrival field; roadlayer run on Paradise NOT run (no field, no Paradise graph)"
   },
   "5_twin": {
    "status": "RUN",
@@ -40,7 +40,7 @@
    "why": "no active Korean fire identified (web search only; FIRMS/KFS unreachable)"
   }
  },
- "reported_rows_replaced_by_official_records": 0,
+ "reported_rows_replaced_by_official_records": 23,
  "reported_rows_in_roadcut_validation_table": 29,
  "reading_notes": [
   "source5_twin.arms.*.places_pooled.cutoff_err_min_system_minus_true has median 0 and p90 0 only because 103 of 214 places were already cut at issue (error exactly 0). Quote places_split.truth_cut_inside_horizon instead (n=111, median -175.6 min).",
@@ -668,6 +668,343 @@
    "discs_added_between_T_and_t_S": 1,
    "reading": "No FIRMS/AHI disc is added between T and t_S that touches a satellite-burned cell outside the known area at T; the 23-24 March interval holds no detected growth, so this scene has little power to test the 8 h margin."
   }
+ },
+ "source4_nist_camp_fire": {
+  "label": "Model output on reconstructed inputs: none. Records vs the roadlayer assumption. Not what happened to people.",
+  "protocol": "PROTOCOL.md amendment 3",
+  "counts": {
+   "fire_rows": 391,
+   "traffic_rows": 132,
+   "traffic_closure_rows": 15,
+   "burnovers": 19
+  },
+  "roads": {
+   "Pentz": {
+    "fire_rows_11_8": 49,
+    "F_first_fire": 470,
+    "closure_rows": 1,
+    "C_first_closure": 570,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 525,
+    "C_minus_F_min": 100,
+    "B_minus_F_min": 55,
+    "C_minus_B_min": 45
+   },
+   "Wagstaff": {
+    "fire_rows_11_8": 19,
+    "F_first_fire": 475,
+    "closure_rows": 0,
+    "C_first_closure": null,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 570,
+    "C_minus_F_min": null,
+    "B_minus_F_min": 95,
+    "C_minus_B_min": null
+   },
+   "Bille": {
+    "fire_rows_11_8": 23,
+    "F_first_fire": 510,
+    "closure_rows": 2,
+    "C_first_closure": 645,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 565,
+    "C_minus_F_min": 135,
+    "B_minus_F_min": 55,
+    "C_minus_B_min": 80
+   },
+   "Elliott": {
+    "fire_rows_11_8": 15,
+    "F_first_fire": 480,
+    "closure_rows": 0,
+    "C_first_closure": null,
+    "burnovers_same_day_8Nov": 0,
+    "B_first_burnover": null,
+    "C_minus_F_min": null,
+    "B_minus_F_min": null,
+    "C_minus_B_min": null
+   },
+   "Pearson": {
+    "fire_rows_11_8": 26,
+    "F_first_fire": 495,
+    "closure_rows": 3,
+    "C_first_closure": 675,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 555,
+    "C_minus_F_min": 180,
+    "B_minus_F_min": 60,
+    "C_minus_B_min": 120
+   },
+   "Clark": {
+    "fire_rows_11_8": 57,
+    "F_first_fire": 465,
+    "closure_rows": 5,
+    "C_first_closure": 615,
+    "burnovers_same_day_8Nov": 3,
+    "B_first_burnover": 600,
+    "C_minus_F_min": 150,
+    "B_minus_F_min": 135,
+    "C_minus_B_min": 15
+   },
+   "Skyway": {
+    "fire_rows_11_8": 68,
+    "F_first_fire": 480,
+    "closure_rows": 3,
+    "C_first_closure": 555,
+    "burnovers_same_day_8Nov": 2,
+    "B_first_burnover": 510,
+    "C_minus_F_min": 75,
+    "B_minus_F_min": 30,
+    "C_minus_B_min": 45
+   },
+   "Neal": {
+    "fire_rows_11_8": 19,
+    "F_first_fire": 510,
+    "closure_rows": 1,
+    "C_first_closure": 660,
+    "burnovers_same_day_8Nov": 0,
+    "B_first_burnover": null,
+    "C_minus_F_min": 150,
+    "B_minus_F_min": null,
+    "C_minus_B_min": null
+   }
+  }
+ },
+ "source2_jaenan_munja": {
+  "rows_total": 29,
+  "replaced": 23,
+  "stay_reported": [
+   "RD5",
+   "RD6",
+   "RD12",
+   "RD13",
+   "VA1",
+   "VA2"
+  ],
+  "replaced_ids": [
+   "RD1",
+   "RD2",
+   "RD3",
+   "RD4",
+   "RD7",
+   "RD8",
+   "RD9",
+   "RD10",
+   "RD11",
+   "VA3",
+   "EV1",
+   "EV2",
+   "EV3",
+   "EV4",
+   "EV5",
+   "EV6",
+   "EV7",
+   "EV8",
+   "EV9",
+   "EV10",
+   "EV11",
+   "EV12",
+   "EV13"
+  ],
+  "kec_official_events": 17,
+  "first_evacuation_message_per_county": {
+   "\uc758\uc131\uad70": {
+    "definition": "first message with \ub300\ud53c in the text and the record's \uc7ac\ud574\uad6c\ubd84\uba85 = \uc0b0\ubd88",
+    "first_\ub300\ud53c_msg": "2025-03-22 12:50:32",
+    "n_\ub300\ud53c_msgs": 68,
+    "text": "(\ub300\ud53c\uba85\ub839\ubc1c\ub839) 11:25 \uc548\ud3c9\uba74 \uad34\uc0b0\ub9ac \uc0b061 \uc0b0\ubd88 \ud655\uc0b0. \uc778\uadfc \uc8fc\ubbfc\uacfc \ub4f1\uc0b0\uac1d\uc740 \uc548\uc804\ud55c \uacf3(\uc548\ud3c9\uba74 \uc2e0\uc6d4\ub9ac 125 \uc2e0\ub3d9\ub9c8\uc744\ud68c\uad00)\uc73c\ub85c \ub300\ud53c \ubc14\ub78c [\uc758\uc131\uad70]"
+   },
+   "\uc548\ub3d9\uc2dc": {
+    "definition": "first message with \ub300\ud53c in the text and the record's \uc7ac\ud574\uad6c\ubd84\uba85 = \uc0b0\ubd88",
+    "first_\ub300\ud53c_msg": "2025-03-22 18:30:37",
+    "n_\ub300\ud53c_msgs": 91,
+    "text": "\uae08\uc77c 17:27 \uc218\uc0c1\ub3d9 \uc0b0 51-2\ubc88\uc9c0 \uc77c\uc6d0 \uc0b0\ubd88 \ubc1c\uc0dd\ud558\uc5ec \ud655\uc0b0\uc911. \uc778\uadfc \uc8fc\ubbfc\uaed8\uc11c\ub294 \uc989\uc2dc \uc6d0\ub9bc1\ub9ac \ub9c8\uc744\ud68c\uad00\uc73c\ub85c \ub300\ud53c\ud574\uc8fc\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4.[\uc548\ub3d9\uc2dc]"
+   },
+   "\uccad\uc1a1\uad70": {
+    "definition": "first message with \ub300\ud53c in the text and the record's \uc7ac\ud574\uad6c\ubd84\uba85 = \uc0b0\ubd88",
+    "first_\ub300\ud53c_msg": "2025-03-25 16:49:19",
+    "n_\ub300\ud53c_msgs": 20,
+    "text": "(\ub300\ud53c\uba85\ub839 \ubc1c\ub839) \uc0b0\ubd88\uc774 \ud655\uc0b0\ub428\uc5d0 \ub530\ub77c \ud30c\ucc9c\uba74 \ubcd1\ubd80\ub9ac \uc8fc\ubbfc\ub4e4\uc740 \uc8fc\uc655\uc0b0\uad00\uad11\ud638\ud154 \ud30c\ucc9c\uba74 \uc9c0\uacbd\ub9ac \uc548\ub355\uba74 \uace0\uc640\ub9ac \uc8fc\ubbfc\ub4e4\uc740 \uc784\uc5c5\uc778\uc885\ud569\uc5f0\uc218\uc6d0\uc73c\ub85c \ub300\ud53c\ud558\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4[\uccad\uc1a1\uad70]"
+   },
+   "\uc601\uc591\uad70": {
+    "definition": "first message with \ub300\ud53c in the text and the record's \uc7ac\ud574\uad6c\ubd84\uba85 = \uc0b0\ubd88",
+    "first_\ub300\ud53c_msg": "2025-03-25 18:18:45",
+    "n_\ub300\ud53c_msgs": 19,
+    "text": "(\ub300\ud53c\uba85\ub839\ubc1c\ub839) \ud604\uc7ac \uc11d\ubcf4\uba74 \ub2f5\uace1\ud130\ub110 \uc778\uadfc \uc0b0\ubd88 \ubc1c\uc0dd\ud558\uc600\uc73c\ub2c8, \uc778\uadfc \uc8fc\ubbfc\uc740 \uc601\uc591\uad70\ubbfc\ud68c\uad00\uc73c\ub85c \ub300\ud53c\ubc14\ub78d\ub2c8\ub2e4. [\uc601\uc591\uad70]"
+   },
+   "\uc601\ub355\uad70": {
+    "definition": "first message with \ub300\ud53c in the text and the record's \uc7ac\ud574\uad6c\ubd84\uba85 = \uc0b0\ubd88",
+    "first_\ub300\ud53c_msg": "2025-03-25 18:21:50",
+    "n_\ub300\ud53c_msgs": 14,
+    "text": "\uc601\ub355\uad70 \ub2ec\uc0b0\uba74, \uc9c0\ud488\uba74\uc5d0 \uac70\uc8fc\ud558\uc2dc\ub294 \uad70\ubbfc\ub4e4\uaed8\uc11c\ub294 \uc601\ub355\uc74d \uad6d\ubbfc\uccb4\uc721\uc13c\ud130\ub85c \uc8fc\ubbfc\ub300\ud53c\ud558\uc5ec \uc8fc\uc2dc\uae30 \ubc14\ub78d\ub2c8\ub2e4. [\uc601\ub355\uad70]"
+   }
+  },
+  "label": "Official \uc7ac\ub09c\ubb38\uc790 vs REPORTED rows. Model output on reconstructed inputs. Not what happened to people."
+ },
+ "source1_kec_daily": {
+  "label": "KEC daily TCS section volumes (dataset 512), user-supplied. Descriptive. Not what happened to people.",
+  "baseline": "mean of 22 and 23 March (weekend; the fire began 22 Mar 11:25)",
+  "groups": {
+   "G1 route030 \ubd81\uc758\uc131~\uc601\ub355": {
+    "n_section_dirs": 8,
+    "median_r": {
+     "22": 1.073,
+     "23": 0.927,
+     "24": 0.366,
+     "25": 0.166,
+     "26": 0.02,
+     "27": 0.01
+    },
+    "min_r": {
+     "22": 0.933,
+     "23": 0.72,
+     "24": 0.297,
+     "25": 0.074,
+     "26": 0.006,
+     "27": 0.006
+    },
+    "max_r": {
+     "22": 1.28,
+     "23": 1.067,
+     "24": 0.523,
+     "25": 0.201,
+     "26": 0.03,
+     "27": 0.014
+    }
+   },
+   "G2 route030 \ub3d9\uc0c1\uc8fc~\ubd81\uc758\uc131": {
+    "n_section_dirs": 6,
+    "median_r": {
+     "22": 1.347,
+     "23": 0.653,
+     "24": 0.848,
+     "25": 0.853,
+     "26": 0.074,
+     "27": 0.048
+    },
+    "min_r": {
+     "22": 0.954,
+     "23": 0.322,
+     "24": 0.433,
+     "25": 0.29,
+     "26": 0.03,
+     "27": 0.015
+    },
+    "max_r": {
+     "22": 1.678,
+     "23": 1.046,
+     "24": 0.994,
+     "25": 1.058,
+     "26": 0.107,
+     "27": 0.079
+    }
+   },
+   "G3 route055 \uc758\uc131~\uc608\ucc9c": {
+    "n_section_dirs": 8,
+    "median_r": {
+     "22": 1.063,
+     "23": 0.937,
+     "24": 0.813,
+     "25": 0.632,
+     "26": 0.092,
+     "27": 0.082
+    },
+    "min_r": {
+     "22": 1.008,
+     "23": 0.891,
+     "24": 0.684,
+     "25": 0.489,
+     "26": 0.037,
+     "27": 0.033
+    },
+    "max_r": {
+     "22": 1.109,
+     "23": 0.992,
+     "24": 0.88,
+     "25": 0.666,
+     "26": 0.195,
+     "27": 0.174
+    }
+   },
+   "G3b route055 \uc608\ucc9c~\ud48d\uae30": {
+    "n_section_dirs": 4,
+    "median_r": {
+     "22": 1.043,
+     "23": 0.957,
+     "24": 0.776,
+     "25": 0.682,
+     "26": 0.293,
+     "27": 0.273
+    },
+    "min_r": {
+     "22": 0.987,
+     "23": 0.935,
+     "24": 0.74,
+     "25": 0.634,
+     "26": 0.064,
+     "27": 0.076
+    },
+    "max_r": {
+     "22": 1.065,
+     "23": 1.013,
+     "24": 0.823,
+     "25": 0.741,
+     "26": 0.473,
+     "27": 0.448
+    }
+   },
+   "G0 control": {
+    "n_section_dirs": 12,
+    "median_r": {
+     "22": 1.091,
+     "23": 0.909,
+     "24": 0.873,
+     "25": 0.925,
+     "26": 0.527,
+     "27": 0.484
+    },
+    "min_r": {
+     "22": 0.941,
+     "23": 0.676,
+     "24": 0.713,
+     "25": 0.533,
+     "26": 0.24,
+     "27": 0.268
+    },
+    "max_r": {
+     "22": 1.324,
+     "23": 1.059,
+     "24": 1.074,
+     "25": 1.166,
+     "26": 1.115,
+     "27": 1.107
+    }
+   }
+  },
+  "extra_controls": {
+   "G0 route045": {
+    "n_section_dirs": 62,
+    "median_r": {
+     "22": 1.044,
+     "23": 0.956,
+     "24": 0.901,
+     "25": 0.935,
+     "26": 0.949,
+     "27": 0.955
+    }
+   },
+   "G0 route301": {
+    "n_section_dirs": 22,
+    "median_r": {
+     "22": 1.0,
+     "23": 1.0,
+     "24": 0.819,
+     "25": 0.818,
+     "26": 0.799,
+     "27": 0.8
+    }
+   }
+  },
+  "n_rows_all_routes": 1281
  },
  "source5_twin": {
   "label": "Twin experiment: a simulator is the truth. Model output on synthetic inputs. Not what happened to people.",

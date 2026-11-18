@@ -157,3 +157,86 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
    three times**: all CUT places; only places whose truth status is "cut" (cut inside the horizon, the forecast part); only places whose
    truth status is "already cut at the issue time…". NOT CUT places enter all three for the false-cut-off count. No region was added (the
    truth reaches the 영덕 roads in 20 of 24 pairs).
+
+3. **2026-11-18 ~22:48 UTC (the user allowed the blocked hosts; this session now runs on environment `wildfireguardian-kcf-validate`),
+   before any NIST row was parsed or compared.** What was read after the hosts opened (portal pages and the NIST PDFs only; no outcome):
+   * **Source 1.** `data.ex.co.kr` lists the needed data: API 0305 "노선별 방향별 일별 15분 구간교통량" (`/openapi/trafficapi/
+     sectionTrafficRouteDirection`), which answers a request without a key with `인증키값이 없습니다`; the file datasets (e.g. 148 "구간 교통량",
+     5/15/60 min, from 2010) need `goLoginCheck()` and five declarations (소속, 지역, 성별, 나이, 활용목적) before download. **Needs an API key
+     or a portal login that I do not hold.** Not created and not guessed. No data read.
+   * **Source 2.** `safekorea.go.kr` (국민안전24) has a public 재난문자 list with date/region filters, but its date picker offers only the last 7
+     days (`startDate: "-7d"`); I did not send dates outside it without the user's say-so. The history route is the `data.go.kr` OpenAPI
+     "행정안전부_긴급재난문자" (usage application / service key). No county publishes a file. No data read.
+   * **Source 3, GK-2A.** NMSC's download link points to `data.kma.go.kr` (not allowed; login). Not attempted. Sentinel-2 stands as the satellite record.
+   * **Source 4 rule (frozen now).** Data = table rows of the two PDFs (downloaded from `nvlpubs.nist.gov`), parsed by text, never digitised from
+     figures: (a) TN 2135 Table 33 (19 burnovers: id, place, time); (b) TN 2135 progression tables 11-32: each row's date and start time, and its
+     table title (area/road); (c) TN 2252 per-road traffic tables 18-28: rows (time range, description). **Comparison, not involving the model's
+     inputs:** for each road named in both reports, F = earliest 11/8 row time of that road's TN 2135 table(s); C = earliest TN 2252 row whose text
+     matches `clos(ed|ure)|blocked|impassable` and a fire word (`fire|burn|flame|smoke|BO`); B = Table 33 burnover time(s) on that road. Reported:
+     C − F and B − F per road (minutes, window starts, ±15-30 min resolution), n roads, every matched row listed. This measures the lag between
+     recorded fire at a road and recorded closure, i.e. the roadlayer's assumption that a cell closes when the fire reaches it; it is **not** a
+     run of `product/wfg-roadlayer`. **The Paradise run is not made:** the tables give times at named places, not an arrival field, no polygon
+     dataset was found (the reports say the tables are "excerpted and condensed from the full dataset"; the NIST data portal search returned 0
+     records), and the repository has no Paradise road graph, places or shelters in `wfg_roadlayer` format. Interpolating a field would be my
+     reconstruction, not "the true progression". Stated, not done.
+
+4. **2026-11-18 ~23:20 UTC, before any 재난문자 time was compared with any model value or REPORTED time.** The user supplied
+   `ccf78023-…20261014.csv` (62,192 rows, 재난문자생성일시 2023-10-23 … 2026-10-14, SHA-256 `6545d26f…ea344`; the same bytes were uploaded
+   twice). What was looked at: the 312 messages for 22-27 March 2025 whose 수신지역명 names 의성군, 안동시, 청송군, 영양군 or 영덕군, or
+   경상북도 전체 (extracted to `inputs/jaenan_munja_5counties_20250322_27.csv`), and the text of the 21 영덕군 messages. Records only, no model
+   value. Provenance (which portal) was not stated by the user; structure and hash verified, authenticity not independently verified.
+   * **Send time = 재난문자생성일시** (the record's own creation time; 등록일 follows it by about 20-30 s; handset delivery time is not in the file).
+   * **Replacement rule for the REPORTED rows of `research/kcf-roadcut/validation_table.csv`** (RD1-RD13, VA1-VA3, EV1-EV13). A row is replaced by
+     an official time only if a candidate exists: official messages whose 수신지역명 contains the row's county, created within **±6 h** of the
+     REPORTED time, whose text contains (EV rows) `대피` and, if the row names a town or village, that name; (RD rows) `통제|차단|통행금지|통행제한`
+     and a route or place keyword of the row (황장재, 국도34호선, 서산영덕선, 중앙선, 911호선, 화매리, 도계 …); (VA3) the text time itself. The official time
+     is the **earliest** candidate; every candidate is listed. No candidate → the row stays REPORTED. Same-section official messages **outside**
+     the ±6 h window are listed as context and never replace a row.
+   * **Recomputation.** RD rows with a model time: error = model − official (minutes); "closed at issue" rows: bound = issue time − official.
+     EV rows: the published value "order − median T_road" is shifted by (official − reported); if the shift moves the order across the issue
+     hour used, the row is flagged "not recomputed". No other number is changed; the model values are those already published.
+   * Also reported (context, no model): the first official `대피` message per county in the window.
+5. **2026-11-18 ~23:20 UTC, before any KEC volume was compared with anything.** The user supplied six KEC files named `.zip` that are gzip
+   (`TCS_67_04_01_*.csv`, cp949; one per day 22-27 March; SHA-256 prefixes in `inputs/kec_tcs_daily_SOURCE.txt`), plus one **0-byte** monthly
+   ZIP that was not used. They are dataset 512 "구간단면 교통량(TCS) (전노선)": **daily** volume per section, direction and TCS vehicle class.
+   **They cannot give closure times or outbound surges (15-minute resolution was asked for); only whole-day volumes.** The route in the file is named
+   `당진상주선` (route 030); I identify it with the news name 서산영덕선 by its interchanges (동상주, 서의성, 안동JC, 북의성, 동안동, 청송, 동청송영양, 영덕):
+   an identification from names, stated. Disclosure: while listing section names I printed the 25 March class-1 volumes of those sections, so I have
+   seen a few volumes before this rule. **Rule (descriptive only, no pass/fail prediction):** V(section, direction, day) = sum over classes; baseline
+   B = mean of V(22 Mar) and V(23 Mar) (the days before the earliest closure record, 24 Mar 17:02; the fire had started on 22 Mar 11:25, 22 is a
+   Saturday and 23 a Sunday: **a weekend baseline, possibly already affected**); r = V/B. Groups: G1 route 030 between 북의성 and 영덕 (both directions;
+   official closure text 24 Mar 17:02); G2 route 030 between 동상주 and 북의성 (REPORTED closures 25 Mar 15:30-22:00); G3 route 055 중앙선 의성→예천
+   sections (REPORTED closures 25 Mar 17:00-18:00 and 26 Mar 07:55); G0 control: route 055 군위/가산JC sections, route 045, route 301, route 030 west of 동상주.
+   Reported: V, r per section-direction-day, group medians of r, next to the closure statements. Classes for reading only: r < 0.15, 0.15-0.60, ≥ 0.60.
+   A better baseline (weekdays 17-21 March) can be downloaded from the same portal page; not supplied.
+
+6. **2026-11-18 ~23:21 UTC (commit 367e375), after the first run of `jaenan_compare.py` printed candidate times and after I listed the highway-related and
+   whole-county official messages (records only), before any recomputed model error was viewed** (the `*_new` columns were written to
+   `out/jaenan_replacement.csv` but not opened). The first run showed that amendment 4's rule was too loose or too narrow in four places; each is
+   fixed here, and the first run's output is kept in git history (commit before this amendment's code change):
+   * **Region.** The expressway closures were broadcast by 한국도로공사 as messages to **경상북도 전체**, which the county rule excluded (RD1-RD8 found
+     nothing). RD rows now accept 경상북도 전체 messages as well as the row's counties.
+   * **Names and times.** The official route names are `서산영덕선` and, on 22-23 March, `청주영덕선`; the road messages state an **effective time**
+     ("금일 15:30부로"). Official time for an RD row = the stated effective time (message date + HH:MM) if present, else the creation time. A
+     candidate must be a closure (text has `차단|통제|통행금지|통행제한`, not `재개`), name the row's route and at least one interchange of the row's
+     section (RD1 안동JC|청송IC; RD2 서의성IC|영덕; RD3 의성IC|서안동|남안동; RD4 의성IC|예천IC; RD5/RD6 동상주IC|영덕; RD7 의성IC|풍기IC; RD8 의성IC|예천IC),
+     and have its official time within ±6 h of the REPORTED time. Earliest candidate wins; all are listed.
+   * **Whole-county EV rows** ("whole county" in the row) were matched to village-level and a dam-release message. Now the candidate must be a
+     county-specific message that addresses everyone (`전 ?(시민|군민)|모든 .{0,6}군민|군민께서는|전지역|전 지역`) and contains `대피` and a fire word
+     (`산불|화재|확산`). All EV candidates must contain a fire word.
+   * **RD12** keyword `영양` matched the signature "[영양군]"; keyword is now `도계` only (RD9: 911호선|화매리|황장리; RD10: 황장재; RD11: 국도34호선;
+     RD13: 국도7호선|지경삼거리, unchanged otherwise).
+   Also reported (context, no model): the official timeline of every 한국도로공사 expressway closure and reopening message of 22-27 March, as
+   `out/kec_official_closure_events.csv`, parsed by regex from the 312 messages (effective time as stated; "created time" where none is stated).
+
+7. **2026-11-18 ~23:23 UTC, after the amendment-6 run (kept as `out/jaenan_replacement_amend6_run.csv`) printed its official times, before any recomputed model
+   error was viewed.** Reading the candidates showed three defects of amendment 6; fixed, with the reason:
+   * The fire-word requirement was meant for whole-county rows (it excluded a dam-release notice). Applied to all EV rows it made EV3 and EV7 choose the 18:26
+     황장재 road-ban text over the 18:21 지품면·달산면 evacuation message (which has no fire word). **Fire word is now required for whole-county rows only.**
+   * The interchange token `영덕` matched the route name 서산영덕선 (RD2, RD5 matched a 안동JC~청송IC closure). Tokens are now `영덕IC` and `영덕TG`.
+   * "Earliest candidate" let a looser section beat the exact one (RD7 chose the 18:00 의성IC~예천IC closure over the 21:26 의성IC~풍기IC closure). **Specificity
+     first:** a candidate naming both ends of the row's section (RD1 안동JC+청송IC; RD2 서의성IC+영덕IC|TG; RD3 의성IC+서안동|남안동; RD4 의성IC+예천IC; RD5/RD6 동상주IC+영덕IC|TG;
+     RD7 의성IC+풍기IC; RD8 의성IC+예천IC) beats one naming a single end; ties → earliest official time. Window ±6 h unchanged.
+
+8. **2026-11-18 ~23:26 UTC, after the third-pass results.** Clerical (and the times first written for amendments 6-8, 23:40, 23:55 and "00:20 on 19 Nov", were estimates and are corrected here to the commit/clock times above): §5's sentence "the count of replaced rows is 0" is superseded by amendments 4, 6 and 7:
+   **23 of the 29 REPORTED rows** carry an official 재난문자 time (RESULTS.md rows 2a-2c); 6 stay REPORTED. Nothing else in §1-§5 changes.

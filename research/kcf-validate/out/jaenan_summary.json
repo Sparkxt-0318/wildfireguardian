@@ -1,0 +1,71 @@
+{
+ "rows_total": 29,
+ "replaced": 23,
+ "stay_reported": [
+  "RD5",
+  "RD6",
+  "RD12",
+  "RD13",
+  "VA1",
+  "VA2"
+ ],
+ "replaced_ids": [
+  "RD1",
+  "RD2",
+  "RD3",
+  "RD4",
+  "RD7",
+  "RD8",
+  "RD9",
+  "RD10",
+  "RD11",
+  "VA3",
+  "EV1",
+  "EV2",
+  "EV3",
+  "EV4",
+  "EV5",
+  "EV6",
+  "EV7",
+  "EV8",
+  "EV9",
+  "EV10",
+  "EV11",
+  "EV12",
+  "EV13"
+ ],
+ "kec_official_events": 17,
+ "first_evacuation_message_per_county": {
+  "의성군": {
+   "definition": "first message with 대피 in the text and the record's 재해구분명 = 산불",
+   "first_대피_msg": "2025-03-22 12:50:32",
+   "n_대피_msgs": 68,
+   "text": "(대피명령발령) 11:25 안평면 괴산리 산61 산불 확산. 인근 주민과 등산객은 안전한 곳(안평면 신월리 125 신동마을회관)으로 대피 바람 [의성군]"
+  },
+  "안동시": {
+   "definition": "first message with 대피 in the text and the record's 재해구분명 = 산불",
+   "first_대피_msg": "2025-03-22 18:30:37",
+   "n_대피_msgs": 91,
+   "text": "금일 17:27 수상동 산 51-2번지 일원 산불 발생하여 확산중. 인근 주민께서는 즉시 원림1리 마을회관으로 대피해주시기 바랍니다.[안동시]"
+  },
+  "청송군": {
+   "definition": "first message with 대피 in the text and the record's 재해구분명 = 산불",
+   "first_대피_msg": "2025-03-25 16:49:19",
+   "n_대피_msgs": 20,
+   "text": "(대피명령 발령) 산불이 확산됨에 따라 파천면 병부리 주민들은 주왕산관광호텔 파천면 지경리 안덕면 고와리 주민들은 임업인종합연수원으로 대피하시기 바랍니다[청송군]"
+  },
+  "영양군": {
+   "definition": "first message with 대피 in the text and the record's 재해구분명 = 산불",
+   "first_대피_msg": "2025-03-25 18:18:45",
+   "n_대피_msgs": 19,
+   "text": "(대피명령발령) 현재 석보면 답곡터널 인근 산불 발생하였으니, 인근 주민은 영양군민회관으로 대피바랍니다. [영양군]"
+  },
+  "영덕군": {
+   "definition": "first message with 대피 in the text and the record's 재해구분명 = 산불",
+   "first_대피_msg": "2025-03-25 18:21:50",
+   "n_대피_msgs": 14,
+   "text": "영덕군 달산면, 지품면에 거주하시는 군민들께서는 영덕읍 국민체육센터로 주민대피하여 주시기 바랍니다. [영덕군]"
+  }
+ },
+ "label": "Official 재난문자 vs REPORTED rows. Model output on reconstructed inputs. Not what happened to people."
+}
