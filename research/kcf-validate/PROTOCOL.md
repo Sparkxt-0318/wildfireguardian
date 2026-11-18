@@ -209,3 +209,22 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
    sections (REPORTED closures 25 Mar 17:00-18:00 and 26 Mar 07:55); G0 control: route 055 군위/가산JC sections, route 045, route 301, route 030 west of 동상주.
    Reported: V, r per section-direction-day, group medians of r, next to the closure statements. Classes for reading only: r < 0.15, 0.15-0.60, ≥ 0.60.
    A better baseline (weekdays 17-21 March) can be downloaded from the same portal page; not supplied.
+
+6. **2026-11-18 ~23:40 UTC, after the first run of `jaenan_compare.py` printed candidate times and after I listed the highway-related and
+   whole-county official messages (records only), before any recomputed model error was viewed** (the `*_new` columns were written to
+   `out/jaenan_replacement.csv` but not opened). The first run showed that amendment 4's rule was too loose or too narrow in four places; each is
+   fixed here, and the first run's output is kept in git history (commit before this amendment's code change):
+   * **Region.** The expressway closures were broadcast by 한국도로공사 as messages to **경상북도 전체**, which the county rule excluded (RD1-RD8 found
+     nothing). RD rows now accept 경상북도 전체 messages as well as the row's counties.
+   * **Names and times.** The official route names are `서산영덕선` and, on 22-23 March, `청주영덕선`; the road messages state an **effective time**
+     ("금일 15:30부로"). Official time for an RD row = the stated effective time (message date + HH:MM) if present, else the creation time. A
+     candidate must be a closure (text has `차단|통제|통행금지|통행제한`, not `재개`), name the row's route and at least one interchange of the row's
+     section (RD1 안동JC|청송IC; RD2 서의성IC|영덕; RD3 의성IC|서안동|남안동; RD4 의성IC|예천IC; RD5/RD6 동상주IC|영덕; RD7 의성IC|풍기IC; RD8 의성IC|예천IC),
+     and have its official time within ±6 h of the REPORTED time. Earliest candidate wins; all are listed.
+   * **Whole-county EV rows** ("whole county" in the row) were matched to village-level and a dam-release message. Now the candidate must be a
+     county-specific message that addresses everyone (`전 ?(시민|군민)|모든 .{0,6}군민|군민께서는|전지역|전 지역`) and contains `대피` and a fire word
+     (`산불|화재|확산`). All EV candidates must contain a fire word.
+   * **RD12** keyword `영양` matched the signature "[영양군]"; keyword is now `도계` only (RD9: 911호선|화매리|황장리; RD10: 황장재; RD11: 국도34호선;
+     RD13: 국도7호선|지경삼거리, unchanged otherwise).
+   Also reported (context, no model): the official timeline of every 한국도로공사 expressway closure and reopening message of 22-27 March, as
+   `out/kec_official_closure_events.csv`, parsed by regex from the 312 messages (effective time as stated; "created time" where none is stated).
