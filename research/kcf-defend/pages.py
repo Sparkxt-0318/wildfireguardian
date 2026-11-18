@@ -62,9 +62,15 @@ def locate(cid, e):
     return ll, [], nd, None
 
 
+CAT = {"ko": {"nursing_home": "이름 없는 요양원", "social_facility": "이름 없는 사회복지시설"},
+       "en": {"nursing_home": "unnamed nursing home", "social_facility": "unnamed social facility"}}
+LANG = ["en"]
+
+
 def pname(pid):
     r = AG.PLACE[pid]
-    return f"{r['name'] or pid} ({SIG.get(pid, '')})"
+    nm = r["name"] or CAT[LANG[0]].get(r["category"], "unnamed place") + f" [{pid}]"
+    return f"{nm} ({SIG.get(pid, '')})"
 
 
 L = {
@@ -79,7 +85,8 @@ L = {
   "th": "| 순위 | 유형 | 위치 | 인·분 30분 / 60분 / 120분 | 마을·분 (60분) | 도움 받는 마을 (60분, 늘어난 분) |",
   "road": "도로", "front": "전선",
   "near": "가장 가까운 장소 {n}, {d:.1f} km",
-  "discs": "화재 탐지 원 {n}개",
+  "discs": "구간 안 화재 탐지 원 {n}개",
+  "cls": {"quiet": "정체", "slow": "느림", "running": "빠름", "all": "전체"},
   "none": "이 시각에는 지연으로 대피 가능 시간이 늘어나는 후보가 없습니다 (모든 마을이 이미 화재 영역 안이거나, 8시간 안에 도로가 끊기지 않음).",
   "stab": "**범위 곡선 간 안정성** (8시간, 60분): 위 10개 중 다른 곡선의 상위 10개에도 드는 수 — {ov}. MEASURED 5시간: {o5}/10. 비가중 순위: {ou}/10. 30분 순위: {o30}/10, 120분 순위: {o120}/10. 안정(다른 5개 곡선 중 4개 이상의 상위 10개): {st}.",
   "notm": "**모델에 없는 것**",
@@ -105,7 +112,8 @@ L = {
   "th": "| Rank | Type | Location | Person-min 30 / 60 / 120 | Village-min (60) | Villages helped (60, minutes gained) |",
   "road": "road", "front": "front",
   "near": "nearest place {n}, {d:.1f} km",
-  "discs": "{n} fire-detection discs",
+  "discs": "fire-detection discs in section: {n}",
+  "cls": {"quiet": "quiet", "slow": "slow", "running": "running", "all": "all"},
   "none": "No candidate adds safe departure time at this hour (every village is inside the fire area or not cut within 8 h).",
   "stab": "**Stability across reach curves** (8 h, 60 min): of these ten, how many are also in each other curve's top ten — {ov}. MEASURED 5 h: {o5}/10. Unweighted ranking: {ou}/10. 30 min ranking: {o30}/10, 120 min ranking: {o120}/10. Stable (in the top ten of ≥ 4 of the other 5 curves): {st}.",
   "notm": "**Not modelled**",
@@ -124,12 +132,13 @@ L = {
 
 def page(lang, h, J, R, M, stab, numbers):
     T = L[lang]
+    LANG[0] = lang
     C = M[("MEASURED", "8h", h)]
     rows = R[("MEASURED", "8h", h, 60)][:10]
     cls = J[("yeongdeok_2025", "MEASURED", "8h", h)]["arm_class"]
     st = numbers["place_states"][f"MEASURED/8h/{h + 9:02d}"]
     out = [f"# {T['title'].format(h=f'{h + 9:02d}')}", "", T["warn"], "",
-           T["conf"].format(cls=f"{cls[0]}, {cls[1]:.1f} km" if cls and cls[1] is not None else (cls[0] if cls else "-")),
+           T["conf"].format(cls=f"{T['cls'][cls[0]]}, {cls[1]:.1f} km" if cls and cls[1] is not None else (T['cls'][cls[0]] if cls else "-")),
            "", T["state"].format(**{k: st.get(k, 0) for k in ("INSIDE", "CUT", "NO_WINDOW", "NOT_CUT_WITHIN_H")}), "",
            T["what"], ""]
     if not rows:
