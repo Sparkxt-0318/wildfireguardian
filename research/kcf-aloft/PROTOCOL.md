@@ -222,7 +222,7 @@ Rule states are computed for every issue hour of each fire and for the 24 h befo
 
 ## Amendments
 
-1. **2026-11-18 15:50 UTC, before any rule state or outcome was computed (only the column layout of `hours.csv.gz`
+1. **2026-11-18 15:36 UTC (commit 556f842; the first version of this line said 15:50 by mistake), before any rule state or outcome was computed (only the column layout of `hours.csv.gz`
    had been looked at).** Clarification of "scored issue hour" in sections 1a and 4. It means a row of
    `hours.csv.gz` that has a 5 h reach (`reach5_km` present; for the detection product, the rows kcf-margin flags
    complete). This includes the first three issue hours of each fire, which kcf-abstain left without an abstention
