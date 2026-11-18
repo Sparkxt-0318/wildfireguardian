@@ -157,13 +157,26 @@ def fetch_ahi(cfg, out: Path, points, t_from: datetime, t_to: datetime, cache: P
                 scans.append(rec["scan"])
             else:
                 missing.append(key)
-    body = json.dumps({"scans": scans, "missing": missing}, sort_keys=True).encode()
+    body = ahi_store(scans, missing, a)
     (out / "ahi_pixels.json").write_bytes(body)
     expected = len(list(_ahi_slots(t_from, t_to))) * 4
     err = None if scans else "no AHI scan could be read"
     return _rec("ahi", cfg["ahi"]["bucket"], 200 if scans else 0, body, err, t0, "ahi_pixels.json",
                 {"window_utc": [C.iso(t_from), C.iso(t_to)], "scans_read": len(scans), "scans_expected": expected,
                  "scans_missing": len(missing), "bytes_downloaded": nbytes})
+
+
+def ahi_store(scans, missing, a) -> bytes:
+    """Keep, per scan, only the pixels that pass the frozen per-scan test (B07 >= 320 K and B07-B14 >= 25 K): the hotspot
+    rule counts nothing else, so this is lossless for it and keeps the log small. Scan ids and times are all kept."""
+    out = []
+    for s in scans:
+        keep = [i for i, (b7, d) in enumerate(zip(s["b07"], s["b07_b14"]))
+                if b7 is not None and d is not None and b7 >= a["b07_min_k"] and d >= a["diff_min_k"]]
+        out.append({k: s[k] for k in ("id", "start_utc", "end_utc")} | {"n_pixels": len(s["lat"])}
+                   | {k: [s[k][i] for i in keep] for k in ("lat", "lon", "b07", "b07_b14")})
+    return json.dumps({"scans": out, "missing": missing, "stored": "pixels passing B07 >= %g K and B07-B14 >= %g K only"
+                       % (a["b07_min_k"], a["diff_min_k"])}, sort_keys=True).encode()
 
 
 # ---------------------------------------------------------------- GFS

@@ -6,7 +6,7 @@
  "schema": "wfg.live.inputs/1",
  "sources": {
   "ahi": {
-   "bytes": 1876231,
+   "bytes": 39815,
    "error": null,
    "fetched_utc": "2025-03-24T14:50:00Z",
    "file": "ahi_pixels.json",
@@ -14,7 +14,7 @@
    "ok": true,
    "reconstructed": true,
    "scans_read": 144,
-   "sha256": "95b811fc9fd59cedbfc0f3d1213790c19a309380e349c48d3266485a4d734d87",
+   "sha256": "7203cc97394d083fd0973e14ce87322fbb9f852fa9558d10ebe99b11448a0573",
    "source": "ahi",
    "url": "research/harness-2026-11/data-fetch-2/ahi_kfs01",
    "window_utc": [

@@ -240,3 +240,21 @@ def test_withheld_numbers_not_published(tmp_path):
         if f.endswith(".html"):
             t = (tmp_path / "site" / f).read_text(encoding="utf-8")
             assert C.NOTICE["ko"] in t and C.NOTICE["en"] in t and "data-stale-min" in t
+
+
+def test_score_against_later_record(tmp_path):
+    """score.py: the 00:00 KST record scored from the 18:00 KST inputs (late window widened for the fixture)."""
+    import subprocess
+    log = tmp_path / "log"
+    for name, day in (("kfs01_20250324T1500Z", "2025/03/24"), ("kfs01_20250325T0900Z", "2025/03/25")):
+        (log / "records" / day).mkdir(parents=True)
+        st = name.split("_")[1]
+        shutil.copy(LIVE / "tests/golden" / (name + ".record.json"), log / "records" / day / (st + ".json"))
+        shutil.copytree(FIX / name, log / "inputs" / st)
+    subprocess.run([sys.executable, str(LIVE / "score.py"), "--log", str(log), "--now", "2025-03-27T00:00:00Z", "--late-h", "24"], check=True)
+    sc = json.loads((log / "scores/20250324T1500Z.json").read_text())
+    f = sc["fires"][0]
+    assert sc["later_inputs_used"] == 1
+    assert f["h5"]["held"] and 0.5 < f["h5"]["reach_km"] < 1.2 and f["h5"]["R_km"] == 2.6
+    # the 18:00 KST record cannot be scored from later inputs (none): it is still written, with 0 inputs
+    assert json.loads((log / "scores/20250325T0900Z.json").read_text())["later_inputs_used"] == 0

@@ -27,11 +27,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wfg_live import area, common as C  # noqa: E402
 
 
-def later_detections(log: Path, recs, T, T_end):
+def later_detections(log: Path, recs, T, T_end, late_h=3.0):
     seen, out, n_inputs, missing = set(), [], 0, []
     for r in recs:
         t = C.parse_iso(r["issue_utc"])
-        if not (T < t <= T_end + timedelta(hours=3)):
+        if not (T < t <= T_end + timedelta(hours=late_h)):
             continue
         idir = log / "inputs" / C.stamp(t)
         if not (idir / "manifest.json").exists():
@@ -105,6 +105,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--log", required=True)
     ap.add_argument("--now")
+    ap.add_argument("--late-h", type=float, default=3.0, help="use inputs of records made up to this long after T + 8 h (FIRMS NRT latency)")
     a = ap.parse_args()
     log = Path(a.log)
     now = C.parse_iso(a.now) if a.now else C.utcnow()
@@ -123,7 +124,7 @@ def main():
             continue
         sc = {"schema": "wfg.live.score/1", "record_issue_utc": r["issue_utc"], "scored_utc": C.iso(now),
               "rule": "live/score.py (PROTOCOL §10)", "fires": []}
-        dets, n_in, missing = later_detections(log, recs, T, T + timedelta(hours=8))
+        dets, n_in, missing = later_detections(log, recs, T, T + timedelta(hours=8), a.late_h)
         sc["later_inputs_used"] = n_in
         sc["later_records_without_inputs"] = missing
         later = [x for x in recs if C.parse_iso(x["issue_utc"]) > T]

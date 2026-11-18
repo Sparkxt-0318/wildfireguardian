@@ -100,7 +100,7 @@ def main():
                           "lat": np.round(z["lat"][d], 5).tolist(), "lon": np.round(z["lon"][d], 5).tolist(),
                           "b07": [None if not np.isfinite(v) else round(v, 2) for v in b7],
                           "b07_b14": [None if not np.isfinite(v) else round(v, 2) for v in b7 - b14]})
-    b = json.dumps({"scans": scans, "missing": []}, sort_keys=True).encode()
+    b = fetch.ahi_store(scans, [], cfg["ahi"])
     (out / "ahi_pixels.json").write_bytes(b)
     man["sources"]["ahi"] = rec("ahi", "research/harness-2026-11/data-fetch-2/ahi_kfs01", b, "ahi_pixels.json", None if scans else "no scan",
                                 {"window_utc": [C.iso(t_from), C.iso(T)], "scans_read": len(scans)})
