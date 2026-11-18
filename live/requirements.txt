@@ -1,0 +1,13 @@
+# live/ runtime (Python 3.13), pinned to the versions the service was built and tested with
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+pyproj==3.8.0
+pygrib==2.1.8
+satpy==0.60.0
+pyresample==1.35.0
+xarray==2026.9.0
+dask==2026.8.0
+reportlab==5.0.1
+pypdf==6.17.0
+pytest==9.1.1

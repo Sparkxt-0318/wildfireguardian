@@ -1,0 +1,101 @@
+{
+ "fetch_finished_utc": "2025-03-25T08:50:00Z",
+ "issue_utc": "2025-03-25T09:00:00Z",
+ "note": "RECONSTRUCTED from committed archives (live/tests/fixtures/build_fixture.py); not fetched live",
+ "reconstructed": true,
+ "schema": "wfg.live.inputs/1",
+ "sources": {
+  "ahi": {
+   "bytes": 1904746,
+   "error": null,
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": "ahi_pixels.json",
+   "http_status": 200,
+   "ok": true,
+   "reconstructed": true,
+   "scans_read": 144,
+   "sha256": "e86bf86e48943c36101ad6e7f8d5b271972df8a1b2be806761e67a4dc165b055",
+   "source": "ahi",
+   "url": "research/harness-2026-11/data-fetch-2/ahi_kfs01",
+   "window_utc": [
+    "2025-03-25T03:00:00Z",
+    "2025-03-25T09:00:00Z"
+   ]
+  },
+  "firms:MODIS_NRT": {
+   "bytes": 24236,
+   "error": null,
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": "firms_MODIS_NRT.csv",
+   "http_status": 200,
+   "ok": true,
+   "reconstructed": true,
+   "sha256": "85ca2cace4725f82df3ce203210632331f280a99937b475f44fd3427f062d7a2",
+   "source": "firms:MODIS_NRT",
+   "url": "research/harness-2026-11/data-fetch/small/firms/modis_2025_Republic_of_Korea.csv"
+  },
+  "firms:VIIRS_NOAA20_NRT": {
+   "bytes": 94175,
+   "error": null,
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": "firms_VIIRS_NOAA20_NRT.csv",
+   "http_status": 200,
+   "ok": true,
+   "reconstructed": true,
+   "sha256": "67223ae59bb180a29e2cc650b99e9b97aad3ad170c5cc0f2c0ddfee9740c25d3",
+   "source": "firms:VIIRS_NOAA20_NRT",
+   "url": "research/harness-2026-11/data-fetch/small/firms/viirs-jpss1_2025_Republic_of_Korea.csv"
+  },
+  "firms:VIIRS_NOAA21_NRT": {
+   "bytes": null,
+   "error": "not in archive",
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "reconstructed": true,
+   "sha256": null,
+   "source": "firms:VIIRS_NOAA21_NRT",
+   "url": "(not in the committed archive)"
+  },
+  "firms:VIIRS_SNPP_NRT": {
+   "bytes": 96734,
+   "error": null,
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": "firms_VIIRS_SNPP_NRT.csv",
+   "http_status": 200,
+   "ok": true,
+   "reconstructed": true,
+   "sha256": "3f61c2c77910f1252fdce5dfcbcc7244f452fd149031029aadfe28b6b81b8ce4",
+   "source": "firms:VIIRS_SNPP_NRT",
+   "url": "research/harness-2026-11/data-fetch/small/firms/viirs-snpp_2025_Republic_of_Korea.csv"
+  },
+  "gfs": {
+   "bytes": 144769,
+   "complete": true,
+   "cycle_utc": "2025-03-25T00:00:00Z",
+   "error": null,
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": "gfs_2025032500.npz",
+   "http_status": 200,
+   "missing": {},
+   "ok": true,
+   "reconstructed": true,
+   "sha256": "d8d05be5c86c3924a91be4d29d73ef0b674bfe5312cab713edaf4bf403751a0f",
+   "source": "gfs",
+   "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20250325/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
+  },
+  "kfs": {
+   "bytes": 467,
+   "error": null,
+   "fetched_utc": "2025-03-25T08:50:00Z",
+   "file": "kfs.json",
+   "http_status": 200,
+   "ok": true,
+   "reconstructed": true,
+   "sha256": "b86b74b9306f07279a9a004235114acf5779fc1286deb65597f2a57b10adca59",
+   "source": "kfs",
+   "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
+  }
+ }
+}

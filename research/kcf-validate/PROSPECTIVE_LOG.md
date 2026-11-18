@@ -1,5 +1,9 @@
 # PROSPECTIVE_LOG: predictions fixed before the outcome is known
 
+> **Superseded 2026-11-19 by the live service.** New prospective records are made automatically every 30 minutes by
+> `live/` (rules: `live/PROTOCOL.md` §10; records, Sigstore bundles and scores on the `live-log` branch under
+> `live/log/`). This file is kept unchanged below as the history of the manual procedure; it never received an entry.
+
 Model output on detections only. Advisory. Not an order. Not what happened to people. No claim about what any official should do.
 
 A retrospective replay (kcf-replay, kcf-roadcut) can be fitted, consciously or not, to what is already known. A prospective entry
