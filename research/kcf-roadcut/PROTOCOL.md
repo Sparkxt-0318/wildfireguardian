@@ -212,4 +212,11 @@ decision is written as a dated amendment below **before** any test is run.
 
 ## Amendments
 
-(none)
+1. **2026-11-18 11:35 UTC, before any reflectance or SCL value was read; only the STAC item metadata of the 41 scenes of
+   tiles 52SDF and 52SEF (March–April 2025) was read (`s2_scene_metadata.txt`).** Several 52SDF scenes cover only part of
+   the tile (`s2:nodata_pixel_percentage` 31–83 %). Scene choice in §5.3 adds: only scenes with
+   `s2:nodata_pixel_percentage` ≤ 10 % are eligible; among them the lowest `eo:cloud_cover` (tile-wide) wins. Tiles: 52SDF
+   (의성·안동 grid), 52SEF (영덕 grid); a cell on both tiles uses 52SEF if its 영덕 grid membership says so, else 52SDF.
+   Resulting choice (fixed now): 52SDF pre `S2B_52SDF_20250314_0_L2A` (cloud 0.14 %), post `S2C_52SDF_20250428_0_L2A`
+   (3.82 %); 52SEF pre `S2B_52SEF_20250314_0_L2A` (0.97 %), post `S2C_52SEF_20250408_0_L2A` (0.28 %). The 52SDF post
+   scene is late April (vegetation green-up); this is a consequence of the rule and is stated, not corrected.
