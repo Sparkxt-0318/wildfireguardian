@@ -179,3 +179,33 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
      dataset was found (the reports say the tables are "excerpted and condensed from the full dataset"; the NIST data portal search returned 0
      records), and the repository has no Paradise road graph, places or shelters in `wfg_roadlayer` format. Interpolating a field would be my
      reconstruction, not "the true progression". Stated, not done.
+
+4. **2026-11-18 ~23:20 UTC, before any 재난문자 time was compared with any model value or REPORTED time.** The user supplied
+   `ccf78023-…20261014.csv` (62,192 rows, 재난문자생성일시 2023-10-23 … 2026-10-14, SHA-256 `6545d26f…ea344`; the same bytes were uploaded
+   twice). What was looked at: the 312 messages for 22-27 March 2025 whose 수신지역명 names 의성군, 안동시, 청송군, 영양군 or 영덕군, or
+   경상북도 전체 (extracted to `inputs/jaenan_munja_5counties_20250322_27.csv`), and the text of the 21 영덕군 messages. Records only, no model
+   value. Provenance (which portal) was not stated by the user; structure and hash verified, authenticity not independently verified.
+   * **Send time = 재난문자생성일시** (the record's own creation time; 등록일 follows it by about 20-30 s; handset delivery time is not in the file).
+   * **Replacement rule for the REPORTED rows of `research/kcf-roadcut/validation_table.csv`** (RD1-RD13, VA1-VA3, EV1-EV13). A row is replaced by
+     an official time only if a candidate exists: official messages whose 수신지역명 contains the row's county, created within **±6 h** of the
+     REPORTED time, whose text contains (EV rows) `대피` and, if the row names a town or village, that name; (RD rows) `통제|차단|통행금지|통행제한`
+     and a route or place keyword of the row (황장재, 국도34호선, 서산영덕선, 중앙선, 911호선, 화매리, 도계 …); (VA3) the text time itself. The official time
+     is the **earliest** candidate; every candidate is listed. No candidate → the row stays REPORTED. Same-section official messages **outside**
+     the ±6 h window are listed as context and never replace a row.
+   * **Recomputation.** RD rows with a model time: error = model − official (minutes); "closed at issue" rows: bound = issue time − official.
+     EV rows: the published value "order − median T_road" is shifted by (official − reported); if the shift moves the order across the issue
+     hour used, the row is flagged "not recomputed". No other number is changed; the model values are those already published.
+   * Also reported (context, no model): the first official `대피` message per county in the window.
+5. **2026-11-18 ~23:20 UTC, before any KEC volume was compared with anything.** The user supplied six KEC files named `.zip` that are gzip
+   (`TCS_67_04_01_*.csv`, cp949; one per day 22-27 March; SHA-256 prefixes in `inputs/kec_tcs_daily_SOURCE.txt`), plus one **0-byte** monthly
+   ZIP that was not used. They are dataset 512 "구간단면 교통량(TCS) (전노선)": **daily** volume per section, direction and TCS vehicle class.
+   **They cannot give closure times or outbound surges (15-minute resolution was asked for); only whole-day volumes.** The route in the file is named
+   `당진상주선` (route 030); I identify it with the news name 서산영덕선 by its interchanges (동상주, 서의성, 안동JC, 북의성, 동안동, 청송, 동청송영양, 영덕):
+   an identification from names, stated. Disclosure: while listing section names I printed the 25 March class-1 volumes of those sections, so I have
+   seen a few volumes before this rule. **Rule (descriptive only, no pass/fail prediction):** V(section, direction, day) = sum over classes; baseline
+   B = mean of V(22 Mar) and V(23 Mar) (the days before the earliest closure record, 24 Mar 17:02; the fire had started on 22 Mar 11:25, 22 is a
+   Saturday and 23 a Sunday: **a weekend baseline, possibly already affected**); r = V/B. Groups: G1 route 030 between 북의성 and 영덕 (both directions;
+   official closure text 24 Mar 17:02); G2 route 030 between 동상주 and 북의성 (REPORTED closures 25 Mar 15:30-22:00); G3 route 055 중앙선 의성→예천
+   sections (REPORTED closures 25 Mar 17:00-18:00 and 26 Mar 07:55); G0 control: route 055 군위/가산JC sections, route 045, route 301, route 030 west of 동상주.
+   Reported: V, r per section-direction-day, group medians of r, next to the closure statements. Classes for reading only: r < 0.15, 0.15-0.60, ≥ 0.60.
+   A better baseline (weekdays 17-21 March) can be downloaded from the same portal page; not supplied.
