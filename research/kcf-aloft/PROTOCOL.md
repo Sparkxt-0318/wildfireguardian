@@ -230,3 +230,32 @@ Rule states are computed for every issue hour of each fire and for the 24 h befo
    fire's first hours are where a warning matters most. **S6 (new secondary):** every fire-set count is also given
    on kcf-abstain's scored hours only, so the effect of this reading is visible. Fires with a reach but fewer rows:
    none is dropped by either reading.
+
+2. **2026-11-18 22:57 UTC. Made after every other result of this study had been computed and published (RESULTS.md,
+   merged), and before any KMA station value beyond the kcf-gust file was fetched or read.** A KMA apihub key became
+   available, so G-obs can now be run as frozen in section 3. What was checked first, by status codes, column names
+   and station ids only (no gust value read): the key is approved for `kma_sfctm2.php` alone (ASOS hourly, one call
+   per KST hour, `stn=0` returns all 95-97 ASOS stations); the station-list, period and daily endpoints answer 403;
+   about four calls in ten time out and succeed on retry. Rules fixed now:
+   - **Data.** `kma_sfctm2.php?tm=YYYYMMDDHH00&stn=0` for every KST hour needed; columns `STN`, `GST WS`, `GST TM`.
+     Conventions unchanged from section 3 (kcf-gust amendment 3). An hour that still fails after 8 tries is listed
+     and left unevaluated, never filled. The key is read from a file outside the repo and is never logged.
+   - **Stations.** Every ASOS station in the response. Coordinates from KMA's data-wiki station table (as of
+     2023-09-01; saved as `derived/kma_asos_stations.csv`). A station counts for a place if its great-circle distance
+     is at most 50 km. Station moves between 2019 and 2025 are not tracked (stated limit).
+   - **State at an hour.** Known if one or more stations within 50 km have a row at that stamp; fires if any of
+     them has a gust >= 20 m/s recorded inside the hour ending at the stamp. Unknown otherwise.
+   - **Fire set.** Every hour of every fire's primary timeline, including the 24 h before its first issue hour,
+     for all 12 fires. KFS_01 is evaluated again with all stations within 50 km; the four-station PARTIAL result
+     already reported stays in the record beside it.
+   - **Burden set.** The same ten points, the point in place of P_t. A point-day is evaluated if all 24 stamps
+     (00:00 to 23:00 KST) are known; an alarm day has one or more firing stamps. Observations do not depend on the
+     forecast archive, so all seven seasons 2019-2025 can be read. Fetch order: 2025, 2024, 2023, 2022 (the four
+     full seasons of the forecast rules; the per-season mean beside G and A uses these four), then 2021, 2020, 2019.
+     The burden needs about 17,500 calls plus retries; whatever is complete at the hard stop is reported and the
+     rest is NOT RUN.
+   - **Reported.** G-obs in the same per-rule table (M1-M5), with and without 25 March and leave-one-fire-out, and
+     the frozen comparison counts of G against G-obs and of each A rule against G-obs. These are descriptive: the
+     frozen verdicts of section 4 stay A against G. The data-quality counts of kcf-gust amendment 3 (share of hours
+     with no record, smallest recorded gust, records timed outside their hour) are reported for the new file.
+   - Nothing else changes. No threshold, window or definition of any rule is touched.
