@@ -1,0 +1,41 @@
+name: wfg-roadlayer
+on:
+  push:
+    branches: [Main]
+    paths:
+      - 'product/wfg-roadlayer/**'
+      - 'research/kcf-theorem/checker.py'
+      - 'research/harness-2026-11/F-3.1/deadline_field/**'
+      - 'research/kcf-replay/**'
+      - 'planner/public/data/regions/**'
+      - '.github/workflows/roadlayer.yml'
+  pull_request:
+    paths:
+      - 'product/wfg-roadlayer/**'
+      - 'research/kcf-theorem/checker.py'
+      - 'research/harness-2026-11/F-3.1/deadline_field/**'
+      - 'research/kcf-replay/**'
+      - 'planner/public/data/regions/**'
+      - '.github/workflows/roadlayer.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      WFG_ROADLAYER_CACHE: ${{ github.workspace }}/.wfg-roadlayer-cache
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: python -m pip install -r product/wfg-roadlayer/requirements-test.txt
+      - name: Fetch the verified routing inputs (road graphs, packets)
+        run: python tools/fetch_routing_inputs.py
+      - name: Set up the tool's cache once (the only step that needs the network besides the fetch)
+        run: python product/wfg-roadlayer/roadlayer.py setup --data-routing data/routing
+      - name: Tests (golden worked example, refusals, certificates, vendored sources)
+        run: python -m pytest -q -p no:cacheprovider product/wfg-roadlayer/tests
