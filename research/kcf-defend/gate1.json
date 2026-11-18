@@ -1,0 +1,195 @@
+{
+ "rows": 27144,
+ "mismatches": {
+  "state": 9
+ },
+ "examples": [
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160459",
+    "ORDINARY",
+    "5h",
+    "03-25 15:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 19:41",
+    "osm:way/1422813447"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 19:41",
+    "osm:way/1422813447"
+   ]
+  },
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160460",
+    "ORDINARY",
+    "5h",
+    "03-25 15:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 19:39",
+    "osm:way/1422813447"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 19:39",
+    "osm:way/1422813447"
+   ]
+  },
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160459",
+    "ORDINARY",
+    "8h",
+    "03-25 15:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 22:41",
+    "osm:way/1422813447"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 22:41",
+    "osm:way/1422813447"
+   ]
+  },
+  {
+   "key": [
+    "yeongdeok_2025",
+    "osm:node/415160147",
+    "ORDINARY",
+    "8h",
+    "03-25 21:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-26 04:47",
+    "osm:node/11982470490"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-26 04:47",
+    "osm:node/11982470490"
+   ]
+  },
+  {
+   "key": [
+    "yeongdeok_2025",
+    "osm:node/415160151",
+    "ORDINARY",
+    "8h",
+    "03-25 21:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-26 04:48",
+    "osm:node/11982470695"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-26 04:48",
+    "osm:node/11982470695"
+   ]
+  },
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160432",
+    "MEASURED",
+    "5h",
+    "03-25 12:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 16:35",
+    "osm:way/1422813447"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 16:35",
+    "osm:way/1422813447"
+   ]
+  },
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160454",
+    "MEASURED",
+    "5h",
+    "03-25 15:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 19:22",
+    "osm:node/5344451527"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 19:22",
+    "osm:node/5344451527"
+   ]
+  },
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160457",
+    "MEASURED",
+    "5h",
+    "03-25 15:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 19:30",
+    "osm:node/5344451527"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 19:30",
+    "osm:node/5344451527"
+   ]
+  },
+  {
+   "key": [
+    "uiseong_andong_2025",
+    "osm:node/415160461",
+    "MEASURED",
+    "5h",
+    "03-25 15:00"
+   ],
+   "check": "state",
+   "mine": [
+    "LATEST_SAFE_DEPARTURE",
+    "03-25 19:24",
+    "osm:node/5344451527"
+   ],
+   "committed": [
+    "NOT_CUT_WITHIN_H",
+    "03-25 19:24",
+    "osm:node/5344451527"
+   ]
+  }
+ ],
+ "state_confusion_committed_vs_fast": {
+  "NOT_CUT_WITHIN_H|NOT_CUT_WITHIN_H": 6620,
+  "INSIDE_KNOWN_FIRE_AREA|INSIDE_KNOWN_FIRE_AREA": 12924,
+  "NO_SAFE_DEPARTURE|NO_SAFE_DEPARTURE": 1114,
+  "LATEST_SAFE_DEPARTURE|LATEST_SAFE_DEPARTURE": 6477,
+  "NOT_CUT_WITHIN_H|LATEST_SAFE_DEPARTURE": 9
+ }
+}
