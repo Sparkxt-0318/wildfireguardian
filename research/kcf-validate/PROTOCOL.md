@@ -139,3 +139,11 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
 * No statement about what any official should have done.
 
 ## Amendments
+
+1. **2026-11-18 ~15:35 UTC, after the freeze commit `1a6a5a7` and after the four scenes were downloaded, before any band value was
+   read.** (a) Timestamp correction: the freeze was at 15:29 UTC (commit time), not "~16:00 UTC" as written in the header.
+   (b) Reflectance offset. The scenes are processing baseline 05.11, which adds a BOA offset of −1000 DN. `research/kcf-roadcut/
+   burned_area.py` (whose thresholds §2 reuses) computed NBR on raw DN, and §2's formula is written on raw DN. Rule: the
+   **primary** map stays on raw DN (identical definition to roadcut's map, so the two are comparable); a **sensitivity** map
+   applies (DN − 1000)/10000 to both bands in both scenes (pixel valid only if the corrected value stays > 0 in B12 and B8A) and
+   is reported next to the primary at the same two dNBR thresholds. No other change.
