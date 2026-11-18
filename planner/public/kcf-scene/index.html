@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KCF replay — 3D scene</title>
+<script>window.KCF_T0 = (window.performance && performance.now()) || 0;</script>
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="map" aria-label="3D terrain map"></div>
+
+<header id="topbar">
+  <div class="title">
+    <strong>KCF replay</strong>
+    <span>25 March 2025 · 12:00–24:00 KST · 의성·안동–영덕</span>
+  </div>
+  <div class="badges">
+    <span class="badge test" title="Same label as the planner app: these results were not computed on the evaluated host">시험 데이터 · 평가 호스트 아님 <em>test data · not the evaluated host</em></span>
+    <span class="badge recon" title="Every layer replays committed files in research/kcf-replay">2025년 실제 산불 기록 기반 시나리오 재현 <em>reconstruction from the 2025 record</em></span>
+  </div>
+  <nav id="crumbs" aria-label="zoom level">
+    <button type="button" data-level="region"><b>1</b> Region</button>
+    <button type="button" data-level="place"><b>2</b> Place</button>
+    <button type="button" data-level="drive"><b>3</b> Road</button>
+    <button type="button" id="aboutBtn" title="About this scene (?)">?</button>
+  </nav>
+</header>
+
+<div id="bookmarks" aria-label="bookmarked places (RESULTS.md section 4)"></div>
+
+<aside id="summary" class="card"></aside>
+<aside id="panel" class="card" hidden></aside>
+
+<div id="hud" hidden></div>
+<div id="caption" hidden></div>
+
+<div id="timebar" class="card">
+  <div class="row">
+    <button type="button" id="prevBtn" title="previous issue hour (←)">◀</button>
+    <button type="button" id="playBtn" title="play / pause (space)">▶</button>
+    <button type="button" id="nextBtn" title="next issue hour (→)">▶|</button>
+    <div id="clock"></div>
+    <div id="clockNote"></div>
+    <button class="standin" id="standinBtn" type="button" title="R(h) stand-in (HOTSPOT_RULE.md). Click or press R to change."></button>
+  </div>
+  <div id="sliderWrap">
+    <div id="sliderMarks"></div>
+    <input id="slider" type="range" min="0" max="43200" step="60" value="0" aria-label="time, 12:00 to 24:00 KST">
+    <div id="sliderTicks"></div>
+  </div>
+</div>
+
+<div id="legend" class="card"></div>
+<div id="sources" class="card collapsed"></div>
+
+<div id="about" class="card" hidden></div>
+<div id="loading"><div class="box"><b>Loading the scene…</b><span id="loadingMsg">terrain, roads, fire record, 174 places</span>
+  <small>시험 데이터 · 평가 호스트 아님 (test data · not the evaluated host)<br>2025년 실제 산불 기록 기반 시나리오 재현 (reconstruction from the 2025 record)</small></div></div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="data/fonts.js"></script>
+<script src="data/terrain.js"></script>
+<script src="data/basemap.js"></script>
+<script src="data/scene.js"></script>
+<script src="app.js"></script>
+<script>
+  // watchdog: if the scene has not started (app.js missing, folder opened inside a zip, a script error), say so
+  setTimeout(function () {
+    if (window.KCF_APP) return;
+    var m = document.getElementById('loadingMsg');
+    if (m && !m.style.color) { m.textContent = 'The scene has not started. Copy or unzip the whole kcf-scene folder and open its index.html in Chrome or Edge (the tested engine). Fallback: the 90-s recording kcf_scene_tour_90s.mp4 in this folder.'; m.style.color = '#ffb4a8'; }
+  }, 25000);
+</script>
+</body>
+</html>
