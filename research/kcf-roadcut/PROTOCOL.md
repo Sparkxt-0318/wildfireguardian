@@ -220,3 +220,36 @@ decision is written as a dated amendment below **before** any test is run.
    Resulting choice (fixed now): 52SDF pre `S2B_52SDF_20250314_0_L2A` (cloud 0.14 %), post `S2C_52SDF_20250428_0_L2A`
    (3.82 %); 52SEF pre `S2B_52SEF_20250314_0_L2A` (0.97 %), post `S2C_52SEF_20250408_0_L2A` (0.28 %). The 52SDF post
    scene is late April (vegetation green-up); this is a consequence of the rule and is stated, not corrected.
+2. **2026-11-18 ~11:00 UTC, before any validation comparison and before any Ronchi test was run.** Made after the record
+   searches returned (records only, no comparison) and after two plumbing checks (4 of 312 rerun files through
+   `replay_gaps.py`; all of family M through `multihour.py`, state counts only).
+   * **(a) Count correction.** Family M has 1,044 (region, start, horizon, place) rows × 3 timing variants = **3,132**
+     rows, not 6,264: each region has its own three starts. No method change.
+   * **(b) Locating road records (§5.1).** The road graph has no names or classes and its speeds are capped (no edge
+     faster than 40 km/h), so roads are identified by joining each edge's `source_way` (OSM way id) to the Overture Maps
+     transportation segments, release 2026-10-21.0 (`s3://overturemaps-us-west-2`, OSM record ids in `sources`), and
+     reading their route refs: 30 서산영덕선, 55 중앙선, 국도 7, 국도 34, 지방도 911. Expressway sections are longer than
+     the grids, so a section's model closure = the earliest closure over **all in-grid cells of that route** (for
+     "안동JC~청송IC": only route-30 cells east of the centroid of the edges named 안동JCT*). A section between two named
+     villages = the cells of the shortest travel-time path on the graph between the two places' entry nodes (the share
+     of that path on the named route is reported). 황장재 (no coordinates) = the route-34 cells inside the Overture
+     지품면 polygon west of 황장리's entry node. "지품면 도계 → 영양 방향" = the path 도계리 → 화매리. "국도7호선 송라면
+     지경삼거리" lies in 포항 outside the grid: outside model domain. Excluded and listed: reopenings, records dated 24
+     March, records without a clock time, status-only records.
+   * **(c) Towns (§5.2).** A place's 읍·면 = the Overture 2026-10-21.0 division_area `locality` polygon that contains its
+     entry point (영덕, 영양, 청송 towns). 안동 and 의성 towns have no Overture polygon; there the 법정리 lists found by
+     web search (Korean Wikipedia, search-result text only, flagged) are used. A village-level record (e.g. 옥류리) is
+     matched to the planner place of that name in that county. "전 시민/전 군민/9개 읍면" = every place of that county.
+   * **(d) Ronchi et al. 2023, applicability (29 test codes, Table 3; the paper sets no pass criterion and leaves
+     acceptance to the user, so PASS = the model's result equals the hand calculation under the model's own
+     assumptions, exactly in integer seconds; the supplement with full geometries could not be fetched, so geometries
+     are built from the main-text descriptions and stated):**
+     APPLICABLE — T.1a / T.1b (single-vehicle travel time, one / several road types), T.12 (forced destination), WT.1
+     (route loss), WT.3 (loss of exit or shelter), B.1 (homogeneous spread: the stand-in arms' isotropic reach R(h)).
+     NOT APPLICABLE (component absent) — P.1–P.4, PT.1 (pedestrians), T.2–T.11, T.13–T.15 (traffic flow, density,
+     visibility, lanes, acceleration, crashes, intersections, demand), WT.2 (lane reversal), WT.4 (refuge capacity),
+     B.2–B.5 (fuel types, wind, valley slope, heterogeneous fuel: the model has no fuel, wind or slope input; its
+     reach is isotropic). T.14's single-vehicle reduction (4000 m at 120 km/h vs 2000 m at 30 km/h) is run as an
+     extra check and does not count as T.14.
+   * **(e)** A coding error in `burned_area.py` (a two-character "not assessable" code) was found and fixed before any
+     comparison used the map; the rule is unchanged.
