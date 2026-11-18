@@ -14,7 +14,7 @@ from the committed results of [`research/kcf-replay`](../../../research/kcf-repl
   (merge the pull request; `.github/workflows/planner-pages.yml` then copies `planner/public` verbatim into the static build and
   deploys it). No login, no install. Open it once cold before the talk to confirm the deploy.
 * `?lite` forces lite mode (no colour relief, 1× pixel ratio, coarser fire discs, lower drive camera); it switches on by itself when
-  the browser has no GPU (a notice says so), and `?full` overrides that. Deep links: `?t=18:00`, `?place=지품리`, `?standin=MEASURED` (or `RUNNING`, `MEASURED_GUST`, `WORST`, `ORDINARY`).
+  the browser has no GPU (a notice says so), and `?full` overrides that. Deep links: `?t=18:00`, `?place=지품리`, `?standin=MEASURED` (or `RUNNING`, `MEASURED_GUST`, `MEASURED_GUST_KMA`, `WORST`, `ORDINARY`).
 
 ## R(h) arms
 
@@ -51,7 +51,7 @@ the panel lists the committed files behind everything visible.
 
 | file | built by | from |
 |---|---|---|
-| `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/{RUNNING,MEASURED,MEASURED_GUST}_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `RESULTS.md` (§2–5), `MEASURED_RULE.md` + `measured_arms.py` + `research/kcf-margin/numbers.json` + `research/kcf-gust/work/gust_hours.json`, `gust_hours_kma.json`, `kma_asos_hourly.json` (MEASURED arms), `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
+| `data/scene.js` | `research/kcf-replay/scene/build_scene.py`, checked by `verify_scene.py` → `VERIFY.json` | `per_place.csv`, `fire_discs.json`, `planner_cache/{RUNNING,MEASURED,MEASURED_GUST}_8h`, `SOURCES.md`, `named_places_timeline.csv`, `score.json`, `RESULTS.md` (§2–5), `MEASURED_RULE.md` + `measured_arms.py` + `research/kcf-margin/numbers.json` + `research/kcf-gust/work/era5_gusts.json`, `gust_hours.json`, `kma_asos_hourly.json`, `gust_hours_kma.json` (MEASURED arms), `planner/public/data/regions/*/places.geojson`; road graph and witness edges from the SHA-pinned release inputs (`tools/fetch_routing_inputs.py`) and `replay.py` runs, checked to reproduce `per_place.csv` exactly |
 | `data/terrain.js` | `build_terrain.py` | Terrain Tiles (Mapzen, AWS Open Data; SRTM, GMTED, ETOPO1), Terrarium z5–12, 1 m steps, clipped to the scene's bbox at every zoom |
 | `data/basemap.js` | `build_basemap.py` | `planner/research-map/site/regions/*.osm.js`, `planner/data/osm/*.overpass.json` (© OpenStreetMap contributors, ODbL) |
 | `data/fonts.js` | `build_fonts.py` | Noto Sans glyphs from `planner/public/basemap/fonts`; a subset of Pretendard (SIL OFL, renamed "KCF UI Sans") |

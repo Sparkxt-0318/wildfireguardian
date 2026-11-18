@@ -48,9 +48,10 @@ Committed:
 * `research/kcf-replay/HOTSPOT_RULE.md`, `replay.py` — the frozen rule, R(h) stand-ins, closure formula.
 * `research/kcf-replay/MEASURED_RULE.md`, `measured_arms.py` — the three MEASURED arms (frozen R(h) of `research/kcf-margin`,
   one class per issue hour; piecewise-linear closure curve), with `research/kcf-margin/numbers.json` (R per class),
-  `research/kcf-gust/work/gust_hours.json` (ERA5 next-8 h maximum gust, the MEASURED_GUST class input; PROVISIONAL) and
-  `research/kcf-gust/work/kma_asos_hourly.json` + `gust_hours_kma.json` (KMA ASOS hourly gusts, the MEASURED_GUST_KMA class
-  input; amendment 1 of MEASURED_RULE.md).
+  `research/kcf-gust/work/era5_gusts.json` (ERA5 gusts, the MEASURED_GUST class input read by `measured_arms.gust_class`;
+  PROVISIONAL) and `gust_hours.json` (its next-8 h maximum, shown on screen and checked against the rule), and
+  `research/kcf-gust/work/kma_asos_hourly.json` (KMA ASOS hourly gusts, the MEASURED_GUST_KMA class input read by
+  `measured_arms.gust_class_kma`; amendment 1 of MEASURED_RULE.md) and `gust_hours_kma.json` (its next-8 h maximum, shown).
 * `planner/public/data/regions/<region>/places.geojson` — place and shelter entry nodes.
 * `planner/research-map/site/regions/<region>.osm.js` — roads, water (from the committed planner PMTiles).
 * `planner/data/osm/<region>.overpass.json` — town / 읍·면 names.

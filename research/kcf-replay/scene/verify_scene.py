@@ -6,8 +6,9 @@ kcf-gust/work/era5_gusts.json, gust_hours.json, kma_asos_hourly.json and gust_ho
 The three MEASURED arms' class per issue hour is recomputed with the committed measured_arms.curve() from fire_discs.json,
 era5_gusts.json (MEASURED_GUST) and kma_asos_hourly.json (MEASURED_GUST_KMA) and checked against the hour ranges of RESULTS.md
 section 2b's class column, its R column and numbers.json (R and n_fires); their closures are checked against the class curve
-using the distance bounds implied by close.RUNNING; step counts, the six places' leave-by tables and the score counts are
-checked against RESULTS.md sections 3, 4 and 5 for all six arms (8 h). Planner strips are checked against every committed
+using the distance bounds implied by close.RUNNING; step counts (section 3) and score counts (section 5) are checked for all six
+arms, the six places' leave-by tables (section 4) for RUNNING, MEASURED and the two gust arms (8 h; the KMA arm against the ERA5
+table, which section 4 states it equals in every cell). Planner strips are checked against every committed
 planner cache (planner_cache/<arm>_8h). The witness re-walk is
 analyze.py's own `recheck` fed with scene data only (edge D, seg [cell, end], close via roadCells, sh_cell, dwell_s,
 horizon_s). Writes research/kcf-replay/scene/VERIFY.json; exits non-zero on any mismatch.
