@@ -1,0 +1,40 @@
+{
+ "label": "DRY RUN (retrospective, NOT a prospective entry)",
+ "notice": "Model output on detections only. Advisory. Not an order. Not what happened to people.",
+ "fire_id": "DRYRUN-KFS01-2025",
+ "issue_utc": "2025-03-25T09:00:00Z",
+ "inputs_retrieved_utc": "2025-03-25T08:50:00Z",
+ "detections_since_utc": "2025-03-22T00:00:00Z",
+ "code_commit": "f163abf6b45cfcd6bba664c74c29c383592a87a4",
+ "rule": "research/kcf-replay HOTSPOT_RULE.md + MEASURED_RULE.md (unchanged); research/kcf-validate/PROTOCOL.md section 4",
+ "known_area": {
+  "n_discs": 1761,
+  "latest_detection_utc": "2025-03-25T05:58:00Z",
+  "class": "quiet",
+  "prior3h_spread_km": 0.0,
+  "R5_km": 2.6,
+  "R8_km": 3.5
+ },
+ "claims": {
+  "C1_zone_5h": "every lattice cell with closure <= 5 h (distance <= R5 from the known area) may be reached by fire before issue + 5 h; cells beyond are claimed NOT reached in that time",
+  "C2_zone_8h": "same for 8 h with R8",
+  "C3_per_cell_closure_minutes": "arrival_minutes.tif (value = minutes from issue time to closure; inf = not reached within 8 h)",
+  "scoring": "after issue + 8 h: coverage of cells newly burned (FIRMS detections acquired in (issue, issue + 8 h] and, where a scene exists, Sentinel-2 dNBR) by the 5 h / 8 h zones, reported with misses, by research/kcf-validate/satellite_extent.py's rules"
+ },
+ "lattice": {
+  "epsg": 5179,
+  "x0": 1067250.0,
+  "y0_south": 1797000.0,
+  "res": 375.0,
+  "cols": 180,
+  "rows": 118,
+  "cells_closed_within_8h": 7053,
+  "cells_closed_within_5h": 5576
+ },
+ "files_sha256": {
+  "arrival_minutes.tif": "64156e85256c49807e14890e91578378ec944639308a726e8d2111e58df2f0e0",
+  "inputs/modis_2025_Republic_of_Korea.csv": "613477ebe81a400f61897352b7864162a32d5e362e8ed7559b445bc29d4695c6",
+  "inputs/viirs-jpss1_2025_Republic_of_Korea.csv": "2aedf6756368b9b9de573ad7d1f51dfa43e8f55abd87a39ddd72d339d55db17a",
+  "inputs/viirs-snpp_2025_Republic_of_Korea.csv": "991230c0358dcead74cf8e7d883852e8e3e3c936d384a125123a668c0051a0f8"
+ }
+}
