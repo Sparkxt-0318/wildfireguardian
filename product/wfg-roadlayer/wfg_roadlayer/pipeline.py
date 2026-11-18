@@ -67,6 +67,18 @@ def _sha(b: bytes) -> str:
 def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, not_reached_value=None, as_of=None,
         settings_path=None, out=None, workers=None, assume_uncovered=False, overwrite=False, cache=None, log=print) -> dict:
     t0 = time.perf_counter()
+    c = compute(region_name=region_name, issue_time=issue_time, raster=raster, packet=packet, horizon_min=horizon_min,
+                not_reached_value=not_reached_value, as_of=as_of, settings_path=settings_path, out=out, workers=workers,
+                assume_uncovered=assume_uncovered, overwrite=overwrite, cache=cache, log=log)
+    return _write_outputs(c, t0)
+
+
+def compute(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, not_reached_value=None, as_of=None,
+            settings_path=None, out=None, workers=None, assume_uncovered=False, overwrite=False, cache=None, log=print,
+            default_out_fn=None, shift_s: int = 0) -> dict:
+    """Inputs, refusal checks and the deadline field; no file written. ``shift_s`` > 0 moves every closure that many
+    seconds earlier (floored at 0): the latest departures then keep that margin before fire arrival everywhere on the
+    route and at the shelter (used by the village cards' trigger line; 0 for the sheets)."""
     cfg = settings_mod.load(settings_path)
     rid = regiondata.resolve_region(region_name)
     issue = parse_time(issue_time, "발표 시각", "the issue time", "ISSUE_TIME_INVALID")
@@ -92,7 +104,7 @@ def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, 
         missing.append(reason("FIRE_INPUT_AMBIGUOUS", "--raster 와 --packet 중 하나만 주십시오.", "give either --raster or --packet, not both."))
     if missing:
         raise Refusal(missing)
-    out = Path(out) if out else default_out(rid, issue)
+    out = Path(out) if out else (default_out_fn or default_out)(rid, issue)
     if out.exists() and any(out.iterdir()) and not overwrite:
         raise Refusal(reason("OUTPUT_NOT_EMPTY", "출력 폴더가 비어 있지 않습니다: %s (--overwrite 로 교체)" % out,
                              "the output folder is not empty: %s (use --overwrite to replace it)" % out))
@@ -122,7 +134,7 @@ def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, 
     dwell = cfg["routing"]["dwell_s"]
     if H - dwell < 0:
         raise Refusal(reason("HORIZON_TOO_SHORT", "예측 범위가 대피소 체류 시간보다 짧습니다.", "the horizon is shorter than the shelter stay."))
-    close_s = dict(fire.arrival_s)
+    close_s = {k: max(0, v - shift_s) for k, v in fire.arrival_s.items()} if shift_s else dict(fire.arrival_s)
     t_in = time.perf_counter()
     inst = engine.build_instance(region.road, close_s, H)
     jobs_by = defaultdict(set)
@@ -138,6 +150,16 @@ def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, 
     results = engine.run_passes(region.road, inst, jobs, nw)
     rows = engine.assemble(region, fire, cfg, inst, results, close_s)
     t_field = time.perf_counter()
+    return {"cfg": cfg, "rid": rid, "out": out, "region": region, "fire": fire, "now": now, "as_of_given": as_of_given,
+            "H": H, "dwell": dwell, "close_s": close_s, "inst": inst, "rows": rows, "nw": nw, "fonts": fonts, "t_in": t_in,
+            "t_field": t_field, "assume_uncovered": assume_uncovered, "log": log, "jobs": len(jobs)}
+
+
+def _write_outputs(c: dict, t0: float) -> dict:
+    cfg, rid, out, region, fire, now, as_of_given, H, dwell = (c[k] for k in ("cfg", "rid", "out", "region", "fire", "now",
+                                                                            "as_of_given", "H", "dwell"))
+    close_s, inst, rows, nw, fonts, t_in, t_field = (c[k] for k in ("close_s", "inst", "rows", "nw", "fonts", "t_in", "t_field"))
+    assume_uncovered, log = c["assume_uncovered"], c["log"]
 
     # ------------------------------------------------------------------------------------ outputs
     tmp = out.with_name(out.name + ".partial")

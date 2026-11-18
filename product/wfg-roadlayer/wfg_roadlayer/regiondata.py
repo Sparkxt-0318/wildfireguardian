@@ -176,6 +176,7 @@ class RoadModel:
         if any(t < 1 or t != e["travel_ticks"] for t, e in zip(self.D, raw["edges"])):
             raise ValueError("graph travel_ticks must be positive integers (1 s ticks)")
         self.source_way = [e.get("source_way") for e in raw["edges"]]
+        self.reverse_edge = [e.get("reverse_edge") for e in raw["edges"]]
         # replay.py: segment end fraction, float ends via limit_denominator(1e9)
         self.seg = [[(int(s["cell"]), F(s["end"]).limit_denominator(10 ** 9) if not isinstance(s["end"], int) else F(s["end"]))
                      for s in e["segments"]] for e in raw["edges"]]

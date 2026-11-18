@@ -4,6 +4,8 @@
   python -m wfg_roadlayer run --region 영덕 --issue-time 2025-03-25T18:00+09:00 --raster arrival.tif [--as-of ...]
   python -m wfg_roadlayer example                       # the 25 March 2025 worked example (의성·안동 and 영덕)
   python -m wfg_roadlayer verify OUT/certificates       # re-check every village certificate
+  python -m wfg_roadlayer cards --region 영덕 --issue-time ... --raster ...   # A5 village cards, audit CSV, pickup list
+  python -m wfg_roadlayer cards-example                 # cards for all 174 places of the worked example + overlap check
 
 Exit status: 0 done, 2 refused (an input is missing or stale; REFUSED.txt says which), 1 error.
 모델 출력 · 참고용 · 명령 아님 / Model output · advisory · not an order.
@@ -76,6 +78,15 @@ def main(argv=None) -> int:
     e.add_argument("--workers", type=int)
     e.add_argument("--cache")
     e.add_argument("--overwrite", action="store_true")
+    cr = sub.add_parser("cards", help="village cards (A5, ko + en), audit CSV, departure order and pickup list")
+    _run_args(cr)
+    cr.add_argument("--card-settings", help="card settings TOML (default: wfg_roadlayer/cards.toml)")
+    ce = sub.add_parser("cards-example", help="cards for the worked example (both regions) and the replay overlap check")
+    ce.add_argument("--out", default="wfg-roadlayer-cards-example")
+    ce.add_argument("--workers", type=int)
+    ce.add_argument("--cache")
+    ce.add_argument("--card-settings")
+    ce.add_argument("--overwrite", action="store_true")
     v = sub.add_parser("verify", help="re-check certificates with the standalone verifier")
     v.add_argument("paths", nargs="+")
     a = ap.parse_args(argv)
@@ -100,6 +111,37 @@ def main(argv=None) -> int:
                          workers=a.workers, assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache)
         except Refusal as ref:
             return _refused(ref, a.out, a.overwrite)
+        return 0
+    if a.cmd == "cards":
+        from . import cardrun
+        try:
+            cardrun.run_cards(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet,
+                              horizon_min=a.horizon_min, not_reached_value=a.not_reached_value, as_of=a.as_of,
+                              settings_path=a.settings, card_settings=a.card_settings, out=a.out, workers=a.workers,
+                              assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache)
+        except Refusal as ref:
+            return _refused(ref, a.out, a.overwrite)
+        return 0
+    if a.cmd == "cards-example":
+        from . import cardrun
+        t0 = time.perf_counter()
+        base = Path(a.out)
+        results = []
+        for ex in EXAMPLES:
+            out = base / ex["name"]
+            print("== %s ==" % ex["name"])
+            try:
+                results.append(cardrun.run_cards(region_name=ex["region"], issue_time=ex["issue"], raster=str(PRODUCT / ex["raster"]),
+                                                 as_of=ex["issue"], card_settings=a.card_settings, out=out, workers=a.workers,
+                                                 overwrite=a.overwrite, cache=a.cache))
+            except Refusal as ref:
+                return _refused(ref, out, a.overwrite)
+        tab = cardrun.overlap_report(results, base / "OVERLAP.md", base / "overlap.json")
+        for r in tab["rows"]:
+            if r["region"] == "all":
+                print("overlap %-14s flagged %3d, earliest %3d, both %3d (if unrelated %.1f)" % (
+                    r["flag"], r["flagged"], r["earliest"], r["both"], r["expected_both_if_unrelated"]))
+        print("cards example done in %.1f s -> %s" % (time.perf_counter() - t0, base))
         return 0
     if a.cmd == "example":
         t0 = time.perf_counter()
