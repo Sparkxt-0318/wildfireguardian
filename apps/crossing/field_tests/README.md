@@ -21,6 +21,13 @@ Run everything from `apps/crossing` with the venv, e.g.
 `.venv/bin/python -m field_tests.a_flux_record --help`. Runtime data goes to `apps/crossing/records/field_tests/`
 (git-ignored). Analyses write to `records/field_tests/<test>/analysis/` by default.
 
+## Test A, Bunsen plan of 2026-11-18
+
+`A_PLAN.md` (read first) fixes the design, the flux calculation, how the three heat curves are scaled to a Bunsen
+flame, the pre-registered comparison rules and the uncertainty budget, before any data. It says a Bunsen flame cannot
+separate the closed-form law from the FDS voxel sum. Code: `bunsen_models.py`, `a_bunsen_analyse.py` (reads one
+logged CSV, `sheets/A_plan_inputs.yaml`), `a_bunsen_synth.py` + `tests/test_a_bunsen.py` (SYNTHETIC input only).
+
 ## Flame safety gate
 
 Test A (always) and test B's flame and smoke conditions (a smouldering smoke source still burns) refuse to start
