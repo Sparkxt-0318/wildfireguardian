@@ -109,6 +109,7 @@ jobs:
           python -m pip install sigstore==4.5.1
           R="live-log-wt/live/log/${{ steps.live.outputs.record }}"
           python -m sigstore sign --bundle "${R%.json}.sigstore.json" "$R"
+          python -m sigstore verify github --bundle "${R%.json}.sigstore.json" --repository "${{ github.repository }}" "$R"
 
       - name: Score records old enough (live/score.py)
         continue-on-error: true
