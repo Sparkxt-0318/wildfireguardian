@@ -222,4 +222,11 @@ Rule states are computed for every issue hour of each fire and for the 24 h befo
 
 ## Amendments
 
-None.
+1. **2026-11-18 15:50 UTC, before any rule state or outcome was computed (only the column layout of `hours.csv.gz`
+   had been looked at).** Clarification of "scored issue hour" in sections 1a and 4. It means a row of
+   `hours.csv.gz` that has a 5 h reach (`reach5_km` present; for the detection product, the rows kcf-margin flags
+   complete). This includes the first three issue hours of each fire, which kcf-abstain left without an abstention
+   score only because its prior-3 h spread predictor is undefined there; that predictor plays no part here, and a
+   fire's first hours are where a warning matters most. **S6 (new secondary):** every fire-set count is also given
+   on kcf-abstain's scored hours only, so the effect of this reading is visible. Fires with a reach but fewer rows:
+   none is dropped by either reading.
