@@ -12,8 +12,8 @@ copy, key or login was used or sought; no network setting was changed. Probes ar
    existing text times in `research/kcf-replay/SOURCES.md` remain REPORTED (county log via news), not official records.
 3. **Independent satellite record: OBTAINED IN PART (not skipped).** Sentinel-2 L2A (open bucket) 24 March 2025 02:17 UTC, i.e. fire
    extent on day 3, covers neither the 25 March replay window nor any scene after the fire's main run (27 March is 99.99 % cloud; the 22
-   March scene is partial). GK-2A (`nmsc.kma.go.kr`) refused by the network policy (CONNECT 403): **GK-2A NOT OBTAINED**. Landsat 8/9 is in
-   a requester-pays bucket: **not used** (no payer account was given). So the record is real but is a different day from the road closures.
+   March scene is partial). GK-2A (`nmsc.kma.go.kr`) refused by the network policy (CONNECT 403): **GK-2A NOT OBTAINED**. Landsat 8/9 was **not used**
+   (its AWS bucket is requester-pays, as I know it, not tested here; no payer account was given). So the record is real but is a different day from the road closures.
 4. **NIST Camp Fire case study (TN 2135 progression, TN 2252 evacuation), road-layer run on Paradise: NOT OBTAINED.** `nvlpubs.nist.gov`,
    `www.nist.gov`, `tsapps.nist.gov` and `data.nist.gov` are refused by the network policy (CONNECT 403; fetch tool: ENOTFOUND on
    `nvlpubs.nist.gov`). Whether the progression and closures are tables or only figures, and whether a companion dataset exists, could not
