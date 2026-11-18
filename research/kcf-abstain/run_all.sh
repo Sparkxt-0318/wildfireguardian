@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Reproduce kcf-abstain end to end (PROTOCOL.md, commit ef50d2a).
 #   research/kcf-abstain/run_all.sh WORK_DIR
-# WORK_DIR receives the downloads (about 260 GB is streamed, about 4 GB is kept) and the unpacked archives.
+# WORK_DIR receives the downloads (about 199 GB of GRIB byte ranges is streamed, 3.1 GB is kept) and the unpacked archives.
 # Needs: numpy scipy pandas pygrib rasterio pyproj shapely geopandas matplotlib; network access to
 # noaa-gfs-bdp-pds.s3.amazonaws.com, noaa-hrrr-bdp-pds.s3.amazonaws.com and zenodo.org.
 set -euo pipefail

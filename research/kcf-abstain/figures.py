@@ -28,25 +28,25 @@ def risk_coverage(nb, out):
         cov = np.array(rc["coverage"])
         risk = np.array([np.nan if v is None else v for v in rc["risk"]])
         o = np.argsort(cov)
-        ax.plot(cov[o], risk[o], color=S1, lw=2, label="out-of-range score")
-        ax.axhline(rc["random_risk"], color=MUTED, lw=1.4, ls=(0, (5, 3)))
-        ax.plot(rc["oracle_coverage"], rc["oracle_risk"], color=INK2, lw=1.2, ls=(0, (1, 2)))
+        ax.plot(cov[o], risk[o], color=S1, lw=2, label="out-of-range score (frozen)")
+        ax.axhline(rc["random_risk"], color=MUTED, lw=1.4, ls=(0, (5, 3)),
+                   label=f"no abstention = random abstention ({rc['random_risk']:.1%})")
+        ax.plot(rc["oracle_coverage"], rc["oracle_risk"], color=INK2, lw=1.2, ls=(0, (1, 2)),
+                label="oracle (withholds missed hours first)")
         op = lo[f"h{h}"]["at_beta_0_05"]
         ax.plot([1 - op["abstention_rate"]], [op["miss_rate_retained"]], "o", ms=8, mfc=S1, mec=SURF, mew=2, zorder=5)
         ax.annotate(f"frozen rule (β = 0.05)\ncoverage {1 - op['abstention_rate']:.1%}, miss {op['miss_rate_retained']:.1%}",
                     (1 - op["abstention_rate"], op["miss_rate_retained"]), xytext=(-18, -34), textcoords="offset points",
                     ha="right", va="top", fontsize=8, color=INK, arrowprops=dict(arrowstyle="-", color=AXIS, lw=0.8),
                     bbox=dict(fc=SURF, ec="none", pad=1.5))
-        ax.text(0.03, rc["random_risk"], f"no abstention (= random): {rc['random_risk']:.1%}", va="bottom", fontsize=8,
-                color=INK2, bbox=dict(fc=SURF, ec="none", pad=1.0))
-        ax.text(0.62, 0.004, "oracle (abstain on misses first)", fontsize=8, color=INK2)
+        ax.legend(loc="upper left", fontsize=7.5, frameon=False)
         sep = lo[f"h{h}"]["separation"]
         ax.set_title(f"{h} h margin (R = {nb['meta']['R_frozen_km'][str(h)]:.2f} km, LOFO per fire)\n"
                      f"AUROC {sep['auroc']:.2f} [{sep['auroc_ci95'][0]:.2f}, {sep['auroc_ci95'][1]:.2f}]: "
                      f"{sep['verdict']}", fontsize=9, loc="left", color=INK)
         ax.set_xlabel("coverage: share of issue hours with a number (fire-weighted)")
         ax.set_xlim(0, 1.0)
-        ax.set_ylim(0, None)
+        ax.set_ylim(0, 1.45 * max(lo["h5"]["risk_coverage"]["random_risk"], lo["h8"]["risk_coverage"]["random_risk"]))
     axes[0].set_ylabel("miss rate among hours not abstained\n(fire-weighted, leave-one-fire-out)")
     fig.suptitle("Risk-coverage on the 28 GOFER calibration fires: does withholding the number on out-of-range hours "
                  "remove misses?", fontsize=10, x=0.01, ha="left", color=INK)
@@ -75,9 +75,10 @@ def timeline(nb, out):
         miss = y > Rh
         ax.plot(kst[miss], y[miss], "o", ms=7, mfc=col, mec=SURF, mew=1.5)
         ax.plot(kst[~miss & np.isfinite(y)], y[~miss & np.isfinite(y)], "o", ms=7, mfc=SURF, mec=col, mew=1.5)
-        last = np.flatnonzero(np.isfinite(y))[-1]
-        ax.text(kst[last] + 0.3, y[last], f"{h} h reach", color=INK, fontsize=8, va="center")
-        ax.text(23.4, Rh, f"R({h} h) = {Rh:.2f} km", color=INK2, fontsize=8, va="bottom", ha="right")
+        pk = int(np.nanargmax(y))
+        ax.annotate(f"{h} h reach", (kst[pk], y[pk]), xytext=(10, 4), textcoords="offset points", color=INK, fontsize=8)
+    ax.text(0.01, 0.97, f"dashed: frozen margin R = {R['5']:.2f} km (5 h, blue), {R['8']:.2f} km (8 h, orange)",
+            transform=ax.transAxes, color=INK2, fontsize=8, va="top", ha="left")
     ax.set_ylabel("reach beyond known fire (km)")
     ax.set_title("25 March 2025, Gyeongbuk (KFS_01): reach from detections vs the frozen margin; filled = margin missed",
                  fontsize=9, loc="left")
@@ -88,6 +89,7 @@ def timeline(nb, out):
     ax.axhline(max(tau, 1e-4), color=INK, lw=1.2, ls=(0, (5, 3)))
     ax.text(23.4, max(tau, 1e-4), f"abstain at or below τ = {tau:.4f}", fontsize=8, va="bottom", ha="right", color=INK)
     ax.set_ylabel("out-of-range score s\n(min tail probability; low = unusual)")
+    ax.text(-0.3, 1.25e-4, "s = 0 (beyond every calibration hour) is drawn at 1e-4", fontsize=7.5, color=INK2, va="bottom")
     ax.set_title("Out-of-range score at each issue hour (GFS as issued, 5 h delay); filled = system abstains",
                  fontsize=9, loc="left")
     ax = axes[2]
@@ -100,8 +102,8 @@ def timeline(nb, out):
         last = np.flatnonzero(np.isfinite(v))[-1]
         ends.append([np.log10(np.clip(v[last], 1e-4, 1)), lab, kst[last]])
     ends.sort()
-    for k in range(1, len(ends)):                       # keep end labels at least 0.16 decades apart
-        ends[k][0] = max(ends[k][0], ends[k - 1][0] + 0.16)
+    for k in range(1, len(ends)):                       # keep end labels at least 0.24 decades apart
+        ends[k][0] = max(ends[k][0], ends[k - 1][0] + 0.24)
     for y, lab, x in ends:
         ax.text(x + 0.3, 10 ** y, lab, fontsize=8, va="center", color=INK)
     ax.axhline(max(tau, 1e-4), color=INK, lw=1.2, ls=(0, (5, 3)))
