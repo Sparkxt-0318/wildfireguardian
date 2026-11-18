@@ -157,3 +157,25 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
    three times**: all CUT places; only places whose truth status is "cut" (cut inside the horizon, the forecast part); only places whose
    truth status is "already cut at the issue time…". NOT CUT places enter all three for the false-cut-off count. No region was added (the
    truth reaches the 영덕 roads in 20 of 24 pairs).
+
+3. **2026-11-18 ~22:48 UTC (the user allowed the blocked hosts; this session now runs on environment `wildfireguardian-kcf-validate`),
+   before any NIST row was parsed or compared.** What was read after the hosts opened (portal pages and the NIST PDFs only; no outcome):
+   * **Source 1.** `data.ex.co.kr` lists the needed data: API 0305 "노선별 방향별 일별 15분 구간교통량" (`/openapi/trafficapi/
+     sectionTrafficRouteDirection`), which answers a request without a key with `인증키값이 없습니다`; the file datasets (e.g. 148 "구간 교통량",
+     5/15/60 min, from 2010) need `goLoginCheck()` and five declarations (소속, 지역, 성별, 나이, 활용목적) before download. **Needs an API key
+     or a portal login that I do not hold.** Not created and not guessed. No data read.
+   * **Source 2.** `safekorea.go.kr` (국민안전24) has a public 재난문자 list with date/region filters, but its date picker offers only the last 7
+     days (`startDate: "-7d"`); I did not send dates outside it without the user's say-so. The history route is the `data.go.kr` OpenAPI
+     "행정안전부_긴급재난문자" (usage application / service key). No county publishes a file. No data read.
+   * **Source 3, GK-2A.** NMSC's download link points to `data.kma.go.kr` (not allowed; login). Not attempted. Sentinel-2 stands as the satellite record.
+   * **Source 4 rule (frozen now).** Data = table rows of the two PDFs (downloaded from `nvlpubs.nist.gov`), parsed by text, never digitised from
+     figures: (a) TN 2135 Table 33 (19 burnovers: id, place, time); (b) TN 2135 progression tables 11-32: each row's date and start time, and its
+     table title (area/road); (c) TN 2252 per-road traffic tables 18-28: rows (time range, description). **Comparison, not involving the model's
+     inputs:** for each road named in both reports, F = earliest 11/8 row time of that road's TN 2135 table(s); C = earliest TN 2252 row whose text
+     matches `clos(ed|ure)|blocked|impassable` and a fire word (`fire|burn|flame|smoke|BO`); B = Table 33 burnover time(s) on that road. Reported:
+     C − F and B − F per road (minutes, window starts, ±15-30 min resolution), n roads, every matched row listed. This measures the lag between
+     recorded fire at a road and recorded closure, i.e. the roadlayer's assumption that a cell closes when the fire reaches it; it is **not** a
+     run of `product/wfg-roadlayer`. **The Paradise run is not made:** the tables give times at named places, not an arrival field, no polygon
+     dataset was found (the reports say the tables are "excerpted and condensed from the full dataset"; the NIST data portal search returned 0
+     records), and the repository has no Paradise road graph, places or shelters in `wfg_roadlayer` format. Interpolating a field would be my
+     reconstruction, not "the true progression". Stated, not done.
