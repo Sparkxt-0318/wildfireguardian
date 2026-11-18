@@ -1,0 +1,60 @@
+# live/ frozen settings. Every value here is fixed by live/PROTOCOL.md; a change is an amendment there first.
+
+[schedule]
+cron = "7,37 * * * *"            # GitHub Actions, UTC. Two runs an hour, 30 min apart, off the busy :00 minute.
+
+[kfs]
+url = "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
+page = "https://fd.forest.go.kr/ffas/pubConn/movePage/sub1.do"
+active_status = ["02"]             # frfrPrgrsStcd 02 = 진화중 (the page's own label frfrPrgrsStcdNm is recorded too)
+province_codes = ["47", "42", "51"]   # 법정동코드 prefixes: 47 경상북도, 42 강원도 (old), 51 강원특별자치도
+province_prefixes = ["경상북도", "경북", "강원"]
+
+[firms]
+api = "https://firms.modaps.eosdis.nasa.gov/api/area/csv"
+sources = ["VIIRS_SNPP_NRT", "VIIRS_NOAA20_NRT", "VIIRS_NOAA21_NRT", "MODIS_NRT"]
+bbox = [124.5, 33.0, 131.0, 39.0]  # west, south, east, north: South Korea
+day_range = 5                      # the most the FIRMS area API serves per call
+
+[ahi]
+bucket = "https://noaa-himawari9.s3.amazonaws.com/AHI-L1b-Japan"
+window_h = 6                       # scans in [max(report - 1 h, issue - 6 h), issue)
+b07_min_k = 320.0                  # research/kcf-margin PROTOCOL: B07 >= 320 K
+diff_min_k = 25.0                  # and B07 - B14 >= 25 K
+min_scans_in_hour = 2              # in at least 2 scans of one UTC clock hour
+box_pad_km = 60.0                  # pixels kept: within 60 km of an in-scope fire's report point
+
+[area]
+seed_radius_m = 375.0              # the report point counts as fire within 375 m (one VIIRS cell)
+viirs_radius_m = 375.0             # research/kcf-replay HOTSPOT_RULE.md
+modis_radius_m = 1000.0
+ahi_radius_m = 2000.0
+viirs_conf_keep = ["n", "h", "nominal", "high"]
+modis_conf_min = 30
+lookback_before_report_h = 1.0     # detections acquired from report - 1 h
+link_km = 5.0                      # research/kcf-margin 5 km separate-fire rule, edge to edge
+cap_km = 100.0                     # never further than 100 km from the report point (PROTOCOL §4.5)
+persistent_days = 3                # a 0.01 deg cell with FIRMS detections on >= 3 distinct UTC days in the
+persistent_cell_deg = 0.01         # fetched days before the report day is a persistent heat source; ignored
+
+[margin]
+arm = "MEASURED"                   # research/kcf-replay MEASURED_RULE.md (frozen R by prior-3 h spread class)
+horizon_min = 480
+
+[age]
+max_evidence_age_h = 3.0           # newest member of the known fire area (or the report) older than this: no numbers
+max_fetch_lag_min = 45             # every input fetched no earlier than issue - 45 min
+page_stale_min = 75                # a viewer's browser hides numbers when the page is older than this
+
+[flags]
+oor_tau = 0.010728508563521567     # research/kcf-abstain numbers.json thresholds_for_test_fires.primary
+gust_rule = "G"                    # research/kcf-aloft rules.py RULES["G"]: gust >= 20.0 m/s at 2 consecutive valid hours
+
+[bulletin]
+box = [35.5, 38.75, 127.0, 129.75]   # lat0, lat1, lon0, lon1: Gyeongbuk and Gangwon (Ulleung-do outside)
+
+[alerts]
+move_min = 15
+
+[roadlayer]
+settings = "live/config/roadlayer_settings.toml"
