@@ -17,7 +17,9 @@ Yes on 25 March 2025, but not specifically for that fire.
   - It withheld whole or nearly whole windy days (4-5 March 2022, 24-25 March 2025) and little or nothing on calmer days.
 - **On the 19 US test fires (Choi rasters) it transfers weakly.** It withholds 2.9% of hours and keeps 144 of the 200
   margin misses. The miss rate among kept hours is 0.5%, against 0.7% with no abstention.
-- **Tail.** PENDING at this commit: the GEV parametric bootstrap (2,000 refits) is still running.
+- **The 40 km tail cannot be bounded from 28 fires.** A GEV fitted to the 28 per-fire maximum 5 h reaches allows a
+  bounded tail that ends below 40 km. The 95% interval for the chance that a fire like these reaches 40 km is 0 to 0.6%,
+  so, by the frozen trust rule, no return period is reported (section 5).
 
 All numbers are in `numbers.json`; every table below is printed from it by `tables.py` (`derived/tables.md`). Hour-by-hour
 rows for every fire are in `derived/hours.csv.gz`. Labels: MEASURED unless marked ASSUMED. No reanalysis was used, so no
@@ -269,7 +271,28 @@ are partly the product. Per-fire values are in `numbers.json` -> `S3_product_cro
 
 ## 5. Tail question: how rare is a 40 km reach?
 
-PENDING at this commit: the GEV parametric bootstrap (2,000 refits) is still running. `evt.py` writes `derived/evt.json`; this section and `numbers.json` follow when it finishes.
+GEV by maximum likelihood on the 28 per-fire maximum 5 h reaches (5 km rule; `evt.py`, `derived/evt.json`). Largest
+observed: 17.3 km (North Complex); 40 km is 2.3 times that.
+
+| quantity | value |
+|---|---|
+| shape xi (95% profile CI) | -0.07 (-0.34 to 0.25): bounded and heavy tails both fit |
+| location, scale | 7.8 km, 3.0 km |
+| upper endpoint at the estimate | 50.0 km |
+| P(per-fire maximum > 40 km): estimate | 1.3e-9 |
+| 95% profile interval | 0 to 0.0062 |
+| 95% parametric bootstrap interval (2,000 refits) | 0 to 0.0026; 52% of refits put 40 km beyond their upper endpoint |
+| return period of 40 km | **not reported (trust rule)**: the 95% profile interval runs from 161 fires to unbounded |
+| fires with no 40 km run needed to bound the chance below 0.0062 (the upper limit) | 481 |
+| the same at the estimate (1.3e-9) | about 2.3 billion |
+
+- **The fit cannot bound the 40 km return period with 28 fires.** The profile interval for the 40 km chance reaches 0,
+  because a bounded tail ending below 40 km fits the data as well as a heavy one. By the frozen rule no return period is
+  reported, and the point estimate (one fire in about 800 million) is not a usable number either.
+- **What the data allow.** The chance could be as high as about 1 in 161 fires like these (the upper 95% limit). Ruling even
+  that out by observation alone would take about 481 fires with no 40 km run, 17 times this calibration set.
+- **What this means for 25 March.** A 40 km run is far outside the calibration fires (2.3 times their largest), and these 28
+  fires cannot say how rare it is. That is the case for withholding the number rather than widening it.
 
 ## Data and provenance
 
@@ -283,7 +306,8 @@ PENDING at this commit: the GEV parametric bootstrap (2,000 refits) is still run
   from each forecast hour's `.idx` (7 fields x 13 leads per cycle). `derived/forecast_fetch_log.json` lists every model and
   region with its cycles, bytes, fetch times (UTC) and any cycle with a missing field. Nothing is filled; an hour whose
   forecast is incomplete gets no score.
-- **Not in the repo.** The 3.1 GB of lattice extracts (from about 199 GB of GRIB byte ranges streamed: GFS Korea 11.1 GB, GFS US 132.9 GB, HRRR 55.4 GB) stay outside git; `run_all.sh` rebuilds them.
+- **Not in the repo.** The 3.1 GB of lattice extracts stay outside git; `run_all.sh` rebuilds them. They come from about
+  199 GB of GRIB byte ranges streamed: GFS Korea 11.1 GB, GFS US 132.9 GB, HRRR 55.4 GB.
 
 ## Limits
 
@@ -301,7 +325,10 @@ PENDING at this commit: the GEV parametric bootstrap (2,000 refits) is still run
 - **Test products differ from GOFER.** Choi rasters are kriged inside the final perimeter from satellite detections and
   use detections after the issue hour; S3 measures how much that alone changes the miss rate. The 25 March product is
   detections, not perimeters (kcf-margin's caveats apply).
-- **Korea** is one country, 15 catalog fires plus one detection product; counts only.
+- **Korea.** 12 of the 15 catalog fires had a scorable hour, plus the 25 March detection product; counts only.
+- **Withholding is not a forecast.** What the system should show instead (a wider or regime-specific margin, or a human
+  call) is outside this study. In Korea the rule could not tell the fires that would run from those that would not on
+  the same windy days.
 
 ## Reproduce
 
@@ -311,4 +338,5 @@ research/kcf-abstain/run_all.sh WORK_DIR
 
 It verifies and unpacks the two Zenodo archives, streams the forecast byte ranges (about 199 GB read, 3.1 GB kept),
 rebuilds every derived file, `numbers.json` and both figures, and runs `tests/` (4 unit tests of the score, threshold and
-AUROC against brute force). The tables in this file are printed by `python3 tables.py numbers.json`.
+AUROC against brute force). The tables in this file are printed by `python3 tables.py numbers.json derived/hours.csv.gz` (saved as
+`derived/tables.md`).
