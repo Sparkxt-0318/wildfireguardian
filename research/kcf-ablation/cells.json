@@ -1,0 +1,5035 @@
+{
+ "layout": "research/kcf-ablation/LAYOUT.md",
+ "main_commit": "a697d14",
+ "reasons": {
+  "NR-NOGRAPH": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined.",
+  "NR-MARGIN": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known.",
+  "NR-NOSWEEP": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field.",
+  "NR-LB": "The router answers one departure per request; it produces no leave-by.",
+  "NR-V3JOBS": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed.",
+  "NR-V3HEATOFF": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted.",
+  "NR-V3PERSIST": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace.",
+  "NR-V5": "The v8 campaign has one arm and no ablation arms; only its own receipts exist.",
+  "NR-REFV2": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only.",
+  "NR-CALDOR": "Caldor 2021 appears only in the v8 receipts; its graph is not in the fetched inputs, so no field or router can be run.",
+  "NR-V4": "kcf-replay has margin arms only (R-based); it contains no forecast arm and no full-system arm to compare with.",
+  "NR-V3RUN": "Not tabulated at this unit in a committed file."
+ },
+ "cells": {
+  "1": {
+   "F1": {
+    "row": "full system as submitted",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "8/8",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND, both repetitions resolved)"
+       },
+       "routes_found": {
+        "value": 7,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": {
+         "router_median_per_execution_s": 8.603,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [],
+      "field_full_arm": {
+       "status": "NEW RUN",
+       "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json",
+       "source": "research/kcf-ablation/runs/v1.json",
+       "decided": "8/8",
+       "routes_at_departure_by_budget": {
+        "92": 7,
+        "105": 7,
+        "290": 7
+       },
+       "contact_only_routes_at_departure": 7,
+       "places_with_leave_by_by_budget": {
+        "92": 7,
+        "105": 7,
+        "290": 7
+       },
+       "leave_by_by_mission_at_92": {
+        "uiseong_andong_2025/20250323T010000Z_FD1": 639,
+        "uiseong_andong_2025/20250323T010000Z_FX2": 1540,
+        "uiseong_andong_2025/20250324T090000Z_FL2": 1337,
+        "uiseong_andong_2025/20250325T170000Z_FW1": 2907,
+        "yeongdeok_2025/20250325T190000Z_FD1": null,
+        "yeongdeok_2025/20250325T190000Z_FX2": 968,
+        "yeongdeok_2025/20250325T230000Z_FL2": 1558,
+        "yeongdeok_2025/20250326T080000Z_FW1": 3004
+       },
+       "run_time_s": 29.46,
+       "host": "this container (Linux x86_64, 4 cores, Python 3.13.18, numpy 2.5.3)"
+      }
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": "9722/9722",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__full.json (field answers every job)",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm full <six planner caches>"
+       },
+       "routes_found": {
+        "value": {
+         "92": 7952,
+         "105": 7955,
+         "290": 7958
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__full.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm full <six planner caches>"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-heat/data/tdu_1h/*.tdu.json (exact_tdu*)"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-heat/data/tdu_1h/*.tdu.json (exact_tdu*)"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-heat/data/tdu_1h/*.tdu.json (exact_tdu*)"
+       },
+       "run_time_s": {
+        "value": 3016.0,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__full.json (timing_s.total, six caches, no witness pass)",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm full <six planner caches>"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "jobs": 9722,
+       "cert_only_feasible_jobs": 7970,
+       "cert_check_equals_F31_7970": true,
+       "cert_heat_feasible_jobs": 7958,
+       "places": 530,
+       "places_with_leave_by": {
+        "92": 507,
+        "105": 507,
+        "290": 507
+       },
+       "reproduction_vs_committed_tdu_1h": {
+        "values_compared": 4240,
+        "differences": 0
+       }
+      }
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       }
+      },
+      "notes": [
+       "Base for V3: research/kcf-heat/ROUTING_EFFECT.md; 286 places have a leave-by under cert (before heat)."
+      ]
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": "78/78",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Gyeongbuk_2025)"
+       },
+       "routes_found": {
+        "value": 30,
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Gyeongbuk_2025)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Gyeongbuk_2025)"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Gyeongbuk_2025)"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Gyeongbuk_2025)"
+       },
+       "run_time_s": {
+        "value": {
+         "median_wall_s": 1.859,
+         "host": "Apple Mac (v8 campaign)"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Gyeongbuk_2025) wall_s"
+       }
+      },
+      "notes": [
+       "v8 router only, permissive missing-input policy; no heat closure, dose budget or deadline field. Not comparable with V1/V2 counts."
+      ]
+     }
+    }
+   },
+   "F2": {
+    "row": "full system as submitted",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND, both repetitions resolved)"
+       },
+       "routes_found": {
+        "value": 4,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": {
+         "router_median_per_execution_s": 5.599,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [],
+      "field_full_arm": {
+       "status": "NEW RUN",
+       "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json",
+       "source": "research/kcf-ablation/runs/v1.json",
+       "decided": "4/4",
+       "routes_at_departure_by_budget": {
+        "92": 4,
+        "105": 4,
+        "290": 4
+       },
+       "contact_only_routes_at_departure": 4,
+       "places_with_leave_by_by_budget": {
+        "92": 4,
+        "105": 4,
+        "290": 4
+       },
+       "leave_by_by_mission_at_92": {
+        "uljin_2022/20220304T030000Z_FD1": 176,
+        "uljin_2022/20220304T030000Z_FX1": 361,
+        "uljin_2022/20220304T060000Z_FL1": 1413,
+        "uljin_2022/20220304T120000Z_FW2": 2680
+       },
+       "run_time_s": 3.3,
+       "host": "this container (Linux x86_64, 4 cores, Python 3.13.18, numpy 2.5.3)"
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": "154/154",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident uljin_2022)"
+       },
+       "routes_found": {
+        "value": 131,
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident uljin_2022)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident uljin_2022)"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident uljin_2022)"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident uljin_2022)"
+       },
+       "run_time_s": {
+        "value": {
+         "median_wall_s": 1.18,
+         "host": "Apple Mac (v8 campaign)"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident uljin_2022) wall_s"
+       }
+      },
+      "notes": [
+       "v8 router only, permissive missing-input policy; no heat closure, dose budget or deadline field. Not comparable with V1/V2 counts."
+      ]
+     }
+    }
+   },
+   "F3": {
+    "row": "full system as submitted",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND, both repetitions resolved)"
+       },
+       "routes_found": {
+        "value": 2,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": {
+         "router_median_per_execution_s": 3.875,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [],
+      "field_full_arm": {
+       "status": "NEW RUN",
+       "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json",
+       "source": "research/kcf-ablation/runs/v1.json",
+       "decided": "4/4",
+       "routes_at_departure_by_budget": {
+        "92": 2,
+        "105": 2,
+        "290": 2
+       },
+       "contact_only_routes_at_departure": 2,
+       "places_with_leave_by_by_budget": {
+        "92": 2,
+        "105": 2,
+        "290": 2
+       },
+       "leave_by_by_mission_at_92": {
+        "hongseong_2023/20230402T070000Z_FN1": null,
+        "hongseong_2023/20230402T070000Z_FX1": null,
+        "hongseong_2023/20230402T140000Z_FW2": 3112,
+        "hongseong_2023/20230402T230000Z_FD1": 196
+       },
+       "run_time_s": 0.28,
+       "host": "this container (Linux x86_64, 4 cores, Python 3.13.18, numpy 2.5.3)"
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": "21/21",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident hongseong_2023)"
+       },
+       "routes_found": {
+        "value": 9,
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident hongseong_2023)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident hongseong_2023)"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident hongseong_2023)"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident hongseong_2023)"
+       },
+       "run_time_s": {
+        "value": {
+         "median_wall_s": 0.392,
+         "host": "Apple Mac (v8 campaign)"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident hongseong_2023) wall_s"
+       }
+      },
+      "notes": [
+       "v8 router only, permissive missing-input policy; no heat closure, dose budget or deadline field. Not comparable with V1/V2 counts."
+      ]
+     }
+    }
+   },
+   "F4": {
+    "row": "full system as submitted",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND, both repetitions resolved)"
+       },
+       "routes_found": {
+        "value": 2,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_CAND)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": {
+         "router_median_per_execution_s": 3.416,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [],
+      "field_full_arm": {
+       "status": "NEW RUN",
+       "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json",
+       "source": "research/kcf-ablation/runs/v1.json",
+       "decided": "4/4",
+       "routes_at_departure_by_budget": {
+        "92": 2,
+        "105": 2,
+        "290": 2
+       },
+       "contact_only_routes_at_departure": 2,
+       "places_with_leave_by_by_budget": {
+        "92": 2,
+        "105": 2,
+        "290": 2
+       },
+       "leave_by_by_mission_at_92": {
+        "miryang_2022/20220531T100000Z_FN1": 2338,
+        "miryang_2022/20220601T020000Z_FW1": 2748,
+        "miryang_2022/20220601T080000Z_FD1": null,
+        "miryang_2022/20220601T080000Z_FX1": null
+       },
+       "run_time_s": 0.53,
+       "host": "this container (Linux x86_64, 4 cores, Python 3.13.18, numpy 2.5.3)"
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": "17/17",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident miryang_2022)"
+       },
+       "routes_found": {
+        "value": 17,
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident miryang_2022)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident miryang_2022)"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident miryang_2022)"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident miryang_2022)"
+       },
+       "run_time_s": {
+        "value": {
+         "median_wall_s": 0.328,
+         "host": "Apple Mac (v8 campaign)"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident miryang_2022) wall_s"
+       }
+      },
+      "notes": [
+       "v8 router only, permissive missing-input policy; no heat closure, dose budget or deadline field. Not comparable with V1/V2 counts."
+      ]
+     }
+    }
+   },
+   "F5": {
+    "row": "full system as submitted",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": "3/3",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Caldor2021)"
+       },
+       "routes_found": {
+        "value": 2,
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Caldor2021)"
+       },
+       "leave_by_changed": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Caldor2021)"
+       },
+       "median_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Caldor2021)"
+       },
+       "largest_change_s": {
+        "value": "base",
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Caldor2021)"
+       },
+       "run_time_s": {
+        "value": {
+         "median_wall_s": 1.379,
+         "host": "Apple Mac (v8 campaign)"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-evidence/sources/corridor-router-v8/receipts.csv (incident Caldor2021) wall_s"
+       }
+      },
+      "notes": [
+       "v8 router only, permissive missing-input policy; no heat closure, dose budget or deadline field. Not comparable with V1/V2 counts."
+      ]
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "full system as submitted",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "full system as submitted",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "full system as submitted",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "full system as submitted",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "full system as submitted",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "full system as submitted",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "full system as submitted",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "full system as submitted",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "full system as submitted",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "full system as submitted",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "full system as submitted",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "full system as submitted",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  },
+  "2": {
+   "F1": {
+    "row": "forecast \u2192 persistence",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "8/8",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 7,
+         "105": 7,
+         "290": 7
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "1 of 7",
+         "105": "1 of 7",
+         "290": "1 of 7"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": 527,
+         "105": 527,
+         "290": 527
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": 527,
+         "105": 527,
+         "290": 527
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 31.24,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 1,
+        "changed_both_defined": 1,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 527,
+        "largest_s": 527
+       },
+       "105": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 1,
+        "changed_both_defined": 1,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 527,
+        "largest_s": 527
+       },
+       "290": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 1,
+        "changed_both_defined": 1,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 527,
+        "largest_s": 527
+       }
+      }
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": "9722/9722",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__persistence.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm persistence <six planner caches>"
+       },
+       "routes_found": {
+        "value": {
+         "92": 8021,
+         "105": 8021,
+         "290": 8021
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__persistence.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm persistence <six planner caches>"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "21 of 507",
+         "105": "21 of 507",
+         "290": "21 of 507"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__persistence.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm persistence <six planner caches>"
+       },
+       "median_change_s": {
+        "value": {
+         "92": 362,
+         "105": 362,
+         "290": 362
+        },
+        "status": "NEW RUN",
+        "source": "same",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm persistence <six planner caches>"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": 1744,
+         "105": 1717,
+         "290": 1581
+        },
+        "status": "NEW RUN",
+        "source": "same",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm persistence <six planner caches>"
+       },
+       "run_time_s": {
+        "value": 1686.7,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__persistence.json (timing_s.total)",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm persistence <six planner caches>"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 21,
+        "changed_both_defined": 21,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 362,
+        "largest_s": 1744
+       },
+       "105": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 21,
+        "changed_both_defined": 21,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 362,
+        "largest_s": 1717
+       },
+       "290": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 21,
+        "changed_both_defined": 21,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 362,
+        "largest_s": 1581
+       },
+       "burning_cells_by_cache": {
+        "uiseong_andong_2025 2025-03-23T01:00:00Z": 28,
+        "uiseong_andong_2025 2025-03-24T09:00:00Z": 10,
+        "uiseong_andong_2025 2025-03-25T17:00:00Z": 466,
+        "yeongdeok_2025 2025-03-25T19:00:00Z": 240,
+        "yeongdeok_2025 2025-03-25T23:00:00Z": 48,
+        "yeongdeok_2025 2025-03-26T08:00:00Z": 12
+       },
+       "places_changed_at_92_by_cache": {
+        "uiseong_andong_2025 2025-03-23T01:00:00Z": 8,
+        "uiseong_andong_2025 2025-03-24T09:00:00Z": 13,
+        "uiseong_andong_2025 2025-03-25T17:00:00Z": 0,
+        "yeongdeok_2025 2025-03-25T19:00:00Z": 0,
+        "yeongdeok_2025 2025-03-25T23:00:00Z": 0,
+        "yeongdeok_2025 2025-03-26T08:00:00Z": 0
+       },
+       "full_burning_cells_by_cache": {
+        "uiseong_andong_2025 2025-03-23T01:00:00Z": 43,
+        "uiseong_andong_2025 2025-03-24T09:00:00Z": 31,
+        "uiseong_andong_2025 2025-03-25T17:00:00Z": 483,
+        "yeongdeok_2025 2025-03-25T19:00:00Z": 247,
+        "yeongdeok_2025 2025-03-25T23:00:00Z": 49,
+        "yeongdeok_2025 2025-03-26T08:00:00Z": 12
+       }
+      }
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3PERSIST",
+        "reason_text": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3PERSIST",
+        "reason_text": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3PERSIST",
+        "reason_text": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3PERSIST",
+        "reason_text": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3PERSIST",
+        "reason_text": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3PERSIST",
+        "reason_text": "V3 hazards are retrospective reconstructions (kriged, FIRMS, envelope), not forecasts; there is no forecast to replace."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F2": {
+    "row": "forecast \u2192 persistence",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 4,
+         "105": 4,
+         "290": 4
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 4",
+         "105": "0 of 4",
+         "290": "0 of 4"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 3.78,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F3": {
+    "row": "forecast \u2192 persistence",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 2,
+         "105": 2,
+         "290": 2
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 2",
+         "105": "0 of 2",
+         "290": "0 of 2"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 0.26,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F4": {
+    "row": "forecast \u2192 persistence",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 2,
+         "105": 2,
+         "290": 2
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 2",
+         "105": "0 of 2",
+         "290": "0 of 2"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 0.58,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F5": {
+    "row": "forecast \u2192 persistence",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "forecast \u2192 persistence",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "forecast \u2192 persistence",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "forecast \u2192 persistence",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "forecast \u2192 persistence",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "forecast \u2192 persistence",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "forecast \u2192 persistence",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "forecast \u2192 persistence",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "forecast \u2192 persistence",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "forecast \u2192 persistence",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "forecast \u2192 persistence",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "forecast \u2192 persistence",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "forecast \u2192 persistence",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  },
+  "3": {
+   "F1": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       }
+      },
+      "notes": []
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       }
+      },
+      "notes": []
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F2": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F3": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F4": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-MARGIN",
+        "reason_text": "LAYOUT \u00a77: the frozen margin rule exists for 5 h / 8 h horizons on known-perimeter inputs; the forecast arm exists at a 1-hour horizon on other issue times (V1, V2) or as retrospective scenarios (V3); V4 has no forecast arm. A run needs a rule mapping R to a 1-hour hazard that would be chosen after the full-system outputs are known."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F5": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "forecast \u2192 measured reach margin",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  },
+  "4": {
+   "F1": {
+    "row": "heat closure off",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "8/8",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 7,
+         "105": 7,
+         "290": 7
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 7",
+         "105": "0 of 7",
+         "290": "0 of 7"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 30.35,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": "9722/9722",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__heat_off.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm heat_off <six planner caches>"
+       },
+       "routes_found": {
+        "value": {
+         "92": 7955,
+         "105": 7958,
+         "290": 7967
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__heat_off.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm heat_off <six planner caches>"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "1 of 507",
+         "105": "1 of 507",
+         "290": "4 of 507"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__heat_off.json",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm heat_off <six planner caches>"
+       },
+       "median_change_s": {
+        "value": {
+         "92": 268,
+         "105": 276,
+         "290": 41
+        },
+        "status": "NEW RUN",
+        "source": "same",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm heat_off <six planner caches>"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": 268,
+         "105": 276,
+         "290": 317
+        },
+        "status": "NEW RUN",
+        "source": "same",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm heat_off <six planner caches>"
+       },
+       "run_time_s": {
+        "value": 1940.1,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__heat_off.json (timing_s.total)",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm heat_off <six planner caches>"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 1,
+        "changed_both_defined": 1,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 268,
+        "largest_s": 268
+       },
+       "105": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 1,
+        "changed_both_defined": 1,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 276,
+        "largest_s": 276
+       },
+       "290": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 4,
+        "changed_both_defined": 3,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 1,
+        "median_s": 41,
+        "largest_s": 317
+       },
+       "burning_cells_by_cache": {
+        "uiseong_andong_2025 2025-03-23T01:00:00Z": 43,
+        "uiseong_andong_2025 2025-03-24T09:00:00Z": 31,
+        "uiseong_andong_2025 2025-03-25T17:00:00Z": 483,
+        "yeongdeok_2025 2025-03-25T19:00:00Z": 247,
+        "yeongdeok_2025 2025-03-25T23:00:00Z": 49,
+        "yeongdeok_2025 2025-03-26T08:00:00Z": 12
+       }
+      }
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3HEATOFF",
+        "reason_text": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3HEATOFF",
+        "reason_text": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3HEATOFF",
+        "reason_text": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3HEATOFF",
+        "reason_text": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3HEATOFF",
+        "reason_text": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3HEATOFF",
+        "reason_text": "Heat closure off with the dose budget kept has no committed contrast, and the V3 inputs are not in the repo tree (rebuilt from three other branches by scripts/fdyn_rebuild_inputs.sh; the batch takes about 1 h 40 min with 3 workers per dwell mode) \u2014 not attempted."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F2": {
+    "row": "heat closure off",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 4,
+         "105": 4,
+         "290": 4
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 4",
+         "105": "0 of 4",
+         "290": "0 of 4"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 2.92,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F3": {
+    "row": "heat closure off",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 2,
+         "105": 2,
+         "290": 2
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 2",
+         "105": "0 of 2",
+         "290": "0 of 2"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 0.23,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F4": {
+    "row": "heat closure off",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 2,
+         "105": 2,
+         "290": 2
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 2",
+         "105": "0 of 2",
+         "290": "0 of 2"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 0.43,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F5": {
+    "row": "heat closure off",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "heat closure off",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "heat closure off",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "heat closure off",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "heat closure off",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "heat closure off",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "heat closure off",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "heat closure off",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "heat closure off",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "heat closure off",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "heat closure off",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "heat closure off",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "heat closure off",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  },
+  "5": {
+   "F1": {
+    "row": "thermal-dose budget off",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "8/8",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 7,
+         "105": 7,
+         "290": 7
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 7",
+         "105": "0 of 7",
+         "290": "0 of 7"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 26.21,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 7,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": "9722/9722",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__full.json (job_feasible.cert_heat)",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm full <six planner caches>"
+       },
+       "routes_found": {
+        "value": 7958,
+        "status": "NEW RUN",
+        "source": "same",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm full <six planner caches>"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "4 of 507",
+         "105": "4 of 507",
+         "290": "3 of 507"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-heat/data/tdu_1h/*__dwell_count.tdu.json (exact_cert_heat vs exact_tdu92/105/290), tabulated by build_cells.py"
+       },
+       "median_change_s": {
+        "value": {
+         "92": 222.5,
+         "105": 191.5,
+         "290": 21
+        },
+        "status": "RECORDED",
+        "source": "same"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": 453,
+         "105": 252,
+         "290": 51
+        },
+        "status": "RECORDED",
+        "source": "same"
+       },
+       "run_time_s": {
+        "value": 494.8,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v2/*__full.json (prepare + field_masks_only)",
+        "command": "python3 research/kcf-ablation/run_v2.py --data-root <routing inputs> --out-dir research/kcf-ablation/runs/v2 --arm full <six planner caches>"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 4,
+        "changed_both_defined": 4,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 222.5,
+        "largest_s": 453
+       },
+       "105": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 4,
+        "changed_both_defined": 4,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 191.5,
+        "largest_s": 252
+       },
+       "290": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 3,
+        "changed_both_defined": 3,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": 21,
+        "largest_s": 51
+       }
+      }
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "22 of 286",
+         "105": "21 of 286",
+         "290": "16 of 286"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-heat/ROUTING_EFFECT.md (Multi-hour runs, Places table, 286 places, stay counted)"
+       },
+       "median_change_s": {
+        "value": {
+         "92": 301.0,
+         "105": 268.0,
+         "290": 117.5
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-heat/ROUTING_EFFECT.md (Multi-hour runs, Places table, 286 places, stay counted)"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": 529,
+         "105": 521,
+         "290": 257
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-heat/ROUTING_EFFECT.md (Multi-hour runs, Places table, 286 places, stay counted)"
+       },
+       "run_time_s": {
+        "value": 7333.5,
+        "status": "RECORDED",
+        "source": "research/kcf-heat/data/multihour/summary_dwell_count.json (sum over 48 packets of timing_s.field_tdu, serial seconds, witness pass excluded; host not recorded in file)"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "places_counted": {
+        "92": {
+         "moved": 22,
+         "lo": 12,
+         "hi": 529,
+         "median": 301.0,
+         "lose": 2
+        },
+        "105": {
+         "moved": 21,
+         "lo": 25,
+         "hi": 521,
+         "median": 268.0,
+         "lose": 2
+        },
+        "290": {
+         "moved": 16,
+         "lo": 27,
+         "hi": 257,
+         "median": 117.5,
+         "lose": 2
+        }
+       },
+       "places_excluded": {
+        "92": {
+         "moved": 21,
+         "lo": 12,
+         "hi": 529,
+         "median": 307.0,
+         "lose": 0
+        },
+        "105": {
+         "moved": 19,
+         "lo": 25,
+         "hi": 521,
+         "median": 268.0,
+         "lose": 0
+        },
+        "290": {
+         "moved": 12,
+         "lo": 27,
+         "hi": 245,
+         "median": 116.0,
+         "lose": 0
+        }
+       },
+       "places_that_lose_a_route_stay_counted": {
+        "92": 2,
+        "105": 2,
+        "290": 2
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F2": {
+    "row": "thermal-dose budget off",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 4,
+         "105": 4,
+         "290": 4
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 4",
+         "105": "0 of 4",
+         "290": "0 of 4"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 2.44,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 4,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F3": {
+    "row": "thermal-dose budget off",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 2,
+         "105": 2,
+         "290": 2
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 2",
+         "105": "0 of 2",
+         "290": "0 of 2"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 0.22,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F4": {
+    "row": "thermal-dose budget off",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "routes_found": {
+        "value": {
+         "92": 2,
+         "105": 2,
+         "290": 2
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "0 of 2",
+         "105": "0 of 2",
+         "290": "0 of 2"
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "median_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": null,
+         "105": null,
+         "290": null
+        },
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       },
+       "run_time_s": {
+        "value": 0.35,
+        "status": "NEW RUN",
+        "source": "research/kcf-ablation/runs/v1.json",
+        "command": "python3 research/kcf-ablation/run_v1.py --data-root <routing inputs> --out research/kcf-ablation/runs/v1.json"
+       }
+      },
+      "notes": [],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "105": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       },
+       "290": {
+        "places_with_leave_by_in_full": 2,
+        "changed_total": 0,
+        "changed_both_defined": 0,
+        "leave_by_only_in_full": 0,
+        "leave_by_only_in_arm": 0,
+        "median_s": null,
+        "largest_s": null
+       }
+      }
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F5": {
+    "row": "thermal-dose budget off",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "thermal-dose budget off",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "thermal-dose budget off",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "thermal-dose budget off",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "thermal-dose budget off",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "thermal-dose budget off",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "thermal-dose budget off",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "thermal-dose budget off",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "thermal-dose budget off",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "thermal-dose budget off",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "thermal-dose budget off",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "thermal-dose budget off",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "thermal-dose budget off",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  },
+  "6": {
+   "F1": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "5/8",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "routes_found": {
+        "value": 5,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "run_time_s": {
+        "value": {
+         "reference_median_per_execution_s": 8.589,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [
+       "Arrival second equal on 10 of 10 jointly routed executions (not a leave-by); source research/routing/INDEPENDENT_ROWS.csv"
+      ]
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-REFV2",
+        "reason_text": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-REFV2",
+        "reason_text": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-REFV2",
+        "reason_text": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-REFV2",
+        "reason_text": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-REFV2",
+        "reason_text": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-REFV2",
+        "reason_text": "No reference-router sweep is committed for V2; the planner caches were produced by the proposed router only."
+       }
+      },
+      "notes": []
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F2": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "4/4",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "routes_found": {
+        "value": 4,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "run_time_s": {
+        "value": {
+         "reference_median_per_execution_s": 5.748,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [
+       "Arrival second equal on 8 of 8 jointly routed executions (not a leave-by); source research/routing/INDEPENDENT_ROWS.csv"
+      ]
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F3": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "2/4",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "routes_found": {
+        "value": 2,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "run_time_s": {
+        "value": {
+         "reference_median_per_execution_s": 11.367,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [
+       "Arrival second equal on 4 of 4 jointly routed executions (not a leave-by); source research/routing/INDEPENDENT_ROWS.csv"
+      ]
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F4": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": "2/4",
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "routes_found": {
+        "value": 2,
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv (arm RDA_BASE)"
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-LB",
+        "reason_text": "The router answers one departure per request; it produces no leave-by."
+       },
+       "run_time_s": {
+        "value": {
+         "reference_median_per_execution_s": 9.552,
+         "host": "Apple M5 Pro, macOS (paper)"
+        },
+        "status": "RECORDED",
+        "source": "research/routing/INDEPENDENT_ROWS.csv wall_s"
+       }
+      },
+      "notes": [
+       "Arrival second equal on 4 of 4 jointly routed executions (not a leave-by); source research/routing/INDEPENDENT_ROWS.csv"
+      ]
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F5": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "corridor router \u2192 reference router",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "corridor router \u2192 reference router",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "corridor router \u2192 reference router",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "corridor router \u2192 reference router",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  },
+  "7": {
+   "F1": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Gyeongbuk 2025 (KFS_01)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       }
+      },
+      "notes": []
+     },
+     "V2": {
+      "metrics": {
+       "cases_decided": {
+        "value": "9239/9722",
+        "status": "RECORDED",
+        "source": "research/harness-2026-11/F-3.1/results/SUMMARY_final_70f70d7.json (jobs_all: checked + no_route; the rest are 297 UNRESOLVED and 186 AT_ISSUE)"
+       },
+       "routes_found": {
+        "value": 7771,
+        "status": "RECORDED",
+        "source": "same"
+       },
+       "leave_by_changed": {
+        "value": {
+         "92": "154 of 507",
+         "105": "154 of 507",
+         "290": "154 of 507"
+        },
+        "status": "RECORDED",
+        "source": "research/kcf-heat/data/tdu_1h/*.tdu.json (recorded_deadline vs exact_tdu*), tabulated by build_cells.py"
+       },
+       "median_change_s": {
+        "value": {
+         "92": 348.0,
+         "105": 348.0,
+         "290": 349.0
+        },
+        "status": "RECORDED",
+        "source": "same"
+       },
+       "largest_change_s": {
+        "value": {
+         "92": 1558,
+         "105": 1558,
+         "290": 1558
+        },
+        "status": "RECORDED",
+        "source": "same"
+       },
+       "run_time_s": {
+        "value": {
+         "recorded_checks_s": 147900,
+         "host": "Apple Mac, 13 workers (RESULTS \u00a75)"
+        },
+        "status": "RECORDED",
+        "source": "research/harness-2026-11/F-3.1/RESULTS.md \u00a75"
+       }
+      },
+      "notes": [
+       "Footnote 4: the recorded checks predate heat closure and dose, so against row 1 this arm differs in three ways. F-3.1's field-only contrast (cert vs recorded, RESULTS \u00a74): exact leave-by later than the grid value at 508 of 508 places, median by file 293\u2013397 s, maximum 584 s."
+      ],
+      "detail": {
+       "92": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 154,
+        "changed_both_defined": 152,
+        "leave_by_only_in_full": 1,
+        "leave_by_only_in_arm": 1,
+        "median_s": 348.0,
+        "largest_s": 1558
+       },
+       "105": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 154,
+        "changed_both_defined": 152,
+        "leave_by_only_in_full": 1,
+        "leave_by_only_in_arm": 1,
+        "median_s": 348.0,
+        "largest_s": 1558
+       },
+       "290": {
+        "places_with_leave_by_in_full": 507,
+        "changed_total": 154,
+        "changed_both_defined": 152,
+        "leave_by_only_in_full": 1,
+        "leave_by_only_in_arm": 1,
+        "median_s": 349.0,
+        "largest_s": 1558
+       },
+       "one_sided_places_at_92": [
+        {
+         "cache": "yeongdeok_2025 2025-03-25T19:00:00Z",
+         "origin": "research:yeongdeok_2025:20250325T190000Z_FX2:origin",
+         "full_exact_s": 968,
+         "recorded_planner_deadline_s": null
+        },
+        {
+         "cache": "yeongdeok_2025 2025-03-25T23:00:00Z",
+         "origin": "osm:node/415158166",
+         "full_exact_s": null,
+         "recorded_planner_deadline_s": 3000
+        }
+       ]
+      }
+     },
+     "V3": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V3JOBS",
+        "reason_text": "The V3 summaries are per place and place-run; job-level decided / route counts are not committed."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F2": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Uljin 2022 (KFS_02)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F3": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Hongseong 2023 (KFS_05)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F4": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Miryang 2022 (KFS_11)",
+    "versions": {
+     "V1": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-NOSWEEP",
+        "reason_text": "No recorded per-departure sweep exists for the V1 missions (committed per-departure checks cover the six 2025 planner caches only), so there is nothing to substitute for the field."
+       }
+      },
+      "notes": []
+     },
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    }
+   },
+   "F5": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Caldor 2021",
+    "versions": {
+     "V5": {
+      "metrics": {
+       "cases_decided": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "routes_found": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "leave_by_changed": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "median_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "largest_change_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       },
+       "run_time_s": {
+        "value": null,
+        "status": "NOT RUN",
+        "reason": "NR-V5",
+        "reason_text": "The v8 campaign has one arm and no ablation arms; only its own receipts exist."
+       }
+      },
+      "notes": []
+     }
+    },
+    "not_run_all": "NR-CALDOR"
+   },
+   "F6": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Wapiti 2024",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F7": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Goat",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F8": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Lava",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F9": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Red Rock",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F10": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Pioneer",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F11": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Fish Creek",
+    "group": "US held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F12": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Sancheong (KFS_04)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F13": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Ulju (KFS_06)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "F14": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "Bukgu (KFS_13)",
+    "group": "Korean held-out forecast cohort",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-A": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "28 GOFER fires",
+    "group": "margin calibration population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-B": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "488 NIROPS incidents",
+    "group": "margin check population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   },
+   "P-C": {
+    "row": "deadline field \u2192 recorded per-departure checks",
+    "col": "SMOKE catalog, 44 events",
+    "group": "training / validation population",
+    "not_run_all": "NR-NOGRAPH",
+    "versions": {},
+    "reason_text": "No road graph, places or missions exist for this fire in the repo or in the fetched inputs (it is a forecast-scoring, calibration or training fire); the routing metrics are undefined."
+   }
+  }
+ },
+ "checks": {
+  "v2": {
+   "repro": {
+    "values_compared": 4240,
+    "differences": 0
+   },
+   "cert_jobs": 7970
+  },
+  "v1_host": {
+   "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+   "python": "3.13.18"
+  },
+  "v1_wall_s": 146.958811561
+ }
+}
