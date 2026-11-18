@@ -203,4 +203,4 @@ def test_sheets_unchanged_by_cards(cards_out, example_out):
                                                                  encoding="utf-8-sig"))}
         for r in csv.DictReader(open(cards_out / case / ("audit_%s.csv" % rid), encoding="utf-8-sig")):
             if r["leave_by_kst"][:2] == "20":
-                assert sheet[r["place_id"]]["leave by"] == r["leave_by_kst"]
+                assert sheet[r["place_id"]]["leave by (KST)"] == r["leave_by_kst"]

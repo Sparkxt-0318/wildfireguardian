@@ -200,17 +200,18 @@ def draw_card(cv: canvas.Canvas, rec, lang, ctx):
     lab_w = 37 * mm
     for lab, val, bold in lines:
         cv.setFont("NanumBold", 7.2)
-        for k, ln in enumerate(_wrap(lab, "NanumBold", 7.2, lab_w - 2 * mm)[:2]):
-            cv.drawString(x0, y - k * 3.1 * mm, ln)
+        ll = _wrap(lab, "NanumBold", 7.2, lab_w - 2 * mm)[:2]
+        for k, ln in enumerate(ll):
+            cv.drawString(x0, y - k * 3.2 * mm, ln)
         f = "NanumBold" if bold else "Nanum"
         wl = _wrap(val, f, 7.6, x1 - x0 - lab_w)
         cv.setFont(f, 7.6)
         for k, ln in enumerate(wl[:3]):
             cv.drawString(x0 + lab_w, y - k * 3.2 * mm, ln)
-        y -= max(len(wl[:3]), 1) * 3.2 * mm + 1.3 * mm
+        y -= max(len(wl[:3]), len(ll), 1) * 3.2 * mm + 1.8 * mm
         cv.setStrokeColor(G_ROAD)
         cv.setLineWidth(0.3)
-        cv.line(x0, y + 0.9 * mm, x1, y + 0.9 * mm)
+        cv.line(x0, y + 3.5 * mm, x1, y + 3.5 * mm)
         cv.setStrokeColor(black)
     # notes and footer
     tc = ctx["tcfg"]
@@ -405,11 +406,12 @@ def _map(cv, rec, ctx, box, lang):
         cv.setStrokeColor(black)
         cv.setFillColor(white)
         cv.rect(xx, yy, side, side, stroke=1, fill=0)
-        cv.setFont("NanumBold", 9)
-        lx, ly = xx - 4.8 * mm, yy + side + 0.6 * mm
-        cv.circle(lx + 1.4 * mm, ly + 1.0 * mm, 1.9 * mm, stroke=1, fill=1)
+        cv.setFont("NanumBold", 8)
+        cx_, cy_ = xx + side / 2, yy + side / 2
+        cv.setLineWidth(1.2)
+        cv.circle(cx_, cy_, 1.7 * mm, stroke=1, fill=1)
         cv.setFillColor(black)
-        cv.drawCentredString(lx + 1.4 * mm, ly, "!")
+        cv.drawCentredString(cx_, cy_ - 1.0 * mm, "!")
     cv.restoreState()
     # frame, scale bar, north
     cv.setLineWidth(0.6)
