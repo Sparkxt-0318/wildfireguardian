@@ -1,0 +1,8 @@
+{
+ "rows_compared": 1584,
+ "rows_without_levels": 0,
+ "gust_max_abs_diff": 4.99389648389581e-06,
+ "w850_max_abs_diff": 4.999012494621979e-06,
+ "tolerance": 0.001,
+ "passed": true
+}
