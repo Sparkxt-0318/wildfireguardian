@@ -1,0 +1,116 @@
+{
+ "quartile_cut_kst": {
+  "uiseong_andong_2025": "03-25 12:00",
+  "yeongdeok_2025": "03-25 20:44"
+ },
+ "rows": [
+  {
+   "flag": "single_exit",
+   "region": "uiseong_andong_2025",
+   "places": 84,
+   "flagged": 58,
+   "earliest": 34,
+   "both": 27,
+   "flagged_only": 31,
+   "earliest_only": 7,
+   "neither": 19,
+   "expected_both_if_unrelated": 23.5
+  },
+  {
+   "flag": "single_exit",
+   "region": "yeongdeok_2025",
+   "places": 90,
+   "flagged": 55,
+   "earliest": 23,
+   "both": 19,
+   "flagged_only": 36,
+   "earliest_only": 4,
+   "neither": 31,
+   "expected_both_if_unrelated": 14.1
+  },
+  {
+   "flag": "single_exit",
+   "region": "all",
+   "places": 174,
+   "flagged": 113,
+   "earliest": 57,
+   "both": 46,
+   "flagged_only": 67,
+   "earliest_only": 11,
+   "neither": 50,
+   "expected_both_if_unrelated": 37.0
+  },
+  {
+   "flag": "dangerous_road",
+   "region": "uiseong_andong_2025",
+   "places": 84,
+   "flagged": 2,
+   "earliest": 34,
+   "both": 0,
+   "flagged_only": 2,
+   "earliest_only": 34,
+   "neither": 48,
+   "expected_both_if_unrelated": 0.8
+  },
+  {
+   "flag": "dangerous_road",
+   "region": "yeongdeok_2025",
+   "places": 90,
+   "flagged": 3,
+   "earliest": 23,
+   "both": 0,
+   "flagged_only": 3,
+   "earliest_only": 23,
+   "neither": 64,
+   "expected_both_if_unrelated": 0.8
+  },
+  {
+   "flag": "dangerous_road",
+   "region": "all",
+   "places": 174,
+   "flagged": 5,
+   "earliest": 57,
+   "both": 0,
+   "flagged_only": 5,
+   "earliest_only": 57,
+   "neither": 112,
+   "expected_both_if_unrelated": 1.6
+  },
+  {
+   "flag": "either",
+   "region": "uiseong_andong_2025",
+   "places": 84,
+   "flagged": 60,
+   "earliest": 34,
+   "both": 27,
+   "flagged_only": 33,
+   "earliest_only": 7,
+   "neither": 17,
+   "expected_both_if_unrelated": 24.3
+  },
+  {
+   "flag": "either",
+   "region": "yeongdeok_2025",
+   "places": 90,
+   "flagged": 58,
+   "earliest": 23,
+   "both": 19,
+   "flagged_only": 39,
+   "earliest_only": 4,
+   "neither": 28,
+   "expected_both_if_unrelated": 14.8
+  },
+  {
+   "flag": "either",
+   "region": "all",
+   "places": 174,
+   "flagged": 118,
+   "earliest": 57,
+   "both": 46,
+   "flagged_only": 72,
+   "earliest_only": 11,
+   "neither": 45,
+   "expected_both_if_unrelated": 38.7
+  }
+ ]
+}

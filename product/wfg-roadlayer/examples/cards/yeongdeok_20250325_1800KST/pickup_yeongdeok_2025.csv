@@ -1,0 +1,168 @@
+﻿van,stop,action,place,place_id,eupmyeon,arrive_kst,persons,van_load,left_at_place,place_leave_by_kst,after_leave_by
+1,1,pick up / 승차,지품리,osm:node/415160302,지품면,2025-03-25 19:01,15,15,20,2025-03-25 18:19,yes
+1,2,unload / 하차,지품학곡마을회관,osm:node/12120784086,,2025-03-25 19:08,15,0,,,
+2,1,pick up / 승차,지품리,osm:node/415160302,지품면,2025-03-25 19:01,15,15,5,2025-03-25 18:19,yes
+2,2,unload / 하차,지품학곡마을회관,osm:node/12120784086,,2025-03-25 19:08,15,0,,,
+3,1,pick up / 승차,지품리,osm:node/415160302,지품면,2025-03-25 19:01,5,5,0,2025-03-25 18:19,yes
+3,2,pick up / 승차,기사리,osm:node/415160309,지품면,2025-03-25 19:12,10,15,25,2025-03-25 18:26,yes
+3,3,unload / 하차,기사2리마을회관,osm:node/12136060153,,2025-03-25 19:17,15,0,,,
+1,3,pick up / 승차,기사리,osm:node/415160309,지품면,2025-03-25 19:20,15,15,10,2025-03-25 18:26,yes
+1,4,unload / 하차,기사2리마을회관,osm:node/12136060153,,2025-03-25 19:27,15,0,,,
+2,3,pick up / 승차,기사리,osm:node/415160309,지품면,2025-03-25 19:20,10,10,0,2025-03-25 18:26,yes
+3,4,pick up / 승차,황장리,osm:node/415160303,지품면,2025-03-25 19:33,15,15,20,2025-03-25 19:28,yes
+3,5,unload / 하차,황장리마을회관,osm:node/12120783811,,2025-03-25 19:41,15,0,,,
+2,4,pick up / 승차,황장리,osm:node/415160303,지품면,2025-03-25 19:36,5,15,15,2025-03-25 19:28,yes
+2,5,unload / 하차,황장리마을회관,osm:node/12120783811,,2025-03-25 19:41,15,0,,,
+1,5,pick up / 승차,황장리,osm:node/415160303,지품면,2025-03-25 19:43,15,15,0,2025-03-25 19:28,yes
+1,6,unload / 하차,황장리마을회관,osm:node/12120783811,,2025-03-25 19:51,15,0,,,
+3,6,pick up / 승차,원전리,osm:node/415160312,지품면,2025-03-25 19:48,15,15,20,2025-03-25 19:33,yes
+3,7,unload / 하차,원전리마을회관,osm:node/12120707331,,2025-03-25 19:53,15,0,,,
+2,6,pick up / 승차,원전리,osm:node/415160312,지품면,2025-03-25 19:48,15,15,5,2025-03-25 19:33,yes
+2,7,unload / 하차,원전리마을회관,osm:node/12120707331,,2025-03-25 19:53,15,0,,,
+1,7,pick up / 승차,원전리,osm:node/415160312,지품면,2025-03-25 19:58,5,5,0,2025-03-25 19:33,yes
+3,8,pick up / 승차,복곡리,osm:node/415160313,지품면,2025-03-25 20:02,15,15,20,2025-03-25 19:37,yes
+3,9,unload / 하차,복곡리마을회관,osm:node/12061374043,,2025-03-25 20:09,15,0,,,
+2,8,pick up / 승차,복곡리,osm:node/415160313,지품면,2025-03-25 20:03,15,15,5,2025-03-25 19:37,yes
+2,9,unload / 하차,복곡리마을회관,osm:node/12061374043,,2025-03-25 20:09,15,0,,,
+1,8,pick up / 승차,복곡리,osm:node/415160313,지품면,2025-03-25 20:04,5,10,0,2025-03-25 19:37,yes
+1,9,pick up / 승차,신평리,osm:node/415158259,석보면,2025-03-25 20:28,5,15,70,2025-03-25 19:52,yes
+1,10,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 20:36,15,0,,,
+3,10,pick up / 승차,신평리,osm:node/415158259,석보면,2025-03-25 20:35,15,15,55,2025-03-25 19:52,yes
+3,11,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 20:46,15,0,,,
+2,10,pick up / 승차,신평리,osm:node/415158259,석보면,2025-03-25 20:35,15,15,40,2025-03-25 19:52,yes
+2,11,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 20:46,15,0,,,
+1,11,pick up / 승차,신평리,osm:node/415158259,석보면,2025-03-25 20:47,15,15,25,2025-03-25 19:52,yes
+1,12,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 20:58,15,0,,,
+3,12,pick up / 승차,신평리,osm:node/415158259,석보면,2025-03-25 20:58,15,15,10,2025-03-25 19:52,yes
+3,13,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 21:09,15,0,,,
+2,12,pick up / 승차,신평리,osm:node/415158259,석보면,2025-03-25 20:58,10,10,0,2025-03-25 19:52,yes
+2,13,pick up / 승차,택전리,osm:node/415158318,석보면,2025-03-25 21:04,5,15,70,2025-03-25 20:10,yes
+2,14,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 21:09,15,0,,,
+1,13,pick up / 승차,택전리,osm:node/415158318,석보면,2025-03-25 21:06,15,15,55,2025-03-25 20:10,yes
+1,14,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 21:14,15,0,,,
+3,14,pick up / 승차,택전리,osm:node/415158318,석보면,2025-03-25 21:17,15,15,40,2025-03-25 20:10,yes
+3,15,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 21:25,15,0,,,
+2,15,pick up / 승차,택전리,osm:node/415158318,석보면,2025-03-25 21:17,15,15,25,2025-03-25 20:10,yes
+2,16,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 21:25,15,0,,,
+1,15,pick up / 승차,택전리,osm:node/415158318,석보면,2025-03-25 21:22,15,15,10,2025-03-25 20:10,yes
+1,16,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 21:30,15,0,,,
+3,16,pick up / 승차,택전리,osm:node/415158318,석보면,2025-03-25 21:33,10,10,0,2025-03-25 20:10,yes
+2,17,pick up / 승차,수암리,osm:node/415160310,지품면,2025-03-25 21:48,15,15,20,2025-03-25 20:27,yes
+2,18,unload / 하차,수암리마을회관,osm:node/12061373832,,2025-03-25 21:54,15,0,,,
+1,17,pick up / 승차,수암리,osm:node/415160310,지품면,2025-03-25 21:54,15,15,5,2025-03-25 20:27,yes
+1,18,unload / 하차,수암리마을회관,osm:node/12061373832,,2025-03-25 21:59,15,0,,,
+3,17,pick up / 승차,수암리,osm:node/415160310,지품면,2025-03-25 21:57,5,15,0,2025-03-25 20:27,yes
+3,18,unload / 하차,수암리마을회관,osm:node/12061373832,,2025-03-25 22:00,15,0,,,
+2,19,pick up / 승차,화매리,osm:node/415158322,석보면,2025-03-25 22:20,15,15,60,2025-03-25 20:27,yes
+2,20,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 22:26,15,0,,,
+1,19,pick up / 승차,화매리,osm:node/415158322,석보면,2025-03-25 22:25,15,15,45,2025-03-25 20:27,yes
+1,20,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 22:31,15,0,,,
+3,19,pick up / 승차,화매리,osm:node/415158322,석보면,2025-03-25 22:26,15,15,30,2025-03-25 20:27,yes
+3,20,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 22:32,15,0,,,
+2,21,pick up / 승차,화매리,osm:node/415158322,석보면,2025-03-25 22:32,15,15,15,2025-03-25 20:27,yes
+2,22,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 22:39,15,0,,,
+1,21,pick up / 승차,화매리,osm:node/415158322,석보면,2025-03-25 22:38,15,15,0,2025-03-25 20:27,yes
+1,22,unload / 하차,화매1리마을회관,osm:node/12154401414,,2025-03-25 22:44,15,0,,,
+3,21,pick up / 승차,삼의리,osm:node/415158320,석보면,2025-03-25 22:52,15,15,60,2025-03-25 20:39,yes
+3,22,unload / 하차,구 화매초등학교 터,osm:way/1313106480,,2025-03-25 23:11,15,0,,,
+2,23,pick up / 승차,삼의리,osm:node/415158320,석보면,2025-03-25 22:59,15,15,45,2025-03-25 20:39,yes
+2,24,unload / 하차,구 화매초등학교 터,osm:way/1313106480,,2025-03-25 23:18,15,0,,,
+1,23,pick up / 승차,삼의리,osm:node/415158320,석보면,2025-03-25 23:04,15,15,30,2025-03-25 20:39,yes
+1,24,unload / 하차,구 화매초등학교 터,osm:way/1313106480,,2025-03-25 23:23,15,0,,,
+3,23,pick up / 승차,삼의리,osm:node/415158320,석보면,2025-03-25 23:31,15,15,15,2025-03-25 20:39,yes
+3,24,unload / 하차,구 화매초등학교 터,osm:way/1313106480,,2025-03-25 23:51,15,0,,,
+2,25,pick up / 승차,삼의리,osm:node/415158320,석보면,2025-03-25 23:38,15,15,0,2025-03-25 20:39,yes
+2,26,unload / 하차,구 화매초등학교 터,osm:way/1313106480,,2025-03-25 23:57,15,0,,,
+1,25,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 00:56,15,15,84,2025-03-25 20:41,yes
+1,26,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:07,15,0,,,
+1,27,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 01:17,15,15,69,2025-03-25 20:41,yes
+1,28,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:27,15,0,,,
+3,25,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 01:23,15,15,54,2025-03-25 20:41,yes
+3,26,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:34,15,0,,,
+2,27,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 01:30,15,15,39,2025-03-25 20:41,yes
+2,28,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:41,15,0,,,
+1,29,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 01:38,15,15,24,2025-03-25 20:41,yes
+1,30,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:48,15,0,,,
+3,27,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 01:44,15,15,9,2025-03-25 20:41,yes
+3,28,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:55,15,0,,,
+2,29,pick up / 승차,주산지리,osm:node/415160316,주왕산면,2025-03-26 01:51,9,9,0,2025-03-25 20:41,yes
+2,30,unload / 하차,청송중학교부동분교장,osm:way/777467138,,2025-03-26 01:59,9,0,,,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,괴시리전통마을,osm:node/11753630207,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,강구리,osm:node/415160154,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,경정리,osm:node/415160201,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,고곡리,osm:node/415160204,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,괴시리,osm:node/415158186,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,구미리,osm:node/415160206,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,금진리,osm:node/415160155,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,금호리,osm:node/415160156,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,기암리,osm:node/415160190,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,낙평리,osm:node/415160311,지품면,,35,,35,2025-03-25 21:45,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,남산리,osm:node/415160164,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,남석리,osm:node/415160162,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,남정리,osm:node/415160150,남정면,,52,,52,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,남호리,osm:node/415160143,남정면,,52,,52,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,내룡리,osm:node/415160319,주왕산면,,99,,99,2025-03-25 23:11,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,노물리,osm:node/415160193,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,눌곡리,osm:node/415160189,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,대곡리,osm:node/415160197,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,대리,osm:node/415158166,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,대부리,osm:node/415160159,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,대지리,osm:node/415160168,달산면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,대탄리,osm:node/415160205,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,덕곡리,osm:node/415160157,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,덕산리,osm:node/415160315,달산면,,35,,35,2025-03-25 23:54,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,도계리,osm:node/415160183,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,도곡리,osm:node/415158184,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,매일리,osm:node/415160171,달산면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,매정리,osm:node/415160192,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,묘곡리,osm:node/415158181,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,벌영리,osm:node/415158183,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,봉산리,osm:node/415160317,달산면,,35,,35,2025-03-26 00:16,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,부곡리,osm:node/415158182,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,사암리,osm:node/415160132,남정면,,52,,52,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,사진리,osm:node/415158212,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,삼계리,osm:node/415160209,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,삼사리,osm:node/415160153,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,삼화리,osm:node/415160187,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,상원리,osm:node/415160203,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,상직리,osm:node/415160163,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,석리,osm:node/415160200,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,성내리,osm:node/415158185,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,소월리,osm:node/415160151,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,속곡리,osm:node/415160185,지품면,,35,,35,2025-03-25 22:40,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,송천리,osm:node/415160314,지품면,,35,,35,2025-03-25 21:38,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신기리,osm:node/415158168,창수면,,41,,41,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신안리,osm:node/415160182,지품면,,35,,35,2025-03-26 01:15,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신애리,osm:node/415160166,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신양리,osm:node/415160167,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,연평리,osm:node/415158187,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,오보리,osm:node/415160194,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,오천리,osm:node/415160184,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,오포리,osm:node/415160148,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,옥계리,osm:node/415160130,달산면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,옥류리,osm:node/415160188,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,옥산리,osm:node/415160173,달산면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,용덕리,osm:node/415160178,지품면,,35,,35,2025-03-25 22:28,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,용전리,osm:node/415160175,달산면,,35,,35,2025-03-25 23:17,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,용평리,osm:node/415160176,달산면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,우곡리,osm:node/415160146,남정면,,52,,52,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,우곡리,osm:node/415160158,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,원구리,osm:node/415158176,영해면,,232,,232,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,원직리,osm:node/415160147,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,율전리,osm:node/415160181,지품면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,인곡리,osm:node/415160177,달산면,,35,,35,2025-03-26 01:03,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,조항리,osm:node/415160196,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,주응리,osm:node/415160172,달산면,,35,,35,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,중화리,osm:node/415160169,남정면,,52,,52,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,창포리,osm:node/415160202,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,천전리,osm:node/415160165,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,축산리,osm:node/415158213,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,칠성리,osm:node/415160195,축산면,,83,,83,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,포산리,osm:node/415158321,석보면,,75,,75,2025-03-25 21:36,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,하저리,osm:node/415160160,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,항리,osm:node/415160318,주왕산면,,99,,99,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,화개리,osm:node/415160207,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,화수리,osm:node/415160208,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,화전리,osm:node/415160149,강구면,,198,,198,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,화천리,osm:node/415160199,영덕읍,,212,,212,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,흥기리,osm:node/415160170,달산면,,35,,35,no deadline in horizon,
