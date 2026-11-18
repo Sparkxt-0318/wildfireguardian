@@ -1,0 +1,57 @@
+{
+ "reproduction_gate": {
+  "entries": 1705079,
+  "max_abs_diff": 3.370076900877095e-07,
+  "median_abs_diff": 5.324985364322928e-15,
+  "mean_abs_diff": 5.060200320978362e-09,
+  "p99_abs_diff": 9.09034820456566e-08,
+  "share_within_1e_3": 1.0,
+  "brier_rebuilt": 0.009900149761138146,
+  "brier_committed_meanfield": 0.009900150147111287,
+  "relative_brier_difference": 3.898659463402425e-08,
+  "threshold": 0.02,
+  "passes": true,
+  "label": "c651 on rebuilt inputs",
+  "fast_path_vs_repository_meanfield_max_abs_diff": 3.3306690738754696e-16,
+  "per_fire": {
+   "WA-SES-000173_Pioneer": {
+    "max_abs_diff": 3.266280578229086e-07,
+    "mean_abs_diff": 5.559126768506363e-09,
+    "p99_abs_diff": 9.102222537749045e-08
+   },
+   "ID-BOF-000904_Goat": {
+    "max_abs_diff": 2.874397865282319e-07,
+    "mean_abs_diff": 3.889297074668698e-09,
+    "p99_abs_diff": 7.771466244810262e-08
+   },
+   "ID-BOF-001080_Lava": {
+    "max_abs_diff": 3.370076900877095e-07,
+    "mean_abs_diff": 6.243106348935531e-09,
+    "p99_abs_diff": 1.1000450540948884e-07
+   },
+   "ID-BOF-000683_Wapiti_Wapiti": {
+    "max_abs_diff": 3.3559408252337164e-07,
+    "mean_abs_diff": 5.164338243495233e-09,
+    "p99_abs_diff": 9.169010021237144e-08
+   },
+   "WY-BTF-002416_FishCreek": {
+    "max_abs_diff": 3.031962786392839e-07,
+    "mean_abs_diff": 5.8292468369615645e-09,
+    "p99_abs_diff": 9.547429175582605e-08
+   },
+   "ID-SCF-240202_RedRock": {
+    "max_abs_diff": 2.703158983319298e-07,
+    "mean_abs_diff": 3.523670044516529e-09,
+    "p99_abs_diff": 7.220127764107069e-08
+   }
+  }
+ },
+ "parameters_total": 210344,
+ "settings": {
+  "lr": 0.05,
+  "steps": 60,
+  "penalty": 0.01,
+  "max_history": 8,
+  "dtype": "float64"
+ }
+}
