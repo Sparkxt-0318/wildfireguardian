@@ -100,6 +100,17 @@ def n_needed(p):
     return int(math.ceil(math.log(0.05) / math.log(1 - p)))
 
 
+def strict(o):
+    """Non-finite floats (profile points where the constrained fit has no valid solution) become null."""
+    if isinstance(o, dict):
+        return {k: strict(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [strict(v) for v in o]
+    if isinstance(o, float) and not math.isfinite(o):
+        return None
+    return o
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -156,7 +167,7 @@ def main():
                             "fit cannot bound the 40 km return period with 28 fires (profile interval for p40 reaches 0)")),
         profile_xi=dict(grid=grid.tolist(), loglik=prof_xi.tolist()),
         profile_p40=dict(grid=pg.tolist(), loglik=prof_p.tolist()))
-    json.dump(out, open(a.out, "w"), indent=1)
+    json.dump(strict(out), open(a.out, "w"), indent=1)
     print(json.dumps({k: out[k] for k in ("gev_mle", "p40", "T40_fires", "fires_needed_to_bound", "trust")}, indent=1))
 
 
