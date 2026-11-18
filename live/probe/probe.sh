@@ -1,44 +1,23 @@
 #!/usr/bin/env bash
-# One-off reachability probe for the live service's sources, run on a GitHub-hosted runner.
-# Polite: one request per URL, identified User-Agent, no login.
+# Probe 2: find the data call behind fd.forest.go.kr 실시간산불정보 (sub1.do). One request per URL.
 set -u
-UA="wfg-live-probe/0.1 (+https://github.com/Sparkxt-0318/wildfireguardian)"
-OUT=probe-out; mkdir -p "$OUT"
-hit() { # name url
-  local n=$1 u=$2
-  local code
-  code=$(curl -sS -L -A "$UA" -m 30 -o "$OUT/$n" -w '%{http_code} %{size_download} %{url_effective}' "$u" 2>"$OUT/$n.err") || true
-  echo "PROBE $n :: $code :: $(head -c 200 "$OUT/$n.err" | tr '\n' ' ')"
-}
+UA="wfg-live-probe/0.2 (+https://github.com/Sparkxt-0318/wildfireguardian)"
+OUT=probe-out; mkdir -p "$OUT/js"
+B=https://fd.forest.go.kr
 date -u +"probe start %Y-%m-%dT%H:%M:%SZ"
-curl -sS -m 10 https://ifconfig.io/country_code 2>/dev/null | sed 's/^/runner country: /'
-hit fd_root https://fd.forest.go.kr/
-hit fd_robots https://fd.forest.go.kr/robots.txt
-hit fd_ffas https://fd.forest.go.kr/ffas/
-hit kfs_robots https://www.forest.go.kr/robots.txt
-hit kfs_index "https://www.forest.go.kr/kfsweb/kfs/idx/Index.do"
-hit kfs_root https://forest.go.kr/
-hit datagokr https://www.data.go.kr/
-hit firms_root https://firms.modaps.eosdis.nasa.gov/
-if [ -n "${FIRMS_MAP_KEY:-}" ]; then
-  echo "FIRMS_MAP_KEY: set (length ${#FIRMS_MAP_KEY})"
-  curl -sS -m 30 "https://firms.modaps.eosdis.nasa.gov/mapserver/mapkey_status/?MAP_KEY=${FIRMS_MAP_KEY}" -o "$OUT/firms_status"; echo "PROBE firms_status :: $(head -c 300 $OUT/firms_status)"
-  curl -sS -m 60 "https://firms.modaps.eosdis.nasa.gov/api/area/csv/${FIRMS_MAP_KEY}/VIIRS_NOAA20_NRT/124,33,132,39/1" -o "$OUT/firms_n20.csv"; echo "PROBE firms_n20 :: lines $(wc -l < $OUT/firms_n20.csv) :: $(head -c 300 $OUT/firms_n20.csv | tr '\n' '|')"
-else
-  echo "FIRMS_MAP_KEY: NOT SET"
-fi
-hit himawari_bucket "https://noaa-himawari9.s3.amazonaws.com/?list-type=2&prefix=AHI-L1b-FLDK/$(date -u +%Y/%m/%d)/&max-keys=5"
-hit gfs_bucket "https://noaa-gfs-bdp-pds.s3.amazonaws.com/?list-type=2&prefix=gfs.$(date -u +%Y%m%d)/&delimiter=/&max-keys=5"
-hit telegram https://api.telegram.org/
-for v in TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID SMTP_HOST SMTP_USER SMTP_PASSWORD ALERT_EMAIL_TO; do
-  if [ -n "${!v:-}" ]; then echo "SECRET $v: set"; else echo "SECRET $v: not set"; fi
+echo "FIRMS_MAP_KEY secret: ${FIRMS_MAP_KEY:+set}${FIRMS_MAP_KEY:-NOT SET}" | sed 's/set.*/set/'
+echo "FIRMS_MAP_KEY var: ${FIRMS_VAR:+set}"
+curl -sS -A "$UA" -m 30 -c "$OUT/cj" -o "$OUT/sub1.html" -w 'sub1 %{http_code} %{size_download}\n' "$B/ffas/pubConn/movePage/sub1.do"
+sleep 2
+echo "==== sub1 inline script lines mentioning url/ajax/.do ===="
+grep -n -E 'url|ajax|\.do|fetch\(|\$\.post|\$\.get' "$OUT/sub1.html" | cut -c1-400 | head -120
+echo "==== sub1 script src ===="
+grep -oE '<script[^>]+src="[^"]+"' "$OUT/sub1.html" | sed -E 's/.*src="([^"]+)".*/\1/' | tee "$OUT/srcs"
+for s in $(grep -E '^/ffas|^/js|^/pubConn' "$OUT/srcs" | grep -v -i -E 'jquery|swiper|lib/|plugin' | head -15); do
+  n=$(echo "$s" | tr '/?' '__'); curl -sS -A "$UA" -m 30 -b "$OUT/cj" -o "$OUT/js/$n" "$B$s"; sleep 1
+  echo "--- $s ($(wc -c < "$OUT/js/$n") bytes)"
+  grep -n -o -E '.{0,120}(url|\.do)["'"'"' ].{0,160}' "$OUT/js/$n" | grep -i -E 'fire|frfr|occu|prgrs|pubConn|ffas' | head -40
 done
-echo "==== robots ===="; for f in fd_robots kfs_robots; do echo "--- $f"; head -c 1500 "$OUT/$f"; echo; done
-echo "==== fd_root (title, scripts, .do endpoints) ===="
-for f in fd_root fd_ffas kfs_index kfs_root; do
-  echo "--- $f size $(wc -c < $OUT/$f)"
-  grep -o '<title>[^<]*' "$OUT/$f" | head -3
-  grep -oE '[A-Za-z0-9_./-]+\.do[^"'"'"' )]*' "$OUT/$f" | sort -u | head -80
-  grep -n -i -E '산불|frfr|fire' "$OUT/$f" | head -40 | cut -c1-300
-done
+echo "==== sub1 table/headers ===="
+grep -n -E '<th|<caption|id="[a-zA-Z]*(List|list|Tbody|tbody)' "$OUT/sub1.html" | cut -c1-300 | head -60
 date -u +"probe end %Y-%m-%dT%H:%M:%SZ"
