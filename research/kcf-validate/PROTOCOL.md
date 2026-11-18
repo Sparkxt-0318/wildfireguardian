@@ -240,3 +240,31 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
 
 8. **2026-11-18 ~23:26 UTC, after the third-pass results.** Clerical (and the times first written for amendments 6-8, 23:40, 23:55 and "00:20 on 19 Nov", were estimates and are corrected here to the commit/clock times above): §5's sentence "the count of replaced rows is 0" is superseded by amendments 4, 6 and 7:
    **23 of the 29 REPORTED rows** carry an official 재난문자 time (RESULTS.md rows 2a-2c); 6 stay REPORTED. Nothing else in §1-§5 changes.
+
+9. **2026-11-18 ~23:5x UTC (user asked for the Paradise run; before any Paradise graph, field or comparison was built).** What was read: Overture release
+   2026-10-21.0 *schema and counts only* for the bbox lon −121.95…−121.45, lat 39.65…39.95 (22,094 transportation segments; 8,503 places), the class
+   histogram of the segments, and `product/wfg-roadlayer`'s `RoadModel`/`engine` code. Facts that shape the rule: the CLI's raster reader hard-codes EPSG:5179
+   (Korean TM), so a Paradise raster cannot go through `roadlayer run`; the **engine** (vendored F-3.1 `deadline_field`, `engine.build_instance/run_passes`)
+   and `RoadModel` are generic. The Paradise run therefore calls those directly from `research/kcf-validate/paradise/`, with no change to the product.
+   * **Road graph (ASSUMED, fixed now).** Overture segments, subtype road, classes motorway, trunk, primary, secondary, tertiary, unclassified, residential,
+     living_street (no service, track, path, footway). Present-day network as a proxy for 2018 (rebuilt since; stated). All roads two-way (no one-way data
+     used). Free-flow speeds, km/h: motorway 100, trunk 80, primary 70, secondary 60, tertiary 50, unclassified 40, residential 30, living_street 15; no congestion.
+     CRS EPSG:32610, grid 375 m (the replay's cell size) over the bbox; nodes = Overture connectors; one directed edge pair per segment piece between consecutive
+     connectors; `travel_ticks = max(1, ceil(length_m / speed_m_per_s))`; forbidden turns = U-turn (edge to its reverse).
+   * **Fire field = a reconstruction from records, not NIST's own map.** Observations O = rows of TN 2135 fire-progression tables 11-32 (date, start time,
+     Location column text) whose Location geocodes to a point on the Overture road network (rule: "X and/at/near Y" → the point where the two named roads
+     come closest, ≤ 150 m; a single road + a named place → the named Overture place within 300 m; otherwise not geocoded). Times: minutes after 2018-11-08 00:00
+     PST. Field: thin-plate-spline RBF (`scipy.interpolate.RBFInterpolator`, smoothing 1.0 min², K = all observations) of arrival time at the 375 m cell centres;
+     a cell is "not reached" if farther than 2 km from every observation; arrival is capped to be ≥ the earliest observation time and monotone repair is NOT applied.
+     Leave-one-out error of the field is reported. Coverage (rows geocoded / rows) is reported, not hidden.
+   * **Closure and run (as roadlayer).** A cell closes at its arrival second after the issue time T (ceil), for the rest of the horizon (no reopening); H = 8 h; the
+     engine builds the instance exactly as `engine.build_instance`; origins = residential-road intersections (connectors with ≥ 2 residential/tertiary segments) thinned to
+     ≥ 750 m spacing inside the observation hull ∪ 2 km; shelters = Overture places of basic_category in {school, hospital, community_center/place_of_worship, emergency
+     shelter} outside the field's reached area at all issue times and within the bbox (the replay's k = 3 nearest by straight line, distinct entry nodes). Issue times
+     T = 07:30, 08:00, 08:30, 09:00 PST on 8 Nov 2018 (all reported; none dropped).
+   * **Comparison with the record (frozen).** Records R = (a) TN 2135 Table 33 burnovers (19: place, time) and (b) TN 2252 per-road closure rows (the 15 matched in
+     amendment 3) whose place geocodes by the same rule. Model value at a record = the field's arrival time at the road cell(s) of that point (min over cells within 150 m).
+     Error = model − record (minutes; negative = model earlier). Reported: n geocoded of n, median and quartiles of the error, count within ±30 and ±60 min, misses
+     (record exists, cell "not reached"). Also reported: per-origin last safe departure (engine) as a distribution, with no record to compare. **Leakage stated:**
+     the field's observations and the records come from the same NIST dataset, so agreement is a consistency check of "closure at arrival" plus the interpolation, not an
+     independent validation; leave-one-out error of the field is the measure of the interpolation alone.
