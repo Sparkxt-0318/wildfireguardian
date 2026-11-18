@@ -268,3 +268,10 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
      (record exists, cell "not reached"). Also reported: per-origin last safe departure (engine) as a distribution, with no record to compare. **Leakage stated:**
      the field's observations and the records come from the same NIST dataset, so agreement is a consistency check of "closure at arrival" plus the interpolation, not an
      independent validation; leave-one-out error of the field is the measure of the interpolation alone.
+
+10. **2026-11-18 ~23:58 UTC, after `extract_nist_locations.py` recovered 392 progression rows with their Location text (word positions of the PDF), before any
+    geocoding or field.** Two additions to amendment 9's geocoding rule, nothing else: (a) "X **between** Y and Z" → the midpoint of the two points where X comes
+    closest to Y and to Z (each ≤ 150 m), else not geocoded; (b) name matching normalises street types on both sides (road→rd, lane→ln, drive→dr, court→ct, circle→cir,
+    avenue→ave, street→st, boulevard→blvd, highway→hwy, place→pl, trail→trl, way→way) and case, strips source tokens such as `PPD-02,`, and takes a road name from the text
+    only if it equals a normalised Overture primary name; texts with more than two names and no "between" use the first two names in reading order. Rows with only one
+    road name and no place, or none, are not geocoded.
