@@ -1,0 +1,344 @@
+{
+ "label": "COARSE: GEFS control as issued, 1 deg, leads 6/12/18 h; not pooled; no verdict",
+ "gefs_2019_2020": {
+  "point_days": 2090,
+  "point_days_wind_complete": 2090,
+  "point_days_gust_complete": 2070,
+  "wind_rules": {
+   "A-cal": {
+    "2019": {
+     "days": 104,
+     "alarm_point_days": 432,
+     "mean_per_point": 43.2,
+     "days_any_point": 57
+    },
+    "2020": {
+     "days": 105,
+     "alarm_point_days": 605,
+     "mean_per_point": 60.5,
+     "days_any_point": 72
+    }
+   },
+   "A25": {
+    "2019": {
+     "days": 104,
+     "alarm_point_days": 45,
+     "mean_per_point": 4.5,
+     "days_any_point": 7
+    },
+    "2020": {
+     "days": 105,
+     "alarm_point_days": 97,
+     "mean_per_point": 9.7,
+     "days_any_point": 18
+    }
+   },
+   "A30": {
+    "2019": {
+     "days": 104,
+     "alarm_point_days": 1,
+     "mean_per_point": 0.1,
+     "days_any_point": 1
+    },
+    "2020": {
+     "days": 105,
+     "alarm_point_days": 23,
+     "mean_per_point": 2.3,
+     "days_any_point": 4
+    }
+   },
+   "G k=1 (any time)": {
+    "2019": {
+     "days": 104,
+     "alarm_point_days": 15,
+     "mean_per_point": 1.5,
+     "days_any_point": 4
+    },
+    "2020": {
+     "days": 105,
+     "alarm_point_days": 83,
+     "mean_per_point": 8.3,
+     "days_any_point": 17
+    }
+   }
+  },
+  "gust_rule_on_days_with_gust": {
+   "2019": {
+    "days": 102,
+    "alarm_point_days": 15,
+    "mean_per_point": 1.5,
+    "days_any_point": 4
+   },
+   "2020": {
+    "days": 105,
+    "alarm_point_days": 83,
+    "mean_per_point": 8.3,
+    "days_any_point": 17
+   }
+  }
+ },
+ "bridge_gfs_2021_2025": {
+  "note": "same point-days; GFS read at 1 deg points and leads 6/12/18 h, against the full-resolution hourly reading",
+  "point_days": 4950,
+  "coarse": {
+   "A-cal": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 368,
+     "mean_per_point": 36.8,
+     "days_any_point": 51
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 505,
+     "mean_per_point": 50.5,
+     "days_any_point": 66
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 449,
+     "mean_per_point": 44.9,
+     "days_any_point": 61
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 450,
+     "mean_per_point": 45.0,
+     "days_any_point": 56
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 680,
+     "mean_per_point": 68.0,
+     "days_any_point": 77
+    }
+   },
+   "A25": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 57,
+     "mean_per_point": 5.7,
+     "days_any_point": 13
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 69,
+     "mean_per_point": 6.9,
+     "days_any_point": 13
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 64,
+     "mean_per_point": 6.4,
+     "days_any_point": 12
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 67,
+     "mean_per_point": 6.7,
+     "days_any_point": 17
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 96,
+     "mean_per_point": 9.6,
+     "days_any_point": 20
+    }
+   },
+   "A30": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 17,
+     "mean_per_point": 1.7,
+     "days_any_point": 6
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 0,
+     "mean_per_point": 0.0,
+     "days_any_point": 0
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 10,
+     "mean_per_point": 1.0,
+     "days_any_point": 3
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 18,
+     "mean_per_point": 1.8,
+     "days_any_point": 6
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 20,
+     "mean_per_point": 2.0,
+     "days_any_point": 4
+    }
+   },
+   "G k=1 (any time)": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 28,
+     "mean_per_point": 2.8,
+     "days_any_point": 9
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 44,
+     "mean_per_point": 4.4,
+     "days_any_point": 11
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 21,
+     "mean_per_point": 2.1,
+     "days_any_point": 8
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 48,
+     "mean_per_point": 4.8,
+     "days_any_point": 13
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 56,
+     "mean_per_point": 5.6,
+     "days_any_point": 13
+    }
+   }
+  },
+  "full_resolution": {
+   "A-cal": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 389,
+     "mean_per_point": 38.9,
+     "days_any_point": 50
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 554,
+     "mean_per_point": 55.4,
+     "days_any_point": 77
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 472,
+     "mean_per_point": 47.2,
+     "days_any_point": 63
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 475,
+     "mean_per_point": 47.5,
+     "days_any_point": 67
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 705,
+     "mean_per_point": 70.5,
+     "days_any_point": 88
+    }
+   },
+   "A25": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 80,
+     "mean_per_point": 8.0,
+     "days_any_point": 21
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 111,
+     "mean_per_point": 11.1,
+     "days_any_point": 26
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 87,
+     "mean_per_point": 8.7,
+     "days_any_point": 17
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 95,
+     "mean_per_point": 9.5,
+     "days_any_point": 27
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 159,
+     "mean_per_point": 15.9,
+     "days_any_point": 42
+    }
+   },
+   "A30": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 25,
+     "mean_per_point": 2.5,
+     "days_any_point": 12
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 26,
+     "mean_per_point": 2.6,
+     "days_any_point": 10
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 28,
+     "mean_per_point": 2.8,
+     "days_any_point": 8
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 26,
+     "mean_per_point": 2.6,
+     "days_any_point": 8
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 43,
+     "mean_per_point": 4.3,
+     "days_any_point": 12
+    }
+   },
+   "G k=1 (any time)": {
+    "2021": {
+     "days": 78,
+     "alarm_point_days": 34,
+     "mean_per_point": 3.4,
+     "days_any_point": 12
+    },
+    "2022": {
+     "days": 104,
+     "alarm_point_days": 52,
+     "mean_per_point": 5.2,
+     "days_any_point": 18
+    },
+    "2023": {
+     "days": 104,
+     "alarm_point_days": 34,
+     "mean_per_point": 3.4,
+     "days_any_point": 9
+    },
+    "2024": {
+     "days": 105,
+     "alarm_point_days": 31,
+     "mean_per_point": 3.1,
+     "days_any_point": 11
+    },
+    "2025": {
+     "days": 104,
+     "alarm_point_days": 74,
+     "mean_per_point": 7.4,
+     "days_any_point": 25
+    }
+   }
+  }
+ }
+}

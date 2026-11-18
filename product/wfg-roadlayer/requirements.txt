@@ -1,0 +1,5 @@
+# wfg-roadlayer runtime (Python 3.11+). Install once, then everything runs offline.
+numpy>=1.26
+reportlab>=4.0
+# only for fire-arrival rasters that are not in EPSG:5179:
+pyproj>=3.6

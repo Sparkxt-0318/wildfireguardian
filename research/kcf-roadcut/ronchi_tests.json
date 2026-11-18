@@ -1,0 +1,265 @@
+{
+ "paper": "Ronchi E, Wahlqvist J, Ardinge A, et al. The verification of wildland-urban interface fire evacuation models. Natural Hazards 117(2):1493-1519 (2023). doi:10.1007/s11069-023-05913-2",
+ "applicable": {
+  "T.1a": {
+   "geometry": "one road, 1000 m, one road type at 50 km/h, one vehicle departing at 0 s",
+   "expected": {
+    "arrival_s": 72,
+    "departure_set": [
+     [
+      0,
+      3408
+     ]
+    ]
+   },
+   "got": {
+    "arrival_s": 72,
+    "departure_set": [
+     [
+      0,
+      3408
+     ]
+    ]
+   },
+   "result": "PASS"
+  },
+  "T.1b": {
+   "geometry": "three road types in series: 1000 m at 50, 2000 m at 80, 500 m at 30 km/h",
+   "expected": {
+    "arrival_s": 222,
+    "per_segment_s": [
+     72,
+     90,
+     60
+    ]
+   },
+   "got": {
+    "arrival_s": 222
+   },
+   "result": "PASS"
+  },
+  "T.12": {
+   "geometry": "origin with a near shelter (1 km) and a far shelter (5 km) at 60 km/h; destination forced to far",
+   "expected": {
+    "arrival_s": 300,
+    "edges": [
+     1
+    ]
+   },
+   "got": {
+    "arrival_s": 300,
+    "edges": [
+     1
+    ]
+   },
+   "result": "PASS"
+  },
+  "WT.1": {
+   "geometry": "two routes (2 km, 4 km at 60 km/h); the short route's second road is lost to fire at 600 s",
+   "expected": {
+    "short_until_s": 479,
+    "arrival_short": 599,
+    "arrival_long_after": 720,
+    "departure_set": [
+     [
+      0,
+      3240
+     ]
+    ]
+   },
+   "got": {
+    "arrival_at_last_short": 599,
+    "edges_at_last_short": [
+     0,
+     1
+    ],
+    "arrival_after": 720,
+    "edges_after": [
+     2,
+     3
+    ],
+    "departure_set": [
+     [
+      0,
+      3240
+     ]
+    ]
+   },
+   "result": "PASS"
+  },
+  "WT.3": {
+   "geometry": "two shelters (1.5 km, 6 km at 60 km/h); shelter 1 lost (its cell closes at 1000 s, 120 s dwell)",
+   "expected": {
+    "shelter1_set": [
+     [
+      0,
+      789
+     ]
+    ],
+    "shelter2_set": [
+     [
+      0,
+      3120
+     ]
+    ]
+   },
+   "got": {
+    "shelter1_set": [
+     [
+      0,
+      789
+     ]
+    ],
+    "shelter2_set": [
+     [
+      0,
+      3120
+     ]
+    ],
+    "union": [
+     [
+      0,
+      3120
+     ]
+    ]
+   },
+   "result": "PASS"
+  },
+  "B.1": {
+   "geometry": "30.4 km square, 375 m cells, point ignition at the midpoint, one community at each quadrant midpoint (10.6 km away); no fuel, wind or slope (the model has none)",
+   "expected": "equal arrival at the four communities = distance / R (hand calculation)",
+   "got": {
+    "ORDINARY": {
+     "arrival_s": [
+      111975.854,
+      111975.854,
+      111975.854,
+      111975.854
+     ],
+     "expected_s": [
+      111975.854,
+      111975.854,
+      111975.854,
+      111975.854
+     ],
+     "equal": true
+    },
+    "RUNNING": {
+     "arrival_s": [
+      4656.557,
+      4656.557,
+      4656.557,
+      4656.557
+     ],
+     "expected_s": [
+      4656.557,
+      4656.557,
+      4656.557,
+      4656.557
+     ],
+     "equal": true
+    },
+    "WORST": {
+     "arrival_s": [
+      3339.484,
+      3339.484,
+      3339.484,
+      3339.484
+     ],
+     "expected_s": [
+      3339.484,
+      3339.484,
+      3339.484,
+      3339.484
+     ],
+     "equal": true
+    },
+    "MEASURED:quiet": {
+     "arrival_s": [
+      null,
+      null,
+      null,
+      null
+     ],
+     "expected_s": [
+      null,
+      null,
+      null,
+      null
+     ],
+     "R5_R8_m": [
+      2600.0,
+      3500.0
+     ],
+     "distance_m": 10606.6,
+     "equal": true
+    },
+    "MEASURED:running": {
+     "arrival_s": [
+      null,
+      null,
+      null,
+      null
+     ],
+     "expected_s": [
+      null,
+      null,
+      null,
+      null
+     ],
+     "R5_R8_m": [
+      7600.0,
+      10000.0
+     ],
+     "distance_m": 10606.6,
+     "equal": true
+    }
+   },
+   "result": "PASS"
+  }
+ },
+ "not_applicable": {
+  "P.1": "pedestrian re-distribution: no pedestrians",
+  "P.2": "vehicles per household: no households or vehicle allocation",
+  "P.3": "response curve: no pre-evacuation behaviour",
+  "P.4": "pedestrian walking speed: no pedestrians",
+  "PT.1": "pedestrian distance to vehicles: no pedestrians",
+  "T.2": "background traffic: no traffic",
+  "T.3": "carriageway configuration: no lanes or capacity",
+  "T.4": "speed-density / flow-density: no traffic flow",
+  "T.5": "speed reduction in reduced visibility: travel times fixed, no smoke/visibility model",
+  "T.6": "flow at destination: no flow",
+  "T.7": "group evacuation: single vehicles only",
+  "T.8": "lane changing / overtaking: no lanes",
+  "T.9": "acceleration / deceleration: constant edge travel times",
+  "T.10": "road crash: no incidents",
+  "T.11": "intersection: no intersection delay or conflict model",
+  "T.13": "destination choice in traffic: no traffic",
+  "T.14": "route choice in traffic: no traffic (single-vehicle reduction run separately)",
+  "T.15": "vehicle demand vs arrival distribution: no demand model",
+  "WT.2": "lane reversal: no lanes",
+  "WT.4": "refuge capacity: shelters have no capacity",
+  "B.2": "fuel types: no fuel input",
+  "B.3": "wind: no wind direction (isotropic reach)",
+  "B.4": "valley: no slope input",
+  "B.5": "heterogeneous: no fuel or terrain input"
+ },
+ "extra_T14_single_vehicle_reduction": {
+  "geometry": "single vehicle; two routes 4000 m at 120 km/h and 2000 m at 30 km/h (T.14 main-text geometry, no traffic)",
+  "expected": {
+   "arrival_s": 120,
+   "edges": [
+    0
+   ]
+  },
+  "got": {
+   "arrival_s": 120,
+   "edges": [
+    0
+   ]
+  },
+  "result": "PASS",
+  "counts_as_T14": false,
+  "note": "paper's WUI-NITY expected 122 s includes its own traffic-model assumptions; not comparable"
+ }
+}

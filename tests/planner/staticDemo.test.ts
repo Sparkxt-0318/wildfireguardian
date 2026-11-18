@@ -21,6 +21,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { availablePacks } from '../../planner/src/data/replayPacks';
 
 const PLANNER = fileURLToPath(new URL('../../planner/', import.meta.url));
 const REPO = fileURLToPath(new URL('../../', import.meta.url));
@@ -35,7 +36,10 @@ const seen: Seen[] = [];
 
 const MIME: Record<string, string> = { json: 'application/json', geojson: 'application/geo+json', pmtiles: 'application/octet-stream', pbf: 'application/x-protobuf', png: 'image/png' };
 
-/** Serves <BASE>cache/** from planner/cache and every other <BASE>** from planner/public. */
+/** Replay packs as the build ships them: <BASE>cache/packs/<id>/** from the pack's source folder (src/data/replayPacks.ts). */
+const PACK_SOURCES: Record<string, string> = Object.fromEntries(availablePacks().map((p) => [p.id, join(PLANNER, String(p.source))]));
+
+/** Serves <BASE>cache/** from planner/cache (replay packs from their folder) and every other <BASE>** from planner/public. */
 function serveCommittedFile(input: RequestInfo | URL): Promise<Response> {
   const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
   let status = 404;
@@ -44,7 +48,8 @@ function serveCommittedFile(input: RequestInfo | URL): Promise<Response> {
   if (url.startsWith(BASE)) {
     const rel = decodeURIComponent(url.slice(BASE.length).split(/[?#]/)[0]!);
     const parts = rel.split('/');
-    const file = parts[0] === 'cache' ? join(PLANNER, 'cache', ...parts.slice(1)) : join(PLANNER, 'public', ...parts);
+    const pack = parts[0] === 'cache' && parts[1] === 'packs' ? PACK_SOURCES[parts[2] ?? ''] : undefined;
+    const file = pack ? join(pack, ...parts.slice(3)) : parts[0] === 'cache' ? join(PLANNER, 'cache', ...parts.slice(1)) : join(PLANNER, 'public', ...parts);
     if (!parts.some((p) => p === '..' || p.startsWith('.')) && existsSync(file) && statSync(file).isFile()) {
       status = 200;
       body = new Uint8Array(readFileSync(file)).buffer;
@@ -280,6 +285,8 @@ describe('static data flow against the committed cache', () => {
     const expected = new Set([
       'data/regions/index.json',
       'cache/INDEX.json',
+      // the replay packs' indexes (their scenario files are read only when a replay hour is selected)
+      ...Object.keys(PACK_SOURCES).map((id) => `cache/packs/${id}/INDEX.json`),
       ...INDEX.map((e) => `cache/${e.path}`),
       ...INDEX.map((e) => `data/forecast/${forecastName(e)}`),
       ...cachedRegions.flatMap((r) => [`data/regions/${r}/places.geojson`, `data/regions/${r}/temporary_housing.geojson`]),

@@ -1,0 +1,2383 @@
+{
+ "reproduction_gate": {
+  "entries": 1705079,
+  "max_abs_diff": 3.370076900877095e-07,
+  "median_abs_diff": 5.324985364322928e-15,
+  "mean_abs_diff": 5.060200320978362e-09,
+  "p99_abs_diff": 9.09034820456566e-08,
+  "share_within_1e_3": 1.0,
+  "brier_rebuilt": 0.009900149761138146,
+  "brier_committed_meanfield": 0.009900150147111287,
+  "relative_brier_difference": 3.898659463402425e-08,
+  "threshold": 0.02,
+  "passes": true,
+  "label": "c651 on rebuilt inputs",
+  "fast_path_vs_repository_meanfield_max_abs_diff": 3.3306690738754696e-16,
+  "per_fire": {
+   "WA-SES-000173_Pioneer": {
+    "max_abs_diff": 3.266280578229086e-07,
+    "mean_abs_diff": 5.559126768506363e-09,
+    "p99_abs_diff": 9.102222537749045e-08
+   },
+   "ID-BOF-000904_Goat": {
+    "max_abs_diff": 2.874397865282319e-07,
+    "mean_abs_diff": 3.889297074668698e-09,
+    "p99_abs_diff": 7.771466244810262e-08
+   },
+   "ID-BOF-001080_Lava": {
+    "max_abs_diff": 3.370076900877095e-07,
+    "mean_abs_diff": 6.243106348935531e-09,
+    "p99_abs_diff": 1.1000450540948884e-07
+   },
+   "ID-BOF-000683_Wapiti_Wapiti": {
+    "max_abs_diff": 3.3559408252337164e-07,
+    "mean_abs_diff": 5.164338243495233e-09,
+    "p99_abs_diff": 9.169010021237144e-08
+   },
+   "WY-BTF-002416_FishCreek": {
+    "max_abs_diff": 3.031962786392839e-07,
+    "mean_abs_diff": 5.8292468369615645e-09,
+    "p99_abs_diff": 9.547429175582605e-08
+   },
+   "ID-SCF-240202_RedRock": {
+    "max_abs_diff": 2.703158983319298e-07,
+    "mean_abs_diff": 3.523670044516529e-09,
+    "p99_abs_diff": 7.220127764107069e-08
+   }
+  }
+ },
+ "parameters_total": 210344,
+ "settings": {
+  "lr": 0.05,
+  "steps": 60,
+  "penalty": 0.01,
+  "max_history": 8,
+  "dtype": "float64"
+ },
+ "runs_windows": {
+  "P4_real": 273,
+  "P4_scramble": 273,
+  "P+_real": 273,
+  "P+_scramble": 273,
+  "leak_real": 273,
+  "leak_scramble": 273,
+  "P4_pen1e-3": 273,
+  "P4_pen1e-4": 273
+ },
+ "leakage": {
+  "L2_P4": {
+   "windows_compared": 273,
+   "predictions_identical": 273,
+   "parameters_identical": 273,
+   "max_abs_prediction_difference": 0.0,
+   "invariant": true
+  },
+  "L2_Pplus": {
+   "windows_compared": 273,
+   "predictions_identical": 273,
+   "parameters_identical": 273,
+   "max_abs_prediction_difference": 0.0,
+   "invariant": true
+  },
+  "L3_positive_control_P4": {
+   "windows_compared": 273,
+   "predictions_identical": 0,
+   "parameters_identical": 0,
+   "max_abs_prediction_difference": 0.18541654717397194,
+   "invariant": false
+  },
+  "windows_total": 273,
+  "L2_pass": true,
+  "L3_detects_leak": true
+ },
+ "complete_runs": [
+  "P4_real",
+  "P+_real",
+  "P4_pen1e-3",
+  "P4_pen1e-4"
+ ],
+ "all_windows": {
+  "entries": 1705079,
+  "positives": 8520,
+  "n_fires": 6,
+  "models": {
+   "unadapted_rebuilt": {
+    "brier": 0.009900149761138151,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.010959302926350768,
+     "ID-BOF-000904_Goat": 0.005703790275889085,
+     "ID-BOF-001080_Lava": 0.016762508607976623,
+     "ID-SCF-240202_RedRock": 0.005120955593995123,
+     "WA-SES-000173_Pioneer": 0.008422234388316229,
+     "WY-BTF-002416_FishCreek": 0.010890382015254094
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1294579,
+       "positives": 982,
+       "mean_p": 3.8387640042098196e-05,
+       "observed": 0.0007585477595419051,
+       "gap": 0.0007201601194998069
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 123134,
+       "positives": 671,
+       "mean_p": 0.003979427005923164,
+       "observed": 0.00544934786492764,
+       "gap": 0.0014699208590044765
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 153514,
+       "positives": 1966,
+       "mean_p": 0.041896370643917,
+       "observed": 0.012806649556392252,
+       "gap": 0.029089721087524747
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 125901,
+       "positives": 4663,
+       "mean_p": 0.218196007535637,
+       "observed": 0.037037037037037035,
+       "gap": 0.18115897049859997
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 7951,
+       "positives": 238,
+       "mean_p": 0.6520498616672811,
+       "observed": 0.02993334171802289,
+       "gap": 0.6221165199492582
+      }
+     ],
+     "ece": 0.01954954863691692,
+     "lowest_bin_gap": 0.0007201601194998069,
+     "sum_p_over_burned": 4.651047187264843
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.651047187264843,
+     "expected_miss_rate": 0.8443774075278234,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 33.72840375586854,
+       "miss_rate": 0.19401408450704224
+      },
+      "0.05": {
+       "flagged_per_burned": 21.94143192488263,
+       "miss_rate": 0.3124413145539906
+      },
+      "0.1": {
+       "flagged_per_burned": 15.710328638497652,
+       "miss_rate": 0.42476525821596245
+      },
+      "0.5": {
+       "flagged_per_burned": 0.9332159624413146,
+       "miss_rate": 0.9720657276995305
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004961136531734767,
+       "flagged_per_burned": 52.39143192488263,
+       "miss_rate": 0.1,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.011185695026652707,
+       "flagged_per_burned": 32.99354460093897,
+       "miss_rate": 0.2,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "c651_meanfield_committed": {
+    "brier": 0.009900150147111287,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.010959303190750398,
+     "ID-BOF-000904_Goat": 0.005703790488758772,
+     "ID-BOF-001080_Lava": 0.016762509771949406,
+     "ID-SCF-240202_RedRock": 0.005120955769457801,
+     "WA-SES-000173_Pioneer": 0.00842223479018146,
+     "WY-BTF-002416_FishCreek": 0.010890382171000893
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1294579,
+       "positives": 982,
+       "mean_p": 3.838764617278732e-05,
+       "observed": 0.0007585477595419051,
+       "gap": 0.0007201601133691178
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 123134,
+       "positives": 671,
+       "mean_p": 0.003979427455411987,
+       "observed": 0.00544934786492764,
+       "gap": 0.0014699204095156527
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 153514,
+       "positives": 1966,
+       "mean_p": 0.04189637345519524,
+       "observed": 0.012806649556392252,
+       "gap": 0.02908972389880299
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 125901,
+       "positives": 4663,
+       "mean_p": 0.2181960153494235,
+       "observed": 0.037037037037037035,
+       "gap": 0.18115897831238648
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 7951,
+       "positives": 238,
+       "mean_p": 0.6520498828113701,
+       "observed": 0.02993334171802289,
+       "gap": 0.6221165410933472
+      }
+     ],
+     "ece": 0.019549549528469004,
+     "lowest_bin_gap": 0.0007201601133691178,
+     "sum_p_over_burned": 4.651047380543573
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.651047380543573,
+     "expected_miss_rate": 0.8443774015624397,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 33.72840375586854,
+       "miss_rate": 0.19401408450704224
+      },
+      "0.05": {
+       "flagged_per_burned": 21.94143192488263,
+       "miss_rate": 0.3124413145539906
+      },
+      "0.1": {
+       "flagged_per_burned": 15.710328638497652,
+       "miss_rate": 0.42476525821596245
+      },
+      "0.5": {
+       "flagged_per_burned": 0.9332159624413146,
+       "miss_rate": 0.9720657276995305
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004961136728525162,
+       "flagged_per_burned": 52.39143192488263,
+       "miss_rate": 0.1,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.011185692623257637,
+       "flagged_per_burned": 32.99354460093897,
+       "miss_rate": 0.2,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "c651_mc_committed": {
+    "brier": 0.009852196942660174,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.010949225432485013,
+     "ID-BOF-000904_Goat": 0.005686086730754228,
+     "ID-BOF-001080_Lava": 0.016514520393873675,
+     "ID-SCF-240202_RedRock": 0.005118988701157474,
+     "WA-SES-000173_Pioneer": 0.008392508920335533,
+     "WY-BTF-002416_FishCreek": 0.010884742660493338
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1315986,
+       "positives": 1077,
+       "mean_p": 3.742292613675222e-05,
+       "observed": 0.0008183977641099525,
+       "gap": 0.0007809748379732003
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 103600,
+       "positives": 601,
+       "mean_p": 0.004622647200772201,
+       "observed": 0.005801158301158301,
+       "gap": 0.0011785111003861006
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 152255,
+       "positives": 1950,
+       "mean_p": 0.04221927492118485,
+       "observed": 0.012807461167120948,
+       "gap": 0.029411813754063904
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 125325,
+       "positives": 4659,
+       "mean_p": 0.2181132726785358,
+       "observed": 0.03717534410532615,
+       "gap": 0.18093792857320967
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 7913,
+       "positives": 233,
+       "mean_p": 0.6495392026965121,
+       "observed": 0.029445216731960065,
+       "gap": 0.620093985964552
+      }
+     ],
+     "ece": 0.019477567324226622,
+     "lowest_bin_gap": 0.0007809748379732003,
+     "sum_p_over_burned": 4.628063334433685
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.628063334433685,
+     "expected_miss_rate": 0.8446059822476526,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 33.508568075117374,
+       "miss_rate": 0.19694835680751174
+      },
+      "0.05": {
+       "flagged_per_burned": 21.828521126760563,
+       "miss_rate": 0.31561032863849764
+      },
+      "0.1": {
+       "flagged_per_burned": 15.638262910798122,
+       "miss_rate": 0.42582159624413146
+      },
+      "0.5": {
+       "flagged_per_burned": 0.9287558685446009,
+       "miss_rate": 0.9726525821596245
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0,
+       "flagged_per_burned": 200.12664319248827,
+       "miss_rate": 0.0,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.0107421875,
+       "flagged_per_burned": 33.508568075117374,
+       "miss_rate": 0.19694835680751174,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P4_real": {
+    "brier": 0.00871882670867673,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.010421453194626767,
+     "ID-BOF-000904_Goat": 0.005236747255843813,
+     "ID-BOF-001080_Lava": 0.011283177316202729,
+     "ID-SCF-240202_RedRock": 0.005004518628057012,
+     "WA-SES-000173_Pioneer": 0.007846397397981507,
+     "WY-BTF-002416_FishCreek": 0.010602793051103515
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1304227,
+       "positives": 989,
+       "mean_p": 3.820225330909256e-05,
+       "observed": 0.0007583035775213978,
+       "gap": 0.0007201013242123052
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 122525,
+       "positives": 683,
+       "mean_p": 0.003969185656215868,
+       "observed": 0.005574372577025097,
+       "gap": 0.001605186920809229
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 153571,
+       "positives": 2009,
+       "mean_p": 0.0419959493415525,
+       "observed": 0.013081896972735738,
+       "gap": 0.02891405236881676
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 119403,
+       "positives": 4634,
+       "mean_p": 0.21169665521729844,
+       "observed": 0.038809745148781855,
+       "gap": 0.17288691006851659
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 5353,
+       "positives": 205,
+       "mean_p": 0.6306288840808979,
+       "observed": 0.03829628245843452,
+       "gap": 0.5923326016224634
+      }
+     ],
+     "ece": 0.01723684544409572,
+     "lowest_bin_gap": 0.0007201013242123052,
+     "sum_p_over_burned": 4.182920300291325
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.182920300291325,
+     "expected_miss_rate": 0.8492258853838616,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 32.6674882629108,
+       "miss_rate": 0.19624413145539907
+      },
+      "0.05": {
+       "flagged_per_burned": 20.90680751173709,
+       "miss_rate": 0.31784037558685446
+      },
+      "0.1": {
+       "flagged_per_burned": 14.642723004694835,
+       "miss_rate": 0.43204225352112674
+      },
+      "0.5": {
+       "flagged_per_burned": 0.6282863849765258,
+       "miss_rate": 0.9759389671361502
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004774744986849169,
+       "flagged_per_burned": 51.49154929577465,
+       "miss_rate": 0.1,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.010927488928949448,
+       "flagged_per_burned": 32.07992957746479,
+       "miss_rate": 0.2,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P+_real": {
+    "brier": 0.00868131716649816,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.01038807419307013,
+     "ID-BOF-000904_Goat": 0.005217049458995958,
+     "ID-BOF-001080_Lava": 0.011175540755764725,
+     "ID-SCF-240202_RedRock": 0.005000841293520458,
+     "WA-SES-000173_Pioneer": 0.007809233840557662,
+     "WY-BTF-002416_FishCreek": 0.010578616482969634
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1304542,
+       "positives": 991,
+       "mean_p": 3.8184021223103074e-05,
+       "observed": 0.0007596535795704546,
+       "gap": 0.0007214695583473515
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 122498,
+       "positives": 681,
+       "mean_p": 0.003968513822429693,
+       "observed": 0.005559274437133667,
+       "gap": 0.0015907606147039744
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 153686,
+       "positives": 2011,
+       "mean_p": 0.04201543153072214,
+       "observed": 0.013085121611597673,
+       "gap": 0.028930309919124465
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 119077,
+       "positives": 4633,
+       "mean_p": 0.21140937942707375,
+       "observed": 0.03890759760491111,
+       "gap": 0.17250178182216264
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 5276,
+       "positives": 204,
+       "mean_p": 0.6303540185649819,
+       "observed": 0.03866565579984837,
+       "gap": 0.5916883627651335
+      }
+     ],
+     "ece": 0.01715168530055361,
+     "lowest_bin_gap": 0.0007214695583473515,
+     "sum_p_over_burned": 4.165830252564727
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.165830252564727,
+     "expected_miss_rate": 0.8494672955864689,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 32.63368544600939,
+       "miss_rate": 0.19624413145539907
+      },
+      "0.05": {
+       "flagged_per_burned": 20.866549295774647,
+       "miss_rate": 0.31784037558685446
+      },
+      "0.1": {
+       "flagged_per_burned": 14.595422535211268,
+       "miss_rate": 0.43227699530516434
+      },
+      "0.5": {
+       "flagged_per_burned": 0.6192488262910798,
+       "miss_rate": 0.976056338028169
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004763783923790144,
+       "flagged_per_burned": 51.46913145539906,
+       "miss_rate": 0.1,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.010911966532349012,
+       "flagged_per_burned": 32.055164319248824,
+       "miss_rate": 0.2,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P4_pen1e-3": {
+    "brier": 0.006750660427978265,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.008818550296720181,
+     "ID-BOF-000904_Goat": 0.003835925650974768,
+     "ID-BOF-001080_Lava": 0.005933764024130574,
+     "ID-SCF-240202_RedRock": 0.004461313586315199,
+     "WA-SES-000173_Pioneer": 0.005921562759175718,
+     "WY-BTF-002416_FishCreek": 0.009388052928227095
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1336778,
+       "positives": 1053,
+       "mean_p": 3.633938704443271e-05,
+       "observed": 0.0007877149384564976,
+       "gap": 0.000751375551412065
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 116927,
+       "positives": 707,
+       "mean_p": 0.0039985366282120635,
+       "observed": 0.006046507650072267,
+       "gap": 0.0020479710218602037
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 155402,
+       "positives": 2340,
+       "mean_p": 0.042492336315428966,
+       "observed": 0.015057721264848587,
+       "gap": 0.02743461505058038
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 93996,
+       "positives": 4289,
+       "mean_p": 0.19202974344254567,
+       "observed": 0.04562960125962807,
+       "gap": 0.1464001421829176
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 1976,
+       "positives": 131,
+       "mean_p": 0.6021451756357901,
+       "observed": 0.06629554655870445,
+       "gap": 0.5358496290770856
+      }
+     ],
+     "ece": 0.011921527444951643,
+     "lowest_bin_gap": 0.000751375551412065,
+     "sum_p_over_burned": 3.0938233879382118
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 3.0938233879382118,
+     "expected_miss_rate": 0.8700232507578058,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 29.50399061032864,
+       "miss_rate": 0.20657276995305165
+      },
+      "0.05": {
+       "flagged_per_burned": 17.734976525821597,
+       "miss_rate": 0.34061032863849766
+      },
+      "0.1": {
+       "flagged_per_burned": 11.264319248826292,
+       "miss_rate": 0.4812206572769953
+      },
+      "0.5": {
+       "flagged_per_burned": 0.231924882629108,
+       "miss_rate": 0.98462441314554
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.00037752621156651934,
+       "flagged_per_burned": 48.86983568075117,
+       "miss_rate": 0.1,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.008803487886717812,
+       "flagged_per_burned": 30.32300469483568,
+       "miss_rate": 0.2,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P4_pen1e-4": {
+    "brier": 0.0053952726636997085,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.007581072736256157,
+     "ID-BOF-000904_Goat": 0.0026354891450970745,
+     "ID-BOF-001080_Lava": 0.003943717389474378,
+     "ID-SCF-240202_RedRock": 0.0036478595650673716,
+     "WA-SES-000173_Pioneer": 0.004229156173021329,
+     "WY-BTF-002416_FishCreek": 0.008066509438584918
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1381025,
+       "positives": 1200,
+       "mean_p": 3.121856031890026e-05,
+       "observed": 0.0008689198240437356,
+       "gap": 0.0008377012637248353
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 111893,
+       "positives": 810,
+       "mean_p": 0.004073449292094463,
+       "observed": 0.007239058743621138,
+       "gap": 0.003165609451526675
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 161579,
+       "positives": 3276,
+       "mean_p": 0.0418794163411463,
+       "observed": 0.020274911962569392,
+       "gap": 0.02160450437857691
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 50013,
+       "positives": 3174,
+       "mean_p": 0.1718207139277545,
+       "observed": 0.06346349949013257,
+       "gap": 0.10835721443762193
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 569,
+       "positives": 60,
+       "mean_p": 0.5700760478558913,
+       "observed": 0.1054481546572935,
+       "gap": 0.46462789319859776
+      }
+     ],
+     "ece": 0.006266907736228134,
+     "lowest_bin_gap": 0.0008377012637248353,
+     "sum_p_over_burned": 1.8994578549048826
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 1.8994578549048826,
+     "expected_miss_rate": 0.9047271097044891,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 24.901525821596245,
+       "miss_rate": 0.23591549295774647
+      },
+      "0.05": {
+       "flagged_per_burned": 12.491197183098592,
+       "miss_rate": 0.42171361502347415
+      },
+      "0.1": {
+       "flagged_per_burned": 5.936854460093897,
+       "miss_rate": 0.6204225352112676
+      },
+      "0.5": {
+       "flagged_per_burned": 0.06678403755868545,
+       "miss_rate": 0.9929577464788732
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.00020063315918539975,
+       "flagged_per_burned": 46.16032863849765,
+       "miss_rate": 0.1,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.005331186358065589,
+       "flagged_per_burned": 28.83732394366197,
+       "miss_rate": 0.2,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "persistence": {
+    "brier": 0.004996835923731393,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.007577091441165221,
+     "ID-BOF-000904_Goat": 0.0022918977750800594,
+     "ID-BOF-001080_Lava": 0.002561225674159477,
+     "ID-SCF-240202_RedRock": 0.0034061778577194894,
+     "WA-SES-000173_Pioneer": 0.00380817323204761,
+     "WY-BTF-002416_FishCreek": 0.0077134696134051155
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1705079,
+       "positives": 8520,
+       "mean_p": 0.0,
+       "observed": 0.004996835923731393,
+       "gap": 0.004996835923731393
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      }
+     ],
+     "ece": 0.004996835923731393,
+     "lowest_bin_gap": 0.004996835923731393,
+     "sum_p_over_burned": 0.0
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 0.0,
+     "expected_miss_rate": 1.0,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      },
+      "0.05": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      },
+      "0.1": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      },
+      "0.5": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0,
+       "flagged_per_burned": 200.12664319248827,
+       "miss_rate": 0.0,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.0,
+       "flagged_per_burned": 200.12664319248827,
+       "miss_rate": 0.0,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   }
+  },
+  "paired_brier_difference": {
+   "P4_real_minus_unadapted_rebuilt": {
+    "point": -0.00118132305246142,
+    "ci95": [
+     -0.002922791104948273,
+     -0.00029441161317986356
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.0005378497317240003,
+     "ID-BOF-000904_Goat": -0.00046704302004527213,
+     "ID-BOF-001080_Lava": -0.005479331291773895,
+     "ID-SCF-240202_RedRock": -0.00011643696593811069,
+     "WA-SES-000173_Pioneer": -0.000575836990334721,
+     "WY-BTF-002416_FishCreek": -0.0002875889641505785
+    }
+   },
+   "P+_real_minus_unadapted_rebuilt": {
+    "point": -0.0012188325946399876,
+    "ci95": [
+     -0.002987432795766762,
+     -0.0003113465261675855
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.0005712287332806375,
+     "ID-BOF-000904_Goat": -0.0004867408168931272,
+     "ID-BOF-001080_Lava": -0.0055869678522119,
+     "ID-SCF-240202_RedRock": -0.00012011430047466552,
+     "WA-SES-000173_Pioneer": -0.0006130005477585655,
+     "WY-BTF-002416_FishCreek": -0.00031176553228446014
+    }
+   },
+   "P4_pen1e-3_minus_unadapted_rebuilt": {
+    "point": -0.0031494893331598856,
+    "ci95": [
+     -0.006216324055352055,
+     -0.0013507314851934893
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.0021407526296305865,
+     "ID-BOF-000904_Goat": -0.0018678646249143168,
+     "ID-BOF-001080_Lava": -0.010828744583846051,
+     "ID-SCF-240202_RedRock": -0.0006596420076799241,
+     "WA-SES-000173_Pioneer": -0.0025006716291405104,
+     "WY-BTF-002416_FishCreek": -0.001502329087026999
+    }
+   },
+   "P4_pen1e-4_minus_unadapted_rebuilt": {
+    "point": -0.004504877097438441,
+    "ci95": [
+     -0.007842376574972934,
+     -0.0023679318162033
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.00337823019009461,
+     "ID-BOF-000904_Goat": -0.0030683011307920103,
+     "ID-BOF-001080_Lava": -0.012818791218502245,
+     "ID-SCF-240202_RedRock": -0.0014730960289277514,
+     "WA-SES-000173_Pioneer": -0.004193078215294899,
+     "WY-BTF-002416_FishCreek": -0.002823872576669176
+    }
+   },
+   "P4_real_minus_persistence": {
+    "point": 0.0037219907849453376,
+    "ci95": [
+     0.002384510688122907,
+     0.005782683931369724
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.0028443617534615467,
+     "ID-BOF-000904_Goat": 0.0029448494807637533,
+     "ID-BOF-001080_Lava": 0.008721951642043252,
+     "ID-SCF-240202_RedRock": 0.001598340770337523,
+     "WA-SES-000173_Pioneer": 0.004038224165933897,
+     "WY-BTF-002416_FishCreek": 0.0028893234376984
+    }
+   },
+   "P+_real_minus_persistence": {
+    "point": 0.00368448124276677,
+    "ci95": [
+     0.002368521783541685,
+     0.005718042240551235
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.0028109827519049095,
+     "ID-BOF-000904_Goat": 0.0029251516839158983,
+     "ID-BOF-001080_Lava": 0.008614315081605248,
+     "ID-SCF-240202_RedRock": 0.001594663435800968,
+     "WA-SES-000173_Pioneer": 0.004001060608510052,
+     "WY-BTF-002416_FishCreek": 0.0028651468695645188
+    }
+   },
+   "P4_pen1e-3_minus_persistence": {
+    "point": 0.0017538245042468717,
+    "ci95": [
+     0.0012708131392519062,
+     0.0024843913140834084
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.0012414588555549604,
+     "ID-BOF-000904_Goat": 0.0015440278758947089,
+     "ID-BOF-001080_Lava": 0.003372538349971097,
+     "ID-SCF-240202_RedRock": 0.0010551357285957094,
+     "WA-SES-000173_Pioneer": 0.0021133895271281075,
+     "WY-BTF-002416_FishCreek": 0.0016745833148219796
+    }
+   },
+   "P4_pen1e-4_minus_persistence": {
+    "point": 0.0003984367399683163,
+    "ci95": [
+     0.00011973031614668849,
+     0.0008630984613450643
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 3.981295090936834e-06,
+     "ID-BOF-000904_Goat": 0.0003435913700170152,
+     "ID-BOF-001080_Lava": 0.0013824917153149017,
+     "ID-SCF-240202_RedRock": 0.00024168170734788208,
+     "WA-SES-000173_Pioneer": 0.00042098294097371824,
+     "WY-BTF-002416_FishCreek": 0.00035303982517980283
+    }
+   },
+   "unadapted_rebuilt_minus_persistence": {
+    "point": 0.004903313837406758,
+    "ci95": [
+     0.0026709616295363123,
+     0.008705475036317998
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.003382211485185547,
+     "ID-BOF-000904_Goat": 0.0034118925008090255,
+     "ID-BOF-001080_Lava": 0.014201282933817148,
+     "ID-SCF-240202_RedRock": 0.0017147777362756336,
+     "WA-SES-000173_Pioneer": 0.004614061156268618,
+     "WY-BTF-002416_FishCreek": 0.0031769124018489786
+    }
+   },
+   "unadapted_rebuilt_minus_c651_meanfield_committed": {
+    "point": -3.859731398942051e-10,
+    "ci95": [
+     -7.082895346750854e-10,
+     -2.001459030951919e-10
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -2.643996301039527e-10,
+     "ID-BOF-000904_Goat": -2.1286968753223485e-10,
+     "ID-BOF-001080_Lava": -1.1639727831344486e-09,
+     "ID-SCF-240202_RedRock": -1.7546267806795967e-10,
+     "WA-SES-000173_Pioneer": -4.0186523306721206e-10,
+     "WY-BTF-002416_FishCreek": -1.5574679856763882e-10
+    }
+   }
+  }
+ },
+ "windows_with_history": {
+  "entries": 1661730,
+  "positives": 8447,
+  "n_fires": 6,
+  "models": {
+   "unadapted_rebuilt": {
+    "brier": 0.01011017631161618,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.011211689305807201,
+     "ID-BOF-000904_Goat": 0.005838638447171853,
+     "ID-BOF-001080_Lava": 0.017117995299233718,
+     "ID-SCF-240202_RedRock": 0.005248789630884338,
+     "WA-SES-000173_Pioneer": 0.008564431863217275,
+     "WY-BTF-002416_FishCreek": 0.011077885746446248
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1254138,
+       "positives": 982,
+       "mean_p": 3.914328438230305e-05,
+       "observed": 0.0007830079305467182,
+       "gap": 0.0007438646461644152
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 121910,
+       "positives": 670,
+       "mean_p": 0.003981857498037406,
+       "observed": 0.005495857599868756,
+       "gap": 0.0015140001018313504
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 152318,
+       "positives": 1945,
+       "mean_p": 0.04191967512262289,
+       "observed": 0.012769337832692131,
+       "gap": 0.02915033728993076
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 125432,
+       "positives": 4615,
+       "mean_p": 0.2182866110364033,
+       "observed": 0.03679284393137317,
+       "gap": 0.18149376710503012
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 7932,
+       "positives": 235,
+       "mean_p": 0.6523217307923352,
+       "observed": 0.02962682803832577,
+       "gap": 0.6226949027540095
+      }
+     ],
+     "ece": 0.020016455086877067,
+     "lowest_bin_gap": 0.0007438646461644152,
+     "sum_p_over_burned": 4.673136328574051
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.673136328574051,
+     "expected_miss_rate": 0.8443702604799713,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 33.82052799810584,
+       "miss_rate": 0.19557239256540784
+      },
+      "0.05": {
+       "flagged_per_burned": 22.029833076832013,
+       "miss_rate": 0.31454954421688175
+      },
+      "0.1": {
+       "flagged_per_burned": 15.788327216763347,
+       "miss_rate": 0.4258316562093051
+      },
+      "0.5": {
+       "flagged_per_burned": 0.9390316088552149,
+       "miss_rate": 0.9721794720018941
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004749710206330222,
+       "flagged_per_burned": 52.697052207884454,
+       "miss_rate": 0.0999171303421333,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.01088976785431693,
+       "flagged_per_burned": 33.259145258671715,
+       "miss_rate": 0.19995264590979045,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "c651_meanfield_committed": {
+    "brier": 0.010110176705828054,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.011211689576610662,
+     "ID-BOF-000904_Goat": 0.005838638664058243,
+     "ID-BOF-001080_Lava": 0.017117996487785236,
+     "ID-SCF-240202_RedRock": 0.0052487898091837055,
+     "WA-SES-000173_Pioneer": 0.008564432272845734,
+     "WY-BTF-002416_FishCreek": 0.011077885904680328
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1254138,
+       "positives": 982,
+       "mean_p": 3.914329064508618e-05,
+       "observed": 0.0007830079305467182,
+       "gap": 0.000743864639901632
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 121910,
+       "positives": 670,
+       "mean_p": 0.003981857947896834,
+       "observed": 0.005495857599868756,
+       "gap": 0.001513999651971922
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 152318,
+       "positives": 1945,
+       "mean_p": 0.041919677951673555,
+       "observed": 0.012769337832692131,
+       "gap": 0.029150340118981426
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 125432,
+       "positives": 4615,
+       "mean_p": 0.21828661886430478,
+       "observed": 0.03679284393137317,
+       "gap": 0.18149377493293162
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 7932,
+       "positives": 235,
+       "mean_p": 0.652321751910932,
+       "observed": 0.02962682803832577,
+       "gap": 0.6226949238726063
+      }
+     ],
+     "ece": 0.020016456000142534,
+     "lowest_bin_gap": 0.000743864639901632,
+     "sum_p_over_burned": 4.673136523080286
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.673136523080286,
+     "expected_miss_rate": 0.8443702543797423,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 33.82052799810584,
+       "miss_rate": 0.19557239256540784
+      },
+      "0.05": {
+       "flagged_per_burned": 22.029833076832013,
+       "miss_rate": 0.31454954421688175
+      },
+      "0.1": {
+       "flagged_per_burned": 15.788327216763347,
+       "miss_rate": 0.4258316562093051
+      },
+      "0.5": {
+       "flagged_per_burned": 0.9390316088552149,
+       "miss_rate": 0.9721794720018941
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004749711661133915,
+       "flagged_per_burned": 52.697052207884454,
+       "miss_rate": 0.0999171303421333,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.010889765806496143,
+       "flagged_per_burned": 33.259145258671715,
+       "miss_rate": 0.19995264590979045,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "c651_mc_committed": {
+    "brier": 0.010061332538178647,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.011201364225649343,
+     "ID-BOF-000904_Goat": 0.005820315111711566,
+     "ID-BOF-001080_Lava": 0.016864935312267182,
+     "ID-SCF-240202_RedRock": 0.00524661750161977,
+     "WA-SES-000173_Pioneer": 0.008534525537528277,
+     "WY-BTF-002416_FishCreek": 0.011073052579749986
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1275315,
+       "positives": 1077,
+       "mean_p": 3.815310457612433e-05,
+       "observed": 0.0008444972418578939,
+       "gap": 0.0008063441372817696
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 102588,
+       "positives": 601,
+       "mean_p": 0.0046242311478925414,
+       "observed": 0.005858384996295863,
+       "gap": 0.0012341538484033215
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 151080,
+       "positives": 1927,
+       "mean_p": 0.04224219086121591,
+       "observed": 0.012754831877151178,
+       "gap": 0.02948735898406473
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 124851,
+       "positives": 4612,
+       "mean_p": 0.21820729059038374,
+       "observed": 0.036940032518762364,
+       "gap": 0.18126725807162136
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 7896,
+       "positives": 230,
+       "mean_p": 0.6497653083839919,
+       "observed": 0.02912867274569402,
+       "gap": 0.620636635638298
+      }
+     ],
+     "ece": 0.019944183264579682,
+     "lowest_bin_gap": 0.0008063441372817696,
+     "sum_p_over_burned": 4.650046567938321
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.650046567938321,
+     "expected_miss_rate": 0.8446151139087842,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 33.60092340475909,
+       "miss_rate": 0.19865040842902806
+      },
+      "0.05": {
+       "flagged_per_burned": 21.916301645554636,
+       "miss_rate": 0.3177459453060258
+      },
+      "0.1": {
+       "flagged_per_burned": 15.71528353261513,
+       "miss_rate": 0.4267787380134959
+      },
+      "0.5": {
+       "flagged_per_burned": 0.9347697407363561,
+       "miss_rate": 0.9727713981295134
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0,
+       "flagged_per_burned": 196.72428080975493,
+       "miss_rate": 0.0,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.0107421875,
+       "flagged_per_burned": 33.60092340475909,
+       "miss_rate": 0.19865040842902806,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P4_real": {
+    "brier": 0.008898036476042495,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.010660853511628064,
+     "ID-BOF-000904_Goat": 0.005359168878936715,
+     "ID-BOF-001080_Lava": 0.0114967351819664,
+     "ID-SCF-240202_RedRock": 0.0051290678486732195,
+     "WA-SES-000173_Pioneer": 0.007976462570994344,
+     "WY-BTF-002416_FishCreek": 0.010780791346609187
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1263786,
+       "positives": 989,
+       "mean_p": 3.894619655317527e-05,
+       "observed": 0.0007825692007982364,
+       "gap": 0.0007436230042450611
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 121301,
+       "positives": 682,
+       "mean_p": 0.003971525009408384,
+       "observed": 0.005622377391777479,
+       "gap": 0.0016508523823690951
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 152375,
+       "positives": 1988,
+       "mean_p": 0.042020026701420535,
+       "observed": 0.0130467596390484,
+       "gap": 0.028973267062372132
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 118934,
+       "positives": 4586,
+       "mean_p": 0.2117665795624883,
+       "observed": 0.03855920090134024,
+       "gap": 0.17320737866114805
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 5334,
+       "positives": 202,
+       "mean_p": 0.6309568682064675,
+       "observed": 0.03787026621672291,
+       "gap": 0.5930866019897445
+      }
+     ],
+     "ece": 0.01764342117203387,
+     "lowest_bin_gap": 0.0007436230042450611,
+     "sum_p_over_burned": 4.200963832183097
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.200963832183097,
+     "expected_miss_rate": 0.8492606394705532,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 32.750443944595716,
+       "miss_rate": 0.19782171185036107
+      },
+      "0.05": {
+       "flagged_per_burned": 20.98626731383923,
+       "miss_rate": 0.31999526459097904
+      },
+      "0.1": {
+       "flagged_per_burned": 14.711495205398366,
+       "miss_rate": 0.43317154019178405
+      },
+      "0.5": {
+       "flagged_per_burned": 0.6314667929442406,
+       "miss_rate": 0.9760861844441814
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0004596343910273499,
+       "flagged_per_burned": 51.76157215579496,
+       "miss_rate": 0.0999171303421333,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.010563045320945597,
+       "flagged_per_burned": 32.3900793181011,
+       "miss_rate": 0.19995264590979045,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P+_real": {
+    "brier": 0.008859548434863557,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.01062666859389571,
+     "ID-BOF-000904_Goat": 0.005338946985568286,
+     "ID-BOF-001080_Lava": 0.011386310556746463,
+     "ID-SCF-240202_RedRock": 0.005125286772440634,
+     "WA-SES-000173_Pioneer": 0.007938516015073574,
+     "WY-BTF-002416_FishCreek": 0.010755815690741898
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1264101,
+       "positives": 991,
+       "mean_p": 3.8927195805574576e-05,
+       "observed": 0.0007839563452603866,
+       "gap": 0.000745029149454812
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 121274,
+       "positives": 680,
+       "mean_p": 0.003970846915731235,
+       "observed": 0.0056071375562775205,
+       "gap": 0.0016362906405462856
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 152490,
+       "positives": 1990,
+       "mean_p": 0.04203964353418559,
+       "observed": 0.013050036067938881,
+       "gap": 0.028989607466246712
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 118608,
+       "positives": 4585,
+       "mean_p": 0.21147836001628523,
+       "observed": 0.03865675165250236,
+       "gap": 0.17282160836378285
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 5257,
+       "positives": 201,
+       "mean_p": 0.6306858132922001,
+       "observed": 0.03823473463952825,
+       "gap": 0.5924510786526719
+      }
+     ],
+     "ece": 0.017556039484039644,
+     "lowest_bin_gap": 0.000745029149454812,
+     "sum_p_over_burned": 4.1837260901882365
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 4.1837260901882365,
+     "expected_miss_rate": 0.8495041359694541,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 32.71634899964484,
+       "miss_rate": 0.19782171185036107
+      },
+      "0.05": {
+       "flagged_per_burned": 20.94566118148455,
+       "miss_rate": 0.31999526459097904
+      },
+      "0.1": {
+       "flagged_per_burned": 14.663785959512253,
+       "miss_rate": 0.43340831064283175
+      },
+      "0.5": {
+       "flagged_per_burned": 0.6223511305789038,
+       "miss_rate": 0.9762045696697053
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.00045821807891474267,
+       "flagged_per_burned": 51.73990765952409,
+       "miss_rate": 0.0999171303421333,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.010527424985427266,
+       "flagged_per_burned": 32.377175328519,
+       "miss_rate": 0.19995264590979045,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P4_pen1e-3": {
+    "brier": 0.006878527293607891,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.009019249474882932,
+     "ID-BOF-000904_Goat": 0.003921075809917278,
+     "ID-BOF-001080_Lava": 0.006008758275979789,
+     "ID-SCF-240202_RedRock": 0.004570538388725217,
+     "WA-SES-000173_Pioneer": 0.006011073616792275,
+     "WY-BTF-002416_FishCreek": 0.00952590144208907
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1296337,
+       "positives": 1053,
+       "mean_p": 3.7006535233566565e-05,
+       "observed": 0.0008122887798465985,
+       "gap": 0.000775282244613032
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 115703,
+       "positives": 706,
+       "mean_p": 0.004001299663494889,
+       "observed": 0.006101829684623562,
+       "gap": 0.0021005300211286732
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 154206,
+       "positives": 2319,
+       "mean_p": 0.042519977694692096,
+       "observed": 0.01503832535699,
+       "gap": 0.027481652337702098
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 93527,
+       "positives": 4241,
+       "mean_p": 0.1920200414361566,
+       "observed": 0.04534519443583136,
+       "gap": 0.14667484700032524
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 1957,
+       "positives": 128,
+       "mean_p": 0.6027625884438285,
+       "observed": 0.06540623403168115,
+       "gap": 0.5373563544121474
+      }
+     ],
+     "ece": 0.012189444233143323,
+     "lowest_bin_gap": 0.000775282244613032,
+     "sum_p_over_burned": 3.102454812028187
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 3.102454812028187,
+     "expected_miss_rate": 0.8702377382021746,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 29.559606961051262,
+       "miss_rate": 0.20823961169646027
+      },
+      "0.05": {
+       "flagged_per_burned": 17.787024979282585,
+       "miss_rate": 0.3429619983426068
+      },
+      "0.1": {
+       "flagged_per_burned": 11.303894873919734,
+       "miss_rate": 0.48277494968627915
+      },
+      "0.5": {
+       "flagged_per_burned": 0.2316798863501835,
+       "miss_rate": 0.9848466911329466
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0003628394349962695,
+       "flagged_per_burned": 49.1007458269208,
+       "miss_rate": 0.0999171303421333,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.008479322770070435,
+       "flagged_per_burned": 30.611104534154137,
+       "miss_rate": 0.19995264590979045,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "P4_pen1e-4": {
+    "brier": 0.005487781977745314,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.007751893753402636,
+     "ID-BOF-000904_Goat": 0.00268869945813906,
+     "ID-BOF-001080_Lava": 0.003967164296128764,
+     "ID-SCF-240202_RedRock": 0.0037341359250749884,
+     "WA-SES-000173_Pioneer": 0.004283009738790608,
+     "WY-BTF-002416_FishCreek": 0.008160678089122589
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1340584,
+       "positives": 1200,
+       "mean_p": 3.1709210310582965e-05,
+       "observed": 0.0008951322707118688,
+       "gap": 0.0008634230604012859
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 110669,
+       "positives": 809,
+       "mean_p": 0.00407716654418783,
+       "observed": 0.007310086835518528,
+       "gap": 0.0032329202913306977
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 160383,
+       "positives": 3255,
+       "mean_p": 0.04190142250290538,
+       "observed": 0.020295168440545443,
+       "gap": 0.021606254062359935
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 49544,
+       "positives": 3126,
+       "mean_p": 0.17161109350158818,
+       "observed": 0.06309543032455998,
+       "gap": 0.1085156631770282
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 550,
+       "positives": 57,
+       "mean_p": 0.5711650722877334,
+       "observed": 0.10363636363636364,
+       "gap": 0.46752870865136975
+      }
+     ],
+     "ece": 0.006387314333381889,
+     "lowest_bin_gap": 0.0008634230604012859,
+     "sum_p_over_burned": 1.8977674269868752
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 1.8977674269868752,
+     "expected_miss_rate": 0.9052415121131183,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 24.91736711258435,
+       "miss_rate": 0.23783591807742394
+      },
+      "0.05": {
+       "flagged_per_burned": 12.497928258553333,
+       "miss_rate": 0.4247661891795904
+      },
+      "0.1": {
+       "flagged_per_burned": 5.930389487391974,
+       "miss_rate": 0.6231798271575707
+      },
+      "0.5": {
+       "flagged_per_burned": 0.06511187403812005,
+       "miss_rate": 0.9932520421451403
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0001911373313874527,
+       "flagged_per_burned": 46.34035752338108,
+       "miss_rate": 0.0999171303421333,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.004983570683321886,
+       "flagged_per_burned": 29.240085237362376,
+       "miss_rate": 0.19995264590979045,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   },
+   "persistence": {
+    "brier": 0.005083256606067171,
+    "per_fire_brier": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.007745527201578537,
+     "ID-BOF-000904_Goat": 0.0023421342429695686,
+     "ID-BOF-001080_Lava": 0.0026037532150001586,
+     "ID-SCF-240202_RedRock": 0.0034986293091208284,
+     "WA-SES-000173_Pioneer": 0.0038477338637186356,
+     "WY-BTF-002416_FishCreek": 0.007755381400682619
+    },
+    "calibration": {
+     "bins": [
+      {
+       "bin": [
+        0.0,
+        0.001
+       ],
+       "count": 1661730,
+       "positives": 8447,
+       "mean_p": 0.0,
+       "observed": 0.005083256606067171,
+       "gap": 0.005083256606067171
+      },
+      {
+       "bin": [
+        0.001,
+        0.01
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      },
+      {
+       "bin": [
+        0.01,
+        0.1
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      },
+      {
+       "bin": [
+        0.1,
+        0.5
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      },
+      {
+       "bin": [
+        0.5,
+        1.0
+       ],
+       "count": 0,
+       "positives": 0,
+       "mean_p": null,
+       "observed": null
+      }
+     ],
+     "ece": 0.005083256606067171,
+     "lowest_bin_gap": 0.005083256606067171,
+     "sum_p_over_burned": 0.0
+    },
+    "flagging": {
+     "expected_area_per_burned_cell": 0.0,
+     "expected_miss_rate": 1.0,
+     "thresholds": {
+      "0.01": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      },
+      "0.05": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      },
+      "0.1": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      },
+      "0.5": {
+       "flagged_per_burned": 0.0,
+       "miss_rate": 1.0
+      }
+     },
+     "at_fixed_miss": {
+      "0.1": {
+       "threshold": 0.0,
+       "flagged_per_burned": 196.72428080975493,
+       "miss_rate": 0.0,
+       "note": "threshold read from the same data; descriptive only"
+      },
+      "0.2": {
+       "threshold": 0.0,
+       "flagged_per_burned": 196.72428080975493,
+       "miss_rate": 0.0,
+       "note": "threshold read from the same data; descriptive only"
+      }
+     }
+    }
+   }
+  },
+  "paired_brier_difference": {
+   "P4_real_minus_unadapted_rebuilt": {
+    "point": -0.0012121398355736887,
+    "ci95": [
+     -0.003000496423942063,
+     -0.0003027341539562315
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.0005508357941791369,
+     "ID-BOF-000904_Goat": -0.0004794695682351373,
+     "ID-BOF-001080_Lava": -0.0056212601172673194,
+     "ID-SCF-240202_RedRock": -0.00011972178221111932,
+     "WA-SES-000173_Pioneer": -0.0005879692922229309,
+     "WY-BTF-002416_FishCreek": -0.0002970943998370607
+    }
+   },
+   "P+_real_minus_unadapted_rebuilt": {
+    "point": -0.0012506278767526336,
+    "ci95": [
+     -0.0030668566786349405,
+     -0.00031991321915215385
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.000585020711911493,
+     "ID-BOF-000904_Goat": -0.0004996914616035675,
+     "ID-BOF-001080_Lava": -0.0057316847424872565,
+     "ID-SCF-240202_RedRock": -0.00012350285844370476,
+     "WA-SES-000173_Pioneer": -0.0006259158481436996,
+     "WY-BTF-002416_FishCreek": -0.00032207005570435057
+    }
+   },
+   "P4_pen1e-3_minus_unadapted_rebuilt": {
+    "point": -0.0032316490180082946,
+    "ci95": [
+     -0.006381591235367802,
+     -0.0013862686450246105
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.0021924398309242695,
+     "ID-BOF-000904_Goat": -0.0019175626372545753,
+     "ID-BOF-001080_Lava": -0.011109237023253931,
+     "ID-SCF-240202_RedRock": -0.0006782512421591217,
+     "WA-SES-000173_Pioneer": -0.0025533582464249993,
+     "WY-BTF-002416_FishCreek": -0.0015519843043571777
+    }
+   },
+   "P4_pen1e-4_minus_unadapted_rebuilt": {
+    "point": -0.004622394333870868,
+    "ci95": [
+     -0.008050873984314302,
+     -0.0024350406028350586
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -0.003459795552404566,
+     "ID-BOF-000904_Goat": -0.0031499389890327933,
+     "ID-BOF-001080_Lava": -0.013150831003104956,
+     "ID-SCF-240202_RedRock": -0.0015146537058093503,
+     "WA-SES-000173_Pioneer": -0.004281422124426667,
+     "WY-BTF-002416_FishCreek": -0.0029172076573236593
+    }
+   },
+   "P4_real_minus_persistence": {
+    "point": 0.0038147798699753248,
+    "ci95": [
+     0.0024490907442909046,
+     0.005911459650930993
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.0029153263100495275,
+     "ID-BOF-000904_Goat": 0.003017034635967147,
+     "ID-BOF-001080_Lava": 0.008892981966966241,
+     "ID-SCF-240202_RedRock": 0.001630438539552391,
+     "WA-SES-000173_Pioneer": 0.0041287287072757075,
+     "WY-BTF-002416_FishCreek": 0.0030254099459265686
+    }
+   },
+   "P+_real_minus_persistence": {
+    "point": 0.00377629182879638,
+    "ci95": [
+     0.0024308071191085226,
+     0.00584585622705316
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.002881141392317171,
+     "ID-BOF-000904_Goat": 0.002996812742598717,
+     "ID-BOF-001080_Lava": 0.008782557341746305,
+     "ID-SCF-240202_RedRock": 0.0016266574633198054,
+     "WA-SES-000173_Pioneer": 0.004090782151354939,
+     "WY-BTF-002416_FishCreek": 0.0030004342900592784
+    }
+   },
+   "P4_pen1e-3_minus_persistence": {
+    "point": 0.0017952706875407189,
+    "ci95": [
+     0.0013039934630195858,
+     0.002525664255361851
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.0012737222733043949,
+     "ID-BOF-000904_Goat": 0.001578941566947709,
+     "ID-BOF-001080_Lava": 0.00340500506097963,
+     "ID-SCF-240202_RedRock": 0.0010719090796043884,
+     "WA-SES-000173_Pioneer": 0.0021633397530736393,
+     "WY-BTF-002416_FishCreek": 0.0017705200414064514
+    }
+   },
+   "P4_pen1e-4_minus_persistence": {
+    "point": 0.00040452537167814603,
+    "ci95": [
+     0.00012864608939237168,
+     0.0008628187464753652
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 6.366551824098446e-06,
+     "ID-BOF-000904_Goat": 0.0003465652151694914,
+     "ID-BOF-001080_Lava": 0.0013634110811286057,
+     "ID-SCF-240202_RedRock": 0.00023550661595415985,
+     "WA-SES-000173_Pioneer": 0.000435275875071972,
+     "WY-BTF-002416_FishCreek": 0.0004052966884399698
+    }
+   },
+   "unadapted_rebuilt_minus_persistence": {
+    "point": 0.005026919705549014,
+    "ci95": [
+     0.002745433022174744,
+     0.008913692730789667
+    ],
+    "fires_favouring_a": 0,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": 0.0034661621042286644,
+     "ID-BOF-000904_Goat": 0.0034965042042022845,
+     "ID-BOF-001080_Lava": 0.014514242084233561,
+     "ID-SCF-240202_RedRock": 0.00175016032176351,
+     "WA-SES-000173_Pioneer": 0.004716697999498639,
+     "WY-BTF-002416_FishCreek": 0.003322504345763629
+    }
+   },
+   "unadapted_rebuilt_minus_c651_meanfield_committed": {
+    "point": -3.942118699926759e-10,
+    "ci95": [
+     -7.234118054672891e-10,
+     -2.0419103490909417e-10
+    ],
+    "fires_favouring_a": 6,
+    "n_fires": 6,
+    "per_fire": {
+     "ID-BOF-000683_Wapiti_Wapiti": -2.7080346125726836e-10,
+     "ID-BOF-000904_Goat": -2.1688639001950224e-10,
+     "ID-BOF-001080_Lava": -1.1885515153883777e-09,
+     "ID-SCF-240202_RedRock": -1.7829936721027073e-10,
+     "WA-SES-000173_Pioneer": -4.0962845991414044e-10,
+     "WY-BTF-002416_FishCreek": -1.5823407957766997e-10
+    }
+   }
+  }
+ },
+ "verdict_arm1": {
+  "verdict": "trade-off, not help",
+  "brier_difference_vs_unadapted": {
+   "point": -0.00118132305246142,
+   "ci95": [
+    -0.002922791104948273,
+    -0.00029441161317986356
+   ],
+   "fires_favouring_a": 6,
+   "n_fires": 6,
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": -0.0005378497317240003,
+    "ID-BOF-000904_Goat": -0.00046704302004527213,
+    "ID-BOF-001080_Lava": -0.005479331291773895,
+    "ID-SCF-240202_RedRock": -0.00011643696593811069,
+    "WA-SES-000173_Pioneer": -0.000575836990334721,
+    "WY-BTF-002416_FishCreek": -0.0002875889641505785
+   }
+  },
+  "brier_interval_below_zero": true,
+  "expected_area_per_burned_cell": {
+   "adapted": 4.182920300291325,
+   "unadapted": 4.651047187264843
+  },
+  "expected_miss_rate": {
+   "adapted": 0.8492258853838616,
+   "unadapted": 0.8443774075278234
+  },
+  "beats_persistence": false,
+  "brier_difference_vs_persistence": {
+   "point": 0.0037219907849453376,
+   "ci95": [
+    0.002384510688122907,
+    0.005782683931369724
+   ],
+   "fires_favouring_a": 0,
+   "n_fires": 6,
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.0028443617534615467,
+    "ID-BOF-000904_Goat": 0.0029448494807637533,
+    "ID-BOF-001080_Lava": 0.008721951642043252,
+    "ID-SCF-240202_RedRock": 0.001598340770337523,
+    "WA-SES-000173_Pioneer": 0.004038224165933897,
+    "WY-BTF-002416_FishCreek": 0.0028893234376984
+   }
+  }
+ },
+ "LEAKY_NOT_A_RESULT": {
+  "note": "positive control: the target window was added to its own history",
+  "brier": 0.008497953808339022,
+  "brier_unadapted": 0.009900149761138151
+ },
+ "parameter_shift": {
+  "P4_real": {
+   "windows": 267,
+   "branch_weight_ratio_min_q25_median_q75_max": {
+    "3": [
+     0.9028,
+     0.9758,
+     0.9943,
+     0.9971,
+     1.001
+    ],
+    "5": [
+     0.7863,
+     0.9442,
+     0.9841,
+     0.994,
+     1.0052
+    ],
+    "7": [
+     0.7399,
+     0.9393,
+     0.9804,
+     0.9921,
+     1.0057
+    ],
+    "9": [
+     0.4848,
+     0.9141,
+     0.9678,
+     0.9829,
+     1.0111
+    ]
+   },
+   "seconds_per_window_median": 37.49828553199768
+  },
+  "P+_real": {
+   "windows": 267,
+   "branch_weight_ratio_min_q25_median_q75_max": {
+    "3": [
+     0.9082,
+     0.9762,
+     0.9936,
+     0.9971,
+     1.0011
+    ],
+    "5": [
+     0.7933,
+     0.9443,
+     0.9839,
+     0.9932,
+     1.0052
+    ],
+    "7": [
+     0.7442,
+     0.9399,
+     0.9793,
+     0.9922,
+     1.0062
+    ],
+    "9": [
+     0.4933,
+     0.9142,
+     0.9671,
+     0.9827,
+     1.0104
+    ]
+   },
+   "seconds_per_window_median": 40.77272200584412
+  },
+  "P4_pen1e-3": {
+   "windows": 267,
+   "branch_weight_ratio_min_q25_median_q75_max": {
+    "3": [
+     0.621,
+     0.8548,
+     0.9508,
+     0.9802,
+     1.0124
+    ],
+    "5": [
+     0.3575,
+     0.7067,
+     0.8859,
+     0.9471,
+     1.0401
+    ],
+    "7": [
+     0.3237,
+     0.6833,
+     0.8579,
+     0.9282,
+     1.0574
+    ],
+    "9": [
+     0.2268,
+     0.6143,
+     0.7883,
+     0.8694,
+     1.1005
+    ]
+   },
+   "seconds_per_window_median": 33.97889590263367
+  },
+  "P4_pen1e-4": {
+   "windows": 267,
+   "branch_weight_ratio_min_q25_median_q75_max": {
+    "3": [
+     0.2542,
+     0.5034,
+     0.7808,
+     0.9029,
+     1.0646
+    ],
+    "5": [
+     0.2229,
+     0.353,
+     0.6177,
+     0.7418,
+     1.3592
+    ],
+    "7": [
+     0.2199,
+     0.3512,
+     0.556,
+     0.702,
+     1.4955
+    ],
+    "9": [
+     0.2039,
+     0.3105,
+     0.4186,
+     0.5406,
+     1.5541
+    ]
+   },
+   "seconds_per_window_median": 36.25062894821167
+  }
+ }
+}

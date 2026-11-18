@@ -1,0 +1,8 @@
+v1_start 2026-11-17T15:43:45Z
+v1_end 2026-11-17T15:46:13Z
+v2_full_start 2026-11-17T15:46:31Z
+v2_full_end 2026-11-17T16:36:48Z
+v2_persistence_start 2026-11-17T15:46:31Z
+v2_persistence_end 2026-11-17T16:14:39Z
+v2_heat_off_start 2026-11-17T15:46:31Z
+v2_heat_off_end 2026-11-17T16:18:52Z

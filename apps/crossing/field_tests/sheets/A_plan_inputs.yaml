@@ -1,0 +1,24 @@
+# Inputs for field_tests/a_bunsen_analyse.py (plan A_PLAN.md). Fill in BEFORE the session, from the rotameter and a
+# photo; the analysis reads this file. null = not yet measured (the analysis refuses to run without flow and LHV).
+heat_source: Bunsen burner
+gas: methane                    # methane | propane | natural_gas (natural_gas: give lhv_mj_m3)
+gas_flow_l_min: null            # MEASURED, referred to 15 C, 101.325 kPa
+lhv_mj_m3: null                 # null = 33.9 (methane) or 86.4 (propane) MJ/m3 at 15 C, 1 atm
+combustion_efficiency: 1.0      # assumed
+q_rel_uncertainty: 0.10         # relative uncertainty of Q (flow meter, LHV); common to all distances
+air_hole: closed                # keep identical for every run
+chi: 0.10                       # ASSUMED radiant fraction, used only to draw the curves in panel (a)
+chi_range: [0.03, 0.20]         # ASSUMED band; not measured
+flame_height_m: null            # L, photo against a scale (visible flame, base to tip)
+flame_diameter_m: null          # D, same photo
+plate:
+  diameter_m: 0.03
+  thickness_m: 0.001
+  rho: 8960.0
+  cp: 385.0
+  absorptivity: 0.95            # ASSUMED black paint, +-0.03 used
+  emissivity: 0.95              # ASSUMED, fixed in the loss fit (h absorbs the rest)
+distances_m: [0.10, 0.15, 0.20, 0.30, 0.40]
+repeats: 3
+run_s: 60
+room_air_c: null

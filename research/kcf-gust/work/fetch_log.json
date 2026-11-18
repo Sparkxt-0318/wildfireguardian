@@ -1,0 +1,56 @@
+{
+ "series": "ERA5 via Open-Meteo archive (models=era5)",
+ "kma": "NOT FETCHED: DATA_GO_KR_KEY not set; data.go.kr not reachable",
+ "fetches": [
+  {
+   "point": "Uiseong",
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=36.3527&longitude=128.697&start_date=2025-03-22&end_date=2025-03-26&hourly=wind_gusts_10m&wind_speed_unit=ms&timezone=GMT&models=era5",
+   "fetched_utc": "2026-11-17T02:01:17+00:00",
+   "grid": [
+    36.25,
+    128.75
+   ],
+   "n": 120
+  },
+  {
+   "point": "Andong",
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=36.5684&longitude=128.7294&start_date=2025-03-22&end_date=2025-03-26&hourly=wind_gusts_10m&wind_speed_unit=ms&timezone=GMT&models=era5",
+   "fetched_utc": "2026-11-17T02:01:18+00:00",
+   "grid": [
+    36.5,
+    128.75
+   ],
+   "n": 120
+  },
+  {
+   "point": "Cheongsong",
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=36.4361&longitude=129.0572&start_date=2025-03-22&end_date=2025-03-26&hourly=wind_gusts_10m&wind_speed_unit=ms&timezone=GMT&models=era5",
+   "fetched_utc": "2026-11-17T02:01:19+00:00",
+   "grid": [
+    36.5,
+    129.0
+   ],
+   "n": 120
+  },
+  {
+   "point": "Yeongyang",
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=36.6669&longitude=129.1124&start_date=2025-03-22&end_date=2025-03-26&hourly=wind_gusts_10m&wind_speed_unit=ms&timezone=GMT&models=era5",
+   "fetched_utc": "2026-11-17T02:01:19+00:00",
+   "grid": [
+    36.75,
+    129.0
+   ],
+   "n": 120
+  },
+  {
+   "point": "Yeongdeok",
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=36.415&longitude=129.3654&start_date=2025-03-22&end_date=2025-03-26&hourly=wind_gusts_10m&wind_speed_unit=ms&timezone=GMT&models=era5",
+   "fetched_utc": "2026-11-17T02:01:20+00:00",
+   "grid": [
+    36.5,
+    129.25
+   ],
+   "n": 120
+  }
+ ]
+}

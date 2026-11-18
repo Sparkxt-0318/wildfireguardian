@@ -1,0 +1,26 @@
+# wfg-roadlayer 마을 카드 설정 / village card settings. 복사해서 고친 뒤 --card-settings 로 넘기십시오.
+# Copy, edit, pass with --card-settings PATH. Values are printed on every card and stored in cards.json.
+# 출처와 상태(CITED / DERIVED / ASSUMED): data/traffic_sources.json. Sources and status of every default there.
+
+[trigger]
+margin_min = 30          # 여유(분): 경로의 모든 셀·대피소를 화재 도달보다 이만큼 먼저 지나야 함. Margin (min) before fire arrival on the whole route and at the shelter.
+
+[exits]
+max_exits = 8            # 독립 출구는 이 수까지 셈. Exits counted up to this number.
+
+[traffic]
+vehicles_per_household = 1.198   # DERIVED: 경북 자동차 1,552,434 / 세대 1,295,685 (traffic_sources.json)
+no_car_share = 0.36              # ASSUMED: 차 없는 세대 비율 (KREI 2013, 2010 전국 인구센서스 36 %)
+# 도로 등급별 용량 (승용차/시/방향). Capacity by OSM road class, passenger cars per hour per direction.
+cap_motorway = 4400      # ASSUMED 2차로/방향 x 2,200 (KHCM 2013 다차로 유형 I, CITED per lane)
+cap_trunk = 4400         # ASSUMED 2차로/방향 x 2,200
+cap_primary = 1700       # CITED KHCM 2013 2차로도로 1,700/방향 (차로 수 ASSUMED 2차로)
+cap_secondary = 1700     # CITED KHCM 2013 2차로도로 (ASSUMED 2차로)
+cap_tertiary = 1700      # CITED KHCM 2013 2차로도로 (ASSUMED 2차로)
+cap_other = 800          # ASSUMED: 마을길·농로 등 1차로 (HPMS 일방 1,600 의 절반)
+
+[pickup]
+van_seats = 15           # ASSUMED: 15인승 승합차
+vans = 3                 # ASSUMED: 지역마다 승합차 수
+board_s_per_person = 20  # ASSUMED: 1인 승차 시간(초)
+unload_s = 300           # ASSUMED: 대피소 하차 시간(초)

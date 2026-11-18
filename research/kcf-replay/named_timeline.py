@@ -17,7 +17,7 @@ for n in NAMES:
         issues = sorted({r["issue_kst"] for r in rows if r["name"] == n})
         for t in issues:
             o = {"place": n, "horizon": hz, "issue_kst": t}
-            for st in ("ORDINARY", "RUNNING", "WORST"):
+            for st in ("ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA"):
                 r = next(x for x in rows if x["name"] == n and x["issue_kst"] == t and x["standin"] == st and x["horizon"] == hz)
                 lsd = r["latest_safe_departure_kst"][6:]
                 if not lsd:

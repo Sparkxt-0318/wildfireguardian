@@ -12,6 +12,8 @@ import { DRAWN_SCENARIO, getState, useStore } from '../state/store';
 import { secondsSinceIssue } from '../domain/zones';
 import { deadlineHeadline } from '../domain/plan';
 import { kstDateTime } from '../domain/clock';
+import { ReplayHourSlider } from '../features/replay/ReplayPanel';
+import { useActivePack } from '../features/replay/data';
 import { ChevronIcon, PauseIcon, PlayIcon } from './Icons';
 
 /** Scenario seconds advanced per real second while playing. */
@@ -20,7 +22,10 @@ const PLAY_RATE = 90;
 export function TimeSlider() {
   const t = useT();
   const set = useCurrentScenarioSet();
-  const sets = useScenarioSets();
+  const all = useScenarioSets();
+  // recorded inputs only: a replay pack has its own hour slider
+  const sets = useMemo(() => all.filter((s) => !s.pack), [all]);
+  const pack = useActivePack();
   const horizon = useHorizon();
   const clockS = useStore((s) => s.clockS);
   const playing = useStore((s) => s.playing);
@@ -33,6 +38,8 @@ export function TimeSlider() {
   const raf = useRef<number | null>(null);
 
   const offsets = useMemo(() => (plan ? plan.sweep.map((c) => c.offsetS) : []), [plan]);
+  // a 10-minute label on every tick fits a 1-hour horizon; longer horizons (the 8-hour replay) label every 1–2 hours
+  const labelEvery = horizon > 4 * 3600 ? 7200 : horizon > 2 * 3600 ? 3600 : 600;
   const gridTicks = useMemo(() => {
     const out: number[] = [];
     for (let s = 0; s <= horizon; s += 600) out.push(s);
@@ -118,7 +125,7 @@ export function TimeSlider() {
             {gridTicks.map((s) => (
               <span key={`g${s}`} className="tick" style={{ left: pct(s) }}>
                 <i />
-                {kstClock(baseTime, s)}
+                {s % labelEvery === 0 ? kstClock(baseTime, s) : ''}
               </span>
             ))}
             {offsets
@@ -146,6 +153,8 @@ export function TimeSlider() {
           <span>{t('slider.drawnBase', { input: kstDateTime(baseTime), issued: clock.issuedAt ? kstDateTime(clock.issuedAt) : '—' })}</span>
           {vehicle ? <span className="vehicle-state">{t('slider.vehicle', { state: vehicle })}</span> : null}
         </div>
+      ) : pack ? (
+        <ReplayHourSlider pack={pack} />
       ) : (
       <div className="input-chips">
         <span>{t('slider.recorded')}</span>

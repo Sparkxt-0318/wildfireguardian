@@ -1,0 +1,93 @@
+[
+ {
+  "hour_kst": 12,
+  "rank1": "FRONT:554_912",
+  "places": 4,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 13,
+  "rank1": "FRONT:553_912",
+  "places": 6,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 14,
+  "rank1": "FRONT:553_912",
+  "places": 6,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 15,
+  "rank1": "FRONT:553_914",
+  "places": 10,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 16,
+  "rank1": "FRONT:559_915",
+  "places": 6,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 17,
+  "rank1": "FRONT:554_918",
+  "places": 1,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 18,
+  "rank1": "FRONT:574_913",
+  "places": 7,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 19,
+  "rank1": "FRONT:578_915",
+  "places": 13,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 20,
+  "rank1": "FRONT:579_915",
+  "places": 14,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 21,
+  "rank1": "FRONT:583_913",
+  "places": 15,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 22,
+  "rank1": "FRONT:584_910",
+  "places": 8,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 23,
+  "rank1": "FRONT:584_910",
+  "places": 8,
+  "equal": true,
+  "diff": {}
+ },
+ {
+  "hour_kst": 24,
+  "rank1": "FRONT:584_919",
+  "places": 1,
+  "equal": true,
+  "diff": {}
+ }
+]

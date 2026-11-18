@@ -1,0 +1,29 @@
+{
+ "towns": {
+  "code_table_member": "PublicDataReader/raw/code_bdong.json",
+  "code_table_newest_created": "20220901",
+  "code_table_sha256": "3633c4507336e2aadd43676535a2b4b55d42912ddfb14507168a317f95073fc7",
+  "counts": {
+   "uiseong_andong_2025": {
+    "legal_ri_ambiguous_nearest": 2,
+    "legal_ri_unique": 79,
+    "name_contains_legal": 1,
+    "nearest_established": 4
+   },
+   "yeongdeok_2025": {
+    "legal_ri_ambiguous_nearest": 4,
+    "legal_ri_unique": 86,
+    "name_contains_legal": 1
+   }
+  },
+  "osm_polygon_crosscheck": {
+   "uiseong_andong_2025": "not possible: the planner basemap carries no admin_level 8 lines inside 의성군/안동시",
+   "yeongdeok_2025": "90 of 90 origins agree (every method) with OSM admin_level 8 regions flood-filled from the planner basemap planner/public/basemap/yeongdeok_2025.pmtiles at z12; one-off check on 2026-11-18, script not kept"
+  }
+ },
+ "towns_wheel": {
+  "name": "PublicDataReader-1.1.1.post2-py3-none-any.whl",
+  "sha256": "7802f750bcd538b078e7be54146556968017dd43fb1b4e781fa440a4e770b2b6",
+  "url": "https://files.pythonhosted.org/packages/48/21/a5294088eaa39e5d1e89ee4e94db895e7ee30c263bed9a6821dbb05283e6/PublicDataReader-1.1.1.post2-py3-none-any.whl"
+ }
+}

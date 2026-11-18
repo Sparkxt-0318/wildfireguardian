@@ -1,0 +1,61 @@
+{
+ "primary": {
+  "hours": 0,
+  "fires": 0,
+  "by_fire": {}
+ },
+ "ti0": {
+  "hours": 46,
+  "fires": 2,
+  "by_fire": {
+   "North Complex": 39,
+   "Kincade": 7
+  }
+ },
+ "ti900": {
+  "hours": 0,
+  "fires": 0,
+  "by_fire": {}
+ },
+ "wt2p5": {
+  "hours": 198,
+  "fires": 9,
+  "by_fire": {
+   "North Complex": 91,
+   "August Complex": 21,
+   "Kincade": 21,
+   "Dolan": 19,
+   "McCash": 14,
+   "Red Salmon Complex": 13,
+   "Slater and Devil": 11,
+   "River Complex": 5,
+   "Zogg": 3
+  }
+ },
+ "wt8": {
+  "hours": 0,
+  "fires": 0,
+  "by_fire": {}
+ },
+ "gust": {
+  "hours": 1355,
+  "fires": 14,
+  "by_fire": {
+   "Red Salmon Complex": 342,
+   "McCash": 336,
+   "River Complex": 242,
+   "August Complex": 111,
+   "Monument": 98,
+   "North Complex": 67,
+   "Slater and Devil": 52,
+   "SQF Complex": 35,
+   "KNP Complex": 15,
+   "Kincade": 14,
+   "Creek": 13,
+   "McFarland": 10,
+   "Tamarack": 10,
+   "Windy": 10
+  }
+ },
+ "n_issue_hours_h5": 20161
+}

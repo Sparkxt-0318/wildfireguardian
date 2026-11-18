@@ -1,0 +1,7393 @@
+{
+ "label": "Model output on reconstructed inputs. Not what happened to people.",
+ "protocol": "research/kcf-roadcut/PROTOCOL.md (frozen e8947dc; amendments 1-2)",
+ "primary": "R/MEASURED/8h",
+ "configs": {
+  "M/envelope/5h": {
+   "units": 522,
+   "places": 174,
+   "states": {
+    "NOT_CUT_WITHIN_H": 240,
+    "CUT": 20,
+    "INSIDE": 200,
+    "NO_WINDOW": 62
+   },
+   "binding_of_CUT": "no witness routes in M",
+   "count_A_road_cut_before_village": null,
+   "count_A_shelter_cut_before_village_separate": null,
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 79,
+    "places": 56
+   },
+   "exact_gap_min": {
+    "n": 3,
+    "median": 3.2,
+    "p10": 2.9,
+    "p90": 8.5,
+    "max": 9.9,
+    "min": 2.8,
+    "places_with_exact_gap": 3
+   },
+   "lower_bounds_min": {
+    "n": 79,
+    "largest": 300.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 3,
+     "exact_or_bound": 82
+    },
+    ">=5": {
+     "exact": 1,
+     "exact_or_bound": 78
+    },
+    ">=15": {
+     "exact": 0,
+     "exact_or_bound": 69
+    },
+    ">=30": {
+     "exact": 0,
+     "exact_or_bound": 63
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 54
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 58,
+    "P5_places": 36,
+    "P5_by_step": {
+     "NONE": 57,
+     "PREPARE_VULNERABLE_FIRST": 1
+    },
+    "P5_of_which_NO_WINDOW": 41,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "NONE": 297,
+     "LEAVE_NOW": 224,
+     "PREPARE_VULNERABLE_FIRST": 1
+    }
+   }
+  },
+  "M/envelope/8h": {
+   "units": 522,
+   "places": 174,
+   "states": {
+    "NOT_CUT_WITHIN_H": 239,
+    "CUT": 21,
+    "INSIDE": 200,
+    "NO_WINDOW": 62
+   },
+   "binding_of_CUT": "no witness routes in M",
+   "count_A_road_cut_before_village": null,
+   "count_A_shelter_cut_before_village_separate": null,
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 80,
+    "places": 56
+   },
+   "exact_gap_min": {
+    "n": 4,
+    "median": 6.5,
+    "p10": 2.9,
+    "p90": 183.2,
+    "max": 257.5,
+    "min": 2.8,
+    "places_with_exact_gap": 4
+   },
+   "lower_bounds_min": {
+    "n": 79,
+    "largest": 480.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 4,
+     "exact_or_bound": 83
+    },
+    ">=5": {
+     "exact": 2,
+     "exact_or_bound": 79
+    },
+    ">=15": {
+     "exact": 1,
+     "exact_or_bound": 70
+    },
+    ">=30": {
+     "exact": 1,
+     "exact_or_bound": 64
+    },
+    ">=60": {
+     "exact": 1,
+     "exact_or_bound": 54
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 44,
+    "P5_places": 27,
+    "P5_by_step": {
+     "NONE": 43,
+     "PREPARE_VULNERABLE_FIRST": 1
+    },
+    "P5_of_which_NO_WINDOW": 41,
+    "P8_place_hours": 58,
+    "P8_places": 35,
+    "P8_of_which_NO_WINDOW": 41,
+    "steps": {
+     "NONE": 297,
+     "LEAVE_NOW": 224,
+     "PREPARE_VULNERABLE_FIRST": 1
+    }
+   }
+  },
+  "M/firms_early/5h": {
+   "units": 522,
+   "places": 174,
+   "states": {
+    "NOT_CUT_WITHIN_H": 240,
+    "CUT": 20,
+    "INSIDE": 200,
+    "NO_WINDOW": 62
+   },
+   "binding_of_CUT": "no witness routes in M",
+   "count_A_road_cut_before_village": null,
+   "count_A_shelter_cut_before_village_separate": null,
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 79,
+    "places": 56
+   },
+   "exact_gap_min": {
+    "n": 3,
+    "median": 3.2,
+    "p10": 2.9,
+    "p90": 8.5,
+    "max": 9.9,
+    "min": 2.8,
+    "places_with_exact_gap": 3
+   },
+   "lower_bounds_min": {
+    "n": 79,
+    "largest": 300.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 3,
+     "exact_or_bound": 82
+    },
+    ">=5": {
+     "exact": 1,
+     "exact_or_bound": 78
+    },
+    ">=15": {
+     "exact": 0,
+     "exact_or_bound": 69
+    },
+    ">=30": {
+     "exact": 0,
+     "exact_or_bound": 63
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 54
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 58,
+    "P5_places": 36,
+    "P5_by_step": {
+     "NONE": 57,
+     "PREPARE_VULNERABLE_FIRST": 1
+    },
+    "P5_of_which_NO_WINDOW": 41,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "NONE": 297,
+     "LEAVE_NOW": 224,
+     "PREPARE_VULNERABLE_FIRST": 1
+    }
+   }
+  },
+  "M/firms_early/8h": {
+   "units": 522,
+   "places": 174,
+   "states": {
+    "NOT_CUT_WITHIN_H": 239,
+    "CUT": 21,
+    "INSIDE": 200,
+    "NO_WINDOW": 62
+   },
+   "binding_of_CUT": "no witness routes in M",
+   "count_A_road_cut_before_village": null,
+   "count_A_shelter_cut_before_village_separate": null,
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 80,
+    "places": 56
+   },
+   "exact_gap_min": {
+    "n": 4,
+    "median": 6.5,
+    "p10": 2.9,
+    "p90": 183.2,
+    "max": 257.5,
+    "min": 2.8,
+    "places_with_exact_gap": 4
+   },
+   "lower_bounds_min": {
+    "n": 79,
+    "largest": 480.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 4,
+     "exact_or_bound": 83
+    },
+    ">=5": {
+     "exact": 2,
+     "exact_or_bound": 79
+    },
+    ">=15": {
+     "exact": 1,
+     "exact_or_bound": 70
+    },
+    ">=30": {
+     "exact": 1,
+     "exact_or_bound": 64
+    },
+    ">=60": {
+     "exact": 1,
+     "exact_or_bound": 54
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 44,
+    "P5_places": 27,
+    "P5_by_step": {
+     "NONE": 43,
+     "PREPARE_VULNERABLE_FIRST": 1
+    },
+    "P5_of_which_NO_WINDOW": 41,
+    "P8_place_hours": 58,
+    "P8_places": 35,
+    "P8_of_which_NO_WINDOW": 41,
+    "steps": {
+     "NONE": 297,
+     "LEAVE_NOW": 224,
+     "PREPARE_VULNERABLE_FIRST": 1
+    }
+   }
+  },
+  "M/kriged_mean/5h": {
+   "units": 522,
+   "places": 174,
+   "states": {
+    "NOT_CUT_WITHIN_H": 247,
+    "NO_WINDOW": 45,
+    "INSIDE": 191,
+    "CUT": 39
+   },
+   "binding_of_CUT": "no witness routes in M",
+   "count_A_road_cut_before_village": null,
+   "count_A_shelter_cut_before_village_separate": null,
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 73,
+    "places": 50
+   },
+   "exact_gap_min": {
+    "n": 19,
+    "median": 3.2,
+    "p10": 1.3,
+    "p90": 26.3,
+    "max": 52.9,
+    "min": 1.1,
+    "places_with_exact_gap": 19
+   },
+   "lower_bounds_min": {
+    "n": 65,
+    "largest": 300.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 19,
+     "exact_or_bound": 84
+    },
+    ">=5": {
+     "exact": 8,
+     "exact_or_bound": 72
+    },
+    ">=15": {
+     "exact": 5,
+     "exact_or_bound": 64
+    },
+    ">=30": {
+     "exact": 2,
+     "exact_or_bound": 60
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 47
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 56,
+    "P5_places": 35,
+    "P5_by_step": {
+     "NONE": 56
+    },
+    "P5_of_which_NO_WINDOW": 36,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "NONE": 303,
+     "LEAVE_NOW": 219
+    }
+   }
+  },
+  "M/kriged_mean/8h": {
+   "units": 522,
+   "places": 174,
+   "states": {
+    "NOT_CUT_WITHIN_H": 245,
+    "NO_WINDOW": 45,
+    "INSIDE": 191,
+    "CUT": 41
+   },
+   "binding_of_CUT": "no witness routes in M",
+   "count_A_road_cut_before_village": null,
+   "count_A_shelter_cut_before_village_separate": null,
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 75,
+    "places": 50
+   },
+   "exact_gap_min": {
+    "n": 19,
+    "median": 3.2,
+    "p10": 1.3,
+    "p90": 26.3,
+    "max": 52.9,
+    "min": 1.1,
+    "places_with_exact_gap": 19
+   },
+   "lower_bounds_min": {
+    "n": 67,
+    "largest": 480.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 19,
+     "exact_or_bound": 86
+    },
+    ">=5": {
+     "exact": 8,
+     "exact_or_bound": 74
+    },
+    ">=15": {
+     "exact": 5,
+     "exact_or_bound": 66
+    },
+    ">=30": {
+     "exact": 2,
+     "exact_or_bound": 62
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 48
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 43,
+    "P5_places": 27,
+    "P5_by_step": {
+     "NONE": 43
+    },
+    "P5_of_which_NO_WINDOW": 36,
+    "P8_place_hours": 58,
+    "P8_places": 35,
+    "P8_of_which_NO_WINDOW": 36,
+    "steps": {
+     "NONE": 303,
+     "LEAVE_NOW": 219
+    }
+   }
+  },
+  "R/MEASURED/5h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 297,
+    "NOT_CUT_WITHIN_H": 837,
+    "INSIDE": 1077,
+    "NO_WINDOW": 51
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 77,
+    "ROAD_CELL": 88,
+    "ORIGIN_CELL": 132
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 139,
+    "of_which_NO_WINDOW": 51,
+    "places": 64
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 77,
+    "places": 32
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 161,
+    "places": 62
+   },
+   "exact_gap_min": {
+    "n": 286,
+    "median": 1.8,
+    "p10": 0.2,
+    "p90": 25.0,
+    "max": 203.7,
+    "min": 0.1,
+    "places_with_exact_gap": 130
+   },
+   "lower_bounds_min": {
+    "n": 62,
+    "largest": 293.5
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 286,
+     "exact_or_bound": 348
+    },
+    ">=5": {
+     "exact": 100,
+     "exact_or_bound": 153
+    },
+    ">=15": {
+     "exact": 60,
+     "exact_or_bound": 104
+    },
+    ">=30": {
+     "exact": 23,
+     "exact_or_bound": 59
+    },
+    ">=60": {
+     "exact": 11,
+     "exact_or_bound": 31
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 11,
+    "P5_places": 9,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 7,
+     "NONE": 4
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "LEAVE_NOW": 1417,
+     "NONE": 788,
+     "PREPARE_VULNERABLE_FIRST": 57
+    }
+   }
+  },
+  "R/MEASURED/8h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 349,
+    "NOT_CUT_WITHIN_H": 785,
+    "INSIDE": 1077,
+    "NO_WINDOW": 51
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 79,
+    "ROAD_CELL": 103,
+    "ORIGIN_CELL": 167
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 154,
+    "of_which_NO_WINDOW": 51,
+    "places": 68
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 79,
+    "places": 32
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 175,
+    "places": 65
+   },
+   "exact_gap_min": {
+    "n": 343,
+    "median": 1.2,
+    "p10": 0.2,
+    "p90": 29.3,
+    "max": 326.8,
+    "min": 0.1,
+    "places_with_exact_gap": 136
+   },
+   "lower_bounds_min": {
+    "n": 57,
+    "largest": 256.3
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 343,
+     "exact_or_bound": 400
+    },
+    ">=5": {
+     "exact": 118,
+     "exact_or_bound": 167
+    },
+    ">=15": {
+     "exact": 77,
+     "exact_or_bound": 118
+    },
+    ">=30": {
+     "exact": 33,
+     "exact_or_bound": 67
+    },
+    ">=60": {
+     "exact": 18,
+     "exact_or_bound": 40
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 12,
+    "P5_places": 10,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 8,
+     "NONE": 4
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": 6,
+    "P8_places": 4,
+    "P8_of_which_NO_WINDOW": 0,
+    "steps": {
+     "LEAVE_NOW": 1417,
+     "NONE": 788,
+     "PREPARE_VULNERABLE_FIRST": 57
+    }
+   }
+  },
+  "R/MEASURED_GUST/5h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 394,
+    "NOT_CUT_WITHIN_H": 736,
+    "INSIDE": 1077,
+    "NO_WINDOW": 55
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 72,
+    "ROAD_CELL": 139,
+    "ORIGIN_CELL": 183
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 194,
+    "of_which_NO_WINDOW": 55,
+    "places": 74
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 72,
+    "places": 31
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 205,
+    "places": 70
+   },
+   "exact_gap_min": {
+    "n": 380,
+    "median": 1.2,
+    "p10": 0.1,
+    "p90": 26.7,
+    "max": 181.8,
+    "min": 0.1,
+    "places_with_exact_gap": 135
+   },
+   "lower_bounds_min": {
+    "n": 69,
+    "largest": 266.5
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 380,
+     "exact_or_bound": 449
+    },
+    ">=5": {
+     "exact": 136,
+     "exact_or_bound": 194
+    },
+    ">=15": {
+     "exact": 78,
+     "exact_or_bound": 123
+    },
+    ">=30": {
+     "exact": 30,
+     "exact_or_bound": 59
+    },
+    ">=60": {
+     "exact": 15,
+     "exact_or_bound": 27
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 14,
+    "P5_places": 10,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 14
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "LEAVE_NOW": 1516,
+     "NONE": 647,
+     "PREPARE_VULNERABLE_FIRST": 99
+    }
+   }
+  },
+  "R/MEASURED_GUST/8h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 492,
+    "NOT_CUT_WITHIN_H": 638,
+    "INSIDE": 1077,
+    "NO_WINDOW": 55
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 89,
+    "ROAD_CELL": 169,
+    "ORIGIN_CELL": 234
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 224,
+    "of_which_NO_WINDOW": 55,
+    "places": 80
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 89,
+    "places": 32
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 241,
+    "places": 76
+   },
+   "exact_gap_min": {
+    "n": 480,
+    "median": 1.2,
+    "p10": 0.1,
+    "p90": 34.4,
+    "max": 272.5,
+    "min": 0.1,
+    "places_with_exact_gap": 138
+   },
+   "lower_bounds_min": {
+    "n": 67,
+    "largest": 102.2
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 480,
+     "exact_or_bound": 547
+    },
+    ">=5": {
+     "exact": 174,
+     "exact_or_bound": 230
+    },
+    ">=15": {
+     "exact": 110,
+     "exact_or_bound": 149
+    },
+    ">=30": {
+     "exact": 52,
+     "exact_or_bound": 75
+    },
+    ">=60": {
+     "exact": 28,
+     "exact_or_bound": 35
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 16,
+    "P5_places": 12,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 16
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": 12,
+    "P8_places": 8,
+    "P8_of_which_NO_WINDOW": 0,
+    "steps": {
+     "LEAVE_NOW": 1516,
+     "NONE": 647,
+     "PREPARE_VULNERABLE_FIRST": 99
+    }
+   }
+  },
+  "R/MEASURED_GUST_KMA/5h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 351,
+    "NOT_CUT_WITHIN_H": 781,
+    "INSIDE": 1077,
+    "NO_WINDOW": 53
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 69,
+    "ROAD_CELL": 116,
+    "ORIGIN_CELL": 166
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 169,
+    "of_which_NO_WINDOW": 53,
+    "places": 74
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 69,
+    "places": 32
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 186,
+    "places": 71
+   },
+   "exact_gap_min": {
+    "n": 338,
+    "median": 1.2,
+    "p10": 0.1,
+    "p90": 29.2,
+    "max": 181.8,
+    "min": 0.1,
+    "places_with_exact_gap": 136
+   },
+   "lower_bounds_min": {
+    "n": 66,
+    "largest": 226.3
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 338,
+     "exact_or_bound": 404
+    },
+    ">=5": {
+     "exact": 120,
+     "exact_or_bound": 175
+    },
+    ">=15": {
+     "exact": 69,
+     "exact_or_bound": 114
+    },
+    ">=30": {
+     "exact": 32,
+     "exact_or_bound": 63
+    },
+    ">=60": {
+     "exact": 18,
+     "exact_or_bound": 32
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 13,
+    "P5_places": 10,
+    "P5_by_step": {
+     "NONE": 5,
+     "PREPARE_VULNERABLE_FIRST": 8
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "LEAVE_NOW": 1472,
+     "NONE": 711,
+     "PREPARE_VULNERABLE_FIRST": 79
+    }
+   }
+  },
+  "R/MEASURED_GUST_KMA/8h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 482,
+    "NOT_CUT_WITHIN_H": 648,
+    "INSIDE": 1077,
+    "NO_WINDOW": 55
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 85,
+    "ROAD_CELL": 165,
+    "ORIGIN_CELL": 232
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 220,
+    "of_which_NO_WINDOW": 55,
+    "places": 80
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 85,
+    "places": 32
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 238,
+    "places": 76
+   },
+   "exact_gap_min": {
+    "n": 466,
+    "median": 1.0,
+    "p10": 0.1,
+    "p90": 34.6,
+    "max": 181.8,
+    "min": 0.1,
+    "places_with_exact_gap": 138
+   },
+   "lower_bounds_min": {
+    "n": 71,
+    "largest": 406.3
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 466,
+     "exact_or_bound": 537
+    },
+    ">=5": {
+     "exact": 167,
+     "exact_or_bound": 227
+    },
+    ">=15": {
+     "exact": 106,
+     "exact_or_bound": 149
+    },
+    ">=30": {
+     "exact": 54,
+     "exact_or_bound": 82
+    },
+    ">=60": {
+     "exact": 29,
+     "exact_or_bound": 40
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 19,
+    "P5_places": 14,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 15,
+     "NONE": 4
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": 16,
+    "P8_places": 10,
+    "P8_of_which_NO_WINDOW": 0,
+    "steps": {
+     "LEAVE_NOW": 1504,
+     "NONE": 661,
+     "PREPARE_VULNERABLE_FIRST": 97
+    }
+   }
+  },
+  "R/ORDINARY/5h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 118,
+    "NOT_CUT_WITHIN_H": 1017,
+    "INSIDE": 1077,
+    "NO_WINDOW": 50
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 33,
+    "ROAD_CELL": 38,
+    "ORIGIN_CELL": 47
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 88,
+    "of_which_NO_WINDOW": 50,
+    "places": 42
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 33,
+    "places": 16
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 111,
+    "places": 46
+   },
+   "exact_gap_min": {
+    "n": 103,
+    "median": 2.2,
+    "p10": 0.1,
+    "p90": 59.6,
+    "max": 257.1,
+    "min": 0.1,
+    "places_with_exact_gap": 46
+   },
+   "lower_bounds_min": {
+    "n": 65,
+    "largest": 300.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 103,
+     "exact_or_bound": 168
+    },
+    ">=5": {
+     "exact": 46,
+     "exact_or_bound": 108
+    },
+    ">=15": {
+     "exact": 42,
+     "exact_or_bound": 95
+    },
+    ">=30": {
+     "exact": 30,
+     "exact_or_bound": 78
+    },
+    ">=60": {
+     "exact": 10,
+     "exact_or_bound": 50
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 17,
+    "P5_places": 8,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 9,
+     "NONE": 8
+    },
+    "P5_of_which_NO_WINDOW": 2,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "LEAVE_NOW": 1231,
+     "NONE": 985,
+     "PREPARE_VULNERABLE_FIRST": 46
+    }
+   }
+  },
+  "R/ORDINARY/8h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "CUT": 164,
+    "NOT_CUT_WITHIN_H": 971,
+    "INSIDE": 1077,
+    "NO_WINDOW": 50
+   },
+   "binding_of_CUT": {
+    "SHELTER_CELL": 43,
+    "ROAD_CELL": 52,
+    "ORIGIN_CELL": 69
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 102,
+    "of_which_NO_WINDOW": 50,
+    "places": 47
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 43,
+    "places": 19
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 134,
+    "places": 53
+   },
+   "exact_gap_min": {
+    "n": 148,
+    "median": 2.3,
+    "p10": 0.1,
+    "p90": 72.0,
+    "max": 426.7,
+    "min": 0.1,
+    "places_with_exact_gap": 67
+   },
+   "lower_bounds_min": {
+    "n": 66,
+    "largest": 480.0
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 148,
+     "exact_or_bound": 214
+    },
+    ">=5": {
+     "exact": 68,
+     "exact_or_bound": 131
+    },
+    ">=15": {
+     "exact": 62,
+     "exact_or_bound": 120
+    },
+    ">=30": {
+     "exact": 47,
+     "exact_or_bound": 101
+    },
+    ">=60": {
+     "exact": 23,
+     "exact_or_bound": 69
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 16,
+    "P5_places": 7,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 8,
+     "NONE": 8
+    },
+    "P5_of_which_NO_WINDOW": 2,
+    "P8_place_hours": 17,
+    "P8_places": 8,
+    "P8_of_which_NO_WINDOW": 1,
+    "steps": {
+     "LEAVE_NOW": 1231,
+     "NONE": 985,
+     "PREPARE_VULNERABLE_FIRST": 46
+    }
+   }
+  },
+  "R/RUNNING/5h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "NO_WINDOW": 92,
+    "CUT": 952,
+    "INSIDE": 1077,
+    "NOT_CUT_WITHIN_H": 141
+   },
+   "binding_of_CUT": {
+    "ROAD_CELL": 276,
+    "SHELTER_CELL": 356,
+    "ORIGIN_CELL": 320
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 368,
+    "of_which_NO_WINDOW": 92,
+    "places": 91
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 356,
+    "places": 75
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 271,
+    "places": 69
+   },
+   "exact_gap_min": {
+    "n": 952,
+    "median": 1.5,
+    "p10": 0.2,
+    "p90": 7.1,
+    "max": 48.6,
+    "min": 0.1,
+    "places_with_exact_gap": 133
+   },
+   "lower_bounds_min": {
+    "n": 92,
+    "largest": 45.5
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 952,
+     "exact_or_bound": 1044
+    },
+    ">=5": {
+     "exact": 179,
+     "exact_or_bound": 210
+    },
+    ">=15": {
+     "exact": 47,
+     "exact_or_bound": 55
+    },
+    ">=30": {
+     "exact": 25,
+     "exact_or_bound": 30
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 0
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 0,
+    "P5_places": 0,
+    "P5_by_step": {},
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "LEAVE_NOW": 2126,
+     "PREPARE_VULNERABLE_FIRST": 136
+    }
+   }
+  },
+  "R/RUNNING/8h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "NO_WINDOW": 92,
+    "CUT": 1093,
+    "INSIDE": 1077
+   },
+   "binding_of_CUT": {
+    "ROAD_CELL": 313,
+    "SHELTER_CELL": 442,
+    "ORIGIN_CELL": 338
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 405,
+    "of_which_NO_WINDOW": 92,
+    "places": 91
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 442,
+    "places": 75
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 292,
+    "places": 69
+   },
+   "exact_gap_min": {
+    "n": 1093,
+    "median": 1.6,
+    "p10": 0.3,
+    "p90": 6.5,
+    "max": 48.6,
+    "min": 0.1,
+    "places_with_exact_gap": 133
+   },
+   "lower_bounds_min": {
+    "n": 92,
+    "largest": 45.5
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 1093,
+     "exact_or_bound": 1185
+    },
+    ">=5": {
+     "exact": 200,
+     "exact_or_bound": 231
+    },
+    ">=15": {
+     "exact": 47,
+     "exact_or_bound": 55
+    },
+    ">=30": {
+     "exact": 25,
+     "exact_or_bound": 30
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 0
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 8,
+    "P5_places": 3,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 8
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": 0,
+    "P8_places": 0,
+    "P8_of_which_NO_WINDOW": 0,
+    "steps": {
+     "LEAVE_NOW": 2126,
+     "PREPARE_VULNERABLE_FIRST": 136
+    }
+   }
+  },
+  "R/WORST/5h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "NO_WINDOW": 255,
+    "CUT": 855,
+    "INSIDE": 1077,
+    "NOT_CUT_WITHIN_H": 75
+   },
+   "binding_of_CUT": {
+    "ROAD_CELL": 247,
+    "SHELTER_CELL": 323,
+    "ORIGIN_CELL": 285
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 502,
+    "of_which_NO_WINDOW": 255,
+    "places": 121
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 323,
+    "places": 62
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 402,
+    "places": 115
+   },
+   "exact_gap_min": {
+    "n": 854,
+    "median": 1.4,
+    "p10": 0.2,
+    "p90": 6.3,
+    "max": 42.2,
+    "min": 0.1,
+    "places_with_exact_gap": 125
+   },
+   "lower_bounds_min": {
+    "n": 256,
+    "largest": 40.8
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 854,
+     "exact_or_bound": 896
+    },
+    ">=5": {
+     "exact": 147,
+     "exact_or_bound": 161
+    },
+    ">=15": {
+     "exact": 37,
+     "exact_or_bound": 43
+    },
+    ">=30": {
+     "exact": 20,
+     "exact_or_bound": 22
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 0
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 1,
+    "P5_places": 1,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 1
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": "8 h runs only",
+    "P8_places": null,
+    "P8_of_which_NO_WINDOW": null,
+    "steps": {
+     "LEAVE_NOW": 2195,
+     "PREPARE_VULNERABLE_FIRST": 67
+    }
+   }
+  },
+  "R/WORST/8h": {
+   "units": 2262,
+   "places": 174,
+   "states": {
+    "NO_WINDOW": 255,
+    "CUT": 930,
+    "INSIDE": 1077
+   },
+   "binding_of_CUT": {
+    "ROAD_CELL": 266,
+    "SHELTER_CELL": 371,
+    "ORIGIN_CELL": 293
+   },
+   "count_A_road_cut_before_village": {
+    "place_hours": 521,
+    "of_which_NO_WINDOW": 255,
+    "places": 121
+   },
+   "count_A_shelter_cut_before_village_separate": {
+    "place_hours": 371,
+    "places": 61
+   },
+   "count_gap_ge_5min_or_NO_WINDOW": {
+    "place_hours": 418,
+    "places": 115
+   },
+   "exact_gap_min": {
+    "n": 930,
+    "median": 1.5,
+    "p10": 0.2,
+    "p90": 6.1,
+    "max": 42.2,
+    "min": 0.1,
+    "places_with_exact_gap": 125
+   },
+   "lower_bounds_min": {
+    "n": 255,
+    "largest": 40.8
+   },
+   "gap_thresholds_place_hours": {
+    ">0": {
+     "exact": 930,
+     "exact_or_bound": 971
+    },
+    ">=5": {
+     "exact": 163,
+     "exact_or_bound": 177
+    },
+    ">=15": {
+     "exact": 37,
+     "exact_or_bound": 43
+    },
+    ">=30": {
+     "exact": 20,
+     "exact_or_bound": 22
+    },
+    ">=60": {
+     "exact": 0,
+     "exact_or_bound": 0
+    }
+   },
+   "holes": {
+    "place_hours_with_holes": 0,
+    "holes": 0,
+    "median_hole_min": null,
+    "max_hole_min": null
+   },
+   "government_reading": {
+    "P5_place_hours": 5,
+    "P5_places": 4,
+    "P5_by_step": {
+     "PREPARE_VULNERABLE_FIRST": 5
+    },
+    "P5_of_which_NO_WINDOW": 0,
+    "P8_place_hours": 0,
+    "P8_places": 0,
+    "P8_of_which_NO_WINDOW": 0,
+    "steps": {
+     "LEAVE_NOW": 2195,
+     "PREPARE_VULNERABLE_FIRST": 67
+    }
+   }
+  }
+ },
+ "checks": {
+  "R_8h_step_from_T_village_vs_committed_step_mismatches": 0,
+  "M_rows_INSIDE_by_arrival_raster_but_route_in_run": 0
+ },
+ "place_level_primary": {
+  "osm:way/1372113459": {
+   "name": "",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 4,
+   "min": 2.4,
+   "median": 2.4,
+   "max": 2.4,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 2.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "CUT": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/5344430780": {
+   "name": "마지경로당",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 1.0,
+   "median": 2.3,
+   "max": 3.6,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 3.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 2,
+    "INSIDE": 7
+   }
+  },
+  "osm:node/5344420465": {
+   "name": "용상3구경로당",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 64.8,
+   "median": 64.8,
+   "max": 64.8,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 64.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 7
+   }
+  },
+  "osm:way/1265051875": {
+   "name": "의성장애인복지센터",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:way/1265051876": {
+   "name": "",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160356": {
+   "name": "감계리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415158550": {
+   "name": "개곡리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 29.6,
+   "median": 29.6,
+   "max": 29.6,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 29.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415158421": {
+   "name": "검암리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415158418": {
+   "name": "고상리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.8,
+   "median": 0.8,
+   "max": 0.8,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415158419": {
+   "name": "고하리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.6,
+   "median": 0.6,
+   "max": 0.6,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160468": {
+   "name": "관덕리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 13.0,
+   "median": 13.0,
+   "max": 13.0,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 13.0,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "CUT": 1,
+    "INSIDE": 12
+   }
+  },
+  "osm:node/415160467": {
+   "name": "광연리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 3,
+   "min": 30.0,
+   "median": 30.0,
+   "max": 91.9,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 91.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "CUT": 3,
+    "INSIDE": 10
+   }
+  },
+  "osm:node/415158420": {
+   "name": "광음리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 17.2,
+   "median": 30.8,
+   "max": 44.3,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 44.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160420": {
+   "name": "괴산리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160471": {
+   "name": "구계리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 221.8,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "CUT": 3,
+    "NO_WINDOW": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415158324": {
+   "name": "구미리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160350": {
+   "name": "구성리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160353": {
+   "name": "구암리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160464": {
+   "name": "구천리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.4,
+   "median": 0.8,
+   "max": 1.2,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160457": {
+   "name": "국곡리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 26.0,
+   "median": 63.6,
+   "max": 101.3,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 101.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160465": {
+   "name": "귀미리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 3,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "13:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "CUT": 3,
+    "NO_WINDOW": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160343": {
+   "name": "금학리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160438": {
+   "name": "기도리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415158434": {
+   "name": "단호리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 22.1,
+   "median": 22.1,
+   "max": 22.1,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 22.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 7
+   }
+  },
+  "osm:node/415160439": {
+   "name": "대사리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160483": {
+   "name": "도동리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 6,
+   "min": 20.5,
+   "median": 32.6,
+   "max": 41.3,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 41.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "CUT": 6,
+    "INSIDE": 7
+   }
+  },
+  "osm:node/415158537": {
+   "name": "도로리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.4,
+   "median": 0.4,
+   "max": 0.4,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160421": {
+   "name": "도옥리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160361": {
+   "name": "동변리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 193.1,
+   "median": 260.0,
+   "max": 326.8,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 326.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "CUT": 2,
+    "NO_WINDOW": 3,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160440": {
+   "name": "마전리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160466": {
+   "name": "망호리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "13:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "CUT": 2,
+    "INSIDE": 10
+   }
+  },
+  "osm:node/415160474": {
+   "name": "명고리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160460": {
+   "name": "명진리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 4,
+   "min": 0.4,
+   "median": 0.4,
+   "max": 0.4,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "CUT": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415158553": {
+   "name": "무릉리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 1.2,
+   "median": 1.5,
+   "max": 1.7,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 1.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160424": {
+   "name": "박곡리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160434": {
+   "name": "방하리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160475": {
+   "name": "병방리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160415": {
+   "name": "분토리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 13,
+   "min": 0.3,
+   "median": 8.3,
+   "max": 8.3,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "CUT": 13
+   }
+  },
+  "osm:node/415160358": {
+   "name": "사촌리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 170.3,
+   "median": 170.3,
+   "max": 170.3,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 170.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "CUT": 2,
+    "NO_WINDOW": 1,
+    "INSIDE": 10
+   }
+  },
+  "osm:node/415160437": {
+   "name": "삼춘리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160497": {
+   "name": "상리리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 4,
+   "min": 10.7,
+   "median": 17.1,
+   "max": 17.1,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 17.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "CUT": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415158432": {
+   "name": "상아리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 70.5,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160478": {
+   "name": "상화리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160359": {
+   "name": "서변리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 135.6,
+   "median": 135.6,
+   "max": 135.6,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 135.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "CUT": 2,
+    "NO_WINDOW": 3,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160428": {
+   "name": "석탑리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160432": {
+   "name": "세촌리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 3,
+   "min": 0.4,
+   "median": 0.4,
+   "max": 0.4,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "CUT": 3,
+    "INSIDE": 10
+   }
+  },
+  "osm:node/415160470": {
+   "name": "송내리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160454": {
+   "name": "송리리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 42.9,
+   "median": 54.6,
+   "max": 66.4,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 42.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160362": {
+   "name": "신계리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 12
+   }
+  },
+  "osm:node/415158335": {
+   "name": "신덕리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.6,
+   "median": 0.6,
+   "max": 0.6,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 7
+   }
+  },
+  "osm:node/415158323": {
+   "name": "신석리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160416": {
+   "name": "신안리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160429": {
+   "name": "신월리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160360": {
+   "name": "신흥리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160451": {
+   "name": "어담리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 3,
+   "min": 0.7,
+   "median": 0.7,
+   "max": 0.7,
+   "first_cut_issue_kst": "13:00",
+   "gap_at_first_cut_min": 0.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "CUT": 3,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160476": {
+   "name": "업리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160473": {
+   "name": "외하리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160458": {
+   "name": "용각리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 1,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160449": {
+   "name": "용봉리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 12
+   }
+  },
+  "osm:node/415160456": {
+   "name": "운산리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.4,
+   "median": 0.4,
+   "max": 0.4,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160430": {
+   "name": "원당리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 13,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "CUT": 13
+   }
+  },
+  "osm:node/415160463": {
+   "name": "원리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 1.8,
+   "median": 1.8,
+   "max": 1.8,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 1.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 1,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415158538": {
+   "name": "원림리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160455": {
+   "name": "원호리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160355": {
+   "name": "윤암리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 3,
+    "INSIDE": 10
+   }
+  },
+  "osm:node/415158334": {
+   "name": "이천리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415158417": {
+   "name": "인금리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 256.3,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160345": {
+   "name": "입암리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160433": {
+   "name": "장림리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160351": {
+   "name": "정자리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160461": {
+   "name": "조탑리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 1.8,
+   "median": 2.5,
+   "max": 3.1,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 1.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160480": {
+   "name": "중리리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160435": {
+   "name": "창길리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415158338": {
+   "name": "천전리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 19.7,
+   "median": 19.7,
+   "max": 19.7,
+   "first_cut_issue_kst": "16:00",
+   "gap_at_first_cut_min": 19.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 4,
+    "CUT": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 7
+   }
+  },
+  "osm:node/415160431": {
+   "name": "철파리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160363": {
+   "name": "추목리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160459": {
+   "name": "평팔리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 4,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 48.4,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "CUT": 4,
+    "INSIDE": 9
+   }
+  },
+  "osm:node/415160436": {
+   "name": "하령리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 12.4,
+   "median": 12.4,
+   "max": 12.4,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 12.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "CUT": 1,
+    "INSIDE": 12
+   }
+  },
+  "osm:node/415158416": {
+   "name": "하아리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 76.2,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 1,
+    "NO_WINDOW": 2,
+    "INSIDE": 7
+   }
+  },
+  "osm:node/415160477": {
+   "name": "하화리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 12
+   }
+  },
+  "osm:node/415158533": {
+   "name": "현내리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 2,
+   "min": 0.7,
+   "median": 0.7,
+   "max": 0.7,
+   "first_cut_issue_kst": "15:00",
+   "gap_at_first_cut_min": 0.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 3,
+    "CUT": 2,
+    "INSIDE": 8
+   }
+  },
+  "osm:node/415160357": {
+   "name": "황룡리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160479": {
+   "name": "후죽리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 13
+   }
+  },
+  "osm:node/415160469": {
+   "name": "후평리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 3,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "12:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "CUT": 3,
+    "INSIDE": 10
+   }
+  },
+  "osm:node/11753630207": {
+   "name": "괴시리전통마을",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 15.2,
+   "median": 15.2,
+   "max": 23.4,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 23.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 3,
+    "NO_WINDOW": 1
+   }
+  },
+  "osm:node/415160154": {
+   "name": "강구리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 1.0,
+   "median": 1.0,
+   "max": 1.0,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 1.0,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160201": {
+   "name": "경정리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160204": {
+   "name": "고곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.6,
+   "median": 0.6,
+   "max": 0.6,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158186": {
+   "name": "괴시리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.7,
+   "median": 0.7,
+   "max": 11.7,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 11.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 3,
+    "NO_WINDOW": 1
+   }
+  },
+  "osm:node/415160206": {
+   "name": "구미리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160155": {
+   "name": "금진리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 1.3,
+   "median": 1.3,
+   "max": 1.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 1.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160156": {
+   "name": "금호리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 2.2,
+   "median": 2.2,
+   "max": 2.2,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 2.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160309": {
+   "name": "기사리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 5.5,
+   "median": 5.5,
+   "max": 5.5,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 5.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160190": {
+   "name": "기암리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 3,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160311": {
+   "name": "낙평리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 4.3,
+   "median": 4.3,
+   "max": 4.3,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 4.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160164": {
+   "name": "남산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 14.2,
+   "median": 16.7,
+   "max": 32.5,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 14.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 3,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160162": {
+   "name": "남석리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.1,
+   "median": 8.6,
+   "max": 17.1,
+   "first_cut_issue_kst": "20:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 8,
+    "CUT": 2,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160150": {
+   "name": "남정리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 0.3,
+   "median": 5.2,
+   "max": 5.2,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160143": {
+   "name": "남호리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 1.1,
+   "median": 1.1,
+   "max": 2.2,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 2.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160319": {
+   "name": "내룡리",
+   "sigungu": "청송군",
+   "region": "yeongdeok_2025",
+   "n_exact": 7,
+   "min": 60.8,
+   "median": 172.6,
+   "max": 225.2,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 60.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 7
+   }
+  },
+  "osm:node/415160193": {
+   "name": "노물리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.9,
+   "median": 0.9,
+   "max": 0.9,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160189": {
+   "name": "눌곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.6,
+   "median": 1.6,
+   "max": 2.6,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160197": {
+   "name": "대곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.4,
+   "median": 0.4,
+   "max": 0.4,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415158166": {
+   "name": "대리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 15.9,
+   "median": 15.9,
+   "max": 15.9,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 15.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160159": {
+   "name": "대부리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160168": {
+   "name": "대지리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 2.4,
+   "median": 2.4,
+   "max": 2.4,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 2.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160205": {
+   "name": "대탄리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 1.8,
+   "median": 1.8,
+   "max": 1.8,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 1.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160157": {
+   "name": "덕곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 26.6,
+   "median": 26.6,
+   "max": 26.6,
+   "first_cut_issue_kst": "20:00",
+   "gap_at_first_cut_min": 26.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 8,
+    "CUT": 1,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160315": {
+   "name": "덕산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 7,
+   "min": 0.1,
+   "median": 3.9,
+   "max": 3.9,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 7
+   }
+  },
+  "osm:node/415160183": {
+   "name": "도계리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.7,
+   "median": 0.7,
+   "max": 0.7,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 1,
+    "INSIDE": 5
+   }
+  },
+  "osm:node/415158184": {
+   "name": "도곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 24.3,
+   "median": 24.3,
+   "max": 24.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 24.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160171": {
+   "name": "매일리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 6,
+   "min": 0.1,
+   "median": 6.5,
+   "max": 6.5,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 6
+   }
+  },
+  "osm:node/415160192": {
+   "name": "매정리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 1.7,
+   "median": 1.7,
+   "max": 1.7,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 1.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158181": {
+   "name": "묘곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 5,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 5,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415158183": {
+   "name": "벌영리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 3,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160313": {
+   "name": "복곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.9,
+   "median": 0.9,
+   "max": 0.9,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160317": {
+   "name": "봉산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 7,
+   "min": 0.1,
+   "median": 38.4,
+   "max": 38.4,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 7
+   }
+  },
+  "osm:node/415158182": {
+   "name": "부곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 1.8,
+   "median": 1.8,
+   "max": 29.6,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 1.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 3,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160132": {
+   "name": "사암리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 2.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 2.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415158212": {
+   "name": "사진리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 1.2,
+   "median": 1.2,
+   "max": 1.2,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 1.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160209": {
+   "name": "삼계리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160153": {
+   "name": "삼사리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415158320": {
+   "name": "삼의리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 159.6,
+   "median": 159.6,
+   "max": 159.6,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 159.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160187": {
+   "name": "삼화리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160203": {
+   "name": "상원리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160163": {
+   "name": "상직리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160200": {
+   "name": "석리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 1.2,
+   "median": 1.2,
+   "max": 1.2,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 1.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158185": {
+   "name": "성내리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 3,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160151": {
+   "name": "소월리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 26.1,
+   "median": 26.1,
+   "max": 26.1,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 26.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160185": {
+   "name": "속곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160314": {
+   "name": "송천리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160310": {
+   "name": "수암리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415158168": {
+   "name": "신기리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 5,
+   "min": 0.9,
+   "median": 15.8,
+   "max": 15.8,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 5,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160182": {
+   "name": "신안리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 2,
+    "INSIDE": 5
+   }
+  },
+  "osm:node/415160166": {
+   "name": "신애리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.6,
+   "median": 0.6,
+   "max": 0.6,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160167": {
+   "name": "신양리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 12.8,
+   "median": 13.1,
+   "max": 13.4,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 13.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415158259": {
+   "name": "신평리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 10.8,
+   "median": 10.8,
+   "max": 10.8,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 10.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415158187": {
+   "name": "연평리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 3.9,
+   "median": 6.3,
+   "max": 14.6,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 14.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160194": {
+   "name": "오보리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160184": {
+   "name": "오천리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160148": {
+   "name": "오포리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160130": {
+   "name": "옥계리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 6,
+   "min": 4.5,
+   "median": 4.5,
+   "max": 54.6,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 26.0,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 6
+   }
+  },
+  "osm:node/415160188": {
+   "name": "옥류리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 2.2,
+   "median": 2.2,
+   "max": 2.2,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 2.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160173": {
+   "name": "옥산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 6,
+   "min": 17.8,
+   "median": 17.8,
+   "max": 28.3,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 27.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 6
+   }
+  },
+  "osm:node/415160178": {
+   "name": "용덕리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 2,
+    "INSIDE": 5
+   }
+  },
+  "osm:node/415160175": {
+   "name": "용전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.4,
+   "median": 0.4,
+   "max": 0.4,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 3,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160176": {
+   "name": "용평리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160146": {
+   "name": "우곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 0.6,
+   "median": 2.3,
+   "max": 2.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160158": {
+   "name": "우곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 2.2,
+   "median": 2.2,
+   "max": 2.2,
+   "first_cut_issue_kst": "20:00",
+   "gap_at_first_cut_min": 2.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 8,
+    "CUT": 2,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158176": {
+   "name": "원구리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 5,
+   "min": 0.4,
+   "median": 3.3,
+   "max": 4.0,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 5,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160312": {
+   "name": "원전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 12.2,
+   "median": 12.2,
+   "max": 12.2,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 12.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160147": {
+   "name": "원직리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 20.1,
+   "median": 20.1,
+   "max": 20.1,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 20.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160181": {
+   "name": "율전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.2,
+   "median": 0.2,
+   "max": 0.2,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 1,
+    "INSIDE": 5
+   }
+  },
+  "osm:node/415160177": {
+   "name": "인곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.4,
+   "median": 2.1,
+   "max": 2.1,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 3,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160196": {
+   "name": "조항리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.6,
+   "median": 0.6,
+   "max": 0.6,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160316": {
+   "name": "주산지리",
+   "sigungu": "청송군",
+   "region": "yeongdeok_2025",
+   "n_exact": 7,
+   "min": 11.8,
+   "median": 11.8,
+   "max": 32.6,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 17.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 7
+   }
+  },
+  "osm:node/415160172": {
+   "name": "주응리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 6,
+   "min": 6.6,
+   "median": 16.0,
+   "max": 16.0,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 6.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 6
+   }
+  },
+  "osm:node/415160169": {
+   "name": "중화리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 4,
+   "min": 0.8,
+   "median": 25.0,
+   "max": 25.0,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 4
+   }
+  },
+  "osm:node/415160302": {
+   "name": "지품리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160202": {
+   "name": "창포리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.1,
+   "median": 0.1,
+   "max": 0.1,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160165": {
+   "name": "천전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 3,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 8.9,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 3,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158213": {
+   "name": "축산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.3,
+   "median": 0.3,
+   "max": 0.3,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 0.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160195": {
+   "name": "칠성리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.2,
+   "median": 1.9,
+   "max": 3.6,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "NO_WINDOW": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158318": {
+   "name": "택전리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 6.2,
+   "median": 6.2,
+   "max": 6.2,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 6.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415158321": {
+   "name": "포산리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 2.4,
+   "median": 2.4,
+   "max": 2.4,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 2.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "SHELTER_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160160": {
+   "name": "하저리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 10.7,
+   "median": 10.7,
+   "max": 10.7,
+   "first_cut_issue_kst": "21:00",
+   "gap_at_first_cut_min": 10.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 9,
+    "CUT": 1,
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160318": {
+   "name": "항리",
+   "sigungu": "청송군",
+   "region": "yeongdeok_2025",
+   "n_exact": 6,
+   "min": 0.4,
+   "median": 4.7,
+   "max": 4.7,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 6
+   }
+  },
+  "osm:node/415160207": {
+   "name": "화개리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 10.0,
+   "median": 15.2,
+   "max": 20.3,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 20.3,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415158322": {
+   "name": "화매리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 4.2,
+   "median": 4.2,
+   "max": 4.2,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 4.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ROAD_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160208": {
+   "name": "화수리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.6,
+   "median": 0.6,
+   "max": 0.6,
+   "first_cut_issue_kst": "20:00",
+   "gap_at_first_cut_min": 0.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 8,
+    "CUT": 1,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160149": {
+   "name": "화전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 5,
+   "min": 0.2,
+   "median": 12.3,
+   "max": 12.3,
+   "first_cut_issue_kst": "20:00",
+   "gap_at_first_cut_min": 0.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 8,
+    "CUT": 5
+   }
+  },
+  "osm:node/415160199": {
+   "name": "화천리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 2,
+   "min": 0.4,
+   "median": 1.1,
+   "max": 1.8,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 2,
+    "INSIDE": 4
+   }
+  },
+  "osm:node/415160303": {
+   "name": "황장리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 0.5,
+   "median": 0.5,
+   "max": 0.5,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": 0.5,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 6,
+    "CUT": 1,
+    "INSIDE": 6
+   }
+  },
+  "osm:node/415160170": {
+   "name": "흥기리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 6,
+   "min": 0.7,
+   "median": 0.7,
+   "max": 0.7,
+   "first_cut_issue_kst": "19:00",
+   "gap_at_first_cut_min": 0.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": "ORIGIN_CELL",
+   "states": {
+    "NOT_CUT_WITHIN_H": 7,
+    "CUT": 6
+   }
+  }
+ },
+ "place_level_M_kriged_mean_8h": {
+  "osm:node/415158323": {
+   "name": "신석리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 2.8,
+   "median": 2.8,
+   "max": 2.8,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 2.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158324": {
+   "name": "구미리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 8.8,
+   "median": 8.8,
+   "max": 8.8,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 8.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158334": {
+   "name": "이천리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415158335": {
+   "name": "신덕리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415158338": {
+   "name": "천전리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "NO_WINDOW": 1
+   }
+  },
+  "osm:node/415158416": {
+   "name": "하아리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 40.6,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158417": {
+   "name": "인금리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 254.3,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158418": {
+   "name": "고상리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 22.3,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158419": {
+   "name": "고하리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158420": {
+   "name": "광음리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 1.6,
+   "median": 1.6,
+   "max": 1.6,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 1.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158421": {
+   "name": "검암리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158432": {
+   "name": "상아리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 34.9,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158434": {
+   "name": "단호리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158533": {
+   "name": "현내리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 3.2,
+   "median": 3.2,
+   "max": 3.2,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 3.2,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158537": {
+   "name": "도로리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 17.9,
+   "median": 17.9,
+   "max": 17.9,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 17.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158538": {
+   "name": "원림리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 1.1,
+   "median": 1.1,
+   "max": 1.1,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 1.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415158550": {
+   "name": "개곡리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158553": {
+   "name": "무릉리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 4.8,
+   "median": 4.8,
+   "max": 4.8,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 4.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160343": {
+   "name": "금학리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 295.5,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "CUT": 1,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160345": {
+   "name": "입암리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "18:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 289.5,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "CUT": 1,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160350": {
+   "name": "구성리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160351": {
+   "name": "정자리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160353": {
+   "name": "구암리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160355": {
+   "name": "윤암리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160356": {
+   "name": "감계리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160357": {
+   "name": "황룡리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160358": {
+   "name": "사촌리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160359": {
+   "name": "서변리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160360": {
+   "name": "신흥리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160361": {
+   "name": "동변리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "NO_WINDOW": 1
+   }
+  },
+  "osm:node/415160362": {
+   "name": "신계리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 1,
+    "NO_WINDOW": 1,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160363": {
+   "name": "추목리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160415": {
+   "name": "분토리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 3
+   }
+  },
+  "osm:node/415160416": {
+   "name": "신안리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 3
+   }
+  },
+  "osm:node/415160420": {
+   "name": "괴산리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160421": {
+   "name": "도옥리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 3
+   }
+  },
+  "osm:node/415160424": {
+   "name": "박곡리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160428": {
+   "name": "석탑리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160429": {
+   "name": "신월리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160430": {
+   "name": "원당리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160431": {
+   "name": "철파리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160432": {
+   "name": "세촌리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160433": {
+   "name": "장림리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160434": {
+   "name": "방하리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160435": {
+   "name": "창길리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 3
+   }
+  },
+  "osm:node/415160436": {
+   "name": "하령리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "10:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 34.2,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160437": {
+   "name": "삼춘리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "10:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 37.3,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160438": {
+   "name": "기도리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160439": {
+   "name": "대사리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 3
+   }
+  },
+  "osm:node/415160440": {
+   "name": "마전리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160449": {
+   "name": "용봉리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "10:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 44.9,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160451": {
+   "name": "어담리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 249.3,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160454": {
+   "name": "송리리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 24.8,
+   "median": 24.8,
+   "max": 24.8,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 24.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160455": {
+   "name": "원호리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 52.9,
+   "median": 52.9,
+   "max": 52.9,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 52.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160456": {
+   "name": "운산리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 22.4,
+   "median": 22.4,
+   "max": 22.4,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 22.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160457": {
+   "name": "국곡리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 1.6,
+   "median": 1.6,
+   "max": 1.6,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 1.6,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160458": {
+   "name": "용각리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 2.1,
+   "median": 2.1,
+   "max": 2.1,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 2.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160459": {
+   "name": "평팔리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160460": {
+   "name": "명진리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160461": {
+   "name": "조탑리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 32.4,
+   "median": 32.4,
+   "max": 32.4,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 32.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160463": {
+   "name": "원리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 2.8,
+   "median": 2.8,
+   "max": 2.8,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 2.8,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160464": {
+   "name": "구천리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 1.1,
+   "median": 1.1,
+   "max": 1.1,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 1.1,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160465": {
+   "name": "귀미리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 9.9,
+   "median": 9.9,
+   "max": 9.9,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 9.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160466": {
+   "name": "망호리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 2.7,
+   "median": 2.7,
+   "max": 2.7,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 2.7,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160467": {
+   "name": "광연리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160468": {
+   "name": "관덕리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160469": {
+   "name": "후평리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160470": {
+   "name": "송내리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160471": {
+   "name": "구계리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "NO_WINDOW": 1
+   }
+  },
+  "osm:node/415160473": {
+   "name": "외하리",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 1,
+   "min": 9.9,
+   "median": 9.9,
+   "max": 9.9,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": 9.9,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/415160474": {
+   "name": "명고리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160475": {
+   "name": "병방리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160476": {
+   "name": "업리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160477": {
+   "name": "하화리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160478": {
+   "name": "상화리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160479": {
+   "name": "후죽리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160480": {
+   "name": "중리리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160483": {
+   "name": "도동리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160497": {
+   "name": "상리리",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/5344420465": {
+   "name": "용상3구경로당",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "02:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 13.8,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 2,
+    "CUT": 1
+   }
+  },
+  "osm:node/5344430780": {
+   "name": "마지경로당",
+   "sigungu": "안동시",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:way/1265051875": {
+   "name": "의성장애인복지센터",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:way/1265051876": {
+   "name": "",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:way/1372113459": {
+   "name": "",
+   "sigungu": "의성군",
+   "region": "uiseong_andong_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/11753630207": {
+   "name": "괴시리전통마을",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158166": {
+   "name": "대리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "04:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 321.1,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 1,
+    "NO_WINDOW": 2
+   }
+  },
+  "osm:node/415158168": {
+   "name": "신기리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158176": {
+   "name": "원구리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158181": {
+   "name": "묘곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158182": {
+   "name": "부곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158183": {
+   "name": "벌영리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158184": {
+   "name": "도곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158185": {
+   "name": "성내리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158186": {
+   "name": "괴시리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158187": {
+   "name": "연평리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158212": {
+   "name": "사진리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158213": {
+   "name": "축산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415158259": {
+   "name": "신평리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158318": {
+   "name": "택전리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158320": {
+   "name": "삼의리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158321": {
+   "name": "포산리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415158322": {
+   "name": "화매리",
+   "sigungu": "영양군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160130": {
+   "name": "옥계리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160132": {
+   "name": "사암리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160143": {
+   "name": "남호리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160146": {
+   "name": "우곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160147": {
+   "name": "원직리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160148": {
+   "name": "오포리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160149": {
+   "name": "화전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160150": {
+   "name": "남정리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160151": {
+   "name": "소월리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160153": {
+   "name": "삼사리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160154": {
+   "name": "강구리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160155": {
+   "name": "금진리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160156": {
+   "name": "금호리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160157": {
+   "name": "덕곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160158": {
+   "name": "우곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160159": {
+   "name": "대부리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160160": {
+   "name": "하저리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160162": {
+   "name": "남석리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160163": {
+   "name": "상직리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160164": {
+   "name": "남산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "04:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 9.3,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 3
+   }
+  },
+  "osm:node/415160165": {
+   "name": "천전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160166": {
+   "name": "신애리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160167": {
+   "name": "신양리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NO_WINDOW": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160168": {
+   "name": "대지리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160169": {
+   "name": "중화리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160170": {
+   "name": "흥기리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160171": {
+   "name": "매일리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160172": {
+   "name": "주응리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160173": {
+   "name": "옥산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160175": {
+   "name": "용전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160176": {
+   "name": "용평리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160177": {
+   "name": "인곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160178": {
+   "name": "용덕리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "04:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 54.6,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160181": {
+   "name": "율전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160182": {
+   "name": "신안리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160183": {
+   "name": "도계리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160184": {
+   "name": "오천리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160185": {
+   "name": "속곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160187": {
+   "name": "삼화리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160188": {
+   "name": "옥류리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160189": {
+   "name": "눌곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160190": {
+   "name": "기암리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160192": {
+   "name": "매정리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160193": {
+   "name": "노물리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160194": {
+   "name": "오보리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160195": {
+   "name": "칠성리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160196": {
+   "name": "조항리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160197": {
+   "name": "대곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160199": {
+   "name": "화천리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160200": {
+   "name": "석리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160201": {
+   "name": "경정리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160202": {
+   "name": "창포리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160203": {
+   "name": "상원리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160204": {
+   "name": "고곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160205": {
+   "name": "대탄리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160206": {
+   "name": "구미리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160207": {
+   "name": "화개리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160208": {
+   "name": "화수리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160209": {
+   "name": "삼계리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160302": {
+   "name": "지품리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160303": {
+   "name": "황장리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160309": {
+   "name": "기사리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160310": {
+   "name": "수암리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160311": {
+   "name": "낙평리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 1,
+   "min": 1.4,
+   "median": 1.4,
+   "max": 1.4,
+   "first_cut_issue_kst": "04:00",
+   "gap_at_first_cut_min": 1.4,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 1,
+    "INSIDE": 2
+   }
+  },
+  "osm:node/415160312": {
+   "name": "원전리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160313": {
+   "name": "복곡리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "INSIDE": 3
+   }
+  },
+  "osm:node/415160314": {
+   "name": "송천리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": "04:00",
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": 101.2,
+   "binding_at_first_cut": null,
+   "states": {
+    "CUT": 2,
+    "INSIDE": 1
+   }
+  },
+  "osm:node/415160315": {
+   "name": "덕산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160316": {
+   "name": "주산지리",
+   "sigungu": "청송군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160317": {
+   "name": "봉산리",
+   "sigungu": "영덕군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160318": {
+   "name": "항리",
+   "sigungu": "청송군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  },
+  "osm:node/415160319": {
+   "name": "내룡리",
+   "sigungu": "청송군",
+   "region": "yeongdeok_2025",
+   "n_exact": 0,
+   "min": null,
+   "median": null,
+   "max": null,
+   "first_cut_issue_kst": null,
+   "gap_at_first_cut_min": null,
+   "gap_lb_at_first_cut_min": null,
+   "binding_at_first_cut": null,
+   "states": {
+    "NOT_CUT_WITHIN_H": 3
+   }
+  }
+ },
+ "notes": [
+  "MEASURED_GUST (ERA5) is PROVISIONAL",
+  "gust arms' >=20 m/s class rests on 9 fires",
+  "exact gaps only in medians and maxima; bounds counted separately"
+ ]
+}

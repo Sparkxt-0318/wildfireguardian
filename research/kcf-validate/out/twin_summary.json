@@ -1,0 +1,1556 @@
+{
+ "label": "Twin experiment: a simulator is the truth. Model output on synthetic inputs. Not what happened to people.",
+ "protocol": "research/kcf-validate/PROTOCOL.md \u00a73",
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "arms": {
+  "system": {
+   "cells_pooled": {
+    "pairs": 24,
+    "true_reach_cells": 20480,
+    "late": 1129,
+    "late_ge15": 1039,
+    "late_ge60": 858,
+    "system_absent": 686,
+    "finite_both": 19794,
+    "false_reach_cells": 56589,
+    "system_known_but_truth_not_burning": 15884,
+    "late_rate": 0.055126953125,
+    "late_ge15_rate": 0.050732421875,
+    "late_ge60_rate": 0.04189453125,
+    "system_absent_rate": 0.03349609375
+   },
+   "places_pooled": {
+    "places_pairs": 2160,
+    "refused_pairs": 24,
+    "true_CUT": 221,
+    "true_NOT_CUT": 1939,
+    "system_CUT": 360,
+    "both_CUT": 214,
+    "true_CUT_system_NOT_CUT": 7,
+    "missed_cutoff_gt0": 12,
+    "missed_cutoff_ge15min": 12,
+    "missed_cutoff_ge60min": 8,
+    "false_cutoff_system_CUT_truth_NOT_CUT": 146,
+    "cutoff_err_min_system_minus_true": {
+     "n": 214,
+     "p10": -279.1566666666667,
+     "median": 0.0,
+     "p90": 0.0,
+     "min": -438.6,
+     "max": 166.18333333333334
+    },
+    "village_arrival_err_min_system_minus_true": {
+     "n": 208,
+     "p10": -286.52333333333326,
+     "median": -10.475,
+     "p90": 0.0
+    },
+    "village_arrival_true_in_horizon": 215,
+    "village_arrival_system_absent_while_true_in_horizon": 7
+   },
+   "per_seed": {
+    "0": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2394,
+      "late": 158,
+      "late_ge15": 146,
+      "late_ge60": 121,
+      "system_absent": 84,
+      "finite_both": 2310,
+      "false_reach_cells": 5394,
+      "system_known_but_truth_not_burning": 1817,
+      "late_rate": 0.06599832915622389,
+      "late_ge15_rate": 0.06098579782790309,
+      "late_ge60_rate": 0.05054302422723475,
+      "system_absent_rate": 0.03508771929824561
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 14,
+      "true_NOT_CUT": 166,
+      "system_CUT": 21,
+      "both_CUT": 14,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 2,
+      "missed_cutoff_ge15min": 2,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 7,
+      "cutoff_err_min_system_minus_true": {
+       "n": 14,
+       "p10": -263.84833333333336,
+       "median": -8.933333333333334,
+       "p90": 25.713333333333374,
+       "min": -277.03333333333336,
+       "max": 58.06666666666667
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 13,
+       "p10": -264.7933333333333,
+       "median": -11.25,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 13,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "1": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2410,
+      "late": 140,
+      "late_ge15": 122,
+      "late_ge60": 87,
+      "system_absent": 72,
+      "finite_both": 2338,
+      "false_reach_cells": 6264,
+      "system_known_but_truth_not_burning": 1357,
+      "late_rate": 0.058091286307053944,
+      "late_ge15_rate": 0.05062240663900415,
+      "late_ge60_rate": 0.03609958506224066,
+      "system_absent_rate": 0.02987551867219917
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 11,
+      "true_NOT_CUT": 169,
+      "system_CUT": 11,
+      "both_CUT": 11,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 0,
+      "cutoff_err_min_system_minus_true": {
+       "n": 11,
+       "p10": -170.75,
+       "median": -96.91666666666667,
+       "p90": -51.88333333333333,
+       "min": -195.96666666666667,
+       "max": 20.65
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 11,
+       "p10": -231.41666666666666,
+       "median": -106.11666666666666,
+       "p90": -9.7
+      },
+      "village_arrival_true_in_horizon": 11,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "2": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1968,
+      "late": 30,
+      "late_ge15": 27,
+      "late_ge60": 19,
+      "system_absent": 11,
+      "finite_both": 1957,
+      "false_reach_cells": 4569,
+      "system_known_but_truth_not_burning": 1604,
+      "late_rate": 0.01524390243902439,
+      "late_ge15_rate": 0.013719512195121951,
+      "late_ge60_rate": 0.009654471544715448,
+      "system_absent_rate": 0.005589430894308943
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 59,
+      "true_NOT_CUT": 121,
+      "system_CUT": 108,
+      "both_CUT": 59,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 49,
+      "cutoff_err_min_system_minus_true": {
+       "n": 59,
+       "p10": -319.81666666666666,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -408.93333333333334,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 58,
+       "p10": -333.43,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 58,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "3": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 556,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 556,
+      "false_reach_cells": 2608,
+      "system_known_but_truth_not_burning": 794,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 4,
+      "true_NOT_CUT": 176,
+      "system_CUT": 14,
+      "both_CUT": 4,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 10,
+      "cutoff_err_min_system_minus_true": {
+       "n": 4,
+       "p10": -286.28166666666664,
+       "median": -97.42500000000001,
+       "p90": -0.20999999999999985,
+       "min": -325.76666666666665,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 4,
+       "p10": -303.8,
+       "median": -98.09166666666667,
+       "p90": -0.2999999999999998
+      },
+      "village_arrival_true_in_horizon": 4,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "4": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 366,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 366,
+      "false_reach_cells": 2310,
+      "system_known_but_truth_not_burning": 606,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 0,
+      "true_NOT_CUT": 180,
+      "system_CUT": 0,
+      "both_CUT": 0,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 0,
+      "cutoff_err_min_system_minus_true": {
+       "n": 0,
+       "p10": null,
+       "median": null,
+       "p90": null,
+       "min": null,
+       "max": null
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 0,
+       "p10": null,
+       "median": null,
+       "p90": null
+      },
+      "village_arrival_true_in_horizon": 0,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "5": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1073,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 1073,
+      "false_reach_cells": 4760,
+      "system_known_but_truth_not_burning": 1121,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 16,
+      "true_NOT_CUT": 164,
+      "system_CUT": 25,
+      "both_CUT": 16,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 9,
+      "cutoff_err_min_system_minus_true": {
+       "n": 16,
+       "p10": -263.05833333333334,
+       "median": -24.475,
+       "p90": 0.0,
+       "min": -281.8333333333333,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 15,
+       "p10": -278.8533333333333,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 15,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "6": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1640,
+      "late": 31,
+      "late_ge15": 27,
+      "late_ge60": 21,
+      "system_absent": 19,
+      "finite_both": 1621,
+      "false_reach_cells": 3264,
+      "system_known_but_truth_not_burning": 1245,
+      "late_rate": 0.018902439024390243,
+      "late_ge15_rate": 0.016463414634146342,
+      "late_ge60_rate": 0.012804878048780487,
+      "system_absent_rate": 0.011585365853658536
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 20,
+      "true_NOT_CUT": 160,
+      "system_CUT": 26,
+      "both_CUT": 19,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 7,
+      "cutoff_err_min_system_minus_true": {
+       "n": 19,
+       "p10": -218.01666666666665,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -330.53333333333336,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 19,
+       "p10": -221.31666666666666,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 20,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "7": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2214,
+      "late": 329,
+      "late_ge15": 314,
+      "late_ge60": 275,
+      "system_absent": 203,
+      "finite_both": 2011,
+      "false_reach_cells": 3252,
+      "system_known_but_truth_not_burning": 1429,
+      "late_rate": 0.14859981933152666,
+      "late_ge15_rate": 0.14182475158084915,
+      "late_ge60_rate": 0.12420957542908763,
+      "system_absent_rate": 0.09168925022583559
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 3,
+      "true_NOT_CUT": 177,
+      "system_CUT": 1,
+      "both_CUT": 1,
+      "true_CUT_system_NOT_CUT": 2,
+      "missed_cutoff_gt0": 2,
+      "missed_cutoff_ge15min": 2,
+      "missed_cutoff_ge60min": 2,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 0,
+      "cutoff_err_min_system_minus_true": {
+       "n": 1,
+       "p10": -15.833333333333334,
+       "median": -15.833333333333334,
+       "p90": -15.833333333333334,
+       "min": -15.833333333333334,
+       "max": -15.833333333333334
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 1,
+       "p10": -5.5,
+       "median": -5.5,
+       "p90": -5.5
+      },
+      "village_arrival_true_in_horizon": 3,
+      "village_arrival_system_absent_while_true_in_horizon": 2
+     }
+    },
+    "8": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2960,
+      "late": 37,
+      "late_ge15": 26,
+      "late_ge60": 11,
+      "system_absent": 11,
+      "finite_both": 2949,
+      "false_reach_cells": 6045,
+      "system_known_but_truth_not_burning": 1895,
+      "late_rate": 0.0125,
+      "late_ge15_rate": 0.008783783783783784,
+      "late_ge60_rate": 0.0037162162162162164,
+      "system_absent_rate": 0.0037162162162162164
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 67,
+      "true_NOT_CUT": 113,
+      "system_CUT": 105,
+      "both_CUT": 66,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 39,
+      "cutoff_err_min_system_minus_true": {
+       "n": 66,
+       "p10": -255.35833333333335,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -438.6,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 65,
+       "p10": -256.24,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 66,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "9": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2207,
+      "late": 120,
+      "late_ge15": 108,
+      "late_ge60": 84,
+      "system_absent": 70,
+      "finite_both": 2137,
+      "false_reach_cells": 6833,
+      "system_known_but_truth_not_burning": 1655,
+      "late_rate": 0.05437245129134572,
+      "late_ge15_rate": 0.04893520616221115,
+      "late_ge60_rate": 0.038060715903942,
+      "system_absent_rate": 0.031717263253285
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 8,
+      "true_NOT_CUT": 172,
+      "system_CUT": 13,
+      "both_CUT": 7,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 3,
+      "missed_cutoff_ge15min": 3,
+      "missed_cutoff_ge60min": 2,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 6,
+      "cutoff_err_min_system_minus_true": {
+       "n": 7,
+       "p10": -208.94333333333333,
+       "median": 0.0,
+       "p90": 96.70333333333338,
+       "min": -253.13333333333333,
+       "max": 166.18333333333334
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 6,
+       "p10": -163.26666666666665,
+       "median": -36.666666666666664,
+       "p90": 109.63333333333333
+      },
+      "village_arrival_true_in_horizon": 7,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "10": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 973,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 973,
+      "false_reach_cells": 5280,
+      "system_known_but_truth_not_burning": 1276,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 7,
+      "true_NOT_CUT": 173,
+      "system_CUT": 15,
+      "both_CUT": 7,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 8,
+      "cutoff_err_min_system_minus_true": {
+       "n": 7,
+       "p10": -324.73,
+       "median": -207.23333333333332,
+       "p90": 0.0,
+       "min": -354.6,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 6,
+       "p10": -330.95000000000005,
+       "median": -225.4,
+       "p90": -79.59166666666667
+      },
+      "village_arrival_true_in_horizon": 6,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "11": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1719,
+      "late": 284,
+      "late_ge15": 269,
+      "late_ge60": 240,
+      "system_absent": 216,
+      "finite_both": 1503,
+      "false_reach_cells": 6010,
+      "system_known_but_truth_not_burning": 1085,
+      "late_rate": 0.16521233275159977,
+      "late_ge15_rate": 0.15648632926119838,
+      "late_ge60_rate": 0.13961605584642234,
+      "system_absent_rate": 0.1256544502617801
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 12,
+      "true_NOT_CUT": 168,
+      "system_CUT": 21,
+      "both_CUT": 10,
+      "true_CUT_system_NOT_CUT": 2,
+      "missed_cutoff_gt0": 2,
+      "missed_cutoff_ge15min": 2,
+      "missed_cutoff_ge60min": 2,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 11,
+      "cutoff_err_min_system_minus_true": {
+       "n": 10,
+       "p10": -183.66666666666666,
+       "median": -76.975,
+       "p90": -3.720000000000002,
+       "min": -229.86666666666667,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 10,
+       "p10": -135.76333333333335,
+       "median": -58.45,
+       "p90": -3.720000000000002
+      },
+      "village_arrival_true_in_horizon": 12,
+      "village_arrival_system_absent_while_true_in_horizon": 2
+     }
+    }
+   },
+   "by_issue": {
+    "24": {
+     "cells": {
+      "pairs": 12,
+      "true_reach_cells": 7742,
+      "late": 238,
+      "late_ge15": 216,
+      "late_ge60": 173,
+      "system_absent": 115,
+      "finite_both": 7627,
+      "false_reach_cells": 37951,
+      "system_known_but_truth_not_burning": 8087,
+      "late_rate": 0.03074141048824593,
+      "late_ge15_rate": 0.027899767501937484,
+      "late_ge60_rate": 0.022345647119607338,
+      "system_absent_rate": 0.014854042882975975
+     },
+     "places": {
+      "places_pairs": 1080,
+      "refused_pairs": 12,
+      "true_CUT": 59,
+      "true_NOT_CUT": 1021,
+      "system_CUT": 164,
+      "both_CUT": 58,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 3,
+      "missed_cutoff_ge15min": 3,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 106,
+      "cutoff_err_min_system_minus_true": {
+       "n": 58,
+       "p10": -319.88666666666666,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -438.6,
+       "max": 58.06666666666667
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 54,
+       "p10": -330.3383333333333,
+       "median": -14.758333333333333,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 55,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "36": {
+     "cells": {
+      "pairs": 12,
+      "true_reach_cells": 12738,
+      "late": 891,
+      "late_ge15": 823,
+      "late_ge60": 685,
+      "system_absent": 571,
+      "finite_both": 12167,
+      "false_reach_cells": 18638,
+      "system_known_but_truth_not_burning": 7797,
+      "late_rate": 0.06994818652849741,
+      "late_ge15_rate": 0.06460982885853352,
+      "late_ge60_rate": 0.053776102998900926,
+      "system_absent_rate": 0.044826503375726176
+     },
+     "places": {
+      "places_pairs": 1080,
+      "refused_pairs": 12,
+      "true_CUT": 162,
+      "true_NOT_CUT": 918,
+      "system_CUT": 196,
+      "both_CUT": 156,
+      "true_CUT_system_NOT_CUT": 6,
+      "missed_cutoff_gt0": 9,
+      "missed_cutoff_ge15min": 9,
+      "missed_cutoff_ge60min": 7,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 40,
+      "cutoff_err_min_system_minus_true": {
+       "n": 156,
+       "p10": -263.625,
+       "median": -2.416666666666667,
+       "p90": 0.0,
+       "min": -383.6333333333333,
+       "max": 166.18333333333334
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 154,
+       "p10": -255.91000000000003,
+       "median": -7.6,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 160,
+      "village_arrival_system_absent_while_true_in_horizon": 6
+     }
+    }
+   },
+   "places_split": {
+    "truth_cut_inside_horizon": {
+     "places_pairs": 2057,
+     "refused_pairs": 0,
+     "true_CUT": 118,
+     "true_NOT_CUT": 1939,
+     "system_CUT": 257,
+     "both_CUT": 111,
+     "true_CUT_system_NOT_CUT": 7,
+     "missed_cutoff_gt0": 12,
+     "missed_cutoff_ge15min": 12,
+     "missed_cutoff_ge60min": 8,
+     "false_cutoff_system_CUT_truth_NOT_CUT": 146,
+     "cutoff_err_min_system_minus_true": {
+      "n": 111,
+      "p10": -320.93333333333334,
+      "median": -175.58333333333334,
+      "p90": -25.783333333333335,
+      "min": -438.6,
+      "max": 166.18333333333334
+     },
+     "village_arrival_err_min_system_minus_true": {
+      "n": 106,
+      "p10": -333.8166666666667,
+      "median": -187.7,
+      "p90": -27.075
+     },
+     "village_arrival_true_in_horizon": 113,
+     "village_arrival_system_absent_while_true_in_horizon": 7
+    },
+    "truth_already_cut_at_issue": {
+     "places_pairs": 2042,
+     "refused_pairs": 0,
+     "true_CUT": 103,
+     "true_NOT_CUT": 1939,
+     "system_CUT": 249,
+     "both_CUT": 103,
+     "true_CUT_system_NOT_CUT": 0,
+     "missed_cutoff_gt0": 0,
+     "missed_cutoff_ge15min": 0,
+     "missed_cutoff_ge60min": 0,
+     "false_cutoff_system_CUT_truth_NOT_CUT": 146,
+     "cutoff_err_min_system_minus_true": {
+      "n": 103,
+      "p10": 0.0,
+      "median": 0.0,
+      "p90": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "village_arrival_err_min_system_minus_true": {
+      "n": 102,
+      "p10": 0.0,
+      "median": 0.0,
+      "p90": 0.0
+     },
+     "village_arrival_true_in_horizon": 102,
+     "village_arrival_system_absent_while_true_in_horizon": 0
+    }
+   },
+   "bootstrap_over_seeds_95": {
+    "place": [
+     0.019918999498693964,
+     0.1392641665680822
+    ],
+    "cell": [
+     0.024465785088064768,
+     0.09049589177908868
+    ]
+   },
+   "bootstrap_n_valid": {
+    "place": 2000,
+    "cell": 2000
+   }
+  },
+  "control": {
+   "cells_pooled": {
+    "pairs": 24,
+    "true_reach_cells": 20480,
+    "late": 946,
+    "late_ge15": 869,
+    "late_ge60": 716,
+    "system_absent": 592,
+    "finite_both": 19888,
+    "false_reach_cells": 56846,
+    "system_known_but_truth_not_burning": 16473,
+    "late_rate": 0.04619140625,
+    "late_ge15_rate": 0.042431640625,
+    "late_ge60_rate": 0.0349609375,
+    "system_absent_rate": 0.02890625
+   },
+   "places_pooled": {
+    "places_pairs": 2160,
+    "refused_pairs": 24,
+    "true_CUT": 221,
+    "true_NOT_CUT": 1939,
+    "system_CUT": 360,
+    "both_CUT": 215,
+    "true_CUT_system_NOT_CUT": 6,
+    "missed_cutoff_gt0": 11,
+    "missed_cutoff_ge15min": 11,
+    "missed_cutoff_ge60min": 7,
+    "false_cutoff_system_CUT_truth_NOT_CUT": 145,
+    "cutoff_err_min_system_minus_true": {
+     "n": 215,
+     "p10": -278.85333333333335,
+     "median": 0.0,
+     "p90": 0.0,
+     "min": -438.6,
+     "max": 166.18333333333334
+    },
+    "village_arrival_err_min_system_minus_true": {
+     "n": 209,
+     "p10": -284.96,
+     "median": -11.25,
+     "p90": 0.0
+    },
+    "village_arrival_true_in_horizon": 215,
+    "village_arrival_system_absent_while_true_in_horizon": 6
+   },
+   "per_seed": {
+    "0": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2394,
+      "late": 158,
+      "late_ge15": 146,
+      "late_ge60": 121,
+      "system_absent": 84,
+      "finite_both": 2310,
+      "false_reach_cells": 5398,
+      "system_known_but_truth_not_burning": 1833,
+      "late_rate": 0.06599832915622389,
+      "late_ge15_rate": 0.06098579782790309,
+      "late_ge60_rate": 0.05054302422723475,
+      "system_absent_rate": 0.03508771929824561
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 14,
+      "true_NOT_CUT": 166,
+      "system_CUT": 21,
+      "both_CUT": 14,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 2,
+      "missed_cutoff_ge15min": 2,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 7,
+      "cutoff_err_min_system_minus_true": {
+       "n": 14,
+       "p10": -263.84833333333336,
+       "median": -8.933333333333334,
+       "p90": 25.713333333333374,
+       "min": -277.03333333333336,
+       "max": 58.06666666666667
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 13,
+       "p10": -264.7933333333333,
+       "median": -11.25,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 13,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "1": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2410,
+      "late": 140,
+      "late_ge15": 122,
+      "late_ge60": 87,
+      "system_absent": 72,
+      "finite_both": 2338,
+      "false_reach_cells": 6309,
+      "system_known_but_truth_not_burning": 1472,
+      "late_rate": 0.058091286307053944,
+      "late_ge15_rate": 0.05062240663900415,
+      "late_ge60_rate": 0.03609958506224066,
+      "system_absent_rate": 0.02987551867219917
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 11,
+      "true_NOT_CUT": 169,
+      "system_CUT": 11,
+      "both_CUT": 11,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 0,
+      "cutoff_err_min_system_minus_true": {
+       "n": 11,
+       "p10": -170.75,
+       "median": -96.91666666666667,
+       "p90": -51.88333333333333,
+       "min": -195.96666666666667,
+       "max": 20.65
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 11,
+       "p10": -231.41666666666666,
+       "median": -106.11666666666666,
+       "p90": -9.7
+      },
+      "village_arrival_true_in_horizon": 11,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "2": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1968,
+      "late": 30,
+      "late_ge15": 27,
+      "late_ge60": 19,
+      "system_absent": 11,
+      "finite_both": 1957,
+      "false_reach_cells": 4595,
+      "system_known_but_truth_not_burning": 1654,
+      "late_rate": 0.01524390243902439,
+      "late_ge15_rate": 0.013719512195121951,
+      "late_ge60_rate": 0.009654471544715448,
+      "system_absent_rate": 0.005589430894308943
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 59,
+      "true_NOT_CUT": 121,
+      "system_CUT": 108,
+      "both_CUT": 59,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 49,
+      "cutoff_err_min_system_minus_true": {
+       "n": 59,
+       "p10": -319.81666666666666,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -408.93333333333334,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 58,
+       "p10": -333.43,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 58,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "3": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 556,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 556,
+      "false_reach_cells": 2608,
+      "system_known_but_truth_not_burning": 794,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 4,
+      "true_NOT_CUT": 176,
+      "system_CUT": 14,
+      "both_CUT": 4,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 10,
+      "cutoff_err_min_system_minus_true": {
+       "n": 4,
+       "p10": -286.28166666666664,
+       "median": -97.42500000000001,
+       "p90": -0.20999999999999985,
+       "min": -325.76666666666665,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 4,
+       "p10": -303.8,
+       "median": -98.09166666666667,
+       "p90": -0.2999999999999998
+      },
+      "village_arrival_true_in_horizon": 4,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "4": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 366,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 366,
+      "false_reach_cells": 2310,
+      "system_known_but_truth_not_burning": 606,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 0,
+      "true_NOT_CUT": 180,
+      "system_CUT": 0,
+      "both_CUT": 0,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 0,
+      "cutoff_err_min_system_minus_true": {
+       "n": 0,
+       "p10": null,
+       "median": null,
+       "p90": null,
+       "min": null,
+       "max": null
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 0,
+       "p10": null,
+       "median": null,
+       "p90": null
+      },
+      "village_arrival_true_in_horizon": 0,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "5": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1073,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 1073,
+      "false_reach_cells": 4809,
+      "system_known_but_truth_not_burning": 1171,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 16,
+      "true_NOT_CUT": 164,
+      "system_CUT": 25,
+      "both_CUT": 16,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 9,
+      "cutoff_err_min_system_minus_true": {
+       "n": 16,
+       "p10": -263.05833333333334,
+       "median": -24.475,
+       "p90": 0.0,
+       "min": -281.8333333333333,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 15,
+       "p10": -278.8533333333333,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 15,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "6": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1640,
+      "late": 31,
+      "late_ge15": 27,
+      "late_ge60": 21,
+      "system_absent": 19,
+      "finite_both": 1621,
+      "false_reach_cells": 3296,
+      "system_known_but_truth_not_burning": 1291,
+      "late_rate": 0.018902439024390243,
+      "late_ge15_rate": 0.016463414634146342,
+      "late_ge60_rate": 0.012804878048780487,
+      "system_absent_rate": 0.011585365853658536
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 20,
+      "true_NOT_CUT": 160,
+      "system_CUT": 27,
+      "both_CUT": 19,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 8,
+      "cutoff_err_min_system_minus_true": {
+       "n": 19,
+       "p10": -218.01666666666665,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -330.53333333333336,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 19,
+       "p10": -221.31666666666666,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 20,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "7": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2214,
+      "late": 201,
+      "late_ge15": 191,
+      "late_ge60": 170,
+      "system_absent": 140,
+      "finite_both": 2074,
+      "false_reach_cells": 4696,
+      "system_known_but_truth_not_burning": 1499,
+      "late_rate": 0.09078590785907859,
+      "late_ge15_rate": 0.08626919602529359,
+      "late_ge60_rate": 0.07678410117434507,
+      "system_absent_rate": 0.06323396567299007
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 3,
+      "true_NOT_CUT": 177,
+      "system_CUT": 1,
+      "both_CUT": 1,
+      "true_CUT_system_NOT_CUT": 2,
+      "missed_cutoff_gt0": 2,
+      "missed_cutoff_ge15min": 2,
+      "missed_cutoff_ge60min": 2,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 0,
+      "cutoff_err_min_system_minus_true": {
+       "n": 1,
+       "p10": -15.833333333333334,
+       "median": -15.833333333333334,
+       "p90": -15.833333333333334,
+       "min": -15.833333333333334,
+       "max": -15.833333333333334
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 1,
+       "p10": -5.5,
+       "median": -5.5,
+       "p90": -5.5
+      },
+      "village_arrival_true_in_horizon": 3,
+      "village_arrival_system_absent_while_true_in_horizon": 2
+     }
+    },
+    "8": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2960,
+      "late": 33,
+      "late_ge15": 24,
+      "late_ge60": 11,
+      "system_absent": 11,
+      "finite_both": 2949,
+      "false_reach_cells": 6048,
+      "system_known_but_truth_not_burning": 1950,
+      "late_rate": 0.01114864864864865,
+      "late_ge15_rate": 0.008108108108108109,
+      "late_ge60_rate": 0.0037162162162162164,
+      "system_absent_rate": 0.0037162162162162164
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 67,
+      "true_NOT_CUT": 113,
+      "system_CUT": 105,
+      "both_CUT": 66,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 39,
+      "cutoff_err_min_system_minus_true": {
+       "n": 66,
+       "p10": -255.35833333333335,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -438.6,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 65,
+       "p10": -256.24,
+       "median": 0.0,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 66,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "9": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 2207,
+      "late": 118,
+      "late_ge15": 108,
+      "late_ge60": 84,
+      "system_absent": 70,
+      "finite_both": 2137,
+      "false_reach_cells": 6905,
+      "system_known_but_truth_not_burning": 1706,
+      "late_rate": 0.05346624376982329,
+      "late_ge15_rate": 0.04893520616221115,
+      "late_ge60_rate": 0.038060715903942,
+      "system_absent_rate": 0.031717263253285
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 8,
+      "true_NOT_CUT": 172,
+      "system_CUT": 14,
+      "both_CUT": 7,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 3,
+      "missed_cutoff_ge15min": 3,
+      "missed_cutoff_ge60min": 2,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 7,
+      "cutoff_err_min_system_minus_true": {
+       "n": 7,
+       "p10": -250.43333333333334,
+       "median": 0.0,
+       "p90": 96.70333333333338,
+       "min": -253.13333333333333,
+       "max": 166.18333333333334
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 6,
+       "p10": -163.26666666666665,
+       "median": -36.666666666666664,
+       "p90": 109.63333333333333
+      },
+      "village_arrival_true_in_horizon": 7,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "10": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 973,
+      "late": 0,
+      "late_ge15": 0,
+      "late_ge60": 0,
+      "system_absent": 0,
+      "finite_both": 973,
+      "false_reach_cells": 3737,
+      "system_known_but_truth_not_burning": 1277,
+      "late_rate": 0.0,
+      "late_ge15_rate": 0.0,
+      "late_ge60_rate": 0.0,
+      "system_absent_rate": 0.0
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 7,
+      "true_NOT_CUT": 173,
+      "system_CUT": 12,
+      "both_CUT": 7,
+      "true_CUT_system_NOT_CUT": 0,
+      "missed_cutoff_gt0": 0,
+      "missed_cutoff_ge15min": 0,
+      "missed_cutoff_ge60min": 0,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 5,
+      "cutoff_err_min_system_minus_true": {
+       "n": 7,
+       "p10": -324.73,
+       "median": -207.23333333333332,
+       "p90": 0.0,
+       "min": -354.6,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 6,
+       "p10": -330.95000000000005,
+       "median": -225.4,
+       "p90": -79.59166666666667
+      },
+      "village_arrival_true_in_horizon": 6,
+      "village_arrival_system_absent_while_true_in_horizon": 0
+     }
+    },
+    "11": {
+     "cells": {
+      "pairs": 2,
+      "true_reach_cells": 1719,
+      "late": 235,
+      "late_ge15": 224,
+      "late_ge60": 203,
+      "system_absent": 185,
+      "finite_both": 1534,
+      "false_reach_cells": 6135,
+      "system_known_but_truth_not_burning": 1220,
+      "late_rate": 0.13670738801628854,
+      "late_ge15_rate": 0.1303083187899942,
+      "late_ge60_rate": 0.11809191390343222,
+      "system_absent_rate": 0.10762070971495055
+     },
+     "places": {
+      "places_pairs": 180,
+      "refused_pairs": 2,
+      "true_CUT": 12,
+      "true_NOT_CUT": 168,
+      "system_CUT": 22,
+      "both_CUT": 11,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 1,
+      "missed_cutoff_ge15min": 1,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 11,
+      "cutoff_err_min_system_minus_true": {
+       "n": 11,
+       "p10": -208.86666666666667,
+       "median": -107.25,
+       "p90": -4.133333333333334,
+       "min": -229.86666666666667,
+       "max": 0.0
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 11,
+       "p10": -205.63333333333333,
+       "median": -93.41666666666667,
+       "p90": -4.133333333333334
+      },
+      "village_arrival_true_in_horizon": 12,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    }
+   },
+   "by_issue": {
+    "24": {
+     "cells": {
+      "pairs": 12,
+      "true_reach_cells": 7742,
+      "late": 107,
+      "late_ge15": 93,
+      "late_ge60": 68,
+      "system_absent": 52,
+      "finite_both": 7690,
+      "false_reach_cells": 38087,
+      "system_known_but_truth_not_burning": 8439,
+      "late_rate": 0.013820718160681995,
+      "late_ge15_rate": 0.012012399896667528,
+      "late_ge60_rate": 0.008783260139498837,
+      "system_absent_rate": 0.006716610694910876
+     },
+     "places": {
+      "places_pairs": 1080,
+      "refused_pairs": 12,
+      "true_CUT": 59,
+      "true_NOT_CUT": 1021,
+      "system_CUT": 163,
+      "both_CUT": 58,
+      "true_CUT_system_NOT_CUT": 1,
+      "missed_cutoff_gt0": 3,
+      "missed_cutoff_ge15min": 3,
+      "missed_cutoff_ge60min": 1,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 105,
+      "cutoff_err_min_system_minus_true": {
+       "n": 58,
+       "p10": -319.88666666666666,
+       "median": 0.0,
+       "p90": 0.0,
+       "min": -438.6,
+       "max": 58.06666666666667
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 54,
+       "p10": -330.3383333333333,
+       "median": -14.758333333333333,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 55,
+      "village_arrival_system_absent_while_true_in_horizon": 1
+     }
+    },
+    "36": {
+     "cells": {
+      "pairs": 12,
+      "true_reach_cells": 12738,
+      "late": 839,
+      "late_ge15": 776,
+      "late_ge60": 648,
+      "system_absent": 540,
+      "finite_both": 12198,
+      "false_reach_cells": 18759,
+      "system_known_but_truth_not_burning": 8034,
+      "late_rate": 0.06586591301617209,
+      "late_ge15_rate": 0.06092008164547025,
+      "late_ge60_rate": 0.05087140838436175,
+      "system_absent_rate": 0.04239284032030146
+     },
+     "places": {
+      "places_pairs": 1080,
+      "refused_pairs": 12,
+      "true_CUT": 162,
+      "true_NOT_CUT": 918,
+      "system_CUT": 197,
+      "both_CUT": 157,
+      "true_CUT_system_NOT_CUT": 5,
+      "missed_cutoff_gt0": 8,
+      "missed_cutoff_ge15min": 8,
+      "missed_cutoff_ge60min": 6,
+      "false_cutoff_system_CUT_truth_NOT_CUT": 40,
+      "cutoff_err_min_system_minus_true": {
+       "n": 157,
+       "p10": -263.5133333333333,
+       "median": -4.133333333333334,
+       "p90": 0.0,
+       "min": -383.6333333333333,
+       "max": 166.18333333333334
+      },
+      "village_arrival_err_min_system_minus_true": {
+       "n": 155,
+       "p10": -255.51333333333335,
+       "median": -9.7,
+       "p90": 0.0
+      },
+      "village_arrival_true_in_horizon": 160,
+      "village_arrival_system_absent_while_true_in_horizon": 5
+     }
+    }
+   },
+   "places_split": {
+    "truth_cut_inside_horizon": {
+     "places_pairs": 2057,
+     "refused_pairs": 0,
+     "true_CUT": 118,
+     "true_NOT_CUT": 1939,
+     "system_CUT": 257,
+     "both_CUT": 112,
+     "true_CUT_system_NOT_CUT": 6,
+     "missed_cutoff_gt0": 11,
+     "missed_cutoff_ge15min": 11,
+     "missed_cutoff_ge60min": 7,
+     "false_cutoff_system_CUT_truth_NOT_CUT": 145,
+     "cutoff_err_min_system_minus_true": {
+      "n": 112,
+      "p10": -320.57666666666665,
+      "median": -180.01666666666665,
+      "p90": -26.029999999999987,
+      "min": -438.6,
+      "max": 166.18333333333334
+     },
+     "village_arrival_err_min_system_minus_true": {
+      "n": 107,
+      "p10": -333.62333333333333,
+      "median": -190.13333333333333,
+      "p90": -27.309999999999985
+     },
+     "village_arrival_true_in_horizon": 113,
+     "village_arrival_system_absent_while_true_in_horizon": 6
+    },
+    "truth_already_cut_at_issue": {
+     "places_pairs": 2042,
+     "refused_pairs": 0,
+     "true_CUT": 103,
+     "true_NOT_CUT": 1939,
+     "system_CUT": 248,
+     "both_CUT": 103,
+     "true_CUT_system_NOT_CUT": 0,
+     "missed_cutoff_gt0": 0,
+     "missed_cutoff_ge15min": 0,
+     "missed_cutoff_ge60min": 0,
+     "false_cutoff_system_CUT_truth_NOT_CUT": 145,
+     "cutoff_err_min_system_minus_true": {
+      "n": 103,
+      "p10": 0.0,
+      "median": 0.0,
+      "p90": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "village_arrival_err_min_system_minus_true": {
+      "n": 102,
+      "p10": 0.0,
+      "median": 0.0,
+      "p90": 0.0
+     },
+     "village_arrival_true_in_horizon": 102,
+     "village_arrival_system_absent_while_true_in_horizon": 0
+    }
+   },
+   "bootstrap_over_seeds_95": {
+    "place": [
+     0.019165919856612472,
+     0.13274336283185842
+    ],
+    "cell": [
+     0.02255101598543712,
+     0.07034707184960733
+    ]
+   },
+   "bootstrap_n_valid": {
+    "place": 2000,
+    "cell": 2000
+   }
+  }
+ }
+}

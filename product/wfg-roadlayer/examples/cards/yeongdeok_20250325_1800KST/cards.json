@@ -1,0 +1,96 @@
+{
+ "schema": "wfg.roadlayer.cards/1",
+ "tool": "wfg-roadlayer 0.1.0",
+ "notice": {
+  "ko": "이 자료는 모델 출력입니다. 참고용이며 대피 명령이 아닙니다. 대피 결정은 권한 있는 기관이 현장 정보로 내립니다.",
+  "en": "This is model output. It is advisory and not an evacuation order. Decisions rest with the competent authority and field information."
+ },
+ "region": "yeongdeok_2025",
+ "issue_utc": "2025-03-25T09:00:00Z",
+ "fire_input_sha256": "1bd027f03379625b3cdac543a2d4bd013bb761455d90522024fde1dc37a0382f",
+ "horizon_s": 28800,
+ "as_of_utc": "2025-03-25T09:00:00Z",
+ "card_settings": {
+  "trigger": {
+   "margin_min": 30
+  },
+  "exits": {
+   "max_exits": 8
+  },
+  "traffic": {
+   "vehicles_per_household": 1.198,
+   "no_car_share": 0.36,
+   "cap_motorway": 4400,
+   "cap_trunk": 4400,
+   "cap_primary": 1700,
+   "cap_secondary": 1700,
+   "cap_tertiary": 1700,
+   "cap_other": 800
+  },
+  "pickup": {
+   "van_seats": 15,
+   "vans": 3,
+   "board_s_per_person": 20,
+   "unload_s": 300
+  }
+ },
+ "card_settings_files": [
+  "cards.toml"
+ ],
+ "settings": {
+  "stage": {
+   "standby_hours": 8,
+   "immediate_hours": 5
+  },
+  "routing": {
+   "shelters_per_village": 3,
+   "dwell_s": 120
+  },
+  "freshness": {
+   "max_fire_input_age_min": 90,
+   "max_issue_ahead_min": 5,
+   "max_road_age_days": 365,
+   "max_places_age_days": 365
+  },
+  "run": {
+   "workers": 0
+  }
+ },
+ "data": {
+  "edges_forest_sha256": "3935a9e9f4bd13778a561c881b5b8104e088335947e9e4aaa3f809ebaa842667",
+  "edges_ways_sha256": "3bb2cf66ffd78f04b0506d539904089415ec360a158eb49e22ab3f21ea9b3bce",
+  "households_sha256": "7757d8b442047f7a675bee1e49234286ddcea6b539d99e68e03d54bdbffb7aaf",
+  "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4"
+ },
+ "pickup_depot": "구 강구초등학교 직천분교 터",
+ "counts": {
+  "cards": 90,
+  "dangerous_road_cuts_all": 3,
+  "departure_groups": 8,
+  "departure_short": 0,
+  "exits_1": 55,
+  "exits_2": 33,
+  "exits_3": 2,
+  "in_departure_group": 22,
+  "pickup_after_leave_by": 11,
+  "pickup_persons": 10525,
+  "pickup_persons_unserved_within_horizon": 9916,
+  "pickup_places": 90,
+  "refused": 1,
+  "single_exit": 55,
+  "trigger_beyond_horizon": 68,
+  "trigger_line": 20,
+  "trigger_passed": 2
+ },
+ "files_sha256": {
+  "audit_yeongdeok_2025.csv": "801686d1f5ac9ae20a02ce7f242eaf62b0fddc1af6e1d2ddec759c83b5093c14",
+  "cards_en_yeongdeok_2025.pdf": "094f5448caa179311ccccca5caf31287d2fb8ce74834e623f2fdc766ae485e90",
+  "cards_ko_yeongdeok_2025.pdf": "f7231f9c1b748ee2aedaeb5efde80e2ab663989d3a1f8bc48bc2eae756d93872",
+  "pickup_yeongdeok_2025.csv": "40e38ddb25ae80288b99d2b64045a2f7edc5707d091ebec4be67f772e8f1ce12"
+ },
+ "run_time_s": {
+  "total": 123.0,
+  "compute": 119.1,
+  "outputs": 3.9
+ }
+}

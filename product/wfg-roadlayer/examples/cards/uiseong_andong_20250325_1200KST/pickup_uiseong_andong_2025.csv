@@ -1,0 +1,159 @@
+﻿van,stop,action,place,place_id,eupmyeon,arrive_kst,persons,van_load,left_at_place,place_leave_by_kst,after_leave_by
+1,1,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 12:35,15,15,81,2025-03-25 12:06,yes
+1,2,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 12:47,15,0,,,
+2,1,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 12:35,15,15,66,2025-03-25 12:06,yes
+2,2,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 12:47,15,0,,,
+3,1,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 12:35,15,15,51,2025-03-25 12:06,yes
+3,2,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 12:47,15,0,,,
+1,3,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 12:59,15,15,36,2025-03-25 12:06,yes
+1,4,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 13:11,15,0,,,
+2,3,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 12:59,15,15,21,2025-03-25 12:06,yes
+2,4,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 13:11,15,0,,,
+3,3,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 12:59,15,15,6,2025-03-25 12:06,yes
+3,4,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 13:11,15,0,,,
+1,5,pick up / 승차,동변리,osm:node/415160361,점곡면,2025-03-25 13:23,6,6,0,2025-03-25 12:06,yes
+2,5,pick up / 승차,osm:way/1372113459,osm:way/1372113459,의성읍,2025-03-25 13:38,15,15,15,2025-03-25 12:07,yes
+2,6,unload / 하차,osm:way/1265051897,osm:way/1265051897,,2025-03-25 13:44,15,0,,,
+3,5,pick up / 승차,osm:way/1372113459,osm:way/1372113459,의성읍,2025-03-25 13:38,15,15,0,2025-03-25 12:07,yes
+3,6,unload / 하차,osm:way/1265051897,osm:way/1265051897,,2025-03-25 13:44,15,0,,,
+1,6,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 13:34,9,15,87,2025-03-25 12:10,yes
+1,7,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 13:40,15,0,,,
+1,8,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 13:48,15,15,72,2025-03-25 12:10,yes
+1,9,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 13:55,15,0,,,
+1,10,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 14:03,15,15,57,2025-03-25 12:10,yes
+1,11,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:11,15,0,,,
+2,7,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 14:13,15,15,42,2025-03-25 12:10,yes
+2,8,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:21,15,0,,,
+3,7,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 14:13,15,15,27,2025-03-25 12:10,yes
+3,8,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:21,15,0,,,
+1,12,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 14:19,15,15,12,2025-03-25 12:10,yes
+1,13,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:26,15,0,,,
+2,9,pick up / 승차,사촌리,osm:node/415160358,점곡면,2025-03-25 14:29,12,12,0,2025-03-25 12:10,yes
+3,9,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:29,15,15,81,2025-03-25 12:10,yes
+3,10,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:36,15,0,,,
+1,14,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:34,15,15,66,2025-03-25 12:10,yes
+1,15,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:41,15,0,,,
+2,10,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:37,3,15,63,2025-03-25 12:10,yes
+2,11,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:41,15,0,,,
+3,11,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:44,15,15,48,2025-03-25 12:10,yes
+3,12,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:51,15,0,,,
+2,12,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:48,15,15,33,2025-03-25 12:10,yes
+2,13,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:56,15,0,,,
+1,16,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:49,15,15,18,2025-03-25 12:10,yes
+1,17,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 14:56,15,0,,,
+3,13,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 14:59,15,15,3,2025-03-25 12:10,yes
+3,14,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 15:06,15,0,,,
+2,14,pick up / 승차,서변리,osm:node/415160359,점곡면,2025-03-25 15:03,3,3,0,2025-03-25 12:10,yes
+1,18,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 15:45,15,15,81,2025-03-25 12:26,yes
+1,19,unload / 하차,의성북부초등학교,osm:way/854170625,,2025-03-25 16:18,15,0,,,
+2,15,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 15:51,12,15,69,2025-03-25 12:26,yes
+2,16,unload / 하차,의성북부초등학교,osm:way/854170625,,2025-03-25 16:22,15,0,,,
+3,15,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 15:55,15,15,54,2025-03-25 12:26,yes
+3,16,unload / 하차,의성북부초등학교,osm:way/854170625,,2025-03-25 16:27,15,0,,,
+1,20,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 16:50,15,15,39,2025-03-25 12:26,yes
+1,21,unload / 하차,의성북부초등학교,osm:way/854170625,,2025-03-25 17:22,15,0,,,
+2,17,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 16:54,15,15,24,2025-03-25 12:26,yes
+2,18,unload / 하차,의성북부초등학교,osm:way/854170625,,2025-03-25 17:26,15,0,,,
+3,17,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 16:59,15,15,9,2025-03-25 12:26,yes
+3,18,unload / 하차,의성북부초등학교,osm:way/854170625,,2025-03-25 17:32,15,0,,,
+1,22,pick up / 승차,하령리,osm:node/415160436,안평면,2025-03-25 17:54,9,9,0,2025-03-25 12:26,yes
+2,19,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 17:50,15,15,81,2025-03-25 12:42,yes
+2,20,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 18:05,15,0,,,
+3,19,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 17:55,15,15,66,2025-03-25 12:42,yes
+3,20,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 18:10,15,0,,,
+2,21,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 18:20,15,15,51,2025-03-25 12:42,yes
+2,22,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 18:35,15,0,,,
+3,21,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 18:25,15,15,36,2025-03-25 12:42,yes
+3,22,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 18:40,15,0,,,
+1,23,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 18:31,6,15,30,2025-03-25 12:42,yes
+1,24,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 18:43,15,0,,,
+2,23,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 18:50,15,15,15,2025-03-25 12:42,yes
+2,24,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 19:05,15,0,,,
+3,23,pick up / 승차,관덕리,osm:node/415160468,단촌면,2025-03-25 18:55,15,15,0,2025-03-25 12:42,yes
+3,24,unload / 하차,점곡초등학교,osm:way/1442746952,,2025-03-25 19:10,15,0,,,
+1,25,pick up / 승차,분토리,osm:node/415160415,봉양면,2025-03-25 19:16,15,15,81,2025-03-25 12:59,yes
+1,26,unload / 하차,osm:way/510210957,osm:way/510210957,,2025-03-25 19:28,15,0,,,
+2,25,pick up / 승차,분토리,osm:node/415160415,봉양면,2025-03-25 19:38,15,15,66,2025-03-25 12:59,yes
+2,26,unload / 하차,osm:way/510210957,osm:way/510210957,,2025-03-25 19:50,15,0,,,
+1,27,pick up / 승차,분토리,osm:node/415160415,봉양면,2025-03-25 19:41,15,15,51,2025-03-25 12:59,yes
+1,28,unload / 하차,osm:way/510210957,osm:way/510210957,,2025-03-25 19:53,15,0,,,
+3,25,pick up / 승차,분토리,osm:node/415160415,봉양면,2025-03-25 19:43,15,15,36,2025-03-25 12:59,yes
+3,26,unload / 하차,osm:way/510210957,osm:way/510210957,,2025-03-25 19:55,15,0,,,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,마지경로당,osm:node/5344430780,남후면,,30,,30,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,용상3구경로당,osm:node/5344420465,용상동,,30,,30,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,개곡리,osm:node/415158550,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,검암리,osm:node/415158421,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,고상리,osm:node/415158418,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,고하리,osm:node/415158419,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,광연리,osm:node/415160467,일직면,,96,,96,2025-03-25 16:46,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,광음리,osm:node/415158420,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,구계리,osm:node/415160471,단촌면,,96,,96,2025-03-25 16:18,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,구미리,osm:node/415158324,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,구천리,osm:node/415160464,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,국곡리,osm:node/415160457,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,귀미리,osm:node/415160465,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,단호리,osm:node/415158434,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,도동리,osm:node/415160483,의성읍,,96,,96,2025-03-25 15:07,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,도로리,osm:node/415158537,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,망호리,osm:node/415160466,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,명진리,osm:node/415160460,일직면,,96,,96,2025-03-25 17:23,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,무릉리,osm:node/415158553,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,분토리,osm:node/415160415,봉양면,,36,,36,2025-03-25 12:59,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,상리리,osm:node/415160497,의성읍,,96,,96,2025-03-25 13:16,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,상아리,osm:node/415158432,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,세촌리,osm:node/415160432,단촌면,,96,,96,2025-03-25 16:47,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,송리리,osm:node/415160454,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신덕리,osm:node/415158335,임하면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신석리,osm:node/415158323,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,신흥리,osm:node/415160360,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,어담리,osm:node/415160451,풍천면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,외하리,osm:node/415160473,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,용각리,osm:node/415160458,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,운산리,osm:node/415160456,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,원당리,osm:node/415160430,의성읍,,96,,96,2025-03-25 13:00,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,원리,osm:node/415160463,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,원림리,osm:node/415158538,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,원호리,osm:node/415160455,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,이천리,osm:node/415158334,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,인금리,osm:node/415158417,풍천면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,조탑리,osm:node/415160461,일직면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,천전리,osm:node/415158338,임하면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,추목리,osm:node/415160363,임하면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,평팔리,osm:node/415160459,일직면,,96,,96,2025-03-25 19:26,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,하아리,osm:node/415158416,남후면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,현내리,osm:node/415158533,남선면,,96,,96,no deadline in horizon,
+,,not served within the horizon / 예측 범위 안 승합차 배정 못 함,후평리,osm:node/415160469,단촌면,,96,,96,2025-03-25 13:17,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,의성장애인복지센터,osm:way/1265051875,의성읍,,30,,30,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,osm:way/1265051876,osm:way/1265051876,의성읍,,30,,30,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,감계리,osm:node/415160356,옥산면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,괴산리,osm:node/415160420,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,구성리,osm:node/415160350,옥산면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,구암리,osm:node/415160353,점곡면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,금학리,osm:node/415160343,옥산면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,기도리,osm:node/415160438,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,대사리,osm:node/415160439,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,도옥리,osm:node/415160421,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,마전리,osm:node/415160440,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,명고리,osm:node/415160474,점곡면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,박곡리,osm:node/415160424,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,방하리,osm:node/415160434,단촌면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,병방리,osm:node/415160475,단촌면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,삼춘리,osm:node/415160437,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,상화리,osm:node/415160478,단촌면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,석탑리,osm:node/415160428,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,송내리,osm:node/415160470,점곡면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,신계리,osm:node/415160362,옥산면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,신안리,osm:node/415160416,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,신월리,osm:node/415160429,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,업리,osm:node/415160476,의성읍,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,용봉리,osm:node/415160449,신평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,윤암리,osm:node/415160355,점곡면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,입암리,osm:node/415160345,옥산면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,장림리,osm:node/415160433,단촌면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,정자리,osm:node/415160351,옥산면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,중리리,osm:node/415160480,의성읍,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,창길리,osm:node/415160435,안평면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,철파리,osm:node/415160431,의성읍,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,하화리,osm:node/415160477,단촌면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,황룡리,osm:node/415160357,점곡면,,96,,96,,
+,,not planned: road already cut / 계획 없음: 도로 이미 끊김,후죽리,osm:node/415160479,의성읍,,96,,96,,
