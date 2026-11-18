@@ -171,6 +171,70 @@ differ only between equally late shelters (this tool takes the earliest arrival)
 
 The output is byte-identical whatever the number of workers.
 
+## Village cards (마을 대피 카드)
+
+```bash
+python3 roadlayer.py cards --region 영덕 --issue-time 2025-03-25T18:00+09:00 --raster arrival.tif [--card-settings my.toml]
+```
+
+```bash
+python3 roadlayer.py cards-example
+```
+
+The second writes the cards for all 174 checkable places of the worked example, plus the replay overlap check
+(about 3 minutes). The committed result is in [examples/cards/](examples/cards/), and the half-page summary is
+[examples/cards/SUMMARY.md](examples/cards/SUMMARY.md). Same inputs, refusals and field as `run`; no new science.
+
+**Outputs:**
+
+| file | contents |
+|---|---|
+| `cards_ko_<region>.pdf` / `cards_en_<region>.pdf` | One A5 page per place, in black and white. A map shows the exits, the dangerous road, the trigger line and the shelters. The key facts are leave-by with and without clearance, leave-by with the margin, trigger time, shelter, exits, dangerous road, forest share, departure order and van pickup. "모델 출력 · 참고용 · 명령 아님" is printed at the top and bottom. |
+| `audit_<region>.csv` | One row per place, refused places included. Every value carries its status: CITED, DERIVED or ASSUMED. |
+| `pickup_<region>.csv` | Van routes stop by stop. Also lists places not served within the horizon and places whose road is already cut. |
+| `cards.json` | Settings, data hashes, counts and file hashes. |
+| `OVERLAP.md`, `overlap.json` | Produced by `cards-example` only: the overlap check. |
+
+**What each item is:**
+
+* **Exits.** The number of routes from the village's road entry node to any shelter that share no road piece. An
+  edge and its reverse edge are one piece; a one-way edge is a piece in its direction only. By Menger's theorem this
+  equals the fewest road pieces whose loss cuts the village off. The count is fire-independent and ignores turn
+  restrictions. The routes drawn are the quickest set of that many disjoint routes (successive shortest paths).
+  Code: `wfg_roadlayer/exits.py`.
+* **Dangerous road.** The road stretch inside one 375 m road cell whose loss cuts the most exits; 375 m cells are
+  the unit by which the model closes roads. The village's own entry cell is excluded. Ties go to the cell nearest
+  the village, and the card names the OSM way that carries the routes there. A whole OSM way is not used as the
+  unit: a village part-way along a way would always lose both directions with it.
+* **Forest share.** The share of each exit route's length with mapped OSM wood or forest within 50 m. This comes from
+  the planner basemap (`tools/build_edge_attrs.py` → `data/edges/`). **The conifer share is not available**: the
+  repository has no Korean forest-type map (`research/kcf-idea-forecast/SURVEY.md`), and the basemap keeps no
+  `leaf_type`. The 50 m is ASSUMED, because Korean OSM forest polygons stop at the road corridor.
+* **Clearance time.** Vehicles ÷ the capacity of the narrowest road on the route. The route is the one at the
+  leave-by time, or exit 1 when there is no route.
+  * Households are cited totals split equally over the 법정리 (ASSUMED; `tools/build_households.py` →
+    `data/households/`).
+  * Vehicles per household is 1.198 (DERIVED, Gyeongbuk).
+  * Capacity is 1,700 vehicles/h/direction for two-lane roads (CITED, KHCM 2013) and 800 for village roads
+    (ASSUMED).
+  * Every source is in `data/traffic_sources.json`.
+* **Leave-by.** Shown with and without clearance: with clearance, the first car must leave by leave-by − clearance
+  so that the last one leaves by leave-by.
+* **Trigger line.** The field is run a second time with every closure moved `margin_min` earlier (default 30). This
+  gives the latest departure that keeps the margin everywhere on the route and at the shelter. That departure minus
+  the clearance time is the trigger time. The trigger line is the input forecast's fire-arrival isochrone at the
+  trigger time: if fire crosses it before the village has left, the margin is gone.
+* **Departure order.** Villages whose routes share a road in the same direction leave one after another: latest
+  deadline last, latest-start scheduling, with each convoy taking vehicles ÷ the shared road's capacity.
+* **Pickup list.** Vans (default 3 × 15 seats, ASSUMED) start at the most-used shelter and visit the places with
+  residents assumed to have no car, earliest leave-by first. The no-car share is a setting (default 0.36, ASSUMED,
+  from KREI's 2010 census figure); care facilities count as 30 residents (ASSUMED). The roads are fire-free. A stop
+  reached after the place's leave-by is marked; planning stops at the horizon.
+* **Overlap check.** Places flagged single-exit or dangerous-road against the places with the earliest replay
+  cut-off (`research/kcf-replay/per_place.csv`, MEASURED, 8 h, first quartile per region), as counts.
+
+Settings are in `wfg_roadlayer/cards.toml`: copy it, edit it, and pass it with `--card-settings`.
+
 ## Tests
 
 ```bash
@@ -189,6 +253,9 @@ python3 -m pytest -q tests
 * `test_certificates.py`: the shipped verifier passes every certificate and fails tampered ones.
 * `test_vendor_and_sources.py`: vendored code byte-identical to the research files; masks equal `replay.py`'s; 읍·면 table
   complete and consistent with the 시·군 labels.
+* `test_cards.py`: exits and the dangerous road on graphs with known answers; card settings refusals; departure-order
+  arithmetic; overlap counts; `cards-example` gives 174 cards in each language, with the notice on every page, and
+  audit invariants (with clearance ≤ without, trigger ≤ margin leave-by ≤ leave-by, every assumed value marked).
 * `test_geotiff_and_resampling.py`: LZW / Deflate / PackBits / float predictor / big-endian / tiled GeoTIFFs; the
   earliest-pixel rule, nodata, out-of-extent, not-reached values, and a raster in EPSG:5186.
 
