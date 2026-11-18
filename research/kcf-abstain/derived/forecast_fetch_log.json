@@ -1,0 +1,43 @@
+{
+ "gfs_KOR": {
+  "cycles": 148,
+  "first_cycle": "2022021406",
+  "last_cycle": "2025043006",
+  "cycles_with_missing": [],
+  "gigabytes": 11.14,
+  "fetched_utc": [
+   "2026-11-18T09:41:34Z",
+   "2026-11-18T10:06:11Z"
+  ],
+  "source": "https://noaa-gfs-bdp-pds.s3.amazonaws.com gfs.YYYYMMDD/HH/atmos/gfs.tHHz.pgrb2.0p25.fFFF",
+  "byte_ranges": "from the .idx file of each forecast hour; 7 fields; leads 6-18 h"
+ },
+ "gfs_WUS": {
+  "cycles": 1796,
+  "first_cycle": "2021063012",
+  "last_cycle": "2024102806",
+  "cycles_with_missing": [],
+  "gigabytes": 132.93,
+  "fetched_utc": [
+   "2026-11-18T09:36:06Z",
+   "2026-11-18T10:55:26Z"
+  ],
+  "source": "https://noaa-gfs-bdp-pds.s3.amazonaws.com gfs.YYYYMMDD/HH/atmos/gfs.tHHz.pgrb2.0p25.fFFF",
+  "byte_ranges": "from the .idx file of each forecast hour; 7 fields; leads 6-18 h"
+ },
+ "hrrr_WUS": {
+  "cycles": 549,
+  "first_cycle": "2019090406",
+  "last_cycle": "2020112200",
+  "cycles_with_missing": [
+   "2020100806"
+  ],
+  "gigabytes": 55.35,
+  "fetched_utc": [
+   "2026-11-18T09:36:06Z",
+   "2026-11-18T10:06:31Z"
+  ],
+  "source": "https://noaa-hrrr-bdp-pds.s3.amazonaws.com hrrr.YYYYMMDD/conus/hrrr.tHHz.wrfsfcfFF.grib2",
+  "byte_ranges": "from the .idx file of each forecast hour; 7 fields; leads 6-18 h"
+ }
+}
