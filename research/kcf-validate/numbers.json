@@ -3,20 +3,20 @@
  "protocol": "research/kcf-validate/PROTOCOL.md (amendments 1-2)",
  "sources": {
   "1_KEC_traffic": {
-   "status": "NOT_OBTAINED",
-   "why": "data.ex.co.kr refused by the network policy (CONNECT 403)"
+   "status": "NOT_OBTAINED_NEEDS_KEY_OR_LOGIN",
+   "why": "host allowed 2026-11-18 22:41 UTC; API 0305 answers a keyless request with \uc778\uc99d\ud0a4\uac12\uc774 \uc5c6\uc2b5\ub2c8\ub2e4; file download needs login + 5 declarations"
   },
   "2_emergency_texts": {
-   "status": "NOT_OBTAINED",
-   "why": "safekorea.go.kr, data.go.kr, apis.data.go.kr, mois.go.kr refused (CONNECT 403)"
+   "status": "NOT_OBTAINED_NEEDS_KEY_OR_DECISION",
+   "why": "\uad6d\ubbfc\uc548\uc80424 offers only the last 7 days; data.go.kr API needs a service key; no county file"
   },
   "3_satellite": {
    "status": "OBTAINED_IN_PART",
-   "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A refused; Landsat not used"
+   "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A needs data.kma.go.kr + login (not attempted); Landsat not used"
   },
   "4_NIST_Camp_Fire": {
-   "status": "NOT_OBTAINED",
-   "why": "nvlpubs.nist.gov, www.nist.gov, tsapps.nist.gov, data.nist.gov refused (CONNECT 403)"
+   "status": "PARTLY_OBTAINED",
+   "why": "tables extracted from the two PDFs; no fire-arrival field; roadlayer run on Paradise NOT run (no field, no Paradise graph)"
   },
   "5_twin": {
    "status": "RUN",
@@ -667,6 +667,106 @@
    ],
    "discs_added_between_T_and_t_S": 1,
    "reading": "No FIRMS/AHI disc is added between T and t_S that touches a satellite-burned cell outside the known area at T; the 23-24 March interval holds no detected growth, so this scene has little power to test the 8 h margin."
+  }
+ },
+ "source4_nist_camp_fire": {
+  "label": "Model output on reconstructed inputs: none. Records vs the roadlayer assumption. Not what happened to people.",
+  "protocol": "PROTOCOL.md amendment 3",
+  "counts": {
+   "fire_rows": 391,
+   "traffic_rows": 132,
+   "traffic_closure_rows": 15,
+   "burnovers": 19
+  },
+  "roads": {
+   "Pentz": {
+    "fire_rows_11_8": 49,
+    "F_first_fire": 470,
+    "closure_rows": 1,
+    "C_first_closure": 570,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 525,
+    "C_minus_F_min": 100,
+    "B_minus_F_min": 55,
+    "C_minus_B_min": 45
+   },
+   "Wagstaff": {
+    "fire_rows_11_8": 19,
+    "F_first_fire": 475,
+    "closure_rows": 0,
+    "C_first_closure": null,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 570,
+    "C_minus_F_min": null,
+    "B_minus_F_min": 95,
+    "C_minus_B_min": null
+   },
+   "Bille": {
+    "fire_rows_11_8": 23,
+    "F_first_fire": 510,
+    "closure_rows": 2,
+    "C_first_closure": 645,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 565,
+    "C_minus_F_min": 135,
+    "B_minus_F_min": 55,
+    "C_minus_B_min": 80
+   },
+   "Elliott": {
+    "fire_rows_11_8": 15,
+    "F_first_fire": 480,
+    "closure_rows": 0,
+    "C_first_closure": null,
+    "burnovers_same_day_8Nov": 0,
+    "B_first_burnover": null,
+    "C_minus_F_min": null,
+    "B_minus_F_min": null,
+    "C_minus_B_min": null
+   },
+   "Pearson": {
+    "fire_rows_11_8": 26,
+    "F_first_fire": 495,
+    "closure_rows": 3,
+    "C_first_closure": 675,
+    "burnovers_same_day_8Nov": 1,
+    "B_first_burnover": 555,
+    "C_minus_F_min": 180,
+    "B_minus_F_min": 60,
+    "C_minus_B_min": 120
+   },
+   "Clark": {
+    "fire_rows_11_8": 57,
+    "F_first_fire": 465,
+    "closure_rows": 5,
+    "C_first_closure": 615,
+    "burnovers_same_day_8Nov": 3,
+    "B_first_burnover": 600,
+    "C_minus_F_min": 150,
+    "B_minus_F_min": 135,
+    "C_minus_B_min": 15
+   },
+   "Skyway": {
+    "fire_rows_11_8": 68,
+    "F_first_fire": 480,
+    "closure_rows": 3,
+    "C_first_closure": 555,
+    "burnovers_same_day_8Nov": 2,
+    "B_first_burnover": 510,
+    "C_minus_F_min": 75,
+    "B_minus_F_min": 30,
+    "C_minus_B_min": 45
+   },
+   "Neal": {
+    "fire_rows_11_8": 19,
+    "F_first_fire": 510,
+    "closure_rows": 1,
+    "C_first_closure": 660,
+    "burnovers_same_day_8Nov": 0,
+    "B_first_burnover": null,
+    "C_minus_F_min": 150,
+    "B_minus_F_min": null,
+    "C_minus_B_min": null
+   }
   }
  },
  "source5_twin": {

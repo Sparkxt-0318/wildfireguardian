@@ -6,14 +6,15 @@ H = Path(__file__).resolve().parent
 S3 = json.loads((H / "out/s3_satellite_extent.json").read_text())
 S3X = json.loads((H / "out/s3_exploratory.json").read_text())
 TW = json.loads((H / "out/twin_summary.json").read_text())
+NI = json.loads((H / "out/nist_lag.json").read_text())
 num = {
     "label": "Model output on reconstructed inputs or synthetic truth. Not what happened to people.",
     "protocol": "research/kcf-validate/PROTOCOL.md (amendments 1-2)",
     "sources": {
-        "1_KEC_traffic": {"status": "NOT_OBTAINED", "why": "data.ex.co.kr refused by the network policy (CONNECT 403)"},
-        "2_emergency_texts": {"status": "NOT_OBTAINED", "why": "safekorea.go.kr, data.go.kr, apis.data.go.kr, mois.go.kr refused (CONNECT 403)"},
-        "3_satellite": {"status": "OBTAINED_IN_PART", "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A refused; Landsat not used"},
-        "4_NIST_Camp_Fire": {"status": "NOT_OBTAINED", "why": "nvlpubs.nist.gov, www.nist.gov, tsapps.nist.gov, data.nist.gov refused (CONNECT 403)"},
+        "1_KEC_traffic": {"status": "NOT_OBTAINED_NEEDS_KEY_OR_LOGIN", "why": "host allowed 2026-11-18 22:41 UTC; API 0305 answers a keyless request with 인증키값이 없습니다; file download needs login + 5 declarations"},
+        "2_emergency_texts": {"status": "NOT_OBTAINED_NEEDS_KEY_OR_DECISION", "why": "국민안전24 offers only the last 7 days; data.go.kr API needs a service key; no county file"},
+        "3_satellite": {"status": "OBTAINED_IN_PART", "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A needs data.kma.go.kr + login (not attempted); Landsat not used"},
+        "4_NIST_Camp_Fire": {"status": "PARTLY_OBTAINED", "why": "tables extracted from the two PDFs; no fire-arrival field; roadlayer run on Paradise NOT run (no field, no Paradise graph)"},
         "5_twin": {"status": "RUN", "seeds": TW["seeds"]},
         "6_prospective_log": {"status": "STARTED_NO_ENTRY", "why": "no active Korean fire identified (web search only; FIRMS/KFS unreachable)"},
     },
@@ -26,6 +27,7 @@ num = {
     ],
     "source3_sentinel2_24mar": {"t_S_utc": S3["t_S_utc"], "choi_hours_at_t_S": S3["choi_hours_at_t_S"], "zones": S3["zones"],
                                 "maps": S3["maps"], "exploratory": S3X},
+    "source4_nist_camp_fire": NI,
     "source5_twin": TW,
 }
 (H / "numbers.json").write_text(json.dumps(num, indent=1))
