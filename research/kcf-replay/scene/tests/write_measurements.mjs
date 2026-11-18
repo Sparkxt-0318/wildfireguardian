@@ -34,7 +34,7 @@ The scene detects a software renderer and switches to lite mode on its own; \`?f
 
 **What these numbers are.** The unthrottled runs are this GPU-less container; the CPU ×4 runs stand in for a slow 2020 laptop
 without a usable GPU, so read the ${(() => { const th = res.runs.filter((r) => r.throttle).map((r) => r.timings.ready_ms / 1000); return th.length ? `${Math.floor(Math.min(...th))}–${Math.ceil(Math.max(...th))} s` : 'throttled'; })()} class as the slow end. Here the GPU's work (drawing terrain, hillshade and the draped layers) runs on the
-CPU in software; scripts parse in well under a second and selecting a place takes milliseconds of JavaScript (table), so the
+CPU in software; without network throttling scripts parse in well under a second and selecting a place takes milliseconds of JavaScript (table), so the
 rest of the time is drawing. A 2020 laptop with any integrated GPU does that drawing in hardware. No such laptop was available
 to measure here, so no laptop figure is claimed: time a cold load once on the presentation laptop before the talk.
 
@@ -46,6 +46,8 @@ ${runs.join('\n')}
 
 "http" = served like GitHub Pages (\`/wildfireguardian/kcf-scene/\`) by a local server; "file://" = the folder opened from disk.
 CPU ×${res.runs.find((r) => r.throttle)?.throttle || 4} = Chrome DevTools CPU throttling; 20 Mbit/s = DevTools network emulation (40 ms latency).
+The local server sends every file uncompressed, so the 20 Mbit/s run downloads all ${MB(raw)} MB and its "scripts parsed" time is mostly
+that download; GitHub Pages sends gzip (${MB(gz)} MB, see Payload), so that run overstates the download about ${(raw / gz).toFixed(1)}×.
 
 ## Real time (same run, first page: http, ${res.runs[0]?.timings?.lite ? 'lite (auto)' : 'full'})
 

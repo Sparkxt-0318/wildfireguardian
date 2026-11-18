@@ -2,8 +2,8 @@
 
 **Open** the `kcf-scene` folder on the laptop: `index.html` in **Chrome or Edge** (the tested engine). Online alternative, only after
 the pull request is merged and the Pages deploy has run: `https://sparkxt-0318.github.io/wildfireguardian/kcf-scene/` (open it once
-the day before, so the 6.7 MB first download is cached). Press **F11**. Loading took 21 s on a 4-core machine with **no GPU** and
-32–41 s with its CPU slowed 4× as a slow-laptop stand-in (`MEASUREMENTS.md`); a laptop with a working GPU should be faster but was
+the day before, so the 6.8 MB first download is cached). Press **F11**. Loading took 19–23 s on a 4-core machine with **no GPU** and
+34–43 s with its CPU slowed 4× as a slow-laptop stand-in (`MEASUREMENTS.md`); a laptop with a working GPU should be faster but was
 not measured, so time one cold load on the presentation laptop the day before. A "No GPU in use" notice means hardware acceleration
 is off. Top left must show **시험 데이터 · 평가 호스트 아님** and **reconstruction from the 2025 record** on every view.
 **Fallback:** `kcf_scene_tour_90s.mp4` in the same folder (the three levels, 90 s, captioned).
