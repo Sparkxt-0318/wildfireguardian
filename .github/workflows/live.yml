@@ -99,6 +99,7 @@ jobs:
           cd ..
           echo "record=$(python -c "import json;print(json.load(open('summary.json'))['record'])")" >> "$GITHUB_OUTPUT"
           cat summary.json >> "$GITHUB_STEP_SUMMARY"
+          echo "LIVE SUMMARY $(cat summary.json)"
 
       - name: Sign the record (Sigstore keyless, GitHub OIDC)
         if: env.LIVE_PUBLISH == 'true'
