@@ -291,3 +291,22 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
     * Record semantics (read before the comparison, not used to choose anything): burnover times are initiations; the TN 2252 closure rows state that a road **is closed or blocked at that time**, so they bound
       the closure onset from above and negative errors (model earlier) are expected for them. The graph file (14 MB, sha256 in `out/paradise/graph_sha256.txt`) is not committed; `build_graph.py` rebuilds it
       from the Overture segments (release 2026-10-21.0).
+
+13. **2026-11-19 ~00:29 UTC, user supplied KEC dataset 148 (15-minute VDS volumes, March 2025); before any closure onset, reopening or surge was derived.** What was looked at: the header and first rows,
+    that all 31 days × 96 slots are present, 14 % of readings are −1 (missing), conzone IDs per route (route 0300: 33, 0550: 62), and, to place conzones on named sections, the **daily**
+    VDS sums against the daily TCS section totals of 22-27 Mar (a mapping check; no slot-level value, onset or surge was looked at). The file has no conzone names.
+    * **Mapping (frozen).** Conzones are aligned to TCS sections by order within route and direction (ascending conzone ID ↔ ascending TCS 순번 for S, descending for E) at the offset that
+      maximises the mean daily-total correlation; a conzone is **accepted** only if its Pearson r with the aligned TCS section over the six days is ≥ 0.85 and the median VDS/TCS ratio is within 0.5-2.0.
+      **Result:** route 0550 (중앙선): accepted for the 군위-의성-안동JC-남안동-서안동-예천-영주-풍기 sections in both directions (r 0.89-1.00). Route 0300 (서산영덕선, named 당진상주선 in TCS): **not
+      mapped** (negative r for several conzones, repeated TCS section numbers); nothing is derived for it until a conzone reference table (KEC dataset "콘존") is supplied.
+    * **Volume** V(conzone, slot) = sum over lane types of readings ≥ 0; a slot with only −1 is missing. Baseline B(slot) = median of V at the same slot of day over 1-21 March (before the fire);
+      a slot is informative if B ≥ 15 vehicles per 15 min.
+    * **Closure run** = ≥ 4 consecutive informative slots with 0 ≤ V ≤ max(2, 0.05·B); a missing slot breaks a run. **Onset** = start of the first slot of the first run on or after 22 Mar 00:00;
+      **reopening** = start of the first slot after the run with V ≥ 0.25·B. Times KST. A conzone with no such run has no derived closure.
+    * **Surge** per conzone and direction = max of V/B over the six hours before the onset (before the official time where no onset exists); reported as a ratio, no threshold. Both directions are reported;
+      which one is "outbound" is not assumed.
+    * **Comparison (frozen).** (a) With the official events of `out/kec_official_closure_events.csv` for 중앙선: for each event, the conzones of the sections it names (의성IC~남안동JC: 의성→안동JC,
+      안동JC→남안동; 의성IC~안동JC: 의성→안동JC; 의성IC~예천IC: + 남안동→서안동, 서안동→예천; 의성IC~풍기IC: + 예천→영주, 영주→풍기; 풍기IC~영주IC: 영주→풍기), both directions;
+      error = derived onset (or reopening) − official effective time, per conzone-direction, summarised by median and range with n; events with no stated effective time (26 Mar 10:00, created time) are
+      flagged. (b) With the model: for the published RD3, RD4, RD7, RD8 values ("closed at issue" at hour Ti), bound = Ti − derived onset of the section's conzones (negative: the model's
+      closure precedes the volume drop by at least that much). The REPORTED/official times of those rows are as in amendments 4-7. Records and volume come from different systems; neither is "truth".
