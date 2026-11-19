@@ -16,8 +16,18 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import lib  # noqa: E402
 import reachpass as RP  # noqa: E402
-from replay import one_shelter  # noqa: E402
-from twin import shift_array  # noqa: E402
+import importlib.util  # noqa: E402
+
+
+def _load(name):  # this study's replay.py / twin.py (research/kcf-replay/replay.py is earlier on sys.path)
+    spec = importlib.util.spec_from_file_location("kcf_robust_" + name, HERE.parent / (name + ".py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+one_shelter = _load("replay").one_shelter
+shift_array = _load("twin").shift_array
 from margin_field import field as MF, pl  # noqa: E402
 from wfg_roadlayer import engine  # noqa: E402
 from wfg_roadlayer.vendor.deadline_field import core  # noqa: E402
