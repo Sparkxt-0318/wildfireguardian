@@ -118,8 +118,9 @@ The limits are in `wfg_roadlayer/settings.toml`; copy it, edit, and pass `--sett
 | 시각 오차에 먼저 끊기는 도로 / road that fails first under timing error | as above, at the timing limit |
 
 Because every closure in this tool is permanent, the tolerated timing error for leaving now equals the time left
-until the leave-by time (research/kcf-robust shows this for every village); the reach column is the one that adds
-information. It needs an EPSG:5179 raster input (not a packet). Method: `wfg_roadlayer/fragility.py` (forward search
+until the leave-by time whenever the fire sets the leave-by (all 349 such village-hours of the 25 March 2025 replay,
+research/kcf-robust); a village not cut within 8 h shows the horizon (480 min), or slightly less (3 of 785 village-hours)
+where a road on its route closes in the last minutes of the horizon. The reach column is the one that adds information. It needs an EPSG:5179 raster input (not a packet). Method: `wfg_roadlayer/fragility.py` (forward search
 per closure level, bisection; numpy only), checked against an independent backward pass in research/kcf-robust.
 Results and limits: `research/kcf-robust/RESULTS.md`.
 
