@@ -1280,7 +1280,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-19T12:07:52Z",
+   "fetched_utc": "2026-11-19T12:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1291,7 +1291,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-19T12:07:52Z",
+   "fetched_utc": "2026-11-19T12:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1302,7 +1302,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-19T12:07:52Z",
+   "fetched_utc": "2026-11-19T12:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1313,7 +1313,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-19T12:07:52Z",
+   "fetched_utc": "2026-11-19T12:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1338,7 +1338,7 @@
   "kfs": {
    "bytes": 1412,
    "error": null,
-   "fetched_utc": "2026-11-19T12:07:51Z",
+   "fetched_utc": "2026-11-19T12:38:01Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
@@ -1348,8 +1348,8 @@
   }
  },
  "issue_hour_utc": "2026-11-19T12:00:00Z",
- "issue_kst": "2026-11-19 21:07",
- "issue_utc": "2026-11-19T12:07:00Z",
+ "issue_kst": "2026-11-19 21:38",
+ "issue_utc": "2026-11-19T12:38:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1386,13 +1386,13 @@
  "protocol_sha256": "c70159ca3673b029063e2b362b3fb5def16954fda74f110cc7d6ab9290aad14e",
  "regions": {},
  "run": {
-  "commit": "af834f3a1cc87f0460a61cab432790c01b7c31ac",
-  "compute_finished_utc": "2026-11-19T12:07:53Z",
+  "commit": "5a31155d8ef9d0726d32f412e06a753c79894722",
+  "compute_finished_utc": "2026-11-19T12:38:03Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-19T12:07:52Z",
+  "fetch_finished_utc": "2026-11-19T12:38:02Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44520887001"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44525532418"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "55ecfd2734aa03b4f351b36009700bf2d3ca8978efd3e86e65d520bf64aaa771",
