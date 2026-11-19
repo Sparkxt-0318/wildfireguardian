@@ -183,4 +183,17 @@ file in `out/`.
 
 ## 9. Amendments
 
-(none yet)
+1. **2026-11-19, before any outcome (no rule had been compared with any truth or official time).**
+   (a) The real-instance check of the compiled pass that ran before its first use covered 3 closure levels
+   (dilation 0, 0.5, 1.5 km) on 2 region-hours (Uiseong-Andong 03:00 UTC, Yeongdeok 09:00 UTC): 1,566
+   shelter-origin-level comparisons, 0 mismatches, every feasible set one interval starting at 0
+   (`out/check_real.log`). That is fewer than the "at least 6 grid values per region-hour" of section 4. A wider
+   check (6 levels on 4 region-hours) is run in addition and reported; if it finds a mismatch, every number from the
+   pass is recomputed with the engine. The brute-force part (2,000 random instances) ran as written.
+   (b) Step 4 is implemented in the product with a **forward** search (earliest-arrival route at a fixed departure per
+   closure level, bisection; `product/wfg-roadlayer/wfg_roadlayer/fragility.py`), a different algorithm from the
+   research backward pass. The fragility table is produced by the product code and compared place by place with the
+   research pass; disagreements are reported.
+   (c) The Overture locality polygons used by kcf-roadcut are the `division_area` type (the `division` type has no
+   polygons); both are fetched with kcf-roadcut's own script. Event locations reproduce kcf-roadcut's table
+   (same edge and place counts).
