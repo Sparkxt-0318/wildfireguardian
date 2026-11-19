@@ -6,3 +6,7 @@
   field_check, margin1, margin10 of UA 03-23) completed before the restart and are kept. CPU model, kernel, Python and numpy
   are unchanged and the fixed CPU probe reads the same before and after (0.063 s). Driver restarted at the time of the next
   ledger entry.
+* 19 Nov 2026 ~14:38 UTC: the container restarted a second time (uptime 41 min at 15:19; the driver was killed during
+  `field_sample | UA 03-24 | repeat 1`, which had not written a result; it is re-run). All earlier ledger entries are kept.
+  Detected at the 15:19 check-in, so about 40 minutes of run time were lost. Same CPU model, kernel, Python and numpy; probe
+  checked after restart below.
