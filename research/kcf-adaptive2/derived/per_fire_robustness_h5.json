@@ -1,0 +1,106 @@
+{
+ "QUANTILE": {
+  "fires_lower": 22,
+  "median_ratio": 0.7070559990671552,
+  "ratio_without_3_largest": 0.7824609942661446,
+  "worst": [
+   "Kincade",
+   "Zogg"
+  ],
+  "best": [
+   "McCash",
+   "River Complex"
+  ]
+ },
+ "QUANTILE-own": {
+  "fires_lower": 22,
+  "median_ratio": 0.7405838020207631,
+  "ratio_without_3_largest": 0.7895227002217834,
+  "worst": [
+   "Zogg",
+   "Kincade"
+  ],
+  "best": [
+   "Red Salmon Complex",
+   "McCash"
+  ]
+ },
+ "M_ref": {
+  "fires_lower": 19,
+  "median_ratio": 0.7245096326460689,
+  "ratio_without_3_largest": 0.8026774972831573,
+  "worst": [
+   "Kincade",
+   "Zogg"
+  ],
+  "best": [
+   "McCash",
+   "River Complex"
+  ]
+ },
+ "META": {
+  "fires_lower": 20,
+  "median_ratio": 0.8362834534386392,
+  "ratio_without_3_largest": 0.8867205988926242,
+  "worst": [
+   "Kincade",
+   "LNU Lightning Complex"
+  ],
+  "best": [
+   "McCash",
+   "Red Salmon Complex"
+  ]
+ },
+ "KALMAN": {
+  "fires_lower": 13,
+  "median_ratio": 1.0376976545161163,
+  "ratio_without_3_largest": 1.3161155427205722,
+  "worst": [
+   "Zogg",
+   "Kincade"
+  ],
+  "best": [
+   "McCash",
+   "Red Salmon Complex"
+  ]
+ },
+ "EVT": {
+  "fires_lower": 21,
+  "median_ratio": 0.7448549524515808,
+  "ratio_without_3_largest": 0.8278154642282367,
+  "worst": [
+   "Kincade",
+   "Zogg"
+  ],
+  "best": [
+   "McCash",
+   "River Complex"
+  ]
+ },
+ "PRETRAIN-archive": {
+  "fires_lower": 20,
+  "median_ratio": 0.7029830850145558,
+  "ratio_without_3_largest": 0.798846335280524,
+  "worst": [
+   "Zogg",
+   "Kincade"
+  ],
+  "best": [
+   "McCash",
+   "Red Salmon Complex"
+  ]
+ },
+ "REGIME+own": {
+  "fires_lower": 22,
+  "median_ratio": 0.7501087914598572,
+  "ratio_without_3_largest": 0.796201368425364,
+  "worst": [
+   "Zogg",
+   "Kincade"
+  ],
+  "best": [
+   "Red Salmon Complex",
+   "McCash"
+  ]
+ }
+}

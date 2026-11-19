@@ -1,0 +1,1 @@
+{"cfg": {"kind": "gbm", "fs": "all", "tau": 0.9, "depth": 3, "iters": 100}, "kappa": 1.0289333270478656, "seconds": 73.7}
