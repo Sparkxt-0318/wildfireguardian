@@ -1247,7 +1247,7 @@
   "firms:MODIS_NRT": {
    "bytes": 205,
    "error": null,
-   "fetched_utc": "2026-11-19T07:07:55Z",
+   "fetched_utc": "2026-11-19T07:38:22Z",
    "file": "firms_MODIS_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1259,7 +1259,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": 6339,
    "error": null,
-   "fetched_utc": "2026-11-19T07:07:50Z",
+   "fetched_utc": "2026-11-19T07:38:21Z",
    "file": "firms_VIIRS_NOAA20_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1271,7 +1271,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": 5499,
    "error": null,
-   "fetched_utc": "2026-11-19T07:07:50Z",
+   "fetched_utc": "2026-11-19T07:38:21Z",
    "file": "firms_VIIRS_NOAA21_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1283,7 +1283,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": 122,
    "error": null,
-   "fetched_utc": "2026-11-19T07:07:50Z",
+   "fetched_utc": "2026-11-19T07:38:20Z",
    "file": "firms_VIIRS_SNPP_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1309,18 +1309,18 @@
   "kfs": {
    "bytes": 727,
    "error": null,
-   "fetched_utc": "2026-11-19T07:07:49Z",
+   "fetched_utc": "2026-11-19T07:38:20Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "c6b4b849e6c981c0718fb10179a92f856a38b71b41174e479a9f37ee32ec50ca",
+   "sha256": "cf02fbe0d4e878bb1dd203c1e700718d079b4376973de7b2bfa71bccba707c0d",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-19T07:00:00Z",
- "issue_kst": "2026-11-19 16:07",
- "issue_utc": "2026-11-19T07:07:00Z",
+ "issue_kst": "2026-11-19 16:38",
+ "issue_utc": "2026-11-19T07:38:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1328,7 +1328,7 @@
    "contained_pct": 100,
    "id": "513424",
    "in_scope": false,
-   "lat": 38.02006160606002,
+   "lat": 38.02006160606001,
    "lgdng_cd": "4180033021",
    "lon": 126.89533945295005,
    "report_utc": "2026-11-16T03:47:12Z",
@@ -1345,12 +1345,12 @@
  "regions": {},
  "run": {
   "commit": "dfbbb911301ecdf257562c947382afdd71cbebcd",
-  "compute_finished_utc": "2026-11-19T07:07:57Z",
+  "compute_finished_utc": "2026-11-19T07:38:23Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-19T07:07:55Z",
+  "fetch_finished_utc": "2026-11-19T07:38:22Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44477132954"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44480989326"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "55ecfd2734aa03b4f351b36009700bf2d3ca8978efd3e86e65d520bf64aaa771",
