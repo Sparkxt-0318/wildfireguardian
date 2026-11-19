@@ -403,7 +403,7 @@ margins, and static-versus-adjustable robust optimisation.
   short observation. It was not found stated for closure timing in routing, temporal graphs or safe-interval
   planning. Füchsle et al. 2022 is the contrasting case: when travel times are what is delayed, static and adaptive
   routes differ and the static problem is NP-complete.
-* **Theorem 6** was added after this search and has **not** been searched for beyond two queries. Its definition
+* **Theorem 6** was added after this search; it was searched for in §6.2. Its definition
   pattern is published (Fainekos and Pappas 2009, robustness degree as distance to the violating set; stability radius,
   Leont'ev, Sotskov, Gordeev 1995; both seen as search summaries only, not opened). Given Theorem 2 it is a
   three-line corollary. No novelty is claimed for it beyond "not found for this model".
@@ -414,6 +414,32 @@ extend (3) to cycles; forward citations of (3) and of Füchsle et al. were not w
 
 **Decision unchanged**: no return to Stage 2. The novelty claim is narrowed in one respect: Theorem 2 is claimed as
 "not found stated", not as a deep result.
+
+### 6.2 Third search (round 2, 19 Nov 2026, 10:20–11:05 UTC)
+
+Record: `survey_notes/I_prior_art_third_search.md` (78 queries, 28 works, reading level per work, and a list of what
+stayed unread). It closed the gaps left by §6.1: Clément's 2022 thesis, forward citations of Clement et al. 2020
+and of Füchsle et al. 2022, the stability-radius literature for Theorem 6, the base model, and transit routing.
+
+| claim | outcome | closest work found | difference |
+|---|---|---|---|
+| Theorem 2 | not found | Cui, Yu, Fang, Haslum, Williams, ICAPS 2015 (section read): the largest uniform deviation under which a schedule stays controllable, computed under both strong (static) and dynamic (adaptive) controllability | There the two values **differ** (in 6 % of their schedules the static value is zero and the adaptive one is not). The equality in Theorem 2 is therefore specific to uncertainty that acts on the environment's closure sets and is monotone. |
+| Theorem 6 | not found for any routing, scheduling or temporal-graph model; **every ingredient has a published analogue** | Rodionova et al. 2022, Theorems 4.3/5.4 (read through a summarising tool only): in discrete time, shifts up to r preserve satisfaction and shift r + 1 flips it | One fixed signal under one uniform shift; no choice of journey, no ball of forecasts. Also: the definition "stability radius = largest distance within which every perturbed model still satisfies the specification" is Henzinger and Otop, CONCUR 2013, Def. 6 (untimed; the timed case is left open there); μ is a "radius of robust feasibility" in the sense of Liers, Schewe, Thürauf 2022; the Hausdorff distance between edge-availability sets as a metric on time-varying graphs is Bernardoni et al. 2023 (no reachability theorem); Fainekos and Pappas 2009 define robustness as distance to the violating set and compute only an under-approximation of it outside one fragment. Classical stability radii (Chakravarti and Wagelmans 1998, bottleneck case) concern the optimality of one solution under cost changes, not the feasibility of a decision under changes of constraint times. |
+| Algorithm | not found | Busatto-Gaston, Monmege, Reynier, Sankur, CAV 2019, Prop. 6 (read): the largest admissible perturbation of **one given lasso** of a timed automaton, by a backward operator with a shrink-by-δ step over zones piecewise-affine in δ | One given cycle, not all paths, origins and seconds; the controller's own delays are perturbed and errors accumulate, so the strategy is adaptive. Clément's thesis keeps the backward permissiveness computation acyclic and non-elementary, and states cycles as open. |
+
+**Base model credit.** Road closures over several periods together with no-waiting periods at nodes are the model of
+Halpern and Priess, "Shortest path with time constraints on movement and parking", Networks 4 (1974) (abstract read;
+body not available). The waiting policies are Orda and Rom 1990. The margin field adds nothing to the base model.
+
+**What stayed unread** is listed in the record; the main items are Sotskov, Leont'ev, Gordeev 1995 (the stability
+survey), the body of Halpern–Priess 1974, and the proofs in Clément's thesis.
+
+**Position after three searches.** Not found published: the one-pass algorithm on cyclic graphs; Theorem 2 for
+closure timing; Theorem 6 for any routing model. Known: Theorem 1 (Bruns and Godefroid); the mechanism of Theorem 2
+(dominating scenario); the definition pattern and every ingredient of Theorem 6; the base model. The honest size of
+the contribution is: a known kind of quantity (a robustness radius), shown to be exact and adaptivity-free for this
+model by short proofs, with an algorithm that was not found elsewhere and that works where the closest algorithms
+(permissiveness, lasso perturbation) stop: on cyclic graphs, for every state and second at once.
 
 ## 7. Limits
 
