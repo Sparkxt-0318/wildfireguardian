@@ -17,3 +17,6 @@
 * 19 Nov 2026 ~15:48 UTC: fourth container restart (only 13 min after the third; uptime 0 min at 15:48:29), killing
   `old_cold | UA 03-24 | repeat 1` after 35 of 200 requests. Because of the frequency, plan amendment A2 (resume OLD blocks at
   the next request) was made; those 35 requests are KEPT and the block is resumed. This block straddles a restart.
+* 19 Nov 2026 ~16:22 UTC: fifth container restart (uptime 0 min at 16:22:55), found at the scheduled check-in. The driver was
+  killed during `old_warm | UA 03-24 | repeat 1` after 39 of 200 requests; those requests are KEPT and the block is resumed
+  (amendment A2). This block straddles a restart. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22 UTC.
