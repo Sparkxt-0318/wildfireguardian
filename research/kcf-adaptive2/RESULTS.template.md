@@ -22,14 +22,16 @@ rate checked on fires held out of every fit), the data say:
    margin (0.97, 0.82 to 1.15). At 8 h adaptation is again never better than its twin and is significantly worse for META
    (1.022, 1.001 to 1.046), KALMAN (1.322, 1.161 to 1.555) and the covariate tail of EVT (1.134, 1.021 to 1.292).
 3. **Reason 3 (unequal miss rates) is real but is not what hid a gain.** All 18 variants land at 9.6% to 10.9% held-out miss;
-   comparing at the held-out 10% instead of the calibrated point changes no ranking. REGIME's apparent 5% gain is mostly its
-   10.9% miss rate: at exactly 10% its area equals the fixed margin's (328.7 against 326.9 km2).
+   reading the area at the held-out 10% instead of at the calibrated point moves every method by less than 2.5%, except REGIME (5.3%).
+   REGIME's apparent 5% gain is mostly its 10.9% miss rate: at exactly 10% its area equals the fixed margin's (328.7 against
+   326.9 km2). Unequal miss rates did not hide a gain; they created a small false one.
 4. **Reason 4 (few fires) is not supported.** The learning curve is flat from 4 to 24 training fires (area ratio to the fixed
    margin 0.85 at every n), 19 more fires from another archive add nothing at 5 h (0.880 against 0.866 without) and a little at 8 h (0.949 of the model
-   without them, 0.885 to 1.003: not distinguishable from 1), and a simulator adds nothing (0.904 at 5 h; worse at 8 h, 1.068).
+   without them, 0.885 to 1.003: not distinguishable from 1), and a simulator adds nothing (0.904 of FIXED at 5 h; at 8 h 1.068 times the same model trained without it).
 5. **None of it transferred to Korea, and none of it saw 25 March 2025 coming.** With margins calibrated on California,
-   every learned method flags more area than the fixed margin on 12 Korean fires, and on 25 March no margin larger than
-   about 12 km was issued before the fire had been running 30 km reaches for hours.
+   every learned method flags more area than the fixed margin on 12 Korean fires, and on 25 March every method except the
+   three that extrapolate wildly missed the 10 to 20 KST run (the reach went from 5 to 40 km); the three that held did so with
+   margins of hundreds to thousands of km.
 
 The stop/go gate passed (the oracle that adapts a scale per fire-day using the future gains 24.5% area). It says the
 headroom lies in *when* within a day the fire runs, not in which fire it is: the fire-level oracle gains nothing (section 1).
@@ -61,7 +63,7 @@ All ORACLE rows use the fire's future hours and are not a result for any method.
 FIXED area {FIXED_AREA} km2 at {FIXED_MISS} miss. Blocks are consecutive eligible hours of one fire; "random" draws the same block sizes
 from random hours of the same fire (the control for in-sample optimism). Scale only (shape s = 1).
 
-| Oracle (scale per block) | Miss | Area | Gain vs FIXED (95%) | Same with random blocks |
+| Oracle (scale per block) | Miss | Area | Gain vs FIXED (95%) | Same with random blocks (O-fire: identical by construction) |
 |---|---|---|---|---|
 {ORACLE}
 
@@ -84,8 +86,8 @@ available in each fold, 10 draws per size except n = 24):
 
 The ratio of M_ref to FIXED read at held-out 10% miss is 0.85 at every size. The slope of log ratio against log n over n = 8..24 is
 +0.007 (flat); the fire-bootstrap interval of the same slope on the calibrated area is -0.109 to +0.001. Skill saturates by
-about 8 fires, so more fires of this kind is not the missing ingredient. (n = 4 to 6 use leave-one-fire-out calibration inside the
-subset, per Amendment 2.) ![Learning curve](fig/fig2_learning_curve.png)
+about 8 fires, so more fires of this kind is not the missing ingredient. (n = 4 uses leave-one-fire-out calibration inside the
+subset, larger n six groups, per Amendment 2.) ![Learning curve](fig/fig2_learning_curve.png)
 
 ## 2. What does adapting to the fire add? (paired by fire, same held-out fires)
 
@@ -116,9 +118,10 @@ past is in (QUANTILE against QUANTILE-own: 0.983, 0.947 to 1.026).
 
 KALMAN is a ridge regression of log(reach + 0.375) on all features with a Gaussian predictive 90% quantile. Its non-adaptive
 twin is already worse than the fixed margin (1.263), because exponentiating a Gaussian quantile in log space overshoots on
-the many hours when the regression is wrong by a factor; the per-fire update then moves the offset in the wrong direction as often
-as the right one (13 of 28 fires lower, median per-fire ratio 1.04). This is a failure of this implementation, not a proof
-that no Kalman update could work; it was not changed after the result was seen.
+the many hours when the regression is wrong by a factor (the likely cause; not tested separately). The per-fire update does not
+repair it: KALMAN has less area than FIXED on only 13 of 28 fires (median per-fire ratio 1.04), and the adaptive version is
+worse than the twin on average (1.19, 1.04 to 1.42). This is a failure of this implementation, not a proof that no Kalman
+update could work; it was not changed after the result was seen.
 
 ## 5. Sealed transfer test: Korea, and 25 March 2025
 
@@ -178,6 +181,9 @@ comparisons against the twins at h = 8 are in `derived/tables_h8.md`.
 - FIRED and GlobFire were **not used**: their hosts are not on this environment's allow-list. Both are also daily products, which
   cannot give an hourly 5 h reach. The 19 US Choi fires are the larger archive that was available (NOT RUN: FIRED, GlobFire).
 - The oracle numbers depend on block length and on Amendment 2, which was written after the first oracle values were seen.
+- A worker restart killed the first dev sweep after QUANTILE-own and QUANTILE-fc finished; the sweep script is restart-safe and
+  resumed from the next method (finished outputs kept). The simulator was generated after the restart. No result was changed by it.
+- Korea and 25 March were run once, after the DEV sweep, with no method altered between the two (no Korean run was made at h = 8).
 - No result here says anything about margin placement by direction (wind alignment is not testable on a scalar reach).
 
 ## 8. Amendments (also in `PROTOCOL.md`)
