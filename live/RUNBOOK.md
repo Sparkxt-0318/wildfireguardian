@@ -9,8 +9,10 @@ Where things are: workflow `.github/workflows/live.yml` (Actions tab, "live — 
 
 ## 0. First checks for any problem
 
-1. Actions → "live — Korean fire service": is there a run every 30 min (at :07 and :37 UTC)? GitHub may delay a
-   scheduled run by many minutes or skip it under load; gaps of one run are normal, gaps of hours are not.
+1. Actions → "live — Korean fire service": is there a run every 30 min (at :07 and :37 UTC)? They are started by
+   "live — 30-min relay" (PROTOCOL amendment 1), which should always have one run in progress. If none is running,
+   start it: Actions → "live — 30-min relay" → "Run workflow" on Main (its 2-hourly cron also restarts it). The relay's
+   log lists every dispatch with its HTTP status (204 = started).
 2. Open the latest run's summary: `kfs_ok`, `firms_ok`, `gfs_ok`, `ahi_ok`, `listed`, `in_scope`.
 3. Open `/live/` and the record `/live/data/latest.json` → `inputs.<source>.error`.
 4. Scheduled workflows are disabled by GitHub after **60 days without repository activity**: re-enable in the Actions
@@ -114,5 +116,5 @@ from `live/log/inputs/gfs/` into the folder first).
 
 ## 9. Stopping the service
 
-Actions → "live — Korean fire service" → "Disable workflow". The site keeps its last version, whose numbers readers'
+Actions → "live — 30-min relay" → "Disable workflow", then the same for "live — Korean fire service". The site keeps its last version, whose numbers readers'
 browsers hide after 75 min. Add a line to the status page only through a commit to `live/` (the pages are generated).

@@ -5,7 +5,8 @@
 
 Live site: <https://sparkxt-0318.github.io/wildfireguardian/live/>
 
-Every 30 minutes (GitHub Actions, `.github/workflows/live.yml`, cron `7,37 * * * *` UTC) the service:
+Every 30 minutes, at :07 and :37 UTC (`.github/workflows/live.yml`, started by `.github/workflows/live-relay.yml`
+because GitHub's cron did not fire reliably here; PROTOCOL amendment 1), the service:
 
 1. reads the Korea Forest Service's current fire list (the data call behind 국가산불정보시스템's 실시간산불정보 page;
    no public feed exists), NASA FIRMS hotspots, Himawari-9 AHI scans (only when a Gyeongbuk or Gangwon fire is

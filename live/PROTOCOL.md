@@ -49,9 +49,9 @@ cycle is stored once in the log.
 
 ## 2. Schedule and issue time
 
-- GitHub Actions cron `7,37 * * * *` (UTC): every 30 minutes, at :07 and :37. GitHub states that scheduled runs can be
-  delayed under load and may be dropped; every page shows the actual run time and data age, and a gap is visible in
-  the log.
+- Every 30 minutes, at :07 and :37 UTC, started by the relay workflow (amendment 1; first written as GitHub Actions cron
+  `7,37 * * * *`). GitHub can delay or drop runs; every page shows the actual run time and data age, and a gap is
+  visible in the log.
 - **Issue time T** = the run's start time, to the minute (UTC). Hotspots are used only if acquired strictly before T.
 - **Issue hour t** = T rounded down to the whole UTC hour. The forecast flags (§5) are defined on whole hours and use t.
 
@@ -175,4 +175,10 @@ for each missing input (KFS, FIRMS, AHI, GFS, road data).
 
 ## Amendments
 
-(none)
+1. **2026-11-19 03:45 UTC — how the 30-minute runs are started (no rule changed).** GitHub's cron (`7,37 * * * *`)
+   did not start a single run in the first 4 h on Main (the one manual run at 23:50 UTC worked; this repository's daily
+   cron ran 5 h 17 min late the same day). With the owner's approval the cadence now comes from
+   `.github/workflows/live-relay.yml`: one job dispatches `live.yml` at every :07 and :37 UTC for about 5 h 40 min,
+   then dispatches its own successor; its 2-hourly cron only restarts a broken chain. The cron trigger is removed from
+   `live.yml` so that runs are not doubled. Records say who started a run (`run.trigger`: `relay`, `manual`, or the
+   GitHub event). Issue time, inputs, rules and limits are unchanged; §2's "every 30 minutes at :07 and :37" still holds.
