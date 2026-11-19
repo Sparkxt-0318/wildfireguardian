@@ -3,7 +3,7 @@
     python3 -m unittest research/kcf-idea-routing/tests/test_margin_field.py -v
 
 KCF_CASES (default 6000) is the number of random instances PER FAMILY (two families: "general" with reopening, late
-shelters and origin closures; "closure" satisfying M1-M4), so 12,000 by default. KCF_MUTANT_CASES (default 1000) is
+shelters and origin closures; "closure" satisfying M1-M4), so 12,000 by default. KCF_MUTANT_CASES (default 3000) is
 the number per family per mutant. Counts are written to research/kcf-idea-routing/results/.
 
 Three independent references are used:
@@ -37,7 +37,7 @@ from margin_field import field as mf  # noqa: E402
 from margin_field import pl  # noqa: E402
 
 N_CASES = int(os.environ.get("KCF_CASES", "6000"))
-N_MUT = int(os.environ.get("KCF_MUTANT_CASES", "1000"))
+N_MUT = int(os.environ.get("KCF_MUTANT_CASES", "3000"))
 RESULTS = PKG / "results"
 
 
@@ -218,14 +218,54 @@ def _perturbed(rng, chk, inst, m, erode):
     return out
 
 
+def _generate(rng, fam):
+    """randgraphs.generate, plus the family "sparse": a general instance with the closures of about 70 % of the edges
+    and nodes removed, so that long closure-free stretches (the fast path of the pass) are exercised."""
+    if fam != "sparse":
+        return randgraphs.generate(rng, fam)
+    inst, chk = randgraphs.generate(rng, "general")
+    chk = dict(chk)
+    chk["B"] = {j: (x if rng.random() < 0.3 else []) for j, x in enumerate(inst.B)}
+    chk["W"] = {v: (x if rng.random() < 0.3 else []) for v, x in enumerate(inst.W)}
+    chk["B"] = {j: [list(p) for p in x] for j, x in chk["B"].items()}
+    chk["W"] = {v: [list(p) for p in x] for v, x in chk["W"].items()}
+    return randgraphs.to_instance(chk), chk
+
+
+FAMILIES = ("general", "closure", "sparse")
+
+
+def _shifted(rng, chk, inst, delta):
+    """An instance whose closure intervals each have both ends moved by at most delta seconds, none deleted on purpose
+    (METHOD.md Theorem 6). Returns (checker dict, True if some interval vanished because its ends crossed)."""
+    lost = False
+
+    def move(ivs):
+        nonlocal lost
+        out = []
+        for lo, hi in ivs:
+            a, b = lo + rng.randint(-delta, delta), hi + rng.randint(-delta, delta)
+            if a <= b:
+                out.append([a, b])
+            else:
+                lost = True
+        return out
+
+    out = dict(chk)
+    out["B"] = {j: move(inst.B[j]) for j in range(len(chk["edges"]))}
+    out["W"] = {v: move(inst.W[v]) for v in range(chk["n_nodes"])}
+    out["IB"] = {o: move(iv.normalize(x)) for o, x in inst.IB.items()}
+    return out, lost
+
+
 class PropertyVsFieldAndOracle(unittest.TestCase):
     def test_random_graphs(self):
         c = Counter()
         t_new = t_old = t_brute = 0.0
-        for fam in ("general", "closure"):
+        for fam in FAMILIES:
             for seed in range(N_CASES):
                 rng = random.Random(f"margin-{fam}-{seed}")
-                inst, chk = randgraphs.generate(rng, fam)
+                inst, chk = _generate(rng, fam)
                 M = rng.randint(0, 8)
                 erode = rng.random() < 0.5
                 n, E = chk["n_nodes"], len(chk["edges"])
@@ -236,6 +276,27 @@ class PropertyVsFieldAndOracle(unittest.TestCase):
                 t_new += time.perf_counter() - t0
                 mf.check_fixed_point(fld)
                 c[fam + ":margin_fixed_point_ok"] += 1
+                slow = mf.margin_field(inst, M, erode_accept=erode, fast=False)     # (0) fast path = general path
+                for s in range(E):
+                    self.assertEqual(pl.canon(fld.mu[s]), pl.canon(slow.mu[s]), (fam, seed, s))
+                    self.assertEqual(pl.canon(fld.gamma[s]), pl.canon(slow.gamma[s]), (fam, seed, s))
+                c[fam + ":states_fast_equals_general"] += E
+                c[fam + ":relaxations"] += fld.stats["relaxations"]
+                c[fam + ":relaxations_on_fast_path"] += fld.stats["fast_relaxations"]
+                if M:                                               # (5) Theorem 6: 1-Lipschitz in the closure times
+                    delta = rng.randint(1, M)
+                    chk2, lost = _shifted(rng, chk, inst, delta)
+                    f2 = mf.margin_field(randgraphs.to_instance(chk2), M, erode_accept=erode)
+                    for o in range(n):
+                        d1 = pl.to_dense(fo[o], 0, chk["H"])
+                        d2 = pl.to_dense(mf.issue_margin(f2, o), 0, chk["H"])
+                        for t in range(chk["H"] + 1):
+                            if d1[t] >= delta:
+                                self.assertGreaterEqual(d2[t], d1[t] - delta, (fam, seed, o, t, delta))
+                            if not lost and d2[t] >= delta:
+                                self.assertGreaterEqual(d1[t], d2[t] - delta, (fam, seed, o, t, delta))
+                            c[fam + ":thm6_seconds_checked"] += 1
+                            c[fam + ":thm6_bound_tight"] += d1[t] >= delta and d2[t] == d1[t] - delta
                 feas0 = None
                 for m in range(M + 1):
                     wi = mf.widen(inst, m, erode_accept=erode)
@@ -318,6 +379,37 @@ MUTANTS = {
 }
 
 
+FAST_MUTANTS = {       # planted in the source text of the fast path of field.py
+    "fast_wait_not_closed": ("lo = 0                                 # closure", "lo = lo                                # closure"),
+    "fast_skip_too_eager": ("ms[0][2] >= v and", "ms[0][2] >= v - 1 and"),
+    "fast_shift_off_by_one": ("            hi -= dj\n", "            hi -= dj - 1\n"),
+}
+MUTANTS.update({
+    "fast_wait_not_closed": "fast path: a new one-piece function at a free-waiting node is not extended back to second 0",
+    "fast_skip_too_eager": "fast path: a relaxation that raises the value by one is skipped",
+    "fast_shift_off_by_one": "fast path: the upper end is shifted back by D - 1",
+})
+_FAST_CACHE = {}
+
+
+def _fast_mutant(name):
+    """A copy of margin_field.field with one line of the fast path replaced."""
+    if name not in _FAST_CACHE:
+        import importlib.util
+        import types
+        src = Path(mf.__file__).read_text()
+        a, b = FAST_MUTANTS[name]
+        assert src.count(a) == 1, (name, src.count(a))
+        mod = types.ModuleType("margin_field.field_" + name)
+        mod.__package__ = "margin_field"
+        mod.__file__ = mf.__file__
+        import sys as _sys
+        _sys.modules[mod.__name__] = mod
+        exec(compile(src.replace(a, b), mf.__file__, "exec"), mod.__dict__)
+        _FAST_CACHE[name] = mod
+    return _FAST_CACHE[name]
+
+
 class Patched:
     """Context manager that installs one mutation into margin_field.field / pl and removes it again."""
 
@@ -353,27 +445,29 @@ def _run_mutant(name, inst, M, erode):
         saved = inst.forbidden
         inst.forbidden = set()
         try:
-            fld = mf.margin_field(inst, M, erode_accept=erode)
+            fld = mf.margin_field(inst, M, erode_accept=erode, fast=False)
         finally:
             inst.forbidden = saved
         fld.inst = inst
         return fld
+    if name in FAST_MUTANTS:
+        return _fast_mutant(name).margin_field(inst, M, erode_accept=erode)
     with Patched(name):
-        return mf.margin_field(inst, M, erode_accept=erode)
+        return mf.margin_field(inst, M, erode_accept=erode, fast=False)
 
 
 class Mutants(unittest.TestCase):
-    """Do the checks above have teeth? Five bugs planted in the margin pass; each must be caught by the comparison
+    """Do the checks above have teeth? Eight bugs planted in the margin pass; each must be caught by the comparison
     with the existing field, by the oracle, or by the fixed-point certificate."""
 
     def test_each_mutant_is_caught(self):
         report = {}
         for name in [None] + list(MUTANTS):
             c = Counter()
-            for fam in ("general", "closure"):
+            for fam in FAMILIES:
                 for seed in range(N_MUT):
                     rng = random.Random(f"margin-mut-{fam}-{seed}")
-                    inst, chk = randgraphs.generate(rng, fam)
+                    inst, chk = _generate(rng, fam)
                     M = rng.randint(0, 8)
                     erode = rng.random() < 0.5
                     fld = _run_mutant(name, inst, M, erode) if name else mf.margin_field(inst, M, erode_accept=erode)
@@ -395,7 +489,7 @@ class Mutants(unittest.TestCase):
                     for h in how:
                         c[fam + ":by_" + h] += 1
             report[str(name)] = dict(sorted(c.items()))
-            caught = c["general:caught"] + c["closure:caught"]
+            caught = sum(c[f + ":caught"] for f in FAMILIES)
             if name is None:
                 self.assertEqual(caught, 0, c)
             else:

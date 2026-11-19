@@ -99,44 +99,120 @@ class MarginField:
     stats: dict
 
 
-def margin_field(inst: Instance, M: int, *, erode_accept: bool = False) -> MarginField:
+class _Lazy:
+    """A list whose entries are built on first use (tents of edges and nodes the pass never touches are never
+    built). Indexing, ``len`` and iteration behave like the eager list."""
+    __slots__ = ("_make", "_n", "_c")
+
+    def __init__(self, make, n):
+        self._make, self._n, self._c = make, n, {}
+
+    def __getitem__(self, i):
+        c = self._c
+        if i in c:
+            return c[i]
+        v = c[i] = self._make(i)
+        return v
+
+    def __len__(self):
+        return self._n
+
+    def __iter__(self):
+        return (self[i] for i in range(self._n))
+
+
+def margin_field(inst: Instance, M: int, *, erode_accept: bool = False, fast: bool = True) -> MarginField:
+    """``fast=False`` is the version benchmarked in BENCH.md section 1 (every tent built first, every operation
+    through the general piecewise-linear routines). ``fast=True`` computes the same functions (METHOD.md section 4.6):
+    tents and predecessor lists are built on first use, and the three commonest cases, a one-piece constant function
+    crossing an edge with no closure, landing on an empty or one-piece constant function, and closed under waiting
+    at a node with no wait ban, are done directly."""
     E, H = len(inst.tail), inst.H
     D = inst.D
-    beta = [pl.tent(inst.B[j], 0, H - D[j], M) for j in range(E)]
-    alpha = [_accept_level(inst.A[j], M, erode_accept) for j in range(E)]
-    omega = [pl.tent(inst.W[v], 0, H - 1, M) if inst.waitable[v] else [] for v in range(inst.n_nodes)]
-    pred = [[i for i in inst.inc[inst.tail[j]] if (i, j) not in inst.forbidden] for j in range(E)]
+    B, Wm, tail, inc, forbidden = inst.B, inst.W, inst.tail, inst.inc, inst.forbidden
+    head, waitable = inst.head, inst.waitable
+    if fast:
+        beta = _Lazy(lambda j: pl.tent(B[j], 0, H - D[j], M), E)
+        omega = _Lazy(lambda v: pl.tent(Wm[v], 0, H - 1, M) if waitable[v] else [], inst.n_nodes)
+        pred = _Lazy((lambda j: [i for i in inc[tail[j]] if (i, j) not in forbidden]) if forbidden
+                     else (lambda j: inc[tail[j]]), E)
+        alpha = [_accept_level(a, M, erode_accept) if a else [] for a in inst.A]
+    else:
+        beta = [pl.tent(B[j], 0, H - D[j], M) for j in range(E)]
+        alpha = [_accept_level(inst.A[j], M, erode_accept) for j in range(E)]
+        omega = [pl.tent(Wm[v], 0, H - 1, M) if waitable[v] else [] for v in range(inst.n_nodes)]
+        pred = [[i for i in inc[tail[j]] if (i, j) not in forbidden] for j in range(E)]
     mu = [[] for _ in range(E)]
     dirty = {}
     heap = []
-    pushes = pops = relax = 0
+    pushes = pops = relax = fastpath = 0
     for j in range(E):
         if alpha[j]:
             dirty[j] = (alpha[j][0][0], alpha[j][-1][1])
             heap.append((-alpha[j][-1][1], j))
             pushes += 1
     heapq.heapify(heap)
-    head, waitable = inst.head, inst.waitable
+    heappop, heappush = heapq.heappop, heapq.heappush
     while heap:
-        _, j = heapq.heappop(heap)
+        _, j = heappop(heap)
         d = dirty.pop(j, None)
         if d is None:
             continue
         pops += 1
         a, b = d
-        g = pl.restrict(mu[j], a, b)
-        if alpha[j]:
-            g = pl.pmax(pl.restrict(alpha[j], a, b), g)
         dj = D[j]
-        cand = pl.pmin(beta[j], pl.shift(g, -dj))
-        if not cand:
-            continue
+        mj = mu[j]
+        one = None                                         # cand as one constant piece (lo, hi, v), when it is one
+        if fast and not B[j] and not alpha[j] and len(mj) == 1 and mj[0][3] == 0:
+            lo, hi, v, _ = mj[0]
+            if lo < a:
+                lo = a
+            if hi > b:
+                hi = b
+            lo -= dj
+            hi -= dj
+            if lo < 0:
+                lo = 0
+            if hi > H - dj:
+                hi = H - dj
+            if lo > hi:
+                continue
+            one = (lo, hi, v)
+            cand = [(lo, hi, v, 0)]
+        else:
+            g = pl.restrict(mj, a, b)
+            if alpha[j]:
+                g = pl.pmax(pl.restrict(alpha[j], a, b), g)
+            cand = pl.pmin(beta[j], pl.shift(g, -dj))
+            if not cand:
+                continue
         for s in pred[j]:
             relax += 1
+            hv = head[s]
+            if one is not None:
+                ms = mu[s]
+                lo, hi, v = one
+                free_wait = waitable[hv] and not Wm[hv]
+                if free_wait:
+                    lo = 0                                 # closure under free waiting: every earlier second too
+                if not ms:
+                    if free_wait or not waitable[hv]:
+                        fastpath += 1
+                        mu[s] = [(lo, hi, v, 0)]
+                        old = dirty.get(s)
+                        if old is not None:
+                            dirty[s] = (min(lo, old[0]), max(hi, old[1]))
+                        else:
+                            dirty[s] = (lo, hi)
+                        heappush(heap, (-dirty[s][1], s))
+                        pushes += 1
+                        continue
+                elif len(ms) == 1 and ms[0][3] == 0 and ms[0][2] >= v and ms[0][0] <= lo and hi <= ms[0][1]:
+                    fastpath += 1
+                    continue                               # nothing is raised
             new, clo, chi = pl.raise_to(mu[s], cand)
             if clo is None:
                 continue
-            hv = head[s]
             if waitable[hv] and omega[hv]:
                 closed = wait_close(new, omega[hv])
                 if closed is not new:
@@ -150,11 +226,11 @@ def margin_field(inst: Instance, M: int, *, erode_accept: bool = False) -> Margi
                 clo = min(clo, old[0])
                 chi = max(chi, old[1])
             dirty[s] = (clo, chi)
-            heapq.heappush(heap, (-chi, s))
+            heappush(heap, (-chi, s))
             pushes += 1
     gamma = [pl.pmax(alpha[j], mu[j]) if alpha[j] else mu[j] for j in range(E)]
     return MarginField(inst, M, erode_accept, mu, gamma, beta, alpha, omega,
-                       {"pushes": pushes, "pops": pops, "relaxations": relax,
+                       {"pushes": pushes, "pops": pops, "relaxations": relax, "fast_relaxations": fastpath,
                         "pieces": sum(len(f) for f in mu), "max_pieces": max((len(f) for f in mu), default=0)})
 
 

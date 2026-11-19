@@ -4,7 +4,7 @@ Stage 3 of `research/kcf-idea-routing`. Code: `margin_field/pl.py`, `margin_fiel
 `research/harness-2026-11/F-3.1/deadline_field` is used read-only and is not changed. Model and notation are those
 of `research/kcf-theorem/THEOREM.md` §1 ("THEOREM" below).
 
-## 0. Result in four lines
+## 0. Result in five lines
 
 * **What it returns.** For every edge state s and second t, the number μ_s(t): the largest safety margin m (in
   seconds) such that t is still in the deadline field when **every closure is widened by m seconds on both sides**
@@ -12,6 +12,8 @@ of `research/kcf-theorem/THEOREM.md` §1 ("THEOREM" below).
 * **Exactness (Theorem 1).** {t : μ_s(t) ≥ m} is exactly the F-3.1 field of the m-widened instance, for every m.
 * **Meaning (Theorem 2).** μ_o(t) ≥ m iff departure t has one route that stays valid whenever every closure boundary
   is wrong by at most m seconds. It cannot be read off the windows (Proposition 3).
+* **Stability (Theorem 6, round 2).** μ is 1-Lipschitz in the closure times, and μ_o(t) + 1 is exactly the distance
+  from the forecast to the nearest forecast under which leaving at t fails.
 * **Algorithm (Theorems 4, 5).** Every function involved is piecewise linear in t with slopes −1, 0, +1. One
   heap-ordered backward pass over such functions computes μ. Its cost is stated in pieces, not in M.
 
@@ -128,6 +130,42 @@ m ≥ 1 edge 1 is open only up to 5 − m and edge 2 only from 6 + m, so μ\*_0(
 
 This is why a wide window is not evidence of a safe leave-by time: the window can be the union of two routes' windows
 that meet where one road closes and another opens.
+
+### 3.1 Theorem 6: the margin is a stability radius (added in round 2)
+
+**Distance between forecasts.** Let I and I′ have the same graph, D, turns, waitable nodes and H. Write
+I′ ≼_δ I ("I′ is within δ of I, from above") if B′_j ⊆ B_j ⊕ δ, W′_v ⊆ W_v ⊕ δ, IB′_o ⊆ IB_o ⊕ δ, and A′_j ⊇ A_j,
+AN′_o ⊇ AN_o (erode variant: A′_j ⊇ A_j ⊖ δ, AN′_o ⊇ AN_o ⊖ δ). Let d(I → I′) be the least such δ (∞ if none) and
+d(I, I′) = max(d(I → I′), d(I′ → I)). For the closure sets this is the Hausdorff distance, edge by edge. Moving each
+start and each end of each closure interval by at most δ seconds, without making an interval vanish, gives
+d(I, I′) ≤ δ; deleting closures as well gives d(I → I′) ≤ δ.
+
+**Theorem 6.** Let μ and μ′ be the margin functions of I and I′ with the same cap M. For every origin o (and every
+edge state) and every second t:
+1. *(one-sided)* if d(I → I′) ≤ δ then μ′(t) ≥ μ(t) − δ;
+2. *(1-Lipschitz)* if d(I, I′) ≤ δ then |μ′(t) − μ(t)| ≤ δ;
+3. *(radius)* if μ_o(t) = m < M then min{ d(I → I′) : t is not a feasible departure of o in I′ } = m + 1; if
+   μ_o(t) = M the minimum is at least M + 1.
+
+*Proof.* (1) If μ(t) < δ then μ(t) − δ ≤ −1 ≤ μ′(t). Otherwise let m = μ(t) − δ ≥ 0. On the integers
+(X ⊕ a) ⊕ b = X ⊕ (a + b), so B′_j ⊕ m ⊆ (B_j ⊕ δ) ⊕ m = B_j ⊕ (m + δ), the same for W and IB, and in the erode
+variant A′_j ⊖ m ⊇ (A_j ⊖ δ) ⊖ m = A_j ⊖ (m + δ). So every closure set of I′(m) is inside the corresponding set of
+I(m + δ) and every acceptance set contains it. By Theorem 1(c) t is feasible in I(m + δ); validity of a journey only
+asks that certain seconds avoid closure sets and one second lies in an acceptance set (as in the proof of Theorem 2),
+so the same journey is valid in I′(m), and μ′(t) ≥ m by Theorem 1(c) for I′. (2) is (1) both ways.
+(3) If d(I → I′) ≤ m then (1) with δ = m gives μ′_o(t) ≥ 0, so t is feasible in I′: the minimum is at least m + 1
+(for m = −1 this is empty). For m < M, I(m + 1) satisfies I(m + 1) ≼_{m+1} I and t is infeasible in it by
+Theorem 1(c): the minimum is at most m + 1. ∎
+
+**Reading.** μ_o(t) + 1 is the distance, in seconds of closure timing, from the forecast to the nearest forecast under
+which leaving at t fails. Operationally: *a leave-by time issued with margin ≥ δ stays valid after any forecast
+revision that moves closure times by at most δ and adds no closure farther than δ from an old one; no recomputation
+is needed to know this.* A revision's δ is computed from the two closure tables alone. The definition of robustness
+as distance to the violating set is that of Fainekos and Pappas (2009) for temporal logic over signals, and
+"stability radius" is the classical name in combinatorial optimisation (Leont'ev, Sotskov, Gordeev 1995); what is
+specific here is that the radius is exact, is in closure time, and comes out of one pass for every place and second.
+Checked on the random graphs: 838,729 (origin, second) pairs against a forecast with every closure end moved by up to
+δ, no violation; the bound was attained with equality at 2,095 of them (`results/property_tests.json`, `thm6_*`).
 
 ## 4. The algorithm
 
@@ -253,6 +291,37 @@ is L_o(m) = max over paths P of min(a_P, c_P − m), with a_P = a − len(P) the
 c_P = min_k (c_{j_k} − 1 − offset_k) the closure bound of the path: flat where a long safe route binds, slope −1
 where a closure binds, and it can switch from one route to another as m grows.
 
+### 4.6 The fast path (added in round 2)
+
+`margin_field(..., fast=True)`, the default from round 2 on, returns the same functions as the pass of §4.3
+(`fast=False`). Three changes, none of which alters a value:
+
+1. **Tents and predecessor lists on first use.** β_j, ω_v and the predecessor list of j are built when edge j is
+   first popped (or first read by the read-off). An edge that is never popped never contributes to any μ_s.
+2. **A constant piece crossing a closure-free edge.** If B_j = ∅, α_j = ∅ and the delivered part of μ_j is one piece
+   (lo, hi, v, 0), then β_j ≡ M on [0, H − D_j] and v ≤ M, so min(β_j, μ_j(· + D_j)) is the one piece
+   (max(lo − D_j, 0), min(hi − D_j, H − D_j), v, 0). This is Lemma 4.1 evaluated by hand.
+3. **Landing on an empty or a dominating constant function.** If μ_s is empty, the maximum is the candidate itself;
+   if moreover the head of s is waitable with W = ∅, then ω ≡ M ≥ v and Lemma 4.3(a) gives
+   cl_ω(μ_s)(t) = v for every 0 ≤ t ≤ hi, i.e. the one piece (0, hi, v, 0). If μ_s is one constant piece that
+   contains the candidate's interval with a value ≥ v, nothing is raised and nothing is pushed, exactly as when
+   `raise_to` returns an empty hull.
+
+Every other case goes through the general routines. Checked: equality of every μ_s and γ_s between `fast=True` and
+`fast=False` on 18,000 random graphs (99,176 states), three bugs planted in the fast path (each caught), and the
+six-cache run repeated with the fast path (`BENCH.md` §2). The fast path is engineering, not part of the idea: it
+uses nothing about margins, and the same three shortcuts could be written into the existing pass.
+
+### 4.7 The compiled port (added in round 2)
+
+`margin_field/nb.py` is the pass of §4.3 on fixed-size integer arrays, compiled with numba: each routine is a
+line-by-line port of the routine of the same name in `pl.py` / `field.py` (general path, no fast path). A state has
+room for `cap` pieces (16, grown to 64 and 256 if needed); if that, a scratch buffer of 1,024 pieces, or the heap
+runs out, the compiled pass gives up and the pure-Python pass is run instead (`stats["fallback"]`). So the result is
+the function of Theorem 4 in every case. Heap ties are broken differently from the Python pass; by Theorem 4 the
+result does not depend on the order. Checked: equal to the reference pass on all 99,176 states of the 18,000 random
+graphs, and on the caches in `BENCH.md` §2.
+
 ## 5. What the code returns
 
 | call | returns |
@@ -308,6 +377,43 @@ reopen and one optimal value. FlexSIPP (Hanou et al. 2026) computes a scalar sla
 **Decision.** The exact result is not published as far as this search shows, so there is no return to Stage 2. The
 novelty claim made in Stage 5 is limited to: the result for this model, Theorem 2's exactness, and the algorithm
 (§4). Theorem 1 is credited to the general theorem above.
+
+### 6.1 Second search (round 2, 19 Nov 2026, 09:58–10:13 UTC)
+
+Record: `survey_notes/H_prior_art_second_search.md` (35 queries; reading level stated per paper). It was a
+15-minute search, shorter than asked for; every "not found" below means "not found in a short search". It was aimed at
+finding the result, in seven directions: timed-automata robustness and permissiveness, temporal graphs, uncertain
+time windows, max-min profile search and safe-interval planning, temporal networks with uncertainty, evacuation
+margins, and static-versus-adjustable robust optimisation.
+
+**Outcome: neither Theorem 2 nor the algorithm was found published. Two things change in the account above.**
+
+* **A closer work for the algorithm.** Clement, Jéron, Markey, Mentré, "Computing maximally-permissive strategies in
+  acyclic timed automata", FORMATS 2020 (main body read). They compute, backward, a piecewise-affine "permissiveness"
+  of every configuration: the largest δ such that the player can always propose a delay interval of length ≥ δ and
+  still reach the target, with bottleneck (max-min) aggregation. Same skeleton as §4. Differences: what is perturbed
+  is the traveller's own delays, not the closures; the strategy is adaptive by construction; acyclic automata only
+  (cycles are left open there); slopes such as 1/2; doubly exponential cost for linear automata; no shift, waiting
+  closure or cap. This replaces Sankur et al. as the third closest work.
+* **Theorem 2 is short and its mechanism is known.** It is not an instance of Ben-Tal, Goryashko, Guslitzer,
+  Nemirovski 2004, Theorem 2.1 (linear, convex, constraint-wise; their own counterexample is the shared-parameter
+  case, which is ours) nor of Marandi and den Hertog 2018, Theorem 1 (constraint-wise with fixed recourse). But its
+  proof is the same dominating-scenario argument as the proof of the latter: one scenario, I(m), is in the
+  uncertainty set and is worst for every constraint and every journey at once. A referee would call Theorem 2 a
+  short observation. It was not found stated for closure timing in routing, temporal graphs or safe-interval
+  planning. Füchsle et al. 2022 is the contrasting case: when travel times are what is delayed, static and adaptive
+  routes differ and the static problem is NP-complete.
+* **Theorem 6** was added after this search and has **not** been searched for beyond two queries. Its definition
+  pattern is published (Fainekos and Pappas 2009, robustness degree as distance to the violating set; stability radius,
+  Leont'ev, Sotskov, Gordeev 1995; both seen as search summaries only, not opened). Given Theorem 2 it is a
+  three-line corollary. No novelty is claimed for it beyond "not found for this model".
+
+**The three closest prior works, revised:** (1) Donzé and Maler 2010 with Rodionova et al. 2022; (2) Bruns and
+Godefroid 2004; (3) Clement, Jéron, Markey, Mentré 2020. Not done: the Clément 2022 thesis was not opened and could
+extend (3) to cycles; forward citations of (3) and of Füchsle et al. were not walked.
+
+**Decision unchanged**: no return to Stage 2. The novelty claim is narrowed in one respect: Theorem 2 is claimed as
+"not found stated", not as a deep result.
 
 ## 7. Limits
 
