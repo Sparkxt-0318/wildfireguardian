@@ -131,7 +131,11 @@ run hour.
 
 - G fires mostly on the east coast (Pohang, Yeongdeok, Uljin, Gangneung: 5-9 days a season) and on one day in four
   seasons at each of Andong, Chuncheon and Wonju. A30 has the same pattern. A-cal fires about equally everywhere.
-- 2025 had the most alarm days under every rule.
+- 2025 had the most alarm days under every forecast rule.
+- **G-obs** (seven seasons, all read from stations) fires less often than G and in a different place: mostly at
+  Gangneung (5.8 days a season, five stations within 50 km including Daegwallyeong), and on 0.5-1.5 days at
+  Uljin, Yeongdeok and Pohang, where the forecast rule G fires on 5.5-8.5 days. It never fired at Chuncheon or
+  Wonju in 2022-2025. By season it ranges from 0.8 (2024) to 3.4 (2021) days per point.
 
 ## 6. Second model: ECMWF IFS (cross-check; enters no verdict)
 
@@ -159,8 +163,9 @@ run hour.
   missed.
 - **A limit of the station file (amendment 3, post hoc).** At the three-hourly stamps a row can show the largest
   gust of the previous 3-6 h in place of the hour's own, so an hour's gust can be hidden behind an earlier one.
-  The frozen reading drops such rows. Counting every hidden hour as firing (an upper bound) changes 10 fire hours
-  and leaves the count of warned run fire-days at 1 of 9.
+  The frozen reading drops such rows. Counting every hidden hour as firing (an upper bound) changes 10 fire hours,
+  leaves the count of warned run fire-days at 1 of 9, and could add at most 5 alarm point-days of 7,300 in the
+  burden set.
 - G-obs uses ASOS stations only. KMA's denser AWS network was not read (the key is approved for the ASOS hourly
   endpoint alone), so a gust between stations is not seen. Values are whole m/s.
 
@@ -262,7 +267,8 @@ older model version, with the any-time gust form only.
 - **GEFS (S5).** Control forecast from AWS `noaa-gefs-pds`: 838 cycles, 0.5 GB. One cycle (2019-02-19 06 UTC) has
   no gust file in the archive (20 point-days without the coarse gust).
 - **Station gusts.** KMA apihub `kma_sfctm2.php` (ASOS hourly, all stations, one call per KST hour), fetched
-  2026-11-18 from 22:58 UTC with a key held outside the repo and never logged: {{KMA_FETCH}} Every gust record is
+  from 2026-11-18 22:58 UTC to 2026-11-19 03:01 UTC (interrupted once by a container restart and resumed) with a key
+  held outside the repo and never logged: {{KMA_FETCH}} Every gust record is
   in `derived/kma_gust_records.csv.gz`; station positions are KMA's data-wiki table as of 2023-09-01
   (`derived/kma_asos_stations.csv`). The first, four-station run used `research/kcf-gust/work/kma_asos_hourly.json`.
 - **Terrain.** SRTM 1 arc-second tiles from AWS `elevation-tiles-prod`.

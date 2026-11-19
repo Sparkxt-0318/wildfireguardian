@@ -271,3 +271,7 @@ Rule states are computed for every issue hour of each fire and for the 24 h befo
    upper bound** is reported in which every such hidden hour counts as firing. Also found: the smallest recorded
    gust is 7 m/s, not the 10 m/s kcf-gust inferred from five days; "no record" therefore means "no gust reported",
    and that a gust of 20 m/s or more is always reported is ASSUMED.
+   - *Correction, 2026-11-19 03:03 UTC, after the burden-set station hours were read.* "Cannot remove an alarm
+     day" is not exact: a row just after midnight can repeat a gust of the day before and hide that hour's own. In
+     the burden set this could add at most 5 alarm point-days of 7,300 (the upper bound); the primary counts are
+     the frozen reading.

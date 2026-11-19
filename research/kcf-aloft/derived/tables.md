@@ -7,7 +7,7 @@ S-match: G fires on 169 burden point-days; A reaches that count at 29.7 m/s (163
 | rule | run fire-days / fires | warned at the first run hour | warned >= 1 h ahead | lead times, h | run hours missed | alarm fire-days with no run | burden: alarm days per point and season | false-alarm days per point and season | days per season with an alarm at any of ten points |
 |---|---|---|---|---|---|---|---|---|---|
 | G | 9 / 4 | 4 of 9 (14-79%) | 3 of 9 (8-70%) | 0, 1, 12, 21 | 37 of 55 (53-79%) | 0 of 34 (0-10%) | 3.7 (3.1-4.3) | 3.3 (2.8-3.9) | 11.8 (8.6-15.6) |
-| G-obs | 9 / 4 | 1 of 9 (0-48%) | 1 of 9 (0-48%) | 1 | 49 of 55 (78-96%) | 0 of 34 (0-10%) | - | - | - |
+| G-obs | 9 / 4 | 1 of 9 (0-48%) | 1 of 9 (0-48%) | 1 | 49 of 55 (78-96%) | 0 of 34 (0-10%) | 1.4 (1.1-1.9) | 1.2 (0.9-1.6) | 8.2 (5.7-11.6) |
 | A-cal | 9 / 4 | 8 of 9 (52-100%) | 8 of 9 (52-100%) | 5, 8, 17, 22, 24, 24, 24, 24 | 10 of 55 (9-31%) | 19 of 34 (38-73%) | 55.1 (52.9-57.5) | 54.2 (52.0-56.6) | 73.8 (65.6-82.7) |
 | A25 | 9 / 4 | 4 of 9 (14-79%) | 4 of 9 (14-79%) | 2, 2, 14, 23 | 37 of 55 (53-79%) | 5 of 34 (5-31%) | 11.3 (10.3-12.4) | 10.7 (9.7-11.8) | 28.0 (23.1-33.7) |
 | A30 | 9 / 4 | 3 of 9 (8-70%) | 3 of 9 (8-70%) | 1, 1, 8 | 41 of 55 (61-85%) | 2 of 34 (1-20%) | 3.1 (2.6-3.7) | 2.8 (2.3-3.3) | 9.5 (6.7-13.0) |
@@ -21,7 +21,7 @@ S-match: G fires on 169 burden point-days; A reaches that count at 29.7 m/s (163
 | rule | run fire-days / fires | warned at the first run hour | warned >= 1 h ahead | lead times, h | run hours missed | alarm fire-days with no run | burden: alarm days per point and season | false-alarm days per point and season | days per season with an alarm at any of ten points |
 |---|---|---|---|---|---|---|---|---|---|
 | G | 8 / 4 | 3 of 8 (8-76%) | 2 of 8 (3-65%) | 0, 12, 21 | 31 of 42 (58-86%) | 0 of 34 (0-10%) | 3.7 (3.1-4.3) | 3.3 (2.8-3.9) | 11.8 (8.6-15.6) |
-| G-obs | 8 / 4 | 1 of 8 (0-53%) | 1 of 8 (0-53%) | 1 | 38 of 42 (77-97%) | 0 of 34 (0-10%) | - | - | - |
+| G-obs | 8 / 4 | 1 of 8 (0-53%) | 1 of 8 (0-53%) | 1 | 38 of 42 (77-97%) | 0 of 34 (0-10%) | 1.4 (1.1-1.9) | 1.2 (0.9-1.6) | 8.2 (5.7-11.6) |
 | A-cal | 8 / 4 | 7 of 8 (47-100%) | 7 of 8 (47-100%) | 5, 17, 22, 24, 24, 24, 24 | 10 of 42 (12-40%) | 19 of 34 (38-73%) | 55.1 (52.9-57.5) | 54.2 (52.0-56.6) | 73.8 (65.6-82.7) |
 | A25 | 8 / 4 | 3 of 8 (8-76%) | 3 of 8 (8-76%) | 2, 14, 23 | 34 of 42 (66-91%) | 5 of 34 (5-31%) | 11.3 (10.3-12.4) | 10.7 (9.7-11.8) | 28.0 (23.1-33.7) |
 | A30 | 8 / 4 | 2 of 8 (3-65%) | 2 of 8 (3-65%) | 1, 8 | 35 of 42 (69-93%) | 2 of 34 (1-20%) | 3.1 (2.6-3.7) | 2.8 (2.3-3.3) | 9.5 (6.7-13.0) |
@@ -82,6 +82,13 @@ S-match: G fires on 169 burden point-days; A reaches that count at 29.7 m/s (163
 | G | 2023 | 104 of 104 | 26 | 2.6 | Andong 0 | Yeongdeok 6 | 7 | 26 |
 | G | 2024 | 105 of 105 | 19 | 1.9 | Andong 0 | Pohang 4 | 7 | 19 |
 | G | 2025 | 104 of 104 | 56 | 5.6 | Andong 1 | Pohang 13 | 18 | 50 |
+| G-obs | 2019 | 104 of 104 | 15 | 1.5 | Andong 0 | Pohang 7 | 11 | 15 |
+| G-obs | 2020 | 105 of 105 | 31 | 3.1 | Sokcho 0 | Gangneung 10 | 16 | 31 |
+| G-obs | 2021 | 104 of 104 | 34 | 3.4 | Chuncheon 0 | Gangneung 15 | 17 | 34 |
+| G-obs | 2022 | 104 of 104 | 9 | 0.9 | Chuncheon 0 | Gangneung 2 | 4 | 4 |
+| G-obs | 2023 | 104 of 104 | 13 | 1.3 | Andong 0 | Gangneung 7 | 8 | 13 |
+| G-obs | 2024 | 105 of 105 | 8 | 0.8 | Andong 0 | Gangneung 4 | 6 | 8 |
+| G-obs | 2025 | 104 of 104 | 28 | 2.8 | Chuncheon 0 | Gangneung 10 | 15 | 23 |
 | A-cal | 2021 | 78 of 104 | 389 | 38.9 | Wonju 32 | Yeongdeok 48 | 50 | 389 |
 | A-cal | 2022 | 104 of 104 | 554 | 55.4 | Wonju 47 | Sokcho 65 | 77 | 541 |
 | A-cal | 2023 | 104 of 104 | 472 | 47.2 | Wonju 41 | Sokcho 53 | 63 | 472 |
@@ -123,7 +130,7 @@ By point, alarm days per full season (mean):
 | rule | Andong | Chuncheon | Gangneung | Pohang | Sangju | Sokcho | Taebaek | Uljin | Wonju | Yeongdeok |
 |---|---|---|---|---|---|---|---|---|---|---|
 | G | 0.2 | 0.2 | 5.2 | 8.5 | 1.2 | 3.5 | 4.0 | 5.5 | 0.2 | 8.0 |
-| G-obs | - | - | - | - | - | - | - | - | - | - |
+| G-obs | 1.0 | 0.0 | 5.8 | 1.2 | 1.2 | 1.5 | 1.8 | 0.5 | 0.0 | 1.5 |
 | A-cal | 53.8 | 50.2 | 57.2 | 58.5 | 56.0 | 57.2 | 55.2 | 53.2 | 48.5 | 61.5 |
 | A25 | 7.5 | 3.5 | 13.2 | 20.5 | 10.2 | 11.2 | 5.8 | 14.8 | 4.5 | 21.8 |
 | A30 | 1.5 | 0.0 | 4.5 | 6.0 | 1.8 | 3.8 | 1.8 | 4.8 | 0.0 | 6.8 |
@@ -266,7 +273,7 @@ S4 pooled issue hours (counts):
 
 ## T13 G-obs from all KMA ASOS stations within 50 km (amendment 2)
 
-Hours fetched 697, failed 0; station-hours 67245; gust records 9100 (13.5% of station-hours); smallest recorded gust 7.0 m/s; records timed outside their hour 3062 (dropped); records not in whole m/s 0; records of 20 m/s or more inside their hour 141. Fire hours 1080, with no station row within 50 km 0; stations within 50 km of a fire position: 2 to 10.
+Hours fetched 17586, failed 0; station-hours 1688002; gust records 160505 (9.5% of station-hours); smallest recorded gust 7.0 m/s; records timed outside their hour 55157 (dropped); records not in whole m/s 0; records of 20 m/s or more inside their hour 2181. Fire hours 1080, with no station row within 50 km 0; stations within 50 km of a fire position: 2 to 10.
 
 | rule | warned, rule vs G-obs | without 25 March | leave-one-fire-out: rule minus G-obs | warned by rule only / by G-obs only (sign test) | lead, rule minus G-obs, h (days warned by both) |
 |---|---|---|---|---|---|

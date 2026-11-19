@@ -1,29 +1,29 @@
 {
- "hours_fetched": 697,
+ "hours_fetched": 17586,
  "hours_failed": [],
- "station_hours": 67245,
- "gust_records": 9100,
- "share_of_station_hours_with_a_record": 0.1353,
+ "station_hours": 1688002,
+ "gust_records": 160505,
+ "share_of_station_hours_with_a_record": 0.0951,
  "smallest_recorded_gust_ms": 7.0,
- "records_timed_outside_their_hour": 3062,
+ "records_timed_outside_their_hour": 55157,
  "records_not_whole_ms": 0,
- "records_20_or_more_inside_hour": 141,
- "records_20_or_more_outside_hour": 96,
+ "records_20_or_more_inside_hour": 2181,
+ "records_20_or_more_outside_hour": 1364,
  "stamp_hours_of_outside_records": {
-  "00": 200,
-  "03": 294,
-  "06": 129,
-  "09": 200,
-  "12": 202,
-  "15": 562,
-  "17": 1,
-  "18": 709,
+  "00": 3788,
+  "03": 5760,
+  "06": 3070,
+  "09": 4573,
+  "12": 4512,
+  "15": 10579,
+  "17": 2,
+  "18": 10166,
   "19": 2,
   "20": 2,
-  "21": 761
+  "21": 12703
  },
  "fire_hours_hidden_by_earlier_gust": 10,
- "burden_alarm_days_only_if_hidden_hours_count": 0,
+ "burden_alarm_days_only_if_hidden_hours_count": 5,
  "stations_within_50km_of_points": {
   "Sokcho": [
    90,
@@ -95,7 +95,15 @@
   2,
   10
  ],
- "burden_point_days": 0,
- "burden_point_days_complete": 0,
- "burden_days_by_season": {}
+ "burden_point_days": 7300,
+ "burden_point_days_complete": 7300,
+ "burden_days_by_season": {
+  "2019": 104,
+  "2020": 105,
+  "2021": 104,
+  "2022": 104,
+  "2023": 104,
+  "2024": 105,
+  "2025": 104
+ }
 }

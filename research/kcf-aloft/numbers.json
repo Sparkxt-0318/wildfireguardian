@@ -12446,17 +12446,357 @@
    "point_days_evaluated": 4950
   },
   "G-obs": {
-   "per_season": {},
-   "per_point": {},
-   "full_seasons": [],
-   "all_seasons_evaluated": [],
-   "complete_seasons": [],
-   "alarm_days_per_point_season": null,
-   "false_alarm_days_per_point_season": null,
-   "days_any_point_per_season": null,
-   "alarm_point_days_all_evaluated": 0,
-   "false_alarm_point_days_all_evaluated": 0,
-   "point_days_evaluated": 0
+   "per_season": {
+    "2019": {
+     "days_evaluated": 104,
+     "full_season_days": 104,
+     "alarm_point_days": 15,
+     "false_alarm_point_days": 15,
+     "mean_alarm_days_per_point": 1.5,
+     "mean_false_alarm_days_per_point": 1.5,
+     "min_point": [
+      "Andong",
+      0
+     ],
+     "max_point": [
+      "Pohang",
+      7
+     ],
+     "days_any_point": 11,
+     "by_point": {
+      "Andong": 0,
+      "Chuncheon": 0,
+      "Gangneung": 4,
+      "Pohang": 7,
+      "Sangju": 0,
+      "Sokcho": 1,
+      "Taebaek": 3,
+      "Uljin": 0,
+      "Wonju": 0,
+      "Yeongdeok": 0
+     }
+    },
+    "2020": {
+     "days_evaluated": 105,
+     "full_season_days": 105,
+     "alarm_point_days": 31,
+     "false_alarm_point_days": 31,
+     "mean_alarm_days_per_point": 3.1,
+     "mean_false_alarm_days_per_point": 3.1,
+     "min_point": [
+      "Sokcho",
+      0
+     ],
+     "max_point": [
+      "Gangneung",
+      10
+     ],
+     "days_any_point": 16,
+     "by_point": {
+      "Andong": 3,
+      "Chuncheon": 1,
+      "Gangneung": 10,
+      "Pohang": 1,
+      "Sangju": 6,
+      "Sokcho": 0,
+      "Taebaek": 5,
+      "Uljin": 0,
+      "Wonju": 0,
+      "Yeongdeok": 5
+     }
+    },
+    "2021": {
+     "days_evaluated": 104,
+     "full_season_days": 104,
+     "alarm_point_days": 34,
+     "false_alarm_point_days": 34,
+     "mean_alarm_days_per_point": 3.4,
+     "mean_false_alarm_days_per_point": 3.4,
+     "min_point": [
+      "Chuncheon",
+      0
+     ],
+     "max_point": [
+      "Gangneung",
+      15
+     ],
+     "days_any_point": 17,
+     "by_point": {
+      "Andong": 1,
+      "Chuncheon": 0,
+      "Gangneung": 15,
+      "Pohang": 2,
+      "Sangju": 5,
+      "Sokcho": 2,
+      "Taebaek": 7,
+      "Uljin": 0,
+      "Wonju": 0,
+      "Yeongdeok": 2
+     }
+    },
+    "2022": {
+     "days_evaluated": 104,
+     "full_season_days": 104,
+     "alarm_point_days": 9,
+     "false_alarm_point_days": 4,
+     "mean_alarm_days_per_point": 0.9,
+     "mean_false_alarm_days_per_point": 0.4,
+     "min_point": [
+      "Chuncheon",
+      0
+     ],
+     "max_point": [
+      "Gangneung",
+      2
+     ],
+     "days_any_point": 4,
+     "by_point": {
+      "Andong": 1,
+      "Chuncheon": 0,
+      "Gangneung": 2,
+      "Pohang": 1,
+      "Sangju": 1,
+      "Sokcho": 1,
+      "Taebaek": 1,
+      "Uljin": 0,
+      "Wonju": 0,
+      "Yeongdeok": 2
+     }
+    },
+    "2023": {
+     "days_evaluated": 104,
+     "full_season_days": 104,
+     "alarm_point_days": 13,
+     "false_alarm_point_days": 13,
+     "mean_alarm_days_per_point": 1.3,
+     "mean_false_alarm_days_per_point": 1.3,
+     "min_point": [
+      "Andong",
+      0
+     ],
+     "max_point": [
+      "Gangneung",
+      7
+     ],
+     "days_any_point": 8,
+     "by_point": {
+      "Andong": 0,
+      "Chuncheon": 0,
+      "Gangneung": 7,
+      "Pohang": 1,
+      "Sangju": 0,
+      "Sokcho": 2,
+      "Taebaek": 2,
+      "Uljin": 1,
+      "Wonju": 0,
+      "Yeongdeok": 0
+     }
+    },
+    "2024": {
+     "days_evaluated": 105,
+     "full_season_days": 105,
+     "alarm_point_days": 8,
+     "false_alarm_point_days": 8,
+     "mean_alarm_days_per_point": 0.8,
+     "mean_false_alarm_days_per_point": 0.8,
+     "min_point": [
+      "Andong",
+      0
+     ],
+     "max_point": [
+      "Gangneung",
+      4
+     ],
+     "days_any_point": 6,
+     "by_point": {
+      "Andong": 0,
+      "Chuncheon": 0,
+      "Gangneung": 4,
+      "Pohang": 1,
+      "Sangju": 1,
+      "Sokcho": 0,
+      "Taebaek": 0,
+      "Uljin": 0,
+      "Wonju": 0,
+      "Yeongdeok": 2
+     }
+    },
+    "2025": {
+     "days_evaluated": 104,
+     "full_season_days": 104,
+     "alarm_point_days": 28,
+     "false_alarm_point_days": 23,
+     "mean_alarm_days_per_point": 2.8,
+     "mean_false_alarm_days_per_point": 2.3,
+     "min_point": [
+      "Chuncheon",
+      0
+     ],
+     "max_point": [
+      "Gangneung",
+      10
+     ],
+     "days_any_point": 15,
+     "by_point": {
+      "Andong": 3,
+      "Chuncheon": 0,
+      "Gangneung": 10,
+      "Pohang": 2,
+      "Sangju": 3,
+      "Sokcho": 3,
+      "Taebaek": 4,
+      "Uljin": 1,
+      "Wonju": 0,
+      "Yeongdeok": 2
+     }
+    }
+   },
+   "per_point": {
+    "Andong": {
+     "total": 4,
+     "units": 4,
+     "mean": 1.0,
+     "ci95": [
+      0.27,
+      2.56
+     ]
+    },
+    "Chuncheon": {
+     "total": 0,
+     "units": 4,
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.92
+     ]
+    },
+    "Gangneung": {
+     "total": 23,
+     "units": 4,
+     "mean": 5.75,
+     "ci95": [
+      3.65,
+      8.63
+     ]
+    },
+    "Pohang": {
+     "total": 5,
+     "units": 4,
+     "mean": 1.25,
+     "ci95": [
+      0.41,
+      2.92
+     ]
+    },
+    "Sangju": {
+     "total": 5,
+     "units": 4,
+     "mean": 1.25,
+     "ci95": [
+      0.41,
+      2.92
+     ]
+    },
+    "Sokcho": {
+     "total": 6,
+     "units": 4,
+     "mean": 1.5,
+     "ci95": [
+      0.55,
+      3.26
+     ]
+    },
+    "Taebaek": {
+     "total": 7,
+     "units": 4,
+     "mean": 1.75,
+     "ci95": [
+      0.7,
+      3.61
+     ]
+    },
+    "Uljin": {
+     "total": 2,
+     "units": 4,
+     "mean": 0.5,
+     "ci95": [
+      0.06,
+      1.81
+     ]
+    },
+    "Wonju": {
+     "total": 0,
+     "units": 4,
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.92
+     ]
+    },
+    "Yeongdeok": {
+     "total": 6,
+     "units": 4,
+     "mean": 1.5,
+     "ci95": [
+      0.55,
+      3.26
+     ]
+    }
+   },
+   "complete_seasons": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "full_seasons": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "all_seasons_evaluated": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "alarm_days_per_point_season": {
+    "total": 58,
+    "units": 40,
+    "mean": 1.45,
+    "ci95": [
+     1.1,
+     1.87
+    ]
+   },
+   "false_alarm_days_per_point_season": {
+    "total": 48,
+    "units": 40,
+    "mean": 1.2,
+    "ci95": [
+     0.88,
+     1.59
+    ]
+   },
+   "days_any_point_per_season": {
+    "total": 33,
+    "units": 4,
+    "mean": 8.25,
+    "ci95": [
+     5.68,
+     11.59
+    ]
+   },
+   "alarm_point_days_all_evaluated": 138,
+   "false_alarm_point_days_all_evaluated": 128,
+   "point_days_evaluated": 7300
   },
   "A-cal": {
    "per_season": {
@@ -39043,31 +39383,31 @@
   }
  },
  "gobs_quality": {
-  "hours_fetched": 697,
+  "hours_fetched": 17586,
   "hours_failed": [],
-  "station_hours": 67245,
-  "gust_records": 9100,
-  "share_of_station_hours_with_a_record": 0.1353,
+  "station_hours": 1688002,
+  "gust_records": 160505,
+  "share_of_station_hours_with_a_record": 0.0951,
   "smallest_recorded_gust_ms": 7.0,
-  "records_timed_outside_their_hour": 3062,
+  "records_timed_outside_their_hour": 55157,
   "records_not_whole_ms": 0,
-  "records_20_or_more_inside_hour": 141,
-  "records_20_or_more_outside_hour": 96,
+  "records_20_or_more_inside_hour": 2181,
+  "records_20_or_more_outside_hour": 1364,
   "stamp_hours_of_outside_records": {
-   "00": 200,
-   "03": 294,
-   "06": 129,
-   "09": 200,
-   "12": 202,
-   "15": 562,
-   "17": 1,
-   "18": 709,
+   "00": 3788,
+   "03": 5760,
+   "06": 3070,
+   "09": 4573,
+   "12": 4512,
+   "15": 10579,
+   "17": 2,
+   "18": 10166,
    "19": 2,
    "20": 2,
-   "21": 761
+   "21": 12703
   },
   "fire_hours_hidden_by_earlier_gust": 10,
-  "burden_alarm_days_only_if_hidden_hours_count": 0,
+  "burden_alarm_days_only_if_hidden_hours_count": 5,
   "stations_within_50km_of_points": {
    "Sokcho": [
     90,
@@ -39139,9 +39479,17 @@
    2,
    10
   ],
-  "burden_point_days": 0,
-  "burden_point_days_complete": 0,
-  "burden_days_by_season": {}
+  "burden_point_days": 7300,
+  "burden_point_days_complete": 7300,
+  "burden_days_by_season": {
+   "2019": 104,
+   "2020": 105,
+   "2021": 104,
+   "2022": 104,
+   "2023": 104,
+   "2024": 105,
+   "2025": 104
+  }
  },
  "second_model_ifs": {
   "label": "cross-check; enters no verdict",

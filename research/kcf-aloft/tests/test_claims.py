@@ -96,3 +96,36 @@ def test_observed_gust_recount():
         hit = rec[rec.tm_kst == stamp]
         n += any(dist(r.lat, r.lon, st.lat[s], st.lon[s]) <= 50 for s in hit.stn)
     assert n == F("G-obs")["warned"]["k"]
+
+
+def test_observed_gust_burden():
+    b = B("G-obs")
+    assert b["complete_seasons"] == [2019, 2020, 2021, 2022, 2023, 2024, 2025] and b["full_seasons"] == [2022, 2023, 2024, 2025]
+    assert mean("G-obs") == 1.4 and mean("G-obs", "days_any_point_per_season") == 8.2 and mean("G") == 3.7
+    assert round(b["per_point"]["Gangneung"]["mean"], 1) == 5.8 and b["per_point"]["Chuncheon"]["mean"] == 0 and b["per_point"]["Wonju"]["mean"] == 0
+    per = {int(k): v["mean_alarm_days_per_point"] for k, v in b["per_season"].items()}
+    assert min(per, key=per.get) == 2024 and max(per, key=per.get) == 2021 and per[2024] == 0.8 and per[2021] == 3.4
+    q = N["gobs_quality"]
+    assert q["hours_failed"] == [] and q["burden_point_days_complete"] == 7300 and q["burden_alarm_days_only_if_hidden_hours_count"] == 5
+
+
+def test_observed_gust_burden_recount():
+    """Second code path: alarm days at two burden points straight from the gust records and the station table."""
+    import math
+    import pandas as pd
+    here = Path(__file__).resolve().parent.parent
+    rec = pd.read_csv(here / "derived" / "kma_gust_records.csv.gz", dtype={"tm_kst": str})
+    rec = rec[(rec.inside_hour == 1) & (rec.gst_ws >= 20)]
+    st = pd.read_csv(here / "derived" / "kma_asos_stations.csv")
+
+    def dist(a, b, c, d):
+        p1, p2 = math.radians(a), math.radians(c)
+        x = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(math.radians(d - b) / 2) ** 2
+        return 6371.0088 * 2 * math.asin(math.sqrt(x))
+    for point, lat, lon in (("Gangneung", 37.7709, 128.8681), ("Pohang", 36.0333, 129.3833)):
+        near = [int(r.stn) for r in st.itertuples() if dist(lat, lon, r.lat, r.lon) <= 50]
+        d = rec[rec.stn.isin(near)]
+        days = set(d.tm_kst.str[:8])                       # stamps 00:00-23:00 of a day carry that day's date
+        for season, v in B("G-obs")["per_season"].items():
+            n = sum(1 for x in days if x[:4] == season and "0201" <= x[4:] <= "0515")
+            assert n == v["by_point"][point], (point, season, n, v["by_point"][point])
