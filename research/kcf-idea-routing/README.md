@@ -22,7 +22,10 @@ Read the verdict with its limits:
    compiled kernel at M = 600 against the same kernel at M = 0) the margin pass is **5% to 12% slower for one
    margin** and faster from two (1.6×) up. Round 1, before the fast path, was slower for a single field on three
    caches (0.55× to 0.61×); those numbers stay in `BENCH.md` §1.
-5. The "margin of leaving now" comparison (18× to 47×) was against a bisection that did not test the end points
+5. The three Yeongdeok caches of round 2 were timed while other jobs ran on the machine. Both claims survive a
+   fastest-repeat check, but the one-margin result on one of them is thin (1.30 by the frozen rule, 1.20 by
+   fastest repeats). A quiet re-run of those three caches has not been done.
+6. The "margin of leaving now" comparison (18× to 47×) was against a bisection that did not test the end points
    first; on this data a better-ordered one would cut it to about 1.3× to 6×.
 
 If "faster" must mean "the idea itself beats a single level pass with equal engineering", the result for one

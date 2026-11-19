@@ -107,3 +107,7 @@ Ratios per shelter, per cache the median of its 6 shelters, as round 1.
    inputs every origin's answer is either the cap (74 of 79) or "cannot leave at second 0" (5), so the bisection
    used about 10 passes where 1 or 2 would do. The T4 numbers are reported as measured, with this stated beside
    them; the claim "faster than bisection" is to be read with it. Nothing was re-run.
+3. Conditions, found after the run: the machine was not quiet while the three Yeongdeok caches were timed (other
+   sessions' jobs on the same Mac). The frozen numbers are reported as measured, with a fastest-repeat check
+   computed from the recorded repeats and a second timing of one cache made by another session, both in
+   `BENCH.md` §2 and neither replacing a frozen number.

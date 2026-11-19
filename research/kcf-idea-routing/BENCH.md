@@ -161,6 +161,14 @@ existed. Raw numbers: `results/bench2.json`, `results/bench2.log`, `results/real
 12:13–14:32 UTC, same machine, `.venv-kcf/bin/python` (Python 3.13.13, numba 0.68.1, numpy 2.5.0), one process,
 nothing else of this study running.
 
+**The machine was not quiet for the second half of the run.** I found this after the run. Other sessions on the
+same Mac were running their own jobs (a different study's benchmark from about 13:00 UTC, and another session's
+checks during `yeongdeok_2025/20250325T190000Z`). The three Uiseong–Andong caches were timed before that; their
+existing-pass times agree with round 1 to within a few percent. The three Yeongdeok caches were timed under load:
+their existing-pass times are 10% to 100% above round 1 for the same shelters. Each ratio compares two methods
+timed seconds apart with the order alternating, so load hits both sides, but the Yeongdeok ratios are less
+certain than the tables suggest. See "Timing under load" below for what survives.
+
 Methods: EXISTING = `deadline_field.core.backward`, unchanged; NEW = `margin_field` with the fast path
 (`METHOD.md` §4.6); V1 = the round-1 method (`fast=False`); NB = the compiled port (`margin_field/nb.py`); NB0 = the
 same compiled kernel run at M = 0, once per margin.
@@ -292,17 +300,54 @@ With lazy tents the pure-Python margin pass peaks at 0.64× to 0.86× of one exi
 The compiled port's result arrays are fixed-size (16 piece slots per state) and larger than either; no peak is
 claimed for it.
 
+## Timing under load
+
+A check not in the plan, made from the recorded repeats only (nothing re-timed). Interference can only make a run
+slower, so the fastest of the 5 repeats is the least disturbed. Ratio of fastest EXISTING to fastest NEW, median of
+6 shelters:
+
+| cache | T1, medians (the claim) | T1, fastest / fastest | T2 K=1, medians (the claim) | T2 K=1, fastest / fastest |
+|---|---|---|---|---|
+| uiseong_andong_2025/20250323T010000Z | 3.04 | 3.08 | 2.36 | 2.37 |
+| uiseong_andong_2025/20250324T090000Z | 5.98 | 6.05 | 3.94 | 4.07 |
+| uiseong_andong_2025/20250325T170000Z | 3.99 | 4.05 | 2.86 | 2.93 |
+| yeongdeok_2025/20250325T190000Z | 2.32 | 2.44 | 1.62 | 1.74 |
+| yeongdeok_2025/20250325T230000Z | 2.28 | 2.37 | 1.57 | 1.68 |
+| yeongdeok_2025/20250326T080000Z | 1.99 | 1.93 | 1.30 | 1.20 |
+
+Both claims hold on every cache either way. The thinnest is K = 1 on `yeongdeok_2025/20250326T080000Z`: 1.30 by
+the frozen rule, 1.20 by fastest repeats. Taking the worst case for the new method on that cache (fastest EXISTING
+against slowest NEW) gives 0.97, so that one cell is not safe against the noise of this run; the single-field
+result (T1) is, with a worst case of 1.67 on the same cache.
+
+**One cache timed again.** Another session re-ran `yeongdeok_2025/20250325T190000Z` (the same script, interpreter,
+inputs and six shelters) at 14:34–15:06 UTC, because its own checks had overlapped that cache. The other study's
+benchmark was still running then, so this is a second sample under load, not a quiet one. Raw:
+`results/bench2_rerun_yeongdeok_20250325T190000Z.json`. Zero mismatches.
+
+| | T1 EXISTING / NEW | T2 K=1 | K=2 | K=4 | K=8 | K=16 | NB0 / NB at K=1 | T4 |
+|---|---|---|---|---|---|---|---|---|
+| frozen run | 2.32 | 1.62 | 2.55 | 3.50 | 4.49 | 5.39 | 0.90 | 23.1 |
+| re-run | 2.37 | 1.78 | 2.60 | 3.71 | 4.48 | 5.13 | 0.87 | 23.0 |
+
+The two agree to within 10% in every column and no conclusion changes. The other two Yeongdeok caches were not
+timed again; a quiet re-run of all three would settle the K = 1 cell and has not been done.
+
 ## What round 2 decides
 
 The frozen rule: the single-field caveat leaves the verdict only if T1 and T2 at K = 1 hold on all six caches,
-round 2 has zero mismatches, and the six-cache run with the fast path has zero mismatches. All four hold. **The
+round 2 has zero mismatches, and the six-cache run with the fast path has zero mismatches. All four hold, the K = 1
+condition narrowly on one Yeongdeok cache and measured under load (above). **The
 caveat "slower for a single field on three caches" is removed.** It is replaced by a different and smaller one,
 which the plan required to be stated either way: the single-field speed is the fast path's, and like for like the
 margin pass costs 5% to 12% more than a pass for one margin.
 
 ## Deviations from the round-2 plan
 
-* None in tasks, inputs, repeats or rules. Nothing was re-run and no code changed after the first round-2 number.
+* None in tasks, inputs, repeats or rules. No code changed after the first round-2 number.
+* The condition "nothing else running" was not met for the Yeongdeok caches (see the top of §2). The frozen run is
+  reported as it is. One cache was timed again afterwards by another session; that is reported separately above
+  and does not replace the frozen numbers.
 * The compiled port compiled as frozen; no change was needed.
 * The T4 baseline weakness above was found in the results and is reported, not repaired. Recorded as an amendment
   in `BENCH_PLAN_V2.md`.
