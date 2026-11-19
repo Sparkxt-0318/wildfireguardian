@@ -58,6 +58,13 @@ def trans_matrix(D, idx, feats):
             if v is None:
                 raise RuntimeError("archive propensity requested but derived/archive_propensity.json is missing")
             cols.append(v)
+        elif f.startswith("d6_"):          # change of an input over the last 6 hours of the same fire (0 where unknown)
+            v, fid, hr = D.X[f[3:]][idx], D.fid[idx], D.hour[idx]
+            d = np.zeros(len(idx))
+            for k in range(1, 7):          # the row k places back is the hour 6 h earlier if no hour is missing
+                ok = np.r_[np.zeros(k, bool), (fid[k:] == fid[:-k]) & (hr[k:] - hr[:-k] == 6)]
+                d[ok] = (v - np.r_[np.zeros(k), v[:-k]])[ok]
+            cols.append(d)
         elif f.startswith("log_") and f[4:] in D.X:
             cols.append(np.log1p(np.maximum(D.X[f[4:]][idx], 0)))
         else:
@@ -99,6 +106,12 @@ class Tracker:
             rate = min(max(rate, 1e-4), 1 - 1e-4)
             if X.shape[1] == 0 or y.min() == y.max():
                 m[key] = ("const", rate)
+            elif cfg.get("trans_model") == "gbm":
+                from sklearn.ensemble import HistGradientBoostingClassifier
+                gb = HistGradientBoostingClassifier(max_depth=2, max_iter=100, learning_rate=0.05, min_samples_leaf=100,
+                                                    random_state=20261119, early_stopping=False)
+                gb.fit((X[sel] - mu) / sd, y, sample_weight=ww * len(ww) / ww.sum())
+                m[key] = ("gbm", gb)
             else:
                 lr = LogisticRegression(C=cfg["C"], max_iter=2000)
                 lr.fit((X[sel] - mu) / sd, y, sample_weight=ww * len(ww) / ww.sum())
@@ -135,6 +148,8 @@ class Tracker:
         k = m[key]
         if k[0] == "const":
             return np.full(len(Xs), k[1])
+        if k[0] == "gbm":
+            return k[1].predict_proba(Xs)[:, 1]
         return 1.0 / (1.0 + np.exp(-(k[1] + Xs @ k[2])))
 
     # ---- online filter
