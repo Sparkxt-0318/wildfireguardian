@@ -241,7 +241,7 @@ reached is reported and skipped.
 
 ## Amendments
 
-1. **2026-11-19 ~02:00 UTC, before any oracle or method value was computed.** Section 4.1 as written cannot give a ~10% miss rate for
+1. **2026-11-19 00:12 UTC (commit 5367b30), before any oracle or method value was computed.** Section 4.1 as written cannot give a ~10% miss rate for
    blocks shorter than 10 hours (floor(0.1 n) = 0 misses allowed), which would make O-6h a 0%-miss oracle and not comparable. Rule
    replaced for all oracle variants: blocks of a fire are processed in time order and the fire's miss budget is carried over;
    block b may miss floor(0.10 * N_b) - M_b hours (N_b = hours up to and including block b, M_b = misses used by earlier
@@ -249,7 +249,7 @@ reached is reported and skipped.
    then ends at a miss rate <= 0.10 and within one hour of it. Also: the data pipeline (`build_data.py`) reproduces the
    committed GOFER reach to 4e-7 km (gate L4 uses 1e-6, not 1e-9; float32 distances).
 
-2. **2026-11-19 ~02:40 UTC, AFTER the first oracle values were seen (stated plainly).** What was seen: the pre-registered per-fire-budget
+2. **2026-11-19 00:15 UTC (commit 6e14231), AFTER the first oracle values were seen (stated plainly).** What was seen: the pre-registered per-fire-budget
    oracles (Amendment 1). O-day with s=1 gained 24.5% area against FIXED at 10% (gate passes; this number stays the gate
    statistic). But the same table showed that the per-fire-budget oracle is not a ceiling: O-fire (s=1) had 11% *more* area
    than FIXED, and O-day on top of M_ref had more area than M_ref itself, because forcing every fire to its own 10% is a stricter
@@ -262,3 +262,13 @@ reached is reported and skipped.
    for calibration are min(6, number of training fires) (so for the learning curve n = 4 uses leave-one-fire-out and
    n >= 6 uses 6 groups, not leave-one-fire-out as 4.2 says); the GOFER reach reproduction tolerance is 1e-5 km (float32
    distance transform; observed max 5.7e-6); the DEV eligible set has 20,065 hours at h = 5, the same count as kcf-abstain.
+
+3. **2026-11-19 (before any REGIME result was read; the REGIME run had been launched with the corrected rule).** Section 5.2 item 4 says the index
+   is the "max over the four forecast variables of their tail probabilities". That was a wording slip: it contradicts the
+   cited kcf-abstain rule and would flag only hours where all four variables are extreme. The index is the **minimum** over
+   the four tail probabilities (the most extreme variable decides), as in kcf-abstain. Also: (a) `Quantile` linear models use
+   statsmodels QuantReg (allowed by 5.2 item 3); (b) in PRETRAIN, scikit-learn's warm start continues with learning rate
+   0.02 as specified, using the first fit's baseline and bin edges; (c) EVT's below-threshold body is the fixed M_ref
+   configuration (not the QUANTILE-selected one); (d) Kalman prior variance P0 = 0.25 per parameter (not tuned).
+   (e) Reported in addition to the 6 families: ablation rows QUANTILE-own / QUANTILE-fc (feature set fixed) and the
+   non-adaptive twins META-init, META-pooled, KALMAN-twin, EVT-twin, REGIME+own.
