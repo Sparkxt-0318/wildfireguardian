@@ -98,6 +98,23 @@ Files: `research/kcf-heat/DERIVATION.md` §1; `FDS_CHECK.md`; `data/b1_voxel_che
 
 It is the **only** URL in the repo. The last Pages deploy was run #76 at `e783ebc` (PR #187, 17 Nov 12:01 UTC), conclusion success (GitHub Actions). PR #188 did not touch the planner, so no deploy followed it. **Not checked from here:** I could not fetch the live page (proxy 403), so open it before the talk. Only three replay packs are wired (`planner/src/data/replayPacks.ts`): RUNNING, MEASURED and MEASURED+GUST (ERA5, PROVISIONAL). **The KMA arm is not in the live demo**, and no heat or gust-test view is either. The demo is a replay of recorded fire inputs, not a live forecast.
 
+## 8. Congested leave-by (kcf-queue), 174 places, 25 Mar 2025, MEASURED 8 h, assumed parameters
+
+Files: `research/kcf-queue/RESULTS.md`, `results/numbers.json`, `results/extra.json`, `results/t1_bruteforce.json`, `results/t3_mutation.json`. **Model output with assumed demand and capacity; no real traffic counts, no driver-behaviour data; the answer is a guaranteed-safe lower bound, not the exact optimum.**
+
+| item | value | n | source file | does not show |
+|---|---|---|---|---|
+| Free-flow field reproduced from my closure fields and recursion | **2,262 / 2,262** rows equal | 2,262 place-hours | `results/t0_free_flow_reproduction.json` | that the closure field is right, only that it is the published one |
+| Solver vs exhaustive vehicle-by-vehicle search: accepted start times that brute force rejects | **0** | 66,000 start times, 6,000 random small networks | `results/t1_bruteforce.json` | exactness: 66 cases (0.10 %) are feasible by brute force and missed by the solver; small networks only |
+| Unlimited capacity equals the existing deadline field | **0 differences** | 6,000 random instances (90,000 start seconds) | `results/t2_unlimited_capacity.json` | anything about congestion |
+| Altered certificates rejected by the independent checker | **2,080 / 2,080**, 0 unaltered rejected (38) | 17 mutant families | `results/t3_mutation.json` | a certificate whose data and data hash were both replaced; it proves feasibility of the listed schedule, not that a later start fails |
+| Village place-hours that clear / cannot clear, middle parameters | **1,064 / 55** (23 places have at least one failing hour; 4 never clear) | 1,119 place-hours at 137 places | `results/numbers.json` (`MID.classes`) | the 1,077-village-place-hour excluded part: 1,028 already inside the fire area, 50 with no free-flow window; 5 care facilities not evaluated |
+| Leave-by earlier than the card's free-flow figure, median / max | **30.0 / 41.4 min** | 1,064 | `numbers.json` (`MID.shift_vs_L0_contested`) | congestion: this is almost all the 30-min mobilisation spread (assumed uniform ramp) |
+| Queue delay beyond the spread, middle: place-hours ≥ 5 min, and max | **115** (12 places); max **11.4 min**; none ≥ 15 min | 1,064 | `numbers.json` (`MID.queue_effect_counts`) | real queues; capacity is per road piece, no junctions, zero-length point queues |
+| Same, adverse parameters (HIGH) | **231** ≥ 5 min, **200** ≥ 15 min, max **53.6 min** | 1,025 | `numbers.json` (`HIGH`) | which adverse value is realistic: all five values are assumed |
+| Sharing roads with neighbouring villages changed the answer | middle **0**; adverse **2** place-hours (max 34.5 min) | 1,064 / 1,025 | `numbers.json` (`sharing_effect_counts`) | that sharing does not matter: neighbours are one hop and released at the issue hour; only 11 of 287 cut-limited place-hours overlap their release window |
+| Most-binding road: 일직점곡로 (secondary, OSM way 30043762, 의성) | binds for **3 places** (7 place-hours); no road binds for more than 3 | 287 cut-limited clearing place-hours | `results/extra.json` | a queue: the binding element is the road whose closure ends the window |
+
 ## Ten likely judge questions
 
 1. **Is the deadline field just faster, or is it right?** It reproduced all 7,771 recorded routes and 1,468 no-routes with zero disagreements, and it decided all 297 unresolved cases (row 1). Speed is not claimed: no clean summed timing is committed, and the host differs from the one that recorded the checks (row 1).
