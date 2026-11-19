@@ -28,3 +28,7 @@
   found at the scheduled check-in, so about 10 minutes of run time were lost). The driver was killed during
   `field_sample | UA 03-25 | repeat 1` (a FIELD task, which writes no partial result; it is re-run whole). No OLD block was
   in progress. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47 UTC.
+* 19 Nov 2026 ~17:15 UTC: seventh container restart (uptime 0 min at 17:15:54), noticed through an MCP-reconnect wake. The driver
+  was killed during `old_cold | UA 03-25 | repeat 1` after 19 of 200 requests; those requests are KEPT and the block is
+  resumed (amendment A2), so this block straddles a restart. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47,
+  17:15 UTC.
