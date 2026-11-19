@@ -1,0 +1,177 @@
+{
+ "label": "RECONSTRUCTED truth (detection record), secondary",
+ "summary": {
+  "a": {
+   "rule": "a",
+   "name": "CURRENT",
+   "place_pairs": 2262,
+   "advised": 349,
+   "failed": 184,
+   "late": 183,
+   "true_cut": 1887,
+   "missed": 719,
+   "true_not_cut": 375,
+   "false": 126,
+   "lead_n": 746,
+   "lead_median_min": -187.94166666666666,
+   "lead_mean_min": -186.4291331546023,
+   "fail_reasons": {
+    "origin": 176,
+    "edge": 7,
+    "wait": 0,
+    "shelter": 1
+   }
+  },
+  "b": {
+   "rule": "b",
+   "name": "TIME-ROBUST",
+   "place_pairs": 2262,
+   "advised": 0,
+   "failed": 0,
+   "late": 0,
+   "true_cut": 1887,
+   "missed": 699,
+   "true_not_cut": 375,
+   "false": 62,
+   "lead_n": 746,
+   "lead_median_min": -247.75,
+   "lead_mean_min": -235.27826184092942,
+   "fail_reasons": {
+    "origin": 0,
+    "edge": 0,
+    "wait": 0,
+    "shelter": 0
+   }
+  },
+  "c": {
+   "rule": "c",
+   "name": "REACH-ROBUST",
+   "place_pairs": 2262,
+   "advised": 83,
+   "failed": 48,
+   "late": 47,
+   "true_cut": 1887,
+   "missed": 635,
+   "true_not_cut": 375,
+   "false": 99,
+   "lead_n": 746,
+   "lead_median_min": -201.94166666666666,
+   "lead_mean_min": -181.76157283288646,
+   "fail_reasons": {
+    "origin": 46,
+    "edge": 1,
+    "wait": 0,
+    "shelter": 1
+   }
+  },
+  "d": {
+   "rule": "d",
+   "name": "FASTEST",
+   "place_pairs": 2262,
+   "advised": 123,
+   "failed": 52,
+   "late": 52,
+   "true_cut": 1887,
+   "missed": 751,
+   "true_not_cut": 375,
+   "false": 62,
+   "lead_n": 746,
+   "lead_median_min": -258.2166666666667,
+   "lead_mean_min": -247.89421358355673,
+   "fail_reasons": {
+    "origin": 47,
+    "edge": 5,
+    "wait": 0,
+    "shelter": 0
+   }
+  },
+  "e": {
+   "rule": "e",
+   "name": "FORECAST-AWARE",
+   "place_pairs": 2262,
+   "advised": 505,
+   "failed": 275,
+   "late": 274,
+   "true_cut": 1887,
+   "missed": 665,
+   "true_not_cut": 375,
+   "false": 150,
+   "lead_n": 746,
+   "lead_median_min": -136.63333333333333,
+   "lead_mean_min": -135.09975424486146,
+   "fail_reasons": {
+    "origin": 262,
+    "edge": 13,
+    "wait": 0,
+    "shelter": 0
+   }
+  }
+ },
+ "bootstrap": {
+  "clusters": 26,
+  "B": 10000,
+  "seed": 20261119,
+  "diff_vs_a": {
+   "b": {
+    "failed_diff_point": -184.0,
+    "failed_diff_ci95": [
+     -295.0,
+     -86.0
+    ],
+    "failed_diff_ci9833": [
+     -322.0,
+     -68.0
+    ],
+    "lead_median_diff_ci95": [
+     -121.91000000000003,
+     -18.332499999999992
+    ]
+   },
+   "c": {
+    "failed_diff_point": -136.0,
+    "failed_diff_ci95": [
+     -213.0,
+     -67.0
+    ],
+    "failed_diff_ci9833": [
+     -232.0,
+     -53.0
+    ],
+    "lead_median_diff_ci95": [
+     -29.267083333333346,
+     10.0
+    ]
+   },
+   "d": {
+    "failed_diff_point": -132.0,
+    "failed_diff_ci95": [
+     -219.0,
+     -55.0
+    ],
+    "failed_diff_ci9833": [
+     -239.0,
+     -40.0
+    ],
+    "lead_median_diff_ci95": [
+     -128.07729166666667,
+     -23.08291666666668
+    ]
+   },
+   "e": {
+    "failed_diff_point": 91.0,
+    "failed_diff_ci95": [
+     17.0,
+     175.0
+    ],
+    "failed_diff_ci9833": [
+     2.0,
+     196.0
+    ],
+    "lead_median_diff_ci95": [
+     14.041458333333324,
+     105.1608333333333
+    ]
+   }
+  }
+ }
+}
