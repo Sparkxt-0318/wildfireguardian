@@ -66,7 +66,7 @@ def main():
             if x["job"] not in seen:
                 seen.add(x["job"]); arows.append(x)
         mfiles = [R / "a" / n for n in (["UA0324.head.measure.json", "UA0324.tail.measure.json"] if c == FULL_A_CACHE
-                                        else ["%s.pass1.measure.json" % c])]
+                                        else ["%s.pass1.measure.json" % c] + (["%s.pass1_resume.measure.json" % c, "%s.pass1_resume2.measure.json" % c] if c == "YD0326" else []))]
         ms = [j(p) for p in mfiles if p.exists()]
         procs = []
         for n in (["UA0324.pass1.jsonl.proc.json"] if c == FULL_A_CACHE else ["%s.pass1.jsonl.proc.json" % c]):
@@ -111,10 +111,17 @@ def main():
         # ratios only on identical job sets
         ratio = {}
         A1, Bm = row["A_pass1"], row["B_pass1_set"]
-        if A1 and Bm and A1["complete"] and A1["process_wall_s"]:
+        process_complete = len(ms) == len(mfiles) and all(m["exit_code"] == 0 for m in ms)
+        if A1 and Bm and A1["complete"] and process_complete and c != "YD0326":
             ratio["pass1_set_wall"] = A1["process_wall_s"] / Bm["wall_s"]["median"]
             ratio["pass1_set_cpu"] = A1["process_cpu_s"] / Bm["cpu_s"]["median"]
             ratio["pass1_set_jobs"] = A1["jobs_run"]
+            ratio["pass1_set_basis"] = "A measured process wall/CPU"
+        elif A1 and Bm and A1["complete"]:          # Amendment 2: YD0326's first process never wrote its measure file
+            ratio["pass1_set_wall"] = A1["sum_per_job_wall_s"] / Bm["wall_s"]["median"]
+            ratio["pass1_set_cpu"] = A1["sum_per_job_cpu_s"] / Bm["cpu_s"]["median"]
+            ratio["pass1_set_jobs"] = A1["jobs_run"]
+            ratio["pass1_set_basis"] = "sum of A per-job wall/CPU (Amendment 2)"
         Ar, Br = row["A_repeat_set"], row["B_repeat_set"]
         if Ar and Br and Ar["process_wall_s_r2_r3"]:
             ratio["repeat_set_wall_median"] = st.median(Ar["process_wall_s_r2_r3"]) / Br["wall_s"]["median"]

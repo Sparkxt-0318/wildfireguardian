@@ -158,3 +158,13 @@ measure file was never written. UA0324's other 1,018 jobs and phase `arep` did n
   before that are the sample, in permutation order, as for the time stop.
 * YD0326's A process wall/CPU is the sum of its two measured processes for the resumed part only; for the speed ratio
   on YD0326 the sum of A's per-job wall and CPU over its jobs is used instead, and labelled so.
+
+## Amendment 3 (Fri 20 Nov 2026, 06:12 Shanghai; disk ran out again at 06:06)
+
+The free-disk guard stopped `aresume` after 6 YD0326 jobs (06:06); the disk then reached zero, so `arep` stopped and
+`compare` did not run. One A job uses about 1 MB of disk (measured on one extra, unrecorded job), so the space is
+taken by something else on the machine. No A row failed: the 6 jobs completed normally and are kept (YD0326 now 222
+done, in permutation order). The empty guard-stopped files (`UA0324.tail`, YD0326 resume measure file, the two empty
+`repeat.r2` runs) are moved to `runs/excluded_guard_stops/`. The resume measure file of those 6 jobs was lost with
+them; their per-job times are kept. `aresume` restarts from YD0326 position 222 (`YD0326.pass1_resume2.json`), then
+UA0324's other 1,018, then `arep` and `compare`, under the same stop times. Nothing else changes.
