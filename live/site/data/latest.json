@@ -1235,8 +1235,8 @@
  },
  "detections": {
   "ahi_hotspots": 0,
-  "firms_all": 138,
-  "firms_kept": 137
+  "firms_all": 139,
+  "firms_kept": 138
  },
  "fires": [],
  "firms_ok": true,
@@ -1245,7 +1245,7 @@
   "firms:MODIS_NRT": {
    "bytes": 205,
    "error": null,
-   "fetched_utc": "2026-11-19T06:07:57Z",
+   "fetched_utc": "2026-11-19T06:38:08Z",
    "file": "firms_MODIS_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1257,7 +1257,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": 6339,
    "error": null,
-   "fetched_utc": "2026-11-19T06:07:57Z",
+   "fetched_utc": "2026-11-19T06:38:07Z",
    "file": "firms_VIIRS_NOAA20_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1267,21 +1267,21 @@
    "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA20_NRT/124.5,33,131,39/5"
   },
   "firms:VIIRS_NOAA21_NRT": {
-   "bytes": 5416,
+   "bytes": 5499,
    "error": null,
-   "fetched_utc": "2026-11-19T06:07:57Z",
+   "fetched_utc": "2026-11-19T06:38:07Z",
    "file": "firms_VIIRS_NOAA21_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
    "ok": true,
-   "sha256": "8b1b12afd7ffac945de2c31c820dac6d18a7de8ead38a84255c78b4a9afe6595",
+   "sha256": "de45df87b95593e5c4739369a5699d19771709f1eaa4f51c74e6a77d24eb17d0",
    "source": "firms:VIIRS_NOAA21_NRT",
    "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA21_NRT/124.5,33,131,39/5"
   },
   "firms:VIIRS_SNPP_NRT": {
    "bytes": 122,
    "error": null,
-   "fetched_utc": "2026-11-19T06:07:57Z",
+   "fetched_utc": "2026-11-19T06:38:07Z",
    "file": "firms_VIIRS_SNPP_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1307,7 +1307,7 @@
   "kfs": {
    "bytes": 727,
    "error": null,
-   "fetched_utc": "2026-11-19T06:07:56Z",
+   "fetched_utc": "2026-11-19T06:38:06Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
@@ -1317,8 +1317,8 @@
   }
  },
  "issue_hour_utc": "2026-11-19T06:00:00Z",
- "issue_kst": "2026-11-19 15:07",
- "issue_utc": "2026-11-19T06:07:00Z",
+ "issue_kst": "2026-11-19 15:38",
+ "issue_utc": "2026-11-19T06:38:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1343,12 +1343,12 @@
  "regions": {},
  "run": {
   "commit": "dfbbb911301ecdf257562c947382afdd71cbebcd",
-  "compute_finished_utc": "2026-11-19T06:07:59Z",
+  "compute_finished_utc": "2026-11-19T06:38:10Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-19T06:07:58Z",
+  "fetch_finished_utc": "2026-11-19T06:38:08Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44469822356"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44473466031"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "55ecfd2734aa03b4f351b36009700bf2d3ca8978efd3e86e65d520bf64aaa771",
