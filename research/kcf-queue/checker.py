@@ -15,10 +15,7 @@ def _int(x):
 
 
 def _intkey(s):
-    try:
-        return isinstance(s, str) and str(int(s)) is not None
-    except ValueError:
-        return False
+    return isinstance(s, str) and s.lstrip("-").isdigit()
 
 
 def _idkey(s):
@@ -87,7 +84,12 @@ def _schema(c):
     if not isinstance(owners, list) or not isinstance(vehicles, list):
         return errs + ["owners/vehicles malformed"], None
     for o in owners:
-        if (isinstance(o, dict) and isinstance(o.get("id"), str) and o["id"] not in O and _int(o.get("N"))
+        ks = o.get("ks") if isinstance(o, dict) else None
+        if isinstance(o, dict) and "ks" in o and not (
+                o.get("role") == "neighbour" and isinstance(ks, list) and all(_int(x) for x in ks)
+                and ks == sorted(set(ks)) and _int(o.get("N")) and all(0 <= x < o["N"] for x in ks)):
+            errs.append("ks malformed, out of range, or on subject")
+        elif (isinstance(o, dict) and isinstance(o.get("id"), str) and o["id"] not in O and _int(o.get("N"))
                 and _int(o.get("start")) and _int(o.get("spread")) and o.get("role") in ("subject", "neighbour")
                 and isinstance(o.get("origin"), (int, str)) and str(o["origin"]) in nodes):
             O[o["id"]] = o
@@ -156,10 +158,11 @@ def _check(c):
     for o, ks in byowner.items():
         if o not in O:
             F("COUNT", o, None, "vehicle of unknown owner")
-        elif O[o]["N"] < 1 or len(ks) != O[o]["N"] or sorted(ks) != list(range(len(ks))):
-            F("COUNT", o, None, "vehicles are not exactly k=0..N-1 once each (N=%d, got %d)" % (O[o]["N"], len(ks)))
+        elif O[o]["N"] < 1 or sorted(ks) != (O[o]["ks"] if "ks" in O[o] else list(range(len(ks)))) or (
+                "ks" not in O[o] and len(ks) != O[o]["N"]):
+            F("COUNT", o, None, "vehicles are not exactly the expected k set once each (N=%d, got %d)" % (O[o]["N"], len(ks)))
     for o in O:
-        if o not in byowner:
+        if o not in byowner and O[o].get("ks", [0]):
             F("COUNT", o, None, "owner has no vehicles")
     for o, k, p, raw in m["V"]:
         sub = o == m["subj"]
@@ -226,8 +229,7 @@ def _check(c):
         cb = m["cl"]["binding"]
         if (cb["kind"], str(cb["id"]), cb["vehicle"][0], cb["vehicle"][1], cb["slack"]) != (kd, i, o, k, s):
             F("BINDING_MISMATCH", o, k, "claimed %r, recomputed %r" % (cb, binding))
-    ok = not fails
-    return {"valid": ok, "failures": fails[:50], "binding": binding if ok else None}
+    return {"valid": not fails, "failures": fails[:50], "binding": None if fails else binding}
 
 
 def _load(path):

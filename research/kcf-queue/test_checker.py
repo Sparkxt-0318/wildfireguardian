@@ -214,6 +214,40 @@ class T(unittest.TestCase):
         r = checker.check(c)
         self.assertEqual(len(r["failures"]), 50)
 
+    def _ks(self, ks, vks, N=5):
+        c = make()
+        c["owners"].append({"id": "B", "origin": 0, "N": N, "start": 0, "spread": 0, "role": "neighbour"})
+        if ks is not None:
+            c["owners"][1]["ks"] = ks
+        # B vehicles use edge 1 from node... origin 0 only has edge 0, so keep them in far bins (n_e=1)
+        for i, k in enumerate(vks):
+            c["vehicles"].append({"owner": "B", "k": k, "path": [["0", 120 + 60 * i]]})
+        return c
+
+    def test_ks_valid(self):
+        self.ok(self._ks([1, 3], [1, 3]))
+        self.ok(self._ks([], []))
+
+    def test_ks_vehicle_set_mismatch(self):
+        self.bad(self._ks([1, 3], [1, 2]), {"COUNT"})
+        self.bad(self._ks([1, 3], [1]), {"COUNT"})
+        self.bad(self._ks([1, 3], [1, 3, 4]), {"COUNT"})
+
+    def test_ks_release_uses_full_N(self):
+        # N=5, spread 400, k=3 -> r = floor(400*7/10)=280; 279 early, 280 fine
+        for t, good in ((280, True), (279, False)):
+            c = self._ks([3], [3])
+            c["owners"][1]["spread"] = 400
+            c["vehicles"][-1]["path"] = [["0", t]]
+            self.assertEqual(checker.check(c)["valid"], good)
+
+    def test_ks_schema(self):
+        for ks in ([3, 1], [1, 1], [5], [-1], [1.5], "x"):
+            self.assertIn("SCHEMA", codes(self._ks(ks, [])))
+        c = make()
+        c["owners"][0]["ks"] = [0, 1]
+        self.assertIn("SCHEMA", codes(c))
+
     def test_cli(self):
         with tempfile.TemporaryDirectory() as d:
             g, b = os.path.join(d, "g.json"), os.path.join(d, "b.json")

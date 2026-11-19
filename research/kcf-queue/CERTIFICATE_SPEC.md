@@ -34,7 +34,7 @@ Keys of `cell_close`, `nodes`, `edges` are strings of integers. Exactly one owne
 **R0 [HASH]** `input_sha256` matches `data`. **[SCHEMA]** all fields present, integers where stated, `D >= 1`,
 `0 <= entry <= H`, exactly one subject.
 
-**R1 [RELEASE_CURVE / COUNT]** For every owner, the vehicles of that owner are exactly `k = 0..N-1`, each once, and the
+**R1 [RELEASE_CURVE / COUNT]** (amended 2026-11-18: optional owner field `ks`) For every owner, the vehicles of that owner are exactly `k = 0..N-1`, each once -- except that an owner with role `neighbour` may carry an optional field `"ks": [sorted distinct ints in 0..N-1]`, in which case its vehicles are exactly those `k` (the others were never routed and are absent; releases still use the full `N`). `ks` on the subject is a SCHEMA failure. Releases: and the
 release second of vehicle `k` is `r_k = start + floor(spread * (2k+1) / (2N))` (integer arithmetic). `N >= 1`.
 
 **R2 [ROUTE]** Each path is non-empty. The tail of the first edge is the owner's `origin`. For consecutive entries

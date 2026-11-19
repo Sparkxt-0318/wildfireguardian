@@ -88,6 +88,8 @@ class Ctx:
         self.origin, self.shelters = origin, shelters
         self.ell = ell if ell is not None else latest_labels(net, shelters)
         self.h = h if h is not None else static_h(net, shelters.keys())
+        l0 = self.L0(net)
+        self.l0 = -1 if l0 is None else l0   # exact upper bound on any departure second: later releases cannot be routed
 
     def L0(self, net):
         """Free-flow latest departure second of one vehicle (None if there is none)."""
@@ -116,6 +118,8 @@ def _earliest(net, j, a, bins):
 def route(net: Net, ctx: Ctx, r: int, bins: dict):
     """Earliest-arrival timed path for one vehicle released at r, given reservations `bins` {(edge, bin): count}.
     Returns [(edge, entry second), ...] or None."""
+    if r > ctx.l0:
+        return None
     ell, h, D, lo = ctx.ell, ctx.h, net.D, net.lo
     o = ctx.origin
     cut_o = net.wcut[o]
