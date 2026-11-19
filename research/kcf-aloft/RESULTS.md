@@ -26,7 +26,8 @@ consistently earlier. It warned more only at thresholds that fire on a large par
   2026-11-18 under amendment 2), was firing at the first run hour on **1 of the 9** run fire-days (Gangneung,
   5 March 2022, 1 h ahead) and missed 49 of the 55 run hours. It fired on none of the 34 fire-days without a run.
   At Uljin on 4 and 5 March 2022 no station within 50 km recorded more than 14 m/s while the fire ran.
-  Its burden-set counts are **NOT RUN yet**: the station hours for the ten points are still being fetched.
+  In the burden set it fires on 1.4 days per point and season (1.1-1.9; seasons 2022-2025), against 3.7 for G, and on 8.2 days of a season at one or
+  more of the ten points. Seasons 2019, 2020, 2021 are in section 5.
 - **25 March 2025.** G fired from 09 KST, one hour before the first run hour (10 KST), on the same forecast cycle
   and at the same hour as A30. A25 fired from 08 KST and A-cal from 02 KST. What gave no warning that morning was
   the **observed** gust: the first 20 m/s within 50 km of the fire was recorded at 14:48 (Gumi), so G-obs first
@@ -89,7 +90,7 @@ were not known. 25 March is therefore not an independent test; every count is gi
 | rule | run fire-days / fires | warned at the first run hour | warned >= 1 h ahead | lead times, h | run hours missed | alarm fire-days with no run | burden: alarm days per point and season | false-alarm days per point and season | days per season with an alarm at any of ten points |
 |---|---|---|---|---|---|---|---|---|---|
 | G | 9 / 4 | 4 of 9 (14-79%) | 3 of 9 (8-70%) | 0, 1, 12, 21 | 37 of 55 (53-79%) | 0 of 34 (0-10%) | 3.7 (3.1-4.3) | 3.3 (2.8-3.9) | 11.8 (8.6-15.6) |
-| G-obs | 9 / 4 | 1 of 9 (0-48%) | 1 of 9 (0-48%) | 1 | 49 of 55 (78-96%) | 0 of 34 (0-10%) | - | - | - |
+| G-obs | 9 / 4 | 1 of 9 (0-48%) | 1 of 9 (0-48%) | 1 | 49 of 55 (78-96%) | 0 of 34 (0-10%) | 1.4 (1.1-1.9) | 1.2 (0.9-1.6) | 8.2 (5.7-11.6) |
 | A-cal | 9 / 4 | 8 of 9 (52-100%) | 8 of 9 (52-100%) | 5, 8, 17, 22, 24, 24, 24, 24 | 10 of 55 (9-31%) | 19 of 34 (38-73%) | 55.1 (52.9-57.5) | 54.2 (52.0-56.6) | 73.8 (65.6-82.7) |
 | A25 | 9 / 4 | 4 of 9 (14-79%) | 4 of 9 (14-79%) | 2, 2, 14, 23 | 37 of 55 (53-79%) | 5 of 34 (5-31%) | 11.3 (10.3-12.4) | 10.7 (9.7-11.8) | 28.0 (23.1-33.7) |
 | A30 | 9 / 4 | 3 of 9 (8-70%) | 3 of 9 (8-70%) | 1, 1, 8 | 41 of 55 (61-85%) | 2 of 34 (1-20%) | 3.1 (2.6-3.7) | 2.8 (2.3-3.3) | 9.5 (6.7-13.0) |
@@ -103,7 +104,7 @@ were not known. 25 March is therefore not an independent test; every count is gi
 | rule | run fire-days / fires | warned at the first run hour | warned >= 1 h ahead | lead times, h | run hours missed | alarm fire-days with no run | burden: alarm days per point and season | false-alarm days per point and season | days per season with an alarm at any of ten points |
 |---|---|---|---|---|---|---|---|---|---|
 | G | 8 / 4 | 3 of 8 (8-76%) | 2 of 8 (3-65%) | 0, 12, 21 | 31 of 42 (58-86%) | 0 of 34 (0-10%) | 3.7 (3.1-4.3) | 3.3 (2.8-3.9) | 11.8 (8.6-15.6) |
-| G-obs | 8 / 4 | 1 of 8 (0-53%) | 1 of 8 (0-53%) | 1 | 38 of 42 (77-97%) | 0 of 34 (0-10%) | - | - | - |
+| G-obs | 8 / 4 | 1 of 8 (0-53%) | 1 of 8 (0-53%) | 1 | 38 of 42 (77-97%) | 0 of 34 (0-10%) | 1.4 (1.1-1.9) | 1.2 (0.9-1.6) | 8.2 (5.7-11.6) |
 | A-cal | 8 / 4 | 7 of 8 (47-100%) | 7 of 8 (47-100%) | 5, 17, 22, 24, 24, 24, 24 | 10 of 42 (12-40%) | 19 of 34 (38-73%) | 55.1 (52.9-57.5) | 54.2 (52.0-56.6) | 73.8 (65.6-82.7) |
 | A25 | 8 / 4 | 3 of 8 (8-76%) | 3 of 8 (8-76%) | 2, 14, 23 | 34 of 42 (66-91%) | 5 of 34 (5-31%) | 11.3 (10.3-12.4) | 10.7 (9.7-11.8) | 28.0 (23.1-33.7) |
 | A30 | 8 / 4 | 2 of 8 (3-65%) | 2 of 8 (3-65%) | 1, 8 | 35 of 42 (69-93%) | 2 of 34 (1-20%) | 3.1 (2.6-3.7) | 2.8 (2.3-3.3) | 9.5 (6.7-13.0) |
@@ -181,6 +182,13 @@ run hour.
 | G | 2023 | 104 of 104 | 26 | 2.6 | Andong 0 | Yeongdeok 6 | 7 | 26 |
 | G | 2024 | 105 of 105 | 19 | 1.9 | Andong 0 | Pohang 4 | 7 | 19 |
 | G | 2025 | 104 of 104 | 56 | 5.6 | Andong 1 | Pohang 13 | 18 | 50 |
+| G-obs | 2019 | 104 of 104 | 15 | 1.5 | Andong 0 | Pohang 7 | 11 | 15 |
+| G-obs | 2020 | 105 of 105 | 31 | 3.1 | Sokcho 0 | Gangneung 10 | 16 | 31 |
+| G-obs | 2021 | 104 of 104 | 34 | 3.4 | Chuncheon 0 | Gangneung 15 | 17 | 34 |
+| G-obs | 2022 | 104 of 104 | 9 | 0.9 | Chuncheon 0 | Gangneung 2 | 4 | 4 |
+| G-obs | 2023 | 104 of 104 | 13 | 1.3 | Andong 0 | Gangneung 7 | 8 | 13 |
+| G-obs | 2024 | 105 of 105 | 8 | 0.8 | Andong 0 | Gangneung 4 | 6 | 8 |
+| G-obs | 2025 | 104 of 104 | 28 | 2.8 | Chuncheon 0 | Gangneung 10 | 15 | 23 |
 | A-cal | 2021 | 78 of 104 | 389 | 38.9 | Wonju 32 | Yeongdeok 48 | 50 | 389 |
 | A-cal | 2022 | 104 of 104 | 554 | 55.4 | Wonju 47 | Sokcho 65 | 77 | 541 |
 | A-cal | 2023 | 104 of 104 | 472 | 47.2 | Wonju 41 | Sokcho 53 | 63 | 472 |
@@ -222,7 +230,7 @@ By point, alarm days per full season (mean):
 | rule | Andong | Chuncheon | Gangneung | Pohang | Sangju | Sokcho | Taebaek | Uljin | Wonju | Yeongdeok |
 |---|---|---|---|---|---|---|---|---|---|---|
 | G | 0.2 | 0.2 | 5.2 | 8.5 | 1.2 | 3.5 | 4.0 | 5.5 | 0.2 | 8.0 |
-| G-obs | - | - | - | - | - | - | - | - | - | - |
+| G-obs | 1.0 | 0.0 | 5.8 | 1.2 | 1.2 | 1.5 | 1.8 | 0.5 | 0.0 | 1.5 |
 | A-cal | 53.8 | 50.2 | 57.2 | 58.5 | 56.0 | 57.2 | 55.2 | 53.2 | 48.5 | 61.5 |
 | A25 | 7.5 | 3.5 | 13.2 | 20.5 | 10.2 | 11.2 | 5.8 | 14.8 | 4.5 | 21.8 |
 | A30 | 1.5 | 0.0 | 4.5 | 6.0 | 1.8 | 3.8 | 1.8 | 4.8 | 0.0 | 6.8 |
@@ -233,7 +241,11 @@ By point, alarm days per full season (mean):
 
 - G fires mostly on the east coast (Pohang, Yeongdeok, Uljin, Gangneung: 5-9 days a season) and on one day in four
   seasons at each of Andong, Chuncheon and Wonju. A30 has the same pattern. A-cal fires about equally everywhere.
-- 2025 had the most alarm days under every rule.
+- 2025 had the most alarm days under every forecast rule.
+- **G-obs** (seven seasons, all read from stations) fires less often than G and in a different place: mostly at
+  Gangneung (5.8 days a season, five stations within 50 km including Daegwallyeong), and on 0.5-1.5 days at
+  Uljin, Yeongdeok and Pohang, where the forecast rule G fires on 5.5-8.5 days. It never fired at Chuncheon or
+  Wonju in 2022-2025. By season it ranges from 0.8 (2024) to 3.4 (2021) days per point.
 
 ## 6. Second model: ECMWF IFS (cross-check; enters no verdict)
 
@@ -325,7 +337,7 @@ Burden: 3060 of 3130 point-days complete in all three readings; incomplete IFS p
 
 **G-obs from all stations within 50 km, every fire (amendment 2; added after the first results were merged).**
 
-Hours fetched 697, failed 0; station-hours 67245; gust records 9100 (13.5% of station-hours); smallest recorded gust 7.0 m/s; records timed outside their hour 3062 (dropped); records not in whole m/s 0; records of 20 m/s or more inside their hour 141. Fire hours 1080, with no station row within 50 km 0; stations within 50 km of a fire position: 2 to 10.
+Hours fetched 17586, failed 0; station-hours 1688002; gust records 160505 (9.5% of station-hours); smallest recorded gust 7.0 m/s; records timed outside their hour 55157 (dropped); records not in whole m/s 0; records of 20 m/s or more inside their hour 2181. Fire hours 1080, with no station row within 50 km 0; stations within 50 km of a fire position: 2 to 10.
 
 | rule | warned, rule vs G-obs | without 25 March | leave-one-fire-out: rule minus G-obs | warned by rule only / by G-obs only (sign test) | lead, rule minus G-obs, h (days warned by both) |
 |---|---|---|---|---|---|
@@ -353,8 +365,9 @@ G-obs alarm fire-days with no run: none.
   missed.
 - **A limit of the station file (amendment 3, post hoc).** At the three-hourly stamps a row can show the largest
   gust of the previous 3-6 h in place of the hour's own, so an hour's gust can be hidden behind an earlier one.
-  The frozen reading drops such rows. Counting every hidden hour as firing (an upper bound) changes 10 fire hours
-  and leaves the count of warned run fire-days at 1 of 9.
+  The frozen reading drops such rows. Counting every hidden hour as firing (an upper bound) changes 10 fire hours,
+  leaves the count of warned run fire-days at 1 of 9, and could add at most 5 alarm point-days of 7,300 in the
+  burden set.
 - G-obs uses ASOS stations only. KMA's denser AWS network was not read (the key is approved for the ASOS hourly
   endpoint alone), so a gust between stations is not seen. Values are whole m/s.
 
@@ -629,7 +642,7 @@ S4 pooled issue hours (counts):
 
 ## Not done
 
-- G-obs in the burden set (the station hours are still being fetched; about 17,000 calls).
+- Nothing further for G-obs: all seven seasons were read.
 - A second model for the 2022 fires.
 - Seasons 2019-2020 under the frozen rules (S5 is a coarse substitute).
 
@@ -647,7 +660,8 @@ S4 pooled issue hours (counts):
 - **GEFS (S5).** Control forecast from AWS `noaa-gefs-pds`: 838 cycles, 0.5 GB. One cycle (2019-02-19 06 UTC) has
   no gust file in the archive (20 point-days without the coarse gust).
 - **Station gusts.** KMA apihub `kma_sfctm2.php` (ASOS hourly, all stations, one call per KST hour), fetched
-  2026-11-18 from 22:58 UTC with a key held outside the repo and never logged: 697 hours, 0 failed after 8 tries. Every gust record is
+  from 2026-11-18 22:58 UTC to 2026-11-19 03:01 UTC (interrupted once by a container restart and resumed) with a key
+  held outside the repo and never logged: 17,586 hours, 0 failed after 8 tries. Every gust record is
   in `derived/kma_gust_records.csv.gz`; station positions are KMA's data-wiki table as of 2023-09-01
   (`derived/kma_asos_stations.csv`). The first, four-station run used `research/kcf-gust/work/kma_asos_hourly.json`.
 - **Terrain.** SRTM 1 arc-second tiles from AWS `elevation-tiles-prod`.
