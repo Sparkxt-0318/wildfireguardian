@@ -146,6 +146,10 @@ def bulletin_html(rec):
     return s + "</div>"
 
 
+TOWNS = [("춘천", 37.88, 127.73), ("강릉", 37.75, 128.88), ("원주", 37.34, 127.92), ("삼척", 37.45, 129.17), ("안동", 36.57, 128.73),
+         ("의성", 36.35, 128.70), ("영덕", 36.42, 129.37), ("포항", 36.02, 129.34), ("대구", 35.87, 128.60), ("울진", 36.99, 129.40)]
+
+
 def svg_grid(b, today):
     cells = b["cells"]
     if not cells:
@@ -160,8 +164,12 @@ def svg_grid(b, today):
         col = "#c0392b" if c["state"] else ("#e8a87c" if (c["lat0"], c["lon0"]) in today else ("#9aa39a" if c["state"] is False else "#ddd"))
         parts.append('<rect x="%d" y="%d" width="%d" height="%d" fill="%s" stroke="#fff"><title>%.2f N %.2f E: %s</title></rect>'
                      % (x, y, w, h, col, c["lat0"], c["lon0"], c.get("level_g_k2_ms")))
-    for rid, e in road.REGIONS.items():
-        pass
+    for name, lat, lon in TOWNS:
+        if la[0] <= lat <= la[-1] + 0.25 and lo[0] <= lon <= lo[-1] + 0.25:
+            x = (lon - lo[0]) / 0.25 * w
+            y = (la[-1] + 0.25 - lat) / 0.25 * h
+            parts.append('<circle cx="%.1f" cy="%.1f" r="3" fill="#111" stroke="#fff"/><text x="%.1f" y="%.1f" font-size="10" '
+                         'fill="#111" stroke="#fff" stroke-width="2.5" paint-order="stroke">%s</text>' % (x, y, x + 4, y - 3, name))
     parts.append('<text x="%d" y="12" font-size="10" fill="currentColor">N %.2f</text>' % (W + 4, la[-1] + 0.25))
     parts.append('<text x="%d" y="%d" font-size="10" fill="currentColor">N %.2f</text>' % (W + 4, H, la[0]))
     parts.append('<text x="0" y="%d" font-size="10" fill="currentColor">E %.2f … %.2f</text>' % (H + 14, lo[0], lo[-1] + 0.25))
@@ -172,7 +180,9 @@ def svg_grid(b, today):
 
 def index_html(rec):
     T = C.parse_iso(rec["issue_utc"])
-    nxt = C.kst(T + timedelta(minutes=30))
+    m = T.minute
+    nxt_t = T.replace(second=0) + timedelta(minutes=(7 - m) if m < 7 else (37 - m) if m < 37 else (67 - m))
+    nxt = C.kst(nxt_t)
     body = '<div class="grid">'
     body += '<div class="box"><div class="mut small">%s</div><div class="big">%s KST</div></div>' % (L("마지막 실행", "Last run"), E(rec["issue_kst"]))
     body += '<div class="box"><div class="mut small">%s</div><div class="big">%s KST</div><div class="small mut">%s</div></div>' % (
