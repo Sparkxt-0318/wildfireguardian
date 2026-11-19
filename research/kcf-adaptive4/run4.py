@@ -99,3 +99,69 @@ def growth_change(Ma, Mb):
     b = L.boot(len(Ma), seed=L.SEED + 3)
     v = np.array([(sl(Ma[i]) - sl(Mb[i])) / sl(Mb[i]) for i in b])
     return float(point), float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5)), float(sl(Ma)), float(sl(Mb))
+
+
+# ------------------------------------------------------------------ attribution tables (PROTOCOL section 3)
+def attribute(fires, ks_of, var, curve):
+    """Every missed (t, h) of the pooled BASE on `fires` (ks_of: fire name -> k_h fitted without that fire).
+    Returns a DataFrame with Shapley shares, single-swap fixes and missed area."""
+    import pandas as pd
+    rec = []
+    for f in fires:
+        ks = ks_of[f.name]
+        q = L.q_base(f, ks, var)
+        tr = L.offline_truths(f, ks, var)
+        wind_ok = np.isfinite(tr["rW"])
+        rW = np.where(wind_ok, tr["rW"], 1.0)
+        rWT = np.where(np.isfinite(tr["rWT"]), tr["rWT"], tr["rT"])
+        for h in range(L.NL):
+            rows = np.flatnonzero(f.elig[:, h] & (f.S[:, h] > q[:, h]))
+            if not len(rows):
+                continue
+            S, Ss, qq = f.S[rows, h], f.Ss[rows, h], q[rows, h]
+            Ss = np.where(np.isfinite(Ss), Ss, S)
+            sh, vall = L.shapley(S, Ss, qq, rW[rows, h], tr["rT"][rows, h], rWT[rows, h], tr["mk"][rows, h])
+            ma = (L.area_of(curve, f.cidx[rows], np.minimum(S, L.NB * L.CELL_KM))
+                  - L.area_of(curve, f.cidx[rows], np.minimum(qq, L.NB * L.CELL_KM)))
+            d = pd.DataFrame(dict(fire=f.name, product=f.product, t_utc=f.t[rows].astype(str), lead=int(L.LEADS[h]),
+                                  S=S, q=qq, missed_area=ma, v_all=vall,
+                                  sh_wind=sh[:, 0], sh_k=sh[:, 1], sh_start=sh[:, 2], sh_timing=sh[:, 3],
+                                  fix_wind=(S <= qq * rW[rows, h]).astype(int),
+                                  fix_k=(S <= qq * tr["mk"][rows, h]).astype(int),
+                                  fix_start=(Ss <= qq).astype(int),
+                                  fix_timing=(S <= qq * tr["rT"][rows, h]).astype(int),
+                                  wind_truth=wind_ok[rows, h].astype(int), start_measurable=int(f.start_measurable),
+                                  rW=tr["rW"][rows, h], mk=tr["mk"][rows, h], lag=tr["lag"][rows, h]))
+            rec.append(d)
+    return pd.concat(rec, ignore_index=True) if rec else pd.DataFrame()
+
+
+def attribution_table(d, B=2000):
+    """Shares of misses and of missed area per term with fire-bootstrap intervals; one dict per lead and 'all'."""
+    out = {}
+    cols = ["sh_wind", "sh_k", "sh_start", "sh_timing"]
+    for key, g in [("all", d)] + [(int(h), d[d.lead == h]) for h in sorted(d.lead.unique())]:
+        if not len(g):
+            continue
+        fires = sorted(g.fire.unique())
+        per = {f: gg for f, gg in g.groupby("fire")}
+        rng = np.random.default_rng(L.SEED + 4)
+
+        def stat(gs):
+            n = sum(len(x) for x in gs)
+            ma = sum(x.missed_area.sum() for x in gs)
+            s = {c[3:]: sum(x[c].sum() for x in gs) / n for c in cols}
+            s["unexplained"] = 1 - sum(x.v_all.sum() for x in gs) / n
+            a = {c[3:]: sum((x[c] * x.missed_area).sum() for x in gs) / ma for c in cols}
+            a["unexplained"] = sum(((1 - x.v_all) * x.missed_area).sum() for x in gs) / ma
+            fx = {c[4:]: sum(x[c].sum() for x in gs) / n for c in ("fix_wind", "fix_k", "fix_start", "fix_timing")}
+            return s, a, fx
+        s, a, fx = stat([per[f] for f in fires])
+        bs = [stat([per[fires[i]] for i in rng.integers(0, len(fires), len(fires))]) for _ in range(B)]
+        res = dict(n_misses=int(len(g)), n_fires=len(fires), missed_area_km2=float(g.missed_area.sum()),
+                   wind_truth_share=float(g.wind_truth.mean()), start_measurable_share=float(g.start_measurable.mean()))
+        for name, pt, k in (("share_of_misses", s, 0), ("share_of_missed_area", a, 1), ("single_swap_fix_rate", fx, 2)):
+            res[name] = {t: dict(value=float(v), lo=float(np.percentile([b[k][t] for b in bs], 2.5)),
+                                 hi=float(np.percentile([b[k][t] for b in bs], 97.5))) for t, v in pt.items()}
+        out[key] = res
+    return out
