@@ -124,7 +124,10 @@ def main(cdir, out, per=130):
     files = sorted(glob.glob(cdir + "/*.json.gz")); rnd = random.Random(20261119)
     rep = {"certificates_available": len(files), "mutants": 0, "rejected": 0, "accepted": [], "wrong_code": [], "families": {}, "unaltered_checked": 0, "unaltered_valid": 0}
     certs = []
-    for f in rnd.sample(files, min(len(files), 40)):
+    import os
+    iso = [f for f in files if "__ISOLATED__" in f]; con = sorted((f for f in files if "__CONTESTED__" in f), key=os.path.getsize)
+    pick = rnd.sample(iso, min(len(iso), 30)) + con[:8]   # smallest contested certificates only (checker time)
+    for f in pick:
         c = json.load(gzip.open(f, "rt")); r = checker.check(c); rep["unaltered_checked"] += 1; rep["unaltered_valid"] += r["valid"]
         if r["valid"]: certs.append((f, c))
     for fam in FAMILIES:
