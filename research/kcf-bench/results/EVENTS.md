@@ -32,3 +32,7 @@
   was killed during `old_cold | UA 03-25 | repeat 1` after 19 of 200 requests; those requests are KEPT and the block is
   resumed (amendment A2), so this block straddles a restart. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47,
   17:15 UTC.
+* 19 Nov 2026 ~17:20 UTC: eighth container restart (uptime 0 min at 17:29:05; the time is inferred from the request count, 20 requests
+  after the resume at 17:17, and it was found at the scheduled check-in, so about 9 minutes of run time were lost). The driver
+  was killed during `old_cold | UA 03-25 | repeat 1` with 39 of 200 requests saved; they are KEPT and the block is resumed
+  (amendment A2). That block now straddles two restarts (17:15 and ~17:20).
