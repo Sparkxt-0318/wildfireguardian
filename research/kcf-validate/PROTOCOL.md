@@ -282,3 +282,12 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
     row is geocoded on **its first sentence that contains `clos|block|impass`** (not on the whole row). Everything else in amendments 9-10 is unchanged. Burnover rows with one
     road name only (Hoffman Rd, Concow Rd, Chapman Ln, Windermere Ln, Pentz Rd, Pearson Rd, Bille Rd, Wagstaff Rd, Coutolenc Rd, Chestnut Cir, Ponderosa Way, Rattlesnake Flats Rd,
     Jordan Hill Rd/Granite Hill Rd, Concow Fire Station 37) stay not geocoded: the record gives no position along the road.
+
+12. **2026-11-19 ~00:18 UTC, after the one Paradise run (17 min, 4 workers; no re-run, no tuning), recording what the code did where amendments 9-11 left room.** Not rule changes:
+    * Shelters: Overture places whose `basic_category` contains `school`, `hospital`, `place_of_worship`, `community` or `shelter` (this also admits "social_or_community_service"), snapped to a graph node
+      within 500 m, outside the field's reached area, one per entry node: 322 shelters. Origins: graph nodes with ≥ 3 incident edges, ≥ 2 of them residential or tertiary, inside the Delaunay hull of the
+      observations or within 2 km of one, thinned greedily in node-id order to ≥ 750 m spacing: 147 origins. Waiting allowed at origin and shelter nodes only; dwell 120 s (roadlayer default).
+    * Field: 132 unique-location observations (50 m rounding, earliest time kept) from 255 geocoded rows, 10 of them dated 9 Nov (time = minutes after 2018-11-08 00:00 PST, up to 11/9 07:20).
+    * Record semantics (read before the comparison, not used to choose anything): burnover times are initiations; the TN 2252 closure rows state that a road **is closed or blocked at that time**, so they bound
+      the closure onset from above and negative errors (model earlier) are expected for them. The graph file (14 MB, sha256 in `out/paradise/graph_sha256.txt`) is not committed; `build_graph.py` rebuilds it
+      from the Overture segments (release 2026-10-21.0).
