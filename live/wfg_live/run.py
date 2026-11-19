@@ -82,6 +82,7 @@ def cmd_run(a):
     msgs = alerts.decide(rec, state.setdefault("alerts", {}))
     rec["alerts"] = alerts.send(msgs) | {"messages": [m["kind"] for m in msgs]}
     rec["run"] = {"commit": commit_id(), "event": os.environ.get("GITHUB_EVENT_NAME", "local"),
+                  "trigger": os.environ.get("LIVE_TRIGGER") or None,
                   "workflow_run": ("%s/%s/actions/runs/%s" % (os.environ.get("GITHUB_SERVER_URL"), os.environ.get("GITHUB_REPOSITORY"),
                                                              os.environ.get("GITHUB_RUN_ID"))) if os.environ.get("GITHUB_RUN_ID") else None,
                   "replay": False, "fetch_finished_utc": man.get("fetch_finished_utc"), "compute_finished_utc": C.iso(C.utcnow())}

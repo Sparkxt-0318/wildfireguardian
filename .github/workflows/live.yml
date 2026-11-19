@@ -5,13 +5,17 @@ name: live — Korean fire service (every 30 min)
 # /live/ on GitHub Pages together with the planner; sign the record (Sigstore, keyless) and commit it to the live-log
 # branch before any outcome is known; score records that are old enough. RUNBOOK: live/RUNBOOK.md.
 #
-# Schedule: GitHub runs scheduled workflows from the default branch (Main) only, and may delay or drop them under load.
-# Pushes to the development branch run the same steps as a dry run: nothing is committed, signed or deployed.
+# Cadence (PROTOCOL amendment 1): GitHub's own cron did not start a single run of this workflow in the first 4 h on
+# Main, so the 30-minute cadence comes from .github/workflows/live-relay.yml, which dispatches this workflow at every
+# :07 and :37 UTC (input trigger=relay). Pushes to the development branch run the same steps as a dry run: nothing is
+# committed, signed or deployed.
 
 on:
-  schedule:
-    - cron: '7,37 * * * *'
   workflow_dispatch:
+    inputs:
+      trigger:
+        description: 'who started the run (relay = the 30-min relay; manual = a person)'
+        default: manual
   workflow_run:
     # the planner deploy replaces the whole Pages site; redeploy /live/ right after it
     workflows: ['Planner static demo (GitHub Pages)']
@@ -91,6 +95,7 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          LIVE_TRIGGER: ${{ inputs.trigger || github.event_name }}
         run: |
           set -e
           find live-cache -name 'ahi_*.json' -mmin +720 -delete 2>/dev/null || true
