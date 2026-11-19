@@ -1,0 +1,136 @@
+{
+ "rows": 1119,
+ "MID": {
+  "place_hours": 1119,
+  "classes": {
+   "D_clears": 1064,
+   "A_spread_alone_exceeds_free_flow_window": 55
+  },
+  "shift_vs_L0_contested": {
+   "n": 1064,
+   "median_min": 29.98,
+   "p25_min": 29.92,
+   "p75_min": 31.57,
+   "p90_min": 35.32,
+   "max_min": 41.37
+  },
+  "shift_vs_L0_isolated": {
+   "n": 1064,
+   "median_min": 29.98,
+   "p25_min": 29.92,
+   "p75_min": 31.57,
+   "p90_min": 35.32,
+   "max_min": 41.37
+  },
+  "queue_effect_S_free_minus_isolated": {
+   "n": 1064,
+   "median_min": 0.12,
+   "p25_min": 0.05,
+   "p75_min": 1.6,
+   "p90_min": 5.37,
+   "max_min": 11.4
+  },
+  "sharing_effect_isolated_minus_contested": {
+   "n": 1064,
+   "median_min": 0.0,
+   "p25_min": 0.0,
+   "p75_min": 0.0,
+   "p90_min": 0.0,
+   "max_min": 0.0
+  },
+  "queue_effect_counts": {
+   ">0s": 1004,
+   ">=60s": 274,
+   ">=300s": 115,
+   ">=900s": 0,
+   "n": 1064
+  },
+  "sharing_effect_counts": {
+   ">0s": 0,
+   ">=60s": 0,
+   ">=300s": 0,
+   ">=900s": 0,
+   "n": 1064
+  },
+  "sharing_negative": 0,
+  "certificates_checked": {
+   "isolated_True": 1064,
+   "contested_True": 1064
+  },
+  "binding_by_kind": {
+   "shelter": 862,
+   "edge": 202
+  },
+  "top_binding_ways": [
+   {
+    "way": 30043762,
+    "places": 3,
+    "place_hours": 7
+   },
+   {
+    "way": 32531447,
+    "places": 3,
+    "place_hours": 3
+   },
+   {
+    "way": 32721332,
+    "places": 2,
+    "place_hours": 3
+   },
+   {
+    "way": 1259288094,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 913742284,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 37413312,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 32508713,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 662846922,
+    "places": 1,
+    "place_hours": 7
+   },
+   {
+    "way": 1309518734,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378577,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378563,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 672449436,
+    "places": 1,
+    "place_hours": 4
+   }
+  ],
+  "by_free_flow_state": {
+   "LATEST_SAFE_DEPARTURE": {
+    "D_clears": 287,
+    "A_spread_alone_exceeds_free_flow_window": 55
+   },
+   "NOT_CUT_WITHIN_H": {
+    "D_clears": 777
+   }
+  }
+ }
+}
