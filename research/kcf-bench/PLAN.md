@@ -125,3 +125,17 @@ directed edges, five destination specs and 100 origins each. One run per grid; e
   controlled.
 * A's 30 s budget is wall-clock; on a slower or loaded core A can return `unresolved` where it would not otherwise.
   Such jobs are reported, not rerun.
+
+## Amendment 1 (Thu 19 Nov 2026, 21:05 Shanghai; after phase 1 `b` had started, before `synth`, `a`, `arep`)
+
+**Reason.** The plan's schedule assumed it was 07:15 Shanghai; the clock read was wrong (the sandbox ignored `TZ`).
+It is 21:05, so about 15 h remain, not 29. B is fast (UA 03-23 full cache in under 20 s), A is the long phase
+(smoke: about 5–6 s per job, so pass 1 is roughly 8–10 h). Nothing measured so far was looked at beyond the smoke
+test's crash check and the one file size, and no measured number changes any rule below.
+
+**Changes.** Nothing else in the protocol changes.
+* `synth` per-grid cap: **10 min** (was 30 min) of in-process time, checked between destination specs; specs done
+  before the cap are reported per spec, as before.
+* `KCF_BENCH_STOP_AT` (no new A job starts after): pass 1 **Fri 07:45** Shanghai (was 03:00); repeats **Fri 09:15**
+  (was 06:30). `compare` and the write-up follow.
+* If A pass 1 is cut short, the jobs it did run in each cache's permutation order are the sample, with their count.

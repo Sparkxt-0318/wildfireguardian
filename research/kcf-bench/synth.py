@@ -31,7 +31,7 @@ from deadline_field import intervals as iv  # noqa: E402
 from deadline_field.core import Instance, backward, issue_set, witness  # noqa: E402
 
 H, DWELL, SP = 3600, 120, 150.0
-TIME_CAP_S, RSS_CAP_MIB = 1800.0, 12 * 1024
+TIME_CAP_S, RSS_CAP_MIB = 600.0, 12 * 1024
 SCALE = 1.0 if sys.platform == "darwin" else 1024.0
 
 
