@@ -1,0 +1,9 @@
+{
+ "counts": {
+  "('LATEST_SAFE_DEPARTURE', True)": 349,
+  "('NOT_CUT_WITHIN_H', True)": 785,
+  "('INSIDE_KNOWN_FIRE_AREA', np.True_)": 1077,
+  "('NO_SAFE_DEPARTURE', True)": 51
+ },
+ "mismatches": []
+}
