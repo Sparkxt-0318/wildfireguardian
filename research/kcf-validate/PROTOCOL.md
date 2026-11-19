@@ -316,3 +316,20 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
     (`vds_diagnostic.py`, `out/vds/vds_diagnostic_V_over_B.csv`). Result: the conzones mapped to 서안동→예천, 예천→영주 and 영주→풍기 fall to 1-3 % of baseline after 25 Mar 18:00 (both directions); those mapped to 의성→안동JC and
     안동JC→남안동 stay at 0.7-1.2 (25 Mar evening) and 0.5-0.75 (26-27 Mar daytime). **No mapping or detection rule was changed after seeing this** (it would be circular to tune the mapping to the official times); the
     section identity of the conzones is reported as **uncertain** until a conzone reference table (KEC dataset 157 "콘존": 콘존ID, 콘존명, start/end node) is supplied.
+
+15. **2026-11-19 ~10:12 UTC, user supplied KEC dataset 157 (conzone reference table; six identical copies), before any closure onset was re-derived.** Reading the table showed that amendment 13's **TCS-correlation mapping was wrong**:
+    e.g. `0550CZS160` is "군위JC-가산IC" (I had it as 의성→안동JC), `0550CZE180` is "의성IC-안동JC" (I had it as 예천→서안동). The conzone names are now authoritative; **amendment 13's mapping rule is
+    withdrawn**, its detection rule is unchanged, and rows 1a-1c of the previous RESULTS.md (including the "inconsistency" I reported in amendment 14, which came from the mislabelled conzones) are superseded.
+    Only the table's names were read (route 0300: E130-E290/S130-S290 with names; route 0550 likewise); no slot value, onset or surge was re-derived before this rule.
+    * **Chain and base names.** For a route, the E conzones in 노선구성순번 order define a chain of nodes (A1, A2=B1, ...); a node's **base name** drops a trailing IC, JCT, JC, TG, Hi or 분기점 (so 남안동JCT = 남안동IC, 안동분기점 = 안동JC,
+      영덕TG = 영덕IC). Conzones with 종점 or 시점 in the name are excluded. A conzone (either direction) covers the node interval of its two base names.
+    * **Official sections.** An official event "route A~B" (route 서산영덕선 or 청주영덕선 → 0300, 중앙선 → 0550; other routes ignored) selects every conzone, both directions, whose interval lies inside [A, B] on that route's chain.
+      Events with a stated effective time use it; events with only a creation time (22 Mar 20:38, 26 Mar 10:00, 10:31) are flagged. Detection (closure run, onset, reopening, baseline from 1-21 March, informative slots, surge) is exactly amendment 13's.
+    * **Comparison (a):** for each official closure or reopening event, per selected conzone-direction, the derived onset (closure) or reopening time within ±6 h of the official time; error = derived − official (min); median, range, n with a time, n without. Night-time events with
+      an uninformative baseline are reported as not testable. **(b) Model bounds:** for the published RD1-RD8 rows, the row's own section (RD1 안동JC~청송IC, RD2 서의성IC~영덕IC, RD3 의성IC~서안동IC, RD4 의성IC~예천IC, RD5 and RD6 동상주IC~영덕IC, RD7 의성IC~풍기IC,
+      RD8 의성IC~예천IC) with reference time = the official time of amendments 6-7 (RD1 15:30, RD2 15:58, RD3 18:00, RD4 18:00, RD7 21:26, RD8 26 Mar 10:00) or, where no official match exists, the REPORTED time (RD5 18:00, RD6 22:00); onset window ±12 h; bound = published issue hour (RD1 14:00, RD2 16:00,
+      RD3 16:00, RD4 17:00, RD5 17:00, RD6 21:00, RD7 21:00, RD8 26 Mar 00:00) − median onset. **(c) Controls:** all other conzone-directions of routes 0300 and 0550, reported as the share with any closure run in 22-27 March.
+
+16. **2026-11-19 ~10:15 UTC, after the one run of `vds_closures_v2.py` (amendments 13 detection and 15 mapping, no change).** Recorded: the v1 outputs (TCS-correlation mapping) are kept in `out/vds/superseded_tcs_mapping/` with `old_vs_correct_names.csv`
+    (all 12 conzones I had used were mislabelled); the two runs with V/B ≥ 1.5 before an onset were then checked against earlier same-weekday dates (**exploratory**, `vds_surge_check.py`): the 23 Mar slot (V/B 2.21) is lower than
+    the same slot on the three earlier Sundays (2.59, 1.98, 2.51); the 24 Mar slot (1.50) is above two ordinary Mondays (0.86, 1.05) and below the 3 March holiday Monday (3.67). The baseline (median of all days 1-21 March) is not weekday-matched; stated.
