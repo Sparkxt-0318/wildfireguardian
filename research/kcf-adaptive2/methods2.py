@@ -368,7 +368,9 @@ def archive_source(D):
 def sim_source(D):
     import pandas as pd
     d = pd.read_csv("/tmp/w/work/sim.csv.gz")
-    return d[ALL].values.astype(float), d["S"].values.astype(float)
+    col = "reach8_km" if D.h == 8 else "reach5_km"
+    d = d.dropna(subset=[col])
+    return d[ALL].values.astype(float), d[col].values.astype(float)
 
 
 def both_source(D):

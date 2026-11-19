@@ -1,4 +1,27 @@
 {
+ "EVT-twin": {
+  "miss": 0.10078378400512158,
+  "miss_lo": 0.08851845594846126,
+  "miss_hi": 0.11555912860670095,
+  "area": 278.3778264276892,
+  "area_lo": 202.10244880877352,
+  "area_hi": 373.4450892645367,
+  "frontier_area": 279.4626872928485,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.8464864167953426,
+   0.7390280273943804,
+   0.9450749881241755
+  ],
+  "verdict_vs_FIXED": "helps (material)",
+  "ratio_vs_PERSIST": [
+   0.5762498971639839,
+   0.5450603383723341,
+   0.6120173422758552
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.8549712183987399
+ },
  "EVT": {
   "miss": 0.09958811539263401,
   "miss_lo": 0.08696298605183693,
@@ -90,6 +113,75 @@
   "verdict_vs_PERSIST": "does not help",
   "frontier_ratio_vs_FIXED": 1.4963916962323345
  },
+ "META-init": {
+  "miss": 0.0992100252359754,
+  "miss_lo": 0.08382639545291629,
+  "miss_hi": 0.11745355523778257,
+  "area": 314.2136572610603,
+  "area_lo": 226.7944275578704,
+  "area_hi": 420.99787039989513,
+  "frontier_area": 312.87778733920624,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.9554553832690571,
+   0.8100285801251532,
+   1.1155840408951319
+  ],
+  "verdict_vs_FIXED": "does not help",
+  "ratio_vs_PERSIST": [
+   0.6504310706342787,
+   0.6003049530606267,
+   0.7096908821824575
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.9571993515219748
+ },
+ "META-pooled": {
+  "miss": 0.09577877867659779,
+  "miss_lo": 0.08133172321943158,
+  "miss_hi": 0.11266560015972951,
+  "area": 359.4174378728003,
+  "area_lo": 252.7937819129966,
+  "area_hi": 496.73322063937826,
+  "frontier_area": 350.6854707948214,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   1.0929102472812742,
+   0.8772577804581189,
+   1.3518379113796368
+  ],
+  "verdict_vs_FIXED": "does not help",
+  "ratio_vs_PERSIST": [
+   0.7440041625116406,
+   0.6452488090790636,
+   0.8545635238318808
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 1.0728658882679283
+ },
+ "META": {
+  "miss": 0.10093646777550805,
+  "miss_lo": 0.08539350084138023,
+  "miss_hi": 0.11990419349311128,
+  "area": 318.6677288221904,
+  "area_lo": 230.42649712610466,
+  "area_hi": 433.0583302532866,
+  "frontier_area": 320.3864041136468,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.9689992460267844,
+   0.8200657863953756,
+   1.151917852366146
+  ],
+  "verdict_vs_FIXED": "does not help",
+  "ratio_vs_PERSIST": [
+   0.6596511235098943,
+   0.6020055663810114,
+   0.7246636243441273
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.980170758883436
+ },
  "M_ref": {
   "miss": 0.0978513965809554,
   "miss_lo": 0.08590440031765337,
@@ -135,6 +227,75 @@
   ],
   "verdict_vs_PERSIST": "",
   "frontier_ratio_vs_FIXED": 1.472231983301348
+ },
+ "PRETRAIN-archive": {
+  "miss": 0.09859272635346923,
+  "miss_lo": 0.08655020439165782,
+  "miss_hi": 0.11205101494859775,
+  "area": 289.3195544219829,
+  "area_lo": 208.16866093163407,
+  "area_hi": 389.6470531562208,
+  "frontier_area": 287.2586015139967,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.8797578315566935,
+   0.7649646306800522,
+   0.9853056943051011
+  ],
+  "verdict_vs_FIXED": "helps (material)",
+  "ratio_vs_PERSIST": [
+   0.5988995805544312,
+   0.5695820182603784,
+   0.627501917841144
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.8788215661670008
+ },
+ "PRETRAIN-both": {
+  "miss": 0.10028447739208292,
+  "miss_lo": 0.08743191408691331,
+  "miss_hi": 0.11441097061919651,
+  "area": 287.0383450276775,
+  "area_lo": 207.93952205313,
+  "area_hi": 385.2412208681673,
+  "frontier_area": 287.4793591276927,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.8728211700024118,
+   0.7545050805206377,
+   0.9855526895610882
+  ],
+  "verdict_vs_FIXED": "helps (material)",
+  "ratio_vs_PERSIST": [
+   0.5941774132189539,
+   0.5685679524654887,
+   0.6207207797248057
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.879496938639014
+ },
+ "PRETRAIN-sim": {
+  "miss": 0.09969560918223204,
+  "miss_lo": 0.08559354392032097,
+  "miss_hi": 0.11544487634726228,
+  "area": 297.184853671905,
+  "area_lo": 218.57466917761587,
+  "area_hi": 396.47642682912607,
+  "frontier_area": 296.65414694066385,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.9036744956981138,
+   0.801804011072049,
+   0.9994135346790414
+  ],
+  "verdict_vs_FIXED": "helps",
+  "ratio_vs_PERSIST": [
+   0.6151809702832531,
+   0.5809340369356336,
+   0.6529109882595548
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.9075657287554776
  },
  "QUANTILE-fc": {
   "miss": 0.10026285276868753,
