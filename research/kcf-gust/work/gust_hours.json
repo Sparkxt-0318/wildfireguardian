@@ -1,0 +1,1293 @@
+[
+ {
+  "kst_stamp": 0,
+  "Uiseong": 6.2,
+  "Andong": 5.8,
+  "Cheongsong": 8.6,
+  "Yeongyang": 7.8,
+  "Yeongdeok": 9.3,
+  "fire_wide_max": 9.3,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 5.7,
+    "Andong": 5.5,
+    "Cheongsong": 8.0,
+    "Yeongyang": 7.0,
+    "Yeongdeok": 8.8
+   },
+   "fire_wide_max": 8.8,
+   "cls": "<10",
+   "R_km": 2.6,
+   "reach_km": 0.75,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 5.7,
+    "Andong": 5.5,
+    "Cheongsong": 8.0,
+    "Yeongyang": 7.0,
+    "Yeongdeok": 8.8
+   },
+   "fire_wide_max": 8.8,
+   "cls": "<10",
+   "R_km": 3.0,
+   "reach_km": 0.75,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 1,
+  "Uiseong": 5.7,
+  "Andong": 5.5,
+  "Cheongsong": 8.0,
+  "Yeongyang": 7.0,
+  "Yeongdeok": 8.8,
+  "fire_wide_max": 8.8,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 5.0,
+    "Andong": 4.8,
+    "Cheongsong": 6.7,
+    "Yeongyang": 5.9,
+    "Yeongdeok": 8.1
+   },
+   "fire_wide_max": 8.1,
+   "cls": "<10",
+   "R_km": 2.6,
+   "reach_km": 0.75,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 5.9,
+    "Andong": 6.0,
+    "Cheongsong": 8.1,
+    "Yeongyang": 9.2,
+    "Yeongdeok": 8.1
+   },
+   "fire_wide_max": 9.2,
+   "cls": "<10",
+   "R_km": 3.0,
+   "reach_km": 0.75,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 2,
+  "Uiseong": 5.0,
+  "Andong": 4.8,
+  "Cheongsong": 6.7,
+  "Yeongyang": 5.9,
+  "Yeongdeok": 8.1,
+  "fire_wide_max": 8.1,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 3.6,
+    "Andong": 3.3,
+    "Cheongsong": 5.1,
+    "Yeongyang": 4.8,
+    "Yeongdeok": 7.2
+   },
+   "fire_wide_max": 7.2,
+   "cls": "<10",
+   "R_km": 2.6,
+   "reach_km": 0.75,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 7.5,
+    "Andong": 7.6,
+    "Cheongsong": 9.6,
+    "Yeongyang": 10.6,
+    "Yeongdeok": 9.1
+   },
+   "fire_wide_max": 10.6,
+   "cls": "10-20",
+   "R_km": 5.9,
+   "reach_km": 0.75,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 3,
+  "Uiseong": 3.6,
+  "Andong": 3.3,
+  "Cheongsong": 5.1,
+  "Yeongyang": 4.8,
+  "Yeongdeok": 7.2,
+  "fire_wide_max": 7.2,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 4.2,
+    "Andong": 3.7,
+    "Cheongsong": 5.5,
+    "Yeongyang": 6.4,
+    "Yeongdeok": 6.4
+   },
+   "fire_wide_max": 6.4,
+   "cls": "<10",
+   "R_km": 2.6,
+   "reach_km": 0.375,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 10.1,
+    "Andong": 9.7,
+    "Cheongsong": 11.5,
+    "Yeongyang": 12.6,
+    "Yeongdeok": 10.4
+   },
+   "fire_wide_max": 12.6,
+   "cls": "10-20",
+   "R_km": 5.9,
+   "reach_km": 0.375,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 4,
+  "Uiseong": 2.8,
+  "Andong": 2.9,
+  "Cheongsong": 4.5,
+  "Yeongyang": 4.6,
+  "Yeongdeok": 6.1,
+  "fire_wide_max": 6.1,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 5.9,
+    "Andong": 6.0,
+    "Cheongsong": 8.1,
+    "Yeongyang": 9.2,
+    "Yeongdeok": 7.2
+   },
+   "fire_wide_max": 9.2,
+   "cls": "<10",
+   "R_km": 2.6,
+   "reach_km": 0.0,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 12.0,
+    "Andong": 11.4,
+    "Cheongsong": 13.0,
+    "Yeongyang": 14.0,
+    "Yeongdeok": 11.6
+   },
+   "fire_wide_max": 14.0,
+   "cls": "10-20",
+   "R_km": 5.9,
+   "reach_km": 2.25,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 5,
+  "Uiseong": 2.7,
+  "Andong": 2.9,
+  "Cheongsong": 4.3,
+  "Yeongyang": 4.8,
+  "Yeongdeok": 6.4,
+  "fire_wide_max": 6.4,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 7.5,
+    "Andong": 7.6,
+    "Cheongsong": 9.6,
+    "Yeongyang": 10.6,
+    "Yeongdeok": 9.1
+   },
+   "fire_wide_max": 10.6,
+   "cls": "10-20",
+   "R_km": 4.7,
+   "reach_km": 0.0,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 14.1,
+    "Andong": 13.3,
+    "Cheongsong": 14.3,
+    "Yeongyang": 15.4,
+    "Yeongdeok": 12.5
+   },
+   "fire_wide_max": 15.4,
+   "cls": "10-20",
+   "R_km": 5.9,
+   "reach_km": 2.25,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 6,
+  "Uiseong": 2.7,
+  "Andong": 2.5,
+  "Cheongsong": 3.8,
+  "Yeongyang": 4.5,
+  "Yeongdeok": 6.3,
+  "fire_wide_max": 6.3,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 10.1,
+    "Andong": 9.7,
+    "Cheongsong": 11.5,
+    "Yeongyang": 12.6,
+    "Yeongdeok": 10.4
+   },
+   "fire_wide_max": 12.6,
+   "cls": "10-20",
+   "R_km": 4.7,
+   "reach_km": 0.0,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 16.5,
+    "Andong": 15.9,
+    "Cheongsong": 16.4,
+    "Yeongyang": 17.6,
+    "Yeongdeok": 13.9
+   },
+   "fire_wide_max": 17.6,
+   "cls": "10-20",
+   "R_km": 5.9,
+   "reach_km": 2.25,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": true
+  }
+ },
+ {
+  "kst_stamp": 7,
+  "Uiseong": 3.2,
+  "Andong": 2.6,
+  "Cheongsong": 3.8,
+  "Yeongyang": 4.6,
+  "Yeongdeok": 6.1,
+  "fire_wide_max": 6.1,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 12.0,
+    "Andong": 11.4,
+    "Cheongsong": 13.0,
+    "Yeongyang": 14.0,
+    "Yeongdeok": 11.6
+   },
+   "fire_wide_max": 14.0,
+   "cls": "10-20",
+   "R_km": 4.7,
+   "reach_km": 2.25,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 18.6,
+    "Andong": 18.8,
+    "Cheongsong": 19.3,
+    "Yeongyang": 21.0,
+    "Yeongdeok": 15.7
+   },
+   "fire_wide_max": 21.0,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 4.889401803901987,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 8,
+  "Uiseong": 4.2,
+  "Andong": 3.7,
+  "Cheongsong": 5.5,
+  "Yeongyang": 6.4,
+  "Yeongdeok": 6.3,
+  "fire_wide_max": 6.4,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 14.1,
+    "Andong": 13.3,
+    "Cheongsong": 14.3,
+    "Yeongyang": 15.4,
+    "Yeongdeok": 12.5
+   },
+   "fire_wide_max": 15.4,
+   "cls": "10-20",
+   "R_km": 4.7,
+   "reach_km": 2.25,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 18.8,
+    "Andong": 19.8,
+    "Cheongsong": 19.6,
+    "Yeongyang": 21.9,
+    "Yeongdeok": 15.7
+   },
+   "fire_wide_max": 21.9,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 6.559820881700963,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 9,
+  "Uiseong": 5.9,
+  "Andong": 6.0,
+  "Cheongsong": 8.1,
+  "Yeongyang": 9.2,
+  "Yeongdeok": 7.2,
+  "fire_wide_max": 9.2,
+  "class_at_stamp": "<10",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "<10",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 16.5,
+    "Andong": 15.9,
+    "Cheongsong": 16.4,
+    "Yeongyang": 17.6,
+    "Yeongdeok": 13.9
+   },
+   "fire_wide_max": 17.6,
+   "cls": "10-20",
+   "R_km": 4.7,
+   "reach_km": 2.25,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.2,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 16.6
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 12.397706441112405,
+   "complete": true,
+   "held": false,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 10,
+  "Uiseong": 7.5,
+  "Andong": 7.6,
+  "Cheongsong": 9.6,
+  "Yeongyang": 10.6,
+  "Yeongdeok": 9.1,
+  "fire_wide_max": 10.6,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "<10",
+   "Andong": "<10",
+   "Cheongsong": "<10",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "<10"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 18.6,
+    "Andong": 18.8,
+    "Cheongsong": 19.3,
+    "Yeongyang": 21.0,
+    "Yeongdeok": 15.7
+   },
+   "fire_wide_max": 21.0,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 4.889401803901987,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 17.7
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 23.920767650725598,
+   "complete": true,
+   "held": false,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 11,
+  "Uiseong": 10.1,
+  "Andong": 9.7,
+  "Cheongsong": 11.5,
+  "Yeongyang": 12.6,
+  "Yeongdeok": 10.4,
+  "fire_wide_max": 12.6,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "<10",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 18.8,
+    "Andong": 19.8,
+    "Cheongsong": 19.6,
+    "Yeongyang": 21.9,
+    "Yeongdeok": 15.7
+   },
+   "fire_wide_max": 21.9,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 6.559820881700963,
+   "complete": true,
+   "held": true,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 2.625,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 19.5
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 34.74370446570141,
+   "complete": true,
+   "held": false,
+   "prior_class": "quiet",
+   "R_prior_class_0_1": 3.4573291714848327,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 12,
+  "Uiseong": 12.0,
+  "Andong": 11.4,
+  "Cheongsong": 13.0,
+  "Yeongyang": 14.0,
+  "Yeongdeok": 11.6,
+  "fire_wide_max": 14.0,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.2,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 16.6
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 12.397706441112405,
+   "complete": true,
+   "held": false,
+   "prior_class": "slow",
+   "R_prior_class_0_1": 5.045109017652641,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 19.5
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 34.9475052757704,
+   "complete": true,
+   "held": false,
+   "prior_class": "slow",
+   "R_prior_class_0_1": 6.418966038233884,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 13,
+  "Uiseong": 14.1,
+  "Andong": 13.3,
+  "Cheongsong": 14.3,
+  "Yeongyang": 15.4,
+  "Yeongdeok": 12.5,
+  "fire_wide_max": 15.4,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 17.7
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 23.920767650725598,
+   "complete": true,
+   "held": false,
+   "prior_class": "slow",
+   "R_prior_class_0_1": 5.045109017652641,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 19.5
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 43.953455495558025,
+   "complete": true,
+   "held": false,
+   "prior_class": "slow",
+   "R_prior_class_0_1": 6.418966038233884,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 14,
+  "Uiseong": 16.5,
+  "Andong": 15.9,
+  "Cheongsong": 16.4,
+  "Yeongyang": 17.6,
+  "Yeongdeok": 13.9,
+  "fire_wide_max": 17.6,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 19.5
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 34.74370446570141,
+   "complete": true,
+   "held": false,
+   "prior_class": "slow",
+   "R_prior_class_0_1": 5.045109017652641,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 20.2
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 50.30034791132165,
+   "complete": true,
+   "held": false,
+   "prior_class": "slow",
+   "R_prior_class_0_1": 6.418966038233884,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 15,
+  "Uiseong": 18.6,
+  "Andong": 18.8,
+  "Cheongsong": 19.3,
+  "Yeongyang": 21.0,
+  "Yeongdeok": 15.7,
+  "fire_wide_max": 21.0,
+  "class_at_stamp": ">=20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": ">=20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 19.5
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 32.89756829919196,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.8,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 46.57403380640333,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 16,
+  "Uiseong": 18.8,
+  "Andong": 19.8,
+  "Cheongsong": 19.6,
+  "Yeongyang": 21.9,
+  "Yeongdeok": 15.3,
+  "fire_wide_max": 21.9,
+  "class_at_stamp": ">=20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": ">=20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.6,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 19.5
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 40.09519921387098,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 19.2,
+    "Andong": 19.6,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.4,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 22.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 46.4228190117748,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 17,
+  "Uiseong": 19.2,
+  "Andong": 19.6,
+  "Cheongsong": 20.2,
+  "Yeongyang": 22.4,
+  "Yeongdeok": 16.6,
+  "fire_wide_max": 22.4,
+  "class_at_stamp": ">=20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": ">=20",
+   "Yeongyang": ">=20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 18.8,
+    "Andong": 19.0,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.1,
+    "Yeongdeok": 20.2
+   },
+   "fire_wide_max": 22.1,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 38.62682034545427,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 18.8,
+    "Andong": 19.0,
+    "Cheongsong": 20.6,
+    "Yeongyang": 22.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 22.1,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 38.62682034545427,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 18,
+  "Uiseong": 18.8,
+  "Andong": 19.0,
+  "Cheongsong": 20.6,
+  "Yeongyang": 22.1,
+  "Yeongdeok": 17.7,
+  "fire_wide_max": 22.1,
+  "class_at_stamp": ">=20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": ">=20",
+   "Yeongyang": ">=20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 18.5,
+    "Andong": 17.0,
+    "Cheongsong": 19.5,
+    "Yeongyang": 18.6,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 27.292684459393143,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 18.5,
+    "Andong": 17.0,
+    "Cheongsong": 19.5,
+    "Yeongyang": 18.6,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 27.292684459393143,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 19,
+  "Uiseong": 18.5,
+  "Andong": 17.0,
+  "Cheongsong": 19.5,
+  "Yeongyang": 18.6,
+  "Yeongdeok": 19.5,
+  "fire_wide_max": 19.5,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 15.3,
+    "Andong": 14.0,
+    "Cheongsong": 16.6,
+    "Yeongyang": 17.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 20.29855290408653,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 15.3,
+    "Andong": 14.0,
+    "Cheongsong": 16.6,
+    "Yeongyang": 17.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 20.29855290408653,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": false
+  }
+ },
+ {
+  "kst_stamp": 20,
+  "Uiseong": 15.3,
+  "Andong": 14.0,
+  "Cheongsong": 16.6,
+  "Yeongyang": 17.0,
+  "Yeongdeok": 18.4,
+  "fire_wide_max": 18.4,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 13.4,
+    "Andong": 12.8,
+    "Cheongsong": 16.6,
+    "Yeongyang": 17.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 15.664948930654068,
+   "complete": true,
+   "held": false,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": false
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 13.4,
+    "Andong": 12.8,
+    "Cheongsong": 16.6,
+    "Yeongyang": 17.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 15.664948930654068,
+   "complete": false,
+   "held": null,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": null
+  }
+ },
+ {
+  "kst_stamp": 21,
+  "Uiseong": 13.4,
+  "Andong": 12.8,
+  "Cheongsong": 16.1,
+  "Yeongyang": 17.0,
+  "Yeongdeok": 19.0,
+  "fire_wide_max": 19.0,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 13.3,
+    "Andong": 12.7,
+    "Cheongsong": 16.6,
+    "Yeongyang": 17.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 6.549093448714867,
+   "complete": true,
+   "held": true,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 13.3,
+    "Andong": 12.7,
+    "Cheongsong": 16.6,
+    "Yeongyang": 17.1,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 6.791538853603063,
+   "complete": false,
+   "held": null,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": null
+  }
+ },
+ {
+  "kst_stamp": 22,
+  "Uiseong": 13.2,
+  "Andong": 12.7,
+  "Cheongsong": 16.4,
+  "Yeongyang": 17.1,
+  "Yeongdeok": 20.2,
+  "fire_wide_max": 20.2,
+  "class_at_stamp": ">=20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": ">=20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 13.3,
+    "Andong": 12.7,
+    "Cheongsong": 16.6,
+    "Yeongyang": 16.9,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 8.6,
+   "reach_km": 4.875,
+   "complete": true,
+   "held": true,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": true
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 13.3,
+    "Andong": 12.7,
+    "Cheongsong": 16.6,
+    "Yeongyang": 16.9,
+    "Yeongdeok": 20.4
+   },
+   "fire_wide_max": 20.4,
+   "cls": ">=20",
+   "R_km": 12.0,
+   "reach_km": 4.875,
+   "complete": false,
+   "held": null,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": null
+  }
+ },
+ {
+  "kst_stamp": 23,
+  "Uiseong": 13.3,
+  "Andong": 12.7,
+  "Cheongsong": 16.6,
+  "Yeongyang": 16.9,
+  "Yeongdeok": 20.4,
+  "fire_wide_max": 20.4,
+  "class_at_stamp": ">=20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": ">=20"
+  },
+  "fwd5": {
+   "max_by_point": {
+    "Uiseong": 12.4,
+    "Andong": 11.7,
+    "Cheongsong": 15.9,
+    "Yeongyang": 15.6,
+    "Yeongdeok": 18.9
+   },
+   "fire_wide_max": 18.9,
+   "cls": "10-20",
+   "R_km": 4.7,
+   "reach_km": 3.0,
+   "complete": false,
+   "held": null,
+   "prior_class": "running",
+   "R_prior_class_0_1": 7.59317127424372,
+   "held_prior_class": null
+  },
+  "fwd8": {
+   "max_by_point": {
+    "Uiseong": 12.4,
+    "Andong": 11.7,
+    "Cheongsong": 15.9,
+    "Yeongyang": 15.6,
+    "Yeongdeok": 18.9
+   },
+   "fire_wide_max": 18.9,
+   "cls": "10-20",
+   "R_km": 5.9,
+   "reach_km": 3.0,
+   "complete": false,
+   "held": null,
+   "prior_class": "running",
+   "R_prior_class_0_1": 9.963997691689816,
+   "held_prior_class": null
+  }
+ },
+ {
+  "kst_stamp": 24,
+  "Uiseong": 12.4,
+  "Andong": 11.7,
+  "Cheongsong": 15.9,
+  "Yeongyang": 15.6,
+  "Yeongdeok": 18.9,
+  "fire_wide_max": 18.9,
+  "class_at_stamp": "10-20",
+  "point_classes": {
+   "Uiseong": "10-20",
+   "Andong": "10-20",
+   "Cheongsong": "10-20",
+   "Yeongyang": "10-20",
+   "Yeongdeok": "10-20"
+  },
+  "fwd5": null,
+  "fwd8": null
+ }
+]

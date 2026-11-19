@@ -1,0 +1,21 @@
+{
+ "label": "15-minute VDS volumes with the KEC conzone table. Not what happened to people.",
+ "protocol": "PROTOCOL.md amendments 13 (detection) and 15 (mapping)",
+ "conzones_with_interval": 93,
+ "conzones_with_data": 70,
+ "closure_runs": 150,
+ "covered_by_an_official_closure_section": {
+  "n_conzone_directions": 24,
+  "with_a_run_22_27_Mar": 20
+ },
+ "not_covered_(controls)": {
+  "n_conzone_directions": 46,
+  "with_a_run_22_27_Mar": 3
+ },
+ "surge_ratio_before_onset_covered": {
+  "n": 142,
+  "median": 0.10598770382250736,
+  "max": 2.2131147540983607,
+  "n_ge_1.5": 2
+ }
+}

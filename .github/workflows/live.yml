@@ -1,0 +1,195 @@
+name: live — Korean fire service (every 30 min)
+
+# live/PROTOCOL.md. Every run: fetch the Korea Forest Service fire list, FIRMS, Himawari (only when a Gyeongbuk or
+# Gangwon fire is active) and the GFS cycle; build the known fire area, the margin, the flags and the road layer; publish
+# /live/ on GitHub Pages together with the planner; sign the record (Sigstore, keyless) and commit it to the live-log
+# branch before any outcome is known; score records that are old enough. RUNBOOK: live/RUNBOOK.md.
+#
+# Cadence (PROTOCOL amendment 1): GitHub's own cron did not start a single run of this workflow in the first 4 h on
+# Main, so the 30-minute cadence comes from .github/workflows/live-relay.yml, which dispatches this workflow at every
+# :07 and :37 UTC (input trigger=relay). Pushes to the development branch run the same steps as a dry run: nothing is
+# committed, signed or deployed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      trigger:
+        description: 'who started the run (relay = the 30-min relay; manual = a person)'
+        default: manual
+  workflow_run:
+    # the planner deploy replaces the whole Pages site; redeploy /live/ right after it
+    workflows: ['Planner static demo (GitHub Pages)']
+    types: [completed]
+  push:
+    branches: [claude/upbeat-darwin-2y2iv2]
+    paths: ['live/**', '.github/workflows/live.yml']
+
+permissions:
+  contents: write     # commit the record to the live-log branch
+  pages: write
+  id-token: write     # Sigstore keyless signing and the Pages deployment
+
+concurrency:
+  group: live-service
+  cancel-in-progress: false
+
+env:
+  LIVE_PUBLISH: ${{ github.ref == 'refs/heads/Main' && github.event_name != 'push' }}
+
+jobs:
+  run:
+    # a planner run for a pull request deploys nothing, so it does not need /live/ put back
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.event != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    outputs:
+      publish: ${{ env.LIVE_PUBLISH }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check out the live-log branch (the prospective log)
+        run: |
+          set -e
+          git fetch --depth=1 origin live-log && git worktree add live-log-wt FETCH_HEAD \
+            || { echo "::error::branch live-log not found (RUNBOOK §4)"; exit 1; }
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: live/requirements.txt
+
+      - name: Install
+        run: python -m pip install -r live/requirements.txt
+
+      - name: Road-layer data cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/wfg-roadlayer
+          key: wfg-roadlayer-${{ hashFiles('product/wfg-roadlayer/data/regions.json') }}
+
+      - name: Satellite and forecast cache (AHI scans, GFS cycles)
+        uses: actions/cache@v4
+        with:
+          path: live-cache
+          key: live-cache-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: live-cache-
+
+      - name: Road-layer setup (SHA-256 verified)
+        run: python product/wfg-roadlayer/roadlayer.py setup
+
+      - name: Tests (development-branch pushes only)
+        if: github.event_name == 'push'
+        run: python -m pytest -q live/tests
+
+      - name: Live run (fetch, compute, alerts, pages, record)
+        id: live
+        env:
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          LIVE_TRIGGER: ${{ inputs.trigger || github.event_name }}
+        run: |
+          set -e
+          find live-cache -name 'ahi_*.json' -mmin +720 -delete 2>/dev/null || true
+          cd live
+          python -m wfg_live run --site ../site/live --log ../live-log-wt/live/log --work ../work --cache ../live-cache --summary ../summary.json
+          cd ..
+          echo "record=$(python -c "import json;print(json.load(open('summary.json'))['record'])")" >> "$GITHUB_OUTPUT"
+          cat summary.json >> "$GITHUB_STEP_SUMMARY"
+          echo "LIVE SUMMARY $(cat summary.json)"
+
+      - name: Sign the record (Sigstore keyless, GitHub OIDC)
+        if: env.LIVE_PUBLISH == 'true'
+        continue-on-error: true
+        id: sign
+        run: |
+          python -m pip install sigstore==4.5.1
+          R="live-log-wt/live/log/${{ steps.live.outputs.record }}"
+          python -m sigstore sign --bundle "${R%.json}.sigstore.json" "$R"
+          python -m sigstore verify github --bundle "${R%.json}.sigstore.json" --repository "${{ github.repository }}" "$R"
+
+      - name: Score records old enough (live/score.py)
+        continue-on-error: true
+        run: cd live && python score.py --log ../live-log-wt/live/log
+
+      - name: Commit and push the record to live-log
+        if: env.LIVE_PUBLISH == 'true'
+        run: |
+          set -e
+          cd live-log-wt
+          git config user.name "wfg-live[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          R="live/log/${{ steps.live.outputs.record }}"
+          if [ ! -f "${R%.json}.sigstore.json" ]; then
+            echo "::warning::record unsigned: Sigstore signing failed in this run (RUNBOOK §4)"
+            echo "Sigstore signing failed for this record; see ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" > "${R%.json}.UNSIGNED"
+          fi
+          mkdir -p live/site && rm -rf live/site/* && cp -r ../site/live/. live/site/
+          git add -A live
+          git commit -q -m "live record ${{ steps.live.outputs.record }}" -m "workflow run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          for i in 1 2 3 4; do
+            git push origin HEAD:live-log && break
+            git fetch origin live-log && git rebase FETCH_HEAD || { git rebase --abort; exit 1; }
+            sleep $((i * 5))
+          done
+
+      - name: Planner static build (cached)
+        id: plannercache
+        uses: actions/cache@v4
+        with:
+          path: planner/dist
+          key: planner-dist-${{ hashFiles('planner/**', '!planner/node_modules/**', 'research/kcf-replay/planner_cache/**', 'research/kcf-replay/per_place.csv') }}
+
+      - uses: actions/setup-node@v4
+        if: steps.plannercache.outputs.cache-hit != 'true'
+        with:
+          node-version: 22
+
+      - name: Build the planner (same as planner-pages.yml)
+        if: steps.plannercache.outputs.cache-hit != 'true'
+        working-directory: planner
+        env:
+          VITE_BASE_PATH: ${{ vars.PLANNER_BASE_PATH || format('/{0}/', github.event.repository.name) }}
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: npm ci && npm run build:static
+
+      - name: Assemble the Pages site (planner + /live/)
+        run: |
+          set -e
+          mkdir -p pages-root && cp -r planner/dist/. pages-root/
+          rm -rf pages-root/live && cp -r site/live pages-root/live
+
+      - uses: actions/upload-pages-artifact@v4
+        if: env.LIVE_PUBLISH == 'true'
+        with:
+          path: pages-root
+
+      - name: Dry-run site (development branch)
+        if: env.LIVE_PUBLISH != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-dry-run
+          path: |
+            site
+            summary.json
+            live-log-wt/live/log/records
+          retention-days: 7
+
+  deploy:
+    needs: run
+    if: needs.run.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}live/
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

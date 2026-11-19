@@ -1,0 +1,100 @@
+{
+ "label": "Model output on reconstructed inputs: none. Records vs the roadlayer assumption. Not what happened to people.",
+ "protocol": "PROTOCOL.md amendment 3",
+ "counts": {
+  "fire_rows": 391,
+  "traffic_rows": 132,
+  "traffic_closure_rows": 15,
+  "burnovers": 19
+ },
+ "roads": {
+  "Pentz": {
+   "fire_rows_11_8": 49,
+   "F_first_fire": 470,
+   "closure_rows": 1,
+   "C_first_closure": 570,
+   "burnovers_same_day_8Nov": 1,
+   "B_first_burnover": 525,
+   "C_minus_F_min": 100,
+   "B_minus_F_min": 55,
+   "C_minus_B_min": 45
+  },
+  "Wagstaff": {
+   "fire_rows_11_8": 19,
+   "F_first_fire": 475,
+   "closure_rows": 0,
+   "C_first_closure": null,
+   "burnovers_same_day_8Nov": 1,
+   "B_first_burnover": 570,
+   "C_minus_F_min": null,
+   "B_minus_F_min": 95,
+   "C_minus_B_min": null
+  },
+  "Bille": {
+   "fire_rows_11_8": 23,
+   "F_first_fire": 510,
+   "closure_rows": 2,
+   "C_first_closure": 645,
+   "burnovers_same_day_8Nov": 1,
+   "B_first_burnover": 565,
+   "C_minus_F_min": 135,
+   "B_minus_F_min": 55,
+   "C_minus_B_min": 80
+  },
+  "Elliott": {
+   "fire_rows_11_8": 15,
+   "F_first_fire": 480,
+   "closure_rows": 0,
+   "C_first_closure": null,
+   "burnovers_same_day_8Nov": 0,
+   "B_first_burnover": null,
+   "C_minus_F_min": null,
+   "B_minus_F_min": null,
+   "C_minus_B_min": null
+  },
+  "Pearson": {
+   "fire_rows_11_8": 26,
+   "F_first_fire": 495,
+   "closure_rows": 3,
+   "C_first_closure": 675,
+   "burnovers_same_day_8Nov": 1,
+   "B_first_burnover": 555,
+   "C_minus_F_min": 180,
+   "B_minus_F_min": 60,
+   "C_minus_B_min": 120
+  },
+  "Clark": {
+   "fire_rows_11_8": 57,
+   "F_first_fire": 465,
+   "closure_rows": 5,
+   "C_first_closure": 615,
+   "burnovers_same_day_8Nov": 3,
+   "B_first_burnover": 600,
+   "C_minus_F_min": 150,
+   "B_minus_F_min": 135,
+   "C_minus_B_min": 15
+  },
+  "Skyway": {
+   "fire_rows_11_8": 68,
+   "F_first_fire": 480,
+   "closure_rows": 3,
+   "C_first_closure": 555,
+   "burnovers_same_day_8Nov": 2,
+   "B_first_burnover": 510,
+   "C_minus_F_min": 75,
+   "B_minus_F_min": 30,
+   "C_minus_B_min": 45
+  },
+  "Neal": {
+   "fire_rows_11_8": 19,
+   "F_first_fire": 510,
+   "closure_rows": 1,
+   "C_first_closure": 660,
+   "burnovers_same_day_8Nov": 0,
+   "B_first_burnover": null,
+   "C_minus_F_min": 150,
+   "B_minus_F_min": null,
+   "C_minus_B_min": null
+  }
+ }
+}

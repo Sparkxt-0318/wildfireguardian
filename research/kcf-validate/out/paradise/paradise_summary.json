@@ -1,0 +1,121 @@
+{
+ "label": "Model output on a reconstruction of the Camp Fire progression. Not what happened to people.",
+ "protocol": "PROTOCOL.md amendments 9-11",
+ "field": {
+  "observations_unique_locations": 132,
+  "smoothing": 1.0,
+  "cells_reached": 1990,
+  "cells": 15042,
+  "LOO": {
+   "n": 132,
+   "median_abs_min": 101.32211332426817,
+   "p25_p75_abs_min": [
+    43.2721104905242,
+    207.80504075382896
+   ],
+   "within_30min": 21,
+   "within_60min": 45,
+   "bias_mean_min": -13.464404630317166
+  }
+ },
+ "graph": {
+  "nodes": 14440,
+  "edges": 32722,
+  "grid": {
+   "x0": 584250.0,
+   "y0": 4387125.0,
+   "resolution": 375.0,
+   "width": 138,
+   "height": 109
+  },
+  "revision": "paradise-overture-20261021-two-way-grid375-dt1"
+ },
+ "origins": 147,
+ "shelters": 322,
+ "issues": {
+  "07:30": {
+   "issue_min_after_midnight_PST": 450,
+   "road_cells_closed_within_horizon": 635,
+   "states": {
+    "CUT_AT_ISSUE": 4,
+    "CUT_WITHIN_H": 85,
+    "NOT_CUT": 58,
+    "REFUSED": 0
+   },
+   "exact_gap_min": {
+    "n": 79,
+    "median": 2.183333333333333,
+    "min": 0.0,
+    "max": 275.73333333333335
+   }
+  },
+  "08:00": {
+   "issue_min_after_midnight_PST": 480,
+   "road_cells_closed_within_horizon": 665,
+   "states": {
+    "CUT_AT_ISSUE": 7,
+    "CUT_WITHIN_H": 85,
+    "NOT_CUT": 55,
+    "REFUSED": 0
+   },
+   "exact_gap_min": {
+    "n": 83,
+    "median": 3.816666666666667,
+    "min": 0.0,
+    "max": 309.0833333333333
+   }
+  },
+  "08:30": {
+   "issue_min_after_midnight_PST": 510,
+   "road_cells_closed_within_horizon": 686,
+   "states": {
+    "CUT_AT_ISSUE": 8,
+    "CUT_WITHIN_H": 84,
+    "NOT_CUT": 55,
+    "REFUSED": 0
+   },
+   "exact_gap_min": {
+    "n": 86,
+    "median": 12.516666666666666,
+    "min": 0.0,
+    "max": 334.6
+   }
+  },
+  "09:00": {
+   "issue_min_after_midnight_PST": 540,
+   "road_cells_closed_within_horizon": 704,
+   "states": {
+    "CUT_AT_ISSUE": 16,
+    "CUT_WITHIN_H": 76,
+    "NOT_CUT": 55,
+    "REFUSED": 0
+   },
+   "exact_gap_min": {
+    "n": 87,
+    "median": 10.566666666666666,
+    "min": 0.0,
+    "max": 334.6
+   }
+  }
+ },
+ "records": {
+  "n_geocoded": 13,
+  "n_model_value": 13,
+  "misses": 0,
+  "error_min_model_minus_record": {
+   "median": -53.7,
+   "p25_p75": [
+    -83.0,
+    22.2
+   ],
+   "within_30": 2,
+   "within_60": 5,
+   "min": -252.3,
+   "max": 174.1
+  },
+  "by_kind": {
+   "burnover": 5,
+   "closure": 8
+  }
+ }
+}

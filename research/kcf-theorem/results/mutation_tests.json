@@ -1,0 +1,189 @@
+{
+ "cases_per_family": 3000,
+ "None": {
+  "counts": {
+   "closure:cases": 3000,
+   "closure:cases_caught": 0,
+   "general:cases": 3000,
+   "general:cases_caught": 0
+  },
+  "first_detection": null
+ },
+ "shift_off_by_one": {
+  "counts": {
+   "closure:brute_force_overclaim": 2919,
+   "closure:cases": 3000,
+   "closure:cases_caught": 1874,
+   "closure:certificate": 1383,
+   "closure:checker_rejects_route": 19686,
+   "general:brute_force_overclaim": 3329,
+   "general:brute_force_underclaim": 1077,
+   "general:cases": 3000,
+   "general:cases_caught": 1716,
+   "general:certificate": 1298,
+   "general:checker_rejects_route": 26088,
+   "general:route_dead_end": 138
+  },
+  "first_detection": {
+   "family": "general",
+   "seed": 0,
+   "origin": 1,
+   "departure": 0,
+   "route": [
+    [
+     "EDGE",
+     2,
+     0,
+     3
+    ],
+    [
+     "EDGE",
+     5,
+     3,
+     6
+    ]
+   ],
+   "checker": "leg 0 (EDGE 2 [0, 3]): edge takes D = 4 s, leg takes 3 s"
+  }
+ },
+ "ignore_turns": {
+  "counts": {
+   "closure:brute_force_overclaim": 182,
+   "closure:cases": 3000,
+   "closure:cases_caught": 798,
+   "closure:certificate": 776,
+   "closure:checker_rejects_route": 977,
+   "general:brute_force_overclaim": 533,
+   "general:cases": 3000,
+   "general:cases_caught": 860,
+   "general:certificate": 810,
+   "general:checker_rejects_route": 3984
+  },
+  "first_detection": {
+   "family": "general",
+   "seed": 0,
+   "origin": 1,
+   "departure": 3,
+   "route": [
+    [
+     "EDGE",
+     2,
+     3,
+     7
+    ],
+    [
+     "EDGE",
+     6,
+     7,
+     11
+    ]
+   ],
+   "checker": "leg 1 (EDGE 6 [7, 11]): turn (2 -> 6) is forbidden"
+  }
+ },
+ "block_at_arrival": {
+  "counts": {
+   "closure:brute_force_underclaim": 772,
+   "closure:cases": 3000,
+   "closure:cases_caught": 702,
+   "closure:certificate": 539,
+   "general:brute_force_overclaim": 873,
+   "general:brute_force_underclaim": 1277,
+   "general:cases": 3000,
+   "general:cases_caught": 1241,
+   "general:certificate": 898,
+   "general:checker_rejects_route": 4825
+  },
+  "first_detection": {
+   "family": "general",
+   "seed": 0,
+   "origin": 1,
+   "departure": 3,
+   "route": [
+    [
+     "EDGE",
+     2,
+     3,
+     7
+    ],
+    [
+     "EDGE",
+     5,
+     7,
+     11
+    ]
+   ],
+   "checker": "leg 1 (EDGE 5 [7, 11]): edge 5 is closed at start second 7"
+  }
+ },
+ "wait_through_fire": {
+  "counts": {
+   "closure:cases": 3000,
+   "closure:cases_caught": 0,
+   "general:brute_force_overclaim": 303,
+   "general:cases": 3000,
+   "general:cases_caught": 217,
+   "general:certificate": 158,
+   "general:checker_rejects_route": 1358
+  },
+  "first_detection": {
+   "family": "general",
+   "seed": 0,
+   "origin": 1,
+   "departure": 5,
+   "route": [
+    [
+     "EDGE",
+     2,
+     5,
+     9
+    ],
+    [
+     "WAIT",
+     2,
+     9,
+     10
+    ],
+    [
+     "WAIT",
+     2,
+     10,
+     11
+    ],
+    [
+     "WAIT",
+     2,
+     11,
+     12
+    ],
+    [
+     "EDGE",
+     5,
+     12,
+     16
+    ]
+   ],
+   "checker": "leg 2 (WAIT 2 [10, 11]): wait at node 2 is closed at second 10"
+  }
+ },
+ "scalar_deadline": {
+  "counts": {
+   "closure:cases": 3000,
+   "closure:cases_caught": 0,
+   "general:brute_force_overclaim": 1953,
+   "general:cases": 3000,
+   "general:cases_caught": 1260,
+   "general:certificate": 666,
+   "general:route_dead_end": 10006
+  },
+  "first_detection": {
+   "family": "general",
+   "seed": 0,
+   "how": [
+    "brute_force_overclaim",
+    "certificate",
+    "route_dead_end"
+   ]
+  }
+ }
+}

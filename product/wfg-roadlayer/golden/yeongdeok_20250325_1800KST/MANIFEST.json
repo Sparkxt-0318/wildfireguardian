@@ -1,0 +1,295 @@
+{
+ "certificates": 90,
+ "counts": {
+  "cut_within_horizon": 22,
+  "not_cut_within_horizon": 68,
+  "refused": 1
+ },
+ "files_sha256": {
+  "certificates/README.md": "1b6a8487ba0955137ce9f7beaabe935794a6ccb0d1883e5ef1bb1499049775b8",
+  "certificates/checker.py": "2ad850ec1ddfe8335b3289d2afc120fce375db659341e1394e0faac0277c49c3",
+  "certificates/verify_certificate.py": "a39e56086db4c07155831d53b87d357aa349f752f18cc786a737b374e6196e46",
+  "certificates/villages/osm_node_11753630207.json": "a9ed0b24024f287308d2dcc765db8a75b2a8a4c08465154b7c656a7ed13c371e",
+  "certificates/villages/osm_node_415158166.json": "8ae0f693dc627578bf26133fe38ee353e3b3f2cd47bc7d563f76f11a2dd811ca",
+  "certificates/villages/osm_node_415158168.json": "36275e704e3172a94aca77a78f3bc3ae3486ddd83cd2f0da413aec32e5c7065c",
+  "certificates/villages/osm_node_415158176.json": "b674a844ed92dfb4c39128fd6292ef28fe1db4c5a8eeb0d29299464642df3862",
+  "certificates/villages/osm_node_415158181.json": "87fc2d5712802b7b3a0aa7f413d9f5dc8cb807621f9a9656c7de7f0fdfb93624",
+  "certificates/villages/osm_node_415158182.json": "e0bb1f412f022fb925737d34141830f1007f9210d802575954e1d9a8ca58c49b",
+  "certificates/villages/osm_node_415158183.json": "63e711f15379e74fbd30deeac233450705c9f9d8668c2793a8920fde18439c42",
+  "certificates/villages/osm_node_415158184.json": "f71ff6c348d50f1c3bdf9639bb62efffe5df9e35b537394b1f3ecea39d71bd6a",
+  "certificates/villages/osm_node_415158185.json": "1490388cde642c01305215df0673e7d9cfa0d1fb75ec3e689c026006648c369a",
+  "certificates/villages/osm_node_415158186.json": "ea09a7c75389d39a654ec0dd402b6a8f23604d40e4ea9a169f5ed579c174f181",
+  "certificates/villages/osm_node_415158187.json": "3702d438be2ab70b10e72dd7fa1ebe0a6a4541af909851b638c1599afeb0b8c5",
+  "certificates/villages/osm_node_415158212.json": "cb8e76898ffd506e12f4021714d64d8570021b72bc6a306aefb247427f6d878d",
+  "certificates/villages/osm_node_415158213.json": "cc5e451e355e52fefad650e5e44618461822644df4763f97f90821ec0b698828",
+  "certificates/villages/osm_node_415158259.json": "3fe077da50bcef858cbf97c9330e6187352be0ce9d1ae0a77ae5f52d37884031",
+  "certificates/villages/osm_node_415158318.json": "6e99f9c01bb923744c5fbd721eb36b5a1743a559765b3640162773c85da22d52",
+  "certificates/villages/osm_node_415158320.json": "152661fffc6804f227b0b3230e60cfd817af084584059ac2bb98c30cc5f1d2ed",
+  "certificates/villages/osm_node_415158321.json": "52e537086bb144355bee4df5e7cf46314c575397da1cb32f909999746da8b967",
+  "certificates/villages/osm_node_415158322.json": "0336e9f00782250585ebb5d20f95939135300c306051fbc810075fd1a067188f",
+  "certificates/villages/osm_node_415160130.json": "87321340ebf22bc78e6b7e39157cbc19135d3520ba97335e71d2b0ae6d974bfb",
+  "certificates/villages/osm_node_415160132.json": "b142b3ad7f28c62e77ce3f312a44fb54b72c46f40eb9baf04e684d7bae12a0c6",
+  "certificates/villages/osm_node_415160143.json": "16b8e6be2ff9c1b17a9935a1b8beb15bdbc229b9db172223a7f9f4b7d5613104",
+  "certificates/villages/osm_node_415160146.json": "7ce629d3f558008ba7e3a38e18a4edb603e7d3044a6a001be8e5cd7aeb13e87d",
+  "certificates/villages/osm_node_415160147.json": "c38f6f85130d2cee4bd226a8c16bfeaf5955c0a9c1d063292ea3132907c0d772",
+  "certificates/villages/osm_node_415160148.json": "f093e5cddf412bbe167811c3af9d5efa9109996dba51dc6b5400be8b552f2690",
+  "certificates/villages/osm_node_415160149.json": "3185b5eb4885ad1ea08fdeb85c0eb039931295f2e9cc8ff497f3aa1e18737a9e",
+  "certificates/villages/osm_node_415160150.json": "c69c6ae0f9ef98b4660f7aaedd9b50b9c2fc2f19faef8966a1603a899f03a66b",
+  "certificates/villages/osm_node_415160151.json": "0986b3be1ea7be7c33397d7661ff9f196a62240f4bbea949df3969a476c9314c",
+  "certificates/villages/osm_node_415160153.json": "a007605c4f2d23a0ff8ef3f33315a33e65f445f76340f34032939c0cbaacc662",
+  "certificates/villages/osm_node_415160154.json": "32ee8b379e3ed84a3e6a492641257f28771bb46688a7d9d9901e744eb3f25e35",
+  "certificates/villages/osm_node_415160155.json": "9269d604ee6a2c9a47599852fe853032f738b571fdef2d014d944090d7956187",
+  "certificates/villages/osm_node_415160156.json": "483cdc5965144ff2c843671cc90e1f7a4d734b2cf0aa3745e4281599ad958d65",
+  "certificates/villages/osm_node_415160157.json": "45c2fd9d6296201cc37cf37652b8942ee3777dc17500860a676e0766788fc5e1",
+  "certificates/villages/osm_node_415160158.json": "11e703abe91d98b410321d8a8e33d5ee92b1b651862f6009d655347cf773bb64",
+  "certificates/villages/osm_node_415160159.json": "9630597306eba08d26a32a03a63593f1c4e717fd4018db8885e0c7a9ccdef7b3",
+  "certificates/villages/osm_node_415160160.json": "b8b8726f274713b6a2978281b5786d1a3db22ebcb623bf270eb50954f80a3737",
+  "certificates/villages/osm_node_415160162.json": "ef10dec3dc54e6386cda726d2d92843c9d4a6aed0e2dd3ab3e60ee8538d79dd6",
+  "certificates/villages/osm_node_415160163.json": "77b6550d648cae25056d9a35742f15f7fc75e23482f160e0b243258e53c0c8ee",
+  "certificates/villages/osm_node_415160164.json": "e806f4a1221f1f534dd6dc24447396486c7837f7cbd246f88f455a1f4249df43",
+  "certificates/villages/osm_node_415160165.json": "0f0ac7d0c4bfd4a187791be6e825129d2e35571c66a49ed14652ae0b65eac804",
+  "certificates/villages/osm_node_415160166.json": "388b83576cd0df7d51f11222f686643bfe67b09b743c31f06301c915380a9039",
+  "certificates/villages/osm_node_415160167.json": "60615b5e8ff07f93b76a6645700898972c4e0795b4fc44230d9300910fbaa5aa",
+  "certificates/villages/osm_node_415160168.json": "03ed8a09340bdd28b258f60a2c615837a24615a93491fe44130af62e996c3daa",
+  "certificates/villages/osm_node_415160169.json": "f8851d39b0e3f54dd9014e6d7e61c6e5fc48a6c789db9e547ae456c996bc0ac7",
+  "certificates/villages/osm_node_415160170.json": "4a27281fc3c5b49d31c74ca2337f9f93564ffdb1b3d37c07cfd0808b5fa3fe6c",
+  "certificates/villages/osm_node_415160171.json": "d55836544d66ae3eebe06f299e7828f664792c45828ab005e4d92b4dd4ca326d",
+  "certificates/villages/osm_node_415160172.json": "9e73444d6115fc8e1cc2978a64384d5e13ba2bee2775baea94558f1066426b9f",
+  "certificates/villages/osm_node_415160173.json": "aa466e089d7766138727c73aa3f89738b2d6da1c10a194ba806f339fc896e6a6",
+  "certificates/villages/osm_node_415160175.json": "2ef73652b681791188cb120784d026aae0e6f6f6ecaa349cfdaf6898e47187b0",
+  "certificates/villages/osm_node_415160176.json": "f614a09cab4e770d4b6d095d5cc37cc781692514d2018cf5b1a498a98db0bf2b",
+  "certificates/villages/osm_node_415160177.json": "140d44aaf5452535c6ef3044219320bec645a9636f59f5df1d234cda2a9635da",
+  "certificates/villages/osm_node_415160178.json": "9d77a251a30a6965f05e602b1afab7cf3f92a6edbd19f94ea64505fb9f2f0c7b",
+  "certificates/villages/osm_node_415160181.json": "dd70c386eff3408cd8289e758b835b1f131aeb5e5308b0f2695de2ea79aee41b",
+  "certificates/villages/osm_node_415160182.json": "0e8e327e657f93368b129cb9ad765972cb8300fef5cc9d2acd9324fb6d53982b",
+  "certificates/villages/osm_node_415160183.json": "67279c183bd6c8b03310eaa346c09e7bbb8de87732db967275156375dc568200",
+  "certificates/villages/osm_node_415160184.json": "93279f1f128b5b0f59f329ed2aa2cd935067ca86e3d7dd57c75873ece54e1f02",
+  "certificates/villages/osm_node_415160185.json": "3954b111375a3f6d9e84e2b5f000f6c62950dbb24125f256f2b491caa5f9b925",
+  "certificates/villages/osm_node_415160187.json": "7ed7e02c8c82b31aff1df214ad6d7a9f4add1f6e84854a0d164033a5db192e93",
+  "certificates/villages/osm_node_415160188.json": "18eceadd20dc1c23db8bfc3e954ca5988e88c075b7b3d24e899c4126d7095036",
+  "certificates/villages/osm_node_415160189.json": "2342f4d3c65003d415b78804a6906d46042aa80ab4680a4f709e751e2205a755",
+  "certificates/villages/osm_node_415160190.json": "1113431d8f1a050aa25a6c17d7fbc5257b9ae3b1e4a135b46f9ca0399e96b377",
+  "certificates/villages/osm_node_415160192.json": "c8fbd55b79f24e297955c936024d602e766ef69ac6b49c80cb5c9c6cedf7f145",
+  "certificates/villages/osm_node_415160193.json": "2af82604f1710968111f70dad0490e4876b0b1a2723534ff8054f194eb888d85",
+  "certificates/villages/osm_node_415160194.json": "3d57db4a4747508b3e3fa8067168829800d613b2283389f458560b80bb0cfe2d",
+  "certificates/villages/osm_node_415160195.json": "39092f5a5c1da48c4a210c7006482c7ac13490c4eb65966ff0db7313334991a3",
+  "certificates/villages/osm_node_415160196.json": "7afd9d22a7694598b1714bb4ab3505dbffa05bf4f6bf644fa9323833141b9fd2",
+  "certificates/villages/osm_node_415160197.json": "7bb120be2f3a07a2142b88a0af4da2a57938e3c627f29eb25e28af1ea2b688c5",
+  "certificates/villages/osm_node_415160199.json": "0ca4b7f8bc1110a833a5ff4b3f581d97adb9cd8c2a246674d6991f8b73e64849",
+  "certificates/villages/osm_node_415160200.json": "1746b291c1a5360938516363497ce0c654b0fa745f595905a6f984c752ba2ad5",
+  "certificates/villages/osm_node_415160201.json": "66a0e3f2162865b4766bd7da58bb14b0edcc0d1bb684ee395b29b6c6c0c45a9c",
+  "certificates/villages/osm_node_415160202.json": "fcce851f6476971df5eb7e4653c8053808aa50e7cc1e39cf1e563c1f71f2cb54",
+  "certificates/villages/osm_node_415160203.json": "b6770ad2624a62ae46c86c478f5a414409b97b021c3e758b8f9b42195d16f501",
+  "certificates/villages/osm_node_415160204.json": "33af632a1583affe37d6dcc82732e7beee1af77aba37f3e8096235b91525f08c",
+  "certificates/villages/osm_node_415160205.json": "24630ecc6fddd11b108028615b6295ab0febbc04019e21e2aade7b9af9616352",
+  "certificates/villages/osm_node_415160206.json": "81c23ee3b2b4773d9b8e1de1b4d39982658b5916ca4db8988ddb7acd85cfed92",
+  "certificates/villages/osm_node_415160207.json": "f95e0c640513ec8e8f74523a8a7751c92ee932ff7ebccd4386a765fa0a85b4ff",
+  "certificates/villages/osm_node_415160208.json": "c369705065f19bbe91408781f2b022fba0cf349b3df18985dd5efae2b0811f52",
+  "certificates/villages/osm_node_415160209.json": "b596ecdb5d8ab6951422bf52ea0f43592f21bdeeff0bcbc8865be2a2193cc374",
+  "certificates/villages/osm_node_415160302.json": "0b7904df5c6d71b7b2f5463e43f8fa78644e26014feb4c5cf4c0d1e1137323d7",
+  "certificates/villages/osm_node_415160303.json": "9c0fa5f9cfcd52e47324fafe25e7ed312e139a4c4245d2a0857715980bdfb9be",
+  "certificates/villages/osm_node_415160309.json": "a2bbee682e34493669fcdf57fc030b30bbb2b94c9fc22a01a92b9b2cb0f98e94",
+  "certificates/villages/osm_node_415160310.json": "b6d47d95186b23df6b44f0aacc59d6b34084d99c6fa5f6c0ae70272fd0a01f55",
+  "certificates/villages/osm_node_415160311.json": "0080556ed359ee3ba19b274112059f88023de8b72f2fac812079aace7ea97816",
+  "certificates/villages/osm_node_415160312.json": "9df438ea402a79996b0c11042f2f829d0203dae0edae93d60caa0b75fa1805cf",
+  "certificates/villages/osm_node_415160313.json": "50cbbeced1475b87d308169d62750bd85f1dae50d7d203119462cb0a2130413b",
+  "certificates/villages/osm_node_415160314.json": "39a41c533ca4733b356d19a41ac1ac0025c4f1e453cf08a0de08d9e859380c0d",
+  "certificates/villages/osm_node_415160315.json": "b745afe31e78a46df03781ca29268747724a7bde34cca6c125c49e46aec5f131",
+  "certificates/villages/osm_node_415160316.json": "4c0a7472b91acaa585a290693a9a23f12e4106f39a9d9afdbe13174b5ac26e44",
+  "certificates/villages/osm_node_415160317.json": "5a339f4ad589e1c44b83beb17581cb30e8ac7c9d8c9fb4f1f3b8aba3a9716390",
+  "certificates/villages/osm_node_415160318.json": "19eab9fbc504ea0e2155983efcedb3d520b2998a5e72cfbdbcfeb10f24ac254c",
+  "certificates/villages/osm_node_415160319.json": "6fa422dca780bc7dfdc0afb6a69e04b3bc920c761aa19dc215237910dedd6c26",
+  "en/sheets/Cheongsong-gun_Juwangsan-myeon.pdf": "d96d044ccda5f27f68b950e60dba969a6f32136bcf3fc8b9b76f297d34f2afeb",
+  "en/sheets/Yeongdeok-gun_Changsu-myeon.pdf": "22265cfb19029d09f2747d656365005668ecd35298b205e688a3695d23528a03",
+  "en/sheets/Yeongdeok-gun_Chuksan-myeon.pdf": "7ac21e62142384f7c610c83dd3253def3d4f842069563ce892fb2093dff8742a",
+  "en/sheets/Yeongdeok-gun_Dalsan-myeon.pdf": "6ec4f6e7e19e3be7c4a46e0f7e11f20bfb7bbb66812773899338450724185902",
+  "en/sheets/Yeongdeok-gun_Ganggu-myeon.pdf": "f784968ca7bdefad28297aa9875dbbd5aa2751b4da11d7e0e97ed085253ffa8c",
+  "en/sheets/Yeongdeok-gun_Jipum-myeon.pdf": "2fcf95e918edd401c392bdb9788e2a7a7c15bfe0a73014292a43df0ddeb76e7d",
+  "en/sheets/Yeongdeok-gun_Namjeong-myeon.pdf": "5a8b2c98225e54e47c56f59362336fe2e8ff6f58cc761a30f2d44d7e8ce90d9f",
+  "en/sheets/Yeongdeok-gun_Yeongdeok-eup.pdf": "caf247d6f2ca884dc6468b32abf3adedd8b9e08bf5d3cc4c8ed7e0f306cd99c3",
+  "en/sheets/Yeongdeok-gun_Yeonghae-myeon.pdf": "22bdd267125ac4119dc9c9d0303e066c1e78029ab5fe36107920673ef86a63f0",
+  "en/sheets/Yeongyang-gun_Seokbo-myeon.pdf": "7b3dff7fbd5736ec2f04aac9c86dac1d51d65fd5d3544d333a0c1b1c0108f901",
+  "en/villages_road_cut_yeongdeok_2025.csv": "cd236b794a5b4618df492f733400a944523a14d1ae57c818b87012849145f4ff",
+  "ko/sheets/영덕군_강구면.pdf": "a45d6bc22ac407b451dbdb741b29a5aa665c54a45e376729daed40a70075a73d",
+  "ko/sheets/영덕군_남정면.pdf": "fd88ab7edf3b65602136adeca316a6b95231194d024783468a3aa81977e999e9",
+  "ko/sheets/영덕군_달산면.pdf": "df57b54f7fcd89231f5909ffdbdeabc0068af200d5e4f33c178c139974716d6d",
+  "ko/sheets/영덕군_영덕읍.pdf": "4625b52f651f359c5038e70156980ff3a799e05bbac0d23a1e15f1d977a53864",
+  "ko/sheets/영덕군_영해면.pdf": "15eb84c7eb7430568f6de75b53d58a02e086fc09ebaa559b34dc74ce3e204950",
+  "ko/sheets/영덕군_지품면.pdf": "e7e41f84d8e9c0ee2c614782f1a41474c063815d10a2d79e73676d6d4caed77c",
+  "ko/sheets/영덕군_창수면.pdf": "5c34f6a3adb9f2b7be9b79afe9cad7b311f448f919d20d4a7a4a4147ec1b2668",
+  "ko/sheets/영덕군_축산면.pdf": "b884d458509cba4c02564e83d1ad1215e80f0cfaf2ab3db23c5798f211d32e5d",
+  "ko/sheets/영양군_석보면.pdf": "5366b0536ad0e4ff628c28e2c07a85be61ddf19cdf2374dd23c3b7a8d2871d3e",
+  "ko/sheets/청송군_주왕산면.pdf": "b698d0da358e768e413074de7b3cb65c6d78741d8cb4ca1158e44fad9f84e8a9",
+  "ko/마을별_도로차단_yeongdeok_2025.csv": "651c9c94ad776281c02526efdf53870ec0f01f4226db0a9ccf3b18b76edf6b6f"
+ },
+ "fire_input": {
+  "assumed_uncovered_not_reached": false,
+  "file": "fire_arrival_20250325T0900Z_MEASURED_8h.tif",
+  "horizon_s": 28800,
+  "info": {
+   "affine": [
+    375.0,
+    0.0,
+    1093875.0,
+    0.0,
+    -375.0,
+    1840875.0
+   ],
+   "crs": "EPSG:5179",
+   "horizon_min": 480.0,
+   "horizon_source": "raster metadata",
+   "metadata": {
+    "WFG_HORIZON_MIN": "480",
+    "WFG_ISSUE_TIME": "2025-03-25T09:00:00Z",
+    "WFG_SOURCE": "research/kcf-replay MEASURED arm, class running (R5 7.6 km, R8 10.0 km), known fire area from fire_discs.json before the issue time; worked example, not a forecast",
+    "WFG_UNITS": "minutes"
+   },
+   "nodata": "NaN",
+   "not_reached_value": null,
+   "resampling": "exact pixel overlap (same CRS EPSG:5179, axis-aligned)",
+   "shape": [
+    67,
+    214
+   ],
+   "tiff": {
+    "bigtiff": false,
+    "byte_order": "little",
+    "compression": 8,
+    "dtype": "float64",
+    "height": 67,
+    "predictor": 1,
+    "raster_type": "PixelIsArea",
+    "tiled": false,
+    "width": 214
+   }
+  },
+  "issue_utc": "2025-03-25T09:00:00Z",
+  "kind": "geotiff",
+  "road_cells": 1590,
+  "road_cells_closed_within_horizon": 399,
+  "road_cells_uncovered": 0,
+  "sha256": "1bd027f03379625b3cdac543a2d4bd013bb761455d90522024fde1dc37a0382f"
+ },
+ "model": {
+  "instance_sha256_uncompressed": "f590865ff2a02d16eca975499af6acbf50bf20c29b0bd76036ffebc7fed7ba33"
+ },
+ "region": {
+  "graph_revision": "yeongdeok-osm-20250321-provisional-G2window-grid375-dt1-8a804b26a635-8b859334ebe8",
+  "graph_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+  "graph_snapshot_utc": "2025-03-21T23:59:59Z",
+  "id": "yeongdeok_2025",
+  "name": {
+   "en": "Yeongdeok",
+   "ko": "영덕"
+  },
+  "places_sha256": "2d466f1d5630a15b90f9961947054382c74a002f687e51c1761bb6a9acd083a1",
+  "places_snapshot_utc": "2026-10-17T06:28:05Z",
+  "towns_sha256": "6b72c487da56e0d6075021c42a56ca6ef33ea75ffaf797b36585178edede8288"
+ },
+ "sheets": [
+  {
+   "file": "ko/sheets/영덕군_강구면.pdf",
+   "font_pt": 8.6,
+   "villages": 10
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Ganggu-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 10
+  },
+  {
+   "file": "ko/sheets/영덕군_남정면.pdf",
+   "font_pt": 8.6,
+   "villages": 5
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Namjeong-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 5
+  },
+  {
+   "file": "ko/sheets/영덕군_달산면.pdf",
+   "font_pt": 8.6,
+   "villages": 11
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Dalsan-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 11
+  },
+  {
+   "file": "ko/sheets/영덕군_영덕읍.pdf",
+   "font_pt": 8.6,
+   "villages": 17
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Yeongdeok-eup.pdf",
+   "font_pt": 8.6,
+   "villages": 17
+  },
+  {
+   "file": "ko/sheets/영덕군_영해면.pdf",
+   "font_pt": 8.6,
+   "villages": 9
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Yeonghae-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 9
+  },
+  {
+   "file": "ko/sheets/영덕군_지품면.pdf",
+   "font_pt": 8.6,
+   "villages": 19
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Jipum-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 19
+  },
+  {
+   "file": "ko/sheets/영덕군_창수면.pdf",
+   "font_pt": 8.6,
+   "villages": 1
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Changsu-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 1
+  },
+  {
+   "file": "ko/sheets/영덕군_축산면.pdf",
+   "font_pt": 8.6,
+   "villages": 10
+  },
+  {
+   "file": "en/sheets/Yeongdeok-gun_Chuksan-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 10
+  },
+  {
+   "file": "ko/sheets/영양군_석보면.pdf",
+   "font_pt": 8.6,
+   "villages": 5
+  },
+  {
+   "file": "en/sheets/Yeongyang-gun_Seokbo-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 5
+  },
+  {
+   "file": "ko/sheets/청송군_주왕산면.pdf",
+   "font_pt": 8.6,
+   "villages": 4
+  },
+  {
+   "file": "en/sheets/Cheongsong-gun_Juwangsan-myeon.pdf",
+   "font_pt": 8.6,
+   "villages": 4
+  }
+ ],
+ "versions": {
+  "reportlab": "5.0.1"
+ },
+ "villages": 91
+}

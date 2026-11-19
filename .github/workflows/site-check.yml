@@ -1,0 +1,43 @@
+name: Public demo check (clean browser)
+
+# Opens the PUBLISHED static demo (https://<owner>.github.io/<repository>/) in a clean browser at
+# desktop and phone width: site root 200, every first-screen link and button, the 25 March replay
+# (planner/scripts/check_live_site.mjs). The same check runs after every deploy in planner-pages.yml;
+# this workflow runs it on demand and when the check itself changes. It only reads the public site.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'planner/scripts/check_live_site.mjs'
+      - '.github/workflows/site-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04  # Playwright's Chromium install supports 24.04; ubuntu-latest is 26.04
+    env:
+      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/{1}/', github.repository_owner, github.event.repository.name) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright + Chromium (outside planner/, no lockfile change)
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Check the published site
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/pw/node_modules/playwright
+        run: node planner/scripts/check_live_site.mjs --url "$SITE_URL" --out site-check
+      - name: Upload screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-check
+          path: site-check

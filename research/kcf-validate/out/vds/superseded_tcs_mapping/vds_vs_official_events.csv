@@ -1,0 +1,8 @@
+﻿official_effective_kst,time_basis,action,section,conzone_directions,with_derived_time_within_6h,without,median_derived_minus_official_min,min,max
+2025-03-25 00:15,stated,closure,중앙선 의성IC~남안동JC,4,0,4,,,
+2025-03-25 05:40,stated,reopen,중앙선 의성IC~안동JC,2,0,2,,,
+2025-03-25 18:00,stated,closure,중앙선 의성IC~예천IC,8,3,5,0.0,0.0,30.0
+2025-03-25 21:26,stated,closure,중앙선 의성IC~풍기IC,12,3,9,-56.0,-71.0,-11.0
+2025-03-25 23:10,stated,reopen,중앙선 풍기IC~영주IC,2,0,2,,,
+2025-03-26 10:00,created (no stated time),closure,중앙선 의성IC~예천IC,8,2,6,0.0,-30.0,30.0
+2025-03-26 10:31,created (no stated time),closure,중앙선 의성IC~예천IC,8,2,6,-31.0,-61.0,-1.0

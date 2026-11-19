@@ -12,6 +12,8 @@ import { batchCounter, categoryLabel, errorText, fmtKstClock, fmtKstStamp, hostL
 import { OriginGlyph, SearchIcon, VerdictIcon } from './Icons';
 import { StatusChip, TestDataChip } from './StatusChip';
 import { findCacheEntry } from '../api/cache';
+import { NamedPlacesPanel, ReplayNotice, ReplaySelector } from '../features/replay/ReplayPanel';
+import { useActivePack } from '../features/replay/data';
 
 function RegionSelector() {
   const t = useT();
@@ -49,7 +51,9 @@ function RegionSelector() {
 
 function ScenarioSelector() {
   const t = useT();
-  const sets = useScenarioSets();
+  const all = useScenarioSets();
+  // replay packs have their own selector (features/replay); this grid lists recorded inputs only
+  const sets = useMemo(() => all.filter((s) => !s.pack), [all]);
   const scenarioId = useStore((s) => s.scenarioId);
   const regionId = useStore((s) => s.regionId);
   const cacheIndex = useStore((s) => s.cacheIndex);
@@ -237,14 +241,15 @@ function glyphKind(p: Place): 'village' | 'facility' | 'not_checkable' | 'resear
   return p.vulnerable ? 'facility' : 'village';
 }
 
-function OriginRow({ place, plan, selected, inputTime, rsg, index }: { place: Place; plan: OriginPlan | undefined; selected: boolean; inputTime: string | null; rsg: RsgTag | null; index: number }) {
+function OriginRow({ place, plan, selected, inputTime, rsg, index, noScroll = false }: { place: Place; plan: OriginPlan | undefined; selected: boolean; inputTime: string | null; rsg: RsgTag | null; index: number; noScroll?: boolean }) {
   const t = useT();
   const lang = useLang();
   const ref = useRef<HTMLButtonElement | null>(null);
   // keep the selected origin visible (map clicks and deep links select rows far down the list)
   useEffect(() => {
-    if (selected) ref.current?.scrollIntoView({ block: 'nearest' });
-  }, [selected, index]);
+    // with a replay on screen the whole panel scrolls: following the row would push the six-place table away
+    if (selected && !noScroll) ref.current?.scrollIntoView({ block: 'nearest' });
+  }, [selected, index, noScroll]);
   const it = inputTime;
   // the same headline as the right panel, the kit and the public card: the contiguous time (Iris E)
   const h = deadlineHeadline(plan);
@@ -327,6 +332,7 @@ export function LeftPanel() {
   const clock = useClockBase();
   const drawn = scenarioId === DRAWN_SCENARIO;
   const rsg = useRsgTags();
+  const pack = useActivePack();
 
   const sorted = useMemo(() => {
     const items = origins.map((p) => ({ id: p.id, name: placeName(p, (k, v) => t(k, v), lang), vulnerable: p.vulnerable, plan: plans[p.id] ?? null, place: p, rsg: rsg.get(p.id) ?? null }));
@@ -348,13 +354,16 @@ export function LeftPanel() {
   const filters = drawn ? DRAWN_FILTERS : FILTERS;
 
   return (
-    <aside className="panel-left" aria-label={t('left.origins')}>
+    <aside className={`panel-left${pack ? ' replay-on' : ''}`} aria-label={t('left.origins')}>
       <div className="left-head">
         <RegionSelector />
         <ScenarioSelector />
+        <ReplaySelector />
       </div>
       {drawn ? <DrawnSettings /> : null}
       <DataStrip />
+      {pack ? <ReplayNotice pack={pack} /> : null}
+      {pack ? <NamedPlacesPanel pack={pack} /> : null}
       {
         <div className="left-head" style={{ paddingTop: 12 }}>
           <Summary plans={origins.map((o) => plans[o.id])} />
@@ -388,7 +397,7 @@ export function LeftPanel() {
             <span className="tnum">{t('list.count', { n: visible.length })}</span>
           </div>
           {visible.map((i, n) => (
-            <OriginRow key={i.id} place={i.place} plan={i.plan ?? undefined} selected={i.id === selected} inputTime={clock.inputTime} rsg={i.rsg} index={n} />
+            <OriginRow key={i.id} place={i.place} plan={i.plan ?? undefined} selected={i.id === selected} inputTime={clock.inputTime} rsg={i.rsg} index={n} noScroll={Boolean(pack)} />
           ))}
           {visible.length === 0 ? <div className="list-head">{t('list.empty')}</div> : null}
         </div>

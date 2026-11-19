@@ -1,0 +1,37 @@
+{
+ "schema": "wfg.roadlayer.regions/1",
+ "routing_inputs_archive": {
+  "description": "Evaluated routing inputs of the research release (road graphs). Downloaded once by `setup`, SHA-256 verified; only the graph files are kept.",
+  "url": "https://github.com/Sparkxt-0318/wildfireguardian/releases/download/research-final-20261015/WFG-evaluated-routing-inputs-20261015.zip",
+  "sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202"
+ },
+ "font_wheel": {
+  "description": "NanumGothic (SIL Open Font License 1.1) taken from the PyPI wheel koreanize-matplotlib 0.1.1; only the two TTF files are kept.",
+  "url": "https://files.pythonhosted.org/packages/ef/91/93f56a4526d2dbead44250d9166d97568c2ce051c90eaa4be36788d59131/koreanize_matplotlib-0.1.1-py3-none-any.whl",
+  "sha256": "4f563db1a75d9eb6bdb667a435adf8a5daf7e41504486f1b0fb1c20e4bfed4ca",
+  "members": {
+   "NanumGothic.ttf": {"member": "koreanize_matplotlib/fonts/NanumGothic.ttf", "sha256": "48a28e97b34fc8e5b157657633670cd1b7de126cfc414da65ce9c3d5bc8be733"},
+   "NanumGothicBold.ttf": {"member": "koreanize_matplotlib/fonts/NanumGothicBold.ttf", "sha256": "454eb3f503f377782a99eb84fc4bb7dde22a0f075d41b47427737f2985053bc9"}
+  }
+ },
+ "regions": {
+  "yeongdeok_2025": {
+   "name": {"ko": "영덕", "en": "Yeongdeok"},
+   "aliases": ["영덕", "영덕군", "yeongdeok", "Yeongdeok"],
+   "graph": {"archive_member": "graphs/yeongdeok_2025/graph.json", "sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+             "snapshot_utc": "2025-03-21T23:59:59Z", "source": "OpenStreetMap contributors, historical snapshot 2025-03-21T23:59:59Z (ODbL)"},
+   "places": {"repo_path": "planner/public/data/regions/yeongdeok_2025/places.geojson", "sha256": "2d466f1d5630a15b90f9961947054382c74a002f687e51c1761bb6a9acd083a1",
+              "snapshot_utc": "2026-10-17T06:28:05Z", "source": "OpenStreetMap contributors (ODbL), planner place extract; 시·군 labels V-World BND_SIGUNGU_PG 2025-06-30"},
+   "towns": "data/towns/yeongdeok_2025.csv"
+  },
+  "uiseong_andong_2025": {
+   "name": {"ko": "의성·안동", "en": "Uiseong-Andong"},
+   "aliases": ["의성·안동", "의성안동", "의성", "안동", "uiseong", "andong", "uiseong_andong", "Uiseong-Andong"],
+   "graph": {"archive_member": "graphs/uiseong_andong_2025/graph.json", "sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+             "snapshot_utc": "2025-03-21T23:59:59Z", "source": "OpenStreetMap contributors, historical snapshot 2025-03-21T23:59:59Z (ODbL)"},
+   "places": {"repo_path": "planner/public/data/regions/uiseong_andong_2025/places.geojson", "sha256": "226740dff5c564be2325eebff85449d8c94345d9efb9167d66ad91ecc1e58fb1",
+              "snapshot_utc": "2026-10-17T05:57:50Z", "source": "OpenStreetMap contributors (ODbL), planner place extract; 시·군 labels V-World BND_SIGUNGU_PG 2025-06-30"},
+   "towns": "data/towns/uiseong_andong_2025.csv"
+  }
+ }
+}

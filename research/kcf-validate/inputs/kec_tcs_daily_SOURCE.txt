@@ -1,0 +1,8 @@
+User-supplied KEC files (named .zip, actually gzip; each holds TCS_67_04_01_*.csv = dataset 512 '구간단면 교통량(TCS) (전노선)', DAILY, cp949). sha256 (first 16) and name:
+7a0d3bd29fed2906 039d4b64-TCS…1____1____20250327.zip
+1aaed4f3606fe4d4 1ff6fc83-TCS…1____1____20250323.zip
+642ea08c1b41a4e3 348ea9bf-TCS…1____1____20250325.zip
+abaa520a091566c7 53aeca9a-TCS…1____1____20250324.zip
+2c5e8641736ecd74 98762b21-TCS…1____1____20250322.zip
+efb62a0aa9e4e37a d2177064-TCS…1____1____20250326.zip
+The 0-byte ZIP '...202503.zip' (monthly) arrived empty and was not used.

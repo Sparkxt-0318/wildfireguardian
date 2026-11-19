@@ -1,0 +1,1894 @@
+{
+ "label": "cross-check; enters no verdict",
+ "fire_set": {
+  "fires_with_ifs": [
+   "KFS_01",
+   "KFS_04",
+   "KFS_05",
+   "KFS_06",
+   "KFS_07",
+   "KFS_13",
+   "KFS_17"
+  ],
+  "fires_without_ifs": [
+   "KFS_02",
+   "KFS_03",
+   "KFS_11",
+   "KFS_12",
+   "KFS_15"
+  ],
+  "issue_hours": 478,
+  "issue_hours_without_ifs": 0,
+  "ifs_minus_gfs_same_times_ms": {
+   "median": -0.54,
+   "p05": -3.92,
+   "p95": 2.64,
+   "corr": 0.949
+  },
+  "A-cal": {
+   "IFS": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "leads_h": [
+      24,
+      24,
+      6,
+      20,
+      8
+     ],
+     "leads_h_since_ignition": [
+      3,
+      5,
+      6,
+      20,
+      8
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 8,
+      "n": 34,
+      "ci95": [
+       0.107,
+       0.412
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 15,
+      "n": 21,
+      "ci95": [
+       0.478,
+       0.887
+      ]
+     },
+     "fires_all_run_days_warned": 2
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "leads_h": [
+      24,
+      24,
+      20,
+      8
+     ],
+     "leads_h_since_ignition": [
+      3,
+      5,
+      20,
+      8
+     ],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 8,
+      "n": 21,
+      "ci95": [
+       0.181,
+       0.616
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 15,
+      "n": 21,
+      "ci95": [
+       0.478,
+       0.887
+      ]
+     },
+     "fires_all_run_days_warned": 2
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 6,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": true,
+      "lead_h": 20,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": true,
+      "lead_h": 8,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "GFS at the same 3-hourly times": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "leads_h": [
+      24,
+      24,
+      3,
+      17,
+      8
+     ],
+     "leads_h_since_ignition": [
+      3,
+      5,
+      3,
+      17,
+      8
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 7,
+      "n": 34,
+      "ci95": [
+       0.087,
+       0.379
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 16,
+      "n": 21,
+      "ci95": [
+       0.528,
+       0.918
+      ]
+     },
+     "fires_all_run_days_warned": 2
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "leads_h": [
+      24,
+      24,
+      17,
+      8
+     ],
+     "leads_h_since_ignition": [
+      3,
+      5,
+      17,
+      8
+     ],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 7,
+      "n": 21,
+      "ci95": [
+       0.146,
+       0.57
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 16,
+      "n": 21,
+      "ci95": [
+       0.528,
+       0.918
+      ]
+     },
+     "fires_all_run_days_warned": 2
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 3,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": true,
+      "lead_h": 17,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": true,
+      "lead_h": 8,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "GFS hourly (primary)": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 5,
+      "n": 5,
+      "ci95": [
+       0.478,
+       1.0
+      ]
+     },
+     "leads_h": [
+      24,
+      24,
+      8,
+      22,
+      24
+     ],
+     "leads_h_since_ignition": [
+      3,
+      5,
+      8,
+      22,
+      20
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 5,
+      "n": 34,
+      "ci95": [
+       0.05,
+       0.311
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 16,
+      "n": 21,
+      "ci95": [
+       0.528,
+       0.918
+      ]
+     },
+     "fires_all_run_days_warned": 2
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 4,
+      "n": 4,
+      "ci95": [
+       0.398,
+       1.0
+      ]
+     },
+     "leads_h": [
+      24,
+      24,
+      22,
+      24
+     ],
+     "leads_h_since_ignition": [
+      3,
+      5,
+      22,
+      20
+     ],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 5,
+      "n": 21,
+      "ci95": [
+       0.082,
+       0.472
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 16,
+      "n": 21,
+      "ci95": [
+       0.528,
+       0.918
+      ]
+     },
+     "fires_all_run_days_warned": 2
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 8,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": true,
+      "lead_h": 22,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": true,
+      "lead_h": 24,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "issue_hours_state": {
+    "both_fire": 228,
+    "ifs_only": 14,
+    "gfs_only": 47,
+    "neither": 189
+   }
+  },
+  "A25": {
+   "IFS": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 5,
+      "ci95": [
+       0.053,
+       0.853
+      ]
+     },
+     "leads_h": [
+      0
+     ],
+     "leads_h_since_ignition": [
+      0
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 26,
+      "n": 34,
+      "ci95": [
+       0.588,
+       0.893
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 3,
+      "n": 21,
+      "ci95": [
+       0.03,
+       0.363
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 3,
+      "n": 21,
+      "ci95": [
+       0.03,
+       0.363
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 0,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "GFS at the same 3-hourly times": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 5,
+      "ci95": [
+       0.053,
+       0.853
+      ]
+     },
+     "leads_h": [
+      0
+     ],
+     "leads_h_since_ignition": [
+      0
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 24,
+      "n": 34,
+      "ci95": [
+       0.525,
+       0.849
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 2,
+      "n": 21,
+      "ci95": [
+       0.012,
+       0.304
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 2,
+      "n": 21,
+      "ci95": [
+       0.012,
+       0.304
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 0,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "GFS hourly (primary)": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 5,
+      "ci95": [
+       0.053,
+       0.853
+      ]
+     },
+     "leads_h": [
+      2
+     ],
+     "leads_h_since_ignition": [
+      2
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 24,
+      "n": 34,
+      "ci95": [
+       0.525,
+       0.849
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 5,
+      "n": 21,
+      "ci95": [
+       0.082,
+       0.472
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 5,
+      "n": 21,
+      "ci95": [
+       0.082,
+       0.472
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 2,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "issue_hours_state": {
+    "both_fire": 30,
+    "ifs_only": 1,
+    "gfs_only": 27,
+    "neither": 420
+   }
+  },
+  "A30": {
+   "IFS": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 34,
+      "n": 34,
+      "ci95": [
+       0.897,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 21,
+      "ci95": [
+       0.0,
+       0.161
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 21,
+      "ci95": [
+       0.0,
+       0.161
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "GFS at the same 3-hourly times": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 0,
+      "n": 5,
+      "ci95": [
+       0.0,
+       0.522
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 34,
+      "n": 34,
+      "ci95": [
+       0.897,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 1,
+      "n": 21,
+      "ci95": [
+       0.001,
+       0.238
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 1,
+      "n": 21,
+      "ci95": [
+       0.001,
+       0.238
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "GFS hourly (primary)": {
+    "full": {
+     "fires": 7,
+     "fire_days": 26,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 5,
+      "ci95": [
+       0.053,
+       0.853
+      ]
+     },
+     "leads_h": [
+      1
+     ],
+     "leads_h_since_ignition": [
+      1
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 27,
+      "n": 34,
+      "ci95": [
+       0.621,
+       0.913
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 2,
+      "n": 21,
+      "ci95": [
+       0.012,
+       0.304
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 7,
+     "fire_days": 25,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 2,
+      "n": 21,
+      "ci95": [
+       0.012,
+       0.304
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "run_fire_days": [
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 22
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-23",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-25",
+      "warned": true,
+      "lead_h": 1,
+      "first_run_kst_hour": 10
+     },
+     {
+      "fire": "KFS_01",
+      "kst_day": "2025-03-26",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 0
+     },
+     {
+      "fire": "KFS_04",
+      "kst_day": "2025-03-22",
+      "warned": false,
+      "lead_h": null,
+      "first_run_kst_hour": 18
+     }
+    ]
+   },
+   "issue_hours_state": {
+    "both_fire": 0,
+    "ifs_only": 0,
+    "gfs_only": 21,
+    "neither": 457
+   }
+  },
+  "gust_any_step_20": {
+   "fires": [
+    "KFS_01",
+    "KFS_04",
+    "KFS_06",
+    "KFS_13"
+   ],
+   "note": "IFS 10fg is the maximum gust of the previous 3 h; GFS GUST is hourly; k = 1 form",
+   "IFS": {
+    "full": {
+     "fires": 4,
+     "fire_days": 21,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 5,
+      "ci95": [
+       0.053,
+       0.853
+      ]
+     },
+     "leads_h": [
+      3
+     ],
+     "leads_h_since_ignition": [
+      3
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 26,
+      "n": 34,
+      "ci95": [
+       0.588,
+       0.893
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 16,
+      "ci95": [
+       0.0,
+       0.206
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 4,
+     "fire_days": 20,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 0,
+      "n": 16,
+      "ci95": [
+       0.0,
+       0.206
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    }
+   },
+   "GFS_hourly_k1": {
+    "full": {
+     "fires": 4,
+     "fire_days": 21,
+     "run_fire_days": 5,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 1,
+      "n": 5,
+      "ci95": [
+       0.005,
+       0.716
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 2,
+      "n": 5,
+      "ci95": [
+       0.053,
+       0.853
+      ]
+     },
+     "leads_h": [
+      2
+     ],
+     "leads_h_since_ignition": [
+      2
+     ],
+     "run_hours": 34,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 26,
+      "n": 34,
+      "ci95": [
+       0.588,
+       0.893
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 2,
+      "n": 16,
+      "ci95": [
+       0.016,
+       0.383
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    },
+    "without_25_march": {
+     "fires": 4,
+     "fire_days": 20,
+     "run_fire_days": 4,
+     "fires_with_run": 2,
+     "run_fire_days_state_unknown": 0,
+     "warned": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_1h_ahead": {
+      "k": 0,
+      "n": 4,
+      "ci95": [
+       0.0,
+       0.602
+      ]
+     },
+     "warned_lapsed_12h": {
+      "k": 1,
+      "n": 4,
+      "ci95": [
+       0.006,
+       0.806
+      ]
+     },
+     "leads_h": [],
+     "leads_h_since_ignition": [],
+     "run_hours": 21,
+     "run_hours_state_unknown": 0,
+     "run_hours_missed": {
+      "k": 21,
+      "n": 21,
+      "ci95": [
+       0.839,
+       1.0
+      ]
+     },
+     "alarm_days_without_run": {
+      "k": 2,
+      "n": 16,
+      "ci95": [
+       0.016,
+       0.383
+      ]
+     },
+     "fires_all_run_days_warned": 0
+    }
+   },
+   "march25_10_to_16_kst": [
+    {
+     "kst_hour": 10,
+     "ifs_10fg": 21.3,
+     "gfs_gust_k1": 23.0,
+     "ifs_w850": 27.6,
+     "gfs_w850": 32.3
+    },
+    {
+     "kst_hour": 11,
+     "ifs_10fg": 21.3,
+     "gfs_gust_k1": 23.0,
+     "ifs_w850": 27.6,
+     "gfs_w850": 32.3
+    },
+    {
+     "kst_hour": 12,
+     "ifs_10fg": 21.3,
+     "gfs_gust_k1": 23.0,
+     "ifs_w850": 27.6,
+     "gfs_w850": 32.3
+    },
+    {
+     "kst_hour": 13,
+     "ifs_10fg": 21.3,
+     "gfs_gust_k1": 23.0,
+     "ifs_w850": 27.6,
+     "gfs_w850": 32.3
+    },
+    {
+     "kst_hour": 14,
+     "ifs_10fg": 21.9,
+     "gfs_gust_k1": 23.8,
+     "ifs_w850": 27.6,
+     "gfs_w850": 33.2
+    },
+    {
+     "kst_hour": 15,
+     "ifs_10fg": 21.9,
+     "gfs_gust_k1": 23.8,
+     "ifs_w850": 27.6,
+     "gfs_w850": 33.2
+    },
+    {
+     "kst_hour": 16,
+     "ifs_10fg": 21.9,
+     "gfs_gust_k1": 23.8,
+     "ifs_w850": 27.6,
+     "gfs_w850": 33.2
+    }
+   ]
+  }
+ },
+ "burden": {
+  "point_days": 3130,
+  "point_days_all_three_complete": 3060,
+  "incomplete_ifs_by_season": {
+   "2023": 70,
+   "2024": 0,
+   "2025": 0
+  },
+  "A-cal": {
+   "per_season": {
+    "2023": {
+     "days": 97,
+     "IFS": {
+      "alarm_point_days": 382,
+      "mean_per_point": 38.2
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 399,
+      "mean_per_point": 39.9
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 431,
+      "mean_per_point": 43.1
+     }
+    },
+    "2024": {
+     "days": 105,
+     "IFS": {
+      "alarm_point_days": 436,
+      "mean_per_point": 43.6
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 453,
+      "mean_per_point": 45.3
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 475,
+      "mean_per_point": 47.5
+     }
+    },
+    "2025": {
+     "days": 104,
+     "IFS": {
+      "alarm_point_days": 662,
+      "mean_per_point": 66.2
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 677,
+      "mean_per_point": 67.7
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 705,
+      "mean_per_point": 70.5
+     }
+    }
+   },
+   "point_days_ifs_vs_gfs_hourly": {
+    "both": 1417,
+    "ifs_only": 63,
+    "gfs_only": 194,
+    "neither": 1386
+   },
+   "point_days_ifs_vs_gfs_same_times": {
+    "both": 1380,
+    "ifs_only": 100,
+    "gfs_only": 149,
+    "neither": 1431
+   }
+  },
+  "A25": {
+   "per_season": {
+    "2023": {
+     "days": 97,
+     "IFS": {
+      "alarm_point_days": 38,
+      "mean_per_point": 3.8
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 58,
+      "mean_per_point": 5.8
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 67,
+      "mean_per_point": 6.7
+     }
+    },
+    "2024": {
+     "days": 105,
+     "IFS": {
+      "alarm_point_days": 74,
+      "mean_per_point": 7.4
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 79,
+      "mean_per_point": 7.9
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 95,
+      "mean_per_point": 9.5
+     }
+    },
+    "2025": {
+     "days": 104,
+     "IFS": {
+      "alarm_point_days": 122,
+      "mean_per_point": 12.2
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 137,
+      "mean_per_point": 13.7
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 159,
+      "mean_per_point": 15.9
+     }
+    }
+   },
+   "point_days_ifs_vs_gfs_hourly": {
+    "both": 191,
+    "ifs_only": 43,
+    "gfs_only": 130,
+    "neither": 2696
+   },
+   "point_days_ifs_vs_gfs_same_times": {
+    "both": 177,
+    "ifs_only": 57,
+    "gfs_only": 97,
+    "neither": 2729
+   }
+  },
+  "A30": {
+   "per_season": {
+    "2023": {
+     "days": 97,
+     "IFS": {
+      "alarm_point_days": 11,
+      "mean_per_point": 1.1
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 14,
+      "mean_per_point": 1.4
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 18,
+      "mean_per_point": 1.8
+     }
+    },
+    "2024": {
+     "days": 105,
+     "IFS": {
+      "alarm_point_days": 18,
+      "mean_per_point": 1.8
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 19,
+      "mean_per_point": 1.9
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 26,
+      "mean_per_point": 2.6
+     }
+    },
+    "2025": {
+     "days": 104,
+     "IFS": {
+      "alarm_point_days": 20,
+      "mean_per_point": 2.0
+     },
+     "GFS at the same 3-hourly times": {
+      "alarm_point_days": 36,
+      "mean_per_point": 3.6
+     },
+     "GFS hourly (primary)": {
+      "alarm_point_days": 43,
+      "mean_per_point": 4.3
+     }
+    }
+   },
+   "point_days_ifs_vs_gfs_hourly": {
+    "both": 38,
+    "ifs_only": 11,
+    "gfs_only": 49,
+    "neither": 2962
+   },
+   "point_days_ifs_vs_gfs_same_times": {
+    "both": 35,
+    "ifs_only": 14,
+    "gfs_only": 34,
+    "neither": 2977
+   }
+  }
+ }
+}

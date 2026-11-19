@@ -1,0 +1,5 @@
+﻿row,section,model_closed_by_issue_kst,official_or_reference_kst,n_conzones_with_onset,median_volume_onset_kst,bound_issue_minus_volume_onset_min
+RD3,"의성IC~서안동 (rule: 의성→안동JC, 안동JC→남안동, 남안동→서안동)",03-25 16:00,03-25 18:00,1,03-25 18:30,-150
+RD4,의성IC~예천IC,03-25 17:00,03-25 18:00,3,03-25 18:00,-60
+RD7,의성IC~풍기IC,03-25 21:00,03-25 21:26,5,03-25 21:15,-15
+RD8,의성IC~예천IC (26 Mar),03-26 00:00,03-26 10:00,2,03-26 10:30,-630

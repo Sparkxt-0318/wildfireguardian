@@ -1,0 +1,2156 @@
+{
+ "targets": {
+  "A": {
+   "warned": 4,
+   "of": 9,
+   "gust_rule": 4,
+   "passed": false,
+   "strict_passed": false,
+   "alarms_on_no_run_fire_days": 11,
+   "onset_warned": 2,
+   "onset_days": 6
+  },
+  "B": {
+   "ratio": 1.6248218537524435,
+   "lo": 1.0440581583453727,
+   "hi": 2.092093527903274,
+   "frontier_ratio": 1.6724115650037645,
+   "miss_valid": true,
+   "passed": false
+  },
+  "C": {
+   "ratio": 0.9497724396792017,
+   "lo": 0.8884668827858254,
+   "hi": 0.9934893571735702,
+   "frontier_ratio": 0.9860225248241439,
+   "miss_valid": true,
+   "passed": true
+  }
+ },
+ "california_held_out": {
+  "FIXED": {
+   "miss": 0.11868000400266165,
+   "miss_lo": 0.07570194165223885,
+   "miss_hi": 0.1713737159902378,
+   "area": 262.91490155610234,
+   "area_lo": 186.43466842169664,
+   "area_hi": 350.0441173494166,
+   "frontier_area": 290.85706236776184,
+   "n_fires": 12,
+   "kappa": 2.7041635513305664,
+   "cfg": {},
+   "per_fire_area": {
+    "Antelope": 197.603,
+    "Bobcat": 221.264,
+    "Creek": 601.262,
+    "Glass": 201.652,
+    "July Complex": 164.315,
+    "McFarland": 198.589,
+    "River Complex": 375.385,
+    "SCU Lightning Complex": 544.294,
+    "Tamarack": 111.767,
+    "W-5 Cold Springs": 188.956,
+    "Walker": 153.777,
+    "Zogg": 196.114
+   },
+   "per_fire_miss": {
+    "Antelope": 0.046,
+    "Bobcat": 0.0565,
+    "Creek": 0.0525,
+    "Glass": 0.1271,
+    "July Complex": 0.1158,
+    "McFarland": 0.0731,
+    "River Complex": 0.0401,
+    "SCU Lightning Complex": 0.2419,
+    "Tamarack": 0.0585,
+    "W-5 Cold Springs": 0.1445,
+    "Walker": 0.1189,
+    "Zogg": 0.3492
+   }
+  },
+  "QUANTILE": {
+   "miss": 0.09540505450329749,
+   "miss_lo": 0.07959161765073139,
+   "miss_hi": 0.11114958465024738,
+   "area": 237.58010997533975,
+   "area_lo": 165.4207691037351,
+   "area_hi": 327.5971498449442,
+   "frontier_area": 231.78619813354544,
+   "n_fires": 12,
+   "kappa": 1.0377412059955653,
+   "cfg": {
+    "kind": "gbm",
+    "fs": "all",
+    "tau": 0.9,
+    "depth": 3,
+    "iters": 100
+   },
+   "per_fire_area": {
+    "Antelope": 139.956,
+    "Bobcat": 227.597,
+    "Creek": 397.33,
+    "Glass": 201.937,
+    "July Complex": 175.681,
+    "McFarland": 139.668,
+    "River Complex": 202.532,
+    "SCU Lightning Complex": 652.145,
+    "Tamarack": 84.667,
+    "W-5 Cold Springs": 194.282,
+    "Walker": 121.653,
+    "Zogg": 313.512
+   },
+   "per_fire_miss": {
+    "Antelope": 0.0364,
+    "Bobcat": 0.0847,
+    "Creek": 0.0691,
+    "Glass": 0.0718,
+    "July Complex": 0.1053,
+    "McFarland": 0.0859,
+    "River Complex": 0.0989,
+    "SCU Lightning Complex": 0.1209,
+    "Tamarack": 0.0827,
+    "W-5 Cold Springs": 0.1328,
+    "Walker": 0.1135,
+    "Zogg": 0.1429
+   }
+  },
+  "TRACKER": {
+   "miss": 0.10159508088638412,
+   "miss_lo": 0.08020613524376574,
+   "miss_hi": 0.127384037056327,
+   "area": 225.64704067053148,
+   "area_lo": 150.88637313978438,
+   "area_hi": 317.10508929180514,
+   "frontier_area": 228.54641230302775,
+   "n_fires": 12,
+   "kappa": 1.0555092292719561,
+   "cfg": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h",
+     "arch"
+    ],
+    "obs": "g1",
+    "bins": [
+     0.0,
+     1.5
+    ],
+    "mfeat": [
+     "g1",
+     "g3",
+     "g6",
+     "g12",
+     "g24",
+     "log_area",
+     "log_age",
+     "sin_h",
+     "cos_h",
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "hdw"
+    ],
+    "tau": 0.9,
+    "depth": 2,
+    "iters": 100,
+    "leaf0": 200,
+    "leaf1": 50,
+    "mix": "linear",
+    "C": 0.1,
+    "temper": 0.25
+   },
+   "per_fire_area": {
+    "Antelope": 130.134,
+    "Bobcat": 211.738,
+    "Creek": 418.218,
+    "Glass": 200.181,
+    "July Complex": 146.339,
+    "McFarland": 134.723,
+    "River Complex": 209.118,
+    "SCU Lightning Complex": 644.149,
+    "Tamarack": 85.745,
+    "W-5 Cold Springs": 173.787,
+    "Walker": 99.968,
+    "Zogg": 253.665
+   },
+   "per_fire_miss": {
+    "Antelope": 0.0428,
+    "Bobcat": 0.0753,
+    "Creek": 0.0627,
+    "Glass": 0.0773,
+    "July Complex": 0.1,
+    "McFarland": 0.0938,
+    "River Complex": 0.0989,
+    "SCU Lightning Complex": 0.1445,
+    "Tamarack": 0.0665,
+    "W-5 Cold Springs": 0.1211,
+    "Walker": 0.1297,
+    "Zogg": 0.2063
+   },
+   "run_days": 40,
+   "warned": 5,
+   "warn_threshold": 0.15484677405467345
+  },
+  "TRACKER-noupdate": {
+   "miss": 0.10330688981731272,
+   "miss_lo": 0.07766414948896229,
+   "miss_hi": 0.13319471743008315,
+   "area": 220.5790302889127,
+   "area_lo": 152.73054354686587,
+   "area_hi": 300.3470360369608,
+   "frontier_area": 225.76178256199364,
+   "n_fires": 12,
+   "kappa": 1.1001429019255273,
+   "cfg": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h",
+     "arch"
+    ],
+    "obs": "g1",
+    "bins": [
+     0.0,
+     1.5
+    ],
+    "mfeat": [
+     "g1",
+     "g3",
+     "g6",
+     "g12",
+     "g24",
+     "log_area",
+     "log_age",
+     "sin_h",
+     "cos_h",
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "hdw"
+    ],
+    "tau": 0.9,
+    "depth": 2,
+    "iters": 100,
+    "leaf0": 200,
+    "leaf1": 50,
+    "mix": "linear",
+    "C": 0.1,
+    "temper": 0.25
+   },
+   "per_fire_area": {
+    "Antelope": 139.355,
+    "Bobcat": 216.452,
+    "Creek": 440.146,
+    "Glass": 190.299,
+    "July Complex": 152.554,
+    "McFarland": 141.431,
+    "River Complex": 220.008,
+    "SCU Lightning Complex": 567.658,
+    "Tamarack": 88.431,
+    "W-5 Cold Springs": 176.125,
+    "Walker": 103.989,
+    "Zogg": 210.501
+   },
+   "per_fire_miss": {
+    "Antelope": 0.0471,
+    "Bobcat": 0.0565,
+    "Creek": 0.0583,
+    "Glass": 0.0773,
+    "July Complex": 0.0947,
+    "McFarland": 0.0827,
+    "River Complex": 0.0907,
+    "SCU Lightning Complex": 0.1947,
+    "Tamarack": 0.0766,
+    "W-5 Cold Springs": 0.125,
+    "Walker": 0.1297,
+    "Zogg": 0.2063
+   },
+   "run_days": 40,
+   "warned": 5,
+   "warn_threshold": 0.11781141323721273
+  },
+  "TRACKER-nofc": {
+   "miss": 0.09795653613003341,
+   "miss_lo": 0.07663019507738397,
+   "miss_hi": 0.1255082311132609,
+   "area": 228.8970557075862,
+   "area_lo": 149.99981255166978,
+   "area_hi": 324.9704377377313,
+   "frontier_area": 225.81677551617025,
+   "n_fires": 12,
+   "kappa": 1.0873339662384962,
+   "cfg": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h",
+     "arch"
+    ],
+    "obs": "g1",
+    "bins": [
+     0.0,
+     1.5
+    ],
+    "mfeat": [
+     "g1",
+     "g3",
+     "g6",
+     "g12",
+     "g24",
+     "log_area",
+     "log_age",
+     "sin_h",
+     "cos_h",
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "hdw"
+    ],
+    "tau": 0.9,
+    "depth": 2,
+    "iters": 100,
+    "leaf0": 200,
+    "leaf1": 50,
+    "mix": "linear",
+    "C": 0.1,
+    "temper": 0.25
+   },
+   "per_fire_area": {
+    "Antelope": 129.458,
+    "Bobcat": 206.56,
+    "Creek": 438.914,
+    "Glass": 187.507,
+    "July Complex": 144.671,
+    "McFarland": 142.96,
+    "River Complex": 227.144,
+    "SCU Lightning Complex": 685.79,
+    "Tamarack": 91.616,
+    "W-5 Cold Springs": 173.928,
+    "Walker": 99.554,
+    "Zogg": 218.663
+   },
+   "per_fire_miss": {
+    "Antelope": 0.0471,
+    "Bobcat": 0.0776,
+    "Creek": 0.057,
+    "Glass": 0.0829,
+    "July Complex": 0.1,
+    "McFarland": 0.0827,
+    "River Complex": 0.0885,
+    "SCU Lightning Complex": 0.1062,
+    "Tamarack": 0.0605,
+    "W-5 Cold Springs": 0.1211,
+    "Walker": 0.1297,
+    "Zogg": 0.2222
+   },
+   "run_days": 40,
+   "warned": 6,
+   "warn_threshold": 0.0975648426703428
+  },
+  "TRACKER-noarchive": {
+   "miss": 0.10117729504411156,
+   "miss_lo": 0.0795388856628997,
+   "miss_hi": 0.12724723318501674,
+   "area": 225.53822589645858,
+   "area_lo": 150.98620186682027,
+   "area_hi": 316.91877554574376,
+   "frontier_area": 227.7142963639186,
+   "n_fires": 12,
+   "kappa": 1.0556718141466714,
+   "cfg": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h"
+    ],
+    "obs": "g1",
+    "bins": [
+     0.0,
+     1.5
+    ],
+    "mfeat": [
+     "g1",
+     "g3",
+     "g6",
+     "g12",
+     "g24",
+     "log_area",
+     "log_age",
+     "sin_h",
+     "cos_h",
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "hdw"
+    ],
+    "tau": 0.9,
+    "depth": 2,
+    "iters": 100,
+    "leaf0": 200,
+    "leaf1": 50,
+    "mix": "linear",
+    "C": 0.1,
+    "temper": 0.25
+   },
+   "per_fire_area": {
+    "Antelope": 130.271,
+    "Bobcat": 211.725,
+    "Creek": 417.986,
+    "Glass": 199.918,
+    "July Complex": 146.552,
+    "McFarland": 135.016,
+    "River Complex": 209.365,
+    "SCU Lightning Complex": 643.548,
+    "Tamarack": 85.855,
+    "W-5 Cold Springs": 173.618,
+    "Walker": 99.982,
+    "Zogg": 252.622
+   },
+   "per_fire_miss": {
+    "Antelope": 0.0418,
+    "Bobcat": 0.0729,
+    "Creek": 0.0627,
+    "Glass": 0.0773,
+    "July Complex": 0.1,
+    "McFarland": 0.0922,
+    "River Complex": 0.0989,
+    "SCU Lightning Complex": 0.1445,
+    "Tamarack": 0.0665,
+    "W-5 Cold Springs": 0.1211,
+    "Walker": 0.1297,
+    "Zogg": 0.2063
+   },
+   "run_days": 40,
+   "warned": 4,
+   "warn_threshold": 0.15551259775398052
+  },
+  "ratio TRACKER / QUANTILE": {
+   "ratio": 0.9497724396792017,
+   "lo": 0.8884668827858254,
+   "hi": 0.9934893571735702,
+   "frontier_ratio": 0.9860225248241439
+  },
+  "ratio TRACKER / FIXED": {
+   "ratio": 0.8582512415043982,
+   "lo": 0.709529080563803,
+   "hi": 1.0152434790709135,
+   "frontier_ratio": 0.7857688255616498
+  },
+  "ratio QUANTILE / FIXED": {
+   "ratio": 0.9036388145715031,
+   "lo": 0.7305826020533082,
+   "hi": 1.1017262124537666,
+   "frontier_ratio": 0.7969075814995107
+  },
+  "ratio TRACKER / TRACKER-noupdate": {
+   "ratio": 1.0229759391678381,
+   "lo": 0.9600077963870025,
+   "hi": 1.0791841556859052,
+   "frontier_ratio": 1.0123343716967217
+  },
+  "ratio TRACKER / TRACKER-nofc": {
+   "ratio": 0.9858014117874606,
+   "lo": 0.954406032952221,
+   "hi": 1.0396231319112907,
+   "frontier_ratio": 1.0120878388269343
+  },
+  "ratio TRACKER / TRACKER-noarchive": {
+   "ratio": 1.0004824671012658,
+   "lo": 0.9994161034247027,
+   "hi": 1.0013952166282913,
+   "frontier_ratio": 1.0036542103521657
+  },
+  "ratio TRACKER-noupdate / FIXED": {
+   "ratio": 0.8389750028750053,
+   "lo": 0.732091412255382,
+   "hi": 0.9470731919138465,
+   "frontier_ratio": 0.7761949485570295
+  },
+  "ratio TRACKER-nofc / FIXED": {
+   "ratio": 0.8706127129075747,
+   "lo": 0.7294980762936542,
+   "hi": 1.0282326998592302,
+   "frontier_ratio": 0.7763840206521987
+  },
+  "ratio TRACKER-noarchive / FIXED": {
+   "ratio": 0.8578373631984184,
+   "lo": 0.709418613191893,
+   "hi": 1.014169758037499,
+   "frontier_ratio": 0.782907915352576
+  },
+  "n_hours": 6605,
+  "fires": [
+   "Antelope",
+   "Bobcat",
+   "Creek",
+   "Glass",
+   "July Complex",
+   "McFarland",
+   "River Complex",
+   "SCU Lightning Complex",
+   "Tamarack",
+   "W-5 Cold Springs",
+   "Walker",
+   "Zogg"
+  ]
+ },
+ "korea": {
+  "fires": [
+   "KFS_01",
+   "KFS_02",
+   "KFS_03",
+   "KFS_04",
+   "KFS_05",
+   "KFS_06",
+   "KFS_07",
+   "KFS_11",
+   "KFS_12",
+   "KFS_13",
+   "KFS_15",
+   "KFS_17"
+  ],
+  "FIXED": {
+   "miss": 0.10438839097020208,
+   "miss_lo": 0.028237093044710615,
+   "miss_hi": 0.19755100558637287,
+   "area": 51.46652409114339,
+   "area_lo": 29.098894535602813,
+   "area_hi": 79.97891448300639,
+   "frontier_area": 56.41673376174339,
+   "n_fires": 12,
+   "n_hours": 756,
+   "missed_hours": 94,
+   "kappa": {
+    "KFS_01": 1.591,
+    "KFS_02": 1.875,
+    "KFS_03": 1.875,
+    "KFS_04": 1.875,
+    "KFS_05": 1.875,
+    "KFS_06": 1.875,
+    "KFS_07": 1.875,
+    "KFS_11": 1.875,
+    "KFS_12": 1.875,
+    "KFS_13": 1.875,
+    "KFS_15": 1.6771,
+    "KFS_17": 1.875
+   },
+   "per_fire_area": {
+    "KFS_01": 170.069,
+    "KFS_02": 126.494,
+    "KFS_03": 59.638,
+    "KFS_04": 57.298,
+    "KFS_05": 38.735,
+    "KFS_06": 25.036,
+    "KFS_07": 28.711,
+    "KFS_11": 27.927,
+    "KFS_12": 27.141,
+    "KFS_13": 23.107,
+    "KFS_15": 15.39,
+    "KFS_17": 18.054
+   },
+   "per_fire_miss": {
+    "KFS_01": 0.4949,
+    "KFS_02": 0.1452,
+    "KFS_03": 0.0758,
+    "KFS_04": 0.0422,
+    "KFS_05": 0.1613,
+    "KFS_06": 0.0,
+    "KFS_07": 0.0,
+    "KFS_11": 0.0,
+    "KFS_12": 0.0,
+    "KFS_13": 0.0,
+    "KFS_15": 0.3333,
+    "KFS_17": 0.0
+   }
+  },
+  "QUANTILE": {
+   "miss": 0.09932756818687638,
+   "miss_lo": 0.03766221552123223,
+   "miss_hi": 0.17431743510372535,
+   "area": 67.66718123467723,
+   "area_lo": 25.18821530535207,
+   "area_hi": 135.51513001206425,
+   "frontier_area": 67.4735147127325,
+   "n_fires": 12,
+   "n_hours": 756,
+   "missed_hours": 85,
+   "kappa": {
+    "KFS_01": 0.7832,
+    "KFS_02": 0.6571,
+    "KFS_03": 0.7053,
+    "KFS_04": 0.5864,
+    "KFS_05": 0.6039,
+    "KFS_06": 0.593,
+    "KFS_07": 0.6434,
+    "KFS_11": 0.6321,
+    "KFS_12": 0.6775,
+    "KFS_13": 0.6947,
+    "KFS_15": 0.6779,
+    "KFS_17": 0.6186
+   },
+   "per_fire_area": {
+    "KFS_01": 406.601,
+    "KFS_02": 122.59,
+    "KFS_03": 54.848,
+    "KFS_04": 45.979,
+    "KFS_05": 27.025,
+    "KFS_06": 18.547,
+    "KFS_07": 29.46,
+    "KFS_11": 16.877,
+    "KFS_12": 38.387,
+    "KFS_13": 10.991,
+    "KFS_15": 28.598,
+    "KFS_17": 12.105
+   },
+   "per_fire_miss": {
+    "KFS_01": 0.2525,
+    "KFS_02": 0.129,
+    "KFS_03": 0.1061,
+    "KFS_04": 0.0783,
+    "KFS_05": 0.3226,
+    "KFS_06": 0.0,
+    "KFS_07": 0.2778,
+    "KFS_11": 0.0256,
+    "KFS_12": 0.0,
+    "KFS_13": 0.0,
+    "KFS_15": 0.0,
+    "KFS_17": 0.0
+   }
+  },
+  "TRACKER": {
+   "miss": 0.10852116514281301,
+   "miss_lo": 0.047069305243129564,
+   "miss_hi": 0.1761041191484739,
+   "area": 83.62393307996639,
+   "area_lo": 31.127539023399592,
+   "area_hi": 160.53548219492012,
+   "frontier_area": 94.35199800287798,
+   "n_fires": 12,
+   "n_hours": 756,
+   "missed_hours": 61,
+   "kappa": {
+    "KFS_01": 0.9112,
+    "KFS_02": 0.858,
+    "KFS_03": 0.9306,
+    "KFS_04": 0.8108,
+    "KFS_05": 0.9016,
+    "KFS_06": 0.854,
+    "KFS_07": 0.8086,
+    "KFS_11": 0.8778,
+    "KFS_12": 0.7894,
+    "KFS_13": 0.9139,
+    "KFS_15": 0.7633,
+    "KFS_17": 0.8302
+   },
+   "per_fire_area": {
+    "KFS_01": 445.252,
+    "KFS_02": 188.9,
+    "KFS_03": 104.846,
+    "KFS_04": 55.31,
+    "KFS_05": 58.309,
+    "KFS_06": 27.56,
+    "KFS_07": 30.937,
+    "KFS_11": 26.01,
+    "KFS_12": 22.798,
+    "KFS_13": 18.431,
+    "KFS_15": 12.836,
+    "KFS_17": 12.297
+   },
+   "per_fire_miss": {
+    "KFS_01": 0.2525,
+    "KFS_02": 0.0699,
+    "KFS_03": 0.0758,
+    "KFS_04": 0.0663,
+    "KFS_05": 0.0323,
+    "KFS_06": 0.0,
+    "KFS_07": 0.2222,
+    "KFS_11": 0.0,
+    "KFS_12": 0.25,
+    "KFS_13": 0.0,
+    "KFS_15": 0.3333,
+    "KFS_17": 0.0
+   }
+  },
+  "TRACKER-noupdate": {
+   "miss": 0.12189446937309355,
+   "miss_lo": 0.05687303220702949,
+   "miss_hi": 0.19265839220354863,
+   "area": 67.55084619492472,
+   "area_lo": 29.48904816757377,
+   "area_hi": 123.12044280184352,
+   "frontier_area": 72.74822074323782,
+   "n_fires": 12,
+   "n_hours": 756,
+   "missed_hours": 69,
+   "kappa": {
+    "KFS_01": 0.8959,
+    "KFS_02": 0.9207,
+    "KFS_03": 0.9291,
+    "KFS_04": 0.9261,
+    "KFS_05": 0.8904,
+    "KFS_06": 0.9195,
+    "KFS_07": 0.7886,
+    "KFS_11": 0.9719,
+    "KFS_12": 0.9153,
+    "KFS_13": 0.9348,
+    "KFS_15": 0.808,
+    "KFS_17": 0.9213
+   },
+   "per_fire_area": {
+    "KFS_01": 326.698,
+    "KFS_02": 154.481,
+    "KFS_03": 66.984,
+    "KFS_04": 60.525,
+    "KFS_05": 43.018,
+    "KFS_06": 31.527,
+    "KFS_07": 24.885,
+    "KFS_11": 26.744,
+    "KFS_12": 26.952,
+    "KFS_13": 19.492,
+    "KFS_15": 14.032,
+    "KFS_17": 15.272
+   },
+   "per_fire_miss": {
+    "KFS_01": 0.2828,
+    "KFS_02": 0.086,
+    "KFS_03": 0.0758,
+    "KFS_04": 0.0602,
+    "KFS_05": 0.0968,
+    "KFS_06": 0.0,
+    "KFS_07": 0.2778,
+    "KFS_11": 0.0,
+    "KFS_12": 0.25,
+    "KFS_13": 0.0,
+    "KFS_15": 0.3333,
+    "KFS_17": 0.0
+   }
+  },
+  "TRACKER-nofc": {
+   "miss": 0.0990999678086736,
+   "miss_lo": 0.041469290325197826,
+   "miss_hi": 0.16328306464698802,
+   "area": 82.67595127984664,
+   "area_lo": 33.85111721952188,
+   "area_hi": 154.78038560577005,
+   "frontier_area": 82.50881930887768,
+   "n_fires": 12,
+   "n_hours": 756,
+   "missed_hours": 59,
+   "kappa": {
+    "KFS_01": 0.9251,
+    "KFS_02": 0.9918,
+    "KFS_03": 0.9604,
+    "KFS_04": 0.9128,
+    "KFS_05": 0.9851,
+    "KFS_06": 1.0843,
+    "KFS_07": 0.9424,
+    "KFS_11": 1.0095,
+    "KFS_12": 0.8821,
+    "KFS_13": 1.0137,
+    "KFS_15": 0.8613,
+    "KFS_17": 0.9546
+   },
+   "per_fire_area": {
+    "KFS_01": 413.808,
+    "KFS_02": 200.87,
+    "KFS_03": 74.268,
+    "KFS_04": 63.563,
+    "KFS_05": 57.294,
+    "KFS_06": 30.185,
+    "KFS_07": 34.546,
+    "KFS_11": 38.071,
+    "KFS_12": 22.78,
+    "KFS_13": 22.916,
+    "KFS_15": 17.629,
+    "KFS_17": 16.179
+   },
+   "per_fire_miss": {
+    "KFS_01": 0.2525,
+    "KFS_02": 0.086,
+    "KFS_03": 0.0758,
+    "KFS_04": 0.0482,
+    "KFS_05": 0.0323,
+    "KFS_06": 0.0,
+    "KFS_07": 0.1111,
+    "KFS_11": 0.0,
+    "KFS_12": 0.25,
+    "KFS_13": 0.0,
+    "KFS_15": 0.3333,
+    "KFS_17": 0.0
+   }
+  },
+  "TRACKER-noarchive": {
+   "miss": 0.10896919381664814,
+   "miss_lo": 0.0476349966500083,
+   "miss_hi": 0.17616068706235818,
+   "area": 83.2109236873646,
+   "area_lo": 31.043671534760268,
+   "area_hi": 159.7710206242689,
+   "frontier_area": 93.87938996528118,
+   "n_fires": 12,
+   "n_hours": 756,
+   "missed_hours": 62,
+   "kappa": {
+    "KFS_01": 0.9055,
+    "KFS_02": 0.8533,
+    "KFS_03": 0.9232,
+    "KFS_04": 0.8053,
+    "KFS_05": 0.8977,
+    "KFS_06": 0.8485,
+    "KFS_07": 0.8053,
+    "KFS_11": 0.8739,
+    "KFS_12": 0.7892,
+    "KFS_13": 0.9068,
+    "KFS_15": 0.7639,
+    "KFS_17": 0.8255
+   },
+   "per_fire_area": {
+    "KFS_01": 443.145,
+    "KFS_02": 187.882,
+    "KFS_03": 103.883,
+    "KFS_04": 55.104,
+    "KFS_05": 58.017,
+    "KFS_06": 27.358,
+    "KFS_07": 30.805,
+    "KFS_11": 25.959,
+    "KFS_12": 23.005,
+    "KFS_13": 18.264,
+    "KFS_15": 12.878,
+    "KFS_17": 12.232
+   },
+   "per_fire_miss": {
+    "KFS_01": 0.2525,
+    "KFS_02": 0.0753,
+    "KFS_03": 0.0758,
+    "KFS_04": 0.0663,
+    "KFS_05": 0.0323,
+    "KFS_06": 0.0,
+    "KFS_07": 0.2222,
+    "KFS_11": 0.0,
+    "KFS_12": 0.25,
+    "KFS_13": 0.0,
+    "KFS_15": 0.3333,
+    "KFS_17": 0.0
+   }
+  },
+  "ratio TRACKER / FIXED": {
+   "ratio": 1.6248218537524435,
+   "lo": 1.0440581583453727,
+   "hi": 2.092093527903274,
+   "frontier_ratio": 1.6724115650037645
+  },
+  "ratio QUANTILE / FIXED": {
+   "ratio": 1.3147804797317122,
+   "lo": 0.8054071229228261,
+   "hi": 1.8511280083996202,
+   "frontier_ratio": 1.1959840673812066
+  },
+  "ratio TRACKER / QUANTILE": {
+   "ratio": 1.2358122734557153,
+   "lo": 1.0515021718988105,
+   "hi": 1.5739526098149383,
+   "frontier_ratio": 1.3983560572556542
+  },
+  "ratio TRACKER-noupdate / FIXED": {
+   "ratio": 1.3125200776197201,
+   "lo": 0.998047372909818,
+   "hi": 1.601643770904432,
+   "frontier_ratio": 1.2894794840563588
+  },
+  "ratio TRACKER-nofc / FIXED": {
+   "ratio": 1.6064024672315869,
+   "lo": 1.134662282928473,
+   "hi": 1.9927748554251308,
+   "frontier_ratio": 1.4624884109265384
+  },
+  "ratio TRACKER-noarchive / FIXED": {
+   "ratio": 1.6167970376239948,
+   "lo": 1.039486571386228,
+   "hi": 2.081530653855258,
+   "frontier_ratio": 1.66403447533401
+  },
+  "ratio TRACKER / TRACKER-noupdate": {
+   "ratio": 1.2379405705542337,
+   "lo": 1.0227624017217607,
+   "hi": 1.3314483854460688,
+   "frontier_ratio": 1.296966400537683
+  },
+  "ratio TRACKER / TRACKER-nofc": {
+   "ratio": 1.011466233958542,
+   "lo": 0.8757660983165183,
+   "hi": 1.0954237767901869,
+   "frontier_ratio": 1.143538336788756
+  },
+  "CA-transfer FIXED": {
+   "miss": 0.04466546538058391,
+   "miss_lo": 0.0050200803212851405,
+   "miss_hi": 0.10403557043422951,
+   "area": 90.34296867963992,
+   "area_lo": 52.210867324726294,
+   "area_hi": 141.81409363718578,
+   "frontier_area": 52.09064389690893,
+   "n_fires": 12,
+   "kappa": 2.855914831161499
+  },
+  "CA-fit LOFO-kappa FIXED": {
+   "miss": 0.10438839097020208,
+   "miss_lo": 0.028237093044710615,
+   "miss_hi": 0.19755100558637287,
+   "area": 51.46652409114339,
+   "area_lo": 29.098894535602813,
+   "area_hi": 79.97891448300639,
+   "frontier_area": 56.41673376174339,
+   "n_fires": 12
+  },
+  "CA-transfer QUANTILE": {
+   "miss": 0.029961651755277874,
+   "miss_lo": 0.007484238027378331,
+   "miss_hi": 0.0586908116336313,
+   "area": 141.74123346492775,
+   "area_lo": 68.23038868716651,
+   "area_hi": 255.03956801972856,
+   "frontier_area": 62.835038659047655,
+   "n_fires": 12,
+   "kappa": 1.0289333270478656
+  },
+  "CA-fit LOFO-kappa QUANTILE": {
+   "miss": 0.10595067816696267,
+   "miss_lo": 0.04736685607507605,
+   "miss_hi": 0.16828582029952024,
+   "area": 60.01587137337924,
+   "area_lo": 26.656100918049205,
+   "area_hi": 110.79918554105956,
+   "frontier_area": 63.17908854666467,
+   "n_fires": 12
+  },
+  "CA-transfer TRACKER": {
+   "miss": 0.023091224461220573,
+   "miss_lo": 0.002240143369175627,
+   "miss_hi": 0.058548784581139754,
+   "area": 138.3782326123634,
+   "area_lo": 58.14316939682672,
+   "area_hi": 258.2946501457938,
+   "frontier_area": 69.03145514842903,
+   "n_fires": 12,
+   "kappa": 1.0513509453327974
+  },
+  "CA-fit LOFO-kappa TRACKER": {
+   "miss": 0.09827198311883019,
+   "miss_lo": 0.046513817519589606,
+   "miss_hi": 0.15925067100494605,
+   "area": 68.37972953757762,
+   "area_lo": 26.355731527298513,
+   "area_hi": 131.30189980782114,
+   "frontier_area": 68.16474300134912,
+   "n_fires": 12
+  },
+  "CA-transfer TRACKER-noupdate": {
+   "miss": 0.026064505660308226,
+   "miss_lo": 0.0026881720430107525,
+   "miss_hi": 0.06617852151519059,
+   "area": 120.16948474098162,
+   "area_lo": 55.22528697146463,
+   "area_hi": 215.75443223223814,
+   "frontier_area": 64.10606593267993,
+   "n_fires": 12,
+   "kappa": 1.1038807620056437
+  },
+  "CA-fit LOFO-kappa TRACKER-noupdate": {
+   "miss": 0.11071280887643109,
+   "miss_lo": 0.04927964546357473,
+   "miss_hi": 0.18295754703401415,
+   "area": 61.92088604586754,
+   "area_lo": 26.93479336868517,
+   "area_hi": 112.88422452256611,
+   "frontier_area": 65.16524047661643,
+   "n_fires": 12
+  },
+  "CA-transfer TRACKER-nofc": {
+   "miss": 0.05163608163511,
+   "miss_lo": 0.0125008096903744,
+   "miss_hi": 0.09997566021662407,
+   "area": 110.37838679799022,
+   "area_lo": 44.54504839672005,
+   "area_hi": 209.45527141017126,
+   "frontier_area": 81.15180179356467,
+   "n_fires": 12,
+   "kappa": 1.0693942571515496
+  },
+  "CA-fit LOFO-kappa TRACKER-nofc": {
+   "miss": 0.11549374428309522,
+   "miss_lo": 0.035427143569389974,
+   "miss_hi": 0.2092227659415766,
+   "area": 76.71531763363066,
+   "area_lo": 31.497197506006003,
+   "area_hi": 141.979129721912,
+   "frontier_area": 80.9633500882587,
+   "n_fires": 12
+  },
+  "CA-transfer TRACKER-noarchive": {
+   "miss": 0.023091224461220573,
+   "miss_lo": 0.002240143369175627,
+   "miss_hi": 0.058548784581139754,
+   "area": 140.77089360471152,
+   "area_lo": 59.33840422042189,
+   "area_hi": 262.6667615933887,
+   "frontier_area": 70.0928539345686,
+   "n_fires": 12,
+   "kappa": 1.0522273150347141
+  },
+  "CA-fit LOFO-kappa TRACKER-noarchive": {
+   "miss": 0.10290161274845981,
+   "miss_lo": 0.04903493241378553,
+   "miss_hi": 0.1647765788068935,
+   "area": 67.42954526389575,
+   "area_lo": 26.330572287860132,
+   "area_hi": 128.91341213319745,
+   "frontier_area": 68.35779958288651,
+   "n_fires": 12
+  },
+  "A TRACKER": {
+   "run_days": 9,
+   "warned": 4,
+   "onset_days": 6,
+   "warned_onset": 2,
+   "warned_without_25_march": 3,
+   "no_run_fire_days": 34,
+   "alarms_on_no_run_fire_days": 11,
+   "burden": {
+    "point_days": 4950,
+    "G_alarm_point_days": 169,
+    "G_per_point_season_2022_2025": 3.675
+   },
+   "days": [
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 22,
+     "p": 0.023732015477940595,
+     "prior": 0.019430027036787343,
+     "c": 0.1323565377740149,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-23",
+     "first_run_kst": 0,
+     "p": 0.021874285813098457,
+     "prior": 0.017902879276436884,
+     "c": 0.1323565377740149,
+     "warned": false,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-25",
+     "first_run_kst": 10,
+     "p": 0.2147627303738666,
+     "prior": 0.2714997250806228,
+     "c": 0.1323565377740149,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-26",
+     "first_run_kst": 0,
+     "p": 0.40113651325027316,
+     "prior": 0.35316997310401665,
+     "c": 0.1323565377740149,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-04",
+     "first_run_kst": 12,
+     "p": 0.07893552164260803,
+     "prior": 0.10510323415431999,
+     "c": 0.15809955407486706,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 0,
+     "p": 0.6345600456292654,
+     "prior": 0.5836657966631252,
+     "c": 0.15809955407486706,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-10",
+     "first_run_kst": 5,
+     "p": 0.04006815647030767,
+     "prior": 0.03260093695555715,
+     "c": 0.15809955407486706,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_03",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 8,
+     "p": 0.3468110341866928,
+     "prior": 0.3007085514125516,
+     "c": 0.1508914606382015,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_04",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 18,
+     "p": 0.1342928732676091,
+     "prior": 0.1111405968194899,
+     "c": 0.16743548124362098,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    }
+   ]
+  },
+  "A TRACKER-noupdate": {
+   "run_days": 9,
+   "warned": 3,
+   "onset_days": 6,
+   "warned_onset": 2,
+   "warned_without_25_march": 2,
+   "no_run_fire_days": 34,
+   "alarms_on_no_run_fire_days": 3,
+   "burden": {
+    "point_days": 4950,
+    "G_alarm_point_days": 169,
+    "G_per_point_season_2022_2025": 3.675
+   },
+   "days": [
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 22,
+     "p": 0.015855242854209528,
+     "prior": 0.015855242854209528,
+     "c": 0.1323565377740149,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-23",
+     "first_run_kst": 0,
+     "p": 0.010718549530882821,
+     "prior": 0.010718549530882821,
+     "c": 0.1323565377740149,
+     "warned": false,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-25",
+     "first_run_kst": 10,
+     "p": 0.3417956417746991,
+     "prior": 0.3417956417746991,
+     "c": 0.1323565377740149,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-26",
+     "first_run_kst": 0,
+     "p": 0.07680280292112525,
+     "prior": 0.07680280292112525,
+     "c": 0.1323565377740149,
+     "warned": false,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-04",
+     "first_run_kst": 12,
+     "p": 0.10510323415431999,
+     "prior": 0.10510323415431999,
+     "c": 0.15809955407486706,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 0,
+     "p": 0.39080256635158633,
+     "prior": 0.39080256635158633,
+     "c": 0.15809955407486706,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-10",
+     "first_run_kst": 5,
+     "p": 0.014916841747678183,
+     "prior": 0.014916841747678183,
+     "c": 0.15809955407486706,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_03",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 8,
+     "p": 0.19406069296952197,
+     "prior": 0.19406069296952197,
+     "c": 0.1508914606382015,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_04",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 18,
+     "p": 0.06681027677141568,
+     "prior": 0.06681027677141568,
+     "c": 0.16743548124362098,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    }
+   ]
+  },
+  "A TRACKER-nofc": {
+   "run_days": 9,
+   "warned": 6,
+   "onset_days": 6,
+   "warned_onset": 3,
+   "warned_without_25_march": 6,
+   "no_run_fire_days": 34,
+   "alarms_on_no_run_fire_days": 29,
+   "burden": {
+    "point_days": 4950,
+    "G_alarm_point_days": 169,
+    "G_per_point_season_2022_2025": 3.675
+   },
+   "days": [
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 22,
+     "p": 0.03796365141372012,
+     "prior": 0.03116419516600626,
+     "c": 0.04156094488527637,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-23",
+     "first_run_kst": 0,
+     "p": 0.055728022818871265,
+     "prior": 0.045898687420919196,
+     "c": 0.04156094488527637,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-25",
+     "first_run_kst": 10,
+     "p": 0.01864202688884384,
+     "prior": 0.025231825804766787,
+     "c": 0.04156094488527637,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-26",
+     "first_run_kst": 0,
+     "p": 0.30627543864807977,
+     "prior": 0.26463948631147666,
+     "c": 0.04156094488527637,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-04",
+     "first_run_kst": 12,
+     "p": 0.007305107000009433,
+     "prior": 0.009984207724491722,
+     "c": 0.04549010267917118,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 0,
+     "p": 0.12615425708185565,
+     "prior": 0.10438841324398948,
+     "c": 0.04549010267917118,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-10",
+     "first_run_kst": 5,
+     "p": 0.12539829995408597,
+     "prior": 0.10374739902396467,
+     "c": 0.04549010267917118,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_03",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 8,
+     "p": 0.07616851528020832,
+     "prior": 0.062595519776134,
+     "c": 0.04547839085189687,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 0
+    },
+    {
+     "fire": "KFS_04",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 18,
+     "p": 0.10921009957616958,
+     "prior": 0.08993290288918795,
+     "c": 0.046688757153832264,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 0
+    }
+   ]
+  },
+  "A TRACKER-noarchive": {
+   "run_days": 9,
+   "warned": 4,
+   "onset_days": 6,
+   "warned_onset": 2,
+   "warned_without_25_march": 3,
+   "no_run_fire_days": 34,
+   "alarms_on_no_run_fire_days": 11,
+   "burden": {
+    "point_days": 4950,
+    "G_alarm_point_days": 169,
+    "G_per_point_season_2022_2025": 3.675
+   },
+   "days": [
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 22,
+     "p": 0.02459134926678226,
+     "prior": 0.02013679932891383,
+     "c": 0.13558040629158927,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-23",
+     "first_run_kst": 0,
+     "p": 0.022947122677307627,
+     "prior": 0.018784676937420745,
+     "c": 0.13558040629158927,
+     "warned": false,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-25",
+     "first_run_kst": 10,
+     "p": 0.20860486263826666,
+     "prior": 0.26426252912932907,
+     "c": 0.13558040629158927,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_01",
+     "kst_day": "2025-03-26",
+     "first_run_kst": 0,
+     "p": 0.40530394783794216,
+     "prior": 0.35713626107902907,
+     "c": 0.13558040629158927,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-04",
+     "first_run_kst": 12,
+     "p": 0.0778065798948417,
+     "prior": 0.10364215233762891,
+     "c": 0.16080864866244146,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 0,
+     "p": 0.6290287782128697,
+     "prior": 0.5778766394678958,
+     "c": 0.16080864866244146,
+     "warned": true,
+     "onset": false,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_02",
+     "kst_day": "2022-03-10",
+     "first_run_kst": 5,
+     "p": 0.04214745649206926,
+     "prior": 0.03430658135979777,
+     "c": 0.16080864866244146,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_03",
+     "kst_day": "2022-03-05",
+     "first_run_kst": 8,
+     "p": 0.34611237066151634,
+     "prior": 0.30006009830809693,
+     "c": 0.15392677941515967,
+     "warned": true,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    },
+    {
+     "fire": "KFS_04",
+     "kst_day": "2025-03-22",
+     "first_run_kst": 18,
+     "p": 0.13639754188024417,
+     "prior": 0.11292975042290526,
+     "c": 0.16932369228331726,
+     "warned": false,
+     "onset": true,
+     "tracker_model_alarm_point_days": 169
+    }
+   ]
+  }
+ },
+ "march25": {
+  "FIXED": {
+   "missed": 12,
+   "max_margin": 1.591,
+   "mean_area": 331.5924
+  },
+  "QUANTILE": {
+   "missed": 11,
+   "max_margin": 6.7097,
+   "mean_area": 1196.54895
+  },
+  "TRACKER": {
+   "missed": 11,
+   "max_margin": 9.9814,
+   "mean_area": 1604.9201249999999
+  },
+  "TRACKER-noupdate": {
+   "missed": 11,
+   "max_margin": 6.9411,
+   "mean_area": 1260.9353916666666
+  },
+  "TRACKER-nofc": {
+   "missed": 11,
+   "max_margin": 4.9835,
+   "mean_area": 828.3918749999999
+  },
+  "TRACKER-noarchive": {
+   "missed": 11,
+   "max_margin": 9.8873,
+   "mean_area": 1585.4436916666666
+  }
+ },
+ "kept": {
+  "n": 19,
+  "cfg": {
+   "trans": [
+    "gust_ms",
+    "w850_ms",
+    "rhmin_pct",
+    "sin_h",
+    "cos_h",
+    "arch"
+   ],
+   "obs": "g1",
+   "bins": [
+    0.0,
+    1.5
+   ],
+   "mfeat": [
+    "g1",
+    "g3",
+    "g6",
+    "g12",
+    "g24",
+    "log_area",
+    "log_age",
+    "sin_h",
+    "cos_h",
+    "gust_ms",
+    "w850_ms",
+    "rhmin_pct",
+    "hdw"
+   ],
+   "tau": 0.9,
+   "depth": 2,
+   "iters": 100,
+   "leaf0": 200,
+   "leaf1": 50,
+   "mix": "linear",
+   "C": 0.1,
+   "temper": 0.25
+  },
+  "M1": 324.0428834257648,
+  "M2": 0.4166666666666667
+ },
+ "archive": {
+  "mu": [
+   9.159348641356667,
+   10.383661171472133,
+   20.505972416834478
+  ],
+  "sd": [
+   3.372523342823174,
+   3.7398806445059924,
+   12.039696318282271
+  ],
+  "b0": -2.414294898588418,
+  "b": [
+   0.11428131447804983,
+   0.022592714419282144,
+   -0.10261732419678428
+  ],
+  "fire_days": 384354,
+  "fires": 40820,
+  "run_days": 36492,
+  "run_share_fire_weighted": 0.08403050214459656,
+  "inputs": [
+   "gust_ms",
+   "w850_ms",
+   "rhmin_pct"
+  ]
+ },
+ "proposals": [
+  {
+   "n": 0,
+   "reason": "version 0 (PROTOCOL section 2)",
+   "change": {},
+   "time_utc": "2026-11-19T05:24:22Z",
+   "M1": 342.7212578831912,
+   "M2": 0.2638888888888889,
+   "warned": 19,
+   "run_days": 72,
+   "miss": 0.09702226694538336,
+   "area": 347.42460140172886,
+   "kept": true,
+   "rule": "version 0"
+  },
+  {
+   "n": 1,
+   "reason": "Dev diagnostic: p is over-confident (bin p=0.92 has 36% run hours) because hourly growth observations are autocorrelated but multiplied as independent. Temper the emission likelihood with exponent 0.5.",
+   "change": {
+    "temper": 0.5
+   },
+   "time_utc": "2026-11-19T05:24:52Z",
+   "M1": 333.3822056437191,
+   "M2": 0.2916666666666667,
+   "warned": 21,
+   "run_days": 72,
+   "miss": 0.09759599355963507,
+   "area": 336.6763190401622,
+   "kept": true,
+   "rule": "M1 down >= 1%, M2 not down",
+   "against": {
+    "n": 0,
+    "M1": 342.7212578831912,
+    "M2": 0.2638888888888889
+   }
+  },
+  {
+   "n": 2,
+   "reason": "Same reason, stronger tempering (exponent 0.25).",
+   "change": {
+    "temper": 0.25
+   },
+   "time_utc": "2026-11-19T05:24:58Z",
+   "M1": 325.41171967965755,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09893653234486147,
+   "area": 327.23600609363143,
+   "kept": true,
+   "rule": "M1 down >= 1%, M2 not down",
+   "against": {
+    "n": 1,
+    "M1": 333.3822056437191,
+    "M2": 0.2916666666666667
+   }
+  },
+  {
+   "n": 3,
+   "reason": "Mix the two state margins as the exact tau-quantile of the two-state mixture instead of a linear blend; a linear blend over-issues when p is small.",
+   "change": {
+    "mix": "quantile"
+   },
+   "time_utc": "2026-11-19T05:25:04Z",
+   "M1": 345.03146894197187,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09961667682052644,
+   "area": 345.69706267108154,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 4,
+   "reason": "Tempering helped twice; try exponent 0.12 to see whether the trend continues toward no update.",
+   "change": {
+    "temper": 0.12
+   },
+   "time_utc": "2026-11-19T05:25:20Z",
+   "M1": 321.2043125303688,
+   "M2": 0.3611111111111111,
+   "warned": 26,
+   "run_days": 72,
+   "miss": 0.09682148343632108,
+   "area": 326.40594960397266,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 5,
+   "reason": "Use the 3 h growth g3 as the observation (dev AUC for the run label 0.863 against 0.834 for g1), same bins.",
+   "change": {
+    "obs": "g3"
+   },
+   "time_utc": "2026-11-19T05:25:26Z",
+   "M1": 328.14433777712304,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09993021120493335,
+   "area": 328.2470063951313,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 6,
+   "reason": "Let the transition see the recent trend: add g3 and g6 to the enter/stay inputs, so the forecast and the last hours' growth act together.",
+   "change": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h",
+     "arch",
+     "g3",
+     "g6"
+    ]
+   },
+   "time_utc": "2026-11-19T05:25:32Z",
+   "M1": 328.9419908396495,
+   "M2": 0.3611111111111111,
+   "warned": 26,
+   "run_days": 72,
+   "miss": 0.09741447285234814,
+   "area": 333.02190037694464,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 7,
+   "reason": "Mixing rule max(m0, p*m1): the run margin only takes over when the run probability is material; avoids adding a small share of a large margin to every quiet hour.",
+   "change": {
+    "mix": "max"
+   },
+   "time_utc": "2026-11-19T05:25:48Z",
+   "M1": 325.4031721960623,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09855460766617005,
+   "area": 327.66016826764167,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 8,
+   "reason": "Geometric mixing (blend in log distance), since reach is roughly log-scaled.",
+   "change": {
+    "mix": "geometric"
+   },
+   "time_utc": "2026-11-19T05:25:55Z",
+   "M1": 325.39647179323276,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09913331585435063,
+   "area": 327.07104082952037,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 9,
+   "reason": "More capacity in the state margins: depth 3, 300 iterations (the QUANTILE grid's largest setting).",
+   "change": {
+    "depth": 3,
+    "iters": 300
+   },
+   "time_utc": "2026-11-19T05:26:02Z",
+   "M1": 326.24431446201055,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.0919717975764283,
+   "area": 340.303619688852,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 10,
+   "reason": "Add the Hot-Dry-Windy value (hdw) to the transition inputs; dev AUC 0.72 for the run label.",
+   "change": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h",
+     "arch",
+     "hdw"
+    ]
+   },
+   "time_utc": "2026-11-19T05:26:17Z",
+   "M1": 325.7222253288247,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.0992582423863565,
+   "area": 326.89425862141377,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 11,
+   "reason": "Non-linear transition: boosted-tree classifiers (depth 2) for enter and stay, so wind, humidity and hour can interact.",
+   "change": {
+    "trans_model": "gbm"
+   },
+   "time_utc": "2026-11-19T05:26:51Z",
+   "M1": 331.90303572467474,
+   "M2": 0.2777777777777778,
+   "warned": 20,
+   "run_days": 72,
+   "miss": 0.0988043062489822,
+   "area": 334.08167594889403,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 12,
+   "reason": "Division of labour: state margins on own-past features only, so the forecast acts through the state probability alone.",
+   "change": {
+    "mfeat": [
+     "g1",
+     "g3",
+     "g6",
+     "g12",
+     "g24",
+     "log_area",
+     "log_age",
+     "sin_h",
+     "cos_h"
+    ]
+   },
+   "time_utc": "2026-11-19T05:27:09Z",
+   "M1": 328.54984546915057,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09785753315835491,
+   "area": 332.0131160467532,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 13,
+   "reason": "State margins at tau 0.95 (kappa rescales); the run state's upper tail may be better ordered at a higher quantile.",
+   "change": {
+    "tau": 0.95
+   },
+   "time_utc": "2026-11-19T05:27:14Z",
+   "M1": 326.82260655364155,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09726362449207591,
+   "area": 331.2324886488458,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 14,
+   "reason": "State margins at tau 0.8.",
+   "change": {
+    "tau": 0.8
+   },
+   "time_utc": "2026-11-19T05:27:20Z",
+   "M1": 336.7571318045602,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09354851689300148,
+   "area": 350.8972620405448,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 15,
+   "reason": "Smaller leaves for the run-state margin (25) to use the few run hours (about 460 on dev) better.",
+   "change": {
+    "leaf1": 25
+   },
+   "time_utc": "2026-11-19T05:27:26Z",
+   "M1": 327.1934851281713,
+   "M2": 0.375,
+   "warned": 27,
+   "run_days": 72,
+   "miss": 0.09702314877909983,
+   "area": 331.7801264152231,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 16,
+   "reason": "Forecast ramp: add the 6 h change of forecast gust and 850 hPa wind to the transition, so a rising forecast can move the state before the level is high.",
+   "change": {
+    "trans": [
+     "gust_ms",
+     "w850_ms",
+     "rhmin_pct",
+     "sin_h",
+     "cos_h",
+     "arch",
+     "d6_gust_ms",
+     "d6_w850_ms"
+    ]
+   },
+   "time_utc": "2026-11-19T05:27:49Z",
+   "M1": 328.36737132425003,
+   "M2": 0.3333333333333333,
+   "warned": 24,
+   "run_days": 72,
+   "miss": 0.0987723346260705,
+   "area": 330.5259351541,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 17,
+   "reason": "Coarser observation table (no growth; up to 1.5 km; above), fewer cells to estimate for the run state.",
+   "change": {
+    "bins": [
+     0.0,
+     1.5
+    ]
+   },
+   "time_utc": "2026-11-19T05:27:55Z",
+   "M1": 324.47470562851447,
+   "M2": 0.3888888888888889,
+   "warned": 28,
+   "run_days": 72,
+   "miss": 0.09869740794345926,
+   "area": 326.7018473408668,
+   "kept": true,
+   "rule": "M2 up, M1 not up > 1%",
+   "against": {
+    "n": 2,
+    "M1": 325.41171967965755,
+    "M2": 0.375
+   }
+  },
+  {
+   "n": 18,
+   "reason": "Tempering exponent 0.35, between the two kept steps, in case 0.25 overshot for M2.",
+   "change": {
+    "temper": 0.35
+   },
+   "time_utc": "2026-11-19T05:28:01Z",
+   "M1": 328.90094690031447,
+   "M2": 0.3888888888888889,
+   "warned": 28,
+   "run_days": 72,
+   "miss": 0.10005387916925702,
+   "area": 328.805346537339,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 17,
+    "M1": 324.47470562851447,
+    "M2": 0.3888888888888889
+   }
+  },
+  {
+   "n": 19,
+   "reason": "Stronger regularisation of the transition regressions (C = 0.1); 81 dev onsets is little data for six inputs.",
+   "change": {
+    "C": 0.1
+   },
+   "time_utc": "2026-11-19T05:28:07Z",
+   "M1": 324.0428834257648,
+   "M2": 0.4166666666666667,
+   "warned": 30,
+   "run_days": 72,
+   "miss": 0.09881174314157479,
+   "area": 326.1049392625958,
+   "kept": true,
+   "rule": "M2 up, M1 not up > 1%",
+   "against": {
+    "n": 17,
+    "M1": 324.47470562851447,
+    "M2": 0.3888888888888889
+   }
+  },
+  {
+   "n": 20,
+   "reason": "Weaker regularisation (C = 10) as the opposite check.",
+   "change": {
+    "C": 10.0
+   },
+   "time_utc": "2026-11-19T05:28:12Z",
+   "M1": 324.56260128643754,
+   "M2": 0.3888888888888889,
+   "warned": 28,
+   "run_days": 72,
+   "miss": 0.09869428480806491,
+   "area": 326.8044573243591,
+   "kept": false,
+   "rule": "neither",
+   "against": {
+    "n": 19,
+    "M1": 324.0428834257648,
+    "M2": 0.4166666666666667
+   }
+  }
+ ],
+ "dev": {
+  "FIXED": {
+   "M1": 356.2215661171237,
+   "miss": 0.09914137660734698,
+   "miss_lo": 0.05677486391744402,
+   "miss_hi": 0.1453102900810143,
+   "area": 357.421476018621,
+   "area_lo": 250.4116869941018,
+   "area_hi": 493.784689742354,
+   "frontier_area": 356.2215661171237,
+   "n_fires": 16,
+   "name": "FIXED",
+   "spec": {},
+   "seconds": 0.2
+  },
+  "TRACKER-noarchive": {
+   "M1": 342.734951065133,
+   "miss": 0.09702226694538336,
+   "miss_lo": 0.07925734698709132,
+   "miss_hi": 0.11364693660284102,
+   "area": 347.43898025204817,
+   "area_lo": 211.9900269153081,
+   "area_hi": 514.3367617788107,
+   "frontier_area": 342.734951065133,
+   "n_fires": 16,
+   "M2": 0.2638888888888889,
+   "run_days": 72,
+   "warned": 19,
+   "c": 0.8003891452250713,
+   "name": "TRACKER-noarchive",
+   "spec": {
+    "cfg": {
+     "trans": [
+      "gust_ms",
+      "w850_ms",
+      "rhmin_pct",
+      "sin_h",
+      "cos_h"
+     ]
+    }
+   },
+   "seconds": 4.7
+  },
+  "QUANTILE": {
+   "M1": 329.3020092409274,
+   "miss": 0.09126173680025486,
+   "miss_lo": 0.072647758318353,
+   "miss_hi": 0.11030443277491783,
+   "area": 340.83085507203083,
+   "area_lo": 208.52648854961154,
+   "area_hi": 503.65509592443783,
+   "frontier_area": 329.3020092409274,
+   "n_fires": 16,
+   "name": "QUANTILE",
+   "spec": {},
+   "seconds": 174.9
+  },
+  "TRACKER-noupdate": {
+   "M1": 320.1810567238404,
+   "miss": 0.09659885607220536,
+   "miss_lo": 0.06885683155131644,
+   "miss_hi": 0.1258292901433031,
+   "area": 325.9368497153023,
+   "area_lo": 208.31891200723794,
+   "area_hi": 470.1577020040739,
+   "frontier_area": 320.1810567238404,
+   "n_fires": 16,
+   "M2": 0.2916666666666667,
+   "run_days": 72,
+   "warned": 21,
+   "c": 0.12585713326962122,
+   "name": "TRACKER-noupdate",
+   "spec": {
+    "update": false
+   },
+   "seconds": 4.5
+  },
+  "TRACKER-nofc": {
+   "M1": 351.5441558541708,
+   "miss": 0.0998511944774335,
+   "miss_lo": 0.08196313660021425,
+   "miss_hi": 0.11732307461129445,
+   "area": 351.7930929182956,
+   "area_lo": 212.4432053144804,
+   "area_hi": 522.7491182582158,
+   "frontier_area": 351.5441558541708,
+   "n_fires": 16,
+   "M2": 0.20833333333333334,
+   "run_days": 72,
+   "warned": 15,
+   "c": 0.8374007576873613,
+   "name": "TRACKER-nofc",
+   "spec": {
+    "fc": false
+   },
+   "seconds": 4.1
+  }
+ }
+}

@@ -1,0 +1,738 @@
+{
+ "base": [
+  {
+   "job": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "8h",
+    10
+   ],
+   "places": 90,
+   "mismatch": [],
+   "core_s": 198.4,
+   "nonempty": 76,
+   "pieces_gt1": 0
+  },
+  {
+   "job": [
+    "uiseong_andong_2025",
+    "MEASURED",
+    "8h",
+    10
+   ],
+   "places": 84,
+   "mismatch": [],
+   "core_s": 8.3,
+   "nonempty": 2,
+   "pieces_gt1": 0
+  },
+  {
+   "job": [
+    "yeongdeok_2025",
+    "WORST",
+    "5h",
+    6
+   ],
+   "places": 90,
+   "mismatch": [],
+   "core_s": 249.0,
+   "nonempty": 90,
+   "pieces_gt1": 0
+  },
+  {
+   "job": [
+    "uiseong_andong_2025",
+    "WORST",
+    "5h",
+    6
+   ],
+   "places": 84,
+   "mismatch": [],
+   "core_s": 10.4,
+   "nonempty": 27,
+   "pieces_gt1": 0
+  }
+ ],
+ "delayed": [
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "WORST",
+    "5h",
+    3,
+    30,
+    "ROAD",
+    483401460
+   ],
+   "candidate": "ROAD:yeongdeok_2025:4733",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 31.7
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "WORST",
+    "8h",
+    14,
+    60,
+    "ROAD",
+    354700238
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED_GUST_KMA",
+    "5h",
+    6,
+    120,
+    "ROAD",
+    114909840
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "ORDINARY",
+    "5h",
+    7,
+    60,
+    "ROAD",
+    207177952
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:255",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.6
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "5h",
+    6,
+    120,
+    "ROAD",
+    497929147
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "8h",
+    6,
+    30,
+    "ROAD",
+    998309382
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED_GUST",
+    "8h",
+    12,
+    30,
+    "ROAD",
+    862414382
+   ],
+   "candidate": "ROAD:yeongdeok_2025:3183",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 15.2
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST_KMA",
+    "8h",
+    3,
+    30,
+    "ROAD",
+    635160119
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:2513",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.4
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST",
+    "8h",
+    13,
+    120,
+    "ROAD",
+    334577782
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:109",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.5
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST_KMA",
+    "8h",
+    13,
+    120,
+    "ROAD",
+    723421455
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:258",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.6
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED_GUST_KMA",
+    "5h",
+    15,
+    120,
+    "ROAD",
+    592686970
+   ],
+   "candidate": "ROAD:yeongdeok_2025:789",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 13.0
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED",
+    "5h",
+    11,
+    30,
+    "ROAD",
+    141294886
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:177",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.7
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "8h",
+    9,
+    120,
+    "ROAD",
+    61658494
+   ],
+   "candidate": "ROAD:yeongdeok_2025:2365",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 30.8
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED",
+    "5h",
+    11,
+    30,
+    "ROAD",
+    122161838
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:37",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.2
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "ORDINARY",
+    "5h",
+    10,
+    60,
+    "ROAD",
+    843408687
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:330",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.8
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST_KMA",
+    "5h",
+    4,
+    60,
+    "ROAD",
+    363964898
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:3429",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 5.8
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED_GUST",
+    "5h",
+    10,
+    30,
+    "ROAD",
+    346366992
+   ],
+   "candidate": "ROAD:yeongdeok_2025:2597",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 21.5
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "RUNNING",
+    "8h",
+    11,
+    30,
+    "ROAD",
+    712232521
+   ],
+   "candidate": "ROAD:yeongdeok_2025:2543",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 22.1
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "WORST",
+    "8h",
+    5,
+    60,
+    "ROAD",
+    902515801
+   ],
+   "candidate": "ROAD:uiseong_andong_2025:4270",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.3
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "WORST",
+    "8h",
+    6,
+    120,
+    "ROAD",
+    749869001
+   ],
+   "candidate": "ROAD:yeongdeok_2025:1598",
+   "cells_changed": 1,
+   "gaining_places": 1,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 7,
+   "mismatch": [],
+   "core_s": 35.0
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "RUNNING",
+    "5h",
+    5,
+    60,
+    "FRONT",
+    582350380
+   ],
+   "candidate": "FRONT:561_909",
+   "cells_changed": 34,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 34.6
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST",
+    "8h",
+    3,
+    30,
+    "FRONT",
+    775217974
+   ],
+   "candidate": "FRONT:553_909",
+   "cells_changed": 2,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 5.7
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "8h",
+    7,
+    120,
+    "FRONT",
+    411943427
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "WORST",
+    "8h",
+    13,
+    120,
+    "FRONT",
+    50237974
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "5h",
+    12,
+    30,
+    "FRONT",
+    950306424
+   ],
+   "candidate": "FRONT:575_912",
+   "cells_changed": 17,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 16.2
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED_GUST",
+    "5h",
+    11,
+    30,
+    "FRONT",
+    260122633
+   ],
+   "candidate": "FRONT:577_913",
+   "cells_changed": 27,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 20.7
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST",
+    "8h",
+    9,
+    120,
+    "FRONT",
+    526464200
+   ],
+   "candidate": "FRONT:555_908",
+   "cells_changed": 18,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.4
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED",
+    "8h",
+    11,
+    30,
+    "FRONT",
+    339249442
+   ],
+   "candidate": "FRONT:554_909",
+   "cells_changed": 12,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.6
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "RUNNING",
+    "8h",
+    11,
+    120,
+    "FRONT",
+    671636090
+   ],
+   "candidate": "FRONT:551_908",
+   "cells_changed": 10,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.1
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "ORDINARY",
+    "8h",
+    15,
+    60,
+    "FRONT",
+    364741267
+   ],
+   "candidate": "FRONT:553_909",
+   "cells_changed": 1,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.7
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "ORDINARY",
+    "8h",
+    5,
+    120,
+    "FRONT",
+    253834559
+   ],
+   "candidate": "FRONT:553_912",
+   "cells_changed": 139,
+   "gaining_places": 5,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 11,
+   "mismatch": [],
+   "core_s": 4.8
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED",
+    "5h",
+    5,
+    30,
+    "FRONT",
+    153023574
+   ],
+   "candidate": "FRONT:556_912",
+   "cells_changed": 91,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 4.5
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED",
+    "8h",
+    6,
+    30,
+    "FRONT",
+    5504632
+   ],
+   "candidate": "FRONT:554_909",
+   "cells_changed": 26,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 2.9
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED_GUST_KMA",
+    "5h",
+    3,
+    30,
+    "FRONT",
+    779943449
+   ],
+   "skipped": "no candidate of this kind"
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "ORDINARY",
+    "5h",
+    9,
+    120,
+    "FRONT",
+    136324947
+   ],
+   "candidate": "FRONT:573_912",
+   "cells_changed": 44,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 33.2
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "RUNNING",
+    "8h",
+    14,
+    60,
+    "FRONT",
+    172706750
+   ],
+   "candidate": "FRONT:586_912",
+   "cells_changed": 2,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 13.3
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST_KMA",
+    "5h",
+    11,
+    30,
+    "FRONT",
+    284670317
+   ],
+   "candidate": "FRONT:555_908",
+   "cells_changed": 18,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.2
+  },
+  {
+   "inst": [
+    "uiseong_andong_2025",
+    "MEASURED_GUST",
+    "8h",
+    10,
+    120,
+    "FRONT",
+    151618948
+   ],
+   "candidate": "FRONT:554_909",
+   "cells_changed": 12,
+   "gaining_places": 0,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 6,
+   "mismatch": [],
+   "core_s": 3.8
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "ORDINARY",
+    "8h",
+    14,
+    30,
+    "FRONT",
+    279388781
+   ],
+   "candidate": "FRONT:574_911",
+   "cells_changed": 113,
+   "gaining_places": 2,
+   "pruned_equals_unpruned": true,
+   "core_checked_places": 8,
+   "mismatch": [],
+   "core_s": 16.0
+  },
+  {
+   "inst": [
+    "yeongdeok_2025",
+    "MEASURED",
+    "8h",
+    7,
+    30,
+    "FRONT",
+    512407814
+   ],
+   "skipped": "no candidate of this kind"
+  }
+ ],
+ "summary": {
+  "base_mismatch_places": 0,
+  "delayed_instances": 32,
+  "delayed_skipped": 8,
+  "delayed_mismatch_places": 0,
+  "pruning_failures": 0,
+  "delayed_with_gain": 3
+ }
+}

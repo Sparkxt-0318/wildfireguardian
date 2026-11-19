@@ -1,0 +1,3915 @@
+{
+ "schema": "kcf-ablation.v1/1",
+ "host": {
+  "platform": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+  "python": "3.13.18"
+ },
+ "heat_rule": {
+  "q_vehicle_kw_m2": 10.0,
+  "q_person_kw_m2": 2.5,
+  "chi": 0.3,
+  "energy_kj_m2": 18608.0,
+  "residence_s": 11.52,
+  "spread_m_s": 0.09472222222222222,
+  "lead_scale": 1.0,
+  "lead_vehicle_s": 84,
+  "halo_vehicle_m": 7.96,
+  "lead_person_s": 350,
+  "halo_person_m": 33.16
+ },
+ "budgets_tdu": [
+  92.0,
+  105.0,
+  290.0
+ ],
+ "q0": 1.42,
+ "packets": [
+  {
+   "region": "hongseong_2023",
+   "packet": "20230402T070000Z",
+   "missions": {
+    "hongseong_2023/20230402T070000Z_FN1": {
+     "departure": 0,
+     "origin": "osm:4267555571",
+     "dest": "osm:6430106206",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      }
+     }
+    },
+    "hongseong_2023/20230402T070000Z_FX1": {
+     "departure": 0,
+     "origin": "osm:4267555571",
+     "dest": "osm:6427252212",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.07195533300000534,
+    "full_models:field:contact": 0.015641987999970297,
+    "full_models:field:dose_off": 0.014075155999989875,
+    "full_models:field:full": 0.024497988000007354,
+    "full_models:field:heat_off": 0.017826949000038894,
+    "persistence:prepare": 0.04945904199996676,
+    "persistence:field:contact": 0.019547348999992664,
+    "persistence:field:dose_off": 0.029994390000013027,
+    "persistence:field:full": 0.026793075000057343,
+    "persistence:field:heat_off": 0.020956809000040266,
+    "packet_total": 0.2909289109999804
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 6,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 6,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "hongseong_2023",
+   "packet": "20230402T140000Z",
+   "missions": {
+    "hongseong_2023/20230402T140000Z_FW2": {
+     "departure": 600,
+     "origin": "osm:436671021",
+     "dest": "osm:437291782",
+     "window": [
+      1459,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3112,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3112
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.052003531000025305,
+    "full_models:field:contact": 0.02180972999997266,
+    "full_models:field:dose_off": 0.015593035999984295,
+    "full_models:field:full": 0.057899136999992606,
+    "full_models:field:heat_off": 0.032986307000044235,
+    "persistence:prepare": 0.06246401699996795,
+    "persistence:field:contact": 0.012972552000007909,
+    "persistence:field:dose_off": 0.011472702999981266,
+    "persistence:field:full": 0.04592896200000496,
+    "persistence:field:heat_off": 0.025686328000006142,
+    "packet_total": 0.338938053999982
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 6,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 6,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "hongseong_2023",
+   "packet": "20230402T230000Z",
+   "missions": {
+    "hongseong_2023/20230402T230000Z_FD1": {
+     "departure": 0,
+     "origin": "osm:437291784",
+     "dest": "osm:436670987",
+     "window": [
+      0,
+      847
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 196,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          196
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.04754580100001249,
+    "full_models:field:contact": 0.007284701999992649,
+    "full_models:field:dose_off": 0.018586307999953533,
+    "full_models:field:full": 0.024888202999989062,
+    "full_models:field:heat_off": 0.008413547999964521,
+    "persistence:prepare": 0.046889555999996446,
+    "persistence:field:contact": 0.007814874999951371,
+    "persistence:field:dose_off": 0.007353618000024653,
+    "persistence:field:full": 0.024989765999976044,
+    "persistence:field:heat_off": 0.009098190999964118,
+    "packet_total": 0.20295661599999448
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 4,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 4,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "miryang_2022",
+   "packet": "20220531T100000Z",
+   "missions": {
+    "miryang_2022/20220531T100000Z_FN1": {
+     "departure": 0,
+     "origin": "osm:9163043616",
+     "dest": "osm:4855736883",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2338,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2338
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.07853260399997453,
+    "full_models:field:contact": 0.016014100000006692,
+    "full_models:field:dose_off": 0.014390678999973261,
+    "full_models:field:full": 0.05691891300000407,
+    "full_models:field:heat_off": 0.033088845999998284,
+    "persistence:prepare": 0.0920217419999858,
+    "persistence:field:contact": 0.024695488999952886,
+    "persistence:field:dose_off": 0.019325887999968927,
+    "persistence:field:full": 0.08060807800001157,
+    "persistence:field:heat_off": 0.02427142199996979,
+    "packet_total": 0.43998819099999764
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 3,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 3,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "miryang_2022",
+   "packet": "20220601T020000Z",
+   "missions": {
+    "miryang_2022/20220601T020000Z_FW1": {
+     "departure": 300,
+     "origin": "osm:4855736918",
+     "dest": "osm:2161974660",
+     "window": [
+      1270,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2748,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2748
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.07910680099996625,
+    "full_models:field:contact": 0.042485807000048226,
+    "full_models:field:dose_off": 0.03544833099999778,
+    "full_models:field:full": 0.16184990400000743,
+    "full_models:field:heat_off": 0.09166637800001354,
+    "persistence:prepare": 0.08895372000000634,
+    "persistence:field:contact": 0.05095155099996873,
+    "persistence:field:dose_off": 0.06060169700003826,
+    "persistence:field:full": 0.14254406099996686,
+    "persistence:field:heat_off": 0.07658011500001294,
+    "packet_total": 0.8303321019999998
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 2,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 2,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "miryang_2022",
+   "packet": "20220601T080000Z",
+   "missions": {
+    "miryang_2022/20220601T080000Z_FD1": {
+     "departure": 600,
+     "origin": "osm:8204069660",
+     "dest": "osm:4855737534",
+     "window": [
+      0,
+      1701
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      }
+     }
+    },
+    "miryang_2022/20220601T080000Z_FX1": {
+     "departure": 0,
+     "origin": "osm:8204069660",
+     "dest": "osm:4855736873",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.11424242299995058,
+    "full_models:field:contact": 0.030971554999950968,
+    "full_models:field:dose_off": 0.02912528899997824,
+    "full_models:field:full": 0.039014581000003545,
+    "full_models:field:heat_off": 0.03710336500006406,
+    "persistence:prepare": 0.13547971100001632,
+    "persistence:field:contact": 0.05523889299996654,
+    "persistence:field:dose_off": 0.03130118000007087,
+    "persistence:field:full": 0.044511427000031745,
+    "persistence:field:heat_off": 0.030046396999978242,
+    "packet_total": 0.5472292200000197
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 5,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 5,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "packet": "20250323T010000Z",
+   "missions": {
+    "uiseong_andong_2025/20250323T010000Z_FD1": {
+     "departure": 600,
+     "origin": "osm:365847907",
+     "dest": "osm:367855398",
+     "window": [
+      0,
+      2619
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 639,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          639
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "uiseong_andong_2025/20250323T010000Z_FX2": {
+     "departure": 600,
+     "origin": "osm:12100027524",
+     "dest": "osm:10806853008",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1540,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1540
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 1.2018544609999822,
+    "full_models:field:contact": 1.168966974,
+    "full_models:field:dose_off": 1.1779592099999832,
+    "full_models:field:full": 2.521283982,
+    "full_models:field:heat_off": 2.9940901470000085,
+    "persistence:prepare": 1.5184257509999952,
+    "persistence:field:contact": 1.881025215999955,
+    "persistence:field:dose_off": 1.8438903889999665,
+    "persistence:field:full": 1.8003955640000413,
+    "persistence:field:heat_off": 2.229321894000009,
+    "packet_total": 18.337470499999995
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 43,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 28,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "packet": "20250324T090000Z",
+   "missions": {
+    "uiseong_andong_2025/20250324T090000Z_FL2": {
+     "departure": 0,
+     "origin": "osm:7836400838",
+     "dest": "osm:365846317",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1337,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1337
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1864,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1864
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 1.5371003079999355,
+    "full_models:field:contact": 0.6849506830000109,
+    "full_models:field:dose_off": 0.6032014209999943,
+    "full_models:field:full": 1.6081791589999739,
+    "full_models:field:heat_off": 1.406972666999991,
+    "persistence:prepare": 1.6229252260000067,
+    "persistence:field:contact": 1.162570761999973,
+    "persistence:field:dose_off": 0.7267102409999779,
+    "persistence:field:full": 1.5263385099999596,
+    "persistence:field:heat_off": 0.8830611209999688,
+    "packet_total": 11.762177979999933
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 31,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 10,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "uiseong_andong_2025",
+   "packet": "20250325T170000Z",
+   "missions": {
+    "uiseong_andong_2025/20250325T170000Z_FW1": {
+     "departure": 0,
+     "origin": "osm:6602597956",
+     "dest": "osm:12616949379",
+     "window": [
+      1064,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2907,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2907
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 1.5213993239999581,
+    "full_models:field:contact": 0.6065363669999897,
+    "full_models:field:dose_off": 0.5553018819999807,
+    "full_models:field:full": 1.147869548000017,
+    "full_models:field:heat_off": 1.2663358910000397,
+    "persistence:prepare": 1.8283059039999898,
+    "persistence:field:contact": 0.5913535209999736,
+    "persistence:field:dose_off": 0.8122007739999617,
+    "persistence:field:full": 0.8740867919999573,
+    "persistence:field:heat_off": 0.9790338579999798,
+    "packet_total": 10.182561042999964
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 483,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 466,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "uljin_2022",
+   "packet": "20220304T030000Z",
+   "missions": {
+    "uljin_2022/20220304T030000Z_FD1": {
+     "departure": 0,
+     "origin": "osm:3707321340",
+     "dest": "osm:3878795856",
+     "window": [
+      0,
+      1885
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 176,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          176
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "uljin_2022/20220304T030000Z_FX1": {
+     "departure": 0,
+     "origin": "osm:5554288566",
+     "dest": "osm:4744584066",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 361,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          361
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.4977565039999945,
+    "full_models:field:contact": 0.3318322969998917,
+    "full_models:field:dose_off": 0.2901143530000354,
+    "full_models:field:full": 0.470037548999926,
+    "full_models:field:heat_off": 0.4132946089999905,
+    "persistence:prepare": 0.6918889070000205,
+    "persistence:field:contact": 0.6252546659999325,
+    "persistence:field:dose_off": 0.4274500880000005,
+    "persistence:field:full": 0.6678516360000231,
+    "persistence:field:heat_off": 0.5873817130001271,
+    "packet_total": 5.003089665000061
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 1,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 1,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "uljin_2022",
+   "packet": "20220304T060000Z",
+   "missions": {
+    "uljin_2022/20220304T060000Z_FL1": {
+     "departure": 0,
+     "origin": "osm:3886478723",
+     "dest": "osm:3876644594",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1413,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1413
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.637317639999992,
+    "full_models:field:contact": 0.2657380649999368,
+    "full_models:field:dose_off": 0.16901096700007656,
+    "full_models:field:full": 0.4587892000000693,
+    "full_models:field:heat_off": 0.2734551730000021,
+    "persistence:prepare": 0.5472588989999849,
+    "persistence:field:contact": 0.3089349190000803,
+    "persistence:field:dose_off": 0.3078075370000306,
+    "persistence:field:full": 0.6683375840000281,
+    "persistence:field:heat_off": 0.33847585599994545,
+    "packet_total": 3.9752706829999624
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 31,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 26,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "uljin_2022",
+   "packet": "20220304T120000Z",
+   "missions": {
+    "uljin_2022/20220304T120000Z_FW2": {
+     "departure": 600,
+     "origin": "osm:437260708",
+     "dest": "osm:437260343",
+     "window": [
+      1655,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 2680,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          2680
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 0.5992269979999492,
+    "full_models:field:contact": 0.23991926500002592,
+    "full_models:field:dose_off": 0.2508075270000063,
+    "full_models:field:full": 0.638111846999891,
+    "full_models:field:heat_off": 0.5030003949999582,
+    "persistence:prepare": 0.6219251930000382,
+    "persistence:field:contact": 0.18069407400003,
+    "persistence:field:dose_off": 0.3204661080000051,
+    "persistence:field:full": 0.5792623190000086,
+    "persistence:field:heat_off": 0.3606887660000666,
+    "packet_total": 4.294234791000008
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 22,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 18,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "packet": "20250325T190000Z",
+   "missions": {
+    "yeongdeok_2025/20250325T190000Z_FD1": {
+     "departure": 0,
+     "origin": "osm:7622147272",
+     "dest": "osm:11685183404",
+     "window": [
+      0,
+      2981
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "dose_off": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "full@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@92": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@105": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       },
+       "heat_off@290": {
+        "feasible_at_departure": false,
+        "leave_by": null,
+        "n_intervals": 0,
+        "set": []
+       }
+      }
+     }
+    },
+    "yeongdeok_2025/20250325T190000Z_FX2": {
+     "departure": 0,
+     "origin": "osm:11665087132",
+     "dest": "osm:12045202442",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 968,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          968
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 3.93653271200003,
+    "full_models:field:contact": 3.0916364559999465,
+    "full_models:field:dose_off": 2.9343132169999535,
+    "full_models:field:full": 2.1870552619999444,
+    "full_models:field:heat_off": 3.028765539999995,
+    "persistence:prepare": 3.7775861230001055,
+    "persistence:field:contact": 2.943975111999862,
+    "persistence:field:dose_off": 2.467240254999979,
+    "persistence:field:full": 2.6719536929999776,
+    "persistence:field:heat_off": 3.458530474999975,
+    "packet_total": 30.497781845999953
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 247,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 240,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "packet": "20250325T230000Z",
+   "missions": {
+    "yeongdeok_2025/20250325T230000Z_FL2": {
+     "departure": 0,
+     "origin": "osm:11343767896",
+     "dest": "osm:12048311097",
+     "window": [
+      0,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 1558,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          1558
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 4.254050294999956,
+    "full_models:field:contact": 2.070565888000033,
+    "full_models:field:dose_off": 2.4371351150000464,
+    "full_models:field:full": 2.619032510000011,
+    "full_models:field:heat_off": 1.9490774500000043,
+    "persistence:prepare": 3.891993796999941,
+    "persistence:field:contact": 2.7958289370000102,
+    "persistence:field:dose_off": 2.1932789760001015,
+    "persistence:field:full": 3.279541792000032,
+    "persistence:field:heat_off": 2.631438057000082,
+    "packet_total": 28.12208624499999
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 49,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 48,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  },
+  {
+   "region": "yeongdeok_2025",
+   "packet": "20250326T080000Z",
+   "missions": {
+    "yeongdeok_2025/20250326T080000Z_FW1": {
+     "departure": 300,
+     "origin": "osm:11768209871",
+     "dest": "osm:11786567709",
+     "window": [
+      896,
+      3600
+     ],
+     "arms": {
+      "full_models": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       }
+      },
+      "persistence": {
+       "contact": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "dose_off": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "full@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "full@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "full@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "heat_off@92": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "heat_off@105": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       },
+       "heat_off@290": {
+        "feasible_at_departure": true,
+        "leave_by": 3004,
+        "n_intervals": 1,
+        "set": [
+         [
+          0,
+          3004
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "timing_s": {
+    "full_models:prepare": 3.794768978000093,
+    "full_models:field:contact": 2.4059682189999876,
+    "full_models:field:dose_off": 2.256701721000013,
+    "full_models:field:full": 3.1316895700000487,
+    "full_models:field:heat_off": 3.457950076999964,
+    "persistence:prepare": 4.507316005000007,
+    "persistence:field:contact": 2.9764627240000436,
+    "persistence:field:dose_off": 1.9000710599999593,
+    "persistence:field:full": 3.939233644000069,
+    "persistence:field:heat_off": 2.931542752000041,
+    "packet_total": 31.301867068000092
+   },
+   "arms": {
+    "full_models": {
+     "burning_cells": 12,
+     "members": 4,
+     "H": 3600
+    },
+    "persistence": {
+     "burning_cells": 12,
+     "members": 4,
+     "H": 3600
+    }
+   }
+  }
+ ],
+ "wall_s": 146.958811561,
+ "peak_rss_mib": 0.6950874328613281
+}

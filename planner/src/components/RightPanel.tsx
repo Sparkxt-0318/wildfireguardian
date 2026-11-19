@@ -611,10 +611,13 @@ function ProvenanceLine({ originId, plan }: { originId: string; plan: OriginPlan
   const scenarioId = useStore((s) => s.scenarioId);
   const cacheIndex = useStore((s) => s.cacheIndex);
   const entry = useMemo(() => (regionId && scenarioId ? findCacheEntry(cacheIndex, regionId, scenarioId) : null), [cacheIndex, regionId, scenarioId]);
-  const file = useProvenanceFile(entry);
+  // replay packs (features/replay) carry no deadline-provenance file: the labels are defined on the booth's 1-hour
+  // replay only, so nothing is shown rather than "not established" with that footer
+  const pack = Boolean(entry?.pack);
+  const file = useProvenanceFile(pack ? null : entry);
   const p = staffProvenance(deadlineHeadline(plan), originId, file === undefined ? undefined : file, plan);
   const text = provenanceText(p, lang);
-  if (!text) return null;
+  if (pack || !text) return null;
   return (
     <div className="caveat provenance" data-testid="provenance" data-provenance={p.kind}>
       <span>

@@ -1,0 +1,397 @@
+{
+ "source": {
+  "ground": "SRTM 1 arc-second, AWS elevation-tiles-prod (skadi)",
+  "level": "GFS HGT:850 mb, leads 6/12/18 h",
+  "model_terrain": "GFS HGT:surface, cycle 2025-03-25 00 UTC f006"
+ },
+ "fires": {
+  "KFS_01": {
+   "name": "Uiseong",
+   "positions": 21,
+   "ridge_10km_m": 782,
+   "ridge_25km_m": 925,
+   "hgt850_median_m": 1403,
+   "hgt850_min_m": 1358,
+   "hgt850_max_m": 1460,
+   "gap_to_ridge_10km_m": 621,
+   "gap_to_ridge_25km_m": 478,
+   "smallest_gap_25km_m": 433,
+   "model_terrain_4pts_m": [
+    146,
+    262,
+    163,
+    211
+   ]
+  },
+  "KFS_02": {
+   "name": "Uljin",
+   "positions": 12,
+   "ridge_10km_m": 1044,
+   "ridge_25km_m": 1259,
+   "hgt850_median_m": 1459,
+   "hgt850_min_m": 1354,
+   "hgt850_max_m": 1506,
+   "gap_to_ridge_10km_m": 415,
+   "gap_to_ridge_25km_m": 200,
+   "smallest_gap_25km_m": 95,
+   "model_terrain_4pts_m": [
+    458,
+    7,
+    317,
+    0
+   ]
+  },
+  "KFS_03": {
+   "name": "Gangneung",
+   "positions": 4,
+   "ridge_10km_m": 1023,
+   "ridge_25km_m": 1406,
+   "hgt850_median_m": 1439,
+   "hgt850_min_m": 1351,
+   "hgt850_max_m": 1459,
+   "gap_to_ridge_10km_m": 416,
+   "gap_to_ridge_25km_m": 33,
+   "smallest_gap_25km_m": -55,
+   "model_terrain_4pts_m": [
+    449,
+    17,
+    85,
+    1
+   ]
+  },
+  "KFS_04": {
+   "name": "Sancheong",
+   "positions": 5,
+   "ridge_10km_m": 1496,
+   "ridge_25km_m": 1898,
+   "hgt850_median_m": 1420,
+   "hgt850_min_m": 1370,
+   "hgt850_max_m": 1472,
+   "gap_to_ridge_10km_m": -76,
+   "gap_to_ridge_25km_m": -478,
+   "smallest_gap_25km_m": -528,
+   "model_terrain_4pts_m": [
+    551,
+    155,
+    502,
+    321
+   ]
+  },
+  "KFS_05": {
+   "name": "Hongseong",
+   "positions": 3,
+   "ridge_10km_m": 361,
+   "ridge_25km_m": 781,
+   "hgt850_median_m": 1541,
+   "hgt850_min_m": 1518,
+   "hgt850_max_m": 1549,
+   "gap_to_ridge_10km_m": 1180,
+   "gap_to_ridge_25km_m": 760,
+   "smallest_gap_25km_m": 737,
+   "model_terrain_4pts_m": [
+    30,
+    128,
+    65,
+    67
+   ]
+  },
+  "KFS_06": {
+   "name": "Ulju",
+   "positions": 3,
+   "ridge_10km_m": 785,
+   "ridge_25km_m": 1152,
+   "hgt850_median_m": 1423,
+   "hgt850_min_m": 1376,
+   "hgt850_max_m": 1470,
+   "gap_to_ridge_10km_m": 638,
+   "gap_to_ridge_25km_m": 271,
+   "smallest_gap_25km_m": 224,
+   "model_terrain_4pts_m": [
+    48,
+    0,
+    156,
+    13
+   ]
+  },
+  "KFS_07": {
+   "name": "Geumsan",
+   "positions": 3,
+   "ridge_10km_m": 645,
+   "ridge_25km_m": 891,
+   "hgt850_median_m": 1523,
+   "hgt850_min_m": 1515,
+   "hgt850_max_m": 1541,
+   "gap_to_ridge_10km_m": 878,
+   "gap_to_ridge_25km_m": 632,
+   "smallest_gap_25km_m": 624,
+   "model_terrain_4pts_m": [
+    224,
+    343,
+    133,
+    230
+   ]
+  },
+  "KFS_11": {
+   "name": "Miryang",
+   "positions": 2,
+   "ridge_10km_m": 922,
+   "ridge_25km_m": 1224,
+   "hgt850_median_m": 1451,
+   "hgt850_min_m": 1435,
+   "hgt850_max_m": 1463,
+   "gap_to_ridge_10km_m": 529,
+   "gap_to_ridge_25km_m": 227,
+   "smallest_gap_25km_m": 211,
+   "model_terrain_4pts_m": [
+    134,
+    175,
+    180,
+    230
+   ]
+  },
+  "KFS_12": {
+   "name": "Yeongdeok",
+   "positions": 3,
+   "ridge_10km_m": 572,
+   "ridge_25km_m": 929,
+   "hgt850_median_m": 1400,
+   "hgt850_min_m": 1400,
+   "hgt850_max_m": 1404,
+   "gap_to_ridge_10km_m": 828,
+   "gap_to_ridge_25km_m": 471,
+   "smallest_gap_25km_m": 471,
+   "model_terrain_4pts_m": [
+    380,
+    0,
+    357,
+    6
+   ]
+  },
+  "KFS_13": {
+   "name": "Buk-gu",
+   "positions": 2,
+   "ridge_10km_m": 651,
+   "ridge_25km_m": 1180,
+   "hgt850_median_m": 1484,
+   "hgt850_min_m": 1436,
+   "hgt850_max_m": 1504,
+   "gap_to_ridge_10km_m": 833,
+   "gap_to_ridge_25km_m": 304,
+   "smallest_gap_25km_m": 256,
+   "model_terrain_4pts_m": [
+    180,
+    230,
+    178,
+    270
+   ]
+  },
+  "KFS_15": {
+   "name": "Gunwi",
+   "positions": 2,
+   "ridge_10km_m": 875,
+   "ridge_25km_m": 1180,
+   "hgt850_median_m": 1501,
+   "hgt850_min_m": 1500,
+   "hgt850_max_m": 1504,
+   "gap_to_ridge_10km_m": 626,
+   "gap_to_ridge_25km_m": 321,
+   "smallest_gap_25km_m": 320,
+   "model_terrain_4pts_m": [
+    270,
+    207,
+    262,
+    443
+   ]
+  },
+  "KFS_17": {
+   "name": "Hapcheon",
+   "positions": 2,
+   "ridge_10km_m": 1121,
+   "ridge_25km_m": 1410,
+   "hgt850_median_m": 1481,
+   "hgt850_min_m": 1475,
+   "hgt850_max_m": 1496,
+   "gap_to_ridge_10km_m": 360,
+   "gap_to_ridge_25km_m": 71,
+   "smallest_gap_25km_m": 65,
+   "model_terrain_4pts_m": [
+    321,
+    160,
+    498,
+    198
+   ]
+  }
+ },
+ "points": {
+  "Sokcho": {
+   "province": "Gangwon",
+   "ridge_10km_m": 939,
+   "ridge_25km_m": 1701,
+   "hgt850_median_m": 1466,
+   "hgt850_min_m": 1266,
+   "hgt850_max_m": 1588,
+   "gap_to_ridge_10km_m": 527,
+   "gap_to_ridge_25km_m": -235,
+   "smallest_gap_25km_m": -435,
+   "model_terrain_4pts_m": [
+    316,
+    7,
+    41,
+    0
+   ]
+  },
+  "Gangneung": {
+   "province": "Gangwon",
+   "ridge_10km_m": 863,
+   "ridge_25km_m": 1451,
+   "hgt850_median_m": 1468,
+   "hgt850_min_m": 1272,
+   "hgt850_max_m": 1589,
+   "gap_to_ridge_10km_m": 606,
+   "gap_to_ridge_25km_m": 18,
+   "smallest_gap_25km_m": -179,
+   "model_terrain_4pts_m": [
+    551,
+    85,
+    95,
+    1
+   ]
+  },
+  "Taebaek": {
+   "province": "Gangwon",
+   "ridge_10km_m": 1565,
+   "ridge_25km_m": 1565,
+   "hgt850_median_m": 1472,
+   "hgt850_min_m": 1293,
+   "hgt850_max_m": 1590,
+   "gap_to_ridge_10km_m": -93,
+   "gap_to_ridge_25km_m": -93,
+   "smallest_gap_25km_m": -272,
+   "model_terrain_4pts_m": [
+    568,
+    683,
+    740,
+    757
+   ]
+  },
+  "Chuncheon": {
+   "province": "Gangwon",
+   "ridge_10km_m": 891,
+   "ridge_25km_m": 1460,
+   "hgt850_median_m": 1471,
+   "hgt850_min_m": 1285,
+   "hgt850_max_m": 1588,
+   "gap_to_ridge_10km_m": 580,
+   "gap_to_ridge_25km_m": 11,
+   "smallest_gap_25km_m": -175,
+   "model_terrain_4pts_m": [
+    245,
+    256,
+    484,
+    363
+   ]
+  },
+  "Wonju": {
+   "province": "Gangwon",
+   "ridge_10km_m": 1019,
+   "ridge_25km_m": 1258,
+   "hgt850_median_m": 1473,
+   "hgt850_min_m": 1289,
+   "hgt850_max_m": 1589,
+   "gap_to_ridge_10km_m": 454,
+   "gap_to_ridge_25km_m": 215,
+   "smallest_gap_25km_m": 31,
+   "model_terrain_4pts_m": [
+    160,
+    436,
+    261,
+    328
+   ]
+  },
+  "Uljin": {
+   "province": "Gyeongbuk",
+   "ridge_10km_m": 431,
+   "ridge_25km_m": 1165,
+   "hgt850_median_m": 1472,
+   "hgt850_min_m": 1290,
+   "hgt850_max_m": 1591,
+   "gap_to_ridge_10km_m": 1041,
+   "gap_to_ridge_25km_m": 307,
+   "smallest_gap_25km_m": 125,
+   "model_terrain_4pts_m": [
+    458,
+    7,
+    317,
+    0
+   ]
+  },
+  "Yeongdeok": {
+   "province": "Gyeongbuk",
+   "ridge_10km_m": 566,
+   "ridge_25km_m": 987,
+   "hgt850_median_m": 1474,
+   "hgt850_min_m": 1294,
+   "hgt850_max_m": 1592,
+   "gap_to_ridge_10km_m": 908,
+   "gap_to_ridge_25km_m": 487,
+   "smallest_gap_25km_m": 307,
+   "model_terrain_4pts_m": [
+    357,
+    6,
+    464,
+    46
+   ]
+  },
+  "Pohang": {
+   "province": "Gyeongbuk",
+   "ridge_10km_m": 335,
+   "ridge_25km_m": 866,
+   "hgt850_median_m": 1478,
+   "hgt850_min_m": 1297,
+   "hgt850_max_m": 1592,
+   "gap_to_ridge_10km_m": 1142,
+   "gap_to_ridge_25km_m": 612,
+   "smallest_gap_25km_m": 431,
+   "model_terrain_4pts_m": [
+    125,
+    63,
+    380,
+    0
+   ]
+  },
+  "Andong": {
+   "province": "Gyeongbuk",
+   "ridge_10km_m": 552,
+   "ridge_25km_m": 859,
+   "hgt850_median_m": 1475,
+   "hgt850_min_m": 1293,
+   "hgt850_max_m": 1591,
+   "gap_to_ridge_10km_m": 923,
+   "gap_to_ridge_25km_m": 616,
+   "smallest_gap_25km_m": 434,
+   "model_terrain_4pts_m": [
+    163,
+    211,
+    283,
+    272
+   ]
+  },
+  "Sangju": {
+   "province": "Gyeongbuk",
+   "ridge_10km_m": 783,
+   "ridge_25km_m": 881,
+   "hgt850_median_m": 1478,
+   "hgt850_min_m": 1292,
+   "hgt850_max_m": 1590,
+   "gap_to_ridge_10km_m": 695,
+   "gap_to_ridge_25km_m": 597,
+   "smallest_gap_25km_m": 411,
+   "model_terrain_4pts_m": [
+    307,
+    155,
+    311,
+    121
+   ]
+  }
+ }
+}

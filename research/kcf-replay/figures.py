@@ -117,6 +117,75 @@ def timeline(R, out):
     plt.close(fig)
 
 
+ARM_LANES = ("ORDINARY", "RUNNING", "WORST", "MEASURED", "MEASURED_GUST", "MEASURED_GUST_KMA")
+ARM_LABEL = {"ORDINARY": "ORDINARY", "RUNNING": "RUNNING", "WORST": "WORST", "MEASURED": "MEASURED (spread class)",
+             "MEASURED_GUST": "MEASURED+GUST (ERA5, PROVISIONAL)",
+             "MEASURED_GUST_KMA": "MEASURED+GUST (KMA ASOS)"}
+
+
+def timeline_csv(per_place_csv, out, hz="8h"):
+    """Same figure as timeline(), read from the merged per_place.csv so the three stand-in rows need no rerun and the two
+    MEASURED arms are added as lanes 4 and 5 (nothing removed or relabelled)."""
+    import csv
+    rows = {}
+    for r in csv.DictReader(open(per_place_csv, encoding="utf-8")):
+        if r["region"] == "yeongdeok_2025" and r["horizon"] == hz:
+            rows[(r["place_id"], r["standin"], r["issue_kst"])] = r
+    issues = sorted({key[2] for key in rows})
+    fig, axes = plt.subplots(len(NAMED), 1, figsize=(15, 3.4 * len(NAMED)), sharex=True)
+    x0, x1 = k(11, 50), k(1, 10, 26)
+    n = len(ARM_LANES)
+    for ax, (pid, label) in zip(axes, NAMED):
+        for lane, st in enumerate(ARM_LANES):
+            y = n - 1 - lane
+            for ik in issues:
+                r = rows.get((pid, st, ik))
+                if not r:
+                    continue
+                mo_day, hm = ik.split(" ")
+                hh = int(hm[:2]); day = int(mo_day[3:])
+                t0 = datetime(2025, 3, day, hh, 0, tzinfo=KST)
+                ax.add_patch(plt.Rectangle((t0, y - 0.35), timedelta(hours=1), 0.7, color=STEP_COL[r["government_step"]], lw=0))
+                if r["departure_state"] == "LATEST_SAFE_DEPARTURE":
+                    mo2, hm2 = r["latest_safe_departure_kst"].split(" ")
+                    ld = datetime(2025, 3, int(mo2[3:]), int(hm2[:2]), int(hm2[3:5]), tzinfo=KST)
+                    if ld <= x1:
+                        ax.plot([t0, ld], [y, y], color="k", lw=0.6, alpha=0.5)
+                        ax.plot(ld, y, marker="|", color="k", ms=10, mew=2)
+                elif r["departure_state"] in ("INSIDE_KNOWN_FIRE_AREA", "NO_SAFE_DEPARTURE"):
+                    ax.text(t0 + timedelta(minutes=30), y, "×", ha="center", va="center", fontsize=9)
+            ax.text(x0 - timedelta(minutes=5), y, ARM_LABEL[st], ha="right", va="center", fontsize=8)
+        for t, kind, txt in DOC.get(pid, []):
+            m, c = KIND_STYLE[kind]
+            ax.plot(t, n + 0.15, marker=m, color=c, ms=9 if kind == "fire" else 7)
+            ax.axvline(t, color=c, lw=0.6, ls=":" if kind != "fire" else "-", alpha=0.8)
+        for i, (t, kind, txt) in enumerate(sorted(DOC.get(pid, []))):
+            ax.text(t + timedelta(minutes=2), n + 0.45 + 0.62 * (i % 4), txt, fontsize=7, color=KIND_STYLE[kind][1], ha="left",
+                    va="bottom", bbox=dict(fc="white", ec="none", pad=0.5, alpha=0.8))
+        ax.set_ylim(-0.6, n + 3.1)
+        ax.set_yticks([])
+        ax.set_title(label, loc="left", fontsize=11, fontweight="bold")
+        for s in ("top", "right", "left"):
+            ax.spines[s].set_visible(False)
+    import matplotlib.dates as mdates
+    axes[-1].xaxis.set_major_locator(mdates.HourLocator(tz=KST))
+    axes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%H:%M", tz=KST))
+    axes[-1].set_xlim(x0, x1)
+    axes[-1].set_xlabel("2025-03-25 ~ 26 KST")
+    handles = [plt.Rectangle((0, 0), 1, 1, color=STEP_COL[s]) for s in STEP_COL] + \
+              [plt.Line2D([], [], marker="|", color="k", ls="", ms=10, mew=2)] + \
+              [plt.Line2D([], [], marker=KIND_STYLE[x][0], color=KIND_STYLE[x][1], ls="") for x in ("alert", "road", "fire", "other")]
+    labels = [STEP_KO[s] for s in STEP_COL] + [f"latest safe departure shown at that hour ({hz})", "documented alert/order",
+                                                  "documented road closure", "documented fire at the place", "other documented event"]
+    fig.legend(handles, labels, loc="lower center", ncol=5, fontsize=8, frameon=False)
+    fig.suptitle("What the screen would have shown, hour by hour (each block = one issue hour; row = R(h) arm:\n"
+                 "3 stand-ins + MEASURED + MEASURED+GUST (ERA5, PROVISIONAL) + MEASURED+GUST (KMA)), vs documented times (all single-source; SOURCES.md)",
+                 fontsize=10)
+    fig.tight_layout(rect=(0.03, 0.04, 1, 0.97))
+    fig.savefig(out, dpi=130)
+    plt.close(fig)
+
+
 def roads(region):
     raw = json.loads((ROOT / f"data/routing/graphs/{region}/graph.json").read_text())
     xy = {n["id"]: (n["x"], n["y"]) for n in raw["nodes"]}

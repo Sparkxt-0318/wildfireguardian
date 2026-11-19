@@ -136,6 +136,7 @@ Separate work is required on scenario support, causal forecast alignment and ful
 | Experimental research tracks | [`experimental/`](experimental/) | [Current gates and evidence](research/next-combined/README.md) |
 | HTTP Route-Check API | [`api/`](api/) | [Service setup and contracts](api/README.md) |
 | Village evacuation planner | [`planner/`](planner/README.md) | Leave-by times per village and care facility; [quick start](planner/README.md#quick-start) |
+| Village road cut-off sheets (offline CLI) | [`product/wfg-roadlayer/`](product/wfg-roadlayer/README.md) | Fire-arrival raster → per-village CSV, one A4 sheet per 읍·면 and re-checkable certificates; [input format](product/wfg-roadlayer/INTERFACE.md) |
 | Monte Carlo extension | [`monte-carlo-extension/`](monte-carlo-extension/EXTENSION_GUIDE.md) | Separately versioned optional study |
 
 ## 1 Install the final routing API

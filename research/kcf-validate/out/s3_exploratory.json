@@ -1,0 +1,16 @@
+{
+ "label": "EXPLORATORY, not in the frozen protocol. Model output on reconstructed inputs. Not what happened to people.",
+ "primary_map": "raw DN, dNBR >= 0.10",
+ "new_burned_cells_not_in_known_area_at_T": 66,
+ "of_which_beyond_R8": 26,
+ "new_detected_by_FIRMS_AHI_between_T_and_t_S": 0,
+ "beyond_R8_in_Choi_reached_at_t_S": 0,
+ "beyond_R8_in_known_area_at_t_S": 0,
+ "new_cells_in_Choi_reached_at_t_S": 27,
+ "beyond_R8_column_range_0_237": [
+  6,
+  65
+ ],
+ "discs_added_between_T_and_t_S": 1,
+ "reading": "No FIRMS/AHI disc is added between T and t_S that touches a satellite-burned cell outside the known area at T; the 23-24 March interval holds no detected growth, so this scene has little power to test the 8 h margin."
+}
