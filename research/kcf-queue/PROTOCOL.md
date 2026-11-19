@@ -178,4 +178,13 @@ answer" of the cards.
 
 ## 9 Amendments
 
-(none yet)
+**Amendment 1, 2026-11-19** (before any real-data outcome; T0, T1, T2 had been run). (a) `CERTIFICATE_SPEC.md` R1 gets an
+optional neighbour field `ks`, because a neighbour whose some vehicles cannot be routed cannot otherwise be written
+into a certificate (§3.7 says such vehicles reserve nothing). The checker was extended and its tests rerun; no model
+rule changes. (b) The solver rejects at once any vehicle released after the free-flow latest departure `L0` of its
+village. This is exact (no departure after `L0` has a route even without queues) and changes no answer; it only avoids
+exhaustive failing searches. T1 and T2 are rerun on the final code and the rerun is the one reported. (c) Certificates
+are written for every MID answer only for the two card cases (Uiseong-Andong 12:00 KST, Yeongdeok 18:00 KST); every
+MID answer is *checked* by the checker during the run, LOW/HIGH ISOLATED answers are all checked and LOW/HIGH CONTESTED
+answers are checked for the villages whose id has `crc32 % 5 == 0`. Certificate files for all answers are not committed
+(size); their verdicts are. This is the reading of "each answer gets a certificate" that fits the repository.

@@ -35,8 +35,26 @@ def reg(rid):
     return _R[rid]
 
 
+CARD_CASES = {("uiseong_andong_2025", 3), ("yeongdeok_2025", 9)}
+
+
+def policy(name, rid, hu):
+    import zlib
+
+    def f(pn, scen, vid):
+        if name == "none":
+            return None
+        if name == "mid":
+            return "store" if (rid, hu) in CARD_CASES else "check"
+        if name == "lh":
+            return "check" if scen == "ISOLATED" or zlib.crc32(vid.encode()) % 5 == 0 else None
+        raise ValueError(name)
+    return f
+
+
 def job(arg):
-    rid, hu, pnames, check_policy = arg
+    rid, hu, pnames, pol = arg
+    check_policy = policy(pol, rid, hu)
     t0 = time.time()
     R = reg(rid)
     T = datetime(2025, 3, 25, hu, tzinfo=timezone.utc)
