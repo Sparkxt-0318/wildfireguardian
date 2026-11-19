@@ -191,4 +191,24 @@ number is written to `numbers.json` by code. Labels: MEASURED, ASSUMED, ORACLE, 
 
 ## Amendments
 
-(none at freeze)
+(none at freeze; implementation notes follow)
+
+No rule, split, label, metric or target was changed after the freeze. The notes below record choices the frozen text
+left open and the order in which things were seen. Written 2026-11-19 after all runs.
+
+1. **Order of first looks on CA-DEV.** Before the archive input existed, the tracker without it (the comparator
+   TRACKER-noarchive) was scored on CA-DEV to check the code (M1 342.7, M2 19 of 72), and one diagnostic of its state
+   probability was printed (reliability by bin, emission table, AUC of single inputs). Proposals 1 to 6 were written
+   from that diagnostic. Version 0 was scored afterwards (M1 342.7). FIXED, QUANTILE and version 0 with the update
+   or the forecast off were also scored on CA-DEV before the loop (`derived/dev_log.jsonl`).
+2. **Archive.** GlobFire v3, year file 2021 (PANGAEA 943975), 42,593 fires kept of 929,479. Distances are computed in
+   a local plane around each fire rather than a formal equal-area projection. GlobFire's burn date is taken as the
+   local day. 31,126 of 415,480 fire-days have no issued forecast (before 1 January 2021 or one of 5 cycles missing
+   from the NOAA bucket in February 2021) and are not used. Su & Yu has no daily geometry; FIRED answered 403.
+3. **Burden set.** A burden point is run as a fire with no detections: every own-past input 0. For TRACKER-nofc the
+   score at a burden point is one constant, so the burden set puts no limit on it; its warning count is not an
+   equal-burden number and is reported only with that statement.
+4. **Alarm timeline.** Target A uses every issue hour of kcf-aloft's primary timeline (791), including 36 hours with
+   fewer than 3 earlier hours, which kcf-adaptive2's eligibility drops; the area and miss of target B use the 756
+   eligible hours. Models are fitted on eligible hours only.
+5. **Filter detail.** A gap in a fire's hours is bridged by at most 48 prediction steps.
