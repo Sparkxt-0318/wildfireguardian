@@ -182,6 +182,31 @@ def twin(out):
     print(json.dumps(verdict))
 
 
+def replay(out):
+    """Secondary, RECONSTRUCTED truth (the detection record): same metrics, clusters = region-hours."""
+    out = Path(out)
+    rows = []
+    for rid in lib.REGIONS:
+        origins = {o["id"]: o["node"] for o in lib.region(rid).origins}
+        for T in lib.REPLAY_ISSUES:
+            tag = "%s_%s" % (rid, T.strftime("%H"))
+            res = json.loads((out / "replay" / (tag + ".json")).read_text())
+            bc = json.loads((out / "replay" / (tag + "_bc.json")).read_text())
+            rules = {"a": res["rules"]["a"], "b": bc["rules"]["b"], "c": bc["rules"]["c"], "d": res["rules"]["d"], "e": res["rules"]["e"]}
+            truth = {"rules": res["rules"]["truth"], "close_s": res["close_s"]["truth"]}
+            rows += place_rows(rid, truth, rules, origins, tag, {"region": rid, "hour_utc": T.strftime("%H")})
+    write_csv(out / "replay_rule_places.csv", rows)
+    summ = {k: summary(rows, k) for k in RULES}
+    boot = bootstrap(rows, RULES, "tag")
+    res = {"label": "RECONSTRUCTED truth (detection record), secondary", "summary": summ, "bootstrap": boot}
+    (out / "replay_scores.json").write_text(json.dumps(res, indent=1))
+    for k in RULES:
+        s = summ[k]
+        print("%-15s failed %4d/%4d late %4d missed %3d/%3d false %4d/%4d lead med %s (n %d)" % (
+            s["name"], s["failed"], s["advised"], s["late"], s["missed"], s["true_cut"], s["false"], s["true_not_cut"],
+            s["lead_median_min"], s["lead_n"]))
+    print(json.dumps(boot["diff_vs_a"], indent=1))
+
+
 if __name__ == "__main__":
-    if sys.argv[1] == "twin":
-        twin(sys.argv[2])
+    {"twin": twin, "replay": replay}[sys.argv[1]](sys.argv[2])

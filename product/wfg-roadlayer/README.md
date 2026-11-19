@@ -105,6 +105,24 @@ The tool refuses to output a number when an input is missing or stale and says w
 
 The limits are in `wfg_roadlayer/settings.toml`; copy it, edit, and pass `--settings`.
 
+### Optional: fragility (`--fragility`)
+
+`run --fragility` appends four columns to both CSVs and writes one extra A4 page per 읍·면
+(`<out>/ko/fragility/`, `<out>/en/fragility/`); without the switch nothing changes. For leaving **now**:
+
+| column | meaning |
+|---|---|
+| 견디는 추가 화재 확산 / tolerated extra fire reach (km) | the largest distance (0.125 km steps, up to 15 km) the fire may spread beyond the input raster, at every moment, while a safe route out still exists |
+| 추가 확산에 먼저 끊기는 도로 / road that fails first under extra reach | on the route that still works at that limit, the road with the least time between the vehicle entering it and its closure |
+| 견디는 도로 차단 시각 오차 / tolerated closure-timing error (min) | the largest time (1 min steps) by which every closure may come earlier while a safe route out still exists |
+| 시각 오차에 먼저 끊기는 도로 / road that fails first under timing error | as above, at the timing limit |
+
+Because every closure in this tool is permanent, the tolerated timing error for leaving now equals the time left
+until the leave-by time (research/kcf-robust shows this for every village); the reach column is the one that adds
+information. It needs an EPSG:5179 raster input (not a packet). Method: `wfg_roadlayer/fragility.py` (forward search
+per closure level, bisection; numpy only), checked against an independent backward pass in research/kcf-robust.
+Results and limits: `research/kcf-robust/RESULTS.md`.
+
 ### Re-verifying an answer without the tool
 
 ```bash
