@@ -1,0 +1,4 @@
+uiseong_andong_2025 {'raster_equal_committed': True, 'generic_curve_equal': True, 'pairs_checked': 756, 'mismatches': 0, 'places_L_mismatch': 0, 'product_s': 2.6, 'compiled_3levels_s': 2.11}
+yeongdeok_2025 {'raster_equal_committed': True, 'generic_curve_equal': True, 'pairs_checked': 810, 'mismatches': 0, 'places_L_mismatch': 0, 'product_s': 50.0, 'compiled_3levels_s': 2.58}
+
+[exited with code 0]

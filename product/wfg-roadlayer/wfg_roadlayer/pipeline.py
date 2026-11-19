@@ -66,12 +66,23 @@ def _sha(b: bytes) -> str:
 
 def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, not_reached_value=None, as_of=None,
         settings_path=None, out=None, workers=None, assume_uncovered=False, overwrite=False, cache=None, log=print,
-        heat=None, heat_threshold=None) -> dict:
+        heat=None, heat_threshold=None, fragility=False) -> dict:
     t0 = time.perf_counter()
+    if fragility:  # the fragility columns are computed from the raster closures only; heat closures are not included
+        heat_on = bool(heat) if heat is not None else bool(settings_mod.load(settings_path)["heat"]["enabled"])
+        if heat_on:
+            raise Refusal(reason("FRAGILITY_WITH_HEAT",
+                                 "--fragility 는 복사열 도로 폐쇄를 반영하지 않습니다. --heat 없이 실행하십시오.",
+                                 "--fragility does not include the heat closures; run it without --heat."))
     c = compute(region_name=region_name, issue_time=issue_time, raster=raster, packet=packet, horizon_min=horizon_min,
                 not_reached_value=not_reached_value, as_of=as_of, settings_path=settings_path, out=out, workers=workers,
                 assume_uncovered=assume_uncovered, overwrite=overwrite, cache=cache, log=log, heat=heat,
                 heat_threshold=heat_threshold)
+    if fragility:  # optional columns and pages (research/kcf-robust); off by default, nothing else changes
+        from . import fragility as frag_mod
+        t_f = time.perf_counter()
+        c["fragility"] = frag_mod.compute(c, raster, HERE.parent, log=log)
+        c["fragility_s"] = round(time.perf_counter() - t_f, 1)
     return _write_outputs(c, t0)
 
 
@@ -189,6 +200,8 @@ def _write_outputs(c: dict, t0: float) -> dict:
            "run_label": "wfg-roadlayer %s · %s · %s%s" % (__version__, rid, fire.issue_utc.strftime("%Y%m%dT%H%MZ"),
                                                          (" · heat %g kW/m²" % c["heat"]["threshold_kw_m2"]) if c.get("heat") else ""),
            "assumed_uncovered": len(fire.uncovered) if assume_uncovered else 0}
+    if c.get("fragility") is not None:
+        ctx["fragility"] = c["fragility"]
     files = {}
 
     def put(rel: str, data: bytes):
@@ -215,6 +228,12 @@ def _write_outputs(c: dict, t0: float) -> dict:
             fs = pdfsheet.build(tmp / rel, lang, c_lab, t_lab, grp, ctx)
             files[rel] = _sha((tmp / rel).read_bytes())
             sheets.append({"file": rel, "villages": len(grp), "font_pt": fs})
+            if c.get("fragility") is not None:
+                from . import fragsheet
+                frel = rel.replace("/sheets/", "/fragility/")
+                ffs = fragsheet.build(tmp / frel, lang, c_lab, t_lab, grp, ctx, c["fragility"])
+                files[frel] = _sha((tmp / frel).read_bytes())
+                sheets.append({"file": frel, "villages": len(grp), "font_pt": ffs, "kind": "fragility"})
     cdir = tmp / "certificates"
     raw = certs.instance_bytes(region.road, inst, close_s, H, dwell, c.get("hc"))
     inst_sha = certs.write_instance(cdir, raw)
@@ -260,6 +279,10 @@ def _write_outputs(c: dict, t0: float) -> dict:
         "heat": c.get("heat"),
         "counts": dict(sorted(counts.items())), "villages": len(rows), "certificates": ncert, "sheets": sheets,
         "files_sha256": dict(sorted(files.items())),
+        **({"fragility": {"method": "research/kcf-robust; wfg_roadlayer/fragility.py", "reach_step_km": 0.125, "reach_max_km": 15.0,
+                          "timing_step_s": 60, "seconds": c.get("fragility_s"),
+                          "villages": {k: {kk: vv for kk, vv in v.items() if kk != "method"} for k, v in sorted(c["fragility"].items())}}}
+           if c.get("fragility") is not None else {}),
         "run_time_s": {"total": run_time, "field": round(t_field - t_in, 1), "outputs": round(t_out - t_field, 1), "workers": nw},
         "versions": {"python": platform.python_version(), "numpy": __import__("numpy").__version__,
                      "reportlab": __import__("reportlab").Version},

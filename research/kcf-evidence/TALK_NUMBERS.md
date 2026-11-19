@@ -206,6 +206,23 @@ Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/pa
 | Finals packets, lost leave-now windows, 4.7 kW/m2 | **22 of 425**; old law 0; with known-fire cells silent (exploratory) **0** | 425 place-inputs | `summary.json`, `exploratory_front_only.json` | a real effect: all 22 come from the capped spread rate inside the known fire |
 | Road layer heat option | `--heat`, **off by default**; certificates still verify with it on | 2 worked examples | `product/wfg-roadlayer/README.md` | a validated default: it would ship the two artefacts above |
 
+## 15. Robust routing (kcf-robust): does the margin field improve an outcome? Twin primary, 25 Mar 2025 secondary
+
+Files: `research/kcf-robust/RESULTS.md`, `PROTOCOL.md`, `out/twin_scores.json`, `out/replay_scores.json`, `out/official_scores.json`, `out/fragility_174.csv`. **Model output on a synthetic twin and a reconstruction; no claim about what happened to people.**
+
+| item | value | n | source file | does not show |
+|---|---|---|---|---|
+| Pre-registered test: a robust rule with fewer failed evacuations than CURRENT, interval excluding 0, at equal or less lead given up | **none of 3 passes** (time-robust, reach-robust, forecast-aware) | 2,160 place-pairs, 12 twin fires | `out/twin_scores.json` (`verdict`) | that robustness cannot help; only that it did not here, with 5 baseline failures to beat |
+| Failed evacuations, twin: CURRENT / time-robust / reach-robust / fastest / forecast-aware | **5 / 0 / 1 / 7 / 4** (of 210 / 0 / 30 / 26 / 127 advised) | 2,160 | `out/twin_scores.json` (`summary`) | time-robust's 0 is no advice at all: it advises no departure and misses 57 of 221 cut-offs |
+| Reach-robust vs CURRENT: failures, and lead time given up | **−4 [−9, 0]**; gives up **+29 min** more [+8, +91] | 12 fire clusters | `out/twin_scores.json` (`bootstrap`) | a significant gain: the interval reaches 0 |
+| Forecast-aware vs CURRENT: failures; lead given up; false cut-offs | **−1 [−6, +3]**; **−30 min** [−63, +3]; false **73 vs 146** | 2,160 | `out/twin_scores.json` | fewer failures; it misses more (20 vs 12 of 221) |
+| Margin field equals the timing slack L − t (permanent closures) | **56 / 56** pairs at t = 0; every second where fire binds | 56 origin–shelter pairs | `out/check_margin.json` | the case of roads that reopen, which this product does not model |
+| CURRENT reproduces kcf-validate's twin baseline | **2,160 / 2,160** place-pairs; 12 / 221 missed, 146 / 1,939 false | 2,160 | `out/twin_scores.json` (`baseline_check`) | anything new; it is the harness check |
+| 25 Mar alert times: closest rule (median abs. minutes, first / median village) | forecast-aware **32 / 28 min**; CURRENT 126 / 53 min | 12 alert units | `out/official_scores.json` | causality or order: rank correlations 0.3–0.6 overlap for all rules |
+| 25 Mar against the detection record: CURRENT failed evacuations | **184 / 349** advised; the fire ran **2.3–4.3 h** ahead of every rule's median leave-by | 2,262 place-hours | `out/replay_scores.json` | a perimeter: truth is the detection record (RECONSTRUCTED) |
+| Fragility table: village-hours with no safe departure now / tolerating < 1 km extra reach | **1,128 / 2,262**; **76** below 1 km | 174 places x 13 hours | `out/fragility_174.csv` | a forecast of failure; the reach column is "if the fire goes this much further than the input" |
+| Product `--fragility` vs independent research pass | **2,262 / 2,262** reach and timing values equal; binding road 512 / 549 | 2,262 | `out/fragility_check.json` | why the binding road differs in 37 reach cases (not examined; the reach values themselves agree) |
+
 ## Ten likely judge questions
 
 1. **Is the deadline field just faster, or is it right?** It reproduced all 7,771 recorded routes and 1,468 no-routes with zero disagreements, and it decided all 297 unresolved cases (row 1). Speed is not claimed: no clean summed timing is committed, and the host differs from the one that recorded the checks (row 1).
