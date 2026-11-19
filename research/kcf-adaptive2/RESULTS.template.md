@@ -19,13 +19,14 @@ rate checked on fires held out of every fit), the data say:
    model* works, while *adapting a model to each fire* does not: the per-fire Kalman update is worse than its own
    non-adaptive twin (area ratio 1.19, interval 1.04 to 1.42) and worse than the fixed margin (1.50); Reptile meta-learning
    with test-time adaptation is no better than its own starting point (ratio 1.01, 0.97 to 1.06) and does not beat the fixed
-   margin (0.97, 0.82 to 1.15).
+   margin (0.97, 0.82 to 1.15). At 8 h adaptation is again never better than its twin and is significantly worse for META
+   (1.022, 1.001 to 1.046), KALMAN (1.322, 1.161 to 1.555) and the covariate tail of EVT (1.134, 1.021 to 1.292).
 3. **Reason 3 (unequal miss rates) is real but is not what hid a gain.** All 18 variants land at 9.6% to 10.9% held-out miss;
    comparing at the held-out 10% instead of the calibrated point changes no ranking. REGIME's apparent 5% gain is mostly its
    10.9% miss rate: at exactly 10% its area equals the fixed margin's (328.7 against 326.9 km2).
 4. **Reason 4 (few fires) is not supported.** The learning curve is flat from 4 to 24 training fires (area ratio to the fixed
-   margin 0.85 at every n), 19 more fires from another archive add nothing (0.880 against 0.866 without), and a simulator
-   adds nothing (0.904).
+   margin 0.85 at every n), 19 more fires from another archive add nothing at 5 h (0.880 against 0.866 without) and a little at 8 h (0.949 of the model
+   without them, 0.885 to 1.003: not distinguishable from 1), and a simulator adds nothing (0.904 at 5 h; worse at 8 h, 1.068).
 5. **None of it transferred to Korea, and none of it saw 25 March 2025 coming.** With margins calibrated on California,
    every learned method flags more area than the fixed margin on 12 Korean fires, and on 25 March no margin larger than
    about 12 km was issued before the fire had been running 30 km reaches for hours.
@@ -155,6 +156,12 @@ product). Counts only: one fire, one day. Area is capped at q = 60 km, so the ve
 ## 6. h = 8 replication (identical code, DEV)
 
 {H8}
+
+Reading (h = 8): only QUANTILE (0.877), QUANTILE-fc (0.907), REGIME (0.916, at a 11.2% miss rate: at held-out 10% its area is 428.4 against
+FIXED's 433.4, no gain) and EVT-twin (0.882, 10.9% miss, read at held-out 10%: 395.6, ratio 0.91) pass the frozen rule. Every
+adaptive method fails again. The gain from using the fire's recent growth and the forecast as inputs to one global model is
+therefore real at both horizons but smaller at 8 h, and its size depends on which model and features are used. Paired
+comparisons against the twins at h = 8 are in `derived/tables_h8.md`.
 
 ## 7. Limits
 
