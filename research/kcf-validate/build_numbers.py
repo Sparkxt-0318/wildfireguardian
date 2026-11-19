@@ -9,14 +9,16 @@ TW = json.loads((H / "out/twin_summary.json").read_text())
 NI = json.loads((H / "out/nist_lag.json").read_text())
 JA = json.loads((H / "out/jaenan_summary.json").read_text())
 KD = json.loads((H / "out/kec_daily_summary.json").read_text())
+PA = json.loads((H / "out/paradise/paradise_summary.json").read_text())
+VD = json.loads((H / "out/vds/vds_summary.json").read_text())
 num = {
     "label": "Model output on reconstructed inputs or synthetic truth. Not what happened to people.",
     "protocol": "research/kcf-validate/PROTOCOL.md (amendments 1-2)",
     "sources": {
-        "1_KEC_traffic": {"status": "PARTLY_OBTAINED_DAILY_ONLY", "why": "user-supplied dataset 512 daily section volumes 22-27 Mar; 15-minute API 0305 needs a key, 15-minute files need a login; closure times and surges not derivable"},
+        "1_KEC_traffic": {"status": "OBTAINED_15MIN_SECTION_IDENTITY_UNCERTAIN", "why": "user-supplied dataset 148 15-minute VDS (March 2025) and dataset 512 daily; no conzone names, route 0300 unmappable, route 0550 mapping position-uncertain; needs KEC dataset 157 conzone table"},
         "2_emergency_texts": {"status": "OBTAINED", "why": "user-supplied export (62,192 rows), 312 messages for the five counties + 경북 전체, 22-27 Mar 2025; 23 of 29 REPORTED rows replaced"},
         "3_satellite": {"status": "OBTAINED_IN_PART", "scene": "Sentinel-2 L2A 2025-03-24 02:17 UTC (52SDF, 52SEF); GK-2A needs data.kma.go.kr + login (not attempted); Landsat not used"},
-        "4_NIST_Camp_Fire": {"status": "PARTLY_OBTAINED", "why": "tables extracted from the two PDFs; no fire-arrival field; roadlayer run on Paradise NOT run (no field, no Paradise graph)"},
+        "4_NIST_Camp_Fire": {"status": "TABLES_EXTRACTED_PARADISE_RUN_ON_RECONSTRUCTED_FIELD", "why": "no arrival field as data; field reconstructed from geocoded progression rows (LOO median error 101 min); roadlayer engine called directly (CLI is EPSG:5179-bound)"},
         "5_twin": {"status": "RUN", "seeds": TW["seeds"]},
         "6_prospective_log": {"status": "STARTED_NO_ENTRY", "why": "no active Korean fire identified (web search only; FIRMS/KFS unreachable)"},
     },
@@ -32,6 +34,8 @@ num = {
     "source4_nist_camp_fire": NI,
     "source2_jaenan_munja": JA,
     "source1_kec_daily": KD,
+    "source4_paradise_run": PA,
+    "source1_vds15_route0550": VD,
     "source5_twin": TW,
 }
 (H / "numbers.json").write_text(json.dumps(num, indent=1))

@@ -240,3 +240,79 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
 
 8. **2026-11-18 ~23:26 UTC, after the third-pass results.** Clerical (and the times first written for amendments 6-8, 23:40, 23:55 and "00:20 on 19 Nov", were estimates and are corrected here to the commit/clock times above): §5's sentence "the count of replaced rows is 0" is superseded by amendments 4, 6 and 7:
    **23 of the 29 REPORTED rows** carry an official 재난문자 time (RESULTS.md rows 2a-2c); 6 stay REPORTED. Nothing else in §1-§5 changes.
+
+9. **2026-11-18 ~23:5x UTC (user asked for the Paradise run; before any Paradise graph, field or comparison was built).** What was read: Overture release
+   2026-10-21.0 *schema and counts only* for the bbox lon −121.95…−121.45, lat 39.65…39.95 (22,094 transportation segments; 8,503 places), the class
+   histogram of the segments, and `product/wfg-roadlayer`'s `RoadModel`/`engine` code. Facts that shape the rule: the CLI's raster reader hard-codes EPSG:5179
+   (Korean TM), so a Paradise raster cannot go through `roadlayer run`; the **engine** (vendored F-3.1 `deadline_field`, `engine.build_instance/run_passes`)
+   and `RoadModel` are generic. The Paradise run therefore calls those directly from `research/kcf-validate/paradise/`, with no change to the product.
+   * **Road graph (ASSUMED, fixed now).** Overture segments, subtype road, classes motorway, trunk, primary, secondary, tertiary, unclassified, residential,
+     living_street (no service, track, path, footway). Present-day network as a proxy for 2018 (rebuilt since; stated). All roads two-way (no one-way data
+     used). Free-flow speeds, km/h: motorway 100, trunk 80, primary 70, secondary 60, tertiary 50, unclassified 40, residential 30, living_street 15; no congestion.
+     CRS EPSG:32610, grid 375 m (the replay's cell size) over the bbox; nodes = Overture connectors; one directed edge pair per segment piece between consecutive
+     connectors; `travel_ticks = max(1, ceil(length_m / speed_m_per_s))`; forbidden turns = U-turn (edge to its reverse).
+   * **Fire field = a reconstruction from records, not NIST's own map.** Observations O = rows of TN 2135 fire-progression tables 11-32 (date, start time,
+     Location column text) whose Location geocodes to a point on the Overture road network (rule: "X and/at/near Y" → the point where the two named roads
+     come closest, ≤ 150 m; a single road + a named place → the named Overture place within 300 m; otherwise not geocoded). Times: minutes after 2018-11-08 00:00
+     PST. Field: thin-plate-spline RBF (`scipy.interpolate.RBFInterpolator`, smoothing 1.0 min², K = all observations) of arrival time at the 375 m cell centres;
+     a cell is "not reached" if farther than 2 km from every observation; arrival is capped to be ≥ the earliest observation time and monotone repair is NOT applied.
+     Leave-one-out error of the field is reported. Coverage (rows geocoded / rows) is reported, not hidden.
+   * **Closure and run (as roadlayer).** A cell closes at its arrival second after the issue time T (ceil), for the rest of the horizon (no reopening); H = 8 h; the
+     engine builds the instance exactly as `engine.build_instance`; origins = residential-road intersections (connectors with ≥ 2 residential/tertiary segments) thinned to
+     ≥ 750 m spacing inside the observation hull ∪ 2 km; shelters = Overture places of basic_category in {school, hospital, community_center/place_of_worship, emergency
+     shelter} outside the field's reached area at all issue times and within the bbox (the replay's k = 3 nearest by straight line, distinct entry nodes). Issue times
+     T = 07:30, 08:00, 08:30, 09:00 PST on 8 Nov 2018 (all reported; none dropped).
+   * **Comparison with the record (frozen).** Records R = (a) TN 2135 Table 33 burnovers (19: place, time) and (b) TN 2252 per-road closure rows (the 15 matched in
+     amendment 3) whose place geocodes by the same rule. Model value at a record = the field's arrival time at the road cell(s) of that point (min over cells within 150 m).
+     Error = model − record (minutes; negative = model earlier). Reported: n geocoded of n, median and quartiles of the error, count within ±30 and ±60 min, misses
+     (record exists, cell "not reached"). Also reported: per-origin last safe departure (engine) as a distribution, with no record to compare. **Leakage stated:**
+     the field's observations and the records come from the same NIST dataset, so agreement is a consistency check of "closure at arrival" plus the interpolation, not an
+     independent validation; leave-one-out error of the field is the measure of the interpolation alone.
+
+10. **2026-11-18 ~23:58 UTC, after `extract_nist_locations.py` recovered 392 progression rows with their Location text (word positions of the PDF), before any
+    geocoding or field.** Two additions to amendment 9's geocoding rule, nothing else: (a) "X **between** Y and Z" → the midpoint of the two points where X comes
+    closest to Y and to Z (each ≤ 150 m), else not geocoded; (b) name matching normalises street types on both sides (road→rd, lane→ln, drive→dr, court→ct, circle→cir,
+    avenue→ave, street→st, boulevard→blvd, highway→hwy, place→pl, trail→trl, way→way) and case, strips source tokens such as `PPD-02,`, and takes a road name from the text
+    only if it equals a normalised Overture primary name; texts with more than two names and no "between" use the first two names in reading order. Rows with only one
+    road name and no place, or none, are not geocoded.
+
+11. **2026-11-19 ~00:05 UTC, after the first geocoding run (coverage: progression 255 of 392, burnovers 5 of 19, traffic rows 71 of 132; no field and no comparison built),
+    before the second.** The first run's output showed two defects, fixed here: (a) road names must be **distinct** (a road mentioned twice counted as two names and sent the
+    "between" rule to the road's own geometry; the 12:00 Clark Rd closure row landed near the airport); (b) the TN 2252 closure rows are multi-clause narrative, so a closure
+    row is geocoded on **its first sentence that contains `clos|block|impass`** (not on the whole row). Everything else in amendments 9-10 is unchanged. Burnover rows with one
+    road name only (Hoffman Rd, Concow Rd, Chapman Ln, Windermere Ln, Pentz Rd, Pearson Rd, Bille Rd, Wagstaff Rd, Coutolenc Rd, Chestnut Cir, Ponderosa Way, Rattlesnake Flats Rd,
+    Jordan Hill Rd/Granite Hill Rd, Concow Fire Station 37) stay not geocoded: the record gives no position along the road.
+
+12. **2026-11-19 ~00:18 UTC, after the one Paradise run (17 min, 4 workers; no re-run, no tuning), recording what the code did where amendments 9-11 left room.** Not rule changes:
+    * Shelters: Overture places whose `basic_category` contains `school`, `hospital`, `place_of_worship`, `community` or `shelter` (this also admits "social_or_community_service"), snapped to a graph node
+      within 500 m, outside the field's reached area, one per entry node: 322 shelters. Origins: graph nodes with ≥ 3 incident edges, ≥ 2 of them residential or tertiary, inside the Delaunay hull of the
+      observations or within 2 km of one, thinned greedily in node-id order to ≥ 750 m spacing: 147 origins. Waiting allowed at origin and shelter nodes only; dwell 120 s (roadlayer default).
+    * Field: 132 unique-location observations (50 m rounding, earliest time kept) from 255 geocoded rows, 10 of them dated 9 Nov (time = minutes after 2018-11-08 00:00 PST, up to 11/9 07:20).
+    * Record semantics (read before the comparison, not used to choose anything): burnover times are initiations; the TN 2252 closure rows state that a road **is closed or blocked at that time**, so they bound
+      the closure onset from above and negative errors (model earlier) are expected for them. The graph file (14 MB, sha256 in `out/paradise/graph_sha256.txt`) is not committed; `build_graph.py` rebuilds it
+      from the Overture segments (release 2026-10-21.0).
+
+13. **2026-11-19 ~00:29 UTC, user supplied KEC dataset 148 (15-minute VDS volumes, March 2025); before any closure onset, reopening or surge was derived.** What was looked at: the header and first rows,
+    that all 31 days × 96 slots are present, 14 % of readings are −1 (missing), conzone IDs per route (route 0300: 33, 0550: 62), and, to place conzones on named sections, the **daily**
+    VDS sums against the daily TCS section totals of 22-27 Mar (a mapping check; no slot-level value, onset or surge was looked at). The file has no conzone names.
+    * **Mapping (frozen).** Conzones are aligned to TCS sections by order within route and direction (ascending conzone ID ↔ ascending TCS 순번 for S, descending for E) at the offset that
+      maximises the mean daily-total correlation; a conzone is **accepted** only if its Pearson r with the aligned TCS section over the six days is ≥ 0.85 and the median VDS/TCS ratio is within 0.5-2.0.
+      **Result:** route 0550 (중앙선): accepted for the 군위-의성-안동JC-남안동-서안동-예천-영주-풍기 sections in both directions (r 0.89-1.00). Route 0300 (서산영덕선, named 당진상주선 in TCS): **not
+      mapped** (negative r for several conzones, repeated TCS section numbers); nothing is derived for it until a conzone reference table (KEC dataset "콘존") is supplied.
+    * **Volume** V(conzone, slot) = sum over lane types of readings ≥ 0; a slot with only −1 is missing. Baseline B(slot) = median of V at the same slot of day over 1-21 March (before the fire);
+      a slot is informative if B ≥ 15 vehicles per 15 min.
+    * **Closure run** = ≥ 4 consecutive informative slots with 0 ≤ V ≤ max(2, 0.05·B); a missing slot breaks a run. **Onset** = start of the first slot of the first run on or after 22 Mar 00:00;
+      **reopening** = start of the first slot after the run with V ≥ 0.25·B. Times KST. A conzone with no such run has no derived closure.
+    * **Surge** per conzone and direction = max of V/B over the six hours before the onset (before the official time where no onset exists); reported as a ratio, no threshold. Both directions are reported;
+      which one is "outbound" is not assumed.
+    * **Comparison (frozen).** (a) With the official events of `out/kec_official_closure_events.csv` for 중앙선: for each event, the conzones of the sections it names (의성IC~남안동JC: 의성→안동JC,
+      안동JC→남안동; 의성IC~안동JC: 의성→안동JC; 의성IC~예천IC: + 남안동→서안동, 서안동→예천; 의성IC~풍기IC: + 예천→영주, 영주→풍기; 풍기IC~영주IC: 영주→풍기), both directions;
+      error = derived onset (or reopening) − official effective time, per conzone-direction, summarised by median and range with n; events with no stated effective time (26 Mar 10:00, created time) are
+      flagged. (b) With the model: for the published RD3, RD4, RD7, RD8 values ("closed at issue" at hour Ti), bound = Ti − derived onset of the section's conzones (negative: the model's
+      closure precedes the volume drop by at least that much). The REPORTED/official times of those rows are as in amendments 4-7. Records and volume come from different systems; neither is "truth".
+
+14. **2026-11-19 ~00:32 UTC, after the one run of `vds_closures.py` (rule of amendment 13 unchanged).** The first run's runs table showed that only 6 of the 12 mapped conzones had a closure run, and the ones nearest 의성 had none; I then looked at
+    their slot values (e.g., 의성→안동JC at 282-303 vehicles per 15 min right after the official 18:00 closure) and added an **exploratory** table of median V/B in four windows
+    (`vds_diagnostic.py`, `out/vds/vds_diagnostic_V_over_B.csv`). Result: the conzones mapped to 서안동→예천, 예천→영주 and 영주→풍기 fall to 1-3 % of baseline after 25 Mar 18:00 (both directions); those mapped to 의성→안동JC and
+    안동JC→남안동 stay at 0.7-1.2 (25 Mar evening) and 0.5-0.75 (26-27 Mar daytime). **No mapping or detection rule was changed after seeing this** (it would be circular to tune the mapping to the official times); the
+    section identity of the conzones is reported as **uncertain** until a conzone reference table (KEC dataset 157 "콘존": 콘존ID, 콘존명, start/end node) is supplied.

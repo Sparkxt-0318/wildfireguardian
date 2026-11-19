@@ -1,0 +1,3 @@
+User-supplied KEC dataset 148 '구간 교통량' (VDS_38_02_02_*.csv, gzip named .zip, cp949), 집계주기 15분, 2025-03-01..2025-03-31, 4,658,008 rows, columns 집계일자, 집계시분, 콘존ID, 차로유형구분코드, 교통량 (-1 = missing).
+sha256 of the uploaded file: 20733a4b21adb77d0da535ea033d3c137c69d792b7b95fbfb90ce95e8c1c36da
+Not committed (212 MB uncompressed); derived tables are in out/.

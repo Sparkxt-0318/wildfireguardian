@@ -1,0 +1,14 @@
+﻿kind,id,place,record_min,x,y,flag,model_arrival_min,error_min,status
+burnover,BO4,"Skyway (upper, between Clark Rd and Wagstaff Rd) [",510,620227.4,4405115.0,,684.1,174.1,ok
+burnover,BO10,Clark Rd / American Way,600,618861.7,4399449.7,,546.3,-53.7,ok
+burnover,BO11,Clark Rd / Airport Rd,600,619020.4,4397005.0,,658.9,58.9,ok
+burnover,BO12,"Skyway (lower, west of Princeton Way) [place text ",615,616190.3,4400492.0,,724.4,109.4,ok
+burnover,BO14,Clark Rd / Black Bear Diner,790,619269.4,4401335.5,,635.8,-154.2,ok
+closure,CL-Clark-10:15,Vehicles drive through fire and Clark Rd is subsequently clo,615,618861.7,4399449.7,,546.3,-68.7,ok
+closure,CL-Clark-11:30,Clark Rd in Paradise is largely free of traffic. A number of,690,619283.9,4400779.5,,636.8,-53.2,ok
+closure,CL-Clark-12:00,Fire and power lines continue to impede travel on Clark Rd n,720,621100.4,4406222.0,,641.4,-78.6,ok
+closure,CL-Skyway-13:45,Skyway between Wagstaff Rd and Clark Rd remains closed due t,825,620227.4,4405115.0,,684.1,-140.9,ok
+closure,CL-Pearson-11:15,The roadway is blocked between Newland Rd and Middle Libby R,675,620479.6,4400899.0,,666.3,-8.7,ok
+closure,CL-Pearson-15:00,Pearson Rd is impassable due to major fire exposures between,900,618054.6,4401213.8,,817.0,-83.0,ok
+closure,CL-Bille-13:45,Bille Rd near Tyden Way remains impassable due to burning ve,825,621371.5,4403119.5,,572.7,-252.3,ok
+closure,CL-Neal-11:00,Skyway south of Neal Rd is blocked by fire. Traffic divertin,660,616680.7,4400471.0,,682.2,22.2,ok
