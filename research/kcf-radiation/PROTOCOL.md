@@ -179,3 +179,16 @@ flame fronts "commonly 25-40 m above the ground" (a height; no flame length repo
 flame length lies within a factor 2 of the nearest end of 25-40 m. Pine-litter and grass comparisons have no paired
 observations available in the sources obtained (Alexander and Cruz 2012 full text not obtained); they are reported as
 range comparisons and do not count toward the gate.
+
+**A5 (computation, after the first 12 panel inputs; no count had been read for the decision).** Routing all 31
+variants single-process took over an hour per Yeongdeok input. From then on: the eight sensitivity settings are
+routed at 4.7 kW/m2 only (their safe distances are still tabulated at all three thresholds), variants with identical
+closures are routed once, and the field runs with 6 worker processes. The counts use only the variants routed in
+every input (none; old law at 7 / 4.7 / 2.5; baseline at 7 / 4.7 / 2.5; each sensitivity setting at 4.7).
+
+**A6 (exploratory analysis added after the panel results were seen; not part of the frozen method).** Panel B's
+lost windows were traced to cells inside the known fire area, whose flat arrival field takes the capped spread rate
+(section 3). One extra variant, "known-fire cells silent" (d* = 0 for cells with a zero or undefined arrival gradient,
+baseline otherwise, 4.7 kW/m2), was run on both panels to measure that effect (`run_panels.py --front-only`,
+`data/panels/exploratory_front_only.json`). It is reported as exploratory and does not change the method, the counts
+of the main rows or the road layer.

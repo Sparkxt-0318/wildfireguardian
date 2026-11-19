@@ -246,7 +246,9 @@ tilt, solid-flame radiation. A piece closes when the front comes within the safe
 never later than without heat. Wind, humidity and air temperature are one value per run (`[heat]` settings; defaults
 ASSUMED: 7 m/s, 30 %, 10 °C). The certificates carry the per-piece closure seconds and still verify without the tool.
 
-It is off by default: HEAT_DEFAULT_REASON. The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
+It is off by default. On the 25 March replay it moves 337 of 1,134 leave-now times at 4.7 kW/m² (median 3.7 min
+earlier), but mostly through the 375 m cell rule, and on the finals packets only through the capped spread rate of the
+known fire area (research/kcf-radiation/RESULTS.md, "Road layer"). The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
 packet (other rasters are refused with HEAT_INPUT_UNSUPPORTED). Radiation only: no convection, embers or smoke; the
 thresholds are for people outside a vehicle (research/kcf-radiation/RESULTS.md, Limits).
 

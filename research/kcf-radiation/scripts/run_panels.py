@@ -30,6 +30,8 @@ sys.path.insert(0, str(HERE))
 from kcf_radiation import closure, envdata, fuels, inputs, model, oldlaw, radiation, ros, routing  # noqa: E402
 from kcf_radiation.protocol import R_MAX_M_S, R_MIN_M_S, BASELINE, THRESHOLDS  # noqa: E402
 
+ROUTED_SENSITIVITY_Q = 4.7
+FRONT_ONLY = False
 REGION_ENV = {"uiseong_andong_2025": "KFS_01", "yeongdeok_2025": "KFS_01", "uljin_2022": "KFS_02",
               "hongseong_2023": "KFS_05", "miryang_2022": "KFS_11"}
 
@@ -104,6 +106,8 @@ def one_input(kind, path, rid, issue, road_region, env, settings, workers=1):
         if np.isfinite(v) and v <= H:
             arrival[c] = int(v)
     burning = sorted({int(r * road.W + c) for r, c in zip(*np.nonzero(np.isfinite(A_grid) & (A_grid <= H)))})
+    g_grid = ros.gradient_magnitude(np.where(np.isfinite(A_grid), A_grid, np.nan), float(road.res))
+    flat = {c for c in burning if not (np.isfinite(g_grid[divmod(c, road.W)]) and g_grid[divmod(c, road.W)] > 0)}
     # physics on every burning cell within the horizon (road cells need their neighbours too)
     when = [issue + timedelta(seconds=float(A_grid[divmod(c, road.W)])) for c in burning]
     groups, U, RH, TA, lc = env_at_cells(env, road, burning, when)
@@ -120,12 +124,22 @@ def one_input(kind, path, rid, issue, road_region, env, settings, workers=1):
         variants["old_%g" % q] = closure.HeatClosure(road, arrival, {c: oldlaw.R_PACKET_M_S for c in burning},
                                                      {c: oldlaw.dstar_m(q) for c in burning}, H=H)
         for name in settings:
+            if name != "baseline" and q != ROUTED_SENSITIVITY_Q:
+                continue  # sensitivity settings are routed at 4.7 kW/m2 only (PROTOCOL A5)
             ds = phys[name]["dstar_%g" % q]
             variants["%s_%g" % (name, q)] = closure.HeatClosure(road, arrival, ros_d, {c: float(ds[i]) for c, i in idx.items()}, H=H)
-    leave = {}
+    if FRONT_ONLY:  # EXPLORATORY (not in PROTOCOL): no radiation from cells with a flat / undefined arrival gradient
+        ds = phys["baseline"]["dstar_4.7"]
+        variants = {"none": variants["none"], "frontonly_4.7": closure.HeatClosure(
+            road, arrival, ros_d, {c: (0.0 if c in flat else float(ds[i])) for c, i in idx.items()}, H=H),
+            "baseline_4.7": variants["baseline_4.7"]}
+    leave, memo = {}, {}
     for vname, hc in variants.items():
-        rows, _ = routing.leave_by(road_region, hc, workers=workers)
-        leave[vname] = rows
+        key = hash((tuple(map(tuple, hc.edge_blocks())), tuple(map(tuple, hc.wait_blocks())),
+                    hc.node_close.tobytes()))
+        if key not in memo:  # identical closures give identical answers: route once
+            memo[key], _ = routing.leave_by(road_region, hc, workers=workers)
+        leave[vname] = memo[key]
     # per road cell table
     adj_d, adj_n = adjacent_exposure(road, A_grid, road.road_cells)
     base = phys["baseline"]
@@ -181,7 +195,7 @@ def one_input(kind, path, rid, issue, road_region, env, settings, workers=1):
         halo_cells[vname] = sorted(set(hit))
     return {"region": rid, "issue_utc": issue.strftime("%Y-%m-%dT%H:%MZ"), "kind": kind, "path": str(path), "H": H,
             "ros_info": rinfo, "burning_cells": len(burning), "road_cells": len(road.road_cells),
-            "road_cells_reached": len(arrival), "halo_pieces": halo, "halo_cells": halo_cells, "leave": leave, "cells": cell_rows}
+            "road_cells_reached": len(arrival), "flat_gradient_cells": len(flat), "halo_pieces": halo, "halo_cells": halo_cells, "leave": leave, "cells": cell_rows}
 
 
 def main():
@@ -193,9 +207,13 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--regions", nargs="*", help="limit to these regions (to split a run across processes)")
+    ap.add_argument("--skip-existing", action="store_true")
+    ap.add_argument("--front-only", action="store_true", help="EXPLORATORY: baseline 4.7 without flat-gradient cells")
     a = ap.parse_args()
+    global FRONT_ONLY
+    FRONT_ONLY = a.front_only
     from kcf_radiation.protocol import SENSITIVITY_SETTINGS
-    settings = {"baseline": BASELINE, **SENSITIVITY_SETTINGS}
+    settings = {"baseline": BASELINE} if FRONT_ONLY else {"baseline": BASELINE, **SENSITIVITY_SETTINGS}
     a.out.mkdir(parents=True, exist_ok=True)
     regions, envs = {}, {}
     jobs = []
@@ -212,6 +230,9 @@ def main():
     if a.regions:
         jobs = [j for j in jobs if j[3] in a.regions]
     for panel, kind, p, rid, issue in jobs:
+        tag = "%s_%s_%s" % (panel, rid, issue.strftime("%Y%m%dT%H%MZ"))
+        if a.skip_existing and (a.out / (tag + ".json.gz")).is_file():
+            continue
         if rid not in regions:
             regions[rid] = routing.AnyRegion(rid, a.graphs / rid / "graph.json")
         k = REGION_ENV[rid]
@@ -220,7 +241,6 @@ def main():
         t0 = time.time()
         res = one_input(kind, p, rid, issue, regions[rid], envs[k], settings, workers=a.workers)
         res["panel"] = panel
-        tag = "%s_%s_%s" % (panel, rid, issue.strftime("%Y%m%dT%H%MZ"))
         with gzip.open(a.out / (tag + ".json.gz"), "wt") as f:
             json.dump(res, f, default=lambda o: o.item() if hasattr(o, "item") else str(o))
         print(tag, "cells", len(res["cells"]), "wall %.1f s" % (time.time() - t0), flush=True)

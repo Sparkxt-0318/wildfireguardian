@@ -35,11 +35,13 @@ def main():
         halo = defaultdict(int)
         halo_cells = defaultdict(int)
         regions = set()
+        per_input_variants = []
         for f in files:
             d = json.load(gzip.open(f, "rt"))
             regions.add(d["region"])
             key = d["region"] + "@" + d["issue_utc"]
             cells.extend(d["cells"])
+            per_input_variants.append(list(d["leave"]))
             for v, rows in d["leave"].items():
                 for oid, r in rows.items():
                     leave[v][(key, oid)] = r["leave_by"]
@@ -67,6 +69,17 @@ def main():
                 if v:
                     agg["dstar_%s_m_p50_90_max__%s" % (t, s)] = pct(v, [50, 90, 100])
                     agg["share_dstar_%s_below_375m__%s" % (t, s)] = round(float(np.mean([x < 375 for x in v])), 4)
+        front = [c for c in cells if c["arrival_s"] and c["arrival_s"] > 0]
+        agg["front_cells_reached_after_issue"] = len(front)
+        agg["front_crown_share"] = round(float(np.mean([c["crown"] for c in front])), 3) if front else None
+        agg["front_ros_m_min_p10_50_90"] = pct([c["ros_m_min"] for c in front], [10, 50, 90])
+        agg["front_flame_length_m_p50_90_max"] = pct([c["flame_length_m"] for c in front], [50, 90, 100])
+        agg["front_flame_height_m_p50_90_max"] = pct([c["flame_height_m"] for c in front], [50, 90, 100])
+        for t in THR:
+            agg["front_dstar_%s_m_p50_90_max" % t] = pct([c["dstar_%s_m" % t] for c in front], [50, 90, 100])
+            agg["front_share_dstar_%s_below_375m" % t] = round(float(np.mean([c["dstar_%s_m" % t] < 375 for c in front])), 4) if front else None
+            agg["front_lead_%s_s_p50_90_max" % t] = pct([c["lead_%s_s" % t] for c in front], [50, 90, 100])
+        agg["cells_at_issue_A0"] = sum(1 for c in cells if c["arrival_s"] == 0)
         zones = defaultdict(int)
         for c in cells:
             zones[c.get("zone_from_adjacent") or "no earlier neighbour"] += 1
@@ -75,7 +88,7 @@ def main():
         # closure changes on road cells: earliest piece closure in the cell
         def cell_close(c, v):
             return c.get("close_min_s_%s" % v)
-        variants = sorted({k[len("close_min_s_"):] for c in cells for k in c if k.startswith("close_min_s_")})
+        variants = sorted(set.intersection(*[set(v) for v in per_input_variants])) if per_input_variants else []
         comp = {}
         for v in variants:
             if v == "none":

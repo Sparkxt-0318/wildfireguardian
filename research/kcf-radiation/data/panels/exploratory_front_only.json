@@ -1,0 +1,440 @@
+{
+ "A": {
+  "inputs": 26,
+  "road_cell_rows": 27759,
+  "regions": [
+   "uiseong_andong_2025",
+   "yeongdeok_2025"
+  ],
+  "crown_share": 0.507,
+  "flame_length_m_p50_90_99_max": [
+   8.1,
+   50.2,
+   68.1,
+   68.1
+  ],
+  "flame_height_m_p50_90_99_max": [
+   8.0,
+   49.0,
+   66.6,
+   67.3
+  ],
+  "ros_m_min_p50_90_99": [
+   150.0,
+   150.0,
+   150.0
+  ],
+  "fuel_groups": {
+   "broadleaf": 4707,
+   "conifer": 3089,
+   "grass": 8733,
+   "mixed": 11145,
+   "shrub": 85
+  },
+  "dstar_7_m_p50_90_99_max": [
+   54.4,
+   228.2,
+   276.3,
+   279.4
+  ],
+  "share_dstar_7_below_375m": 1.0,
+  "lead_7_s_p50_90_99_max": [
+   87.6,
+   163.6,
+   287.9,
+   365.9
+  ],
+  "dstar_4.7_m_p50_90_99_max": [
+   76.9,
+   289.9,
+   345.9,
+   349.8
+  ],
+  "share_dstar_4.7_below_375m": 1.0,
+  "lead_4.7_s_p50_90_99_max": [
+   110.8,
+   223.3,
+   386.8,
+   507.9
+  ],
+  "dstar_2.5_m_p50_90_99_max": [
+   128.8,
+   410.8,
+   483.1,
+   487.8
+  ],
+  "share_dstar_2.5_below_375m": 0.6257,
+  "lead_2.5_s_p50_90_99_max": [
+   157.0,
+   359.3,
+   585.1,
+   809.2
+  ],
+  "front_cells_reached_after_issue": 7644,
+  "front_crown_share": 0.462,
+  "front_ros_m_min_p10_50_90": [
+   8.7,
+   25.3,
+   26.8
+  ],
+  "front_flame_length_m_p50_90_max": [
+   3.6,
+   20.8,
+   60.0
+  ],
+  "front_flame_height_m_p50_90_max": [
+   3.4,
+   14.8,
+   54.6
+  ],
+  "front_dstar_7_m_p50_90_max": [
+   24.9,
+   104.4,
+   254.7
+  ],
+  "front_share_dstar_7_below_375m": 1.0,
+  "front_lead_7_s_p50_90_max": [
+   99.9,
+   248.8,
+   365.9
+  ],
+  "front_dstar_4.7_m_p50_90_max": [
+   35.6,
+   139.3,
+   318.8
+  ],
+  "front_share_dstar_4.7_below_375m": 1.0,
+  "front_lead_4.7_s_p50_90_max": [
+   141.6,
+   336.9,
+   507.9
+  ],
+  "front_dstar_2.5_m_p50_90_max": [
+   62.5,
+   211.7,
+   444.5
+  ],
+  "front_share_dstar_2.5_below_375m": 0.998,
+  "front_lead_2.5_s_p50_90_max": [
+   245.4,
+   516.6,
+   809.2
+  ],
+  "cells_at_issue_A0": 20115,
+  "zone_from_adjacent_cell": {
+   "lt2.5": 1007,
+   "4.7-7": 157,
+   "2.5-4.7": 195,
+   "ge7": 6285,
+   "no earlier neighbour": 20115
+  },
+  "flux_from_adjacent_kw_m2_p50_90_99_max": [
+   63.1,
+   96.3,
+   105.8,
+   112.4
+  ],
+  "variants": {
+   "baseline_4.7": {
+    "road_cells_changed_vs_none": 7512,
+    "shift_s_p50_max_vs_none": [
+     928.0,
+     6328.0
+    ],
+    "halo_pieces_outside_reached_cells": 2072,
+    "unreached_road_cells_partly_closed_by_halo": 155,
+    "road_cells_changed_vs_old": 0,
+    "earlier_than_old": 0,
+    "later_than_old": 0,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 337,
+     "lost_window": 12,
+     "shift_s_p50_max": [
+      223.0,
+      1687.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 325,
+     "shift_s_p50_max": [
+      223.0,
+      1687.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 0,
+     "changed": 0,
+     "lost_window": 0,
+     "shift_s_p50_max": null,
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_old": {
+     "changed": 0,
+     "shift_s_p50_max": null
+    }
+   },
+   "frontonly_4.7": {
+    "road_cells_changed_vs_none": 7512,
+    "shift_s_p50_max_vs_none": [
+     928.0,
+     6328.0
+    ],
+    "halo_pieces_outside_reached_cells": 2072,
+    "unreached_road_cells_partly_closed_by_halo": 155,
+    "road_cells_changed_vs_old": 0,
+    "earlier_than_old": 0,
+    "later_than_old": 0,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 337,
+     "lost_window": 8,
+     "shift_s_p50_max": [
+      221.0,
+      1687.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 329,
+     "shift_s_p50_max": [
+      221.0,
+      1687.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 0,
+     "changed": 0,
+     "lost_window": 0,
+     "shift_s_p50_max": null,
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_old": {
+     "changed": 0,
+     "shift_s_p50_max": null
+    }
+   }
+  }
+ },
+ "B": {
+  "inputs": 15,
+  "road_cell_rows": 3422,
+  "regions": [
+   "hongseong_2023",
+   "miryang_2022",
+   "uiseong_andong_2025",
+   "uljin_2022",
+   "yeongdeok_2025"
+  ],
+  "crown_share": 0.572,
+  "flame_length_m_p50_90_99_max": [
+   50.2,
+   68.1,
+   68.1,
+   68.1
+  ],
+  "flame_height_m_p50_90_99_max": [
+   49.0,
+   67.4,
+   67.9,
+   68.0
+  ],
+  "ros_m_min_p50_90_99": [
+   150.0,
+   150.0,
+   150.0
+  ],
+  "fuel_groups": {
+   "broadleaf": 620,
+   "conifer": 650,
+   "grass": 838,
+   "mixed": 1312,
+   "shrub": 2
+  },
+  "dstar_7_m_p50_90_99_max": [
+   221.6,
+   269.1,
+   274.2,
+   281.1
+  ],
+  "share_dstar_7_below_375m": 1.0,
+  "lead_7_s_p50_90_99_max": [
+   88.6,
+   107.8,
+   110.1,
+   335.0
+  ],
+  "dstar_4.7_m_p50_90_99_max": [
+   282.6,
+   339.1,
+   345.0,
+   352.4
+  ],
+  "share_dstar_4.7_below_375m": 1.0,
+  "lead_4.7_s_p50_90_99_max": [
+   113.0,
+   136.2,
+   138.4,
+   460.2
+  ],
+  "dstar_2.5_m_p50_90_99_max": [
+   401.7,
+   476.4,
+   483.7,
+   492.2
+  ],
+  "share_dstar_2.5_below_375m": 0.431,
+  "lead_2.5_s_p50_90_99_max": [
+   160.9,
+   192.0,
+   195.9,
+   728.1
+  ],
+  "front_cells_reached_after_issue": 20,
+  "front_crown_share": 0.5,
+  "front_ros_m_min_p10_50_90": [
+   6.5,
+   28.5,
+   150.0
+  ],
+  "front_flame_length_m_p50_90_max": [
+   5.7,
+   50.2,
+   50.2
+  ],
+  "front_flame_height_m_p50_90_max": [
+   5.5,
+   49.4,
+   50.1
+  ],
+  "front_dstar_7_m_p50_90_max": [
+   37.7,
+   224.2,
+   226.9
+  ],
+  "front_share_dstar_7_below_375m": 1.0,
+  "front_lead_7_s_p50_90_max": [
+   110.8,
+   209.6,
+   236.0
+  ],
+  "front_dstar_4.7_m_p50_90_max": [
+   53.8,
+   286.8,
+   289.0
+  ],
+  "front_share_dstar_4.7_below_375m": 1.0,
+  "front_lead_4.7_s_p50_90_max": [
+   152.1,
+   295.6,
+   332.8
+  ],
+  "front_dstar_2.5_m_p50_90_max": [
+   92.6,
+   409.1,
+   410.4
+  ],
+  "front_share_dstar_2.5_below_375m": 0.8,
+  "front_lead_2.5_s_p50_90_max": [
+   250.0,
+   507.3,
+   556.9
+  ],
+  "cells_at_issue_A0": 3402,
+  "zone_from_adjacent_cell": {
+   "no earlier neighbour": 3409,
+   "lt2.5": 4,
+   "ge7": 8,
+   "4.7-7": 1
+  },
+  "flux_from_adjacent_kw_m2_p50_90_99_max": [
+   13.7,
+   96.3,
+   105.3,
+   105.9
+  ],
+  "variants": {
+   "baseline_4.7": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     152.5,
+     3467.0
+    ],
+    "halo_pieces_outside_reached_cells": 18637,
+    "unreached_road_cells_partly_closed_by_halo": 439,
+    "road_cells_changed_vs_old": 0,
+    "earlier_than_old": 0,
+    "later_than_old": 0,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 24,
+     "lost_window": 22,
+     "shift_s_p50_max": [
+      113.0,
+      193.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      113.0,
+      193.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 0,
+     "changed": 0,
+     "lost_window": 0,
+     "shift_s_p50_max": null,
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_old": {
+     "changed": 0,
+     "shift_s_p50_max": null
+    }
+   },
+   "frontonly_4.7": {
+    "road_cells_changed_vs_none": 12,
+    "shift_s_p50_max_vs_none": [
+     281.5,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 184,
+    "unreached_road_cells_partly_closed_by_halo": 22,
+    "road_cells_changed_vs_old": 0,
+    "earlier_than_old": 0,
+    "later_than_old": 0,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 1,
+     "lost_window": 0,
+     "shift_s_p50_max": [
+      193.0,
+      193.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 1,
+     "shift_s_p50_max": [
+      193.0,
+      193.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 0,
+     "changed": 0,
+     "lost_window": 0,
+     "shift_s_p50_max": null,
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_old": {
+     "changed": 0,
+     "shift_s_p50_max": null
+    }
+   }
+  }
+ }
+}
