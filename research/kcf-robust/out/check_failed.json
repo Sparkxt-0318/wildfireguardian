@@ -3,5 +3,10 @@
   "checked": 300,
   "agree": 300,
   "disagreements": []
+ },
+ "twin": {
+  "checked": 300,
+  "agree": 300,
+  "disagreements": []
  }
 }
