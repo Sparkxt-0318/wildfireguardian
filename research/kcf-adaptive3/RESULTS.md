@@ -22,11 +22,12 @@ What the numbers say beyond the verdicts:
 1. **The idea did not work where it was aimed.** On Korea the tracker flags 62% more area than the fixed margin at the
    same miss rate, and more than QUANTILE (ratio 1.24, 1.05 to 1.57). It warned the same number of run fire-days as
    the gust rule, and it raised alarms on 11 of the 34 fire-days without a run, where the gust rule raised none.
-2. **The California pass does not come from tracking the state.** With the hourly update switched off the same model
+2. **The California pass does not come from the hourly update.** With the hourly update switched off the same model
    needs no more area (220.6 km2; tracker / update-off = 1.02, 0.96 to 1.08), and with the forecast input switched off
    it also needs no more (228.9 km2; ratio 0.99, 0.95 to 1.04). On Korea the hourly update makes the margin worse
-   (tracker / update-off = 1.24, 1.02 to 1.33). The gain over QUANTILE (5%, 1% at exactly equal miss) comes from
-   fitting two quantile models, one on run hours and one on quiet hours, not from the filter.
+   (tracker / update-off = 1.24, 1.02 to 1.33). The gain over QUANTILE (5%, 1% at exactly equal miss) needs neither
+   switch on its own. The version with both off was NOT RUN, so what the gain does come from is not isolated; the
+   hourly state update, the point of this study, is not it.
 3. **On 25 March 2025 the state moved before the spread, and the margin still missed.** The run probability crossed the
    alarm threshold at 09 KST, one hour before the first run hour, on the forecast alone (the same hour as the gust
    rule). But the issued margin was 3.5 to 10 km while the fire reached 5 to 40 km: 11 of the 12 hours from 09 to 20 KST
