@@ -86,6 +86,20 @@ def load_edge_data(rid: str):
     return forest, ways
 
 
+def load_queue(rid: str, issue_utc) -> dict:
+    """Queue-aware leave-by (research/kcf-queue, model KQ-1) for the issue hours shipped in data/queue_leaveby.csv, by place id.
+    Seconds after the issue time of the latest start (all vehicles of the village released from then on clear); '' = cannot clear."""
+    p = PRODUCT / "data/queue_leaveby.csv"
+    if not p.is_file():
+        return {}
+    stamp = issue_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+    out = {}
+    for r in csv.DictReader(open(p, encoding="utf-8")):
+        if r["region"] == rid and r["issue_utc"] == stamp:
+            out[r["place_id"]] = {k: (int(v) if v not in ("",) and k.startswith(("s_", "N_", "L0", "S_")) else v) for k, v in r.items()}
+    return out
+
+
 def load_households(rid: str):
     return {r["place_id"]: r for r in csv.DictReader(open(PRODUCT / "data/households" / ("%s.csv" % rid), encoding="utf-8"))}
 
@@ -153,6 +167,7 @@ def compute(c, cm, ccfg) -> list:
     tcfg = ccfg["traffic"]
     forest, ways = load_edge_data(region.id)
     hh = load_households(region.id)
+    qmap = load_queue(region.id, c["fire"].issue_utc)
     shelter_nodes = {s["node"] for s in region.shelters if s["node"] is not None}
     sh_by_node = defaultdict(list)
     for s in region.shelters:
@@ -189,6 +204,7 @@ def compute(c, cm, ccfg) -> list:
         if h is None:
             raise Refusal(reason("HOUSEHOLDS_MISSING", "세대 자료 없음: %s" % o["id"], "no household row for %s" % o["id"]))
         rec["hh"] = h
+        rec["queue"] = qmap.get(o["id"])
         if h["kind"] == "care_facility":
             households, vehicles = 0.0, 0
             no_car_persons = int(h["facility_residents"])

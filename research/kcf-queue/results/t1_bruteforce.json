@@ -1,0 +1,43 @@
+{
+ "networks": 6000,
+ "cases": 66000,
+ "soundness_violations": [],
+ "solver_feasible_brute_not": 0,
+ "brute_feasible_solver_not": 66,
+ "agree_feasible": 23962,
+ "agree_infeasible": 41972,
+ "networks_with_any_gap": 64,
+ "max_tmax": 12,
+ "examples_gap": [
+  {
+   "seed": 0,
+   "s": 5,
+   "N": 3,
+   "W": 2
+  },
+  {
+   "seed": 4,
+   "s": 5,
+   "N": 3,
+   "W": 3
+  },
+  {
+   "seed": 149,
+   "s": 6,
+   "N": 2,
+   "W": 3
+  },
+  {
+   "seed": 173,
+   "s": 7,
+   "N": 2,
+   "W": 2
+  },
+  {
+   "seed": 195,
+   "s": 9,
+   "N": 2,
+   "W": 3
+  }
+ ]
+}

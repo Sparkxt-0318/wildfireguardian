@@ -1,0 +1,20 @@
+﻿id,place,time,flag,category,road,x,y,lon,lat,rule
+1,Hoffman Rd,07:50,,1,,,,,,NOT GEOCODED
+2,Concow Rd,07:50,,2,,,,,,NOT GEOCODED
+3,Chapman Ln,08:30,,1,,,,,,NOT GEOCODED
+4,"Skyway (upper, between Clark Rd and Wagstaff Rd) [place text completed by hand from the wrapped lines]",08:30,,1,Skyway,620227.4,4405115.0,-121.595889,39.787499,between-midpoint
+5,Windermere Ln,08:35,a,1,,,,,,NOT GEOCODED
+6,Pentz Rd,08:45,,1,Pentz,,,,,NOT GEOCODED
+7,Pearson Rd,09:15,,1,Pearson,,,,,NOT GEOCODED
+8,Bille Rd,09:25,,1,Bille,,,,,NOT GEOCODED
+9,Wagstaff Rd,09:30,,2,Wagstaff,,,,,NOT GEOCODED
+10,Clark Rd / American Way,10:00,,2,Clark,618861.7,4399449.7,-121.612859,39.73666,road-road
+11,Clark Rd / Airport Rd,10:00,,2,Clark,619020.4,4397005.0,-121.611449,39.714618,road-road
+12,"Skyway (lower, west of Princeton Way) [place text completed by hand from the wrapped lines]",10:15,,2,Skyway,616190.3,4400492.0,-121.643842,39.746418,road-road
+13,Jordan Hill Rd /Granite Hill Rd,11:30,,1,,,,,,NOT GEOCODED
+14,Clark Rd / Black Bear Diner,13:10,,2,Clark,619269.4,4401335.5,-121.60776,39.75359,road+place
+15,Rattlesnake Flats Rd,15:15,,1,,,,,,NOT GEOCODED
+16,Coutolenc Rd,00:00,b,2,,,,,,NOT GEOCODED
+17,Chestnut Cir,06:00,b,1,,,,,,NOT GEOCODED
+18,Ponderosa Way,07:15,b,2,,,,,,NOT GEOCODED
+19,Concow Fire Station 37,07:15,b,1,,,,,,NOT GEOCODED

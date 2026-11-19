@@ -38,3 +38,5 @@ node_modules/
 
 # Route-Check API runtime (job folders, ablation kit copy, packets built per request)
 /artifacts/api_runtime/
+live-work/
+live-cache/

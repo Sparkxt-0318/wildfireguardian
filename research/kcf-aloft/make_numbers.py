@@ -47,8 +47,11 @@ def main():
         labels="MEASURED = computed here or reused from a committed file; ASSUMED = input, proxy or simplification; "
                "PARTIAL = G-obs on four stations for one fire; COARSE = S5; NOT RUN = not computed",
         reproduction_check=json.load(open(D / "reproduction_check.json")),
-        fetch={k: fetch_summary(Path(a.nwp) / f"{k}_KOR" / "log.jsonl") for k in ("gfs", "ifs", "gefs")}))
+        fetch=(json.load(open(D / "fetch_summary.json")) if (D / "fetch_summary.json").exists() else
+               {k: fetch_summary(Path(a.nwp) / f"{k}_KOR" / "log.jsonl") for k in ("gfs", "ifs", "gefs")})))
     out.update(an)
+    if (D / "gobs_quality.json").exists():
+        out["gobs_quality"] = json.load(open(D / "gobs_quality.json"))
     for name, f in (("second_model_ifs", "ifs_crosscheck.json"), ("height", "height.json"), ("S5_coarse", "coarse_s5.json")):
         out[name] = json.load(open(D / f)) if (D / f).exists() else "NOT DONE"
     json.dump(out, open(a.out, "w"), indent=1, default=str)

@@ -1,0 +1,4 @@
+Source file (user-supplied export, 62,192 rows, 2023-10-23..2026-10-14): ccf78023-__________________________20261014.csv
+sha256 6545d26f1fbe5516b62f98cbec41ba3af614258806907edcc7bf8be3700ea344
+Filtered here: 재난문자생성일시 2025-03-22..2025-03-27 and 수신지역명 containing 의성군|안동시|청송군|영양군|영덕군, or 경상북도 전체. Columns kept: seq, created, registered, type, urgency, disaster, counties_hit, region, text.
+Provenance (which portal) was not stated by the user; structure and hash verified, authenticity not independently verified.

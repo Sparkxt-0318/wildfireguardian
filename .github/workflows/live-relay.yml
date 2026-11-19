@@ -1,0 +1,54 @@
+name: live — 30-min relay (dispatches the live service)
+
+# live/PROTOCOL.md amendment 1. GitHub's cron did not start the live workflow (cron '7,37 * * * *') once in its first
+# 4 h on Main; this repository's daily schedule also ran more than 5 h late. This relay keeps the 30-minute cadence
+# without depending on cron timing: one job dispatches live.yml at every :07 and :37 UTC for about 5 h 40 min, then
+# dispatches its own successor (GITHUB_TOKEN may start workflow_dispatch runs). Its cron is only a restart backup:
+# with the concurrency group below, a backup run waits behind a running relay and at most one relay runs at a time.
+# To stop the service: disable this workflow (and live.yml) in the Actions tab (RUNBOOK §9).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */2 * * *'
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: live-relay
+  cancel-in-progress: false
+
+jobs:
+  relay:
+    if: github.ref == 'refs/heads/Main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - name: Dispatch live.yml at every :07 and :37 UTC for about 5 h 40 min, then start the next relay
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -u
+          dispatch() {
+            curl -sS -o /dev/null -w '%{http_code}' -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/$REPO/actions/workflows/$1/dispatches" -d "$2" || echo 'curl-failed'
+          }
+          end=$(( $(date +%s) + 340 * 60 ))
+          while true; do
+            m=$(date -u +%-M); s=$(date -u +%-S)
+            if [ "$m" -lt 7 ]; then w=$(( (7 - m) * 60 - s ))
+            elif [ "$m" -lt 37 ]; then w=$(( (37 - m) * 60 - s ))
+            else w=$(( (67 - m) * 60 - s )); fi
+            [ $(( $(date +%s) + w )) -gt "$end" ] && break
+            sleep "$w"
+            code=$(dispatch live.yml '{"ref":"Main","inputs":{"trigger":"relay"}}')
+            echo "$(date -u +%FT%TZ) dispatch live.yml -> HTTP $code"
+            [ "$code" = "204" ] || echo "::warning::live.yml dispatch failed (HTTP $code); RUNBOOK §0"
+          done
+          code=$(dispatch live-relay.yml '{"ref":"Main"}')
+          echo "$(date -u +%FT%TZ) dispatch next relay -> HTTP $code"
+          [ "$code" = "204" ] || { echo "::error::could not start the next relay (HTTP $code); the 2-hourly backup will restart it"; exit 1; }
