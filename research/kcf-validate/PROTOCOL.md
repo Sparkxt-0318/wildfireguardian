@@ -310,3 +310,9 @@ SHA-256 of the prediction file; later edits are new entries, never changes.
       error = derived onset (or reopening) − official effective time, per conzone-direction, summarised by median and range with n; events with no stated effective time (26 Mar 10:00, created time) are
       flagged. (b) With the model: for the published RD3, RD4, RD7, RD8 values ("closed at issue" at hour Ti), bound = Ti − derived onset of the section's conzones (negative: the model's
       closure precedes the volume drop by at least that much). The REPORTED/official times of those rows are as in amendments 4-7. Records and volume come from different systems; neither is "truth".
+
+14. **2026-11-19 ~00:32 UTC, after the one run of `vds_closures.py` (rule of amendment 13 unchanged).** The first run's runs table showed that only 6 of the 12 mapped conzones had a closure run, and the ones nearest 의성 had none; I then looked at
+    their slot values (e.g., 의성→안동JC at 282-303 vehicles per 15 min right after the official 18:00 closure) and added an **exploratory** table of median V/B in four windows
+    (`vds_diagnostic.py`, `out/vds/vds_diagnostic_V_over_B.csv`). Result: the conzones mapped to 서안동→예천, 예천→영주 and 영주→풍기 fall to 1-3 % of baseline after 25 Mar 18:00 (both directions); those mapped to 의성→안동JC and
+    안동JC→남안동 stay at 0.7-1.2 (25 Mar evening) and 0.5-0.75 (26-27 Mar daytime). **No mapping or detection rule was changed after seeing this** (it would be circular to tune the mapping to the official times); the
+    section identity of the conzones is reported as **uncertain** until a conzone reference table (KEC dataset 157 "콘존": 콘존ID, 콘존명, start/end node) is supplied.

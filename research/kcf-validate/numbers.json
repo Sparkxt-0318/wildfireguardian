@@ -3,8 +3,8 @@
  "protocol": "research/kcf-validate/PROTOCOL.md (amendments 1-2)",
  "sources": {
   "1_KEC_traffic": {
-   "status": "PARTLY_OBTAINED_DAILY_ONLY",
-   "why": "user-supplied dataset 512 daily section volumes 22-27 Mar; 15-minute API 0305 needs a key, 15-minute files need a login; closure times and surges not derivable"
+   "status": "OBTAINED_15MIN_SECTION_IDENTITY_UNCERTAIN",
+   "why": "user-supplied dataset 148 15-minute VDS (March 2025) and dataset 512 daily; no conzone names, route 0300 unmappable, route 0550 mapping position-uncertain; needs KEC dataset 157 conzone table"
   },
   "2_emergency_texts": {
    "status": "OBTAINED",
@@ -1125,6 +1125,20 @@
     "burnover": 5,
     "closure": 8
    }
+  }
+ },
+ "source1_vds15_route0550": {
+  "label": "15-minute VDS volumes vs official events. Not what happened to people.",
+  "protocol": "PROTOCOL.md amendment 13",
+  "conzones_read_route0550": 47,
+  "accepted": 25,
+  "used": 12,
+  "closure_runs": 45,
+  "surge_ratio_before_onset": {
+   "n": 45,
+   "median": 0.06,
+   "max": 1.38,
+   "n_ge_1.5": 0
   }
  },
  "source5_twin": {
