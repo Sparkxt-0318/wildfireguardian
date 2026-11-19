@@ -156,7 +156,9 @@ def main():
             if tid in done:
                 continue
             while (work / "PAUSE").exists():
+                (work / "PAUSED").write_text(time.strftime("%H:%M:%S"))      # idle: safe for git and other light work
                 time.sleep(10)
+            (work / "PAUSED").unlink(missing_ok=True)
             if harness_hashes() != base:
                 sys.exit("harness files changed mid-run; stopping")
             ok = run_task(method, cache, r, res, work, a.dry)
