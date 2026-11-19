@@ -24,3 +24,7 @@
   16:23:01 was stopped within about a minute and restarted at ~16:25 UTC once the probe was stable (six readings 0.063 to
   0.067 s). No timed request was taken in the slow period except possibly the very first one of the resumed block (the
   untimed priming request is repeated). From now on: after a restart, wait for the probe to settle before restarting.
+* 19 Nov 2026 ~16:47 UTC: sixth container restart (uptime 0 min at 16:57:11; not signalled by an MCP reconnect this time,
+  found at the scheduled check-in, so about 10 minutes of run time were lost). The driver was killed during
+  `field_sample | UA 03-25 | repeat 1` (a FIELD task, which writes no partial result; it is re-run whole). No OLD block was
+  in progress. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47 UTC.
