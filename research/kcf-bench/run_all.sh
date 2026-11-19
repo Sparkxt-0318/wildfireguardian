@@ -63,6 +63,11 @@ a)      # PLAN.md 7 phase 3: method A pass 1 (UA0324 first 500, five 500-job sam
   done
   m $R/a/UA0324.tail.measure.json $PY $B/run_a.py UA0324 $R/jobs/UA0324.pass1_tail.json $R/a/UA0324.pass1.jsonl $W
   ;;
+aresume) # Amendment 2: rest of YD0326's sample (disk-failed rows set aside), then UA0324's other 1,018
+  W=$TMPDIR/kcfbench_work
+  m $R/a/YD0326.pass1_resume.measure.json $PY $B/run_a.py YD0326 $R/jobs/YD0326.pass1_resume.json $R/a/YD0326.pass1.jsonl $W
+  m $R/a/UA0324.tail.measure.json $PY $B/run_a.py UA0324 $R/jobs/UA0324.pass1_tail.json $R/a/UA0324.pass1.jsonl $W
+  ;;
 arep)   # PLAN.md 7 phase 4: method A repeats 2 and 3 on the 50-job repeat set of every cache
   W=$TMPDIR/kcfbench_work
   for rep in 2 3; do

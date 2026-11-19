@@ -1,0 +1,26 @@
+{
+ "cmd": [
+  "/Users/jp/miniforge3/bin/python3",
+  "research/kcf-bench/run_b.py",
+  "UA0325",
+  "research/kcf-bench/runs/b/UA0325.pass1.r2.json",
+  "research/kcf-bench/runs/jobs/UA0325.pass1.json"
+ ],
+ "exit_code": 0,
+ "wall_s": 16.680015000049025,
+ "cpu_user_s": 16.21394,
+ "cpu_sys_s": 0.29653999999999997,
+ "cpu_s": 16.51048,
+ "peak_rss_mib": 654.65625,
+ "loadavg_before": [
+  5.8984375,
+  5.7666015625,
+  5.7109375
+ ],
+ "loadavg_after": [
+  5.57373046875,
+  5.69970703125,
+  5.6875
+ ],
+ "finished_at_unix": 1795094595.8751261
+}

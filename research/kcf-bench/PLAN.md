@@ -139,3 +139,22 @@ test's crash check and the one file size, and no measured number changes any rul
 * `KCF_BENCH_STOP_AT` (no new A job starts after): pass 1 **Fri 07:45** Shanghai (was 03:00); repeats **Fri 09:15**
   (was 06:30). `compare` and the write-up follow.
 * If A pass 1 is cut short, the jobs it did run in each cache's permutation order are the sample, with their count.
+
+## Amendment 2 (Fri 20 Nov 2026, 06:10 Shanghai; after phase 3 `a` stopped on a full disk, before `arep`)
+
+**What happened.** At 04:20 Shanghai the disk filled (not from this harness: `runs/` is 93 MB and each A job's work
+directory is deleted after it). A's YD0326 sample was at job 255 of 500: its jobs 217–255 (permutation positions
+216–254) returned `INTERNAL_ERROR: No space left on device`; then the worker itself crashed, so YD0326's process-level
+measure file was never written. UA0324's other 1,018 jobs and phase `arep` did not run. The user freed space; about
+0.9 GiB was free at 06:05.
+
+**Changes.** Nothing else in the protocol changes.
+* The 39 disk-failed YD0326 rows are moved, unchanged, to `runs/a/YD0326.pass1.enospc_excluded.jsonl`. They are not
+  A results (A never ran them to completion) and are reported only as this note. The 216 rows before them are kept.
+* New phase `aresume`: A on YD0326's permutation positions 216–499 (`runs/jobs/YD0326.pass1_resume.json`), appended to
+  the same file, then UA0324's other 1,018 jobs, as phase `a` would have. Same stop times as Amendment 1 (pass 1 Fri
+  07:45, repeats Fri 09:15).
+* `run_a.py` starts no new job when free disk is below 300 MiB (`KCF_BENCH_MIN_FREE_MIB`), and says so; the jobs run
+  before that are the sample, in permutation order, as for the time stop.
+* YD0326's A process wall/CPU is the sum of its two measured processes for the resumed part only; for the speed ratio
+  on YD0326 the sum of A's per-job wall and CPU over its jobs is used instead, and labelled so.

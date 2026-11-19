@@ -26,6 +26,9 @@ sys.path.insert(0, str(ROOT))
 from api import runner  # noqa: E402
 
 
+MIN_FREE = int(os.environ.get("KCF_BENCH_MIN_FREE_MIB", "300")) << 20
+
+
 def cpu_now():
     s, c = resource.getrusage(resource.RUSAGE_SELF), resource.getrusage(resource.RUSAGE_CHILDREN)
     return s.ru_utime + s.ru_stime + c.ru_utime + c.ru_stime
@@ -43,6 +46,9 @@ def main():
     with open(out_jsonl, "a") as out:
         for k, jid in enumerate(ids):
             if time.time() > stop_at:
+                break
+            if shutil.disk_usage(work).free < MIN_FREE:      # Amendment 2: no job starts with too little disk
+                print("kcf-bench: stopped before job %d, free disk below %d MiB" % (k, MIN_FREE >> 20), file=sys.stderr)
                 break
             rec = doc["route_checks"][jid]
             q, rres = rec["request"], rec.get("result") or {}
