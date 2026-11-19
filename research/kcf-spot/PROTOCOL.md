@@ -191,4 +191,21 @@ Fire-bootstrap 95% intervals (1,000 resamples) for every rate and ratio. No corr
 
 ## 9. Amendments
 
-(none yet)
+### Amendment 1 (before any spot was found)
+
+Seen: the code of `kcf-margin/score_gofer.py` and `kcf-adaptive4/build4.py`; the Choi `kr_events_21.csv` table
+(fire list, VIIRS and Himawari input counts); download sizes. No detection had been processed. Changes:
+
+1. California grid is EPSG:3310 (the kcf-margin / kcf-adaptive4 GOFER grid, 375 m), padded by 16 km so spots up to
+   15 km beyond the final perimeter are on the grid, instead of EPSG:5070.
+2. **Confirmation by a later look of the same system.** GOFER (GOES) perimeters lag VIIRS (kcf-adaptive4 found VIIRS
+   saw fire before GOFER on 40% of missed hours), so a later GOFER perimeter filling the gap behind a VIIRS cluster
+   does not show that the gap was unburned when VIIRS saw the cluster. A VIIRS candidate is confirmed only by a later
+   VIIRS mark in the gap, a GOFER candidate by a later GOFER perimeter, an AHI candidate by a later AHI hour. The
+   any-system count is recorded beside it.
+3. **Recency.** A look is searched for spots only if the fire was seen by any look no more than 2 h earlier; clusters
+   of other looks are labelled "unsearched" and added to the burned set. Between looks 3 to 12 h apart (VIIRS alone)
+   an ordinary front moves more than d_min, and its new position would read as detached.
+4. Clusters within d_min of an earlier separate fire (> 15 km) are part of that separate fire, not spots.
+5. Also recorded for every spot: the distance to the front as seen in the same look (earlier front cells plus this
+   look's front clusters), beside the protocol distance to B(t).
