@@ -66,5 +66,97 @@
   ],
   "verdict_vs_PERSIST": "",
   "frontier_ratio_vs_FIXED": 1.472231983301348
+ },
+ "QUANTILE-fc": {
+  "miss": 0.10026285276868753,
+  "miss_lo": 0.07842898157042082,
+  "miss_hi": 0.12690646367724243,
+  "area": 302.22263158204703,
+  "area_lo": 237.469995744416,
+  "area_hi": 376.73221556793897,
+  "frontier_area": 302.6848540503706,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.9189932824940679,
+   0.856713617448866,
+   0.989806136646096
+  ],
+  "verdict_vs_FIXED": "helps",
+  "ratio_vs_PERSIST": [
+   0.6256093116490423,
+   0.5555114780453855,
+   0.7181555675785177
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.9260157088059051
+ },
+ "QUANTILE-own": {
+  "miss": 0.10004268565384876,
+  "miss_lo": 0.08764224384968226,
+  "miss_hi": 0.11464474097393464,
+  "area": 283.22610551876653,
+  "area_lo": 204.61240646383814,
+  "area_hi": 380.1544520174816,
+  "frontier_area": 283.31393492336986,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.8612289789027305,
+   0.7482468443342045,
+   0.9700462383535701
+  ],
+  "verdict_vs_FIXED": "helps (material)",
+  "ratio_vs_PERSIST": [
+   0.5862859706670628,
+   0.5594293233327109,
+   0.6125117326800216
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.8667534921287985
+ },
+ "QUANTILE": {
+  "miss": 0.09724832787702235,
+  "miss_lo": 0.08565338878632628,
+  "miss_hi": 0.11134537798762255,
+  "area": 278.3630589069967,
+  "area_lo": 202.2108368921373,
+  "area_hi": 371.1873161419356,
+  "frontier_area": 274.5693777374261,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.8464415119771811,
+   0.7373103774837474,
+   0.9462899881905101
+  ],
+  "verdict_vs_FIXED": "helps (material)",
+  "ratio_vs_PERSIST": [
+   0.5762193279825601,
+   0.5494371196307231,
+   0.6083426844431185
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 0.8400009235335165
+ },
+ "REGIME": {
+  "miss": 0.1091965580529315,
+  "miss_lo": 0.08003040889865097,
+  "miss_hi": 0.1436725361103491,
+  "area": 312.1254829277928,
+  "area_lo": 240.4870497122644,
+  "area_hi": 393.0099100376326,
+  "frontier_area": 328.65354933476146,
+  "n_fires": 28,
+  "ratio_vs_FIXED": [
+   0.9491056993459708,
+   0.9232588342888199,
+   0.9764101906646238
+  ],
+  "verdict_vs_FIXED": "helps",
+  "ratio_vs_PERSIST": [
+   0.6461084912814349,
+   0.5669252196094776,
+   0.7494394847749687
+  ],
+  "verdict_vs_PERSIST": "helps (material)",
+  "frontier_ratio_vs_FIXED": 1.0054627622304482
  }
 }
