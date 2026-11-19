@@ -1,6 +1,6 @@
 """figures/margin_field.png: (a) the two-route example of METHOD.md Proposition 3, computed by the code; (b) leave-by
 time against the margin for recorded origins (results/real/*.json, cert rule, keep variant); (c) measured time for K
-margins, existing pass against the margin pass (results/bench.json).
+margins, existing pass against the margin pass (results/bench.json round 1, results/bench2.json round 2).
 
     MPLCONFIGDIR=$TMPDIR python3 research/kcf-idea-routing/make_figure.py
 """
@@ -110,19 +110,27 @@ def main():
 
     # (c) speed ratio per cache, one field and K margins
     ax = axes[2]
-    b = json.loads((HERE / "results/bench.json").read_text())
+    b1 = json.loads((HERE / "results/bench.json").read_text())
+    b2 = json.loads((HERE / "results/bench2.json").read_text())
     Ks = ["1", "2", "4", "8", "16"]
     xs = list(range(6))
     ax.axhline(1, color=INK, linewidth=1)
     seen = set()
-    for name, c in sorted(b["caches"].items()):
-        reg = "Uiseong–Andong" if "uiseong" in name else "Yeongdeok"
+    for name, c in sorted(b1["caches"].items()):   # round 1: before the fast path
         col = BLUE if "uiseong" in name else ORANGE
         ys = [statistics.median(s["T1"]["ratio"] for s in c["specs"])] + [
             statistics.median(s["T2"][K]["ratio"] for s in c["specs"]) for K in Ks]
+        ax.plot(xs, ys, "--", color=col, linewidth=1, alpha=0.55,
+                label=None if "r1" in seen else "round 1 (before the fast path)")
+        seen.add("r1")
+    for name, c in sorted(b2["caches"].items()):   # round 2
+        reg = "Uiseong–Andong" if "uiseong" in name else "Yeongdeok"
+        col = BLUE if "uiseong" in name else ORANGE
+        ys = [statistics.median(s["T1"]["ratio_existing_over_new"] for s in c["specs"])] + [
+            statistics.median(s["T2"][K]["ratio_existing_over_new"] for s in c["specs"]) for K in Ks]
         ax.plot(xs, ys, "-o", color=col, linewidth=2, markersize=5,
-                label=None if reg in seen else reg + " (3 caches, 43,826 edges)" if reg[0] == "U" else
-                None if reg in seen else reg + " (3 caches, 111,924 edges)")
+                label=None if reg in seen else reg + (" (3 caches, 43,826 edges)" if reg[0] == "U"
+                                                      else " (3 caches, 111,924 edges)"))
         seen.add(reg)
     ax.set_yscale("log")
     ax.set_yticks([0.5, 1, 2, 4, 8, 16])
@@ -134,7 +142,7 @@ def main():
     ax.set_ylabel("existing time / new time (median of 6 shelters)", fontsize=9, color=MUTED)
     ax.text(5.1, 1.04, "faster above", fontsize=8.5, color=MUTED, ha="right", va="bottom")
     ax.legend(frameon=False, fontsize=8.5, loc="upper left")
-    style(ax, "(c) Measured speed against the existing pass")
+    style(ax, "(c) Speed against the existing pass")
 
     fig.tight_layout()
     (HERE / "figures").mkdir(exist_ok=True)

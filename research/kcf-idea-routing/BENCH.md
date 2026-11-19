@@ -1,5 +1,11 @@
 # Benchmark and exactness results
 
+Two rounds. **§1 (round 1)** is below, unchanged since it was written. **§2 (round 2)**, at the end, measures the
+method after the fast path and the compiled port were added; it has its own frozen plan, `BENCH_PLAN_V2.md`.
+Where the two disagree about speed, round 2 describes the code as it is now.
+
+# §1 Round 1
+
 Plan: `BENCH_PLAN.md`, frozen at commit `7f274a63` before any number below existed. Raw numbers:
 `results/bench.json`, `results/bench.log`, `results/real/*.json`, `results/property_tests.json`,
 `results/mutation_tests.json`. Run on 19 Nov 2026, 01:10–03:54 UTC, on the machine named in the plan (macOS arm64,
@@ -147,3 +153,162 @@ is what shows that, and it is also a reason not to expect it to change many answ
 Other machines; compiled implementations of either method (`kcf-defend/fastfield.py` is a compiled existing pass
 and was not benchmarked, numba is not installed here); instances unlike these (H = 3,600 s, nearly one interval per
 state); any speed advantage for a single field.
+
+# §2 Round 2
+
+Plan: `BENCH_PLAN_V2.md`, frozen at commit `b8494a7c` before numba was installed and before any compiled timing
+existed. Raw numbers: `results/bench2.json`, `results/bench2.log`, `results/real_fast/*.json`. Run on 19 Nov 2026,
+12:13–14:32 UTC, same machine, `.venv-kcf/bin/python` (Python 3.13.13, numba 0.68.1, numpy 2.5.0), one process,
+nothing else of this study running.
+
+Methods: EXISTING = `deadline_field.core.backward`, unchanged; NEW = `margin_field` with the fast path
+(`METHOD.md` §4.6); V1 = the round-1 method (`fast=False`); NB = the compiled port (`margin_field/nb.py`); NB0 = the
+same compiled kernel run at M = 0, once per margin.
+
+## Result in six lines
+
+* **Accuracy.** Zero mismatches everywhere, again: 18,000 random graphs, the six caches re-run with the fast path,
+  and every output of this benchmark (36 shelters, all tasks, all methods).
+* **One field at margin 0.** NEW is now faster than EXISTING on **all six caches**: 2.0× to 6.0× (median of 6
+  shelters), and on all 36 shelters (lowest 1.41×). The round-1 failure on Yeongdeok (0.55× to 0.61×) is gone.
+* **K margins.** Faster on all six caches at every K: 1.3× to 3.9× at K = 1, 2.2× to 6.1× at K = 2, 4.0× to 16.4×
+  at K = 16.
+* **Where the single-field speed comes from.** From the fast path, which is engineering, not from the margin idea.
+  With the same engineering on both sides (NB against NB0 at K = 1) the margin pass is **slower** than a pass for
+  one margin: 0.88× to 0.95×. The idea pays from the second margin on: 1.6× at K = 2, 3.9× to 7.0× at K = 16.
+* **Margin of leaving now.** 18× to 47× faster than the bisection in the plan. That bisection is a weak baseline on
+  this data; see T4.
+* **Memory.** NEW now peaks below one existing pass on every cache (0.64× to 0.86×).
+
+## Accuracy, round 2
+
+| check | compared | mismatches |
+|---|---|---|
+| 18,000 random graphs (general with reopening, closure-only, sparse; 6,000 each), every margin: against the existing field and the brute-force oracle | as `results/property_tests.json` | 0 |
+| same graphs: fast path against the general path, every state | 99,176 states | 0 |
+| same graphs: compiled port against the reference pass (run compiled and as plain Python) | 99,176 states | 0 |
+| same graphs: Theorem 6 (stability under shifted closures) | 838,729 pairs | 0 violations |
+| six caches re-run with the fast path, router and cert rule, both acceptance variants: R and G of every state | 3,537,210,368 sets | 0 |
+| six caches, same: origin issue sets | 50,368 sets | 0 |
+| six caches: witness routes checked by the independent checker | 8,892 routes | 0 invalid |
+| this benchmark: T1 (NEW, V1: R and G; NB: R), T2 (NEW at every K; NB against EXISTING at 0, 60, 600; NB against NB0 at every margin), T4 margins | 36 shelters | 0 |
+
+Eight planted bugs, three of them in the fast path, were each caught (`results/mutation_tests.json`). The two
+rarest are caught on few graphs: `fast_skip_too_eager` on 2 of 9,000, `fast_wait_not_closed` on 34 of 9,000. The
+compiled port never fell back to Python and never needed more than its first buffer size.
+
+## T1: one field, margin 0
+
+Median over 6 sampled shelters of the median of 5 repeats. Ratios are EXISTING / method.
+
+| cache | existing s | NEW s | V1 s | NB s | **EXISTING / NEW** | per-shelter range | EXISTING / V1 | EXISTING / NB |
+|---|---|---|---|---|---|---|---|---|
+| uiseong_andong_2025/20250323T010000Z | 0.148 | 0.049 | 0.091 | 0.021 | **3.04** | 2.46–8.68 | 1.65 | 7.4 |
+| uiseong_andong_2025/20250324T090000Z | 0.281 | 0.048 | 0.089 | 0.020 | **5.98** | 1.93–10.49 | 3.21 | 13.2 |
+| uiseong_andong_2025/20250325T170000Z | 0.131 | 0.035 | 0.071 | 0.021 | **3.99** | 2.23–8.86 | 1.91 | 6.3 |
+| yeongdeok_2025/20250325T190000Z | 0.259 | 0.124 | 0.233 | 0.061 | **2.32** | 1.79–3.09 | 1.02 | 4.4 |
+| yeongdeok_2025/20250325T230000Z | 0.291 | 0.136 | 0.363 | 0.066 | **2.28** | 1.63–3.94 | 0.79 | 4.5 |
+| yeongdeok_2025/20250326T080000Z | 0.328 | 0.192 | 0.631 | 0.075 | **1.99** | 1.41–2.99 | 0.60 | 4.2 |
+
+**"Faster for one field": met** on all six caches. V1 reproduces round 1 (slower on Yeongdeok), so the change is
+the fast path and not the day or the interpreter. NB's time here includes packing the graph into arrays, which is
+most of it (the compiled pass alone takes 0.007 to 0.03 s).
+
+**What this does and does not show.** The fast path skips work the existing pass does (it builds nothing for edges
+it never reaches, and crosses a closure-free edge with one constant piece). The existing pass could be given the
+same treatment. So T1 shows that this implementation is faster than the existing implementation at the existing
+job; it does not show that computing margins is cheaper than computing one level. The like-for-like comparison is
+the NB0 / NB column of T2 at K = 1, and it goes the other way.
+
+## T2: K margins
+
+Median of 6 shelters. Top number EXISTING / NEW (pure Python, the claim); below it NB0 / NB (compiled against
+compiled, the same kernel, one pass per margin against one margin pass).
+
+| cache | | K=1 | K=2 | K=4 | K=8 | K=16 | lowest single shelter, K=1 / K=2 |
+|---|---|---|---|---|---|---|---|
+| uiseong_andong_2025/20250323T010000Z | EXISTING / NEW | 2.36 | 3.99 | 6.02 | 8.19 | 10.00 | 1.69 / 3.02 |
+| | NB0 / NB | 0.89 | 1.57 | 2.64 | 4.06 | 5.82 | |
+| uiseong_andong_2025/20250324T090000Z | EXISTING / NEW | 3.94 | 6.07 | 10.29 | 13.93 | 16.37 | 1.05 / 1.81 |
+| | NB0 / NB | 0.88 | 1.61 | 2.76 | 4.10 | 6.13 | |
+| uiseong_andong_2025/20250325T170000Z | EXISTING / NEW | 2.86 | 4.91 | 7.33 | 9.55 | 10.94 | 1.57 / 2.58 |
+| | NB0 / NB | 0.90 | 1.61 | 2.92 | 4.45 | 6.98 | |
+| yeongdeok_2025/20250325T190000Z | EXISTING / NEW | 1.62 | 2.55 | 3.50 | 4.49 | 5.39 | 1.27 / 2.04 |
+| | NB0 / NB | 0.90 | 1.65 | 2.58 | 3.29 | 4.70 | |
+| yeongdeok_2025/20250325T230000Z | EXISTING / NEW | 1.57 | 2.49 | 3.60 | 4.40 | 4.92 | 0.92 / 1.59 |
+| | NB0 / NB | 0.95 | 1.69 | 2.90 | 3.90 | 5.17 | |
+| yeongdeok_2025/20250326T080000Z | EXISTING / NEW | 1.30 | 2.21 | 3.02 | 3.63 | 4.03 | 1.00 / 1.57 |
+| | NB0 / NB | 0.88 | 1.58 | 2.53 | 3.26 | 3.90 | |
+
+**"Faster for K margins": met at every K on all six caches** by the frozen rule (median of the cache's 6
+shelters). At K = 1 one shelter of 36 is below 1 (0.92) and one is at 1.00; from K = 2 all 36 are above 1.5.
+
+**NB against NB0.** At K = 1 the margin pass is 5% to 12% slower than a compiled pass for that one margin, on every
+cache. That is the honest price of the idea: carrying piecewise-linear functions instead of level sets costs a
+little, and one margin gives nothing back. At K = 2 it is 1.6× faster on every cache and the ratio grows with K.
+Both sides are my code, so this says nothing about the existing code.
+
+EXISTING / NB (interpreted against compiled, **not like for like**, not a claim): 10× to 31× at K = 1, 45× to 182×
+at K = 16.
+
+## T4: the margin of leaving now
+
+For every recorded origin of the shelter, the largest margin up to 600 s at which leaving at second 0 still works.
+
+| cache | origins (6 shelters) | EXISTING bisection s | passes | NEW s | ratio (median of 6) | range | mismatches |
+|---|---|---|---|---|---|---|---|
+| uiseong_andong_2025/20250323T010000Z | 23 | 1.57 | 10 | 0.055 | **29.3** | 21.9–70.3 | 0 |
+| uiseong_andong_2025/20250324T090000Z | 16 | 2.84 | 10 | 0.060 | **47.4** | 12.9–98.1 | 0 |
+| uiseong_andong_2025/20250325T170000Z | 16 | 1.40 | 10 (one shelter 18) | 0.036 | **38.7** | 26.7–85.8 | 0 |
+| yeongdeok_2025/20250325T190000Z | 7 | 2.57 | 10 | 0.136 | **23.1** | 16.1–31.4 | 0 |
+| yeongdeok_2025/20250325T230000Z | 9 | 2.97 | 10 | 0.156 | **22.9** | 13.9–35.1 | 0 |
+| yeongdeok_2025/20250326T080000Z | 8 | 3.46 | 10 | 0.189 | **17.8** | 14.8–28.0 | 0 |
+
+**"Faster than bisection": met as frozen, but the baseline is weaker than it should have been.** Of the 79
+origins, 74 have margin 600 (the cap) and 5 cannot leave at second 0 at all. The bisection in the plan does not
+test the two ends first, so it spent about 10 passes to find an answer that one pass at m = 600 (or at m = 0)
+would have settled. A bisection that tests the ends first would need 1 or 2 existing passes on every one of these
+shelters, and the fair ratio is then about the T2 figure at K = 1 or K = 2: 1.3× to 6×, not 18× to 47×. I saw this
+only in the results; the plan is not changed and the numbers above are what it measured. The large ratios would
+apply to data where margins fall strictly between 0 and the cap, which these six hours do not contain.
+
+## B: the 18,000 random graphs
+
+90,172 existing passes 0.759 s (0.749–0.769); 18,000 margin passes 0.480 s (0.474–0.490); ratio **1.58**. Tiny
+graphs; mostly fixed overhead.
+
+## Memory, round 2 (MB, `tracemalloc`, first sampled shelter of each cache)
+
+| cache | EXISTING one field: peak / kept | NEW, M=600: peak / kept | NEW, M=0: peak / kept | NB result arrays |
+|---|---|---|---|---|
+| uiseong_andong_2025/20250323T010000Z | 18.0 / 13.8 | 15.3 / 10.5 | 15.2 / 10.3 | 22.8 |
+| uiseong_andong_2025/20250324T090000Z | 17.8 / 13.5 | 15.2 / 10.5 | 14.9 / 10.2 | 22.8 |
+| uiseong_andong_2025/20250325T170000Z | 15.5 / 11.2 | 12.8 / 9.0 | 12.7 / 9.0 | 22.8 |
+| yeongdeok_2025/20250325T190000Z | 26.6 / 15.9 | 17.0 / 16.1 | 17.0 / 16.1 | 58.2 |
+| yeongdeok_2025/20250325T230000Z | 35.2 / 24.3 | 27.5 / 20.4 | 27.5 / 20.4 | 58.2 |
+| yeongdeok_2025/20250326T080000Z | 38.9 / 28.1 | 31.1 / 22.4 | 31.1 / 22.4 | 58.2 |
+
+With lazy tents the pure-Python margin pass peaks at 0.64× to 0.86× of one existing pass (round 1: 1.5× to 2×).
+The compiled port's result arrays are fixed-size (16 piece slots per state) and larger than either; no peak is
+claimed for it.
+
+## What round 2 decides
+
+The frozen rule: the single-field caveat leaves the verdict only if T1 and T2 at K = 1 hold on all six caches,
+round 2 has zero mismatches, and the six-cache run with the fast path has zero mismatches. All four hold. **The
+caveat "slower for a single field on three caches" is removed.** It is replaced by a different and smaller one,
+which the plan required to be stated either way: the single-field speed is the fast path's, and like for like the
+margin pass costs 5% to 12% more than a pass for one margin.
+
+## Deviations from the round-2 plan
+
+* None in tasks, inputs, repeats or rules. Nothing was re-run and no code changed after the first round-2 number.
+* The compiled port compiled as frozen; no change was needed.
+* The T4 baseline weakness above was found in the results and is reported, not repaired. Recorded as an amendment
+  in `BENCH_PLAN_V2.md`.
+
+## Not claimed (round 2)
+
+Other machines; a compiled or fast-path form of the existing pass (none exists; NB0 is my stand-in, not the
+existing code); any speed advantage of the margin idea itself for a single margin; the T4 ratios as typical of a
+well-ordered bisection; instances unlike these.

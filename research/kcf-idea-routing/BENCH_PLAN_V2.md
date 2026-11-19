@@ -100,4 +100,10 @@ Ratios per shelter, per cache the median of its 6 shelters, as round 1.
 
 ## Amendments
 
-(none)
+**19 Nov 2026, after the run (14:32 UTC).** No change to tasks, inputs, repeats or rules.
+1. The compiled port compiled under numba 0.68.1 exactly as frozen; no change was needed. The six-cache exactness
+   run with the fast path finished, with zero mismatches, before the benchmark started.
+2. T4 baseline, found in the results: the bisection as specified does not test m = 600 and m = 0 first. On these
+   inputs every origin's answer is either the cap (74 of 79) or "cannot leave at second 0" (5), so the bisection
+   used about 10 passes where 1 or 2 would do. The T4 numbers are reported as measured, with this stated beside
+   them; the claim "faster than bisection" is to be read with it. Nothing was re-run.
