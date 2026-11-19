@@ -1,0 +1,45 @@
+{
+ "n": 0,
+ "cfg": {
+  "trans": [
+   "gust_ms",
+   "w850_ms",
+   "rhmin_pct",
+   "sin_h",
+   "cos_h",
+   "arch"
+  ],
+  "obs": "g1",
+  "bins": [
+   0.0,
+   0.375,
+   0.75,
+   1.5,
+   3.0
+  ],
+  "mfeat": [
+   "g1",
+   "g3",
+   "g6",
+   "g12",
+   "g24",
+   "log_area",
+   "log_age",
+   "sin_h",
+   "cos_h",
+   "gust_ms",
+   "w850_ms",
+   "rhmin_pct",
+   "hdw"
+  ],
+  "tau": 0.9,
+  "depth": 2,
+  "iters": 100,
+  "leaf0": 200,
+  "leaf1": 50,
+  "mix": "linear",
+  "C": 1.0
+ },
+ "M1": 342.7212578831912,
+ "M2": 0.2638888888888889
+}
