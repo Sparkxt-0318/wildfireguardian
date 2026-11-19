@@ -187,6 +187,25 @@ Files: `research/kcf-validate/RESULTS.md` (table rows 1, 1a–1d), `numbers.json
 
 **Does not show:** the closure time of any single road at the model's cell level, or what any official should have done. Baseline is a weekend mean (caveat stands).  Anything quoted from the first TCS-correlation mapping (conzones near 의성 staying open) must not be used.
 
+## 14. Radiant heat by published methods (kcf-radiation), replaces the kcf-heat law
+
+Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/panels/exploratory_front_only.json`,
+`data/fires/fires_summary.json`, `data/c1_butler_cohen.json`, `data/c2_fds.json`, `data/c3_flames.json`,
+`data/c4_sensitivity.json`. Hash `3f5b915` (protocol frozen at `aac1b28`). Model output; no measured flux at a road.
+
+| item | value | n | source | does not show |
+|---|---|---|---|---|
+| Safe distance at 7 kW/m2 vs the 375 m cell | **below 375 m in 100 %** of burned cells, every fuel level; max 320 m (Uiseong, high fuel) | 13,125 cells, 4 fires | `fires_summary.json` | safety at a road: radiation only, thresholds for people outside vehicles |
+| Replay front cells: safe distance at 7 / 4.7 / 2.5 kW/m2 | median **25 / 36 / 63 m**, 90 % 104 / 139 / 212 m | 7,644 road cell-hours | `summary.json` (`A.front_*`) | the position of the front inside a 375 m cell |
+| Lead the heat term adds before contact (4.7 kW/m2) | median **2.4 min**, 90 % 5.6, max 8.5 | 7,644 | `summary.json` (`A.front_lead_4.7`) | any lead from convection or embers |
+| Uncertainty of one crown-fire cell's safe distance (7 kW/m2) | **133 m**, range **60-301 m** over flame T 1090-1400 K, fuel low-high, 4 view factors | 72 settings | `c4_sensitivity.json` | which setting is right; flame temperature dominates |
+| Butler-Cohen "4 x flame height" | reproduced at **3.5 H** (20 m front); long front **8.3 L** (Rossi: 8 L) | H = 1-10 m | `c1_butler_cohen.json` | that 4 H is safe for a long front: it is not |
+| Against FDS (C064 grass fire) | **19-115x above** FDS radiometers; 1.2-1.7x a resolved propane burner | 9 distance bins; 3 gauges | `c2_fds.json` | which is right: model-to-model only |
+| Crown flame length vs ICFME observations | within a factor **1.7** on all 11 plots (observed fronts 25-40 m) | 11 plots | `c3_flames.json` | flux; surface-fire flames run high (safe side) |
+| Replay leave-by times moved, 4.7 kW/m2 | **337 of 1,134** (median 3.7 min, max 28 min), 12 lose the window; old law 350 (7 lost) | 1,134 place-hours | `summary.json` (`A.variants.baseline_4.7`) | physics: most of the shift is the 375 m cell rule, as for the old law |
+| Finals packets, lost leave-now windows, 4.7 kW/m2 | **22 of 425**; old law 0; with known-fire cells silent (exploratory) **0** | 425 place-inputs | `summary.json`, `exploratory_front_only.json` | a real effect: all 22 come from the capped spread rate inside the known fire |
+| Road layer heat option | `--heat`, **off by default**; certificates still verify with it on | 2 worked examples | `product/wfg-roadlayer/README.md` | a validated default: it would ship the two artefacts above |
+
 ## Ten likely judge questions
 
 1. **Is the deadline field just faster, or is it right?** It reproduced all 7,771 recorded routes and 1,468 no-routes with zero disagreements, and it decided all 297 unresolved cases (row 1). Speed is not claimed: no clean summed timing is committed, and the host differs from the one that recorded the checks (row 1).

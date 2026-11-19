@@ -10,7 +10,8 @@ What is checked, for every village (THEOREM.md is research/kcf-theorem/THEOREM.m
  1. instance.json.gz has the SHA-256 the certificate names (of its uncompressed bytes).
  2. The masks follow from the fire input: every edge closure B, wait closure W, shelter acceptance A and origin
     closure IB is re-derived here from the per-cell closure seconds and the road geometry (exact fractions) and must
-    equal the stored masks.
+    equal the stored masks. With the heat option the per-piece and per-node closure seconds stored in the instance
+    take the cell's place (the radiant-heat rule that produced them is research/kcf-radiation; run.json records it).
  3. Hypotheses M1-M4 of Theorem 2 hold (closures permanent, shelters accept from second 0, origin closure
     permanent). Then every feasible departure set is a prefix [0, L] (Theorem 2(a)).
  4. For every candidate shelter, L is recomputed by the scalar recursion of Theorem 2(b), written here from the
@@ -63,6 +64,10 @@ class Inst:
         self.W = {int(k): [tuple(x) for x in v] for k, v in d["W"].items()}
         self.close = {int(k): int(v) for k, v in d["cell_closure_s"].items()}
         self.node_cell = d["node_cell"]
+        # heat option (research/kcf-radiation): per-piece and per-node closure seconds replace the cell's
+        self.heat = "heat_piece_closure_s" in d
+        self.piece_close = {(int(j), int(k)): int(b) for j, v in d.get("heat_piece_closure_s", {}).items() for k, b in v}
+        self.node_close = {int(v): int(b) for v, b in d.get("heat_node_closure_s", {}).items()}
         self.inc, self.out = {}, {}
         for j, (u, v) in enumerate(zip(self.tail, self.head)):
             self.out.setdefault(u, []).append(j)
@@ -75,8 +80,8 @@ class Inst:
         H = self.H
         for j, segs in enumerate(self.d["segments"]):
             lo = None
-            for c, end in segs:
-                b = self.close.get(int(c))
+            for k, (c, end) in enumerate(segs):
+                b = self.piece_close.get((j, k)) if self.heat else self.close.get(int(c))
                 if b is None:
                     continue
                 z = F(end) if isinstance(end, int) else F(end).limit_denominator(10 ** 9)
@@ -86,21 +91,24 @@ class Inst:
             if self.B.get(j, []) != want:
                 bad.append("edge %d: stored B %r, derived %r" % (j, self.B.get(j), want))
         for v in range(self.n):
-            b = self.close.get(self.node_cell[v])
+            b = self.node_b(v)
             want = [(max(b - 1, 0), H)] if (v in self.waitable and b is not None and b - 1 <= H) else []
             if self.W.get(v, []) != want:
                 bad.append("node %d: stored W %r, derived %r" % (v, self.W.get(v), want))
         return bad
 
+    def node_b(self, node):
+        return self.node_close.get(node) if self.heat else self.close.get(self.node_cell[node])
+
     def accept(self, node):
-        b = self.close.get(self.node_cell[node])
+        b = self.node_b(node)
         hi = self.H - self.dwell
         if b is not None:
             hi = min(hi, b - self.dwell - 1)
         return [(0, hi)] if hi >= 0 else []
 
     def origin_closure(self, node):
-        b = self.close.get(self.node_cell[node])
+        b = self.node_b(node)
         return [(b, self.H)] if b is not None else []
 
     # -- check 3: M1, M2 (M3, M4 are checked per certificate) ---------------------------------------------------
