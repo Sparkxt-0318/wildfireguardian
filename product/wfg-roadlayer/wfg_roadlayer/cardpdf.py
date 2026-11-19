@@ -24,7 +24,8 @@ MAJOR = {"motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary
 T = {
     "ko": {
         "kind": "마을 대피 카드", "issued": "발표 %s KST", "replay": " · 재현", "horizon": " · 예측 %g시간",
-        "leave": "출발 마감 (도로 기준)", "leave_cl": "출발 마감 (정체 반영)", "leave_m": "여유 %d분 지키는 출발 마감",
+        "leave": "출발 마감 (도로 기준)", "leave_q": "출발 마감 (대기행렬 모델 KQ-1)", "q_v": "%s  [낙관 %s – 비관 %s]  · 차량 %d대", "q_none": "모델에서 전 차량 대피 불가 (출발 분산·대기가 여유 시간보다 김)", "q_na": "이 시각은 계산 안 함", "q_h": " (예측 범위 제한)",
+        "leave_cl": "출발 마감 (정체 반영)", "leave_m": "여유 %d분 지키는 출발 마감",
         "trigger": "트리거 시각 (여유 %d분 + 정체)", "shelter": "대피소", "exits": "독립 출구", "danger": "위험 도로",
         "forest": "출구 도로 숲 비율", "order": "출발 순서", "nocar": "차 없는 주민 (추정)",
         "none_dl": "마감 없음 (예측 %g시간 안 차단 없음)", "cut_now": "이미 끊김 — 모델상 안전 경로 없음",
@@ -45,7 +46,9 @@ T = {
     },
     "en": {
         "kind": "Village evacuation card", "issued": "Issued %s KST", "replay": " · replay", "horizon": " · %g h forecast",
-        "leave": "Leave by (roads)", "leave_cl": "Leave by (with clearance)", "leave_m": "Leave by keeping %d min margin",
+        "leave": "Leave by (roads)", "leave_cl": "Leave by (with clearance)", "leave_q": "Leave by (queue model KQ-1)",
+        "q_v": "%s  [low %s – high %s]  · %d vehicles", "q_none": "cannot clear in the model (spread or queue exceeds the window)",
+        "q_na": "not computed for this hour", "q_h": " (horizon-limited)", "leave_m": "Leave by keeping %d min margin",
         "trigger": "Trigger time (%d min margin + clearance)", "shelter": "Shelter", "exits": "Independent exits",
         "danger": "Dangerous road", "forest": "Forest along exits", "order": "Departure order", "nocar": "Residents without a car (est.)",
         "none_dl": "no deadline (no cut within %g h)", "cut_now": "already cut — no safe route in the model",
@@ -123,7 +126,8 @@ def draw_card(cv: canvas.Canvas, rec, lang, ctx):
                                 t["horizon"] % Hh_h)
     cv.drawString(x0, Hh - 21 * mm, sub)
     # ---------------------------------------------------------------- map
-    mx0, my0, mw, mh = x0, 96 * mm, x1 - x0, 88 * mm
+    shrink = 15 * mm if rec.get("queue") is not None else 0   # one more fact line (queue model) needs room
+    mx0, my0, mw, mh = x0, 96 * mm + shrink, x1 - x0, 88 * mm - shrink
     _map(cv, rec, ctx, (mx0, my0, mw, mh), lang)
     # legend
     _legend(cv, x0, my0 - 4.2 * mm, x1 - x0, t["legend"])
@@ -146,6 +150,14 @@ def draw_card(cv: canvas.Canvas, rec, lang, ctx):
         cl_txt = ""
     lines.append((t["leave"], lv, True))
     lines.append((t["leave_cl"], lv_cl + ("  ·  " + cl_txt if cl_txt else ""), True))
+    q = rec.get("queue")
+    if q is not None:
+        if q["s_cont_mid"] == "":
+            qv = t["q_none"]
+        else:
+            qv = t["q_v"] % (_hm(issue, q["s_cont_mid"], lang), _hm(issue, q["s_cont_low"], lang) if q["s_cont_low"] != "" else "—",
+                              _hm(issue, q["s_cont_high"], lang) if q["s_cont_high"] != "" else "—", q["N_mid"]) + (t["q_h"] if rec["no_deadline"] else "")
+        lines.append((t["leave_q"], qv, True))
     if rec["leave_by_m"] is not None:
         lm = _hm(issue, rec["leave_by_m"], lang)
     elif rec["m_no_deadline"]:

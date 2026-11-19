@@ -60,7 +60,8 @@
   "edges_forest_sha256": "3935a9e9f4bd13778a561c881b5b8104e088335947e9e4aaa3f809ebaa842667",
   "edges_ways_sha256": "3bb2cf66ffd78f04b0506d539904089415ec360a158eb49e22ab3f21ea9b3bce",
   "households_sha256": "7757d8b442047f7a675bee1e49234286ddcea6b539d99e68e03d54bdbffb7aaf",
-  "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4"
+  "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4",
+  "queue_leaveby_sha256": "91e79b013aad99187d19e40c5e532d98e004e661c4c786626f2e631795ebe33d"
  },
  "pickup_depot": "구 강구초등학교 직천분교 터",
  "counts": {
@@ -83,14 +84,14 @@
   "trigger_passed": 2
  },
  "files_sha256": {
-  "audit_yeongdeok_2025.csv": "801686d1f5ac9ae20a02ce7f242eaf62b0fddc1af6e1d2ddec759c83b5093c14",
-  "cards_en_yeongdeok_2025.pdf": "094f5448caa179311ccccca5caf31287d2fb8ce74834e623f2fdc766ae485e90",
-  "cards_ko_yeongdeok_2025.pdf": "f7231f9c1b748ee2aedaeb5efde80e2ab663989d3a1f8bc48bc2eae756d93872",
+  "audit_yeongdeok_2025.csv": "57908fe64f6dd0cd7d77978f13f5dfe3af1cb116388bedd9305170be5229b164",
+  "cards_en_yeongdeok_2025.pdf": "b6023308047598162b718fffdbf2e356d4a6d21b303b3fb3c49ce9f2258f500d",
+  "cards_ko_yeongdeok_2025.pdf": "55432d2ff233d74ecb6b27983e86afff7862470c7a8000a895573b5af82f4e18",
   "pickup_yeongdeok_2025.csv": "40e38ddb25ae80288b99d2b64045a2f7edc5707d091ebec4be67f772e8f1ce12"
  },
  "run_time_s": {
-  "total": 123.0,
-  "compute": 119.1,
-  "outputs": 3.9
+  "total": 154.8,
+  "compute": 150.3,
+  "outputs": 4.5
  }
 }
