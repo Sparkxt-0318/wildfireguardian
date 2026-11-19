@@ -241,4 +241,10 @@ reached is reported and skipped.
 
 ## Amendments
 
-(none yet)
+1. **2026-11-19 ~02:00 UTC, before any oracle or method value was computed.** Section 4.1 as written cannot give a ~10% miss rate for
+   blocks shorter than 10 hours (floor(0.1 n) = 0 misses allowed), which would make O-6h a 0%-miss oracle and not comparable. Rule
+   replaced for all oracle variants: blocks of a fire are processed in time order and the fire's miss budget is carried over;
+   block b may miss floor(0.10 * N_b) - M_b hours (N_b = hours up to and including block b, M_b = misses used by earlier
+   blocks), and takes the smallest scale kappa_b that stays within that budget (block quantile of S_t / s_t). Each fire
+   then ends at a miss rate <= 0.10 and within one hour of it. Also: the data pipeline (`build_data.py`) reproduces the
+   committed GOFER reach to 4e-7 km (gate L4 uses 1e-6, not 1e-9; float32 distances).
