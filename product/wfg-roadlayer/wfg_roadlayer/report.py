@@ -203,13 +203,50 @@ def fields(row, lang, ctx):
     return v
 
 
+FRAGILITY_COLUMNS = [  # only with run --fragility (research/kcf-robust); appended after the standard columns
+    ("frag_reach_km", "지금 출발: 견디는 추가 화재 확산 (km)", "leaving now: tolerated extra fire reach (km)"),
+    ("frag_reach_road", "추가 확산에 먼저 끊기는 도로", "road that fails first under extra reach"),
+    ("frag_timing_min", "지금 출발: 견디는 도로 차단 시각 오차 (분)", "leaving now: tolerated closure-timing error (min)"),
+    ("frag_timing_road", "시각 오차에 먼저 끊기는 도로", "road that fails first under timing error"),
+]
+
+
+def fragility_fields(row, lang, frag):
+    ko = lang == "ko"
+    v = {c[0]: "" for c in FRAGILITY_COLUMNS}
+    if row["refusal"]:
+        return v
+    f = (frag or {}).get(row["origin"]["id"])
+    if f is None:
+        return v
+    if f.get("reach_note"):
+        v["frag_reach_km"] = ("계산 안 함: " if ko else "not computed: ") + f["reach_note"]
+    elif f["reach_km"] is None:
+        v["frag_reach_km"] = "지금 출발 경로 없음" if ko else "no safe route now"
+    else:
+        v["frag_reach_km"] = ("%.3f 이상" if ko else ">= %.3f") % f["reach_km"] if f["reach_censored"] else "%.3f" % f["reach_km"]
+    if f["timing_s"] is None:
+        v["frag_timing_min"] = "지금 출발 경로 없음" if ko else "no safe route now"
+    else:
+        v["frag_timing_min"] = ("%d 이상" if ko else ">= %d") % (f["timing_s"] // 60) if f["timing_censored"] else "%d" % (f["timing_s"] // 60)
+    for key, col in (("reach_binding", "frag_reach_road"), ("timing_binding", "frag_timing_road")):
+        b = f.get(key)
+        if b and not f.get(key.split("_")[0] + "_censored"):
+            v[col] = b["label"] + ("" if b["way"] is None or b["label"].startswith("OSM way") else " (OSM way %s)" % b["way"])
+    return v
+
+
 def csv_bytes(rows, lang, ctx) -> bytes:
     buf = io.StringIO()
     w = csv.writer(buf, lineterminator="\n")
-    w.writerow([c[1] if lang == "ko" else c[2] for c in COLUMNS])
+    frag = ctx.get("fragility")
+    cols = COLUMNS + (FRAGILITY_COLUMNS if frag is not None else [])
+    w.writerow([c[1] if lang == "ko" else c[2] for c in cols])
     for row in sorted(rows, key=sort_key):
         f = fields(row, lang, ctx)
-        w.writerow([f[c[0]] for c in COLUMNS])
+        if frag is not None:
+            f.update(fragility_fields(row, lang, frag))
+        w.writerow([f[c[0]] for c in cols])
     data = buf.getvalue()
     # UTF-8 with BOM so that spreadsheet programs on Korean Windows open the Hangul correctly
     return ("﻿" + data).encode("utf-8")
