@@ -161,4 +161,27 @@ Nothing is tuned after step 6. If a bug is found after step 6, the fix and both 
 
 ## 10. Amendments
 
-(none yet)
+**Amendment 1** (2026-11-19, before any model result). Seen so far: the rebuilt geometry reproduces the committed
+5 h and 8 h reach to 1e-6 km; the 24 rows of the 25 March detection product with their reach and start-swapped
+reach (identical at 5 h on every hour, so the starting-area term will be near zero that day); coverage of the truth
+wind fetch. No margin, miss rate or area of any model had been computed.
+
+1. The 850 hPa truth wind is missing for every 2019 and 2020 fire (the archive that serves it starts in 2021).
+   If BASE-850 is the primary model, wind attribution in California covers the 2021 fires only and says so.
+2. Start evidence in California keeps only VIIRS detections within 5 km of K_t (the separate-fire rule). On 25 March
+   the Choi raster is the same fire by construction and no distance rule is applied.
+3. The expected-error file also carries the 0.95 and 0.99 quantiles (the tail beyond the margin is what a robust
+   router needs); calibration is checked for each.
+4. Online versions of the truths used by TARGETED and ALL (section 4 named them only): truth wind is the maximum over
+   the hours of the 8 h window that have already passed; the fire's own coefficient is the 0.9-quantile of
+   reach / pooled margin over matured issues of all leads in the window (for attributing one miss, over the matured
+   issues whose outcome windows do not overlap it; all of them if fewer than 6); the lag maximises the Spearman
+   correlation between the wind term and the matured mean spread rate per issue hour; the start deficit is the
+   largest distance of evidence from K_t at t. The Choi raster is not available in real time, so on 25 March the
+   start term has no online truth and cannot be blamed online. Multipliers: wind bias clipped to 0.5..3; ALL sets
+   the wind bias to the window value (it may be below 1), TARGETED only raises it. Decay: every correction moves
+   toward the pooled model by a factor 0.5^(1/H) per hour and is refreshed by the window value when its term is
+   updated. Attribution inside the loop is always of the pooled (uncorrected) margin, so corrections do not compound.
+5. On 25 March the detection product has 24 hourly rows (from 00 KST). The correction starts cold there; the Choi
+   hours of 22 to 24 March are not used to warm it.
+6. Process pools are not available in this environment; the build is serial. No effect on results.
