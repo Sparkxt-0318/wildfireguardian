@@ -20,7 +20,7 @@ def _dump(obj) -> bytes:
     return json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
 
 
-def instance_bytes(road, inst, close_s, H, dwell) -> bytes:
+def instance_bytes(road, inst, close_s, H, dwell, heat=None) -> bytes:
     doc = {
         "schema": "wfg.roadlayer.instance/1",
         "H": H, "dwell_s": dwell, "grid": road.grid_json, "crs": road.crs, "graph_revision": road.revision,
@@ -42,6 +42,18 @@ def instance_bytes(road, inst, close_s, H, dwell) -> bytes:
             "source": "research/kcf-replay/replay.py Region.instance / Region.accept / run_one",
         },
     }
+    if heat is not None:
+        # heat option: closure second per road piece (edge, piece index) and per node, from the radiant-heat rule
+        # (research/kcf-radiation); the masks above follow from these, not from cell_closure_s.
+        pieces = {}
+        for j, k, b in zip(heat.P["edge"].tolist(), heat.P["k"].tolist(), heat.piece_close.tolist()):
+            if b != float("inf") and b <= H:
+                pieces.setdefault(str(j), []).append([k, int(b)])
+        doc["heat_piece_closure_s"] = pieces
+        doc["heat_node_closure_s"] = {str(v): int(b) for v, b in enumerate(heat.node_close.tolist())
+                                      if b != float("inf") and b <= H}
+        doc["rules"]["heat"] = ("heat option on: B uses the per-piece closure b of each segment (same formula), W, A "
+                                "and IB the per-node closure; fire arrival at a village stays the cell closure")
     return _dump(doc)
 
 

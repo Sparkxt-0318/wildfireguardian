@@ -53,7 +53,7 @@ class Evaluator:
                              crown=out["crown"], law=s.tilt_law)
         out["theta"] = th
         out["H"] = out["L"] * np.cos(th)
-        pw = np.asarray(rh_pct, dtype=float) / 100.0 * np.vectorize(radiation.saturation_vapour_pressure_pa)(np.asarray(t_air_c, dtype=float))
+        pw = np.asarray(rh_pct, dtype=float) / 100.0 * np.vectorize(radiation.saturation_vapour_pressure_pa, otypes=[float])(np.asarray(t_air_c, dtype=float))
         for q, cache in self.caches.items():
             out["dstar_%g" % q] = cache(out["L"], th, pw)
         return out

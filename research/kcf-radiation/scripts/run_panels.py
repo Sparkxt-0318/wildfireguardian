@@ -174,13 +174,14 @@ def one_input(kind, path, rid, issue, road_region, env, settings, workers=1):
                 rec["close_min_s_%s" % vname] = None if not np.isfinite(b).any() else int(np.nanmin(b))
         cell_rows.append(rec)
     # pieces outside burning cells closed by a neighbour's halo (count only)
-    halo = {}
+    halo, halo_cells = {}, {}
     for vname, hc in variants.items():
-        halo[vname] = int(sum(1 for c, b in zip(hc.P["cell"].tolist(), hc.piece_close.tolist())
-                              if math.isfinite(b) and c not in arrival))
+        hit = [c for c, b in zip(hc.P["cell"].tolist(), hc.piece_close.tolist()) if math.isfinite(b) and c not in arrival]
+        halo[vname] = len(hit)
+        halo_cells[vname] = sorted(set(hit))
     return {"region": rid, "issue_utc": issue.strftime("%Y-%m-%dT%H:%MZ"), "kind": kind, "path": str(path), "H": H,
             "ros_info": rinfo, "burning_cells": len(burning), "road_cells": len(road.road_cells),
-            "road_cells_reached": len(arrival), "halo_pieces": halo, "leave": leave, "cells": cell_rows}
+            "road_cells_reached": len(arrival), "halo_pieces": halo, "halo_cells": halo_cells, "leave": leave, "cells": cell_rows}
 
 
 def main():
@@ -191,6 +192,7 @@ def main():
     ap.add_argument("--graphs", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--workers", type=int, default=1)
+    ap.add_argument("--regions", nargs="*", help="limit to these regions (to split a run across processes)")
     a = ap.parse_args()
     from kcf_radiation.protocol import SENSITIVITY_SETTINGS
     settings = {"baseline": BASELINE, **SENSITIVITY_SETTINGS}
@@ -207,6 +209,8 @@ def main():
             for p in sorted((a.packets / rid).iterdir()):
                 issue = datetime.strptime(p.name, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
                 jobs.append(("B", "packet", p, rid, issue))
+    if a.regions:
+        jobs = [j for j in jobs if j[3] in a.regions]
     for panel, kind, p, rid, issue in jobs:
         if rid not in regions:
             regions[rid] = routing.AnyRegion(rid, a.graphs / rid / "graph.json")

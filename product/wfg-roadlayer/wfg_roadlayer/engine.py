@@ -41,10 +41,10 @@ def build_instance(road, close_s: dict, H: int) -> core.Instance:
                          waitable=road.waitable, forbidden=road.forbidden, B=B, W=W)
 
 
-def accept(road, close_s: dict, node: int, H: int, dwell: int):
+def accept(road, close_s: dict, node: int, H: int, dwell: int, nodeb=None):
     """replay.py Region.accept: arrival a is accepted if a <= H - dwell and the shelter cell is not closed during
-    the stay [a, a + dwell]."""
-    b = close_s.get(road.node_cell[node])
+    the stay [a, a + dwell]. ``nodeb`` (heat option): per-node closure second in place of the cell's."""
+    b = nodeb(node) if nodeb else close_s.get(road.node_cell[node])
     acc = (0, H - dwell)
     if acc[1] < 0:
         return []
@@ -53,8 +53,8 @@ def accept(road, close_s: dict, node: int, H: int, dwell: int):
     return [acc]
 
 
-def origin_closure(road, close_s: dict, node: int, H: int):
-    b = close_s.get(road.node_cell[node])
+def origin_closure(road, close_s: dict, node: int, H: int, nodeb=None):
+    b = nodeb(node) if nodeb else close_s.get(road.node_cell[node])
     return [(b, H)] if b is not None else []
 
 
@@ -132,7 +132,7 @@ def stage_of(remaining_s, horizon_left_s, st):
     return None
 
 
-def assemble(region, fire, settings, inst, results, close_s):
+def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
     """Per-village rows (dicts with seconds after issue; formatting is done by the writers)."""
     H = fire.horizon_s
     dwell = settings["routing"]["dwell_s"]
@@ -165,7 +165,7 @@ def assemble(region, fire, settings, inst, results, close_s):
             free = H - dwell - ft if ft is not None and H - dwell - ft >= 0 else None
             per.append({"k": k, "shelter": s, "set": S, "L": S[-1][1] if S else None, "fire_free_latest": free,
                         "fastest_s": ft, "w_last": res["w_last"], "w_first": res["w_first"],
-                        "accept": accept(road, close_s, s["node"], H, dwell)})
+                        "accept": accept(road, close_s, s["node"], H, dwell, nodeb)})
         row["per_shelter"] = per
         if all(p["fire_free_latest"] is None for p in per):
             row["refusal"] = ("NO_ROAD_PATH", "화재와 무관하게 도로망으로 후보 대피소에 갈 수 없음",
@@ -188,7 +188,7 @@ def assemble(region, fire, settings, inst, results, close_s):
         else:
             cut = L + 1
         row.update(windows=windows, L=L, leave_by=(windows[0][1] if windows and windows[0][0] == 0 else None),
-                   fire_free_latest=free_max, cut=cut, A=A, horizon=H, origin_ib=origin_closure(road, close_s, on, H))
+                   fire_free_latest=free_max, cut=cut, A=A, horizon=H, origin_ib=origin_closure(road, close_s, on, H, nodeb))
         # route at the latest departure (the last road out) and at the issue time (leave now)
         best = None
         for p in per:

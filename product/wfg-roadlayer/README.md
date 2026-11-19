@@ -235,6 +235,21 @@ The second writes the cards for all 174 checkable places of the worked example, 
 
 Settings are in `wfg_roadlayer/cards.toml`: copy it, edit it, and pass it with `--card-settings`.
 
+## Heat option (radiant heat, off by default)
+
+`--heat` (or `[heat] enabled = 1` in a settings file) closes a road piece when the radiant flux from the approaching
+front would exceed a threshold (default 4.7 kW/m², `--heat-threshold 7` or `2.5` for the other graded levels), not
+only when the fire reaches its 375 m cell. The method is research/kcf-radiation (published methods only; METHOD.md):
+spread rate from the arrival raster, Byram intensity with fuel from the bundled Copernicus 2019 land-cover class
+(`data/fuel/`, built by `tools/build_heat_fuel.py`), Van Wagner crown test, Byram / Thomas flame length, Albini flame
+tilt, solid-flame radiation. A piece closes when the front comes within the safe distance d* of it; the closure is
+never later than without heat. Wind, humidity and air temperature are one value per run (`[heat]` settings; defaults
+ASSUMED: 7 m/s, 30 %, 10 °C). The certificates carry the per-piece closure seconds and still verify without the tool.
+
+It is off by default: HEAT_DEFAULT_REASON. The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
+packet (other rasters are refused with HEAT_INPUT_UNSUPPORTED). Radiation only: no convection, embers or smoke; the
+thresholds are for people outside a vehicle (research/kcf-radiation/RESULTS.md, Limits).
+
 ## Tests
 
 ```bash
