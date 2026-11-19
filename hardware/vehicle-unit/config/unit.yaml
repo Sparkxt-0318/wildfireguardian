@@ -1,0 +1,131 @@
+# WildfireGuardian vehicle unit (roof sensor head) configuration.
+# The unit streams and records raw data only; it makes no decisions. Every port/bus below follows the user's printed
+# build manual (pin map 2026-11-17) and is NOT verified on hardware. Mount heights/angles are placeholders to be
+# measured on the vehicle; the housing block and the sensor offsets are the user's own figures (not placeholders).
+
+unit_id: VU-01
+
+server:
+  host: 0.0.0.0          # the Pi's own hotspot address is 10.42.0.1 (system/hotspot.sh)
+  port: 8770
+  path: /stream
+  thermal_wire_hz: 4.0   # thermal frames sent to clients per second; the recorder keeps every frame
+  client_queue_max: 400  # per-client bounded queue; when full the oldest message is dropped and counted
+  heartbeat_s: 0.5
+  stop_timeout_s: 1.8    # SIGTERM / --duration end: drivers + clients + socket bounded by this, clients connected or not
+  recorder_close_s: 5.0  # then the recorder gets up to this long to write its backlog (systemd TimeoutStopSec=15)
+
+records:
+  dir: records           # relative to hardware/vehicle-unit/ (git-ignored)
+  flush_s: 1.0
+  rotate_mb: 256
+  low_free_mb: 1000      # event "disk_low" below this
+  stop_free_mb: 200      # recording pauses below this so the SD card never fills
+
+sensors:
+  thermal:
+    enabled: true
+    model: "InfiRay P2 Pro"   # same 256 x 384 YUYV frame as the Topdon TC001 (driver thermal_tc001.py, TC001-compatible)
+    usb_id: "0bda:5830"       # idVendor:idProduct (a Realtek bridge id: not unique to this camera; the frame-shape check
+                              # in the driver is the second guard)
+    index: auto               # auto = the /dev/videoN capture node (sysfs index 0) whose USB parent has usb_id; an
+                              # integer N still forces /dev/videoN. Check with: v4l2-ctl --list-devices; lsusb
+    gain: high                # configured, not read back from the camera (FS-1)
+    stale_s: 1.0
+  radar:
+    enabled: true
+    cli_port: /dev/ttyUSB0    # IWR6843AOP EVM CP2105 "Enhanced" port (CLI)
+    data_port: /dev/ttyUSB1   # CP2105 "Standard" port (data)
+    cli_baud: 115200
+    data_baud: 921600
+    cfg_file: config/iwr6843aop_vu.cfg   # default long range: 128 bins x 0.468 m, max 54 m, 10 Hz (UNTESTED on the EVM)
+    # alternatives: config/iwr6843aop_vu_short.cfg (old default, 512 x 0.049 m, max 22.5 m, over the UART budget at
+    # 10 Hz), config/iwr6843aop_vu_long_fine.cfg (512 x 0.117 m, max 54 m, 2.86 Hz). Arithmetic in each file.
+    stale_s: 1.0
+  # Three MAX31855 on SPI0 (build manual pin map): shared 3.3 V pin 17, GND pin 20, CLK pin 23 (GPIO11),
+  # DO pin 21 (GPIO9 = SPI0 MISO). Chip selects: plate CE0 GPIO8 pin 24, housing CE1 GPIO7 pin 26 (kernel CS),
+  # intake air GPIO5 pin 29 (software CS driven by wfgvu; spidev0.0 opened with no_cs). No SPI1, no spi1 overlay.
+  tc_plate:              # blackened copper flux disc on printed PETG tabs, K thermocouple
+    enabled: true
+    spi_bus: 0
+    spi_dev: 0           # CE0 = GPIO8, pin 24 (kernel chip select)
+    rate_hz: 10
+    stale_s: 1.0
+    disc_max_c: 70       # USER-SET (not a placeholder): PETG tabs. Every flux run stops and warns at >= 70 C
+                         # (wfgvu.tccheck exit 2; laptop PLATE_DISC_OVER_TEMP). Never raise it above 70.
+  tc_housing:
+    enabled: true
+    spi_bus: 0
+    spi_dev: 1           # CE1 = GPIO7, pin 26 (kernel chip select)
+    rate_hz: 10
+    stale_s: 1.0
+  tc_air:                # engine-intake-height air
+    enabled: true
+    spi_bus: 0
+    spi_dev: 0           # opened as /dev/spidev0.0 with no_cs = True (the kernel must NOT assert CE0 for it)
+    cs_gpio: 5           # software chip select GPIO5, pin 29, driven by wfgvu (lgpio) under the SPI0 bus lock
+    rate_hz: 10
+    stale_s: 1.0
+  imu:                   # BNO055 on I2C1: 3.3 V pin 1, GND pin 6, SDA pin 3 (GPIO2), SCL pin 5 (GPIO3)
+    enabled: true
+    i2c_bus: 1
+    address: 0x28
+    rate_hz: 20
+    axis_map_config: 0x24   # BNO055 default axis map; set for the real mounting
+    axis_map_sign: 0x00
+    pitch_sign: 1           # UNVERIFIED: confirm pitch + = nose up with a tilt test on the vehicle
+    roll_sign: 1            # UNVERIFIED: confirm roll + = right side down
+    stale_s: 0.5
+  gnss:
+    enabled: true
+    port: /dev/ttyACM0
+    baud: 9600
+    stale_s: 2.0
+  pi:
+    enabled: true
+    rate_hz: 1
+    stale_s: 3.0
+
+housing:                 # the supplied, printed housing (user's figures 2026-11-17; documentation only, not designed here)
+  material: PETG         # printed; material as told by the user
+  body_mm: [180, 140, 72]
+  wall_mm: 4
+  pi_standoff_pattern_mm: [58, 49]   # four standoffs
+  floor_rails: 3
+  rail_pilot_hole: M3
+  rail_hole_pitch_mm: 10
+  front_plate_mm: [172, 66, 3]       # bolt-on front plate
+  sensor_centre_line_above_base_mm: 34
+  heat_shield: {material: aluminium, gap_mm: 10}   # 10 mm in front of the front plate
+
+mount:                   # heights/angles: PLACEHOLDERS, measure on the vehicle. Sent to the laptop in hello ("mount").
+  # Sensor geometry on the front plate (user's build manual figures, not placeholders). z = height of the hole centre
+  # above the housing base; every hole is on one horizontal centre line 34 mm above the base.
+  # x as in the build manual; sign convention (+ to the right seen from the front) UNCONFIRMED. Nothing on the Pi
+  # uses x; a consumer must either be insensitive to a sign flip or flag it. (Laptop: crossing.yaml
+  # mount.offset_x_sign; this reading, "seen from the front", is -1 there; the default 0 applies no correction.)
+  sensor_offsets_mm:
+    camera: {x: -52, z: 34, hole_d: 12}
+    radar: {x: -8, z: 34, window_w: 52, window_h: 42, window_t: 1.2}   # window thinned to 1.2 mm
+    flux_disc: {x: 45, z: 34, hole_d: 30.6}
+  # camera, radar and flux disc sit on the same centre line, so radar_height_m and plate_height_m must equal
+  # camera_height_m (wfgvu warns at start-up when they differ).
+  camera_height_m: 2.6
+  # Camera boresight pitch relative to the vehicle body, + UP (laptop CameraPose convention): -18 = 18 deg DOWN.
+  # Arithmetic (P2 Pro / TC001-compatible vertical FOV 42 deg (vendor figure, unchecked), half 21 deg; h = 2.6 m; flat ground; vehicle level):
+  #   nearest visible ground  h / tan(pitch_down + 21) = 2.6 / tan(39 deg) = 3.21 m   (level camera: 2.6 / tan(21) = 6.77 m)
+  #   top image edge          21 - 18 = +3 deg above horizontal: the horizon is in frame, ~14.7 px below the top row
+  #                           (fy = 96 / tan 21 = 250.1 px; 250.1 * tan 18 = 81.3 px above the centre row 95.5)
+  #   tallest point in view   2.6 + d tan 3 deg: 3.12 m at 10 m, 3.65 m at 20 m, 4.17 m at 30 m (level: 6.4 / 10.3 / 14.1 m)
+  # Trade-off, stated: flames taller than that are cut by the TOP edge (flame height then reads low), and the horizon
+  # leaves the frame when the vehicle is nose-down by more than 3 deg (about a 5 % downgrade). UNVERIFIED: -18 is a
+  # PLACEHOLDER from the withdrawn earlier concept; the camera pitch in the supplied housing must be measured on the
+  # vehicle (inclinometer on the camera face) and entered here.
+  camera_pitch_deg: -18.0
+  camera_roll_deg: 0.0
+  camera_yaw_deg: 0.0
+  radar_height_m: 2.6     # = camera_height_m (same centre line on the front plate)
+  radar_yaw_deg: 0.0
+  plate_height_m: 2.6     # = camera_height_m (same 34 mm centre line)
+  tc_air_height_m: 1.0
+  antenna_offset_m: [0.0, 0.0, 0.0]

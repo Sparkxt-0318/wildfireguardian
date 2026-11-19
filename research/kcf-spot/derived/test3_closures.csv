@@ -1,0 +1,10 @@
+id,closure_kst,source,region,section,n_cells,front_reached_by_closure,first_front_arrival_kst,issue_kst,h,P_max,in_zone10,in_fixed_buffer,nearest_front_km,fixed_c_km
+KEC-0015,2025-03-25 00:15,KEC official,uiseong_andong_2025,중앙선 의성IC~남안동JC: all route-55 cells in grid,100,True,2025-03-24 16:00:00,2025-03-25 00:00:00,1,0.0002363822425987504,False,True,0.0,2.625
+KEC-1530,2025-03-25 15:30,KEC official,uiseong_andong_2025,서산영덕선 안동JC~청송IC: route-30 cells east of the 30/55 junction,73,True,2025-03-24 13:00:00,2025-03-25 15:00:00,1,0.0010787948630836461,False,True,0.0,2.625
+KEC-1558,2025-03-25 15:58,KEC official,uiseong_andong_2025,서산영덕선 서의성IC~청송IC: all route-30 cells in grid,96,True,2025-03-24 13:00:00,2025-03-25 15:00:00,1,0.0015847946465149209,False,True,0.0,2.625
+KEC-1800,2025-03-25 18:00,KEC official,uiseong_andong_2025,중앙선 의성IC~예천IC: all route-55 cells in grid,100,True,2025-03-24 16:00:00,2025-03-25 18:00:00,1,0.0008556051311813605,False,True,0.0,2.625
+KEC-2126,2025-03-25 21:26,KEC official,uiseong_andong_2025,중앙선 의성IC~풍기IC: all route-55 cells in grid,100,True,2025-03-24 16:00:00,2025-03-25 21:00:00,1,0.0006707632966873293,False,True,0.0,2.625
+RD10,2025-03-25 18:25,REPORTED (kcf-roadcut),yeongdeok_2025,황장재 통행제한: all route-34 cells in the 영덕 grid,92,True,2025-03-25 18:00:00,2025-03-25 18:00:00,1,0.0008556051311813605,False,True,0.0,2.625
+RD11,2025-03-25 18:58,REPORTED (kcf-roadcut),yeongdeok_2025,국도34 구미~황장: all route-34 cells in the 영덕 grid,92,True,2025-03-25 18:00:00,2025-03-25 18:00:00,1,0.0008556051311813605,False,True,0.0,2.625
+RD12,2025-03-25 19:04,REPORTED (kcf-roadcut),yeongdeok_2025,지품면 도계→영양: route-911 cells in the 영덕 grid,27,True,2025-03-25 19:00:00,2025-03-25 19:00:00,1,0.0006363718513706189,False,True,0.0,2.625
+RD9,2025-03-25 19:09,REPORTED (kcf-roadcut),yeongdeok_2025,지방도911 황장리~화매리: route-911 cells in the 영덕 grid,27,True,2025-03-25 19:00:00,2025-03-25 19:00:00,1,0.0006363718513706189,False,True,0.0,2.625

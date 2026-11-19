@@ -1,0 +1,205 @@
+set,t_end_s,d_nominal_m,quantity,value,lo,hi,valid,truth,truth_alt,covers_truth,note
+1s_sequence,50.03,10,near_edge_m,15.6305,,,,10,12,,
+1s_sequence,50.03,10,flame_height_m,2.1875,,,,5,,,
+1s_sequence,50.03,10,est_a_spread_burn,10.166,6.19049,16.6944,True,11.1364,,,ok
+1s_sequence,50.03,10,est_b_byram,2.25851,0.674346,7.56414,True,11.1364,,,ok
+1s_sequence,50.03,10,est_c_radar_ceiling,10.4819,9.04885,12.1419,True,11.1364,,,ceiling (upper bound)
+1s_sequence,50.03,10,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,50.03,10,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,50.03,10,est_d_flicker_extent_oracle,35.2292,9.44979,131.336,True,11.1364,,,experimental
+1s_sequence,50.03,10,depth_default(a+b),10.1341,4.81563,21.3263,True,11.1364,11,True,
+1s_sequence,50.03,10,depth_a_only,10.166,4.83074,21.3936,True,11.1364,11,True,
+1s_sequence,50.03,10,depth_b_only,2.25851,0.36848,13.843,True,11.1364,11,True,
+1s_sequence,50.03,10,depth_with_flicker(a+b+d),10.1341,4.81563,21.3263,True,11.1364,11,True,
+1s_sequence,50.03,10,depth_with_oracle_flicker(a+b+d'),11.8333,5.89854,23.7394,True,11.1364,11,True,
+1s_sequence,50.03,10,radar_cfg_default_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,50.03,10,radar_cfg_default_clutter_wet,,,,,26.0432,,,UNKNOWN
+1s_sequence,50.03,10,radar_cfg_default_reflector_only_dry,10.0759,,,,26.0432,26.2318,,UNKNOWN
+1s_sequence,50.03,10,radar_cfg_default_clutter_unscaled_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,50.03,10,radar_cfg_long_fine_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,50.03,10,radar_cfg_short22.5m_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,50.03,10,radar_virtual60m_0.0488m_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,50.03,20,near_edge_m,26.0509,,,,20,22,,
+1s_sequence,50.03,20,flame_height_m,2.60417,,,,5,,,
+1s_sequence,50.03,20,est_a_spread_burn,10.0262,6.0929,16.4988,True,11.1364,,,ok
+1s_sequence,50.03,20,est_b_byram,3.29937,0.985128,11.0502,True,11.1364,,,ok
+1s_sequence,50.03,20,est_c_radar_ceiling,9.93116,8.50378,11.5981,True,11.1364,,,ceiling (upper bound)
+1s_sequence,50.03,20,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,50.03,20,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,50.03,20,est_d_flicker_extent_oracle,14.1141,3.78592,52.6178,True,11.1364,,,experimental
+1s_sequence,50.03,20,depth_default(a+b),9.9845,4.73005,21.0759,True,11.1364,11,True,
+1s_sequence,50.03,20,depth_a_only,10.0262,4.7497,21.1646,True,11.1364,11,True,
+1s_sequence,50.03,20,depth_b_only,3.29937,0.538299,20.2227,True,11.1364,11,True,
+1s_sequence,50.03,20,depth_with_flicker(a+b+d),9.9845,4.73005,21.0759,True,11.1364,11,True,
+1s_sequence,50.03,20,depth_with_oracle_flicker(a+b+d'),10.4271,5.18457,20.9708,True,11.1364,11,True,
+1s_sequence,50.03,20,radar_cfg_default_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,50.03,20,radar_cfg_default_clutter_wet,,,,,36.0312,,,UNKNOWN
+1s_sequence,50.03,20,radar_cfg_default_reflector_only_dry,7.57261,,,,36.0312,36.0688,,UNKNOWN
+1s_sequence,50.03,20,radar_cfg_default_clutter_unscaled_dry,4.93805,,,,36.0312,36.0688,,FLAME_EFFECT
+1s_sequence,50.03,20,radar_cfg_long_fine_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,50.03,20,radar_cfg_short22.5m_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,50.03,20,radar_virtual60m_0.0488m_clutter_dry,4.74453,,,,36.0312,36.0144,,FLAME_EFFECT
+1s_sequence,50.03,30,near_edge_m,36.7777,,,,30,32,,
+1s_sequence,50.03,30,flame_height_m,2.64706,,,,5,,,
+1s_sequence,50.03,30,est_a_spread_burn,8.89293,5.2994,14.9232,True,11.1364,,,ok
+1s_sequence,50.03,30,est_b_byram,3.41865,1.02074,11.4497,True,11.1364,,,ok
+1s_sequence,50.03,30,est_c_radar_ceiling,9.05985,7.6428,10.7396,True,11.1364,,,ceiling (upper bound)
+1s_sequence,50.03,30,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,50.03,30,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,50.03,30,est_d_flicker_extent_oracle,9.51153,2.55135,35.4594,True,11.1364,,,experimental
+1s_sequence,50.03,30,depth_default(a+b),8.72696,4.01735,18.9577,True,11.1364,11,True,
+1s_sequence,50.03,30,depth_a_only,8.89293,4.09089,19.3318,True,11.1364,11,True,
+1s_sequence,50.03,30,depth_b_only,3.41865,0.55776,20.9538,True,11.1364,11,True,
+1s_sequence,50.03,30,depth_with_flicker(a+b+d),8.72696,4.01735,18.9577,True,11.1364,11,True,
+1s_sequence,50.03,30,depth_with_oracle_flicker(a+b+d'),8.82807,4.28838,18.1735,True,11.1364,11,True,
+1s_sequence,50.03,30,radar_cfg_default_clutter_dry,,,,,46.0245,,,UNKNOWN
+1s_sequence,50.03,30,radar_cfg_default_clutter_wet,,,,,46.0245,,,UNKNOWN
+1s_sequence,50.03,30,radar_cfg_default_reflector_only_dry,6.31593,,,,46.0245,45.9057,,UNKNOWN
+1s_sequence,50.03,30,radar_cfg_default_clutter_unscaled_dry,4.98529,,,,46.0245,45.9057,,FLAME_EFFECT
+1s_sequence,50.03,30,radar_cfg_long_fine_clutter_dry,,,,,46.0245,,,UNKNOWN
+1s_sequence,50.03,30,radar_cfg_short22.5m_clutter_dry,,,,,46.0245,,,UNKNOWN
+1s_sequence,50.03,30,radar_virtual60m_0.0488m_clutter_dry,5.30989,,,,46.0245,46.0184,,FLAME_EFFECT
+1s_sequence,53.02,10,near_edge_m,15.2493,,,,10,10,,
+1s_sequence,53.02,10,flame_height_m,1.52439,,,,6,,,
+1s_sequence,53.02,10,est_a_spread_burn,10.8678,6.61554,17.8532,True,11.1364,,,ok
+1s_sequence,53.02,10,est_b_byram,1.03,0.307539,3.44967,True,11.1364,,,ok
+1s_sequence,53.02,10,est_c_radar_ceiling,10.8631,9.42646,12.5188,True,11.1364,,,ceiling (upper bound)
+1s_sequence,53.02,10,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,53.02,10,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,53.02,10,est_d_flicker_extent_oracle,25.3002,6.78645,94.3201,True,11.1364,,,experimental
+1s_sequence,53.02,10,depth_default(a+b),10.8072,5.1328,22.7547,True,11.1364,11,True,
+1s_sequence,53.02,10,depth_a_only,10.8678,5.16152,22.8825,True,11.1364,11,True,
+1s_sequence,53.02,10,depth_b_only,1.03,0.168047,6.31316,True,11.1364,11,False,
+1s_sequence,53.02,10,depth_with_flicker(a+b+d),10.8072,5.1328,22.7547,True,11.1364,11,True,
+1s_sequence,53.02,10,depth_with_oracle_flicker(a+b+d'),12.0152,5.9866,24.1145,True,11.1364,11,True,
+1s_sequence,53.02,10,radar_cfg_default_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,53.02,10,radar_cfg_default_clutter_wet,,,,,26.0432,,,UNKNOWN
+1s_sequence,53.02,10,radar_cfg_default_reflector_only_dry,8.52382,,,,26.0432,26.2318,,UNKNOWN
+1s_sequence,53.02,10,radar_cfg_default_clutter_unscaled_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,53.02,10,radar_cfg_long_fine_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,53.02,10,radar_cfg_short22.5m_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,53.02,10,radar_virtual60m_0.0488m_clutter_dry,,,,,26.0432,,,UNKNOWN
+1s_sequence,53.02,20,near_edge_m,26.0509,,,,20,20,,
+1s_sequence,53.02,20,flame_height_m,1.875,,,,6,,,
+1s_sequence,53.02,20,est_a_spread_burn,10.5038,6.38822,17.2709,True,11.1364,,,ok
+1s_sequence,53.02,20,est_b_byram,1.61542,0.482332,5.41033,True,11.1364,,,ok
+1s_sequence,53.02,20,est_c_radar_ceiling,9.93116,8.50378,11.5981,True,11.1364,,,ceiling (upper bound)
+1s_sequence,53.02,20,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,53.02,20,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,53.02,20,est_d_flicker_extent_oracle,16.9246,4.53981,63.0956,True,11.1364,,,experimental
+1s_sequence,53.02,20,depth_default(a+b),10.4429,4.95312,22.0174,True,11.1364,11,True,
+1s_sequence,53.02,20,depth_a_only,10.5038,4.98191,22.1462,True,11.1364,11,True,
+1s_sequence,53.02,20,depth_b_only,1.61542,0.263559,9.90131,True,11.1364,11,False,
+1s_sequence,53.02,20,depth_with_flicker(a+b+d),10.4429,4.95312,22.0174,True,11.1364,11,True,
+1s_sequence,53.02,20,depth_with_oracle_flicker(a+b+d'),11.0924,5.52076,22.2872,True,11.1364,11,True,
+1s_sequence,53.02,20,radar_cfg_default_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,53.02,20,radar_cfg_default_clutter_wet,,,,,36.0312,,,UNKNOWN
+1s_sequence,53.02,20,radar_cfg_default_reflector_only_dry,7.08316,,,,36.0312,36.0688,,UNKNOWN
+1s_sequence,53.02,20,radar_cfg_default_clutter_unscaled_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,53.02,20,radar_cfg_long_fine_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,53.02,20,radar_cfg_short22.5m_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,53.02,20,radar_virtual60m_0.0488m_clutter_dry,,,,,36.0312,,,UNKNOWN
+1s_sequence,53.02,30,near_edge_m,34.7345,,,,30,30,,
+1s_sequence,53.02,30,flame_height_m,2.08333,,,,6,,,
+1s_sequence,53.02,30,est_a_spread_burn,11.7371,7.0727,19.4776,True,11.1364,,,ok
+1s_sequence,53.02,30,est_b_byram,2.03122,0.606483,6.80293,True,11.1364,,,ok
+1s_sequence,53.02,30,est_c_radar_ceiling,11.1031,9.66424,12.7561,True,11.1364,,,ceiling (upper bound)
+1s_sequence,53.02,30,est_d_flicker_extent,,,,False,11.1364,,,no flicker beyond the near edge
+1s_sequence,53.02,30,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,53.02,30,est_d_flicker_extent_oracle,1.2444,0.333795,4.63918,True,11.1364,,,experimental
+1s_sequence,53.02,30,depth_default(a+b),11.5207,5.3902,24.6236,True,11.1364,11,True,
+1s_sequence,53.02,30,depth_a_only,11.7371,5.49032,25.0913,True,11.1364,11,True,
+1s_sequence,53.02,30,depth_b_only,2.03122,0.331398,12.4499,True,11.1364,11,True,
+1s_sequence,53.02,30,depth_with_flicker(a+b+d),11.5207,5.3902,24.6236,True,11.1364,11,True,
+1s_sequence,53.02,30,depth_with_oracle_flicker(a+b+d'),8.64596,4.25548,17.5662,True,11.1364,11,True,
+1s_sequence,53.02,30,radar_cfg_default_clutter_dry,,,,,46.0245,,,UNKNOWN
+1s_sequence,53.02,30,radar_cfg_default_clutter_wet,,,,,46.0245,,,UNKNOWN
+1s_sequence,53.02,30,radar_cfg_default_reflector_only_dry,5.50477,,,,46.0245,45.9057,,UNKNOWN
+1s_sequence,53.02,30,radar_cfg_default_clutter_unscaled_dry,4.52473,,,,46.0245,45.9057,,FLAME_EFFECT
+1s_sequence,53.02,30,radar_cfg_long_fine_clutter_dry,,,,,46.0245,,,UNKNOWN
+1s_sequence,53.02,30,radar_cfg_short22.5m_clutter_dry,,,,,46.0245,,,UNKNOWN
+1s_sequence,53.02,30,radar_virtual60m_0.0488m_clutter_dry,4.60671,,,,46.0245,46.0184,,FLAME_EFFECT
+1s_sequence,56.03,10,near_edge_m,14.54,,,,10,10,,
+1s_sequence,56.03,10,flame_height_m,1.62791,,,,7,,,
+1s_sequence,56.03,10,est_a_spread_burn,10.3383,6.29039,16.9911,True,11.1364,,,ok
+1s_sequence,56.03,10,est_b_byram,1.18814,0.354756,3.97931,True,11.1364,,,ok
+1s_sequence,56.03,10,est_c_radar_ceiling,10.1604,8.73054,11.8243,True,11.1364,,,ceiling (upper bound)
+1s_sequence,56.03,10,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,56.03,10,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,56.03,10,est_d_flicker_extent_oracle,27.4049,7.35103,102.167,True,11.1364,,,experimental
+1s_sequence,56.03,10,depth_default(a+b),10.2772,4.87779,21.6535,True,11.1364,10,True,
+1s_sequence,56.03,10,depth_a_only,10.3383,4.90672,21.7825,True,11.1364,10,True,
+1s_sequence,56.03,10,depth_b_only,1.18814,0.193848,7.28243,True,11.1364,10,False,
+1s_sequence,56.03,10,depth_with_flicker(a+b+d),10.2772,4.87779,21.6535,True,11.1364,10,True,
+1s_sequence,56.03,10,depth_with_oracle_flicker(a+b+d'),11.615,5.78403,23.3244,True,11.1364,10,True,
+1s_sequence,56.03,10,radar_cfg_default_clutter_dry,,,,,25.045,,,UNKNOWN
+1s_sequence,56.03,10,radar_cfg_default_clutter_wet,,,,,25.045,,,UNKNOWN
+1s_sequence,56.03,10,radar_cfg_default_reflector_only_dry,9.20861,,,,25.045,24.8266,,UNKNOWN
+1s_sequence,56.03,10,radar_cfg_default_clutter_unscaled_dry,,,,,25.045,,,UNKNOWN
+1s_sequence,56.03,10,radar_cfg_long_fine_clutter_dry,,,,,25.045,,,UNKNOWN
+1s_sequence,56.03,10,radar_cfg_short22.5m_clutter_dry,,,,,25.045,,,UNKNOWN
+1s_sequence,56.03,10,radar_virtual60m_0.0488m_clutter_dry,,,,,25.045,,,UNKNOWN
+1s_sequence,56.03,20,near_edge_m,25.0089,,,,20,20,,
+1s_sequence,56.03,20,flame_height_m,2.4,,,,7,,,
+1s_sequence,56.03,20,est_a_spread_burn,10.2247,6.18537,16.9018,True,11.1364,,,ok
+1s_sequence,56.03,20,est_b_byram,2.7628,0.824919,9.25312,True,11.1364,,,ok
+1s_sequence,56.03,20,est_c_radar_ceiling,10.034,8.6055,11.6996,True,11.1364,,,ceiling (upper bound)
+1s_sequence,56.03,20,est_d_flicker_extent,,,,False,11.1364,,,no flicker bins
+1s_sequence,56.03,20,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,56.03,20,est_d_flicker_extent_oracle,18.4301,4.94363,68.708,True,11.1364,,,experimental
+1s_sequence,56.03,20,depth_default(a+b),10.1256,4.76477,21.518,True,11.1364,10,True,
+1s_sequence,56.03,20,depth_a_only,10.2247,4.81088,21.7307,True,11.1364,10,True,
+1s_sequence,56.03,20,depth_b_only,2.7628,0.450756,16.9339,True,11.1364,10,True,
+1s_sequence,56.03,20,depth_with_flicker(a+b+d),10.1256,4.76477,21.518,True,11.1364,10,True,
+1s_sequence,56.03,20,depth_with_oracle_flicker(a+b+d'),10.9277,5.40375,22.0987,True,11.1364,10,True,
+1s_sequence,56.03,20,radar_cfg_default_clutter_dry,,,,,35.0321,,,UNKNOWN
+1s_sequence,56.03,20,radar_cfg_default_clutter_wet,,,,,35.0321,,,UNKNOWN
+1s_sequence,56.03,20,radar_cfg_default_reflector_only_dry,6.76542,,,,35.0321,35.1319,,UNKNOWN
+1s_sequence,56.03,20,radar_cfg_default_clutter_unscaled_dry,3.99781,,,,35.0321,35.1319,,NO_EFFECT
+1s_sequence,56.03,20,radar_cfg_long_fine_clutter_dry,,,,,35.0321,,,UNKNOWN
+1s_sequence,56.03,20,radar_cfg_short22.5m_clutter_dry,,,,,35.0321,,,UNKNOWN
+1s_sequence,56.03,20,radar_virtual60m_0.0488m_clutter_dry,4.5355,,,,35.0321,35.0384,,FLAME_EFFECT
+1s_sequence,56.03,30,near_edge_m,34.7345,,,,30,30,,
+1s_sequence,56.03,30,flame_height_m,2.63889,,,,7,,,
+1s_sequence,56.03,30,est_a_spread_burn,9.77891,5.84775,16.3528,True,11.1364,,,ok
+1s_sequence,56.03,30,est_b_byram,3.39576,1.01391,11.373,True,11.1364,,,ok
+1s_sequence,56.03,30,est_c_radar_ceiling,10.1648,8.73493,11.8287,True,11.1364,,,ceiling (upper bound)
+1s_sequence,56.03,30,est_d_flicker_extent,,,,False,11.1364,,,no flicker beyond the near edge
+1s_sequence,56.03,30,est_e_radar_loss_depth,,,,False,11.1364,,,no calibrated dB/m for this fuel
+1s_sequence,56.03,30,est_d_flicker_extent_oracle,11.0813,2.97243,41.3117,True,11.1364,,,experimental
+1s_sequence,56.03,30,depth_default(a+b),9.60612,4.44445,20.7624,True,11.1364,10,True,
+1s_sequence,56.03,30,depth_a_only,9.77891,4.52208,21.1467,True,11.1364,10,True,
+1s_sequence,56.03,30,depth_b_only,3.39576,0.554024,20.8135,True,11.1364,10,True,
+1s_sequence,56.03,30,depth_with_flicker(a+b+d),9.60612,4.44445,20.7624,True,11.1364,10,True,
+1s_sequence,56.03,30,depth_with_oracle_flicker(a+b+d'),9.78941,4.7748,20.0705,True,11.1364,10,True,
+1s_sequence,56.03,30,radar_cfg_default_clutter_dry,,,,,45.025,,,UNKNOWN
+1s_sequence,56.03,30,radar_cfg_default_clutter_wet,,,,,45.025,,,UNKNOWN
+1s_sequence,56.03,30,radar_cfg_default_reflector_only_dry,5.94362,,,,45.025,44.9689,,UNKNOWN
+1s_sequence,56.03,30,radar_cfg_default_clutter_unscaled_dry,,,,,45.025,,,UNKNOWN
+1s_sequence,56.03,30,radar_cfg_long_fine_clutter_dry,,,,,45.025,,,UNKNOWN
+1s_sequence,56.03,30,radar_cfg_short22.5m_clutter_dry,,,,,45.025,,,UNKNOWN
+1s_sequence,56.03,30,radar_virtual60m_0.0488m_clutter_dry,,,,,45.025,,,UNKNOWN
+flux,,10,fds_radiometer_geomean_kw_m2,0.624991,0.35698,1.0637,,,,,n=32
+flux,,20,fds_radiometer_geomean_kw_m2,0.223417,0.14664,0.33308,,,,,n=30
+flux,,30,fds_radiometer_geomean_kw_m2,0.0646695,0.045563,0.11556,,,,,n=44
+flux,,10,closed_form_finite_kw_m2,12.9278,,,,,,,
+flux,,10,closed_form_long_kw_m2,14.5589,,,,,,,
+flux,,20,closed_form_finite_kw_m2,6.75225,,,,,,,
+flux,,20,closed_form_long_kw_m2,8.86478,,,,,,,
+flux,,30,closed_form_finite_kw_m2,4.11312,,,,,,,
+flux,,30,closed_form_long_kw_m2,6.37245,,,,,,,
+flux,,10,voxel_kw_m2_z1.5,11.7716,10.5105,15.1058,,,,,
+flux,,10,voxel_kw_m2_z2.5,11.8086,10.5438,15.1868,,,,,
+flux,,20,voxel_kw_m2_z1.5,5.98795,5.55936,7.30605,,,,,
+flux,,20,voxel_kw_m2_z2.5,5.99103,5.56174,7.31453,,,,,
+flux,,30,voxel_kw_m2_z1.5,3.61532,3.35308,4.27847,,,,,
+flux,,30,voxel_kw_m2_z2.5,3.61564,3.3532,4.27989,,,,,
+plate,,10,plate_fds_radiometer_RAD_X102,0.49556,,,,0.57038,,,rms 0.670
+plate,,20,plate_fds_radiometer_RAD_X102,0.0484341,,,,0.189582,,,rms 0.414
+plate,,30,plate_fds_radiometer_RAD_X102,0.131377,,,,0.0539365,,,rms 0.453
+plate,,10,plate_closed_form_finite,12.9813,,,,13.1459,,,rms 0.715
+plate,,20,plate_closed_form_finite,6.56319,,,,6.84405,,,rms 0.435
+plate,,30,plate_closed_form_finite,4.18968,,,,4.23284,,,rms 0.538
+plate,,10,plate_voxel_z1.5,11.6419,,,,11.8105,,,rms 0.592
+plate,,20,plate_voxel_z1.5,6.03066,,,,6.1742,,,rms 0.532
+plate,,30,plate_voxel_z1.5,3.84386,,,,3.75849,,,rms 0.255
