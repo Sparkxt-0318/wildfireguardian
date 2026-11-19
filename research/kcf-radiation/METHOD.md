@@ -70,11 +70,15 @@ potential by linking models of surface and crown fire behavior*, USDA RMRS-RP-29
 
 Total intensity I = H (w + CFB CFL) R.
 
-**Flame length**, as FARSITE (Finney 1998, RMRS-RP-4) and FlamMap do:
+**Flame length**, the surface / crown split used in US fire-behaviour practice:
 
-* surface fire: Byram (1959) L = 0.0775 I^0.46;
-* crown fire: Thomas (1963) L = 0.0266 I^(2/3) (Thomas, "The size of flames from natural fires", *9th Symp. (Int.)
-  on Combustion*, 844-859; used for crown fires after Rothermel 1991, RMRS INT-438).
+* surface fire: Byram (1959) L = 0.0775 I^0.46 (Rothermel 1991 eq. 2: L = 0.45 I^0.46 in ft and Btu/ft/s);
+* crown fire: Thomas (1963) L = 0.0266 I^(2/3) (Rothermel 1991, *Predicting behavior and size of crown fires in the
+  Northern Rocky Mountains*, USDA INT-438, eq. 3: L = 0.2 I^(2/3) in ft and Btu/ft/s; Thomas, "The size of flames
+  from natural fires", *9th Symp. (Int.) on Combustion*). Rothermel notes that Byram's relation "seriously
+  underpredicts" crown flames. FARSITE's manual (Finney 1998, RMRS-RP-4) gives the crown initiation, active-crowning
+  and crown-intensity equations used here but not a flame-length equation; that FlamMap uses Thomas for crown flames
+  is as the brief states and was not checked in its documentation.
 
 **Range.** Byram's relation was fitted to low- and moderate-intensity surface fires (roughly I < 3,000-4,000 kW/m;
 Alexander and Cruz 2012). Thomas's comes from buoyant-plume scaling and laboratory crib fires, and is the accepted
@@ -106,9 +110,11 @@ envelope of 5.3 is carried alongside.
 ### 5.2 Emissive power and transmissivity
 
 E = ε σ T^4 with ε = 1 and T = 1200 K (Butler and Cohen 1998); range 1090 K (AS 3959-2018, Method 2) to 1400 K.
-Atmospheric transmissivity τ = 2.02 (P_w x)^-0.09 (Pietersen and Huerta 1985, TNO; the "Yellow Book" form), P_w the
-water-vapour partial pressure (Pa) from RH and air temperature (Alduchov and Eskridge 1996), x the path length; stated
-for 10^4 < P_w x < 10^5 Pa m and clipped to τ <= 1 below that.
+Atmospheric transmissivity τ = 2.02 (P_w x)^-0.09 (TNO "Yellow Book", CPR 14E, ch. 6; often attributed to
+Pietersen and Huerta 1985, not confirmed), P_w the water-vapour partial pressure (Pa) from RH and air temperature
+(Alduchov and Eskridge 1996), x the path length; stated for 10^4 < P_w x < 10^5 Pa m and clipped to τ <= 1 below
+that. AS 3959 uses Fuss and Hamins (2002, *Fire Safety J.* 37:181-190) instead, stated for 10-200 m paths and
+1273-1873 K sources, outside most of this study's range.
 
 ### 5.3 View factor: four geometries
 
@@ -122,19 +128,22 @@ once W >> d), seen by a vertical receiver 1.5 m above ground facing the fire.
 | worst angle | the tilt that maximises the view factor | AS 3959-2018 Method 2; used for wildfire safety distances by Zárate, Arnaldos and Casal 2008, *Fire Safety J.* 43:565-575 |
 | cylinder (Mudan) | vertical cylinder of diameter W and the flame height, target at W/2 + d from its axis | Mudan 1984, *Prog. Energy Combust. Sci.* 10:59-80 (and Mudan and Croce, SFPE Handbook); a shape comparator, not the line-fire geometry |
 
-The brief also names "Mudan-Sparrow" and "Rai-Kalelkar". Raj and Kalelkar (1974, *Assessment models in support of
-the Hazard Assessment Handbook*, US Coast Guard CG-446-3) give tilted-cylinder flames for LNG pool fires; the
-geometry is the cylinder family already represented by Mudan's formula. "Mudan-Sparrow" could not be identified as a
-separate formula; the radiation-exchange basis is Sparrow and Cess (*Radiation Heat Transfer*), from which the
-configuration-factor integral above is taken. Neither adds a line-fire geometry beyond the four in the table.
+The brief also names "Mudan-Sparrow" and "Rai-Kalelkar". "Mudan-Sparrow" is not a standard citation; the likely
+referent is Mudan's closed-form (tilted) cylinder view factors, derived with Sparrow's contour-integral method
+(Sparrow 1963, *J. Heat Transfer* 85:81-88), which is the cylinder row above. Raj and Kalelkar (1974, *Assessment
+models in support of the Hazard Assessment Handbook (CG-446-3)*, Arthur D. Little for the US Coast Guard, report
+CG-D-65-74) model LNG pool-fire flames as tilted cylinders; their view-factor details were not obtained, and the
+geometry is the same cylinder family. Neither adds a line-fire geometry beyond the four in the table.
 
 Flux: q(d) = τ E F(d). Safe distance d*(q*): the smallest distance beyond which q < q*, by bisection.
 
 ### 5.4 Butler and Cohen 1998
 
 Butler and Cohen (1998), "Firefighter safety zones: a theoretical model based on radiative heating", *Int. J.
-Wildland Fire* 8:73-77: a flat vertical flame sheet, ε = 1, uniform flame temperature, no attenuation; with a
-7 kW/m2 tolerance the separation distance is about 4 times the flame height. Check C1 reproduces it (RESULTS.md).
+Wildland Fire* 8:73-77: a flat vertical flame sheet 20 m wide, ε = 1, 1200 K, no attenuation (parameters as listed
+by Butler 2014, *IJWF* 23:295-308, Table 1); with a 7 kW/m2 tolerance a linear fit gives a separation of about
+4 x flame height. Check C1 reproduces it (RESULTS.md) and shows that a long front needs about 8 x flame length
+(Rossi et al. 2011).
 
 ## 6. Fire radiative power
 
@@ -167,7 +176,8 @@ counts for each.
 * **Geometry.** A single straight front facing the receiver; no flanks, junctions or multiple fronts (which add);
   flat ground (slope is not used: a fire on a slope below the road tilts toward it); no shielding by vehicles,
   terrain or trees, and no vehicle body: the receiver is a bare vertical surface.
-* **Thresholds.** 7 kW/m2 is a short-exposure tolerance for firefighters in protective clothing; 4.7 kW/m2 the API 521
-  limit for 2-3 min emergency actions in appropriate clothing; 2.5 kW/m2 a tenability limit for skin. None is a
-  validated limit for people inside vehicles.
+* **Thresholds.** 7 kW/m2: Butler and Cohen's tolerance (second-degree burn to bare skin in under about 90 s; NWCG
+  safety-zone basis). 4.7 kW/m2: API 521 (5th ed. onward: emergency actions of 2-3 min in appropriate clothing; pain
+  after about 16 s). 2.5 kW/m2: ISO 13571 / Purser (SFPE Handbook): tolerable for about 30 min. None is a validated
+  limit for people inside vehicles.
 * **No field validation.** C2 is model-to-model. C3 compares flame lengths, not flux at a road.
