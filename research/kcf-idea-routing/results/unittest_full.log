@@ -1,0 +1,86 @@
+test_repo_toy (research.kcf-idea-routing.tests.test_margin_field.Examples.test_repo_toy)
+The 6-node toy of research/kcf-evidence/ALGORITHM_APPENDIX.md (feasible 0-10 and 26-32). ... ok
+test_two_route_example (research.kcf-idea-routing.tests.test_margin_field.Examples.test_two_route_example)
+METHOD.md Proposition 3: one unbroken window [0, 11], but second 5 has margin 0. ... ok
+test_each_mutant_is_caught (research.kcf-idea-routing.tests.test_margin_field.Mutants.test_each_mutant_is_caught) ... ok
+test_random_graphs (research.kcf-idea-routing.tests.test_margin_field.PropertyVsFieldAndOracle.test_random_graphs) ... ok
+test_operations_dense (research.kcf-idea-routing.tests.test_margin_field.TentAlgebra.test_operations_dense) ... ok
+test_tent_is_distance_minus_one (research.kcf-idea-routing.tests.test_margin_field.TentAlgebra.test_tent_is_distance_minus_one) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 160.074s
+
+OK
+None {'closure:cases': 3000, 'closure:caught': 0, 'general:cases': 3000, 'general:caught': 0, 'sparse:cases': 3000, 'sparse:caught': 0}
+tent_off_by_one {'closure:by_existing_field': 506, 'closure:by_oracle': 483, 'closure:cases': 3000, 'closure:caught': 620, 'general:by_existing_field': 619, 'general:by_oracle': 736, 'general:cases': 3000, 'general:caught': 793, 'sparse:by_existing_field': 279, 'sparse:by_oracle': 297, 'sparse:cases': 3000, 'sparse:caught': 358}
+wait_ignores_mask {'closure:by_certificate': 18, 'closure:by_existing_field': 18, 'closure:by_oracle': 3, 'closure:cases': 3000, 'closure:caught': 18, 'general:by_certificate': 258, 'general:by_existing_field': 258, 'general:by_oracle': 134, 'general:cases': 3000, 'general:caught': 258, 'sparse:by_certificate': 73, 'sparse:by_existing_field': 73, 'sparse:by_oracle': 33, 'sparse:cases': 3000, 'sparse:caught': 73}
+shift_off_by_one {'closure:by_certificate': 1172, 'closure:by_existing_field': 1172, 'closure:by_oracle': 473, 'closure:cases': 3000, 'closure:caught': 1172, 'general:by_certificate': 1134, 'general:by_existing_field': 1134, 'general:by_oracle': 694, 'general:cases': 3000, 'general:caught': 1134, 'sparse:by_certificate': 1189, 'sparse:by_existing_field': 1189, 'sparse:by_oracle': 702, 'sparse:cases': 3000, 'sparse:caught': 1189}
+ignore_turns {'closure:by_certificate': 823, 'closure:by_existing_field': 823, 'closure:by_oracle': 195, 'closure:cases': 3000, 'closure:caught': 823, 'general:by_certificate': 841, 'general:by_existing_field': 841, 'general:by_oracle': 348, 'general:cases': 3000, 'general:caught': 841, 'sparse:by_certificate': 868, 'sparse:by_existing_field': 868, 'sparse:by_oracle': 339, 'sparse:cases': 3000, 'sparse:caught': 868}
+drop_dirty_low {'closure:by_certificate': 471, 'closure:by_existing_field': 471, 'closure:by_oracle': 82, 'closure:cases': 3000, 'closure:caught': 471, 'general:by_certificate': 600, 'general:by_existing_field': 600, 'general:by_oracle': 261, 'general:cases': 3000, 'general:caught': 600, 'sparse:by_certificate': 603, 'sparse:by_existing_field': 603, 'sparse:by_oracle': 239, 'sparse:cases': 3000, 'sparse:caught': 603}
+fast_wait_not_closed {'closure:cases': 3000, 'closure:caught': 0, 'general:by_certificate': 6, 'general:by_existing_field': 6, 'general:by_oracle': 3, 'general:cases': 3000, 'general:caught': 6, 'sparse:by_certificate': 28, 'sparse:by_existing_field': 28, 'sparse:by_oracle': 11, 'sparse:cases': 3000, 'sparse:caught': 28}
+fast_skip_too_eager {'closure:by_certificate': 1, 'closure:by_existing_field': 1, 'closure:cases': 3000, 'closure:caught': 1, 'general:by_certificate': 1, 'general:by_existing_field': 1, 'general:by_oracle': 1, 'general:cases': 3000, 'general:caught': 1, 'sparse:cases': 3000, 'sparse:caught': 0}
+fast_shift_off_by_one {'closure:by_certificate': 268, 'closure:by_existing_field': 268, 'closure:by_oracle': 19, 'closure:cases': 3000, 'closure:caught': 268, 'general:by_certificate': 239, 'general:by_existing_field': 239, 'general:by_oracle': 72, 'general:cases': 3000, 'general:caught': 239, 'sparse:by_certificate': 495, 'sparse:by_existing_field': 495, 'sparse:by_oracle': 157, 'sparse:cases': 3000, 'sparse:caught': 495}
+
+{
+ "cases_per_family": 6000,
+ "margins": "0..M, M uniform in 0..8, erode_accept with probability 1/2",
+ "counts": {
+  "closure:cases": 6000,
+  "closure:departure_seconds_compared": 1575289,
+  "closure:margin_fixed_point_ok": 6000,
+  "closure:nonempty_at_margin_0": 8577,
+  "closure:not_prefix_at_margin_0": 0,
+  "closure:origin_sets_equal_existing_field": 120297,
+  "closure:origin_sets_equal_oracle": 120297,
+  "closure:prop3_neighbourhood_feasible": 43341,
+  "closure:prop3_seconds_checked": 23864,
+  "closure:prop3_seconds_margin_strictly_below_window_distance": 3193,
+  "closure:relaxations": 28504,
+  "closure:relaxations_on_fast_path": 1289,
+  "closure:routes_valid_under_random_perturbation": 175212,
+  "closure:state_sets_equal_existing_field": 332530,
+  "closure:states_fast_equals_general": 33327,
+  "closure:thm6_bound_tight": 725,
+  "closure:thm6_seconds_checked": 278846,
+  "general:cases": 6000,
+  "general:departure_seconds_compared": 1576483,
+  "general:margin_fixed_point_ok": 6000,
+  "general:nonempty_at_margin_0": 8214,
+  "general:not_prefix_at_margin_0": 3871,
+  "general:origin_sets_equal_existing_field": 120523,
+  "general:origin_sets_equal_oracle": 120523,
+  "general:prop3_neighbourhood_feasible": 19709,
+  "general:prop3_seconds_checked": 25105,
+  "general:prop3_seconds_margin_strictly_below_window_distance": 9882,
+  "general:relaxations": 36422,
+  "general:relaxations_on_fast_path": 849,
+  "general:routes_valid_under_random_perturbation": 145377,
+  "general:state_sets_equal_existing_field": 329644,
+  "general:states_fast_equals_general": 32738,
+  "general:thm6_bound_tight": 785,
+  "general:thm6_seconds_checked": 281608,
+  "sparse:cases": 6000,
+  "sparse:departure_seconds_compared": 1571171,
+  "sparse:margin_fixed_point_ok": 6000,
+  "sparse:nonempty_at_margin_0": 8798,
+  "sparse:not_prefix_at_margin_0": 3274,
+  "sparse:origin_sets_equal_existing_field": 120746,
+  "sparse:origin_sets_equal_oracle": 120746,
+  "sparse:prop3_neighbourhood_feasible": 29997,
+  "sparse:prop3_seconds_checked": 30183,
+  "sparse:prop3_seconds_margin_strictly_below_window_distance": 12520,
+  "sparse:relaxations": 37231,
+  "sparse:relaxations_on_fast_path": 3790,
+  "sparse:routes_valid_under_random_perturbation": 195813,
+  "sparse:state_sets_equal_existing_field": 332596,
+  "sparse:states_fast_equals_general": 33111,
+  "sparse:thm6_bound_tight": 585,
+  "sparse:thm6_seconds_checked": 278275
+ },
+ "mismatches": 0,
+ "seconds": {
+  "margin_field_one_pass_all_margins": 0.87,
+  "existing_backward_one_pass_per_margin": 1.42,
+  "brute_force": 20.21
+ }
+}
