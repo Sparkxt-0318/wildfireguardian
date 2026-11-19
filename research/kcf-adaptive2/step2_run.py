@@ -33,6 +33,8 @@ def registry():
         "EVT": lambda: m2.EVT("EVT"),
         "EVT-twin": lambda: m2.EVT("EVT-twin", const_scale=True),
         "PRETRAIN-archive": lambda: m2.Pretrain("PRETRAIN-archive", m2.archive_source),
+        "PRETRAIN-sim": lambda: m2.Pretrain("PRETRAIN-sim", m2.sim_source),
+        "PRETRAIN-both": lambda: m2.Pretrain("PRETRAIN-both", m2.both_source),
     }
 
 

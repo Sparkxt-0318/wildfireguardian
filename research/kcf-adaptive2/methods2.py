@@ -363,3 +363,15 @@ class Pretrain:
 def archive_source(D):
     rows = np.flatnonzero((D.product == "CHOI") & ~np.array([str(f).startswith("KFS") for f in D.fire]))
     return D.mat(ALL, rows), D.S[rows]
+
+
+def sim_source(D):
+    import pandas as pd
+    d = pd.read_csv("/tmp/w/work/sim.csv.gz")
+    return d[ALL].values.astype(float), d["S"].values.astype(float)
+
+
+def both_source(D):
+    Xa, ya = archive_source(D)
+    Xs, ys = sim_source(D)
+    return np.vstack([Xa, Xs]), np.concatenate([ya, ys])
