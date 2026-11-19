@@ -20,3 +20,7 @@
 * 19 Nov 2026 ~16:22 UTC: fifth container restart (uptime 0 min at 16:22:55), found at the scheduled check-in. The driver was
   killed during `old_warm | UA 03-24 | repeat 1` after 39 of 200 requests; those requests are KEPT and the block is resumed
   (amendment A2). This block straddles a restart. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22 UTC.
+  After the fifth restart the fixed CPU probe read 0.0992 s right after boot (0.063 s normally), so the driver started at
+  16:23:01 was stopped within about a minute and restarted at ~16:25 UTC once the probe was stable (six readings 0.063 to
+  0.067 s). No timed request was taken in the slow period except possibly the very first one of the resumed block (the
+  untimed priming request is repeated). From now on: after a restart, wait for the probe to settle before restarting.
