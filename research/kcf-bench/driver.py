@@ -86,10 +86,8 @@ def run_task(method, cache, repeat, res, work, dry=False):
     if method.startswith("old_"):
         tmp = work / "tmp" / (safe(tid) + ".jsonl")
         tmp.parent.mkdir(exist_ok=True)
-        if tmp.exists():
-            tmp.unlink()
         cmd = PIN + [sys.executable, str(HERE / "run_old.py"), "--cache", cache, "--mode", method[4:], "--repeat", str(repeat),
-                     "--out", str(tmp), "--work", str(work / "old_attempts")] + (["--limit", "3"] if dry else [])
+                     "--out", str(tmp), "--work", str(work / "old_attempts")] + ["--resume"] + (["--limit", "3"] if dry else [])
         out = None
     else:
         out = res / "field" / ("%s__%s__r%d.json" % (method, tag, repeat))
@@ -116,6 +114,8 @@ def run_task(method, cache, repeat, res, work, dry=False):
                 f.flush()
                 os.fsync(f.fileno())
         rec["n_lines"] = len(lines)
+        if ok:
+            tmp.unlink()
     rec["status"] = "done" if ok else "failed"
     append(res / "ledger.jsonl", rec)
     return ok

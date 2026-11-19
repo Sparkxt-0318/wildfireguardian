@@ -14,3 +14,6 @@
   event. The driver was killed during `old_cold | UA 03-24 | repeat 1` after 25 of 200 requests; the partial output is
   discarded and the block re-runs from the start. Restarts so far: about 13:28, 14:38, 15:35 UTC (roughly hourly). Machine
   identical (CPU model, kernel, Python, numpy; probe below).
+* 19 Nov 2026 ~15:48 UTC: fourth container restart (only 13 min after the third; uptime 0 min at 15:48:29), killing
+  `old_cold | UA 03-24 | repeat 1` after 35 of 200 requests. Because of the frequency, plan amendment A2 (resume OLD blocks at
+  the next request) was made; those 35 requests are KEPT and the block is resumed. This block straddles a restart.

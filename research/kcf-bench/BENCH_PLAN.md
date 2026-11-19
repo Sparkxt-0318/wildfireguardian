@@ -179,3 +179,13 @@ deleted before the benchmark starts; the benchmark itself starts from an empty `
   witness), as in section 7.
   (ii) An untimed memory probe (`run_field.py --memprobe`): resets the kernel's peak counter before each spec and records
   the peak after it, to give peak memory per spec for FIELD and MARGIN. It never runs inside a timed task.
+* **A2, 19 Nov 2026 ~15:55 UTC, after the first timing numbers and after four container restarts (13:28, 14:38, 15:35,
+  15:48 UTC).** Restarts kill the driver and an OLD block of about 25 minutes cannot finish if they come every 13 to 70
+  minutes. Change: an OLD block interrupted by a restart is now **resumed** at the next request instead of re-run from the
+  start (; the complete lines already written are kept, a trailing partial line is dropped, the
+  untimed priming request of the warm mode is repeated). Every request is still timed and recorded the same way; each
+  record now also carries the kernel \, so any block that straddles a restart can be identified, and
+  \ lists them. All other rules, methods and the five-repeat requirement are unchanged. FIELD and MARGIN tasks
+  (1 to 3 minutes) are still re-run whole after a restart. The harness hashes in \ were updated; the
+  original hashes are kept there as \. Blocks that straddle a restart are reported as such in
+  \, with the per-request times shown separately before and after the restart.

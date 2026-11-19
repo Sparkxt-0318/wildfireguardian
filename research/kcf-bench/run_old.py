@@ -96,6 +96,7 @@ def main():
     ap.add_argument("--work", required=True)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--budget", type=float, default=C.BUDGET_S)
+    ap.add_argument("--resume", action="store_true", help="continue a block interrupted by a restart: keep the complete lines already in --out")
     a = ap.parse_args()
     doc = load_cases(a.cache)
     by_id = {c["id"]: c for c in doc["cases"]}
@@ -116,11 +117,26 @@ def main():
                             store, q0, 300.0)
         print(json.dumps({"prime": {k: prime[k] for k in ("verdict", "wall_s", "cache_hit")}}), flush=True)
     py = sys.executable
+    done = 0
+    if a.resume and os.path.exists(a.out):
+        good = []
+        for line in open(a.out).read().splitlines():
+            try:
+                good.append(json.loads(line)["n"] == len(good) and line)
+            except Exception:
+                break
+        good = [g for g in good if g]
+        open(a.out, "w").write("".join(g + "\n" for g in good))
+        done = len(good)
+        print(json.dumps({"resumed_at_request": done}), flush=True)
+    boot = open("/proc/sys/kernel/random/boot_id").read().strip()
     with open(a.out, "a") as f:
         for n, case in enumerate(sample):
+            if n < done:
+                continue
             rec = one_request(case, packet, graph_path, graph_obj, hazard, sids, work, "c%03d" % n, py, a.mode, store, q0,
                               a.budget)
-            rec.update(cache=a.cache, mode=a.mode, repeat=a.repeat, n=n, case=case["id"], offset=case["offset"],
+            rec.update(boot_id=boot, cache=a.cache, mode=a.mode, repeat=a.repeat, n=n, case=case["id"], offset=case["offset"],
                        rec_verdict=case["rec_verdict"], rec_arrival=case["rec_arrival"])
             f.write(json.dumps(rec) + "\n")
             f.flush()
