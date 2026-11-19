@@ -170,4 +170,12 @@ deleted before the benchmark starts; the benchmark itself starts from an empty `
 
 ## Amendments
 
-(none)
+* **A1, 19 Nov 2026, before any timing run (harness development runs only, discarded).** Two additions, no change to
+  any rule above.
+  (i) Method **FIELD-D** (`field_dec`): FIELD with decisions only, no witness extraction. It is the like-for-like
+  comparator of MARGIN-10, which also gives decisions only; FIELD (with witnesses) stays the comparator of MARGIN-1 and
+  of OLD. Same repeats, same cold/warm rule. Other extra rows are named `field_sample` (FIELD, witnesses, on the specs
+  of the 200 sample cases and answering only those cases) and `field_check` (`field_sample` plus `full_check` on every
+  witness), as in section 7.
+  (ii) An untimed memory probe (`run_field.py --memprobe`): resets the kernel's peak counter before each spec and records
+  the peak after it, to give peak memory per spec for FIELD and MARGIN. It never runs inside a timed task.
