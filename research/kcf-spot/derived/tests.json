@@ -1,0 +1,787 @@
+{
+ "n_rows": {
+  "CA": 19810,
+  "KR": 756,
+  "DET": 24
+ },
+ "train_area_ca_dev": {
+  "FIXED": 344.37615966796875,
+  "SPOT_p0.5": 344.37615966796875,
+  "SPOT_p0.3": 344.37615966796875,
+  "SPOT_p0.1": 344.37615966796875,
+  "SPOT_p0.03": 344.37615966796875,
+  "SPOT_p0.01": 344.4353332519531,
+  "SPOT_p0.003": 346.25970458984375,
+  "SPOT_p0.001": 366.904541015625,
+  "SPOT_p0.0003": 409.10321044921875,
+  "SPOT_p0.0001": 522.5416259765625
+ },
+ "pstar_arm": "SPOT_p0.5",
+ "test2": {
+  "CA-HELD": [
+   {
+    "arm": "FIXED",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 253.8018798828125,
+    "c10_km": 3.0,
+    "area10": 296.8165588378906,
+    "miss_95": [
+     0.07571783461093523,
+     0.17209116838802982
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1,
+     1
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.5",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 253.8018798828125,
+    "c10_km": 3.0,
+    "area10": 296.8165588378906,
+    "miss_95": [
+     0.07580405287200259,
+     0.17025596431713302
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.3",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 253.8018798828125,
+    "c10_km": 3.0,
+    "area10": 296.8165588378906,
+    "miss_95": [
+     0.07578175273728745,
+     0.17223006359380716
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.1",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 253.8018798828125,
+    "c10_km": 3.0,
+    "area10": 296.8165588378906,
+    "miss_95": [
+     0.07645925327084747,
+     0.17356790031213953
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.03",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 253.8018798828125,
+    "c10_km": 3.0,
+    "area10": 296.8165588378906,
+    "miss_95": [
+     0.07672833253418423,
+     0.17579520480196087
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.01",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 253.81019592285156,
+    "c10_km": 3.0,
+    "area10": 296.8230285644531,
+    "miss_95": [
+     0.07514174008912088,
+     0.1695942269904857
+    ],
+    "ratio_area10_vs_FIXED": 1.0000218152999878,
+    "ratio_area10_95": [
+     1.0,
+     1.0000585317611694
+    ],
+    "ratio_area_vs_FIXED": 1.0000327825546265
+   },
+   {
+    "arm": "SPOT_p0.003",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11878830902899946,
+    "area": 254.56639099121094,
+    "c10_km": 3.0,
+    "area10": 297.4795837402344,
+    "miss_95": [
+     0.07453106689741325,
+     0.17229347741089804
+    ],
+    "ratio_area10_vs_FIXED": 1.0022337436676025,
+    "ratio_area10_95": [
+     1.0012606382369995,
+     1.0037260055541992
+    ],
+    "ratio_area_vs_FIXED": 1.0030121803283691
+   },
+   {
+    "arm": "SPOT_p0.001",
+    "c_km": 2.7041634565979917,
+    "miss": 0.11843217938123766,
+    "area": 265.29095458984375,
+    "c10_km": 3.0,
+    "area10": 306.9113464355469,
+    "miss_95": [
+     0.0729126890895171,
+     0.17487147494527086
+    ],
+    "ratio_area10_vs_FIXED": 1.0340101718902588,
+    "ratio_area10_95": [
+     1.0216208696365356,
+     1.0486241579055786
+    ],
+    "ratio_area_vs_FIXED": 1.045267939567566
+   },
+   {
+    "arm": "SPOT_p0.0003",
+    "c_km": 2.625,
+    "miss": 0.12477747112137157,
+    "area": 294.33721923828125,
+    "c10_km": 2.8559149146989657,
+    "area10": 294.33721923828125,
+    "miss_95": [
+     0.07707816842843103,
+     0.1838412390915787
+    ],
+    "ratio_area10_vs_FIXED": 0.9916468858718872,
+    "ratio_area10_95": [
+     0.947030246257782,
+     1.031069040298462
+    ],
+    "ratio_area_vs_FIXED": 1.159712553024292
+   },
+   {
+    "arm": "SPOT_p0.0001",
+    "c_km": 1.875,
+    "miss": 0.11314469176748877,
+    "area": 386.2663269042969,
+    "c10_km": 2.25,
+    "area10": 394.3523864746094,
+    "miss_95": [
+     0.07540150173742444,
+     0.1591285523682997
+    ],
+    "ratio_area10_vs_FIXED": 1.328606367111206,
+    "ratio_area10_95": [
+     1.190516710281372,
+     1.4566031694412231
+    ],
+    "ratio_area_vs_FIXED": 1.5219206809997559
+   }
+  ],
+  "KR": [
+   {
+    "arm": "FIXED",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 76.97187805175781,
+    "c10_km": 1.875,
+    "area10": 54.87679672241211,
+    "miss_95": [
+     0.006313131313131313,
+     0.10952264581296839
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1,
+     1
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.5",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 76.97187805175781,
+    "c10_km": 1.875,
+    "area10": 54.87679672241211,
+    "miss_95": [
+     0.0050200803212851405,
+     0.10574997938969954
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.3",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 76.97187805175781,
+    "c10_km": 1.875,
+    "area10": 54.87679672241211,
+    "miss_95": [
+     0.00495732931726908,
+     0.10327226550385309
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.1",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 76.97187805175781,
+    "c10_km": 1.875,
+    "area10": 54.87679672241211,
+    "miss_95": [
+     0.0050200803212851405,
+     0.11784511784511785
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.03",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 76.97187805175781,
+    "c10_km": 1.875,
+    "area10": 54.87679672241211,
+    "miss_95": [
+     0.0050200803212851405,
+     0.10571955466047965
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.01",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 76.97187805175781,
+    "c10_km": 1.875,
+    "area10": 54.87679672241211,
+    "miss_95": [
+     0.0050200803212851405,
+     0.11784511784511785
+    ],
+    "ratio_area10_vs_FIXED": 1.0,
+    "ratio_area10_95": [
+     1.0,
+     1.0
+    ],
+    "ratio_area_vs_FIXED": 1.0
+   },
+   {
+    "arm": "SPOT_p0.003",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 77.26325225830078,
+    "c10_km": 1.875,
+    "area10": 55.18598556518555,
+    "miss_95": [
+     0.0025100401606425703,
+     0.10791896815021572
+    ],
+    "ratio_area10_vs_FIXED": 1.005634236348332,
+    "ratio_area10_95": [
+     1.0001780986785889,
+     1.0105880498886108
+    ],
+    "ratio_area_vs_FIXED": 1.0037854631317042
+   },
+   {
+    "arm": "SPOT_p0.001",
+    "c_km_median": 2.625,
+    "miss": 0.04679699573792073,
+    "area": 79.32463836669922,
+    "c10_km": 1.875,
+    "area10": 57.35921859741211,
+    "miss_95": [
+     0.00628080503833516,
+     0.10575964660204842
+    ],
+    "ratio_area10_vs_FIXED": 1.045236275133861,
+    "ratio_area10_95": [
+     1.0168274641036987,
+     1.0836089849472046
+    ],
+    "ratio_area_vs_FIXED": 1.030566492263049
+   },
+   {
+    "arm": "SPOT_p0.0003",
+    "c_km_median": 2.5155764746872635,
+    "miss": 0.04937655476909267,
+    "area": 76.516845703125,
+    "c10_km": 1.875,
+    "area10": 64.69819641113281,
+    "miss_95": [
+     0.0050200803212851405,
+     0.11166611705865494
+    ],
+    "ratio_area10_vs_FIXED": 1.1789718109531997,
+    "ratio_area10_95": [
+     1.069258213043213,
+     1.352951169013977
+    ],
+    "ratio_area_vs_FIXED": 0.9940883299180145
+   },
+   {
+    "arm": "SPOT_p0.0001",
+    "c_km_median": 1.875,
+    "miss": 0.06595296140574027,
+    "area": 100.73943328857422,
+    "c10_km": 1.6770509831248424,
+    "area10": 96.61112213134766,
+    "miss_95": [
+     0.013370687049272358,
+     0.14465511115822038
+    ],
+    "ratio_area10_vs_FIXED": 1.7605095031337885,
+    "ratio_area10_95": [
+     1.2944931983947754,
+     2.2920801639556885
+    ],
+    "ratio_area_vs_FIXED": 1.308782322042792
+   }
+  ]
+ },
+ "test1": [
+  {
+   "arm": "FIXED",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.5",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.3",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.1",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.03",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.01",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.003",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.001",
+   "c_km": 2.625,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 539.953125,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.0003",
+   "c_km": 2.401171589037318,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 468.43359375,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  },
+  {
+   "arm": "SPOT_p0.0001",
+   "c_km": 1.875,
+   "held_9_20": 1,
+   "of": 12,
+   "mean_area_9_20": 743.63671875,
+   "held_all": 10,
+   "of_all": 24,
+   "per_hour": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": false,
+    "11": false,
+    "12": false,
+    "13": false,
+    "14": false,
+    "15": false,
+    "16": false,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
+    "22": false,
+    "23": false
+   }
+  }
+ ],
+ "test4": {
+  "CA-DEV": {
+   "unexplained": 409,
+   "fires": 15,
+   "S_match": 1.0,
+   "oracle_held_without_spot_cells": 14,
+   "hours_with_spot_cells_in_reach": 127,
+   "held_with_SPOT_p0.1": 0,
+   "held_with_SPOT_p0.5": 0
+  },
+  "CA-HELD": {
+   "unexplained": 221,
+   "fires": 12,
+   "S_match": 1.0,
+   "oracle_held_without_spot_cells": 13,
+   "hours_with_spot_cells_in_reach": 55,
+   "held_with_SPOT_p0.1": 0,
+   "held_with_SPOT_p0.5": 0
+  },
+  "DET": {
+   "unexplained": 7,
+   "fires": 1,
+   "S_match": 1.0,
+   "oracle_held_without_spot_cells": 0,
+   "hours_with_spot_cells_in_reach": 0,
+   "held_with_SPOT_p0.1": 0,
+   "held_with_SPOT_p0.5": 0
+  },
+  "KR": {
+   "unexplained": 30,
+   "fires": 4,
+   "S_match": 1.0,
+   "oracle_held_without_spot_cells": 0,
+   "hours_with_spot_cells_in_reach": 5,
+   "held_with_SPOT_p0.1": 0,
+   "held_with_SPOT_p0.5": 0
+  },
+  "pooled_heldout_share_fixed_SPOT_p0.1": 0.0,
+  "pooled_heldout_share_fixed_SPOT_p0.1_95": [
+   0.0,
+   0.0
+  ],
+  "pooled_heldout_share_fixed_SPOT_p0.5": 0.0,
+  "pooled_heldout_share_fixed_SPOT_p0.5_95": [
+   0.0,
+   0.0
+  ],
+  "note_choi": "On the Korean Choi hours the burned set is the kriged later perimeter; observed spot cells are mapped from VIIRS onto it, which the protocol calls not measurable. Reported, not used for the verdict."
+ }
+}

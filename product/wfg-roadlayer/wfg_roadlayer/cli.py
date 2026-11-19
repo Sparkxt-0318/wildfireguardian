@@ -51,6 +51,9 @@ def _run_args(sp, fragility=False):
                         help="optional: add tolerated extra fire reach and closure-timing error per village (leaving now), with the "
                              "road that fails first, as CSV columns and one extra page per town (research/kcf-robust)")
     sp.add_argument("--cache", help="data cache (default: $WFG_ROADLAYER_CACHE or ~/.cache/wfg-roadlayer)")
+    sp.add_argument("--heat", action="store_true", default=None,
+                    help="복사열 도로 폐쇄 켜기 / radiant-heat road closure on (research/kcf-radiation; settings [heat])")
+    sp.add_argument("--heat-threshold", type=float, help="heat closure threshold, kW/m2 (7, 4.7 or 2.5; default settings)")
 
 
 def _refused(ref: Refusal, out, overwrite):
@@ -113,7 +116,7 @@ def main(argv=None) -> int:
             pipeline.run(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet, horizon_min=a.horizon_min,
                          not_reached_value=a.not_reached_value, as_of=a.as_of, settings_path=a.settings, out=a.out,
                          workers=a.workers, assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache,
-                         fragility=a.fragility)
+                         heat=a.heat, heat_threshold=a.heat_threshold, fragility=a.fragility)
         except Refusal as ref:
             return _refused(ref, a.out, a.overwrite)
         return 0
@@ -123,7 +126,8 @@ def main(argv=None) -> int:
             cardrun.run_cards(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet,
                               horizon_min=a.horizon_min, not_reached_value=a.not_reached_value, as_of=a.as_of,
                               settings_path=a.settings, card_settings=a.card_settings, out=a.out, workers=a.workers,
-                              assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache)
+                              assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache,
+                              heat=a.heat, heat_threshold=a.heat_threshold)
         except Refusal as ref:
             return _refused(ref, a.out, a.overwrite)
         return 0

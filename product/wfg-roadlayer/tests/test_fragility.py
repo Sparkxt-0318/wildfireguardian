@@ -39,6 +39,10 @@ def test_fragility_columns_and_pages(cache, tmp_path):
     assert len(pages) == len(sorted((b / "en/sheets").glob("*.pdf"))) > 0
     run = json.loads((b / "run.json").read_text())
     assert len(run["fragility"]["villages"]) == 84
+    # with heat on, the columns would not include the heat closures: refused
+    c = tmp_path / "frag_heat"
+    assert cli.main(base + ["--out", str(c), "--fragility", "--heat"]) == 2
+    assert "FRAGILITY_WITH_HEAT" in (c / "REFUSED.txt").read_text(encoding="utf-8")
 
 
 def test_fragility_definition(cache):

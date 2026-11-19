@@ -1,0 +1,11 @@
+{
+  "h": 10.992887525381999,
+  "eps": 0.95,
+  "rms_residual_w_m2": 47.50959537808848,
+  "n": 8102,
+  "t_range_c": [
+    26.0,
+    57.75
+  ],
+  "note": "median of 2 cool-down fit(s), eps fixed at 0.95"
+}

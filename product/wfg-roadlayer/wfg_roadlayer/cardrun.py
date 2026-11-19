@@ -187,13 +187,13 @@ PICKUP_COLS = ["van", "stop", "action", "place", "place_id", "eupmyeon", "arrive
 
 def run_cards(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, not_reached_value=None, as_of=None,
               settings_path=None, card_settings=None, out=None, workers=None, assume_uncovered=False, overwrite=False, cache=None,
-              replay_check=True, log=print) -> dict:
+              replay_check=True, log=print, heat=None, heat_threshold=None) -> dict:
     t0 = time.perf_counter()
     ccfg = cards.load_settings(card_settings)
     kw = dict(region_name=region_name, issue_time=issue_time, raster=raster, packet=packet, horizon_min=horizon_min,
               not_reached_value=not_reached_value, as_of=as_of, settings_path=settings_path, out=out, workers=workers,
-              assume_uncovered=assume_uncovered, overwrite=overwrite, cache=cache, log=log,
-              default_out_fn=lambda rid, issue: Path("wfg-roadlayer-cards") / ("%s_%s" % (rid, issue.strftime("%Y%m%dT%H%MZ"))))
+              assume_uncovered=assume_uncovered, overwrite=overwrite, cache=cache, log=log, heat=heat,
+              heat_threshold=heat_threshold, default_out_fn=lambda rid, issue: Path("wfg-roadlayer-cards") / ("%s_%s" % (rid, issue.strftime("%Y%m%dT%H%MZ"))))
     c = pipeline.compute(**kw)
     M = int(round(ccfg["trigger"]["margin_min"] * 60))
     cm = pipeline.compute(**dict(kw, log=lambda *_: None), shift_s=M) if M else c

@@ -1,0 +1,163 @@
+// Every State field the web UI reads, in one place (schema crossing.state/1, apps/crossing/README.md STATE_SCHEMA).
+//
+// The UI never reads the State by hand-written property chains: it calls sv(state, F.someKey) (model.js), so
+// tests/test_web_static.py can check every path below against States produced by crossing.pipeline.
+//
+// Path syntax: dotted keys; "{sensor}" is replaced by one of SENSORS; "[]" means "each element of this list"
+// (read with el(item, F.key) on one element). A trailing "?" marks a field that is legitimately absent in some
+// States (e.g. near_edge_m when no flame base is on the path); the test requires every path to occur in at least
+// one State of a synthetic flame_front run, and the non-"?" paths to occur in every full State.
+// Units are in the key names: _m metres, _s seconds, _c deg C, _kw_m2 kW/m2, _tdu (kW/m2)^(4/3) s, _deg degrees.
+
+export const SENSORS = ["thermal", "radar", "tc_plate", "tc_housing", "tc_air", "imu", "gnss", "pi"];
+
+export const F = {
+  // top level
+  schema: "schema",
+  sim: "sim",
+  mode: "mode",
+  source: "source",
+  advisory: "advisory",
+  utc: "utc",
+  // link to the roof unit (as seen by the laptop app)
+  unitId: "unit.unit_id",
+  unitSession: "unit.session_id",
+  // verdict (already the EFFECTIVE verdict: CLOSED once older than 5 s)
+  verdictState: "verdict.state",
+  verdictDecided: "verdict.decided_state",
+  verdictReasons: "verdict.reasons",
+  verdictId: "verdict.verdict_id",
+  verdictIssued: "verdict.issued_mono",
+  verdictExpires: "verdict.expires_mono",
+  verdictAge: "verdict.age_s",
+  minSpeed: "verdict.min_speed_m_s",
+  minSpeedKmh: "verdict.min_speed_km_h",
+  timeInFlame: "verdict.time_in_flame_s",
+  dose: "verdict.dose_tdu",
+  doseLimit: "verdict.dose_limit_tdu",
+  doseFdsRef: "verdict.dose_fds_ref_tdu",
+  placeholderNote: "verdict.placeholder_note",
+  qInFlame: "verdict.details.q_in_flame_kw_m2?",
+  doseAtMax: "verdict.details.dose_at_max_speed_tdu?",
+  // health lights
+  linkUp: "health.link_up",
+  linkReason: "health.link_reason",
+  sensorFresh: "health.sensors.{sensor}.fresh",
+  sensorReason: "health.sensors.{sensor}.reason",
+  sensorAge: "health.sensors.{sensor}.age_s",
+  sensorPiStatus: "health.sensors.{sensor}.status_from_pi",
+  // flame
+  flameStatus: "flame.status",
+  flameReason: "flame.reason",
+  thermalValid: "flame.thermal.valid",
+  thermalFlamePixels: "flame.thermal.flame_pixels",
+  thermalTmax: "flame.thermal.t_max_c",
+  thermalAtBearing: "flame.thermal.flame_at_bearing",
+  thermalTflame: "flame.thermal.t_flame_c",
+  thumbW: "flame.thermal.thumb.w?",
+  thumbH: "flame.thermal.thumb.h?",
+  thumbPix: "flame.thermal.thumb.pix?",
+  thumbTmin: "flame.thermal.thumb.t_min_c?",
+  thumbTmax: "flame.thermal.thumb.t_max_c?",
+  radarStatus: "flame.radar.status",
+  radarReason: "flame.radar.reason",
+  radarBaselinePresent: "flame.radar.baseline.present",
+  radarBaselineReason: "flame.radar.baseline.reason?",
+  radarMoving: "flame.radar.moving",
+  // geometry (distances along the GNSS course from the vehicle's ground point under the sensor head)
+  geoValid: "geometry.valid",
+  geoReason: "geometry.reason",
+  nearEdge: "geometry.near_edge_m?",
+  nearEdgeLo: "geometry.near_edge_lo_m?",
+  nearEdgeHi: "geometry.near_edge_hi_m?",
+  occluded: "geometry.occluded?",
+  flameHeight: "geometry.flame_height_m?",
+  flameHeightLo: "geometry.flame_height_lo_m?",
+  flameHeightHi: "geometry.flame_height_hi_m?",
+  farEcho: "geometry.far_echo_m",
+  slopeSource: "geometry.slope_source",
+  profileValid: "geometry.profile.valid",
+  profileS: "geometry.profile.s_m",
+  profileDz: "geometry.profile.dz_m",
+  cameraHeight: "geometry.camera.height_m",
+  // thermal camera: InfiRay P2 Pro (TC001-compatible frame); its FOV is the TC001 vendor figure, UNVERIFIED
+  cameraModel: "geometry.camera.model",
+  cameraFovNote: "geometry.camera.fov_note",
+  imuPitch: "geometry.imu.pitch_deg",
+  imuRoll: "geometry.imu.roll_deg",
+  // depth (combined value solid, 90 % interval translucent)
+  depthValid: "depth.valid",
+  depthM: "depth.depth_m",
+  depthLo: "depth.lo_m",
+  depthHi: "depth.hi_m",
+  // DEPTH-HI rule: the upper end the dose uses (>= largest valid estimator upper end); hi_m is display only
+  depthHiDecision: "depth.hi_decision_m",
+  depthHiFrom: "depth.hi_decision_from",
+  depthLevel: "depth.level",
+  depthCalibrated: "depth.calibrated",
+  depthFlags: "depth.flags",
+  depthReason: "depth.reason",
+  depthUsed: "depth.used",
+  estimators: "depth.estimators",
+  estName: "depth.estimators[].name",
+  estValue: "depth.estimators[].value_m",
+  estLo: "depth.estimators[].lo_m",
+  estHi: "depth.estimators[].hi_m",
+  estValid: "depth.estimators[].valid",
+  estKind: "depth.estimators[].kind",
+  estReason: "depth.estimators[].reason",
+  intensity: "intensity.i_kw_m",
+  // plate flux and running dose
+  fluxQ: "flux.q_kw_m2",
+  fluxReason: "flux.reason",
+  fluxDose: "flux.dose_tdu",
+  fluxDoseComplete: "flux.dose_complete",
+  tcAir: "flux.tc_air_c",
+  // flux-disc protection (copper disc on printed PETG tabs): tc_plate >= max_c (70 C, user-set) = CLOSED
+  discOverTemp: "flux.disc.over_temp",
+  discMax: "flux.disc.max_c",
+  discTemp: "flux.disc.temp_c",
+  discWarning: "flux.disc.warning",
+  // heat: closed-form law vs FDS C064 reference (reference never decides)
+  heatLabel: "heat.label",
+  heatValid: "heat.valid",
+  heatReason: "heat.reason?",
+  heatInFlameCf: "heat.in_flame_closed_form_kw_m2?",
+  heatInFlameFds: "heat.in_flame_fds_ref_kw_m2?",
+  heatAtD: "heat.at_vehicle.d_m?",
+  heatAtCf: "heat.at_vehicle.closed_form_kw_m2?",
+  heatAtFds: "heat.at_vehicle.fds_ref_kw_m2?",
+  // gnss
+  gnssFix: "gnss.fix",
+  gnssSpeed: "gnss.speed_m_s",
+  gnssSpeedKmh: "gnss.speed_km_h",
+  gnssSats: "gnss.sats",
+  gnssMoving: "gnss.moving",
+  // reopen tracker
+  reopenPassed: "reopen.passed",
+  reopenQuiet: "reopen.quiet_s",
+  reopenHold: "reopen.hold_s",
+  // vehicle and fuel (selected)
+  vehName: "vehicle.name",
+  vehLabel: "vehicle.label",
+  vehLength: "vehicle.length_m",
+  vehWidth: "vehicle.width_m",
+  vehHeight: "vehicle.height_m",
+  vehMaxSpeed: "vehicle.max_safe_speed_m_s",
+  vehIntakeLimit: "vehicle.intake_air_limit_c",
+  vehHasWater: "vehicle.has_water",
+  fuelCode: "fuel.code",
+  fuelName: "fuel.name",
+  calStatus: "calibration.status",
+  errorsCount: "errors.count",
+  simlinkEnabled: "simlink.enabled",
+  // step 9 routing link (only with --sim-link): disabled for replay / simulated data; refused closures shown
+  simlinkBlocked: "simlink.blocked?",
+  simlinkBlockedReason: "simlink.blocked_reason?",
+  simlinkConnected: "simlink.connected?",
+  simlinkQueued: "simlink.queued?",
+  simlinkHeld: "simlink.closures_held?",
+  simlinkNotClosed: "simlink.not_closed_in_routing?",
+  simlinkReopenRefused: "simlink.reopen_refused_in_routing?",
+  simlinkHandshakeRefused: "simlink.handshake_refused?",
+};
