@@ -4,6 +4,7 @@ Every response carries provenance. Verdicts come only from the kit's authoritati
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import math
 import sys
@@ -12,7 +13,7 @@ import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket
 from fastapi.exceptions import RequestValidationError
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
@@ -24,6 +25,7 @@ from . import config as C
 from . import contract as K
 from . import dispatch as D
 from . import exports as X
+from . import live as LV
 from .errors import APIError, conflict, not_found, unavailable, unprocessable
 from .jobs import JobManager
 from .provenance import APPROXIMATION_NOTE, CLOCK_DEFINITION, Identity, utc_now
@@ -38,10 +40,15 @@ class State:
     identity: Identity
     registry: Registry
     jobs: JobManager
+    live: "LV.LiveState | None" = None      # step 9 live road state; None unless WFG_API_LIVE_CLOSURES=1
 
 
 def create_app(settings: C.Settings | None = None) -> FastAPI:
     st = State()
+    # Decided once, when the routes are registered: with the flag off the live socket does not exist and no code path
+    # below changes a request, a job record or a response.
+    live_on = settings.live_closures if settings is not None else C.live_closures_enabled()
+    st.live = LV.LiveState() if live_on else None
 
     @asynccontextmanager
     async def lifespan(app):
@@ -197,21 +204,54 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                                 approximation=APPROXIMATION_NOTE if fire_type == "spread_zones" else None, clock=CLOCK_DEFINITION,
                                 budget_s=C.BUDGET_S, workers=st.settings.workers)
 
+    def _graph_input_v(region, job_dir: Path) -> tuple:
+        """The road graph a job runs on: (graph_path, live_meta, state_version). Without live closures (flag off, or none
+        in this region) it is the recorded graph.json and live_meta is None. With closures it is a derived graph.json
+        written into the job's inputs/ directory without the closed edges and without forbidden_turns pairs that name them
+        (same revision); live_meta records the closed edge ids, the region's live state version and both hashes for the
+        job provenance. The closed set and the version are read together (one snapshot)."""
+        if st.live is None:
+            return str(region.graph_path), None, None
+        closed, version = st.live.snapshot(region.id)
+        closed = tuple(sorted(e for e in closed if e in region.graph.edges))
+        if not closed:
+            return str(region.graph_path), None, version
+        path = Path(job_dir) / "inputs" / "graph.json"
+        sha, dropped = st.live.graphs.write(region.graph_path, region.graph.sha256, closed, path)
+        meta = {"closed_edge_ids": list(closed), "state_version": version, "base_graph_sha256": region.graph.sha256,
+                "derived_graph_sha256": sha, "derived_graph_path": str(path), "forbidden_turns_dropped": dropped,
+                "source": "WS /v1/live/closures (crossing-unit CLOSED reports; advisory, unverified in the field)"}
+        return str(path), meta, version
+
+    def _graph_input(region, job_dir: Path) -> tuple:
+        return _graph_input_v(region, job_dir)[:2]
+
+    def _with_live(prov: dict, meta) -> dict:
+        """Add the live-closure record to a provenance dict (no-op without one). A derived graph replaces the graph hash
+        and makes the run NOT the evaluated configuration (the study evaluated the unmodified recorded graph)."""
+        if meta:
+            prov["live_closures"] = dict(meta)
+            if meta.get("derived_graph_sha256"):
+                prov.setdefault("input_hashes", {})["graph"] = meta["derived_graph_sha256"]
+                prov["evaluated_configuration"] = False
+        return prov
+
     def _new_route_job(body: dict, region, sset, zone_plan, snap: dict, parent=None, request_params=None, prebuilt=None,
-                       callback=None) -> dict:
+                       callback=None, graph_input=None) -> dict:
         job_id = st.jobs.new_id("rc")
         fire = body["fire_input"]
         policy = body.get("policy", "full")
         limits = request_params["limits"]
+        graph_path, live_meta = graph_input or _graph_input(region, st.jobs.job_dir(job_id))
         job = {"job_id": job_id, "kind": "route_check", "status": "queued", "created_at": utc_now(), "started_at": None,
                "finished_at": None, "request": body, "snap": snap, "result": None, "error": None,
-               "provenance": _job_prov(region, sset, fire["type"], policy, limits)}
+               "provenance": _with_live(_job_prov(region, sset, fire["type"], policy, limits), live_meta)}
         if parent:
             job["parent_job_id"] = parent
         st.jobs.put(job)
         if callback is not None:
             callbacks[job_id] = callback
-        spec = {"job_id": job_id, "job_dir": str(st.jobs.job_dir(job_id)), "graph_path": str(region.graph_path),
+        spec = {"job_id": job_id, "job_dir": str(st.jobs.job_dir(job_id)), "graph_path": graph_path,
                 "packet_dir": str(sset.packet_dir), "fire_input": {"type": fire["type"]}, "zone_plan": zone_plan,
                 "request_params": request_params, "policy": policy, "python": st.settings.python,
                 "run_independent_check": bool(body.get("run_independent_check", False)),
@@ -234,6 +274,10 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
             res = out.get("result")
             if res is not None:
                 res["provenance"] = _prov(out, region, sset, fire["type"], policy, limits)
+                if live_meta:
+                    res["provenance"]["live_closures"] = dict(live_meta)
+                    if live_meta.get("derived_graph_sha256"):
+                        res["provenance"]["evaluated_configuration"] = False
                 if out.get("timings"):
                     res["provenance"]["timings_s"] = out["timings"]
                 if out.get("receipt"):
@@ -381,6 +425,17 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
     @app.post("/v1/dispatch-plans", status_code=202)
     async def create_dispatch(request: Request):
         body = _body(await request.body(), "DispatchPlanRequest")
+        job = _submit_dispatch(body)
+        if st.live is not None:          # the live recompute reruns the most recent plan of the region
+            st.live.remember_plan(body["region"], body)
+        return JSONResponse({"job_id": job["job_id"], "status": st.jobs.get(job["job_id"])["status"], "kind": "dispatch_plan",
+                             "provenance": job["provenance"],
+                             "links": {"self": "/v1/dispatch-plans/%s" % job["job_id"]}}, status_code=202)
+
+    def _submit_dispatch(body: dict, live_trigger: dict | None = None, on_finish=None) -> dict:
+        """Validate and launch one dispatch plan (``body`` already matches DispatchPlanRequest); return the job record.
+        ``on_finish(job_id, status, error)`` (live recompute only) is called once when the job record is final; it may run
+        before this function returns (synchronous schedulers) and in a worker-callback thread."""
         _require_data()
         if len(body["origins"]) > C.MAX_DISPATCH_ORIGINS:
             raise unprocessable("TOO_MANY_ORIGINS", "at most %d origins" % C.MAX_DISPATCH_ORIGINS)
@@ -430,7 +485,13 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         job_id = st.jobs.new_id("dp")
         total = len(attempts_spec) + len(pre_rejected)
         dp_limits = effective_limits({"limits": body.get("limits") or {}})
-        job = {"provenance": _job_prov(region, sset, body["fire_input"]["type"], policy, dp_limits),
+        gp, live_meta, state_version = _graph_input_v(region, st.jobs.job_dir(job_id))
+        dp_graph = (gp, live_meta)                                     # one closure snapshot for the whole plan
+        if live_meta is not None and live_trigger is not None:
+            live_meta = dict(live_meta, recompute=live_trigger)
+        elif live_meta is None and live_trigger is not None:
+            live_meta = {"closed_edge_ids": [], "state_version": state_version, "recompute": live_trigger}
+        job = {"provenance": _with_live(_job_prov(region, sset, body["fire_input"]["type"], policy, dp_limits), live_meta),
                "job_id": job_id, "kind": "dispatch_plan", "status": "queued", "created_at": utc_now(), "started_at": None,
                "finished_at": None, "request": body, "progress": {"done": len(pre_rejected), "total": total}, "result": None, "error": None}
         st.jobs.put(job)
@@ -441,6 +502,22 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
         origin_order = {o["id"]: i for i, o in enumerate(body["origins"])}
 
         def finish(error=None):
+            if on_finish is None:            # every non-live plan: exactly as before
+                _finish(error)
+                return
+            try:
+                _finish(error)
+            except Exception as exc:        # never leave a live recompute marked running
+                st.jobs.update(job_id, status="failed", finished_at=utc_now(),
+                               error={"code": "INTERNAL_ERROR", "message": "%s: %s" % (type(exc).__name__, exc)})
+            if on_finish is not None:
+                j = st.jobs.get(job_id) or {}
+                try:
+                    on_finish(job_id, j.get("status") or "failed", j.get("error"))
+                except Exception:
+                    pass
+
+        def _finish(error=None):
             if error is not None:
                 st.jobs.update(job_id, status="failed", finished_at=utc_now(), error=error)
                 return
@@ -463,6 +540,7 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                 prov["scenario_ids"] = shared["meta"]["scenario_ids"]
                 prov["scenario_set_id"] = shared["meta"]["scenario_ids"][0].rsplit(":", 1)[0]
                 prov["input_hashes"].update({"zones/" + k: v for k, v in (shared["meta"].get("input_hashes") or {}).items()})
+            _with_live(prov, live_meta)
             result = {"plans": plans, "summary": D.summary(plans, all_attempts, time.perf_counter() - t_start),
                       "rejected_origins": rejected, "assumptions": zone_plan["assumptions"] if zone_plan else None, "provenance": prov}
             st.jobs.update(job_id, status="done", finished_at=utc_now(), result=result)
@@ -498,7 +576,8 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                     rbody.pop("destination_window")
                 key = (o["id"], d["id"], off)
                 _new_route_job(rbody, region, sset, zone_plan, {"start": osnap, "destination": dsnap}, parent=job_id,
-                               request_params=rp, prebuilt=prebuilt, callback=lambda rc_id, key=key: attempt_done(rc_id, key))
+                               request_params=rp, prebuilt=prebuilt, callback=lambda rc_id, key=key: attempt_done(rc_id, key),
+                               graph_input=dp_graph)
 
         st.jobs.update(job_id, status="running", started_at=utc_now())
         if zone_plan is None:
@@ -512,11 +591,11 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
                     return
                 shared["meta"] = out["adapter_meta"]
                 launch(prebuilt=(out["packet_dir"], out["adapter_meta"]))
-            st.jobs.schedule("zone_packet", {"zone_plan": zone_plan, "graph_path": str(region.graph_path), "out_dir": str(pdir),
+            st.jobs.schedule("zone_packet", {"zone_plan": zone_plan, "graph_path": dp_graph[0], "out_dir": str(pdir),
                                              "python": st.settings.python}, lambda: None, zp_done, priority=1)
-        return JSONResponse({"job_id": job_id, "status": st.jobs.get(job_id)["status"], "kind": "dispatch_plan",
-                             "provenance": job["provenance"],
-                             "links": {"self": "/v1/dispatch-plans/%s" % job_id}}, status_code=202)
+        if st.live is not None:
+            st.live.note_plan_origins(region.id, job_id, [o["id"] for o in body["origins"]])
+        return job
 
     @app.get("/v1/dispatch-plans/{job_id}")
     async def get_dispatch(job_id: str):
@@ -525,7 +604,426 @@ def create_app(settings: C.Settings | None = None) -> FastAPI:
             raise not_found("JOB_NOT_FOUND", "dispatch plan %r not found" % job_id)
         return j
 
+    if st.live is not None:
+        _register_live(app, st, _submit_dispatch)
     return app
+
+
+# ------------------------------------------------------------------------------------------------ step 9 live input
+LIVE_POLL_S = 0.5            # how often each live socket checks pending/running recomputes (non-blocking asyncio sleep)
+LIVE_SUBPROTOCOL = "wfg-live.v1"
+LIVE_TOKEN_PREFIX = "wfg-token."
+_LOCAL_HOSTS = ("127.0.0.1", "localhost", "[::1]", "::1")
+
+
+def _host_name(host: str) -> str:
+    host = (host or "").strip().lower()
+    if host.startswith("["):
+        return host[:host.index("]") + 1] if "]" in host else host
+    return host.rsplit(":", 1)[0] if host.count(":") == 1 else host
+
+
+def live_handshake_refusal(headers, subprotocols, settings) -> str | None:
+    """Why a WS /v1/live/closures handshake is refused, or None. Checked before accept():
+    a browser Origin must be listed exactly in WFG_API_LIVE_ORIGINS ("null" never; the Python client sends none);
+    the Host must be loopback, the bind host or listed in WFG_API_LIVE_HOSTS (DNS rebinding);
+    with WFG_API_LIVE_TOKEN set, the client must offer "wfg-token.<token>" as a subprotocol (constant-time compare)."""
+    origin = headers.get("origin")
+    if origin is not None and (origin.strip() == "null" or origin.strip() not in tuple(settings.live_origins or ())):
+        return "origin not allowed"
+    allowed = {h.lower() for h in _LOCAL_HOSTS} | {h.lower() for h in (settings.live_hosts or ())}
+    if settings.host and settings.host not in ("0.0.0.0", "::"):
+        allowed.add(_host_name(settings.host) if ":" not in settings.host else "[%s]" % settings.host.strip("[]"))
+    if _host_name(headers.get("host") or "") not in allowed:
+        return "host not allowed"
+    if settings.live_token:
+        offered = [p[len(LIVE_TOKEN_PREFIX):] for p in (subprotocols or ()) if isinstance(p, str) and p.startswith(LIVE_TOKEN_PREFIX)]
+        if not any(LV.token_matches(p, settings.live_token) for p in offered):
+            return "token missing or wrong"
+    return None
+
+
+def _register_live(app: FastAPI, st: State, submit_dispatch):
+    """Register WS /v1/live/closures and GET /v1/live/state (only called when WFG_API_LIVE_CLOSURES=1). See api/live.py
+    for the message format and the closure rules. Every frame gets exactly one ack: {"ok": true, ...} or
+    {"ok": false, "code", "error", "verdict_id"?}. Recomputes are coalesced per region (at most one live dispatch-plan
+    rerun in flight; changes arriving meanwhile stay pending and rerun once with the latest state); every connected
+    socket gets {"type": "leave_by_update"} frames (submitted, then done/failed/superseded/unknown_state)."""
+    hub_lock = threading.Lock()
+    sockets: list = []            # (event loop, outbox queue) per connected socket
+
+    def _broadcast(item):
+        with hub_lock:
+            targets = list(sockets)
+        for loop, q in targets:
+            try:
+                loop.call_soon_threadsafe(q.put_nowait, item)
+            except RuntimeError:      # that socket's loop is gone
+                pass
+
+    def _origin_edges(region_id: str, origin_id: str):
+        """Edge ids used by the checked routes of this origin's latest plan, or None when that is not known
+        (plan not finished, origin rejected, a route-check record missing or without edge ids)."""
+        dp = st.live.plan_of_origin(region_id, origin_id)
+        j = st.jobs.get(dp) if dp else None
+        if not j or j.get("status") != "done" or not j.get("result"):
+            return None
+        plan = next((p for p in j["result"].get("plans") or [] if p.get("origin_id") == origin_id), None)
+        if plan is None:
+            return None
+        used = set()
+        for a in plan.get("attempts") or []:
+            if a.get("verdict") != "checked_route":
+                continue
+            rc = st.jobs.get(a.get("route_check_job_id") or "")
+            ids = ((((rc or {}).get("result") or {}).get("route") or {}).get("properties") or {}).get("edge_ids")
+            if ids is None:
+                return None
+            used.update(ids)
+        return used
+
+    def _select(region_id: str, body: dict, view: dict) -> tuple:
+        """(origins to rerun, basis). A pending REOPENED (or an unknown usage) reruns every origin: a reopened road can
+        give any origin a new, later leave-by. CLOSED only: the origins whose last checked routes used a changed edge."""
+        if view["all_origins"]:
+            return list(body["origins"]), "all_origins (a reopened road can help any origin)"
+        changed_set, keep, unknown = set(view["edges"]), [], []
+        for o in body["origins"]:
+            used = _origin_edges(region_id, o["id"])
+            if used is None:
+                unknown.append(o["id"]); keep.append(o)
+            elif used & changed_set:
+                keep.append(o)
+        return keep, "origins_whose_routes_used_the_edge" + (" (usage unknown for %d, included)" % len(unknown) if unknown else "")
+
+    def _status(rid: str, **kw):
+        with st.live.lock:
+            st.live.recompute_status[rid] = dict(kw, at=utc_now(), pending=st.live.pending_view(rid) is not None)
+
+    def _settled(rid: str, reserve: dict, job_id: str, status: str, error):
+        """A live recompute's job record is final (any thread). Clears the pending changes it covered only when done."""
+        with st.live.lock:
+            if st.live.running.get(rid) is reserve:
+                st.live.running.pop(rid)
+            if status == "done":
+                st.live.clear_pending(rid, reserve["seq"])
+            reserve["finished"] = True
+            announce = reserve.get("job_id") is not None          # else _kick announces after "submitted"
+            _status(rid, status=status, job_id=job_id, error=error, state_version=reserve.get("version"),
+                    attempt_mono=time.monotonic())
+        if announce:
+            _broadcast(("job", job_id))
+
+    def _kick(rid: str, force: bool) -> dict | None:
+        """Submit one recompute covering every pending change of the region, unless one is already in flight
+        (coalesced: it reruns once that one finishes). ``force`` (a new event) ignores the retry interval after a failure.
+        Never raises: a failure keeps the changes pending and is reported (fail closed: the times are flagged stale)."""
+        now = time.monotonic()
+        with st.live.lock:
+            view = st.live.pending_view(rid)
+            if view is None:
+                return None
+            run = st.live.running.get(rid)
+            if run is not None:
+                return {"status": "coalesced", "job_id": run.get("job_id"), "pending": True,
+                        "note": "a recompute is in flight; the pending change reruns once it finishes"}
+            last = st.live.recompute_status.get(rid) or {}
+            if not force and last.get("status") == "failed" and now - float(last.get("attempt_mono") or 0.0) < LV.RETRY_S:
+                return {"status": "failed", "pending": True, "error": last.get("error")}
+            reserve = {"seq": view["seq"], "job_id": None, "version": None}
+            st.live.running[rid] = reserve
+        keep = []
+        try:
+            body = st.live.plan_body(rid)
+            if body is None:
+                outcome = {"status": "no_previous_plan", "pending": False}
+            else:
+                keep, basis = _select(rid, body, view)
+                outcome = None if keep else {"status": "not_needed", "pending": False,
+                                             "reason": "no origin's last checked route used the closed edge"}
+            if outcome is not None:
+                with st.live.lock:
+                    if st.live.running.get(rid) is reserve:
+                        st.live.running.pop(rid)
+                    st.live.clear_pending(rid, view["seq"])
+                    _status(rid, status=outcome["status"], job_id=None, error=None)
+                return outcome
+            trigger = dict(view["trigger"], edge_ids=view["edges"], basis=basis, coalesced_events=view["count"])
+            job = submit_dispatch(dict(body, origins=keep), live_trigger=trigger,
+                                  on_finish=lambda jid, status, error: _settled(rid, reserve, jid, status, error))
+        except Exception as e:      # BUSY, LAUNCHES_PAUSED or anything else: the road state already changed; stay pending
+            err = {"code": getattr(e, "code", "INTERNAL_ERROR"),
+                   "message": getattr(e, "message", None) or "%s: %s" % (type(e).__name__, e)}
+            with st.live.lock:
+                if st.live.running.get(rid) is reserve:
+                    st.live.running.pop(rid)
+                _status(rid, status="failed", job_id=None, error=err, attempt_mono=now)
+            return {"status": "failed", "pending": True, "error": err}
+        version = ((job.get("provenance") or {}).get("live_closures") or {}).get("state_version")
+        origins = [o["id"] for o in keep]
+        if isinstance(version, int):
+            st.live.note_origin_version(rid, origins, version)
+        with st.live.lock:
+            reserve["job_id"], reserve["version"] = job["job_id"], version
+            finished = reserve.get("finished", False)
+            if not finished:
+                _status(rid, status="submitted", job_id=job["job_id"], error=None, state_version=version)
+        out = {"status": "submitted", "job_id": job["job_id"], "origins": origins, "basis": basis, "state_version": version,
+               "pending": True}
+        _broadcast(("frame", {"type": "leave_by_update", "region": rid, "job_id": job["job_id"], "status": "submitted",
+                              "origins": origins, "state_version": version}))
+        if finished:
+            _broadcast(("job", job["job_id"]))
+        return out
+
+    def _supervise():
+        """Per poll: settle running recomputes whose job record is final but whose hook never ran (e.g. SERVER_RESTARTED),
+        then retry regions with pending changes (at most every RETRY_S after a failure)."""
+        with st.live.lock:
+            running = list(st.live.running.items())
+        for rid, reserve in running:
+            jid = reserve.get("job_id")
+            j = st.jobs.get(jid) if jid else None
+            if jid and (j is None or j.get("status") in ("done", "failed")):
+                _settled(rid, reserve, jid, (j or {}).get("status") or "failed",
+                         (j or {}).get("error") or {"code": "JOB_NOT_FOUND", "message": "job record missing"})
+        for rid in st.live.pending_regions():
+            _kick(rid, force=False)
+
+    def _apply(ev: dict) -> dict:
+        """Apply one validated event; return the ack. Raises APIError (bad region/point) only BEFORE any state change.
+        After a change the ack is always ok:true; a failed recompute is reported in it as status failed, pending true."""
+        if not st.registry.regions:
+            raise unavailable("DATA_UNAVAILABLE", "recorded routing inputs are not loaded")
+        from .regions import to_5179
+        region = st.registry.region(ev["region"])
+        g = region.graph
+        m = g.nearest_edge(ev["lon"], ev["lat"], max_m=C.SNAP_MAX_M, margin_m=LV.MATCH_MARGIN_M)
+        claim = (ev["unit_id"], ev["session_id"])
+        rid = region.id
+        x, y = (float(v) for v in to_5179(ev["lon"], ev["lat"]))
+        ack = {"ok": True, "event": ev["event"], "region": rid, "verdict_id": ev["verdict_id"], "edge_ids": [],
+               "distance_m": m["distance_m"], "matched_edge_id": m["edge_id"], "matched_edge_ids": list(m["close_edge_ids"]),
+               "match_margin_m": LV.MATCH_MARGIN_M, "placeholder_limits": True}
+
+        def refuse(code: str, msg: str) -> dict:
+            return {"ok": False, "code": code, "event": ev["event"], "verdict_id": ev["verdict_id"], "error": msg,
+                    "edge_ids": [], "distance_m": m["distance_m"]}
+
+        if ev["event"] == "CLOSED":
+            edges = list(m["close_edge_ids"])
+            ahead, pts = [], []
+            for p in ev.get("ahead") or []:
+                try:
+                    ma = g.nearest_edge(p["lon"], p["lat"], max_m=C.SNAP_MAX_M, margin_m=LV.MATCH_MARGIN_M)
+                except APIError as e:          # the vehicle point still closes its road
+                    ahead.append({"ok": False, "code": e.code})
+                    continue
+                ax, ay = (float(v) for v in to_5179(p["lon"], p["lat"]))
+                pts.append([ax, ay])
+                ahead.append({"ok": True, "edge_ids": list(ma["close_edge_ids"]), "distance_m": ma["distance_m"]})
+                edges += [e for e in ma["close_edge_ids"] if e not in edges]
+            rec = {"unit_id": ev["unit_id"], "session_id": ev["session_id"], "verdict_id": ev["verdict_id"],
+                   "utc": ev["utc"], "lat": ev["lat"], "lon": ev["lon"], "x": x, "y": y, "ahead_xy": pts,
+                   "distance_m": m["distance_m"], "received_at": utc_now()}
+            res = st.live.close(rid, claim, ev["verdict_id"], edges, rec)
+            ack.update(edge_ids=list(res["edge_ids"]), claim_token=res["token"], duplicate=res["duplicate"],
+                       superseded_verdict_ids=res["superseded"], state_version=res["version"])
+            if ahead:
+                ack["ahead"] = ahead
+            changed, all_origins = res["newly"], False
+        else:
+            own = st.live.records_of(rid, claim)
+            if not own:
+                held = st.live.holder_count(rid, set(m["close_edge_ids"]))
+                if held:
+                    out = refuse("CLOSED_BY_OTHER_UNIT", "the road here stays closed: it was closed by another unit/session; "
+                                 "only the unit that closed a road reopens it")
+                    out["holder_count"] = {e: n for e, n in sorted(held.items())}
+                    return out
+                return refuse("NOT_CLOSED", "this unit/session holds no closure in %s (matched %s)" % (rid, m["edge_id"]))
+            rec = st.live.find_by_token(rid, claim, ev.get("claim_token"))
+            if rec is None:
+                return refuse("REOPEN_UNAUTHORIZED", "REOPENED must carry the claim_token returned in the ack of the CLOSED "
+                              "it reopens; the road stays closed")
+            if ev.get("closes_verdict_id") is not None and ev["closes_verdict_id"] != rec["verdict_id"]:
+                return refuse("NOT_CLOSED", "closes_verdict_id does not name the closure of this claim_token; the road "
+                              "stays closed")
+            refs = [(rec["x"], rec["y"])] + [tuple(p) for p in rec.get("ahead_xy") or []]
+            d = min(((x - rx) ** 2 + (y - ry) ** 2) ** 0.5 for rx, ry in refs)
+            if d > LV.REOPEN_RADIUS_M:
+                return refuse("REOPEN_TOO_FAR", "REOPENED is %.0f m from the CLOSED point of %s (limit %.0f m, PLACEHOLDER); "
+                              "the road stays closed" % (d, rec["verdict_id"], LV.REOPEN_RADIUS_M))
+            rec_edges, here = set(rec["edge_ids"]), set(m["close_edge_ids"])
+
+            def nodes(es):
+                return {n for e in es if e in g.edges for n in g.edges[e][:2]}
+            if not (rec_edges & here or nodes(rec_edges) & nodes(here)):
+                return refuse("REOPEN_NOT_ON_CLOSED_ROAD", "the REOPENED point matches no edge or junction of the closure "
+                              "%s; the road stays closed" % rec["verdict_id"])
+            reopened, still = st.live.withdraw(rid, claim, rec["verdict_id"])
+            ack.update(edge_ids=reopened, reopened_verdict_id=rec["verdict_id"], state_version=st.live.state_version(rid))
+            if still:
+                ack["still_closed_by_other_units"] = still
+            changed, all_origins = reopened, True
+        ack["closed_edge_ids"] = list(st.live.closed_edges(rid))
+        try:
+            if changed:
+                st.live.add_pending(rid, changed, all_origins,
+                                    {"event": ev["event"], "verdict_id": ev["verdict_id"], "utc": ev["utc"]})
+            r = _kick(rid, force=True)
+            if r is None:
+                r = {"status": "not_needed", "reason": "road state did not change", "pending": False}
+        except Exception as e:      # the state change above stands; say so, never "not applied"
+            r = {"status": "failed", "pending": True, "error": {"code": "INTERNAL_ERROR", "message": "%s: %s" % (type(e).__name__, e)}}
+        ack["recompute"] = r
+        return ack
+
+    def _leave_by(job: dict) -> dict:
+        """One leave_by_update frame. ``closed_edge_ids``/``state_version`` are the road state the job ran on (its own
+        snapshot); ``current_*`` and ``stale`` are read at send time. An origin a newer live recompute also covers is
+        marked superseded (leave_by_s null); unknown road state gives status unknown_state and null times (fail closed)."""
+        res = job.get("result") or {}
+        meta = (job.get("provenance") or {}).get("live_closures") or {}
+        rid = (job.get("request") or {}).get("region")
+        version, snap = meta.get("state_version"), meta.get("closed_edge_ids")
+        known = isinstance(version, int) and not isinstance(version, bool) and isinstance(snap, list) and isinstance(rid, str)
+        out = {"type": "leave_by_update", "region": rid, "job_id": job.get("job_id"), "status": job.get("status"),
+               "error": job.get("error"), "summary": res.get("summary"),
+               "state_version": version if known else None, "closed_edge_ids": list(snap) if known else None,
+               "note": "leave_by_s = latest_contiguous_checked_depart_offset_s (conservative); advisory only"}
+        if known:
+            cur, cur_v = st.live.snapshot(rid)
+            out.update(current_closed_edge_ids=list(cur), current_state_version=cur_v, stale=tuple(sorted(snap)) != cur)
+        else:
+            out.update(current_closed_edge_ids=None, current_state_version=None, stale=None)
+            if out["status"] == "done":
+                out["status"] = "unknown_state"
+        entries = []
+        for p in res.get("plans") or []:
+            e = {"origin_id": p["origin_id"], "best_verdict": p["best_verdict"],
+                 "leave_by_s": p.get("latest_contiguous_checked_depart_offset_s"),
+                 "latest_checked_depart_offset_s": p.get("latest_checked_depart_offset_s"),
+                 "best_destination_id": (p.get("best") or {}).get("destination_id")}
+            newer = st.live.origin_latest_version(rid, p["origin_id"]) if known else None
+            if not known or (newer is not None and newer > version):
+                e["leave_by_s"] = e["latest_checked_depart_offset_s"] = None
+                if known:
+                    e["superseded_by_version"] = newer
+            entries.append(e)
+        out["leave_by"] = entries
+        if known and out["status"] == "done" and entries and all("superseded_by_version" in e for e in entries):
+            out["status"] = "superseded"
+        return out
+
+    st.live_leave_by = _leave_by          # for tests and diagnostics
+    st.live_kick = _kick
+
+    @app.get("/v1/live/state")
+    async def live_state(region: str):
+        """Closed edges, state version and the recompute status of one region. No unit/session ids, no tokens."""
+        r = st.registry.region(region)
+        rid = r.id
+        cur, v = st.live.snapshot(rid)
+        with st.live.lock:
+            rs = dict(st.live.recompute_status.get(rid) or {})
+            pv = st.live.pending_view(rid)
+            run = st.live.running.get(rid)
+        rs.pop("attempt_mono", None)
+        return {"region": rid, "closed_edge_ids": list(cur), "state_version": v,
+                "holder_count": st.live.holder_count(rid, set(cur)),
+                "recompute": {"last": rs or None, "running_job_id": (run or {}).get("job_id"),
+                              "pending": pv is not None, "pending_edge_ids": pv["edges"] if pv else [],
+                              "note": ("leave-by times from earlier plans may assume this road state is still open: "
+                                       "a recompute is pending or failed") if pv else None},
+                "placeholder_limits": {"match_margin_m": LV.MATCH_MARGIN_M, "reopen_radius_m": LV.REOPEN_RADIUS_M},
+                "advisory": "advisory for trained crews; unverified in the field"}
+
+    @app.websocket("/v1/live/closures")
+    async def live_closures(ws: WebSocket):
+        offered = list(ws.scope.get("subprotocols") or [])
+        why = live_handshake_refusal(ws.headers, offered, st.settings)
+        if why is not None:
+            await ws.close(code=1008, reason=why)
+            return
+        await ws.accept(subprotocol=LIVE_SUBPROTOCOL if LIVE_SUBPROTOCOL in offered else None)
+        loop = asyncio.get_running_loop()
+        outbox: asyncio.Queue = asyncio.Queue()
+        me = (loop, outbox)
+        with hub_lock:
+            sockets.append(me)
+        bucket = [float(LV.RATE_BURST), time.monotonic()]
+
+        async def sender():
+            while True:
+                kind, obj = await outbox.get()
+                if kind == "job":
+                    j = st.jobs.get(obj) or {"job_id": obj, "status": "failed",
+                                             "error": {"code": "JOB_NOT_FOUND", "message": "job record missing"}}
+                    obj = _leave_by(j)
+                await ws.send_text(json.dumps(obj, default=str, allow_nan=False))
+
+        async def ticker():
+            while True:
+                await asyncio.sleep(LIVE_POLL_S)
+                try:
+                    _supervise()
+                except Exception:
+                    pass
+
+        tasks = [asyncio.create_task(sender()), asyncio.create_task(ticker())]
+        try:
+            while True:
+                msg = await ws.receive()
+                if msg["type"] == "websocket.disconnect":
+                    break
+                if tasks[0].done():
+                    break
+                now = time.monotonic()
+                bucket[0] = min(float(LV.RATE_BURST), bucket[0] + (now - bucket[1]) * float(LV.RATE_PER_S))
+                bucket[1] = now
+                text = msg.get("text")
+                if bucket[0] < 1.0:
+                    outbox.put_nowait(("frame", dict({"ok": False, "code": "RATE_LIMITED", "error": "more than %g events/s "
+                                                      "on this connection; not applied, resend later" % LV.RATE_PER_S},
+                                                     **LV.ids_of(text))))
+                    continue
+                bucket[0] -= 1.0
+                if text is None:
+                    outbox.put_nowait(("frame", {"ok": False, "code": "VALIDATION_ERROR", "error": "send one JSON object per text frame"}))
+                    continue
+                try:
+                    ev = LV.parse_event(text)
+                except LV.LiveEventError as e:
+                    outbox.put_nowait(("frame", dict({"ok": False, "code": e.code, "error": e.message}, **LV.ids_of(text))))
+                    continue
+                try:
+                    ack = _apply(ev)
+                except APIError as e:          # raised before any state change
+                    ack = {"ok": False, "code": e.code, "error": e.message, "details": e.details, "event": ev["event"],
+                           "verdict_id": ev["verdict_id"]}
+                except Exception as e:         # raised before any state change (see _apply)
+                    ack = {"ok": False, "code": "INTERNAL_ERROR", "error": "%s: %s" % (type(e).__name__, e),
+                           "event": ev["event"], "verdict_id": ev["verdict_id"]}
+                outbox.put_nowait(("frame", ack))
+        except Exception:
+            pass
+        finally:
+            with hub_lock:
+                if me in sockets:
+                    sockets.remove(me)
+            # let queued frames go out before the sender stops (the client may already be gone)
+            try:
+                await asyncio.wait_for(_drain(outbox), timeout=0.5)
+            except Exception:
+                pass
+            for t in tasks:
+                t.cancel()
+
+
+async def _drain(q: asyncio.Queue):
+    while not q.empty():
+        await asyncio.sleep(0.01)
 
 
 app = create_app()
