@@ -1,0 +1,53 @@
+{
+ "started_utc": "2026-11-19T13:19:04Z",
+ "uname": "Linux vm 6.18.44-fc-v653 #1 SMP PREEMPT_DYNAMIC @0 x86_64 x86_64",
+ "python": "3.13.18 (main, Oct 26 2026, 14:08:19) [Clang 23.1.3 ]",
+ "python_executable": "/usr/local/bin/python3",
+ "platform": "Linux-6.18.44-fc-v653-x86_64-with-glibc2.39",
+ "cpu_model": "Intel(R) Xeon(R) Processor @ 2.30GHz",
+ "logical_cpus": 4,
+ "mem_total_kb": 16473756,
+ "git_head": "7e528970922de09910affd6690174ca5c2c5adeb",
+ "git_branch": "claude/festive-curie-s8y4my",
+ "git_status_outside_results": "",
+ "pinned_core": "3",
+ "numpy": "2.5.3",
+ "harness_sha256": {
+  "common.py": "36f979a5f953f3dc76bc08e3c22e1eae7299e6977f375354f04c7641427edea4",
+  "driver.py": "cdf4edd8835a293c8f427ab8bd7b6e459cd33396fef10390f784e01de8d7a43c",
+  "run_field.py": "dee328b2eb3d56f00ef89b7cf66678174a425e06d9c3f237326045ad16bbcd6e",
+  "run_old.py": "807673fc1600d16f78f48ce3ba3a268cfa4f79d96e7a468e948fe6ce69a31c7b",
+  "make_cases.py": "318a01039cb58461c27521e86d916cd5c6440b3116bd6e90a059b1fc6b3a4804",
+  "cases/uiseong_andong_2025__20250323T010000Z.json": "bc0f5cd2f223277eabe691a7307c89ca18e6bf0884397afd932c651d5843453f",
+  "cases/uiseong_andong_2025__20250324T090000Z.json": "7a36d1f32e88b22692ef7c97d65e8448b22945c51d53c850881c84bd90422032",
+  "cases/uiseong_andong_2025__20250325T170000Z.json": "4271240f755cb332237e5472a24a855b78236d845cc6d2e4f35445422f45238d",
+  "cases/yeongdeok_2025__20250325T190000Z.json": "8c5a09e2b4a10ed92999310ee7963c58e2fedd67d2186c93af842a22821f3d2b",
+  "cases/yeongdeok_2025__20250325T230000Z.json": "221bae826015d5431c537e645fdbccb8259ebfaa4142bf16805d37800086b2ad",
+  "cases/yeongdeok_2025__20250326T080000Z.json": "f4ea9ac861801f29a56aaa5a6f3577b492a5904ef65d463ee5c50033d69a865f"
+ },
+ "idea_routing_base": "a471eee1 (merged at dd8fe2d5)",
+ "ps_top": [
+  "%CPU   PID COMMAND",
+  "20.0  4126 python3",
+  " 1.3   180 claude",
+  " 0.0     1 process_api",
+  " 0.0   171 environment-man",
+  " 0.0    31 migration/3",
+  " 0.0    21 migration/1",
+  " 0.0    26 migration/2"
+ ],
+ "harness_sha256_at_start": {
+  "common.py": "36f979a5f953f3dc76bc08e3c22e1eae7299e6977f375354f04c7641427edea4",
+  "driver.py": "8b17a0946a658f97d2e005cfaa5c1878644d3b42f2ca43d6458a6b561708758e",
+  "run_field.py": "dee328b2eb3d56f00ef89b7cf66678174a425e06d9c3f237326045ad16bbcd6e",
+  "run_old.py": "12bbd2f319ce45791f08ee77c363ff88edf38d544c69939f190df53a6a55d4e9",
+  "make_cases.py": "318a01039cb58461c27521e86d916cd5c6440b3116bd6e90a059b1fc6b3a4804",
+  "cases/uiseong_andong_2025__20250323T010000Z.json": "bc0f5cd2f223277eabe691a7307c89ca18e6bf0884397afd932c651d5843453f",
+  "cases/uiseong_andong_2025__20250324T090000Z.json": "7a36d1f32e88b22692ef7c97d65e8448b22945c51d53c850881c84bd90422032",
+  "cases/uiseong_andong_2025__20250325T170000Z.json": "4271240f755cb332237e5472a24a855b78236d845cc6d2e4f35445422f45238d",
+  "cases/yeongdeok_2025__20250325T190000Z.json": "8c5a09e2b4a10ed92999310ee7963c58e2fedd67d2186c93af842a22821f3d2b",
+  "cases/yeongdeok_2025__20250325T230000Z.json": "221bae826015d5431c537e645fdbccb8259ebfaa4142bf16805d37800086b2ad",
+  "cases/yeongdeok_2025__20250326T080000Z.json": "f4ea9ac861801f29a56aaa5a6f3577b492a5904ef65d463ee5c50033d69a865f"
+ },
+ "harness_amendment_A2": "run_old.py and driver.py changed on 19 Nov 2026 ~15:55 UTC (resume of OLD blocks after a container restart); see BENCH_PLAN.md A2"
+}
