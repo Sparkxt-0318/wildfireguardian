@@ -29,6 +29,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 0.6565217391304348,
   "night_share": 0.6543478260869565,
+  "ridge_crossing_share": 0.29130434782608694,
+  "elev_change_m_q50": -40.0,
+  "spot_lower_share": 0.6043478260869565,
   "by_gust": {
    "<10": {
     "n": 344,
@@ -86,6 +89,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 0.6481802426343154,
   "night_share": 0.6117850953206239,
+  "ridge_crossing_share": 0.28942807625649913,
+  "elev_change_m_q50": -34.0,
+  "spot_lower_share": 0.6048526863084922,
   "by_gust": {
    "<10": {
     "n": 413,
@@ -143,6 +149,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 0.7011494252873564,
   "night_share": 0.3505747126436782,
+  "ridge_crossing_share": 0.35714285714285715,
+  "elev_change_m_q50": -26.0,
+  "spot_lower_share": 0.13218390804597702,
   "by_gust": {
    "<10": {
     "n": 131,
@@ -200,6 +209,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 0.695067264573991,
   "night_share": 0.3721973094170404,
+  "ridge_crossing_share": 0.3191489361702128,
+  "elev_change_m_q50": -21.0,
+  "spot_lower_share": 0.12556053811659193,
   "by_gust": {
    "<10": {
     "n": 158,
@@ -257,6 +269,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 1.0,
   "night_share": 0.0,
+  "ridge_crossing_share": 1.0,
+  "elev_change_m_q50": -163.0,
+  "spot_lower_share": 0.5,
   "by_gust": {
    "<10": {
     "n": 0,
@@ -314,6 +329,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 0.9333333333333333,
   "night_share": 0.7333333333333333,
+  "ridge_crossing_share": 0.3333333333333333,
+  "elev_change_m_q50": -75.0,
+  "spot_lower_share": 0.2,
   "by_gust": {
    "<10": {
     "n": 1,
@@ -363,6 +381,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 1.0,
   "night_share": 0.0,
+  "ridge_crossing_share": NaN,
+  "elev_change_m_q50": NaN,
+  "spot_lower_share": 0.0,
   "by_gust": {
    "<10": {
     "n": 0,
@@ -412,6 +433,9 @@
   "n_cells_q50": 1.0,
   "single_pixel_share": 1.0,
   "night_share": 0.0,
+  "ridge_crossing_share": NaN,
+  "elev_change_m_q50": NaN,
+  "spot_lower_share": 0.0,
   "by_gust": {
    "<10": {
     "n": 0,

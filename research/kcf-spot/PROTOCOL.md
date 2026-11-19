@@ -209,3 +209,27 @@ Seen: the code of `kcf-margin/score_gofer.py` and `kcf-adaptive4/build4.py`; the
 4. Clusters within d_min of an earlier separate fire (> 15 km) are part of that separate fire, not spots.
 5. Also recorded for every spot: the distance to the front as seen in the same look (earlier front cells plus this
    look's front clusters), beside the protocol distance to B(t).
+
+### Amendment 2 (step 5 implementation; items 1-4 written into the test code before any test was scored, item 5 after)
+
+Seen before items 1-4: all of steps 2 and 3 (spot counts, the frozen fit and its held-out calibration, the 25 March
+reach rows of the geometry pass, which reproduce kcf-adaptive4). Not seen: any miss rate, area or held hour of a
+combined margin.
+
+1. **Calibration sets for the margin c** follow kcf-adaptive4: CA-HELD is scored with c from CA-DEV; each Korean fire
+   with c from the 28 California fires and the 11 other Korean fires; 25 March with c from the 28 California and 12
+   Korean fires. The spot layer of a training fire uses that fire's own fit (California: the CA-DEV fit; Korean fires:
+   their leave-one-out fit), not refits per fold: the Korean fold coefficients differ by less than 0.02 in every term.
+2. **Thresholds.** Besides p = 0.10, 0.30, 0.50 and p*, the zone is scored at p = 0.03, 0.01, 0.003, 0.001, 0.0003 and
+   0.0001, and p* is chosen among all of them on CA-DEV.
+3. **Test 3 geometry.** Interchange coordinates are not in the repository offline (the Overture segment files are not
+   present and no parquet reader can be installed here). A closed section is approximated by every cell of its route
+   number inside the region's road grid (stated per closure in `derived/test3_closures.csv`). The closures used are
+   the five official KEC closures of 25 March inside the detection product's span and the four reported local-road
+   controls of kcf-roadcut that can be located by route number (RD9 to RD12).
+4. **Test 4 (b)** unites the zone with kcf-adaptive4's issued margin q of the missed hour, not with the margin under all
+   four truths: the all-truth margin is not stored in its attribution files.
+5. **After the results: a vacuous pass is not a pass.** At p = 0.10 the zone contains no cell on any fire-hour, so
+   FIXED+SPOT(0.10) is FIXED and its area ratio is 1.000 by construction. The pass rule of test 2 ("at or below 1.00")
+   is met only in this empty sense. RESULTS.md reports it as **not passed** and gives the number, and the layer is not
+   added to `product/wfg-roadlayer` on the strength of it. This reading was chosen after seeing the result.

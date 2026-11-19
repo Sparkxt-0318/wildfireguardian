@@ -127,3 +127,16 @@ Files: `research/kcf-queue/RESULTS.md`, `results/numbers.json`, `results/extra.j
 8. **Your replay arms differ a lot. Which is right?** 142 places are in leave-now at 12:00 under RUNNING but 45 under MEASURED, because R(h) differs (row 5). That spread shows the result depends on R(h); we do not pick a winner. The KMA arm equals the ERA5 arm at 12:00–22:00.
 9. **Does heat change the routes?** Rarely on one hour: 6 of 508 leave-by times moved, median 84 s (row 6). Over hours the dose limit moves 16–22 of 286 places, by up to 529 s (row 6).
 10. **Is your heat law validated?** No. It is 9–11% above the voxel sum of the same FDS fire, but FDS's own radiometers read 6–109× lower than it (row 6). It is a conservative screening law relative to models, and no measured flux is used.
+
+## Spot fires ahead of the front (research/kcf-spot)
+
+1. California, 28 GOFER fires: **460 confirmed spot fires** seen by VIIRS (≥ 1 km ahead, gap burned later), 2.3 per 100 fire-hours; median 3.0 km, 90th percentile 10.1 km (`kcf-spot/derived/measure.json`).
+2. Only **92 of them (95%: 21–189) are wind-driven**: 188 lie downwind against 96 upwind; the rest are scatter, separate ignitions or gaps in detection (`measure.json`).
+3. Korea, 15 fires: **2 confirmed spots**; 25 March 2025: **1** (24 March, 11.7 km), and **none in any hour of the 25 March run**, even with the Himawari gap rule loosened to 2 km (`kcf-spot/RESULTS.md`).
+4. Satellites miss small spots: VIIRS saw **13 of 39** detached fires under 10 ha that airborne infrared mapped on the Dixie fire (33%; 19–50%) (`derived/airir_dixie.csv`).
+5. Forecast gust does not measurably raise the chance of a spot: **+0.12 per m/s (−0.09 to +0.24)**, interval includes zero (`derived/fit.json`).
+6. **99.8%** of satellite-seen spots lie beyond Albini's published maximum spotting distance; the published short-range model does not describe them (`fit.json`).
+7. The fitted chance that a road cell is lit by a spot never exceeded **1.3%** on 25 March (8 h ahead); **no road cell** entered the 10% zone in any hour (`derived/roadlayer_spot_20250325_summary.csv`).
+8. Adding the spot layer to the fixed margin held **1 of 12 hours** on 25 March 09–20 KST, the same as the margin alone (`derived/tests.json`).
+9. The layer explained **0 of 258** held-out misses that kcf-adaptive4 left unexplained; even removing every observed spot cell would explain only 13 (5%) (`tests.json`).
+10. On 25 March the fire's hot area grew by up to **12.7 km in one hour**, with every new patch within 2 km of cells lit that hour: at satellite scale the run was a fast front, not detached jumps (`kcf-spot/RESULTS.md`, point 4).

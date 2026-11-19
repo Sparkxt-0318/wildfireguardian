@@ -43,12 +43,16 @@ def main():
         return
     el = []
     for k in range(0, len(pts), 100):
-        el += json.load(open(out / f"{k:07d}.json"))["elevation"]
+        f = out / f"{k:07d}.json"
+        n = min(100, len(pts) - k)
+        el += json.load(open(f))["elevation"] if f.exists() else [np.nan] * n     # quota reached: left missing
     pts["elev"] = el
     res = []
     for i, g in pts.groupby("row"):
         e = g.sort_values("j").elev.values
         s = sp.loc[i]
+        if not np.all(np.isfinite(e)):
+            continue
         top = max(e[0], e[-1])
         res.append(dict(fire=s.fire, region=s.region, spot=s.spot, elev_src_m=e[0], elev_spot_m=e[-1],
                         elev_change_m=e[-1] - e[0], path_max_above_ends_m=e.max() - top,
