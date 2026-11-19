@@ -23,10 +23,11 @@ def fit_models(train, var, settings, which=("FIXED", "QUANTILE", "RULE", "BASE-g
             P[name] = L.fit_base(train, v)
     P["NONE"] = P["BASE-gust" if var == "gust_ms" else "BASE-850"]
     P["ONEK"] = L.fit_base_onek(train, var)
+    P["WSCALE"] = L.wind_scale(train, var, P["NONE"])
     for arm in ("TARGETED", "ALL"):
         if arm in which:
             Lw, H = settings[arm]
-            qs = {id(f): L.correct(f, P["NONE"], var, arm.lower(), Lw, H) for f in train}
+            qs = {id(f): L.correct(f, P["NONE"], var, arm.lower(), Lw, H, wscale=P["WSCALE"]) for f in train}
             P[arm] = np.array([L.kappa_for(train, lambda f: qs[id(f)][:, h], h) for h in range(L.NL)])
     return P
 
@@ -52,7 +53,7 @@ def issue(P, test, settings, which):
             out["ONEK"] = [L.q_base(f, np.full(L.NL, P["ONEK"]), var) for f in test]
         elif m in ("TARGETED", "ALL"):
             Lw, H = settings[m]
-            out[m] = [L.correct(f, P["NONE"], var, m.lower(), Lw, H) * P[m][None, :] for f in test]
+            out[m] = [L.correct(f, P["NONE"], var, m.lower(), Lw, H, wscale=P["WSCALE"]) * P[m][None, :] for f in test]
     return out
 
 
@@ -102,7 +103,7 @@ def growth_change(Ma, Mb):
 
 
 # ------------------------------------------------------------------ attribution tables (PROTOCOL section 3)
-def attribute(fires, ks_of, var, curve):
+def attribute(fires, ks_of, var, curve, ws_of):
     """Every missed (t, h) of the pooled BASE on `fires` (ks_of: fire name -> k_h fitted without that fire).
     Returns a DataFrame with Shapley shares, single-swap fixes and missed area."""
     import pandas as pd
@@ -110,7 +111,7 @@ def attribute(fires, ks_of, var, curve):
     for f in fires:
         ks = ks_of[f.name]
         q = L.q_base(f, ks, var)
-        tr = L.offline_truths(f, ks, var)
+        tr = L.offline_truths(f, ks, var, ws_of[f.name])
         wind_ok = np.isfinite(tr["rW"])
         rW = np.where(wind_ok, tr["rW"], 1.0)
         rWT = np.where(np.isfinite(tr["rWT"]), tr["rWT"], tr["rT"])

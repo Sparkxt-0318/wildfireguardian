@@ -84,6 +84,14 @@ class Fire:
                     (("gust_ms", "era5_gust_ms"), ("w850_ms", "hf_w850_ms"))}
         self.obs_off = 24
 
+    def obs8(self, var):
+        """Truth wind window (m/s) for every hour, cached."""
+        if not hasattr(self, "_obs8"):
+            self._obs8 = {}
+        if var not in self._obs8:
+            self._obs8[var] = np.array([self.obs_window(var, i) for i in range(self.T)])
+        return self._obs8[var]
+
     def obs_window(self, var, i, upto=None):
         """Truth wind reduced like the forecast: max over hours i+1..i+8, optionally only hours <= upto."""
         a = self.obs[var]
@@ -186,22 +194,33 @@ def pinball(S, q, tau=TAU):
 
 
 # ------------------------------------------------------------------ models (each returns fire -> q[T, 8])
-def wind_kmh(f, var):
-    return f.X[var] * 3.6
+def wind_kmh(f, var, truth=False):
+    return (f.obs8(var) if truth else f.X[var]) * 3.6
 
 
-def fit_base(train, var):
-    """k_h: fire-weighted pinball minimiser at tau 0.9 of S against k * W * h, then kappa to a 10% miss."""
+def fit_base(train, var, truth=False):
+    """k_h: fire-weighted pinball minimiser at tau 0.9 of S against k * W * h, then kappa to a 10% miss.
+    truth=True fits the same model on the truth wind (hours without a truth value are left out)."""
     ks = np.zeros(NL)
     for h in range(NL):
-        x, w, _ = stack(train, lambda f: wind_kmh(f, var) * LEADS[h], h)
+        x, w, _ = stack(train, lambda f: wind_kmh(f, var, truth) * LEADS[h], h)
         S, _, _ = stack(train, lambda f: f.S[:, h], h)
-        k0 = wquantile(S / x, w * x, TAU)                 # pinball minimiser of a one-parameter line
+        ok = np.isfinite(x) & (x > 0)
+        if not ok.any():
+            ks[h] = np.nan
+            continue
+        k0 = wquantile(S[ok] / x[ok], (w * x)[ok], TAU)   # pinball minimiser of a one-parameter line
         if k0 <= 0:
             k0 = 1e-6
-        kap = kappa_for(train, lambda f: k0 * wind_kmh(f, var) * LEADS[h], h)
+        kap = wquantile(S[ok] / (k0 * x[ok]), w[ok], 1 - TARGET)
         ks[h] = k0 * kap if kap > 0 else k0
     return ks
+
+
+def wind_scale(train, var, ks):
+    """k fitted on the truth wind divided by k fitted on the forecast wind, per lead (PROTOCOL amendment 2)."""
+    ko = fit_base(train, var, truth=True)
+    return np.where(np.isfinite(ko), ko / np.asarray(ks), 1.0)
 
 
 def fit_base_onek(train, var):
@@ -331,15 +350,15 @@ def best_lag(w, y, rows, maxlag=6, upto=None):
     return bd
 
 
-def offline_truths(f, ks, var):
+def offline_truths(f, ks, var, wscale):
     """Truth versions of the four terms for every (t, h) of one fire (uses the fire's future: ORACLE inputs).
 
     Returns dict of [T, 8] arrays: rW (truth wind / forecast wind), rT (lagged / unlagged forecast wind),
     rWT (lagged truth / forecast), mk (fire-day own k / pooled k), lag."""
     T = f.T
     W = wind_kmh(f, var)
-    Wobs = np.array([f.obs_window(var, i) for i in range(T)]) * 3.6
-    rW = np.broadcast_to((Wobs / W)[:, None], (T, NL)).copy()
+    Wobs = f.obs8(var) * 3.6
+    rW = (Wobs / W)[:, None] * np.asarray(wscale)[None, :]
     rT = np.ones((T, NL))
     rWT = rW.copy()
     mk = np.ones((T, NL))
@@ -358,7 +377,7 @@ def offline_truths(f, ks, var):
             wl = np.where(np.isfinite(W[j]), W[j], W[rows])
             rT[rows, h] = wl / W[rows]
             wol = np.where(np.isfinite(Wobs[j]), Wobs[j], Wobs[rows])
-            rWT[rows, h] = wol / W[rows]
+            rWT[rows, h] = wscale[h] * wol / W[rows]
             allrows = np.flatnonzero(e)
             for i in rows:
                 oth = rows[np.abs(rows - i) >= LEADS[h]]
@@ -370,13 +389,14 @@ def offline_truths(f, ks, var):
 
 
 # ------------------------------------------------------------------ online correction (PROTOCOL section 4)
-def correct(f, ks, var, mode, L=12, H=6, return_state=False):
+def correct(f, ks, var, mode, L=12, H=6, return_state=False, wscale=None):
     """Sequential margins q[T, 8] for one fire. mode: 'none' | 'targeted' | 'all'.
 
     At hour i only outcomes of issues (j, h) with j + h <= i, truth wind for hours <= i and the start evidence at
     hours <= i are used."""
     T = f.T
     W = wind_kmh(f, var)
+    wscale = np.ones(NL) if wscale is None else np.asarray(wscale)
     qpool = W[:, None] * LEADS[None, :] * np.asarray(ks)[None, :]
     if mode == "none":
         return (qpool, None) if return_state else qpool
@@ -405,7 +425,7 @@ def correct(f, ks, var, mode, L=12, H=6, return_state=False):
                 # online truths
                 wobs = np.array([f.obs_window(var, int(j), upto=i) for j in np.unique(jj)]) * 3.6
                 wmap = dict(zip(np.unique(jj).tolist(), wobs))
-                rWj = np.array([wmap[int(j)] for j in jj]) / W[jj]
+                rWj = wscale[hi] * np.array([wmap[int(j)] for j in jj]) / W[jj]
                 rWj = np.where(np.isfinite(rWj), rWj, 1.0)
                 # lag: correlate the wind term with the matured mean spread rate per issue hour
                 uj = np.unique(jj)

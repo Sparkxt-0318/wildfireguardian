@@ -36,7 +36,7 @@ def fit_expected(train, P, var, settings):
     sc = {(h, s): [] for h in range(L.NL) for s in (0, 1)}
     wt = {(h, s): [] for h in range(L.NL) for s in (0, 1)}
     for f in train:
-        q, st = L.correct(f, P["NONE"], var, "targeted", Lw, H, return_state=True)
+        q, st = L.correct(f, P["NONE"], var, "targeted", Lw, H, return_state=True, wscale=P["WSCALE"])
         q = q * P["TARGETED"][None, :]
         qp = L.q_base(f, P["NONE"], var)
         cf = corrected_flag(st).astype(int)
@@ -65,7 +65,7 @@ def fit_expected(train, P, var, settings):
 
 def expected_rows(setname, f, P, var, settings, C):
     Lw, H = settings["TARGETED"]
-    q, st = L.correct(f, P["NONE"], var, "targeted", Lw, H, return_state=True)
+    q, st = L.correct(f, P["NONE"], var, "targeted", Lw, H, return_state=True, wscale=P["WSCALE"])
     q = q * P["TARGETED"][None, :]
     qp = L.q_base(f, P["NONE"], var)
     cf = corrected_flag(st).astype(int)
@@ -96,12 +96,12 @@ def run_fold(setname, train, test, var, settings):
     states = {}
     for f in test:
         for arm in ("TARGETED", "ALL"):
-            _, st = L.correct(f, P["NONE"], var, arm.lower(), *settings[arm], return_state=True)
+            _, st = L.correct(f, P["NONE"], var, arm.lower(), *settings[arm], return_state=True, wscale=P["WSCALE"])
             states[(f.name, f.product, arm)] = st
-    params = {m: np.asarray(P[m]).tolist() for m in ("FIXED", "RULE10", "BASE-gust", "BASE-850", "NONE", "TARGETED", "ALL")}
+    params = {m: np.asarray(P[m]).tolist() for m in ("FIXED", "RULE10", "BASE-gust", "BASE-850", "NONE", "TARGETED", "ALL", "WSCALE")}
     params["ONEK"] = float(P["ONEK"])
     return dict(fires=[(f.name, f.product) for f in test], Q=Q, exp=exp, states=states, params=params,
-                ks={f.name: P["NONE"] for f in test})
+                ks={f.name: P["NONE"] for f in test}, ws={f.name: P["WSCALE"] for f in test})
 
 
 def ca():
@@ -128,7 +128,7 @@ def kr(part):
 
 # ------------------------------------------------------------------ merge
 def collect(fires, keys, files):
-    order, Q, exp, states, params, ks = [], {}, [], {}, {}, {}
+    order, Q, exp, states, params, ks, ws = [], {}, [], {}, {}, {}, {}
     for p in files:
         o = pickle.load(open(p, "rb"))
         for j, (name, prod) in enumerate(o["fires"]):
@@ -139,10 +139,11 @@ def collect(fires, keys, files):
             for m, qs in o["Q"].items():
                 Q.setdefault(m, []).append(qs[j])
             ks[name] = o["ks"][name]
+            ws[name] = o["ws"][name]
         exp.append(o["exp"])
         states.update(o["states"])
         params[p.stem] = o["params"]
-    return order, Q, pd.concat(exp, ignore_index=True), states, params, ks
+    return order, Q, pd.concat(exp, ignore_index=True), states, params, (ks, ws)
 
 
 def norun_table(order, Q, curve):
@@ -245,13 +246,13 @@ def merge():
     N["D"] = dict(norun=norun_table(o_kr, Q_kr, curve))
 
     # ---- attribution, Korea (Choi hours and the 25 March detection hours)
-    att = R.attribute(o_kr + o_det, {**ks_kr}, var, curve)
+    att = R.attribute(o_kr + o_det, ks_kr[0], var, curve, ks_kr[1])
     att.to_csv(D / "attribution_kr.csv.gz", index=False)
     N["attribution_kr"] = dict(choi=R.attribution_table(att[att["product"] == "CHOI"]),
                                det=R.attribution_table(att[att["product"] == "DET"]) if (att["product"] == "DET").any() else {},
                                both=R.attribution_table(att))
     # held-out California attribution as a check of the development shares
-    att_ca = R.attribute(o_ca, ks_ca, var, curve)
+    att_ca = R.attribute(o_ca, ks_ca[0], var, curve, ks_ca[1])
     att_ca.to_csv(D / "attribution_ca_held.csv.gz", index=False)
     N["attribution_ca_held"] = R.attribution_table(att_ca)
 

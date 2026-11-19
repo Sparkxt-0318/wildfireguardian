@@ -185,3 +185,17 @@ wind fetch. No margin, miss rate or area of any model had been computed.
 5. On 25 March the detection product has 24 hourly rows (from 00 KST). The correction starts cold there; the Choi
    hours of 22 to 24 March are not used to warm it.
 6. Process pools are not available in this environment; the build is serial. No effect on results.
+
+**Amendment 2** (2026-11-19, after the first development results). Seen: the CA-DEV base table (FIXED, QUANTILE,
+RULE, BASE-gust, BASE-850 at every lead; gust chosen, 375.8 against 377.4 km2); the first CA-DEV attribution
+(wind 41% of misses, k 12%, start 20%, timing 12%, unexplained 15% at 5 h; single-swap fix rate of wind 70%); six
+of the eighteen grid cells (kept in `derived/before_amendment2/`); and the reason for this amendment: the truth gust
+(ERA5 at the fire) is on a different scale from the issued gust (median ratio 1.74 on CA-DEV, 1.18 on Korea), so
+swapping it in under the forecast-fitted k inflates every margin and "fixes" misses that have nothing to do with
+forecast error. No held-out fire, Korean fire or 25 March margin had been computed.
+
+Change: the wind swap, offline and online, multiplies the truth wind by s_h = k_h fitted on the truth wind /
+k_h fitted on the forecast wind (both on the same training fires, both calibrated to a 10% miss). The swapped
+model is then the same kind of model, at the same miss rate, with the truth wind in place of the forecast wind,
+which is what "swapping in the truth" was meant to be. The online wind bias uses the same scaled ratio. Nothing
+else changes; the attribution and the grid are rerun from scratch and the superseded outputs are kept.

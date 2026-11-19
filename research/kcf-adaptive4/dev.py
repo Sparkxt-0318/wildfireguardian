@@ -74,14 +74,16 @@ def chosen_var():
 def attribution():
     fires, curve, dev, fold = folds()
     var = chosen_var()
-    ks_of = {}
+    ks_of, ws_of = {}, {}
     for k in L.CA_DEV_FOLDS:
         tr = [fires["CA"][n] for n in dev if fold[n] != k]
         ks = L.fit_base(tr, var)
+        ws = L.wind_scale(tr, var, ks)
+        print("fold", k, "wind scale (k truth / k forecast):", np.round(ws, 3).tolist())
         for n in dev:
             if fold[n] == k:
-                ks_of[n] = ks
-    d = R.attribute([fires["CA"][n] for n in dev], ks_of, var, curve)
+                ks_of[n], ws_of[n] = ks, ws
+    d = R.attribute([fires["CA"][n] for n in dev], ks_of, var, curve, ws_of)
     d.to_csv(D / "attribution_ca_dev.csv.gz", index=False)
     tab = R.attribution_table(d)
     (D / "attribution_ca_dev.json").write_text(json.dumps(tab, indent=1))
