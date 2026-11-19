@@ -1,5 +1,5 @@
 {
- "ahi_ok": null,
+ "ahi_ok": true,
  "alerts": {
   "channels": [],
   "messages": [],
@@ -1241,14 +1241,117 @@
   "firms_all": 139,
   "firms_kept": 138
  },
- "fires": [],
+ "fires": [
+  {
+   "address": "강원특별자치도 고성군 토성면 인흥리",
+   "area": {
+    "centroid": {
+     "lat": 38.23403,
+     "lon": 128.52078,
+     "x": 1089337.3,
+     "y": 2026458.9
+    },
+    "discs": [
+     {
+      "r_m": 375.0,
+      "src": "KFS report",
+      "t_utc": "2026-11-19T08:20:30Z",
+      "x": 1089337.3,
+      "y": 2026458.9
+     }
+    ],
+    "evidence_age_min": 17.5,
+    "latest_member_utc": "2026-11-19T08:20:30Z",
+    "n_by_src": {
+     "KFS report": 1
+    },
+    "n_candidates": 0,
+    "n_ignored_far": 0,
+    "n_ignored_persistent": 0,
+    "n_members": 1
+   },
+   "flags": {
+    "gfs_complete": true,
+    "gfs_cycle_utc": "2026-11-19T00:00:00Z",
+    "gust": {
+     "level_g_k2_ms": 21.32,
+     "max_gust_ms": 21.42,
+     "reason": null,
+     "state": true,
+     "threshold_ms": 20.0
+    },
+    "issue_hour_utc": "2026-11-19T08:00:00Z",
+    "oor": {
+     "lowest_predictor": "w850_ms",
+     "p": {
+      "gust_ms": 0.005594128092220519,
+      "hdw": 0.740959863194173,
+      "rhmin_pct": 0.8929605380630157,
+      "w850_ms": 0.003117913832199546
+     },
+     "partial": true,
+     "score": 0.003117913832199546,
+     "state": true,
+     "tau": 0.010728508563521567
+    },
+    "predictor_note": null,
+    "predictors": {
+     "gust_ms": 21.4202,
+     "hdw": 54.8836,
+     "prior3_km": null,
+     "rhmin_pct": 35.8,
+     "w850_ms": 26.8019
+    }
+   },
+   "id": "514124",
+   "margin": {
+    "arm": "MEASURED",
+    "class": "all",
+    "prior3_km": null,
+    "r5_km": 3.8,
+    "r8_km": 5.0
+   },
+   "point": {
+    "lat": 38.23402744920714,
+    "lon": 128.5207794748688
+   },
+   "publish_numbers": false,
+   "report_utc": "2026-11-19T08:20:30Z",
+   "villages_affected": 0,
+   "withheld": [
+    "OUT_OF_RANGE"
+   ],
+   "zone": {
+    "regions_reached": []
+   }
+  }
+ ],
  "firms_ok": true,
  "gfs_ok": true,
  "inputs": {
+  "ahi": {
+   "bytes": 5174,
+   "bytes_downloaded": 62638251,
+   "error": null,
+   "fetched_utc": "2026-11-19T08:38:08Z",
+   "file": "ahi_pixels.json",
+   "http_status": 200,
+   "ok": true,
+   "scans_expected": 32,
+   "scans_missing": 2,
+   "scans_read": 30,
+   "sha256": "d6d2d4961330382fc280bddb5bc6298523d3c169fb2e09d071d01669a2ce527b",
+   "source": "ahi",
+   "url": "https://noaa-himawari9.s3.amazonaws.com/AHI-L1b-Japan",
+   "window_utc": [
+    "2026-11-19T07:20:30Z",
+    "2026-11-19T08:38:00Z"
+   ]
+  },
   "firms:MODIS_NRT": {
    "bytes": 205,
    "error": null,
-   "fetched_utc": "2026-11-19T08:08:07Z",
+   "fetched_utc": "2026-11-19T08:38:07Z",
    "file": "firms_MODIS_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1260,7 +1363,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": 6339,
    "error": null,
-   "fetched_utc": "2026-11-19T08:08:06Z",
+   "fetched_utc": "2026-11-19T08:38:06Z",
    "file": "firms_VIIRS_NOAA20_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1272,7 +1375,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": 5499,
    "error": null,
-   "fetched_utc": "2026-11-19T08:08:06Z",
+   "fetched_utc": "2026-11-19T08:38:07Z",
    "file": "firms_VIIRS_NOAA21_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1284,7 +1387,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": 122,
    "error": null,
-   "fetched_utc": "2026-11-19T08:08:05Z",
+   "fetched_utc": "2026-11-19T08:38:06Z",
    "file": "firms_VIIRS_SNPP_NRT.csv",
    "http_status": 200,
    "key_from": "file live/config/firms_map_key.txt",
@@ -1308,20 +1411,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261119/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 727,
+   "bytes": 1308,
    "error": null,
-   "fetched_utc": "2026-11-19T08:08:04Z",
+   "fetched_utc": "2026-11-19T08:38:05Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "cf02fbe0d4e878bb1dd203c1e700718d079b4376973de7b2bfa71bccba707c0d",
+   "sha256": "3730ea2d548366d9a36e151f44ac01d90a84676795798163ddf67d2b689a8137",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-19T08:00:00Z",
- "issue_kst": "2026-11-19 17:08",
- "issue_utc": "2026-11-19T08:08:00Z",
+ "issue_kst": "2026-11-19 17:38",
+ "issue_utc": "2026-11-19T08:38:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1336,6 +1439,19 @@
    "status": "진화중",
    "status_code": "02",
    "step": "초기 대응"
+  },
+  {
+   "address": "강원특별자치도 고성군 토성면 인흥리",
+   "contained_pct": null,
+   "id": "514124",
+   "in_scope": true,
+   "lat": 38.23402744920714,
+   "lgdng_cd": "5182033031",
+   "lon": 128.5207794748688,
+   "report_utc": "2026-11-19T08:20:30Z",
+   "status": "진화중",
+   "status_code": "02",
+   "step": "초기 대응"
   }
  ],
  "notice": {
@@ -1346,12 +1462,12 @@
  "regions": {},
  "run": {
   "commit": "dfbbb911301ecdf257562c947382afdd71cbebcd",
-  "compute_finished_utc": "2026-11-19T08:08:09Z",
+  "compute_finished_utc": "2026-11-19T08:38:59Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-19T08:08:07Z",
+  "fetch_finished_utc": "2026-11-19T08:38:58Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44484902416"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44489114260"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "55ecfd2734aa03b4f351b36009700bf2d3ca8978efd3e86e65d520bf64aaa771",

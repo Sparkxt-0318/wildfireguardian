@@ -1,6 +1,11 @@
 {
  "alerts": {
-  "fires": {}
+  "fires": {
+   "514124": {
+    "cut_utc": {},
+    "first_sent": false
+   }
+  }
  },
  "bulletin": {
   "date_kst": "2026-11-19",
