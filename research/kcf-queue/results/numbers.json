@@ -1,0 +1,404 @@
+{
+ "rows": 3357,
+ "HIGH": {
+  "place_hours": 1119,
+  "classes": {
+   "D_clears": 1025,
+   "A_spread_alone_exceeds_free_flow_window": 91,
+   "B_own_queue_prevents_clearing": 3
+  },
+  "shift_vs_L0_contested": {
+   "n": 1025,
+   "median_min": 59.97,
+   "p25_min": 59.9,
+   "p75_min": 61.88,
+   "p90_min": 95.33,
+   "max_min": 113.55
+  },
+  "shift_vs_L0_isolated": {
+   "n": 1025,
+   "median_min": 59.97,
+   "p25_min": 59.9,
+   "p75_min": 61.88,
+   "p90_min": 95.33,
+   "max_min": 113.55
+  },
+  "queue_effect_S_free_minus_isolated": {
+   "n": 1025,
+   "median_min": 0.1,
+   "p25_min": 0.05,
+   "p75_min": 1.93,
+   "p90_min": 35.38,
+   "max_min": 53.6
+  },
+  "sharing_effect_isolated_minus_contested": {
+   "n": 1025,
+   "median_min": 0.0,
+   "p25_min": 0.0,
+   "p75_min": 0.0,
+   "p90_min": 0.0,
+   "max_min": 34.5
+  },
+  "queue_effect_counts": {
+   ">0s": 947,
+   ">=60s": 274,
+   ">=300s": 231,
+   ">=900s": 200,
+   "n": 1025
+  },
+  "sharing_effect_counts": {
+   ">0s": 2,
+   ">=60s": 2,
+   ">=300s": 2,
+   ">=900s": 1,
+   "n": 1025
+  },
+  "sharing_negative": 0,
+  "certificates_checked": {
+   "isolated_True": 1025,
+   "contested_True": 165
+  },
+  "binding_by_kind": {
+   "shelter": 834,
+   "edge": 191
+  },
+  "top_binding_ways": [
+   {
+    "way": 30043762,
+    "places": 3,
+    "place_hours": 7
+   },
+   {
+    "way": 32531447,
+    "places": 3,
+    "place_hours": 3
+   },
+   {
+    "way": 32721332,
+    "places": 2,
+    "place_hours": 3
+   },
+   {
+    "way": 1259288094,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 37413312,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 32508713,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 1309518734,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378577,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378563,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 1337992495,
+    "places": 1,
+    "place_hours": 4
+   },
+   {
+    "way": 1320952058,
+    "places": 1,
+    "place_hours": 3
+   },
+   {
+    "way": 1300423233,
+    "places": 1,
+    "place_hours": 3
+   }
+  ],
+  "by_free_flow_state": {
+   "LATEST_SAFE_DEPARTURE": {
+    "A_spread_alone_exceeds_free_flow_window": 91,
+    "D_clears": 248,
+    "B_own_queue_prevents_clearing": 3
+   },
+   "NOT_CUT_WITHIN_H": {
+    "D_clears": 777
+   }
+  }
+ },
+ "LOW": {
+  "place_hours": 1119,
+  "classes": {
+   "D_clears": 1085,
+   "A_spread_alone_exceeds_free_flow_window": 34
+  },
+  "shift_vs_L0_contested": {
+   "n": 1085,
+   "median_min": 14.97,
+   "p25_min": 14.92,
+   "p75_min": 15.02,
+   "p90_min": 15.05,
+   "max_min": 15.12
+  },
+  "shift_vs_L0_isolated": {
+   "n": 1085,
+   "median_min": 14.97,
+   "p25_min": 14.92,
+   "p75_min": 15.02,
+   "p90_min": 15.05,
+   "max_min": 15.12
+  },
+  "queue_effect_S_free_minus_isolated": {
+   "n": 1085,
+   "median_min": 0.07,
+   "p25_min": 0.03,
+   "p75_min": 0.12,
+   "p90_min": 0.13,
+   "max_min": 0.15
+  },
+  "sharing_effect_isolated_minus_contested": {
+   "n": 1085,
+   "median_min": 0.0,
+   "p25_min": 0.0,
+   "p75_min": 0.0,
+   "p90_min": 0.0,
+   "max_min": 0.0
+  },
+  "queue_effect_counts": {
+   ">0s": 967,
+   ">=60s": 0,
+   ">=300s": 0,
+   ">=900s": 0,
+   "n": 1085
+  },
+  "sharing_effect_counts": {
+   ">0s": 0,
+   ">=60s": 0,
+   ">=300s": 0,
+   ">=900s": 0,
+   "n": 1085
+  },
+  "sharing_negative": 0,
+  "certificates_checked": {
+   "isolated_True": 1085,
+   "contested_True": 168
+  },
+  "binding_by_kind": {
+   "shelter": 856,
+   "edge": 229
+  },
+  "top_binding_ways": [
+   {
+    "way": 30043762,
+    "places": 3,
+    "place_hours": 8
+   },
+   {
+    "way": 32721332,
+    "places": 2,
+    "place_hours": 3
+   },
+   {
+    "way": 913742284,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 37413312,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 32531447,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 32508713,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 672449436,
+    "places": 1,
+    "place_hours": 13
+   },
+   {
+    "way": 662846922,
+    "places": 1,
+    "place_hours": 7
+   },
+   {
+    "way": 1309518734,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378577,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378563,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 1337992495,
+    "places": 1,
+    "place_hours": 4
+   }
+  ],
+  "by_free_flow_state": {
+   "LATEST_SAFE_DEPARTURE": {
+    "D_clears": 308,
+    "A_spread_alone_exceeds_free_flow_window": 34
+   },
+   "NOT_CUT_WITHIN_H": {
+    "D_clears": 777
+   }
+  }
+ },
+ "MID": {
+  "place_hours": 1119,
+  "classes": {
+   "D_clears": 1064,
+   "A_spread_alone_exceeds_free_flow_window": 55
+  },
+  "shift_vs_L0_contested": {
+   "n": 1064,
+   "median_min": 29.98,
+   "p25_min": 29.92,
+   "p75_min": 31.57,
+   "p90_min": 35.32,
+   "max_min": 41.37
+  },
+  "shift_vs_L0_isolated": {
+   "n": 1064,
+   "median_min": 29.98,
+   "p25_min": 29.92,
+   "p75_min": 31.57,
+   "p90_min": 35.32,
+   "max_min": 41.37
+  },
+  "queue_effect_S_free_minus_isolated": {
+   "n": 1064,
+   "median_min": 0.12,
+   "p25_min": 0.05,
+   "p75_min": 1.6,
+   "p90_min": 5.37,
+   "max_min": 11.4
+  },
+  "sharing_effect_isolated_minus_contested": {
+   "n": 1064,
+   "median_min": 0.0,
+   "p25_min": 0.0,
+   "p75_min": 0.0,
+   "p90_min": 0.0,
+   "max_min": 0.0
+  },
+  "queue_effect_counts": {
+   ">0s": 1004,
+   ">=60s": 274,
+   ">=300s": 115,
+   ">=900s": 0,
+   "n": 1064
+  },
+  "sharing_effect_counts": {
+   ">0s": 0,
+   ">=60s": 0,
+   ">=300s": 0,
+   ">=900s": 0,
+   "n": 1064
+  },
+  "sharing_negative": 0,
+  "certificates_checked": {
+   "isolated_True": 1064,
+   "contested_True": 1064
+  },
+  "binding_by_kind": {
+   "shelter": 862,
+   "edge": 202
+  },
+  "top_binding_ways": [
+   {
+    "way": 30043762,
+    "places": 3,
+    "place_hours": 7
+   },
+   {
+    "way": 32531447,
+    "places": 3,
+    "place_hours": 3
+   },
+   {
+    "way": 32721332,
+    "places": 2,
+    "place_hours": 3
+   },
+   {
+    "way": 1259288094,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 913742284,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 37413312,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 32508713,
+    "places": 2,
+    "place_hours": 2
+   },
+   {
+    "way": 662846922,
+    "places": 1,
+    "place_hours": 7
+   },
+   {
+    "way": 1309518734,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378577,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 670378563,
+    "places": 1,
+    "place_hours": 6
+   },
+   {
+    "way": 672449436,
+    "places": 1,
+    "place_hours": 4
+   }
+  ],
+  "by_free_flow_state": {
+   "LATEST_SAFE_DEPARTURE": {
+    "D_clears": 287,
+    "A_spread_alone_exceeds_free_flow_window": 55
+   },
+   "NOT_CUT_WITHIN_H": {
+    "D_clears": 777
+   }
+  }
+ }
+}

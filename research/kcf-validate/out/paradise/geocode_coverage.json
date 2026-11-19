@@ -1,0 +1,14 @@
+{
+ "progression": {
+  "rows": 392,
+  "geocoded": 255
+ },
+ "burnovers": {
+  "rows": 19,
+  "geocoded": 5
+ },
+ "closures": {
+  "rows": 132,
+  "geocoded": 65
+ }
+}

@@ -1,0 +1,24 @@
+# Copy of product/wfg-roadlayer/wfg_roadlayer/settings.toml for live/. One value changed: max_road_age_days (see live/PROTOCOL.md §7).
+# wfg-roadlayer 기본 설정 / default settings.
+# 복사해서 고친 뒤 --settings 파일경로 로 넘기십시오. Copy, edit, and pass with --settings PATH.
+# 이 값들은 출력의 run.json 과 모든 PDF 하단에 그대로 기록됩니다. The values are recorded in run.json and on every sheet.
+
+[stage]
+# 화재 도달까지 남은 시간(시간)이 이 값 이하이면 해당 단계. Hours until fire arrival at or below which the stage applies.
+# 준비(Prepare) = 실행대기 기준보다 많이 남음.
+standby_hours = 8      # 실행대기 / standby
+immediate_hours = 5    # 즉시 실행 / execute now
+
+[routing]
+shelters_per_village = 3   # 직선거리로 가장 가까운 대피소 수 (진입 지점이 서로 다른 것). Nearest shelters (distinct entry nodes).
+dwell_s = 120              # 대피소 도착 후 머무는 시간(초). Seconds a vehicle must stay at the shelter after arrival.
+
+[freshness]
+# 이 한도를 넘으면 숫자를 내지 않습니다. Beyond these limits the tool refuses to output numbers.
+max_fire_input_age_min = 90    # 기준 시각(as-of) - 발표 시각. as-of minus issue time.
+max_issue_ahead_min = 5        # 발표 시각이 기준 시각보다 앞선(미래) 허용치. Issue time may lead as-of by this much.
+max_road_age_days = 1100       # live: the only road graph is the OSM snapshot of 2025-03-21; disclosed on every page (live/PROTOCOL.md §7)
+max_places_age_days = 365      # 발표 시각 - 마을·대피소 자료 시각. Issue time minus places/shelters snapshot.
+
+[run]
+workers = 0   # 병렬 프로세스 수, 0 = CPU 수(최대 8). Worker processes, 0 = CPU count (at most 8).

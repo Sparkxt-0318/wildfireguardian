@@ -1,0 +1,79 @@
+{
+ "certificates_available": 262,
+ "mutants": 2080,
+ "rejected": 2080,
+ "accepted": [],
+ "wrong_code": [],
+ "families": {
+  "m_before_release": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_before_arrival": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_edge_closed": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_wait": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_capacity": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_nonadjacent": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_forbidden": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_not_shelter": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_late": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_count": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_release_curve": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_hash_cell": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_hash_cap": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_neighbour_drop": {
+   "made": 0,
+   "rejected": 0
+  },
+  "m_duplicate": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_negative": {
+   "made": 130,
+   "rejected": 130
+  },
+  "m_binding": {
+   "made": 130,
+   "rejected": 130
+  }
+ },
+ "unaltered_checked": 38,
+ "unaltered_valid": 38
+}

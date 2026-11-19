@@ -1,0 +1,4 @@
+DATA/
+WORK/
+__pycache__/
+derived/*.pkl

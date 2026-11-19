@@ -230,3 +230,48 @@ Rule states are computed for every issue hour of each fire and for the 24 h befo
    fire's first hours are where a warning matters most. **S6 (new secondary):** every fire-set count is also given
    on kcf-abstain's scored hours only, so the effect of this reading is visible. Fires with a reach but fewer rows:
    none is dropped by either reading.
+
+2. **2026-11-18 22:57 UTC. Made after every other result of this study had been computed and published (RESULTS.md,
+   merged), and before any KMA station value beyond the kcf-gust file was fetched or read.** A KMA apihub key became
+   available, so G-obs can now be run as frozen in section 3. What was checked first, by status codes, column names
+   and station ids only (no gust value read): the key is approved for `kma_sfctm2.php` alone (ASOS hourly, one call
+   per KST hour, `stn=0` returns all 95-97 ASOS stations); the station-list, period and daily endpoints answer 403;
+   about four calls in ten time out and succeed on retry. Rules fixed now:
+   - **Data.** `kma_sfctm2.php?tm=YYYYMMDDHH00&stn=0` for every KST hour needed; columns `STN`, `GST WS`, `GST TM`.
+     Conventions unchanged from section 3 (kcf-gust amendment 3). An hour that still fails after 8 tries is listed
+     and left unevaluated, never filled. The key is read from a file outside the repo and is never logged.
+   - **Stations.** Every ASOS station in the response. Coordinates from KMA's data-wiki station table (as of
+     2023-09-01; saved as `derived/kma_asos_stations.csv`). A station counts for a place if its great-circle distance
+     is at most 50 km. Station moves between 2019 and 2025 are not tracked (stated limit).
+   - **State at an hour.** Known if one or more stations within 50 km have a row at that stamp; fires if any of
+     them has a gust >= 20 m/s recorded inside the hour ending at the stamp. Unknown otherwise.
+   - **Fire set.** Every hour of every fire's primary timeline, including the 24 h before its first issue hour,
+     for all 12 fires. KFS_01 is evaluated again with all stations within 50 km; the four-station PARTIAL result
+     already reported stays in the record beside it.
+   - **Burden set.** The same ten points, the point in place of P_t. A point-day is evaluated if all 24 stamps
+     (00:00 to 23:00 KST) are known; an alarm day has one or more firing stamps. Observations do not depend on the
+     forecast archive, so all seven seasons 2019-2025 can be read. Fetch order: 2025, 2024, 2023, 2022 (the four
+     full seasons of the forecast rules; the per-season mean beside G and A uses these four), then 2021, 2020, 2019.
+     The burden needs about 17,500 calls plus retries; whatever is complete at the hard stop is reported and the
+     rest is NOT RUN.
+   - **Reported.** G-obs in the same per-rule table (M1-M5), with and without 25 March and leave-one-fire-out, and
+     the frozen comparison counts of G against G-obs and of each A rule against G-obs. These are descriptive: the
+     frozen verdicts of section 4 stay A against G. The data-quality counts of kcf-gust amendment 3 (share of hours
+     with no record, smallest recorded gust, records timed outside their hour) are reported for the new file.
+   - Nothing else changes. No threshold, window or definition of any rule is touched.
+
+3. **2026-11-18 23:11 UTC. Post hoc, after the fire-set station values had been read. No rule changed.** The new
+   file shows what the hourly gust field is: at the three-hourly stamps (00, 03, ... 21 KST) a row can carry the
+   largest gust of the previous 3 to 6 h in place of the hour's own (3,062 of 9,100 records in the fire-set hours
+   are timed outside their hour, all at those stamps, none older than 6 h; 96 of them are 20 m/s or more, and every
+   one of those repeats a record that was counted in its own hour). The frozen convention drops such a record, so
+   at those stamps an hour's own gust of 20 m/s or more can be hidden behind an earlier, larger one, and G-obs can
+   read "not firing" when it was. This cannot remove an alarm day or delay the first firing hour of an episode; it
+   can break a run of firing hours and miss a later hour. The frozen reading stays primary. Beside it a **post hoc
+   upper bound** is reported in which every such hidden hour counts as firing. Also found: the smallest recorded
+   gust is 7 m/s, not the 10 m/s kcf-gust inferred from five days; "no record" therefore means "no gust reported",
+   and that a gust of 20 m/s or more is always reported is ASSUMED.
+   - *Correction, 2026-11-19 03:03 UTC, after the burden-set station hours were read.* "Cannot remove an alarm
+     day" is not exact: a row just after midnight can repeat a gust of the day before and hide that hour's own. In
+     the burden set this could add at most 5 alarm point-days of 7,300 (the upper bound); the primary counts are
+     the frozen reading.

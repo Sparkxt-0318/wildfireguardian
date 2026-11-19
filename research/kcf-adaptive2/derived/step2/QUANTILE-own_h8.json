@@ -1,0 +1,86 @@
+{
+ "0": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 2,
+   "iters": 100
+  },
+  "kappa": 1.050611054241008,
+  "train_area": 407.6966771395898,
+  "seconds": 22.6
+ },
+ "1": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 2,
+   "iters": 100
+  },
+  "kappa": 1.0823521729843808,
+  "train_area": 320.2842652183446,
+  "seconds": 23.3
+ },
+ "2": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 2,
+   "iters": 100
+  },
+  "kappa": 1.0600962134930736,
+  "train_area": 409.92682786379896,
+  "seconds": 23.2
+ },
+ "3": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 3,
+   "iters": 100
+  },
+  "kappa": 1.0573028910888316,
+  "train_area": 373.05298146051655,
+  "seconds": 21.9
+ },
+ "4": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 2,
+   "iters": 100
+  },
+  "kappa": 1.0581997438517263,
+  "train_area": 403.52514069696235,
+  "seconds": 24.7
+ },
+ "5": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 3,
+   "iters": 100
+  },
+  "kappa": 1.0321014286548371,
+  "train_area": 419.4505578094664,
+  "seconds": 23.5
+ },
+ "6": {
+  "cfg": {
+   "kind": "gbm",
+   "fs": "own",
+   "tau": 0.9,
+   "depth": 2,
+   "iters": 100
+  },
+  "kappa": 1.0919119387211482,
+  "train_area": 392.4538903037338,
+  "seconds": 22.9
+ }
+}

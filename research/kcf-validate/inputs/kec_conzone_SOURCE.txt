@@ -1,0 +1,2 @@
+User-supplied KEC dataset 157 '콘존' (ETC_78_04_01_*.csv, gzip named .zip, cp949), six copies named for 2025-03-17..22; decompressed content identical (sha256 bb1c0bf5c7855b6564a81fdb228a510470efd1bac18049043d086f2d66a27b68), 1,666 conzones.
+Columns: 콘존ID, 콘존길이, 기점종점방향구분코드, 시작노드ID, 종료노드ID, 차로수, 노선번호, 제한속도, 노선구성순번, 콘존명, 버스전용차로유무, 도로등급구분코드.

@@ -1,0 +1,341 @@
+{
+ "village_place_hours_by_free_flow_state": {
+  "NOT_CUT_WITHIN_H": 777,
+  "LATEST_SAFE_DEPARTURE": 342,
+  "INSIDE_KNOWN_FIRE_AREA": 1028,
+  "NO_SAFE_DEPARTURE": 50
+ },
+ "LOW": {
+  "cut_limited_place_hours": 342,
+  "clear": 308,
+  "cannot_clear": 34,
+  "shift_vs_L0_min": {
+   "median": 14.98,
+   "max": 15.12,
+   "n": 308
+  },
+  "shift_vs_S_free_min": {
+   "median": 0.08,
+   "max": 0.15,
+   "n": 308,
+   "ge1": 0,
+   "ge5": 0,
+   "ge15": 0
+  },
+  "clear_with_start_inside_neighbours_release_window": 17,
+  "binding_kind": {
+   "edge": 229,
+   "shelter": 79
+  },
+  "top_binding_roads": [
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 30043762,
+    "places": 3,
+    "place_hours": 8,
+    "class": "secondary",
+    "name": "일직점곡로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32721332,
+    "places": 2,
+    "place_hours": 3,
+    "class": "residential",
+    "name": "신흥길"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 37413312,
+    "places": 2,
+    "place_hours": 2,
+    "class": "secondary",
+    "name": "주왕산로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 913742284,
+    "places": 2,
+    "place_hours": 2,
+    "class": "secondary",
+    "name": "풍일로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32531447,
+    "places": 2,
+    "place_hours": 2,
+    "class": "residential",
+    "name": ""
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32508713,
+    "places": 2,
+    "place_hours": 2,
+    "class": "tertiary",
+    "name": ""
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 672449436,
+    "places": 1,
+    "place_hours": 13,
+    "class": "primary",
+    "name": "동부로"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 662846922,
+    "places": 1,
+    "place_hours": 7,
+    "class": "unclassified",
+    "name": "청련길"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 1309518734,
+    "places": 1,
+    "place_hours": 6,
+    "class": "service",
+    "name": ""
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 670378577,
+    "places": 1,
+    "place_hours": 6,
+    "class": "secondary",
+    "name": "팔각산로"
+   }
+  ],
+  "roads_binding_for_ge2_places": 6
+ },
+ "MID": {
+  "cut_limited_place_hours": 342,
+  "clear": 287,
+  "cannot_clear": 55,
+  "shift_vs_L0_min": {
+   "median": 29.98,
+   "max": 41.27,
+   "n": 287
+  },
+  "shift_vs_S_free_min": {
+   "median": 0.1,
+   "max": 11.3,
+   "n": 287,
+   "ge1": 41,
+   "ge5": 20,
+   "ge15": 0
+  },
+  "clear_with_start_inside_neighbours_release_window": 11,
+  "binding_kind": {
+   "edge": 202,
+   "shelter": 85
+  },
+  "top_binding_roads": [
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 30043762,
+    "places": 3,
+    "place_hours": 7,
+    "class": "secondary",
+    "name": "일직점곡로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32531447,
+    "places": 3,
+    "place_hours": 3,
+    "class": "residential",
+    "name": ""
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32721332,
+    "places": 2,
+    "place_hours": 3,
+    "class": "residential",
+    "name": "신흥길"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 1259288094,
+    "places": 2,
+    "place_hours": 2,
+    "class": "primary",
+    "name": "경동로"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 37413312,
+    "places": 2,
+    "place_hours": 2,
+    "class": "secondary",
+    "name": "주왕산로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 913742284,
+    "places": 2,
+    "place_hours": 2,
+    "class": "secondary",
+    "name": "풍일로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32508713,
+    "places": 2,
+    "place_hours": 2,
+    "class": "tertiary",
+    "name": ""
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 662846922,
+    "places": 1,
+    "place_hours": 7,
+    "class": "unclassified",
+    "name": "청련길"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 1309518734,
+    "places": 1,
+    "place_hours": 6,
+    "class": "service",
+    "name": ""
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 670378577,
+    "places": 1,
+    "place_hours": 6,
+    "class": "secondary",
+    "name": "팔각산로"
+   }
+  ],
+  "roads_binding_for_ge2_places": 7
+ },
+ "HIGH": {
+  "cut_limited_place_hours": 342,
+  "clear": 248,
+  "cannot_clear": 94,
+  "shift_vs_L0_min": {
+   "median": 59.97,
+   "max": 113.55,
+   "n": 248
+  },
+  "shift_vs_S_free_min": {
+   "median": 0.08,
+   "max": 53.6,
+   "n": 248,
+   "ge1": 33,
+   "ge5": 30,
+   "ge15": 26
+  },
+  "clear_with_start_inside_neighbours_release_window": 18,
+  "binding_kind": {
+   "edge": 189,
+   "shelter": 59
+  },
+  "top_binding_roads": [
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 30043762,
+    "places": 3,
+    "place_hours": 7,
+    "class": "secondary",
+    "name": "일직점곡로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32531447,
+    "places": 3,
+    "place_hours": 3,
+    "class": "residential",
+    "name": ""
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32721332,
+    "places": 2,
+    "place_hours": 3,
+    "class": "residential",
+    "name": "신흥길"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 1259288094,
+    "places": 2,
+    "place_hours": 2,
+    "class": "primary",
+    "name": "경동로"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 37413312,
+    "places": 2,
+    "place_hours": 2,
+    "class": "secondary",
+    "name": "주왕산로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 32508713,
+    "places": 2,
+    "place_hours": 2,
+    "class": "tertiary",
+    "name": ""
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 1309518734,
+    "places": 1,
+    "place_hours": 6,
+    "class": "service",
+    "name": ""
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 670378577,
+    "places": 1,
+    "place_hours": 6,
+    "class": "secondary",
+    "name": "팔각산로"
+   },
+   {
+    "region": "yeongdeok_2025",
+    "osm_way": 670378563,
+    "places": 1,
+    "place_hours": 6,
+    "class": "secondary",
+    "name": "팔각산로"
+   },
+   {
+    "region": "uiseong_andong_2025",
+    "osm_way": 1337992495,
+    "places": 1,
+    "place_hours": 4,
+    "class": "tertiary",
+    "name": ""
+   }
+  ],
+  "roads_binding_for_ge2_places": 6
+ },
+ "paired_cut_limited": {
+  "n_clear_in_all_three": 248,
+  "LOW_minus_MID_start_min": {
+   "median": 15.0,
+   "max": 26.17
+  },
+  "MID_minus_HIGH_start_min": {
+   "median": 30.0,
+   "max": 72.33
+  },
+  "LOW_minus_HIGH_start_min": {
+   "median": 45.0,
+   "max": 98.5
+  }
+ }
+}

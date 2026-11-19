@@ -60,7 +60,8 @@
   "edges_forest_sha256": "13c6d43dd24febe0334395a661135ebe0e84461e14eb5a3cc785b38c511d3616",
   "edges_ways_sha256": "c042259ea4dc553850713cd1da00f57feacc6003afd7580eb98306ebc1bb60e6",
   "households_sha256": "ee25992a689fd3f4255193356404f0177003cb954d9581f4178c3f5e35c363cb",
-  "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4"
+  "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4",
+  "queue_leaveby_sha256": "91e79b013aad99187d19e40c5e532d98e004e661c4c786626f2e631795ebe33d"
  },
  "pickup_depot": "일직초등학교",
  "counts": {
@@ -83,14 +84,14 @@
   "trigger_passed": 40
  },
  "files_sha256": {
-  "audit_uiseong_andong_2025.csv": "6cc342ce7179f65243d747b34839833d23bb23e7324cdff9b1739c1a92919e9d",
-  "cards_en_uiseong_andong_2025.pdf": "2e148333f90a6ed7d9f829005edc4387ba30c34f076dc2f7f081c3c60750cb44",
-  "cards_ko_uiseong_andong_2025.pdf": "5a0beec08b44e8fe6a6527d75043612aa7d0ae7ae63f8d130ce552b89b2acc20",
+  "audit_uiseong_andong_2025.csv": "48f112a08533c08d49d629910b437630d64dea28c749d46748c79d391bfe51d6",
+  "cards_en_uiseong_andong_2025.pdf": "2d0ba294429203e696a12cef5b483294dd951d5886289411a80eb1385351226a",
+  "cards_ko_uiseong_andong_2025.pdf": "e97b70c426cc757afbded2ef7ca4cd489518e34d33be31b64fb5b63b55867d92",
   "pickup_uiseong_andong_2025.csv": "7abf1fa9ab513254cf6da1f325f2fec41fb0a16c1a037396bfa0aa593fc80a28"
  },
  "run_time_s": {
-  "total": 19.2,
-  "compute": 13.0,
-  "outputs": 6.2
+  "total": 20.4,
+  "compute": 13.3,
+  "outputs": 7.1
  }
 }

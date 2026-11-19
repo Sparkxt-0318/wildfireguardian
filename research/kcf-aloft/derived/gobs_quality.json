@@ -1,0 +1,109 @@
+{
+ "hours_fetched": 17586,
+ "hours_failed": [],
+ "station_hours": 1688002,
+ "gust_records": 160505,
+ "share_of_station_hours_with_a_record": 0.0951,
+ "smallest_recorded_gust_ms": 7.0,
+ "records_timed_outside_their_hour": 55157,
+ "records_not_whole_ms": 0,
+ "records_20_or_more_inside_hour": 2181,
+ "records_20_or_more_outside_hour": 1364,
+ "stamp_hours_of_outside_records": {
+  "00": 3788,
+  "03": 5760,
+  "06": 3070,
+  "09": 4573,
+  "12": 4512,
+  "15": 10579,
+  "17": 2,
+  "18": 10166,
+  "19": 2,
+  "20": 2,
+  "21": 12703
+ },
+ "fire_hours_hidden_by_earlier_gust": 10,
+ "burden_alarm_days_only_if_hidden_hours_count": 5,
+ "stations_within_50km_of_points": {
+  "Sokcho": [
+   90,
+   211
+  ],
+  "Gangneung": [
+   100,
+   104,
+   105,
+   106,
+   217
+  ],
+  "Taebaek": [
+   106,
+   121,
+   130,
+   216,
+   217,
+   271
+  ],
+  "Chuncheon": [
+   93,
+   95,
+   101,
+   211,
+   212
+  ],
+  "Wonju": [
+   114,
+   202,
+   203,
+   212,
+   221
+  ],
+  "Uljin": [
+   130,
+   216,
+   271
+  ],
+  "Yeongdeok": [
+   276,
+   277
+  ],
+  "Pohang": [
+   138,
+   281,
+   283
+  ],
+  "Andong": [
+   136,
+   271,
+   272,
+   273,
+   276,
+   278
+  ],
+  "Sangju": [
+   135,
+   137,
+   226,
+   273,
+   278,
+   279
+  ]
+ },
+ "fire_hours": 1080,
+ "fire_hours_unknown": 0,
+ "fire_stations_50km_min_max": [
+  2,
+  10
+ ],
+ "burden_point_days": 7300,
+ "burden_point_days_complete": 7300,
+ "burden_days_by_season": {
+  "2019": 104,
+  "2020": 105,
+  "2021": 104,
+  "2022": 104,
+  "2023": 104,
+  "2024": 105,
+  "2025": 104
+ }
+}

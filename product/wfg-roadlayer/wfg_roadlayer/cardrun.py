@@ -31,6 +31,7 @@ AUDIT_COLS = [
     "households", "households_status", "households_basis", "vehicles", "vehicles_status", "no_car_persons", "no_car_status",
     "route_for_clearance", "narrowest_road_class", "narrowest_osm_way", "narrowest_capacity_veh_per_h", "capacity_status",
     "clearance_min", "leave_by_kst", "leave_by_with_clearance_kst", "short_with_clearance_min", "margin_min",
+    "queue_leave_by_mid_kst", "queue_leave_by_low_kst", "queue_leave_by_high_kst", "queue_vehicles_mid", "queue_note",
     "leave_by_with_margin_kst", "trigger_kst", "trigger_state",
     "departure_group", "departure_position", "departure_group_size", "departure_start_by_kst", "departure_short_min",
     "departure_after", "departure_shared_roads", "van", "van_first_arrival_kst", "van_last_arrival_kst", "van_after_leave_by",
@@ -116,6 +117,12 @@ def audit_rows(recs, rid, issue, ccfg, ways, road, replay):
             lc = r["leave_by_clear"]
             v["leave_by_with_clearance_kst"] = _kst(issue, max(lc, 0))
             v["short_with_clearance_min"] = "%.1f" % (-lc / 60) if lc < 0 else "0"
+        q = r.get("queue")
+        if q is not None:
+            f = lambda x: "cannot clear in the model" if x == "" else _kst(issue, x)
+            v.update(queue_leave_by_mid_kst=f(q["s_cont_mid"]), queue_leave_by_low_kst=f(q["s_cont_low"]), queue_leave_by_high_kst=f(q["s_cont_high"]),
+                     queue_vehicles_mid=q["N_mid"],
+                     queue_note="KQ-1 (research/kcf-queue): lower bound, CONTESTED scenario; low = favourable parameters, high = adverse; all ASSUMED; the 800 veh/h clearance line is kept for comparison")
         v["leave_by_with_margin_kst"] = _kst(issue, r["leave_by_m"]) if r["leave_by_m"] is not None else \
             ("no deadline within the horizon" if r["m_no_deadline"] else "none (margin already lost)")
         v["trigger_kst"] = _kst(issue, r["trigger_s"]) if r["trigger_state"] == "line" else ""
@@ -260,7 +267,8 @@ def run_cards(*, region_name, issue_time, raster=None, packet=None, horizon_min=
            "data": {"edges_forest_sha256": _sha((cards.PRODUCT / "data/edges" / ("%s_forest.csv.gz" % rid)).read_bytes()),
                     "edges_ways_sha256": _sha((cards.PRODUCT / "data/edges" / ("%s_ways.csv.gz" % rid)).read_bytes()),
                     "households_sha256": _sha((cards.PRODUCT / "data/households" / ("%s.csv" % rid)).read_bytes()),
-                    "traffic_sources_sha256": _sha((cards.PRODUCT / "data/traffic_sources.json").read_bytes())},
+                    "traffic_sources_sha256": _sha((cards.PRODUCT / "data/traffic_sources.json").read_bytes()),
+                    "queue_leaveby_sha256": _sha((cards.PRODUCT / "data/queue_leaveby.csv").read_bytes()) if (cards.PRODUCT / "data/queue_leaveby.csv").is_file() else None},
            "pickup_depot": pk["depot"]["name"] or pk["depot"]["id"], "counts": dict(sorted(counts.items())),
            "files_sha256": dict(sorted(files.items())),
            "run_time_s": {"total": round(t_out - t0, 1), "compute": round(t_comp - t0, 1), "outputs": round(t_out - t_comp, 1)}}
