@@ -10,3 +10,7 @@
   `field_sample | UA 03-24 | repeat 1`, which had not written a result; it is re-run). All earlier ledger entries are kept.
   Detected at the 15:19 check-in, so about 40 minutes of run time were lost. Same CPU model, kernel, Python and numpy; probe
   checked after restart below.
+* 19 Nov 2026 ~15:35 UTC: third container restart (uptime 0 min at 15:35:54), noticed at once through the MCP reconnect
+  event. The driver was killed during `old_cold | UA 03-24 | repeat 1` after 25 of 200 requests; the partial output is
+  discarded and the block re-runs from the start. Restarts so far: about 13:28, 14:38, 15:35 UTC (roughly hourly). Machine
+  identical (CPU model, kernel, Python, numpy; probe below).
