@@ -5,7 +5,7 @@
 Rules frozen first: [PROTOCOL.md](PROTOCOL.md) (commit `1a6a5a7`; amendments 1-12 dated; 3-8 for the second and third pass, 9-12 for the Paradise run, each made before the outcomes it touches, 6-7 after reading candidate times but before any recomputed model error). Numbers: [numbers.json](numbers.json).
 Skipped sources: [SKIPPED.md](SKIPPED.md). Prospective log: [PROSPECTIVE_LOG.md](PROSPECTIVE_LOG.md).
 
-## Headline, in four sentences
+## Headline
 
 1. **Third pass (user-supplied files, 23:13 UTC onward).** The 재난문자 export gave **official send times for 23 of the 29 REPORTED rows** of kcf-roadcut's validation table (13 of 13 evacuation orders, 9 of 13 road closures, the 00:07 text of 1 of 3 village accounts); 8 of the 13 order times and 4 of the 9 road times agree with the news time to within 7 minutes, the others are off by 20 to 125 minutes. The KEC files are **daily**, not 15-minute, volumes: closure *times* and surges cannot be derived, only that volumes on the closed corridors fell to 1-9 % of baseline by 26-27 March.
 2. The one independent satellite record I could get is Sentinel-2 on **24 March**, day 3, not the 25 March window of the replay. On the frozen map the reconstruction's reached area agrees with it (POD 0.88-0.91) while over-reaching (FAR 0.43-0.44), **but the burned-area map itself changes more than 13-fold with the dNBR convention (26-352 km²) and the verdict with it**, and the interval tested contains no detected fire growth, so this scene does not test the 5 h / 8 h margin.
