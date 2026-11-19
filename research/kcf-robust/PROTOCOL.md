@@ -197,3 +197,12 @@ file in `out/`.
    (c) The Overture locality polygons used by kcf-roadcut are the `division_area` type (the `division` type has no
    polygons); both are fetched with kcf-roadcut's own script. Event locations reproduce kcf-roadcut's table
    (same edge and place counts).
+
+2. **2026-11-19, after the replay calibration sums were computed, before any rule was scored against a truth or an
+   official time.** The calibration uses no truth. On the replay, S(b(m)) stays above S(a) for every m up to 8 h
+   (at m = 8 h, S(b) / S(a) = 1.12): shifting the central forecast earlier cannot close a road the central forecast
+   never reaches within the horizon, while CURRENT's 90 % reach margin does. Section 3 has no rule for this case. Rule:
+   if no grid value reaches S(a), the knob is set to the smallest grid value at which S reaches its minimum (for b
+   on the replay, m = 7 h 55 min; S is flat from there to 8 h) and the remaining gap is reported; the 60 s refinement is skipped. Such a rule spends less caution than CURRENT, so the
+   comparison is not at equal caution; the pass/fail rule of section 6 is unchanged (it already requires equal or less
+   lead time given up). The same rule applies to the twin calibration and to c.

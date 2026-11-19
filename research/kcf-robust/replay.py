@@ -241,10 +241,16 @@ def calibrate(out):
     n = sum(len(v) for v in ev.values())
     Sb = [sum(S_of(curves[t]["b"][p][k] for p in ev[t]) for t in ev) for k in range(len(M_GRID))]
     Sc = [sum(S_of(curves[t]["c"][p][k] for p in ev[t]) for t in ev) for k in range(len(R_GRID))]
-    kb = next(k for k, s in enumerate(Sb) if s <= S_a)
-    kc = next(k for k, s in enumerate(Sc) if s <= S_a)
+    # PROTOCOL amendment 2: if no grid value reaches S(a), take the grid value with the smallest S and report the gap
+    kb = next((k for k, s in enumerate(Sb) if s <= S_a), None)
+    kc = next((k for k, s in enumerate(Sc) if s <= S_a), None)
+    reached = {"b": kb is not None, "c": kc is not None}
+    if kb is None:
+        kb = int(np.argmin(Sb))
+    if kc is None:
+        kc = int(np.argmin(Sc))
     m_star = M_GRID[kb]
-    if kb > 0:
+    if kb > 0 and reached["b"]:
         fine = list(range(M_GRID[kb - 1] + 60, M_GRID[kb], 60))
         Sf = [0] * len(fine)
         for t in ev:
@@ -260,7 +266,7 @@ def calibrate(out):
             if Sf[i] <= S_a:
                 m_star = m
                 break
-    cal = {"S_a": S_a, "m_star_s": m_star, "r_star_km": R_GRID[kc], "n_place_pairs": n, "mean_leave_by_a_min": S_a / n / 60.0,
+    cal = {"S_a": S_a, "m_star_s": m_star, "r_star_km": R_GRID[kc], "reached": reached, "S_b_at_m_star": Sb[kb], "S_c_at_r_star": Sc[kc], "n_place_pairs": n, "mean_leave_by_a_min": S_a / n / 60.0,
            "S_b_curve": dict(zip(map(str, M_GRID), Sb)), "S_c_curve": dict(zip(map(str, R_GRID), Sc))}
     (out / "replay_calibration.json").write_text(json.dumps(cal, indent=1))
     print({k: v for k, v in cal.items() if not k.endswith("curve")})
