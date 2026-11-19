@@ -225,6 +225,33 @@ class _Fire:
         self.uncovered_set = set()
 
 
+def _shelter_job_last_only(job):
+    """engine._shelter_job without the witness at the issue time (the 'leave now' route, never used here); the issue
+    sets and the witness at the latest departure are computed exactly as the product does."""
+    snode, acc, origins = job
+    inst = engine._W["inst"]
+    E = len(inst.tail)
+    inst.A = [[] for _ in range(E)]
+    for j in engine._W["inc"].get(snode, []):
+        inst.A[j] = list(acc)
+    inst.AN = {}
+    inst.IB = {}
+    fld = engine.core.backward(inst)
+    out = {}
+    for on, ib in origins:
+        inst.IB = {on: ib}
+        S = engine.core.issue_set(fld, on)
+        res = {"set": [list(p) for p in S], "w_last": None, "w_first": None}
+        if S:
+            res["w_last"] = engine._legs(engine.core.witness(fld, on, S[-1][1]))
+        out[on] = res
+    inst.IB = {}
+    return snode, out, fld.stats["pushes"]
+
+
+engine._shelter_job = _shelter_job_last_only
+
+
 def run_product(rid, close_s, T, workers=4, H=HORIZON_S):
     """pipeline.compute's field step on a closure dict (same build_instance / accept / origin_closure / run_passes /
     assemble). Returns (rows, inst)."""
