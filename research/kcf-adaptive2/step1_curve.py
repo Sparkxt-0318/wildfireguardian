@@ -9,7 +9,7 @@ import methods_base as mb
 
 NS = (4, 8, 12, 16, 20, 24)
 NSUB = 10
-WORK = "/tmp/w/work"
+WORK = os.environ.get("KCF2_WORK", "/tmp/w/work")
 
 
 def task(args):

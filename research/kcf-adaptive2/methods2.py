@@ -1,5 +1,6 @@
 """Step-2 methods (PROTOCOL section 5). Every method: name, configs, fit(cfg, D, tr) -> model, predict(model, D, idx) -> s (km).
 Sequential (adaptive) methods use only outcomes S_j with t_j + h <= t_i at row i (PROTOCOL 2.2)."""
+import os
 import numpy as np
 from scipy.optimize import minimize
 from scipy.special import expit
@@ -367,7 +368,7 @@ def archive_source(D):
 
 def sim_source(D):
     import pandas as pd
-    d = pd.read_csv("/tmp/w/work/sim.csv.gz")
+    d = pd.read_csv(os.path.join(os.environ.get("KCF2_WORK", "/tmp/w/work"), "sim.csv.gz"))
     col = "reach8_km" if D.h == 8 else "reach5_km"
     d = d.dropna(subset=[col])
     return d[ALL].values.astype(float), d[col].values.astype(float)

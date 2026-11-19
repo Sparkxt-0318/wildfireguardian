@@ -9,6 +9,7 @@ Features and the reach outcome come from the SAME code as the real fires (build_
 
     python sim_fires.py --n 400 --out /tmp/w/work/sim.csv.gz
 """
+import os
 import argparse
 import sys
 from concurrent.futures import ProcessPoolExecutor
@@ -130,7 +131,7 @@ def simulate_one(args):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=400)
-    ap.add_argument("--out", default="/tmp/w/work/sim.csv.gz")
+    ap.add_argument("--out", default=os.path.join(os.environ.get("KCF2_WORK", "/tmp/w/work"), "sim.csv.gz"))
     ap.add_argument("--procs", type=int, default=2)
     a = ap.parse_args()
     parts = []

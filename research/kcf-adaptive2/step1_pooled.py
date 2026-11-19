@@ -1,4 +1,5 @@
 """Step 1(a) addendum (PROTOCOL Amendment 2): pooled-budget oracle. Writes derived/step1_pooled.json."""
+import os
 import json, sys
 import numpy as np
 from lib import *
@@ -47,14 +48,14 @@ def pooled_oracle(D, idx, s, block, rng=None, ncand=61):
 
 
 def main():
-    D = Data(5, "/tmp/w/work")
+    D = Data(5, os.environ.get("KCF2_WORK", "/tmp/w/work"))
     dev_f = [f for f in D.fires if D.product[D.fire == f][0] == "GOFER"]
     folds = outer_folds(dev_f); idx = D.rows_of(dev_f)
     prev = json.load(open("derived/step1_oracle.json"))
     fixed_cal = np.array(prev["methods"]["FIXED"]["per_fire"]["area"]); fixed_front = prev["methods"]["FIXED"]["summary"]["frontier_area"]
     mref_area = np.array(prev["methods"]["M_ref"]["per_fire"]["area"])
     s_all, k_all, _ = run_outer(mb.mref(), D, folds, verbose=False)
-    np.save("/tmp/w/work/s_mref_h5.npy", s_all); np.save("/tmp/w/work/k_mref_h5.npy", k_all)
+    np.save(os.path.join(os.environ.get("KCF2_WORK", "/tmp/w/work"), "s_mref_h5.npy"), s_all); np.save(os.path.join(os.environ.get("KCF2_WORK", "/tmp/w/work"), "k_mref_h5.npy"), k_all)
     out = {}
     for sname, sarr in (("s=1", np.ones(len(D.S))), ("s=M_ref", s_all)):
         s = sarr[idx]

@@ -1,4 +1,5 @@
 """Two figures for RESULTS.md: held-out frontier (area vs miss) and the learning curve. Light surface, reference palette slots 1-3."""
+import os
 import json
 import numpy as np
 import matplotlib
@@ -18,7 +19,7 @@ def style(ax):
     ax.grid(True, color=GRID, lw=0.8); ax.set_axisbelow(True)
 
 
-D = Data(5, "/tmp/w/work")
+D = Data(5, os.environ.get("KCF2_WORK", "/tmp/w/work"))
 dev = [f for f in D.fires if D.product[D.fire == f][0] == "GOFER"]
 idx = D.rows_of(dev)
 fig, ax = plt.subplots(figsize=(6.6, 4.2))

@@ -1,11 +1,12 @@
 """Aggregate held-out DEV results: one row per method (PROTOCOL 3, 8). Writes derived/step2_summary.json and prints the table."""
+import os
 import json, sys
 from pathlib import Path
 import numpy as np
 from lib import *
 
 H = int(sys.argv[1]) if len(sys.argv) > 1 else 5
-D = Data(H, "/tmp/w/work")
+D = Data(H, os.environ.get("KCF2_WORK", "/tmp/w/work"))
 dev = [f for f in D.fires if D.product[D.fire == f][0] == "GOFER"]
 idx = D.rows_of(dev)
 res = {}

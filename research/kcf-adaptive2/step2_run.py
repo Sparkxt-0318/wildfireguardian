@@ -56,7 +56,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True)
     ap.add_argument("--h", type=int, default=5)
-    ap.add_argument("--work", default="/tmp/w/work")
+    ap.add_argument("--work", default=os.environ.get("KCF2_WORK", "/tmp/w/work"))
     ap.add_argument("--procs", type=int, default=4)
     a = ap.parse_args()
     D = Data(a.h, a.work)

@@ -1,4 +1,5 @@
 """Step 1(a): oracle ceiling and the FIXED / PERSIST / M_ref baselines on DEV (PROTOCOL 4.1). Writes derived/step1_oracle.json."""
+import os
 import argparse, json, sys
 import numpy as np
 import lib
@@ -37,7 +38,7 @@ def fire_stats(D, idx, q):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--work", default="/tmp/w/work")
+    ap.add_argument("--work", default=os.environ.get("KCF2_WORK", "/tmp/w/work"))
     ap.add_argument("--h", type=int, default=5)
     ap.add_argument("--out", default="derived/step1_oracle.json")
     a = ap.parse_args()

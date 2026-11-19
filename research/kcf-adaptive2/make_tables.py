@@ -1,11 +1,12 @@
 """Build every table of RESULTS.md from derived/ (PROTOCOL 8). Usage: python make_tables.py [h]. Writes derived/tables_h<h>.md and numbers entries."""
+import os
 import json, sys
 from pathlib import Path
 import numpy as np
 from lib import *
 
 H = int(sys.argv[1]) if len(sys.argv) > 1 else 5
-D = Data(H, "/tmp/w/work")
+D = Data(H, os.environ.get("KCF2_WORK", "/tmp/w/work"))
 dev = [f for f in D.fires if D.product[D.fire == f][0] == "GOFER"]
 idx = D.rows_of(dev)
 R = {}

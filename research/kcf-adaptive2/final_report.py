@@ -1,4 +1,5 @@
 """Report the sealed transfer test: KR (12 Korean fires, Choi rasters) and MAR25 (25 March 2025 detections). PROTOCOL 7."""
+import os
 import json, sys
 from pathlib import Path
 import numpy as np
@@ -6,7 +7,7 @@ import pandas as pd
 from lib import *
 
 H = int(sys.argv[1]) if len(sys.argv) > 1 else 5
-D = Data(H, "/tmp/w/work")
+D = Data(H, os.environ.get("KCF2_WORK", "/tmp/w/work"))
 kr = np.flatnonzero([(p == "CHOI") and str(f).startswith("KFS") for p, f in zip(D.product, D.fire)])
 det = np.flatnonzero(D.product == "DET")
 res, mar = {}, {}
