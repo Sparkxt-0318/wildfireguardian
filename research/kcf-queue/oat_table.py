@@ -1,9 +1,12 @@
 """One-at-a-time table (PROTOCOL 4): two card cases, CONTESTED, one parameter at low or high, others at middle."""
 import glob, gzip, json, statistics as st, collections
 rows = []
-for fn in sorted(glob.glob("results/work/*__oat.json.gz")) + sorted(glob.glob("results/work/*__mid.json.gz")):
+seen = set()
+for fn in sorted(glob.glob("results/work/*__oat*.json.gz")) + sorted(glob.glob("results/work/*__mid.json.gz")):
     for r in json.load(gzip.open(fn, "rt"))["rows"]:
-        if (r["region"], r["issue_utc"]) in {("uiseong_andong_2025", 3), ("yeongdeok_2025", 9)}: rows.append(r)
+        k = (r["region"], r["issue_utc"], r["param"], r["place_id"])
+        if (r["region"], r["issue_utc"]) in {("uiseong_andong_2025", 3), ("yeongdeok_2025", 9)} and k not in seen:
+            seen.add(k); rows.append(r)
 out = {}
 for case, rid in (("uiseong_andong_12:00KST", "uiseong_andong_2025"), ("yeongdeok_18:00KST", "yeongdeok_2025")):
     tab = {}
