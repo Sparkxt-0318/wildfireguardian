@@ -79,4 +79,5 @@ Ratios are existing time / new time per spec; per cache the median over its samp
 
 ## Amendments
 
-(none)
+* 19 Nov 2026, after the run. Memory: `bench.py` measured two rows beyond the three listed above (new method
+  keeping only μ and γ; new method with M = 0). All three planned rows were measured as planned. No other change.
