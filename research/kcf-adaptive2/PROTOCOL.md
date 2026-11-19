@@ -248,3 +248,17 @@ reached is reported and skipped.
    blocks), and takes the smallest scale kappa_b that stays within that budget (block quantile of S_t / s_t). Each fire
    then ends at a miss rate <= 0.10 and within one hour of it. Also: the data pipeline (`build_data.py`) reproduces the
    committed GOFER reach to 4e-7 km (gate L4 uses 1e-6, not 1e-9; float32 distances).
+
+2. **2026-11-19 ~02:40 UTC, AFTER the first oracle values were seen (stated plainly).** What was seen: the pre-registered per-fire-budget
+   oracles (Amendment 1). O-day with s=1 gained 24.5% area against FIXED at 10% (gate passes; this number stays the gate
+   statistic). But the same table showed that the per-fire-budget oracle is not a ceiling: O-fire (s=1) had 11% *more* area
+   than FIXED, and O-day on top of M_ref had more area than M_ref itself, because forcing every fire to its own 10% is a stricter
+   constraint than the pooled 10% target the comparators use. **Added, reported beside the pre-registered ones, never replacing
+   them:** the *pooled-budget* oracle: scales kappa_b per block are chosen to minimise the fire-weighted mean area subject to a
+   fire-weighted miss rate of 10% over all fires together (Lagrange multiplier, bisection; candidates = 61 ratio quantiles of
+   the block). A constant kappa is a feasible point, so this oracle is at least as good as any non-adaptive model on the same
+   shape. No decision rule depends on it.
+   Implementation details fixed here (none changes a rule): scores s_t are floored at 0.1 km so S/s exists; inner groups
+   for calibration are min(6, number of training fires) (so for the learning curve n = 4 uses leave-one-fire-out and
+   n >= 6 uses 6 groups, not leave-one-fire-out as 4.2 says); the GOFER reach reproduction tolerance is 1e-5 km (float32
+   distance transform; observed max 5.7e-6); the DEV eligible set has 20,065 hours at h = 5, the same count as kcf-abstain.
