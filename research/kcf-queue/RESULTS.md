@@ -101,18 +101,20 @@ MIDDLE − HIGH median 30.0 (max 72.3); LOW − HIGH median 45.0 (max 98.5). The
 | one parameter changed from middle | uiseong_andong_12:00KST | yeongdeok_18:00KST |
 |---|---|---|
 | middle (reference) | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 41.4; max queue delay 11.4 min |
-| households × 0.7 | not finished | 88 clear / 2 cannot; median shift 29.9 min; max shift 30.1; max queue delay 0.1 min |
-| households × 1.4 | not finished | 88 clear / 2 cannot; median shift 30.0 min; max shift 57.5; max queue delay 27.6 min |
-| 0.9 vehicles/household | not finished | 88 clear / 2 cannot; median shift 29.9 min; max shift 31.2; max queue delay 1.2 min |
-| 1.5 vehicles/household | not finished | 88 clear / 2 cannot; median shift 30.0 min; max shift 51.5; max queue delay 21.6 min |
-| spread 15 min | not finished | 90 clear / 0 cannot; median shift 15.3 min; max shift 41.2; max queue delay 26.2 min |
-| spread 60 min | not finished | 88 clear / 2 cannot; median shift 59.9 min; max shift 60.1; max queue delay 0.1 min |
-| smoke factor 1.00 | not finished | 88 clear / 2 cannot; median shift 30.0 min; max shift 34.9; max queue delay 4.9 min |
-| smoke factor 0.70 | not finished | 88 clear / 2 cannot; median shift 30.0 min; max shift 50.4; max queue delay 20.4 min |
-| other roads 1,000 veh/h | not finished | 88 clear / 2 cannot; median shift 30.0 min; max shift 32.5; max queue delay 2.6 min |
-| other roads 600 veh/h | not finished | 88 clear / 2 cannot; median shift 30.0 min; max shift 56.5; max queue delay 26.6 min |
+| households × 0.7 | 43 clear / 4 cannot; median shift 29.9 min; max shift 30.0; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 29.9 min; max shift 30.1; max queue delay 0.1 min |
+| households × 1.4 | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 57.5; max queue delay 27.6 min |
+| 0.9 vehicles/household | 43 clear / 4 cannot; median shift 29.9 min; max shift 30.0; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 29.9 min; max shift 31.2; max queue delay 1.2 min |
+| 1.5 vehicles/household | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 51.5; max queue delay 21.6 min |
+| spread 15 min | 44 clear / 3 cannot; median shift 16.9 min; max shift 17.4; max queue delay 2.5 min | 90 clear / 0 cannot; median shift 15.3 min; max shift 41.2; max queue delay 26.2 min |
+| spread 60 min | 41 clear / 6 cannot; median shift 59.9 min; max shift 60.0; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 59.9 min; max shift 60.1; max queue delay 0.1 min |
+| smoke factor 1.00 | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 34.9; max queue delay 4.9 min |
+| smoke factor 0.70 | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 50.4; max queue delay 20.4 min |
+| other roads 1,000 veh/h | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 32.5; max queue delay 2.6 min |
+| other roads 600 veh/h | 43 clear / 4 cannot; median shift 30.0 min; max shift 30.1; max queue delay 0.1 min | 88 clear / 2 cannot; median shift 30.0 min; max shift 56.5; max queue delay 26.6 min |
 
 Shift = leave-by earlier than the card's free-flow figure `L0`; the median equals the spread. Queue delay = free flow with the same spread minus the solved start. Parameter names in `results/oat.json` follow the stress end (`high` = adverse), not the numeric value.
+
+**Reading.** At 의성·안동 12:00 no single parameter produces more than 0.1 min of queue delay except the 15-minute spread (2.5 min): most of its 47 villages are horizon-limited or have short windows, so the spread decides who can clear (cannot-clear 3 / 4 / 6 for spread 15 / 30 / 60 min). At 영덕 18:00 the queue matters once demand, capacity or smoke is set to the adverse end (max delay 20–28 min for 1.4× households, 1.5 vehicles/household, smoke 0.70, or 600 veh/h roads; 26 min for the 15-minute spread, whose peak rate is higher), and no one-at-a-time change makes more than 2 of 90 villages unable to clear. These two cases are two hours of one fire: they say nothing about other days.
 
 ## 4 What the cards now show
 

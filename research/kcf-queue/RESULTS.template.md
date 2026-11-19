@@ -100,6 +100,8 @@ MIDDLE − HIGH median 30.0 (max 72.3); LOW − HIGH median 45.0 (max 98.5). The
 
 <!--OAT-->
 
+**Reading.** At 의성·안동 12:00 no single parameter produces more than 0.1 min of queue delay except the 15-minute spread (2.5 min): most of its 47 villages are horizon-limited or have short windows, so the spread decides who can clear (cannot-clear 3 / 4 / 6 for spread 15 / 30 / 60 min). At 영덕 18:00 the queue matters once demand, capacity or smoke is set to the adverse end (max delay 20–28 min for 1.4× households, 1.5 vehicles/household, smoke 0.70, or 600 veh/h roads; 26 min for the 15-minute spread, whose peak rate is higher), and no one-at-a-time change makes more than 2 of 90 villages unable to clear. These two cases are two hours of one fire: they say nothing about other days.
+
 ## 4 What the cards now show
 
 `product/wfg-roadlayer` village cards for the two worked cases (의성·안동 12:00 KST, 영덕 18:00 KST; 137 of 174 places have a
