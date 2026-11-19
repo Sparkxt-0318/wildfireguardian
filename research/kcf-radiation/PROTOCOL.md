@@ -148,4 +148,34 @@ METHOD.md section 9 discusses each.
 
 ## Amendments
 
-(none yet)
+**A1 (2026-11-19, after the C1 numbers for a fixed width ratio were seen; before any panel, fire or C3 result).**
+The literature check (Butler 2014, *IJWF* 23:295-308, Table 1) found that Butler and Cohen (1998) used a **fixed 20 m
+flame width**, 1200 K, emissivity 1 and a vertical flame, not a fixed width-to-height ratio. With a fixed width,
+d/H is not independent of H, so the C1 criterion of section 8 ("independent of H ... at a fixed width ratio") does not
+describe their model. C1 is replaced by: with W = 20 m, 1200 K, eps = 1, tau = 1, vertical flame, the linear fit
+(through the origin) of d against H for H = 1-10 m must lie within 15 % of each published result for that geometry:
+Butler and Cohen 1998 (4 H at 7 kW/m2), Zarate et al. 2008 (3.8 H at 7 and 4.8 H at 4.7 kW/m2, as reported by
+Butler 2014); and for a long front (W/L > 50) within 15 % of Rossi et al. 2011 (8 x flame length). The H range of the
+fit (1-10 m) is chosen because Butler and Cohen's guidance addresses flames of that size and their safety-zone note
+("more than 20 m wide") implies flames of a few metres; it was chosen after seeing that the fit depends on the range,
+and RESULTS.md reports the other ranges too. Both C1 tables (fixed ratio and fixed width) stay in data/c1_butler_cohen.json.
+
+**A2 (citations, no change to numbers).** (i) The Thomas crown flame length is cited to Rothermel (1991) INT-438
+eq. 3 (L = 0.2 I^(2/3) in ft and Btu/ft/s, = 0.0266 I^(2/3) in m and kW/m); FARSITE's manual (Finney 1998) contains
+the crown-fire initiation and intensity but not the flame-length equation. (ii) The transmissivity power law
+tau = 2.02 (P_w x)^-0.09 is cited to the TNO Yellow Book (CPR 14E, ch. 6); its attribution to Pietersen and Huerta
+1985 could not be confirmed. AS 3959 uses Fuss and Hamins (2002) instead; that alternative is not used here (it is
+stated for paths of 10-200 m and source temperatures 1273-1873 K, outside most of this study's range). (iii) 4.7
+kW/m2: API 521 (5th ed. onward: emergency actions of 2-3 min; time to pain 16 s). 2.5 kW/m2: ISO 13571 and Purser
+(SFPE Handbook): tolerable for 30 min or more.
+
+**A3 (computation, before any panel result).** For the worst-angle view factor only, the water-vapour pressure used
+for transmissivity is rounded down in 50 % steps instead of 5 % (each evaluation needs ~100 numerical integrations).
+Rounding down raises transmissivity, so d* can only grow.
+
+**A4 (C3 data, before any C3 result).** The crown-fire comparison uses the per-plot intensities and spread rates of
+Stocks et al. (2004, Table; I = H w R with H = 18,000 kJ/kg, 11 plots, 13,400-93,500 kW/m) against their reported
+flame fronts "commonly 25-40 m above the ground" (a height; no flame length reported). Pass for a plot: the predicted
+flame length lies within a factor 2 of the nearest end of 25-40 m. Pine-litter and grass comparisons have no paired
+observations available in the sources obtained (Alexander and Cruz 2012 full text not obtained); they are reported as
+range comparisons and do not count toward the gate.

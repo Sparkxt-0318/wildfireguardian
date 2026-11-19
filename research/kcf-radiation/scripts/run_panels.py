@@ -37,7 +37,7 @@ REGION_ENV = {"uiseong_andong_2025": "KFS_01", "yeongdeok_2025": "KFS_01", "ulji
 def env_at_cells(env, road, cells, when_utc):
     """Land-cover group, 10 m wind speed (m/s), RH (%), air temperature (C) per cell at its own hour."""
     xs, ys = inputs.cell_centres(road)
-    r, c = np.divmod(np.asarray(cells), road.W)
+    r, c = np.divmod(np.asarray(cells, dtype=np.int64), road.W)
     er, ec = env.cell_index(xs[r, c], ys[r, c])
     ok = er >= 0
     lc = np.where(ok, env.landcover[np.maximum(er, 0), np.maximum(ec, 0)], np.nan)

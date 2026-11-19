@@ -18,7 +18,7 @@ What was used instead:
 | Gyeongbuk 25 March 2025 replay rasters, 13 issue hours 12:00-24:00 KST, MEASURED arm, 8 h horizon | built by `product/wfg-roadlayer/examples/build_example_raster.py --issue <hour>` (research/kcf-replay, no new science) | leave-by panel A |
 | Road graphs | `data/routing/graphs/<region>/graph.json` (SHA-256 in `data/routing/INPUT_FILES.json`) | road pieces |
 | Villages, facilities, shelters | `planner/public/data/regions/<region>/places.geojson` | origins and shelters |
-| VIIRS (S-NPP, NOAA-20) and MODIS active fires with FRP, Republic of Korea, 2022, 2023 | NASA FIRMS public yearly country files, `https://firms.modaps.eosdis.nasa.gov/data/country/<sensor>/<year>/<sensor>_<year>_Republic_of_Korea.csv`, downloaded 2026-11-19 without a key (SHA-256 in `data/frp_inputs.json`) | FRP cross-check |
+| VIIRS (S-NPP, NOAA-20 = "viirs-jpss1") and MODIS active fires with FRP, Republic of Korea, 2022, 2023 | NASA FIRMS public yearly country files, `https://firms.modaps.eosdis.nasa.gov/data/country/<sensor>/<year>/<sensor>_<year>_Republic_of_Korea.csv`, downloaded 2026-11-19 without a key (SHA-256 in `data/frp_inputs.json`) | FRP cross-check |
 | Same, 2025 | `research/harness-2026-11/data-fetch/small/firms/` (in git) | FRP cross-check |
 | FDS C064 grass-fire radiometry | `research/kcf-heat/data/b2_fds_compare.json` (in git) | check 2 |
 | Local FDS runs (plane-layer verification, propane strip burner) | `/Users/jp/Documents/Codex/2026-11-16/work-autonomously-on-wildfireguardian-s-flame/outputs/fds_study/` (owner-local, read only) | check 2 |

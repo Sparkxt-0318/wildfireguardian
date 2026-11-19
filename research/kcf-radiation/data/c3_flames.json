@@ -1,0 +1,337 @@
+{
+ "icfme": [
+  {
+   "plot": "A",
+   "I_reported": 77688,
+   "R_m_s": 0.937,
+   "L_thomas_from_reported_I": 48.4,
+   "factor_pub": 1.21,
+   "chain_low_L": 25.6,
+   "chain_low_H": 24.2,
+   "chain_low_I": 29853,
+   "factor_chain_low": 1.0,
+   "chain_middle_L": 35.4,
+   "chain_middle_H": 34.0,
+   "chain_middle_I": 48574,
+   "factor_chain_middle": 1.0,
+   "chain_high_L": 45.4,
+   "chain_high_H": 44.0,
+   "chain_high_I": 70500,
+   "factor_chain_high": 1.13
+  },
+  {
+   "plot": "1",
+   "I_reported": 48697,
+   "R_m_s": 0.588,
+   "L_thomas_from_reported_I": 35.5,
+   "factor_pub": 1.0,
+   "chain_low_L": 18.8,
+   "chain_low_H": 17.4,
+   "chain_low_I": 18734,
+   "factor_chain_low": 1.33,
+   "chain_middle_L": 26.0,
+   "chain_middle_H": 24.6,
+   "chain_middle_I": 30482,
+   "factor_chain_middle": 1.0,
+   "chain_high_L": 33.3,
+   "chain_high_H": 31.9,
+   "chain_high_I": 44241,
+   "factor_chain_high": 1.0
+  },
+  {
+   "plot": "2",
+   "I_reported": 13402,
+   "R_m_s": 0.263,
+   "L_thomas_from_reported_I": 15.0,
+   "factor_pub": 1.67,
+   "chain_low_L": 8.0,
+   "chain_low_H": 6.7,
+   "chain_low_I": 5228,
+   "factor_chain_low": 3.12,
+   "chain_middle_L": 15.2,
+   "chain_middle_H": 13.8,
+   "chain_middle_I": 13634,
+   "factor_chain_middle": 1.65,
+   "chain_high_L": 19.5,
+   "chain_high_H": 18.1,
+   "chain_high_I": 19788,
+   "factor_chain_high": 1.28
+  },
+  {
+   "plot": "3",
+   "I_reported": 36902,
+   "R_m_s": 0.405,
+   "L_thomas_from_reported_I": 29.5,
+   "factor_pub": 1.0,
+   "chain_low_L": 14.6,
+   "chain_low_H": 13.3,
+   "chain_low_I": 12903,
+   "factor_chain_low": 1.71,
+   "chain_middle_L": 20.2,
+   "chain_middle_H": 18.9,
+   "chain_middle_I": 20995,
+   "factor_chain_middle": 1.23,
+   "chain_high_L": 26.0,
+   "chain_high_H": 24.6,
+   "chain_high_I": 30472,
+   "factor_chain_high": 1.0
+  },
+  {
+   "plot": "4",
+   "I_reported": 53162,
+   "R_m_s": 0.743,
+   "L_thomas_from_reported_I": 37.6,
+   "factor_pub": 1.0,
+   "chain_low_L": 21.9,
+   "chain_low_H": 20.5,
+   "chain_low_I": 23672,
+   "factor_chain_low": 1.14,
+   "chain_middle_L": 30.3,
+   "chain_middle_H": 28.9,
+   "chain_middle_I": 38517,
+   "factor_chain_middle": 1.0,
+   "chain_high_L": 38.9,
+   "chain_high_H": 37.5,
+   "chain_high_I": 55903,
+   "factor_chain_high": 1.0
+  },
+  {
+   "plot": "5",
+   "I_reported": 48134,
+   "R_m_s": 0.482,
+   "L_thomas_from_reported_I": 35.2,
+   "factor_pub": 1.0,
+   "chain_low_L": 16.4,
+   "chain_low_H": 15.1,
+   "chain_low_I": 15357,
+   "factor_chain_low": 1.52,
+   "chain_middle_L": 22.7,
+   "chain_middle_H": 21.3,
+   "chain_middle_I": 24987,
+   "factor_chain_middle": 1.1,
+   "chain_high_L": 29.1,
+   "chain_high_H": 27.7,
+   "chain_high_I": 36266,
+   "factor_chain_high": 1.0
+  },
+  {
+   "plot": "6",
+   "I_reported": 46721,
+   "R_m_s": 0.6,
+   "L_thomas_from_reported_I": 34.5,
+   "factor_pub": 1.0,
+   "chain_low_L": 19.0,
+   "chain_low_H": 17.6,
+   "chain_low_I": 19116,
+   "factor_chain_low": 1.31,
+   "chain_middle_L": 26.3,
+   "chain_middle_H": 24.9,
+   "chain_middle_I": 31104,
+   "factor_chain_middle": 1.0,
+   "chain_high_L": 33.7,
+   "chain_high_H": 32.3,
+   "chain_high_I": 45144,
+   "factor_chain_high": 1.0
+  },
+  {
+   "plot": "7",
+   "I_reported": 93476,
+   "R_m_s": 1.153,
+   "L_thomas_from_reported_I": 54.8,
+   "factor_pub": 1.37,
+   "chain_low_L": 29.4,
+   "chain_low_H": 28.0,
+   "chain_low_I": 36735,
+   "factor_chain_low": 1.0,
+   "chain_middle_L": 40.7,
+   "chain_middle_H": 39.3,
+   "chain_middle_I": 59772,
+   "factor_chain_middle": 1.02,
+   "chain_high_L": 52.1,
+   "chain_high_H": 50.7,
+   "chain_high_I": 86752,
+   "factor_chain_high": 1.3
+  },
+  {
+   "plot": "8a",
+   "I_reported": 34321,
+   "R_m_s": 0.405,
+   "L_thomas_from_reported_I": 28.1,
+   "factor_pub": 1.0,
+   "chain_low_L": 14.6,
+   "chain_low_H": 13.3,
+   "chain_low_I": 12903,
+   "factor_chain_low": 1.71,
+   "chain_middle_L": 20.2,
+   "chain_middle_H": 18.9,
+   "chain_middle_I": 20995,
+   "factor_chain_middle": 1.23,
+   "chain_high_L": 26.0,
+   "chain_high_H": 24.6,
+   "chain_high_I": 30472,
+   "factor_chain_high": 1.0
+  },
+  {
+   "plot": "8c",
+   "I_reported": 76270,
+   "R_m_s": 0.9,
+   "L_thomas_from_reported_I": 47.8,
+   "factor_pub": 1.2,
+   "chain_low_L": 24.9,
+   "chain_low_H": 23.5,
+   "chain_low_I": 28674,
+   "factor_chain_low": 1.0,
+   "chain_middle_L": 34.5,
+   "chain_middle_H": 33.1,
+   "chain_middle_I": 46656,
+   "factor_chain_middle": 1.0,
+   "chain_high_L": 44.2,
+   "chain_high_H": 42.8,
+   "chain_high_I": 67716,
+   "factor_chain_high": 1.1
+  },
+  {
+   "plot": "9",
+   "I_reported": 89681,
+   "R_m_s": 1.163,
+   "L_thomas_from_reported_I": 53.3,
+   "factor_pub": 1.33,
+   "chain_low_L": 29.6,
+   "chain_low_H": 28.2,
+   "chain_low_I": 37053,
+   "factor_chain_low": 1.0,
+   "chain_middle_L": 40.9,
+   "chain_middle_H": 39.5,
+   "chain_middle_I": 60290,
+   "factor_chain_middle": 1.02,
+   "chain_high_L": 52.4,
+   "chain_high_H": 51.0,
+   "chain_high_I": 87504,
+   "factor_chain_high": 1.31
+  }
+ ],
+ "icfme_observed_flame_height_m": [
+  25.0,
+  40.0
+ ],
+ "pass_published_intensity": true,
+ "pass_full_chain_middle": true,
+ "pass": true,
+ "pine_litter_range": [
+  {
+   "w": 0.5,
+   "R_m_min": 0.5,
+   "I": 75,
+   "L_byram": 0.56
+  },
+  {
+   "w": 0.5,
+   "R_m_min": 1.0,
+   "I": 150,
+   "L_byram": 0.78
+  },
+  {
+   "w": 0.5,
+   "R_m_min": 2.0,
+   "I": 300,
+   "L_byram": 1.07
+  },
+  {
+   "w": 0.5,
+   "R_m_min": 5.0,
+   "I": 750,
+   "L_byram": 1.63
+  },
+  {
+   "w": 0.76,
+   "R_m_min": 0.5,
+   "I": 114,
+   "L_byram": 0.68
+  },
+  {
+   "w": 0.76,
+   "R_m_min": 1.0,
+   "I": 228,
+   "L_byram": 0.94
+  },
+  {
+   "w": 0.76,
+   "R_m_min": 2.0,
+   "I": 456,
+   "L_byram": 1.3
+  },
+  {
+   "w": 0.76,
+   "R_m_min": 5.0,
+   "I": 1140,
+   "L_byram": 1.97
+  },
+  {
+   "w": 1.1,
+   "R_m_min": 0.5,
+   "I": 165,
+   "L_byram": 0.81
+  },
+  {
+   "w": 1.1,
+   "R_m_min": 1.0,
+   "I": 330,
+   "L_byram": 1.12
+  },
+  {
+   "w": 1.1,
+   "R_m_min": 2.0,
+   "I": 660,
+   "L_byram": 1.54
+  },
+  {
+   "w": 1.1,
+   "R_m_min": 5.0,
+   "I": 1650,
+   "L_byram": 2.34
+  }
+ ],
+ "nelson_adkins_1986_note": "needle litter flame ~0.5 m regardless of intensity (abstract)",
+ "grass_range": [
+  {
+   "level": "low",
+   "R_m_s": 0.1,
+   "I": 162,
+   "L_byram": 0.8
+  },
+  {
+   "level": "low",
+   "R_m_s": 0.48,
+   "I": 778,
+   "L_byram": 1.66
+  },
+  {
+   "level": "middle",
+   "R_m_s": 0.1,
+   "I": 450,
+   "L_byram": 1.29
+  },
+  {
+   "level": "middle",
+   "R_m_s": 0.48,
+   "I": 2160,
+   "L_byram": 2.65
+  },
+  {
+   "level": "high",
+   "R_m_s": 0.1,
+   "I": 864,
+   "L_byram": 1.74
+  },
+  {
+   "level": "high",
+   "R_m_s": 0.48,
+   "I": 4147,
+   "L_byram": 3.58
+  }
+ ],
+ "rxcadre_observed_flame_height_m": [
+  0.3,
+  1.8
+ ]
+}

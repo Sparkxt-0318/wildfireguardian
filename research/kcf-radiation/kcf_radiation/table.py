@@ -2,7 +2,7 @@
 
 d*(L, theta, P_w) is evaluated exactly (radiation.safe_distance) at inputs rounded to the conservative side:
 L rounded UP to the next 1 % step in log L, theta rounded UP to the next 0.5 degree, P_w rounded DOWN to the next
-5 % step (less water vapour = higher transmissivity). Each rounding can only increase d* where d* is monotone in
+5 % step (50 % for the worst-angle view factor; less water vapour = higher transmissivity). Each rounding can only increase d* where d* is monotone in
 that input (tested for L and P_w; for theta the tilt toward the receiver increases the view factor). Results are
 memoised, so a fire with thousands of cells needs a few hundred evaluations.
 
@@ -29,24 +29,29 @@ def _temp_for_pw(pw):
     return 243.04 * a / (17.625 - a)
 
 
-def round_inputs(L, theta, pw):
+def round_inputs(L, theta, pw, pw_step=LOG_STEP_PW):
     Lr = math.exp(math.ceil(math.log(max(L, 1e-6)) / LOG_STEP_L - 1e-9) * LOG_STEP_L)
     tr = math.ceil(theta / TH_STEP - 1e-9) * TH_STEP
-    pr = math.exp(math.floor(math.log(pw) / LOG_STEP_PW + 1e-9) * LOG_STEP_PW) if pw and pw > 0 else 0.0
+    pr = math.exp(math.floor(math.log(pw) / pw_step + 1e-9) * pw_step) if pw and pw > 0 else 0.0
     return Lr, tr, pr
+
+
+_SHARED = {}  # memo shared by every cache with the same physical setting (persists across fire inputs)
 
 
 class DstarCache:
     def __init__(self, q_star, T_flame_K, emissivity, kind, W=375.0, z_r=1.5, transmissivity=True):
         self.q, self.T, self.eps, self.kind, self.W, self.z_r, self.tau = q_star, T_flame_K, emissivity, kind, W, z_r, transmissivity
-        self.memo = {}
+        # the worst-angle view factor costs ~100 integrations per evaluation: humidity is rounded down in 50 % steps
+        self.pw_step = math.log(1.5) if kind == "tilted_max" else LOG_STEP_PW
+        self.memo = _SHARED.setdefault((q_star, T_flame_K, emissivity, kind, W, z_r, transmissivity), {})
 
     def one(self, L, theta=0.0, pw=1000.0):
         if not (L > 0):
             return 0.0
         if self.kind != "tilted":
             theta = 0.0
-        key = round_inputs(L, theta, pw if self.tau else 0.0)
+        key = round_inputs(L, theta, pw if self.tau else 0.0, self.pw_step)
         if key not in self.memo:
             Lr, tr, pr = key
             fl = radiation.Flame(Lr, tr, self.W)
