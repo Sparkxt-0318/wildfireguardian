@@ -39,8 +39,8 @@ Effect: the status page says "fire list unavailable"; no fire page is updated; n
 Effect: `FIRMS_MISSING` on every fire → no numbers.
 
 - `no FIRMS map key`: add the Actions secret **`FIRMS_MAP_KEY`** (Settings → Secrets and variables → Actions). The
-  temporary key file `live/config/firms_map_key.txt` is only a fallback and is to be deleted (owner's request); after
-  deletion the secret is the only source.
+  temporary key file `live/config/firms_map_key.txt` was deleted at the owner's request on 2026-11-19 (it remains in
+  the git history); the secret is the only source. The code still reads that file if someone adds it again.
 - `HTTP 400 … Invalid MAP_KEY` / transaction limit: check the key at
   `https://firms.modaps.eosdis.nasa.gov/mapserver/mapkey_status/?MAP_KEY=...` (5,000 transactions per 10 min; the
   service uses 4 per run). Request a new key at `https://firms.modaps.eosdis.nasa.gov/api/map_key/`.
