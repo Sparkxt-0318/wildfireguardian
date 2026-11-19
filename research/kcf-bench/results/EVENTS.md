@@ -36,3 +36,10 @@
   after the resume at 17:17, and it was found at the scheduled check-in, so about 9 minutes of run time were lost). The driver
   was killed during `old_cold | UA 03-25 | repeat 1` with 39 of 200 requests saved; they are KEPT and the block is resumed
   (amendment A2). That block now straddles two restarts (17:15 and ~17:20).
+* 19 Nov 2026 ~17:33 and 17:45 UTC: ninth and tenth restarts (uptime 0 min at 17:45:17; 61 of 200 requests of
+  `old_cold | UA 03-25 | repeat 1` were saved and are KEPT, the block is resumed by amendment A2).
+  **Cause identified.** Every restart so far was found when an event woke an idle session: the container is shut down after
+  about 10 minutes without an active tool call and booted fresh on the next wake (kernel and filesystem persist as files, running
+  processes do not). Background jobs therefore do not survive an idle turn. **Mitigation from now on:** the session is kept
+  active with foreground waiting commands (each at most 10 minutes) instead of ending turns while the benchmark runs. Restarts
+  so far (all idle-related): about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47, 17:15, 17:20, 17:33, 17:45 UTC.
