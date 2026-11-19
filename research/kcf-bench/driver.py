@@ -74,13 +74,17 @@ def tasks_for(repeat):
     return [(m, c) for c in order for m in meth]
 
 
+def safe(t):
+    return t.replace("|", "__").replace("/", "__")
+
+
 def run_task(method, cache, repeat, res, work, dry=False):
     tag = cache.replace("/", "__")
     tid = "%s|%s|r%d" % (method, cache, repeat)
-    log = work / "logs" / (tid.replace("|", "__") + ".log")
+    log = work / "logs" / (safe(tid) + ".log")
     log.parent.mkdir(parents=True, exist_ok=True)
     if method.startswith("old_"):
-        tmp = work / "tmp" / (tid.replace("|", "__") + ".jsonl")
+        tmp = work / "tmp" / (safe(tid) + ".jsonl")
         tmp.parent.mkdir(exist_ok=True)
         if tmp.exists():
             tmp.unlink()
