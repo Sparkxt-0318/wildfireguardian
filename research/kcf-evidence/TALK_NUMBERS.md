@@ -14,8 +14,15 @@ Files: `research/harness-2026-11/F-3.1/RESULTS.md` (§1, §2, §5) and `results/
 | Planner deadline equals recorded | 528 of 530 origins. The other 2 were recorded UNRESOLVED and the field resolves them | 530 |
 | Recorded-check time | 147,900 s in total (RESULTS §5): 16,006 / 14,749 / 22,448 / 35,200 / 30,786 / 28,711 s, per file in the order UA 03-23, UA 03-24, UA 03-25, YD 03-25 19Z, YD 03-25 23Z, YD 03-26 | 6 files |
 | Field time (`cert`, per file, same order) | 42 / 379 / 235 / 350 / 339 / 366 s | 6 files |
+| **Measured on one machine (kcf-bench-mac)**: recorded method per job, median wall | **5.3 / 5.2 / 6.6 / 11.0 / 9.4 / 9.1 s** (95% intervals within ±0.4 s), same order | 3,593 jobs run (500 per file, 1,093 for UA 03-24) |
+| Measured: field, whole file, median wall over 3 repeats | **14 / 85 / 50 / 158 / 159 / 178 s**, same order | 6 files, all jobs |
+| Measured speed ratio, identical job sets only (recorded method ÷ field, wall) | **208× / 125× / 222× / 43× / 34× / 25×**, same order (CPU: 247× / 147× / 259× / 50× / 40× / 30×) | the 3,593 jobs both ran |
+| Measured peak memory, largest single process | recorded method 777 / 746 / 931 / 1,463 / 1,217 / 1,011 MiB; field 437 / 659 / 796 / 1,002 / 680 / 734 MiB. **The field never used more memory than the recorded method** | 6 files |
+| Measured agreement | same departure second 3,593 / 3,593; same verdict 3,525 / 3,593; both-checked routes with the same arrival second and legs 2,886 / 2,886; every route of both valid under the unchanged checker. The 68 differences are all recorded-method `unresolved` that the field decides (67 also unresolved in the recorded cache; 1 kit worker error on a recorded checked route) | 3,593 jobs |
 
-**Does not show:** a clean total-time ratio. RESULTS §5 says the clean single-process run is "still to be done" and "no summed ratio is claimed". `TIMING_RUN.sh` exists, but **no `TIMING_<host>.json` is committed, so a clean summed ratio is UNTRACED.** The recorded times are from the Mac with 13 workers; the field times are from a Linux container that runs the kit 2.6–2.8× slower than the Mac. The UA 03-24 and 03-25 field times are inflated by a concurrent build. The field also answers every departure second, not one.
+Files for the measured rows: `research/kcf-bench-mac/RESULTS.md` (table, §1, §3) and `research/kcf-bench-mac/results/RESULTS.json`; protocol `research/kcf-bench-mac/PLAN.md` (Amendments 1–4).
+
+**Does not show:** a total time over all 9,722 jobs. The recorded method was measured on 3,593 jobs, not every job, so no all-job sum or ratio is claimed, and the 147,900 s recorded total (13 workers) is not comparable with the single-process figures. The ratio varies 25–222× with how many jobs share a destination; on 50-job sets it falls to 22–39×. The machine was a working Mac under load (1-minute load 2.6–6.1 median, up to 34), with Python 3.13 instead of the recorded 3.12. The older field times above (42–379 s) are from a Linux container and are superseded by the measured rows. The field also answers every departure second, not one.
 
 ## 2. Safety margin (kcf-margin): R beyond the known perimeter, 10% target, 28 California fires (GOFER)
 
