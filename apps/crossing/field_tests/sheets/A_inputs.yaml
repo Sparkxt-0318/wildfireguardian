@@ -1,0 +1,38 @@
+# Test A inputs (fill in on the day; the record script copies this file into every run's trial.json and the
+# analysis reads it). Heat source is fixed: a Bunsen burner, nothing else.
+heat_source: Bunsen burner
+
+# Gas and heat release rate Q = flow x LHV x combustion_efficiency
+gas: methane                   # methane | propane | natural_gas | other
+gas_flow_l_min: null           # MEASURED volumetric flow (rotameter or bubble meter), litres per minute
+gas_flow_ref: "15 C, 101.325 kPa"   # conditions the flow is referred to
+lhv_mj_m3: null                # lower heating value at those conditions; null = default for methane/propane
+                               # (methane 33.9, propane 86.4 MJ/m3 at 15 C, 1 atm); natural gas MUST be given
+combustion_efficiency: 1.0
+
+# Radiant fraction assumed by the point-source and closed-form models. A blue premixed Bunsen flame (air hole
+# open) radiates very little; a yellow luminous flame (air hole closed) radiates more. Assumed values, not measured.
+air_hole: closed               # open | closed  (keep the same for every run)
+chi: 0.10
+chi_range: [0.03, 0.20]        # band drawn around the point-source curve
+
+# Flame geometry (measure from a photo against a scale)
+flame_diameter_m: 0.02         # visible flame width; the closed form uses depth = width = this value
+flame_height_m: 0.12
+plate_height_note: "plate centre at flame mid-height, plate face vertical and facing the flame axis"
+distance_reference: "horizontal distance from the burner axis to the plate front face"
+
+# Plate (must match crossing.flux.PlateSpec unless you changed the plate)
+plate:
+  thickness_m: 0.001
+  rho: 8960.0
+  cp: 385.0
+  absorptivity: 0.95
+  emissivity: 0.95
+
+distances_m: [0.10, 0.15, 0.20, 0.30, 0.40]
+repeats: 3
+
+# Room
+room_air_c: null               # read from a reference thermometer at the start
+draughts: "doors and windows closed, no fans"

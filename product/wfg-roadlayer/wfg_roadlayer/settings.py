@@ -14,6 +14,8 @@ _SCHEMA = {
     "freshness": {"max_fire_input_age_min": float, "max_issue_ahead_min": float, "max_road_age_days": float,
                   "max_places_age_days": float},
     "run": {"workers": int},
+    "heat": {"enabled": int, "threshold_kw_m2": float, "fuel_level": int, "wind10_m_s": float, "rh_pct": float,
+             "air_temp_c": float},
 }
 
 
@@ -47,5 +49,9 @@ def load(path: Path | None = None) -> dict:
                              "stage thresholds must satisfy 0 < immediate_hours < standby_hours"))
     if s["routing"]["shelters_per_village"] < 1 or s["routing"]["dwell_s"] < 0:
         raise Refusal(reason("SETTINGS_INVALID", "routing 설정 값이 잘못됨", "invalid routing settings"))
+    h = s["heat"]
+    if h["enabled"] not in (0, 1) or not (h["threshold_kw_m2"] > 0) or h["fuel_level"] not in (0, 1, 2) \
+            or h["wind10_m_s"] < 0 or not (0 < h["rh_pct"] <= 100):
+        raise Refusal(reason("SETTINGS_INVALID", "heat 설정 값이 잘못됨", "invalid heat settings"))
     s["_sources"] = src
     return s

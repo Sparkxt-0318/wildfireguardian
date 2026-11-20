@@ -31,7 +31,7 @@ EXAMPLES = [
 ]
 
 
-def _run_args(sp):
+def _run_args(sp, fragility=False):
     sp.add_argument("--region", help="지역 / region: 영덕, 의성·안동 (or yeongdeok_2025, uiseong_andong_2025)")
     sp.add_argument("--issue-time", help="발표 시각 / issue time, ISO 8601 with zone, e.g. 2025-03-25T18:00+09:00")
     g = sp.add_argument_group("fire input (one of)")
@@ -46,7 +46,14 @@ def _run_args(sp):
     sp.add_argument("--assume-uncovered-not-reached", action="store_true",
                     help="read road cells without fire data as not reached (printed on every page)")
     sp.add_argument("--overwrite", action="store_true", help="replace a non-empty output folder")
+    if fragility:
+        sp.add_argument("--fragility", action="store_true",
+                        help="optional: add tolerated extra fire reach and closure-timing error per village (leaving now), with the "
+                             "road that fails first, as CSV columns and one extra page per town (research/kcf-robust)")
     sp.add_argument("--cache", help="data cache (default: $WFG_ROADLAYER_CACHE or ~/.cache/wfg-roadlayer)")
+    sp.add_argument("--heat", action="store_true", default=None,
+                    help="복사열 도로 폐쇄 켜기 / radiant-heat road closure on (research/kcf-radiation; settings [heat])")
+    sp.add_argument("--heat-threshold", type=float, help="heat closure threshold, kW/m2 (7, 4.7 or 2.5; default settings)")
 
 
 def _refused(ref: Refusal, out, overwrite):
@@ -72,7 +79,7 @@ def main(argv=None) -> int:
     s.add_argument("--font-wheel", help="local copy of koreanize_matplotlib-0.1.1-py3-none-any.whl")
     s.add_argument("--cache")
     r = sub.add_parser("run", help="one region, one fire-arrival input")
-    _run_args(r)
+    _run_args(r, fragility=True)
     e = sub.add_parser("example", help="the 25 March 2025 worked example: 의성·안동 12:00 KST and 영덕 18:00 KST")
     e.add_argument("--out", default="wfg-roadlayer-example")
     e.add_argument("--workers", type=int)
@@ -108,7 +115,8 @@ def main(argv=None) -> int:
         try:
             pipeline.run(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet, horizon_min=a.horizon_min,
                          not_reached_value=a.not_reached_value, as_of=a.as_of, settings_path=a.settings, out=a.out,
-                         workers=a.workers, assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache)
+                         workers=a.workers, assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache,
+                         heat=a.heat, heat_threshold=a.heat_threshold, fragility=a.fragility)
         except Refusal as ref:
             return _refused(ref, a.out, a.overwrite)
         return 0
@@ -118,7 +126,8 @@ def main(argv=None) -> int:
             cardrun.run_cards(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet,
                               horizon_min=a.horizon_min, not_reached_value=a.not_reached_value, as_of=a.as_of,
                               settings_path=a.settings, card_settings=a.card_settings, out=a.out, workers=a.workers,
-                              assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache)
+                              assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache,
+                              heat=a.heat, heat_threshold=a.heat_threshold)
         except Refusal as ref:
             return _refused(ref, a.out, a.overwrite)
         return 0

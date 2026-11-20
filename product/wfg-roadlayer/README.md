@@ -105,6 +105,26 @@ The tool refuses to output a number when an input is missing or stale and says w
 
 The limits are in `wfg_roadlayer/settings.toml`; copy it, edit, and pass `--settings`.
 
+### Optional: fragility (`--fragility`)
+
+`run --fragility` appends four columns to both CSVs and writes one extra A4 page per 읍·면
+(`<out>/ko/fragility/`, `<out>/en/fragility/`); without the switch nothing changes. For leaving **now**:
+
+| column | meaning |
+|---|---|
+| 견디는 추가 화재 확산 / tolerated extra fire reach (km) | the largest distance (0.125 km steps, up to 15 km) the fire may spread beyond the input raster, at every moment, while a safe route out still exists |
+| 추가 확산에 먼저 끊기는 도로 / road that fails first under extra reach | on the route that still works at that limit, the road with the least time between the vehicle entering it and its closure |
+| 견디는 도로 차단 시각 오차 / tolerated closure-timing error (min) | the largest time (1 min steps) by which every closure may come earlier while a safe route out still exists |
+| 시각 오차에 먼저 끊기는 도로 / road that fails first under timing error | as above, at the timing limit |
+
+Because every closure in this tool is permanent, the tolerated timing error for leaving now equals the time left
+until the leave-by time whenever the fire sets the leave-by (all 349 such village-hours of the 25 March 2025 replay,
+research/kcf-robust); a village not cut within 8 h shows the horizon (480 min), or slightly less (3 of 785 village-hours)
+where a road on its route closes in the last minutes of the horizon. The reach column is the one that adds information. It needs an EPSG:5179 raster input (not a packet). With `--heat` on it is refused (`FRAGILITY_WITH_HEAT`): the columns are computed from the raster
+closures only and would not include the heat closures. Method: `wfg_roadlayer/fragility.py` (forward search
+per closure level, bisection; numpy only), checked against an independent backward pass in research/kcf-robust.
+Results and limits: `research/kcf-robust/RESULTS.md`.
+
 ### Re-verifying an answer without the tool
 
 ```bash
@@ -234,6 +254,23 @@ The second writes the cards for all 174 checkable places of the worked example, 
   cut-off (`research/kcf-replay/per_place.csv`, MEASURED, 8 h, first quartile per region), as counts.
 
 Settings are in `wfg_roadlayer/cards.toml`: copy it, edit it, and pass it with `--card-settings`.
+
+## Heat option (radiant heat, off by default)
+
+`--heat` (or `[heat] enabled = 1` in a settings file) closes a road piece when the radiant flux from the approaching
+front would exceed a threshold (default 4.7 kW/m², `--heat-threshold 7` or `2.5` for the other graded levels), not
+only when the fire reaches its 375 m cell. The method is research/kcf-radiation (published methods only; METHOD.md):
+spread rate from the arrival raster, Byram intensity with fuel from the bundled Copernicus 2019 land-cover class
+(`data/fuel/`, built by `tools/build_heat_fuel.py`), Van Wagner crown test, Byram / Thomas flame length, Albini flame
+tilt, solid-flame radiation. A piece closes when the front comes within the safe distance d* of it; the closure is
+never later than without heat. Wind, humidity and air temperature are one value per run (`[heat]` settings; defaults
+ASSUMED: 7 m/s, 30 %, 10 °C). The certificates carry the per-piece closure seconds and still verify without the tool.
+
+It is off by default. On the 25 March replay it moves 337 of 1,134 leave-now times at 4.7 kW/m² (median 3.7 min
+earlier), but mostly through the 375 m cell rule, and on the finals packets only through the capped spread rate of the
+known fire area (research/kcf-radiation/RESULTS.md, "Road layer"). The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
+packet (other rasters are refused with HEAT_INPUT_UNSUPPORTED). Radiation only: no convection, embers or smoke; the
+thresholds are for people outside a vehicle (research/kcf-radiation/RESULTS.md, Limits).
 
 ## Tests
 

@@ -1,0 +1,33 @@
+{
+ "archive": "~/Downloads/wildfire (2).zip (owner-local)",
+ "sha256": {
+  "data/environment/regions/KFS_01/grid.json": "6a9e0d28fb14f0aa10d5b9455d765a87c67a852e73c37e421fa126dd8eadcc0c",
+  "data/environment/regions/KFS_01/arrival_time_hours.tif": "fe81f945ddb9dd68f9de27b5865ca12d1a345934540934b723bd66b7d01fa953",
+  "data/environment/regions/KFS_01/vegetation/landcover_class_375m.tif": "5b982513be8e8811c4b7c2d2b6cf4d6760c79da3262d677eab3ad5bce1d813c6",
+  "data/environment/regions/KFS_01/vegetation/canopy_height_2019_m_375m.tif": "4b84e715357bb1fd88eb72dfab3609f5dfb9169ea7e113651dc914041daea7be",
+  "data/environment/regions/KFS_01/weather/wind_speed_10m_375m.tif": "457f213f4c21c072b8a7dfad766d7ba10219c26aae7a29aa80efde926844e8b8",
+  "data/environment/regions/KFS_01/weather/relative_humidity_2m_375m.tif": "9c651f08cfc68a98cdaf692590c15e4c7e758f36ead74430714bcc9f3a6ad361",
+  "data/environment/regions/KFS_01/weather/temperature_2m_375m.tif": "769c5d29195ca7eab0d2207e031a44045e4ce65097224f8e4c720b2982cbddb1",
+  "data/environment/regions/KFS_02/grid.json": "053443acd855a071c300b1b00163dde9ce6803e89948ef04476100a9ce6b4d88",
+  "data/environment/regions/KFS_02/arrival_time_hours.tif": "31e1369761aff2d5017e646c32ffc923e538167a19f72be6f273dcec97a93f51",
+  "data/environment/regions/KFS_02/vegetation/landcover_class_375m.tif": "63ec31dc5148800b3a7deb45892c3fe1ef5b7b3be25b45d569b4d09726248504",
+  "data/environment/regions/KFS_02/vegetation/canopy_height_2019_m_375m.tif": "986d4e5e9c17f5c81b59957907b026c1374212a8d25e1da8840381a3520c03c0",
+  "data/environment/regions/KFS_02/weather/wind_speed_10m_375m.tif": "9df35ad8272919bda5c3c4c63c31f2e9766a074373ca65e3c13ea97c9115994e",
+  "data/environment/regions/KFS_02/weather/relative_humidity_2m_375m.tif": "313c88f5d5ba7dde712b166cdf1da752a483c21844a354046c229026fd794958",
+  "data/environment/regions/KFS_02/weather/temperature_2m_375m.tif": "f0027cada786326121ca74c57ca9ee1522ca76167fb1f43e11c2e12582cd11eb",
+  "data/environment/regions/KFS_05/grid.json": "0ec337381ccac0e91709b1a96f814fd7661bab10965edf9692faf3ee332d3d92",
+  "data/environment/regions/KFS_05/arrival_time_hours.tif": "e1d5396719efa7a2b790da612160586b6585a8b3a045c80d79fa6d54a179540f",
+  "data/environment/regions/KFS_05/vegetation/landcover_class_375m.tif": "781168e0adfa1cb5c59f68779ad2763a6626e0b4f400c1c55f8728c3a5196177",
+  "data/environment/regions/KFS_05/vegetation/canopy_height_2019_m_375m.tif": "e3f3fc33bc979273e3771423aaa24fc05d1f6ceac2eecb3a3eb558fae86aeff3",
+  "data/environment/regions/KFS_05/weather/wind_speed_10m_375m.tif": "4efa3916fbc832f643cdb3d90eb79dc524b33d8edadcd3723d5739bd940896f8",
+  "data/environment/regions/KFS_05/weather/relative_humidity_2m_375m.tif": "4a44579847744ab08c59dbd2b8e72e714d7aac4f5d558b5e70abed9fef230b53",
+  "data/environment/regions/KFS_05/weather/temperature_2m_375m.tif": "d645b8d2c2d73797e5f30cffd3e825cf478df6f5958b09b59d224d8e68001988",
+  "data/environment/regions/KFS_11/grid.json": "26a8e5a5ed46590c0efca549e86263ccfdf3ca88540a6ca3c1f375aaf2a8a4e5",
+  "data/environment/regions/KFS_11/arrival_time_hours.tif": "a67b5eec850881898bf5d046363343d10d8d996578123f0e2d002a4bbfc2bf16",
+  "data/environment/regions/KFS_11/vegetation/landcover_class_375m.tif": "95f466022865f9cbff685cc43a8cdef91e21b09a066d50285d9eb6226d558bf6",
+  "data/environment/regions/KFS_11/vegetation/canopy_height_2019_m_375m.tif": "a93f22018aa9810898c7569eac0db4dc56ee00b0f351394a82cf617204f1ed62",
+  "data/environment/regions/KFS_11/weather/wind_speed_10m_375m.tif": "b16fa8d762d2160e781c904e48e2439c87b83d362c6d2411b056ee5ebb61bbdb",
+  "data/environment/regions/KFS_11/weather/relative_humidity_2m_375m.tif": "a30b38e4b45ea630b8883e6314b9e750baf07a40d94595c776e9daecd1f5df65",
+  "data/environment/regions/KFS_11/weather/temperature_2m_375m.tif": "1986955c2bd32da9e5589f9b2062230e45cc0c5813a038daa62b8e8b383e39f0"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "cmd": [
+  "/Users/jp/miniforge3/bin/python3",
+  "research/kcf-bench/synth.py",
+  "250",
+  "research/kcf-bench/runs/synth/side250.json"
+ ],
+ "exit_code": 0,
+ "wall_s": 17.73492245899979,
+ "cpu_user_s": 17.0299,
+ "cpu_sys_s": 0.37288699999999997,
+ "cpu_s": 17.402787,
+ "peak_rss_mib": 424.421875,
+ "loadavg_before": [
+  9.9931640625,
+  9.17626953125,
+  8.4228515625
+ ],
+ "loadavg_after": [
+  10.00048828125,
+  9.2294921875,
+  8.455078125
+ ],
+ "finished_at_unix": 1795097040.063232
+}

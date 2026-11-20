@@ -1,0 +1,14 @@
+{
+ "source": "https://firms.modaps.eosdis.nasa.gov/data/country/<sensor>/<year>/<sensor>_<year>_Republic_of_Korea.csv, downloaded 2026-11-19 without a key",
+ "sha256": {
+  "modis_2022_Republic_of_Korea.csv": "6a830c89f45bdab50d5053ecb11945a149436917fbf6b4cd69a1577767df2335",
+  "modis_2023_Republic_of_Korea.csv": "0d8a19fc688b42753d58aaa20e900fa48d65d2e8242adbe95d48918cf434dc6b",
+  "viirs-jpss1_2022_Republic_of_Korea.csv": "d4028494fd6cfa458df9cd4d81940c337df59732de24570c825b5df01fe7a074",
+  "viirs-jpss1_2023_Republic_of_Korea.csv": "fdf0c3308f2640a62d8de869883cdd35abb526436d078f479f423d4d189507a3",
+  "viirs-snpp_2022_Republic_of_Korea.csv": "11189061096d84c33ee4ecdcda65ae0e4ce6a4cfd88b8f8e7ae760757407173f",
+  "viirs-snpp_2023_Republic_of_Korea.csv": "afca6bf527069019131eb627a0cddfd47346409b560157c639050f0f936e68b6",
+  "research/harness-2026-11/data-fetch/small/firms/modis_2025_Republic_of_Korea.csv": "613477ebe81a400f61897352b7864162a32d5e362e8ed7559b445bc29d4695c6",
+  "research/harness-2026-11/data-fetch/small/firms/viirs-jpss1_2025_Republic_of_Korea.csv": "2aedf6756368b9b9de573ad7d1f51dfa43e8f55abd87a39ddd72d339d55db17a",
+  "research/harness-2026-11/data-fetch/small/firms/viirs-snpp_2025_Republic_of_Korea.csv": "991230c0358dcead74cf8e7d883852e8e3e3c936d384a125123a668c0051a0f8"
+ }
+}

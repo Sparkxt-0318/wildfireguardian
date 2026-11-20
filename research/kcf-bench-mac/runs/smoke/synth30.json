@@ -1,0 +1,64 @@
+{
+ "side": 30,
+ "nodes": 900,
+ "edges": 3480,
+ "burning_edges_within_H": 728,
+ "build_s": 0.0023829590063542128,
+ "specs_done": 5,
+ "specs_planned": 5,
+ "stopped": null,
+ "per_spec": [
+  {
+   "dest": 149,
+   "instance_s": 0.002171749947592616,
+   "backward_s": 0.012670958996750414,
+   "issue_and_witness_s": 0.010054167010821402,
+   "pieces": 3444,
+   "origins_feasible_at_0": 100,
+   "origins_with_any_feasible": 100,
+   "rss_mib_after": 20.71875
+  },
+  {
+   "dest": 239,
+   "instance_s": 0.0020754580618813634,
+   "backward_s": 0.013108375016599894,
+   "issue_and_witness_s": 0.010442916071042418,
+   "pieces": 3444,
+   "origins_feasible_at_0": 100,
+   "origins_with_any_feasible": 100,
+   "rss_mib_after": 21.078125
+  },
+  {
+   "dest": 299,
+   "instance_s": 0.0020658329594880342,
+   "backward_s": 0.012669833027757704,
+   "issue_and_witness_s": 0.008300332934595644,
+   "pieces": 3444,
+   "origins_feasible_at_0": 100,
+   "origins_with_any_feasible": 100,
+   "rss_mib_after": 21.09375
+  },
+  {
+   "dest": 389,
+   "instance_s": 0.0020319169852882624,
+   "backward_s": 0.012369832955300808,
+   "issue_and_witness_s": 0.010452500078827143,
+   "pieces": 3444,
+   "origins_feasible_at_0": 100,
+   "origins_with_any_feasible": 100,
+   "rss_mib_after": 21.109375
+  },
+  {
+   "dest": 839,
+   "instance_s": 0.002159500028938055,
+   "backward_s": 0.012684000073932111,
+   "issue_and_witness_s": 0.012863292009569705,
+   "pieces": 3444,
+   "origins_feasible_at_0": 100,
+   "origins_with_any_feasible": 100,
+   "rss_mib_after": 21.28125
+  }
+ ],
+ "total_in_process_s": 0.14318825001828372,
+ "peak_rss_mib_self": 21.28125
+}

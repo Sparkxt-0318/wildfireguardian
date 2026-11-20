@@ -1,0 +1,25 @@
+{
+ "cmd": [
+  "/Users/jp/miniforge3/bin/python3",
+  "research/kcf-bench/run_b.py",
+  "YD0325T23",
+  "research/kcf-bench/runs/b/YD0325T23.full.r2.json"
+ ],
+ "exit_code": 0,
+ "wall_s": 142.54983020795044,
+ "cpu_user_s": 141.313942,
+ "cpu_sys_s": 0.829518,
+ "cpu_s": 142.14346,
+ "peak_rss_mib": 652.65625,
+ "loadavg_before": [
+  7.65673828125,
+  6.6796875,
+  6.12744140625
+ ],
+ "loadavg_after": [
+  8.02392578125,
+  6.8642578125,
+  6.26318359375
+ ],
+ "finished_at_unix": 1795095063.843018
+}
