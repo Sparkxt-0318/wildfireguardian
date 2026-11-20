@@ -1,0 +1,23 @@
+{
+ "cache": "uiseong_andong_2025/20250325T170000Z",
+ "method": "margin1",
+ "n_cases": 1557,
+ "n_specs": 31,
+ "python": "3.13.18",
+ "rss_after_imports_kb": 34028,
+ "prep_s": 1.110917983998661,
+ "rss_baseline_kb": 134800,
+ "peak_after_prep_kb": 134800,
+ "cold_s": 107.60087605899935,
+ "peak_cold_kb": 719204,
+ "stats": {
+  "specs": 31,
+  "pre_not_ok": 0,
+  "checks": 0,
+  "check_fail": 0,
+  "pieces": 778313
+ },
+ "warm_s": 109.65195227699951,
+ "peak_warm_kb": 721048,
+ "warm_equals_cold": true
+}
