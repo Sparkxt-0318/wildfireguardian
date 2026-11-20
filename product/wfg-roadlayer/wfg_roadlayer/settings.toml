@@ -21,3 +21,13 @@ max_places_age_days = 365      # 발표 시각 - 마을·대피소 자료 시각
 
 [run]
 workers = 0   # 병렬 프로세스 수, 0 = CPU 수(최대 8). Worker processes, 0 = CPU count (at most 8).
+
+[heat]
+# 복사열 도로 폐쇄 (research/kcf-radiation, 공개된 방법). Radiant-heat road closure by published methods
+# (research/kcf-radiation METHOD.md). 0 = 끔 / off (기본값 / default), 1 = 켬 / on (or --heat).
+enabled = 0
+threshold_kw_m2 = 4.7  # 이 복사열(kW/m²)을 넘으면 도로를 닫음. Flux at which a road piece closes: 7, 4.7 (default) or 2.5.
+fuel_level = 1         # 연료량 0 낮음 / 1 중간 / 2 높음. Fuel load 0 low / 1 middle / 2 high (METHOD.md table 3).
+wind10_m_s = 7.0       # 10 m 풍속 (불꽃 기울기). 10 m wind for flame tilt; ASSUMED ~90th percentile of ECMWF wind at arrival, Uiseong 2025.
+rh_pct = 30.0          # 상대습도 (대기 투과율). Relative humidity for transmissivity; ASSUMED.
+air_temp_c = 10.0      # 기온. Air temperature; ASSUMED.

@@ -62,6 +62,15 @@ class Settings:
     python: str
     host: str
     port: int
+    # Step 9 live road state (WS /v1/live/closures). Off by default: with False every route, endpoint and contract is
+    # exactly as before. Env WFG_API_LIVE_CLOSURES=1 turns it on (see api/live.py).
+    live_closures: bool = False
+    # WS /v1/live/closures handshake (only used with live_closures): optional shared token (WFG_API_LIVE_TOKEN), exact
+    # browser Origins allowed (WFG_API_LIVE_ORIGINS, comma separated; a missing Origin is allowed, "null" never) and
+    # extra Host names allowed besides 127.0.0.1, localhost, [::1] and the bind host (WFG_API_LIVE_HOSTS).
+    live_token: str | None = None
+    live_origins: tuple = ()
+    live_hosts: tuple = ()
 
     @property
     def inputs_root(self) -> Path:
@@ -75,4 +84,16 @@ def load_settings() -> Settings:
     workers = int(os.environ.get("WFG_API_WORKERS", default_workers))
     return Settings(data_root=data_root, runtime_dir=runtime, workers=max(1, workers),
                     python=os.environ.get("WFG_API_PYTHON", sys.executable),
-                    host=os.environ.get("WFG_API_HOST", "127.0.0.1"), port=int(os.environ.get("WFG_API_PORT", "8765")))
+                    host=os.environ.get("WFG_API_HOST", "127.0.0.1"), port=int(os.environ.get("WFG_API_PORT", "8765")),
+                    live_closures=live_closures_enabled(), live_token=(os.environ.get("WFG_API_LIVE_TOKEN") or "").strip() or None,
+                    live_origins=_csv(os.environ.get("WFG_API_LIVE_ORIGINS")), live_hosts=_csv(os.environ.get("WFG_API_LIVE_HOSTS")))
+
+
+def _csv(v) -> tuple:
+    return tuple(x.strip() for x in str(v or "").split(",") if x.strip())
+
+
+def live_closures_enabled(environ=None) -> bool:
+    """True only when WFG_API_LIVE_CLOSURES is exactly "1" (whitespace ignored)."""
+    env = os.environ if environ is None else environ
+    return str(env.get("WFG_API_LIVE_CLOSURES", "")).strip() == "1"

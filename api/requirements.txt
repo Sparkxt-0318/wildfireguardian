@@ -4,6 +4,9 @@ fastapi==0.143.3
 starlette==1.8.0
 pydantic==2.14.1
 uvicorn==0.54.0
+# WebSocket implementation for uvicorn: needed only to serve WS /v1/live/closures (WFG_API_LIVE_CLOSURES=1). Same pin as
+# apps/crossing/requirements.txt and hardware/vehicle-unit (uvicorn 0.54 needs websockets>=13.0).
+websockets==13.1
 PyYAML==6.0.3
 jsonschema==4.26.0
 referencing==0.37.0

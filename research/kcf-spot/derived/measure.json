@@ -1,0 +1,495 @@
+[
+ {
+  "region": "CA",
+  "confirmed_only": true,
+  "n": 460,
+  "fires_with": 26,
+  "fire_hours": 20161,
+  "per_100_fire_hours": 2.2816328555131196,
+  "dist_km_q50": 3.0,
+  "dist_km_q90": 10.13747868616221,
+  "dist_km_max": 15.0,
+  "dist_now_km_q50": 3.426549299143182,
+  "beyond_5km": 136,
+  "down": 188,
+  "cross": 176,
+  "up": 96,
+  "down_minus_up": 92,
+  "share_down": 0.40869565217391307,
+  "share_down_95": [
+   0.3256967867921179,
+   0.488640413812257
+  ],
+  "down_minus_up_95": [
+   21.0,
+   189.02499999999998
+  ],
+  "fc_gust_q50": 6.52169,
+  "era5_ws_q50": 1.57,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 0.6565217391304348,
+  "night_share": 0.6543478260869565,
+  "ridge_crossing_share": 0.29130434782608694,
+  "elev_change_m_q50": -40.0,
+  "spot_lower_share": 0.6043478260869565,
+  "by_gust": {
+   "<10": {
+    "n": 344,
+    "down": 130,
+    "up": 79,
+    "dist_q50": 2.625
+   },
+   "10-15": {
+    "n": 105,
+    "down": 55,
+    "up": 13,
+    "dist_q50": 5.5747757802444395
+   },
+   "15-20": {
+    "n": 4,
+    "down": 1,
+    "up": 0,
+    "dist_q50": 2.338525491562421
+   },
+   ">=20": {
+    "n": 7,
+    "down": 2,
+    "up": 4,
+    "dist_q50": 3.0
+   }
+  }
+ },
+ {
+  "region": "CA",
+  "confirmed_only": false,
+  "n": 577,
+  "fires_with": 26,
+  "fire_hours": 20161,
+  "per_100_fire_hours": 2.8619612122414564,
+  "dist_km_q50": 3.0,
+  "dist_km_q90": 9.813166096072154,
+  "dist_km_max": 15.0,
+  "dist_now_km_q50": 3.4573291714848327,
+  "beyond_5km": 175,
+  "down": 225,
+  "cross": 229,
+  "up": 123,
+  "down_minus_up": 102,
+  "share_down": 0.389948006932409,
+  "share_down_95": [
+   0.30292163141693973,
+   0.47315202470830475
+  ],
+  "down_minus_up_95": [
+   19.0,
+   201.0
+  ],
+  "fc_gust_q50": 6.5772,
+  "era5_ws_q50": 1.7,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 0.6481802426343154,
+  "night_share": 0.6117850953206239,
+  "ridge_crossing_share": 0.28942807625649913,
+  "elev_change_m_q50": -34.0,
+  "spot_lower_share": 0.6048526863084922,
+  "by_gust": {
+   "<10": {
+    "n": 413,
+    "down": 152,
+    "up": 99,
+    "dist_q50": 2.625
+   },
+   "10-15": {
+    "n": 133,
+    "down": 68,
+    "up": 14,
+    "dist_q50": 4.242640687119286
+   },
+   "15-20": {
+    "n": 9,
+    "down": 3,
+    "up": 0,
+    "dist_q50": 3.181980515339464
+   },
+   ">=20": {
+    "n": 22,
+    "down": 2,
+    "up": 10,
+    "dist_q50": 4.837885702244892
+   }
+  }
+ },
+ {
+  "region": "CAV",
+  "confirmed_only": true,
+  "n": 174,
+  "fires_with": 24,
+  "fire_hours": 20161,
+  "per_100_fire_hours": 0.8630524279549625,
+  "dist_km_q50": 3.0,
+  "dist_km_q90": 6.969130166172875,
+  "dist_km_max": 15.0,
+  "dist_now_km_q50": 2.3717082451262845,
+  "beyond_5km": 39,
+  "down": 67,
+  "cross": 75,
+  "up": 32,
+  "down_minus_up": 35,
+  "share_down": 0.3850574712643678,
+  "share_down_95": [
+   0.24274547076851455,
+   0.5042072581244887
+  ],
+  "down_minus_up_95": [
+   1.0,
+   74.0
+  ],
+  "fc_gust_q50": 7.364415,
+  "era5_ws_q50": 2.4850000000000003,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 0.7011494252873564,
+  "night_share": 0.3505747126436782,
+  "ridge_crossing_share": 0.35714285714285715,
+  "elev_change_m_q50": -26.0,
+  "spot_lower_share": 0.13218390804597702,
+  "by_gust": {
+   "<10": {
+    "n": 131,
+    "down": 57,
+    "up": 24,
+    "dist_q50": 2.5155764746872635
+   },
+   "10-15": {
+    "n": 19,
+    "down": 7,
+    "up": 2,
+    "dist_q50": 4.142010381445223
+   },
+   "15-20": {
+    "n": 2,
+    "down": 1,
+    "up": 0,
+    "dist_q50": 3.721816925630163
+   },
+   ">=20": {
+    "n": 22,
+    "down": 2,
+    "up": 6,
+    "dist_q50": 5.869678440936948
+   }
+  }
+ },
+ {
+  "region": "CAV",
+  "confirmed_only": false,
+  "n": 223,
+  "fires_with": 25,
+  "fire_hours": 20161,
+  "per_100_fire_hours": 1.10609592778136,
+  "dist_km_q50": 2.9288436284649952,
+  "dist_km_q90": 7.442653804625354,
+  "dist_km_max": 15.0,
+  "dist_now_km_q50": 2.3717082451262845,
+  "beyond_5km": 50,
+  "down": 87,
+  "cross": 96,
+  "up": 40,
+  "down_minus_up": 47,
+  "share_down": 0.3901345291479821,
+  "share_down_95": [
+   0.27271181199752625,
+   0.5023993808049535
+  ],
+  "down_minus_up_95": [
+   11.0,
+   89.0
+  ],
+  "fc_gust_q50": 7.56052,
+  "era5_ws_q50": 2.1,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 0.695067264573991,
+  "night_share": 0.3721973094170404,
+  "ridge_crossing_share": 0.3191489361702128,
+  "elev_change_m_q50": -21.0,
+  "spot_lower_share": 0.12556053811659193,
+  "by_gust": {
+   "<10": {
+    "n": 158,
+    "down": 65,
+    "up": 31,
+    "dist_q50": 2.5702882373436315
+   },
+   "10-15": {
+    "n": 36,
+    "down": 16,
+    "up": 3,
+    "dist_q50": 2.9760951420384756
+   },
+   "15-20": {
+    "n": 7,
+    "down": 4,
+    "up": 0,
+    "dist_q50": 3.4573291714848327
+   },
+   ">=20": {
+    "n": 22,
+    "down": 2,
+    "up": 6,
+    "dist_q50": 5.869678440936948
+   }
+  }
+ },
+ {
+  "region": "KR",
+  "confirmed_only": true,
+  "n": 2,
+  "fires_with": 2,
+  "fire_hours": 792,
+  "per_100_fire_hours": 0.25252525252525254,
+  "dist_km_q50": 8.026261273966025,
+  "dist_km_q90": 10.948699156231665,
+  "dist_km_max": 11.679308626798075,
+  "dist_now_km_q50": 7.712604702305324,
+  "beyond_5km": 1,
+  "down": 1,
+  "cross": 1,
+  "up": 0,
+  "down_minus_up": 1,
+  "share_down": 0.5,
+  "share_down_95": [
+   0.0,
+   1.0
+  ],
+  "down_minus_up_95": [
+   0.0,
+   2.0
+  ],
+  "fc_gust_q50": 16.807564999999997,
+  "era5_ws_q50": 7.01,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 1.0,
+  "night_share": 0.0,
+  "ridge_crossing_share": 1.0,
+  "elev_change_m_q50": -163.0,
+  "spot_lower_share": 0.5,
+  "by_gust": {
+   "<10": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   "10-15": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   "15-20": {
+    "n": 2,
+    "down": 1,
+    "up": 0,
+    "dist_q50": 8.026261273966025
+   },
+   ">=20": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   }
+  }
+ },
+ {
+  "region": "KR",
+  "confirmed_only": false,
+  "n": 15,
+  "fires_with": 2,
+  "fire_hours": 792,
+  "per_100_fire_hours": 1.893939393939394,
+  "dist_km_q50": 1.9121323175972944,
+  "dist_km_q90": 5.947466565881606,
+  "dist_km_max": 11.679308626798075,
+  "dist_now_km_q50": 6.894291116568838,
+  "beyond_5km": 3,
+  "down": 5,
+  "cross": 9,
+  "up": 1,
+  "down_minus_up": 4,
+  "share_down": 0.3333333333333333,
+  "share_down_95": [
+   0.3,
+   0.4
+  ],
+  "down_minus_up_95": [
+   4.0,
+   4.0
+  ],
+  "fc_gust_q50": 15.1016,
+  "era5_ws_q50": 4.16,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 0.9333333333333333,
+  "night_share": 0.7333333333333333,
+  "ridge_crossing_share": 0.3333333333333333,
+  "elev_change_m_q50": -75.0,
+  "spot_lower_share": 0.2,
+  "by_gust": {
+   "<10": {
+    "n": 1,
+    "down": 0,
+    "up": 1,
+    "dist_q50": 1.125
+   },
+   "10-15": {
+    "n": 2,
+    "down": 0,
+    "up": 0,
+    "dist_q50": 3.1207417661004917
+   },
+   "15-20": {
+    "n": 12,
+    "down": 5,
+    "up": 0,
+    "dist_q50": 2.467739486604625
+   },
+   ">=20": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   }
+  }
+ },
+ {
+  "region": "DET",
+  "confirmed_only": true,
+  "n": 1,
+  "fires_with": 1,
+  "fire_hours": 24,
+  "per_100_fire_hours": 4.166666666666667,
+  "dist_km_q50": 11.679308626798075,
+  "dist_km_q90": 11.679308626798075,
+  "dist_km_max": 11.679308626798075,
+  "dist_now_km_q50": 11.14955156048888,
+  "beyond_5km": 1,
+  "down": 1,
+  "cross": 0,
+  "up": 0,
+  "down_minus_up": 1,
+  "share_down": 1.0,
+  "fc_gust_q50": NaN,
+  "era5_ws_q50": 6.93,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 1.0,
+  "night_share": 0.0,
+  "ridge_crossing_share": NaN,
+  "elev_change_m_q50": NaN,
+  "spot_lower_share": 0.0,
+  "by_gust": {
+   "<10": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   "10-15": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   "15-20": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   ">=20": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   }
+  }
+ },
+ {
+  "region": "DET",
+  "confirmed_only": false,
+  "n": 1,
+  "fires_with": 1,
+  "fire_hours": 24,
+  "per_100_fire_hours": 4.166666666666667,
+  "dist_km_q50": 11.679308626798075,
+  "dist_km_q90": 11.679308626798075,
+  "dist_km_max": 11.679308626798075,
+  "dist_now_km_q50": 11.14955156048888,
+  "beyond_5km": 1,
+  "down": 1,
+  "cross": 0,
+  "up": 0,
+  "down_minus_up": 1,
+  "share_down": 1.0,
+  "fc_gust_q50": NaN,
+  "era5_ws_q50": 6.93,
+  "n_cells_q50": 1.0,
+  "single_pixel_share": 1.0,
+  "night_share": 0.0,
+  "ridge_crossing_share": NaN,
+  "elev_change_m_q50": NaN,
+  "spot_lower_share": 0.0,
+  "by_gust": {
+   "<10": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   "10-15": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   "15-20": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   },
+   ">=20": {
+    "n": 0,
+    "down": 0,
+    "up": 0,
+    "dist_q50": null
+   }
+  }
+ },
+ {
+  "region": "AIRIR_Dixie",
+  "n": 50,
+  "nights": 19,
+  "by_area": {
+   "<1 ha": {
+    "n": 25,
+    "viirs": 0.32,
+    "gofer": 0.56
+   },
+   "1-10 ha": {
+    "n": 14,
+    "viirs": 0.35714285714285715,
+    "gofer": 0.42857142857142855
+   },
+   "10-100 ha": {
+    "n": 7,
+    "viirs": 0.5714285714285714,
+    "gofer": 0.42857142857142855
+   },
+   ">100 ha": {
+    "n": 4,
+    "viirs": 1.0,
+    "gofer": 1.0
+   }
+  },
+  "viirs_all": 0.42,
+  "gofer_all": 0.54
+ }
+]

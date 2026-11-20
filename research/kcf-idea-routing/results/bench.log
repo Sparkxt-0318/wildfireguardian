@@ -1,0 +1,49 @@
+planner/cache/uiseong_andong_2025/20250323T010000Z.json osm:9884207278 T1 1.349 T2 {'1': 1.199, '2': 2.188, '4': 3.591, '8': 5.26, '16': 6.911}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json osm:9826873610 T1 4.854 T2 {'1': 4.013, '2': 6.994, '4': 11.745, '8': 17.942, '16': 22.443}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json osm:5920563614 T1 1.989 T2 {'1': 1.598, '2': 2.749, '4': 4.613, '8': 7.113, '16': 9.651}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json osm:9884207279 T1 1.356 T2 {'1': 1.141, '2': 1.952, '4': 3.286, '8': 5.022, '16': 6.401}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json osm:9828045857 T1 2.406 T2 {'1': 2.074, '2': 3.767, '4': 6.278, '8': 9.208, '16': 12.528}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json osm:9674448297 T1 1.379 T2 {'1': 1.221, '2': 2.093, '4': 3.472, '8': 5.009, '16': 6.735}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json T3 {'margins': 601, 'origins': 7, 'existing_s': 73.39, 'existing_widen_s_not_counted': 69.95, 'new_pass_s': 0.154, 'new_readoff_s': 0.0007, 'new_total_s': 0.1547, 'ratio': 474.4, 'margins_with_mismatch': 0}
+planner/cache/uiseong_andong_2025/20250323T010000Z.json memory {'existing_one_pass_margin0': {'peak_MB': 18.03, 'retained_MB': 13.79}, 'existing_16_passes_all_kept': {'peak_MB': 224.87, 'retained_MB': 220.64}, 'new_M600_mu_gamma_only': {'peak_MB': 27.09, 'retained_MB': 9.74}, 'new_M600_with_tents': {'peak_MB': 27.09, 'retained_MB': 22.87}, 'new_M0_mu_gamma_only': {'peak_MB': 25.81, 'retained_MB': 8.46}}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json osm:9828045866 T1 4.642 T2 {'1': 3.98, '2': 7.204, '4': 11.956, '8': 17.807, '16': 23.665}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json osm:5920563614 T1 1.952 T2 {'1': 1.565, '2': 2.304, '4': 3.939, '8': 5.615, '16': 7.725}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json osm:9828045819 T1 4.546 T2 {'1': 4.05, '2': 7.095, '4': 11.813, '8': 18.441, '16': 23.623}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json osm:7412968975 T1 1.048 T2 {'1': 0.813, '2': 1.443, '4': 2.38, '8': 3.557, '16': 4.6}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json osm:9856969702 T1 1.437 T2 {'1': 1.138, '2': 2.081, '4': 3.447, '8': 5.053, '16': 6.743}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json osm:9828045861 T1 6.11 T2 {'1': 4.166, '2': 8.103, '4': 13.997, '8': 18.648, '16': 27.446}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json T3 {'margins': 601, 'origins': 1, 'existing_s': 245.98, 'existing_widen_s_not_counted': 76.72, 'new_pass_s': 0.1618, 'new_readoff_s': 0.0001, 'new_total_s': 0.1619, 'ratio': 1518.9, 'margins_with_mismatch': 0}
+planner/cache/uiseong_andong_2025/20250324T090000Z.json memory {'existing_one_pass_margin0': {'peak_MB': 17.77, 'retained_MB': 13.46}, 'existing_16_passes_all_kept': {'peak_MB': 219.6, 'retained_MB': 215.29}, 'new_M600_mu_gamma_only': {'peak_MB': 26.93, 'retained_MB': 9.53}, 'new_M600_with_tents': {'peak_MB': 26.93, 'retained_MB': 22.7}, 'new_M0_mu_gamma_only': {'peak_MB': 25.59, 'retained_MB': 8.22}}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json osm:9828045866 T1 2.101 T2 {'1': 1.814, '2': 3.259, '4': 5.454, '8': 8.123, '16': 10.744}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json osm:5920563614 T1 1.665 T2 {'1': 1.443, '2': 2.551, '4': 4.245, '8': 6.388, '16': 8.557}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json osm:9828045819 T1 4.428 T2 {'1': 3.739, '2': 6.801, '4': 11.299, '8': 17.018, '16': 22.771}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json osm:7412968975 T1 0.92 T2 {'1': 0.804, '2': 1.461, '4': 2.416, '8': 3.539, '16': 4.857}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json osm:9856969702 T1 1.381 T2 {'1': 1.189, '2': 2.133, '4': 3.578, '8': 5.37, '16': 7.135}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json osm:9828045861 T1 3.466 T2 {'1': 2.965, '2': 5.326, '4': 8.894, '8': 13.312, '16': 17.724}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json T3 {'margins': 601, 'origins': 1, 'existing_s': 91.09, 'existing_widen_s_not_counted': 73.89, 'new_pass_s': 0.1444, 'new_readoff_s': 0.0001, 'new_total_s': 0.1445, 'ratio': 630.4, 'margins_with_mismatch': 0}
+planner/cache/uiseong_andong_2025/20250325T170000Z.json memory {'existing_one_pass_margin0': {'peak_MB': 15.47, 'retained_MB': 11.23}, 'existing_16_passes_all_kept': {'peak_MB': 183.98, 'retained_MB': 179.74}, 'new_M600_mu_gamma_only': {'peak_MB': 24.78, 'retained_MB': 7.66}, 'new_M600_with_tents': {'peak_MB': 24.78, 'retained_MB': 20.56}, 'new_M0_mu_gamma_only': {'peak_MB': 23.89, 'retained_MB': 6.8}}
+planner/cache/yeongdeok_2025/20250325T190000Z.json osm:12120707345 T1 0.233 T2 {'1': 0.592, '2': 1.057, '4': 1.761, '8': 2.567, '16': 3.349}
+planner/cache/yeongdeok_2025/20250325T190000Z.json osm:12144230038 T1 0.557 T2 {'1': 0.936, '2': 1.672, '4': 2.783, '8': 4.16, '16': 5.525}
+planner/cache/yeongdeok_2025/20250325T190000Z.json osm:11935180167 T1 0.538 T2 {'1': 0.874, '2': 1.555, '4': 2.601, '8': 3.865, '16': 5.072}
+planner/cache/yeongdeok_2025/20250325T190000Z.json osm:11753489694 T1 0.706 T2 {'1': 1.156, '2': 2.072, '4': 3.461, '8': 5.159, '16': 6.816}
+planner/cache/yeongdeok_2025/20250325T190000Z.json osm:11959426406 T1 0.584 T2 {'1': 0.895, '2': 1.593, '4': 2.635, '8': 3.931, '16': 5.072}
+planner/cache/yeongdeok_2025/20250325T190000Z.json osm:4714065960 T1 1.079 T2 {'1': 1.683, '2': 3.009, '4': 4.943, '8': 7.315, '16': 9.565}
+planner/cache/yeongdeok_2025/20250325T190000Z.json T3 {'margins': 601, 'origins': 2, 'existing_s': 41.15, 'existing_widen_s_not_counted': 170.42, 'new_pass_s': 0.2702, 'new_readoff_s': 0.0002, 'new_total_s': 0.2704, 'ratio': 152.2, 'margins_with_mismatch': 0}
+planner/cache/yeongdeok_2025/20250325T190000Z.json memory {'existing_one_pass_margin0': {'peak_MB': 26.62, 'retained_MB': 15.87}, 'existing_16_passes_all_kept': {'peak_MB': 264.68, 'retained_MB': 253.92}, 'new_M600_mu_gamma_only': {'peak_MB': 53.18, 'retained_MB': 9.3}, 'new_M600_with_tents': {'peak_MB': 53.18, 'retained_MB': 42.42}, 'new_M0_mu_gamma_only': {'peak_MB': 52.92, 'retained_MB': 9.07}}
+planner/cache/yeongdeok_2025/20250325T230000Z.json osm:12120707572 T1 0.924 T2 {'1': 1.496, '2': 2.726, '4': 4.541, '8': 7.136, '16': 9.121}
+planner/cache/yeongdeok_2025/20250325T230000Z.json osm:12154357436 T1 0.293 T2 {'1': 0.589, '2': 1.065, '4': 1.773, '8': 2.618, '16': 3.554}
+planner/cache/yeongdeok_2025/20250325T230000Z.json osm:11935180344 T1 0.549 T2 {'1': 0.871, '2': 1.563, '4': 2.333, '8': 3.547, '16': 4.821}
+planner/cache/yeongdeok_2025/20250325T230000Z.json osm:11753629931 T1 0.672 T2 {'1': 0.846, '2': 1.541, '4': 2.408, '8': 3.486, '16': 5.11}
+planner/cache/yeongdeok_2025/20250325T230000Z.json osm:11970080695 T1 0.852 T2 {'1': 1.332, '2': 2.386, '4': 3.896, '8': 5.77, '16': 7.609}
+planner/cache/yeongdeok_2025/20250325T230000Z.json osm:4714366918 T1 0.483 T2 {'1': 0.744, '2': 1.318, '4': 2.207, '8': 3.283, '16': 4.254}
+planner/cache/yeongdeok_2025/20250325T230000Z.json T3 {'margins': 601, 'origins': 2, 'existing_s': 178.83, 'existing_widen_s_not_counted': 179.28, 'new_pass_s': 0.325, 'new_readoff_s': 0.0002, 'new_total_s': 0.3252, 'ratio': 549.9, 'margins_with_mismatch': 0}
+planner/cache/yeongdeok_2025/20250325T230000Z.json memory {'existing_one_pass_margin0': {'peak_MB': 35.18, 'retained_MB': 24.34}, 'existing_16_passes_all_kept': {'peak_MB': 400.28, 'retained_MB': 389.45}, 'new_M600_mu_gamma_only': {'peak_MB': 60.05, 'retained_MB': 16.0}, 'new_M600_with_tents': {'peak_MB': 60.05, 'retained_MB': 49.28}, 'new_M0_mu_gamma_only': {'peak_MB': 58.5, 'retained_MB': 14.45}}
+planner/cache/yeongdeok_2025/20250326T080000Z.json osm:12120707572 T1 0.83 T2 {'1': 1.408, '2': 2.525, '4': 4.203, '8': 6.308, '16': 8.195}
+planner/cache/yeongdeok_2025/20250326T080000Z.json osm:12154357436 T1 0.307 T2 {'1': 0.607, '2': 1.097, '4': 1.825, '8': 2.753, '16': 3.625}
+planner/cache/yeongdeok_2025/20250326T080000Z.json osm:11935180167 T1 0.542 T2 {'1': 0.84, '2': 1.517, '4': 2.518, '8': 3.695, '16': 4.851}
+planner/cache/yeongdeok_2025/20250326T080000Z.json osm:11753629931 T1 0.717 T2 {'1': 1.124, '2': 2.018, '4': 3.334, '8': 4.998, '16': 6.557}
+planner/cache/yeongdeok_2025/20250326T080000Z.json osm:11959426406 T1 0.553 T2 {'1': 0.842, '2': 1.49, '4': 2.454, '8': 3.653, '16': 4.811}
+planner/cache/yeongdeok_2025/20250326T080000Z.json osm:4714366918 T1 0.478 T2 {'1': 0.699, '2': 1.31, '4': 2.147, '8': 3.128, '16': 3.966}
+planner/cache/yeongdeok_2025/20250326T080000Z.json T3 {'margins': 601, 'origins': 2, 'existing_s': 189.53, 'existing_widen_s_not_counted': 175.38, 'new_pass_s': 0.34, 'new_readoff_s': 0.0002, 'new_total_s': 0.3402, 'ratio': 557.2, 'margins_with_mismatch': 0}
+planner/cache/yeongdeok_2025/20250326T080000Z.json memory {'existing_one_pass_margin0': {'peak_MB': 38.92, 'retained_MB': 28.08}, 'existing_16_passes_all_kept': {'peak_MB': 460.11, 'retained_MB': 449.28}, 'new_M600_mu_gamma_only': {'peak_MB': 63.16, 'retained_MB': 18.98}, 'new_M600_with_tents': {'peak_MB': 63.16, 'retained_MB': 52.38}, 'new_M0_mu_gamma_only': {'peak_MB': 61.04, 'retained_MB': 16.86}}
+random graphs {'graphs': 12000, 'existing_passes': 60078, 'existing_s': {'median': 0.4283, 'min': 0.4218, 'max': 0.4693}, 'new_s': {'median': 0.3419, 'min': 0.3256, 'max': 0.4134}, 'ratio': 1.253}

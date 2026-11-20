@@ -1,0 +1,21 @@
+# Test C inputs (thermal near-edge distance). Copied into every run's trial.json; the analysis reads that copy.
+camera_height_m: 1.00          # MEASURED: camera (P2 Pro) lens centre above the ground under the camera. Nearest visible
+                               # ground for a level camera is ~2.6 x this height (vfov 42 deg), so 1.0 m is needed
+                               # for the 3 m point; at the 2.6 m roof height it is ~6.8 m
+mount_pitch_deg: 0.0           # camera boresight relative to the IMU body (calibration; 0 if unknown)
+mount_roll_deg: 0.0
+mount_yaw_deg: 0.0
+camera: {w: 256, h: 192, hfov_deg: 56.0, vfov_deg: 42.0}
+
+# Heat source: a vertical heated panel standing on the ground (its bottom edge is the "near edge" / flame base
+# stand-in). No flame is used in test C.
+source: "electric hot plate standing on its edge, ~0.4 m tall, ~0.5 m wide"
+source_surface_c: 250          # approximate, from a contact thermometer
+t_detect_c: 150.0              # mask threshold used for this test (the app's flame threshold is 300 C; a hot
+                               # plate may not read that hot through its emissivity)
+ground: "flat, measured with a level; grade below"
+ground_grade: 0.0              # rise / run along the line of sight (+ uphill away from the camera)
+distance_reference: "tape along the ground from the point under the lens to the panel's bottom edge"
+distances_m: [3, 5, 8, 11, 15]
+tilts_deg: [-5, 0, 5]          # applied with a wedge under the camera body, so the IMU sees it
+tilt_axis: pitch               # pitch | roll

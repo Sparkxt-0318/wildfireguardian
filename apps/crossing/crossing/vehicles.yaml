@@ -1,0 +1,84 @@
+# Vehicle profiles for the crossing decision (DESIGN.md section 8).
+#
+# EVERY LIMIT IN THIS FILE IS A PLACEHOLDER FOR A FIRE SERVICE TO SET.
+# Dimensions are plausible generic values, not a specific make or model. dose_limit_tdu
+# ((kW/m2)^(4/3) s, accumulated along the crossing by the closed-form model), max_safe_speed_m_s and
+# intake_air_limit_c (engine intake air, measured by tc_air) have NOT been derived from tests, standards or
+# vehicle data; they exist only so the software can run. The UI prints
+# "PLACEHOLDER limits: to be set by the fire service" beside each of them. Verdicts are advisory for trained
+# crews.
+#
+# Fields: length_m, width_m, height_m (vehicle body), sensor_height_m (roof unit above ground),
+# max_safe_speed_m_s, dose_limit_tdu, intake_air_limit_c, has_water (can spray: enables SPRAY THEN RE-CHECK).
+
+fire_engine:
+  label: "Fire engine (pumper)"
+  length_m: 8.5
+  width_m: 2.5
+  height_m: 3.3
+  sensor_height_m: 3.5
+  max_safe_speed_m_s: 8.3          # ~30 km/h on a smoky road; placeholder
+  dose_limit_tdu: 500.0            # placeholder
+  intake_air_limit_c: 80.0         # placeholder
+  has_water: true
+  placeholder: true
+
+water_tanker:
+  label: "Water tanker"
+  length_m: 9.5
+  width_m: 2.5
+  height_m: 3.2
+  sensor_height_m: 3.4
+  max_safe_speed_m_s: 6.9          # ~25 km/h, heavy and top-heavy; placeholder
+  dose_limit_tdu: 500.0            # placeholder
+  intake_air_limit_c: 80.0         # placeholder
+  has_water: true
+  placeholder: true
+
+pickup:
+  label: "Pickup / utility"
+  length_m: 5.3
+  width_m: 1.9
+  height_m: 1.8
+  sensor_height_m: 2.0
+  max_safe_speed_m_s: 11.1         # ~40 km/h; placeholder
+  dose_limit_tdu: 200.0            # placeholder
+  intake_air_limit_c: 70.0         # placeholder
+  has_water: false
+  placeholder: true
+
+command_car:
+  label: "Command car (SUV)"
+  length_m: 4.8
+  width_m: 1.9
+  height_m: 1.8
+  sensor_height_m: 2.0
+  max_safe_speed_m_s: 11.1         # ~40 km/h; placeholder
+  dose_limit_tdu: 150.0            # placeholder
+  intake_air_limit_c: 70.0         # placeholder
+  has_water: false
+  placeholder: true
+
+evacuation_minibus:
+  label: "Evacuation minibus"
+  length_m: 7.0
+  width_m: 2.1
+  height_m: 2.7
+  sensor_height_m: 2.9
+  max_safe_speed_m_s: 8.3          # ~30 km/h; placeholder
+  dose_limit_tdu: 80.0             # placeholder (civilian passengers)
+  intake_air_limit_c: 70.0         # placeholder
+  has_water: false
+  placeholder: true
+
+custom:
+  label: "Custom (edit me)"
+  length_m: 5.0
+  width_m: 2.0
+  height_m: 2.0
+  sensor_height_m: 2.2
+  max_safe_speed_m_s: 8.3          # placeholder
+  dose_limit_tdu: 100.0            # placeholder
+  intake_air_limit_c: 70.0         # placeholder
+  has_water: false
+  placeholder: true

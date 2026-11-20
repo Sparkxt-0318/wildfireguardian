@@ -1,0 +1,4 @@
+uiseong_andong_2025 5 {'levels': [0.0, 0.25, 1.0, 2.5, 5.0, 10.0], 'raster_equal_committed': False, 'generic_curve_equal': True, 'pairs_checked': 1512, 'mismatches': 0, 'places_L_mismatch': 0, 'product_s': 8.6, 'compiled_3levels_s': 0.49}
+uiseong_andong_2025 11 {'levels': [0.0, 0.25, 1.0, 2.5, 5.0, 10.0], 'raster_equal_committed': False, 'generic_curve_equal': True, 'pairs_checked': 1512, 'mismatches': 0, 'places_L_mismatch': 0, 'product_s': 8.0, 'compiled_3levels_s': 0.0}
+yeongdeok_2025 6 {'levels': [0.0, 0.25, 1.0, 2.5, 5.0, 10.0], 'raster_equal_committed': False, 'generic_curve_equal': True, 'pairs_checked': 1620, 'mismatches': 0, 'places_L_mismatch': 0, 'product_s': 216.9, 'compiled_3levels_s': 5.62}
+yeongdeok_2025 12 {'levels': [0.0, 0.25, 1.0, 2.5, 5.0, 10.0], 'raster_equal_committed': False, 'generic_curve_equal': True, 'pairs_checked': 1620, 'mismatches': 0, 'places_L_mismatch': 0, 'product_s': 56.2, 'compiled_3levels_s': 0.7}

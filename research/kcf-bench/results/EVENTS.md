@@ -1,0 +1,45 @@
+# Events during the run (append only)
+
+* 19 Nov 2026 ~13:28 UTC: the container restarted (uptime 3 min at 13:31; the driver and all processes were killed). Files on disk
+  survived. The block `old_cold | UA 03-23 | repeat 1` was interrupted after 18 of 200 requests; its partial output was
+  discarded and the block is re-run from the start. Six earlier tasks of repeat 1 (field, field_dec, field_sample,
+  field_check, margin1, margin10 of UA 03-23) completed before the restart and are kept. CPU model, kernel, Python and numpy
+  are unchanged and the fixed CPU probe reads the same before and after (0.063 s). Driver restarted at the time of the next
+  ledger entry.
+* 19 Nov 2026 ~14:38 UTC: the container restarted a second time (uptime 41 min at 15:19; the driver was killed during
+  `field_sample | UA 03-24 | repeat 1`, which had not written a result; it is re-run). All earlier ledger entries are kept.
+  Detected at the 15:19 check-in, so about 40 minutes of run time were lost. Same CPU model, kernel, Python and numpy; probe
+  checked after restart below.
+* 19 Nov 2026 ~15:35 UTC: third container restart (uptime 0 min at 15:35:54), noticed at once through the MCP reconnect
+  event. The driver was killed during `old_cold | UA 03-24 | repeat 1` after 25 of 200 requests; the partial output is
+  discarded and the block re-runs from the start. Restarts so far: about 13:28, 14:38, 15:35 UTC (roughly hourly). Machine
+  identical (CPU model, kernel, Python, numpy; probe below).
+* 19 Nov 2026 ~15:48 UTC: fourth container restart (only 13 min after the third; uptime 0 min at 15:48:29), killing
+  `old_cold | UA 03-24 | repeat 1` after 35 of 200 requests. Because of the frequency, plan amendment A2 (resume OLD blocks at
+  the next request) was made; those 35 requests are KEPT and the block is resumed. This block straddles a restart.
+* 19 Nov 2026 ~16:22 UTC: fifth container restart (uptime 0 min at 16:22:55), found at the scheduled check-in. The driver was
+  killed during `old_warm | UA 03-24 | repeat 1` after 39 of 200 requests; those requests are KEPT and the block is resumed
+  (amendment A2). This block straddles a restart. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22 UTC.
+  After the fifth restart the fixed CPU probe read 0.0992 s right after boot (0.063 s normally), so the driver started at
+  16:23:01 was stopped within about a minute and restarted at ~16:25 UTC once the probe was stable (six readings 0.063 to
+  0.067 s). No timed request was taken in the slow period except possibly the very first one of the resumed block (the
+  untimed priming request is repeated). From now on: after a restart, wait for the probe to settle before restarting.
+* 19 Nov 2026 ~16:47 UTC: sixth container restart (uptime 0 min at 16:57:11; not signalled by an MCP reconnect this time,
+  found at the scheduled check-in, so about 10 minutes of run time were lost). The driver was killed during
+  `field_sample | UA 03-25 | repeat 1` (a FIELD task, which writes no partial result; it is re-run whole). No OLD block was
+  in progress. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47 UTC.
+* 19 Nov 2026 ~17:15 UTC: seventh container restart (uptime 0 min at 17:15:54), noticed through an MCP-reconnect wake. The driver
+  was killed during `old_cold | UA 03-25 | repeat 1` after 19 of 200 requests; those requests are KEPT and the block is
+  resumed (amendment A2), so this block straddles a restart. Restarts so far: about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47,
+  17:15 UTC.
+* 19 Nov 2026 ~17:20 UTC: eighth container restart (uptime 0 min at 17:29:05; the time is inferred from the request count, 20 requests
+  after the resume at 17:17, and it was found at the scheduled check-in, so about 9 minutes of run time were lost). The driver
+  was killed during `old_cold | UA 03-25 | repeat 1` with 39 of 200 requests saved; they are KEPT and the block is resumed
+  (amendment A2). That block now straddles two restarts (17:15 and ~17:20).
+* 19 Nov 2026 ~17:33 and 17:45 UTC: ninth and tenth restarts (uptime 0 min at 17:45:17; 61 of 200 requests of
+  `old_cold | UA 03-25 | repeat 1` were saved and are KEPT, the block is resumed by amendment A2).
+  **Cause identified.** Every restart so far was found when an event woke an idle session: the container is shut down after
+  about 10 minutes without an active tool call and booted fresh on the next wake (kernel and filesystem persist as files, running
+  processes do not). Background jobs therefore do not survive an idle turn. **Mitigation from now on:** the session is kept
+  active with foreground waiting commands (each at most 10 minutes) instead of ending turns while the benchmark runs. Restarts
+  so far (all idle-related): about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47, 17:15, 17:20, 17:33, 17:45 UTC.

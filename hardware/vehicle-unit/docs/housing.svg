@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" width="1400" height="900" role="img" aria-labelledby="t d" font-family="Helvetica, Arial, sans-serif">
+<title id="t">Supplied housing: front-plate layout</title>
+<desc id="d">Front view and plan view of the user's printed PETG housing, drawn only from the dimensions the user gave: body 180 x 140 x 72 mm, 4 mm walls, bolt-on front plate 172 x 66 x 3 mm with a 12 mm camera hole at x = -52, a 52 x 42 mm radar window thinned to 1.2 mm at x = -8 and a 30.6 mm flux-disc hole at x = +45, all on one centre line 34 mm above the base, aluminium heat shield 10 mm in front. Documentation of the supplied housing, not a design.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="0" y="0" width="1400" height="900" fill="#ffffff"/>
+<text x="30" y="38" font-size="22" text-anchor="start" font-weight="bold" fill="#111">Supplied housing: front-plate layout (dimensions in mm)</text>
+<text x="30" y="62" font-size="13" text-anchor="start" font-weight="normal" fill="#444">documentation of the supplied housing, dimensions as given by the user; not a design. Printed PETG (material as told by the user), 2026-11-17.</text>
+<text x="420" y="120" font-size="14" text-anchor="middle" font-weight="bold" fill="#111">FRONT VIEW (from ahead of the vehicle), scale 3 px/mm</text>
+<text x="420" y="138" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#a35400">x as in the build manual; drawn + to the right seen from the front: sign convention UNCONFIRMED</text>
+<rect x="150" y="254" width="540" height="216" rx="0" fill="#f7f7f7" stroke="#666" stroke-width="1.4" stroke-dasharray="7 4"/>
+<text x="698" y="264" font-size="10" text-anchor="start" font-weight="normal" fill="#555">body face</text>
+<text x="698" y="277" font-size="10" text-anchor="start" font-weight="normal" fill="#555">180 x 72 (dashed)</text>
+<rect x="162" y="263" width="516" height="198" rx="0" fill="#e8f0e0" stroke="#2f4f1f" stroke-width="2"/>
+<line x1="142" y1="368" x2="168" y2="368" stroke="#a35400" stroke-width="1.2" stroke-dasharray="10 4 2 4"/>
+<line x1="672" y1="368" x2="698" y2="368" stroke="#a35400" stroke-width="1.2" stroke-dasharray="10 4 2 4"/>
+<text x="700" y="372" font-size="10" text-anchor="start" font-weight="normal" fill="#a35400">centre line</text>
+<line x1="420" y1="461" x2="420" y2="480" stroke="#888" stroke-width="0.8" stroke-dasharray="4 4"/>
+<text x="424" y="482" font-size="10" text-anchor="start" font-weight="normal" fill="#555">x = 0</text>
+<line x1="120" y1="470" x2="720" y2="470" stroke="#444" stroke-width="1.2"/>
+<text x="240" y="484" font-size="10" text-anchor="start" font-weight="normal" fill="#444">housing base (z = 0)</text>
+<circle cx="264" cy="368" r="18" fill="#ffffff" stroke="#22334d" stroke-width="1.6"/>
+<text x="264" y="344" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#111">camera</text>
+<rect x="318" y="305" width="156" height="126" rx="0" fill="#f7f2d9" stroke="#7a6a1a" stroke-width="1.6"/>
+<text x="396" y="360" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#111">radar window</text>
+<text x="396" y="386" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#111">thinned to 1.2</text>
+<circle cx="555" cy="368" r="45.9" fill="#ffffff" stroke="#7a3a10" stroke-width="1.6"/>
+<text x="555" y="392" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#111">flux disc</text>
+<line x1="162" y1="461" x2="162" y2="509" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="678" y1="461" x2="678" y2="509" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="162" y1="505" x2="678" y2="505" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="420" y="501" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">plate 172 x 66 x 3</text>
+<line x1="150" y1="470" x2="150" y2="544" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="690" y1="470" x2="690" y2="544" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="150" y1="540" x2="690" y2="540" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="420" y="536" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">body 180</text>
+<line x1="150" y1="254" x2="106" y2="254" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="150" y1="470" x2="106" y2="470" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="110" y1="254" x2="110" y2="470" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="104" y="366" font-size="11" text-anchor="end" font-weight="normal" fill="#0b5394">72</text>
+<line x1="162" y1="368" x2="144" y2="368" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="162" y1="470" x2="144" y2="470" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="148" y1="368" x2="148" y2="470" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="142" y="423" font-size="11" text-anchor="end" font-weight="normal" fill="#0b5394">34</text>
+<line x1="264" y1="254" x2="264" y2="240" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="264" y1="361" x2="264" y2="375" stroke="#a35400" stroke-width="1.2"/>
+<line x1="257" y1="368" x2="271" y2="368" stroke="#a35400" stroke-width="1.2"/>
+<text x="264" y="236" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">x = -52</text>
+<line x1="396" y1="254" x2="396" y2="240" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="396" y1="361" x2="396" y2="375" stroke="#a35400" stroke-width="1.2"/>
+<line x1="389" y1="368" x2="403" y2="368" stroke="#a35400" stroke-width="1.2"/>
+<text x="396" y="236" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">x = -8</text>
+<line x1="555" y1="254" x2="555" y2="240" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="555" y1="361" x2="555" y2="375" stroke="#a35400" stroke-width="1.2"/>
+<line x1="548" y1="368" x2="562" y2="368" stroke="#a35400" stroke-width="1.2"/>
+<text x="555" y="236" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">x = +45</text>
+<line x1="246" y1="402" x2="282" y2="402" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="264" y="398" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">dia 12</text>
+<line x1="318" y1="447" x2="474" y2="447" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="396" y="443" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">52</text>
+<line x1="488" y1="305" x2="488" y2="431" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="494" y="372" font-size="11" text-anchor="start" font-weight="normal" fill="#0b5394">42</text>
+<line x1="509.1" y1="429.9" x2="600.9" y2="429.9" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="555" y="425.9" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">dia 30.6</text>
+<text x="60" y="640" font-size="10.5" text-anchor="start" font-weight="normal" fill="#555" font-style="italic">Plate drawn centred on the body face: its vertical position relative to the body</text>
+<text x="60" y="655" font-size="10.5" text-anchor="start" font-weight="normal" fill="#555" font-style="italic">is not given (assumption for this drawing only). The holes sit on the 34 mm line</text>
+<text x="60" y="670" font-size="10.5" text-anchor="start" font-weight="normal" fill="#555" font-style="italic">measured from the housing base, as given.</text>
+<text x="1050" y="120" font-size="14" text-anchor="middle" font-weight="bold" fill="#111">PLAN VIEW (from above, front up), scale 2 px/mm</text>
+<rect x="870" y="300" width="360" height="280" rx="0" fill="#f7f7f7" stroke="#666" stroke-width="1.6"/>
+<rect x="878" y="308" width="344" height="264" rx="0" fill="#ffffff" stroke="#999" stroke-width="1" stroke-dasharray="4 3"/>
+<rect x="878" y="294" width="344" height="6" rx="0" fill="#2f4f1f" stroke="#2f4f1f" stroke-width="1"/>
+<line x1="860" y1="274" x2="1240" y2="274" stroke="#6b7480" stroke-width="3" stroke-dasharray="12 4"/>
+<text x="1244" y="278" font-size="10.5" text-anchor="start" font-weight="normal" fill="#3a4250">Al heat shield</text>
+<text x="1244" y="292" font-size="10" text-anchor="start" font-weight="normal" fill="#3a4250">(size, apertures:</text>
+<text x="1244" y="305" font-size="10" text-anchor="start" font-weight="normal" fill="#3a4250">not given)</text>
+<line x1="946" y1="294" x2="946" y2="326" stroke="#a35400" stroke-width="1.2"/>
+<text x="946" y="340" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#a35400">cam</text>
+<line x1="1034" y1="294" x2="1034" y2="326" stroke="#a35400" stroke-width="1.2"/>
+<text x="1034" y="340" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#a35400">radar</text>
+<line x1="1140" y1="294" x2="1140" y2="326" stroke="#a35400" stroke-width="1.2"/>
+<text x="1140" y="340" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#a35400">disc</text>
+<line x1="870" y1="580" x2="870" y2="610" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="1230" y1="580" x2="1230" y2="610" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="870" y1="606" x2="1230" y2="606" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="1050" y="602" font-size="11" text-anchor="middle" font-weight="normal" fill="#0b5394">180</text>
+<line x1="870" y1="300" x2="840" y2="300" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="870" y1="580" x2="840" y2="580" stroke="#0b5394" stroke-width="0.8"/>
+<line x1="844" y1="300" x2="844" y2="580" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="838" y="444" font-size="11" text-anchor="end" font-weight="normal" fill="#0b5394">140</text>
+<line x1="870" y1="274" x2="870" y2="294" stroke="#0b5394" stroke-width="1.1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="864" y="288" font-size="11" text-anchor="end" font-weight="normal" fill="#0b5394">10</text>
+<text x="838" y="266" font-size="10.5" text-anchor="end" font-weight="normal" fill="#0b5394">gap 10 mm</text>
+<text x="1050" y="375" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#555">walls 4 mm</text>
+<text x="1050" y="392" font-size="10.5" text-anchor="middle" font-weight="normal" fill="#555">plate 3 mm, bolt-on</text>
+<text x="760" y="660" font-size="13" text-anchor="start" font-weight="bold" fill="#111">As given by the user (positions inside the body not given, so not drawn)</text>
+<text x="760" y="682" font-size="11" text-anchor="start" font-weight="normal" fill="#111">Body 180 x 140 x 72 mm (read as width x depth x height), 4 mm walls, printed PETG.</text>
+<text x="760" y="699" font-size="11" text-anchor="start" font-weight="normal" fill="#111">Raspberry Pi on four standoffs, 58 x 49 mm hole pattern.</text>
+<text x="760" y="716" font-size="11" text-anchor="start" font-weight="normal" fill="#111">3 floor rails with M3 pilot holes every 10 mm.</text>
+<text x="760" y="733" font-size="11" text-anchor="start" font-weight="normal" fill="#111">Bolt-on front plate 172 x 66 x 3 mm; aluminium heat shield 10 mm in front.</text>
+<text x="760" y="750" font-size="11" text-anchor="start" font-weight="normal" fill="#111">Copper flux disc on printed PETG tabs: every flux run stops and warns at 70 C.</text>
+<text x="760" y="767" font-size="11" text-anchor="start" font-weight="normal" fill="#111">Questions about the shield, holes and window: HOUSING.md section 3 (calculations).</text>
+</svg>
