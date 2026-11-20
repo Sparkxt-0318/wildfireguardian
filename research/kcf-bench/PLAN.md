@@ -168,3 +168,11 @@ done, in permutation order). The empty guard-stopped files (`UA0324.tail`, YD032
 `repeat.r2` runs) are moved to `runs/excluded_guard_stops/`. The resume measure file of those 6 jobs was lost with
 them; their per-job times are kept. `aresume` restarts from YD0326 position 222 (`YD0326.pass1_resume2.json`), then
 UA0324's other 1,018, then `arep` and `compare`, under the same stop times. Nothing else changes.
+
+## Amendment 4 (Fri 20 Nov 2026, 09:55 Shanghai; after `compare`, before the write-up)
+
+A pass 1 stopped at 07:45 as set, with UA0324 at 1,093 of 1,518 jobs (in permutation order). B never ran that exact
+job set (its UA0324 runs were the full cache), so for the speed ratio rule (jobs both ran) B is run now on
+`runs/jobs/UA0324.pass1_ran.json`, 3 repeats, measured exactly as phase `b` (`runs/b/UA0324.pass1ran.r*.json`). The
+repeats stopped at 09:15 with complete repeat-2 sets only for UA0323 and UA0324 (UA0325: 8 of 50); the repeat-set
+ratio is reported only for those two. Nothing else changes.
