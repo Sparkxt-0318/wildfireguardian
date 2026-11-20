@@ -1,0 +1,743 @@
+{
+ "A": {
+  "inputs": 26,
+  "road_cell_rows": 27759,
+  "regions": [
+   "uiseong_andong_2025",
+   "yeongdeok_2025"
+  ],
+  "crown_share": 0.507,
+  "flame_length_m_p50_90_99_max": [
+   8.1,
+   50.2,
+   68.1,
+   68.1
+  ],
+  "flame_height_m_p50_90_99_max": [
+   7.8,
+   47.5,
+   63.8,
+   67.3
+  ],
+  "ros_m_min_p50_90_99": [
+   113.1,
+   150.0,
+   150.0
+  ],
+  "fuel_groups": {
+   "broadleaf": 4707,
+   "conifer": 3089,
+   "grass": 8733,
+   "mixed": 11145,
+   "shrub": 85
+  },
+  "dstar_7_m_p50_90_99_max": [
+   52.9,
+   223.8,
+   275.1,
+   279.1
+  ],
+  "share_dstar_7_below_375m": 1.0,
+  "lead_7_s_p50_90_99_max": [
+   87.8,
+   167.9,
+   287.9,
+   365.9
+  ],
+  "dstar_4.7_m_p50_90_99_max": [
+   74.8,
+   283.4,
+   343.3,
+   348.9
+  ],
+  "share_dstar_4.7_below_375m": 1.0,
+  "lead_4.7_s_p50_90_99_max": [
+   111.5,
+   229.9,
+   386.8,
+   507.9
+  ],
+  "dstar_2.5_m_p50_90_99_max": [
+   125.5,
+   402.1,
+   476.2,
+   486.7
+  ],
+  "share_dstar_2.5_below_375m": 0.7538,
+  "lead_2.5_s_p50_90_99_max": [
+   158.2,
+   368.5,
+   585.1,
+   809.2
+  ],
+  "front_cells_reached_after_issue": 7644,
+  "front_crown_share": 0.462,
+  "front_ros_m_min_p10_50_90": [
+   8.7,
+   25.3,
+   26.8
+  ],
+  "front_flame_length_m_p50_90_max": [
+   3.6,
+   20.8,
+   60.0
+  ],
+  "front_flame_height_m_p50_90_max": [
+   3.4,
+   14.8,
+   54.6
+  ],
+  "front_dstar_7_m_p50_90_max": [
+   24.9,
+   104.4,
+   254.7
+  ],
+  "front_share_dstar_7_below_375m": 1.0,
+  "front_lead_7_s_p50_90_max": [
+   99.9,
+   248.8,
+   365.9
+  ],
+  "front_dstar_4.7_m_p50_90_max": [
+   35.6,
+   139.3,
+   318.8
+  ],
+  "front_share_dstar_4.7_below_375m": 1.0,
+  "front_lead_4.7_s_p50_90_max": [
+   141.6,
+   336.9,
+   507.9
+  ],
+  "front_dstar_2.5_m_p50_90_max": [
+   62.5,
+   211.7,
+   444.5
+  ],
+  "front_share_dstar_2.5_below_375m": 0.998,
+  "front_lead_2.5_s_p50_90_max": [
+   245.4,
+   516.6,
+   809.2
+  ],
+  "cells_at_issue_A0": 20115,
+  "zone_from_adjacent_cell": {
+   "no earlier neighbour": 27759
+  },
+  "flux_from_adjacent_kw_m2_p50_90_99_max": null,
+  "variants": {
+   "baseline_2.5": {
+    "road_cells_changed_vs_none": 7532,
+    "shift_s_p50_max_vs_none": [
+     1031.0,
+     6512.0
+    ],
+    "halo_pieces_outside_reached_cells": 3124,
+    "unreached_road_cells_partly_closed_by_halo": 175,
+    "road_cells_changed_vs_old": 6937,
+    "earlier_than_old": 3312,
+    "later_than_old": 3625,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 342,
+     "lost_window": 14,
+     "shift_s_p50_max": [
+      391.5,
+      2538.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 328,
+     "shift_s_p50_max": [
+      391.5,
+      2538.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 1115,
+     "changed": 334,
+     "lost_window": 6,
+     "shift_s_p50_max": [
+      5.5,
+      2181.0
+     ],
+     "later_than_ref": 163
+    },
+    "latest_departure_vs_old": {
+     "changed": 328,
+     "shift_s_p50_max": [
+      5.5,
+      2181.0
+     ]
+    }
+   },
+   "baseline_4.7": {
+    "road_cells_changed_vs_none": 7512,
+    "shift_s_p50_max_vs_none": [
+     928.0,
+     6328.0
+    ],
+    "halo_pieces_outside_reached_cells": 2072,
+    "unreached_road_cells_partly_closed_by_halo": 155,
+    "road_cells_changed_vs_old": 7096,
+    "earlier_than_old": 3593,
+    "later_than_old": 3503,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 337,
+     "lost_window": 12,
+     "shift_s_p50_max": [
+      223.0,
+      1687.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 325,
+     "shift_s_p50_max": [
+      223.0,
+      1687.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 1127,
+     "changed": 344,
+     "lost_window": 6,
+     "shift_s_p50_max": [
+      -7.0,
+      1561.0
+     ],
+     "later_than_ref": 174
+    },
+    "latest_departure_vs_old": {
+     "changed": 338,
+     "shift_s_p50_max": [
+      -7.0,
+      1561.0
+     ]
+    }
+   },
+   "baseline_7": {
+    "road_cells_changed_vs_none": 7471,
+    "shift_s_p50_max_vs_none": [
+     892.0,
+     6256.0
+    ],
+    "halo_pieces_outside_reached_cells": 1660,
+    "unreached_road_cells_partly_closed_by_halo": 145,
+    "road_cells_changed_vs_old": 7130,
+    "earlier_than_old": 3657,
+    "later_than_old": 3473,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 330,
+     "lost_window": 9,
+     "shift_s_p50_max": [
+      163.0,
+      1609.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 321,
+     "shift_s_p50_max": [
+      163.0,
+      1609.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 1129,
+     "changed": 347,
+     "lost_window": 4,
+     "shift_s_p50_max": [
+      3.0,
+      1482.0
+     ],
+     "later_than_ref": 168
+    },
+    "latest_departure_vs_old": {
+     "changed": 343,
+     "shift_s_p50_max": [
+      3.0,
+      1482.0
+     ]
+    }
+   },
+   "old_2.5": {
+    "road_cells_changed_vs_none": 7644,
+    "shift_s_p50_max_vs_none": [
+     1130.0,
+     6448.0
+    ],
+    "halo_pieces_outside_reached_cells": 1792,
+    "unreached_road_cells_partly_closed_by_halo": 173,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 352,
+     "lost_window": 19,
+     "shift_s_p50_max": [
+      352.0,
+      4349.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 333,
+     "shift_s_p50_max": [
+      352.0,
+      4349.0
+     ]
+    }
+   },
+   "old_4.7": {
+    "road_cells_changed_vs_none": 7644,
+    "shift_s_p50_max_vs_none": [
+     951.0,
+     6282.0
+    ],
+    "halo_pieces_outside_reached_cells": 1209,
+    "unreached_road_cells_partly_closed_by_halo": 166,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 350,
+     "lost_window": 7,
+     "shift_s_p50_max": [
+      186.0,
+      1676.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 343,
+     "shift_s_p50_max": [
+      186.0,
+      1676.0
+     ]
+    }
+   },
+   "old_7": {
+    "road_cells_changed_vs_none": 7644,
+    "shift_s_p50_max_vs_none": [
+     887.0,
+     6220.0
+    ],
+    "halo_pieces_outside_reached_cells": 1009,
+    "unreached_road_cells_partly_closed_by_halo": 156,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 1134,
+     "changed": 349,
+     "lost_window": 5,
+     "shift_s_p50_max": [
+      124.0,
+      1216.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 344,
+     "shift_s_p50_max": [
+      124.0,
+      1216.0
+     ]
+    }
+   }
+  }
+ },
+ "B": {
+  "inputs": 15,
+  "road_cell_rows": 3422,
+  "regions": [
+   "hongseong_2023",
+   "miryang_2022",
+   "uiseong_andong_2025",
+   "uljin_2022",
+   "yeongdeok_2025"
+  ],
+  "crown_share": 0.554,
+  "flame_length_m_p50_90_99_max": [
+   8.0,
+   33.2,
+   43.4,
+   68.1
+  ],
+  "flame_height_m_p50_90_99_max": [
+   7.1,
+   32.6,
+   42.3,
+   66.3
+  ],
+  "ros_m_min_p50_90_99": [
+   13.7,
+   80.9,
+   150.0
+  ],
+  "fuel_groups": {
+   "broadleaf": 620,
+   "conifer": 650,
+   "grass": 838,
+   "mixed": 1312,
+   "shrub": 2
+  },
+  "dstar_7_m_p50_90_99_max": [
+   27.5,
+   102.2,
+   205.5,
+   273.6
+  ],
+  "share_dstar_7_below_375m": 1.0,
+  "lead_7_s_p50_90_99_max": [
+   86.5,
+   341.1,
+   366.7,
+   367.1
+  ],
+  "dstar_4.7_m_p50_90_99_max": [
+   39.3,
+   138.2,
+   263.6,
+   343.8
+  ],
+  "share_dstar_4.7_below_375m": 1.0,
+  "lead_4.7_s_p50_90_99_max": [
+   124.4,
+   471.2,
+   514.7,
+   514.7
+  ],
+  "dstar_4.7_m_p50_90_max__fuel_low": [
+   35.6,
+   181.6,
+   239.8
+  ],
+  "share_dstar_4.7_below_375m__fuel_low": 1.0,
+  "dstar_4.7_m_p50_90_max__fuel_high": [
+   90.1,
+   262.8,
+   333.2
+  ],
+  "share_dstar_4.7_below_375m__fuel_high": 1.0,
+  "dstar_4.7_m_p50_90_max__T1090": [
+   45.9,
+   174.7,
+   228.9
+  ],
+  "share_dstar_4.7_below_375m__T1090": 1.0,
+  "dstar_4.7_m_p50_90_max__T1400": [
+   106.2,
+   324.3,
+   407.2
+  ],
+  "share_dstar_4.7_below_375m__T1400": 0.9806,
+  "dstar_4.7_m_p50_90_max__vf_planar": [
+   70.2,
+   222.8,
+   285.4
+  ],
+  "share_dstar_4.7_below_375m__vf_planar": 1.0,
+  "dstar_4.7_m_p50_90_max__vf_max": [
+   71.0,
+   227.2,
+   291.4
+  ],
+  "share_dstar_4.7_below_375m__vf_max": 1.0,
+  "dstar_4.7_m_p50_90_max__vf_cylinder": [
+   59.2,
+   175.3,
+   227.6
+  ],
+  "share_dstar_4.7_below_375m__vf_cylinder": 1.0,
+  "dstar_4.7_m_p50_90_max__no_tau": [
+   80.8,
+   280.2,
+   359.8
+  ],
+  "share_dstar_4.7_below_375m__no_tau": 1.0,
+  "dstar_2.5_m_p50_90_99_max": [
+   69.0,
+   212.4,
+   377.0,
+   481.4
+  ],
+  "share_dstar_2.5_below_375m": 0.9898,
+  "lead_2.5_s_p50_90_99_max": [
+   220.1,
+   748.0,
+   841.0,
+   841.0
+  ],
+  "front_cells_reached_after_issue": 20,
+  "front_crown_share": 0.5,
+  "front_ros_m_min_p10_50_90": [
+   6.5,
+   28.5,
+   150.0
+  ],
+  "front_flame_length_m_p50_90_max": [
+   5.7,
+   50.2,
+   50.2
+  ],
+  "front_flame_height_m_p50_90_max": [
+   5.5,
+   49.4,
+   50.1
+  ],
+  "front_dstar_7_m_p50_90_max": [
+   37.7,
+   224.2,
+   226.9
+  ],
+  "front_share_dstar_7_below_375m": 1.0,
+  "front_lead_7_s_p50_90_max": [
+   110.8,
+   209.6,
+   236.0
+  ],
+  "front_dstar_4.7_m_p50_90_max": [
+   53.8,
+   286.8,
+   289.0
+  ],
+  "front_share_dstar_4.7_below_375m": 1.0,
+  "front_lead_4.7_s_p50_90_max": [
+   152.1,
+   295.6,
+   332.8
+  ],
+  "front_dstar_2.5_m_p50_90_max": [
+   92.6,
+   409.1,
+   410.4
+  ],
+  "front_share_dstar_2.5_below_375m": 0.8,
+  "front_lead_2.5_s_p50_90_max": [
+   250.0,
+   507.3,
+   556.9
+  ],
+  "cells_at_issue_A0": 3402,
+  "zone_from_adjacent_cell": {
+   "no earlier neighbour": 3422
+  },
+  "flux_from_adjacent_kw_m2_p50_90_99_max": null,
+  "variants": {
+   "baseline_2.5": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     250.5,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 7039,
+    "unreached_road_cells_partly_closed_by_halo": 313,
+    "road_cells_changed_vs_old": 15,
+    "earlier_than_old": 5,
+    "later_than_old": 10,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 5,
+     "lost_window": 2,
+     "shift_s_p50_max": [
+      340.0,
+      1333.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 3,
+     "shift_s_p50_max": [
+      340.0,
+      1333.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 424,
+     "changed": 4,
+     "lost_window": 1,
+     "shift_s_p50_max": [
+      -14.0,
+      1333.0
+     ],
+     "later_than_ref": 2
+    },
+    "latest_departure_vs_old": {
+     "changed": 3,
+     "shift_s_p50_max": [
+      -14.0,
+      1333.0
+     ]
+    }
+   },
+   "baseline_4.7": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     152.5,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 4842,
+    "unreached_road_cells_partly_closed_by_halo": 279,
+    "road_cells_changed_vs_old": 15,
+    "earlier_than_old": 6,
+    "later_than_old": 9,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 4,
+     "lost_window": 2,
+     "shift_s_p50_max": [
+      113.0,
+      193.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      113.0,
+      193.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 425,
+     "changed": 4,
+     "lost_window": 2,
+     "shift_s_p50_max": [
+      -78.5,
+      5.0
+     ],
+     "later_than_ref": 1
+    },
+    "latest_departure_vs_old": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      -78.5,
+      5.0
+     ]
+    }
+   },
+   "baseline_7": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     111.0,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 3886,
+    "unreached_road_cells_partly_closed_by_halo": 276,
+    "road_cells_changed_vs_old": 15,
+    "earlier_than_old": 6,
+    "later_than_old": 9,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 3,
+     "lost_window": 1,
+     "shift_s_p50_max": [
+      81.0,
+      135.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      81.0,
+      135.0
+     ]
+    },
+    "leave_by_vs_old": {
+     "with_leave_now_window": 425,
+     "changed": 3,
+     "lost_window": 1,
+     "shift_s_p50_max": [
+      -48.5,
+      9.0
+     ],
+     "later_than_ref": 1
+    },
+    "latest_departure_vs_old": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      -48.5,
+      9.0
+     ]
+    }
+   },
+   "old_2.5": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     350.0,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 4410,
+    "unreached_road_cells_partly_closed_by_halo": 347,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 3,
+     "lost_window": 1,
+     "shift_s_p50_max": [
+      357.5,
+      361.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      357.5,
+      361.0
+     ]
+    }
+   },
+   "old_4.7": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     184.0,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 2747,
+    "unreached_road_cells_partly_closed_by_halo": 331,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 2,
+     "lost_window": 0,
+     "shift_s_p50_max": [
+      191.5,
+      195.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      191.5,
+      195.0
+     ]
+    }
+   },
+   "old_7": {
+    "road_cells_changed_vs_none": 20,
+    "shift_s_p50_max_vs_none": [
+     122.0,
+     3125.0
+    ],
+    "halo_pieces_outside_reached_cells": 2249,
+    "unreached_road_cells_partly_closed_by_halo": 326,
+    "leave_by_vs_none": {
+     "with_leave_now_window": 425,
+     "changed": 2,
+     "lost_window": 0,
+     "shift_s_p50_max": [
+      129.5,
+      133.0
+     ],
+     "later_than_ref": 0
+    },
+    "latest_departure_vs_none": {
+     "changed": 2,
+     "shift_s_p50_max": [
+      129.5,
+      133.0
+     ]
+    }
+   }
+  }
+ }
+}

@@ -267,8 +267,10 @@ never later than without heat. Wind, humidity and air temperature are one value 
 ASSUMED: 7 m/s, 30 %, 10 °C). The certificates carry the per-piece closure seconds and still verify without the tool.
 
 It is off by default. On the 25 March replay it moves 337 of 1,134 leave-now times at 4.7 kW/m² (median 3.7 min
-earlier), but mostly through the 375 m cell rule, and on the finals packets only through the capped spread rate of the
-known fire area (research/kcf-radiation/RESULTS.md, "Road layer"). The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
+earlier), but mostly through the 375 m cell rule. Since PROTOCOL A7 a cell already burning at issue takes the spread rate
+of the nearest cells with a real arrival gradient instead of the 150 m/min cap (and no flame if there is none); on the
+finals packets that cut the lost leave-now windows from 22 to 2 of 425 (research/kcf-radiation/RESULTS.md, "A7" and
+"Road layer"). The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
 packet (other rasters are refused with HEAT_INPUT_UNSUPPORTED). Radiation only: no convection, embers or smoke; the
 thresholds are for people outside a vehicle (research/kcf-radiation/RESULTS.md, Limits).
 

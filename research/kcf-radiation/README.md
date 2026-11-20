@@ -7,7 +7,7 @@ Nothing new is proposed.
 
 | file | what |
 |---|---|
-| [PROTOCOL.md](PROTOCOL.md) | frozen before any result; amendments A1-A4 at the end |
+| [PROTOCOL.md](PROTOCOL.md) | frozen before any result; amendments A1-A7 at the end |
 | [METHOD.md](METHOD.md) | every formula with its source and range |
 | [RESULTS.md](RESULTS.md) | checks C1-C4, the per-fire tables, the panels, the counts against no heat and the old law |
 | [DATA.md](DATA.md) | inputs and where they came from (the brief's data folder could not be reached) |
@@ -15,7 +15,8 @@ Nothing new is proposed.
 | `scripts/check_c1..c4_*.py` | step 2 checks; outputs in `data/c*.json` |
 | `scripts/run_fires.py` | per-cell tables of the four reconstructed fires and the FRP cross-check (`data/fires/`) |
 | `scripts/run_panels.py`, `scripts/summarize.py` | step 3 on the Gyeongbuk replay and the 15 finals packets (`data/panels/`) |
-| `tests/` | formula constants, view-factor identities, eikonal spread rate, closure = contact rule at d* = 0 |
+| `scripts/run_panels_a7.py`, `scripts/compare_a7.py` | A7 rerun of both panels under the old and the new rule (`data/panels_a7/`) |
+| `tests/` | formula constants, view-factor identities, eikonal spread rate, closure = contact rule at d* = 0, no known-fire cell takes the capped spread rate (A7) |
 
 Reproduce (Python 3.12+, numpy, scipy, rasterio, pyproj, pytest; the environment rasters as in DATA.md):
 

@@ -192,3 +192,46 @@ lost windows were traced to cells inside the known fire area, whose flat arrival
 baseline otherwise, 4.7 kW/m2), was run on both panels to measure that effect (`run_panels.py --front-only`,
 `data/panels/exploratory_front_only.json`). It is reported as exploratory and does not change the method, the counts
 of the main rows or the road layer.
+
+**A7 (2026-11-20; a fix to the method for cells burning at issue. Written before the rerun. The results it responds to HAVE
+ALREADY BEEN SEEN: RESULTS.md as merged at PR #228, including the 22 of 425 lost windows on panel B and the exploratory
+row of A6).**
+
+*Problem.* Section 3 gives a cell with zero or undefined arrival gradient the capped rate R_max = 150 m/min. Cells inside
+the known fire at issue (arrival exactly 0: `current_active` or `known_burned` in a packet, inside a detection disc in a
+replay raster) have a flat arrival field, so they got R_max, hence a crown flame of about 50 m and d* of about 290 m. That
+closes road pieces next to the known fire at second 0 and produces 22 of the 425 panel B lost windows. The cap there is a
+stand-in for a missing measurement, not a spread rate, and A6 showed that the effect is the whole of the panel B result.
+
+*What changes (section 3 only, for known-fire cells with a flat or undefined gradient).* The spread rate is not read from
+the flat field. It is the **median of the spread rates of the 3 nearest cells that have a real arrival gradient** (finite
+and positive |grad t|, spread rate computed exactly as before and limited to [R_min, R_max]); nearest = centre distance on
+the 375 m grid, donors may be anywhere in the grid (inside or outside the known fire), flat cells are never donors. If the
+input has no cell with a real gradient, the cell gets no spread rate and no flame (d* = 0); the number of such cells is
+reported. Cells outside the known fire that have a flat or undefined gradient (an isolated cell reached later) keep the
+cap, as before. Nothing else changes: fuel, wind, crown test, flame, view factor, thresholds, closure rule (section 6),
+panels, settings and the old-law comparison are those of sections 4-8 and A1-A6.
+
+*Rule chosen and why.* The alternative, treating those cells as burned out with no flame front after a residence time,
+was rejected because it needs the age of the burn at issue, and the inputs do not have it: the packets label
+`known_burned` cells as "burned with unknown age", and the replay rasters store 0 for every disc cell whatever the disc's
+time. Any residence time would be applied to an age that is not known, and a residence time long enough to switch off
+the old interior would also switch off the active perimeter, which radiates. So the rule here carries **no residence
+time**; it uses only the observed spread of the same fire near the cell. It keeps radiating from burned-out interior
+cells (conservative), and it can still give a crown flame where the nearby observed spread is above the crown threshold.
+The A6 "silent" row is kept as the lower bound; it is not the fix.
+
+*Test.* A test fails if any known-fire cell with a flat or undefined gradient receives the default cap (provenance
+flag), and on the 15 finals packets and the 26 replay inputs it checks that none does.
+
+*Method of the rerun (data).* The data folder "wildfire 3 (1)" is not reachable from where this ran (no computer attached,
+no Drive file access), and the environment rasters of the earlier archive are not in the repository. The 15 packets and the
+road graphs are fetched from the public release (`tools/fetch_routing_inputs.py`, hash verified); the 13 replay rasters
+are rebuilt by `build_example_raster.py` (the 03:00 one is byte-identical to the committed one). Fuel group, 10 m wind and
+relative humidity per road cell are read from the committed per-road-cell tables `data/panels/road_cells_panel_{A,B}.csv.gz`;
+air temperature, which those tables do not hold, is recovered per cell from the recorded baseline d* at the three
+thresholds. Check, stated in advance: the same script run with the old rule must reproduce the old table of RESULTS.md. Any
+difference is reported next to the new table, and the old column of the side-by-side table is the reproduced one.
+
+*Reporting.* Old and new table side by side for both panels at 7, 4.7 and 2.5 kW/m2 (and the settings rows), every
+leave-by time that differs between the rules, the test result, and what did not improve.
