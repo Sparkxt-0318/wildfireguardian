@@ -18,10 +18,12 @@ T = {
     "ko": {
         "title": "%s %s · 지금 출발하면 얼마나 견디나 (취약도)",
         "meta": "발표 %s KST · 예측 범위 %s시간 · 입력 화재 도달 래스터 기준 · 가장 취약한 마을부터",
-        "cols": ["#", "마을·시설", "출발 마감", "견디는 추가 확산 (km)", "먼저 끊기는 도로 (확산)", "견디는 시각 오차 (분)", "먼저 끊기는 도로 (시각)"],
+        "cols": ["#", "마을·시설", "출발 마감", "견디는 추가 확산 (km)", "먼저 끊기는 도로 (확산)", "견디는 시각 오차 (분)", "먼저 끊기는 도로 (시각)", "세대 · 65세+ · 위험 건물"],
+        "pop": "세대 %s(추정) · 65세+ %s(추정) · 위험 건물 %d/%d채(OSM 하한) · 불이 닿는 칸 세대 %s(추정)",
         "head": "추가 확산 1 km 미만에서 지금 출발 경로가 끊기는 곳 %d곳 · 지금 출발 경로가 이미 없는 곳 %d곳",
         "none": "경로 없음", "to_end": "범위 끝까지", "already": "발표 시각 이전", "refused": "계산 거부: %s", "ge": "%s 이상",
         "notes": [
+            "세대·65세 이상: 읍·면·동 주민등록 통계(MOIS 2025-02, 측정)를 법정리 수로 균등 분할한 마을 값(추정). 위험 건물: OSM에 올라 있는 건물 중 예측 범위 안 불이 닿는 375 m 칸에 있는 수(하한이며 건물 간 불 번짐은 계산하지 않음).",
             "견디는 추가 확산: 화재가 입력 래스터보다 매 순간 이만큼(km) 더 멀리 번져도 지금 출발하면 안전한 경로가 남는 최대 거리 (0.125 km 간격, 최대 15 km). 래스터의 각 칸을 반경 안의 가장 이른 도달 시각으로 바꾸어 계산합니다.",
             "견디는 시각 오차: 모든 도로·마을·대피소의 차단이 이만큼(분) 더 일찍 일어나도 지금 출발 경로가 남는 최대 시간 (1분 간격). 먼저 끊기는 도로: 그 한계에서 남는 경로 중 차량이 지나는 시각과 차단 시각의 차이가 가장 작은 도로.",
             "방법: research/kcf-robust (출발 시각 고정, 차단 수준별 최단 도착 탐색, 이분 탐색). 혼잡과 마을↔진입 지점 이동은 모델 밖. 모델 출력이며 실제로 일어난 일에 대한 주장이 아닙니다.",
@@ -32,10 +34,12 @@ T = {
         "title": "%s %s · How much error a departure now tolerates (fragility)",
         "meta": "Issued %s KST · horizon %s h · relative to the input fire-arrival raster · most fragile first",
         "cols": ["#", "Village / facility", "Leave by", "Tolerated extra reach (km)", "Road that fails first (reach)",
-                 "Tolerated timing error (min)", "Road that fails first (timing)"],
+                 "Tolerated timing error (min)", "Road that fails first (timing)", "Households · aged 65+ · buildings at risk"],
+        "pop": "households %s (est.) · 65+ %s (est.) · at risk %d of %d bldgs (OSM, lower bound) · households in reached cells %s (est.)",
         "head": "%d place(s) whose route out now fails under less than 1 km of extra reach · %d with no safe route now",
         "none": "no route", "to_end": "to horizon end", "already": "before issue", "refused": "refused: %s", "ge": ">= %s",
         "notes": [
+            "Households, aged 65+: 읍·면·동 register counts (MOIS 2025-02, measured) split equally over the 법정리 (village figure estimated). Buildings at risk: buildings mapped in OSM that stand in a 375 m cell the fire reaches within the horizon (lower bound; no fire spread between buildings).",
             "Tolerated extra reach: the largest distance (km) the fire may spread beyond the input raster, at every moment, while a safe route out still exists for leaving now (0.125 km steps, up to 15 km). Each raster pixel takes the earliest arrival within that radius.",
             "Tolerated timing error: the largest time (min) by which every road, village and shelter closure may come earlier while a safe route out still exists for leaving now (1 min steps). Road that fails first: on the route that still works at that limit, the road with the least time between the vehicle entering it and its closure.",
             "Method: research/kcf-robust (fixed departure, earliest-arrival search per closure level, bisection). Congestion and travel between a village and its entry point are outside the model. Model output, not a claim about what happened.",
@@ -81,7 +85,7 @@ def build(path: Path, lang: str, county: str, town: str, rows, ctx, frag) -> int
         for i, r in enumerate(rows, start=1):
             name = _esc(village_name(r["origin"], lang))
             if r["refusal"]:
-                data.append([P(str(i)), P(name), P(_esc(t["refused"] % r["refusal"][1 if lang == "ko" else 2]), "grey"), "", "", "", ""])
+                data.append([P(str(i)), P(name), P(_esc(t["refused"] % r["refusal"][1 if lang == "ko" else 2]), "grey"), "", "", "", "", ""])
                 style.append(("SPAN", (2, i), (-1, i)))
                 continue
             f = frag.get(r["origin"]["id"]) or {}
@@ -105,12 +109,15 @@ def build(path: Path, lang: str, county: str, town: str, rows, ctx, frag) -> int
                 tm = t["ge"] % tm if f["timing_censored"] else tm
             rb = f.get("reach_binding") if not f.get("reach_censored") else None
             tb = f.get("timing_binding") if not f.get("timing_censored") else None
+            pe = f.get("people")
+            pop = (t["pop"] % ("%d" % round(pe["demo"]["households"]), "—" if pe["demo"]["residents65"] is None else "%d" % round(pe["demo"]["residents65"]),
+                               pe["risk"]["at_risk"], pe["risk"]["mapped"], "%d" % round(pe["risk"]["households_at_risk"]))) if pe else ""
             hot = f.get("reach_km") is None or (f.get("reach_km") is not None and f["reach_km"] < 1.0)
             data.append([P(str(i)), P(name, "bold" if hot else "cell"), P(leave), P(rk, "redbold" if hot else "bold"),
-                         P(_esc(rb["label"]) if rb else ""), P(tm, "bold"), P(_esc(tb["label"]) if tb else "")])
+                         P(_esc(rb["label"]) if rb else ""), P(tm, "bold"), P(_esc(tb["label"]) if tb else ""), P(_esc(pop))])
             if hot:
                 style.append(("BACKGROUND", (0, i), (-1, i), FLAG_BG))
-        story.append(Table(data, colWidths=[w * mm for w in (6, 36, 18, 22, 40, 22, 42)], repeatRows=1, style=TableStyle(style)))
+        story.append(Table(data, colWidths=[w * mm for w in (6, 30, 16, 20, 34, 20, 34, 26)], repeatRows=1, style=TableStyle(style)))
         story.append(Spacer(1, 2.5 * mm))
         for s in t["notes"]:
             story.append(Paragraph(_esc(s), S["note"]))

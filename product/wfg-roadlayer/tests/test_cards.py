@@ -168,7 +168,10 @@ def test_audit_invariants(cards_out):
     assert len(ok) == 174 and len(rows) == 177
     for r in ok:
         assert int(r["exits"].rstrip("+")) >= 1
-        assert r["households_status"] == "ASSUMED" and r["vehicles_status"].startswith("ASSUMED")
+        # kcf-buildings: village figures are ESTIMATED from measured 읍·면·동 totals, care facilities stay ASSUMED; every figure carries a status
+        assert r["households_status"].split(" ")[0] in ("ESTIMATED", "ASSUMED") and r["vehicles_status"].split(" ")[0].rstrip(":;") in ("ESTIMATED", "ASSUMED")
+        assert r["residents_status"] and r["residents_65plus_status"] and r["buildings_status"].startswith("MAPPED") and r["households_at_risk_status"].startswith("ESTIMATED")
+        assert int(r["buildings_at_risk_mapped"]) <= int(r["buildings_mapped_osm"] or 0)
         assert r["exit_conifer_share"].startswith("NOT AVAILABLE")
         assert r["capacity_status"] in ("ASSUMED", "CITED (two-lane assumed)", "ASSUMED lanes x CITED per-lane")
         if r["single_exit"] == "yes":

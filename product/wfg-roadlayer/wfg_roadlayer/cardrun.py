@@ -28,7 +28,9 @@ AUDIT_COLS = [
     "exits", "exit_shelters", "exit_length_km", "exit_travel_min", "exit_forest_share_pct", "exit_conifer_share",
     "danger_road", "danger_osm_way", "danger_cell", "danger_cell_centre_epsg5179", "danger_exits_cut", "danger_ties",
     "danger_travel_min_from_village", "single_exit", "dangerous_road_cuts_all",
-    "households", "households_status", "households_basis", "vehicles", "vehicles_status", "no_car_persons", "no_car_status",
+    "households", "households_status", "households_basis", "residents", "residents_status", "residents_65plus", "residents_65plus_status",
+    "buildings_mapped_osm", "buildings_mapped_by_use", "buildings_at_risk_mapped", "buildings_status", "households_at_risk", "households_at_risk_status",
+    "schools_osm", "care_facilities_osm", "vehicles", "vehicles_status", "no_car_persons", "no_car_status",
     "route_for_clearance", "narrowest_road_class", "narrowest_osm_way", "narrowest_capacity_veh_per_h", "capacity_status",
     "clearance_min", "leave_by_kst", "leave_by_with_clearance_kst", "short_with_clearance_min", "margin_min",
     "queue_leave_by_mid_kst", "queue_leave_by_low_kst", "queue_leave_by_high_kst", "queue_vehicles_mid", "queue_note",
@@ -95,9 +97,22 @@ def audit_rows(recs, rid, issue, ccfg, ways, road, replay):
                      danger_cell_centre_epsg5179="%.0f %.0f" % (float(road.x0) + (cc + .5) * res, float(road.y0) + (rr + .5) * res),
                      danger_exits_cut=d["cut"], danger_ties=d["tied"], danger_travel_min_from_village="%.1f" % (d["first_s"] / 60))
         h = r["hh"]
-        v.update(households=h["households"] if h["kind"] == "village" else "0 (care facility)", households_status="ASSUMED",
-                 households_basis=h["basis"], vehicles=r["vehicles"],
-                 vehicles_status="ASSUMED: households x %.3f (DERIVED, Gyeongbuk vehicles / households)" % ccfg["traffic"]["vehicles_per_household"],
+        dm, rk = r["demo"], r["risk"]
+        care = h["kind"] != "village"
+        bl = dm["bldg"]
+        v.update(households=h["households"] if not care else "0 (care facility)", households_status=dm["households_status"],
+                 households_basis=h["basis"],
+                 residents=("" if dm["residents"] is None else "%g" % dm["residents"]), residents_status=dm["residents_status"],
+                 residents_65plus=("" if dm["residents65"] is None else "%g" % dm["residents65"]), residents_65plus_status=dm["residents65_status"],
+                 buildings_mapped_osm=rk["mapped"] if rk["mapped"] or not care else "",
+                 buildings_mapped_by_use="; ".join("%s %d" % (k, n) for k, n in bl.items() if n),
+                 buildings_at_risk_mapped=rk["at_risk"],
+                 buildings_status="MAPPED in OSM 2025-03-21, lower bound (not a count); at risk = in a cell the input fire field reaches within the horizon",
+                 households_at_risk="%.1f" % rk["households_at_risk"], households_at_risk_status="ESTIMATED: " + rk["households_at_risk_basis"],
+                 schools_osm=dm["schools"], care_facilities_osm=dm["care_facilities"],
+                 vehicles=r["vehicles"],
+                 vehicles_status=("%s; ceil per place" % dm["vehicles_status"]) if dm["vehicles"] is not None else
+                 "ASSUMED: households x %.3f (DERIVED, Gyeongbuk vehicles / households)" % ccfg["traffic"]["vehicles_per_household"],
                  no_car_persons=r["no_car_persons"],
                  no_car_status=("ASSUMED: %d care-facility residents" % r["no_car_persons"]) if h["kind"] != "village" else
                  "ASSUMED: households x %.2f no-car share x persons/household (CITED)" % ccfg["traffic"]["no_car_share"],

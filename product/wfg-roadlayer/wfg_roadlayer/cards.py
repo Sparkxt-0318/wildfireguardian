@@ -210,9 +210,12 @@ def compute(c, cm, ccfg) -> list:
             no_car_persons = int(h["facility_residents"])
         else:
             households = float(h["households"])
-            vehicles = int(math.ceil(households * tcfg["vehicles_per_household"]))
+            vehicles = int(math.ceil(float(h["vehicles"]) if h.get("vehicles") else households * tcfg["vehicles_per_household"]))
             no_car_persons = int(round(households * tcfg["no_car_share"] * float(h["persons_per_household"])))
         rec.update(households=households, vehicles=vehicles, no_car_persons=no_car_persons)
+        from . import demand  # people and buildings (research/kcf-buildings); imported here, demand reads cards.PRODUCT
+        rec["demo"] = demand.demo(h)
+        rec["risk"] = demand.at_risk(region.id, road, c["close_s"], H, o["id"], s, rec["demo"]["households"])
         edges, kind = route_edges(row)
         if edges is None and paths:
             edges, kind = paths[0]["edges"], "exit1"
