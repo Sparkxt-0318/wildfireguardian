@@ -1,0 +1,23 @@
+{
+ "cache": "yeongdeok_2025/20250325T190000Z",
+ "method": "field_sample",
+ "n_cases": 200,
+ "n_specs": 106,
+ "python": "3.13.18",
+ "rss_after_imports_kb": 34416,
+ "prep_s": 2.415200536001066,
+ "rss_baseline_kb": 259824,
+ "peak_after_prep_kb": 259824,
+ "cold_s": 172.20670714200241,
+ "peak_cold_kb": 429828,
+ "stats": {
+  "specs": 106,
+  "pre_not_ok": 0,
+  "checks": 0,
+  "check_fail": 0,
+  "pieces": 6305365
+ },
+ "warm_s": 170.9894212480067,
+ "peak_warm_kb": 430792,
+ "warm_equals_cold": true
+}
