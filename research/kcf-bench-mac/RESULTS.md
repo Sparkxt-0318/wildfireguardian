@@ -1,7 +1,8 @@
 # kcf-bench RESULTS: method A against method B on one machine (time, memory, accuracy)
 
 Protocol: `PLAN.md` (frozen at `0fdcbb28`), Amendments 1–4 at its end. All numbers come from files under `runs/`;
-`results/RESULTS.json` is the machine-readable summary (`summarize.py`). Written Fri 20 Nov 2026, before 12:00 Shanghai.
+`results/RESULTS.json` is the machine-readable summary (`summarize.py`). Written Fri 20 Nov 2026, before 12:00 Shanghai. Ran as `research/kcf-bench/`; moved here
+unchanged (PLAN Amendment 5), next to the separate container benchmark on `Main` in `research/kcf-bench/`.
 
 * **A** = the recorded per-departure method: `api/runner.py::execute`, candidate route by the kit (`RDA_CAND`, 30 s
   budget) plus the full-journey check, one job at a time (`run_a.py`).

@@ -1,11 +1,11 @@
 #!/bin/bash
 # kcf-bench orchestration (PLAN.md 7). Run from the repository root, one phase at a time, strictly in sequence:
-#   bash research/kcf-bench/run_all.sh PHASE
+#   bash research/kcf-bench-mac/run_all.sh PHASE
 # PHASE: jobs | smoke | b | synth | a | arep | compare | host
 # Every measured command runs as a child of a fresh measure.py process (same measurement for both methods).
 set -euo pipefail
 PY=${KCF_BENCH_PY:-/Users/jp/miniforge3/bin/python3}
-B=research/kcf-bench
+B=research/kcf-bench-mac
 R=$B/runs
 CACHES="UA0323 UA0324 UA0325 YD0325T19 YD0325T23 YD0326"
 OTHERS="UA0323 UA0325 YD0325T19 YD0325T23 YD0326"
@@ -18,12 +18,12 @@ jobs)   # frozen job lists from the sampling rule (common.sample_jobs)
   mkdir -p $R/jobs
   $PY - <<'EOF'
 import json, sys
-sys.path.insert(0, "research/kcf-bench")
+sys.path.insert(0, "research/kcf-bench-mac")
 from common import CACHES, load_cache, job_ids, sample_jobs
 for name, _ in CACHES:
     s = sample_jobs(name, job_ids(load_cache(name)))
     for k, v in s.items():
-        json.dump(v, open("research/kcf-bench/runs/jobs/%s.%s.json" % (name, k), "w"))
+        json.dump(v, open("research/kcf-bench-mac/runs/jobs/%s.%s.json" % (name, k), "w"))
     print(name, {k: len(v) for k, v in s.items()})
 EOF
   ;;
@@ -83,7 +83,7 @@ compare) # PLAN.md 7 phase 5: accuracy, untimed (A pass 1 against B full repeat 
   done
   ;;
 host)
-  $PY -c 'import json,sys;sys.path.insert(0,"research/kcf-bench");from common import host_info;print(json.dumps(host_info(),indent=1))' > $R/HOST.json
+  $PY -c 'import json,sys;sys.path.insert(0,"research/kcf-bench-mac");from common import host_info;print(json.dumps(host_info(),indent=1))' > $R/HOST.json
   { echo "method_A_last_commit_api: $(git log -1 --format=%H -- api)"; echo "method_A_last_commit_integration: $(git log -1 --format=%H -- integration)";
     echo "method_B_last_commit_deadline_field: $(git log -1 --format=%H -- research/harness-2026-11/F-3.1/deadline_field)";
     echo "head: $(git rev-parse HEAD)"; } > $R/COMMITS.txt

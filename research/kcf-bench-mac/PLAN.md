@@ -176,3 +176,11 @@ job set (its UA0324 runs were the full cache), so for the speed ratio rule (jobs
 `runs/jobs/UA0324.pass1_ran.json`, 3 repeats, measured exactly as phase `b` (`runs/b/UA0324.pass1ran.r*.json`). The
 repeats stopped at 09:15 with complete repeat-2 sets only for UA0323 and UA0324 (UA0325: 8 of 50); the repeat-set
 ratio is reported only for those two. Nothing else changes.
+
+## Amendment 5 (Fri 20 Nov 2026; after the write-up, location only)
+
+While this study ran, `Main` received a separate benchmark in `research/kcf-bench/` (`BENCH_PLAN.md`, a cloud
+container, three methods). Both added `research/kcf-bench/common.py`. This study is moved, unchanged, to
+`research/kcf-bench-mac/` so that both can live on `Main`. Paths written above as `research/kcf-bench/...` now mean
+`research/kcf-bench-mac/...`. `run_all.sh` and the `summarize.py` docstring are updated to the new path. Command lines
+recorded inside `runs/*.measure.json` keep the old path, as run. No measured number changes.

@@ -1,6 +1,6 @@
 """Build results/RESULTS.json and the tables in RESULTS.md from runs/ (PLAN.md 8). Reads only files under runs/.
 
-    python3 research/kcf-bench/summarize.py
+    python3 research/kcf-bench-mac/summarize.py
 """
 from __future__ import annotations
 
