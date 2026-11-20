@@ -103,8 +103,9 @@ therefore not added to `product/wfg-roadlayer`.
   had not reached could not be measured. The verdict does not depend on it: no road cell on 25 March reached
   P = 0.10.
 - **Test 4 (b)** used kcf-adaptive4's issued margin rather than the all-truth margin (amendment 2.4).
-- **Terrain was fetched for 627 of 816 spots.** The elevation service's daily quota ran out; most of the missing
-  points are the VIIRS-only sensitivity set and 12 of the 15 Korean candidates.
+- **Terrain covers all 816 spots** (completed 20 November 2026, after the elevation service's daily quota reset). The
+  first run had 627; the 189 added were in the VIIRS-only sensitivity set, the Korean candidates and 25 March. No
+  California figure above changed. Korea's 15 candidates: 47% crossed a ridge, median elevation change +11 m.
 - NOT RUN: NIROPS 2020–2024 (1.4 GB) as a second airborne check; Rim 2013 (no VIIRS 2013 fetched); a fit with fire
   size as a covariate (Storey et al. find it dominant).
 
