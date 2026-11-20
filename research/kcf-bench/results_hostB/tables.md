@@ -1,0 +1,32 @@
+| cache | method | cold s, median (range) | warm s, median (range) | OLD ÷ method, cold [range] | OLD ÷ method, warm [range] | peak MB | agreement |
+|---|---|---|---|---|---|---|---|
+| UA 0323 01Z | OLD (scaled) | 13461 (13461–13461) | 11408 (11408–11408) |  |  | 303 median, 412 max per request (one worker) | — |
+| UA 0323 01Z | FIELD | 25.30 (25.30–25.30) | 24.12 (24.12–24.12) | 532 [532–532] faster | 473 [473–473] faster | 195 (baseline 129) | n/a |
+| UA 0323 01Z | FIELD-D | 23.59 (23.59–23.59) | 22.20 (22.20–22.20) | 571 [571–571] faster | 514 [514–514] faster | 193 (baseline 129) | n/a |
+| UA 0323 01Z | MARGIN-1 | 31.25 (31.25–31.25) | 32.38 (32.38–32.38) | 431 [431–431] faster | 352 [352–352] faster | 220 (baseline 129) | n/a |
+| UA 0323 01Z | MARGIN-10 | 20.24 (20.24–20.24) | 19.08 (19.08–19.08) | 665 [665–665] faster | 598 [598–598] faster | 189 (baseline 129) | n/a |
+| UA 0324 09Z | OLD (scaled) | 13431 (13431–13431) | 11589 (11589–11589) |  |  | 302 median, 421 max per request (one worker) | — |
+| UA 0324 09Z | FIELD | 166 (166–166) | 169 (169–169) | 80.67 [80.67–80.67] faster | 68.74 [68.74–68.74] faster | 536 (baseline 133) | n/a |
+| UA 0324 09Z | FIELD-D | 23.73 (23.73–23.73) | 23.15 (23.15–23.15) | 566 [566–566] faster | 501 [501–501] faster | 195 (baseline 133) | n/a |
+| UA 0324 09Z | MARGIN-1 | 174 (174–174) | 176 (176–176) | 77.33 [77.33–77.33] faster | 65.71 [65.71–65.71] faster | 562 (baseline 133) | n/a |
+| UA 0324 09Z | MARGIN-10 | 19.53 (19.53–19.53) | 19.24 (19.24–19.24) | 688 [688–688] faster | 602 [602–602] faster | 196 (baseline 133) | n/a |
+| UA 0325 17Z | OLD (scaled) | 21236 (21236–21236) | 19634 (19634–19634) |  |  | 876 median, 877 max per request (one worker) | — |
+| UA 0325 17Z | FIELD | 102 (102–102) | 97.76 (97.76–97.76) | 208 [208–208] faster | 201 [201–201] faster | 678 (baseline 132) | n/a |
+| UA 0325 17Z | FIELD-D | 18.13 (18.13–18.13) | 17.72 (17.72–17.72) | 1171 [1171–1171] faster | 1108 [1108–1108] faster | 191 (baseline 132) | n/a |
+| UA 0325 17Z | MARGIN-1 | 108 (108–108) | 110 (110–110) | 197 [197–197] faster | 179 [179–179] faster | 704 (baseline 132) | n/a |
+| UA 0325 17Z | MARGIN-10 | 16.75 (16.75–16.75) | 15.56 (15.56–15.56) | 1268 [1268–1268] faster | 1262 [1262–1262] faster | 189 (baseline 132) | n/a |
+| YD 0325 19Z | OLD (scaled) | 44041 (44041–44041) | 37037 (37037–37037) |  |  | 1277 median, 1305 max per request (one worker) | — |
+| YD 0325 19Z | FIELD | 279 (279–279) | 290 (290–290) | 158 [158–158] faster | 128 [128–128] faster | 923 (baseline 254) | n/a |
+| YD 0325 19Z | FIELD-D | 260 (260–260) | 253 (253–253) | 170 [170–170] faster | 146 [146–146] faster | 418 (baseline 254) | n/a |
+| YD 0325 19Z | MARGIN-1 | 406 (406–406) | 435 (435–435) | 109 [109–109] faster | 85.10 [85.10–85.10] faster | 978 (baseline 254) | n/a |
+| YD 0325 19Z | MARGIN-10 | 277 (277–277) | 272 (272–272) | 159 [159–159] faster | 136 [136–136] faster | 409 (baseline 254) | n/a |
+| YD 0325 23Z | OLD (scaled) | 30812 (30812–30812) | 26337 (26337–26337) |  |  | 653 median, 1320 max per request (one worker) | — |
+| YD 0325 23Z | FIELD | 282 (282–282) | 271 (271–271) | 109 [109–109] faster | 97.24 [97.24–97.24] faster | 420 (baseline 250) | n/a |
+| YD 0325 23Z | FIELD-D | 282 (282–282) | 269 (269–269) | 109 [109–109] faster | 97.77 [97.77–97.77] faster | 417 (baseline 250) | n/a |
+| YD 0325 23Z | MARGIN-1 | 370 (370–370) | 395 (395–395) | 83.23 [83.23–83.23] faster | 66.68 [66.68–66.68] faster | 484 (baseline 250) | n/a |
+| YD 0325 23Z | MARGIN-10 | 264 (264–264) | 276 (276–276) | 117 [117–117] faster | 95.38 [95.38–95.38] faster | 407 (baseline 250) | n/a |
+| YD 0326 08Z | OLD (scaled) | 29390 (29390–29390) | 23106 (23106–23106) |  |  | 653 median, 1316 max per request (one worker) | — |
+| YD 0326 08Z | FIELD | 341 (341–341) | 330 (330–330) | 86.11 [86.11–86.11] faster | 69.97 [69.97–69.97] faster | 607 (baseline 249) | n/a |
+| YD 0326 08Z | FIELD-D | 328 (328–328) | 328 (328–328) | 89.65 [89.65–89.65] faster | 70.48 [70.48–70.48] faster | 424 (baseline 249) | n/a |
+| YD 0326 08Z | MARGIN-1 | 440 (440–440) | 444 (444–444) | 66.74 [66.74–66.74] faster | 52.02 [52.02–52.02] faster | 673 (baseline 249) | n/a |
+| YD 0326 08Z | MARGIN-10 | 306 (306–306) | 329 (329–329) | 96.15 [96.15–96.15] faster | 70.20 [70.20–70.20] faster | 412 (baseline 249) | n/a |
