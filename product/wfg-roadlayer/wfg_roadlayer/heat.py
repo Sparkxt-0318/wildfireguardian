@@ -97,16 +97,20 @@ def build(region, fire, cfg):
     q = float(cfg["heat"]["threshold_kw_m2"])
     st = setting_from(cfg)
     A = arrival_grid(fire, road)
-    R, rinfo = ros.rate_of_spread(np.where(np.isfinite(A), A, np.nan), float(road.res), P.R_MIN_M_S, P.R_MAX_M_S)
+    # PROTOCOL A7: a cell already burning at issue (arrival 0) with a flat arrival field takes the spread rate of the
+    # nearest cells with a real gradient, not the 150 m/min cap
+    R, rinfo, _src = ros.rate_of_spread_with_source(np.where(np.isfinite(A), A, np.nan), float(road.res), P.R_MIN_M_S,
+                                                    P.R_MAX_M_S, known_fire=np.isfinite(A) & (A == 0))
     burning = [int(r * road.W + c) for r, c in zip(*np.nonzero(np.isfinite(A) & (A <= fire.horizon_s)))]
     lc = landcover(region.id)
     groups = np.array([fuels.group_of(lc.get(c)) if lc.get(c) is not None else "grass" for c in burning])
     Rb = np.array([R[divmod(c, road.W)] for c in burning])
     n = len(burning)
     h = cfg["heat"]
-    phys = model.Evaluator(st).cells(Rb, groups, np.full(n, float(h["wind10_m_s"])), np.full(n, float(h["rh_pct"])),
-                                     np.full(n, float(h["air_temp_c"])))
-    ds = phys["dstar_%g" % q]
+    has_rate = np.isfinite(Rb)       # a known-fire cell with no donor cell in the input has no rate: no flame
+    phys = model.Evaluator(st).cells(np.where(has_rate, Rb, 1.0), groups, np.full(n, float(h["wind10_m_s"])),
+                                     np.full(n, float(h["rh_pct"])), np.full(n, float(h["air_temp_c"])))
+    ds = np.where(has_rate, phys["dstar_%g" % q], 0.0)
     hc = closure.HeatClosure(road, fire.arrival_s, {c: float(Rb[i]) for i, c in enumerate(burning)},
                              {c: float(ds[i]) for i, c in enumerate(burning)}, H=fire.horizon_s)
     road_d = [float(ds[i]) for i, c in enumerate(burning) if c in fire.arrival_s]
