@@ -138,4 +138,37 @@ five lines for `research/kcf-evidence/TALK_NUMBERS.md`), `SOURCES.md`, `data/` (
 
 ## 9 Amendments
 
-(none yet)
+**Amendment 1, 2026-11-21** (before any household, vehicle, building or queue result was computed; what had been
+fetched: MOIS 2025-02 tables, the OSM counts below, the Copernicus built-up window, no per-village number). Reasons
+and changes, all forced by what the sources turned out to be:
+
+* **(a) No per-리 source and no usable footprints.** The OSM snapshot of 2025-03-21 could not be taken from Geofabrik
+  (the public server no longer holds the 250321 file: HTTP 404). It was read instead from Overpass with the date
+  option `[date:"2025-03-21T23:59:59Z"]` (the same snapshot date as the road graph; the option was checked: the count
+  of buildings in one box is 1 / 15 / 75 / 75 for the dates 2018 / 2022 / 2025-03-21 / 2026-11). **OSM is far too
+  sparse for the §3 split rule:** the number of `building` ways in the bounding boxes of the two regions is 627
+  (Yeongdeok box), 4,058 (Uiseong box), 5,615 (Andong box), against about 19,000 households in Yeongdeok alone. The
+  Microsoft index has no row for Korea and Google Open Buildings does not cover Korea (not fetched). The buildings of
+  OSM are therefore reported as a **lower bound of mapped buildings, not a count**, and are **not** used to split
+  households (rule 3.1 and 3.4 weights are dropped).
+* **(b) Split rule used instead (headline).** Village households `H_v = H_eupmyeondong / n`, `n` = the number of live
+  법정리 (法定里) of that 읍·면 in the 법정동코드 table (the same table and the same equal-split idea as the assumed
+  arm), but with the **measured MOIS 2025-02** totals of **every** 읍·면 (the assumed arm used a county average for
+  안동·의성·청송·영양 and a 2025-12 table for 영덕). Residents and residents aged 65 or over are split the same way
+  (age from the MOIS 연령별 table, 2025-02; 출장소 sub-offices of 지품면 and 축산면 are added to their parent 읍·면).
+  Sub-office merges and 법정동 mismatches (안동 urban 동) are listed. The 읍·면 totals are reproduced exactly.
+* **(c) Vehicles.** No district table could be read: the MOLIT/KOSIS statistic by 시·군·구 needs a script-driven
+  portal that did not load here, the data.go.kr file download is behind a CAPTCHA (not bypassed), and the only
+  open per-district page found is a third-party ranking that rounds to 0.1 vehicle per person. **Vehicles are
+  therefore the province ratio** of `data/traffic_sources.json` (1.198 per household, Gyeongbuk, MOLIT 2024) times
+  the real households, labelled `ESTIMATED (province ratio)`. Demand differs from the assumed arm **only through
+  households**; this is a limit and is stated in `RESULTS.md`.
+* **(d) Buildings at risk (§3.6)** counts the OSM-mapped buildings of the village (nearest anchor of OSM place nodes
+  and the 174 places, within 1.5 km) that stand in cells reached by the closure field within the horizon; it is a
+  **lower bound** and labelled so. A second number, **households at risk**, is `H_v` times the share of the village's
+  mapped buildings in reached cells, only where at least 5 buildings are mapped; otherwise `H_v` if the village's own
+  cell is reached and 0 if not (a village is one point). Both are labelled ESTIMATED.
+* **(e) Sensitivity (reported, not the headline):** the within-읍·면 split by Copernicus built-up cover (100 m, 2019
+  epoch, Zenodo 3939050, read for the window 128.2–129.6 E, 36.05–37.05 N) around each village, to show how far the
+  queue result depends on the equal split. Run only if the anchors of the 법정리 can be located; otherwise not run
+  and said so.
