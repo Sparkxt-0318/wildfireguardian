@@ -58,3 +58,16 @@ move_min = 15
 
 [roadlayer]
 settings = "live/config/roadlayer_settings.toml"
+
+[cause]
+# Reported cause per fire (PROTOCOL amendment 2). Report only: the service never infers a cause.
+# On 2026-11-21 neither Forest Service call (selectPublicFireShowList.do, getPublicShowFireInfoList.do) carried a cause,
+# a cause status or a count of ignition points, so these key lists are empty and every fire shows "not reported".
+# When the feed adds such a field, put its exact name here (a change is an amendment); `cause_feed.unknown_keys` in
+# every record lists feed keys this service has not seen before, which is the signal to look.
+feed_cause_keys = []              # first non-empty value among these keys is the reported cause text
+feed_status_keys = []             # first non-empty value is the feed's own word for confirmed / presumed / under investigation
+feed_points_keys = []             # first value that parses as an integer >= 1 is the number of separate ignition points
+# the feed's own words -> one of confirmed | presumed | investigating (any other word is shown as "status not stated")
+status_words = { "확정" = "confirmed", "추정" = "presumed", "조사중" = "investigating", "조사 중" = "investigating" }
+history_file = "config/cause_history.json"

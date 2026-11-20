@@ -74,10 +74,10 @@ def cmd_run(a):
     inputs = work / "inputs"
     cache = Path(a.cache) if a.cache else None
     man = fetch.fetch_all(inputs, T, cache=cache, skip=tuple(a.skip or ()))
-    rec = compute.compute(inputs, work / "road", replay=False)
     log = Path(a.log)
     state_p = log / "state.json"
     state = json.loads(state_p.read_text()) if state_p.exists() else {}
+    rec = compute.compute(inputs, work / "road", replay=False, cause_state=state.setdefault("cause", {}))
     rec["bulletin_day"] = bulletin_day(rec, state)
     msgs = alerts.decide(rec, state.setdefault("alerts", {}))
     rec["alerts"] = alerts.send(msgs) | {"messages": [m["kind"] for m in msgs]}
