@@ -1,6 +1,6 @@
 # RESULTS: published heat methods on the Gyeongbuk 2025 replay and the finals fires
 
-Protocol: PROTOCOL.md (frozen at `aac1b282`, amendments A1-A5). Method: METHOD.md. Every number is a model output;
+Protocol: PROTOCOL.md (frozen at `aac1b282`, amendments A1-A7; A7 of 2026-11-20 changes the spread rate of cells burning at issue, see "A7" below). Method: METHOD.md. Every number is a model output;
 none is a field measurement of heat at a road.
 
 ## In short
@@ -17,10 +17,14 @@ none is a field measurement of heat at a road.
   window) in 170. Most of the shift
   in both comes from the 375 m cell rule (the front is placed at a neighbouring cell's near edge), not from radiation
   physics.
-* **The finals packets (1 h) change only through an artefact.** 22 of 425 place-inputs lose their leave-now window under the
-  new method (old law: 0). All 22 come from cells inside the known fire area at issue, whose flat arrival field gives
-  the capped 150 m/min spread rate and hence a crown flame. With those cells silent (exploratory) 1 time moves and
-  none is lost.
+* **The finals packets (1 h): the artefact is mostly removed by A7, not entirely.** Before A7, 22 of 425 place-inputs lost
+  their leave-now window under the new method at 4.7 kW/m2 (old law: 0), all from known-fire cells whose flat arrival
+  field took the 150 m/min cap. After A7 (flat known-fire cells take the spread rate of the nearest real-gradient
+  cells) **2 of 425 are lost** (1 at 7, 2 at 2.5) and 4 times change (was 24). **12 of the 20 recovered windows come
+  from inputs in which no cell has a real gradient, so those cells get no flame at all (the rule's fallback), not from a
+  rescaled flame**; 8 come from the donor rule. On the replay (panel A) A7 changes **3 of 1,134 leave-by times at 7
+  kW/m2 and none at 4.7 or 2.5**: there the nearest real-gradient cells are themselves at the cap (41 % of the cells).
+  See "A7" below for both tables.
 * **Uncertainty**: over flame temperature 1090-1400 K, fuel low-high and four view factors the safe distance of a
   crown-fire cell spans 60-301 m (baseline 133 m), a surface-fire cell 7-29 m (12 m). Flame temperature matters most.
 * **Checks**: Butler and Cohen's 4 H rule reproduced at 3.5 H (their 20 m front; Zárate et al. 3.8 H; Rossi et al.'s
@@ -28,7 +32,114 @@ none is a field measurement of heat at a road.
   burner); ICFME crown flames within a factor 1.7. The gate passed and the method is the road layer's `--heat`
   option, **left off by default** (section "Road layer").
 
-## The table
+## A7: cells burning at issue, before and after (2026-11-20)
+
+PROTOCOL.md A7 (written before the rerun; the earlier results had been seen). **Problem:** a cell inside the known fire
+at issue (arrival 0) has a flat arrival field, so section 3 gave it the 150 m/min cap and a ~50 m crown flame.
+**Rule (one, no residence time):** such a cell takes the median spread rate of the 3 nearest cells with a real arrival
+gradient (kcf_radiation/ros.py `rate_of_spread_with_source`); with no such cell in the input it gets no flame. The
+burned-out-after-a-residence-time alternative was rejected because the age of the burn is not in the inputs (packets:
+`known_burned` = "burned with unknown age"; replay rasters: 0 for every disc cell). Everything else is unchanged.
+
+**Reproduction check (stated in advance).** The data folder "wildfire 3 (1)" and the environment rasters were not
+reachable (DATA.md), so the rerun reads fuel group, wind and RH per road cell from the committed per-road-cell tables and
+recovers air temperature from the recorded d*. Run with the old rule, the same script reproduces every main row of the
+table below that was in RESULTS.md (panel A: 7,471 / 7,512 / 7,532 road cells, 330 / 337 / 342 times changed, 12 / 12 /
+14 lost; panel B: 414 / 439 / 626 unreached cells, 24 / 24 / 28 changed, 22 / 22 / 25 lost; old law rows identical) and
+the spread rate of every road cell (0 mismatches). The temperature fit leaves a d* residual above 0.05 m on 1,880 of
+27,759 panel A and 36 of 3,422 panel B road-cell rows; this did not change any count of the old rows.
+
+Old rule → new rule, same columns as "The table" (settings rows: see below):
+
+**Panel A, Gyeongbuk replay** (1134 place-inputs with a leave-now window). Old rule = flat known-fire cells at the 150 m/min cap; new rule = nearest real-gradient spread rate (A7). Same columns as RESULTS.md.
+
+| heat rule | road cells closed earlier (old → new) | unreached cells partly closed (old → new) | leave-by times changed (old → new) | windows lost (old → new) | shift median/max, min (old → new) | vs old law (old → new) |
+|---|---|---|---|---|---|---|
+| old law, 7 | 7644 → 7644 | 156 → 156 | 349 → 349 | 5 → 5 | 2.1/20.3 → 2.1/20.3 | - → - |
+| old law, 4.7 | 7644 → 7644 | 166 → 166 | 350 → 350 | 7 → 7 | 3.1/27.9 → 3.1/27.9 | - → - |
+| old law, 2.5 | 7644 → 7644 | 173 → 173 | 352 → 352 | 19 → 19 | 5.9/72.5 → 5.9/72.5 | - → - |
+| baseline, 7 | 7471 → 7471 | 145 → 145 | 330 → 330 | 12 → 9 | 2.7/26.8 → 2.7/26.8 | 347 (165 later) → 347 (168 later) |
+| baseline, 4.7 | 7512 → 7512 | 155 → 155 | 337 → 337 | 12 → 12 | 3.7/28.1 → 3.7/28.1 | 344 (174 later) → 344 (174 later) |
+| baseline, 2.5 | 7532 → 7532 | 175 → 175 | 342 → 342 | 14 → 14 | 6.5/42.3 → 6.5/42.3 | 334 (163 later) → 334 (163 later) |
+
+**Panel B, 15 finals packets** (425 place-inputs with a leave-now window). Old rule = flat known-fire cells at the 150 m/min cap; new rule = nearest real-gradient spread rate (A7). Same columns as RESULTS.md.
+
+| heat rule | road cells closed earlier (old → new) | unreached cells partly closed (old → new) | leave-by times changed (old → new) | windows lost (old → new) | shift median/max, min (old → new) | vs old law (old → new) |
+|---|---|---|---|---|---|---|
+| old law, 7 | 20 → 20 | 326 → 326 | 2 → 2 | 0 → 0 | 2.2/2.2 → 2.2/2.2 | - → - |
+| old law, 4.7 | 20 → 20 | 331 → 331 | 2 → 2 | 0 → 0 | 3.2/3.2 → 3.2/3.2 | - → - |
+| old law, 2.5 | 20 → 20 | 347 → 347 | 3 → 3 | 1 → 1 | 6.0/6.0 → 6.0/6.0 | - → - |
+| baseline, 7 | 20 → 20 | 414 → 276 | 24 → 3 | 22 → 1 | 1.4/2.2 → 1.4/2.2 | 24 (1 later) → 3 (1 later) |
+| baseline, 4.7 | 20 → 20 | 439 → 279 | 24 → 4 | 22 → 2 | 1.9/3.2 → 1.9/3.2 | 24 (1 later) → 4 (1 later) |
+| baseline, 2.5 | 20 → 20 | 626 → 313 | 28 → 5 | 25 → 2 | 5.7/22.2 → 5.7/22.2 | 27 (2 later) → 4 (2 later) |
+
+What the fix did to the spread rate of road cells inside the known fire (cell-hours; `data/panels_a7/A7_fix_log.json`):
+
+| panel | known-fire road cell-hours | flat gradient, rate from donors | no donor: no flame | rate of donor cells median (10-90 %) m/min | donor rate at the 150 cap | crown |
+|---|---:|---:|---:|---|---:|---:|
+| A | 20,115 | 19,422 | 0 | 138 (82-150) | 7,874 (41 %) | 10,251 |
+| B | 3,402 | 2,601 | 787 (6 of 15 packets: Hongseong ×3, Miryang ×2, Yeongdeok 26 Mar 17:00 KST) | 13.7 (10.9-80.9) | 60 | 1,428 |
+
+Every leave-by time that differs between the rules at the three thresholds (67 in all; the whole list with seconds is
+`data/panels_a7/A7_leave_by_changes.csv`). "no window → X s" = the old rule left no leave-now window, the new rule
+leaves a window ending X s after issue. All 67 are windows recovered by the fix; none got later or earlier:
+
+| panel | region | issue (KST) | place | id | 7 kW/m2 old → new | 4.7 old → new | 2.5 old → new |
+|---|---|---|---|---|---|---|---|
+| A | uiseong_andong_2025 | 25 Mar 12:00 |  | osm:way/1372113459 | no window → 411 s | same | same |
+| A | uiseong_andong_2025 | 25 Mar 13:00 |  | osm:way/1372113459 | no window → 411 s | same | same |
+| A | uiseong_andong_2025 | 25 Mar 14:00 |  | osm:way/1372113459 | no window → 415 s | same | same |
+| B | hongseong_2023 | 02 Apr 16:00 | 상황리 | osm:node/415159033 | no window → 2952 s | no window → 2952 s | no window → 2952 s |
+| B | hongseong_2023 | 02 Apr 16:00 | 거차리 | osm:node/415159034 | no window → 2996 s | no window → 2996 s | no window → 2996 s |
+| B | hongseong_2023 | 02 Apr 23:00 | 상황리 | osm:node/415159033 | no window → 2952 s | no window → 2952 s | no window → 2952 s |
+| B | hongseong_2023 | 02 Apr 23:00 | 거차리 | osm:node/415159034 | no window → 2996 s | no window → 2996 s | no window → 2996 s |
+| B | hongseong_2023 | 03 Apr 08:00 | 상황리 | osm:node/415159033 | no window → 2952 s | no window → 2952 s | no window → 2952 s |
+| B | hongseong_2023 | 03 Apr 08:00 | 거차리 | osm:node/415159034 | no window → 2996 s | no window → 2996 s | no window → 2996 s |
+| B | miryang_2022 | 01 Jun 11:00 | 무연리 | osm:node/415150771 | no window → 3207 s | no window → 3207 s | no window → 3207 s |
+| B | miryang_2022 | 01 Jun 11:00 | 춘화리 | osm:node/415150789 | no window → 3239 s | no window → 3239 s | no window → 3239 s |
+| B | miryang_2022 | 01 Jun 11:00 | 용지리 | osm:node/415150790 | same | same | no window → 3317 s |
+| B | miryang_2022 | 01 Jun 17:00 | 무연리 | osm:node/415150771 | no window → 3207 s | no window → 3207 s | no window → 3207 s |
+| B | miryang_2022 | 01 Jun 17:00 | 춘화리 | osm:node/415150789 | no window → 3239 s | no window → 3239 s | no window → 3239 s |
+| B | miryang_2022 | 01 Jun 17:00 | 용지리 | osm:node/415150790 | same | same | no window → 3317 s |
+| B | uiseong_andong_2025 | 24 Mar 18:00 | 금학리 | osm:node/415160343 | no window → 2969 s | no window → 2969 s | no window → 2969 s |
+| B | uiseong_andong_2025 | 24 Mar 18:00 | 입암리 | osm:node/415160345 | no window → 3330 s | no window → 3330 s | no window → 3330 s |
+| B | uiseong_andong_2025 | 26 Mar 02:00 | 망호리 | osm:node/415160466 | no window → 3041 s | no window → 3041 s | no window → 3041 s |
+| B | uljin_2022 | 04 Mar 15:00 | 하당리 | osm:node/415155401 | no window → 3374 s | no window → 3374 s | no window → 3374 s |
+| B | uljin_2022 | 04 Mar 15:00 | 소곡리 | osm:node/415155416 | no window → 3412 s | same | same |
+| B | yeongdeok_2025 | 26 Mar 04:00 | 남산리 | osm:node/415160164 | no window → 3039 s | no window → 3039 s | no window → 3039 s |
+| B | yeongdeok_2025 | 26 Mar 04:00 | 대탄리 | osm:node/415160205 | no window → 3301 s | no window → 3301 s | no window → 3301 s |
+| B | yeongdeok_2025 | 26 Mar 08:00 | 남산리 | osm:node/415160164 | no window → 3039 s | no window → 3039 s | no window → 3039 s |
+| B | yeongdeok_2025 | 26 Mar 08:00 | 대탄리 | osm:node/415160205 | no window → 3301 s | no window → 3301 s | no window → 3301 s |
+| B | yeongdeok_2025 | 26 Mar 08:00 | 송천리 | osm:node/415160314 | same | same | no window → 3228 s |
+| B | yeongdeok_2025 | 26 Mar 17:00 | 남산리 | osm:node/415160164 | no window → 3039 s | no window → 3039 s | no window → 3039 s |
+| B | yeongdeok_2025 | 26 Mar 17:00 | 대탄리 | osm:node/415160205 | no window → 3301 s | no window → 3301 s | no window → 3301 s |
+
+**What did not improve.**
+
+* **Panel A is not changed at 4.7 or 2.5 kW/m2, and 12 windows are still lost at 4.7.** The replay field puts the first
+  cell outside a detection disc a few minutes after issue, so the donors' own spread rate is the cap (41 % of the
+  donor-rated cells; median 138 m/min) and the fix replaces the cap by the cap. The "silent" exploratory row (A6) loses 8.
+* **Panel B still loses 2 windows at 4.7 (1 at 7, 2 at 2.5)**, both in Uljin 4 Mar 15:00 KST (소곡리 and the node
+  415155415 at 4.7), from known-fire cells that now have a donor rate of 13-19 m/min but still a crown flame with d* of
+  65-138 m. The A6 silent row loses none, so these come from radiation of known-fire cells that the rule keeps; I did
+  not trace them further.
+* **The part of the panel B gain that is not physics:** 12 of the 20 recovered windows (4.7 kW/m2) are in the 6 packets
+  where no cell has a real gradient within the 1 h horizon, so the rule's fallback (no rate, no flame) applies and the
+  known fire does not radiate at all. That is the A6 "silent" result for those packets, not a spread-rate estimate; a
+  different fallback would give a different count.
+* The rule keeps radiating from burned-out interior cells (conservative). Cells that are really out are not turned
+  off; no residence time is used.
+* **Sensitivity rows** (fuel low / high, 1090 / 1400 K, view factors, no transmissivity) were not rerun after A7: they
+  are 8 settings × 41 inputs of routing (hours on 4 cores) and are left as in the pre-A7 table below, which is marked.
+  Their panel B rows contain the artefact.
+
+**Test.** `tests/test_known_fire.py`: fails if any known-fire cell with a flat or undefined gradient has the default-cap
+provenance; a synthetic block checks the donor rates (15-30 m/min, not 150), cells outside the known fire keep the cap,
+no donor gives no rate; and the two committed replay rasters (always) and all 15 finals packets (set
+`WFG_ROUTING_INPUTS` to the fetched `data/routing`) are checked. 17 passed, 2 skipped in the default run (the packets case, and the existing closure test that needs
+`data/routing`); 18 passed, 1 skipped with `WFG_ROUTING_INPUTS` set. The product suite (heat, vendoring) passes: 20 passed, 1 skipped. The old function still returns the cap (test of the artefact).
+
+## The table, before A7 (as run for PR #228; panel B rows contain the artefact, the A7 section above has the corrected main rows)
 
 Leave-by changes against no heat, per heat rule and threshold q* (kW/m2). Panel A: Gyeongbuk replay, 13 issue
 hours 12:00-24:00 KST x 2 regions, 8 h horizon; 27,759 road cell-hours, of which 20,115 are inside the known fire at
@@ -132,10 +243,9 @@ Every burned 375 m cell of the KFS arrival reconstructions at its arrival hour, 
   either law). That shift is set by the cell size and the reach curve, not by the radiation model. The radiation
   model decides only the in-cell lead (new: d*/R, median 2.4 min at 4.7; old: T* = 3.1 min at 4.7, independent of R)
   and how far the halo reaches (new: tens to hundreds of metres; old: 11-33 m).
-* Panel B, the 22 lost windows: every one is caused by cells inside the known fire area at issue (arrival 0, a flat
-  field, so R = the 150 m/min cap and a crown flame of ~50 m). Their d* of ~290 m closes nearby road pieces at second 0.
-  The protocol fixed this conservative reading in advance; the exploratory row shows it is the whole effect. Whether a
-  long-burning area still radiates like an advancing crown front is doubtful, and the old law had no such term.
+* Panel B, the 22 lost windows (before A7): every one was caused by cells inside the known fire area at issue (arrival
+  0, a flat field, so R = the 150 m/min cap and a crown flame of ~50 m), with d* of ~290 m closing nearby road pieces at
+  second 0. A7 replaces the cap there (2 lost windows remain; see "A7").
 
 ## Road layer (step 4)
 
@@ -148,11 +258,12 @@ to before (golden tests; only the verifier script's own hash changed). The old l
 
 **Default: off.** The protocol says off unless it changes answers. It does change answers (337 of 1,134 replay
 leave-by times at 4.7 kW/m2), but the changes are driven by the 375 m cell rule (the old law, with a halo of 11-33 m,
-changes as many) and, in the packets, entirely by the capped spread rate of the known fire area. Switching it on by
-default would ship those two artefacts as if they were radiation physics. It stays available for a
-heat-margin view. Two fixes would make a default-on worth testing: an arrival grid finer than 375 m, and a rule for
-the burned-out interior (for example, no radiation from cells that burned more than the flaming residence time before
-issue). Neither is a published method; both would be new protocol work.
+changes as many) and, in the packets before A7, almost entirely by the capped spread rate of the known fire area. After
+A7 the cap is gone from the known fire (the `--heat` path of the road layer uses the same rule, vendored byte for byte),
+but 12 of the 20 packet windows it recovered come from a no-data fallback, 2 windows are still lost, and on the replay
+the effect of the fix is nil at 4.7 kW/m2. **The default stays off**: the 375 m cell rule still sets most of the timing
+change, and a rule for the burned-out interior needs the age of the burn, which the inputs do not hold. An arrival grid
+finer than 375 m would also be needed. Both would be new protocol work.
 
 ## Limits
 
@@ -163,10 +274,12 @@ issue). Neither is a published method; both would be new protocol work.
   sets most of the timing change.
 * **Radiation only.** No convection (Zárate et al. add 20 % to distances for it), no flame contact beyond the cell
   rule, no embers or spot fires, no smoke.
-* **Spread rate** read from interpolated (KFS) or screening (replay) arrival fields, capped at 150 m/min; flat fields
-  inside the known fire area get the cap.
+* **Spread rate** read from interpolated (KFS) or screening (replay) arrival fields, capped at 150 m/min. Since A7, flat
+  fields inside the known fire area take the rate of the nearest real-gradient cells (no cap), or no flame where the
+  input has none; flat cells outside the known fire keep the cap.
 * **Weather**: one ECMWF wind per hour at ~9 km, no gusts; slope not used.
 * **Thresholds** are for people outside a vehicle (firefighters in clothing, emergency workers, skin); none is
   validated for vehicle occupants.
-* **Data**: the folder named in the brief could not be reached; inputs come from an earlier release of the same
-  workspace (DATA.md).
+* **Data**: the folder named in the brief could not be reached (again on 2026-11-20: no computer attached, and the Drive
+  connector available here cannot read files); inputs come from an earlier release of the same workspace (DATA.md). The A7
+  rerun uses per-road-cell fuel, wind and RH from the committed tables and a recovered air temperature (see "A7").

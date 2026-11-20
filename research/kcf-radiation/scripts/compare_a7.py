@@ -67,6 +67,8 @@ def main():
         new = json.load(gzip.open(f, "rt"))
         old = json.load(gzip.open(out / "old" / f.name, "rt"))
         for v in new["leave"]:
+            if not v.startswith("baseline"):
+                continue   # settings rows only exist when every input was routed with them (--no-sens off)
             for oid, nr in new["leave"][v].items():
                 orr = old["leave"][v].get(oid)
                 totals[(new["panel"], v)] += 0
@@ -83,6 +85,30 @@ def main():
                                            "new_rule_leave_by_s", "delta_min"])
         w.writeheader()
         w.writerows(changes)
+    # grouped table: one row per input and origin, the three thresholds side by side; the settings rows listed after
+    root = HERE.parents[2]
+    names = {}
+    for rid in {c["region"] for c in changes}:
+        for ft in json.loads((root / "planner/public/data/regions" / rid / "places.geojson").read_text(encoding="utf-8"))["features"]:
+            names[(rid, ft["properties"]["id"])] = ft["properties"].get("name") or ""
+    from datetime import datetime, timedelta
+    def kst(s_):
+        return (datetime.strptime(s_, "%Y-%m-%dT%H:%MZ") + timedelta(hours=9)).strftime("%d %b %H:%M")
+    def f(x):
+        return "no window" if x is None else "%d s" % x
+    grp = defaultdict(dict)
+    for c in changes:
+        grp[(c["panel"], c["region"], c["issue_utc"], c["origin"])][c["variant"]] = c
+    lines = ["| panel | region | issue (KST) | place | id | 7 kW/m2 old → new | 4.7 old → new | 2.5 old → new |",
+             "|---|---|---|---|---|---|---|---|"]
+    for (panel, rid, iss, oid), vs in sorted(grp.items()):
+        def col(v):
+            c = vs.get(v)
+            return "same" if c is None else "%s → %s" % (f(c["old_rule_leave_by_s"] if c["old_rule_leave_by_s"] != "" else None),
+                                                       f(c["new_rule_leave_by_s"] if c["new_rule_leave_by_s"] != "" else None))
+        lines.append("| %s | %s | %s | %s | %s | %s | %s | %s |" % (
+            panel, rid, kst(iss), names.get((rid, oid), ""), oid, col("baseline_7"), col("baseline_4.7"), col("baseline_2.5")))
+    (out / "A7_leave_by_changes.md").write_text("\n".join(lines) + "\n")
     per = defaultdict(int)
     for c in changes:
         per[(c["panel"], c["variant"])] += 1

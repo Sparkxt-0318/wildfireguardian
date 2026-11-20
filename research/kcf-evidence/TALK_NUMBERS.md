@@ -196,9 +196,9 @@ Files: `research/kcf-validate/RESULTS.md` (table rows 1, 1a–1d), `numbers.json
 
 ## 14. Radiant heat by published methods (kcf-radiation), replaces the kcf-heat law
 
-Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/panels/exploratory_front_only.json`,
+Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/panels/exploratory_front_only.json`, `data/panels_a7/summary_{old,new}.json`, `data/panels_a7/A7_leave_by_changes.csv`,
 `data/fires/fires_summary.json`, `data/c1_butler_cohen.json`, `data/c2_fds.json`, `data/c3_flames.json`,
-`data/c4_sensitivity.json`. Hash `3f5b915` (protocol frozen at `aac1b28`). Model output; no measured flux at a road.
+`data/c4_sensitivity.json`. Hash `3f5b915` (protocol frozen at `aac1b28`); rows marked A7 from the rerun of 2026-11-20 (PROTOCOL A7). Model output; no measured flux at a road.
 
 | item | value | n | source | does not show |
 |---|---|---|---|---|
@@ -209,9 +209,10 @@ Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/pa
 | Butler-Cohen "4 x flame height" | reproduced at **3.5 H** (20 m front); long front **8.3 L** (Rossi: 8 L) | H = 1-10 m | `c1_butler_cohen.json` | that 4 H is safe for a long front: it is not |
 | Against FDS (C064 grass fire) | **19-115x above** FDS radiometers; 1.2-1.7x a resolved propane burner | 9 distance bins; 3 gauges | `c2_fds.json` | which is right: model-to-model only |
 | Crown flame length vs ICFME observations | within a factor **1.7** on all 11 plots (observed fronts 25-40 m) | 11 plots | `c3_flames.json` | flux; surface-fire flames run high (safe side) |
-| Replay leave-by times moved, 4.7 kW/m2 | **337 of 1,134** (median 3.7 min, max 28 min), 12 lose the window; old law 350 (7 lost) | 1,134 place-hours | `summary.json` (`A.variants.baseline_4.7`) | physics: most of the shift is the 375 m cell rule, as for the old law |
-| Finals packets, lost leave-now windows, 4.7 kW/m2 | **22 of 425**; old law 0; with known-fire cells silent (exploratory) **0** | 425 place-inputs | `summary.json`, `exploratory_front_only.json` | a real effect: all 22 come from the capped spread rate inside the known fire |
-| Road layer heat option | `--heat`, **off by default**; certificates still verify with it on | 2 worked examples | `product/wfg-roadlayer/README.md` | a validated default: it would ship the two artefacts above |
+| Replay leave-by times moved, 4.7 kW/m2 (unchanged by A7) | **337 of 1,134** (median 3.7 min, max 28 min), 12 lose the window; old law 350 (7 lost) | 1,134 place-hours | `summary.json` (`A.variants.baseline_4.7`) | physics: most of the shift is the 375 m cell rule, as for the old law |
+| Finals packets, lost leave-now windows, 4.7 kW/m2, before and after A7 (2026-11-20) | **22 of 425 → 2 of 425** (7 kW/m2: 22 → 1; 2.5: 25 → 2); times changed 24 → 4; old law 0 | 425 place-inputs | `panels_a7/summary_{old,new}.json` | that the artefact is gone: 12 of the 20 recovered windows come from 6 packets with no real-gradient cell, where the known fire gets no flame at all; 2 windows still lost |
+| Effect of A7 on the replay | **3 of 1,134** leave-by times at 7 kW/m2 (12 → 9 lost); **none** at 4.7 and 2.5 | 1,134 place-hours | `panels_a7/summary_{old,new}.json` | an improvement on the replay: 41 % of the known-fire cells take donor rates that are themselves at the 150 m/min cap |
+| Road layer heat option | `--heat`, **off by default**; certificates still verify with it on; uses the A7 rule | 2 worked examples | `product/wfg-roadlayer/README.md` | a validated default: the 375 m cell rule still sets most of the timing change |
 
 ## 15. Robust routing (kcf-robust): does the margin field improve an outcome? Twin primary, 25 Mar 2025 secondary
 
