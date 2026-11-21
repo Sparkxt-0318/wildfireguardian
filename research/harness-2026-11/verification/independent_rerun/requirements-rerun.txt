@@ -1,0 +1,15 @@
+# Independent part-a rerun: the refit pins (s-d1/refit/requirements-refit.txt, checked by check_refit_env.py)
+# plus the two readers the label builder needs. Install:
+#   python3.12 -m venv V && V/bin/pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+#   V/bin/pip install -r requirements-rerun.txt
+affine==3.0.1
+numpy==1.26.4
+pandas==2.2.3
+pyproj==3.7.0
+pyshp==2.3.1
+rasterio==1.4.3
+scikit-learn==1.5.2
+scipy==1.13.1
+shapely==2.0.6
+pyogrio==0.10.0
+geopandas==1.0.1
