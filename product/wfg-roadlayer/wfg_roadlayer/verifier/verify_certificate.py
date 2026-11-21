@@ -208,29 +208,43 @@ class Inst:
         waiting at head(s); G_j = A_j u R_j with A_j = acc for edges into the shelter. Worklist until nothing grows."""
         key = (shelter, tuple(acc))
         if key not in self._cache:
+            # semi-naive evaluation: only the pieces newly added to G_j are pushed to the predecessors of j; R and G only
+            # grow, so the result is the same least fixed point as re-evaluating the whole right-hand side.
             H, E = self.H, len(self.D)
-            A = {j: list(acc) for j in self.inc.get(shelter, [])}
+            A = {j: _norm(acc) for j in self.inc.get(shelter, [])}
             R = [[] for _ in range(E)]
             G = [A.get(j, []) for j in range(E)]
-            work = [j for j in range(E) if G[j]]
-            while work:
-                j = work.pop()
-                cand = _minus(_clip(_shift(G[j], -self.D[j]), 0, H), self.B.get(j, []))
+            pending = {j: list(G[j]) for j in range(E) if G[j]}
+            heap = [(-G[j][-1][1], j) for j in pending]
+            heapq.heapify(heap)
+            while heap:
+                _, j = heapq.heappop(heap)
+                delta = pending.pop(j, None)
+                if not delta:
+                    continue
+                cand = _minus(_clip(_shift(_norm(delta), -self.D[j]), 0, H), self.B.get(j, []))
                 if not cand:
                     continue
                 for s in self.inc.get(self.tail[j], []):
                     if (s, j) in self.forbidden:
                         continue
-                    new = _norm(R[s] + cand)
+                    add = _minus(cand, R[s])
+                    if not add:
+                        continue
+                    new = _norm(R[s] + add)
                     v = self.head[s]
                     if v in self.waitable:
                         new = _wait_close(new, self.W.get(v, []))
-                    if new != R[s]:
-                        R[s] = new
-                        g = _norm(A.get(s, []) + new)
-                        if g != G[s]:
-                            G[s] = g
-                            work.append(s)
+                    grown = _minus(new, R[s])
+                    R[s] = new
+                    dg = _minus(grown, G[s])
+                    if dg:
+                        G[s] = _norm(G[s] + dg)
+                        if s in pending:
+                            pending[s] = pending[s] + dg
+                        else:
+                            pending[s] = dg
+                        heapq.heappush(heap, (-dg[-1][1], s))
             self._cache[key] = G
         G = self._cache[key]
         X = []

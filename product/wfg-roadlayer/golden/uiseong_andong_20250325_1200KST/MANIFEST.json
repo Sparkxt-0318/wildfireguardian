@@ -10,7 +10,7 @@
  "files_sha256": {
   "certificates/README.md": "1b6a8487ba0955137ce9f7beaabe935794a6ccb0d1883e5ef1bb1499049775b8",
   "certificates/checker.py": "2ad850ec1ddfe8335b3289d2afc120fce375db659341e1394e0faac0277c49c3",
-  "certificates/verify_certificate.py": "efd9051f35ad53f5ec3ea6a5c55d40516792659ae86da9605b19cd99d2c3bf2a",
+  "certificates/verify_certificate.py": "fa359fea7a9ce6857d00d4f7961f1d91ebf97272d7f9a71fc9a3083b188e33d3",
   "certificates/villages/osm_node_415158323.json": "46840144e6a5c09054a3c8848fd2476f7bcc12e0f222da9ed133f19c3103cde5",
   "certificates/villages/osm_node_415158324.json": "65d34594cb8712dd94fc6081dacbe43d3643b361242f013cbd4c1df6009dfcef",
   "certificates/villages/osm_node_415158334.json": "1483415db6ba0967d523973051389091f9b75b15840017155714d3775b37ecbf",

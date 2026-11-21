@@ -204,7 +204,47 @@ def run(n_cases):
     return dict(c), first_fail
 
 
+def verifier_cases(n_cases):
+    """The product verifier's own fixed point of equation (E) (verify_certificate.Inst.feasible, written without the
+    tool) against the brute-force feasible_set, on the same random instances."""
+    import gzip, importlib.util, tempfile
+    spec = importlib.util.spec_from_file_location("verify_certificate", REPO / "product/wfg-roadlayer/wfg_roadlayer/verifier/verify_certificate.py")
+    V = importlib.util.module_from_spec(spec); spec.loader.exec_module(V)
+    c = Counter()
+    with tempfile.TemporaryDirectory() as td:
+        for seed in range(n_cases):
+            road, H, close_s, open_s, sn, dwell = gen(random.Random("reopen-%d" % seed))
+            inst = engine.build_instance(road, close_s, H, open_s)
+            acc = engine.accept(road, close_s, sn, H, dwell, open_s=open_s)
+            doc = {"H": H, "dwell_s": dwell, "n_nodes": len(road.node_ids), "edges": [[a, b, d] for a, b, d in zip(road.tail, road.head, road.D)],
+                   "waitable": [v for v in range(len(road.node_ids)) if road.waitable[v]], "forbidden": [list(p) for p in sorted(road.forbidden)],
+                   "B": {str(j): [list(p) for p in b] for j, b in enumerate(inst.B) if b}, "W": {str(v): [list(p) for p in w] for v, w in enumerate(inst.W) if w},
+                   "cell_closure_s": {str(k): v for k, v in close_s.items()}, "cell_reopen_s": {str(k): v for k, v in open_s.items()},
+                   "node_cell": road.node_cell, "segments": [[[cc, str(z)] for cc, z in segs] for segs in road.seg]}
+            path = Path(td) / ("i%d.json.gz" % seed)
+            path.write_bytes(gzip.compress(json.dumps(doc).encode()))
+            vi = V.Inst(path)
+            chk = {"H": H, "n_nodes": len(road.node_ids), "edges": doc["edges"], "waitable": doc["waitable"], "forbidden": doc["forbidden"],
+                   "B": {j: [list(p) for p in b] for j, b in enumerate(inst.B)}, "W": {v: [list(p) for p in w] for v, w in enumerate(inst.W)},
+                   "A": {j: [list(p) for p in acc] for j in road.inc_by_node.get(sn, [])}, "AN": {}}
+            for o in range(len(road.node_ids)):
+                if o == sn:
+                    continue
+                ib = engine.origin_closure(road, close_s, o, H, open_s=open_s)
+                chk["IB"] = {o: [list(p) for p in ib]}
+                got = iv.to_set(vi.feasible(o, sn, [tuple(x) for x in acc], [tuple(x) for x in ib]))
+                c["origins"] += 1
+                c["mismatch"] += got != set(checker.feasible_set(checker.Model(chk), o))
+    return dict(c)
+
+
 class ReopenRouting(unittest.TestCase):
+    def test_verifier_fixed_point(self):
+        c = verifier_cases(min(N, 3000))
+        (HERE / "results").mkdir(exist_ok=True)
+        (HERE / "results/verifier_fixed_point.json").write_text(json.dumps(c, indent=1, sort_keys=True))
+        self.assertEqual(c["mismatch"], 0, c)
+
     def test_property(self):
         c, first = run(N)
         res = {"cases": c, "first_failure": first, "n_requested": N}

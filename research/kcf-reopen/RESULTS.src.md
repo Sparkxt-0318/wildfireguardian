@@ -3,7 +3,7 @@
 **Model output on inputs rebuilt from public observations and on reconstructions, scored against other observations.
 Not what happened to people. No claim about what any responder or official should have done.**
 
-Rules frozen first: [PROTOCOL.md](PROTOCOL.md) (commit `cbf460ae`, before any reopening number), amendment 1 logged
+Rules frozen first: [PROTOCOL.md](PROTOCOL.md) (commit `cbf460ae`, before any reopening number), amendments 1–2 logged
 during the run. **Not a first look:** the Camp Fire workbook, its 195 blocked-road and 23 passable reports, the 23
 burnovers and the two movements were all scored in `research/kcf-camp`, and its results were read before this protocol.
 Every table below is generated from `out/` by `make_tables.py`; `make_results.py` inserts them here.
@@ -41,12 +41,15 @@ Every table below is generated from `out/` by `make_tables.py`; `make_results.py
    difference (TIME-ROBUST −5 [−10, 0], REACH-ROBUST −4 [−9, 0], FORECAST-AWARE −1 [−6, +3]): **the same answer as
    kcf-robust**.
    **Gyeongbuk replay (step 7):** for responders **162 of 174 places** (1,141 of 2,262 place-issues) gain a later
-   window, 1,063 of them a departure where the permanent rule had none (their cells burned on 22–24 March and are burned
-   over by 25 March); none of the new routes drives a loop. **For residents: 0**, because no official reopening message
-   covers a cell on a village route.
+   window, 1,063 of them a departure where the permanent rule had none (their cells were reached by fire at least 4 h
+   before the issue time, per the detection record, and are burned
+   over by the issue time); none of the new routes drives a loop. **For residents: 0.** The official reopening messages
+   confirm 4 expressway cells in Uiseong–Andong at every issue hour (0 in Yeongdeok), and none of them changes a
+   village's window.
 8. **Product:** the rule is in `product/wfg-roadlayer` as `--reopen` (off by default; `responders` or `confirmed`),
    with a verifier that re-derives the windowed masks and recomputes every departure set from equation (E); with
-   reopening on, the 84 Uiseong–Andong certificates <<YD_CERTS>> pass, and a certificate claiming one extra second fails.
+   reopening on, all 174 certificates of the worked example (84 Uiseong–Andong, 90 Yeongdeok) pass, and a certificate
+   claiming one extra second fails. The verifier's fixed point itself matches brute force on 10,411 random origins.
 
 ## Step 1: burn-out time
 
@@ -85,8 +88,11 @@ report or a vehicle-unit `REOPENED` event confirms it after A + τ. A cell with 
   `research/kcf-theorem/checker.py` for all 20,872 origins (1,169 of them with a gap between windows), and all **16,273**
   witnesses pass `check_route`. **0 failures** (`results/routing_property.json`, `test_reopen_routing.py`).
 * Camp graph: all 36 witnesses of Test 4.1 pass `check_route`.
-* Product certificates: see point 8 of the answer. The verifier now handles windows by its own interval fixed point of
-  equation (E) (THEOREM.md §2), not by Theorem 2, which needs permanent closures.
+* Product certificates: with `--reopen responders` all 174 certificates of the worked example verify (84 + 90). The
+  verifier now handles windows by its own interval fixed point of equation (E) (THEOREM.md §2), not by Theorem 2,
+  which needs permanent closures; on 3,000 of the random instances that fixed point equals the brute-force feasible set
+  for all 10,411 origins (`results/verifier_fixed_point.json`). The product tests pass (98 passed, 3 skipped before the
+  verifier speed-up; golden, certificate and reopening tests rerun after it: 25 passed).
 * **A modelling artifact found here:** the road graphs have no waitable nodes, so the only way to wait for a road or a
   shelter to reopen is to keep driving. With reopening the field counts such looping journeys as feasible (correctly,
   under the model), and the earliest-arrival witness search can then take hours of (edge, second) states. The engine
@@ -167,7 +173,7 @@ Reading.
   more; kcf-robust's replay pointed the same way with permanent closures.
 * **Step 7, later windows.** For responders the window rule opens 162 of the 174 places at some issue hour, mostly by
   turning "cut at the issue time" into "a departure exists" (1,063 of 1,141 place-issues): the village's own cell and
-  roads burned 1–3 days earlier. The median gain in latest departure is 470 min, i.e. up to the end of the 8 h
+  roads were inside the detected fire area at least τ before the issue time. The median gain in latest departure is 470 min, i.e. up to the end of the 8 h
   horizon. For residents nothing changes. These counts assume τ = 240 min also holds in Korean forest, and that a
   burned-over road is clear; neither is tested here.
 
