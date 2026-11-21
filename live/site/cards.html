@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" data-issue="2026-11-21T14:38:00Z" data-stale-min="75"><head><meta charset="utf-8">
+<html lang="ko" data-issue="2026-11-21T15:07:00Z" data-stale-min="75"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>마을 대피 카드 찾기 (시연) · Village card lookup (demonstration)</title>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--mut:#5d5b55;--line:#d9d6cf;--card:#ffffff;--warn:#8a1c00;--warnbg:#fff1ea;--ok:#245c2a;--okbg:#eef7ee;--hl:#fff7d6;--acc:#0b5394}
@@ -34,7 +34,7 @@ o.innerHTML=r.map(function(p){return '<div class="box"><b>'+esc(p.name||'(이름
 ' · 정리 시간 clearance: '+esc(p.clearance_min)+' min ('+esc(p.narrowest_road_class)+')'+
 (p.page?'<br><a href="demo/'+esc(p.pdf_ko)+'#page='+p.page+'">카드 PDF (2025-03-25 재현)</a> · <a href="demo/'+esc(p.pdf_en)+'#page='+p.page+'">card PDF (2025-03-25 replay)</a>':'<br>'+esc(p.refusal||''))+'</div>'}).join('')||'<p>없음 / none</p>'}
 q.addEventListener('input',show);show();</script>
-<p class="small mut"><span class="ko">발표(실행) 시각</span><span class="en">Issue (run) time</span>: 2026-11-21 23:38 KST · <span class="ko">페이지 나이</span><span class="en">page age</span>: <span class="age-min"></span> <span class="ko">분</span><span class="en">min</span> ·
+<p class="small mut"><span class="ko">발표(실행) 시각</span><span class="en">Issue (run) time</span>: 2026-11-22 00:07 KST · <span class="ko">페이지 나이</span><span class="en">page age</span>: <span class="age-min"></span> <span class="ko">분</span><span class="en">min</span> ·
 <span class="ko">도로 자료: OpenStreetMap 2025-03-21 스냅샷 (그 뒤 생긴 도로·통제는 모름)</span><span class="en">Road data: OpenStreetMap snapshot of 2025-03-21 (later roads and closures unknown)</span> ·
 <a href="https://github.com/Sparkxt-0318/wildfireguardian/blob/Main/live/PROTOCOL.md">PROTOCOL</a> · <a href="data/latest.json">record JSON</a></p>
 <p class="small mut">모델 출력 · 참고용 · 공식 명령 아님. 당국의 안내에 따르십시오. 공식 사용을 주장하지 않습니다. Model output, advisory, not an official order; follow instructions from authorities. No official use is claimed.</p>
