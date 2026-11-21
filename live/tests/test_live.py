@@ -29,8 +29,20 @@ GOLDEN = LIVE / "tests/golden/kfs01_20250325T0900Z.record.json"
 VOLATILE = ("settings_sha256", "protocol_sha256")
 
 
+OPTIONAL_TOP = ("cause_feed",)          # fields added after the first logged records (amendment 2); old records lack them
+OPTIONAL_FIRE = ("cause", "cause_history")
+
+
+def strip_optional(rec):
+    """The record as it was before the optional cause fields existed (backward-compatibility check)."""
+    r = {k: v for k, v in rec.items() if k not in OPTIONAL_TOP}
+    r["fires"] = [{k: v for k, v in F.items() if k not in OPTIONAL_FIRE} for F in rec.get("fires", [])]
+    r["listed"] = [{k: v for k, v in F.items() if k != "cause"} for F in rec.get("listed", [])]
+    return r
+
+
 def canon(rec):
-    r = {k: v for k, v in rec.items() if k not in REPLAY_DROP + VOLATILE}
+    r = {k: v for k, v in strip_optional(rec).items() if k not in REPLAY_DROP + VOLATILE}
     return json.loads(json.dumps(r, ensure_ascii=False, sort_keys=True, default=str))
 
 

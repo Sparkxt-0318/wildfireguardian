@@ -118,3 +118,10 @@ from `live/log/inputs/gfs/` into the folder first).
 
 Actions → "live — 30-min relay" → "Disable workflow", then the same for "live — Korean fire service". The site keeps its last version, whose numbers readers'
 browsers hide after 75 min. Add a line to the status page only through a commit to `live/` (the pages are generated).
+
+## 5. A new Forest Service field appears (cause)
+
+Every record lists `cause_feed.unknown_keys`. If a key such as a cause, cause status or ignition count shows up there,
+the feed has started to carry it: check what it means on the page itself, then name it in `config/live.toml [cause]`
+(`feed_cause_keys`, `feed_status_keys`, `feed_points_keys`, `status_words`) as a PROTOCOL amendment. Do not map a coded
+field whose meaning is not published (`frfrOccrrTpcd`, `frfrOccrrStcd` are such). Until then every fire shows "not reported".

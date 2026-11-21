@@ -7,7 +7,7 @@ import math
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from . import area, common as C, fetch, flags, road
+from . import area, cause, common as C, fetch, flags, road
 
 REASONS = {
     "KFS_MISSING": ("산불 목록을 이번 실행에서 받지 못함", "fire list not fetched in this run"),
@@ -43,7 +43,8 @@ def single_exit_places() -> list:
     return out
 
 
-def compute(inputs: Path, work: Path, replay: bool = False, with_cards: bool = True) -> dict:
+def compute(inputs: Path, work: Path, replay: bool = False, with_cards: bool = True, cause_state: dict | None = None) -> dict:
+    """`cause_state` (the log's state["cause"]) is updated in place when given; without it no cause change can be seen."""
     cfg = C.settings()
     man = json.loads((inputs / "manifest.json").read_text(encoding="utf-8"))
     T = C.parse_iso(man["issue_utc"])
@@ -68,9 +69,13 @@ def compute(inputs: Path, work: Path, replay: bool = False, with_cards: bool = T
     ahi = area.ahi_hotspots(inputs, man)
     rec["detections"] = {"firms_kept": len(firms_kept), "firms_all": len(firms_all), "ahi_hotspots": len(ahi)}
 
+    rec["cause_feed"] = {"unknown_keys": cause.unknown_keys(fires), "note": "reported cause only; never inferred (PROTOCOL amendment 2)"}
     for f in fires or []:
         sc = fetch.in_scope(cfg, f)
-        rec["listed"].append({"id": str(f.get("frfrInfoId")), "status_code": f.get("frfrPrgrsStcd"), "status": f.get("frfrPrgrsStcdNm"),
+        cb = cause.extract(cfg, f, C.iso(fetch.report_utc(f)))
+        if cause_state is not None:
+            cause.track(cause_state, str(f.get("frfrInfoId")), cb, rec["issue_utc"])
+        rec["listed"].append({"cause": cb, "id": str(f.get("frfrInfoId")), "status_code": f.get("frfrPrgrsStcd"), "status": f.get("frfrPrgrsStcdNm"),
                               "address": f.get("frfrSttmnAddr"), "lgdng_cd": f.get("lgdngCd"), "step": f.get("frfrStepIssuNm"),
                               "contained_pct": f.get("frfrPotfrRt"), "report_utc": C.iso(fetch.report_utc(f)),
                               "lat": _num(f.get("frfrLctnYcrd")), "lon": _num(f.get("frfrLctnXcrd")), "in_scope": sc})
@@ -81,7 +86,8 @@ def compute(inputs: Path, work: Path, replay: bool = False, with_cards: bool = T
         if not L["in_scope"]:
             continue
         F = {"id": L["id"], "address": L["address"], "report_utc": L["report_utc"], "point": {"lat": L["lat"], "lon": L["lon"]},
-             "withheld": []}
+             "withheld": [], "cause": L["cause"],
+             "cause_history": cause.history_for(cfg, L["address"], L["report_utc"])}
         if L["lat"] is None or L["lon"] is None or L["report_utc"] is None:
             F["withheld"].append("NO_LOCATION")
             rec["fires"].append(F)
