@@ -256,3 +256,16 @@ Files: `research/kcf-robust/RESULTS.md`, `PROTOCOL.md`, `out/twin_scores.json`, 
 8. Adding the spot layer to the fixed margin held **1 of 12 hours** on 25 March 09–20 KST, the same as the margin alone (`derived/tests.json`).
 9. The layer explained **0 of 258** held-out misses that kcf-adaptive4 left unexplained; even removing every observed spot cell would explain only 13 (5%) (`tests.json`).
 10. On 25 March the fire's hot area grew by up to **12.7 km in one hour**, with every new patch within 2 km of cells lit that hour: at satellite scale the run was a fast front, not detached jumps (`kcf-spot/RESULTS.md`, point 4).
+
+## Camp Fire road states, burnovers and movements (research/kcf-camp)
+
+1. NIST's Camp Fire workbook: **2,264 unique reports** (575 cross-sheet copies removed); a blind second reader agreed with the first on 83.7% of 652 road rows (**kappa 0.72**); **202 road-closed, 24 passable** (`kcf-camp/RESULTS.md`, Data).
+2. Scored at the reports, not against one rebuilt field: each road report is held out with every fire report within **500 m and 60 min** (812 of 1,596 removed) (`kcf-camp/PROTOCOL.md`).
+3. The closure rule on reports alone closed the road by the reported time at **37 of 195** road-closed reports (**19%**, 95% CI 14–25%); 97 never closed (`kcf-camp/numbers.json`).
+4. With the frozen spread margin R(h): **170 of 195 (87%, 82–91%)**, a median **119 min early** (95% CI 92–157) (`numbers.json`).
+5. The same margin had **22 of 23 roads closed that crews were seen driving** (96%, 79–99%); 19 of those reports describe driving through fire, 3 an open road (`kcf-camp/RESULTS.md`, Test 1).
+6. By 12:00 the margin had **36%** of the study area's 2,121 road cells (Paradise, Concow, Magalia) closed, against 8% with no margin (post hoc context, `out/context_closed_share_posthoc.json`).
+7. Burnovers (NIST TN 2252 Table 30, all **23 placed**): **16 of 23 (70%, 49–84%)** closed or inside the 30-min margin 30 min before they began with the margin; **9 of 23** with none (`numbers.json`).
+8. The margin left 7 open 30 min ahead: the first burnovers in Concow and east Paradise (07:50–08:30), when there were too few earlier reports to grow from, plus Edgewood Ln and Clark Rd at Airport Rd (`kcf-camp/RESULTS.md`, Test 2).
+9. Neither documented movement is feasible in the deadline field under any variant: the Fire Station 82 cell had fire from 11:02 (convoy left ~12:00), the Firland Dr cell from 09:01 (engines left 13:58) (`out/test3_movements.json`).
+10. What it means: closures that never reopen cannot represent "burned over, now passable"; one fire, firefighter reports, not residents; the CAL FIRE AVL CSV (281 apparatus) would test hundreds of real trips (`kcf-camp/RESULTS.md`, limits).
