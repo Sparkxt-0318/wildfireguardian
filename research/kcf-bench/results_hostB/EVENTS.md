@@ -11,3 +11,7 @@
   After this boot the fixed CPU probe was noisy for the whole 3 minutes it was watched (22 readings, 0.059 to 0.143 s, median
   about 0.078 s) instead of settling at 0.073-0.076 s: a busy neighbour on the shared host is likely. The run was restarted
   anyway; tasks whose probe_before_s or probe_after_s is high are to be flagged in the analysis.
+* 21 Nov 2026 ~04:25 UTC: the session worker was restarted during an active wait (exit 137), restart 12 overall and the second
+  while the session was kept active, so the cause is not only idling. Same machine class (2.10 GHz, kernel v726; uptime 0 min at
+  04:28:05). The driver was killed during `margin1 | YD 03-25 19Z | repeat 3` (a FIELD/MARGIN task, which writes no partial
+  result and is re-run whole). No OLD block was in progress. About 5 minutes were lost.
