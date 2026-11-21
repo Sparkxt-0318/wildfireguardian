@@ -43,3 +43,10 @@
   processes do not). Background jobs therefore do not survive an idle turn. **Mitigation from now on:** the session is kept
   active with foreground waiting commands (each at most 10 minutes) instead of ending turns while the benchmark runs. Restarts
   so far (all idle-related): about 13:28, 14:38, 15:35, 15:48, 16:22, 16:47, 17:15, 17:20, 17:33, 17:45 UTC.
+* 19 Nov 2026 ~23:25 UTC: the session worker was restarted (exit 137 of a waiting command) and the benchmark came back on a
+  DIFFERENT machine class: Intel Xeon 2.10 GHz, kernel 6.18.44-fc-v726 (CPU probe 0.073-0.076 s), against Intel Xeon 2.30 GHz,
+  kernel 6.18.44-fc-v653 (probe 0.063 s) for everything in this folder. See plan amendment A3. The driver was killed during
+  `old_warm | YD 03-25 23Z | repeat 1` after 45 requests; that partial block belongs to the 2.30 GHz class and stays in the
+  work folder, unused unless the 2.30 GHz machine returns. This folder (`results/`) holds the 2.30 GHz class only:
+  repeat 1 is complete for UA 03-23, UA 03-24, UA 03-25 and YD 03-25 19Z, and partly done for YD 03-25 23Z. The 2.10 GHz
+  class starts afresh in `results_hostB/` (repeat 1 again).

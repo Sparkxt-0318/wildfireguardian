@@ -190,3 +190,13 @@ deleted before the benchmark starts; the benchmark itself starts from an empty `
   `results/machine.json` were updated; the original hashes are kept there as `harness_sha256_at_start`. Blocks that
   straddle a restart are reported as such in `BENCH.md`, with per-request times shown separately before and after the
   restart.
+* **A3, 19 Nov 2026 ~23:30 UTC, after two machine classes were observed.** The session was restarted at about 23:25 UTC
+  and came back on a different machine: Intel Xeon 2.10 GHz, kernel 6.18.44-fc-v726, with the fixed CPU probe reading
+  about 0.073 to 0.076 s against 0.063 s on the machine used so far (Intel Xeon 2.30 GHz, kernel 6.18.44-fc-v653). The
+  rule "one machine" is made operational as follows. A **machine class** is the pair (CPU model string, kernel release).
+  Each class gets its own self-contained results folder (the 2.30 GHz data stay in `results/`; the 2.10 GHz data go to
+  `results_hostB/`), with its own ledger, answers, `machine.json` and five-repeat schedule. Timings from different classes
+  are never pooled or compared in a ratio. The headline of `BENCH.md` uses one class only, the one that completes five
+  repeats of every task; data from another class are reported as a supplementary single-class check and labelled as such. A
+  partial OLD block from one class is never resumed on another (the work folders are separate). No rule of sections 1 to 9
+  changes.
