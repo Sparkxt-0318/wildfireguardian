@@ -200,3 +200,15 @@ firefighter vehicles are not residents; τ is estimated and scored on the same f
    that covers the official closure time, and its end. The pre-registered "latest A_c + τ over the section" counts fire
    that reached the section after a closure had already ended; the secondary column does not. Both are reported; the
    primary is unchanged.
+2. **2026-11-21, during steps 6–7; Camp and Korea results had been computed, steps 6–7 had not been scored.**
+   (i) kcf-robust's m\* and r\* are taken from its published `out/*_calibration.json` and not recalibrated with windows
+   (recalibration needs its permanent-closure level curves, `reachpass.py`, which do not apply to windows). (ii) With
+   reopening and no waitable nodes a route may drive loops until a road or shelter reopens; the earliest-arrival witness
+   search can then run for hours. The product engine caps it (`engine.witness_for`, 2,000,000 states; research harness
+   300,000) and falls back to the field's greedy witness (valid, not necessarily earliest); routes that repeat a road
+   piece and greedy witnesses are counted in step 7. Permanent-closure runs never reach the cap (golden outputs
+   unchanged). (iii) With windows a place's L is the end of its last feasible window; the kcf-robust scores use that L,
+   unchanged in definition. (iv) Product, residents' `confirmed` mode: a confirmation counts only when the cell's burn-out
+   time A + τ is at or before the confirmation, which needs a known arrival before the issue time (an optional central
+   arrival raster with negative minutes); with the input raster alone (age unknown, A = 0) nothing is confirmed. This
+   keeps the residents' default as conservative as before.

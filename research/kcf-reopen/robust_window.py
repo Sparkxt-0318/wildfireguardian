@@ -18,6 +18,7 @@ out/*_calibration.json, not recalibrated: amendment 2). New here:
     shelter) mu(0) against the slack L0 (end of the window that starts at 0)."""
 from __future__ import annotations
 
+import gzip
 import importlib.util
 import json
 import math
@@ -239,7 +240,7 @@ def replay(out, only_rid=None, hours=None):
             if hours and T.hour not in hours:
                 continue
             fp = out / "replay" / ("%s_%s.json" % (rid, T.strftime("%H")))
-            if fp.exists():
+            if fp.exists() or fp.with_suffix(".json.gz").exists():
                 continue
             X = RPL.inputs(discs, T)
             m_tr = RPL.recon_minutes(T)
@@ -271,7 +272,7 @@ def twin(work, out, seeds=None):
         if seeds is not None and seed not in seeds:
             continue
         fp = out / "twin" / ("s%d_h%d.json" % (seed, h))
-        if fp.exists():
+        if fp.exists() or fp.with_suffix(".json.gz").exists():
             continue
         X = TW.inputs(work, seed, h, sch)
         T = X["T"]
@@ -290,12 +291,13 @@ def score(out):
     out = Path(out)
     res = {}
     for kind in ("twin", "replay"):
-        files = sorted((out / kind).glob("*.json"))
+        files = sorted((out / kind).glob("*.json")) + sorted((out / kind).glob("*.json.gz"))
         if not files:
             continue
         rows_w, rows_p, later, margin = [], [], [], {"a_perm": [], "a": []}
         for fp in files:
-            R = json.loads(fp.read_text())
+            tag = fp.name.split(".")[0]
+            R = json.loads(gzip.decompress(fp.read_bytes()) if fp.suffix == ".gz" else fp.read_text())
             rid = R["rid"]
             origins = {o["id"]: o["node"] for o in lib.region(rid).origins}
             truth_w = {"close_s": R["close_s"]["truth"], "rules": R["rules"]["truth"]}
@@ -304,27 +306,28 @@ def score(out):
             orig = SC.Truth
             SC.Truth = lambda rid_, close_s_, tr=tr: tr
             try:
-                rows_w += SC.place_rows(rid, truth_w, {k: R["rules"][k] for k in "abcde"}, origins, fp.stem,
-                                        {"cluster": fp.stem.split("_h")[0] if kind == "twin" else fp.stem[:-3], "issue": fp.stem})
+                rows_w += SC.place_rows(rid, truth_w, {k: R["rules"][k] for k in "abcde"}, origins, tag,
+                                        {"cluster": tag.split("_h")[0] if kind == "twin" else tag[:-3], "issue": tag})
             finally:
                 SC.Truth = orig
             # current rule permanent vs permanent truth (reproduction of kcf-robust's a)
             rows_p += SC.place_rows(rid, {"close_s": R["close_s"]["truth_perm"], "rules": R["rules"]["truth_perm"]}, {"a": R["rules"]["a_perm"]},
-                                    origins, fp.stem, {"cluster": fp.stem})
+                                    origins, tag, {"cluster": tag})
             # step 7: later windows
             for pid, p in R["rules"]["a_perm"].items():
                 if p["refused"]:
                     continue
                 Lp = p["L"]
-                row = {"case": fp.stem, "place": pid, "L_perm": Lp}
+                row = {"case": tag, "place": pid, "L_perm": Lp}
                 for k in ("a", "a_res"):
                     if k in R["rules"]:
                         w = R["rules"][k][pid]
                         row["L_" + k] = w["L"]; row["windows_" + k] = len(w.get("windows", []))
+                        row["loop_" + k] = bool(w.get("loop")); row["greedy_" + k] = w.get("earliest") is False
                         row["later_" + k] = w["L"] > Lp
                 later.append(row)
             for k in margin:
-                margin[k] += [[fp.stem] + x for x in R.get("margin", {}).get(k, [])]
+                margin[k] += [[tag] + x for x in R.get("margin", {}).get(k, [])]
         summ = {k: SC.summary(rows_w, k) for k in "abcde"}
         boot = SC.bootstrap(rows_w, "abcde", "cluster")
         perm_a = SC.summary(rows_p, "a")
@@ -335,6 +338,8 @@ def score(out):
                           "places_with_later_window": len({r["place"] for r in later if r["later_" + k]}),
                           "place_issues_with_more_than_one_window": sum(r["windows_" + k] > 1 for r in later),
                           "place_issues_gaining_any_departure": sum(r["L_perm"] < 0 <= r["L_" + k] for r in later),
+                          "later_window_route_loops": sum(r["later_" + k] and r["loop_" + k] for r in later),
+                          "later_window_witness_not_earliest": sum(r["later_" + k] and r["greedy_" + k] for r in later),
                           "median_gain_min": float(np.median([(r["L_" + k] - r["L_perm"]) / 60 for r in later if r["later_" + k]])) if any(r["later_" + k] for r in later) else None}
         mg = {}
         for k, xs in margin.items():

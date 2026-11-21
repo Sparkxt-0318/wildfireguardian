@@ -169,3 +169,48 @@ Cross-fit (each half scored with the other half's τ, {'west': 225, 'east': 240}
 
 Fire-disc record ends 03-26 02:58 KST; fire that first reached a cell later is not in the discs.
 
+### Step 6: kcf-robust's comparison with responder windows, twin (24 cases)
+
+| rule | failed evacuations / advised | missed cut-offs / true cut | false cut-offs / true not cut | lead time given up, median (min) | failed − CURRENT (95% CI) | lead given up − CURRENT, median (95% CI) |
+|---|---|---|---|---|---|---|
+| a. CURRENT | 5 / 204 | 34 / 92 | 154 / 2068 | 100.3 | — | — |
+| b. TIME-ROBUST | 0 / 0 | 54 / 92 | 52 / 2068 | -47.0 | -5 [-10, +0] | [-234, -36] |
+| c. REACH-ROBUST | 1 / 30 | 39 / 92 | 79 / 2068 | 202.7 | -4 [-9, +0] | [-30, +149] |
+| d. FASTEST | 6 / 18 | 88 / 92 | 9 / 2068 | -122.7 | +1 [-8, +10] | [-299, -161] |
+| e. FORECAST-AWARE | 4 / 121 | 42 / 92 | 81 / 2068 | 37.2 | -1 [-6, +3] | [-106, -0] |
+
+CURRENT with permanent closures against the permanent truth (reproduction check): failed 5 / 210, missed 12 / 221, false 146 / 1939.
+
+Margin field vs plain slack at departure 0 (per place and shelter, feasible at 0):
+
+| closures | pairs | margin = slack | margin = horizon cap | differ | margin below slack | largest difference (s) |
+|---|---|---|---|---|---|---|
+| permanent | 5995 | 403 | 5353 | 239 | 0 | 423 |
+| responder windows | 6268 | 413 | 5576 | 279 | 40 | 16687 |
+
+Step 7, later windows (rule CURRENT): 2160 place-issues (90 places).
+* responders: 146 place-issues gain a later window (54 places); 8 place-issues with more than one window; 138 gain a departure where there was none; median gain 476 min; the route at the new latest departure repeats a road piece (drives a loop) in 0, and is the greedy (not earliest) witness in 0.
+
+### Step 6: kcf-robust's comparison with responder windows, replay (26 cases)
+
+| rule | failed evacuations / advised | missed cut-offs / true cut | false cut-offs / true not cut | lead time given up, median (min) | failed − CURRENT (95% CI) | lead given up − CURRENT, median (95% CI) |
+|---|---|---|---|---|---|---|
+| a. CURRENT | 143 / 308 | 327 / 339 | 355 / 1923 | -149.2 | — | — |
+| b. TIME-ROBUST | 0 / 0 | 338 / 339 | 736 / 1923 | -156.7 | -143 [-156, -130] | [-8, -7] |
+| c. REACH-ROBUST | 40 / 83 | 327 / 339 | 281 / 1923 | -150.0 | -103 [-110, -96] | [-3, +0] |
+| d. FASTEST | 17 / 48 | 338 / 339 | 60 / 1923 | -156.7 | -126 [-138, -114] | [-8, -7] |
+| e. FORECAST-AWARE | 240 / 439 | 317 / 339 | 487 / 1923 | -126.1 | +97 [+82, +112] | [+7, +79] |
+
+CURRENT with permanent closures against the permanent truth (reproduction check): failed 184 / 349, missed 719 / 1887, false 126 / 375.
+
+Margin field vs plain slack at departure 0 (per place and shelter, feasible at 0):
+
+| closures | pairs | margin = slack | margin = horizon cap | differ | margin below slack | largest difference (s) |
+|---|---|---|---|---|---|---|
+| permanent | 3275 | 580 | 2324 | 371 | 0 | 657 |
+| responder windows | 5062 | 670 | 3561 | 831 | 422 | 26337 |
+
+Step 7, later windows (rule CURRENT): 2262 place-issues (174 places).
+* responders: 1141 place-issues gain a later window (162 places); 76 place-issues with more than one window; 1063 gain a departure where there was none; median gain 470 min; the route at the new latest departure repeats a road piece (drives a loop) in 0, and is the greedy (not earliest) witness in 0.
+* residents (confirmed only): 0 place-issues gain a later window (0 places); 0 place-issues with more than one window; 0 gain a departure where there was none; median gain n/a min; the route at the new latest departure repeats a road piece (drives a loop) in 0, and is the greedy (not earliest) witness in 0.
+

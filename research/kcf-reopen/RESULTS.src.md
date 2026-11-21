@@ -33,7 +33,17 @@ Every table below is generated from `out/` by `make_tables.py`; `make_results.py
    after in 2); in the other 6 the model had the section open when it was closed. 중앙선 의성~예천 stayed without traffic
    until 28 March, three days after the fire passed it. Expressway reopening followed an official decision that waited
    for the whole fire, not the burn-out of the road cells.
-7. **Steps 6–7** <<STEP67_ANSWER>>
+7. **Margin field (step 6): with reopening it now differs from plain slack, and the kcf-robust verdict does not
+   change.** With permanent closures the margin field is never below the slack (0 of 5,995 twin and 3,275 replay pairs);
+   with responder windows it is below the slack for **40 of 6,268** twin and **422 of 5,062** replay place–shelter
+   pairs, by up to 4.6 h and 7.3 h: a departure that looks hours from its leave-by can rest on a road that reopens just
+   in time. On the twin (primary), no rule has fewer failed evacuations than CURRENT with an interval that excludes no
+   difference (TIME-ROBUST −5 [−10, 0], REACH-ROBUST −4 [−9, 0], FORECAST-AWARE −1 [−6, +3]): **the same answer as
+   kcf-robust**.
+   **Gyeongbuk replay (step 7):** for responders **162 of 174 places** (1,141 of 2,262 place-issues) gain a later
+   window, 1,063 of them a departure where the permanent rule had none (their cells burned on 22–24 March and are burned
+   over by 25 March); none of the new routes drives a loop. **For residents: 0**, because no official reopening message
+   covers a cell on a village route.
 8. **Product:** the rule is in `product/wfg-roadlayer` as `--reopen` (off by default; `responders` or `confirmed`),
    with a verifier that re-derives the windowed masks and recomputes every departure set from equation (E); with
    reopening on, the 84 Uiseong–Andong certificates <<YD_CERTS>> pass, and a certificate claiming one extra second fails.
@@ -131,7 +141,36 @@ primary differences. The model's τ is a burn-out time; the official reopening w
 
 ## Steps 6 and 7: margin field, kcf-robust, the Gyeongbuk replay
 
-<<STEP67>>
+**Inputs.** kcf-robust's rasters and rules, unchanged; arrival for reopening: the first detection disc covering the
+cell when it is inside the known area at the issue time, else the central forecast F50, else none; truth: the
+simulator's arrival (twin) or the detection record (replay) with the same τ. m\*, r\* are kcf-robust's published
+calibrations, not recalibrated (amendment 2). Reproduction: CURRENT with permanent closures against the permanent
+truth gives kcf-robust's published numbers exactly (twin 5 / 210 failed, 12 / 221 missed, 146 / 1,939 false; replay
+756 Uiseong place-issue rows identical and the 26-case totals 184 / 349, 719 / 1,887, 126 / 375).
+
+<<T:Step 6: kcf-robust's comparison with responder windows, twin>>
+
+<<T:Step 6: kcf-robust's comparison with responder windows, replay>>
+
+Reading.
+
+* **Margin field vs slack.** With permanent closures the margin at departure 0 is never below the slack (as kcf-robust
+  found: there it equals the time left to the leave-by, or the horizon cap). With responder windows it is below the
+  slack in 40 twin and 422 replay pairs. Those are departures whose route passes a cell just as it reopens: the plain
+  slack says "you have hours", the margin says "a closure-timing error of seconds to minutes breaks it". **So the
+  margin field now gives a different answer from plain slack**, for 0.6 % (twin) and 8 % (replay) of the pairs.
+* **The kcf-robust comparison, responder setting.** Windows change the truth too (true cut-offs fall from 221 to 92 on
+  the twin, because truth roads reopen), so missed and false cut-offs move for every rule. Failed evacuations do not
+  separate: on the twin (primary) TIME-ROBUST still advises nothing, REACH-ROBUST and FORECAST-AWARE are within the
+  bootstrap interval of CURRENT. **The verdict of kcf-robust is unchanged.** On the replay (reconstructed truth,
+  secondary) REACH-ROBUST and FASTEST fail fewer evacuations than CURRENT at no more lead given up, and FORECAST-AWARE
+  more; kcf-robust's replay pointed the same way with permanent closures.
+* **Step 7, later windows.** For responders the window rule opens 162 of the 174 places at some issue hour, mostly by
+  turning "cut at the issue time" into "a departure exists" (1,063 of 1,141 place-issues): the village's own cell and
+  roads burned 1–3 days earlier. The median gain in latest departure is 470 min, i.e. up to the end of the 8 h
+  horizon. For residents nothing changes. These counts assume τ = 240 min also holds in Korean forest, and that a
+  burned-over road is clear; neither is tested here.
+
 
 ## Limits
 

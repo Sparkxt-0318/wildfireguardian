@@ -105,14 +105,15 @@ if R.exists():
             continue
         w = W[kind]
         print("### Step 6: kcf-robust's comparison with responder windows, %s (%d cases)\n" % (kind, w["cases"]))
-        print("| rule | failed evacuations / advised | missed cut-offs / true cut | false cut-offs / true not cut | lead time given up, median (min) | failed − CURRENT (95% CI) |")
-        print("|---|---|---|---|---|---|")
+        print("| rule | failed evacuations / advised | missed cut-offs / true cut | false cut-offs / true not cut | lead time given up, median (min) | failed − CURRENT (95% CI) | lead given up − CURRENT, median (95% CI) |")
+        print("|---|---|---|---|---|---|---|")
         for k in "abcde":
             s = w["summary_window"][k]
             bt = w["bootstrap_window"]["diff_vs_a"].get(k)
-            print("| %s. %s | %d / %d | %d / %d | %d / %d | %s | %s |" % (k, NM[k], s["failed"], s["advised"], s["missed"], s["true_cut"], s["false"], s["true_not_cut"],
+            print("| %s. %s | %d / %d | %d / %d | %d / %d | %s | %s | %s |" % (k, NM[k], s["failed"], s["advised"], s["missed"], s["true_cut"], s["false"], s["true_not_cut"],
                                                                  "%.1f" % s["lead_median_min"] if s["lead_median_min"] is not None else "n/a",
-                                                                 ("%+d [%+d, %+d]" % (bt["failed_diff_point"], bt["failed_diff_ci95"][0], bt["failed_diff_ci95"][1])) if bt else "—"))
+                                                                 ("%+d [%+d, %+d]" % (bt["failed_diff_point"], bt["failed_diff_ci95"][0], bt["failed_diff_ci95"][1])) if bt else "—",
+                                                                 ("[%+.0f, %+.0f]" % tuple(bt["lead_median_diff_ci95"])) if bt else "—"))
         p = w["a_perm_vs_perm_truth"]
         print("\nCURRENT with permanent closures against the permanent truth (reproduction check): failed %d / %d, missed %d / %d, false %d / %d.\n" % (
             p["failed"], p["advised"], p["missed"], p["true_cut"], p["false"], p["true_not_cut"]))
@@ -127,7 +128,8 @@ if R.exists():
         for k, lab in (("a", "responders"), ("a_res", "residents (confirmed only)")):
             if k in lw:
                 x = lw[k]
-                print("* %s: %d place-issues gain a later window (%d places); %d place-issues with more than one window; %d gain a departure where there was none; median gain %s min." % (
+                print("* %s: %d place-issues gain a later window (%d places); %d place-issues with more than one window; %d gain a departure where there was none; median gain %s min; the route at the new latest departure repeats a road piece (drives a loop) in %d, and is the greedy (not earliest) witness in %d." % (
                     lab, x["place_issues_with_later_window"], x["places_with_later_window"], x["place_issues_with_more_than_one_window"],
-                    x["place_issues_gaining_any_departure"], "%.0f" % x["median_gain_min"] if x["median_gain_min"] is not None else "n/a"))
+                    x["place_issues_gaining_any_departure"], "%.0f" % x["median_gain_min"] if x["median_gain_min"] is not None else "n/a",
+                    x.get("later_window_route_loops", 0), x.get("later_window_witness_not_earliest", 0)))
         print()
