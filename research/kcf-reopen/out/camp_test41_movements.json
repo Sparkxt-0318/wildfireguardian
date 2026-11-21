@@ -1,0 +1,2168 @@
+{
+ "horizon_s": 7200,
+ "dwell_s": 120,
+ "cases": [
+  {
+   "movement": "a",
+   "issue": "12:00",
+   "documented_roads": [
+    "Pearson Road",
+    "Clark Road"
+   ],
+   "variants": {
+    "M0_perm": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_w105": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 50,
+     "burned_over_at_issue": 115,
+     "origin_window_s": [
+      [
+       0,
+       2819
+      ]
+     ],
+     "issue_set_s": [
+      [
+       2820,
+       6952
+      ]
+     ],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": 2820,
+     "latest_departure_s": 6952,
+     "route_at_latest": {
+      "length_m": 1585,
+      "share_on_documented": 0.761,
+      "share_incl_osm_alias": 0.761,
+      "road_sequence": [
+       "Middle Libby Road",
+       "Pearson Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "route_at_earliest": {
+      "length_m": 19561,
+      "share_on_documented": 0.068,
+      "share_incl_osm_alias": 0.068,
+      "road_sequence": [
+       "Newland Road",
+       "Angel Drive",
+       "Heavenly Place",
+       "Angel Drive",
+       "Pearson Road",
+       "Newland Road",
+       "Nunneley Road",
+       "Copeland Road",
+       "Elliott Road",
+       "Skyway",
+       "Foster Road",
+       "Birch Street",
+       "Black Olive Drive",
+       "Pearson Road",
+       "Sierra Park Drive",
+       "Highland Lane",
+       "Scottwood Road",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Clark Road",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "Clark Road",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Recreation Drive",
+       "Pearson Road"
+      ],
+      "arrival_s": 5050,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M0_w240": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 85,
+     "burned_over_at_issue": 27,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_w465": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_res240": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_nbr240": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 85,
+     "burned_over_at_issue": 52,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_perm": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_w105": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 50,
+     "burned_over_at_issue": 115,
+     "origin_window_s": [
+      [
+       0,
+       2819
+      ]
+     ],
+     "issue_set_s": [
+      [
+       2820,
+       6952
+      ]
+     ],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": 2820,
+     "latest_departure_s": 6952,
+     "route_at_latest": {
+      "length_m": 1585,
+      "share_on_documented": 0.761,
+      "share_incl_osm_alias": 0.761,
+      "road_sequence": [
+       "Middle Libby Road",
+       "Pearson Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "route_at_earliest": {
+      "length_m": 19561,
+      "share_on_documented": 0.068,
+      "share_incl_osm_alias": 0.068,
+      "road_sequence": [
+       "Newland Road",
+       "Angel Drive",
+       "Heavenly Place",
+       "Angel Drive",
+       "Pearson Road",
+       "Newland Road",
+       "Nunneley Road",
+       "Copeland Road",
+       "Elliott Road",
+       "Skyway",
+       "Foster Road",
+       "Birch Street",
+       "Black Olive Drive",
+       "Pearson Road",
+       "Sierra Park Drive",
+       "Highland Lane",
+       "Scottwood Road",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Clark Road",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "(unnamed)",
+       "Community Way",
+       "Cowell Lane",
+       "Village Parkway",
+       "Clark Road",
+       "Buschmann Road",
+       "Del Monte Avenue",
+       "Bella Vista Avenue",
+       "Paloma Avenue",
+       "Buschmann Road",
+       "Recreation Drive",
+       "Pearson Road"
+      ],
+      "arrival_s": 5050,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M30_w240": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 85,
+     "burned_over_at_issue": 27,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_w465": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_res240": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_nbr240": {
+     "closed_cells": 165,
+     "reopening_cells_within_H": 85,
+     "burned_over_at_issue": 52,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_perm": {
+     "closed_cells": 657,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w105": {
+     "closed_cells": 657,
+     "reopening_cells_within_H": 50,
+     "burned_over_at_issue": 115,
+     "origin_window_s": [
+      [
+       0,
+       2819
+      ]
+     ],
+     "issue_set_s": [
+      [
+       2820,
+       6875
+      ]
+     ],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": 2820,
+     "latest_departure_s": 6875,
+     "route_at_latest": {
+      "length_m": 2406,
+      "share_on_documented": 0.169,
+      "share_incl_osm_alias": 0.169,
+      "road_sequence": [
+       "Middle Libby Road",
+       "Nunneley Road",
+       "Clark Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "route_at_earliest": {
+      "length_m": 19152,
+      "share_on_documented": 0.125,
+      "share_incl_osm_alias": 0.125,
+      "road_sequence": [
+       "South Libby Road",
+       "N-B Lane",
+       "T J Way",
+       "Jeannie Lane",
+       "South Libby Road",
+       "Newland Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Nunneley Road",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Nunneley Road",
+       "Clark Road"
+      ],
+      "arrival_s": 5052,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_w240": {
+     "closed_cells": 657,
+     "reopening_cells_within_H": 85,
+     "burned_over_at_issue": 27,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w465": {
+     "closed_cells": 657,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_res240": {
+     "closed_cells": 657,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_nbr240": {
+     "closed_cells": 657,
+     "reopening_cells_within_H": 153,
+     "burned_over_at_issue": 105,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_perm": {
+     "closed_cells": 891,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w105": {
+     "closed_cells": 891,
+     "reopening_cells_within_H": 50,
+     "burned_over_at_issue": 115,
+     "origin_window_s": [
+      [
+       0,
+       2819
+      ]
+     ],
+     "issue_set_s": [
+      [
+       2820,
+       6875
+      ]
+     ],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": 2820,
+     "latest_departure_s": 6875,
+     "route_at_latest": {
+      "length_m": 2406,
+      "share_on_documented": 0.169,
+      "share_incl_osm_alias": 0.169,
+      "road_sequence": [
+       "Middle Libby Road",
+       "Nunneley Road",
+       "Clark Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "route_at_earliest": {
+      "length_m": 19152,
+      "share_on_documented": 0.125,
+      "share_incl_osm_alias": 0.125,
+      "road_sequence": [
+       "South Libby Road",
+       "N-B Lane",
+       "T J Way",
+       "Jeannie Lane",
+       "South Libby Road",
+       "Newland Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Pearson Road",
+       "Middle Libby Road",
+       "Nunneley Road",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Sunny Lane",
+       "Lovely Lane",
+       "Copeland Road",
+       "Nunneley Road",
+       "Clark Road"
+      ],
+      "arrival_s": 5052,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_running_w240": {
+     "closed_cells": 891,
+     "reopening_cells_within_H": 85,
+     "burned_over_at_issue": 27,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w465": {
+     "closed_cells": 891,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_res240": {
+     "closed_cells": 891,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_nbr240": {
+     "closed_cells": 891,
+     "reopening_cells_within_H": 161,
+     "burned_over_at_issue": 97,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    }
+   }
+  },
+  {
+   "movement": "b",
+   "issue": "13:34",
+   "documented_roads": [
+    "Skyway"
+   ],
+   "variants": {
+    "M0_perm": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_w105": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 36,
+     "burned_over_at_issue": 158,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6816
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6816,
+     "route_at_issue": {
+      "length_m": 18613,
+      "share_on_documented": 0.036,
+      "share_incl_osm_alias": 0.117,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "(unnamed)",
+       "Rocky Lane",
+       "Wagstaff Road",
+       "Clark Road",
+       "Kilcrease Circle",
+       "Kristin Court",
+       "Kilcrease Circle",
+       "Clark Road",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Clark Road",
+       "Cabernet Lane",
+       "Gate Lane",
+       "Pentz Road",
+       "New Skyway"
+      ],
+      "arrival_s": 2006,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4255,
+      "share_on_documented": 0.645,
+      "share_incl_osm_alias": 1.0,
+      "road_sequence": [
+       "Skyway",
+       "New Skyway"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M0_w240": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 48,
+     "burned_over_at_issue": 102,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_w465": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 12,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_res240": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_nbr240": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 33,
+     "burned_over_at_issue": 138,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6728
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6728,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M30_perm": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_w105": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 36,
+     "burned_over_at_issue": 158,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6816
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6816,
+     "route_at_issue": {
+      "length_m": 18613,
+      "share_on_documented": 0.036,
+      "share_incl_osm_alias": 0.117,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "(unnamed)",
+       "Rocky Lane",
+       "Wagstaff Road",
+       "Clark Road",
+       "Kilcrease Circle",
+       "Kristin Court",
+       "Kilcrease Circle",
+       "Clark Road",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Olive Branch Lane",
+       "Meadowlark Lane",
+       "Oak Valley Drive",
+       "Pheasant Ridge Drive",
+       "Clark Road",
+       "Cabernet Lane",
+       "Gate Lane",
+       "Pentz Road",
+       "New Skyway"
+      ],
+      "arrival_s": 2006,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4255,
+      "share_on_documented": 0.645,
+      "share_incl_osm_alias": 1.0,
+      "road_sequence": [
+       "Skyway",
+       "New Skyway"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M30_w240": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 48,
+     "burned_over_at_issue": 102,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_w465": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 12,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_res240": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_nbr240": {
+     "closed_cells": 194,
+     "reopening_cells_within_H": 33,
+     "burned_over_at_issue": 138,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6728
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6728,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_perm": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w105": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 36,
+     "burned_over_at_issue": 158,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w240": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 48,
+     "burned_over_at_issue": 102,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w465": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 12,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_res240": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_nbr240": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 74,
+     "burned_over_at_issue": 253,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       1304
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 1304,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 1656,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_running_perm": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w105": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 36,
+     "burned_over_at_issue": 158,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w240": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 48,
+     "burned_over_at_issue": 102,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w465": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 12,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_res240": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_nbr240": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 84,
+     "burned_over_at_issue": 243,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       416
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 416,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 768,
+      "checker": "valid"
+     },
+     "pass": false
+    }
+   }
+  },
+  {
+   "movement": "b",
+   "issue": "13:58",
+   "documented_roads": [
+    "Skyway"
+   ],
+   "variants": {
+    "M0_perm": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_w105": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 27,
+     "burned_over_at_issue": 171,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6816
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6816,
+     "route_at_issue": {
+      "length_m": 7343,
+      "share_on_documented": 0.092,
+      "share_incl_osm_alias": 0.297,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "Rocky Lane",
+       "(unnamed)",
+       "Wagstaff Road",
+       "Clark Road",
+       "Cabernet Lane",
+       "Gate Lane",
+       "Pentz Road",
+       "New Skyway"
+      ],
+      "arrival_s": 566,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4255,
+      "share_on_documented": 0.645,
+      "share_incl_osm_alias": 1.0,
+      "road_sequence": [
+       "Skyway",
+       "New Skyway"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M0_w240": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 58,
+     "burned_over_at_issue": 107,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_w465": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 34,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_res240": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M0_nbr240": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 40,
+     "burned_over_at_issue": 141,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6728
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6728,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M30_perm": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_w105": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 27,
+     "burned_over_at_issue": 171,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6816
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6816,
+     "route_at_issue": {
+      "length_m": 7343,
+      "share_on_documented": 0.092,
+      "share_incl_osm_alias": 0.297,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "Rocky Lane",
+       "(unnamed)",
+       "Wagstaff Road",
+       "Clark Road",
+       "Cabernet Lane",
+       "Gate Lane",
+       "Pentz Road",
+       "New Skyway"
+      ],
+      "arrival_s": 566,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4255,
+      "share_on_documented": 0.645,
+      "share_incl_osm_alias": 1.0,
+      "road_sequence": [
+       "Skyway",
+       "New Skyway"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "M30_w240": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 58,
+     "burned_over_at_issue": 107,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_w465": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 34,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_res240": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "M30_nbr240": {
+     "closed_cells": 198,
+     "reopening_cells_within_H": 40,
+     "burned_over_at_issue": 141,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       6728
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 6728,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 7080,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_perm": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w105": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 27,
+     "burned_over_at_issue": 171,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       1231
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 1231,
+     "route_at_issue": {
+      "length_m": 7343,
+      "share_on_documented": 0.092,
+      "share_incl_osm_alias": 0.297,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "Rocky Lane",
+       "(unnamed)",
+       "Wagstaff Road",
+       "Clark Road",
+       "Cabernet Lane",
+       "Gate Lane",
+       "Pentz Road",
+       "New Skyway"
+      ],
+      "arrival_s": 566,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 6366,
+      "share_on_documented": 0.192,
+      "share_incl_osm_alias": 0.429,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "Clark Road",
+       "Skyway",
+       "New Skyway"
+      ],
+      "arrival_s": 1656,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_w240": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 58,
+     "burned_over_at_issue": 107,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_w465": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 34,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_res240": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_nbr240": {
+     "closed_cells": 723,
+     "reopening_cells_within_H": 83,
+     "burned_over_at_issue": 260,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       1304
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 1304,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 1656,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_running_perm": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w105": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 27,
+     "burned_over_at_issue": 171,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       343
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 343,
+     "route_at_issue": {
+      "length_m": 7343,
+      "share_on_documented": 0.092,
+      "share_incl_osm_alias": 0.297,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "Rocky Lane",
+       "(unnamed)",
+       "Wagstaff Road",
+       "Clark Road",
+       "Cabernet Lane",
+       "Gate Lane",
+       "Pentz Road",
+       "New Skyway"
+      ],
+      "arrival_s": 566,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 6366,
+      "share_on_documented": 0.192,
+      "share_incl_osm_alias": 0.429,
+      "road_sequence": [
+       "Skyway",
+       "Wagstaff Road",
+       "Clark Road",
+       "Skyway",
+       "New Skyway"
+      ],
+      "arrival_s": 768,
+      "checker": "valid"
+     },
+     "pass": false
+    },
+    "MR_running_w240": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 58,
+     "burned_over_at_issue": 107,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_w465": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 34,
+     "burned_over_at_issue": 0,
+     "origin_window_s": [
+      [
+       0,
+       7200
+      ]
+     ],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_res240": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 0,
+     "burned_over_at_issue": 9,
+     "origin_window_s": [],
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "earliest_feasible_departure_s": null,
+     "latest_departure_s": null,
+     "pass": false
+    },
+    "MR_running_nbr240": {
+     "closed_cells": 982,
+     "reopening_cells_within_H": 88,
+     "burned_over_at_issue": 255,
+     "origin_window_s": [],
+     "issue_set_s": [
+      [
+       0,
+       416
+      ]
+     ],
+     "feasible_at_issue": true,
+     "earliest_feasible_departure_s": 0,
+     "latest_departure_s": 416,
+     "route_at_issue": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 352,
+      "checker": "valid"
+     },
+     "route_at_latest": {
+      "length_m": 4197,
+      "share_on_documented": 0.654,
+      "share_incl_osm_alias": 0.654,
+      "road_sequence": [
+       "Skyway",
+       "Skyway Road"
+      ],
+      "arrival_s": 768,
+      "checker": "valid"
+     },
+     "pass": false
+    }
+   }
+  }
+ ],
+ "witness_checks": {
+  "witnesses": 36,
+  "invalid": 0
+ }
+}
