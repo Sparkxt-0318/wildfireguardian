@@ -1,0 +1,2 @@
+{"type": "assistant", "sessionId": "A", "timestamp": "t20", "message": {"role": "assistant", "content": [{"type": "tool_use", "id": "x", "name": "WebFetch", "input": {"url": "https://ftp.wildfire.gov/public/incident_specific_data/2026/", "prompt": "list"}}]}}
+{"type": "user", "sessionId": "A", "timestamp": "t21", "message": {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "x", "content": "Index of /public/incident_specific_data/2026/ ..."}]}}
