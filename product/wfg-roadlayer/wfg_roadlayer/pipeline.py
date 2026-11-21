@@ -82,6 +82,15 @@ def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, 
         from . import fragility as frag_mod
         t_f = time.perf_counter()
         c["fragility"] = frag_mod.compute(c, raster, HERE.parent, log=log)
+        from . import cards as cards_mod, demand  # households, residents, 65+ and buildings at risk beside each fragility row (research/kcf-buildings)
+        _hh = cards_mod.load_households(c["rid"])
+        for _r in c["rows"]:
+            _id, _h = _r["origin"]["id"], _hh.get(_r["origin"]["id"])
+            if _r["refusal"] or _id not in c["fragility"] or _h is None:
+                continue
+            _dm = demand.demo(_h)
+            c["fragility"][_id]["people"] = {"demo": _dm, "risk": demand.at_risk(c["region"].id, c["region"].road, c["close_s"], c["H"], _id,
+                                                                                _r["origin"]["node"], _dm["households"])}
         c["fragility_s"] = round(time.perf_counter() - t_f, 1)
     return _write_outputs(c, t0)
 

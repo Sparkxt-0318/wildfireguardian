@@ -25,6 +25,7 @@ PARAMS = {"LOW": LOW, "MID": MID, "HIGH": HIGH}
 for _k in ("hh", "vph", "W", "rho", "cap_other"):
     for _n, _v in (("low", LOW), ("high", HIGH)):
         PARAMS["OAT_%s_%s" % (_k, _n)] = dict(MID, **{_k: _v[_k]})
+REAL_DEMAND = os.environ.get("KQ_DEMAND") == "real"  # kcf-buildings: N_v = registered-household vehicles estimate, no hh/vph multipliers
 CERT_DIR = Path(os.environ.get("KQ_CERT_DIR", "/tmp/kq_certs"))
 _R = {}
 
@@ -73,7 +74,7 @@ def job(arg):
         L0 = ctx.L0(anynet)
         if L0 is None:
             continue
-        vill.append({"o": o, "node": node, "sh": sh, "ctx": ctx, "L0": L0, "hh": float(h["households"])})
+        vill.append({"o": o, "node": node, "sh": sh, "ctx": ctx, "L0": L0, "hh": float(h["households"]), "veh": float(h.get("vehicles") or 0)})
     # first-vehicle free-flow route at release 0 -> edge sets (neighbour definition, PROTOCOL 3.7)
     byedge = {}
     for v in vill:
@@ -89,7 +90,7 @@ def job(arg):
         p, net = PARAMS[pn], nets[pn]
         cap_vph = real.cap_table(p["cap_other"])
         for v in vill:
-            v["N"] = max(1, round(v["hh"] * p["hh"] * p["vph"]))
+            v["N"] = max(1, round(v["veh"])) if REAL_DEMAND else max(1, round(v["hh"] * p["hh"] * p["vph"]))
         lim = int(os.environ.get("KQ_LIMIT", "0")) or len(vill)
         for v in vill[:lim]:
             vid, N, W = v["o"]["id"], v["N"], p["W"]

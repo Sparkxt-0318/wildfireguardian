@@ -158,3 +158,12 @@ cd research/kcf-queue && python3 t0_free_flow.py && for s in mid lh oat; do KQ_C
 ```bash
 cd research/kcf-queue && python3 mutate.py /tmp/kq_certs results/t3_mutation.json 130 && python3 -m unittest test_checker.py
 ```
+
+## Update 2026-11-21: real household numbers (research/kcf-buildings)
+
+The demand above used equal splits of county or 읍·면 totals. `research/kcf-buildings` replaces them with the interior ministry's
+2025-02 읍·면·동 counts split over the 법정리 (village figures ESTIMATED) and reruns this model unchanged (`results_real/`; run with
+`KQ_DEMAND=real KQ_HOUSEHOLDS=inputs_real KQ_OUT=results_real/work python3 -m kq.run_all mid|lh 4`). MIDDLE, CONTESTED, same 1,119
+place-hours: **cannot clear 55 → 60**; leave-by changes by ≥ 1 min or state in **16 place-hours at 6 of 137 villages** (all in 의성읍,
+풍천면, 봉양면; none in 영덕), up to 25.3 min earlier; vehicles 29,399 → 29,094. All 2,120 MIDDLE answers pass the independent checker.
+The numbers above are left as they were. Details and limits: `research/kcf-buildings/RESULTS.md`.

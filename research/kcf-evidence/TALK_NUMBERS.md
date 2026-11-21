@@ -231,6 +231,16 @@ Files: `research/kcf-robust/RESULTS.md`, `PROTOCOL.md`, `out/twin_scores.json`, 
 | Fragility table: village-hours with no safe departure now / tolerating < 1 km extra reach | **1,128 / 2,262**; **76** below 1 km | 174 places x 13 hours | `out/fragility_174.csv` | a forecast of failure; the reach column is "if the fire goes this much further than the input" |
 | Product `--fragility` vs independent research pass | **2,262 / 2,262** reach and timing values equal; binding road 512 / 549 | 2,262 | `out/fragility_check.json` | why the binding road differs in 37 reach cases (not examined; the reach values themselves agree) |
 
+## 16. Real household and building numbers for the 174 places (kcf-buildings), 25 Mar 2025, queue model rerun
+
+Files: `research/kcf-buildings/RESULTS.md`, `per_place_real.csv`, `compare_mid.json`, `SOURCES.md`. **Register counts (2025-02) at the 읍·면·동 level, estimates per village; model output, not what happened to people.**
+
+1. Households, residents and residents 65+ come from the interior ministry's **2025-02** 읍·면·동 counts; all 174 places are matched; no 리 register exists, so each village is its 읍·면·동 split equally over its 법정리 (**ESTIMATED**) (`SOURCES.md`).
+2. Vehicles in the 137 queue places: **29,399 assumed → 29,094 real (−1.0 %)**; median village 192 → 148; 8 villages up and 34 down by more than 20 % (range 0.62–3.18×) (`compare_mid.json`).
+3. Place-hours that cannot clear (MIDDLE, CONTESTED): **55 → 60 of 1,119**; 5 in, 0 out, at 의성읍 도동리·상리리·원당리 and 봉양면 분토리 (`compare_mid.json`).
+4. Leave-by times that change: **16 of 1,119 (1.4 %) at 6 of 137 villages**, up to 25.3 min earlier; none of the 90 영덕 places changes (`compare_mid.json`).
+5. The building register needs a key that is not in the folder; OSM holds only **231 buildings for the 174 places** (132 have none), so buildings at risk are lower bounds and vehicles are a province ratio, not a district count (`per_place_real.csv`).
+
 ## Ten likely judge questions
 
 1. **Is the deadline field just faster, or is it right?** It reproduced all 7,771 recorded routes and 1,468 no-routes with zero disagreements, and it decided all 297 unresolved cases (row 1). Speed is not claimed: no clean summed timing is committed, and the host differs from the one that recorded the checks (row 1).

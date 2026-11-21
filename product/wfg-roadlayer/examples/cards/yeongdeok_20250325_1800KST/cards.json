@@ -54,14 +54,22 @@
   },
   "run": {
    "workers": 0
+  },
+  "heat": {
+   "enabled": 0,
+   "threshold_kw_m2": 4.7,
+   "fuel_level": 1,
+   "wind10_m_s": 7.0,
+   "rh_pct": 30.0,
+   "air_temp_c": 10.0
   }
  },
  "data": {
   "edges_forest_sha256": "3935a9e9f4bd13778a561c881b5b8104e088335947e9e4aaa3f809ebaa842667",
   "edges_ways_sha256": "3bb2cf66ffd78f04b0506d539904089415ec360a158eb49e22ab3f21ea9b3bce",
-  "households_sha256": "7757d8b442047f7a675bee1e49234286ddcea6b539d99e68e03d54bdbffb7aaf",
+  "households_sha256": "80a7d237cbd216e049760f38b0913e4ed286119d2a4277ca1c43458749f3b1f8",
   "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4",
-  "queue_leaveby_sha256": "91e79b013aad99187d19e40c5e532d98e004e661c4c786626f2e631795ebe33d"
+  "queue_leaveby_sha256": "7bfeda3e5b43f23767f0fc8795ee625c5c60912bf6e14bec1f6e8e9a2a70b86e"
  },
  "pickup_depot": "구 강구초등학교 직천분교 터",
  "counts": {
@@ -74,8 +82,8 @@
   "exits_3": 2,
   "in_departure_group": 22,
   "pickup_after_leave_by": 11,
-  "pickup_persons": 10525,
-  "pickup_persons_unserved_within_horizon": 9916,
+  "pickup_persons": 10391,
+  "pickup_persons_unserved_within_horizon": 9909,
   "pickup_places": 90,
   "refused": 1,
   "single_exit": 55,
@@ -84,14 +92,14 @@
   "trigger_passed": 2
  },
  "files_sha256": {
-  "audit_yeongdeok_2025.csv": "57908fe64f6dd0cd7d77978f13f5dfe3af1cb116388bedd9305170be5229b164",
-  "cards_en_yeongdeok_2025.pdf": "b6023308047598162b718fffdbf2e356d4a6d21b303b3fb3c49ce9f2258f500d",
-  "cards_ko_yeongdeok_2025.pdf": "55432d2ff233d74ecb6b27983e86afff7862470c7a8000a895573b5af82f4e18",
-  "pickup_yeongdeok_2025.csv": "40e38ddb25ae80288b99d2b64045a2f7edc5707d091ebec4be67f772e8f1ce12"
+  "audit_yeongdeok_2025.csv": "39e6d887cc8f35387c98ad4d7da4316dfa560865deb4f2bddc4e512321d181c8",
+  "cards_en_yeongdeok_2025.pdf": "36ccfc45e1641617c3326665d772b7585397f46f6e30537b5c6fb44b680fb3d6",
+  "cards_ko_yeongdeok_2025.pdf": "1d2c8dc139f96b6e6c0061420f34e9322a48489ad11fe44567b5e015c0f34504",
+  "pickup_yeongdeok_2025.csv": "9120ff30efeedabdac9171e2157bd4fd747528003d1a0ff0b5816cc95d6d4510"
  },
  "run_time_s": {
-  "total": 154.8,
-  "compute": 150.3,
-  "outputs": 4.5
+  "total": 34.4,
+  "compute": 31.9,
+  "outputs": 2.5
  }
 }

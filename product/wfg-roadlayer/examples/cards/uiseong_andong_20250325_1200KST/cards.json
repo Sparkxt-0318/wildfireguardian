@@ -54,14 +54,22 @@
   },
   "run": {
    "workers": 0
+  },
+  "heat": {
+   "enabled": 0,
+   "threshold_kw_m2": 4.7,
+   "fuel_level": 1,
+   "wind10_m_s": 7.0,
+   "rh_pct": 30.0,
+   "air_temp_c": 10.0
   }
  },
  "data": {
   "edges_forest_sha256": "13c6d43dd24febe0334395a661135ebe0e84461e14eb5a3cc785b38c511d3616",
   "edges_ways_sha256": "c042259ea4dc553850713cd1da00f57feacc6003afd7580eb98306ebc1bb60e6",
-  "households_sha256": "ee25992a689fd3f4255193356404f0177003cb954d9581f4178c3f5e35c363cb",
+  "households_sha256": "7e659ba79c4a09debbe0148e025737d3bfedfae56a0bfcb7e5f932840c7eb30e",
   "traffic_sources_sha256": "0f0289ab8f8a565747f17758d2ba259982f320b20e1c584050397e9ba6bc2ae4",
-  "queue_leaveby_sha256": "91e79b013aad99187d19e40c5e532d98e004e661c4c786626f2e631795ebe33d"
+  "queue_leaveby_sha256": "7bfeda3e5b43f23767f0fc8795ee625c5c60912bf6e14bec1f6e8e9a2a70b86e"
  },
  "pickup_depot": "일직초등학교",
  "counts": {
@@ -69,13 +77,13 @@
   "dangerous_road_cuts_all": 2,
   "deadline_missed_with_clearance": 3,
   "departure_groups": 8,
-  "departure_short": 3,
+  "departure_short": 4,
   "exits_1": 58,
   "exits_2": 26,
   "in_departure_group": 46,
-  "pickup_after_leave_by": 7,
-  "pickup_persons": 7734,
-  "pickup_persons_unserved_within_horizon": 4032,
+  "pickup_after_leave_by": 8,
+  "pickup_persons": 7777,
+  "pickup_persons_unserved_within_horizon": 3995,
   "pickup_places": 84,
   "refused": 2,
   "single_exit": 58,
@@ -84,14 +92,14 @@
   "trigger_passed": 40
  },
  "files_sha256": {
-  "audit_uiseong_andong_2025.csv": "48f112a08533c08d49d629910b437630d64dea28c749d46748c79d391bfe51d6",
-  "cards_en_uiseong_andong_2025.pdf": "2d0ba294429203e696a12cef5b483294dd951d5886289411a80eb1385351226a",
-  "cards_ko_uiseong_andong_2025.pdf": "e97b70c426cc757afbded2ef7ca4cd489518e34d33be31b64fb5b63b55867d92",
-  "pickup_uiseong_andong_2025.csv": "7abf1fa9ab513254cf6da1f325f2fec41fb0a16c1a037396bfa0aa593fc80a28"
+  "audit_uiseong_andong_2025.csv": "fdfc77edd89b0a923ea4ad4dcf907c6eb934578f4fceadb4ecb5c14bd0d298fc",
+  "cards_en_uiseong_andong_2025.pdf": "77ef0386b2514184c485b89430fc27038ceed08a92476bd4da9b17638e92f431",
+  "cards_ko_uiseong_andong_2025.pdf": "fce6c5fd672a5f0a445403e806c96e42ecb4b2e2e925177977295b604ccf1a08",
+  "pickup_uiseong_andong_2025.csv": "8afacfdb0b38025d0b3e4e0f9bba724fa62750d5b5340f53bdcd32561078e8ff"
  },
  "run_time_s": {
-  "total": 20.4,
-  "compute": 13.3,
-  "outputs": 7.1
+  "total": 8.3,
+  "compute": 4.6,
+  "outputs": 3.7
  }
 }
