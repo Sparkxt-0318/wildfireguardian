@@ -31,3 +31,9 @@ fuel_level = 1         # 연료량 0 낮음 / 1 중간 / 2 높음. Fuel load 0 l
 wind10_m_s = 7.0       # 10 m 풍속 (불꽃 기울기). 10 m wind for flame tilt; ASSUMED ~90th percentile of ECMWF wind at arrival, Uiseong 2025.
 rh_pct = 30.0          # 상대습도 (대기 투과율). Relative humidity for transmissivity; ASSUMED.
 air_temp_c = 10.0      # 기온. Air temperature; ASSUMED.
+
+[reopen]
+# 연소 후 재개통 (research/kcf-reopen). Reopening of burned-over road cells. 0 = 끔 / off (기본값 / default: 주민용 / residents),
+# 1 = 확인된 셀만 / confirmed cells only (보고·차량 REOPENED, --reopen-confirmed), 2 = 대응 인력용 / responders (all, or --reopen).
+mode = 0
+burnout_min = 240.0    # 도달 후 막힘 시간(분). Minutes a cell stays closed after fire arrival (Camp Fire 2018, research/kcf-reopen; low 105, high 465).

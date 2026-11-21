@@ -279,3 +279,16 @@ Files: `research/kcf-buildings/RESULTS.md`, `per_place_real.csv`, `compare_mid.j
 8. The margin left 7 open 30 min ahead: the first burnovers in Concow and east Paradise (07:50–08:30), when there were too few earlier reports to grow from, plus Edgewood Ln and Clark Rd at Airport Rd (`kcf-camp/RESULTS.md`, Test 2).
 9. Neither documented movement is feasible in the deadline field under any variant: the Fire Station 82 cell had fire from 11:02 (convoy left ~12:00), the Firland Dr cell from 09:01 (engines left 13:58) (`out/test3_movements.json`).
 10. What it means: closures that never reopen cannot represent "burned over, now passable"; one fire, firefighter reports, not residents; the CAL FIRE AVL CSV (281 apparatus) would test hundreds of real trips (`kcf-camp/RESULTS.md`, limits).
+
+## Reopening after burn-out (research/kcf-reopen)
+
+1. Burn-out time frozen before scoring: **τ = 240 min** (low 105, high 465), the 80th percentile of how long 75 Camp Fire road cells were still reported blocked after fire was first seen there; literature flaming times are 37 s–24 min at a point, and kcf-radiation A7 uses none (`kcf-reopen/out/tau.json`).
+2. Fire crews were back in a burned cell a median **81 min** after the first fire report there (131 cells), and **125 min** after the last blocked report (37 cells) (`tau.json`).
+3. With the window, passable reports the no-margin rule had closed fell from **2 to 0 of 23**, and vehicle observations in closed cells from **210 to 132 of 429** (`out/camp_tests12.json`).
+4. The guard failed: **16 of 195** blocked-road reports fall in a cell the rule had already reopened (no margin: hits 37 → 21; spread margin: 170 → 154); still 4 at τ = 465 min (`camp_tests12.json`).
+5. Neither documented movement becomes feasible at τ = 240: the roads would reopen only at **15:39** for the 12:00 convoy and **17:21** for the 13:58 engines (post hoc, `out/camp_test41_route_cells_posthoc.json`).
+6. With the margin no burnover warning is lost; without it the two **9 November burnovers** (Coutolenc Rd, Concow Fire Station 37) are lost: those cells burned again more than 7.75 h after the first reports (`out/t43_burnovers.csv`).
+7. Korea, 13 expressway closures with 15-minute traffic: the model would reopen sections between **69 h before and 40 h after** traffic came back; 중앙선 의성~예천 stayed empty until 28 March (`out/korea_reopen_sections.csv`).
+8. Routing stays exact with reopening: **6,000** random instances, 0 disagreements with brute force, 16,273 witnesses valid; all 174 product certificates of the worked example verify with reopening on, and a one-second tampered claim fails (`results/routing_property.json`).
+9. The margin field now differs from plain slack: below it for **40 of 6,268** twin and **422 of 5,062** replay pairs, by up to 7.3 h (never with permanent closures); kcf-robust's verdict on the twin is unchanged (`out/robust_window.json`).
+10. 25 March 2025 replay: for responders **162 of 174 places** gain a later window (1,063 place-issues get a departure where there was none); for residents **0**. In the product it is `--reopen`, off by default (`robust_window.json`, `product/wfg-roadlayer/INTERFACE.md`).

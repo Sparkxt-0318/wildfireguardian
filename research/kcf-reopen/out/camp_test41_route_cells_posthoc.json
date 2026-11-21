@@ -1,0 +1,156 @@
+{
+ "a_12:00_M0": {
+  "route_cells": 5,
+  "closed_at_issue": [
+   {
+    "cell": 4147,
+    "road": "Middle Libby Road",
+    "reopens": "15:02"
+   },
+   {
+    "cell": 4238,
+    "road": "Middle Libby Road",
+    "reopens": "15:10"
+   },
+   {
+    "cell": 4237,
+    "road": "Pearson Road",
+    "reopens": "14:00"
+   },
+   {
+    "cell": 4235,
+    "road": "Pearson Road",
+    "reopens": "15:39"
+   }
+  ],
+  "route_open_again": "15:39"
+ },
+ "a_12:00_MR": {
+  "route_cells": 5,
+  "closed_at_issue": [
+   {
+    "cell": 4147,
+    "road": "Middle Libby Road",
+    "reopens": "15:02"
+   },
+   {
+    "cell": 4238,
+    "road": "Middle Libby Road",
+    "reopens": "15:10"
+   },
+   {
+    "cell": 4237,
+    "road": "Pearson Road",
+    "reopens": "14:00"
+   },
+   {
+    "cell": 4235,
+    "road": "Pearson Road",
+    "reopens": "15:39"
+   }
+  ],
+  "route_open_again": "15:39"
+ },
+ "b_13:58_M0": {
+  "route_cells": 17,
+  "closed_at_issue": [
+   {
+    "cell": 5147,
+    "road": "Skyway",
+    "reopens": "17:21"
+   },
+   {
+    "cell": 5148,
+    "road": "Skyway",
+    "reopens": "14:55"
+   },
+   {
+    "cell": 5331,
+    "road": "Skyway",
+    "reopens": "14:00"
+   },
+   {
+    "cell": 5514,
+    "road": "Skyway",
+    "reopens": "15:53"
+   },
+   {
+    "cell": 5515,
+    "road": "Skyway",
+    "reopens": "15:40"
+   },
+   {
+    "cell": 5606,
+    "road": "New Skyway",
+    "reopens": "16:21"
+   },
+   {
+    "cell": 5698,
+    "road": "New Skyway",
+    "reopens": "15:05"
+   },
+   {
+    "cell": 5789,
+    "road": "New Skyway",
+    "reopens": "16:18"
+   },
+   {
+    "cell": 5880,
+    "road": "New Skyway",
+    "reopens": "16:18"
+   }
+  ],
+  "route_open_again": "17:21"
+ },
+ "b_13:58_MR": {
+  "route_cells": 17,
+  "closed_at_issue": [
+   {
+    "cell": 5147,
+    "road": "Skyway",
+    "reopens": "17:21"
+   },
+   {
+    "cell": 5148,
+    "road": "Skyway",
+    "reopens": "14:55"
+   },
+   {
+    "cell": 5331,
+    "road": "Skyway",
+    "reopens": "14:00"
+   },
+   {
+    "cell": 5514,
+    "road": "Skyway",
+    "reopens": "15:53"
+   },
+   {
+    "cell": 5515,
+    "road": "Skyway",
+    "reopens": "15:40"
+   },
+   {
+    "cell": 5606,
+    "road": "New Skyway",
+    "reopens": "16:21"
+   },
+   {
+    "cell": 5698,
+    "road": "New Skyway",
+    "reopens": "15:05"
+   },
+   {
+    "cell": 5789,
+    "road": "New Skyway",
+    "reopens": "16:18"
+   },
+   {
+    "cell": 5880,
+    "road": "New Skyway",
+    "reopens": "16:18"
+   }
+  ],
+  "route_open_again": "17:21"
+ }
+}

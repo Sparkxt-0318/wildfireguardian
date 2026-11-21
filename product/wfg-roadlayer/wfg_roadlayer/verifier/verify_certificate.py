@@ -25,6 +25,13 @@ What is checked, for every village (THEOREM.md is research/kcf-theorem/THEOREM.m
  7. Fire arrival at the village equals the closure second of its entry cell; the stage and the flag follow from the
     stated thresholds.
 
+With the reopening option (instance key `cell_reopen_s`, research/kcf-reopen) a cell closed at b reopens at r: check 2
+derives the windowed masks from b and r; check 3 is skipped (M1-M4 do not hold: feasible sets need not be prefixes);
+check 4 recomputes every shelter's whole feasible set (all windows) as the least fixed point of equation (E) of
+THEOREM.md section 2 (Lemma 1.1; unique by Lemma 1.2), by an interval worklist written here from the equation, and it
+must equal the claimed set; "horizon" is checked by the same recomputation with the acceptance ending one second
+earlier.
+
 Not checked here: how the fire-arrival raster was resampled to the 375 m road cells (run.json names the raster's
 SHA-256 and the rule), and whether the model fits reality. Exit status 0 only if every certificate passes.
 """
@@ -44,6 +51,54 @@ import checker  # noqa: E402  (research/kcf-theorem/checker.py, verbatim)
 
 def ceil_q(x: F) -> int:
     return -((-x.numerator) // x.denominator)
+
+
+def _norm(ivs):
+    out = []
+    for lo, hi in sorted((int(a), int(b)) for a, b in ivs if a <= b):
+        if out and lo <= out[-1][1] + 1:
+            out[-1] = (out[-1][0], max(out[-1][1], hi))
+        else:
+            out.append((lo, hi))
+    return out
+
+
+def _shift(ivs, d):
+    return [(lo + d, hi + d) for lo, hi in ivs]
+
+
+def _clip(ivs, a, b):
+    return [(max(lo, a), min(hi, b)) for lo, hi in ivs if hi >= a and lo <= b]
+
+
+def _minus(ivs, cut):
+    out = []
+    for lo, hi in ivs:
+        cur = lo
+        for a, b in cut:
+            if b < cur or a > hi:
+                continue
+            if a > cur:
+                out.append((cur, a - 1))
+            cur = max(cur, b + 1)
+            if cur > hi:
+                break
+        if cur <= hi:
+            out.append((cur, hi))
+    return out
+
+
+def _wait_close(ivs, W):
+    """Add every t that can wait into the set: t not in W and t + 1 in the set (repeatedly)."""
+    out = []
+    for lo, hi in ivs:
+        w = max((b for a, b in W if b < lo), default=None)  # W pieces wholly below lo
+        if any(a <= lo - 1 <= b for a, b in W):
+            new_lo = lo
+        else:
+            new_lo = 0 if w is None else w + 1
+        out.append((new_lo, hi))
+    return _norm(out)
 
 
 class Inst:
@@ -68,6 +123,7 @@ class Inst:
         self.heat = "heat_piece_closure_s" in d
         self.piece_close = {(int(j), int(k)): int(b) for j, v in d.get("heat_piece_closure_s", {}).items() for k, b in v}
         self.node_close = {int(v): int(b) for v, b in d.get("heat_node_closure_s", {}).items()}
+        self.reopen = {int(k): int(v) for k, v in d.get("cell_reopen_s", {}).items()}
         self.inc, self.out = {}, {}
         for j, (u, v) in enumerate(zip(self.tail, self.head)):
             self.out.setdefault(u, []).append(j)
@@ -80,19 +136,31 @@ class Inst:
         H = self.H
         for j, segs in enumerate(self.d["segments"]):
             lo = None
+            pieces = []
+            zin = F(0)
             for k, (c, end) in enumerate(segs):
                 b = self.piece_close.get((j, k)) if self.heat else self.close.get(int(c))
-                if b is None:
-                    continue
                 z = F(end) if isinstance(end, int) else F(end).limit_denominator(10 ** 9)
-                s = max(ceil_q(F(b) - F(self.D[j]) * z), 0)
-                lo = s if lo is None else min(lo, s)
-            want = [(lo, H)] if lo is not None and lo <= H else []
+                if b is not None:
+                    s = max(ceil_q(F(b) - F(self.D[j]) * z), 0)
+                    r = None if self.heat else self.reopen.get(int(c))
+                    if r is None or r > H:
+                        lo = s if lo is None else min(lo, s)
+                    elif r > b:  # closed on [b, r): starts whose occupancy [t + D z_in, t + D z_end] meets it
+                        e = ceil_q(F(r) - F(self.D[j]) * zin) - 1
+                        if e >= s and s <= H:
+                            pieces.append((s, min(e, H)))
+                zin = z
+            if lo is not None and lo <= H:
+                pieces.append((lo, H))
+            want = _norm(pieces)
             if self.B.get(j, []) != want:
                 bad.append("edge %d: stored B %r, derived %r" % (j, self.B.get(j), want))
         for v in range(self.n):
             b = self.node_b(v)
-            want = [(max(b - 1, 0), H)] if (v in self.waitable and b is not None and b - 1 <= H) else []
+            hi = self.node_end(v, b)
+            want = [(max(b - 1, 0), hi)] if (v in self.waitable and b is not None and b - 1 <= H and hi is not None
+                                              and hi >= max(b - 1, 0)) else []
             if self.W.get(v, []) != want:
                 bad.append("node %d: stored W %r, derived %r" % (v, self.W.get(v), want))
         return bad
@@ -100,16 +168,92 @@ class Inst:
     def node_b(self, node):
         return self.node_close.get(node) if self.heat else self.close.get(self.node_cell[node])
 
+    def node_end(self, node, b):
+        """Last closed second of the node's cell closed from b: H, or r - 1 when it reopens at r <= H; None if r <= b."""
+        if b is None or self.heat:
+            return self.H
+        r = self.reopen.get(self.node_cell[node])
+        if r is None or r > self.H:
+            return self.H
+        return r - 1 if r > b else None
+
     def accept(self, node):
         b = self.node_b(node)
-        hi = self.H - self.dwell
-        if b is not None:
-            hi = min(hi, b - self.dwell - 1)
-        return [(0, hi)] if hi >= 0 else []
+        top = self.H - self.dwell
+        if top < 0:
+            return []
+        if b is None:
+            return [(0, top)]
+        e = self.node_end(node, b)
+        if e is None:
+            return [(0, top)]
+        lo = max(b - self.dwell, 0)
+        out = []
+        if lo > 0:
+            out.append((0, min(lo - 1, top)))
+        if e + 1 <= top:
+            out.append((e + 1, top))
+        return [x for x in out if x[0] <= x[1]]
 
     def origin_closure(self, node):
         b = self.node_b(node)
-        return [(b, self.H)] if b is not None else []
+        if b is None:
+            return []
+        e = self.node_end(node, b)
+        return [(b, e)] if e is not None and e >= b else []
+
+    # -- check 4 with reopening: least fixed point of equation (E), THEOREM.md section 2 --------------------------
+    def feasible(self, origin, shelter, acc, ib):
+        """Feas(o) for this shelter: R_s = U_{j: tail j = head s, (s,j) not forbidden} ((G_j - D_j) n T) minus B_j, closed under
+        waiting at head(s); G_j = A_j u R_j with A_j = acc for edges into the shelter. Worklist until nothing grows."""
+        key = (shelter, tuple(acc))
+        if key not in self._cache:
+            # semi-naive evaluation: only the pieces newly added to G_j are pushed to the predecessors of j; R and G only
+            # grow, so the result is the same least fixed point as re-evaluating the whole right-hand side.
+            H, E = self.H, len(self.D)
+            A = {j: _norm(acc) for j in self.inc.get(shelter, [])}
+            R = [[] for _ in range(E)]
+            G = [A.get(j, []) for j in range(E)]
+            pending = {j: list(G[j]) for j in range(E) if G[j]}
+            heap = [(-G[j][-1][1], j) for j in pending]
+            heapq.heapify(heap)
+            while heap:
+                _, j = heapq.heappop(heap)
+                delta = pending.pop(j, None)
+                if not delta:
+                    continue
+                cand = _minus(_clip(_shift(_norm(delta), -self.D[j]), 0, H), self.B.get(j, []))
+                if not cand:
+                    continue
+                for s in self.inc.get(self.tail[j], []):
+                    if (s, j) in self.forbidden:
+                        continue
+                    add = _minus(cand, R[s])
+                    if not add:
+                        continue
+                    new = _norm(R[s] + add)
+                    v = self.head[s]
+                    if v in self.waitable:
+                        new = _wait_close(new, self.W.get(v, []))
+                    grown = _minus(new, R[s])
+                    R[s] = new
+                    dg = _minus(grown, G[s])
+                    if dg:
+                        G[s] = _norm(G[s] + dg)
+                        if s in pending:
+                            pending[s] = pending[s] + dg
+                        else:
+                            pending[s] = dg
+                        heapq.heappush(heap, (-dg[-1][1], s))
+            self._cache[key] = G
+        G = self._cache[key]
+        X = []
+        for j in self.out.get(origin, []):
+            X += _minus(_clip(_shift(G[j], -self.D[j]), 0, self.H), self.B.get(j, []))
+        X = _norm(X)
+        if origin in self.waitable:
+            X = _wait_close(X, self.W.get(origin, []))
+        return _minus(X, _norm(ib))
 
     # -- check 3: M1, M2 (M3, M4 are checked per certificate) ---------------------------------------------------
     def m1_m2(self):
@@ -201,7 +345,7 @@ def verify(cert_path: Path, insts: dict):
     if ipath not in insts:
         inst = Inst(ipath)
         insts[ipath] = inst
-        inst.mask_problems = inst.derive_masks() + inst.m1_m2()
+        inst.mask_problems = inst.derive_masks() + ([] if inst.reopen else inst.m1_m2())
     inst = insts[ipath]
     if inst.sha256 != c["instance"]["sha256_uncompressed"]:
         return ["instance SHA-256 %s differs from the certificate's %s" % (inst.sha256, c["instance"]["sha256_uncompressed"])]
@@ -213,7 +357,7 @@ def verify(cert_path: Path, insts: dict):
     ib = inst.origin_closure(o)
     if [tuple(x) for x in c["origin_IB"]] != ib:
         fails.append("origin closure %r, derived %r" % (c["origin_IB"], ib))
-    if len(ib) > 1 or (ib and ib[0][1] != H):
+    if not inst.reopen and (len(ib) > 1 or (ib and ib[0][1] != H)):
         fails.append("M4 fails at the origin: %r" % ib)
     A = inst.close.get(inst.node_cell[o])
     if c["fire_arrival_at_village_s"] != A:
@@ -223,6 +367,14 @@ def verify(cert_path: Path, insts: dict):
         acc = inst.accept(sh["node"])
         if [tuple(x) for x in sh["A"]] != acc:
             fails.append("shelter %s acceptance %r, derived %r" % (sh["id"], sh["A"], acc))
+        if inst.reopen:
+            S = inst.feasible(o, sh["node"], acc, ib)
+            L = S[-1][1] if S else None
+            want = [list(x) for x in S]
+            if sh["claimed_feasible"] != want or sh["claimed_latest"] != L:
+                fails.append("shelter %s: claimed %r, equation (E) gives %r" % (sh["id"], sh["claimed_feasible"], want))
+            Ls.append((L, sh, acc))
+            continue
         if acc and acc[0][0] != 0:
             fails.append("M3 fails at shelter %s" % sh["id"])
         L = inst.latest(o, sh["node"], acc[0][1] if acc else None, ib)
@@ -235,8 +387,12 @@ def verify(cert_path: Path, insts: dict):
     cl = c["claims"]
     if cl["latest_departure_s"] != Lmax:
         fails.append("latest departure claimed %r, recomputed %r" % (cl["latest_departure_s"], Lmax))
-    if cl["windows"] != ([[0, Lmax]] if Lmax is not None else []):
-        fails.append("windows claimed %r, recomputed %r" % (cl["windows"], [[0, Lmax]] if Lmax is not None else []))
+    if inst.reopen:
+        wins = [list(x) for x in _norm([tuple(x) for sh in c["shelters"] for x in sh["claimed_feasible"]])]
+    else:
+        wins = [[0, Lmax]] if Lmax is not None else []
+    if cl["windows"] != wins:
+        fails.append("windows claimed %r, recomputed %r" % (cl["windows"], wins))
     for w in c["witnesses"]:
         L, sh, acc = next((x for x in Ls if x[1]["rank"] == w["shelter_rank"]), (None, None, None))
         if sh is None:
@@ -262,6 +418,13 @@ def verify(cert_path: Path, insts: dict):
     elif kind == "horizon":
         good = False
         for L, sh, acc in Ls:
+            if inst.reopen:
+                if L == Lmax and acc and acc[-1][1] == H - inst.dwell:
+                    acc2 = [tuple(x) for x in acc[:-1]] + ([(acc[-1][0], acc[-1][1] - 1)] if acc[-1][1] - 1 >= acc[-1][0] else [])
+                    S2 = inst.feasible(o, sh["node"], acc2, ib)
+                    if not S2 or S2[-1][1] < Lmax:
+                        good = True
+                continue
             if L == Lmax and acc and acc[0][1] == H - inst.dwell:
                 L2 = inst.latest(o, sh["node"], acc[0][1] - 1, ib)
                 if L2 is None or L2 < Lmax:
