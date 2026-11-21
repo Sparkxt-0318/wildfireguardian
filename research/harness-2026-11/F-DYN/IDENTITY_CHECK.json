@@ -1,0 +1,175 @@
+{
+ "rule": "IDENTITY_PATH_RULE.md",
+ "manifest_sha256": "642ede3d882e8a1c7ff1da054cfc506a0b0148247677daefa4ca22bb736f28dd",
+ "rows": [
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:kriged_mean",
+   "checkout_a": "/home/user/wildfireguardian",
+   "checkout_b": "/home/user/alt-checkout-xyz",
+   "A_rc": 0,
+   "B_rc": 0,
+   "sha256_A": {
+    "HAZARD.json": "6940f2939318126437b6109853033ab0b1534dd288f3775c6c0352ed44646f2f",
+    "REPORT.json": "9793df76ff61e7b47de1e55474f866b659ecfd1f1d34da90704e4e53fefe7347",
+    "NATIVE_METADATA.json": "c55a162002466c5281a28444e5207e80abd391d26a97dc54a39dd75fbebfdd30",
+    "constructed_arrays.npz": "0c8a4012753681e76add565d6804e17277e5696fdf3f65657c8e8694d4a6affe"
+   },
+   "sha256_B": {
+    "HAZARD.json": "6940f2939318126437b6109853033ab0b1534dd288f3775c6c0352ed44646f2f",
+    "REPORT.json": "9793df76ff61e7b47de1e55474f866b659ecfd1f1d34da90704e4e53fefe7347",
+    "NATIVE_METADATA.json": "c55a162002466c5281a28444e5207e80abd391d26a97dc54a39dd75fbebfdd30",
+    "constructed_arrays.npz": "0c8a4012753681e76add565d6804e17277e5696fdf3f65657c8e8694d4a6affe"
+   },
+   "a_two_checkouts_identical": true,
+   "radiation_operator_A": {
+    "module": "integration/src/wfg_latest/radiation/heat.py",
+    "sha256": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+    "module_path_form": "repo-relative (F-DYN IDENTITY_PATH_RULE.md)"
+   },
+   "b_vs_v34_json_paths_differing": {
+    "HAZARD.json": [
+     "/provenance/identity/radiation_operator/module",
+     "/provenance/identity/radiation_operator/module_path_form"
+    ],
+    "REPORT.json": [
+     "/native_metadata/identity/radiation_operator/module",
+     "/native_metadata/identity/radiation_operator/module_path_form"
+    ],
+    "NATIVE_METADATA.json": [
+     "/identity/radiation_operator/module",
+     "/identity/radiation_operator/module_path_form"
+    ]
+   },
+   "b_vs_v34_only_allowed_fields": true,
+   "b_vs_v34_npz_identical": true,
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:firms_early",
+   "checkout_a": "/home/user/wildfireguardian",
+   "checkout_b": "/home/user/alt-checkout-xyz",
+   "A_rc": 0,
+   "B_rc": 0,
+   "sha256_A": {
+    "HAZARD.json": "8355a91ae684b2266ca938485a32f08090b7d75af96e887bdcd4ee044f7eb1e3",
+    "REPORT.json": "426c07f6021b3161af3b0da763179e3f5cd09a3d7a688554b5895cc981fbf32b",
+    "NATIVE_METADATA.json": "27509a64338edfff01c9907572c5bd216bcd5a0770049bb27cd5ea5c72af9ac6",
+    "constructed_arrays.npz": "71dbeb3e25ded35f53ae89e9c65ed689b5a70313abe56ba5b3dd4698bc2006f0"
+   },
+   "sha256_B": {
+    "HAZARD.json": "8355a91ae684b2266ca938485a32f08090b7d75af96e887bdcd4ee044f7eb1e3",
+    "REPORT.json": "426c07f6021b3161af3b0da763179e3f5cd09a3d7a688554b5895cc981fbf32b",
+    "NATIVE_METADATA.json": "27509a64338edfff01c9907572c5bd216bcd5a0770049bb27cd5ea5c72af9ac6",
+    "constructed_arrays.npz": "71dbeb3e25ded35f53ae89e9c65ed689b5a70313abe56ba5b3dd4698bc2006f0"
+   },
+   "a_two_checkouts_identical": true,
+   "radiation_operator_A": {
+    "module": "integration/src/wfg_latest/radiation/heat.py",
+    "sha256": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+    "module_path_form": "repo-relative (F-DYN IDENTITY_PATH_RULE.md)"
+   },
+   "b_vs_v34_json_paths_differing": {
+    "HAZARD.json": [
+     "/provenance/identity/radiation_operator/module",
+     "/provenance/identity/radiation_operator/module_path_form"
+    ],
+    "REPORT.json": [
+     "/native_metadata/identity/radiation_operator/module",
+     "/native_metadata/identity/radiation_operator/module_path_form"
+    ],
+    "NATIVE_METADATA.json": [
+     "/identity/radiation_operator/module",
+     "/identity/radiation_operator/module_path_form"
+    ]
+   },
+   "b_vs_v34_only_allowed_fields": true,
+   "b_vs_v34_npz_identical": true,
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:envelope",
+   "checkout_a": "/home/user/wildfireguardian",
+   "checkout_b": "/home/user/alt-checkout-xyz",
+   "A_rc": 0,
+   "B_rc": 0,
+   "sha256_A": {
+    "HAZARD.json": "3ae1479ad3d81d35103bb651b525291a8bef3e80176f51f281e6ea9d59b69861",
+    "REPORT.json": "64d25d7eb58b08b25fab0fdb999d03382c5117d6edd217d4e5a85612594b13c1",
+    "NATIVE_METADATA.json": "5f3f5029d1933d8e8fc43130cb96b1b3e34bc2eeca81a977efc4b169bdc66abf",
+    "constructed_arrays.npz": "03fe7546faec97c0abdc7f8ff08d42a3fe943040fbc4f23eedb428b9cfdb7254"
+   },
+   "sha256_B": {
+    "HAZARD.json": "3ae1479ad3d81d35103bb651b525291a8bef3e80176f51f281e6ea9d59b69861",
+    "REPORT.json": "64d25d7eb58b08b25fab0fdb999d03382c5117d6edd217d4e5a85612594b13c1",
+    "NATIVE_METADATA.json": "5f3f5029d1933d8e8fc43130cb96b1b3e34bc2eeca81a977efc4b169bdc66abf",
+    "constructed_arrays.npz": "03fe7546faec97c0abdc7f8ff08d42a3fe943040fbc4f23eedb428b9cfdb7254"
+   },
+   "a_two_checkouts_identical": true,
+   "radiation_operator_A": {
+    "module": "integration/src/wfg_latest/radiation/heat.py",
+    "sha256": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+    "module_path_form": "repo-relative (F-DYN IDENTITY_PATH_RULE.md)"
+   },
+   "b_vs_v34_json_paths_differing": {
+    "HAZARD.json": [
+     "/provenance/identity/radiation_operator/module",
+     "/provenance/identity/radiation_operator/module_path_form"
+    ],
+    "REPORT.json": [
+     "/native_metadata/identity/radiation_operator/module",
+     "/native_metadata/identity/radiation_operator/module_path_form"
+    ],
+    "NATIVE_METADATA.json": [
+     "/identity/radiation_operator/module",
+     "/identity/radiation_operator/module_path_form"
+    ]
+   },
+   "b_vs_v34_only_allowed_fields": true,
+   "b_vs_v34_npz_identical": true,
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:envelope_burnset",
+   "checkout_a": "/home/user/wildfireguardian",
+   "checkout_b": "/home/user/alt-checkout-xyz",
+   "A_rc": 0,
+   "B_rc": 0,
+   "sha256_A": {
+    "HAZARD.json": "f83284936742f680c3e3e806d34158e4d4a9e9b7c098b8d5528f56cae4427d3c",
+    "REPORT.json": "21ff7d8b696d48e3c021c22eba2f83c93c75ad284aaeeceeb5a3e2917e10a09d",
+    "NATIVE_METADATA.json": "684e4cd31033a79a07823a885b8309242625152a871820321b791edd13242aa8",
+    "constructed_arrays.npz": "4d1181c721e0d9e6a6bd093a2695091632cc706de6ca2af4de9ec992d4afe344"
+   },
+   "sha256_B": {
+    "HAZARD.json": "f83284936742f680c3e3e806d34158e4d4a9e9b7c098b8d5528f56cae4427d3c",
+    "REPORT.json": "21ff7d8b696d48e3c021c22eba2f83c93c75ad284aaeeceeb5a3e2917e10a09d",
+    "NATIVE_METADATA.json": "684e4cd31033a79a07823a885b8309242625152a871820321b791edd13242aa8",
+    "constructed_arrays.npz": "4d1181c721e0d9e6a6bd093a2695091632cc706de6ca2af4de9ec992d4afe344"
+   },
+   "a_two_checkouts_identical": true,
+   "radiation_operator_A": {
+    "module": "integration/src/wfg_latest/radiation/heat.py",
+    "sha256": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+    "module_path_form": "repo-relative (F-DYN IDENTITY_PATH_RULE.md)"
+   },
+   "b_vs_v34_json_paths_differing": {
+    "HAZARD.json": [
+     "/provenance/identity/radiation_operator/module",
+     "/provenance/identity/radiation_operator/module_path_form"
+    ],
+    "REPORT.json": [
+     "/native_metadata/identity/radiation_operator/module",
+     "/native_metadata/identity/radiation_operator/module_path_form"
+    ],
+    "NATIVE_METADATA.json": [
+     "/identity/radiation_operator/module",
+     "/identity/radiation_operator/module_path_form"
+    ]
+   },
+   "b_vs_v34_only_allowed_fields": true,
+   "b_vs_v34_npz_identical": true,
+   "ok": true
+  }
+ ],
+ "all_ok": true
+}

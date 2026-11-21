@@ -1,0 +1,16 @@
+{
+ "rule": "ENVELOPE_FOOTPRINT_RULE.md @3fbd229",
+ "note": "static law: identical for every start and horizon (present fire is inside the burn set)",
+ "regions": {
+  "uiseong_andong_2025": {
+   "road_cells": 1656,
+   "blocked_whole_window": 1646,
+   "share": 0.994
+  },
+  "yeongdeok_2025": {
+   "road_cells": 1590,
+   "blocked_whole_window": 1115,
+   "share": 0.7013
+  }
+ }
+}
