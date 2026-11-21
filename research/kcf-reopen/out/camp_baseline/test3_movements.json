@@ -1,0 +1,247 @@
+{
+ "horizon_s": 7200,
+ "dwell_s": 120,
+ "cases": [
+  {
+   "movement": "a",
+   "issue": "12:00",
+   "documented_roads": [
+    "Pearson Road",
+    "Clark Road"
+   ],
+   "origin_node_snap_m": 25,
+   "dest_node_snap_m": 61,
+   "fire_free_fastest_s": 128,
+   "fire_free_route": {
+    "length_m": 1585,
+    "share_on_documented": 0.761,
+    "road_sequence": [
+     "Middle Libby Road",
+     "Pearson Road"
+    ]
+   },
+   "variants": {
+    "M0": {
+     "closed_road_cells": 165,
+     "closed_at_issue": 165,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Middle Libby Road",
+      "cell": 4147,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "M30": {
+     "closed_road_cells": 165,
+     "closed_at_issue": 165,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Middle Libby Road",
+      "cell": 4147,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "MR": {
+     "closed_road_cells": 657,
+     "closed_at_issue": 165,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Middle Libby Road",
+      "cell": 4147,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "MR_running": {
+     "closed_road_cells": 891,
+     "closed_at_issue": 165,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Middle Libby Road",
+      "cell": 4147,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    }
+   }
+  },
+  {
+   "movement": "b",
+   "issue": "13:34",
+   "documented_roads": [
+    "Skyway"
+   ],
+   "origin_node_snap_m": 20,
+   "dest_node_snap_m": 5,
+   "fire_free_fastest_s": 264,
+   "fire_free_route": {
+    "length_m": 4255,
+    "share_on_documented": 0.645,
+    "road_sequence": [
+     "Skyway",
+     "New Skyway"
+    ]
+   },
+   "variants": {
+    "M0": {
+     "closed_road_cells": 194,
+     "closed_at_issue": 194,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "M30": {
+     "closed_road_cells": 194,
+     "closed_at_issue": 194,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "MR": {
+     "closed_road_cells": 723,
+     "closed_at_issue": 194,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "MR_running": {
+     "closed_road_cells": 982,
+     "closed_at_issue": 194,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    }
+   }
+  },
+  {
+   "movement": "b",
+   "issue": "13:58",
+   "documented_roads": [
+    "Skyway"
+   ],
+   "origin_node_snap_m": 20,
+   "dest_node_snap_m": 5,
+   "fire_free_fastest_s": 264,
+   "fire_free_route": {
+    "length_m": 4255,
+    "share_on_documented": 0.645,
+    "road_sequence": [
+     "Skyway",
+     "New Skyway"
+    ]
+   },
+   "variants": {
+    "M0": {
+     "closed_road_cells": 198,
+     "closed_at_issue": 198,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "M30": {
+     "closed_road_cells": 198,
+     "closed_at_issue": 198,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "MR": {
+     "closed_road_cells": 723,
+     "closed_at_issue": 198,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    },
+    "MR_running": {
+     "closed_road_cells": 982,
+     "closed_at_issue": 198,
+     "issue_set_s": [],
+     "feasible_at_issue": false,
+     "latest_departure_s": null,
+     "route": null,
+     "fire_free_route_first_closed_cell": {
+      "edge_name": "Skyway",
+      "cell": 5055,
+      "closure_s": 0,
+      "reached_at_s": 0
+     },
+     "pass": false
+    }
+   }
+  }
+ ]
+}

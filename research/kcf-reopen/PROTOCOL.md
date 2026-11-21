@@ -185,3 +185,18 @@ firefighter vehicles are not residents; τ is estimated and scored on the same f
 `keys/keys.env`. No step here needs a key (Overpass is keyless; KEC data are the user's files). `NEEDS.md` records this.
 
 ## Amendments
+
+1. **2026-11-21, during the run; results of steps 1–4 had been computed, step 5 primary numbers had been seen for
+   one run.** (i) *Camp graph:* the refetched Overpass tiles (four quadrants of the same box, same filter) have other
+   checksums than kcf-camp's and give 4,349 nodes, 9,584 edges and 2,114 road cells (kcf-camp: 4,350, 9,585, 2,121).
+   kcf-camp's permanent rule rerun on this graph reproduces every road-state state and closure time and every burnover
+   state of kcf-camp exactly (230 rows, 0 differences; `out/camp_baseline/`). (ii) *Step 5, traffic return:* the VDS run
+   used per conzone-direction is the first run with onset ≤ official closure + 6 h and reopen later than the official
+   closure (the near-zero spell in effect at the closure or starting within kcf-validate's 6 h matching window).
+   Chosen after listing the runs, before any model reopening time was computed. (iii) *Step 5, geometry:* OSM maps
+   each carriageway as its own component, joined only by `motorway_link` ramps; links and mainline pieces without the
+   route's ref are used at 5× cost, and the share of the path on the route's ref is reported (96–100 %). (iv) *Step 5,
+   secondary column added after seeing the primary:* the model's closed spell (union over cells of [A_c, A_c + τ))
+   that covers the official closure time, and its end. The pre-registered "latest A_c + τ over the section" counts fire
+   that reached the section after a closure had already ended; the secondary column does not. Both are reported; the
+   primary is unchanged.
