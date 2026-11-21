@@ -1,7 +1,9 @@
 """Markdown tables for RESULTS.md from out/*.json and data/*.csv (no number typed by hand).
 Usage: python3 -I make_tables.py > out/tables.md"""
+import sys
 import json
 
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from model import HERE, VARIANTS, read_csv
 
 T12 = json.load(open(HERE / "out/tests12.json"))

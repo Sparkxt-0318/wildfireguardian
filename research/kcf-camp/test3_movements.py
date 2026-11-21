@@ -8,6 +8,7 @@ from pathlib import Path
 
 import numpy as np
 
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from model import HERE, R_ALL, R_RUN, TO_UTM, VARIANTS, Graph, closure_min, minutes, read_csv
 from wfg_roadlayer import engine
 
@@ -18,7 +19,7 @@ obs = {r["obs_id"]: r for r in read_csv(HERE / "data/observations_dedup.csv")}
 cls = {r["obs_id"]: r["class_final"] for r in read_csv(HERE / "data/classes_final.csv")}
 fire = []
 for k, r in obs.items():
-    if cls[k] == "FIRE_ARRIVAL":
+    if cls[k] == "FIRE_ARRIVAL" and ":" in r["time"]:
         x, y = TO_UTM.transform(float(r["lon"]), float(r["lat"]))
         fire.append((x, y, minutes(r["day"], r["time"])))
 rc = [int(c) for c in road.road_cells]

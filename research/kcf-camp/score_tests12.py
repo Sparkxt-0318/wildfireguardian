@@ -5,12 +5,14 @@ from pathlib import Path
 
 import numpy as np
 
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from model import (HERE, HOLD_M, HOLD_MIN, TOL_MIN, TO_UTM, VARIANTS, Field, Graph, boot_median, hhmm, minutes, read_csv,
                    verdict, wilson, write_csv)
 
 G = Graph(sys.argv[1])
 OUT = Path(sys.argv[2]); OUT.mkdir(parents=True, exist_ok=True)
-obs = {r["obs_id"]: r for r in read_csv(HERE / "data/observations_dedup.csv")}
+obs_all = read_csv(HERE / "data/observations_dedup.csv")
+obs = {r["obs_id"]: r for r in obs_all if ":" in r["time"]}  # 2 rows have no time in the workbook
 cls = {r["obs_id"]: r["class_final"] for r in read_csv(HERE / "data/classes_final.csv")}
 for k, r in obs.items():
     r["cls"] = cls[k]
@@ -19,7 +21,7 @@ for k, r in obs.items():
 fire = [r for r in obs.values() if r["cls"] == "FIRE_ARRIVAL"]
 road = [r for r in obs.values() if r["cls"].startswith("ROAD_")]
 scored = [r for r in road if r["cls"] in ("ROAD_CLOSED", "ROAD_PASSABLE")]
-counts = {"unique_observations": len(obs), "by_class": {c: sum(1 for r in obs.values() if r["cls"] == c) for c in sorted(set(cls.values()))}}
+counts = {"unique_observations": len(obs_all), "no_time_excluded": [r["obs_id"] for r in obs_all if ":" not in r["time"]], "by_class": {c: sum(1 for r in obs.values() if r["cls"] == c) for c in sorted(set(cls.values()))}}
 
 # ------------------------------------------------------------------ Test 1
 fx = np.array([[r["x"], r["y"], r["t"]] for r in fire])
@@ -91,7 +93,7 @@ for inp in fields:
 # ------------------------------------------------------------------ Test 2
 pts_by_name = {}
 for e in G.raw["edges"]:
-    if e["name"]:
+    if e["name"] and (e["reverse_edge"] is None or e["id"].endswith(":f")):  # each road piece once
         for a, b in zip(e["geom"][:-1], e["geom"][1:]):
             L = math.hypot(b[0] - a[0], b[1] - a[1]); n = max(1, int(L // 25))
             for k in range(n + 1):
@@ -113,7 +115,7 @@ def junction(n1, n2):
 
 
 bos = read_csv(HERE / "data/burnovers_tn2252.csv")
-st37 = [r for r in obs.values() if "station 37" in r["text"].lower() and r["day"] == "11-08"]
+st37 = [r for r in obs.values() if "station 37" in r["text"].lower()]
 rows2 = []
 for b in bos:
     name = b["loc_road"]; P = pts_by_name.get(name)

@@ -1,0 +1,42 @@
+{
+ "note": "POST HOC context, not a pre-registered test: share of the 2,121 road cells closed by each time, all FIRE_ARRIVAL rows as input",
+ "n_road_cells": 2121,
+ "by_time": {
+  "08:00": {
+   "M0": 0.013,
+   "M30": 0.021,
+   "MR": 0.02,
+   "MR_running": 0.038
+  },
+  "09:00": {
+   "M0": 0.041,
+   "M30": 0.048,
+   "MR": 0.11,
+   "MR_running": 0.194
+  },
+  "10:00": {
+   "M0": 0.053,
+   "M30": 0.058,
+   "MR": 0.216,
+   "MR_running": 0.344
+  },
+  "11:00": {
+   "M0": 0.066,
+   "M30": 0.071,
+   "MR": 0.308,
+   "MR_running": 0.457
+  },
+  "12:00": {
+   "M0": 0.079,
+   "M30": 0.084,
+   "MR": 0.359,
+   "MR_running": 0.565
+  },
+  "14:00": {
+   "M0": 0.095,
+   "M30": 0.099,
+   "MR": 0.453,
+   "MR_running": 0.736
+  }
+ }
+}

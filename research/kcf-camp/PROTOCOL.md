@@ -172,3 +172,9 @@ it is stopped and the reason given.
    Granite Ridge Rd". BO #13 is placed at the Jordan Hill Road / Granite Ridge Road junction, marked in the table.
    Graph: 4 tiles, 4,552 ways, 4,350 nodes, 9,585 directed edges, 2,121 road cells, 91 × 114 cells (tile SHA-256 in
    `data/osm_tiles_sha256.txt`; graph SHA-256 016da7c9…49ca, not committed, rebuilt by `build_graph_osm.py`).
+5. **2026-11-21, code fixes during the run; no rule changed.** (i) The first two runs stopped with errors before writing
+   any output: 2 workbook rows (W2263, W2264) have no time and are now excluded and listed; the BO #19 locator looked only at
+   8 November rows, while the rows naming Station 37 are dated 9 November (W0193 07:20, W0574 09:01), so the day filter was
+   removed and W0193 is used. (ii) After the first complete run, the descriptive "road length" column of the burnover
+   output counted both directions of two-way roads; it now samples each road piece once. The cells chosen and every Test 2
+   state were identical before and after (checked).
