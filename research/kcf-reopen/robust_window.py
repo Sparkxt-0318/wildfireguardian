@@ -46,6 +46,29 @@ def _load(name):
     return mod
 
 
+def _shelter_job_last_only(job):
+    """kcf-robust lib._shelter_job_last_only with the product's bounded witness (engine.witness_for): with reopening and
+    no waitable nodes an earliest-arrival witness can need hours of looping and an intractable search."""
+    snode, acc, origins = job
+    inst = engine._W["inst"]
+    inst.A = [[] for _ in range(len(inst.tail))]
+    for j in engine._W["inc"].get(snode, []):
+        inst.A[j] = list(acc)
+    inst.AN, inst.IB = {}, {}
+    fld = core.backward(inst)
+    out = {}
+    for on, ib in origins:
+        inst.IB = {on: ib}
+        S = core.issue_set(fld, on)
+        res = {"set": [list(p) for p in S], "w_last": None, "w_first": None}
+        if S:
+            res["w_last"] = engine._wlegs(engine.witness_for(fld, on, S[-1][1], budget=300_000))
+        out[on] = res
+    inst.IB = {}
+    return snode, out, fld.stats["pushes"]
+
+
+engine._shelter_job = _shelter_job_last_only
 RPL = _load("replay")
 TW = _load("twin")
 SC = _load("score")
@@ -104,7 +127,13 @@ def summarise(rows):
     out = lib.summarise_rows(rows)
     for r in rows:
         if not r["refusal"]:
-            out[r["origin"]["id"]]["windows"] = [list(w) for w in r["windows"]]
+            x = out[r["origin"]["id"]]
+            x["windows"] = [list(w) for w in r["windows"]]
+            last = r.get("last")
+            if last and last["w_last"]:
+                es = [l[1] for l in last["w_last"]["legs"] if l[0] == "EDGE"]
+                x["loop"] = len(es) != len(set(es))
+                x["earliest"] = last["w_last"].get("earliest", True)
     return out
 
 
