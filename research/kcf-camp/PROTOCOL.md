@@ -153,4 +153,17 @@ it is stopped and the reason given.
 
 ## Amendments
 
-(none yet)
+1. **2026-11-21, after the first-pass keyword run and before the second pass, any hold-out or any model value.**
+   Precedence when one text has both fire on the road and passage: a row that says the road was driven, got through,
+   was passable (also "barely passable", "passable one lane") or that traffic was flowing is `ROAD_PASSABLE`, even when
+   it also says fire was on or across the road ("fire both sides, but is good enough to get through", "drove through
+   fire"). These rows are exactly the case the closure rule is meant to judge. The second reader gets this rule with
+   the class definitions. The first-pass rule order in `classify.py` (passage first) implements it.
+2. **2026-11-21, same time.** The Overpass response for the whole box was truncated at 4.0 MB (client timeout). The
+   network is fetched in four tiles with the same filter and merged by OSM id; nothing else changes.
+3. **2026-11-21, before any hold-out or model value.** §1 said the workbook date column is not used. That was wrong:
+   it separates 8 November (2,016 unique rows, earliest 06:25, the ignition time) from 9 November (248 rows, 00:00–19:40).
+   Only its year is mistyped (2021). The day is taken from the month-day of that column; times are minutes after
+   2018-11-08 00:00 PST (9 November adds 1,440). Rows of both days are used in input and scoring; 9 November rows are
+   also reported separately. De-duplication keys and observation ids are unchanged (checked: identical before and
+   after adding the day).
