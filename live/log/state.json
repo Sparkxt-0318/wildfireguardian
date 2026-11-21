@@ -24,8 +24,22 @@
    "11": [],
    "12": [],
    "13": [],
-   "14": []
+   "14": [],
+   "15": []
   },
   "single_exit_by_cell": {}
+ },
+ "cause": {
+  "514564": {
+   "first_seen_utc": "2026-11-21T06:07:00Z",
+   "history": [
+    {
+     "ignition_points": null,
+     "status": "not_reported",
+     "text": null,
+     "utc": "2026-11-21T06:07:00Z"
+    }
+   ]
+  }
  }
 }
