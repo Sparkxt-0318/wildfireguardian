@@ -4,6 +4,10 @@
    "514124": {
     "cut_utc": {},
     "first_sent": false
+   },
+   "514964": {
+    "cut_utc": {},
+    "first_sent": false
    }
   }
  },
@@ -42,6 +46,17 @@
      "status": "not_reported",
      "text": null,
      "utc": "2026-11-21T06:38:00Z"
+    }
+   ]
+  },
+  "514964": {
+   "first_seen_utc": "2026-11-21T23:37:00Z",
+   "history": [
+    {
+     "ignition_points": null,
+     "status": "not_reported",
+     "text": null,
+     "utc": "2026-11-21T23:37:00Z"
     }
    ]
   }
