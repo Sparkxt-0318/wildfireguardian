@@ -13,7 +13,7 @@ bo_id,location,community,severity_category,initiation,date,first_obs_flag,durati
 10,Clark Rd / American Way,Paradise,2,10:00,2018-11-08,,120,700,,125,163,junction,,,Clark Road,American Way,"Table 30 place; N p. 95 (Table 19) and p. 170"
 11,Clark Rd / Airport Rd,Butte County,2,10:00,2018-11-08,,90,1500,,125,163,junction,,,Clark Road,Airport Road,"Table 30 place"
 12,Skyway (lower),Paradise,2,10:15,2018-11-08,,90,1000,,125,163,junction,,,Skyway,Princeton Way,"TN 2252 gives only 'Skyway (lower)'; 'west of Princeton Way' is from TN 2135 Table 33 as carried in research/kcf-validate/out/nist_burnovers.csv (TN 2135 not in the evidence folder)"
-13,Jordan Hill Rd / Granite Hill Rd,Concow,1,11:30,2018-11-08,,,800,,125,163,junction,,,Jordan Hill Road,Granite Hill Road,"Table 30 place; N §7 p. 76"
+13,Jordan Hill Rd / Granite Hill Rd,Concow,1,11:30,2018-11-08,,,800,,125,163,junction,,,Jordan Hill Road,Granite Ridge Road,"Table 30 place; N §7 p. 76; OSM has no Granite Hill Rd, placed at Granite Ridge Rd (workbook W1046), PROTOCOL amendment 4"
 22,Neal Rd,Paradise,1,11:30,2018-11-08,,90,800,,126,164,point,39.737913,-121.647949,Neal Road,,"sup App. F p. F-9 coordinates, sup PDF p. 157"
 23,Clark Rd / Cypress Ln,Paradise,2,11:45,2018-11-08,e,,1300,,126,164,point,39.784242,-121.586680,Clark Road,,"sup App. F p. F-12 coordinates, sup PDF p. 160; 1.3 km stretch around Cypress Ln (N p. 142)"
 14,Clark Rd / Black Bear Diner,Paradise,2,13:10,2018-11-08,,,150,,126,164,point,39.753590,-121.607760,Clark Road,,"Black Bear Diner on Clark Rd as geocoded by research/kcf-validate (Overture place); not in TN 2252 text"

@@ -167,3 +167,8 @@ it is stopped and the reason given.
    2018-11-08 00:00 PST (9 November adds 1,440). Rows of both days are used in input and scoring; 9 November rows are
    also reported separately. De-duplication keys and observation ids are unchanged (checked: identical before and
    after adding the day).
+4. **2026-11-21, after building the graph and before any test was run.** OSM has no "Granite Hill Road"; it has
+   Granite Ridge Road meeting Jordan Hill Road, and workbook row W1046 reads "fire coming down Jordan Hill Rd near
+   Granite Ridge Rd". BO #13 is placed at the Jordan Hill Road / Granite Ridge Road junction, marked in the table.
+   Graph: 4 tiles, 4,552 ways, 4,350 nodes, 9,585 directed edges, 2,121 road cells, 91 × 114 cells (tile SHA-256 in
+   `data/osm_tiles_sha256.txt`; graph SHA-256 016da7c9…49ca, not committed, rebuilt by `build_graph_osm.py`).
