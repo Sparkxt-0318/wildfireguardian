@@ -1033,7 +1033,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-21T03:07:54Z",
+   "fetched_utc": "2026-11-21T03:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1044,7 +1044,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-21T03:07:54Z",
+   "fetched_utc": "2026-11-21T03:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1055,7 +1055,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-21T03:07:54Z",
+   "fetched_utc": "2026-11-21T03:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1066,7 +1066,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-21T03:07:54Z",
+   "fetched_utc": "2026-11-21T03:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1089,22 +1089,36 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261120/18/atmos/gfs.t18z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 23,
+   "bytes": 562,
    "error": null,
-   "fetched_utc": "2026-11-21T03:07:53Z",
+   "fetched_utc": "2026-11-21T03:37:57Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "3d0dc27c3fc3b66d9dc7417a4a30b7ac70892b60dc1f48f208b8f3fa1e0a21ec",
+   "sha256": "c5e2df8b1517cc9b28e63a6d76cdff102947c000a883eca3feaa05b363e86955",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-21T03:00:00Z",
- "issue_kst": "2026-11-21 12:07",
- "issue_utc": "2026-11-21T03:07:00Z",
+ "issue_kst": "2026-11-21 12:37",
+ "issue_utc": "2026-11-21T03:37:00Z",
  "kfs_ok": true,
- "listed": [],
+ "listed": [
+  {
+   "address": "경기도 연천군 전곡읍 양원리",
+   "contained_pct": null,
+   "id": "514564",
+   "in_scope": false,
+   "lat": 37.994340000000335,
+   "lgdng_cd": "4180025326",
+   "lon": 127.0238,
+   "report_utc": "2026-11-21T02:19:46Z",
+   "status": "진화중",
+   "status_code": "02",
+   "step": "초기 대응"
+  }
+ ],
  "notice": {
   "en": "Model output, advisory, not an official order; follow instructions from authorities. No official use is claimed.",
   "ko": "모델 출력 · 참고용 · 공식 명령 아님. 당국의 안내에 따르십시오. 공식 사용을 주장하지 않습니다."
@@ -1113,12 +1127,12 @@
  "regions": {},
  "run": {
   "commit": "7c9fa18cbb3c82d8feacaaad2aafeb9d688e8228",
-  "compute_finished_utc": "2026-11-21T03:07:55Z",
+  "compute_finished_utc": "2026-11-21T03:37:59Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-21T03:07:54Z",
+  "fetch_finished_utc": "2026-11-21T03:37:57Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44859433893"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44862045962"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "55ecfd2734aa03b4f351b36009700bf2d3ca8978efd3e86e65d520bf64aaa771",
