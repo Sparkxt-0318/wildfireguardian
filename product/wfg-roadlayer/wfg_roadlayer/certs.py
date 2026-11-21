@@ -20,7 +20,7 @@ def _dump(obj) -> bytes:
     return json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
 
 
-def instance_bytes(road, inst, close_s, H, dwell, heat=None) -> bytes:
+def instance_bytes(road, inst, close_s, H, dwell, heat=None, open_s=None) -> bytes:
     doc = {
         "schema": "wfg.roadlayer.instance/1",
         "H": H, "dwell_s": dwell, "grid": road.grid_json, "crs": road.crs, "graph_revision": road.revision,
@@ -42,6 +42,13 @@ def instance_bytes(road, inst, close_s, H, dwell, heat=None) -> bytes:
             "source": "research/kcf-replay/replay.py Region.instance / Region.accept / run_one",
         },
     }
+    if open_s:
+        # reopening option (research/kcf-reopen): the cell is closed on [b, r) with r = cell_reopen_s
+        doc["cell_reopen_s"] = {str(c): int(r) for c, r in sorted(open_s.items())}
+        doc["rules"]["reopen"] = ("reopening on: a cell with closure b and reopening r is closed on [b, r); B_j = union over "
+                                  "segments of [max(0, ceil(b - D_j z_end)), ceil(r - D_j z_start) - 1], W_v = [max(b - 1, 0), "
+                                  "r - 1], A = [0, H - dwell] minus [b - dwell, r - 1], IB = [b, r - 1]; cells without r as above. "
+                                  "Feasible sets are no longer prefixes (THEOREM.md Theorem 1 applies, Theorem 2 does not)")
     if heat is not None:
         # heat option: closure second per road piece (edge, piece index) and per node, from the radiant-heat rule
         # (research/kcf-radiation); the masks above follow from these, not from cell_closure_s.

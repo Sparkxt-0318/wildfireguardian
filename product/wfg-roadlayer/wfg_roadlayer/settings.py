@@ -16,6 +16,7 @@ _SCHEMA = {
     "run": {"workers": int},
     "heat": {"enabled": int, "threshold_kw_m2": float, "fuel_level": int, "wind10_m_s": float, "rh_pct": float,
              "air_temp_c": float},
+    "reopen": {"mode": int, "burnout_min": float},
 }
 
 
@@ -53,5 +54,8 @@ def load(path: Path | None = None) -> dict:
     if h["enabled"] not in (0, 1) or not (h["threshold_kw_m2"] > 0) or h["fuel_level"] not in (0, 1, 2) \
             or h["wind10_m_s"] < 0 or not (0 < h["rh_pct"] <= 100):
         raise Refusal(reason("SETTINGS_INVALID", "heat 설정 값이 잘못됨", "invalid heat settings"))
+    ro = s["reopen"]
+    if ro["mode"] not in (0, 1, 2) or not (ro["burnout_min"] > 0):
+        raise Refusal(reason("SETTINGS_INVALID", "reopen 설정 값이 잘못됨", "invalid reopen settings"))
     s["_sources"] = src
     return s

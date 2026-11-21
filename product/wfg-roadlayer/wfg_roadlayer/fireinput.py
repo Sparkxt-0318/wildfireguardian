@@ -55,8 +55,10 @@ def _check_issue(cli_issue: datetime | None, declared: datetime | None, where: s
     return cli_issue
 
 
-def _classify(v: np.ndarray, nodata, horizon_min: float, not_reached_value, H: int):
-    """-> (covered bool array, seconds int64 array with H+1 meaning not reached)."""
+def _classify(v: np.ndarray, nodata, horizon_min: float, not_reached_value, H: int, keep_past: bool = False):
+    """-> (covered bool array, seconds int64 array with H+1 meaning not reached). ``keep_past`` (reopening's central
+    arrival raster only): a value <= 0 keeps its negative seconds (fire arrived that long before the issue time) instead
+    of 0; -inf becomes -10**9."""
     cov = ~np.isnan(v)
     if nodata is not None and not math.isnan(nodata):
         cov &= v != nodata
@@ -67,7 +69,11 @@ def _classify(v: np.ndarray, nodata, horizon_min: float, not_reached_value, H: i
         if not_reached_value is not None:
             fin &= v != not_reached_value
             burned &= v != not_reached_value
-        sec[burned] = 0
+        if keep_past:
+            vb = v[burned]
+            sec[burned] = np.where(np.isfinite(vb), np.floor(60.0 * np.where(np.isfinite(vb), vb, 0.0) + 1e-6), -10 ** 9).astype(np.int64)
+        else:
+            sec[burned] = 0
         s = np.floor(60.0 * v[fin] + 1e-6).astype(np.int64)
         sec[fin] = np.where(s > H, H + 1, np.maximum(s, 0))
     return cov, sec
@@ -78,13 +84,13 @@ def _cell_reduce(covs, secs, H):
     if secs.size == 0:
         return None
     m = int(secs[covs].min()) if covs.any() else H + 1
-    if not covs.all() and m != 0:
+    if not covs.all() and m > 0:
         return None
     return m
 
 
 def load_geotiff(path, road: RoadModel, *, issue_utc: datetime | None, horizon_min: float | None,
-                 not_reached_value: float | None = None) -> FireInput:
+                 not_reached_value: float | None = None, keep_past: bool = False) -> FireInput:
     p = Path(path)
     if not p.is_file():
         raise Refusal(reason("FIRE_INPUT_MISSING", "화재 도달 래스터가 없습니다: %s" % p, "fire-arrival raster not found: %s" % p))
@@ -114,7 +120,7 @@ def load_geotiff(path, road: RoadModel, *, issue_utc: datetime | None, horizon_m
     if md.get("WFG_NOT_REACHED") and not_reached_value is None:
         not_reached_value = float(md["WFG_NOT_REACHED"])
     H = int(round(hmin * 60))
-    cov, sec = _classify(r.data, r.nodata, hmin, not_reached_value, H)
+    cov, sec = _classify(r.data, r.nodata, hmin, not_reached_value, H, keep_past)
     a, b, c, d, e, f = r.affine
     rows, cols = r.shape
     arrival, uncovered = {}, []
@@ -134,7 +140,7 @@ def load_geotiff(path, road: RoadModel, *, issue_utc: datetime | None, horizon_m
             cs, ss = cov[max(r_lo, 0):min(r_hi, rows - 1) + 1, max(c_lo, 0):min(c_hi, cols - 1) + 1], \
                 sec[max(r_lo, 0):min(r_hi, rows - 1) + 1, max(c_lo, 0):min(c_hi, cols - 1) + 1]
             m = _cell_reduce(cs, ss, H)
-            if m is None or (not inside and m != 0):
+            if m is None or (not inside and m > 0):
                 uncovered.append(cell)
             elif m <= H:
                 arrival[cell] = m

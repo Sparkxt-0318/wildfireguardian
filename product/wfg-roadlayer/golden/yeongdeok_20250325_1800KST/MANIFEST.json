@@ -8,7 +8,7 @@
  "files_sha256": {
   "certificates/README.md": "1b6a8487ba0955137ce9f7beaabe935794a6ccb0d1883e5ef1bb1499049775b8",
   "certificates/checker.py": "2ad850ec1ddfe8335b3289d2afc120fce375db659341e1394e0faac0277c49c3",
-  "certificates/verify_certificate.py": "cddb2f3fb4f76c6918a767c545e403c09964422bbc31bdba5239641366095479",
+  "certificates/verify_certificate.py": "efd9051f35ad53f5ec3ea6a5c55d40516792659ae86da9605b19cd99d2c3bf2a",
   "certificates/villages/osm_node_11753630207.json": "a9ed0b24024f287308d2dcc765db8a75b2a8a4c08465154b7c656a7ed13c371e",
   "certificates/villages/osm_node_415158166.json": "8ae0f693dc627578bf26133fe38ee353e3b3f2cd47bc7d563f76f11a2dd811ca",
   "certificates/villages/osm_node_415158168.json": "36275e704e3172a94aca77a78f3bc3ae3486ddd83cd2f0da413aec32e5c7065c",

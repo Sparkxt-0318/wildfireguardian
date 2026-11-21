@@ -168,7 +168,7 @@ def stage_of(remaining_s, horizon_left_s, st):
     return None
 
 
-def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
+def assemble(region, fire, settings, inst, results, close_s, nodeb=None, open_s=None):
     """Per-village rows (dicts with seconds after issue; formatting is done by the writers)."""
     H = fire.horizon_s
     dwell = settings["routing"]["dwell_s"]
@@ -201,7 +201,7 @@ def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
             free = H - dwell - ft if ft is not None and H - dwell - ft >= 0 else None
             per.append({"k": k, "shelter": s, "set": S, "L": S[-1][1] if S else None, "fire_free_latest": free,
                         "fastest_s": ft, "w_last": res["w_last"], "w_first": res["w_first"],
-                        "accept": accept(road, close_s, s["node"], H, dwell, nodeb)})
+                        "accept": accept(road, close_s, s["node"], H, dwell, nodeb, open_s)})
         row["per_shelter"] = per
         if all(p["fire_free_latest"] is None for p in per):
             row["refusal"] = ("NO_ROAD_PATH", "화재와 무관하게 도로망으로 후보 대피소에 갈 수 없음",
@@ -224,7 +224,7 @@ def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
         else:
             cut = L + 1
         row.update(windows=windows, L=L, leave_by=(windows[0][1] if windows and windows[0][0] == 0 else None),
-                   fire_free_latest=free_max, cut=cut, A=A, horizon=H, origin_ib=origin_closure(road, close_s, on, H, nodeb))
+                   fire_free_latest=free_max, cut=cut, A=A, horizon=H, origin_ib=origin_closure(road, close_s, on, H, nodeb, open_s))
         # route at the latest departure (the last road out) and at the issue time (leave now)
         best = None
         for p in per:

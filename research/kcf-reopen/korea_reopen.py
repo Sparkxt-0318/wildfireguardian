@@ -245,3 +245,20 @@ for r in rows:
     print(r["official_closure_kst"], r["section"], "| cells", r["lattice_cells"], "fire", r["cells_with_fire_disc"], r["fire_first_kst"], r["fire_last_kst"],
           "| traffic", r["traffic_return_median_kst"], "n", r["traffic_conzone_directions"], "| model", r["model_reopen_frozen_kst"], "diff", r["model_minus_traffic_frozen_min"],
           "| choi", r["choi_model_reopen_frozen_kst"], r["choi_model_minus_traffic_frozen_min"], "| episode", r["episode_model_state_at_closure"], r["episode_model_reopen_kst"], r["episode_model_minus_traffic_min"], r["episode_next_model_closure_kst"], "|", r["official_reopen_message_kst"][:60])
+
+# ---------------------------------------------------------------- reopening messages: section cells (residents' confirmations, step 7)
+conf = []
+for r in reopen_msgs:
+    for s in r["sections_parsed"].split(" ; "):
+        if " " not in s or "~" not in s:
+            continue
+        rt, ab = s.split(" ", 1)
+        if rt not in ROUTE_REF:
+            continue
+        ref = ROUTE_REF[rt]; A, B = [base(x) for x in ab.split("~")]
+        na, _ = anchor(ref, A); nb, _ = anchor(ref, B)
+        p = path(ref, na, nb) if na and nb else None
+        cells = sorted({c for c in (lattice_cell(x, y) for x, y in samples(p)) if c is not None}) if p else []
+        conf.append({"effective_kst": r["effective_kst"], "section": s, "lattice_cells": cells})
+(OUT / "korea_reopen_messages_cells.json").write_text(json.dumps(conf, ensure_ascii=False))
+print("reopening messages:", [(c["effective_kst"], c["section"], len(c["lattice_cells"])) for c in conf])
