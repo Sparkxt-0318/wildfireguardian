@@ -1,0 +1,4917 @@
+{
+ "pool_fires": 490,
+ "pool_intervals": 3773,
+ "fires_extracted": 490,
+ "fires_missing_cache": [],
+ "intervals_extracted": 3773,
+ "intervals_skipped_weather": 0,
+ "intervals_unexplained": 0,
+ "fires_with_zero_cells": [],
+ "perimeter_manifest_sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
+ "events_json_sha256": "fef3626051d4a06b80c355b0773a28ce28c5bdc6131f5208ac4a7d89405b3b19",
+ "folds_sha256": "1187a9d6998e493ecf40914ad0f8799cbe419cbe5bf2098b7f1a781464aa424e",
+ "script_sha256": "d3a4183dae09ae75a77e061fa289b7ec3723d48ebd74e3e9df923918f63d6b51",
+ "rows": [
+  {
+   "fire": "AZ-A1S-001211_Monument",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 4073,
+   "newburn": 43,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-A3S-001033_Walnut",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 4135,
+   "newburn": 31,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-A4S-000950_Central",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 5242,
+   "newburn": 16,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-A5S-230970_Pilot",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 9887,
+   "newburn": 71,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASD-000097_Basin",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 5972,
+   "newburn": 91,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000264_Foote",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 3233,
+   "newburn": 94,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000416_Pius",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1681,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000447_Campbell",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1955,
+   "newburn": 26,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000613_Horton",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 5906,
+   "newburn": 227,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000624_Bear",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 8999,
+   "newburn": 341,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000627_Moore",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 968,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000662_WestChev",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1466,
+   "newburn": 13,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-000662_Wyrick",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 3528,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-ASF-00083_Bringham",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 23882,
+   "newburn": 577,
+   "newburn_outside_crop": 22,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-CNF-000401_Foster",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2402,
+   "newburn": 26,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-CNF-000427_Pinnacle",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 29143,
+   "newburn": 910,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-CNF-000552_Beehive",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 7151,
+   "newburn": 254,
+   "newburn_outside_crop": 5,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-CNF-000552_Corral",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 769,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000159_Tunnel",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 7373,
+   "newburn": 11,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000176_Wolf",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 6310,
+   "newburn": 281,
+   "newburn_outside_crop": 29,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000272_Wilbur",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 14518,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000523_Pipeline",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 17591,
+   "newburn": 183,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000536_Haywire",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 4874,
+   "newburn": 47,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000642_Backbone",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 41310,
+   "newburn": 690,
+   "newburn_outside_crop": 45,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-COF-000642_Snake",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 445,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-CRD-000996_PinePeak",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1959,
+   "newburn": 45,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-CRD-001644_Ridge",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2445,
+   "newburn": 20,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-FTA-000336_McDonaldTank",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1562,
+   "newburn": 58,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-FTA-000555_CottonwoodRidge",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1560,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-FTA-000574_Spoon",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 5288,
+   "newburn": 113,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-FTA-000867_Lofer",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2016,
+   "newburn": 14,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-KNF-000369_Bravo",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 592,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-KNF-000391_ThreeLakes",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1501,
+   "newburn": 50,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-NAA-000156_WoodSprings2",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 15152,
+   "newburn": 110,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PHD-000455_Tussock",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 5305,
+   "newburn": 38,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PNF-000863_Rafael",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 39818,
+   "newburn": 1578,
+   "newburn_outside_crop": 224,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PNF-000991_Grapevine",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1203,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PNF-001008_Tiger",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 11082,
+   "newburn": 277,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PNF-002178_Horse",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 7739,
+   "newburn": 236,
+   "newburn_outside_crop": 8,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PPA-000327_SycamoreCanyon",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1730,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-PPA-000453_Contreras",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 19289,
+   "newburn": 794,
+   "newburn_outside_crop": 3,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-001110_Buckhorn",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1290,
+   "newburn": 16,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-001115_Watch",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 450,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-001403_BlueRiver",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 26501,
+   "newburn": 869,
+   "newburn_outside_crop": 256,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-001418_DryLake",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 6978,
+   "newburn": 112,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-002036_BlueRiver2",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 11597,
+   "newburn": 347,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-002036_Valley",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 13836,
+   "newburn": 81,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-002339_CassadoreSprings",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 11362,
+   "newburn": 118,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-002574_Rockhouse",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 1392,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-SCA-002639_Alder",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 287,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TCA-000773_C3",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1904,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-000705_Spring",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1783,
+   "newburn": 63,
+   "newburn_outside_crop": 4,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001046_Diamond",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 8343,
+   "newburn": 139,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001130_Black",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 4941,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001306_Sawtooth",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 10349,
+   "newburn": 131,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001581_Bush",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 148309,
+   "newburn": 5211,
+   "newburn_outside_crop": 249,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001594_West",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 9953,
+   "newburn": 304,
+   "newburn_outside_crop": 2,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001699_Middle",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 4795,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-001830_Polles",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2006,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-002510_Griffin",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 9689,
+   "newburn": 61,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "AZ-TNF-002616_Hidden",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2036,
+   "newburn": 21,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-AEU-017769_Electra",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 4894,
+   "newburn": 103,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-AEU-022341_Crozier",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 3353,
+   "newburn": 58,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ANF-001704_Sheep",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 598,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ANF-003063_Dam",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 699,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ANF-003273_Lake",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 26410,
+   "newburn": 557,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ANF-003289_Ranch2",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 4762,
+   "newburn": 80,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ANF-003687_Bobcat",
+   "intervals_expected": 30,
+   "intervals_extracted": 30,
+   "cells": 177569,
+   "newburn": 3217,
+   "newburn_outside_crop": 141,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ANF-243334_Bridge",
+   "intervals_expected": 18,
+   "intervals_extracted": 18,
+   "cells": 44469,
+   "newburn": 1613,
+   "newburn_outside_crop": 1132,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BDF-009908_Vista",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 5016,
+   "newburn": 69,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BDF-012520_Line",
+   "intervals_expected": 35,
+   "intervals_extracted": 35,
+   "cells": 81714,
+   "newburn": 764,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BDF-012958_Radford",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 2965,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BEU-004024_River",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 43451,
+   "newburn": 1481,
+   "newburn_outside_crop": 143,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BEU-004081_Carmel",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 5837,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BTU-012090_Thompson",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 3068,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-BTU-013761_Park",
+   "intervals_expected": 60,
+   "intervals_extracted": 60,
+   "cells": 1014319,
+   "newburn": 7668,
+   "newburn_outside_crop": 1879,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-CND-002309_Stagecoach",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 5060,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-CND-002374_Peak",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1800,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-CND-002796_French",
+   "intervals_expected": 18,
+   "intervals_extracted": 18,
+   "cells": 32104,
+   "newburn": 389,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-CNF-002791_Chaparral",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 360,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-CNF-002833_Valley",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 5448,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-CZU-005205_CZULightning",
+   "intervals_expected": 19,
+   "intervals_extracted": 19,
+   "cells": 47708,
+   "newburn": 764,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ENF-032344_Point",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 651,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-FKU-010219_Mineral",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 26168,
+   "newburn": 614,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-FKU-019190_Boone",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 6016,
+   "newburn": 323,
+   "newburn_outside_crop": 6,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-HIA-000046_MP21",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 618,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-INF-001299_InyoCreek",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1837,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-INF-001695_Dexter",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1984,
+   "newburn": 29,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-KNF-005169_Tennant",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 10737,
+   "newburn": 77,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-KNF-007035_Slater",
+   "intervals_expected": 30,
+   "intervals_extracted": 30,
+   "cells": 271088,
+   "newburn": 721,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-KNF-007241_Fox",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 3149,
+   "newburn": 43,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-KNP-000088_CoffeePot",
+   "intervals_expected": 27,
+   "intervals_extracted": 27,
+   "cells": 26029,
+   "newburn": 313,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-KNP-000122_KNPComplex",
+   "intervals_expected": 37,
+   "intervals_extracted": 37,
+   "cells": 156944,
+   "newburn": 2427,
+   "newburn_outside_crop": 5,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LAC-020523_Post",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 8203,
+   "newburn": 151,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LAC-434928_Franklin",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 3327,
+   "newburn": 47,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LMU-003874_Hog",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 12280,
+   "newburn": 269,
+   "newburn_outside_crop": 7,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LMU-003917_Gold",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 18058,
+   "newburn": 349,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LNF-004290_Stump",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 550,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LNF-2815_Graham",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 494,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LNU-011083_Sites",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 8405,
+   "newburn": 64,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LNU-013407_LNULightningComplex_Meyers",
+   "intervals_expected": 22,
+   "intervals_extracted": 22,
+   "cells": 6857,
+   "newburn": 66,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LNU-013725_Ridge",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1334,
+   "newburn": 79,
+   "newburn_outside_crop": 3,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LNU-015947_Glass",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 49195,
+   "newburn": 1569,
+   "newburn_outside_crop": 5,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LPF-001493_Willow",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 3270,
+   "newburn": 21,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LPF-001542_Lake",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 33349,
+   "newburn": 525,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LPF-002759_Alisal",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 7070,
+   "newburn": 286,
+   "newburn_outside_crop": 1,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-LPF-003161_Coleman",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1854,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MDF-000486_Allen",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1871,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MDF-000486_Caldwell",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 41434,
+   "newburn": 2133,
+   "newburn_outside_crop": 534,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MDF-000896_Barnes",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 3345,
+   "newburn": 81,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MMU-014714_River",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 4520,
+   "newburn": 22,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MNP-010701_York",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 28783,
+   "newburn": 873,
+   "newburn_outside_crop": 38,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MVU-013233_Border13",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 542,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-MVU-018864_Border32",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2577,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-NEU-023725_Bridge",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 490,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-NOD-004137_S4",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 952,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ORC-019703_Emerald",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 296,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ORC-060975_Coastal",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1094,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ORC-121364_Silverado",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 6348,
+   "newburn": 353,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ORC-121612_BlueRidge",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 4720,
+   "newburn": 296,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-ORC-136890_Bond",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 6400,
+   "newburn": 38,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-OVD-030860_MountainView",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 7485,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-PNF-001064_Beckwourth",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 37948,
+   "newburn": 2989,
+   "newburn_outside_crop": 222,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-PNF-001299_Sheep",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 15465,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-RNP-012009_Woodward",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1905,
+   "newburn": 13,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-RRU-096640_Apple",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 19690,
+   "newburn": 264,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-RRU-102458_RiversideSupport_Rabbit",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 18118,
+   "newburn": 39,
+   "newburn_outside_crop": 13,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-RRU-129712_Fairview",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 12224,
+   "newburn": 68,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-RRU-160976_Highland",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2069,
+   "newburn": 38,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SCU-004686_Crews",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 3861,
+   "newburn": 87,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-000949_Lava",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 34280,
+   "newburn": 730,
+   "newburn_outside_crop": 66,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-000973_Deep",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 5247,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-000982_Salt",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 13319,
+   "newburn": 280,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-000996_Shoe",
+   "intervals_expected": 20,
+   "intervals_extracted": 20,
+   "cells": 13353,
+   "newburn": 136,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-001004_ThreeNine",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 6774,
+   "newburn": 33,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-001187_Knob",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 3749,
+   "newburn": 45,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHF-001376_Hobo",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 822,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHU-009978_Zogg",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 43518,
+   "newburn": 861,
+   "newburn_outside_crop": 49,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SHU-010480_Fawn",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 6929,
+   "newburn": 104,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SKU-007568_Mill",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 5607,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SKU-007586_Mountain",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 15929,
+   "newburn": 205,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SNF-001402_Bullfrog",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1151,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SQF-001362_Borel",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 39331,
+   "newburn": 1630,
+   "newburn_outside_crop": 320,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SQF-002089_Wishon",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 694,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-SQF-002758_Walkers",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1942,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-STF-002313_Peak",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1177,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-TCU-007675_Aero",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2276,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-TNF-000855_Royal",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 662,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-TNF-001251_Bear",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2524,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-TNF-00137_Mosquito",
+   "intervals_expected": 39,
+   "intervals_extracted": 39,
+   "cells": 207138,
+   "newburn": 1924,
+   "newburn_outside_crop": 74,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-TNF-001600_Loyalton",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 34900,
+   "newburn": 495,
+   "newburn_outside_crop": 31,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-YNP-000050_Pika",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 338,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-YNP-000058_Rodgers",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 7000,
+   "newburn": 46,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA-YNP-000066_Aspen",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 504,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CA_SLU_009866_Pond",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1916,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-ARF-000683_AlexanderMountain",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 4458,
+   "newburn": 50,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-ARF-001048_Lefthand",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 564,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-BLX-001036_Calwood",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 6345,
+   "newburn": 37,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-DTX-000082_CurrantCreek",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1404,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-GFX-000348_GrizzlyCreek",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 25449,
+   "newburn": 766,
+   "newburn_outside_crop": 19,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-GFX-230097_SpringCreek",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 5827,
+   "newburn": 19,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-GMF-000176_Lowline",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 2618,
+   "newburn": 13,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-MRX-000086_Bucktail",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1612,
+   "newburn": 105,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-PSF-000779_OakRidge",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1112,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-PSF-001717_SaintCharles",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1236,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-RTF-000363_MiddleFork",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 10140,
+   "newburn": 173,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJD-000416_EastCanyon",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2716,
+   "newburn": 11,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-000203_Plumtaw",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 596,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-000348_ChrisMountain",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 929,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-000570_BearCreek",
+   "intervals_expected": 19,
+   "intervals_extracted": 19,
+   "cells": 7949,
+   "newburn": 14,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-000678_QuartzRidge",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 10866,
+   "newburn": 28,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-001183_MillCreek2",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1180,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-001184_TrailSprings",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1787,
+   "newburn": 20,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-SJF-001214_Ice",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1445,
+   "newburn": 6,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-TLX-000722_HighPark",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 846,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "CO-UPD-000186_LittleMesa",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 9349,
+   "newburn": 102,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000212_BlackMountain",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 916,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000487_Warm",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 504,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000488_Golden",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 578,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000699_Bulltrout",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 1848,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000714_Buck",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 9800,
+   "newburn": 178,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000740_East",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2890,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-000777_Grouse",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 4348,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-BOF-001073_Sheep",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 586,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-CMS-000280_BillyCreek",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1114,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-CMS-000470_ShovelCreek",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 83197,
+   "newburn": 2702,
+   "newburn_outside_crop": 60,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-CTS-000714_Sunnyside_IronGate",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 898,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-EIS-000311_Chimney",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 8069,
+   "newburn": 95,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000212_DiamondWatch",
+   "intervals_expected": 30,
+   "intervals_extracted": 30,
+   "cells": 10669,
+   "newburn": 26,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000234_Consalus",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 2932,
+   "newburn": 6,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000385_EneasPeak",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 5020,
+   "newburn": 32,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000424_BlackBurn",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 570,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000447_RidgeCreek",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 8386,
+   "newburn": 53,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000452_TrestleCreek",
+   "intervals_expected": 21,
+   "intervals_extracted": 21,
+   "cells": 16949,
+   "newburn": 97,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000454_Buckskin2",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 488,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000533_Bernard",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 3169,
+   "newburn": 27,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000653_KootenaiRiverComplex_Katka",
+   "intervals_expected": 25,
+   "intervals_extracted": 25,
+   "cells": 7013,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-IPF-000653_KootenaiRiverComplex_Russell",
+   "intervals_expected": 26,
+   "intervals_extracted": 26,
+   "cells": 62090,
+   "newburn": 336,
+   "newburn_outside_crop": 2,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-MCS-000404_TooKush2",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1808,
+   "newburn": 15,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000321_LittleBear",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 4515,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000321b_WestFork",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 841,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000370_Midnight",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 928,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000412_AceButte",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 519,
+   "newburn": 17,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000515_Anchor",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 464,
+   "newburn": 17,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000552_Beaver",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1836,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000581_SnowCreek",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 2937,
+   "newburn": 21,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000628_Sponge",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1252,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-000819_MooseCreek_Halfway",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 2387,
+   "newburn": 30,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-00472_Shissler",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 5044,
+   "newburn": 43,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-00505_MocusPoint",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 420,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-00508_Marion",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1225,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-NCF-00563_WarmSprings",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 775,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-000422_RushCreek",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 11679,
+   "newburn": 67,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-000433_Vinegar",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 3884,
+   "newburn": 23,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-000495_Porphyry",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 5816,
+   "newburn": 129,
+   "newburn_outside_crop": 13,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-000570_Woodhead",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 14775,
+   "newburn": 228,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-002673_ElkHorn",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 9498,
+   "newburn": 59,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-005464_Limepoint",
+   "intervals_expected": 27,
+   "intervals_extracted": 27,
+   "cells": 106891,
+   "newburn": 537,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-005567_Farrow",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2032,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-005658_Lemhi",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 378,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PAF-005791_Logan",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 20142,
+   "newburn": 146,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PDS-000614_LelandComplex",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1981,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-PDS-000892_Bedrock",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 5792,
+   "newburn": 146,
+   "newburn_outside_crop": 2,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-POS-000512_Hunter2",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 713,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-POS-000617_Pioneer",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 246,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SCF-021130_MudLick",
+   "intervals_expected": 20,
+   "intervals_extracted": 20,
+   "cells": 28374,
+   "newburn": 490,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SCF-021154_Haynes",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1564,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SCF-021157_Iron",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1328,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SCF-022250_Owl",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2530,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SCF-023084_Hayden",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 16117,
+   "newburn": 253,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SCF-240169_Birch",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 20033,
+   "newburn": 451,
+   "newburn_outside_crop": 30,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SIS-000452_Copeland",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 416,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000180_BenchLake",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2316,
+   "newburn": 25,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000207_MormonBend",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 543,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000331_Frog",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 6439,
+   "newburn": 43,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000335_Corral",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 1253,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000351_Badger",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 48945,
+   "newburn": 1163,
+   "newburn_outside_crop": 205,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000353_JakesGulch",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 3085,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-STF-000353_Trap",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2549,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SWS-000558_Pumpkin",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2047,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "ID-SWS-000920_Flat",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 8512,
+   "newburn": 81,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006132_Clover",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 750,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006210_BowlesCreek",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 9882,
+   "newburn": 115,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006286_TrailRidge",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 9891,
+   "newburn": 180,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006305_Goat",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 947,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006341_Haystack",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 24014,
+   "newburn": 385,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006386_SandLake",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1611,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006388_Placer",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 1769,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006610_BearCreek",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 15603,
+   "newburn": 156,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-006645_StateCreek",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 520,
+   "newburn": 11,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-022161_FuseLake",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 432,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-246327_Grouse",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 769,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-246437_RatioMountain",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1017,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-246666_Meridian",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 812,
+   "newburn": 25,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BDF-6306_BlackMountain",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 6154,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BID-210154_CrookedCreek",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 5267,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-BRF-022252_BlodgettLake",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1816,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-CGF-21048_RobertsonDraw",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 18159,
+   "newburn": 264,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-CRA-210153_BuffaloPasture",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 496,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000070_MagpieRock",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1755,
+   "newburn": 24,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000094_BigKnife",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 9447,
+   "newburn": 147,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000098_MiddleRidge",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 4825,
+   "newburn": 49,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000100_Niarada",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 14331,
+   "newburn": 280,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000101_MillPocket",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1338,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000106_Elmo",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 27183,
+   "newburn": 292,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000109_Redhorn",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 2477,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000130_Garceau",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 3988,
+   "newburn": 165,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000130_LittleMoney2",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 225,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000141_Sullivan",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 390,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHA-000157_Boulder2700",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 3191,
+   "newburn": 36,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FHF-000000_TinSoldierComplex",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 30901,
+   "newburn": 156,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FNF-000496_DorisPoint",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 3560,
+   "newburn": 26,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FNF-000518_Ridge",
+   "intervals_expected": 24,
+   "intervals_extracted": 24,
+   "cells": 12639,
+   "newburn": 93,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-FNF-000651_Lemonade",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2151,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-GNP-000462_Quartz",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2109,
+   "newburn": 29,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-HLF-000154_DeepCreekCanyon",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2796,
+   "newburn": 85,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-HLF-000182_MoorsMountain",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 583,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-HLF-000367_HorseGulch",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 6108,
+   "newburn": 121,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-HLF-005079_Balsinger",
+   "intervals_expected": 25,
+   "intervals_extracted": 25,
+   "cells": 22496,
+   "newburn": 215,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-HLF-005079_Ellis",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 4887,
+   "newburn": 26,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-HLF-005149_CrownMountain",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 394,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-KNF-000167_BurntPeak",
+   "intervals_expected": 38,
+   "intervals_extracted": 38,
+   "cells": 23106,
+   "newburn": 116,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-KNF-000176_Sutton",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 1340,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-KNF-000201_SouthYaak",
+   "intervals_expected": 27,
+   "intervals_extracted": 27,
+   "cells": 26919,
+   "newburn": 306,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-KNF-000262_EastFork",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 7252,
+   "newburn": 29,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LG02-000351_HarrisMountain",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 25449,
+   "newburn": 446,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LG23-200899_Bobcat",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 4916,
+   "newburn": 454,
+   "newburn_outside_crop": 7,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LG29-000236_Deadman",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 4646,
+   "newburn": 79,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LG29-000428_RichardSpring",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 28844,
+   "newburn": 205,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LNF-000883_DeepLookoutMtn",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2057,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LNF-000889_Brewster",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 208,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LNF-000951_DryCabin",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 644,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LNF-200730_RiverRoadEast",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 8707,
+   "newburn": 53,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-LNF-240427_MillerPeak",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 3859,
+   "newburn": 24,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-NWS-000748_WhitetailCreek",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1050,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-NWS-00274L_GravelPit",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 494,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-SOS-210281_Peterson",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2471,
+   "newburn": 68,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-SWS-001022_AndersonHill",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 645,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-SWS-200549_Colt",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 9790,
+   "newburn": 109,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT-SWS-240711_McElwain",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 436,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "MT_BDF_006227_Goose",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 11888,
+   "newburn": 164,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-CAF-000136_Comanche",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 686,
+   "newburn": 15,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-CAF-000200_Midnight",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 3766,
+   "newburn": 44,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-CAF-000631_Luna",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 5717,
+   "newburn": 121,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-CIF-000279_OjodeLosCasos",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 462,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-EMP-000234_Encerrita",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 3390,
+   "newburn": 28,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000226_Cub",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 9402,
+   "newburn": 448,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000226_Good",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 18025,
+   "newburn": 216,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000227_Turkey",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 3321,
+   "newburn": 145,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000276_Johnson",
+   "intervals_expected": 18,
+   "intervals_extracted": 18,
+   "cells": 65023,
+   "newburn": 1363,
+   "newburn_outside_crop": 11,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000318_Ridge",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 532,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000357_Dark",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 6563,
+   "newburn": 73,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000360_Divide",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 20687,
+   "newburn": 471,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000382_Davis",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 4426,
+   "newburn": 175,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000423_Noonday",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1006,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000428_Pasture",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 5999,
+   "newburn": 117,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-GNF-000447_Prior",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 3511,
+   "newburn": 144,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-LCD-000234_UVAS",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1571,
+   "newburn": 15,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-LNF-000130_ThreeRivers",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 8523,
+   "newburn": 75,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-LNF-000227_Blue2",
+   "intervals_expected": 17,
+   "intervals_extracted": 17,
+   "cells": 12632,
+   "newburn": 211,
+   "newburn_outside_crop": 19,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-LNF-000552_BlueFront",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1057,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-MEA-000382_SouthFork",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 9545,
+   "newburn": 76,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-MEA-000385_Salt",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 7481,
+   "newburn": 55,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-N4S-000034_CooksPeak",
+   "intervals_expected": 22,
+   "intervals_extracted": 22,
+   "cells": 66050,
+   "newburn": 1656,
+   "newburn_outside_crop": 130,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-N5S-000114_NogalCanyon",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1658,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-N5S-000115_McBride",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 5273,
+   "newburn": 25,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-N6S-000234_CerroBandera",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 939,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-SNF-000091_Indios",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 14776,
+   "newburn": 324,
+   "newburn_outside_crop": 9,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-SNF-000150_WolfDraw",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1197,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-SNF-000190_Rincon",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 518,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NM-SNF-000532_Medio",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 4363,
+   "newburn": 31,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-CCD-030406_Numbers",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 3095,
+   "newburn": 31,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-EKD-010089_Goshute",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2033,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-EKD-010185_Lost",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 894,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040026_WilsonCreek",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2371,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040076_MeadowValley",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 26169,
+   "newburn": 224,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040078_BigSummit",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 11161,
+   "newburn": 179,
+   "newburn_outside_crop": 1,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040082_StewartCanyon",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 9087,
+   "newburn": 214,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040122_Comet",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1806,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040123_Baldy",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1789,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040152_DodgeSprings",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1934,
+   "newburn": 18,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-ELD-040155_HeathCanyon",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 975,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-HTF-010139_Wildcat",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 1497,
+   "newburn": 198,
+   "newburn_outside_crop": 22,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-HTF-030419_Tamarack",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 53910,
+   "newburn": 896,
+   "newburn_outside_crop": 12,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-HTF-030684_Slink",
+   "intervals_expected": 19,
+   "intervals_extracted": 19,
+   "cells": 30198,
+   "newburn": 676,
+   "newburn_outside_crop": 12,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-HTF-040163_BroomCanyon",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2601,
+   "newburn": 32,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-HTF-500736_Mahogany",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 3384,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-HTF-500917_Cottonwood",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1084,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-SND-501554_VirginMountain",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 742,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "NV-TMFX_031010_Davis",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 4264,
+   "newburn": 16,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-0732S-00174_SkylineRidgeComplex",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 29237,
+   "newburn": 108,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-553S-553018_EchoMountainComplex",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 4040,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-711S-00037_SaltCreek",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 4274,
+   "newburn": 22,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-711S-000382_UpperApplegate3900",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1992,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-711S-00102_Worthington",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1908,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-711S-026621_SObenchain",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 20180,
+   "newburn": 558,
+   "newburn_outside_crop": 2,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-731-S0314_TyeeComplex",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 12077,
+   "newburn": 119,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-732S-000362_Milepost98",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 249,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-781S-000037_SweetCreekMP2",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 299,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-781S-000115_7k",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1984,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-952S-000063_Laurel",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2945,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-952S-020279_SteetMountain_SteetEast",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 3008,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-953S-000766_Shoefly",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 16698,
+   "newburn": 190,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-953S-024122_CourtRock",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 27630,
+   "newburn": 391,
+   "newburn_outside_crop": 10,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-953S-024272_FossilComplex_Canyon",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1398,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-954S-000017_FirMountain",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 650,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-954S-000022_MosierCreek",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1237,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-954S-000514_LarchCreek",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 9692,
+   "newburn": 104,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-955S-001022_Grandview",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 8166,
+   "newburn": 53,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-981S-230203_Golden",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 3114,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-981S-240314_Copperfield",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 5789,
+   "newburn": 19,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-9853S-024259_TwoCabin",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 462,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-BUD-002079_NealsHill",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1200,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-BUD-002263_BigMeadow",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1976,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-DEF-000845_FlatTop",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 29165,
+   "newburn": 87,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-DEF-000851_Firestone",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 10119,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-200196_BenYoung",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 754,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-200404_242",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 15787,
+   "newburn": 107,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-210422_PattonMeadow",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 10083,
+   "newburn": 164,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-210422_WillowValley",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1915,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-210452_CougarPeak",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 69921,
+   "newburn": 196,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-230307_Morgan",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1020,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-FWF-240332_BuckCreek",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 7593,
+   "newburn": 55,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-LAD-220351_VanMeter",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1408,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MAF-002502_Falls",
+   "intervals_expected": 26,
+   "intervals_extracted": 26,
+   "cells": 162663,
+   "newburn": 2805,
+   "newburn_outside_crop": 54,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MAF-002523_Telephone",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 43126,
+   "newburn": 816,
+   "newburn_outside_crop": 2,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MAF-002549_PoisonCreek",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 952,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MAF-022199_CrocketsKnob",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 8924,
+   "newburn": 124,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MHF-000583_Boulder",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 1398,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MHF-000681_WhiteRiver",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 41722,
+   "newburn": 484,
+   "newburn_outside_crop": 61,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-MHF-001199_CampCreek",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 2827,
+   "newburn": 11,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-OCF-000772_WileyFlat",
+   "intervals_expected": 22,
+   "intervals_extracted": 22,
+   "cells": 47587,
+   "newburn": 434,
+   "newburn_outside_crop": 50,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-ORC-000008_NorthCascade_Unger",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 4498,
+   "newburn": 14,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-PRD-000289_Darlene",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1845,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-PRD-000404_RVLoneRock",
+   "intervals_expected": 18,
+   "intervals_extracted": 18,
+   "cells": 137781,
+   "newburn": 1531,
+   "newburn_outside_crop": 64,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-PRD-000604_ElkLane",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1755,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-RSF-000209_Flat",
+   "intervals_expected": 44,
+   "intervals_extracted": 44,
+   "cells": 123728,
+   "newburn": 706,
+   "newburn_outside_crop": 10,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-SHR-240269_WarnerPeak",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 29556,
+   "newburn": 1449,
+   "newburn_outside_crop": 72,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-SUF-230424_ThreeButtesFire",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 440,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UMF-000392_BenHarrison",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 414,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UMF-000479_SlickEar",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 266,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UMF-000658_LickCreek",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 43543,
+   "newburn": 1749,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UMF-000745_ElbowCreek",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 27986,
+   "newburn": 266,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UMF-000830_TigerCreek_West",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1105,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UPF-000345_Chilcoot",
+   "intervals_expected": 21,
+   "intervals_extracted": 21,
+   "cells": 8642,
+   "newburn": 25,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UPF-000357_Dinner",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 2706,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UPF-000436_ArchieCreek",
+   "intervals_expected": 19,
+   "intervals_extracted": 19,
+   "cells": 103830,
+   "newburn": 1016,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UPF-000441_Thielsen",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 14135,
+   "newburn": 66,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-UPF-240402_DevilsKnob",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2968,
+   "newburn": 42,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-VAD-000153_IndianCreek",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 2307,
+   "newburn": 246,
+   "newburn_outside_crop": 33,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-VAD-240129_CowValley",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 10340,
+   "newburn": 28,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-VAD-240141_Durkee",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 73038,
+   "newburn": 8244,
+   "newburn_outside_crop": 2073,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-VAD-240166_BadlandComplex_Coyote",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1789,
+   "newburn": 529,
+   "newburn_outside_crop": 132,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WIF-200430_HolidayFarm",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 63703,
+   "newburn": 1765,
+   "newburn_outside_crop": 3,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WIF-210362_Knoll",
+   "intervals_expected": 16,
+   "intervals_extracted": 16,
+   "cells": 4100,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WIF-220189_BigSwamp",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 2820,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WIF-230329_Salmon",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 412,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WIF-240210_Pyramid",
+   "intervals_expected": 37,
+   "intervals_extracted": 37,
+   "cells": 14118,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WIF-240427_Bingham",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 2831,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WSA-000026_S503",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1652,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WWF-000338_CliffMountain",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 3294,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WWF-000400_DoubleCreek",
+   "intervals_expected": 28,
+   "intervals_extracted": 28,
+   "cells": 203514,
+   "newburn": 4862,
+   "newburn_outside_crop": 752,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WWF-000413_JonesCreek",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 2891,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "OR-WWF-000431_TownGulch",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 11235,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-CCD-000315_Flatt",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2525,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-CCD-000429_VeyoWest",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 947,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-CPD-000347_DeerSprings",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 7117,
+   "newburn": 9,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-DIF-000133_LeftFork",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 8283,
+   "newburn": 45,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-DIF-000270_Mammoth",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2122,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-FIF-200493_Cowboy",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1451,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-FIF-240112_LittleTwist",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 5129,
+   "newburn": 70,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-FIF-240206_SilverKing",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 13986,
+   "newburn": 228,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-MLF-000115_BennionCreek",
+   "intervals_expected": 15,
+   "intervals_extracted": 15,
+   "cells": 13318,
+   "newburn": 220,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-MLF-000131_PackCreek",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 7491,
+   "newburn": 90,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-NWS-000342_JacobCity",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 692,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-NWS-001080_Range",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1051,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-SCS-200223_Canal",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 30836,
+   "newburn": 258,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-SCS-220216_HalfwayHill",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 11486,
+   "newburn": 85,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-SWS-000431_TurkeyFarmRoad",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 1103,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-UWF-000303_MorganCanyon",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 923,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-UWF-000615_UpperProvo",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 642,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "UT-VLD-000127_Bear",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 13995,
+   "newburn": 296,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-COA-0200084_Chuweah",
+   "intervals_expected": 14,
+   "intervals_extracted": 14,
+   "cells": 39637,
+   "newburn": 137,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-COA-021087_SummitTrail",
+   "intervals_expected": 38,
+   "intervals_extracted": 38,
+   "cells": 92410,
+   "newburn": 914,
+   "newburn_outside_crop": 119,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-COA-200106_Whitmore",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 14146,
+   "newburn": 20,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-COA-200136_IncheliumComplex_North",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1642,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-COA-240089_Swawilla",
+   "intervals_expected": 11,
+   "intervals_extracted": 11,
+   "cells": 28657,
+   "newburn": 984,
+   "newburn_outside_crop": 29,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-COF-002348_BulldogMtn",
+   "intervals_expected": 12,
+   "intervals_extracted": 12,
+   "cells": 9974,
+   "newburn": 23,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-GPF-000813_WilliamsMine",
+   "intervals_expected": 27,
+   "intervals_extracted": 27,
+   "cells": 40104,
+   "newburn": 284,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-GPF-000864_BigHollow",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 2635,
+   "newburn": 20,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-GPF-001028_Kalama",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 2354,
+   "newburn": 2,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-GPF-001208_Siouxon",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 4078,
+   "newburn": 55,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-GPF-001297_CowlitzComplex",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 2058,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-MSF-000334_SuiattleRiver",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 5207,
+   "newburn": 128,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NCP-000262_Sourdough",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 5683,
+   "newburn": 39,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-001779_WestHallett",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 711,
+   "newburn": 3,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-001795_WestAnderson",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 446,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-001858_BoulderMountain",
+   "intervals_expected": 9,
+   "intervals_extracted": 9,
+   "cells": 5090,
+   "newburn": 30,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-001974_Gray",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 7604,
+   "newburn": 4,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-002246_FordCorkscrew",
+   "intervals_expected": 10,
+   "intervals_extracted": 10,
+   "cells": 13725,
+   "newburn": 81,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-01491_WilliamsLake",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 949,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-NES-240099_BridgeCreek",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1075,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OLP-000412_Hurricane",
+   "intervals_expected": 1,
+   "intervals_extracted": 1,
+   "cells": 2715,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OLS-000079_Road2620",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1118,
+   "newburn": 8,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OWF-000374_AirplaneLake",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 2511,
+   "newburn": 38,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OWF-000407_Chikamin",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 2255,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OWF-000454_WindyPass",
+   "intervals_expected": 5,
+   "intervals_extracted": 5,
+   "cells": 969,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OWF-000456_Nason",
+   "intervals_expected": 8,
+   "intervals_extracted": 8,
+   "cells": 3273,
+   "newburn": 13,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OWF-000563_BlueLake",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1366,
+   "newburn": 11,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-OWF-000639_ColdCreek",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 589,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-PCS-0220_NakiaCreek",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 2087,
+   "newburn": 13,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000263_VantageHighway",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 11537,
+   "newburn": 769,
+   "newburn_outside_crop": 30,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000277_CowCanyon",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 6803,
+   "newburn": 58,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000336_TunnelFive",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 1361,
+   "newburn": 1,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000360_RedApple",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 3142,
+   "newburn": 62,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000464_NewellRoad",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 19171,
+   "newburn": 935,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000477_Retreat",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 12441,
+   "newburn": 794,
+   "newburn_outside_crop": 57,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-000565_EvansCanyon",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 11664,
+   "newburn": 695,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SES-020209_CougarCreek",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 19862,
+   "newburn": 125,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SPA-002124_Sherwood",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 2585,
+   "newburn": 12,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-SPD-001947_Palmer_Anglin",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1167,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WA-WFS-000594_PearlHill",
+   "intervals_expected": 4,
+   "intervals_extracted": 4,
+   "cells": 56876,
+   "newburn": 1506,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-BHF-000399_Elk",
+   "intervals_expected": 13,
+   "intervals_extracted": 13,
+   "cells": 125361,
+   "newburn": 980,
+   "newburn_outside_crop": 133,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-BTF-002201_Sandy",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 412,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-HPD-240536_LaBonte",
+   "intervals_expected": 3,
+   "intervals_extracted": 3,
+   "cells": 1644,
+   "newburn": 0,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-MRF-000408_EastTroublesome",
+   "intervals_expected": 6,
+   "intervals_extracted": 6,
+   "cells": 12092,
+   "newburn": 3459,
+   "newburn_outside_crop": 1796,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-MRF-000514_BlackMountain",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 561,
+   "newburn": 7,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-MRF-200752_Mullen",
+   "intervals_expected": 18,
+   "intervals_extracted": 18,
+   "cells": 137642,
+   "newburn": 3808,
+   "newburn_outside_crop": 832,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-MRF-220267_Sugarloaf",
+   "intervals_expected": 7,
+   "intervals_extracted": 7,
+   "cells": 2273,
+   "newburn": 10,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  },
+  {
+   "fire": "WY-YNP-002006_LoneStar",
+   "intervals_expected": 2,
+   "intervals_extracted": 2,
+   "cells": 1138,
+   "newburn": 5,
+   "newburn_outside_crop": 0,
+   "skipped": [],
+   "unexplained": 0
+  }
+ ],
+ "count_in_equals_count_used": true
+}

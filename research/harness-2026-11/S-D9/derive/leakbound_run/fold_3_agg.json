@@ -1,0 +1,4835 @@
+{
+ "fold": 3,
+ "per_fire": {
+  "AZ-ASD-000097_Basin": {
+   "band": {
+    "n": 4731,
+    "sum_y": 91.0,
+    "base": {
+     "sse": 90.57689299571892,
+     "calib_n": 4046,
+     "calib_sum_p": 127.2677375657617,
+     "calib_sum_y": 32.0
+    },
+    "L": {
+     "sse": 86.54295614584298,
+     "calib_n": 4318,
+     "calib_sum_p": 113.83626011839358,
+     "calib_sum_y": 43.0
+    },
+    "L2": {
+     "sse": 90.7912024823827,
+     "calib_n": 4119,
+     "calib_sum_p": 125.66448597300379,
+     "calib_sum_y": 28.0
+    }
+   },
+   "full": {
+    "n": 5972,
+    "sum_y": 91.0,
+    "base": {
+     "sse": 90.62649491843749,
+     "calib_n": 5287,
+     "calib_sum_p": 134.38280163695396,
+     "calib_sum_y": 32.0
+    },
+    "L": {
+     "sse": 86.57087829974556,
+     "calib_n": 5559,
+     "calib_sum_p": 118.92798316108531,
+     "calib_sum_y": 43.0
+    },
+    "L2": {
+     "sse": 90.84002784992624,
+     "calib_n": 5360,
+     "calib_sum_p": 132.31166975889013,
+     "calib_sum_y": 28.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-CNF-000427_Pinnacle": {
+   "band": {
+    "n": 22463,
+    "sum_y": 906.0,
+    "base": {
+     "sse": 845.7309231113073,
+     "calib_n": 22044,
+     "calib_sum_p": 532.003490339557,
+     "calib_sum_y": 870.0
+    },
+    "L": {
+     "sse": 828.5739404044051,
+     "calib_n": 21855,
+     "calib_sum_p": 470.9118432473652,
+     "calib_sum_y": 753.0
+    },
+    "L2": {
+     "sse": 810.5495545677278,
+     "calib_n": 21282,
+     "calib_sum_p": 506.3055013716473,
+     "calib_sum_y": 612.0
+    }
+   },
+   "full": {
+    "n": 29143,
+    "sum_y": 910.0,
+    "base": {
+     "sse": 849.7700688735754,
+     "calib_n": 28724,
+     "calib_sum_p": 554.9797452695019,
+     "calib_sum_y": 874.0
+    },
+    "L": {
+     "sse": 832.6052837932816,
+     "calib_n": 28535,
+     "calib_sum_p": 493.32812718784,
+     "calib_sum_y": 757.0
+    },
+    "L2": {
+     "sse": 814.6101442036595,
+     "calib_n": 27962,
+     "calib_sum_p": 533.7931231093787,
+     "calib_sum_y": 616.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-CNF-000552_Beehive": {
+   "band": {
+    "n": 6708,
+    "sum_y": 249.0,
+    "base": {
+     "sse": 236.26882761474738,
+     "calib_n": 6242,
+     "calib_sum_p": 162.16338416200176,
+     "calib_sum_y": 197.0
+    },
+    "L": {
+     "sse": 231.190131010684,
+     "calib_n": 6417,
+     "calib_sum_p": 149.30576225393025,
+     "calib_sum_y": 194.0
+    },
+    "L2": {
+     "sse": 228.4201012914045,
+     "calib_n": 6263,
+     "calib_sum_p": 161.51745948545266,
+     "calib_sum_y": 173.0
+    }
+   },
+   "full": {
+    "n": 7151,
+    "sum_y": 249.0,
+    "base": {
+     "sse": 236.28181827793557,
+     "calib_n": 6685,
+     "calib_sum_p": 164.481049064207,
+     "calib_sum_y": 197.0
+    },
+    "L": {
+     "sse": 231.20166571170404,
+     "calib_n": 6860,
+     "calib_sum_p": 151.4013786256465,
+     "calib_sum_y": 194.0
+    },
+    "L2": {
+     "sse": 228.4380007716306,
+     "calib_n": 6706,
+     "calib_sum_p": 164.11002570156217,
+     "calib_sum_y": 173.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-CNF-000552_Corral": {
+   "band": {
+    "n": 769,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 2.405649710326702,
+     "calib_n": 727,
+     "calib_sum_p": 21.86612451557293,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 1.7917423738818519,
+     "calib_n": 750,
+     "calib_sum_p": 18.215938333978613,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 2.4152422828122777,
+     "calib_n": 732,
+     "calib_sum_p": 21.45015378627351,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 769,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 2.405649710326702,
+     "calib_n": 727,
+     "calib_sum_p": 21.86612451557293,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 1.7917423738818519,
+     "calib_n": 750,
+     "calib_sum_p": 18.215938333978613,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 2.4152422828122777,
+     "calib_n": 732,
+     "calib_sum_p": 21.45015378627351,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-COF-000159_Tunnel": {
+   "band": {
+    "n": 4795,
+    "sum_y": 11.0,
+    "base": {
+     "sse": 15.515661933449456,
+     "calib_n": 4682,
+     "calib_sum_p": 103.13369619532642,
+     "calib_sum_y": 11.0
+    },
+    "L": {
+     "sse": 11.673513934852936,
+     "calib_n": 4795,
+     "calib_sum_p": 53.49443393226031,
+     "calib_sum_y": 11.0
+    },
+    "L2": {
+     "sse": 13.029190801717768,
+     "calib_n": 4777,
+     "calib_sum_p": 81.39728121785578,
+     "calib_sum_y": 11.0
+    }
+   },
+   "full": {
+    "n": 7373,
+    "sum_y": 11.0,
+    "base": {
+     "sse": 15.540790512907428,
+     "calib_n": 7260,
+     "calib_sum_p": 110.55974810761776,
+     "calib_sum_y": 11.0
+    },
+    "L": {
+     "sse": 11.677974357838702,
+     "calib_n": 7373,
+     "calib_sum_p": 56.6475980639721,
+     "calib_sum_y": 11.0
+    },
+    "L2": {
+     "sse": 13.039850975174643,
+     "calib_n": 7355,
+     "calib_sum_p": 86.27665572259862,
+     "calib_sum_y": 11.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-COF-000176_Wolf": {
+   "band": {
+    "n": 4053,
+    "sum_y": 242.0,
+    "base": {
+     "sse": 225.96701051133797,
+     "calib_n": 3977,
+     "calib_sum_p": 91.84791478744893,
+     "calib_sum_y": 239.0
+    },
+    "L": {
+     "sse": 232.09028388532934,
+     "calib_n": 4053,
+     "calib_sum_p": 50.13760496219871,
+     "calib_sum_y": 242.0
+    },
+    "L2": {
+     "sse": 229.3541530282883,
+     "calib_n": 4036,
+     "calib_sum_p": 64.33745465631401,
+     "calib_sum_y": 239.0
+    }
+   },
+   "full": {
+    "n": 6310,
+    "sum_y": 252.0,
+    "base": {
+     "sse": 235.9441791290795,
+     "calib_n": 6234,
+     "calib_sum_p": 96.15115722913046,
+     "calib_sum_y": 249.0
+    },
+    "L": {
+     "sse": 242.07344759413513,
+     "calib_n": 6310,
+     "calib_sum_p": 52.49037481727096,
+     "calib_sum_y": 252.0
+    },
+    "L2": {
+     "sse": 239.33327834185906,
+     "calib_n": 6293,
+     "calib_sum_p": 67.51612899504477,
+     "calib_sum_y": 249.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-KNF-000369_Bravo": {
+   "band": {
+    "n": 592,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.8050453417110601,
+     "calib_n": 573,
+     "calib_sum_p": 13.933264010342299,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.17686181861230924,
+     "calib_n": 592,
+     "calib_sum_p": 7.169874535132801,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.6544979114167844,
+     "calib_n": 573,
+     "calib_sum_p": 11.482729152265952,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 592,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.8050453417110601,
+     "calib_n": 573,
+     "calib_sum_p": 13.933264010342299,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.17686181861230924,
+     "calib_n": 592,
+     "calib_sum_p": 7.169874535132801,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.6544979114167844,
+     "calib_n": 573,
+     "calib_sum_p": 11.482729152265952,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-KNF-000391_ThreeLakes": {
+   "band": {
+    "n": 1388,
+    "sum_y": 50.0,
+    "base": {
+     "sse": 45.106654149419356,
+     "calib_n": 1386,
+     "calib_sum_p": 31.61071244249346,
+     "calib_sum_y": 50.0
+    },
+    "L": {
+     "sse": 46.84835158511408,
+     "calib_n": 1388,
+     "calib_sum_p": 18.923543278133284,
+     "calib_sum_y": 50.0
+    },
+    "L2": {
+     "sse": 47.9905886937393,
+     "calib_n": 1388,
+     "calib_sum_p": 11.462295517722499,
+     "calib_sum_y": 50.0
+    }
+   },
+   "full": {
+    "n": 1501,
+    "sum_y": 50.0,
+    "base": {
+     "sse": 45.10861909396733,
+     "calib_n": 1499,
+     "calib_sum_p": 32.07229149043843,
+     "calib_sum_y": 50.0
+    },
+    "L": {
+     "sse": 46.84925606495726,
+     "calib_n": 1501,
+     "calib_sum_p": 19.23454680560144,
+     "calib_sum_y": 50.0
+    },
+    "L2": {
+     "sse": 47.99092979177635,
+     "calib_n": 1501,
+     "calib_sum_p": 11.65224762690892,
+     "calib_sum_y": 50.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-PPA-000327_SycamoreCanyon": {
+   "band": {
+    "n": 1703,
+    "sum_y": 8.0,
+    "base": {
+     "sse": 8.154069574652071,
+     "calib_n": 1703,
+     "calib_sum_p": 35.536917519670524,
+     "calib_sum_y": 8.0
+    },
+    "L": {
+     "sse": 7.660612466293432,
+     "calib_n": 1703,
+     "calib_sum_p": 22.756768318477747,
+     "calib_sum_y": 8.0
+    },
+    "L2": {
+     "sse": 7.797024480427879,
+     "calib_n": 1703,
+     "calib_sum_p": 30.657785941536194,
+     "calib_sum_y": 8.0
+    }
+   },
+   "full": {
+    "n": 1730,
+    "sum_y": 8.0,
+    "base": {
+     "sse": 8.15448680071142,
+     "calib_n": 1730,
+     "calib_sum_p": 35.64275184049468,
+     "calib_sum_y": 8.0
+    },
+    "L": {
+     "sse": 7.660782480995124,
+     "calib_n": 1730,
+     "calib_sum_p": 22.823813718347356,
+     "calib_sum_y": 8.0
+    },
+    "L2": {
+     "sse": 7.797330392733008,
+     "calib_n": 1730,
+     "calib_sum_p": 30.746978655364217,
+     "calib_sum_y": 8.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-SCA-001403_BlueRiver": {
+   "band": {
+    "n": 17942,
+    "sum_y": 587.0,
+    "base": {
+     "sse": 569.0462743680732,
+     "calib_n": 17477,
+     "calib_sum_p": 397.09986763686095,
+     "calib_sum_y": 583.0
+    },
+    "L": {
+     "sse": 561.3062256044742,
+     "calib_n": 17587,
+     "calib_sum_p": 329.11405047339707,
+     "calib_sum_y": 584.0
+    },
+    "L2": {
+     "sse": 556.9518312495252,
+     "calib_n": 17100,
+     "calib_sum_p": 352.84639595090414,
+     "calib_sum_y": 489.0
+    }
+   },
+   "full": {
+    "n": 26501,
+    "sum_y": 613.0,
+    "base": {
+     "sse": 594.9520674006593,
+     "calib_n": 26036,
+     "calib_sum_p": 422.9254452031852,
+     "calib_sum_y": 609.0
+    },
+    "L": {
+     "sse": 587.1750017979492,
+     "calib_n": 26146,
+     "calib_sum_p": 350.8335222061924,
+     "calib_sum_y": 610.0
+    },
+    "L2": {
+     "sse": 582.7941392808389,
+     "calib_n": 25659,
+     "calib_sum_p": 379.2944473005761,
+     "calib_sum_y": 515.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "AZ-TNF-000705_Spring": {
+   "band": {
+    "n": 1688,
+    "sum_y": 59.0,
+    "base": {
+     "sse": 56.67995578687575,
+     "calib_n": 1670,
+     "calib_sum_p": 36.24634087431424,
+     "calib_sum_y": 56.0
+    },
+    "L": {
+     "sse": 56.96096388318789,
+     "calib_n": 1669,
+     "calib_sum_p": 30.41816592581173,
+     "calib_sum_y": 56.0
+    },
+    "L2": {
+     "sse": 57.23635812931455,
+     "calib_n": 1688,
+     "calib_sum_p": 21.58357265853987,
+     "calib_sum_y": 59.0
+    }
+   },
+   "full": {
+    "n": 1783,
+    "sum_y": 59.0,
+    "base": {
+     "sse": 56.681574533893894,
+     "calib_n": 1765,
+     "calib_sum_p": 36.631861685054716,
+     "calib_sum_y": 56.0
+    },
+    "L": {
+     "sse": 56.96186316791196,
+     "calib_n": 1764,
+     "calib_sum_p": 30.699067048840583,
+     "calib_sum_y": 56.0
+    },
+    "L2": {
+     "sse": 57.23675842454582,
+     "calib_n": 1783,
+     "calib_sum_p": 21.77131402016345,
+     "calib_sum_y": 59.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-AEU-017769_Electra": {
+   "band": {
+    "n": 4521,
+    "sum_y": 103.0,
+    "base": {
+     "sse": 97.8261291296622,
+     "calib_n": 4521,
+     "calib_sum_p": 83.54487751729323,
+     "calib_sum_y": 103.0
+    },
+    "L": {
+     "sse": 98.4871841091718,
+     "calib_n": 4521,
+     "calib_sum_p": 44.111960213333035,
+     "calib_sum_y": 103.0
+    },
+    "L2": {
+     "sse": 97.33567510335777,
+     "calib_n": 4521,
+     "calib_sum_p": 62.494904621489624,
+     "calib_sum_y": 103.0
+    }
+   },
+   "full": {
+    "n": 4894,
+    "sum_y": 103.0,
+    "base": {
+     "sse": 97.83000067379577,
+     "calib_n": 4894,
+     "calib_sum_p": 84.73232919927779,
+     "calib_sum_y": 103.0
+    },
+    "L": {
+     "sse": 98.48831798714662,
+     "calib_n": 4894,
+     "calib_sum_p": 44.73790861063058,
+     "calib_sum_y": 103.0
+    },
+    "L2": {
+     "sse": 97.33789384901137,
+     "calib_n": 4894,
+     "calib_sum_p": 63.351719929064835,
+     "calib_sum_y": 103.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-ANF-003063_Dam": {
+   "band": {
+    "n": 699,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.3746843841155075,
+     "calib_n": 699,
+     "calib_sum_p": 12.08782332671641,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.06603123392863983,
+     "calib_n": 699,
+     "calib_sum_p": 5.035465895577094,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.11422830274759457,
+     "calib_n": 699,
+     "calib_sum_p": 6.554803669622711,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 699,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.3746843841155075,
+     "calib_n": 699,
+     "calib_sum_p": 12.08782332671641,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.06603123392863983,
+     "calib_n": 699,
+     "calib_sum_p": 5.035465895577094,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.11422830274759457,
+     "calib_n": 699,
+     "calib_sum_p": 6.554803669622711,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-ANF-003273_Lake": {
+   "band": {
+    "n": 21130,
+    "sum_y": 557.0,
+    "base": {
+     "sse": 528.277557193506,
+     "calib_n": 20726,
+     "calib_sum_p": 483.9204197217094,
+     "calib_sum_y": 546.0
+    },
+    "L": {
+     "sse": 527.7926993899385,
+     "calib_n": 20861,
+     "calib_sum_p": 367.3647672168034,
+     "calib_sum_y": 551.0
+    },
+    "L2": {
+     "sse": 527.5730168835568,
+     "calib_n": 20713,
+     "calib_sum_p": 382.8497751757911,
+     "calib_sum_y": 537.0
+    }
+   },
+   "full": {
+    "n": 26410,
+    "sum_y": 557.0,
+    "base": {
+     "sse": 528.3438189346713,
+     "calib_n": 26006,
+     "calib_sum_p": 501.3321405585545,
+     "calib_sum_y": 546.0
+    },
+    "L": {
+     "sse": 527.8356447391237,
+     "calib_n": 26141,
+     "calib_sum_p": 380.50820174573414,
+     "calib_sum_y": 551.0
+    },
+    "L2": {
+     "sse": 527.6249517042944,
+     "calib_n": 25993,
+     "calib_sum_p": 396.8807650613308,
+     "calib_sum_y": 537.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-BEU-004081_Carmel": {
+   "band": {
+    "n": 4480,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 4.76735105739769,
+     "calib_n": 4480,
+     "calib_sum_p": 82.37925497097324,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 2.579512977106895,
+     "calib_n": 4480,
+     "calib_sum_p": 39.10962338875959,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 2.1566548963135266,
+     "calib_n": 4480,
+     "calib_sum_p": 22.430310315059092,
+     "calib_sum_y": 2.0
+    }
+   },
+   "full": {
+    "n": 5837,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 4.776488816877286,
+     "calib_n": 5837,
+     "calib_sum_p": 85.74848046885197,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 2.5815545552102406,
+     "calib_n": 5837,
+     "calib_sum_p": 40.66413526030246,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 2.157289462406206,
+     "calib_n": 5837,
+     "calib_sum_p": 23.28615920495109,
+     "calib_sum_y": 2.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-BTU-012090_Thompson": {
+   "band": {
+    "n": 2816,
+    "sum_y": 4.0,
+    "base": {
+     "sse": 6.35024035569891,
+     "calib_n": 2816,
+     "calib_sum_p": 64.14515769309993,
+     "calib_sum_y": 4.0
+    },
+    "L": {
+     "sse": 4.324599391402597,
+     "calib_n": 2816,
+     "calib_sum_p": 30.06384807964228,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 4.537618264024997,
+     "calib_n": 2816,
+     "calib_sum_p": 36.00329242728427,
+     "calib_sum_y": 4.0
+    }
+   },
+   "full": {
+    "n": 3068,
+    "sum_y": 4.0,
+    "base": {
+     "sse": 6.352683735333105,
+     "calib_n": 3068,
+     "calib_sum_p": 64.90458753401604,
+     "calib_sum_y": 4.0
+    },
+    "L": {
+     "sse": 4.325136941081096,
+     "calib_n": 3068,
+     "calib_sum_p": 30.421921234657294,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 4.538428642163616,
+     "calib_n": 3068,
+     "calib_sum_p": 36.44133120330197,
+     "calib_sum_y": 4.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-CND-002796_French": {
+   "band": {
+    "n": 25281,
+    "sum_y": 385.0,
+    "base": {
+     "sse": 368.0968444736358,
+     "calib_n": 25256,
+     "calib_sum_p": 539.8583594421342,
+     "calib_sum_y": 385.0
+    },
+    "L": {
+     "sse": 361.61856566330647,
+     "calib_n": 25277,
+     "calib_sum_p": 449.71078794652135,
+     "calib_sum_y": 385.0
+    },
+    "L2": {
+     "sse": 357.11783602395826,
+     "calib_n": 25134,
+     "calib_sum_p": 457.9968450537106,
+     "calib_sum_y": 360.0
+    }
+   },
+   "full": {
+    "n": 32104,
+    "sum_y": 389.0,
+    "base": {
+     "sse": 372.12474054807353,
+     "calib_n": 32079,
+     "calib_sum_p": 559.1531138937798,
+     "calib_sum_y": 389.0
+    },
+    "L": {
+     "sse": 365.6301746768824,
+     "calib_n": 32100,
+     "calib_sum_p": 465.9545135127122,
+     "calib_sum_y": 389.0
+    },
+    "L2": {
+     "sse": 361.13212109326855,
+     "calib_n": 31957,
+     "calib_sum_p": 474.49309739427645,
+     "calib_sum_y": 364.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-FKU-010219_Mineral": {
+   "band": {
+    "n": 16384,
+    "sum_y": 608.0,
+    "base": {
+     "sse": 570.0019955328003,
+     "calib_n": 16239,
+     "calib_sum_p": 347.78166940731376,
+     "calib_sum_y": 595.0
+    },
+    "L": {
+     "sse": 574.3616172268606,
+     "calib_n": 16384,
+     "calib_sum_p": 216.7066555602321,
+     "calib_sum_y": 608.0
+    },
+    "L2": {
+     "sse": 568.3644896258052,
+     "calib_n": 16340,
+     "calib_sum_p": 246.6912088771286,
+     "calib_sum_y": 592.0
+    }
+   },
+   "full": {
+    "n": 26168,
+    "sum_y": 614.0,
+    "base": {
+     "sse": 576.0192921169146,
+     "calib_n": 26023,
+     "calib_sum_p": 371.7066947041182,
+     "calib_sum_y": 601.0
+    },
+    "L": {
+     "sse": 580.351538875184,
+     "calib_n": 26168,
+     "calib_sum_p": 230.23463637964747,
+     "calib_sum_y": 614.0
+    },
+    "L2": {
+     "sse": 574.3567105960053,
+     "calib_n": 26124,
+     "calib_sum_p": 262.0764183058733,
+     "calib_sum_y": 598.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-FKU-019190_Boone": {
+   "band": {
+    "n": 5250,
+    "sum_y": 314.0,
+    "base": {
+     "sse": 300.51161121676586,
+     "calib_n": 5250,
+     "calib_sum_p": 95.94881245330254,
+     "calib_sum_y": 314.0
+    },
+    "L": {
+     "sse": 303.8675984249544,
+     "calib_n": 5250,
+     "calib_sum_p": 46.83654997589827,
+     "calib_sum_y": 314.0
+    },
+    "L2": {
+     "sse": 304.64446610483026,
+     "calib_n": 5250,
+     "calib_sum_p": 37.23932473053766,
+     "calib_sum_y": 314.0
+    }
+   },
+   "full": {
+    "n": 6016,
+    "sum_y": 317.0,
+    "base": {
+     "sse": 303.49691162248735,
+     "calib_n": 6016,
+     "calib_sum_p": 98.10728106566589,
+     "calib_sum_y": 317.0
+    },
+    "L": {
+     "sse": 306.856296536394,
+     "calib_n": 6016,
+     "calib_sum_p": 47.93666881650455,
+     "calib_sum_y": 317.0
+    },
+    "L2": {
+     "sse": 307.6341117052384,
+     "calib_n": 6016,
+     "calib_sum_p": 38.13387478274951,
+     "calib_sum_y": 317.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-LNF-2815_Graham": {
+   "band": {
+    "n": 494,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.39339902983679037,
+     "calib_n": 492,
+     "calib_sum_p": 10.12942829247614,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.07539303722466562,
+     "calib_n": 494,
+     "calib_sum_p": 4.4422028187274165,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.17001798984570507,
+     "calib_n": 494,
+     "calib_sum_p": 6.705494464891289,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 494,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.39339902983679037,
+     "calib_n": 492,
+     "calib_sum_p": 10.12942829247614,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.07539303722466562,
+     "calib_n": 494,
+     "calib_sum_p": 4.4422028187274165,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.17001798984570507,
+     "calib_n": 494,
+     "calib_sum_p": 6.705494464891289,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-LNU-013407_LNULightningComplex_Meyers": {
+   "band": {
+    "n": 6767,
+    "sum_y": 66.0,
+    "base": {
+     "sse": 65.75746980120088,
+     "calib_n": 6420,
+     "calib_sum_p": 149.7182095993507,
+     "calib_sum_y": 35.0
+    },
+    "L": {
+     "sse": 62.24610396519477,
+     "calib_n": 6488,
+     "calib_sum_p": 132.9820700493563,
+     "calib_sum_y": 29.0
+    },
+    "L2": {
+     "sse": 65.9758572143691,
+     "calib_n": 6314,
+     "calib_sum_p": 156.25788979500052,
+     "calib_sum_y": 20.0
+    }
+   },
+   "full": {
+    "n": 6857,
+    "sum_y": 66.0,
+    "base": {
+     "sse": 65.75991332901408,
+     "calib_n": 6510,
+     "calib_sum_p": 150.16677127827936,
+     "calib_sum_y": 35.0
+    },
+    "L": {
+     "sse": 62.24937498023805,
+     "calib_n": 6578,
+     "calib_sum_p": 133.487354013291,
+     "calib_sum_y": 29.0
+    },
+    "L2": {
+     "sse": 65.98184182598571,
+     "calib_n": 6404,
+     "calib_sum_p": 156.94945703289883,
+     "calib_sum_y": 20.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-LPF-001493_Willow": {
+   "band": {
+    "n": 3221,
+    "sum_y": 21.0,
+    "base": {
+     "sse": 21.21372017292993,
+     "calib_n": 3221,
+     "calib_sum_p": 60.500018961548804,
+     "calib_sum_y": 21.0
+    },
+    "L": {
+     "sse": 20.74433449897036,
+     "calib_n": 3221,
+     "calib_sum_p": 50.03543371239193,
+     "calib_sum_y": 21.0
+    },
+    "L2": {
+     "sse": 20.496613879322943,
+     "calib_n": 3221,
+     "calib_sum_p": 36.48306017250501,
+     "calib_sum_y": 21.0
+    }
+   },
+   "full": {
+    "n": 3270,
+    "sum_y": 21.0,
+    "base": {
+     "sse": 21.214260373324173,
+     "calib_n": 3270,
+     "calib_sum_p": 60.661378209855755,
+     "calib_sum_y": 21.0
+    },
+    "L": {
+     "sse": 20.744695115109717,
+     "calib_n": 3270,
+     "calib_sum_p": 50.16683884068743,
+     "calib_sum_y": 21.0
+    },
+    "L2": {
+     "sse": 20.496796965202854,
+     "calib_n": 3270,
+     "calib_sum_p": 36.57640196278828,
+     "calib_sum_y": 21.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-MVU-018864_Border32": {
+   "band": {
+    "n": 2497,
+    "sum_y": 7.0,
+    "base": {
+     "sse": 7.816555248125214,
+     "calib_n": 2497,
+     "calib_sum_p": 47.96937730974132,
+     "calib_sum_y": 7.0
+    },
+    "L": {
+     "sse": 6.8682752600737444,
+     "calib_n": 2497,
+     "calib_sum_p": 21.330246333359284,
+     "calib_sum_y": 7.0
+    },
+    "L2": {
+     "sse": 6.921179505153619,
+     "calib_n": 2497,
+     "calib_sum_p": 26.118398695645745,
+     "calib_sum_y": 7.0
+    }
+   },
+   "full": {
+    "n": 2577,
+    "sum_y": 7.0,
+    "base": {
+     "sse": 7.8174777291946995,
+     "calib_n": 2577,
+     "calib_sum_p": 48.23887591667513,
+     "calib_sum_y": 7.0
+    },
+    "L": {
+     "sse": 6.868440647220917,
+     "calib_n": 2577,
+     "calib_sum_p": 21.443582022058784,
+     "calib_sum_y": 7.0
+    },
+    "L2": {
+     "sse": 6.921425578323394,
+     "calib_n": 2577,
+     "calib_sum_p": 26.255577565547945,
+     "calib_sum_y": 7.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-ORC-019703_Emerald": {
+   "band": {
+    "n": 296,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.2481782640587238,
+     "calib_n": 296,
+     "calib_sum_p": 6.504207249823241,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.03609583883819675,
+     "calib_n": 296,
+     "calib_sum_p": 2.4240819772055513,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.4251402317856903,
+     "calib_n": 287,
+     "calib_sum_p": 7.43254967995192,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 296,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.2481782640587238,
+     "calib_n": 296,
+     "calib_sum_p": 6.504207249823241,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.03609583883819675,
+     "calib_n": 296,
+     "calib_sum_p": 2.4240819772055513,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.4251402317856903,
+     "calib_n": 287,
+     "calib_sum_p": 7.43254967995192,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-ORC-121364_Silverado": {
+   "band": {
+    "n": 5449,
+    "sum_y": 353.0,
+    "base": {
+     "sse": 328.2499273634265,
+     "calib_n": 5449,
+     "calib_sum_p": 99.87707679574245,
+     "calib_sum_y": 353.0
+    },
+    "L": {
+     "sse": 334.9538906917916,
+     "calib_n": 5449,
+     "calib_sum_p": 58.03968869467561,
+     "calib_sum_y": 353.0
+    },
+    "L2": {
+     "sse": 335.2221611064762,
+     "calib_n": 5449,
+     "calib_sum_p": 54.975744792130726,
+     "calib_sum_y": 353.0
+    }
+   },
+   "full": {
+    "n": 6348,
+    "sum_y": 353.0,
+    "base": {
+     "sse": 328.25653657928365,
+     "calib_n": 6348,
+     "calib_sum_p": 102.25025755486783,
+     "calib_sum_y": 353.0
+    },
+    "L": {
+     "sse": 334.9562023577828,
+     "calib_n": 6348,
+     "calib_sum_p": 59.42762061298389,
+     "calib_sum_y": 353.0
+    },
+    "L2": {
+     "sse": 335.22419401087154,
+     "calib_n": 6348,
+     "calib_sum_p": 56.268151011533085,
+     "calib_sum_y": 353.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-ORC-121612_BlueRidge": {
+   "band": {
+    "n": 4038,
+    "sum_y": 296.0,
+    "base": {
+     "sse": 274.8349724528478,
+     "calib_n": 4038,
+     "calib_sum_p": 80.50311263322965,
+     "calib_sum_y": 296.0
+    },
+    "L": {
+     "sse": 281.5663665153474,
+     "calib_n": 4038,
+     "calib_sum_p": 45.68441138428831,
+     "calib_sum_y": 296.0
+    },
+    "L2": {
+     "sse": 282.04367544054253,
+     "calib_n": 4038,
+     "calib_sum_p": 42.608754805062034,
+     "calib_sum_y": 296.0
+    }
+   },
+   "full": {
+    "n": 4720,
+    "sum_y": 296.0,
+    "base": {
+     "sse": 274.8403344452148,
+     "calib_n": 4720,
+     "calib_sum_p": 82.36294279331656,
+     "calib_sum_y": 296.0
+    },
+    "L": {
+     "sse": 281.568003746826,
+     "calib_n": 4720,
+     "calib_sum_p": 46.711135714485465,
+     "calib_sum_y": 296.0
+    },
+    "L2": {
+     "sse": 282.0450363609161,
+     "calib_n": 4720,
+     "calib_sum_p": 43.54190237309338,
+     "calib_sum_y": 296.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-OVD-030860_MountainView": {
+   "band": {
+    "n": 5945,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 8.019661114972845,
+     "calib_n": 5768,
+     "calib_sum_p": 130.60796766147146,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 5.927421386638392,
+     "calib_n": 5835,
+     "calib_sum_p": 107.75274504888876,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 7.647162477226878,
+     "calib_n": 5748,
+     "calib_sum_p": 112.67916849630821,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 7485,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 8.039605150097488,
+     "calib_n": 7308,
+     "calib_sum_p": 135.82160309950825,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 5.9402653308330375,
+     "calib_n": 7375,
+     "calib_sum_p": 111.69927507763084,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 7.663212173391891,
+     "calib_n": 7288,
+     "calib_sum_p": 117.07859589145573,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-RRU-102458_RiversideSupport_Rabbit": {
+   "band": {
+    "n": 6953,
+    "sum_y": 26.0,
+    "base": {
+     "sse": 27.23456838535995,
+     "calib_n": 6940,
+     "calib_sum_p": 124.8337907868799,
+     "calib_sum_y": 26.0
+    },
+    "L": {
+     "sse": 25.00960292608745,
+     "calib_n": 6953,
+     "calib_sum_p": 59.950037215837156,
+     "calib_sum_y": 26.0
+    },
+    "L2": {
+     "sse": 24.865132768441054,
+     "calib_n": 6953,
+     "calib_sum_p": 66.89274685847994,
+     "calib_sum_y": 26.0
+    }
+   },
+   "full": {
+    "n": 18118,
+    "sum_y": 26.0,
+    "base": {
+     "sse": 27.2882222028756,
+     "calib_n": 18105,
+     "calib_sum_p": 145.98699138886553,
+     "calib_sum_y": 26.0
+    },
+    "L": {
+     "sse": 25.02001682764586,
+     "calib_n": 18118,
+     "calib_sum_p": 69.23772243948389,
+     "calib_sum_y": 26.0
+    },
+    "L2": {
+     "sse": 24.87722141978429,
+     "calib_n": 18118,
+     "calib_sum_p": 76.81497935278949,
+     "calib_sum_y": 26.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-SHF-000949_Lava": {
+   "band": {
+    "n": 25755,
+    "sum_y": 639.0,
+    "base": {
+     "sse": 623.0192840769703,
+     "calib_n": 25755,
+     "calib_sum_p": 501.24731441329897,
+     "calib_sum_y": 639.0
+    },
+    "L": {
+     "sse": 632.1490554006897,
+     "calib_n": 23705,
+     "calib_sum_p": 626.8954152389553,
+     "calib_sum_y": 531.0
+    },
+    "L2": {
+     "sse": 622.0310957874892,
+     "calib_n": 25755,
+     "calib_sum_p": 437.8299855204018,
+     "calib_sum_y": 639.0
+    }
+   },
+   "full": {
+    "n": 34280,
+    "sum_y": 664.0,
+    "base": {
+     "sse": 647.9109845513641,
+     "calib_n": 34280,
+     "calib_sum_p": 522.3867093980717,
+     "calib_sum_y": 664.0
+    },
+    "L": {
+     "sse": 657.0152238101412,
+     "calib_n": 32230,
+     "calib_sum_p": 663.2626750919836,
+     "calib_sum_y": 556.0
+    },
+    "L2": {
+     "sse": 646.9262031833158,
+     "calib_n": 34280,
+     "calib_sum_p": 455.37513528449756,
+     "calib_sum_y": 664.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-SHF-001376_Hobo": {
+   "band": {
+    "n": 822,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.37011920275593063,
+     "calib_n": 822,
+     "calib_sum_p": 12.942521691681652,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.07121230479063,
+     "calib_n": 822,
+     "calib_sum_p": 5.5585257430760056,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.17482107399217242,
+     "calib_n": 822,
+     "calib_sum_p": 8.646431231994626,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 822,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.37011920275593063,
+     "calib_n": 822,
+     "calib_sum_p": 12.942521691681652,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.07121230479063,
+     "calib_n": 822,
+     "calib_sum_p": 5.5585257430760056,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.17482107399217242,
+     "calib_n": 822,
+     "calib_sum_p": 8.646431231994626,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CA-SKU-007586_Mountain": {
+   "band": {
+    "n": 13361,
+    "sum_y": 205.0,
+    "base": {
+     "sse": 201.23694142646164,
+     "calib_n": 13346,
+     "calib_sum_p": 283.65348811056947,
+     "calib_sum_y": 203.0
+    },
+    "L": {
+     "sse": 198.0202085799652,
+     "calib_n": 13361,
+     "calib_sum_p": 210.36225992332174,
+     "calib_sum_y": 205.0
+    },
+    "L2": {
+     "sse": 197.7334500727377,
+     "calib_n": 13346,
+     "calib_sum_p": 253.6868081334929,
+     "calib_sum_y": 201.0
+    }
+   },
+   "full": {
+    "n": 15929,
+    "sum_y": 205.0,
+    "base": {
+     "sse": 201.26103637035098,
+     "calib_n": 15914,
+     "calib_sum_p": 291.1872867805602,
+     "calib_sum_y": 203.0
+    },
+    "L": {
+     "sse": 198.03333017986955,
+     "calib_n": 15929,
+     "calib_sum_p": 215.78222096241137,
+     "calib_sum_y": 205.0
+    },
+    "L2": {
+     "sse": 197.75256605153112,
+     "calib_n": 15914,
+     "calib_sum_p": 260.14219280921384,
+     "calib_sum_y": 201.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CO-ARF-000683_AlexanderMountain": {
+   "band": {
+    "n": 4131,
+    "sum_y": 50.0,
+    "base": {
+     "sse": 48.373995595988696,
+     "calib_n": 4131,
+     "calib_sum_p": 82.15845292277154,
+     "calib_sum_y": 50.0
+    },
+    "L": {
+     "sse": 47.93424064776776,
+     "calib_n": 4131,
+     "calib_sum_p": 41.376817204922524,
+     "calib_sum_y": 50.0
+    },
+    "L2": {
+     "sse": 47.3346640677926,
+     "calib_n": 4131,
+     "calib_sum_p": 55.14984251543538,
+     "calib_sum_y": 50.0
+    }
+   },
+   "full": {
+    "n": 4458,
+    "sum_y": 50.0,
+    "base": {
+     "sse": 48.37809950358743,
+     "calib_n": 4458,
+     "calib_sum_p": 83.28662702885556,
+     "calib_sum_y": 50.0
+    },
+    "L": {
+     "sse": 47.93524937677934,
+     "calib_n": 4458,
+     "calib_sum_p": 41.93954842093636,
+     "calib_sum_y": 50.0
+    },
+    "L2": {
+     "sse": 47.33643427272232,
+     "calib_n": 4458,
+     "calib_sum_p": 55.89241033422993,
+     "calib_sum_y": 50.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CO-GFX-230097_SpringCreek": {
+   "band": {
+    "n": 5607,
+    "sum_y": 19.0,
+    "base": {
+     "sse": 21.009512158416307,
+     "calib_n": 5607,
+     "calib_sum_p": 116.66508565636978,
+     "calib_sum_y": 19.0
+    },
+    "L": {
+     "sse": 19.991890975317922,
+     "calib_n": 5607,
+     "calib_sum_p": 86.28918799595965,
+     "calib_sum_y": 19.0
+    },
+    "L2": {
+     "sse": 20.601298294591754,
+     "calib_n": 5587,
+     "calib_sum_p": 95.5349113527749,
+     "calib_sum_y": 18.0
+    }
+   },
+   "full": {
+    "n": 5827,
+    "sum_y": 19.0,
+    "base": {
+     "sse": 21.01242762125049,
+     "calib_n": 5827,
+     "calib_sum_p": 117.45954443481249,
+     "calib_sum_y": 19.0
+    },
+    "L": {
+     "sse": 19.99395193930083,
+     "calib_n": 5827,
+     "calib_sum_p": 86.93386519010967,
+     "calib_sum_y": 19.0
+    },
+    "L2": {
+     "sse": 20.603961005468832,
+     "calib_n": 5807,
+     "calib_sum_p": 96.25532305458175,
+     "calib_sum_y": 18.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CO-GMF-000176_Lowline": {
+   "band": {
+    "n": 2585,
+    "sum_y": 13.0,
+    "base": {
+     "sse": 13.026179780596117,
+     "calib_n": 2585,
+     "calib_sum_p": 44.13511019427733,
+     "calib_sum_y": 13.0
+    },
+    "L": {
+     "sse": 12.510688194928118,
+     "calib_n": 2585,
+     "calib_sum_p": 24.09446462851743,
+     "calib_sum_y": 13.0
+    },
+    "L2": {
+     "sse": 12.45154366908302,
+     "calib_n": 2585,
+     "calib_sum_p": 21.196049901523494,
+     "calib_sum_y": 13.0
+    }
+   },
+   "full": {
+    "n": 2618,
+    "sum_y": 13.0,
+    "base": {
+     "sse": 13.026614594795056,
+     "calib_n": 2618,
+     "calib_sum_p": 44.2544488289974,
+     "calib_sum_y": 13.0
+    },
+    "L": {
+     "sse": 12.510845605310983,
+     "calib_n": 2618,
+     "calib_sum_p": 24.164710890790456,
+     "calib_sum_y": 13.0
+    },
+    "L2": {
+     "sse": 12.451680751511375,
+     "calib_n": 2618,
+     "calib_sum_p": 21.259859384368045,
+     "calib_sum_y": 13.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CO-PSF-001717_SaintCharles": {
+   "band": {
+    "n": 1229,
+    "sum_y": 7.0,
+    "base": {
+     "sse": 6.961500233514226,
+     "calib_n": 1229,
+     "calib_sum_p": 20.593923895412306,
+     "calib_sum_y": 7.0
+    },
+    "L": {
+     "sse": 6.815775579837627,
+     "calib_n": 1229,
+     "calib_sum_p": 13.929051135860833,
+     "calib_sum_y": 7.0
+    },
+    "L2": {
+     "sse": 6.793150440313122,
+     "calib_n": 1229,
+     "calib_sum_p": 11.663717234886384,
+     "calib_sum_y": 7.0
+    }
+   },
+   "full": {
+    "n": 1236,
+    "sum_y": 7.0,
+    "base": {
+     "sse": 6.961606169428441,
+     "calib_n": 1236,
+     "calib_sum_p": 20.6209656688855,
+     "calib_sum_y": 7.0
+    },
+    "L": {
+     "sse": 6.815827592669491,
+     "calib_n": 1236,
+     "calib_sum_p": 13.94787736710412,
+     "calib_sum_y": 7.0
+    },
+    "L2": {
+     "sse": 6.793187917337959,
+     "calib_n": 1236,
+     "calib_sum_p": 11.679671013221235,
+     "calib_sum_y": 7.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CO-SJF-001184_TrailSprings": {
+   "band": {
+    "n": 1766,
+    "sum_y": 20.0,
+    "base": {
+     "sse": 18.81821655185937,
+     "calib_n": 1766,
+     "calib_sum_p": 27.834861899657408,
+     "calib_sum_y": 20.0
+    },
+    "L": {
+     "sse": 18.81595461615723,
+     "calib_n": 1766,
+     "calib_sum_p": 30.086905751879996,
+     "calib_sum_y": 20.0
+    },
+    "L2": {
+     "sse": 19.038223634075123,
+     "calib_n": 1766,
+     "calib_sum_p": 17.764180051818286,
+     "calib_sum_y": 20.0
+    }
+   },
+   "full": {
+    "n": 1787,
+    "sum_y": 20.0,
+    "base": {
+     "sse": 18.81842363732628,
+     "calib_n": 1787,
+     "calib_sum_p": 27.900458118370825,
+     "calib_sum_y": 20.0
+    },
+    "L": {
+     "sse": 18.816194274068323,
+     "calib_n": 1787,
+     "calib_sum_p": 30.157420173034673,
+     "calib_sum_y": 20.0
+    },
+    "L2": {
+     "sse": 19.03830462556388,
+     "calib_n": 1787,
+     "calib_sum_p": 17.80517785117565,
+     "calib_sum_y": 20.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "CO-UPD-000186_LittleMesa": {
+   "band": {
+    "n": 7209,
+    "sum_y": 102.0,
+    "base": {
+     "sse": 102.81976878032238,
+     "calib_n": 7001,
+     "calib_sum_p": 148.37401453505572,
+     "calib_sum_y": 95.0
+    },
+    "L": {
+     "sse": 101.7836062647593,
+     "calib_n": 7033,
+     "calib_sum_p": 147.15143020355367,
+     "calib_sum_y": 95.0
+    },
+    "L2": {
+     "sse": 100.73524157305735,
+     "calib_n": 7069,
+     "calib_sum_p": 132.31988294158236,
+     "calib_sum_y": 95.0
+    }
+   },
+   "full": {
+    "n": 9349,
+    "sum_y": 102.0,
+    "base": {
+     "sse": 102.85475417769936,
+     "calib_n": 9141,
+     "calib_sum_p": 156.61553031390955,
+     "calib_sum_y": 95.0
+    },
+    "L": {
+     "sse": 101.8235851833534,
+     "calib_n": 9173,
+     "calib_sum_p": 155.5697979904254,
+     "calib_sum_y": 95.0
+    },
+    "L2": {
+     "sse": 100.7669175726151,
+     "calib_n": 9209,
+     "calib_sum_p": 139.6903366626187,
+     "calib_sum_y": 95.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-CMS-000470_ShovelCreek": {
+   "band": {
+    "n": 47863,
+    "sum_y": 2638.0,
+    "base": {
+     "sse": 2460.7666682146696,
+     "calib_n": 47863,
+     "calib_sum_p": 948.695465786169,
+     "calib_sum_y": 2638.0
+    },
+    "L": {
+     "sse": 2443.059746024825,
+     "calib_n": 47863,
+     "calib_sum_p": 860.3378555380548,
+     "calib_sum_y": 2638.0
+    },
+    "L2": {
+     "sse": 2437.6464822472994,
+     "calib_n": 47856,
+     "calib_sum_p": 833.3006649940617,
+     "calib_sum_y": 2634.0
+    }
+   },
+   "full": {
+    "n": 83197,
+    "sum_y": 2642.0,
+    "base": {
+     "sse": 2464.904025821266,
+     "calib_n": 83197,
+     "calib_sum_p": 1019.0893812268782,
+     "calib_sum_y": 2642.0
+    },
+    "L": {
+     "sse": 2447.163758295899,
+     "calib_n": 83197,
+     "calib_sum_p": 922.3638395482956,
+     "calib_sum_y": 2642.0
+    },
+    "L2": {
+     "sse": 2441.7350341616993,
+     "calib_n": 83190,
+     "calib_sum_p": 891.2344717447487,
+     "calib_sum_y": 2638.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-IPF-000212_DiamondWatch": {
+   "band": {
+    "n": 10494,
+    "sum_y": 26.0,
+    "base": {
+     "sse": 27.166542502651183,
+     "calib_n": 10494,
+     "calib_sum_p": 152.866040861538,
+     "calib_sum_y": 26.0
+    },
+    "L": {
+     "sse": 30.08178182252588,
+     "calib_n": 10400,
+     "calib_sum_p": 208.2513316036454,
+     "calib_sum_y": 17.0
+    },
+    "L2": {
+     "sse": 28.865364095479062,
+     "calib_n": 10425,
+     "calib_sum_p": 188.49083740205674,
+     "calib_sum_y": 21.0
+    }
+   },
+   "full": {
+    "n": 10669,
+    "sum_y": 26.0,
+    "base": {
+     "sse": 27.168232616344852,
+     "calib_n": 10669,
+     "calib_sum_p": 153.4061377639121,
+     "calib_sum_y": 26.0
+    },
+    "L": {
+     "sse": 30.086456578240888,
+     "calib_n": 10575,
+     "calib_sum_p": 209.14865284829395,
+     "calib_sum_y": 17.0
+    },
+    "L2": {
+     "sse": 28.86930854332472,
+     "calib_n": 10600,
+     "calib_sum_p": 189.3150175217644,
+     "calib_sum_y": 21.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-IPF-000447_RidgeCreek": {
+   "band": {
+    "n": 7487,
+    "sum_y": 53.0,
+    "base": {
+     "sse": 51.54372160403388,
+     "calib_n": 7424,
+     "calib_sum_p": 147.571810988538,
+     "calib_sum_y": 39.0
+    },
+    "L": {
+     "sse": 51.4814647611623,
+     "calib_n": 7368,
+     "calib_sum_p": 139.64044263877807,
+     "calib_sum_y": 39.0
+    },
+    "L2": {
+     "sse": 50.50323759506752,
+     "calib_n": 7463,
+     "calib_sum_p": 111.71401898992289,
+     "calib_sum_y": 48.0
+    }
+   },
+   "full": {
+    "n": 8386,
+    "sum_y": 53.0,
+    "base": {
+     "sse": 51.55664965830489,
+     "calib_n": 8323,
+     "calib_sum_p": 150.8496028879302,
+     "calib_sum_y": 39.0
+    },
+    "L": {
+     "sse": 51.4956295431694,
+     "calib_n": 8267,
+     "calib_sum_p": 142.9953580242347,
+     "calib_sum_y": 39.0
+    },
+    "L2": {
+     "sse": 50.510708454534154,
+     "calib_n": 8362,
+     "calib_sum_p": 114.16700310472503,
+     "calib_sum_y": 48.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-IPF-000452_TrestleCreek": {
+   "band": {
+    "n": 15606,
+    "sum_y": 97.0,
+    "base": {
+     "sse": 96.75779181859595,
+     "calib_n": 15606,
+     "calib_sum_p": 302.56509702613255,
+     "calib_sum_y": 97.0
+    },
+    "L": {
+     "sse": 92.00507966542374,
+     "calib_n": 15452,
+     "calib_sum_p": 251.864669173706,
+     "calib_sum_y": 70.0
+    },
+    "L2": {
+     "sse": 90.34131684163899,
+     "calib_n": 15557,
+     "calib_sum_p": 179.41732133640957,
+     "calib_sum_y": 93.0
+    }
+   },
+   "full": {
+    "n": 16949,
+    "sum_y": 97.0,
+    "base": {
+     "sse": 96.77321590807655,
+     "calib_n": 16949,
+     "calib_sum_p": 307.0216767017441,
+     "calib_sum_y": 97.0
+    },
+    "L": {
+     "sse": 92.02935507890015,
+     "calib_n": 16795,
+     "calib_sum_p": 256.89317811860496,
+     "calib_sum_y": 70.0
+    },
+    "L2": {
+     "sse": 90.35517704251568,
+     "calib_n": 16900,
+     "calib_sum_p": 183.0511086936475,
+     "calib_sum_y": 93.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-MCS-000404_TooKush2": {
+   "band": {
+    "n": 1704,
+    "sum_y": 15.0,
+    "base": {
+     "sse": 14.557992560629502,
+     "calib_n": 1704,
+     "calib_sum_p": 25.69944824733593,
+     "calib_sum_y": 15.0
+    },
+    "L": {
+     "sse": 14.484149533736902,
+     "calib_n": 1704,
+     "calib_sum_p": 13.440009754463375,
+     "calib_sum_y": 15.0
+    },
+    "L2": {
+     "sse": 14.447285539791778,
+     "calib_n": 1704,
+     "calib_sum_p": 13.850170766969985,
+     "calib_sum_y": 15.0
+    }
+   },
+   "full": {
+    "n": 1808,
+    "sum_y": 15.0,
+    "base": {
+     "sse": 14.559006206397893,
+     "calib_n": 1808,
+     "calib_sum_p": 26.01907125520309,
+     "calib_sum_y": 15.0
+    },
+    "L": {
+     "sse": 14.484428442688708,
+     "calib_n": 1808,
+     "calib_sum_p": 13.606546361561463,
+     "calib_sum_y": 15.0
+    },
+    "L2": {
+     "sse": 14.447589202137035,
+     "calib_n": 1808,
+     "calib_sum_p": 14.022121450449289,
+     "calib_sum_y": 15.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-NCF-000370_Midnight": {
+   "band": {
+    "n": 928,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.37684756651946694,
+     "calib_n": 928,
+     "calib_sum_p": 14.163061568396046,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.08355109767804501,
+     "calib_n": 928,
+     "calib_sum_p": 6.477916629194627,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.19683770733069028,
+     "calib_n": 928,
+     "calib_sum_p": 9.893542201805857,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 928,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.37684756651946694,
+     "calib_n": 928,
+     "calib_sum_p": 14.163061568396046,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.08355109767804501,
+     "calib_n": 928,
+     "calib_sum_p": 6.477916629194627,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.19683770733069028,
+     "calib_n": 928,
+     "calib_sum_p": 9.893542201805857,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-NCF-000552_Beaver": {
+   "band": {
+    "n": 1791,
+    "sum_y": 8.0,
+    "base": {
+     "sse": 7.886117432461307,
+     "calib_n": 1791,
+     "calib_sum_p": 24.80980307567828,
+     "calib_sum_y": 8.0
+    },
+    "L": {
+     "sse": 7.846948127686326,
+     "calib_n": 1791,
+     "calib_sum_p": 11.880787895473702,
+     "calib_sum_y": 8.0
+    },
+    "L2": {
+     "sse": 7.913155524550587,
+     "calib_n": 1791,
+     "calib_sum_p": 16.63909400876705,
+     "calib_sum_y": 8.0
+    }
+   },
+   "full": {
+    "n": 1836,
+    "sum_y": 8.0,
+    "base": {
+     "sse": 7.886617798441562,
+     "calib_n": 1836,
+     "calib_sum_p": 24.959476915961954,
+     "calib_sum_y": 8.0
+    },
+    "L": {
+     "sse": 7.847072243915721,
+     "calib_n": 1836,
+     "calib_sum_p": 11.954284142240752,
+     "calib_sum_y": 8.0
+    },
+    "L2": {
+     "sse": 7.913410931937555,
+     "calib_n": 1836,
+     "calib_sum_p": 16.743600533545766,
+     "calib_sum_y": 8.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-NCF-000581_SnowCreek": {
+   "band": {
+    "n": 2849,
+    "sum_y": 21.0,
+    "base": {
+     "sse": 19.4267131845999,
+     "calib_n": 2849,
+     "calib_sum_p": 45.93237403085474,
+     "calib_sum_y": 21.0
+    },
+    "L": {
+     "sse": 19.472029261079275,
+     "calib_n": 2849,
+     "calib_sum_p": 42.95646990918765,
+     "calib_sum_y": 21.0
+    },
+    "L2": {
+     "sse": 19.58756264487124,
+     "calib_n": 2849,
+     "calib_sum_p": 30.28917602133782,
+     "calib_sum_y": 21.0
+    }
+   },
+   "full": {
+    "n": 2937,
+    "sum_y": 21.0,
+    "base": {
+     "sse": 19.427739006511313,
+     "calib_n": 2937,
+     "calib_sum_p": 46.22910703063427,
+     "calib_sum_y": 21.0
+    },
+    "L": {
+     "sse": 19.47305503893942,
+     "calib_n": 2937,
+     "calib_sum_p": 43.251728132448115,
+     "calib_sum_y": 21.0
+    },
+    "L2": {
+     "sse": 19.58805236382005,
+     "calib_n": 2937,
+     "calib_sum_p": 30.492767847033967,
+     "calib_sum_y": 21.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-NCF-00508_Marion": {
+   "band": {
+    "n": 1225,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 1.4309928178795972,
+     "calib_n": 1225,
+     "calib_sum_p": 19.701542605519702,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 1.0929449119515504,
+     "calib_n": 1225,
+     "calib_sum_p": 9.67430296380893,
+     "calib_sum_y": 1.0
+    },
+    "L2": {
+     "sse": 1.081393368217482,
+     "calib_n": 1225,
+     "calib_sum_p": 8.820056889495987,
+     "calib_sum_y": 1.0
+    }
+   },
+   "full": {
+    "n": 1225,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 1.4309928178795972,
+     "calib_n": 1225,
+     "calib_sum_p": 19.701542605519702,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 1.0929449119515504,
+     "calib_n": 1225,
+     "calib_sum_p": 9.67430296380893,
+     "calib_sum_y": 1.0
+    },
+    "L2": {
+     "sse": 1.081393368217482,
+     "calib_n": 1225,
+     "calib_sum_p": 8.820056889495987,
+     "calib_sum_y": 1.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-PAF-000570_Woodhead": {
+   "band": {
+    "n": 9813,
+    "sum_y": 228.0,
+    "base": {
+     "sse": 213.30825304550257,
+     "calib_n": 9813,
+     "calib_sum_p": 215.65660098201903,
+     "calib_sum_y": 228.0
+    },
+    "L": {
+     "sse": 212.92855043970465,
+     "calib_n": 9782,
+     "calib_sum_p": 232.4226396219758,
+     "calib_sum_y": 228.0
+    },
+    "L2": {
+     "sse": 215.78682441711038,
+     "calib_n": 9813,
+     "calib_sum_p": 132.26374128348252,
+     "calib_sum_y": 228.0
+    }
+   },
+   "full": {
+    "n": 14775,
+    "sum_y": 228.0,
+    "base": {
+     "sse": 213.3408560790154,
+     "calib_n": 14775,
+     "calib_sum_p": 227.46137998981874,
+     "calib_sum_y": 228.0
+    },
+    "L": {
+     "sse": 212.970814171887,
+     "calib_n": 14744,
+     "calib_sum_p": 245.66137876633485,
+     "calib_sum_y": 228.0
+    },
+    "L2": {
+     "sse": 215.79912781832667,
+     "calib_n": 14775,
+     "calib_sum_p": 139.33877878474271,
+     "calib_sum_y": 228.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-SCF-240169_Birch": {
+   "band": {
+    "n": 15334,
+    "sum_y": 410.0,
+    "base": {
+     "sse": 387.21245092283016,
+     "calib_n": 15334,
+     "calib_sum_p": 296.17649457043905,
+     "calib_sum_y": 410.0
+    },
+    "L": {
+     "sse": 384.2851831019826,
+     "calib_n": 15331,
+     "calib_sum_p": 279.8297053875486,
+     "calib_sum_y": 410.0
+    },
+    "L2": {
+     "sse": 393.0625242638434,
+     "calib_n": 15334,
+     "calib_sum_p": 141.6887665375547,
+     "calib_sum_y": 410.0
+    }
+   },
+   "full": {
+    "n": 20033,
+    "sum_y": 421.0,
+    "base": {
+     "sse": 398.16674119982457,
+     "calib_n": 20033,
+     "calib_sum_p": 307.76372363450173,
+     "calib_sum_y": 421.0
+    },
+    "L": {
+     "sse": 395.2298487496763,
+     "calib_n": 20030,
+     "calib_sum_p": 290.93109300998015,
+     "calib_sum_y": 421.0
+    },
+    "L2": {
+     "sse": 404.0251629596454,
+     "calib_n": 20033,
+     "calib_sum_p": 147.16330916731363,
+     "calib_sum_y": 421.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "ID-STF-000331_Frog": {
+   "band": {
+    "n": 6272,
+    "sum_y": 43.0,
+    "base": {
+     "sse": 45.0357492749324,
+     "calib_n": 6210,
+     "calib_sum_p": 133.1771410389888,
+     "calib_sum_y": 43.0
+    },
+    "L": {
+     "sse": 42.551778538468064,
+     "calib_n": 6271,
+     "calib_sum_p": 121.76258594709202,
+     "calib_sum_y": 43.0
+    },
+    "L2": {
+     "sse": 41.47115181446916,
+     "calib_n": 6272,
+     "calib_sum_p": 94.1667715548826,
+     "calib_sum_y": 43.0
+    }
+   },
+   "full": {
+    "n": 6439,
+    "sum_y": 43.0,
+    "base": {
+     "sse": 45.03808434626084,
+     "calib_n": 6377,
+     "calib_sum_p": 133.7847296535686,
+     "calib_sum_y": 43.0
+    },
+    "L": {
+     "sse": 42.553642281294444,
+     "calib_n": 6438,
+     "calib_sum_p": 122.30337144123823,
+     "calib_sum_y": 43.0
+    },
+    "L2": {
+     "sse": 41.47223657777405,
+     "calib_n": 6439,
+     "calib_sum_p": 94.5737612001169,
+     "calib_sum_y": 43.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-BDF-006341_Haystack": {
+   "band": {
+    "n": 17764,
+    "sum_y": 385.0,
+    "base": {
+     "sse": 361.4693009122779,
+     "calib_n": 17763,
+     "calib_sum_p": 377.0553076071927,
+     "calib_sum_y": 385.0
+    },
+    "L": {
+     "sse": 363.6049503019595,
+     "calib_n": 17763,
+     "calib_sum_p": 319.08984058967985,
+     "calib_sum_y": 385.0
+    },
+    "L2": {
+     "sse": 367.50466378559236,
+     "calib_n": 17764,
+     "calib_sum_p": 216.95860954049266,
+     "calib_sum_y": 385.0
+    }
+   },
+   "full": {
+    "n": 24014,
+    "sum_y": 385.0,
+    "base": {
+     "sse": 361.51676927989917,
+     "calib_n": 24013,
+     "calib_sum_p": 393.3059248736365,
+     "calib_sum_y": 385.0
+    },
+    "L": {
+     "sse": 363.6425330676552,
+     "calib_n": 24013,
+     "calib_sum_p": 333.24653118784533,
+     "calib_sum_y": 385.0
+    },
+    "L2": {
+     "sse": 367.5218756410608,
+     "calib_n": 24014,
+     "calib_sum_p": 226.2912621645445,
+     "calib_sum_y": 385.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-BDF-006386_SandLake": {
+   "band": {
+    "n": 1608,
+    "sum_y": 3.0,
+    "base": {
+     "sse": 3.283718459663458,
+     "calib_n": 1607,
+     "calib_sum_p": 23.692895886426175,
+     "calib_sum_y": 3.0
+    },
+    "L": {
+     "sse": 3.065829516134122,
+     "calib_n": 1608,
+     "calib_sum_p": 16.956549211845413,
+     "calib_sum_y": 3.0
+    },
+    "L2": {
+     "sse": 3.030601306009654,
+     "calib_n": 1608,
+     "calib_sum_p": 14.896113283529044,
+     "calib_sum_y": 3.0
+    }
+   },
+   "full": {
+    "n": 1611,
+    "sum_y": 3.0,
+    "base": {
+     "sse": 3.2837515700093283,
+     "calib_n": 1610,
+     "calib_sum_p": 23.70280639016155,
+     "calib_sum_y": 3.0
+    },
+    "L": {
+     "sse": 3.0658509755003998,
+     "calib_n": 1611,
+     "calib_sum_p": 16.964457385910855,
+     "calib_sum_y": 3.0
+    },
+    "L2": {
+     "sse": 3.0306181843438744,
+     "calib_n": 1611,
+     "calib_sum_p": 14.903069713810428,
+     "calib_sum_y": 3.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-BRF-022252_BlodgettLake": {
+   "band": {
+    "n": 1816,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 1.4176316629914547,
+     "calib_n": 1816,
+     "calib_sum_p": 38.07677336473073,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.31741872288948386,
+     "calib_n": 1816,
+     "calib_sum_p": 17.74134871944772,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.731041749100968,
+     "calib_n": 1816,
+     "calib_sum_p": 26.72250274721602,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 1816,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 1.4176316629914547,
+     "calib_n": 1816,
+     "calib_sum_p": 38.07677336473073,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.31741872288948386,
+     "calib_n": 1816,
+     "calib_sum_p": 17.74134871944772,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.731041749100968,
+     "calib_n": 1816,
+     "calib_sum_p": 26.72250274721602,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-FHA-000098_MiddleRidge": {
+   "band": {
+    "n": 3860,
+    "sum_y": 49.0,
+    "base": {
+     "sse": 49.48600541919808,
+     "calib_n": 3860,
+     "calib_sum_p": 75.36022813490312,
+     "calib_sum_y": 49.0
+    },
+    "L": {
+     "sse": 48.65329375448731,
+     "calib_n": 3860,
+     "calib_sum_p": 51.652887732916255,
+     "calib_sum_y": 49.0
+    },
+    "L2": {
+     "sse": 48.4934881399647,
+     "calib_n": 3860,
+     "calib_sum_p": 44.375267250368125,
+     "calib_sum_y": 49.0
+    }
+   },
+   "full": {
+    "n": 4825,
+    "sum_y": 49.0,
+    "base": {
+     "sse": 49.493185442384984,
+     "calib_n": 4825,
+     "calib_sum_p": 77.91009590686343,
+     "calib_sum_y": 49.0
+    },
+    "L": {
+     "sse": 48.65646486282249,
+     "calib_n": 4825,
+     "calib_sum_p": 53.34509939881792,
+     "calib_sum_y": 49.0
+    },
+    "L2": {
+     "sse": 48.49564405355087,
+     "calib_n": 4825,
+     "calib_sum_p": 45.7696493360669,
+     "calib_sum_y": 49.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-FHA-000130_LittleMoney2": {
+   "band": {
+    "n": 0,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.0,
+     "calib_n": 0,
+     "calib_sum_p": 0.0,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.0,
+     "calib_n": 0,
+     "calib_sum_p": 0.0,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.0,
+     "calib_n": 0,
+     "calib_sum_p": 0.0,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 225,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 0.9990823287159885,
+     "calib_n": 225,
+     "calib_sum_p": 0.10982024396767295,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 0.9995395140672558,
+     "calib_n": 225,
+     "calib_sum_p": 0.053566782858177175,
+     "calib_sum_y": 1.0
+    },
+    "L2": {
+     "sse": 0.9995452385777971,
+     "calib_n": 225,
+     "calib_sum_p": 0.05286816942555704,
+     "calib_sum_y": 1.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-FHF-000000_TinSoldierComplex": {
+   "band": {
+    "n": 18174,
+    "sum_y": 156.0,
+    "base": {
+     "sse": 150.45365623521178,
+     "calib_n": 18174,
+     "calib_sum_p": 283.4266040080712,
+     "calib_sum_y": 156.0
+    },
+    "L": {
+     "sse": 147.6906701450774,
+     "calib_n": 18174,
+     "calib_sum_p": 244.58645368823986,
+     "calib_sum_y": 156.0
+    },
+    "L2": {
+     "sse": 147.75826916501575,
+     "calib_n": 18174,
+     "calib_sum_p": 190.50324490273115,
+     "calib_sum_y": 156.0
+    }
+   },
+   "full": {
+    "n": 30901,
+    "sum_y": 156.0,
+    "base": {
+     "sse": 150.51376285342613,
+     "calib_n": 30901,
+     "calib_sum_p": 308.87187706591067,
+     "calib_sum_y": 156.0
+    },
+    "L": {
+     "sse": 147.74484625149373,
+     "calib_n": 30901,
+     "calib_sum_p": 267.7234999827498,
+     "calib_sum_y": 156.0
+    },
+    "L2": {
+     "sse": 147.7919867198677,
+     "calib_n": 30901,
+     "calib_sum_p": 208.33617417304384,
+     "calib_sum_y": 156.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-HLF-000367_HorseGulch": {
+   "band": {
+    "n": 5204,
+    "sum_y": 121.0,
+    "base": {
+     "sse": 109.39302448710578,
+     "calib_n": 5193,
+     "calib_sum_p": 97.30853915658574,
+     "calib_sum_y": 113.0
+    },
+    "L": {
+     "sse": 113.04635685189228,
+     "calib_n": 5204,
+     "calib_sum_p": 55.58754748176568,
+     "calib_sum_y": 121.0
+    },
+    "L2": {
+     "sse": 113.0299926520363,
+     "calib_n": 5204,
+     "calib_sum_p": 52.115031741796,
+     "calib_sum_y": 121.0
+    }
+   },
+   "full": {
+    "n": 6108,
+    "sum_y": 121.0,
+    "base": {
+     "sse": 109.40115554982751,
+     "calib_n": 6097,
+     "calib_sum_p": 99.94384534287397,
+     "calib_sum_y": 113.0
+    },
+    "L": {
+     "sse": 113.04886213586809,
+     "calib_n": 6108,
+     "calib_sum_p": 57.03851087419057,
+     "calib_sum_y": 121.0
+    },
+    "L2": {
+     "sse": 113.0322395063256,
+     "calib_n": 6108,
+     "calib_sum_p": 53.46624207857696,
+     "calib_sum_y": 121.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-KNF-000176_Sutton": {
+   "band": {
+    "n": 1335,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.5919233783878417,
+     "calib_n": 1335,
+     "calib_sum_p": 21.071111199901893,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.15398880986684754,
+     "calib_n": 1335,
+     "calib_sum_p": 10.399339658841784,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.30784173232052203,
+     "calib_n": 1335,
+     "calib_sum_p": 14.499757217052736,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 1340,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.5919780051058658,
+     "calib_n": 1340,
+     "calib_sum_p": 21.087630824731328,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.15400180072932576,
+     "calib_n": 1340,
+     "calib_sum_p": 10.407236823372235,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.3078657116657998,
+     "calib_n": 1340,
+     "calib_sum_p": 14.510363438629893,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-LG23-200899_Bobcat": {
+   "band": {
+    "n": 4055,
+    "sum_y": 427.0,
+    "base": {
+     "sse": 404.1228696396886,
+     "calib_n": 4055,
+     "calib_sum_p": 71.9196483245289,
+     "calib_sum_y": 427.0
+    },
+    "L": {
+     "sse": 414.4202700657469,
+     "calib_n": 4055,
+     "calib_sum_p": 37.16338363738957,
+     "calib_sum_y": 427.0
+    },
+    "L2": {
+     "sse": 410.6148579307086,
+     "calib_n": 4055,
+     "calib_sum_p": 49.491196432108254,
+     "calib_sum_y": 427.0
+    }
+   },
+   "full": {
+    "n": 4916,
+    "sum_y": 447.0,
+    "base": {
+     "sse": 424.00002983181906,
+     "calib_n": 4916,
+     "calib_sum_p": 74.24766539000515,
+     "calib_sum_y": 447.0
+    },
+    "L": {
+     "sse": 434.35490849478265,
+     "calib_n": 4916,
+     "calib_sum_p": 38.34527276963699,
+     "calib_sum_y": 447.0
+    },
+    "L2": {
+     "sse": 430.53023603333384,
+     "calib_n": 4916,
+     "calib_sum_p": 51.05038521867532,
+     "calib_sum_y": 447.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-LNF-240427_MillerPeak": {
+   "band": {
+    "n": 3757,
+    "sum_y": 24.0,
+    "base": {
+     "sse": 23.85906563005444,
+     "calib_n": 3735,
+     "calib_sum_p": 75.00027008089569,
+     "calib_sum_y": 24.0
+    },
+    "L": {
+     "sse": 23.358969981743353,
+     "calib_n": 3757,
+     "calib_sum_p": 57.44772053065704,
+     "calib_sum_y": 24.0
+    },
+    "L2": {
+     "sse": 23.502987938127674,
+     "calib_n": 3755,
+     "calib_sum_p": 62.46691738807449,
+     "calib_sum_y": 24.0
+    }
+   },
+   "full": {
+    "n": 3859,
+    "sum_y": 24.0,
+    "base": {
+     "sse": 23.86055788436814,
+     "calib_n": 3837,
+     "calib_sum_p": 75.38188946575966,
+     "calib_sum_y": 24.0
+    },
+    "L": {
+     "sse": 23.35991007097141,
+     "calib_n": 3859,
+     "calib_sum_p": 57.74634663744958,
+     "calib_sum_y": 24.0
+    },
+    "L2": {
+     "sse": 23.50409988133219,
+     "calib_n": 3857,
+     "calib_sum_p": 62.79138225547809,
+     "calib_sum_y": 24.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "MT-NWS-000748_WhitetailCreek": {
+   "band": {
+    "n": 1050,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 2.2640368097227794,
+     "calib_n": 1050,
+     "calib_sum_p": 18.2299341760913,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 1.956166480055799,
+     "calib_n": 1050,
+     "calib_sum_p": 9.311134955647596,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 1.9482590866278366,
+     "calib_n": 1050,
+     "calib_sum_p": 9.585585076070636,
+     "calib_sum_y": 2.0
+    }
+   },
+   "full": {
+    "n": 1050,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 2.2640368097227794,
+     "calib_n": 1050,
+     "calib_sum_p": 18.2299341760913,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 1.956166480055799,
+     "calib_n": 1050,
+     "calib_sum_p": 9.311134955647596,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 1.9482590866278366,
+     "calib_n": 1050,
+     "calib_sum_p": 9.585585076070636,
+     "calib_sum_y": 2.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NM-CAF-000631_Luna": {
+   "band": {
+    "n": 5303,
+    "sum_y": 121.0,
+    "base": {
+     "sse": 111.3038969559638,
+     "calib_n": 5223,
+     "calib_sum_p": 128.37621609839584,
+     "calib_sum_y": 110.0
+    },
+    "L": {
+     "sse": 110.84024775843861,
+     "calib_n": 4984,
+     "calib_sum_p": 128.8870792361818,
+     "calib_sum_y": 76.0
+    },
+    "L2": {
+     "sse": 112.28564515494023,
+     "calib_n": 5302,
+     "calib_sum_p": 98.20154076373205,
+     "calib_sum_y": 120.0
+    }
+   },
+   "full": {
+    "n": 5717,
+    "sum_y": 121.0,
+    "base": {
+     "sse": 111.31181232573022,
+     "calib_n": 5637,
+     "calib_sum_p": 130.1527381029657,
+     "calib_sum_y": 110.0
+    },
+    "L": {
+     "sse": 110.85245638249924,
+     "calib_n": 5398,
+     "calib_sum_p": 131.07888791137304,
+     "calib_sum_y": 76.0
+    },
+    "L2": {
+     "sse": 112.28954968165462,
+     "calib_n": 5716,
+     "calib_sum_p": 99.44006735643022,
+     "calib_sum_y": 120.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NM-GNF-000226_Good": {
+   "band": {
+    "n": 14431,
+    "sum_y": 216.0,
+    "base": {
+     "sse": 202.94641588197206,
+     "calib_n": 14389,
+     "calib_sum_p": 296.31000905716,
+     "calib_sum_y": 216.0
+    },
+    "L": {
+     "sse": 202.24696014420408,
+     "calib_n": 14377,
+     "calib_sum_p": 260.6618031254391,
+     "calib_sum_y": 213.0
+    },
+    "L2": {
+     "sse": 204.52906261428166,
+     "calib_n": 14431,
+     "calib_sum_p": 173.63487201648982,
+     "calib_sum_y": 216.0
+    }
+   },
+   "full": {
+    "n": 18025,
+    "sum_y": 216.0,
+    "base": {
+     "sse": 202.97998068239258,
+     "calib_n": 17983,
+     "calib_sum_p": 306.53418189634596,
+     "calib_sum_y": 216.0
+    },
+    "L": {
+     "sse": 202.274398878452,
+     "calib_n": 17971,
+     "calib_sum_p": 269.7714251970114,
+     "calib_sum_y": 213.0
+    },
+    "L2": {
+     "sse": 204.5406650343983,
+     "calib_n": 18025,
+     "calib_sum_p": 179.45001274133566,
+     "calib_sum_y": 216.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NM-GNF-000276_Johnson": {
+   "band": {
+    "n": 43122,
+    "sum_y": 1342.0,
+    "base": {
+     "sse": 1233.4873141594228,
+     "calib_n": 43101,
+     "calib_sum_p": 941.1526946780309,
+     "calib_sum_y": 1342.0
+    },
+    "L": {
+     "sse": 1216.8536228683545,
+     "calib_n": 42939,
+     "calib_sum_p": 844.4104951611473,
+     "calib_sum_y": 1271.0
+    },
+    "L2": {
+     "sse": 1214.1997926942624,
+     "calib_n": 42794,
+     "calib_sum_p": 784.8531551840932,
+     "calib_sum_y": 1208.0
+    }
+   },
+   "full": {
+    "n": 65023,
+    "sum_y": 1352.0,
+    "base": {
+     "sse": 1243.5613136680065,
+     "calib_n": 65002,
+     "calib_sum_p": 995.6844627773951,
+     "calib_sum_y": 1352.0
+    },
+    "L": {
+     "sse": 1226.9110853709772,
+     "calib_n": 64840,
+     "calib_sum_p": 893.1498883908938,
+     "calib_sum_y": 1281.0
+    },
+    "L2": {
+     "sse": 1224.248688730438,
+     "calib_n": 64695,
+     "calib_sum_p": 829.8927233280235,
+     "calib_sum_y": 1218.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NM-GNF-000428_Pasture": {
+   "band": {
+    "n": 5302,
+    "sum_y": 117.0,
+    "base": {
+     "sse": 108.01938784788729,
+     "calib_n": 5302,
+     "calib_sum_p": 97.24886608890438,
+     "calib_sum_y": 117.0
+    },
+    "L": {
+     "sse": 108.41815032274877,
+     "calib_n": 5302,
+     "calib_sum_p": 63.730461197237815,
+     "calib_sum_y": 117.0
+    },
+    "L2": {
+     "sse": 108.30757534620932,
+     "calib_n": 5302,
+     "calib_sum_p": 60.41595816542853,
+     "calib_sum_y": 117.0
+    }
+   },
+   "full": {
+    "n": 5999,
+    "sum_y": 117.0,
+    "base": {
+     "sse": 108.02611990560962,
+     "calib_n": 5999,
+     "calib_sum_p": 99.36855052096197,
+     "calib_sum_y": 117.0
+    },
+    "L": {
+     "sse": 108.42206517290876,
+     "calib_n": 5999,
+     "calib_sum_p": 65.3087355265248,
+     "calib_sum_y": 117.0
+    },
+    "L2": {
+     "sse": 108.31130623333246,
+     "calib_n": 5999,
+     "calib_sum_p": 61.942857872624664,
+     "calib_sum_y": 117.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NV-ELD-040076_MeadowValley": {
+   "band": {
+    "n": 14291,
+    "sum_y": 224.0,
+    "base": {
+     "sse": 228.8712873803011,
+     "calib_n": 13671,
+     "calib_sum_p": 335.7232537545581,
+     "calib_sum_y": 219.0
+    },
+    "L": {
+     "sse": 227.58030307348778,
+     "calib_n": 13565,
+     "calib_sum_p": 331.0112304341261,
+     "calib_sum_y": 190.0
+    },
+    "L2": {
+     "sse": 223.7885959146289,
+     "calib_n": 14052,
+     "calib_sum_p": 327.5359527655079,
+     "calib_sum_y": 217.0
+    }
+   },
+   "full": {
+    "n": 26169,
+    "sum_y": 224.0,
+    "base": {
+     "sse": 228.98091398665596,
+     "calib_n": 25549,
+     "calib_sum_p": 367.7235144686807,
+     "calib_sum_y": 219.0
+    },
+    "L": {
+     "sse": 227.68872851564572,
+     "calib_n": 25443,
+     "calib_sum_p": 362.6652013931338,
+     "calib_sum_y": 190.0
+    },
+    "L2": {
+     "sse": 223.86281906432697,
+     "calib_n": 25930,
+     "calib_sum_p": 353.67480260051224,
+     "calib_sum_y": 217.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NV-ELD-040082_StewartCanyon": {
+   "band": {
+    "n": 6970,
+    "sum_y": 214.0,
+    "base": {
+     "sse": 202.8324263525301,
+     "calib_n": 6776,
+     "calib_sum_p": 173.8788740811783,
+     "calib_sum_y": 209.0
+    },
+    "L": {
+     "sse": 200.54201378787977,
+     "calib_n": 6891,
+     "calib_sum_p": 161.68312960161808,
+     "calib_sum_y": 208.0
+    },
+    "L2": {
+     "sse": 200.21107183631523,
+     "calib_n": 6931,
+     "calib_sum_p": 156.0569029355452,
+     "calib_sum_y": 209.0
+    }
+   },
+   "full": {
+    "n": 9087,
+    "sum_y": 214.0,
+    "base": {
+     "sse": 202.87016855593927,
+     "calib_n": 8893,
+     "calib_sum_p": 182.47660050010484,
+     "calib_sum_y": 209.0
+    },
+    "L": {
+     "sse": 200.57021975822204,
+     "calib_n": 9008,
+     "calib_sum_p": 169.0328196657337,
+     "calib_sum_y": 208.0
+    },
+    "L2": {
+     "sse": 200.2352071823884,
+     "calib_n": 9048,
+     "calib_sum_p": 162.83060199969418,
+     "calib_sum_y": 209.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "NV-HTF-040163_BroomCanyon": {
+   "band": {
+    "n": 2403,
+    "sum_y": 32.0,
+    "base": {
+     "sse": 28.831457036725105,
+     "calib_n": 2355,
+     "calib_sum_p": 48.77509311646547,
+     "calib_sum_y": 20.0
+    },
+    "L": {
+     "sse": 29.179601489409407,
+     "calib_n": 2306,
+     "calib_sum_p": 55.51732834825293,
+     "calib_sum_y": 11.0
+    },
+    "L2": {
+     "sse": 29.421020571793427,
+     "calib_n": 2393,
+     "calib_sum_p": 31.83123046657305,
+     "calib_sum_y": 32.0
+    }
+   },
+   "full": {
+    "n": 2601,
+    "sum_y": 32.0,
+    "base": {
+     "sse": 28.835914222621202,
+     "calib_n": 2553,
+     "calib_sum_p": 49.66207415890973,
+     "calib_sum_y": 20.0
+    },
+    "L": {
+     "sse": 29.191135269029072,
+     "calib_n": 2504,
+     "calib_sum_p": 56.88748529372609,
+     "calib_sum_y": 11.0
+    },
+    "L2": {
+     "sse": 29.42327315060037,
+     "calib_n": 2591,
+     "calib_sum_p": 32.434153615919186,
+     "calib_sum_y": 32.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-732S-000362_Milepost98": {
+   "band": {
+    "n": 249,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.08912376889101514,
+     "calib_n": 249,
+     "calib_sum_p": 3.5071453448542083,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.025591710241034106,
+     "calib_n": 249,
+     "calib_sum_p": 1.8595852803827282,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.016740546665812053,
+     "calib_n": 249,
+     "calib_sum_p": 1.4916134916534742,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 249,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.08912376889101514,
+     "calib_n": 249,
+     "calib_sum_p": 3.5071453448542083,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.025591710241034106,
+     "calib_n": 249,
+     "calib_sum_p": 1.8595852803827282,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.016740546665812053,
+     "calib_n": 249,
+     "calib_sum_p": 1.4916134916534742,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-954S-000017_FirMountain": {
+   "band": {
+    "n": 646,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.49590762945162425,
+     "calib_n": 646,
+     "calib_sum_p": 13.211560884567113,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.12242427184163687,
+     "calib_n": 646,
+     "calib_sum_p": 6.44332937883981,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.14652698075468262,
+     "calib_n": 646,
+     "calib_sum_p": 7.0146078741687035,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 650,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.4959873577493307,
+     "calib_n": 650,
+     "calib_sum_p": 13.22938191613649,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.12244182736348551,
+     "calib_n": 650,
+     "calib_sum_p": 6.451663900971673,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.146547747498241,
+     "calib_n": 650,
+     "calib_sum_p": 7.023678898071228,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-954S-000514_LarchCreek": {
+   "band": {
+    "n": 7920,
+    "sum_y": 104.0,
+    "base": {
+     "sse": 101.92849505203738,
+     "calib_n": 7920,
+     "calib_sum_p": 125.92076742755683,
+     "calib_sum_y": 104.0
+    },
+    "L": {
+     "sse": 100.7101226667598,
+     "calib_n": 7920,
+     "calib_sum_p": 70.38783225323859,
+     "calib_sum_y": 104.0
+    },
+    "L2": {
+     "sse": 100.29869824541382,
+     "calib_n": 7920,
+     "calib_sum_p": 74.86415148945137,
+     "calib_sum_y": 104.0
+    }
+   },
+   "full": {
+    "n": 9692,
+    "sum_y": 104.0,
+    "base": {
+     "sse": 101.93897526162594,
+     "calib_n": 9692,
+     "calib_sum_p": 130.07836161469754,
+     "calib_sum_y": 104.0
+    },
+    "L": {
+     "sse": 100.7134628982521,
+     "calib_n": 9692,
+     "calib_sum_p": 72.67766949304765,
+     "calib_sum_y": 104.0
+    },
+    "L2": {
+     "sse": 100.30248634612022,
+     "calib_n": 9692,
+     "calib_sum_p": 77.24233004583637,
+     "calib_sum_y": 104.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-981S-240314_Copperfield": {
+   "band": {
+    "n": 5374,
+    "sum_y": 19.0,
+    "base": {
+     "sse": 20.755680261165555,
+     "calib_n": 5374,
+     "calib_sum_p": 105.54634792307061,
+     "calib_sum_y": 19.0
+    },
+    "L": {
+     "sse": 18.88238816432412,
+     "calib_n": 5374,
+     "calib_sum_p": 63.931382051880846,
+     "calib_sum_y": 19.0
+    },
+    "L2": {
+     "sse": 19.93066067746323,
+     "calib_n": 5367,
+     "calib_sum_p": 91.16413865340917,
+     "calib_sum_y": 18.0
+    }
+   },
+   "full": {
+    "n": 5789,
+    "sum_y": 19.0,
+    "base": {
+     "sse": 20.759619239103767,
+     "calib_n": 5789,
+     "calib_sum_p": 106.79528063804379,
+     "calib_sum_y": 19.0
+    },
+    "L": {
+     "sse": 18.883841301925294,
+     "calib_n": 5789,
+     "calib_sum_p": 64.66213216647043,
+     "calib_sum_y": 19.0
+    },
+    "L2": {
+     "sse": 19.933674556631754,
+     "calib_n": 5782,
+     "calib_sum_p": 92.20020205026108,
+     "calib_sum_y": 18.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-9853S-024259_TwoCabin": {
+   "band": {
+    "n": 462,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.2988669440407079,
+     "calib_n": 462,
+     "calib_sum_p": 8.723862157298617,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.052612719224848795,
+     "calib_n": 462,
+     "calib_sum_p": 3.562062664511785,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.16236059209828396,
+     "calib_n": 462,
+     "calib_sum_p": 6.218600336872047,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 462,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.2988669440407079,
+     "calib_n": 462,
+     "calib_sum_p": 8.723862157298617,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.052612719224848795,
+     "calib_n": 462,
+     "calib_sum_p": 3.562062664511785,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.16236059209828396,
+     "calib_n": 462,
+     "calib_sum_p": 6.218600336872047,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-DEF-000845_FlatTop": {
+   "band": {
+    "n": 22601,
+    "sum_y": 87.0,
+    "base": {
+     "sse": 105.8669236119033,
+     "calib_n": 22184,
+     "calib_sum_p": 514.6617750315247,
+     "calib_sum_y": 84.0
+    },
+    "L": {
+     "sse": 101.43888242224507,
+     "calib_n": 22175,
+     "calib_sum_p": 451.2292590312584,
+     "calib_sum_y": 84.0
+    },
+    "L2": {
+     "sse": 96.3859886969236,
+     "calib_n": 22347,
+     "calib_sum_p": 410.5409900351284,
+     "calib_sum_y": 87.0
+    }
+   },
+   "full": {
+    "n": 29165,
+    "sum_y": 87.0,
+    "base": {
+     "sse": 105.97352732656672,
+     "calib_n": 28748,
+     "calib_sum_p": 538.9622709522622,
+     "calib_sum_y": 84.0
+    },
+    "L": {
+     "sse": 101.55293416410302,
+     "calib_n": 28739,
+     "calib_sum_p": 474.19345433117536,
+     "calib_sum_y": 84.0
+    },
+    "L2": {
+     "sse": 96.46644473547714,
+     "calib_n": 28911,
+     "calib_sum_p": 429.75442599217143,
+     "calib_sum_y": 87.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-FWF-200404_242": {
+   "band": {
+    "n": 13503,
+    "sum_y": 107.0,
+    "base": {
+     "sse": 105.65725197132491,
+     "calib_n": 13503,
+     "calib_sum_p": 276.4431964089001,
+     "calib_sum_y": 107.0
+    },
+    "L": {
+     "sse": 101.58612606722704,
+     "calib_n": 13503,
+     "calib_sum_p": 189.3922748223152,
+     "calib_sum_y": 107.0
+    },
+    "L2": {
+     "sse": 102.1132411926397,
+     "calib_n": 13454,
+     "calib_sum_p": 270.52257615586046,
+     "calib_sum_y": 92.0
+    }
+   },
+   "full": {
+    "n": 15787,
+    "sum_y": 107.0,
+    "base": {
+     "sse": 105.6750643347459,
+     "calib_n": 15787,
+     "calib_sum_p": 282.6330521641081,
+     "calib_sum_y": 107.0
+    },
+    "L": {
+     "sse": 101.5948138629086,
+     "calib_n": 15787,
+     "calib_sum_p": 193.575556689571,
+     "calib_sum_y": 107.0
+    },
+    "L2": {
+     "sse": 102.13204674076579,
+     "calib_n": 15738,
+     "calib_sum_p": 276.58784071546074,
+     "calib_sum_y": 92.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-FWF-230307_Morgan": {
+   "band": {
+    "n": 1002,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.7629527439668577,
+     "calib_n": 1002,
+     "calib_sum_p": 19.87670450789511,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.2328894889207042,
+     "calib_n": 1002,
+     "calib_sum_p": 10.85358107957258,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.17098577393963665,
+     "calib_n": 1002,
+     "calib_sum_p": 9.237168677551672,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 1020,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.7632103231001871,
+     "calib_n": 1020,
+     "calib_sum_p": 19.944116869516208,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.23295964491253862,
+     "calib_n": 1020,
+     "calib_sum_p": 10.88886319238428,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.17103518629930536,
+     "calib_n": 1020,
+     "calib_sum_p": 9.266826811600403,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-PRD-000404_RVLoneRock": {
+   "band": {
+    "n": 68171,
+    "sum_y": 1453.0,
+    "base": {
+     "sse": 1390.1618446629104,
+     "calib_n": 67853,
+     "calib_sum_p": 1378.9261615885957,
+     "calib_sum_y": 1405.0
+    },
+    "L": {
+     "sse": 1373.234038629304,
+     "calib_n": 67515,
+     "calib_sum_p": 1341.1081060840052,
+     "calib_sum_y": 1351.0
+    },
+    "L2": {
+     "sse": 1363.109263821496,
+     "calib_n": 67312,
+     "calib_sum_p": 1347.3349055568376,
+     "calib_sum_y": 1307.0
+    }
+   },
+   "full": {
+    "n": 137781,
+    "sum_y": 1467.0,
+    "base": {
+     "sse": 1404.3629436029612,
+     "calib_n": 137463,
+     "calib_sum_p": 1508.250399640357,
+     "calib_sum_y": 1419.0
+    },
+    "L": {
+     "sse": 1387.4264189697515,
+     "calib_n": 137125,
+     "calib_sum_p": 1467.7469726763775,
+     "calib_sum_y": 1365.0
+    },
+    "L2": {
+     "sse": 1377.284710785887,
+     "calib_n": 136922,
+     "calib_sum_p": 1472.75454522596,
+     "calib_sum_y": 1321.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-UPF-240402_DevilsKnob": {
+   "band": {
+    "n": 2680,
+    "sum_y": 42.0,
+    "base": {
+     "sse": 39.0143431616789,
+     "calib_n": 2680,
+     "calib_sum_p": 42.861945186071694,
+     "calib_sum_y": 42.0
+    },
+    "L": {
+     "sse": 38.729625974827,
+     "calib_n": 2680,
+     "calib_sum_p": 50.067996880864285,
+     "calib_sum_y": 42.0
+    },
+    "L2": {
+     "sse": 39.93066299914281,
+     "calib_n": 2680,
+     "calib_sum_p": 23.421940904803392,
+     "calib_sum_y": 42.0
+    }
+   },
+   "full": {
+    "n": 2968,
+    "sum_y": 42.0,
+    "base": {
+     "sse": 39.016443194440455,
+     "calib_n": 2968,
+     "calib_sum_p": 43.62867004125526,
+     "calib_sum_y": 42.0
+    },
+    "L": {
+     "sse": 38.73244929381233,
+     "calib_n": 2968,
+     "calib_sum_p": 50.9567906276642,
+     "calib_sum_y": 42.0
+    },
+    "L2": {
+     "sse": 39.93122332334349,
+     "calib_n": 2968,
+     "calib_sum_p": 23.817360552506134,
+     "calib_sum_y": 42.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-VAD-240129_CowValley": {
+   "band": {
+    "n": 7102,
+    "sum_y": 28.0,
+    "base": {
+     "sse": 36.58290384921141,
+     "calib_n": 6685,
+     "calib_sum_p": 179.53815420732377,
+     "calib_sum_y": 12.0
+    },
+    "L": {
+     "sse": 32.87229530970182,
+     "calib_n": 6864,
+     "calib_sum_p": 156.61071919202618,
+     "calib_sum_y": 17.0
+    },
+    "L2": {
+     "sse": 29.345742063539216,
+     "calib_n": 7063,
+     "calib_sum_p": 125.50245594049113,
+     "calib_sum_y": 25.0
+    }
+   },
+   "full": {
+    "n": 10340,
+    "sum_y": 28.0,
+    "base": {
+     "sse": 36.63319810638471,
+     "calib_n": 9923,
+     "calib_sum_p": 191.12744445286825,
+     "calib_sum_y": 12.0
+    },
+    "L": {
+     "sse": 32.9046081770423,
+     "calib_n": 10102,
+     "calib_sum_p": 165.62509287644835,
+     "calib_sum_y": 17.0
+    },
+    "L2": {
+     "sse": 29.360415781071726,
+     "calib_n": 10301,
+     "calib_sum_p": 131.54005406697456,
+     "calib_sum_y": 25.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-WIF-210362_Knoll": {
+   "band": {
+    "n": 4100,
+    "sum_y": 4.0,
+    "base": {
+     "sse": 5.420018917924419,
+     "calib_n": 4100,
+     "calib_sum_p": 67.09874166712672,
+     "calib_sum_y": 4.0
+    },
+    "L": {
+     "sse": 4.719663750705173,
+     "calib_n": 4100,
+     "calib_sum_p": 52.28653057683465,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 5.165382293711148,
+     "calib_n": 4100,
+     "calib_sum_p": 62.33881503268545,
+     "calib_sum_y": 4.0
+    }
+   },
+   "full": {
+    "n": 4100,
+    "sum_y": 4.0,
+    "base": {
+     "sse": 5.420018917924419,
+     "calib_n": 4100,
+     "calib_sum_p": 67.09874166712672,
+     "calib_sum_y": 4.0
+    },
+    "L": {
+     "sse": 4.719663750705173,
+     "calib_n": 4100,
+     "calib_sum_p": 52.28653057683465,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 5.165382293711148,
+     "calib_n": 4100,
+     "calib_sum_p": 62.33881503268545,
+     "calib_sum_y": 4.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "OR-WWF-000400_DoubleCreek": {
+   "band": {
+    "n": 105452,
+    "sum_y": 3928.0,
+    "base": {
+     "sse": 3728.2490192372725,
+     "calib_n": 105452,
+     "calib_sum_p": 1950.9787343700543,
+     "calib_sum_y": 3928.0
+    },
+    "L": {
+     "sse": 3653.993813708067,
+     "calib_n": 105103,
+     "calib_sum_p": 2115.318532530696,
+     "calib_sum_y": 3732.0
+    },
+    "L2": {
+     "sse": 3618.6633597545992,
+     "calib_n": 104193,
+     "calib_sum_p": 2103.227380441541,
+     "calib_sum_y": 3417.0
+    }
+   },
+   "full": {
+    "n": 203514,
+    "sum_y": 4110.0,
+    "base": {
+     "sse": 3909.4621444216773,
+     "calib_n": 203514,
+     "calib_sum_p": 2101.328803921555,
+     "calib_sum_y": 4110.0
+    },
+    "L": {
+     "sse": 3834.8803840608366,
+     "calib_n": 203165,
+     "calib_sum_p": 2279.8017311790004,
+     "calib_sum_y": 3914.0
+    },
+    "L2": {
+     "sse": 3799.348052637044,
+     "calib_n": 202255,
+     "calib_sum_p": 2269.99965047752,
+     "calib_sum_y": 3599.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "UT-CCD-000429_VeyoWest": {
+   "band": {
+    "n": 738,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.7577452694132691,
+     "calib_n": 738,
+     "calib_sum_p": 16.724332829442318,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.4942980847366034,
+     "calib_n": 738,
+     "calib_sum_p": 13.346707817758322,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.25866116956965096,
+     "calib_n": 738,
+     "calib_sum_p": 9.536655123478333,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 947,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.7598717317472232,
+     "calib_n": 947,
+     "calib_sum_p": 17.36835972904346,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.4955220984158294,
+     "calib_n": 947,
+     "calib_sum_p": 13.833791538848454,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.25924663384307167,
+     "calib_n": 947,
+     "calib_sum_p": 9.873559195654185,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "UT-DIF-000133_LeftFork": {
+   "band": {
+    "n": 7245,
+    "sum_y": 45.0,
+    "base": {
+     "sse": 45.786533604212,
+     "calib_n": 7180,
+     "calib_sum_p": 142.1258173455485,
+     "calib_sum_y": 41.0
+    },
+    "L": {
+     "sse": 44.077722754472305,
+     "calib_n": 7181,
+     "calib_sum_p": 121.36429982204936,
+     "calib_sum_y": 36.0
+    },
+    "L2": {
+     "sse": 43.27460184986013,
+     "calib_n": 7245,
+     "calib_sum_p": 51.64117459422238,
+     "calib_sum_y": 45.0
+    }
+   },
+   "full": {
+    "n": 8283,
+    "sum_y": 45.0,
+    "base": {
+     "sse": 45.798145732261155,
+     "calib_n": 8218,
+     "calib_sum_p": 145.43520369638208,
+     "calib_sum_y": 41.0
+    },
+    "L": {
+     "sse": 44.08654082960418,
+     "calib_n": 8219,
+     "calib_sum_p": 124.1898808963998,
+     "calib_sum_y": 36.0
+    },
+    "L2": {
+     "sse": 43.27592377326333,
+     "calib_n": 8283,
+     "calib_sum_p": 52.72892502119728,
+     "calib_sum_y": 45.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "UT-NWS-001080_Range": {
+   "band": {
+    "n": 1017,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 2.4556401894461093,
+     "calib_n": 1017,
+     "calib_sum_p": 20.075444789182416,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 2.1191372269937903,
+     "calib_n": 1017,
+     "calib_sum_p": 12.710687888208636,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 2.0348493901114564,
+     "calib_n": 1017,
+     "calib_sum_p": 9.431282424397308,
+     "calib_sum_y": 2.0
+    }
+   },
+   "full": {
+    "n": 1051,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 2.456130514963326,
+     "calib_n": 1051,
+     "calib_sum_p": 20.2041053511729,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 2.1193032152276787,
+     "calib_n": 1051,
+     "calib_sum_p": 12.785374446317322,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 2.034940798781291,
+     "calib_n": 1051,
+     "calib_sum_p": 9.486462350938503,
+     "calib_sum_y": 2.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "UT-SCS-200223_Canal": {
+   "band": {
+    "n": 16959,
+    "sum_y": 246.0,
+    "base": {
+     "sse": 248.6457725547824,
+     "calib_n": 16672,
+     "calib_sum_p": 426.1487231187682,
+     "calib_sum_y": 245.0
+    },
+    "L": {
+     "sse": 242.039337701619,
+     "calib_n": 16850,
+     "calib_sum_p": 333.724036978494,
+     "calib_sum_y": 245.0
+    },
+    "L2": {
+     "sse": 245.48573092926702,
+     "calib_n": 16414,
+     "calib_sum_p": 371.59183881589405,
+     "calib_sum_y": 213.0
+    }
+   },
+   "full": {
+    "n": 30836,
+    "sum_y": 258.0,
+    "base": {
+     "sse": 260.7162857951228,
+     "calib_n": 30549,
+     "calib_sum_p": 469.76475095180115,
+     "calib_sum_y": 257.0
+    },
+    "L": {
+     "sse": 254.0587442208068,
+     "calib_n": 30727,
+     "calib_sum_p": 366.72894030217986,
+     "calib_sum_y": 257.0
+    },
+    "L2": {
+     "sse": 257.5413025854245,
+     "calib_n": 30291,
+     "calib_sum_p": 412.4833934575101,
+     "calib_sum_y": 225.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-COA-021087_SummitTrail": {
+   "band": {
+    "n": 65622,
+    "sum_y": 757.0,
+    "base": {
+     "sse": 734.1957865194047,
+     "calib_n": 65588,
+     "calib_sum_p": 1365.1832036714209,
+     "calib_sum_y": 751.0
+    },
+    "L": {
+     "sse": 720.1474046517163,
+     "calib_n": 63903,
+     "calib_sum_p": 1309.898624323619,
+     "calib_sum_y": 483.0
+    },
+    "L2": {
+     "sse": 715.9727160355541,
+     "calib_n": 63472,
+     "calib_sum_p": 1295.302360840139,
+     "calib_sum_y": 429.0
+    }
+   },
+   "full": {
+    "n": 92410,
+    "sum_y": 795.0,
+    "base": {
+     "sse": 772.101330090486,
+     "calib_n": 92376,
+     "calib_sum_p": 1423.4503066930129,
+     "calib_sum_y": 789.0
+    },
+    "L": {
+     "sse": 758.042207343348,
+     "calib_n": 90691,
+     "calib_sum_p": 1371.815344055071,
+     "calib_sum_y": 521.0
+    },
+    "L2": {
+     "sse": 753.8496657833197,
+     "calib_n": 90260,
+     "calib_sum_p": 1357.8614831147224,
+     "calib_sum_y": 467.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-COA-200136_IncheliumComplex_North": {
+   "band": {
+    "n": 1540,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 1.2193137924814157,
+     "calib_n": 1540,
+     "calib_sum_p": 31.138463867081377,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.2740926983036279,
+     "calib_n": 1540,
+     "calib_sum_p": 14.568864031428856,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.04168951406642161,
+     "calib_n": 1540,
+     "calib_sum_p": 5.608252796988719,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 1642,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 1.2204075337361657,
+     "calib_n": 1642,
+     "calib_sum_p": 31.468845244702397,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.27430899610455245,
+     "calib_n": 1642,
+     "calib_sum_p": 14.715967990102211,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.04171883688585251,
+     "calib_n": 1642,
+     "calib_sum_p": 5.662418930454741,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-COA-240089_Swawilla": {
+   "band": {
+    "n": 20051,
+    "sum_y": 921.0,
+    "base": {
+     "sse": 859.1982719617969,
+     "calib_n": 20048,
+     "calib_sum_p": 365.29736918174996,
+     "calib_sum_y": 921.0
+    },
+    "L": {
+     "sse": 861.2185151115685,
+     "calib_n": 20046,
+     "calib_sum_p": 272.3026575404503,
+     "calib_sum_y": 921.0
+    },
+    "L2": {
+     "sse": 851.5267128876277,
+     "calib_n": 20006,
+     "calib_sum_p": 290.2831804729225,
+     "calib_sum_y": 906.0
+    }
+   },
+   "full": {
+    "n": 28657,
+    "sum_y": 955.0,
+    "base": {
+     "sse": 893.0453824542652,
+     "calib_n": 28654,
+     "calib_sum_p": 382.75452672003973,
+     "calib_sum_y": 955.0
+    },
+    "L": {
+     "sse": 895.0478599271572,
+     "calib_n": 28652,
+     "calib_sum_p": 285.72166918216993,
+     "calib_sum_y": 955.0
+    },
+    "L2": {
+     "sse": 885.3347482038897,
+     "calib_n": 28612,
+     "calib_sum_p": 304.2885241600781,
+     "calib_sum_y": 940.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-GPF-001028_Kalama": {
+   "band": {
+    "n": 2351,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 3.0569558621379356,
+     "calib_n": 2342,
+     "calib_sum_p": 38.606984355535914,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 2.6970527596927125,
+     "calib_n": 2341,
+     "calib_sum_p": 30.904927303764456,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 2.0749487477628654,
+     "calib_n": 2351,
+     "calib_sum_p": 15.076146333621212,
+     "calib_sum_y": 2.0
+    }
+   },
+   "full": {
+    "n": 2354,
+    "sum_y": 2.0,
+    "base": {
+     "sse": 3.0569945506136316,
+     "calib_n": 2345,
+     "calib_sum_p": 38.61764296544415,
+     "calib_sum_y": 2.0
+    },
+    "L": {
+     "sse": 2.6971147050990454,
+     "calib_n": 2344,
+     "calib_sum_p": 30.918367490688354,
+     "calib_sum_y": 2.0
+    },
+    "L2": {
+     "sse": 2.0749647004476794,
+     "calib_n": 2354,
+     "calib_sum_p": 15.082969645322581,
+     "calib_sum_y": 2.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-NCP-000262_Sourdough": {
+   "band": {
+    "n": 4984,
+    "sum_y": 39.0,
+    "base": {
+     "sse": 37.95183056369731,
+     "calib_n": 4984,
+     "calib_sum_p": 83.01908912605421,
+     "calib_sum_y": 39.0
+    },
+    "L": {
+     "sse": 37.786584855097075,
+     "calib_n": 4981,
+     "calib_sum_p": 93.5225801773694,
+     "calib_sum_y": 38.0
+    },
+    "L2": {
+     "sse": 37.26745498348146,
+     "calib_n": 4984,
+     "calib_sum_p": 55.344001523298196,
+     "calib_sum_y": 39.0
+    }
+   },
+   "full": {
+    "n": 5683,
+    "sum_y": 39.0,
+    "base": {
+     "sse": 37.95720051369829,
+     "calib_n": 5683,
+     "calib_sum_p": 84.92066775751906,
+     "calib_sum_y": 39.0
+    },
+    "L": {
+     "sse": 37.794189021487426,
+     "calib_n": 5680,
+     "calib_sum_p": 95.75899489066626,
+     "calib_sum_y": 38.0
+    },
+    "L2": {
+     "sse": 37.270060035561414,
+     "calib_n": 5683,
+     "calib_sum_p": 56.63921888897849,
+     "calib_sum_y": 39.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-NES-001974_Gray": {
+   "band": {
+    "n": 6626,
+    "sum_y": 4.0,
+    "base": {
+     "sse": 6.8061575655217315,
+     "calib_n": 6626,
+     "calib_sum_p": 106.04018682296433,
+     "calib_sum_y": 4.0
+    },
+    "L": {
+     "sse": 7.28838749986371,
+     "calib_n": 6626,
+     "calib_sum_p": 112.64612948544261,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 4.994752797255407,
+     "calib_n": 6626,
+     "calib_sum_p": 65.60855989506511,
+     "calib_sum_y": 4.0
+    }
+   },
+   "full": {
+    "n": 7604,
+    "sum_y": 4.0,
+    "base": {
+     "sse": 6.810875616301039,
+     "calib_n": 7604,
+     "calib_sum_p": 108.08933957090603,
+     "calib_sum_y": 4.0
+    },
+    "L": {
+     "sse": 7.293685933697332,
+     "calib_n": 7604,
+     "calib_sum_p": 114.77512471222518,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 4.996429443024289,
+     "calib_n": 7604,
+     "calib_sum_p": 66.80223365356218,
+     "calib_sum_y": 4.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-NES-002246_FordCorkscrew": {
+   "band": {
+    "n": 11559,
+    "sum_y": 81.0,
+    "base": {
+     "sse": 79.79199922991067,
+     "calib_n": 11559,
+     "calib_sum_p": 237.6464632391726,
+     "calib_sum_y": 81.0
+    },
+    "L": {
+     "sse": 76.25768765466287,
+     "calib_n": 11559,
+     "calib_sum_p": 151.1387690664001,
+     "calib_sum_y": 81.0
+    },
+    "L2": {
+     "sse": 74.96677800486033,
+     "calib_n": 11559,
+     "calib_sum_p": 161.1043696266718,
+     "calib_sum_y": 81.0
+    }
+   },
+   "full": {
+    "n": 13725,
+    "sum_y": 81.0,
+    "base": {
+     "sse": 79.80942484649313,
+     "calib_n": 13725,
+     "calib_sum_p": 243.5832087754858,
+     "calib_sum_y": 81.0
+    },
+    "L": {
+     "sse": 76.26491569869435,
+     "calib_n": 13725,
+     "calib_sum_p": 154.82328513165953,
+     "calib_sum_y": 81.0
+    },
+    "L2": {
+     "sse": 74.97468261448512,
+     "calib_n": 13725,
+     "calib_sum_p": 164.86374488770664,
+     "calib_sum_y": 81.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-NES-01491_WilliamsLake": {
+   "band": {
+    "n": 918,
+    "sum_y": 5.0,
+    "base": {
+     "sse": 4.8040839466910255,
+     "calib_n": 895,
+     "calib_sum_p": 17.689645652217152,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 4.583957643580003,
+     "calib_n": 918,
+     "calib_sum_p": 12.950501318615984,
+     "calib_sum_y": 5.0
+    },
+    "L2": {
+     "sse": 4.578866761783235,
+     "calib_n": 917,
+     "calib_sum_p": 13.110024016120894,
+     "calib_sum_y": 4.0
+    }
+   },
+   "full": {
+    "n": 949,
+    "sum_y": 5.0,
+    "base": {
+     "sse": 4.804692997566855,
+     "calib_n": 926,
+     "calib_sum_p": 17.820834918268048,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 4.5842338320151965,
+     "calib_n": 949,
+     "calib_sum_p": 13.033198911215793,
+     "calib_sum_y": 5.0
+    },
+    "L2": {
+     "sse": 4.579133609825975,
+     "calib_n": 948,
+     "calib_sum_p": 13.191835954237886,
+     "calib_sum_y": 4.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-OWF-000407_Chikamin": {
+   "band": {
+    "n": 2074,
+    "sum_y": 12.0,
+    "base": {
+     "sse": 11.374431278957319,
+     "calib_n": 2074,
+     "calib_sum_p": 26.578875717932466,
+     "calib_sum_y": 12.0
+    },
+    "L": {
+     "sse": 11.665964364528758,
+     "calib_n": 2074,
+     "calib_sum_p": 21.444877186224147,
+     "calib_sum_y": 12.0
+    },
+    "L2": {
+     "sse": 11.692851165102136,
+     "calib_n": 2074,
+     "calib_sum_p": 15.795942924547832,
+     "calib_sum_y": 12.0
+    }
+   },
+   "full": {
+    "n": 2255,
+    "sum_y": 12.0,
+    "base": {
+     "sse": 11.376328540837488,
+     "calib_n": 2255,
+     "calib_sum_p": 27.156317775749095,
+     "calib_sum_y": 12.0
+    },
+    "L": {
+     "sse": 11.667331762428436,
+     "calib_n": 2255,
+     "calib_sum_p": 21.923554922543396,
+     "calib_sum_y": 12.0
+    },
+    "L2": {
+     "sse": 11.693596391087606,
+     "calib_n": 2255,
+     "calib_sum_p": 16.14488328124834,
+     "calib_sum_y": 12.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-OWF-000454_WindyPass": {
+   "band": {
+    "n": 969,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 1.4276869357481357,
+     "calib_n": 964,
+     "calib_sum_p": 17.796678382911686,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 1.1224468195989659,
+     "calib_n": 969,
+     "calib_sum_p": 10.178399932300906,
+     "calib_sum_y": 1.0
+    },
+    "L2": {
+     "sse": 1.1859716740260016,
+     "calib_n": 967,
+     "calib_sum_p": 11.046464880865592,
+     "calib_sum_y": 1.0
+    }
+   },
+   "full": {
+    "n": 969,
+    "sum_y": 1.0,
+    "base": {
+     "sse": 1.4276869357481357,
+     "calib_n": 964,
+     "calib_sum_p": 17.796678382911686,
+     "calib_sum_y": 1.0
+    },
+    "L": {
+     "sse": 1.1224468195989659,
+     "calib_n": 969,
+     "calib_sum_p": 10.178399932300906,
+     "calib_sum_y": 1.0
+    },
+    "L2": {
+     "sse": 1.1859716740260016,
+     "calib_n": 967,
+     "calib_sum_p": 11.046464880865592,
+     "calib_sum_y": 1.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-OWF-000456_Nason": {
+   "band": {
+    "n": 3071,
+    "sum_y": 13.0,
+    "base": {
+     "sse": 12.912219871027979,
+     "calib_n": 3066,
+     "calib_sum_p": 49.89011279239248,
+     "calib_sum_y": 12.0
+    },
+    "L": {
+     "sse": 13.13738730314209,
+     "calib_n": 3061,
+     "calib_sum_p": 43.26846214890335,
+     "calib_sum_y": 13.0
+    },
+    "L2": {
+     "sse": 12.775914994342587,
+     "calib_n": 3071,
+     "calib_sum_p": 24.423091544175044,
+     "calib_sum_y": 13.0
+    }
+   },
+   "full": {
+    "n": 3273,
+    "sum_y": 13.0,
+    "base": {
+     "sse": 12.914753840482138,
+     "calib_n": 3268,
+     "calib_sum_p": 50.59376762071742,
+     "calib_sum_y": 12.0
+    },
+    "L": {
+     "sse": 13.139745411741451,
+     "calib_n": 3263,
+     "calib_sum_p": 43.926086866199626,
+     "calib_sum_y": 13.0
+    },
+    "L2": {
+     "sse": 12.776627451576498,
+     "calib_n": 3273,
+     "calib_sum_p": 24.779869439813844,
+     "calib_sum_y": 13.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-OWF-000639_ColdCreek": {
+   "band": {
+    "n": 587,
+    "sum_y": 5.0,
+    "base": {
+     "sse": 4.626365114735373,
+     "calib_n": 587,
+     "calib_sum_p": 8.495749468739955,
+     "calib_sum_y": 5.0
+    },
+    "L": {
+     "sse": 4.713552926489241,
+     "calib_n": 587,
+     "calib_sum_p": 4.0517215228069885,
+     "calib_sum_y": 5.0
+    },
+    "L2": {
+     "sse": 4.738731056895316,
+     "calib_n": 587,
+     "calib_sum_p": 3.2961156384954116,
+     "calib_sum_y": 5.0
+    }
+   },
+   "full": {
+    "n": 589,
+    "sum_y": 5.0,
+    "base": {
+     "sse": 4.626386556251965,
+     "calib_n": 589,
+     "calib_sum_p": 8.502297884668113,
+     "calib_sum_y": 5.0
+    },
+    "L": {
+     "sse": 4.713560139134106,
+     "calib_n": 589,
+     "calib_sum_p": 4.055519182580868,
+     "calib_sum_y": 5.0
+    },
+    "L2": {
+     "sse": 4.738736381170275,
+     "calib_n": 589,
+     "calib_sum_p": 3.299378675920735,
+     "calib_sum_y": 5.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WA-SES-000263_VantageHighway": {
+   "band": {
+    "n": 8679,
+    "sum_y": 615.0,
+    "base": {
+     "sse": 577.378706324185,
+     "calib_n": 8456,
+     "calib_sum_p": 185.51076879382333,
+     "calib_sum_y": 560.0
+    },
+    "L": {
+     "sse": 581.4905814018059,
+     "calib_n": 8592,
+     "calib_sum_p": 135.5595934754976,
+     "calib_sum_y": 590.0
+    },
+    "L2": {
+     "sse": 575.8174744627313,
+     "calib_n": 8504,
+     "calib_sum_p": 148.53967284436035,
+     "calib_sum_y": 558.0
+    }
+   },
+   "full": {
+    "n": 11537,
+    "sum_y": 739.0,
+    "base": {
+     "sse": 700.2811749040312,
+     "calib_n": 11314,
+     "calib_sum_p": 194.2375689696132,
+     "calib_sum_y": 684.0
+    },
+    "L": {
+     "sse": 704.5745182913267,
+     "calib_n": 11450,
+     "calib_sum_p": 141.5905591492354,
+     "calib_sum_y": 714.0
+    },
+    "L2": {
+     "sse": 698.7153616873704,
+     "calib_n": 11362,
+     "calib_sum_p": 155.45334220803812,
+     "calib_sum_y": 682.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WY-BTF-002201_Sandy": {
+   "band": {
+    "n": 412,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.2814595435560522,
+     "calib_n": 412,
+     "calib_sum_p": 8.275958697332317,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.0671351981377831,
+     "calib_n": 412,
+     "calib_sum_p": 3.97374937490035,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.08380707032180751,
+     "calib_n": 412,
+     "calib_sum_p": 4.42273558342182,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 412,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 0.2814595435560522,
+     "calib_n": 412,
+     "calib_sum_p": 8.275958697332317,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.0671351981377831,
+     "calib_n": 412,
+     "calib_sum_p": 3.97374937490035,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.08380707032180751,
+     "calib_n": 412,
+     "calib_sum_p": 4.42273558342182,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WY-HPD-240536_LaBonte": {
+   "band": {
+    "n": 1587,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 2.2356366225613726,
+     "calib_n": 1545,
+     "calib_sum_p": 38.28090276967431,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.620266754562243,
+     "calib_n": 1587,
+     "calib_sum_p": 21.85441565489368,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.7588726250964777,
+     "calib_n": 1587,
+     "calib_sum_p": 23.722882245903527,
+     "calib_sum_y": 0.0
+    }
+   },
+   "full": {
+    "n": 1644,
+    "sum_y": 0.0,
+    "base": {
+     "sse": 2.237142080261285,
+     "calib_n": 1602,
+     "calib_sum_p": 38.56513616359726,
+     "calib_sum_y": 0.0
+    },
+    "L": {
+     "sse": 0.6206352310616159,
+     "calib_n": 1644,
+     "calib_sum_p": 21.99165047936721,
+     "calib_sum_y": 0.0
+    },
+    "L2": {
+     "sse": 0.7592967095582502,
+     "calib_n": 1644,
+     "calib_sum_p": 23.869075358173344,
+     "calib_sum_y": 0.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WY-MRF-000408_EastTroublesome": {
+   "band": {
+    "n": 8467,
+    "sum_y": 1263.0,
+    "base": {
+     "sse": 1197.3224940162195,
+     "calib_n": 8371,
+     "calib_sum_p": 178.08873432903923,
+     "calib_sum_y": 1242.0
+    },
+    "L": {
+     "sse": 1171.6160880959974,
+     "calib_n": 7646,
+     "calib_sum_p": 189.82856266576948,
+     "calib_sum_y": 1048.0
+    },
+    "L2": {
+     "sse": 1208.7954612764174,
+     "calib_n": 8389,
+     "calib_sum_p": 145.72426953225033,
+     "calib_sum_y": 1243.0
+    }
+   },
+   "full": {
+    "n": 12092,
+    "sum_y": 1663.0,
+    "base": {
+     "sse": 1595.4263246771498,
+     "calib_n": 11996,
+     "calib_sum_p": 188.98818146342282,
+     "calib_sum_y": 1642.0
+    },
+    "L": {
+     "sse": 1568.9528048340776,
+     "calib_n": 11271,
+     "calib_sum_p": 206.702006139657,
+     "calib_sum_y": 1448.0
+    },
+    "L2": {
+     "sse": 1607.4476674239143,
+     "calib_n": 12014,
+     "calib_sum_p": 154.06888878401816,
+     "calib_sum_y": 1643.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  },
+  "WY-YNP-002006_LoneStar": {
+   "band": {
+    "n": 972,
+    "sum_y": 5.0,
+    "base": {
+     "sse": 4.828907412315633,
+     "calib_n": 972,
+     "calib_sum_p": 14.874219751311534,
+     "calib_sum_y": 5.0
+    },
+    "L": {
+     "sse": 4.975411329558208,
+     "calib_n": 950,
+     "calib_sum_p": 16.999464687435182,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 4.773899183044741,
+     "calib_n": 972,
+     "calib_sum_p": 8.050667637556355,
+     "calib_sum_y": 5.0
+    }
+   },
+   "full": {
+    "n": 1138,
+    "sum_y": 5.0,
+    "base": {
+     "sse": 4.83119792203073,
+     "calib_n": 1138,
+     "calib_sum_p": 15.479904353688461,
+     "calib_sum_y": 5.0
+    },
+    "L": {
+     "sse": 4.9792509392836575,
+     "calib_n": 1116,
+     "calib_sum_p": 17.78179948737932,
+     "calib_sum_y": 4.0
+    },
+    "L2": {
+     "sse": 4.774511864883067,
+     "calib_n": 1138,
+     "calib_sum_p": 8.36271041881926,
+     "calib_sum_y": 5.0
+    }
+   },
+   "base_label": "base = logistic_rebuilt recipe refit on the other 4 part-a folds; NOT the A1 logistic_rebuilt object"
+  }
+ },
+ "coefficients": {
+  "base": {
+   "standardised": [
+    -1.3108590279710637,
+    -0.03786406912134388,
+    -0.05694627191779457,
+    0.06188826456222044,
+    0.19284596378994287,
+    -0.04492695501880819,
+    0.03962408247576822,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.012272804554242615,
+    0.0,
+    0.0,
+    -0.08520290393491362,
+    0.0,
+    0.0,
+    0.0,
+    0.01674794269492444,
+    0.044417719765411194,
+    0.0
+   ],
+   "f1_raw": null
+  },
+  "L": {
+   "standardised": [
+    -1.325655573503272,
+    -0.04108111851954166,
+    -0.045434970227507296,
+    0.05085354494371531,
+    0.23308540252133494,
+    -0.03973407806756651,
+    0.037040303874512646,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.016786007577173225,
+    0.0,
+    0.0,
+    -0.06887080950244218,
+    0.0,
+    0.0,
+    0.0,
+    -0.015846350728262182,
+    0.11583219740710422,
+    0.0,
+    0.43757881168871104
+   ],
+   "f1_raw": 0.46878714091670226
+  },
+  "L2": {
+   "standardised": [
+    -1.3393617315710742,
+    -0.04370510542583377,
+    -0.032773733751595216,
+    0.053302096301285996,
+    0.22400742002181384,
+    -0.0480554375502243,
+    0.06838196798329346,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.02131429749146469,
+    0.0,
+    0.0,
+    -0.08173919595534905,
+    0.0,
+    0.0,
+    0.0,
+    -0.061024238727614664,
+    0.12096989401308977,
+    0.0,
+    0.5820261053505521,
+    0.3139634191693919
+   ],
+   "f1_raw": 0.6235364843493307
+  }
+ }
+}
