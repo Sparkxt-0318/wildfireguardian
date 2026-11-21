@@ -19,43 +19,79 @@ def ceil_q(x: F) -> int:
     return -((-x.numerator) // x.denominator)
 
 
-def build_instance(road, close_s: dict, H: int) -> core.Instance:
+def build_instance(road, close_s: dict, H: int, open_s: dict | None = None) -> core.Instance:
     """replay.py Region.instance: edge j is closed for start t when its occupancy meets a closed cell along its
-    chord (phase [b, beyond H)); a wait [t, t+1] at a waitable node is closed from b - 1."""
+    chord (phase [b, beyond H)); a wait [t, t+1] at a waitable node is closed from b - 1.
+
+    ``open_s`` (research/kcf-reopen, optional): cell -> second r at which a closed cell reopens (burned over). The cell
+    is then closed on [b, r) instead of [b, beyond H): an edge whose segment through the cell covers travel fractions
+    [z_in, z_out] is closed for starts [ceil(b - D z_out), ceil(r - D z_in) - 1], a wait for [b - 1, r - 1]. Cells
+    absent from ``open_s`` (or r > H) stay closed to the end, so ``open_s=None`` is the unchanged rule."""
+    open_s = open_s or {}
     B = []
     for j, segs in enumerate(road.seg):
         Dq = F(road.D[j])
         lo = None
+        pieces = []
+        zin = F(0)
         for c, zb in segs:
             b = close_s.get(c)
-            if b is None:
-                continue
-            s = max(ceil_q(F(b) - Dq * zb), 0)
-            lo = s if lo is None else min(lo, s)
-        B.append([(lo, H)] if lo is not None and lo <= H else [])
+            if b is not None:
+                s = max(ceil_q(F(b) - Dq * zb), 0)
+                r = open_s.get(c)
+                if r is None or r > H:
+                    lo = s if lo is None else min(lo, s)
+                elif r > b:  # r <= b: [b, r) is empty, nothing is closed
+                    e = ceil_q(F(r) - Dq * zin) - 1
+                    if e >= s and s <= H:
+                        pieces.append((s, min(e, H)))
+            zin = zb
+        if lo is not None and lo <= H:
+            pieces.append((lo, H))
+        B.append(iv.normalize(pieces) if pieces else [])
     W = []
     for v, c in enumerate(road.node_cell):
         b = close_s.get(c)
-        W.append([(max(b - 1, 0), H)] if (road.waitable[v] and b is not None and b - 1 <= H) else [])
+        if not road.waitable[v] or b is None or b - 1 > H:
+            W.append([])
+            continue
+        hi = _open_end(open_s, c, b, H)
+        W.append([(max(b - 1, 0), hi)] if hi is not None and hi >= max(b - 1, 0) else [])
     return core.Instance(H=H, n_nodes=len(road.node_ids), tail=road.tail, head=road.head, D=road.D,
                          waitable=road.waitable, forbidden=road.forbidden, B=B, W=W)
 
 
-def accept(road, close_s: dict, node: int, H: int, dwell: int, nodeb=None):
+def _open_end(open_s, c, b, H):
+    """Last closed second of a cell closed from b: r - 1 if it reopens at r <= H (open_s), else H; None when r <= b
+    (the window [b, r) is empty)."""
+    r = (open_s or {}).get(c)
+    if r is None or r > H:
+        return H
+    return r - 1 if r > b else None
+
+
+def accept(road, close_s: dict, node: int, H: int, dwell: int, nodeb=None, open_s: dict | None = None):
     """replay.py Region.accept: arrival a is accepted if a <= H - dwell and the shelter cell is not closed during
-    the stay [a, a + dwell]. ``nodeb`` (heat option): per-node closure second in place of the cell's."""
+    the stay [a, a + dwell]. ``nodeb`` (heat option): per-node closure second in place of the cell's. ``open_s``:
+    reopening seconds (build_instance); the stay must then avoid [b, r)."""
     b = nodeb(node) if nodeb else close_s.get(road.node_cell[node])
     acc = (0, H - dwell)
     if acc[1] < 0:
         return []
     if b is not None:
-        return iv.subtract(acc, [(max(b - dwell, 0), H)])
+        hi = H if nodeb else _open_end(open_s, road.node_cell[node], b, H)
+        if hi is None or hi < max(b - dwell, 0):
+            return [acc]
+        return iv.subtract(acc, [(max(b - dwell, 0), hi)])
     return [acc]
 
 
-def origin_closure(road, close_s: dict, node: int, H: int, nodeb=None):
+def origin_closure(road, close_s: dict, node: int, H: int, nodeb=None, open_s: dict | None = None):
     b = nodeb(node) if nodeb else close_s.get(road.node_cell[node])
-    return [(b, H)] if b is not None else []
+    if b is None:
+        return []
+    hi = H if nodeb else _open_end(open_s, road.node_cell[node], b, H)
+    return [(b, hi)] if hi is not None and hi >= b else []
 
 
 # ------------------------------------------------------------------------------------------------ workers

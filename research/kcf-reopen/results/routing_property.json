@@ -1,0 +1,12 @@
+{
+ "cases": {
+  "cases": 6000,
+  "cases_with_reopening_inside_H": 4195,
+  "feasible_seconds": 76669,
+  "origins": 20872,
+  "origins_with_gap": 1169,
+  "witnesses": 16273
+ },
+ "first_failure": null,
+ "n_requested": 6000
+}
