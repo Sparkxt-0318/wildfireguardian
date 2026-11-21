@@ -1,0 +1,1 @@
+PASS: ID-only index read; allowlisted fids only; non-allowlisted incident/fid reads refused

@@ -1,0 +1,119 @@
+====================================================================================================
+REGION uiseong_andong_2025
+owner   uiseong-andong-osm-20250321-provisional-G2window-grid375-dt1-a30e1f054a5e-8b859334ebe8 nodes 23158 edges 43826 forbidden 39502
+rebuild uiseong_andong_2025-osm-20250101-owner-pbf-9b67fc95-rebuild nodes 23126 edges 43801 forbidden 39531
+pbf max node id 12467520948 max way id 1347834848
+
+--- A. strict (criteria 1-6 + waitable) ---
+1 nodes: owner-only 237, rebuild-only 205 ['osm:12505714785', 'osm:12505714786', 'osm:12505714787', 'osm:12505714788', 'osm:12511776892'] ['osm:11633929764', 'osm:11633929766', 'osm:11633929768', 'osm:11633929776', 'osm:11633929778']
+2 edges: owner-only 568, rebuild-only 543 ['w1054422333:s10:f', 'w1054422333:s7:f', 'w1054422333:s8:f', 'w1054422333:s9:f', 'w1161978584:s54:f'] ['w1070972656:s14:f', 'w1070972656:s15:f', 'w1070972658:s13:f', 'w1072481484:s10:f', 'w1072481484:s10:r']
+2-4 common edges 43258, with any field difference 1582 {'u': 1443, 'v': 1457, 'travel_ticks': 1222, 'segments': 822}
+5 node xy > 0.01 m on common nodes: 655 ['osm:10806795009', 'osm:10806795012', 'osm:10806795079', 'osm:10806795080', 'osm:10806795081']
+waitable: owner 554 rebuild 565; owner-only 11 rebuild-only 22
+
+--- B. recipe-exactness on UNCHANGED ways ---
+owner source ways 2065: unchanged 1984, changed (C2) 37, absent from pbf extract 44
+edges on unchanged ways: owner 40916 rebuild 40916; missing 0 extra 0 field-diff 68; nodes 21677 xy-diff 203
+  B field w1074059799:s0:f ['travel_ticks', 'segments'] owner {'travel_ticks': 15} rebuild {'travel_ticks': 14}
+  B field w1074059799:s0:r ['travel_ticks', 'segments'] owner {'travel_ticks': 15} rebuild {'travel_ticks': 14}
+  B field w1074059805:s4:f ['segments'] owner {} rebuild {}
+  B field w1074059805:s4:r ['segments'] owner {} rebuild {}
+  B field w1074059831:s23:f ['segments'] owner {} rebuild {}
+  B field w1074059831:s23:r ['segments'] owner {} rebuild {}
+  B field w1074059831:s30:f ['segments'] owner {} rebuild {}
+  B field w1074059831:s30:r ['segments'] owner {} rebuild {}
+  B field w1074059831:s31:f ['segments'] owner {} rebuild {}
+  B field w1074059831:s31:r ['segments'] owner {} rebuild {}
+  B xy osm:10806795009 (1108288.4884728324, 1821615.8473801217) (1108286.305943723, 1821617.4953847765)
+  B xy osm:10806795012 (1108286.2032339093, 1821554.6762034567) (1108287.8894631234, 1821554.697285208)
+  B xy osm:316576220 (1107317.3997783526, 1840059.6352734393) (1107313.0590519845, 1840061.012408496)
+  B xy osm:330186875 (1096930.9602265528, 1820972.0851538507) (1096923.280401115, 1820970.5569864425)
+  B xy osm:330186876 (1096933.8923540157, 1820936.9273231546) (1096926.2124975887, 1820935.3991538603)
+B RESULT: FAIL (1984 ways, 40916 edges)
+
+--- C. attribution of differences outside B ---
+C1 676 {'edge-owner-only': 413, 'node-owner-only': 235, 'node-xy': 28}
+    edge-owner-only w1362727132:s1:f
+    edge-owner-only w1367246472:s55:r
+    edge-owner-only w1362727133:s3:r
+    edge-owner-only w1362727115:s1:r
+C2 2260 {'edge-owner-only': 155, 'edge-rebuild-only': 153, 'edge-field:u,v,travel_ticks,segments': 636, 'edge-field:u,v': 198, 'edge-field:v,travel_ticks,segments': 13, 'edge-field:u,v,travel_ticks': 496, 'edge-field:u,v,segments': 96, 'edge-field:v,travel_ticks': 12, 'edge-field:travel_ticks': 22, 'edge-field:u': 3, 'edge-field:u,travel_ticks': 6, 'edge-field:segments': 14, 'edge-field:u,segments': 1, 'edge-field:u,travel_ticks,segments': 7, 'edge-field:travel_ticks,segments': 4, 'edge-field:v': 5, 'edge-field:v,segments': 1, 'node-owner-only': 2, 'node-rebuild-only': 14, 'node-xy': 422}
+    edge-owner-only w703064524:s3:r
+    edge-owner-only w703064550:s11:f
+    edge-owner-only w531647788:s19:r
+    edge-owner-only w505296667:s30:f
+C3 581 {'edge-rebuild-only': 390, 'node-rebuild-only': 191}
+    edge-rebuild-only w1251530654:s25:r
+    edge-rebuild-only w703064544:s2:r
+    edge-rebuild-only w1251530654:s50:f
+    edge-rebuild-only w703064535:s12:f
+C4 2 {'node-xy': 2}
+    node-xy osm:6602598067
+    node-xy osm:6602597991
+C3 ways (rebuild-only, not owner source ways): 19
+    highway/service/access ('service', None, None) 17
+    highway/service/access ('primary_link', None, None) 2
+
+--- forbidden_turns ---
+U-turn pairs: owner 39472 rebuild 39512; on unchanged ways owner 36934, of which in rebuild 36934
+non-U pairs: owner 30 rebuild 19 matched 19; owner-only [('w1070972658:s12:f', 'w1357383158:s1:r'), ('w1357221389:s2:f', 'w1357221387:s0:f'), ('w1357383154:s3:f', 'w1357383156:s0:f'), ('w1357383156:s0:r', 'w1070972656:s0:f'), ('w1357383158:s1:f', 'w1357383155:s0:f'), ('w1357383160:s2:f', 'w1357383158:s0:f'), ('w1357383160:s2:f', 'w1357383161:s0:f'), ('w1357383162:s5:f', 'w1357383156:s0:r'), ('w1357383162:s5:f', 'w1357383163:s0:f'), ('w481086758:s0:r', 'w1357221387:s0:r')]; rebuild-only []
+
+SUMMARY uiseong_andong_2025: strict: FAIL; recipe on unchanged ways: FAIL (1984 ways, 40916 edges); C1 676; C2 2260; C3 581; C4 2
+====================================================================================================
+REGION yeongdeok_2025
+owner   yeongdeok-osm-20250321-provisional-G2window-grid375-dt1-8a804b26a635-8b859334ebe8 nodes 56369 edges 111924 forbidden 106973
+rebuild yeongdeok_2025-osm-20250101-owner-pbf-9b67fc95-rebuild nodes 56302 edges 111814 forbidden 106901
+pbf max node id 12467520948 max way id 1347834848
+
+--- A. strict (criteria 1-6 + waitable) ---
+1 nodes: owner-only 110, rebuild-only 43 ['osm:12548973841', 'osm:12548973842', 'osm:12548973843', 'osm:12548973844', 'osm:12599885664'] ['osm:11764450679', 'osm:11764450680', 'osm:11764450681', 'osm:11764450682', 'osm:11769620952']
+2 edges: owner-only 1406, rebuild-only 1296 ['w1137999551:s3:f', 'w1137999551:s3:r', 'w1266004250:s44:f', 'w1266004250:s44:r', 'w1288962398:s14:f'] ['w1265682715:s22:f', 'w1265682715:s23:f', 'w1265682715:s24:f', 'w1265682715:s25:f', 'w1265682715:s26:f']
+2-4 common edges 110518, with any field difference 2849 {'u': 2760, 'v': 2763, 'travel_ticks': 1624, 'segments': 2036}
+5 node xy > 0.01 m on common nodes: 233 ['osm:11707551902', 'osm:11707551903', 'osm:11707551904', 'osm:11707551905', 'osm:11707551906']
+waitable: owner 1527 rebuild 1524; owner-only 3 rebuild-only 0
+
+--- B. recipe-exactness on UNCHANGED ways ---
+owner source ways 3849: unchanged 3738, changed (C2) 44, absent from pbf extract 67
+edges on unchanged ways: owner 105215 rebuild 105215; missing 0 extra 0 field-diff 72; nodes 53247 xy-diff 214
+  B field w1259288094:s46:f ['segments'] owner {} rebuild {}
+  B field w1259288094:s46:r ['segments'] owner {} rebuild {}
+  B field w1259288094:s58:f ['segments'] owner {} rebuild {}
+  B field w1259288094:s58:r ['segments'] owner {} rebuild {}
+  B field w1259288094:s64:f ['travel_ticks'] owner {'travel_ticks': 3} rebuild {'travel_ticks': 2}
+  B field w1259288094:s64:r ['travel_ticks'] owner {'travel_ticks': 3} rebuild {'travel_ticks': 2}
+  B field w1259288094:s66:f ['travel_ticks'] owner {'travel_ticks': 1} rebuild {'travel_ticks': 2}
+  B field w1259288094:s66:r ['travel_ticks'] owner {'travel_ticks': 1} rebuild {'travel_ticks': 2}
+  B field w1259288094:s76:f ['segments'] owner {} rebuild {}
+  B field w1259288094:s76:r ['segments'] owner {} rebuild {}
+  B xy osm:11707551902 (1152205.834469629, 1831781.4773001014) (1152204.8846595786, 1831787.5640307718)
+  B xy osm:11707551903 (1152225.0421358836, 1831763.150420399) (1152226.6485626474, 1831767.6065410646)
+  B xy osm:11707551904 (1152234.974135422, 1831754.9471438797) (1152236.580558969, 1831759.4032664555)
+  B xy osm:11707551905 (1152295.3296692376, 1831710.734931319) (1152296.936071994, 1831715.1910655673)
+  B xy osm:11707551906 (1152326.8438756024, 1831684.269144656) (1152331.1251979012, 1831686.9747300502)
+B RESULT: FAIL (3738 ways, 105215 edges)
+
+--- C. attribution of differences outside B ---
+C1 1444 {'edge-owner-only': 1333, 'node-owner-only': 110, 'node-xy': 1}
+    edge-owner-only w1369653215:s2:f
+    edge-owner-only w1367661336:s34:r
+    edge-owner-only w1368395816:s42:f
+    edge-owner-only w1368736717:s3:f
+C2 4173 {'edge-owner-only': 73, 'edge-rebuild-only': 1262, 'edge-field:u,v,travel_ticks,segments': 1159, 'edge-field:u,v,segments': 839, 'edge-field:u,v,travel_ticks': 410, 'edge-field:u,v': 342, 'edge-field:u': 4, 'edge-field:v': 6, 'edge-field:u,travel_ticks': 5, 'edge-field:v,travel_ticks': 6, 'edge-field:travel_ticks,segments': 2, 'edge-field:travel_ticks': 2, 'edge-field:u,travel_ticks,segments': 1, 'edge-field:v,travel_ticks,segments': 1, 'node-rebuild-only': 43, 'node-xy': 18}
+    edge-owner-only w577700581:s183:r
+    edge-owner-only w577700581:s178:r
+    edge-owner-only w1290813810:s4:f
+    edge-owner-only w577700581:s191:f
+C3 34 {'edge-rebuild-only': 34}
+    edge-rebuild-only w577700549:s15:r
+    edge-rebuild-only w577700549:s9:f
+    edge-rebuild-only w577700549:s11:r
+    edge-rebuild-only w577700549:s7:r
+C4 0 {}
+C3 ways (rebuild-only, not owner source ways): 1
+    highway/service/access ('secondary', None, None) 1
+
+--- forbidden_turns ---
+U-turn pairs: owner 106964 rebuild 106892; on unchanged ways owner 100441, of which in rebuild 100441
+non-U pairs: owner 9 rebuild 9 matched 9; owner-only []; rebuild-only []
+
+SUMMARY yeongdeok_2025: strict: FAIL; recipe on unchanged ways: FAIL (3738 ways, 105215 edges); C1 1444; C2 4173; C3 34; C4 0

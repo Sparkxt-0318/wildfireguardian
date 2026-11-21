@@ -1,0 +1,19 @@
+pins check BEFORE: 1 files, 0 differ (manifest 865a9128)
+BUILT XX-TST-000001_Alpha: records 2, survey times 2, intervals<=48h 1, grid 24x24
+pins check AFTER: 1 files, 0 differ (manifest 865a9128)
+access: 1 id_index call (Incident_C only); 1 read_by_fid calls, 2 fids, Incident_C set ['XX-TST-000001_Alpha']
+outputs: {"XX-TST-000001_Alpha": "bf62a5c21ba44b097dfb2c19aa1b6dd56bd1c14e1b6f13f47ff78242614b312a"} PERIMETER_MANIFEST 5f2e76a6335d38c57e725897a0a954e516b556f93603f4e5126ce39e44d60e22 access_log 2bd98d12ad5d30f22d766b5c721fe4440b24b8227990550fd60a6a2f4c4b5ae5
+PASS exit 0
+PASS only full-table read is Incident_C alone, no geometry, no where
+PASS non-allowlisted fid never read
+PASS R fids read by fid
+PASS output holds only the R event
+PASS 2 survey times, cumulative, non-empty
+PASS states sha recorded
+PASS log lists id_index and the R read with its fids
+PASS log never names the non-allowlisted record
+PASS refuses wrong allowlist sha
+PASS refuses non-empty out
+PASS refuses out inside the pinned workspace
+PASS refuses when a pinned file changed (pins check before)
+ALL PASS

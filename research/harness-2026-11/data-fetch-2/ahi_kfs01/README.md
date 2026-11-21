@@ -30,7 +30,7 @@ The run took about 11 min and downloaded about 1 GB of raw files, streamed and d
 | `kfs01_ahi_20250324T06_20250324T18.npz` / `.csv.gz` | `f0ac0e5c…f203` / `89ead0b5…660e` | 2025-03-24 06:00–17:57:30 | 288/288, none missing | 398.6 K (no scan ≥ 399.9 K) | Same-hour daytime window on 24 March. **The fire was already active** (KFS_01 ignited 2025-03-22 02:24 UTC), so this is not a fire-free baseline. |
 | `kfs01_ahi_20250320T06_20250320T18.npz` / `.csv.gz` | `675d5b43…73d5` / `a7bea9f9…f5edf` | 2025-03-20 06:00–17:57:30 | 288/288, none missing | 298.0 K | **Pre-ignition** daytime baseline (quiet background: solar reflection, surface heating). |
 | `kfs01_ahi_20250321T18_20250322T02.npz` / `.csv.gz` | `88179935…0c31` / `0d5c61fe…7e44` | 2025-03-21 18:00–2025-03-22 01:57:30 | 192/192, none missing | 307.0 K (max B07−B14 22.8 K) | **Pre-ignition night** baseline, ending 24 min before the KFS_01 ignition (02:24 UTC on 22 March). |
-| `kfs01_ahi_20250320T18_20250321T06.npz` / `.csv.gz` | `8942f1ee…3414` / `5deb8f72…3414` | 2025-03-20 18:00–2025-03-21 05:57:30 | 288/288, none missing | 308.7 K (max B07−B14 19.7 K) | **Pre-ignition night** baseline, the night before. |
+| `kfs01_ahi_20250320T18_20250321T06.npz` / `.csv.gz` | `8942f1ee…891c` / `5deb8f72…3414` | 2025-03-20 18:00–2025-03-21 05:57:30 | 288/288, none missing | 308.7 K (max B07−B14 19.7 K) | **Pre-ignition night** baseline, the night before. |
 
 Both have the same 448 pixels (`line`/`column` identical to the main file), with no NaN. The main 24 h file (`63dfc2b6…`) is unchanged.
 All four extra windows use the same 448 pixels (lat/lon/line/column arrays identical to the main file), with no NaN values; checked on 2026-11-12.

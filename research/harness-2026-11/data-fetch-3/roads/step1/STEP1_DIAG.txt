@@ -1,0 +1,19 @@
+== uiseong_andong_2025
+common nodes 22921 max diff among non-moved (<=0.01 m) 1.6298145055770874e-09
+moved nodes 655 diff quantiles m: min 0.344 median 7.457 max 21.4
+common edges with same u,v but ticks/segments differ: 108 ; with NEITHER endpoint moved: 2 ['w986625602:s11:r', 'w986625602:s11:f']
+owner-only non-U ('w1070972658:s12:f', 'w1357383158:s1:r') ways [1070972658, 1357383158] any way > pbf max True in pbf [True, False]
+owner-only non-U ('w1357221389:s2:f', 'w1357221387:s0:f') ways [1357221389, 1357221387] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w1357383154:s3:f', 'w1357383156:s0:f') ways [1357383154, 1357383156] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w1357383156:s0:r', 'w1070972656:s0:f') ways [1357383156, 1070972656] any way > pbf max True in pbf [False, True]
+owner-only non-U ('w1357383158:s1:f', 'w1357383155:s0:f') ways [1357383158, 1357383155] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w1357383160:s2:f', 'w1357383158:s0:f') ways [1357383160, 1357383158] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w1357383160:s2:f', 'w1357383161:s0:f') ways [1357383160, 1357383161] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w1357383162:s5:f', 'w1357383156:s0:r') ways [1357383162, 1357383156] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w1357383162:s5:f', 'w1357383163:s0:f') ways [1357383162, 1357383163] any way > pbf max True in pbf [False, False]
+owner-only non-U ('w481086758:s0:r', 'w1357221387:s0:r') ways [481086758, 1357221387] any way > pbf max True in pbf [True, False]
+owner-only non-U ('w531647788:s19:f', 'w480917267:s0:f') ways [531647788, 480917267] any way > pbf max False in pbf [True, True]
+== yeongdeok_2025
+common nodes 56259 max diff among non-moved (<=0.01 m) 1.862645149230957e-09
+moved nodes 233 diff quantiles m: min 1.198 median 4.422 max 23.1
+common edges with same u,v but ticks/segments differ: 76 ; with NEITHER endpoint moved: 0 []

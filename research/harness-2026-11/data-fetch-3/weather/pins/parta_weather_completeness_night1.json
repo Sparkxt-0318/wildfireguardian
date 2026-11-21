@@ -1,0 +1,4902 @@
+{
+ "AZ-A1S-001211_Monument": {
+  "all_finite": true,
+  "bands": 147,
+  "complete_hours": 147,
+  "complete_json_sha256": "4274abc13ab200441d38878549bff337e07c3c8ab7e5b5b6b6712618cfbd9bc0",
+  "first_band_utc": "2020-07-08T01:00:00Z",
+  "last_band_utc": "2020-07-14T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-A3S-001033_Walnut": {
+  "all_finite": true,
+  "bands": 99,
+  "complete_hours": 99,
+  "complete_json_sha256": "af2ef49ce94c93e3641ae16d0ed96857be15f63e9469d89da3feefd41deb3d61",
+  "first_band_utc": "2021-06-25T02:00:00Z",
+  "last_band_utc": "2021-06-29T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "AZ-A4S-000950_Central": {
+  "all_finite": true,
+  "bands": 214,
+  "complete_hours": 214,
+  "complete_json_sha256": "4ad41a0765c94d95a9873fd869205be66edc97c0bce91eef3a032d12a2c84ff5",
+  "first_band_utc": "2020-06-21T03:00:00Z",
+  "last_band_utc": "2020-06-30T00:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-A5S-230970_Pilot": {
+  "all_finite": true,
+  "bands": 121,
+  "complete_hours": 121,
+  "complete_json_sha256": "bae09a28962b32515fa4d17aa2a695244f0498f8a93e8fb27e609ce53123106a",
+  "first_band_utc": "2023-07-09T04:00:00Z",
+  "last_band_utc": "2023-07-14T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "AZ-ASD-000097_Basin": {
+  "all_finite": true,
+  "bands": 77,
+  "complete_hours": 77,
+  "complete_json_sha256": "4f97205948f249a5f3c14e023ed51c002d1ee89d4fcfe5223327cee85c33f9b1",
+  "first_band_utc": "2020-05-12T00:00:00Z",
+  "last_band_utc": "2020-05-15T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "AZ-ASF-000264_Foote": {
+  "all_finite": true,
+  "bands": 185,
+  "complete_hours": 185,
+  "complete_json_sha256": "5493d2ed562d8dfe9a59db0384808aa42cea3476870296084cb4a154696eafae",
+  "first_band_utc": "2024-06-16T19:00:00Z",
+  "last_band_utc": "2024-06-24T11:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "AZ-ASF-000416_Pius": {
+  "all_finite": true,
+  "bands": 97,
+  "complete_hours": 97,
+  "complete_json_sha256": "f357dff9cc0231a16e88485f659ab894ebf358031b1eb89f81606cfecdd17503",
+  "first_band_utc": "2024-07-10T06:00:00Z",
+  "last_band_utc": "2024-07-14T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-ASF-000447_Campbell": {
+  "all_finite": true,
+  "bands": 123,
+  "complete_hours": 123,
+  "complete_json_sha256": "b3c053e3b331cc211bbef6f8f2e933b9193ba2db4080f501eeef6ddd73ae4a8e",
+  "first_band_utc": "2023-07-13T04:00:00Z",
+  "last_band_utc": "2023-07-18T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-ASF-000613_Horton": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "42fa8973e9ef2630a11250c68761dc15ea700b860f4ec39187dae433a7d47021",
+  "first_band_utc": "2021-06-18T04:00:00Z",
+  "last_band_utc": "2021-06-29T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "AZ-ASF-000624_Bear": {
+  "all_finite": true,
+  "bands": 241,
+  "complete_hours": 241,
+  "complete_json_sha256": "93a72a9d1c0e3e3058eb1086ab19a48e7081bb0f540d33a9a57a886259df3132",
+  "first_band_utc": "2021-06-21T05:00:00Z",
+  "last_band_utc": "2021-07-01T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "AZ-ASF-000627_Moore": {
+  "all_finite": true,
+  "bands": 216,
+  "complete_hours": 216,
+  "complete_json_sha256": "84fe84d728bd6f0ed7c47db036ed49bc4a6f1caccc3d4d00a34c5f4c54326164",
+  "first_band_utc": "2021-06-21T05:00:00Z",
+  "last_band_utc": "2021-06-30T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-ASF-000662_WestChev": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "c4750379f4586cee75d17089707e1de03e4ea4c4aeb74d58b62b80b56fa19ed2",
+  "first_band_utc": "2021-06-22T07:00:00Z",
+  "last_band_utc": "2021-06-29T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-ASF-000662_Wyrick": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "9499cadfee0d258a8e27d65a7e990e13e1c4d52a1911b3ef4e4bbcf4c475bc5d",
+  "first_band_utc": "2021-06-22T07:00:00Z",
+  "last_band_utc": "2021-06-29T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "AZ-ASF-00083_Bringham": {
+  "all_finite": true,
+  "bands": 506,
+  "complete_hours": 506,
+  "complete_json_sha256": "7cefdfd600cc41383f372412d18085272c0fe03d3b214ac99fa4ef44af2e938e",
+  "first_band_utc": "2020-06-11T04:00:00Z",
+  "last_band_utc": "2020-07-02T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "AZ-CNF-000401_Foster": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "2b9f91ae74ce2cf513a2ebdd8f7ffc62f9679434d1cb77c45d5d4ae4e19c6432",
+  "first_band_utc": "2022-05-30T04:00:00Z",
+  "last_band_utc": "2022-06-02T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "AZ-CNF-000427_Pinnacle": {
+  "all_finite": true,
+  "bands": 361,
+  "complete_hours": 361,
+  "complete_json_sha256": "a06f07a75fb27bf92accdc70de609d8901616ec883ec7d48ce1a8e32dd2d79fb",
+  "first_band_utc": "2021-06-12T04:00:00Z",
+  "last_band_utc": "2021-06-27T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "AZ-CNF-000552_Beehive": {
+  "all_finite": true,
+  "bands": 195,
+  "complete_hours": 195,
+  "complete_json_sha256": "d48093dccdcd3570b28dc78d9ed3ef2acf805279d191d49827362d95134b1979",
+  "first_band_utc": "2023-07-02T04:00:00Z",
+  "last_band_utc": "2023-07-10T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "AZ-CNF-000552_Corral": {
+  "all_finite": true,
+  "bands": 99,
+  "complete_hours": 99,
+  "complete_json_sha256": "f929ad12e173daa1ae7f1d5432ad383bd521ff128f55a9feaa35c1a04bfac788",
+  "first_band_utc": "2023-07-02T04:00:00Z",
+  "last_band_utc": "2023-07-06T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "AZ-COF-000159_Tunnel": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "38d810f0e77c1eb44761b97479e5a9562d7dd00e72e6d26a43d799cd9b7add02",
+  "first_band_utc": "2022-04-26T06:00:00Z",
+  "last_band_utc": "2022-04-29T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "AZ-COF-000176_Wolf": {
+  "all_finite": true,
+  "bands": 142,
+  "complete_hours": 142,
+  "complete_json_sha256": "c03c98fcd64d0a014f6c7a45e55965277975f5c9d4e2c4b7eabd4a73df61ec8b",
+  "first_band_utc": "2024-05-07T01:00:00Z",
+  "last_band_utc": "2024-05-12T22:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "AZ-COF-000272_Wilbur": {
+  "all_finite": true,
+  "bands": 648,
+  "complete_hours": 648,
+  "complete_json_sha256": "e6aeea6f855aadcacb170f9308e851b5309496f529c494364bf42574fab2d843",
+  "first_band_utc": "2023-05-26T04:00:00Z",
+  "last_band_utc": "2023-06-22T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "AZ-COF-000523_Pipeline": {
+  "all_finite": true,
+  "bands": 301,
+  "complete_hours": 301,
+  "complete_json_sha256": "1d56a7d224f38ccb694f6cbe07eb982e32ebc209f46136a4b83d8e48e7fbe559",
+  "first_band_utc": "2022-06-14T04:00:00Z",
+  "last_band_utc": "2022-06-26T16:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "AZ-COF-000536_Haywire": {
+  "all_finite": true,
+  "bands": 170,
+  "complete_hours": 170,
+  "complete_json_sha256": "487a67f6d43a12d7cac6e030f415f391ae03d4494051210d083a5d68abfd515c",
+  "first_band_utc": "2022-06-14T04:00:00Z",
+  "last_band_utc": "2022-06-21T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "AZ-COF-000642_Backbone": {
+  "all_finite": true,
+  "bands": 286,
+  "complete_hours": 286,
+  "complete_json_sha256": "eea9720c658477918118ea0b7cb709a29f8e2fd2b259db3b5e37d81a17c1f164",
+  "first_band_utc": "2021-06-19T07:00:00Z",
+  "last_band_utc": "2021-07-01T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 18
+ },
+ "AZ-COF-000642_Snake": {
+  "all_finite": true,
+  "bands": 53,
+  "complete_hours": 53,
+  "complete_json_sha256": "c2f104d2c3f6502983a4f4bd63310d5072cb10e092e19cf042b4abeacba1e351",
+  "first_band_utc": "2021-06-24T02:00:00Z",
+  "last_band_utc": "2021-06-26T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "AZ-CRD-000996_PinePeak": {
+  "all_finite": true,
+  "bands": 122,
+  "complete_hours": 122,
+  "complete_json_sha256": "979df32c6487907ae10a0b496ae162adc08e3997ed56492a29a42228c4e49327",
+  "first_band_utc": "2022-07-19T16:00:00Z",
+  "last_band_utc": "2022-07-24T17:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-CRD-001644_Ridge": {
+  "all_finite": true,
+  "bands": 193,
+  "complete_hours": 193,
+  "complete_json_sha256": "7736637b7d0292438b2180dfa7969b9fb85abb8e4e13755a60cb2df6f224543b",
+  "first_band_utc": "2020-08-17T22:00:00Z",
+  "last_band_utc": "2020-08-25T22:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-FTA-000336_McDonaldTank": {
+  "all_finite": true,
+  "bands": 75,
+  "complete_hours": 75,
+  "complete_json_sha256": "8f286bde1b6a1e2d53e94fddd9a4932af4f866101caab85298f589eaaf023cc3",
+  "first_band_utc": "2021-05-27T02:00:00Z",
+  "last_band_utc": "2021-05-30T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-FTA-000555_CottonwoodRidge": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "a9ad7773b0b6be3ce230481bdef6782928461a0cf105e66216499859b3b7e827",
+  "first_band_utc": "2023-07-27T04:00:00Z",
+  "last_band_utc": "2023-08-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-FTA-000574_Spoon": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "a9c6813b23ef82a311ff3dee43f29ad198eb928be5f9349a4ea4f11e874722e0",
+  "first_band_utc": "2023-07-27T04:00:00Z",
+  "last_band_utc": "2023-08-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-FTA-000867_Lofer": {
+  "all_finite": true,
+  "bands": 143,
+  "complete_hours": 143,
+  "complete_json_sha256": "bf2e9d10e74098dda0684c4297802684a1cdf112655aa0824d68d7ca52704ea6",
+  "first_band_utc": "2020-08-29T06:00:00Z",
+  "last_band_utc": "2020-09-04T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-KNF-000369_Bravo": {
+  "all_finite": true,
+  "bands": 47,
+  "complete_hours": 47,
+  "complete_json_sha256": "c08bbf2eb289dce9981ed3628758f8fbe949e7da69016105de7baa1191f01775",
+  "first_band_utc": "2024-06-08T00:00:00Z",
+  "last_band_utc": "2024-06-09T22:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "AZ-KNF-000391_ThreeLakes": {
+  "all_finite": true,
+  "bands": 217,
+  "complete_hours": 217,
+  "complete_json_sha256": "bffd09056917315029b9737ef277935680009b7f03a3c4e6751f95cd2a6be420",
+  "first_band_utc": "2023-07-01T02:00:00Z",
+  "last_band_utc": "2023-07-10T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-NAA-000156_WoodSprings2": {
+  "all_finite": true,
+  "bands": 219,
+  "complete_hours": 219,
+  "complete_json_sha256": "adf543879cb051bfe710bb550c097b805a32a7fe1060438c062f10754f2fd2bd",
+  "first_band_utc": "2020-07-01T01:00:00Z",
+  "last_band_utc": "2020-07-10T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "AZ-PHD-000455_Tussock": {
+  "all_finite": true,
+  "bands": 180,
+  "complete_hours": 180,
+  "complete_json_sha256": "9cd9d044415fb2720ce1cf7a7b7e36e3c82eab3f1557acfbc7331306c5478a49",
+  "first_band_utc": "2021-05-09T17:00:00Z",
+  "last_band_utc": "2021-05-17T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-PNF-000863_Rafael": {
+  "all_finite": true,
+  "bands": 404,
+  "complete_hours": 404,
+  "complete_json_sha256": "fe41103f2dd87a377018519c830f1c73fc1fa856eee496d1d00a21947c24ddd6",
+  "first_band_utc": "2021-06-22T08:00:00Z",
+  "last_band_utc": "2021-07-09T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 20
+ },
+ "AZ-PNF-000991_Grapevine": {
+  "all_finite": true,
+  "bands": 228,
+  "complete_hours": 228,
+  "complete_json_sha256": "4fcd0bb0c9d8a9025cb9815b549ff6a879b3691858c07c0991a6c71bf114c253",
+  "first_band_utc": "2023-07-23T20:00:00Z",
+  "last_band_utc": "2023-08-02T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "AZ-PNF-001008_Tiger": {
+  "all_finite": true,
+  "bands": 267,
+  "complete_hours": 267,
+  "complete_json_sha256": "3e8354c5226d0b0d66074d7027a22080bcc87314da54991821efcc1a0b17f26e",
+  "first_band_utc": "2021-07-02T23:00:00Z",
+  "last_band_utc": "2021-07-14T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "AZ-PNF-002178_Horse": {
+  "all_finite": true,
+  "bands": 221,
+  "complete_hours": 221,
+  "complete_json_sha256": "78c5e76a7542253373d3940eae7614d75c4d99e90cb21c4ea3bc6495a335f51f",
+  "first_band_utc": "2020-10-16T00:00:00Z",
+  "last_band_utc": "2020-10-25T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-PPA-000327_SycamoreCanyon": {
+  "all_finite": true,
+  "bands": 99,
+  "complete_hours": 99,
+  "complete_json_sha256": "261153a6420b575342d42b335ef4fa8e89ead68d0f48a03dce2d4c23d7cf5d1e",
+  "first_band_utc": "2021-05-27T05:00:00Z",
+  "last_band_utc": "2021-05-31T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-PPA-000453_Contreras": {
+  "all_finite": true,
+  "bands": 241,
+  "complete_hours": 241,
+  "complete_json_sha256": "4ee5013a0fbc6460a9523229d835d71cfdd43a3aad56b95fc7b463bd3cb337a4",
+  "first_band_utc": "2022-06-14T04:00:00Z",
+  "last_band_utc": "2022-06-24T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "AZ-SCA-001110_Buckhorn": {
+  "all_finite": true,
+  "bands": 132,
+  "complete_hours": 132,
+  "complete_json_sha256": "6f0be165c56ae368c5ee242f7b1e49fe19a0443d183ba7f45f6693eb88e5495d",
+  "first_band_utc": "2024-07-13T19:00:00Z",
+  "last_band_utc": "2024-07-19T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-SCA-001115_Watch": {
+  "all_finite": true,
+  "bands": 96,
+  "complete_hours": 96,
+  "complete_json_sha256": "ed84e2dfbcb7f8058b7bb8c7c855c1b363fb8c8a15313740cda9b4943a9d4752",
+  "first_band_utc": "2024-07-14T06:00:00Z",
+  "last_band_utc": "2024-07-18T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "AZ-SCA-001403_BlueRiver": {
+  "all_finite": true,
+  "bands": 289,
+  "complete_hours": 289,
+  "complete_json_sha256": "d2f45bba7a7afb7e5d938e66233728514394640b7b3d499a0c7da4933aed0a88",
+  "first_band_utc": "2020-06-06T04:00:00Z",
+  "last_band_utc": "2020-06-18T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "AZ-SCA-001418_DryLake": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "76c68e90be2822de00172370f1c87e1585d4d5c94adea65d8c1f90985a7468f4",
+  "first_band_utc": "2020-06-07T04:00:00Z",
+  "last_band_utc": "2020-06-18T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-SCA-002036_BlueRiver2": {
+  "all_finite": true,
+  "bands": 172,
+  "complete_hours": 172,
+  "complete_json_sha256": "5911b0002033a8ec30956c7d5bcaa32e87b68815c534d119094a5f7431129806",
+  "first_band_utc": "2020-07-15T00:00:00Z",
+  "last_band_utc": "2020-07-22T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "AZ-SCA-002036_Valley": {
+  "all_finite": true,
+  "bands": 168,
+  "complete_hours": 168,
+  "complete_json_sha256": "91b0661bbd918749ece786b0bf4aa6de9b7a0be0382c1f188f4f6dfdb97c39d8",
+  "first_band_utc": "2020-07-14T04:00:00Z",
+  "last_band_utc": "2020-07-21T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "AZ-SCA-002339_CassadoreSprings": {
+  "all_finite": true,
+  "bands": 195,
+  "complete_hours": 195,
+  "complete_json_sha256": "1e339f21bed084639642205810880c978e7a8cf85e2b6399b594c74565973eac",
+  "first_band_utc": "2020-08-05T04:00:00Z",
+  "last_band_utc": "2020-08-13T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "AZ-SCA-002574_Rockhouse": {
+  "all_finite": true,
+  "bands": 122,
+  "complete_hours": 122,
+  "complete_json_sha256": "7b8ea52b784f624685ce6869ddf5a2c886edd0d3ec03c380625056199e87068a",
+  "first_band_utc": "2020-08-29T05:00:00Z",
+  "last_band_utc": "2020-09-03T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "AZ-SCA-002639_Alder": {
+  "all_finite": true,
+  "bands": 78,
+  "complete_hours": 78,
+  "complete_json_sha256": "37fa9c27738c3431e0599ac92005baf2fcb099d80eb1ada0afc7ce90af499953",
+  "first_band_utc": "2020-08-31T02:00:00Z",
+  "last_band_utc": "2020-09-03T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-TCA-000773_C3": {
+  "all_finite": true,
+  "bands": 121,
+  "complete_hours": 121,
+  "complete_json_sha256": "3628ef568819f72fc57f1e8e956c6f6fb78122be1c958014a1e7500604853f9f",
+  "first_band_utc": "2022-07-24T04:00:00Z",
+  "last_band_utc": "2022-07-29T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-TNF-000705_Spring": {
+  "all_finite": true,
+  "bands": 199,
+  "complete_hours": 199,
+  "complete_json_sha256": "794070b2fac60fd4ad4306b472a8c96e76a0085ea779b942ef99ec84e2658266",
+  "first_band_utc": "2024-06-02T01:00:00Z",
+  "last_band_utc": "2024-06-10T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "AZ-TNF-001046_Diamond": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "09346e1516af2bcbc03178727b69904180c82f123656122e3dd102540700f74f",
+  "first_band_utc": "2023-07-23T05:00:00Z",
+  "last_band_utc": "2023-08-03T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "AZ-TNF-001130_Black": {
+  "all_finite": true,
+  "bands": 129,
+  "complete_hours": 129,
+  "complete_json_sha256": "789653ab64696b7f86efd5f04441ffe8788d4e462aacba6959b84fb9ee432b13",
+  "first_band_utc": "2024-07-16T21:00:00Z",
+  "last_band_utc": "2024-07-22T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-TNF-001306_Sawtooth": {
+  "all_finite": true,
+  "bands": 119,
+  "complete_hours": 119,
+  "complete_json_sha256": "ba19bab969503a5e6872e984e980da8189a4c32819b3fe80f938188d46041dee",
+  "first_band_utc": "2020-06-02T06:00:00Z",
+  "last_band_utc": "2020-06-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "AZ-TNF-001581_Bush": {
+  "all_finite": true,
+  "bands": 382,
+  "complete_hours": 382,
+  "complete_json_sha256": "b7089c773604cd87138e6e98c1fab98690d194a6e86335c7e7fd59c0ec99993d",
+  "first_band_utc": "2020-06-14T04:00:00Z",
+  "last_band_utc": "2020-06-30T01:00:00Z",
+  "n_responses": 4,
+  "nodes": 42
+ },
+ "AZ-TNF-001594_West": {
+  "all_finite": true,
+  "bands": 373,
+  "complete_hours": 373,
+  "complete_json_sha256": "180add24ac35eff9dfb2fe781781da09d22399cea17617d8ce558c62f668ad58",
+  "first_band_utc": "2024-09-12T05:00:00Z",
+  "last_band_utc": "2024-09-27T17:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "AZ-TNF-001699_Middle": {
+  "all_finite": true,
+  "bands": 165,
+  "complete_hours": 165,
+  "complete_json_sha256": "26ec07a0861ad00a0bf8158348f596d0e82bdfbaa004b5796d37a6efd3b84700",
+  "first_band_utc": "2021-07-09T05:00:00Z",
+  "last_band_utc": "2021-07-16T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "AZ-TNF-001830_Polles": {
+  "all_finite": true,
+  "bands": 228,
+  "complete_hours": 228,
+  "complete_json_sha256": "2b4ce27b5fcef5fb72de62ce3d021cc8b8e42b2c7d38a2b80ba1a34fe5ce2e16",
+  "first_band_utc": "2020-07-05T19:00:00Z",
+  "last_band_utc": "2020-07-15T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "AZ-TNF-002510_Griffin": {
+  "all_finite": true,
+  "bands": 168,
+  "complete_hours": 168,
+  "complete_json_sha256": "fc1419a1766e168b6c69238cf5f9d00b2259bdae3f856967c36eb1d7cd86eb26",
+  "first_band_utc": "2020-08-25T04:00:00Z",
+  "last_band_utc": "2020-09-01T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 20
+ },
+ "AZ-TNF-002616_Hidden": {
+  "all_finite": true,
+  "bands": 147,
+  "complete_hours": 147,
+  "complete_json_sha256": "c0103e035a78447bf36a32ce80c9a4a8d7c763f81bb673d0ed0b1f6e57a429ef",
+  "first_band_utc": "2020-08-29T04:00:00Z",
+  "last_band_utc": "2020-09-04T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-AEU-017769_Electra": {
+  "all_finite": true,
+  "bands": 149,
+  "complete_hours": 149,
+  "complete_json_sha256": "93614d652d508a3a868973613ac678de13fbbbcca1e3d7cc52e96cadfe8ebeaf",
+  "first_band_utc": "2022-07-05T02:00:00Z",
+  "last_band_utc": "2022-07-11T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-AEU-022341_Crozier": {
+  "all_finite": true,
+  "bands": 202,
+  "complete_hours": 202,
+  "complete_json_sha256": "c03922662519a574e18dec000e1857f2fce8d668bb104e3ff1d33d8f3e7feef8",
+  "first_band_utc": "2024-08-06T18:00:00Z",
+  "last_band_utc": "2024-08-15T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-ANF-001704_Sheep": {
+  "all_finite": true,
+  "bands": 51,
+  "complete_hours": 51,
+  "complete_json_sha256": "46ac8cf6b7c2a49740a0c254a324582a61ac0007c529b8354efbf3661601e9bc",
+  "first_band_utc": "2022-06-15T05:00:00Z",
+  "last_band_utc": "2022-06-17T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-ANF-003063_Dam": {
+  "all_finite": true,
+  "bands": 71,
+  "complete_hours": 71,
+  "complete_json_sha256": "b9382b5b3f2d62b0d82368dea9fd9a2d91b5a28c428276a583ea0e96112a068b",
+  "first_band_utc": "2020-08-01T04:00:00Z",
+  "last_band_utc": "2020-08-04T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-ANF-003273_Lake": {
+  "all_finite": true,
+  "bands": 342,
+  "complete_hours": 342,
+  "complete_json_sha256": "c8fa892fe9deabc70d8975d55fcf03cbf892c8ce5f2637a64a615058f6013343",
+  "first_band_utc": "2020-08-14T02:00:00Z",
+  "last_band_utc": "2020-08-28T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "CA-ANF-003289_Ranch2": {
+  "all_finite": true,
+  "bands": 221,
+  "complete_hours": 221,
+  "complete_json_sha256": "bb75214426322a5952450770c677b3c66a386f7303d29ececcd7a4c69ddd10b1",
+  "first_band_utc": "2020-08-15T02:00:00Z",
+  "last_band_utc": "2020-08-24T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-ANF-003687_Bobcat": {
+  "all_finite": true,
+  "bands": 718,
+  "complete_hours": 718,
+  "complete_json_sha256": "ca4806edef4aff7f282d96c00ec766c47bb2b1c0b996dbee2a12cd600978958f",
+  "first_band_utc": "2020-09-07T07:00:00Z",
+  "last_band_utc": "2020-10-07T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 29
+ },
+ "CA-ANF-243334_Bridge": {
+  "all_finite": true,
+  "bands": 1260,
+  "complete_hours": 1260,
+  "complete_json_sha256": "1b730831e4b455ef0ef785c287dcbb721ec4d6064b989d4f59344ad9c68633de",
+  "first_band_utc": "2024-09-08T22:00:00Z",
+  "last_band_utc": "2024-10-31T09:00:00Z",
+  "n_responses": 2,
+  "nodes": 15
+ },
+ "CA-BDF-009908_Vista": {
+  "all_finite": true,
+  "bands": 279,
+  "complete_hours": 279,
+  "complete_json_sha256": "5cb7398e7a4c1b2edc8885424530385bd7b559dcbbce6e7be169008bd89fc77c",
+  "first_band_utc": "2024-07-08T19:00:00Z",
+  "last_band_utc": "2024-07-20T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-BDF-012520_Line": {
+  "all_finite": true,
+  "bands": 1587,
+  "complete_hours": 1587,
+  "complete_json_sha256": "a41b4bf51e26ab3c2110b219979ba6619bf8b02abd954229b0b04e74a34c2043",
+  "first_band_utc": "2024-09-08T06:00:00Z",
+  "last_band_utc": "2024-11-13T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "CA-BDF-012958_Radford": {
+  "all_finite": true,
+  "bands": 504,
+  "complete_hours": 504,
+  "complete_json_sha256": "2eec8eea1c31ecb1ae289bf394c87b55aa24661d2210db90171b1e980c7914ad",
+  "first_band_utc": "2022-09-06T05:00:00Z",
+  "last_band_utc": "2022-09-27T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-BEU-004024_River": {
+  "all_finite": true,
+  "bands": 322,
+  "complete_hours": 322,
+  "complete_json_sha256": "9d518bd4712fc09884c45cd81fdfb35c5ec83c1ef86edbd7c92cc76dd145db88",
+  "first_band_utc": "2020-08-17T18:00:00Z",
+  "last_band_utc": "2020-08-31T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 17
+ },
+ "CA-BEU-004081_Carmel": {
+  "all_finite": true,
+  "bands": 240,
+  "complete_hours": 240,
+  "complete_json_sha256": "13a8316a1eecf9aecc5278965774e94ec22406011bad708686803d9b731866c3",
+  "first_band_utc": "2020-08-20T01:00:00Z",
+  "last_band_utc": "2020-08-30T00:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-BTU-012090_Thompson": {
+  "all_finite": true,
+  "bands": 96,
+  "complete_hours": 96,
+  "complete_json_sha256": "ebb21f084fe329912f38b446f17770cafdab7545d735baa7c17334d3425a4b98",
+  "first_band_utc": "2024-07-04T07:00:00Z",
+  "last_band_utc": "2024-07-08T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-BTU-013761_Park": {
+  "all_finite": true,
+  "bands": 1580,
+  "complete_hours": 1580,
+  "complete_json_sha256": "db4c33433858a6e8ce4d38c7c89f332adaa33714231617690157ad2210c5b520",
+  "first_band_utc": "2024-07-26T06:00:00Z",
+  "last_band_utc": "2024-09-30T01:00:00Z",
+  "n_responses": 6,
+  "nodes": 68
+ },
+ "CA-CND-002309_Stagecoach": {
+  "all_finite": true,
+  "bands": 168,
+  "complete_hours": 168,
+  "complete_json_sha256": "9260fa1a5ddd4dfcff9c441756deaa37d207bf51b358bafb25071fb7ed44df4b",
+  "first_band_utc": "2020-08-07T04:00:00Z",
+  "last_band_utc": "2020-08-14T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-CND-002374_Peak": {
+  "all_finite": true,
+  "bands": 97,
+  "complete_hours": 97,
+  "complete_json_sha256": "0545019dd561982757c5d39461a99abd090833239b5c37e9bbb29bd367277e72",
+  "first_band_utc": "2021-07-23T05:00:00Z",
+  "last_band_utc": "2021-07-27T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-CND-002796_French": {
+  "all_finite": true,
+  "bands": 504,
+  "complete_hours": 504,
+  "complete_json_sha256": "06073be8a96f538163530b26a4c885a877c56fb772e0f304da6d061ba725c282",
+  "first_band_utc": "2021-08-22T03:00:00Z",
+  "last_band_utc": "2021-09-12T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "CA-CNF-002791_Chaparral": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "629d04c0c5887e9f8bd58abf107c8995819a4c5ad92fcbfd91e82d23213f9361",
+  "first_band_utc": "2021-08-30T04:00:00Z",
+  "last_band_utc": "2021-09-02T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-CNF-002833_Valley": {
+  "all_finite": true,
+  "bands": 220,
+  "complete_hours": 220,
+  "complete_json_sha256": "abeaac016eab4bc4f667aa969eba272285b4f166a5798a49a50d64a2c428c02a",
+  "first_band_utc": "2020-09-08T01:00:00Z",
+  "last_band_utc": "2020-09-17T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "CA-CZU-005205_CZULightning": {
+  "all_finite": true,
+  "bands": 1512,
+  "complete_hours": 1512,
+  "complete_json_sha256": "130a45ac3bc692783f57d293a6922422ab47ec2e0c70c63f480f56a002278cc6",
+  "first_band_utc": "2020-08-17T04:00:00Z",
+  "last_band_utc": "2020-10-19T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 20
+ },
+ "CA-ENF-032344_Point": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "7827c6a8eb74bfae11d6c6617e0c7bd9ecc7dd1f198cc22bef20b15e79e92cfd",
+  "first_band_utc": "2020-10-27T08:00:00Z",
+  "last_band_utc": "2020-10-30T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-FKU-010219_Mineral": {
+  "all_finite": true,
+  "bands": 224,
+  "complete_hours": 224,
+  "complete_json_sha256": "7b4948214f69a7b3b91e5004a2fde570579599f6c27366925c88c7b19e688c5c",
+  "first_band_utc": "2020-07-14T21:00:00Z",
+  "last_band_utc": "2020-07-24T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 15
+ },
+ "CA-FKU-019190_Boone": {
+  "all_finite": true,
+  "bands": 161,
+  "complete_hours": 161,
+  "complete_json_sha256": "1f5eb1332376d05b09889400d545e980a7c8050d86b34fb125f7f56e04142d3b",
+  "first_band_utc": "2024-09-04T13:00:00Z",
+  "last_band_utc": "2024-09-11T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-HIA-000046_MP21": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "3e30898ca91f5afde07906ae008c2264468d39f4a963a0ee8024f0ae83321c42",
+  "first_band_utc": "2020-07-23T06:00:00Z",
+  "last_band_utc": "2020-07-26T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-INF-001299_InyoCreek": {
+  "all_finite": true,
+  "bands": 152,
+  "complete_hours": 152,
+  "complete_json_sha256": "a8addec6d8052f7044eabe768c36b6d73219da31e6fa397164b9061206ac3fdb",
+  "first_band_utc": "2021-06-22T21:00:00Z",
+  "last_band_utc": "2021-06-29T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-INF-001695_Dexter": {
+  "all_finite": true,
+  "bands": 120,
+  "complete_hours": 120,
+  "complete_json_sha256": "d49c1b5d8336c405a3c96f5cde5ed583c84ca799e0ae8509509bb2a87f01ee6c",
+  "first_band_utc": "2021-07-16T05:00:00Z",
+  "last_band_utc": "2021-07-21T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-KNF-005169_Tennant": {
+  "all_finite": true,
+  "bands": 242,
+  "complete_hours": 242,
+  "complete_json_sha256": "c50db61765c61f3280b3f2f1f02bc301c5cd7a3b58c46d06af99d636540eb23d",
+  "first_band_utc": "2021-06-30T06:00:00Z",
+  "last_band_utc": "2021-07-10T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-KNF-007035_Slater": {
+  "all_finite": true,
+  "bands": 1327,
+  "complete_hours": 1327,
+  "complete_json_sha256": "9a067109dc74e3207601cb0783bd8c8eb4989025b6605cdd730a253bee62e463",
+  "first_band_utc": "2020-09-09T20:00:00Z",
+  "last_band_utc": "2020-11-04T02:00:00Z",
+  "n_responses": 3,
+  "nodes": 33
+ },
+ "CA-KNF-007241_Fox": {
+  "all_finite": true,
+  "bands": 317,
+  "complete_hours": 317,
+  "complete_json_sha256": "ddc4d784a2fd215db9f63608505adf395ee20f65579e6285cacb8fe10eba4e83",
+  "first_band_utc": "2020-09-16T05:00:00Z",
+  "last_band_utc": "2020-09-29T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-KNP-000088_CoffeePot": {
+  "all_finite": true,
+  "bands": 878,
+  "complete_hours": 878,
+  "complete_json_sha256": "eb1435a9ce671f410cc436a7d700f7e9de59c920a9adff9f449c709554f5d1ff",
+  "first_band_utc": "2024-08-12T17:00:00Z",
+  "last_band_utc": "2024-09-18T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "CA-KNP-000122_KNPComplex": {
+  "all_finite": true,
+  "bands": 1132,
+  "complete_hours": 1132,
+  "complete_json_sha256": "b58a76b64e57931013900c32acb366313b15d2b4650e061b0b73a6b94185f112",
+  "first_band_utc": "2021-09-14T03:00:00Z",
+  "last_band_utc": "2021-10-31T06:00:00Z",
+  "n_responses": 2,
+  "nodes": 24
+ },
+ "CA-LAC-020523_Post": {
+  "all_finite": true,
+  "bands": 123,
+  "complete_hours": 123,
+  "complete_json_sha256": "336fb1874163c842cd3f4cd0f5618337e97332d81bad82a567ef66c17aaa1b61",
+  "first_band_utc": "2024-06-16T05:00:00Z",
+  "last_band_utc": "2024-06-21T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "CA-LAC-434928_Franklin": {
+  "all_finite": true,
+  "bands": 176,
+  "complete_hours": 176,
+  "complete_json_sha256": "5cc4e0615f358b196520f45907a7fcc04dc6cb29e11b4895ddee0b99a03ed271",
+  "first_band_utc": "2024-12-10T16:00:00Z",
+  "last_band_utc": "2024-12-17T23:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-LMU-003874_Hog": {
+  "all_finite": true,
+  "bands": 294,
+  "complete_hours": 294,
+  "complete_json_sha256": "2d9e2ad886066c0b6c5a9d48b50cea3f37f31d35d7033dddea2775209d3b66a8",
+  "first_band_utc": "2020-07-19T01:00:00Z",
+  "last_band_utc": "2020-07-31T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-LMU-003917_Gold": {
+  "all_finite": true,
+  "bands": 473,
+  "complete_hours": 473,
+  "complete_json_sha256": "1003be8277f87aba540216c1d93fff36eb0e7df04a60c1763529938c8dce7c96",
+  "first_band_utc": "2020-07-21T14:00:00Z",
+  "last_band_utc": "2020-08-10T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "CA-LNF-004290_Stump": {
+  "all_finite": true,
+  "bands": 54,
+  "complete_hours": 54,
+  "complete_json_sha256": "137d0bde2513c2280292635a406f029598be8740619712b18dd10b08d747eeda",
+  "first_band_utc": "2020-08-03T04:00:00Z",
+  "last_band_utc": "2020-08-05T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-LNF-2815_Graham": {
+  "all_finite": true,
+  "bands": 48,
+  "complete_hours": 48,
+  "complete_json_sha256": "6a25e2cff59d85c84f828b6131276d8fa989a83a568f2d93f648c95dddc7f0e5",
+  "first_band_utc": "2022-06-11T05:00:00Z",
+  "last_band_utc": "2022-06-13T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-LNU-011083_Sites": {
+  "all_finite": true,
+  "bands": 139,
+  "complete_hours": 139,
+  "complete_json_sha256": "800e40e353856a21af7651998a052f44f816817125c77ee0aa944ed57c020118",
+  "first_band_utc": "2024-06-19T06:00:00Z",
+  "last_band_utc": "2024-06-25T00:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "CA-LNU-013407_LNULightningComplex_Meyers": {
+  "all_finite": true,
+  "bands": 522,
+  "complete_hours": 522,
+  "complete_json_sha256": "e1dba1fb5ba812e414e6c6548adbe35e69b18ea83a2f08d1220376631dca98f7",
+  "first_band_utc": "2020-08-19T06:00:00Z",
+  "last_band_utc": "2020-09-09T23:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-LNU-013725_Ridge": {
+  "all_finite": true,
+  "bands": 47,
+  "complete_hours": 47,
+  "complete_json_sha256": "bac43fcc7240d8f4bcd7684f7f469880ac834f3dcc5ee610af1d451970f78440",
+  "first_band_utc": "2024-07-21T00:00:00Z",
+  "last_band_utc": "2024-07-22T22:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-LNU-015947_Glass": {
+  "all_finite": true,
+  "bands": 313,
+  "complete_hours": 313,
+  "complete_json_sha256": "3b16783e478d09df69466b00219843d9e652cf52767df0cea25e687131933b14",
+  "first_band_utc": "2020-09-28T07:00:00Z",
+  "last_band_utc": "2020-10-11T07:00:00Z",
+  "n_responses": 2,
+  "nodes": 17
+ },
+ "CA-LPF-001493_Willow": {
+  "all_finite": true,
+  "bands": 359,
+  "complete_hours": 359,
+  "complete_json_sha256": "ff36033e1114b543fd0a05143bdeecf8da40f63236193a6614b6ec5faa5125a2",
+  "first_band_utc": "2021-06-20T05:00:00Z",
+  "last_band_utc": "2021-07-05T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-LPF-001542_Lake": {
+  "all_finite": true,
+  "bands": 290,
+  "complete_hours": 290,
+  "complete_json_sha256": "225b01c3602bdabf0a3a363133893c6eec1271a21ad5640893468298ad2fbd3a",
+  "first_band_utc": "2024-07-08T08:00:00Z",
+  "last_band_utc": "2024-07-20T09:00:00Z",
+  "n_responses": 2,
+  "nodes": 15
+ },
+ "CA-LPF-002759_Alisal": {
+  "all_finite": true,
+  "bands": 194,
+  "complete_hours": 194,
+  "complete_json_sha256": "0322b4486ed44221c8183b1247e067e8c557eaba0024edd087625edd1cf27d8a",
+  "first_band_utc": "2021-10-12T04:00:00Z",
+  "last_band_utc": "2021-10-20T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "CA-LPF-003161_Coleman": {
+  "all_finite": true,
+  "bands": 383,
+  "complete_hours": 383,
+  "complete_json_sha256": "1bb5d11b971dfd9eb4b1bcb25c4ad8362d12ab98046b7e7339ae2b42e66a1d98",
+  "first_band_utc": "2020-10-20T07:00:00Z",
+  "last_band_utc": "2020-11-05T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-MDF-000486_Allen": {
+  "all_finite": true,
+  "bands": 120,
+  "complete_hours": 120,
+  "complete_json_sha256": "dffd1baaa951ade442ae677136cb1c4730b81be3e4859bd0011b7204946ed2f0",
+  "first_band_utc": "2020-07-24T06:00:00Z",
+  "last_band_utc": "2020-07-29T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-MDF-000486_Caldwell": {
+  "all_finite": true,
+  "bands": 503,
+  "complete_hours": 503,
+  "complete_json_sha256": "5111c5e57ccb77ebcaeb442eab00cb904c5cf454fbbd8dc3542df4e6f0dfd7cf",
+  "first_band_utc": "2020-07-24T06:00:00Z",
+  "last_band_utc": "2020-08-14T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 18
+ },
+ "CA-MDF-000896_Barnes": {
+  "all_finite": true,
+  "bands": 169,
+  "complete_hours": 169,
+  "complete_json_sha256": "556958b47891ed2ab61d32586eeaaca04d399872802667280f16b9b64654f1ab",
+  "first_band_utc": "2022-09-09T03:00:00Z",
+  "last_band_utc": "2022-09-16T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-MMU-014714_River": {
+  "all_finite": true,
+  "bands": 119,
+  "complete_hours": 119,
+  "complete_json_sha256": "8b519068218337f8199169988477f824cad13e1e8430e8a1b5dd2448756d4892",
+  "first_band_utc": "2021-07-13T05:00:00Z",
+  "last_band_utc": "2021-07-18T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-MNP-010701_York": {
+  "all_finite": true,
+  "bands": 129,
+  "complete_hours": 129,
+  "complete_json_sha256": "f2306dee634e9d1df33e60ea0b19728a59aea59efc9e1d175148cb74b5c1719c",
+  "first_band_utc": "2023-07-31T01:00:00Z",
+  "last_band_utc": "2023-08-05T09:00:00Z",
+  "n_responses": 3,
+  "nodes": 25
+ },
+ "CA-MVU-013233_Border13": {
+  "all_finite": true,
+  "bands": 46,
+  "complete_hours": 46,
+  "complete_json_sha256": "a5f414c147cccdffb98ec391789f4664b9b4c60d601a2d7c55991410e050114e",
+  "first_band_utc": "2022-06-14T04:00:00Z",
+  "last_band_utc": "2022-06-16T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-MVU-018864_Border32": {
+  "all_finite": true,
+  "bands": 94,
+  "complete_hours": 94,
+  "complete_json_sha256": "d1a3edc296759bb3abea1810354caa8031ac5803d90d136daf7bde635ebe56cf",
+  "first_band_utc": "2022-09-01T04:00:00Z",
+  "last_band_utc": "2022-09-05T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-NEU-023725_Bridge": {
+  "all_finite": true,
+  "bands": 54,
+  "complete_hours": 54,
+  "complete_json_sha256": "dcd8bcc838803aa4bda7690c78e3ebabe5c5643dabaf78e0777bdc19cdf65de7",
+  "first_band_utc": "2021-09-06T06:00:00Z",
+  "last_band_utc": "2021-09-08T11:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "CA-NOD-004137_S4": {
+  "all_finite": true,
+  "bands": 51,
+  "complete_hours": 51,
+  "complete_json_sha256": "ce66c982e631dfdcf76e045fcd44d2b571eded9e1d19be76454031f036fa5305",
+  "first_band_utc": "2020-07-29T06:00:00Z",
+  "last_band_utc": "2020-07-31T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-ORC-019703_Emerald": {
+  "all_finite": true,
+  "bands": 29,
+  "complete_hours": 29,
+  "complete_json_sha256": "a9b8aeee0d5d6eee6d6c6bd60d53875aa1e53a3038c16ccc63d35beb4aa47388",
+  "first_band_utc": "2022-02-11T00:00:00Z",
+  "last_band_utc": "2022-02-12T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-ORC-060975_Coastal": {
+  "all_finite": true,
+  "bands": 120,
+  "complete_hours": 120,
+  "complete_json_sha256": "0c042af074a265a88b34dd4d4d6b26304de253bbf5a3c294f6b28ad49adf7a22",
+  "first_band_utc": "2022-05-11T04:00:00Z",
+  "last_band_utc": "2022-05-16T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-ORC-121364_Silverado": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "f496aedeaee1f68fa9074659ed2d5879d2f9ae4bc4c14bc61b175d74cbceb61e",
+  "first_band_utc": "2020-10-27T06:00:00Z",
+  "last_band_utc": "2020-11-03T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-ORC-121612_BlueRidge": {
+  "all_finite": true,
+  "bands": 143,
+  "complete_hours": 143,
+  "complete_json_sha256": "8db5ceff1810e11beae9591c52dcaac3699b94d263729c3bba5eafc219d7e2b8",
+  "first_band_utc": "2020-10-28T06:00:00Z",
+  "last_band_utc": "2020-11-03T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "CA-ORC-136890_Bond": {
+  "all_finite": true,
+  "bands": 96,
+  "complete_hours": 96,
+  "complete_json_sha256": "3561ef5b3f0af6dfe79b1df7ad7aaa05be6d337b5dae3a01497ed89774993ea0",
+  "first_band_utc": "2020-12-04T04:00:00Z",
+  "last_band_utc": "2020-12-08T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-OVD-030860_MountainView": {
+  "all_finite": true,
+  "bands": 137,
+  "complete_hours": 137,
+  "complete_json_sha256": "496232bf5bbef58c2e02bed4d2ad02be76ff4693effef74ddf3bc4cc1a3ff1a1",
+  "first_band_utc": "2020-11-18T10:00:00Z",
+  "last_band_utc": "2020-11-24T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "CA-PNF-001064_Beckwourth": {
+  "all_finite": true,
+  "bands": 413,
+  "complete_hours": 413,
+  "complete_json_sha256": "d29b2442bc4831f7064054722036fd0b3ec92411b48405951adf0f27a62ed424",
+  "first_band_utc": "2021-07-05T05:00:00Z",
+  "last_band_utc": "2021-07-22T09:00:00Z",
+  "n_responses": 2,
+  "nodes": 22
+ },
+ "CA-PNF-001299_Sheep": {
+  "all_finite": true,
+  "bands": 477,
+  "complete_hours": 477,
+  "complete_json_sha256": "6604e76aed9229414bf1556cd91258e824165f8762aeeafdcd4e8b4e76983d33",
+  "first_band_utc": "2020-08-19T08:00:00Z",
+  "last_band_utc": "2020-09-08T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "CA-RNP-012009_Woodward": {
+  "all_finite": true,
+  "bands": 356,
+  "complete_hours": 356,
+  "complete_json_sha256": "dfd6a1f84e1405f8718b6ae19815e85ecb398a18a3f6fd3cbe4109969b741f97",
+  "first_band_utc": "2020-08-23T09:00:00Z",
+  "last_band_utc": "2020-09-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-RRU-096640_Apple": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "6c6f177cee75194183991ab2fa586ffd6dcc0217812d81866bf048e842977350",
+  "first_band_utc": "2020-08-03T04:00:00Z",
+  "last_band_utc": "2020-08-14T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "CA-RRU-102458_RiversideSupport_Rabbit": {
+  "all_finite": true,
+  "bands": 121,
+  "complete_hours": 121,
+  "complete_json_sha256": "4a2ba29ec6f48a4eb4ecb3893631ddb9e9b99513da36b730bd9ae7acbb063b51",
+  "first_band_utc": "2023-07-16T03:00:00Z",
+  "last_band_utc": "2023-07-21T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 15
+ },
+ "CA-RRU-129712_Fairview": {
+  "all_finite": true,
+  "bands": 159,
+  "complete_hours": 159,
+  "complete_json_sha256": "01eec26431e2439815da321c00c951619b7390b0e3955c8604d641bff72705b3",
+  "first_band_utc": "2022-09-09T08:00:00Z",
+  "last_band_utc": "2022-09-15T22:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "CA-RRU-160976_Highland": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "3397822fdc4b40d0c983b179e627356d74dcbfbc2fb474e470676ccbd748779b",
+  "first_band_utc": "2023-10-31T04:00:00Z",
+  "last_band_utc": "2023-11-03T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-SCU-004686_Crews": {
+  "all_finite": true,
+  "bands": 123,
+  "complete_hours": 123,
+  "complete_json_sha256": "5fad631dc4c3ff0e3deea8fff2d8b69cd5f201d5060db0301cb96fd4c7d1bc6d",
+  "first_band_utc": "2020-07-06T02:00:00Z",
+  "last_band_utc": "2020-07-11T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-SHF-000949_Lava": {
+  "all_finite": true,
+  "bands": 1610,
+  "complete_hours": 1610,
+  "complete_json_sha256": "2e8dc7933bd27f555736fdd129d063563cb5c7ee3678b508e1edb2151a09c5e6",
+  "first_band_utc": "2021-06-28T06:00:00Z",
+  "last_band_utc": "2021-09-03T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "CA-SHF-000973_Deep": {
+  "all_finite": true,
+  "bands": 1011,
+  "complete_hours": 1011,
+  "complete_json_sha256": "09e9d94be8870e8dea5d9e70eb7a032caf235681de39725301c33775da792c37",
+  "first_band_utc": "2023-08-20T05:00:00Z",
+  "last_band_utc": "2023-10-01T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-SHF-000982_Salt": {
+  "all_finite": true,
+  "bands": 297,
+  "complete_hours": 297,
+  "complete_json_sha256": "a8f7c26f3b1317b994f75ba7090c169be82035479adf2a5bd6c1ded09315169c",
+  "first_band_utc": "2021-07-01T01:00:00Z",
+  "last_band_utc": "2021-07-13T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-SHF-000996_Shoe": {
+  "all_finite": true,
+  "bands": 800,
+  "complete_hours": 800,
+  "complete_json_sha256": "d6b7bd9ea24a0228f03077ce1ed3c0a1172a19f99b551944c158c11325aa1a15",
+  "first_band_utc": "2024-10-09T22:00:00Z",
+  "last_band_utc": "2024-11-12T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CA-SHF-001004_ThreeNine": {
+  "all_finite": true,
+  "bands": 1944,
+  "complete_hours": 1944,
+  "complete_json_sha256": "476c8679ea41cf0f486ac75a013ad2eb161089b641ccc3dd619611ccc0d9e517",
+  "first_band_utc": "2023-08-20T06:00:00Z",
+  "last_band_utc": "2023-11-09T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-SHF-001187_Knob": {
+  "all_finite": true,
+  "bands": 745,
+  "complete_hours": 745,
+  "complete_json_sha256": "378838fe91f36b8b1dba0782b4e8877ed80893ca2bfd00879726c4e2fd0a9d19",
+  "first_band_utc": "2021-08-31T03:00:00Z",
+  "last_band_utc": "2021-10-01T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-SHF-001376_Hobo": {
+  "all_finite": true,
+  "bands": 74,
+  "complete_hours": 74,
+  "complete_json_sha256": "ce50931e861b6714fb7ffb8dcde56c68550d37924fc0864e98f31050551bb80b",
+  "first_band_utc": "2020-09-04T07:00:00Z",
+  "last_band_utc": "2020-09-07T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "CA-SHU-009978_Zogg": {
+  "all_finite": true,
+  "bands": 260,
+  "complete_hours": 260,
+  "complete_json_sha256": "c7dd16ff9bfd002f354490522b5801b6b3d738a22f3361e9ae1f42a57d0bff7c",
+  "first_band_utc": "2020-09-28T09:00:00Z",
+  "last_band_utc": "2020-10-09T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 17
+ },
+ "CA-SHU-010480_Fawn": {
+  "all_finite": true,
+  "bands": 150,
+  "complete_hours": 150,
+  "complete_json_sha256": "ff63b8b747b546dd883cc090aaf7c525b6878650c172929063b775def2145d17",
+  "first_band_utc": "2021-09-23T23:00:00Z",
+  "last_band_utc": "2021-09-30T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "CA-SKU-007568_Mill": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "87b19ac221f6736a6b9b4ee6a1fb09dedbd9ebf2ca196ea872948e3ff50d7f0a",
+  "first_band_utc": "2022-09-06T05:00:00Z",
+  "last_band_utc": "2022-09-13T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-SKU-007586_Mountain": {
+  "all_finite": true,
+  "bands": 339,
+  "complete_hours": 339,
+  "complete_json_sha256": "c704615a474554bc0593b2c4059681d4d51fbcaca1b1a31842327eee2f0eef01",
+  "first_band_utc": "2022-09-04T02:00:00Z",
+  "last_band_utc": "2022-09-18T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "CA-SNF-001402_Bullfrog": {
+  "all_finite": true,
+  "bands": 80,
+  "complete_hours": 80,
+  "complete_json_sha256": "5296a99384f2a82f488464643099db055ec35d61daa7e893c88bbd4335d59657",
+  "first_band_utc": "2020-09-12T17:00:00Z",
+  "last_band_utc": "2020-09-16T00:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "CA-SQF-001362_Borel": {
+  "all_finite": true,
+  "bands": 498,
+  "complete_hours": 498,
+  "complete_json_sha256": "b4ec3613b6b3194482e70e146db71e1cf3ec03b0cbac5eabdabba73b4efc9b83",
+  "first_band_utc": "2024-07-25T17:00:00Z",
+  "last_band_utc": "2024-08-15T10:00:00Z",
+  "n_responses": 2,
+  "nodes": 19
+ },
+ "CA-SQF-002089_Wishon": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "f4d43aa9cf25cd8bd239a9402a1ccdb529f10d58e8e4fbbecf89420ed922aea0",
+  "first_band_utc": "2022-08-17T23:00:00Z",
+  "last_band_utc": "2022-08-20T22:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-SQF-002758_Walkers": {
+  "all_finite": true,
+  "bands": 50,
+  "complete_hours": 50,
+  "complete_json_sha256": "3497a056f203dd7a5f11117bf6b20bbe89a4202dacdfc5580dc579530102118a",
+  "first_band_utc": "2021-09-03T03:00:00Z",
+  "last_band_utc": "2021-09-05T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-STF-002313_Peak": {
+  "all_finite": true,
+  "bands": 217,
+  "complete_hours": 217,
+  "complete_json_sha256": "988a0667e804cb01713ded2959bb3a40627ff9296b08604bfb3b66d1f2b09019",
+  "first_band_utc": "2024-10-05T04:00:00Z",
+  "last_band_utc": "2024-10-14T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-TCU-007675_Aero": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "5b36ba4d92cd6ec022df8daf092390bb2845a7cfe3d4ffb9ed74d61fe242ecab",
+  "first_band_utc": "2024-06-19T07:00:00Z",
+  "last_band_utc": "2024-06-22T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-TNF-000855_Royal": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "f980323c3f17fd87370ecfa57208bd38261b576bf78c03a94720c9fdf4d03860",
+  "first_band_utc": "2024-07-10T05:00:00Z",
+  "last_band_utc": "2024-07-13T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-TNF-001251_Bear": {
+  "all_finite": true,
+  "bands": 220,
+  "complete_hours": 220,
+  "complete_json_sha256": "1d723872df84b2bd0a9e55cb7d2b107d652e964ab45fc021f14e1161fd02b628",
+  "first_band_utc": "2024-09-05T07:00:00Z",
+  "last_band_utc": "2024-09-14T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CA-TNF-00137_Mosquito": {
+  "all_finite": true,
+  "bands": 1396,
+  "complete_hours": 1396,
+  "complete_json_sha256": "6a02e7f00fc6e42d900666e9c5b0e86347fa36108d907a19c15c549608e50b34",
+  "first_band_utc": "2022-09-08T04:00:00Z",
+  "last_band_utc": "2022-11-05T07:00:00Z",
+  "n_responses": 2,
+  "nodes": 22
+ },
+ "CA-TNF-001600_Loyalton": {
+  "all_finite": true,
+  "bands": 301,
+  "complete_hours": 301,
+  "complete_json_sha256": "430bcd087e94af8a77733423202cdae61e90f0b470cfda4b72209e45d2ec0dcb",
+  "first_band_utc": "2020-08-16T16:00:00Z",
+  "last_band_utc": "2020-08-29T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "CA-YNP-000050_Pika": {
+  "all_finite": true,
+  "bands": 271,
+  "complete_hours": 271,
+  "complete_json_sha256": "13028313222c3681f26c7a1974a052f712cb747c3fb6ad0418635ccb9ff15170",
+  "first_band_utc": "2023-07-17T06:00:00Z",
+  "last_band_utc": "2023-07-28T12:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CA-YNP-000058_Rodgers": {
+  "all_finite": true,
+  "bands": 819,
+  "complete_hours": 819,
+  "complete_json_sha256": "126d86af8db38b31ef33dd2ddd8ec905502d4324822b1f2fc453a018888e3d52",
+  "first_band_utc": "2022-08-13T02:00:00Z",
+  "last_band_utc": "2022-09-16T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CA-YNP-000066_Aspen": {
+  "all_finite": true,
+  "bands": 245,
+  "complete_hours": 245,
+  "complete_json_sha256": "1d826a0fa2eb8220e655926d8232f573fa726bc9bf0c0b6d6dfd8918bb166589",
+  "first_band_utc": "2022-09-05T04:00:00Z",
+  "last_band_utc": "2022-09-15T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "CA_SLU_009866_Pond": {
+  "all_finite": true,
+  "bands": 97,
+  "complete_hours": 97,
+  "complete_json_sha256": "d5b72c367744f979c3db4576c87911638dafe711ac97425978dfd21599224863",
+  "first_band_utc": "2020-08-02T04:00:00Z",
+  "last_band_utc": "2020-08-06T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CO-ARF-000683_AlexanderMountain": {
+  "all_finite": true,
+  "bands": 125,
+  "complete_hours": 125,
+  "complete_json_sha256": "cbf0e5381235b7ba286e15965d5b31387a5a618c7890c835c32641b384433bb0",
+  "first_band_utc": "2024-08-01T06:00:00Z",
+  "last_band_utc": "2024-08-06T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CO-ARF-001048_Lefthand": {
+  "all_finite": true,
+  "bands": 99,
+  "complete_hours": 99,
+  "complete_json_sha256": "43cc9a099397970e212ebf1e0b0faee6ec4a9a277d0a3671edaebf9f41ad29b8",
+  "first_band_utc": "2020-10-20T03:00:00Z",
+  "last_band_utc": "2020-10-24T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CO-BLX-001036_Calwood": {
+  "all_finite": true,
+  "bands": 291,
+  "complete_hours": 291,
+  "complete_json_sha256": "13ac84063ac159c4451d2c94c49e3ad9a4c613532c693230d222bbf49bbf2b74",
+  "first_band_utc": "2020-10-18T04:00:00Z",
+  "last_band_utc": "2020-10-30T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CO-DTX-000082_CurrantCreek": {
+  "all_finite": true,
+  "bands": 215,
+  "complete_hours": 215,
+  "complete_json_sha256": "056dd9a284fabad77d71ea8b9ec6844df928716d8dc8146fa2c59516ffebf28f",
+  "first_band_utc": "2024-07-28T23:00:00Z",
+  "last_band_utc": "2024-08-06T21:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CO-GFX-000348_GrizzlyCreek": {
+  "all_finite": true,
+  "bands": 578,
+  "complete_hours": 578,
+  "complete_json_sha256": "513fde5a47660ba021745d9d40d8b8f0fbb2bd3f5093ce4ce18ffc6878d5f330",
+  "first_band_utc": "2020-08-12T07:00:00Z",
+  "last_band_utc": "2020-09-05T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "CO-GFX-230097_SpringCreek": {
+  "all_finite": true,
+  "bands": 265,
+  "complete_hours": 265,
+  "complete_json_sha256": "118f4189232435535855e0e43d9fea26a818db6fe3e8f571aa422068c09a7469",
+  "first_band_utc": "2023-06-28T04:00:00Z",
+  "last_band_utc": "2023-07-09T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CO-GMF-000176_Lowline": {
+  "all_finite": true,
+  "bands": 245,
+  "complete_hours": 245,
+  "complete_json_sha256": "a0e2e5d40acc657f6fc3e5c460c8258d59d5fef725c78759d53a95b7587d9f58",
+  "first_band_utc": "2023-07-29T03:00:00Z",
+  "last_band_utc": "2023-08-08T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CO-MRX-000086_Bucktail": {
+  "all_finite": true,
+  "bands": 70,
+  "complete_hours": 70,
+  "complete_json_sha256": "435c55818e857b5b887ff64d3d22abc97000ad57a4c39ca6c9d50fc343e413d6",
+  "first_band_utc": "2024-08-02T03:00:00Z",
+  "last_band_utc": "2024-08-05T00:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CO-PSF-000779_OakRidge": {
+  "all_finite": true,
+  "bands": 317,
+  "complete_hours": 317,
+  "complete_json_sha256": "ed4a93884c875ebb46e0b01bf252b607c0a2406c233e6ed99b88c159a93309a8",
+  "first_band_utc": "2024-06-26T04:00:00Z",
+  "last_band_utc": "2024-07-09T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CO-PSF-001717_SaintCharles": {
+  "all_finite": true,
+  "bands": 194,
+  "complete_hours": 194,
+  "complete_json_sha256": "8ce9c161a69f6b4f2b83453df2cadcbb9125aa1670aa41e350aa10d425683795",
+  "first_band_utc": "2023-10-24T02:00:00Z",
+  "last_band_utc": "2023-11-01T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "CO-RTF-000363_MiddleFork": {
+  "all_finite": true,
+  "bands": 1394,
+  "complete_hours": 1394,
+  "complete_json_sha256": "f9003759d4b38700778601c3e36d89b8062517d876fa3538d4e6a09e1e934d87",
+  "first_band_utc": "2020-09-08T01:00:00Z",
+  "last_band_utc": "2020-11-05T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "CO-SJD-000416_EastCanyon": {
+  "all_finite": true,
+  "bands": 145,
+  "complete_hours": 145,
+  "complete_json_sha256": "7f63f4e3ebbf83e1c09b5b0888ee91e9e9273bcf0528e227c5dca64beeb48010",
+  "first_band_utc": "2020-06-16T03:00:00Z",
+  "last_band_utc": "2020-06-22T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "CO-SJF-000203_Plumtaw": {
+  "all_finite": true,
+  "bands": 48,
+  "complete_hours": 48,
+  "complete_json_sha256": "7e2eefd83cd3c68e81dbc9235395104ee7f941a8971801a2271c17eeb8130e28",
+  "first_band_utc": "2022-05-25T05:00:00Z",
+  "last_band_utc": "2022-05-27T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CO-SJF-000348_ChrisMountain": {
+  "all_finite": true,
+  "bands": 93,
+  "complete_hours": 93,
+  "complete_json_sha256": "9d77cc233e2a29e058ef6c9bb5cb7dc3603b1de8a9268e38b200aa088df1d39f",
+  "first_band_utc": "2023-07-03T06:00:00Z",
+  "last_band_utc": "2023-07-07T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CO-SJF-000570_BearCreek": {
+  "all_finite": true,
+  "bands": 2279,
+  "complete_hours": 2279,
+  "complete_json_sha256": "23a9df07334d0d7080a8e6af67abf1c9a256adbc3da1aa559872b4b06e20dca2",
+  "first_band_utc": "2023-08-12T07:00:00Z",
+  "last_band_utc": "2023-11-15T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CO-SJF-000678_QuartzRidge": {
+  "all_finite": true,
+  "bands": 1892,
+  "complete_hours": 1892,
+  "complete_json_sha256": "9201307d296ae5f9ff3f21807b34288ce164f0f44258475843b86e1fd7c684a1",
+  "first_band_utc": "2023-08-13T07:00:00Z",
+  "last_band_utc": "2023-10-31T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "CO-SJF-001183_MillCreek2": {
+  "all_finite": true,
+  "bands": 555,
+  "complete_hours": 555,
+  "complete_json_sha256": "00700ebe3d2a1e4c7b2786d53c913e1934b1e050223693818b7d4dada50dd2b5",
+  "first_band_utc": "2023-10-23T02:00:00Z",
+  "last_band_utc": "2023-11-15T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "CO-SJF-001184_TrailSprings": {
+  "all_finite": true,
+  "bands": 555,
+  "complete_hours": 555,
+  "complete_json_sha256": "f1c20b76d28a75b8bd6dec2d9389f4a5d8a7838825c84e251ef6230affe252b0",
+  "first_band_utc": "2023-10-23T02:00:00Z",
+  "last_band_utc": "2023-11-15T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "CO-SJF-001214_Ice": {
+  "all_finite": true,
+  "bands": 121,
+  "complete_hours": 121,
+  "complete_json_sha256": "74d25c45c9e673c7053a3e6e2a45d16daa04594cf2cc98aeac0b237d35c8630c",
+  "first_band_utc": "2020-10-19T03:00:00Z",
+  "last_band_utc": "2020-10-24T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CO-TLX-000722_HighPark": {
+  "all_finite": true,
+  "bands": 50,
+  "complete_hours": 50,
+  "complete_json_sha256": "11c1de242872e33e613c25718e2a7f0c973cd97ced0c0a683b24e69c1f427acd",
+  "first_band_utc": "2022-05-16T06:00:00Z",
+  "last_band_utc": "2022-05-18T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "CO-UPD-000186_LittleMesa": {
+  "all_finite": true,
+  "bands": 356,
+  "complete_hours": 356,
+  "complete_json_sha256": "0473698959b2a1b357b222e4b89b7d93fb4823f6e6dd23b07c96e1e1f30f5281",
+  "first_band_utc": "2023-08-09T00:00:00Z",
+  "last_band_utc": "2023-08-23T19:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "ID-BOF-000212_BlackMountain": {
+  "all_finite": true,
+  "bands": 149,
+  "complete_hours": 149,
+  "complete_json_sha256": "90b17f9bd629de40baff12bc019ccf683831ff35327cb19b42e3fe6a4f280c6f",
+  "first_band_utc": "2023-08-31T03:00:00Z",
+  "last_band_utc": "2023-09-06T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-BOF-000487_Warm": {
+  "all_finite": true,
+  "bands": 98,
+  "complete_hours": 98,
+  "complete_json_sha256": "1fd316bf4f2c8b59021e6e665138a6edae2064a1a3756f1bed3fc8173dec0ef8",
+  "first_band_utc": "2020-07-30T04:00:00Z",
+  "last_band_utc": "2020-08-03T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "ID-BOF-000488_Golden": {
+  "all_finite": true,
+  "bands": 743,
+  "complete_hours": 743,
+  "complete_json_sha256": "7f5af3159a2794e747e8151a7240ee5054dc2a12767268ddd36f7df148463c78",
+  "first_band_utc": "2020-07-30T04:00:00Z",
+  "last_band_utc": "2020-08-30T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "ID-BOF-000699_Bulltrout": {
+  "all_finite": true,
+  "bands": 267,
+  "complete_hours": 267,
+  "complete_json_sha256": "7a27b4cff4af368deab65860d41009f6684071b8999be6ef3ef9af80d4efe85e",
+  "first_band_utc": "2024-08-02T03:00:00Z",
+  "last_band_utc": "2024-08-13T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-BOF-000714_Buck": {
+  "all_finite": true,
+  "bands": 1080,
+  "complete_hours": 1080,
+  "complete_json_sha256": "6d555082a983833e857eee83b002ea3a68c28bc18441de2b295adf164fb90b3e",
+  "first_band_utc": "2020-08-29T02:00:00Z",
+  "last_band_utc": "2020-10-13T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "ID-BOF-000740_East": {
+  "all_finite": true,
+  "bands": 626,
+  "complete_hours": 626,
+  "complete_json_sha256": "09450f0f81140c908632a79edae5e125416ad8bf6ebceb10ee6574ea3dbdc90d",
+  "first_band_utc": "2023-08-24T05:00:00Z",
+  "last_band_utc": "2023-09-19T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-BOF-000777_Grouse": {
+  "all_finite": true,
+  "bands": 622,
+  "complete_hours": 622,
+  "complete_json_sha256": "2ed3de68f8d6789288ccdeab27e39ed25b0521249bdfd5e45fb925b2c619cd59",
+  "first_band_utc": "2020-09-13T07:00:00Z",
+  "last_band_utc": "2020-10-09T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-BOF-001073_Sheep": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "3de844a556df8b8bdebedcc0be69bd5d301ccd0f024161c43371263c0f07265b",
+  "first_band_utc": "2024-09-05T03:00:00Z",
+  "last_band_utc": "2024-09-08T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-CMS-000280_BillyCreek": {
+  "all_finite": true,
+  "bands": 71,
+  "complete_hours": 71,
+  "complete_json_sha256": "a2075fd264fbcd1eac92fea2c9f468d2d78512047c27adeb71bd8b0bd136fef3",
+  "first_band_utc": "2024-07-06T07:00:00Z",
+  "last_band_utc": "2024-07-09T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-CMS-000470_ShovelCreek": {
+  "all_finite": true,
+  "bands": 528,
+  "complete_hours": 528,
+  "complete_json_sha256": "10474b6932865c1136a12c879a760e1abfb7585c009bf896c2ef2120a2a62b56",
+  "first_band_utc": "2021-07-09T04:00:00Z",
+  "last_band_utc": "2021-07-31T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 23
+ },
+ "ID-CTS-000714_Sunnyside_IronGate": {
+  "all_finite": true,
+  "bands": 103,
+  "complete_hours": 103,
+  "complete_json_sha256": "48c0d37f3b5fa567489db996adea5fa73209319d1644ba6cb9fdd341b75cb81b",
+  "first_band_utc": "2020-09-11T22:00:00Z",
+  "last_band_utc": "2020-09-16T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "ID-EIS-000311_Chimney": {
+  "all_finite": true,
+  "bands": 1030,
+  "complete_hours": 1030,
+  "complete_json_sha256": "2e6b81e2ee446884a4dc706d7bd8eb7ac8faf20e8e316d8d13e663e9f8ab2770",
+  "first_band_utc": "2024-09-06T05:00:00Z",
+  "last_band_utc": "2024-10-19T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "ID-IPF-000212_DiamondWatch": {
+  "all_finite": true,
+  "bands": 1512,
+  "complete_hours": 1512,
+  "complete_json_sha256": "c3db52f25964cbc38fe1f25d6fa13b5f791d006c1919c7891e677b5b4dcb92f7",
+  "first_band_utc": "2022-08-04T05:00:00Z",
+  "last_band_utc": "2022-10-06T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-IPF-000234_Consalus": {
+  "all_finite": true,
+  "bands": 744,
+  "complete_hours": 744,
+  "complete_json_sha256": "1def74bd29611e5c9dfc69776cdf8ab1c406f16d779609514348a3f56cf1d30d",
+  "first_band_utc": "2023-07-12T08:00:00Z",
+  "last_band_utc": "2023-08-12T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-IPF-000385_EneasPeak": {
+  "all_finite": true,
+  "bands": 434,
+  "complete_hours": 434,
+  "complete_json_sha256": "25c9ce34252f5c2dffe7dcdd4033e1ca8084fa93920f90d225aa1589b50b9605",
+  "first_band_utc": "2022-08-17T04:00:00Z",
+  "last_band_utc": "2022-09-04T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-IPF-000424_BlackBurn": {
+  "all_finite": true,
+  "bands": 410,
+  "complete_hours": 410,
+  "complete_json_sha256": "06ec8f6fc4e6c1c868826e64241f21b4944eaf0418b5243668e6e924e8870feb",
+  "first_band_utc": "2022-08-18T03:00:00Z",
+  "last_band_utc": "2022-09-04T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-IPF-000447_RidgeCreek": {
+  "all_finite": true,
+  "bands": 673,
+  "complete_hours": 673,
+  "complete_json_sha256": "f202df3b36202b91b5c466993bb2975f4bc7a5696027acdf3679544a2f9f03bc",
+  "first_band_utc": "2023-08-05T04:00:00Z",
+  "last_band_utc": "2023-09-02T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-IPF-000452_TrestleCreek": {
+  "all_finite": true,
+  "bands": 1375,
+  "complete_hours": 1375,
+  "complete_json_sha256": "45a8db381f1403e0335d5027df491b702bc3a7af0c78e7c3ac9fe98398f7d9af",
+  "first_band_utc": "2021-07-15T03:00:00Z",
+  "last_band_utc": "2021-09-10T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "ID-IPF-000454_Buckskin2": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "a868cea0411d68b2e3dcbcdf44e0ff720a2b32ea5a28004a145d2c4b2c55b646",
+  "first_band_utc": "2023-08-14T04:00:00Z",
+  "last_band_utc": "2023-08-17T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "ID-IPF-000533_Bernard": {
+  "all_finite": true,
+  "bands": 302,
+  "complete_hours": 302,
+  "complete_json_sha256": "1eb70e8d2476f563d79d2dee690d93041405c0f4206f1de4acb192081c98feea",
+  "first_band_utc": "2020-09-10T20:00:00Z",
+  "last_band_utc": "2020-09-23T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-IPF-000653_KootenaiRiverComplex_Katka": {
+  "all_finite": true,
+  "bands": 1080,
+  "complete_hours": 1080,
+  "complete_json_sha256": "a23f8ca7451fab3df706a1ecef57c7619d1436d93e5ab5b85777c07909b24253",
+  "first_band_utc": "2022-09-05T04:00:00Z",
+  "last_band_utc": "2022-10-20T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-IPF-000653_KootenaiRiverComplex_Russell": {
+  "all_finite": true,
+  "bands": 1080,
+  "complete_hours": 1080,
+  "complete_json_sha256": "8c805aaeb82097ade10923e631cb3303ca5017b870dfa2c2ccb39232806366e5",
+  "first_band_utc": "2022-09-05T04:00:00Z",
+  "last_band_utc": "2022-10-20T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "ID-MCS-000404_TooKush2": {
+  "all_finite": true,
+  "bands": 128,
+  "complete_hours": 128,
+  "complete_json_sha256": "03a4f215d39c2aaca97522c1704cb6201e6404f2957b46d1b7b908f482f4a2bc",
+  "first_band_utc": "2021-07-11T03:00:00Z",
+  "last_band_utc": "2021-07-16T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-NCF-000321_LittleBear": {
+  "all_finite": true,
+  "bands": 1130,
+  "complete_hours": 1130,
+  "complete_json_sha256": "fcece1f4ab269cba47b2d4ad0d55889aeb5fc59b37b9a9326e832923fa1aa2e8",
+  "first_band_utc": "2023-07-09T08:00:00Z",
+  "last_band_utc": "2023-08-25T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-NCF-000321b_WestFork": {
+  "all_finite": true,
+  "bands": 580,
+  "complete_hours": 580,
+  "complete_json_sha256": "3727b216d06b89d26c96e64a92daf04ee851a75bc51eb2262b21392cf19d636b",
+  "first_band_utc": "2023-08-01T06:00:00Z",
+  "last_band_utc": "2023-08-25T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-NCF-000370_Midnight": {
+  "all_finite": true,
+  "bands": 94,
+  "complete_hours": 94,
+  "complete_json_sha256": "388deedc20dadf117d5b3e3d8a1e9b15fca95793e09b44d879cc0d1180b86f9c",
+  "first_band_utc": "2023-07-14T07:00:00Z",
+  "last_band_utc": "2023-07-18T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-NCF-000412_AceButte": {
+  "all_finite": true,
+  "bands": 338,
+  "complete_hours": 338,
+  "complete_json_sha256": "5372640e69854f7fa6f5850fea63344f66466e167267428744fddba6e2f9c5ce",
+  "first_band_utc": "2024-08-27T03:00:00Z",
+  "last_band_utc": "2024-09-10T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-NCF-000515_Anchor": {
+  "all_finite": true,
+  "bands": 338,
+  "complete_hours": 338,
+  "complete_json_sha256": "47f13de6a5b1344aa7f8a5f76caa4b014bf506d5dea051415fdb840f7cafe0e8",
+  "first_band_utc": "2024-08-27T03:00:00Z",
+  "last_band_utc": "2024-09-10T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-NCF-000552_Beaver": {
+  "all_finite": true,
+  "bands": 121,
+  "complete_hours": 121,
+  "complete_json_sha256": "b4216cb6d191fd8e7a6244313e2b4c79ab58b8399ab5d7ebffb6b93c14b750bd",
+  "first_band_utc": "2020-09-02T04:00:00Z",
+  "last_band_utc": "2020-09-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-NCF-000581_SnowCreek": {
+  "all_finite": true,
+  "bands": 483,
+  "complete_hours": 483,
+  "complete_json_sha256": "af878642c4ea67ce5612cf0967286114cf92f0e079462d8cfef04ce22920a043",
+  "first_band_utc": "2021-07-11T04:00:00Z",
+  "last_band_utc": "2021-07-31T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "ID-NCF-000628_Sponge": {
+  "all_finite": true,
+  "bands": 555,
+  "complete_hours": 555,
+  "complete_json_sha256": "3cabc3c68339e29bf80356b7a71adc85a36dd88a00114de184adde7be8e0b960",
+  "first_band_utc": "2020-08-30T02:00:00Z",
+  "last_band_utc": "2020-09-22T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "ID-NCF-000819_MooseCreek_Halfway": {
+  "all_finite": true,
+  "bands": 387,
+  "complete_hours": 387,
+  "complete_json_sha256": "0dec8315d64049a1ba8f21c177b94a9ffba2e6bcf4604d8f1dd7af679f04c776",
+  "first_band_utc": "2024-08-30T04:00:00Z",
+  "last_band_utc": "2024-09-15T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-NCF-00472_Shissler": {
+  "all_finite": true,
+  "bands": 865,
+  "complete_hours": 865,
+  "complete_json_sha256": "aef03a156bd30db602afe36da129d0d0bd2d29f559a77367e8503f7852f1ba87",
+  "first_band_utc": "2020-08-19T03:00:00Z",
+  "last_band_utc": "2020-09-24T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "ID-NCF-00505_MocusPoint": {
+  "all_finite": true,
+  "bands": 122,
+  "complete_hours": 122,
+  "complete_json_sha256": "ccb545f497dabfbcb1d3feaf3c8e4f14f05a310ab17e16526f5d324d3996197d",
+  "first_band_utc": "2020-09-02T03:00:00Z",
+  "last_band_utc": "2020-09-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-NCF-00508_Marion": {
+  "all_finite": true,
+  "bands": 195,
+  "complete_hours": 195,
+  "complete_json_sha256": "4e7aef417ebb61d97f6dcb590e35d31789631addf38c7b7eab6de3e56ea85d6b",
+  "first_band_utc": "2020-08-30T02:00:00Z",
+  "last_band_utc": "2020-09-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "ID-NCF-00563_WarmSprings": {
+  "all_finite": true,
+  "bands": 580,
+  "complete_hours": 580,
+  "complete_json_sha256": "98183dc964ca21c681e83197f6a9327425ebdc39c06eb48c8cc3e5dc78c0c13f",
+  "first_band_utc": "2020-08-30T02:00:00Z",
+  "last_band_utc": "2020-09-23T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-PAF-000422_RushCreek": {
+  "all_finite": true,
+  "bands": 1659,
+  "complete_hours": 1659,
+  "complete_json_sha256": "7122ff5544231aa96aab599f9863ed0c6c3292f4058ef408050be3a55dea2398",
+  "first_band_utc": "2021-07-19T04:00:00Z",
+  "last_band_utc": "2021-09-26T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "ID-PAF-000433_Vinegar": {
+  "all_finite": true,
+  "bands": 1226,
+  "complete_hours": 1226,
+  "complete_json_sha256": "95e32463e1fefcf2aefe43074605594cbd52808ead598b5f9253e53f987d8544",
+  "first_band_utc": "2021-07-19T04:00:00Z",
+  "last_band_utc": "2021-09-08T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-PAF-000495_Porphyry": {
+  "all_finite": true,
+  "bands": 698,
+  "complete_hours": 698,
+  "complete_json_sha256": "0d7c0c982dc7d2af402f789727e93c9414921a1d788337cac5fd1a09b972b95a",
+  "first_band_utc": "2020-08-31T03:00:00Z",
+  "last_band_utc": "2020-09-29T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "ID-PAF-000570_Woodhead": {
+  "all_finite": true,
+  "bands": 597,
+  "complete_hours": 597,
+  "complete_json_sha256": "23f0efb950d5c9a5e02c3875cc7f60cbd4f0e86c8bb9cba416330a37b51b8077",
+  "first_band_utc": "2020-09-14T06:00:00Z",
+  "last_band_utc": "2020-10-09T02:00:00Z",
+  "n_responses": 2,
+  "nodes": 22
+ },
+ "ID-PAF-002673_ElkHorn": {
+  "all_finite": true,
+  "bands": 505,
+  "complete_hours": 505,
+  "complete_json_sha256": "a43f839bb09e7996ab80e1d48ec776c02e6024fb9f5ca8cea0d1e4d2e6221c2a",
+  "first_band_utc": "2023-07-26T06:00:00Z",
+  "last_band_utc": "2023-08-16T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "ID-PAF-005464_Limepoint": {
+  "all_finite": true,
+  "bands": 1131,
+  "complete_hours": 1131,
+  "complete_json_sha256": "caad859078bc5f1b9fcd5f8e286ce273ae916dce971074714da5a2388d73a4c6",
+  "first_band_utc": "2024-07-29T04:00:00Z",
+  "last_band_utc": "2024-09-14T06:00:00Z",
+  "n_responses": 2,
+  "nodes": 16
+ },
+ "ID-PAF-005567_Farrow": {
+  "all_finite": true,
+  "bands": 1132,
+  "complete_hours": 1132,
+  "complete_json_sha256": "7ae73ac3ad022eea2c9ec5dac11b3019beed57a33698c39207097fd20efe0ab1",
+  "first_band_utc": "2024-08-29T05:00:00Z",
+  "last_band_utc": "2024-10-15T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-PAF-005658_Lemhi": {
+  "all_finite": true,
+  "bands": 387,
+  "complete_hours": 387,
+  "complete_json_sha256": "e5bd77dbcda751b9a6e675cea3be1e8629e8ee659ca23204de26b3e6aa3231d5",
+  "first_band_utc": "2022-09-27T01:00:00Z",
+  "last_band_utc": "2022-10-13T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-PAF-005791_Logan": {
+  "all_finite": true,
+  "bands": 913,
+  "complete_hours": 913,
+  "complete_json_sha256": "a7a315ed92cc7d9ab15987710741f79cc812c855e840ae57f391cc5a05d15107",
+  "first_band_utc": "2024-09-11T06:00:00Z",
+  "last_band_utc": "2024-10-19T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "ID-PDS-000614_LelandComplex": {
+  "all_finite": true,
+  "bands": 409,
+  "complete_hours": 409,
+  "complete_json_sha256": "b9d5220b461e3583fb0b2d3748c60f503be9cad8a3db96c514ef2b643577f16d",
+  "first_band_utc": "2021-07-12T03:00:00Z",
+  "last_band_utc": "2021-07-29T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-PDS-000892_Bedrock": {
+  "all_finite": true,
+  "bands": 114,
+  "complete_hours": 114,
+  "complete_json_sha256": "820c62437f0ebc663437f54ff9b4476f0287d7708cf42457e712d486c8b0fcc7",
+  "first_band_utc": "2021-08-13T10:00:00Z",
+  "last_band_utc": "2021-08-18T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "ID-POS-000512_Hunter2": {
+  "all_finite": true,
+  "bands": 67,
+  "complete_hours": 67,
+  "complete_json_sha256": "5e2dd117b9492e14f0e6b0ae6ca9ce43116fc3236430001702bd6abecd714aa1",
+  "first_band_utc": "2020-09-10T02:00:00Z",
+  "last_band_utc": "2020-09-12T20:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-POS-000617_Pioneer": {
+  "all_finite": true,
+  "bands": 147,
+  "complete_hours": 147,
+  "complete_json_sha256": "0d368d742bec9302214f1ff3d5a34d4820126fb3dc5fc67d918e2865953152a4",
+  "first_band_utc": "2021-07-31T02:00:00Z",
+  "last_band_utc": "2021-08-06T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-SCF-021130_MudLick": {
+  "all_finite": true,
+  "bands": 1634,
+  "complete_hours": 1634,
+  "complete_json_sha256": "c5026a499f7a0ecb72e8c8e58e6d3124d3f06c5d8cdcba87c702634898ea192d",
+  "first_band_utc": "2021-07-10T04:00:00Z",
+  "last_band_utc": "2021-09-16T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "ID-SCF-021154_Haynes": {
+  "all_finite": true,
+  "bands": 220,
+  "complete_hours": 220,
+  "complete_json_sha256": "19933abe51f4296143dc27112864cfd123642626dce651fe6d223f4821f3df70",
+  "first_band_utc": "2021-07-18T02:00:00Z",
+  "last_band_utc": "2021-07-27T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-SCF-021157_Iron": {
+  "all_finite": true,
+  "bands": 268,
+  "complete_hours": 268,
+  "complete_json_sha256": "e9b3e1656f995ca9f41495960c6fb1692a8b937dcc6c8702d53bb5993ba40883",
+  "first_band_utc": "2021-07-19T03:00:00Z",
+  "last_band_utc": "2021-07-30T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-SCF-022250_Owl": {
+  "all_finite": true,
+  "bands": 240,
+  "complete_hours": 240,
+  "complete_json_sha256": "60006c41f389233824be2189d88658c867027e155f28fdc37866464277927d51",
+  "first_band_utc": "2022-09-11T05:00:00Z",
+  "last_band_utc": "2022-09-21T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-SCF-023084_Hayden": {
+  "all_finite": true,
+  "bands": 987,
+  "complete_hours": 987,
+  "complete_json_sha256": "4e5085db526f8ae8d3112b1bca9b93ce99c4527d2b1b21d16b930b6ea287b1f6",
+  "first_band_utc": "2023-07-21T03:00:00Z",
+  "last_band_utc": "2023-08-31T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "ID-SCF-240169_Birch": {
+  "all_finite": true,
+  "bands": 1058,
+  "complete_hours": 1058,
+  "complete_json_sha256": "ec7f2bed31f7e44c8ae9678676d1e8b9c14b99f0c3bd89b6e71fe51a0f937d9a",
+  "first_band_utc": "2024-09-11T03:00:00Z",
+  "last_band_utc": "2024-10-25T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "ID-SIS-000452_Copeland": {
+  "all_finite": true,
+  "bands": 102,
+  "complete_hours": 102,
+  "complete_json_sha256": "4b9b47562c1f530f7b4c6c277d89f21b6737154eefbb0c0f537ba9541ad29755",
+  "first_band_utc": "2020-08-20T03:00:00Z",
+  "last_band_utc": "2020-08-24T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-STF-000180_BenchLake": {
+  "all_finite": true,
+  "bands": 1162,
+  "complete_hours": 1162,
+  "complete_json_sha256": "a583c50e6ddb5afc8f67ce3a2d41fddfbe1b9b4e94efb89a2fc02992b85b68d2",
+  "first_band_utc": "2024-07-13T18:00:00Z",
+  "last_band_utc": "2024-08-31T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "ID-STF-000207_MormonBend": {
+  "all_finite": true,
+  "bands": 243,
+  "complete_hours": 243,
+  "complete_json_sha256": "c01c1ac75e8e69e22e91297e31c1c5e53a822378088bf199bb69041dc39a1ad9",
+  "first_band_utc": "2022-08-21T07:00:00Z",
+  "last_band_utc": "2022-08-31T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-STF-000331_Frog": {
+  "all_finite": true,
+  "bands": 655,
+  "complete_hours": 655,
+  "complete_json_sha256": "a6d66ea3be1f9a4f307ad2fc564f984191213a1766d9c7f265989f638965e158",
+  "first_band_utc": "2024-09-13T03:00:00Z",
+  "last_band_utc": "2024-10-10T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-STF-000335_Corral": {
+  "all_finite": true,
+  "bands": 538,
+  "complete_hours": 538,
+  "complete_json_sha256": "f724e18d77b50a78b0774879baae9be2d362867442cd7c9b27f39a8d872fd5ae",
+  "first_band_utc": "2024-09-14T01:00:00Z",
+  "last_band_utc": "2024-10-06T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "ID-STF-000351_Badger": {
+  "all_finite": true,
+  "bands": 604,
+  "complete_hours": 604,
+  "complete_json_sha256": "083ae4dd83f625b847e9227b56507db0ecf78204170e2204eee5acfe7ad7029b",
+  "first_band_utc": "2020-09-14T02:00:00Z",
+  "last_band_utc": "2020-10-09T05:00:00Z",
+  "n_responses": 2,
+  "nodes": 21
+ },
+ "ID-STF-000353_JakesGulch": {
+  "all_finite": true,
+  "bands": 357,
+  "complete_hours": 357,
+  "complete_json_sha256": "4cf6d72cbecb00695ed376140789355df0b8eec571832d0dc4843ecc091ce125",
+  "first_band_utc": "2021-09-07T08:00:00Z",
+  "last_band_utc": "2021-09-22T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-STF-000353_Trap": {
+  "all_finite": true,
+  "bands": 960,
+  "complete_hours": 960,
+  "complete_json_sha256": "599e402c37f59a45252e331c688e9f7d67a5a2d946f4f2993167fd2bb6b1aa17",
+  "first_band_utc": "2020-09-18T04:00:00Z",
+  "last_band_utc": "2020-10-28T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "ID-SWS-000558_Pumpkin": {
+  "all_finite": true,
+  "bands": 168,
+  "complete_hours": 168,
+  "complete_json_sha256": "7e2feea06d3a66f2daa5d6db871f232c5af22d9cd7562843118e6167253967f3",
+  "first_band_utc": "2020-08-09T04:00:00Z",
+  "last_band_utc": "2020-08-16T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "ID-SWS-000920_Flat": {
+  "all_finite": true,
+  "bands": 397,
+  "complete_hours": 397,
+  "complete_json_sha256": "2200a3ec3ecb45d9ce4752fa44c5f9a3b725bbbd03c1742b9982852af7bea18f",
+  "first_band_utc": "2024-08-10T17:00:00Z",
+  "last_band_utc": "2024-08-27T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-BDF-006132_Clover": {
+  "all_finite": true,
+  "bands": 244,
+  "complete_hours": 244,
+  "complete_json_sha256": "177cdb75384b39f56353eed1a8f9f3a2f63c19ff8fdfc82394cf5677df490ad8",
+  "first_band_utc": "2022-07-26T05:00:00Z",
+  "last_band_utc": "2022-08-05T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-BDF-006210_BowlesCreek": {
+  "all_finite": true,
+  "bands": 958,
+  "complete_hours": 958,
+  "complete_json_sha256": "2ff84a6ec6249f7764feaded67479235c583d0e65c89ed5abbe4e4df81e40f83",
+  "first_band_utc": "2023-07-24T05:00:00Z",
+  "last_band_utc": "2023-09-02T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-BDF-006286_TrailRidge": {
+  "all_finite": true,
+  "bands": 267,
+  "complete_hours": 267,
+  "complete_json_sha256": "f5cb2bcafa14ded9b9163260f2b9f4a0fed5de837b2fae7e0386fda30b5dc1ee",
+  "first_band_utc": "2022-09-01T03:00:00Z",
+  "last_band_utc": "2022-09-12T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "MT-BDF-006305_Goat": {
+  "all_finite": true,
+  "bands": 432,
+  "complete_hours": 432,
+  "complete_json_sha256": "e09155bfb3baf04880c0830d39ae0e31a5491ba1ee38c0c18548d2971c1e0b3c",
+  "first_band_utc": "2021-07-21T07:00:00Z",
+  "last_band_utc": "2021-08-08T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "MT-BDF-006341_Haystack": {
+  "all_finite": true,
+  "bands": 794,
+  "complete_hours": 794,
+  "complete_json_sha256": "3f341c85d8bdf60b7ea1bacdd35c682093936926287a9a703d613c33cdc9442d",
+  "first_band_utc": "2021-09-07T03:00:00Z",
+  "last_band_utc": "2021-10-10T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "MT-BDF-006386_SandLake": {
+  "all_finite": true,
+  "bands": 290,
+  "complete_hours": 290,
+  "complete_json_sha256": "c08811ef3e7c9acf4adc34689a61fab26dc999102636184c3621974746c1474e",
+  "first_band_utc": "2021-09-02T03:00:00Z",
+  "last_band_utc": "2021-09-14T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "MT-BDF-006388_Placer": {
+  "all_finite": true,
+  "bands": 676,
+  "complete_hours": 676,
+  "complete_json_sha256": "8a0c5b7b1e6b624e2e63262923bf6fe04adc7cf112a50e2741321d3aab017f71",
+  "first_band_utc": "2021-09-12T02:00:00Z",
+  "last_band_utc": "2021-10-10T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-BDF-006610_BearCreek": {
+  "all_finite": true,
+  "bands": 428,
+  "complete_hours": 428,
+  "complete_json_sha256": "251af502379ba1105134b21ae0a5f56031388a5c9441c7e67699614ec9179000",
+  "first_band_utc": "2020-08-13T08:00:00Z",
+  "last_band_utc": "2020-08-31T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "MT-BDF-006645_StateCreek": {
+  "all_finite": true,
+  "bands": 74,
+  "complete_hours": 74,
+  "complete_json_sha256": "e4cdee19e3e1248b53a4ebb0a76999583dceb7908df16ba2db1127ff20e929e4",
+  "first_band_utc": "2020-09-04T03:00:00Z",
+  "last_band_utc": "2020-09-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-BDF-022161_FuseLake": {
+  "all_finite": true,
+  "bands": 76,
+  "complete_hours": 76,
+  "complete_json_sha256": "f75bf99051ba03df324740092ded2d470547c572e550a87a7ea6247a9e65da87",
+  "first_band_utc": "2022-08-16T02:00:00Z",
+  "last_band_utc": "2022-08-19T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-BDF-246327_Grouse": {
+  "all_finite": true,
+  "bands": 1368,
+  "complete_hours": 1368,
+  "complete_json_sha256": "255c09f28b7306f3057150adef9a4c9a25a0bcaac32b58db49ea316a8d8a8e7b",
+  "first_band_utc": "2024-08-10T08:00:00Z",
+  "last_band_utc": "2024-10-06T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-BDF-246437_RatioMountain": {
+  "all_finite": true,
+  "bands": 76,
+  "complete_hours": 76,
+  "complete_json_sha256": "aece9ea3a4ec891918f9893c79a541cdd9ea99a14a6e3d3d69fea84bdc3d8161",
+  "first_band_utc": "2024-08-29T04:00:00Z",
+  "last_band_utc": "2024-09-01T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-BDF-246666_Meridian": {
+  "all_finite": true,
+  "bands": 99,
+  "complete_hours": 99,
+  "complete_json_sha256": "0de1ca16652f70a339ad9152a283c851b2876735d0ab84af550b568458b4f090",
+  "first_band_utc": "2024-10-16T04:00:00Z",
+  "last_band_utc": "2024-10-20T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-BDF-6306_BlackMountain": {
+  "all_finite": true,
+  "bands": 510,
+  "complete_hours": 510,
+  "complete_json_sha256": "d3b6e9be72e5a2ab4d8e894657f261e084f669228c552f23c4dacf8065b4eab2",
+  "first_band_utc": "2021-07-19T03:00:00Z",
+  "last_band_utc": "2021-08-09T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-BID-210154_CrookedCreek": {
+  "all_finite": true,
+  "bands": 482,
+  "complete_hours": 482,
+  "complete_json_sha256": "48af85e5a9ab6c5c40850eed54c75c85f282a3f9a2680944b4da4798d1e22175",
+  "first_band_utc": "2021-06-16T04:00:00Z",
+  "last_band_utc": "2021-07-06T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-BRF-022252_BlodgettLake": {
+  "all_finite": true,
+  "bands": 95,
+  "complete_hours": 95,
+  "complete_json_sha256": "70412b835d940a271f3fc6f7191d0d64ea40902332080a43ff35859ff9899094",
+  "first_band_utc": "2022-09-17T06:00:00Z",
+  "last_band_utc": "2022-09-21T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-CGF-21048_RobertsonDraw": {
+  "all_finite": true,
+  "bands": 483,
+  "complete_hours": 483,
+  "complete_json_sha256": "83a8bc11cc37f3de2844968359d763fedf99489f961b61b4a82f9345ec693af4",
+  "first_band_utc": "2021-06-16T03:00:00Z",
+  "last_band_utc": "2021-07-06T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "MT-CRA-210153_BuffaloPasture": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "e711e1797d12bb4b751871dedbf8c7b92aca73acede8901e32ab2c36d95ffe95",
+  "first_band_utc": "2021-06-20T04:00:00Z",
+  "last_band_utc": "2021-06-23T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-FHA-000070_MagpieRock": {
+  "all_finite": true,
+  "bands": 75,
+  "complete_hours": 75,
+  "complete_json_sha256": "b78fef6dbaed5ba1c62f805df11d839f77fcccf8468a2721c16220c1ecebc593",
+  "first_band_utc": "2020-07-31T04:00:00Z",
+  "last_band_utc": "2020-08-03T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-FHA-000094_BigKnife": {
+  "all_finite": true,
+  "bands": 795,
+  "complete_hours": 795,
+  "complete_json_sha256": "3974ec093ec8559e8ce68d494c03c00917f36653018c272e1b1aed148fa0e900",
+  "first_band_utc": "2023-07-26T07:00:00Z",
+  "last_band_utc": "2023-08-28T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "MT-FHA-000098_MiddleRidge": {
+  "all_finite": true,
+  "bands": 190,
+  "complete_hours": 190,
+  "complete_json_sha256": "3927511155876dd71663b991b1f92b3ab439a788ae0f7cdc1fa8cefa17bcd0ba",
+  "first_band_utc": "2023-08-01T06:00:00Z",
+  "last_band_utc": "2023-08-09T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "MT-FHA-000100_Niarada": {
+  "all_finite": true,
+  "bands": 385,
+  "complete_hours": 385,
+  "complete_json_sha256": "ccf2a7019a8eb153079094d9b4a14926b97941e8db5918a5d6dd53d6ffb2dec7",
+  "first_band_utc": "2023-08-01T05:00:00Z",
+  "last_band_utc": "2023-08-17T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "MT-FHA-000101_MillPocket": {
+  "all_finite": true,
+  "bands": 217,
+  "complete_hours": 217,
+  "complete_json_sha256": "2e8c11b87f55912b8f1bbaca99528a888e2af7123b41da0b024387916adf41fe",
+  "first_band_utc": "2023-08-08T05:00:00Z",
+  "last_band_utc": "2023-08-17T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-FHA-000106_Elmo": {
+  "all_finite": true,
+  "bands": 746,
+  "complete_hours": 746,
+  "complete_json_sha256": "15e5ccd5000fc7f2761e5b3f13c9094d6d894d8c6d57d910886a6ea4a85394b6",
+  "first_band_utc": "2022-07-31T04:00:00Z",
+  "last_band_utc": "2022-08-31T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "MT-FHA-000109_Redhorn": {
+  "all_finite": true,
+  "bands": 432,
+  "complete_hours": 432,
+  "complete_json_sha256": "8036e81464ec09cbffc5ec38e6df1f266e9727e33560122390c4d9d0cdc64275",
+  "first_band_utc": "2022-08-05T05:00:00Z",
+  "last_band_utc": "2022-08-23T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-FHA-000130_Garceau": {
+  "all_finite": true,
+  "bands": 339,
+  "complete_hours": 339,
+  "complete_json_sha256": "c57d49f7c147e46c796fafcf8d400875f6a3843ee84ae3769d0d687cf3319f8e",
+  "first_band_utc": "2022-08-17T03:00:00Z",
+  "last_band_utc": "2022-08-31T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-FHA-000130_LittleMoney2": {
+  "all_finite": true,
+  "bands": 76,
+  "complete_hours": 76,
+  "complete_json_sha256": "bae54c1688308ebb9afe9957d7fa01d20f3039d78d6eebba57213f7d14cd7607",
+  "first_band_utc": "2021-07-11T07:00:00Z",
+  "last_band_utc": "2021-07-14T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-FHA-000141_Sullivan": {
+  "all_finite": true,
+  "bands": 100,
+  "complete_hours": 100,
+  "complete_json_sha256": "8de6172bddbd04fb9d30c79bab75fc4f8997e7acaa186c1c762b564c4958b8a7",
+  "first_band_utc": "2022-08-24T03:00:00Z",
+  "last_band_utc": "2022-08-28T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "MT-FHA-000157_Boulder2700": {
+  "all_finite": true,
+  "bands": 875,
+  "complete_hours": 875,
+  "complete_json_sha256": "ca659dc15ec510ff3b71a6a499995b2a7e6d6343378aec6c415005a36a4c6f6e",
+  "first_band_utc": "2021-08-03T19:00:00Z",
+  "last_band_utc": "2021-09-09T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-FHF-000000_TinSoldierComplex": {
+  "all_finite": true,
+  "bands": 767,
+  "complete_hours": 767,
+  "complete_json_sha256": "661f94eb79cfbd3eb1ec28da47013fc74ff846938e926dd31f3219923554c004",
+  "first_band_utc": "2023-08-02T06:00:00Z",
+  "last_band_utc": "2023-09-03T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "MT-FNF-000496_DorisPoint": {
+  "all_finite": true,
+  "bands": 410,
+  "complete_hours": 410,
+  "complete_json_sha256": "3a5b49d11c6f04b974df3268f1ef3817f3f46682eb3f7066db3deb7370e24c26",
+  "first_band_utc": "2023-08-17T04:00:00Z",
+  "last_band_utc": "2023-09-03T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-FNF-000518_Ridge": {
+  "all_finite": true,
+  "bands": 768,
+  "complete_hours": 768,
+  "complete_json_sha256": "0b91c9b0439f7719585e409f3fb674e2efdd0c386672681ccd0fac9b7a0f9919",
+  "first_band_utc": "2023-08-02T06:00:00Z",
+  "last_band_utc": "2023-09-03T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-FNF-000651_Lemonade": {
+  "all_finite": true,
+  "bands": 314,
+  "complete_hours": 314,
+  "complete_json_sha256": "a6544777a222f6c8f9bd734086536611ebb79be9703dbf063cab390e63195ee3",
+  "first_band_utc": "2022-09-03T03:00:00Z",
+  "last_band_utc": "2022-09-16T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-GNP-000462_Quartz": {
+  "all_finite": true,
+  "bands": 268,
+  "complete_hours": 268,
+  "complete_json_sha256": "bef37d86a6541439440000a69ada8b1bef5140b9b97dff37020decb64fcddb32",
+  "first_band_utc": "2022-08-19T03:00:00Z",
+  "last_band_utc": "2022-08-30T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-HLF-000154_DeepCreekCanyon": {
+  "all_finite": true,
+  "bands": 360,
+  "complete_hours": 360,
+  "complete_json_sha256": "a643741b2bc80f91f47009077d30c0b5e4b1fcde28b6c8a62b7c3faeccccba85",
+  "first_band_utc": "2021-06-16T05:00:00Z",
+  "last_band_utc": "2021-07-01T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-HLF-000182_MoorsMountain": {
+  "all_finite": true,
+  "bands": 221,
+  "complete_hours": 221,
+  "complete_json_sha256": "9374402069a0a49c1ca7f2e9e1be98bcfdf3b96864f452149cb88c565b1e395e",
+  "first_band_utc": "2022-07-19T03:00:00Z",
+  "last_band_utc": "2022-07-28T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "MT-HLF-000367_HorseGulch": {
+  "all_finite": true,
+  "bands": 170,
+  "complete_hours": 170,
+  "complete_json_sha256": "a658a67ec80efe927eb8f5144dfe24b492b4b6c0eb069fbbf945e1c85823b224",
+  "first_band_utc": "2024-07-12T07:00:00Z",
+  "last_band_utc": "2024-07-19T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "MT-HLF-005079_Balsinger": {
+  "all_finite": true,
+  "bands": 1079,
+  "complete_hours": 1079,
+  "complete_json_sha256": "70c7080d85be0e0727085ec141ce7b2792e4092ba40feaa1bd286ab2357b5d02",
+  "first_band_utc": "2021-07-11T06:00:00Z",
+  "last_band_utc": "2021-08-25T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "MT-HLF-005079_Ellis": {
+  "all_finite": true,
+  "bands": 674,
+  "complete_hours": 674,
+  "complete_json_sha256": "0b310b633a02ee4ffd2433e12eccae7873dc3e04de22f65681f489b43484e16b",
+  "first_band_utc": "2021-07-11T06:00:00Z",
+  "last_band_utc": "2021-08-08T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "MT-HLF-005149_CrownMountain": {
+  "all_finite": true,
+  "bands": 266,
+  "complete_hours": 266,
+  "complete_json_sha256": "28c5299185f3dc4c2bda752ff297dce78ac8c87542a10810416bc3b967dfd908",
+  "first_band_utc": "2021-10-07T01:00:00Z",
+  "last_band_utc": "2021-10-18T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "MT-KNF-000167_BurntPeak": {
+  "all_finite": true,
+  "bands": 1465,
+  "complete_hours": 1465,
+  "complete_json_sha256": "4fc8638b4386d05b31b7498f2e671af3ed067794ea580ea80195ebba15c4d697",
+  "first_band_utc": "2021-07-10T04:00:00Z",
+  "last_band_utc": "2021-09-09T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-KNF-000176_Sutton": {
+  "all_finite": true,
+  "bands": 123,
+  "complete_hours": 123,
+  "complete_json_sha256": "e6af05fccdbcea2224058c5802eaa0016357bd369f38011acd421f52027330b5",
+  "first_band_utc": "2022-08-16T03:00:00Z",
+  "last_band_utc": "2022-08-21T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-KNF-000201_SouthYaak": {
+  "all_finite": true,
+  "bands": 1249,
+  "complete_hours": 1249,
+  "complete_json_sha256": "384c623b785fdf29f07bc434e972182613f065e52f5b3a2909a7ad6a712aca4b",
+  "first_band_utc": "2021-07-19T04:00:00Z",
+  "last_band_utc": "2021-09-09T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-KNF-000262_EastFork": {
+  "all_finite": true,
+  "bands": 746,
+  "complete_hours": 746,
+  "complete_json_sha256": "ff4cede66c089bbd5df92edb11d04773db825c966718c9c9c586256209ba4e4c",
+  "first_band_utc": "2023-08-03T04:00:00Z",
+  "last_band_utc": "2023-09-03T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "MT-LG02-000351_HarrisMountain": {
+  "all_finite": true,
+  "bands": 676,
+  "complete_hours": 676,
+  "complete_json_sha256": "0d82a81663575532db9cd498c23738d95551b93f6a52a9c92519457131a4cff3",
+  "first_band_utc": "2021-07-26T04:00:00Z",
+  "last_band_utc": "2021-08-23T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "MT-LG23-200899_Bobcat": {
+  "all_finite": true,
+  "bands": 75,
+  "complete_hours": 75,
+  "complete_json_sha256": "778fc2bb68a025e4a88f398da877202706bff35887e6f8261316bdf279db7782",
+  "first_band_utc": "2020-09-04T03:00:00Z",
+  "last_band_utc": "2020-09-07T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "MT-LG29-000236_Deadman": {
+  "all_finite": true,
+  "bands": 76,
+  "complete_hours": 76,
+  "complete_json_sha256": "6fec4ece0c02588be2516f5ce298396a5ef8265ec762fafab12bace679ecbfd7",
+  "first_band_utc": "2024-07-17T08:00:00Z",
+  "last_band_utc": "2024-07-20T11:00:00Z",
+  "n_responses": 2,
+  "nodes": 17
+ },
+ "MT-LG29-000428_RichardSpring": {
+  "all_finite": true,
+  "bands": 98,
+  "complete_hours": 98,
+  "complete_json_sha256": "ff379ff9a853db0307042ebeb2cff9b822e9d6594ee03ddc5fce3a309846a3ec",
+  "first_band_utc": "2021-08-12T02:00:00Z",
+  "last_band_utc": "2021-08-16T03:00:00Z",
+  "n_responses": 3,
+  "nodes": 31
+ },
+ "MT-LNF-000883_DeepLookoutMtn": {
+  "all_finite": true,
+  "bands": 238,
+  "complete_hours": 238,
+  "complete_json_sha256": "83d16ae698a3624f4bf0e4658ec925b48566efe9e1482839b0b5986a0526bb22",
+  "first_band_utc": "2021-07-12T08:00:00Z",
+  "last_band_utc": "2021-07-22T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "MT-LNF-000889_Brewster": {
+  "all_finite": true,
+  "bands": 74,
+  "complete_hours": 74,
+  "complete_json_sha256": "0116dbaaa50727b4bbefaa8654b1fc90812e54d1d2615d1da7b0051731792873",
+  "first_band_utc": "2021-07-11T05:00:00Z",
+  "last_band_utc": "2021-07-14T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-LNF-000951_DryCabin": {
+  "all_finite": true,
+  "bands": 2037,
+  "complete_hours": 2037,
+  "complete_json_sha256": "fe1e0d55e2555fc8894d60a5ca635f247451b18bdc19de89212531eb14069102",
+  "first_band_utc": "2021-07-14T06:00:00Z",
+  "last_band_utc": "2021-10-07T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-LNF-200730_RiverRoadEast": {
+  "all_finite": true,
+  "bands": 590,
+  "complete_hours": 590,
+  "complete_json_sha256": "b6e3c5130fd5ccc909885e388e6cc1a27bb7deb3573885adeb85c6cfeade1a90",
+  "first_band_utc": "2023-08-19T13:00:00Z",
+  "last_band_utc": "2023-09-13T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "MT-LNF-240427_MillerPeak": {
+  "all_finite": true,
+  "bands": 260,
+  "complete_hours": 260,
+  "complete_json_sha256": "affb2118bba9a270d60633882fe6406d19c561830870571aa9bb3d1ac204411d",
+  "first_band_utc": "2024-07-16T02:00:00Z",
+  "last_band_utc": "2024-07-26T21:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-NWS-000748_WhitetailCreek": {
+  "all_finite": true,
+  "bands": 131,
+  "complete_hours": 131,
+  "complete_json_sha256": "d383f15d2ff1bed78051ff37d2412d96e6a6a64daea34d9843e694dd09bc16d2",
+  "first_band_utc": "2021-08-03T17:00:00Z",
+  "last_band_utc": "2021-08-09T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT-NWS-00274L_GravelPit": {
+  "all_finite": true,
+  "bands": 266,
+  "complete_hours": 266,
+  "complete_json_sha256": "78c8dd0da2467cd4724bde1c876586f51c0e19c0fbb21d9dda69b4bded59eaa7",
+  "first_band_utc": "2023-08-05T04:00:00Z",
+  "last_band_utc": "2023-08-16T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-SOS-210281_Peterson": {
+  "all_finite": true,
+  "bands": 96,
+  "complete_hours": 96,
+  "complete_json_sha256": "bc058df34a7a9e104f6b486dac3edd7b0b9e1b44e1542d6f192eef8be4319728",
+  "first_band_utc": "2021-07-11T07:00:00Z",
+  "last_band_utc": "2021-07-15T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-SWS-001022_AndersonHill": {
+  "all_finite": true,
+  "bands": 192,
+  "complete_hours": 192,
+  "complete_json_sha256": "28032344b1135fa569beda742dcdc71f4768900a4de45d227c681778b6ef0204",
+  "first_band_utc": "2021-07-17T06:00:00Z",
+  "last_band_utc": "2021-07-25T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "MT-SWS-200549_Colt": {
+  "all_finite": true,
+  "bands": 842,
+  "complete_hours": 842,
+  "complete_json_sha256": "91f9a6051461f51eca7b61f2e409c9bbda9e207e7510193e3e7aa0c5577433f1",
+  "first_band_utc": "2023-07-22T05:00:00Z",
+  "last_band_utc": "2023-08-26T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "MT-SWS-240711_McElwain": {
+  "all_finite": true,
+  "bands": 49,
+  "complete_hours": 49,
+  "complete_json_sha256": "eeb8ae09344954c1c801f845fee97326a0d0f20c79ca4699cff9eacab9d7ea7c",
+  "first_band_utc": "2024-08-24T03:00:00Z",
+  "last_band_utc": "2024-08-26T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "MT_BDF_006227_Goose": {
+  "all_finite": true,
+  "bands": 722,
+  "complete_hours": 722,
+  "complete_json_sha256": "aeca9cc084db8017f25c21ff0684fe636ab1c84afadbd02675714eef5251fe75",
+  "first_band_utc": "2021-07-10T08:00:00Z",
+  "last_band_utc": "2021-08-09T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-CAF-000136_Comanche": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "91b8680e3be97cdae997f8d4a6383f080957b53fefcfd362cc9d35e76265e03e",
+  "first_band_utc": "2023-06-23T05:00:00Z",
+  "last_band_utc": "2023-06-26T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NM-CAF-000200_Midnight": {
+  "all_finite": true,
+  "bands": 144,
+  "complete_hours": 144,
+  "complete_json_sha256": "0ccb5578a9f5014c2929b7a3c22513f5c7857dfba7cbe16b5b5af03563199eda",
+  "first_band_utc": "2022-06-12T05:00:00Z",
+  "last_band_utc": "2022-06-18T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-CAF-000631_Luna": {
+  "all_finite": true,
+  "bands": 623,
+  "complete_hours": 623,
+  "complete_json_sha256": "6e78d1e8005762472640b5a3d00d8468d3c3a031c682d6c5fa8a36a3ff98d525",
+  "first_band_utc": "2020-10-19T03:00:00Z",
+  "last_band_utc": "2020-11-14T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "NM-CIF-000279_OjodeLosCasos": {
+  "all_finite": true,
+  "bands": 119,
+  "complete_hours": 119,
+  "complete_json_sha256": "4c9029d5e32a02ea4695326d0198cd4c9336c4ae5dd67dfdad7e66f1e13a7e29",
+  "first_band_utc": "2020-07-11T05:00:00Z",
+  "last_band_utc": "2020-07-16T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "NM-EMP-000234_Encerrita": {
+  "all_finite": true,
+  "bands": 897,
+  "complete_hours": 897,
+  "complete_json_sha256": "621fa2f9419f5ff18f60a48201c9d6a230e3f0ff527654ff06b76093c9d3fa4d",
+  "first_band_utc": "2024-06-19T07:00:00Z",
+  "last_band_utc": "2024-07-26T15:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NM-GNF-000226_Cub": {
+  "all_finite": true,
+  "bands": 338,
+  "complete_hours": 338,
+  "complete_json_sha256": "f7f6faec9827f022a4b44f0bcc45b7586e75920d5f01476e1031eafb89f8437a",
+  "first_band_utc": "2020-07-01T03:00:00Z",
+  "last_band_utc": "2020-07-15T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "NM-GNF-000226_Good": {
+  "all_finite": true,
+  "bands": 719,
+  "complete_hours": 719,
+  "complete_json_sha256": "6b3e5cdbb75c33ea14efe81f004cdabfc78cb1ef094250f2df411a91d340bb56",
+  "first_band_utc": "2020-06-08T06:00:00Z",
+  "last_band_utc": "2020-07-08T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "NM-GNF-000227_Turkey": {
+  "all_finite": true,
+  "bands": 74,
+  "complete_hours": 74,
+  "complete_json_sha256": "31cbe81645950d4e67d3086deee90101bd92f2286e59ce80afd3f61c385ddf95",
+  "first_band_utc": "2020-06-10T04:00:00Z",
+  "last_band_utc": "2020-06-13T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-GNF-000276_Johnson": {
+  "all_finite": true,
+  "bands": 761,
+  "complete_hours": 761,
+  "complete_json_sha256": "0f3e02a4669b6045e70c321984ea08085ba94174a4ebc02e859ccb4c8ef71dd5",
+  "first_band_utc": "2021-05-27T02:00:00Z",
+  "last_band_utc": "2021-06-27T18:00:00Z",
+  "n_responses": 2,
+  "nodes": 23
+ },
+ "NM-GNF-000318_Ridge": {
+  "all_finite": true,
+  "bands": 173,
+  "complete_hours": 173,
+  "complete_json_sha256": "d92297a5ceb8984f8edd3bc016587be26e374b7faafb628a9bd1d203980a6bc2",
+  "first_band_utc": "2024-07-11T04:00:00Z",
+  "last_band_utc": "2024-07-18T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NM-GNF-000357_Dark": {
+  "all_finite": true,
+  "bands": 480,
+  "complete_hours": 480,
+  "complete_json_sha256": "90cef4624be4b795ce2b3f00787550a8643578e4b92dc9a738562869e4c9bf80",
+  "first_band_utc": "2023-07-18T05:00:00Z",
+  "last_band_utc": "2023-08-07T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-GNF-000360_Divide": {
+  "all_finite": true,
+  "bands": 410,
+  "complete_hours": 410,
+  "complete_json_sha256": "9c2cd38f62d8d1676b3834d1429e9fd4313a5c28560cc06f94002f2583eedde3",
+  "first_band_utc": "2023-07-18T05:00:00Z",
+  "last_band_utc": "2023-08-04T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "NM-GNF-000382_Davis": {
+  "all_finite": true,
+  "bands": 293,
+  "complete_hours": 293,
+  "complete_json_sha256": "d68fbe1b811aaf657c756fa617fa2467a2d7eed7bcab179cd20f48fa78dc5a20",
+  "first_band_utc": "2023-07-19T03:00:00Z",
+  "last_band_utc": "2023-07-31T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NM-GNF-000423_Noonday": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "e0be3acc92b635bab3c613ad625cf46d8da5b193487496b0038015c6cdf31893",
+  "first_band_utc": "2023-07-29T06:00:00Z",
+  "last_band_utc": "2023-08-01T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "NM-GNF-000428_Pasture": {
+  "all_finite": true,
+  "bands": 292,
+  "complete_hours": 292,
+  "complete_json_sha256": "f9028eb607c0429df1b434c6f898ff4653e0602bc24b6b5d399bfc47fc9f164a",
+  "first_band_utc": "2023-07-25T03:00:00Z",
+  "last_band_utc": "2023-08-06T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "NM-GNF-000447_Prior": {
+  "all_finite": true,
+  "bands": 145,
+  "complete_hours": 145,
+  "complete_json_sha256": "856f2d4f41462b48e8459ecfbbaeaf6394242911b9f322eb571e428aee69b4cf",
+  "first_band_utc": "2023-07-31T06:00:00Z",
+  "last_band_utc": "2023-08-06T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-LCD-000234_UVAS": {
+  "all_finite": true,
+  "bands": 97,
+  "complete_hours": 97,
+  "complete_json_sha256": "405e7565d0c7a37054f6d3f79f85a66be07e95520db3cd2946e04f2c94d57191",
+  "first_band_utc": "2020-06-07T19:00:00Z",
+  "last_band_utc": "2020-06-11T19:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "NM-LNF-000130_ThreeRivers": {
+  "all_finite": true,
+  "bands": 502,
+  "complete_hours": 502,
+  "complete_json_sha256": "47ba7b78edb1bfbaff4eb96aea06f7eb917a2bfec0517319b2aebac5b7c7a87e",
+  "first_band_utc": "2021-04-27T06:00:00Z",
+  "last_band_utc": "2021-05-18T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "NM-LNF-000227_Blue2": {
+  "all_finite": true,
+  "bands": 663,
+  "complete_hours": 663,
+  "complete_json_sha256": "a9c797e8ff9da4457edc299ff4b5538c86693188f6aee3924328fefb88de559f",
+  "first_band_utc": "2024-05-19T17:00:00Z",
+  "last_band_utc": "2024-06-16T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-LNF-000552_BlueFront": {
+  "all_finite": true,
+  "bands": 97,
+  "complete_hours": 97,
+  "complete_json_sha256": "f58185980c1dd3ac21c56de010174cb5c2ffaf24978409dfe1fba4076138924e",
+  "first_band_utc": "2024-10-30T02:00:00Z",
+  "last_band_utc": "2024-11-03T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "NM-MEA-000382_SouthFork": {
+  "all_finite": true,
+  "bands": 317,
+  "complete_hours": 317,
+  "complete_json_sha256": "3c9256e35fd331323ba75fc94358997cfaa1e200cfbaf0289d7c0f05d1d10577",
+  "first_band_utc": "2024-06-18T04:00:00Z",
+  "last_band_utc": "2024-07-01T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "NM-MEA-000385_Salt": {
+  "all_finite": true,
+  "bands": 317,
+  "complete_hours": 317,
+  "complete_json_sha256": "78cd3d9ede56d29ce2fc629e1a6a6529dd809e4d12e507f8b40204aaf8cad126",
+  "first_band_utc": "2024-06-18T04:00:00Z",
+  "last_band_utc": "2024-07-01T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "NM-N4S-000034_CooksPeak": {
+  "all_finite": true,
+  "bands": 605,
+  "complete_hours": 605,
+  "complete_json_sha256": "dd800f7eeaed4946d38d4b26a1604f2906ec03bcd1b1daf04f27a0ded8b8ed8c",
+  "first_band_utc": "2022-04-19T03:00:00Z",
+  "last_band_utc": "2022-05-14T07:00:00Z",
+  "n_responses": 2,
+  "nodes": 14
+ },
+ "NM-N5S-000114_NogalCanyon": {
+  "all_finite": true,
+  "bands": 132,
+  "complete_hours": 132,
+  "complete_json_sha256": "68092017de06a71f2fa8d45fc5484b42c9a7f247b96d1d28684f9971b14fc996",
+  "first_band_utc": "2022-04-14T20:00:00Z",
+  "last_band_utc": "2022-04-20T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "NM-N5S-000115_McBride": {
+  "all_finite": true,
+  "bands": 155,
+  "complete_hours": 155,
+  "complete_json_sha256": "b9ac2256b6e8fa82de49b6d27e56e18aa4e64c5669743d47857ca136015344d8",
+  "first_band_utc": "2022-04-13T21:00:00Z",
+  "last_band_utc": "2022-04-20T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "NM-N6S-000234_CerroBandera": {
+  "all_finite": true,
+  "bands": 74,
+  "complete_hours": 74,
+  "complete_json_sha256": "83a0346f9d1042466067c97d493a2ca2ad8cd122e12d9ffbf3aa9f31dce100ee",
+  "first_band_utc": "2022-06-11T03:00:00Z",
+  "last_band_utc": "2022-06-14T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NM-SNF-000091_Indios": {
+  "all_finite": true,
+  "bands": 437,
+  "complete_hours": 437,
+  "complete_json_sha256": "d536fe5b35166dc1fe7467af11f1b0709d2bfa116610a80e97e6ccf49b17664b",
+  "first_band_utc": "2024-05-21T03:00:00Z",
+  "last_band_utc": "2024-06-08T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NM-SNF-000150_WolfDraw": {
+  "all_finite": true,
+  "bands": 242,
+  "complete_hours": 242,
+  "complete_json_sha256": "022411e24fcb45d41d31c6d1dabaae4614501a598b024ce1065abac29442cbd7",
+  "first_band_utc": "2021-05-31T02:00:00Z",
+  "last_band_utc": "2021-06-10T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "NM-SNF-000190_Rincon": {
+  "all_finite": true,
+  "bands": 166,
+  "complete_hours": 166,
+  "complete_json_sha256": "14662e422c3a3396f67ba29d3c07601836bbe7e328849148ab269bcf104197c0",
+  "first_band_utc": "2021-06-14T07:00:00Z",
+  "last_band_utc": "2021-06-21T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "NM-SNF-000532_Medio": {
+  "all_finite": true,
+  "bands": 276,
+  "complete_hours": 276,
+  "complete_json_sha256": "d7c30f79c06b3db3e50fa3c0246fa2c3c977699989064b32e07ac9b4f085a7f7",
+  "first_band_utc": "2020-08-23T16:00:00Z",
+  "last_band_utc": "2020-09-04T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "NV-CCD-030406_Numbers": {
+  "all_finite": true,
+  "bands": 49,
+  "complete_hours": 49,
+  "complete_json_sha256": "83ce8e9384b97a6145b22fd48b820654ae675249205b3441cd267f885947637a",
+  "first_band_utc": "2020-07-08T03:00:00Z",
+  "last_band_utc": "2020-07-10T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "NV-EKD-010089_Goshute": {
+  "all_finite": true,
+  "bands": 1152,
+  "complete_hours": 1152,
+  "complete_json_sha256": "8bdcd89510eaf3fc9039e1e55773b1fed5599517a7f29e5a2f400a970c95abc0",
+  "first_band_utc": "2022-06-30T04:00:00Z",
+  "last_band_utc": "2022-08-17T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NV-EKD-010185_Lost": {
+  "all_finite": true,
+  "bands": 171,
+  "complete_hours": 171,
+  "complete_json_sha256": "c527c2e3db541d049f7dd946ed10826ffa32aedaef472fda74bc2f11442deb0d",
+  "first_band_utc": "2020-08-04T02:00:00Z",
+  "last_band_utc": "2020-08-11T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NV-ELD-040026_WilsonCreek": {
+  "all_finite": true,
+  "bands": 758,
+  "complete_hours": 758,
+  "complete_json_sha256": "9d8a82eba92a3e476042c7d34ae5b5037aa42d49dde87347c34fd54dbe58e32d",
+  "first_band_utc": "2021-05-22T18:00:00Z",
+  "last_band_utc": "2021-06-23T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NV-ELD-040076_MeadowValley": {
+  "all_finite": true,
+  "bands": 246,
+  "complete_hours": 246,
+  "complete_json_sha256": "448e73a517f44170b215246355413be3545b0cc423254411dbdc2304c924ea81",
+  "first_band_utc": "2020-07-09T03:00:00Z",
+  "last_band_utc": "2020-07-19T08:00:00Z",
+  "n_responses": 2,
+  "nodes": 20
+ },
+ "NV-ELD-040078_BigSummit": {
+  "all_finite": true,
+  "bands": 340,
+  "complete_hours": 340,
+  "complete_json_sha256": "d3ffb34b76c4cabe7dde42daa09da05409c49f571fe66717b2803756a0eec9cd",
+  "first_band_utc": "2020-07-14T02:00:00Z",
+  "last_band_utc": "2020-07-28T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "NV-ELD-040082_StewartCanyon": {
+  "all_finite": true,
+  "bands": 191,
+  "complete_hours": 191,
+  "complete_json_sha256": "7153ddb3613bda7262b98d8be7f6e7463033ec3198cd5c31ceab20f0e46397cf",
+  "first_band_utc": "2020-07-20T05:00:00Z",
+  "last_band_utc": "2020-07-28T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "NV-ELD-040122_Comet": {
+  "all_finite": true,
+  "bands": 148,
+  "complete_hours": 148,
+  "complete_json_sha256": "c4b771200eb7bc97b205fdf59468dc78319204801f94adee7700b7bb9af352c5",
+  "first_band_utc": "2020-08-05T04:00:00Z",
+  "last_band_utc": "2020-08-11T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NV-ELD-040123_Baldy": {
+  "all_finite": true,
+  "bands": 100,
+  "complete_hours": 100,
+  "complete_json_sha256": "73120ab698dc09a3858ff891e6a1111221a264f2c02829c5d301097a6d68a6fb",
+  "first_band_utc": "2020-08-07T02:00:00Z",
+  "last_band_utc": "2020-08-11T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NV-ELD-040152_DodgeSprings": {
+  "all_finite": true,
+  "bands": 268,
+  "complete_hours": 268,
+  "complete_json_sha256": "fc48f9f98430ca9891f302a4cd2d448ba5a19408ebf00a4ce40f0f297b15d0dd",
+  "first_band_utc": "2022-07-23T05:00:00Z",
+  "last_band_utc": "2022-08-03T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "NV-ELD-040155_HeathCanyon": {
+  "all_finite": true,
+  "bands": 312,
+  "complete_hours": 312,
+  "complete_json_sha256": "da06c384725eb3a5ecc97dd11c10757a7b8aa9083226b3b7112466f653cc87ee",
+  "first_band_utc": "2022-07-25T06:00:00Z",
+  "last_band_utc": "2022-08-07T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "NV-HTF-010139_Wildcat": {
+  "all_finite": true,
+  "bands": 195,
+  "complete_hours": 195,
+  "complete_json_sha256": "7db326bc74cd0e7e8b795890c4f4074d0cfc0ad0884f6d0190007f9ce22239a3",
+  "first_band_utc": "2022-07-16T07:00:00Z",
+  "last_band_utc": "2022-07-24T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "NV-HTF-030419_Tamarack": {
+  "all_finite": true,
+  "bands": 603,
+  "complete_hours": 603,
+  "complete_json_sha256": "87e8cdd0909d7b1542c2612c87ce9c1a22acf240d74a0810e1b4fb7e8ee000d0",
+  "first_band_utc": "2021-07-18T01:00:00Z",
+  "last_band_utc": "2021-08-12T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 18
+ },
+ "NV-HTF-030684_Slink": {
+  "all_finite": true,
+  "bands": 484,
+  "complete_hours": 484,
+  "complete_json_sha256": "d1ebc13a9429f6841d1ebad9d2301ccbff42d9274247e0a2a0d7debdd86c355f",
+  "first_band_utc": "2020-08-31T01:00:00Z",
+  "last_band_utc": "2020-09-20T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "NV-HTF-040163_BroomCanyon": {
+  "all_finite": true,
+  "bands": 578,
+  "complete_hours": 578,
+  "complete_json_sha256": "9ca05741a31590e8ce037e479b4f6a7c1a1a53eb97580fed538271deb87552ea",
+  "first_band_utc": "2024-08-23T03:00:00Z",
+  "last_band_utc": "2024-09-16T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "NV-HTF-500736_Mahogany": {
+  "all_finite": true,
+  "bands": 172,
+  "complete_hours": 172,
+  "complete_json_sha256": "4582a03aa65fdf1f8d44844f76b5eb886c75c58b61bf0577fde728f9fc8517a4",
+  "first_band_utc": "2020-06-30T02:00:00Z",
+  "last_band_utc": "2020-07-07T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "NV-HTF-500917_Cottonwood": {
+  "all_finite": true,
+  "bands": 53,
+  "complete_hours": 53,
+  "complete_json_sha256": "a64020db80fc30583ac6c68637f2803e0a42ed7592fb0cefc005c59ea06d9062",
+  "first_band_utc": "2020-07-22T02:00:00Z",
+  "last_band_utc": "2020-07-24T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "NV-SND-501554_VirginMountain": {
+  "all_finite": true,
+  "bands": 43,
+  "complete_hours": 43,
+  "complete_json_sha256": "95eda51b7651e9403ef6e272e425ac5ae996d20054670279dd05c061af378f49",
+  "first_band_utc": "2020-09-25T07:00:00Z",
+  "last_band_utc": "2020-09-27T01:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "NV-TMFX_031010_Davis": {
+  "all_finite": true,
+  "bands": 127,
+  "complete_hours": 127,
+  "complete_json_sha256": "546c35805362d97ed880ce6fa2f12363d834b01979a7915436e99d872d66fefc",
+  "first_band_utc": "2024-09-09T04:00:00Z",
+  "last_band_utc": "2024-09-14T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "OR-0732S-00174_SkylineRidgeComplex": {
+  "all_finite": true,
+  "bands": 382,
+  "complete_hours": 382,
+  "complete_json_sha256": "ae5cff0367d1e5f3e0bf9b26d502654caa293d3883210b3f03592d9e0ce40546",
+  "first_band_utc": "2021-08-04T07:00:00Z",
+  "last_band_utc": "2021-08-20T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "OR-553S-553018_EchoMountainComplex": {
+  "all_finite": true,
+  "bands": 219,
+  "complete_hours": 219,
+  "complete_json_sha256": "5490b4c80ca598a0a953605798f9533a9f96b6566536f91f5d776e5f5879eab1",
+  "first_band_utc": "2020-09-10T00:00:00Z",
+  "last_band_utc": "2020-09-19T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-711S-00037_SaltCreek": {
+  "all_finite": true,
+  "bands": 218,
+  "complete_hours": 218,
+  "complete_json_sha256": "1b5bd2b9f38976741b36324c5bf4cbdfc23a2dc89bd40293f6c28f49fa17cc24",
+  "first_band_utc": "2024-07-09T04:00:00Z",
+  "last_band_utc": "2024-07-18T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-711S-000382_UpperApplegate3900": {
+  "all_finite": true,
+  "bands": 121,
+  "complete_hours": 121,
+  "complete_json_sha256": "8370a1883326b11d20522819182cc706004189601db40a82b7f41ab8d6f65401",
+  "first_band_utc": "2024-06-26T04:00:00Z",
+  "last_band_utc": "2024-07-01T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-711S-00102_Worthington": {
+  "all_finite": true,
+  "bands": 131,
+  "complete_hours": 131,
+  "complete_json_sha256": "fe07ecb8a71e258a42d397af44d099d05ac35797b2444d538e478826568bc9d3",
+  "first_band_utc": "2020-08-01T20:00:00Z",
+  "last_band_utc": "2020-08-07T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "OR-711S-026621_SObenchain": {
+  "all_finite": true,
+  "bands": 558,
+  "complete_hours": 558,
+  "complete_json_sha256": "c422f7841c901513c1e7caab8c99e4fad950b81f2e513cded44b69e21d1280e5",
+  "first_band_utc": "2020-09-09T20:00:00Z",
+  "last_band_utc": "2020-10-03T01:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "OR-731-S0314_TyeeComplex": {
+  "all_finite": true,
+  "bands": 524,
+  "complete_hours": 524,
+  "complete_json_sha256": "1fad284a74d26ad6460fbd016b6caeb813fcc2dd475895c371d1fa9035e5810d",
+  "first_band_utc": "2023-08-27T08:00:00Z",
+  "last_band_utc": "2023-09-18T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "OR-732S-000362_Milepost98": {
+  "all_finite": true,
+  "bands": 95,
+  "complete_hours": 95,
+  "complete_json_sha256": "5c2e74bede9728843740068ccb3a06a52c596d296403c75a7a8c266eb203f869",
+  "first_band_utc": "2024-09-10T08:00:00Z",
+  "last_band_utc": "2024-09-14T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-781S-000037_SweetCreekMP2": {
+  "all_finite": true,
+  "bands": 104,
+  "complete_hours": 104,
+  "complete_json_sha256": "438fc9b521a76471c8fe7b59fa34ec4b1d21d20eccd8ea38d754275bb36dcd72",
+  "first_band_utc": "2020-09-01T03:00:00Z",
+  "last_band_utc": "2020-09-05T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-781S-000115_7k": {
+  "all_finite": true,
+  "bands": 129,
+  "complete_hours": 129,
+  "complete_json_sha256": "032ae59cc6ea66fd5861d782bb79093a003f549fb6e1cde27a543eb45173bfcd",
+  "first_band_utc": "2023-05-26T22:00:00Z",
+  "last_band_utc": "2023-06-01T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-952S-000063_Laurel": {
+  "all_finite": true,
+  "bands": 161,
+  "complete_hours": 161,
+  "complete_json_sha256": "360267a7ea9b86a82760ab597ccb734001925a0f42de244a23b76314b9fb63bf",
+  "first_band_utc": "2020-08-21T05:00:00Z",
+  "last_band_utc": "2020-08-27T21:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-952S-020279_SteetMountain_SteetEast": {
+  "all_finite": true,
+  "bands": 138,
+  "complete_hours": 138,
+  "complete_json_sha256": "1b9b607259f52adc872743612f30a346a8b68acd55edb6a84d723987c4348d96",
+  "first_band_utc": "2020-08-22T04:00:00Z",
+  "last_band_utc": "2020-08-27T21:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-953S-000766_Shoefly": {
+  "all_finite": true,
+  "bands": 266,
+  "complete_hours": 266,
+  "complete_json_sha256": "1d6d0c6d5e73f67d62272fcd58308cd7b9002fc559ae7d16442dde5c0a288121",
+  "first_band_utc": "2024-09-03T08:00:00Z",
+  "last_band_utc": "2024-09-14T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "OR-953S-024122_CourtRock": {
+  "all_finite": true,
+  "bands": 529,
+  "complete_hours": 529,
+  "complete_json_sha256": "c7b8dda65940c60133b113a27b35482fce7ca8403f09bd6688bb9d3c11235dc1",
+  "first_band_utc": "2024-07-24T04:00:00Z",
+  "last_band_utc": "2024-08-15T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "OR-953S-024272_FossilComplex_Canyon": {
+  "all_finite": true,
+  "bands": 288,
+  "complete_hours": 288,
+  "complete_json_sha256": "ae58605840393ef9daa76a59b8434b843587e9ed9655f59a1635ae2ae7829617",
+  "first_band_utc": "2024-09-09T04:00:00Z",
+  "last_band_utc": "2024-09-21T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-954S-000017_FirMountain": {
+  "all_finite": true,
+  "bands": 75,
+  "complete_hours": 75,
+  "complete_json_sha256": "83a52b727e13b8c31f6066c934570261f142436fa62837db9636f4aa07e7c242",
+  "first_band_utc": "2020-08-04T06:00:00Z",
+  "last_band_utc": "2020-08-07T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-954S-000022_MosierCreek": {
+  "all_finite": true,
+  "bands": 120,
+  "complete_hours": 120,
+  "complete_json_sha256": "5bd21ed3a70f844be93024578af8a5f41572d2ada7669a9cbcab90f7c9657953",
+  "first_band_utc": "2020-08-13T08:00:00Z",
+  "last_band_utc": "2020-08-18T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-954S-000514_LarchCreek": {
+  "all_finite": true,
+  "bands": 191,
+  "complete_hours": 191,
+  "complete_json_sha256": "47bc844951d7bf775c982e26bb466c0629a93f7cd874897607817cb62e751bff",
+  "first_band_utc": "2024-07-11T08:00:00Z",
+  "last_band_utc": "2024-07-19T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "OR-955S-001022_Grandview": {
+  "all_finite": true,
+  "bands": 243,
+  "complete_hours": 243,
+  "complete_json_sha256": "e2d86309d220f776e4c0077a7ee026324c175a74b9ab98b59de1f86503c5adee",
+  "first_band_utc": "2021-07-12T04:00:00Z",
+  "last_band_utc": "2021-07-22T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-981S-230203_Golden": {
+  "all_finite": true,
+  "bands": 193,
+  "complete_hours": 193,
+  "complete_json_sha256": "bb2d3a3866749fd6d96f1b8a8a12b35adaa30338d57d8144fe11b0977da399c6",
+  "first_band_utc": "2023-07-24T02:00:00Z",
+  "last_band_utc": "2023-08-01T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-981S-240314_Copperfield": {
+  "all_finite": true,
+  "bands": 203,
+  "complete_hours": 203,
+  "complete_json_sha256": "d3bd0294296faf31b3b57cb3029732a92452011df131a953d4771f829b4ff7fd",
+  "first_band_utc": "2024-09-02T18:00:00Z",
+  "last_band_utc": "2024-09-11T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-9853S-024259_TwoCabin": {
+  "all_finite": true,
+  "bands": 51,
+  "complete_hours": 51,
+  "complete_json_sha256": "80414a1ad47d4639c656bf48ab9edbca3eb3654c09fec776e6b992b1049ded2e",
+  "first_band_utc": "2024-09-05T04:00:00Z",
+  "last_band_utc": "2024-09-07T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "OR-BUD-002079_NealsHill": {
+  "all_finite": true,
+  "bands": 50,
+  "complete_hours": 50,
+  "complete_json_sha256": "b8847a8af61ae67fa0b44334d73457faf05ab84e2f3a888350c52607124740c6",
+  "first_band_utc": "2020-08-09T04:00:00Z",
+  "last_band_utc": "2020-08-11T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-BUD-002263_BigMeadow": {
+  "all_finite": true,
+  "bands": 271,
+  "complete_hours": 271,
+  "complete_json_sha256": "2a806d0a9c0c1d2769f78300f2d9ccc517074e8c91289fd01aa4cc143bdb92c2",
+  "first_band_utc": "2021-09-11T20:00:00Z",
+  "last_band_utc": "2021-09-23T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-DEF-000845_FlatTop": {
+  "all_finite": true,
+  "bands": 576,
+  "complete_hours": 576,
+  "complete_json_sha256": "2e7c6fa4ab12e6e7371c3a60ab8dc3a1bcbcf338942da1b941bc6fa75f6eec9d",
+  "first_band_utc": "2024-09-11T04:00:00Z",
+  "last_band_utc": "2024-10-05T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "OR-DEF-000851_Firestone": {
+  "all_finite": true,
+  "bands": 553,
+  "complete_hours": 553,
+  "complete_json_sha256": "38c1fcbb513e73e0d8e121f0208746e904225962991f66cac4eb036daa93f950",
+  "first_band_utc": "2024-09-11T04:00:00Z",
+  "last_band_utc": "2024-10-04T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-FWF-200196_BenYoung": {
+  "all_finite": true,
+  "bands": 48,
+  "complete_hours": 48,
+  "complete_json_sha256": "f6c6179f204fab1d50f2d1c666732001b753b0332d23a988749ea976a57a3490",
+  "first_band_utc": "2020-07-24T06:00:00Z",
+  "last_band_utc": "2020-07-26T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-FWF-200404_242": {
+  "all_finite": true,
+  "bands": 311,
+  "complete_hours": 311,
+  "complete_json_sha256": "e92c1f96f2670b0ef89ecfa510cc8ea6c7a5215d3c6d81c9161da2ab40224c82",
+  "first_band_utc": "2020-09-09T05:00:00Z",
+  "last_band_utc": "2020-09-22T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "OR-FWF-210422_PattonMeadow": {
+  "all_finite": true,
+  "bands": 314,
+  "complete_hours": 314,
+  "complete_json_sha256": "3d0a61506c1a4582a0b394317f405c4c0db96c7de7e71adc6bd0e13f5b5d3edb",
+  "first_band_utc": "2021-08-14T02:00:00Z",
+  "last_band_utc": "2021-08-27T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-FWF-210422_WillowValley": {
+  "all_finite": true,
+  "bands": 145,
+  "complete_hours": 145,
+  "complete_json_sha256": "60d7b30d66312a6c0b15d520d27291ada908f8bf4fb62e2cb8fa74d02ad4e4e8",
+  "first_band_utc": "2021-08-14T02:00:00Z",
+  "last_band_utc": "2021-08-20T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-FWF-210452_CougarPeak": {
+  "all_finite": true,
+  "bands": 407,
+  "complete_hours": 407,
+  "complete_json_sha256": "5e6c13817e88e7b3646b39a0a9a85e89f53aea01122951fb267514a4edd146a4",
+  "first_band_utc": "2021-09-10T06:00:00Z",
+  "last_band_utc": "2021-09-27T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 21
+ },
+ "OR-FWF-230307_Morgan": {
+  "all_finite": true,
+  "bands": 148,
+  "complete_hours": 148,
+  "complete_json_sha256": "4faefa2c48d072ad817c876d243a800de1da778b92a8d915b2cb2263fec56cfe",
+  "first_band_utc": "2023-09-21T02:00:00Z",
+  "last_band_utc": "2023-09-27T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-FWF-240332_BuckCreek": {
+  "all_finite": true,
+  "bands": 405,
+  "complete_hours": 405,
+  "complete_json_sha256": "eb9831e624a534e8cb8074853ce611f56e1f018963960336044e8fa2d9ffca3e",
+  "first_band_utc": "2024-09-10T09:00:00Z",
+  "last_band_utc": "2024-09-27T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "OR-LAD-220351_VanMeter": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "3963eb16122aac771df92fe9e0a62e739aa60100bead809b145505d0646a149d",
+  "first_band_utc": "2022-09-09T03:00:00Z",
+  "last_band_utc": "2022-09-12T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-MAF-002502_Falls": {
+  "all_finite": true,
+  "bands": 884,
+  "complete_hours": 884,
+  "complete_json_sha256": "6b4aa60382feb082e03a93264e86429ccba9169ad3dd1bec423b665198bd81b5",
+  "first_band_utc": "2024-07-14T09:00:00Z",
+  "last_band_utc": "2024-08-20T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 29
+ },
+ "OR-MAF-002523_Telephone": {
+  "all_finite": true,
+  "bands": 603,
+  "complete_hours": 603,
+  "complete_json_sha256": "b16fa31e2d380bbe9192210fc4264f3ec13e68c3dada18f7e597e6bba590fb51",
+  "first_band_utc": "2024-07-26T04:00:00Z",
+  "last_band_utc": "2024-08-20T06:00:00Z",
+  "n_responses": 2,
+  "nodes": 15
+ },
+ "OR-MAF-002549_PoisonCreek": {
+  "all_finite": true,
+  "bands": 409,
+  "complete_hours": 409,
+  "complete_json_sha256": "b834b931dee7aabdf1ab6d93c5d18192e00b483d5374797ba4bb1c86e121cdef",
+  "first_band_utc": "2024-07-26T04:00:00Z",
+  "last_band_utc": "2024-08-12T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-MAF-022199_CrocketsKnob": {
+  "all_finite": true,
+  "bands": 387,
+  "complete_hours": 387,
+  "complete_json_sha256": "75492ce585ef6c79209fe585d4eea4c26ed077f185dc7de4b3b1cc9b02ee0bf7",
+  "first_band_utc": "2022-08-25T02:00:00Z",
+  "last_band_utc": "2022-09-10T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-MHF-000583_Boulder": {
+  "all_finite": true,
+  "bands": 144,
+  "complete_hours": 144,
+  "complete_json_sha256": "b8982e63b4908a75bd6c2bd2c51125c62d2f37644c13ca00eb314ce5a1039460",
+  "first_band_utc": "2023-07-12T08:00:00Z",
+  "last_band_utc": "2023-07-18T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-MHF-000681_WhiteRiver": {
+  "all_finite": true,
+  "bands": 480,
+  "complete_hours": 480,
+  "complete_json_sha256": "c4f922c705472fc875ea557bb9493b2872fc825cddf9167efbf7482b8d928e9b",
+  "first_band_utc": "2020-08-23T05:00:00Z",
+  "last_band_utc": "2020-09-12T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 14
+ },
+ "OR-MHF-001199_CampCreek": {
+  "all_finite": true,
+  "bands": 480,
+  "complete_hours": 480,
+  "complete_json_sha256": "5ce0d88c1ffb884feeb805b1667cea4a86e43bea900506be76e8a3be6e7979b8",
+  "first_band_utc": "2023-08-27T05:00:00Z",
+  "last_band_utc": "2023-09-16T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-OCF-000772_WileyFlat": {
+  "all_finite": true,
+  "bands": 647,
+  "complete_hours": 647,
+  "complete_json_sha256": "d914c804bb0fc653112b7a5ef998e9154acc8bb20fd85404f25fa019bf83e0b7",
+  "first_band_utc": "2024-09-04T08:00:00Z",
+  "last_band_utc": "2024-10-01T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 11
+ },
+ "OR-ORC-000008_NorthCascade_Unger": {
+  "all_finite": true,
+  "bands": 387,
+  "complete_hours": 387,
+  "complete_json_sha256": "08da1fde9f14f3d8481b3582cd00af430a4b6d6816cb8207fe5c1ebc0ddc81fb",
+  "first_band_utc": "2020-09-12T03:00:00Z",
+  "last_band_utc": "2020-09-28T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-PRD-000289_Darlene": {
+  "all_finite": true,
+  "bands": 172,
+  "complete_hours": 172,
+  "complete_json_sha256": "87d20258e3a10c546581ec479e50534dda96e7becae77326ca6ed58b3c27c598",
+  "first_band_utc": "2024-06-27T04:00:00Z",
+  "last_band_utc": "2024-07-04T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-PRD-000404_RVLoneRock": {
+  "all_finite": true,
+  "bands": 623,
+  "complete_hours": 623,
+  "complete_json_sha256": "dd0fc345bf1356125d6e021d0f9db25c0feba75efdec80a5a64e53ebad106b69",
+  "first_band_utc": "2024-07-15T06:00:00Z",
+  "last_band_utc": "2024-08-10T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 32
+ },
+ "OR-PRD-000604_ElkLane": {
+  "all_finite": true,
+  "bands": 74,
+  "complete_hours": 74,
+  "complete_json_sha256": "10ab4dfb596c1a65a391b15b36046477f4788d8cfedafe444e7d2a84fc699195",
+  "first_band_utc": "2024-08-07T09:00:00Z",
+  "last_band_utc": "2024-08-10T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-RSF-000209_Flat": {
+  "all_finite": true,
+  "bands": 2279,
+  "complete_hours": 2279,
+  "complete_json_sha256": "119b05fc62a2be395608cf509670099137f8abda2e5d5b89536c6341424f528a",
+  "first_band_utc": "2023-07-17T05:00:00Z",
+  "last_band_utc": "2023-10-20T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 13
+ },
+ "OR-SHR-240269_WarnerPeak": {
+  "all_finite": true,
+  "bands": 269,
+  "complete_hours": 269,
+  "complete_json_sha256": "5a3fda84a3fb3341d58b707c22af0068d58890c5e0edd59a5df61b3ace9e1ffe",
+  "first_band_utc": "2024-08-08T02:00:00Z",
+  "last_band_utc": "2024-08-19T06:00:00Z",
+  "n_responses": 2,
+  "nodes": 19
+ },
+ "OR-SUF-230424_ThreeButtesFire": {
+  "all_finite": true,
+  "bands": 433,
+  "complete_hours": 433,
+  "complete_json_sha256": "7ea53fd9ac8e87700abb6c6b8e2eaf50503ed65b3a305472b0d5b4f204d65e5a",
+  "first_band_utc": "2023-08-31T05:00:00Z",
+  "last_band_utc": "2023-09-18T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "OR-UMF-000392_BenHarrison": {
+  "all_finite": true,
+  "bands": 57,
+  "complete_hours": 57,
+  "complete_json_sha256": "9cdf2fa049406f0cfb769075648fe5f425b694463360a723ca5e394990c3e5c5",
+  "first_band_utc": "2023-08-13T02:00:00Z",
+  "last_band_utc": "2023-08-15T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 1
+ },
+ "OR-UMF-000479_SlickEar": {
+  "all_finite": true,
+  "bands": 290,
+  "complete_hours": 290,
+  "complete_json_sha256": "558dffd3e099c8381a1bacfc6c27e1863c0546a46cb628bb5e62638c49173945",
+  "first_band_utc": "2022-10-02T04:00:00Z",
+  "last_band_utc": "2022-10-14T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-UMF-000658_LickCreek": {
+  "all_finite": true,
+  "bands": 385,
+  "complete_hours": 385,
+  "complete_json_sha256": "be3000de0d8425ebb279e53fc5ee1c367a51040e16b28158404071573d7573a2",
+  "first_band_utc": "2021-07-08T04:00:00Z",
+  "last_band_utc": "2021-07-24T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 16
+ },
+ "OR-UMF-000745_ElbowCreek": {
+  "all_finite": true,
+  "bands": 462,
+  "complete_hours": 462,
+  "complete_json_sha256": "7bd5f783c2dc5300f7ca88a156d56592f3c0f04d3abb16501c7a0473c754215f",
+  "first_band_utc": "2021-07-16T04:00:00Z",
+  "last_band_utc": "2021-08-04T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "OR-UMF-000830_TigerCreek_West": {
+  "all_finite": true,
+  "bands": 216,
+  "complete_hours": 216,
+  "complete_json_sha256": "e14e51a5d2caad2908254e726ffd64e09d6826ba4c6fae826a9a7c92ba52cee0",
+  "first_band_utc": "2024-10-06T07:00:00Z",
+  "last_band_utc": "2024-10-15T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-UPF-000345_Chilcoot": {
+  "all_finite": true,
+  "bands": 647,
+  "complete_hours": 647,
+  "complete_json_sha256": "ce4a8446de77097a55ab2c52156c9757940fc4694d53550bf7a8ae99c866006a",
+  "first_band_utc": "2023-08-28T07:00:00Z",
+  "last_band_utc": "2023-09-24T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-UPF-000357_Dinner": {
+  "all_finite": true,
+  "bands": 455,
+  "complete_hours": 455,
+  "complete_json_sha256": "da53f26736e09422a8e7de32405b9f70483b491b11f62fe7e9e70913d1036d1a",
+  "first_band_utc": "2023-08-31T05:00:00Z",
+  "last_band_utc": "2023-09-19T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-UPF-000436_ArchieCreek": {
+  "all_finite": true,
+  "bands": 635,
+  "complete_hours": 635,
+  "complete_json_sha256": "5ef48bcafad4b40bda2642a9d1d274f948fd4ad65bc96384109df03bd8ab9da0",
+  "first_band_utc": "2020-09-09T18:00:00Z",
+  "last_band_utc": "2020-10-06T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 25
+ },
+ "OR-UPF-000441_Thielsen": {
+  "all_finite": true,
+  "bands": 622,
+  "complete_hours": 622,
+  "complete_json_sha256": "33b5d90e06d1a2b53e5c05182ab0961f62f6ef8bd7d0416dddb1fd08f74d0356",
+  "first_band_utc": "2020-09-10T06:00:00Z",
+  "last_band_utc": "2020-10-06T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "OR-UPF-240402_DevilsKnob": {
+  "all_finite": true,
+  "bands": 646,
+  "complete_hours": 646,
+  "complete_json_sha256": "4d19e9b6cc134a875ee20579295c3376e68a58e5ace5cc74bb7a15e22288d3a7",
+  "first_band_utc": "2024-09-07T07:00:00Z",
+  "last_band_utc": "2024-10-04T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-VAD-000153_IndianCreek": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "8068bae3ab87c14ddda758a72bbed04be9c995b0612b02d6edc8f491280a9f7d",
+  "first_band_utc": "2020-08-18T05:00:00Z",
+  "last_band_utc": "2020-08-25T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 17
+ },
+ "OR-VAD-240129_CowValley": {
+  "all_finite": true,
+  "bands": 146,
+  "complete_hours": 146,
+  "complete_json_sha256": "6d29d0db5bdacf4ef84389b3af9d8640be3cc52e1e50b111437ffb1bce5b3a40",
+  "first_band_utc": "2024-07-15T03:00:00Z",
+  "last_band_utc": "2024-07-21T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 25
+ },
+ "OR-VAD-240141_Durkee": {
+  "all_finite": true,
+  "bands": 465,
+  "complete_hours": 465,
+  "complete_json_sha256": "43c2b74ec73fb4d3d2bfb8205f717100d216f0c14a0be1dbde696c6808f2b41f",
+  "first_band_utc": "2024-07-18T20:00:00Z",
+  "last_band_utc": "2024-08-07T04:00:00Z",
+  "n_responses": 4,
+  "nodes": 45
+ },
+ "OR-VAD-240166_BadlandComplex_Coyote": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "e7abe6edcd9b06f33b398682af4d20eae66b1c06de4e143d79d7cb2f8b56e3c4",
+  "first_band_utc": "2024-07-23T08:00:00Z",
+  "last_band_utc": "2024-07-30T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "OR-WIF-200430_HolidayFarm": {
+  "all_finite": true,
+  "bands": 769,
+  "complete_hours": 769,
+  "complete_json_sha256": "7b89b35381e7f683bd7f7a87384383e53096841148908b6477d70c368a48a9ca",
+  "first_band_utc": "2020-09-09T04:00:00Z",
+  "last_band_utc": "2020-10-11T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 34
+ },
+ "OR-WIF-210362_Knoll": {
+  "all_finite": true,
+  "bands": 481,
+  "complete_hours": 481,
+  "complete_json_sha256": "5d6481d1c782dae06f3cfe0d524c3f5f5defd9b5d92d217562a5d33435b926f5",
+  "first_band_utc": "2021-08-10T05:00:00Z",
+  "last_band_utc": "2021-08-30T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-WIF-220189_BigSwamp": {
+  "all_finite": true,
+  "bands": 673,
+  "complete_hours": 673,
+  "complete_json_sha256": "e528a3e41e78b63802c4f135fac6f06b114fce6009dad718fe74a95ace7cd962",
+  "first_band_utc": "2022-08-12T05:00:00Z",
+  "last_band_utc": "2022-09-09T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-WIF-230329_Salmon": {
+  "all_finite": true,
+  "bands": 72,
+  "complete_hours": 72,
+  "complete_json_sha256": "c98bbb93c89b33482ff9d4c0a9cfc5a8db084378af07a50ade30ac6da7737089",
+  "first_band_utc": "2023-08-10T07:00:00Z",
+  "last_band_utc": "2023-08-13T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "OR-WIF-240210_Pyramid": {
+  "all_finite": true,
+  "bands": 1538,
+  "complete_hours": 1538,
+  "complete_json_sha256": "34e6612ed61bc621884d396a85445e8c98470d310840842608eda50a102e0b76",
+  "first_band_utc": "2024-07-23T04:00:00Z",
+  "last_band_utc": "2024-09-25T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-WIF-240427_Bingham": {
+  "all_finite": true,
+  "bands": 288,
+  "complete_hours": 288,
+  "complete_json_sha256": "137581fa1a699adfba58258e03a6e68c369237055579fdb5ef8aa4e2580df28e",
+  "first_band_utc": "2024-10-02T03:00:00Z",
+  "last_band_utc": "2024-10-14T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "OR-WSA-000026_S503": {
+  "all_finite": true,
+  "bands": 120,
+  "complete_hours": 120,
+  "complete_json_sha256": "53e7c999b2f522eae1a2b28d3fae8733c0f49f7da236223b8594357d402d0a26",
+  "first_band_utc": "2021-06-21T07:00:00Z",
+  "last_band_utc": "2021-06-26T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "OR-WWF-000338_CliffMountain": {
+  "all_finite": true,
+  "bands": 962,
+  "complete_hours": 962,
+  "complete_json_sha256": "b95f62c216b43b00235cc2a3798f63e3d06f061b381f19ae1fa2c314f72b5905",
+  "first_band_utc": "2024-07-30T04:00:00Z",
+  "last_band_utc": "2024-09-08T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-WWF-000400_DoubleCreek": {
+  "all_finite": true,
+  "bands": 1057,
+  "complete_hours": 1057,
+  "complete_json_sha256": "0cc8db8bef2abe48a8f217c3e2c546a3d5b4977ffa3f39e73c119ac28deacab4",
+  "first_band_utc": "2022-09-01T06:00:00Z",
+  "last_band_utc": "2022-10-15T06:00:00Z",
+  "n_responses": 3,
+  "nodes": 32
+ },
+ "OR-WWF-000413_JonesCreek": {
+  "all_finite": true,
+  "bands": 146,
+  "complete_hours": 146,
+  "complete_json_sha256": "79a171452101e4d1f8ea16cb87b0464d3396af2303adf03e3d9613b6daed362f",
+  "first_band_utc": "2022-09-06T06:00:00Z",
+  "last_band_utc": "2022-09-12T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "OR-WWF-000431_TownGulch": {
+  "all_finite": true,
+  "bands": 191,
+  "complete_hours": 191,
+  "complete_json_sha256": "a4fb95173aee3f8461330f97075c75bbce20e9a1c50fa38d447b5d9d03b0d1cc",
+  "first_band_utc": "2024-08-11T07:00:00Z",
+  "last_band_utc": "2024-08-19T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "UT-CCD-000315_Flatt": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "3c7253d90b3ea7e4fdc80552ceca985ed069a23bcda46e4fd62282ed8541d671",
+  "first_band_utc": "2021-06-20T07:00:00Z",
+  "last_band_utc": "2021-06-23T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "UT-CCD-000429_VeyoWest": {
+  "all_finite": true,
+  "bands": 102,
+  "complete_hours": 102,
+  "complete_json_sha256": "cf131f83729d479d4a4cac276f085de80820616fe27ab880de019df652e1442c",
+  "first_band_utc": "2020-07-15T03:00:00Z",
+  "last_band_utc": "2020-07-19T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "UT-CPD-000347_DeerSprings": {
+  "all_finite": true,
+  "bands": 144,
+  "complete_hours": 144,
+  "complete_json_sha256": "4054aa7d90b0b2165db583d7e3101a699b1a85074445977da6c04bca053e4e05",
+  "first_band_utc": "2024-07-09T08:00:00Z",
+  "last_band_utc": "2024-07-15T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "UT-DIF-000133_LeftFork": {
+  "all_finite": true,
+  "bands": 1397,
+  "complete_hours": 1397,
+  "complete_json_sha256": "08954e196ffe085813638f0aa84af2a9f0a1a9c5246f7bb356e02a438e6ca146",
+  "first_band_utc": "2022-05-12T01:00:00Z",
+  "last_band_utc": "2022-07-09T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "UT-DIF-000270_Mammoth": {
+  "all_finite": true,
+  "bands": 188,
+  "complete_hours": 188,
+  "complete_json_sha256": "09a1df8ddbb8dac2dc24224ad85045d42c613be27b0fc1885bb948fb4fac321c",
+  "first_band_utc": "2021-06-06T08:00:00Z",
+  "last_band_utc": "2021-06-14T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "UT-FIF-200493_Cowboy": {
+  "all_finite": true,
+  "bands": 92,
+  "complete_hours": 92,
+  "complete_json_sha256": "bdf8bd9d9342e1c916b7183b9212808a464da9bd428dc672249a41acb827a2fc",
+  "first_band_utc": "2020-08-21T07:00:00Z",
+  "last_band_utc": "2020-08-25T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "UT-FIF-240112_LittleTwist": {
+  "all_finite": true,
+  "bands": 604,
+  "complete_hours": 604,
+  "complete_json_sha256": "44403b2b3aea013bbd7418086d7f1e831ca18cb6800752a9b8d70ac19c6a3462",
+  "first_band_utc": "2024-06-16T04:00:00Z",
+  "last_band_utc": "2024-07-11T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "UT-FIF-240206_SilverKing": {
+  "all_finite": true,
+  "bands": 269,
+  "complete_hours": 269,
+  "complete_json_sha256": "1efffa9f742becc3b991459b3b0764744bf232a8e344ee1148193a100a94cc03",
+  "first_band_utc": "2024-07-08T03:00:00Z",
+  "last_band_utc": "2024-07-19T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "UT-MLF-000115_BennionCreek": {
+  "all_finite": true,
+  "bands": 556,
+  "complete_hours": 556,
+  "complete_json_sha256": "e4b8a6528efbedd78649b4cc0474f2efca17f96bc7394d045824ebc10c94ac75",
+  "first_band_utc": "2021-06-07T03:00:00Z",
+  "last_band_utc": "2021-06-30T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "UT-MLF-000131_PackCreek": {
+  "all_finite": true,
+  "bands": 291,
+  "complete_hours": 291,
+  "complete_json_sha256": "48b756671c325a6bfbe2bfe8004a1c1fb50bb2834e59e8173a95568ce7815f0f",
+  "first_band_utc": "2021-06-13T07:00:00Z",
+  "last_band_utc": "2021-06-25T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "UT-NWS-000342_JacobCity": {
+  "all_finite": true,
+  "bands": 199,
+  "complete_hours": 199,
+  "complete_json_sha256": "a08c06e87ab4c0893e96ade92eafc2ae132ea1ccf82ef83cb30ebb173fa3a120",
+  "first_band_utc": "2022-07-11T04:00:00Z",
+  "last_band_utc": "2022-07-19T10:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "UT-NWS-001080_Range": {
+  "all_finite": true,
+  "bands": 146,
+  "complete_hours": 146,
+  "complete_json_sha256": "4fa8d1caa282d0d177fb93c493c19350f2e5c156d951890794111c4c8361ca55",
+  "first_band_utc": "2020-10-19T02:00:00Z",
+  "last_band_utc": "2020-10-25T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "UT-SCS-200223_Canal": {
+  "all_finite": true,
+  "bands": 146,
+  "complete_hours": 146,
+  "complete_json_sha256": "d0f8f551bc0118b950b68082c7629e33b56476bb1af91b3c86becd17251e0fa5",
+  "first_band_utc": "2020-07-01T06:00:00Z",
+  "last_band_utc": "2020-07-07T07:00:00Z",
+  "n_responses": 2,
+  "nodes": 22
+ },
+ "UT-SCS-220216_HalfwayHill": {
+  "all_finite": true,
+  "bands": 865,
+  "complete_hours": 865,
+  "complete_json_sha256": "3b04b83c45b25ecefb32147a46338378808959fa8b680f265a5d3134fb5389e2",
+  "first_band_utc": "2022-07-10T04:00:00Z",
+  "last_band_utc": "2022-08-15T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "UT-SWS-000431_TurkeyFarmRoad": {
+  "all_finite": true,
+  "bands": 103,
+  "complete_hours": 103,
+  "complete_json_sha256": "56ccdd19e3a8239b76902d3e8c839089e674a413698668ae3e3c11dec32c37f8",
+  "first_band_utc": "2020-07-15T02:00:00Z",
+  "last_band_utc": "2020-07-19T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "UT-UWF-000303_MorganCanyon": {
+  "all_finite": true,
+  "bands": 359,
+  "complete_hours": 359,
+  "complete_json_sha256": "c9726f8f413d0b47b32facb73e4eb9d54fc1bfb750b995c1f046f0bda74ad262",
+  "first_band_utc": "2021-06-21T08:00:00Z",
+  "last_band_utc": "2021-07-06T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "UT-UWF-000615_UpperProvo": {
+  "all_finite": true,
+  "bands": 219,
+  "complete_hours": 219,
+  "complete_json_sha256": "70c2da6420b3290dd00e520b68d8c4a4938a8df4d8dc5523a5ad77f9f96f8ab3",
+  "first_band_utc": "2020-08-02T07:00:00Z",
+  "last_band_utc": "2020-08-11T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "UT-VLD-000127_Bear": {
+  "all_finite": true,
+  "bands": 342,
+  "complete_hours": 342,
+  "complete_json_sha256": "16d4bc3738b330afbc66c5855a206ef6fb6fa94d4d09355ee13666bf34b785c5",
+  "first_band_utc": "2021-06-09T01:00:00Z",
+  "last_band_utc": "2021-06-23T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "WA-COA-0200084_Chuweah": {
+  "all_finite": true,
+  "bands": 654,
+  "complete_hours": 654,
+  "complete_json_sha256": "e31cab92796814da081f921b181002ec0dba20263624d54acdbb56f678f3a463",
+  "first_band_utc": "2021-07-15T02:00:00Z",
+  "last_band_utc": "2021-08-11T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "WA-COA-021087_SummitTrail": {
+  "all_finite": true,
+  "bands": 1466,
+  "complete_hours": 1466,
+  "complete_json_sha256": "1d4bab40667caf43398af7178eb79d7d819a77a8a1c585dc8aca10446005f76b",
+  "first_band_utc": "2021-07-15T02:00:00Z",
+  "last_band_utc": "2021-09-14T03:00:00Z",
+  "n_responses": 2,
+  "nodes": 15
+ },
+ "WA-COA-200106_Whitmore": {
+  "all_finite": true,
+  "bands": 314,
+  "complete_hours": 314,
+  "complete_json_sha256": "18cf824fe8fbfc776a46645a05f0ae5dd4c9dc17a2945631d5fdcf406abd5b38",
+  "first_band_utc": "2021-08-07T01:00:00Z",
+  "last_band_utc": "2021-08-20T02:00:00Z",
+  "n_responses": 2,
+  "nodes": 14
+ },
+ "WA-COA-200136_IncheliumComplex_North": {
+  "all_finite": true,
+  "bands": 349,
+  "complete_hours": 349,
+  "complete_json_sha256": "30e1d917dad98c335c56a4da55bb0fb935ffe04b031859136249fc0de12d2947",
+  "first_band_utc": "2020-09-10T17:00:00Z",
+  "last_band_utc": "2020-09-25T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "WA-COA-240089_Swawilla": {
+  "all_finite": true,
+  "bands": 363,
+  "complete_hours": 363,
+  "complete_json_sha256": "8e57a41f67c54acfcfa78b5547d004f1fb84702c3a9c5048f40b9e37601ba8c1",
+  "first_band_utc": "2024-07-24T07:00:00Z",
+  "last_band_utc": "2024-08-08T09:00:00Z",
+  "n_responses": 2,
+  "nodes": 14
+ },
+ "WA-COF-002348_BulldogMtn": {
+  "all_finite": true,
+  "bands": 627,
+  "complete_hours": 627,
+  "complete_json_sha256": "cb240c2ba66dee5cab0768882f77e6f939df62c7176205b6eb518ca12b8c2715",
+  "first_band_utc": "2021-08-14T04:00:00Z",
+  "last_band_utc": "2021-09-09T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "WA-GPF-000813_WilliamsMine": {
+  "all_finite": true,
+  "bands": 908,
+  "complete_hours": 908,
+  "complete_json_sha256": "1b9acc76b6e2a87b7ad2966e2710ef1cb2486e6b0f0442d9c5a8da0308348dfa",
+  "first_band_utc": "2024-08-07T08:00:00Z",
+  "last_band_utc": "2024-09-14T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 8
+ },
+ "WA-GPF-000864_BigHollow": {
+  "all_finite": true,
+  "bands": 431,
+  "complete_hours": 431,
+  "complete_json_sha256": "042ea5a88681cf7402c13d9f38f8159185a63712ae69dbf81e7547668753d073",
+  "first_band_utc": "2020-09-10T06:00:00Z",
+  "last_band_utc": "2020-09-28T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "WA-GPF-001028_Kalama": {
+  "all_finite": true,
+  "bands": 1040,
+  "complete_hours": 1040,
+  "complete_json_sha256": "37c592c32004949108ebb73ad152876e59539426c815b98e9bbb3dd0a9ccda3b",
+  "first_band_utc": "2022-09-07T20:00:00Z",
+  "last_band_utc": "2022-10-21T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-GPF-001208_Siouxon": {
+  "all_finite": true,
+  "bands": 561,
+  "complete_hours": 561,
+  "complete_json_sha256": "2df3466e4838d6272b87eb9b6ed7059881b72cc5102c20f7cbc49da4f2cc7dd4",
+  "first_band_utc": "2022-09-26T19:00:00Z",
+  "last_band_utc": "2022-10-20T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WA-GPF-001297_CowlitzComplex": {
+  "all_finite": true,
+  "bands": 504,
+  "complete_hours": 504,
+  "complete_json_sha256": "fe69d5f83cc35631d2c729e82596808fc2a5dfb4fbe913562b51190b407842f2",
+  "first_band_utc": "2023-09-02T05:00:00Z",
+  "last_band_utc": "2023-09-23T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WA-MSF-000334_SuiattleRiver": {
+  "all_finite": true,
+  "bands": 1057,
+  "complete_hours": 1057,
+  "complete_json_sha256": "02a3ade2027af11a49da41d01d30ef31aed7730a1696132c6a4fdefd95e37939",
+  "first_band_utc": "2022-09-06T02:00:00Z",
+  "last_band_utc": "2022-10-20T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "WA-NCP-000262_Sourdough": {
+  "all_finite": true,
+  "bands": 941,
+  "complete_hours": 941,
+  "complete_json_sha256": "a029290c689fcb3bc87d3cdc97649858263fcd4dc2c0542c183eafd06dbe866e",
+  "first_band_utc": "2023-08-03T00:00:00Z",
+  "last_band_utc": "2023-09-11T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "WA-NES-001779_WestHallett": {
+  "all_finite": true,
+  "bands": 69,
+  "complete_hours": 69,
+  "complete_json_sha256": "3c3a8aee1ea208c4ba834c7de9805fd5860c5d86ca2ef7b042a5e8517edc0622",
+  "first_band_utc": "2023-08-02T06:00:00Z",
+  "last_band_utc": "2023-08-05T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-NES-001795_WestAnderson": {
+  "all_finite": true,
+  "bands": 49,
+  "complete_hours": 49,
+  "complete_json_sha256": "09bf812ab7753977467cbd24198a4bb92b5fbe4a9b532bbd7b6d3cba96f04831",
+  "first_band_utc": "2023-08-06T04:00:00Z",
+  "last_band_utc": "2023-08-08T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-NES-001858_BoulderMountain": {
+  "all_finite": true,
+  "bands": 519,
+  "complete_hours": 519,
+  "complete_json_sha256": "261c6dfc66e9683f733023500a6ae2d06fa487b67bdfb00da85c70d6d07bbe4b",
+  "first_band_utc": "2022-09-05T02:00:00Z",
+  "last_band_utc": "2022-09-26T16:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WA-NES-001974_Gray": {
+  "all_finite": true,
+  "bands": 407,
+  "complete_hours": 407,
+  "complete_json_sha256": "bf564687d2a9390657112a97cd416c065248e242d090f53a0a014c8a8f674a95",
+  "first_band_utc": "2023-08-24T05:00:00Z",
+  "last_band_utc": "2023-09-10T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "WA-NES-002246_FordCorkscrew": {
+  "all_finite": true,
+  "bands": 315,
+  "complete_hours": 315,
+  "complete_json_sha256": "c7568e7a2855eb8e023629a0bd3667d6391763d55e6aa4c341e04cfd26b76b74",
+  "first_band_utc": "2021-08-17T03:00:00Z",
+  "last_band_utc": "2021-08-30T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "WA-NES-01491_WilliamsLake": {
+  "all_finite": true,
+  "bands": 83,
+  "complete_hours": 83,
+  "complete_json_sha256": "c3aee31f6dd74465bf84582a20ba8957968ca7af98769f656a41118bbfe1d5eb",
+  "first_band_utc": "2022-08-04T20:00:00Z",
+  "last_band_utc": "2022-08-08T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-NES-240099_BridgeCreek": {
+  "all_finite": true,
+  "bands": 239,
+  "complete_hours": 239,
+  "complete_json_sha256": "d8c89bc429c71cedcc2bdc5189a4b541387b3d6438a839390d33e5961c619cfd",
+  "first_band_utc": "2024-07-24T10:00:00Z",
+  "last_band_utc": "2024-08-03T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "WA-OLP-000412_Hurricane": {
+  "all_finite": true,
+  "bands": 289,
+  "complete_hours": 289,
+  "complete_json_sha256": "ca861931f6784ccde386fba538680c8986e77f741736cff0087904a49c650b66",
+  "first_band_utc": "2023-09-19T09:00:00Z",
+  "last_band_utc": "2023-10-01T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 9
+ },
+ "WA-OLS-000079_Road2620": {
+  "all_finite": true,
+  "bands": 269,
+  "complete_hours": 269,
+  "complete_json_sha256": "2a64aa0c2f9d32c088298a06926a13f44e20539f6398290cececba4576ef0dcf",
+  "first_band_utc": "2024-08-15T04:00:00Z",
+  "last_band_utc": "2024-08-26T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "WA-OWF-000374_AirplaneLake": {
+  "all_finite": true,
+  "bands": 655,
+  "complete_hours": 655,
+  "complete_json_sha256": "8f40d4aaaa7e657ef098b63c9d3b4c7229e04c6e9afc436749c6482697bd829c",
+  "first_band_utc": "2023-08-26T03:00:00Z",
+  "last_band_utc": "2023-09-22T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "WA-OWF-000407_Chikamin": {
+  "all_finite": true,
+  "bands": 435,
+  "complete_hours": 435,
+  "complete_json_sha256": "b27367019307e6cf64f2319bacad2c885e19bbd6fa56d560fe8de67aaa2f4f8f",
+  "first_band_utc": "2020-08-01T04:00:00Z",
+  "last_band_utc": "2020-08-19T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-OWF-000454_WindyPass": {
+  "all_finite": true,
+  "bands": 167,
+  "complete_hours": 167,
+  "complete_json_sha256": "23096e3898d620a6499da0edf15e2125d2ac95b76331dcbdc8198e13d6dbb57a",
+  "first_band_utc": "2021-08-05T04:00:00Z",
+  "last_band_utc": "2021-08-12T02:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-OWF-000456_Nason": {
+  "all_finite": true,
+  "bands": 844,
+  "complete_hours": 844,
+  "complete_json_sha256": "45b813124f271a7f274b5c305c7892bb2a9d3524d65be1610358414af9993977",
+  "first_band_utc": "2021-08-13T02:00:00Z",
+  "last_band_utc": "2021-09-17T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WA-OWF-000563_BlueLake": {
+  "all_finite": true,
+  "bands": 385,
+  "complete_hours": 385,
+  "complete_json_sha256": "a2f86a8fff7d0806cb33ff86bf8a95e51d1abd2394a7ad3777f26bfece30529d",
+  "first_band_utc": "2023-08-25T04:00:00Z",
+  "last_band_utc": "2023-09-10T04:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-OWF-000639_ColdCreek": {
+  "all_finite": true,
+  "bands": 120,
+  "complete_hours": 120,
+  "complete_json_sha256": "0b97594572485f3e4ee208d6233e143999d38f5080cdaf38f3f5d9f6bdaa01b7",
+  "first_band_utc": "2020-09-17T04:00:00Z",
+  "last_band_utc": "2020-09-22T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-PCS-0220_NakiaCreek": {
+  "all_finite": true,
+  "bands": 194,
+  "complete_hours": 194,
+  "complete_json_sha256": "6bcaefd0e07ef3d1d7c64f0cfc5fe7a7473d3d51acd12a2b558a9dacebd395c3",
+  "first_band_utc": "2022-10-12T02:00:00Z",
+  "last_band_utc": "2022-10-20T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ },
+ "WA-SES-000263_VantageHighway": {
+  "all_finite": true,
+  "bands": 146,
+  "complete_hours": 146,
+  "complete_json_sha256": "e3f2dcc2cdd54423f0982e86b148450d3e3c9a2f6fb75fdbbee4867df3a812a5",
+  "first_band_utc": "2022-08-02T06:00:00Z",
+  "last_band_utc": "2022-08-08T07:00:00Z",
+  "n_responses": 1,
+  "nodes": 10
+ },
+ "WA-SES-000277_CowCanyon": {
+  "all_finite": true,
+  "bands": 244,
+  "complete_hours": 244,
+  "complete_json_sha256": "d9e912974598cb3f8d527353c24b3a5bf6052a891dc64db1c50c8e1f0b542e0c",
+  "first_band_utc": "2022-08-05T03:00:00Z",
+  "last_band_utc": "2022-08-15T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 6
+ },
+ "WA-SES-000336_TunnelFive": {
+  "all_finite": true,
+  "bands": 99,
+  "complete_hours": 99,
+  "complete_json_sha256": "5f635c1e94e407afd407f03059ff44fba7d4b1e3d64ba685862f9701be35b959",
+  "first_band_utc": "2023-07-05T07:00:00Z",
+  "last_band_utc": "2023-07-09T09:00:00Z",
+  "n_responses": 1,
+  "nodes": 3
+ },
+ "WA-SES-000360_RedApple": {
+  "all_finite": true,
+  "bands": 94,
+  "complete_hours": 94,
+  "complete_json_sha256": "f0eabe881dc5b3ce66d18be8cf7cc892fc4b6efcaab1d0c6ebb4657eb67af5ea",
+  "first_band_utc": "2021-07-15T09:00:00Z",
+  "last_band_utc": "2021-07-19T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "WA-SES-000464_NewellRoad": {
+  "all_finite": true,
+  "bands": 152,
+  "complete_hours": 152,
+  "complete_json_sha256": "a23c329e23dfd5bfc3b26bd8bd60b5f7680aae1013192d85089df75449054d01",
+  "first_band_utc": "2023-07-22T21:00:00Z",
+  "last_band_utc": "2023-07-29T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 16
+ },
+ "WA-SES-000477_Retreat": {
+  "all_finite": true,
+  "bands": 338,
+  "complete_hours": 338,
+  "complete_json_sha256": "944d1bf3082241168b8ced34d5ab6a58f8cb91f9c60875c1606d12b5ef3d66a7",
+  "first_band_utc": "2024-07-25T04:00:00Z",
+  "last_band_utc": "2024-08-08T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 12
+ },
+ "WA-SES-000565_EvansCanyon": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "98c85271c7e5bfd1567034294440679e2c454b6379a041a9dd91619451893a85",
+  "first_band_utc": "2020-09-03T04:00:00Z",
+  "last_band_utc": "2020-09-06T04:00:00Z",
+  "n_responses": 2,
+  "nodes": 17
+ },
+ "WA-SES-020209_CougarCreek": {
+  "all_finite": true,
+  "bands": 671,
+  "complete_hours": 671,
+  "complete_json_sha256": "e84c2f3d45ef280e0055c8971bcd006b1968111fa2b41c549107938830e2e2ec",
+  "first_band_utc": "2024-07-20T08:00:00Z",
+  "last_band_utc": "2024-08-17T06:00:00Z",
+  "n_responses": 1,
+  "nodes": 7
+ },
+ "WA-SPA-002124_Sherwood": {
+  "all_finite": true,
+  "bands": 237,
+  "complete_hours": 237,
+  "complete_json_sha256": "c3ff0b95a808750a5c3b403adecb37343b0ef1985782f404538d9e9d78e2b06f",
+  "first_band_utc": "2021-07-25T04:00:00Z",
+  "last_band_utc": "2021-08-04T00:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WA-SPD-001947_Palmer_Anglin": {
+  "all_finite": true,
+  "bands": 65,
+  "complete_hours": 65,
+  "complete_json_sha256": "7ebc3102398e1d76d3e56bf981aa8c24b346824d4f2f61b2ab3589cfc5644c71",
+  "first_band_utc": "2020-08-27T02:00:00Z",
+  "last_band_utc": "2020-08-29T18:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WA-WFS-000594_PearlHill": {
+  "all_finite": true,
+  "bands": 148,
+  "complete_hours": 148,
+  "complete_json_sha256": "cbbd62f8be502db9c491384fabbfa7e8d7f08605b15309c4b61bff8702ec4944",
+  "first_band_utc": "2020-09-09T01:00:00Z",
+  "last_band_utc": "2020-09-15T04:00:00Z",
+  "n_responses": 4,
+  "nodes": 48
+ },
+ "WY-BHF-000399_Elk": {
+  "all_finite": true,
+  "bands": 527,
+  "complete_hours": 527,
+  "complete_json_sha256": "d47b25e6923c70890ed971da9337f5f1f34f85ba66079e7166408122f493f0ba",
+  "first_band_utc": "2024-10-05T07:00:00Z",
+  "last_band_utc": "2024-10-27T05:00:00Z",
+  "n_responses": 3,
+  "nodes": 36
+ },
+ "WY-BTF-002201_Sandy": {
+  "all_finite": true,
+  "bands": 73,
+  "complete_hours": 73,
+  "complete_json_sha256": "049156e14cef94251da4b26da2a83d5d4dd66fae7c7d494e155d3015e50469ba",
+  "first_band_utc": "2022-07-02T05:00:00Z",
+  "last_band_utc": "2022-07-05T05:00:00Z",
+  "n_responses": 1,
+  "nodes": 2
+ },
+ "WY-HPD-240536_LaBonte": {
+  "all_finite": true,
+  "bands": 96,
+  "complete_hours": 96,
+  "complete_json_sha256": "98f12c2c97fdaeec6484b49625a38dbe79dae4a053a53edcfc95bd12503bef77",
+  "first_band_utc": "2024-09-16T09:00:00Z",
+  "last_band_utc": "2024-09-20T08:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WY-MRF-000408_EastTroublesome": {
+  "all_finite": true,
+  "bands": 1096,
+  "complete_hours": 1096,
+  "complete_json_sha256": "25ee9a1cc268e99b5a0a9741d78bd249a11895052b7aebb7facd06993b8f2850",
+  "first_band_utc": "2020-10-16T05:00:00Z",
+  "last_band_utc": "2020-11-30T20:00:00Z",
+  "n_responses": 3,
+  "nodes": 36
+ },
+ "WY-MRF-000514_BlackMountain": {
+  "all_finite": true,
+  "bands": 49,
+  "complete_hours": 49,
+  "complete_json_sha256": "518f8d3b1ed7f6fe580f878fd1aa798b600a0464ce4d3703bd591e73f432dbb7",
+  "first_band_utc": "2021-08-30T18:00:00Z",
+  "last_band_utc": "2021-09-01T18:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WY-MRF-200752_Mullen": {
+  "all_finite": true,
+  "bands": 868,
+  "complete_hours": 868,
+  "complete_json_sha256": "94269ab6b9a8fa338527323b7442b028ff5727c5f82d9db968bb2cecdc1f4a64",
+  "first_band_utc": "2020-09-24T01:00:00Z",
+  "last_band_utc": "2020-10-30T04:00:00Z",
+  "n_responses": 3,
+  "nodes": 35
+ },
+ "WY-MRF-220267_Sugarloaf": {
+  "all_finite": true,
+  "bands": 193,
+  "complete_hours": 193,
+  "complete_json_sha256": "14d39c4ea54d3c9eb2774a4b8da51ee3693d01de4da93911d5c80b7d08513774",
+  "first_band_utc": "2022-07-28T03:00:00Z",
+  "last_band_utc": "2022-08-05T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 4
+ },
+ "WY-YNP-002006_LoneStar": {
+  "all_finite": true,
+  "bands": 719,
+  "complete_hours": 719,
+  "complete_json_sha256": "f8f2df285892922493493aa4aef4a5d51b7056a604ec41253bb3d37f2a6415c1",
+  "first_band_utc": "2020-08-24T05:00:00Z",
+  "last_band_utc": "2020-09-23T03:00:00Z",
+  "n_responses": 1,
+  "nodes": 5
+ }
+}
