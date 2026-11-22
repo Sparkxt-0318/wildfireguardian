@@ -1,0 +1,95 @@
+{
+ "fetch_finished_utc": "2026-11-22T05:08:19Z",
+ "issue_utc": "2026-11-22T05:07:00Z",
+ "schema": "wfg.live.inputs/1",
+ "sources": {
+  "ahi": {
+   "bytes": 6518,
+   "bytes_downloaded": 80508428,
+   "error": null,
+   "fetched_utc": "2026-11-22T05:07:56Z",
+   "file": "ahi_pixels.json",
+   "http_status": 200,
+   "ok": true,
+   "scans_expected": 40,
+   "scans_missing": 2,
+   "scans_read": 38,
+   "sha256": "50f9a6bb3817063c6a155450d66e02d795d2981e03e5d33650ad74518039aed7",
+   "source": "ahi",
+   "url": "https://noaa-himawari9.s3.amazonaws.com/AHI-L1b-Japan",
+   "window_utc": [
+    "2026-11-22T03:37:12Z",
+    "2026-11-22T05:07:00Z"
+   ]
+  },
+  "firms:MODIS_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-22T05:07:56Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:MODIS_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/MODIS_NRT/124.5,33,131,39/5"
+  },
+  "firms:VIIRS_NOAA20_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-22T05:07:56Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:VIIRS_NOAA20_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA20_NRT/124.5,33,131,39/5"
+  },
+  "firms:VIIRS_NOAA21_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-22T05:07:56Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:VIIRS_NOAA21_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA21_NRT/124.5,33,131,39/5"
+  },
+  "firms:VIIRS_SNPP_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-22T05:07:56Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:VIIRS_SNPP_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_SNPP_NRT/124.5,33,131,39/5"
+  },
+  "gfs": {
+   "bytes": 145172,
+   "complete": true,
+   "cycle_utc": "2026-11-22T00:00:00Z",
+   "error": null,
+   "fetched_utc": "2026-11-22T05:08:17Z",
+   "file": "gfs_2026112200.npz",
+   "http_status": 200,
+   "missing": {},
+   "ok": true,
+   "sha256": "136d39b0ff11e82ba89c6aa9e5ee359b04dfd3b6d54df8d7d35838fd7852935f",
+   "source": "gfs",
+   "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261122/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
+  },
+  "kfs": {
+   "bytes": 1941,
+   "error": null,
+   "fetched_utc": "2026-11-22T05:07:55Z",
+   "file": "kfs.json",
+   "http_status": 200,
+   "ok": true,
+   "sha256": "fdcdb2068381cea4bd9db6ff46ded6e28bc41d32763b97359f8a112e9ab642df",
+   "source": "kfs",
+   "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
+  }
+ }
+}
