@@ -19,43 +19,79 @@ def ceil_q(x: F) -> int:
     return -((-x.numerator) // x.denominator)
 
 
-def build_instance(road, close_s: dict, H: int) -> core.Instance:
+def build_instance(road, close_s: dict, H: int, open_s: dict | None = None) -> core.Instance:
     """replay.py Region.instance: edge j is closed for start t when its occupancy meets a closed cell along its
-    chord (phase [b, beyond H)); a wait [t, t+1] at a waitable node is closed from b - 1."""
+    chord (phase [b, beyond H)); a wait [t, t+1] at a waitable node is closed from b - 1.
+
+    ``open_s`` (research/kcf-reopen, optional): cell -> second r at which a closed cell reopens (burned over). The cell
+    is then closed on [b, r) instead of [b, beyond H): an edge whose segment through the cell covers travel fractions
+    [z_in, z_out] is closed for starts [ceil(b - D z_out), ceil(r - D z_in) - 1], a wait for [b - 1, r - 1]. Cells
+    absent from ``open_s`` (or r > H) stay closed to the end, so ``open_s=None`` is the unchanged rule."""
+    open_s = open_s or {}
     B = []
     for j, segs in enumerate(road.seg):
         Dq = F(road.D[j])
         lo = None
+        pieces = []
+        zin = F(0)
         for c, zb in segs:
             b = close_s.get(c)
-            if b is None:
-                continue
-            s = max(ceil_q(F(b) - Dq * zb), 0)
-            lo = s if lo is None else min(lo, s)
-        B.append([(lo, H)] if lo is not None and lo <= H else [])
+            if b is not None:
+                s = max(ceil_q(F(b) - Dq * zb), 0)
+                r = open_s.get(c)
+                if r is None or r > H:
+                    lo = s if lo is None else min(lo, s)
+                elif r > b:  # r <= b: [b, r) is empty, nothing is closed
+                    e = ceil_q(F(r) - Dq * zin) - 1
+                    if e >= s and s <= H:
+                        pieces.append((s, min(e, H)))
+            zin = zb
+        if lo is not None and lo <= H:
+            pieces.append((lo, H))
+        B.append(iv.normalize(pieces) if pieces else [])
     W = []
     for v, c in enumerate(road.node_cell):
         b = close_s.get(c)
-        W.append([(max(b - 1, 0), H)] if (road.waitable[v] and b is not None and b - 1 <= H) else [])
+        if not road.waitable[v] or b is None or b - 1 > H:
+            W.append([])
+            continue
+        hi = _open_end(open_s, c, b, H)
+        W.append([(max(b - 1, 0), hi)] if hi is not None and hi >= max(b - 1, 0) else [])
     return core.Instance(H=H, n_nodes=len(road.node_ids), tail=road.tail, head=road.head, D=road.D,
                          waitable=road.waitable, forbidden=road.forbidden, B=B, W=W)
 
 
-def accept(road, close_s: dict, node: int, H: int, dwell: int, nodeb=None):
+def _open_end(open_s, c, b, H):
+    """Last closed second of a cell closed from b: r - 1 if it reopens at r <= H (open_s), else H; None when r <= b
+    (the window [b, r) is empty)."""
+    r = (open_s or {}).get(c)
+    if r is None or r > H:
+        return H
+    return r - 1 if r > b else None
+
+
+def accept(road, close_s: dict, node: int, H: int, dwell: int, nodeb=None, open_s: dict | None = None):
     """replay.py Region.accept: arrival a is accepted if a <= H - dwell and the shelter cell is not closed during
-    the stay [a, a + dwell]. ``nodeb`` (heat option): per-node closure second in place of the cell's."""
+    the stay [a, a + dwell]. ``nodeb`` (heat option): per-node closure second in place of the cell's. ``open_s``:
+    reopening seconds (build_instance); the stay must then avoid [b, r)."""
     b = nodeb(node) if nodeb else close_s.get(road.node_cell[node])
     acc = (0, H - dwell)
     if acc[1] < 0:
         return []
     if b is not None:
-        return iv.subtract(acc, [(max(b - dwell, 0), H)])
+        hi = H if nodeb else _open_end(open_s, road.node_cell[node], b, H)
+        if hi is None or hi < max(b - dwell, 0):
+            return [acc]
+        return iv.subtract(acc, [(max(b - dwell, 0), hi)])
     return [acc]
 
 
-def origin_closure(road, close_s: dict, node: int, H: int, nodeb=None):
+def origin_closure(road, close_s: dict, node: int, H: int, nodeb=None, open_s: dict | None = None):
     b = nodeb(node) if nodeb else close_s.get(road.node_cell[node])
-    return [(b, H)] if b is not None else []
+    if b is None:
+        return []
+    hi = H if nodeb else _open_end(open_s, road.node_cell[node], b, H)
+    return [(b, hi)] if hi is not None and hi >= b else []
 
 
 # ------------------------------------------------------------------------------------------------ workers
@@ -72,6 +108,78 @@ def _legs(w):
         return None
     arr, legs = w
     return {"arrival": arr, "legs": [list(l) for l in legs]}
+
+
+WITNESS_BUDGET = 2_000_000
+
+
+def witness_for(fld, o: int, t: int, budget: int = WITNESS_BUDGET):
+    """core.witness (earliest-arrival journey, unchanged search order) with a budget of expanded states. With reopening
+    and no waitable nodes a journey may have to drive loops for hours until a road or shelter reopens, and the earliest-
+    arrival search then visits every (edge, second) state on the way; past the budget the field's own greedy witness
+    (core.witness_greedy: valid, never dead-ends, arrival not necessarily earliest) is returned instead. Returns
+    (arrival, legs, earliest: bool) or None. Permanent closures never reach the budget on the recorded regions."""
+    import heapq
+    inst = fld.inst
+    if iv.contains(iv.normalize(inst.IB.get(o, [])), t):
+        return None
+    core_set = core.issue_core(fld, o)
+    if not iv.contains(core_set, t):
+        return None
+    if "h" not in fld.stats:
+        fld.stats["h"] = core.static_to_dest(inst)
+    h = fld.stats["h"]
+    ISSUE = -1
+    if iv.contains(inst.AN.get(o, []), t):
+        return t, [], True
+    start = (ISSUE, t, False)
+    heap = [(t + h[o], t, ISSUE, 0, start)]
+    parent = {start: None}
+    seq = 1
+    while heap:
+        if len(parent) > budget:
+            g = core.witness_greedy(fld, o, t)
+            return (g[0], g[1], False) if g else None
+        _, time, _, _, st = heapq.heappop(heap)
+        s, _, admitted = st
+        if admitted and iv.contains(inst.A[s], time):
+            legs = []
+            cur = st
+            while parent[cur] is not None:
+                prev, leg = parent[cur]
+                legs.append(leg)
+                cur = prev
+            legs.reverse()
+            return time, legs, True
+        node = o if s == ISSUE else inst.head[s]
+        for j in inst.out[node]:
+            if s != ISSUE and (s, j) in inst.forbidden:
+                continue
+            arr = time + inst.D[j]
+            if arr > inst.H or iv.contains(inst.B[j], time) or not iv.contains(fld.G[j], arr):
+                continue
+            key = (j, arr, True)
+            if key not in parent:
+                parent[key] = (st, ("EDGE", j, time, arr))
+                heapq.heappush(heap, (arr + h[inst.head[j]], arr, j, seq, key)); seq += 1
+        if inst.waitable[node] and time + 1 <= inst.H and not iv.contains(inst.W[node], time):
+            nxt = core_set if s == ISSUE else fld.R[s]
+            if iv.contains(nxt, time + 1):
+                key = (s, time + 1, False)
+                if key not in parent:
+                    parent[key] = (st, ("WAIT", node, time, time + 1))
+                    heapq.heappush(heap, (time + 1 + h[node], time + 1, s, seq, key)); seq += 1
+    raise AssertionError("field says feasible but no witness found (field/witness inconsistency)")
+
+
+def _wlegs(w):
+    if w is None:
+        return None
+    arr, legs, earliest = w
+    d = {"arrival": arr, "legs": [list(l) for l in legs]}
+    if not earliest:
+        d["earliest"] = False
+    return d
 
 
 def _shelter_job(job):
@@ -91,9 +199,9 @@ def _shelter_job(job):
         S = core.issue_set(fld, on)
         res = {"set": [list(p) for p in S], "w_last": None, "w_first": None}
         if S:
-            res["w_last"] = _legs(core.witness(fld, on, S[-1][1]))
+            res["w_last"] = _wlegs(witness_for(fld, on, S[-1][1]))
             if S[0][0] == 0:
-                res["w_first"] = _legs(core.witness(fld, on, 0))
+                res["w_first"] = _wlegs(witness_for(fld, on, 0))
         out[on] = res
     inst.IB = {}
     return snode, out, fld.stats["pushes"]
@@ -132,7 +240,7 @@ def stage_of(remaining_s, horizon_left_s, st):
     return None
 
 
-def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
+def assemble(region, fire, settings, inst, results, close_s, nodeb=None, open_s=None):
     """Per-village rows (dicts with seconds after issue; formatting is done by the writers)."""
     H = fire.horizon_s
     dwell = settings["routing"]["dwell_s"]
@@ -165,7 +273,7 @@ def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
             free = H - dwell - ft if ft is not None and H - dwell - ft >= 0 else None
             per.append({"k": k, "shelter": s, "set": S, "L": S[-1][1] if S else None, "fire_free_latest": free,
                         "fastest_s": ft, "w_last": res["w_last"], "w_first": res["w_first"],
-                        "accept": accept(road, close_s, s["node"], H, dwell, nodeb)})
+                        "accept": accept(road, close_s, s["node"], H, dwell, nodeb, open_s)})
         row["per_shelter"] = per
         if all(p["fire_free_latest"] is None for p in per):
             row["refusal"] = ("NO_ROAD_PATH", "화재와 무관하게 도로망으로 후보 대피소에 갈 수 없음",
@@ -188,7 +296,7 @@ def assemble(region, fire, settings, inst, results, close_s, nodeb=None):
         else:
             cut = L + 1
         row.update(windows=windows, L=L, leave_by=(windows[0][1] if windows and windows[0][0] == 0 else None),
-                   fire_free_latest=free_max, cut=cut, A=A, horizon=H, origin_ib=origin_closure(road, close_s, on, H, nodeb))
+                   fire_free_latest=free_max, cut=cut, A=A, horizon=H, origin_ib=origin_closure(road, close_s, on, H, nodeb, open_s))
         # route at the latest departure (the last road out) and at the issue time (leave now)
         best = None
         for p in per:

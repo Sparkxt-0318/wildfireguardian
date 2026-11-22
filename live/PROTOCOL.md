@@ -182,3 +182,10 @@ for each missing input (KFS, FIRMS, AHI, GFS, road data).
    then dispatches its own successor; its 2-hourly cron only restarts a broken chain. The cron trigger is removed from
    `live.yml` so that runs are not doubled. Records say who started a run (`run.trigger`: `relay`, `manual`, or the
    GitHub event). Issue time, inputs, rules and limits are unchanged; §2's "every 30 minutes at :07 and :37" still holds.
+
+2. **2026-11-21 — reported cause shown (no rule changed).** Each fire's record and page now carry the cause the Forest
+   Service reports, its status, the first-report time and the number of ignition points, and a background panel of
+   ten-year cause shares for the same province and month. Report only: a cause is read only from feed fields named in
+   `live.toml [cause]` (none exist today, so every fire shows "not reported"), never inferred or predicted, and it is
+   not an input to §4, §5 or any time or flag. Record schema unchanged; the new fields are optional. §11's tests gain
+   cause cases (with, without, changing).

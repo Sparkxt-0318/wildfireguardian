@@ -210,7 +210,7 @@ The second writes the cards for all 174 checkable places of the worked example, 
 | file | contents |
 |---|---|
 | `cards_ko_<region>.pdf` / `cards_en_<region>.pdf` | One A5 page per place, in black and white. A map shows the exits, the dangerous road, the trigger line and the shelters. The key facts are leave-by with and without clearance, leave-by with the margin, trigger time, shelter, exits, dangerous road, forest share, departure order and van pickup. "모델 출력 · 참고용 · 명령 아님" is printed at the top and bottom. |
-| `audit_<region>.csv` | One row per place, refused places included. Every value carries its status: CITED, DERIVED or ASSUMED. |
+| `audit_<region>.csv` | One row per place, refused places included. Every value carries its status: MEASURED, CITED, DERIVED, ESTIMATED or ASSUMED. Includes households, residents, residents aged 65+, mapped buildings and buildings at risk. |
 | `pickup_<region>.csv` | Van routes stop by stop. Also lists places not served within the horizon and places whose road is already cut. |
 | `cards.json` | Settings, data hashes, counts and file hashes. |
 | `OVERLAP.md`, `overlap.json` | Produced by `cards-example` only: the overlap check. |
@@ -232,9 +232,15 @@ The second writes the cards for all 174 checkable places of the worked example, 
   `leaf_type`. The 50 m is ASSUMED, because Korean OSM forest polygons stop at the road corridor.
 * **Clearance time.** Vehicles ÷ the capacity of the narrowest road on the route. The route is the one at the
   leave-by time, or exit 1 when there is no route.
-  * Households are cited totals split equally over the 법정리 (ASSUMED; `tools/build_households.py` →
-    `data/households/`).
-  * Vehicles per household is 1.198 (DERIVED, Gyeongbuk).
+  * Households, residents and residents aged 65+ of a village: the MOIS 주민등록 2025-02 count of its 읍·면·동
+    (MEASURED) split equally over the live 법정리 (the village figure is ESTIMATED), `data/households/`, built by
+    `research/kcf-buildings` (the earlier county-total split is kept in `data/households_assumed/`; `tools/build_households.py`).
+  * Buildings: OSM 2025-03-21 only, assigned to the nearest place; a lower bound (the OSM building layer is about 5 % of
+    what stands there). "Buildings at risk" = mapped buildings in a 375 m cell the input fire field reaches within the horizon;
+    "households in reached cells" (ESTIMATED) is the village's households if its cell is reached (or the share of its
+    mapped buildings when at least 5 are mapped). No fire is spread from building to building. `data/buildings/`.
+  * Vehicles = households × 1.2008 (MOLIT Gyeongbuk 2024-12 vehicles ÷ MOIS Gyeongbuk households 2025-02; ESTIMATED,
+    province ratio, not district).
   * Capacity is 1,700 vehicles/h/direction for two-lane roads (CITED, KHCM 2013) and 800 for village roads
     (ASSUMED).
   * Every source is in `data/traffic_sources.json`.
@@ -267,8 +273,10 @@ never later than without heat. Wind, humidity and air temperature are one value 
 ASSUMED: 7 m/s, 30 %, 10 °C). The certificates carry the per-piece closure seconds and still verify without the tool.
 
 It is off by default. On the 25 March replay it moves 337 of 1,134 leave-now times at 4.7 kW/m² (median 3.7 min
-earlier), but mostly through the 375 m cell rule, and on the finals packets only through the capped spread rate of the
-known fire area (research/kcf-radiation/RESULTS.md, "Road layer"). The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
+earlier), but mostly through the 375 m cell rule. Since PROTOCOL A7 a cell already burning at issue takes the spread rate
+of the nearest cells with a real arrival gradient instead of the 150 m/min cap (and no flame if there is none); on the
+finals packets that cut the lost leave-now windows from 22 to 2 of 425 (research/kcf-radiation/RESULTS.md, "A7" and
+"Road layer"). The option needs a raster on the road grid's 375 m EPSG:5179 lattice or a
 packet (other rasters are refused with HEAT_INPUT_UNSUPPORTED). Radiation only: no convection, embers or smoke; the
 thresholds are for people outside a vehicle (research/kcf-radiation/RESULTS.md, Limits).
 

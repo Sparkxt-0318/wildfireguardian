@@ -4,7 +4,8 @@ from multiprocessing import Pool
 from pathlib import Path
 from . import run_real
 
-OUT = Path(__file__).resolve().parents[1] / "results" / "work"
+import os
+OUT = Path(os.environ.get("KQ_OUT") or Path(__file__).resolve().parents[1] / "results" / "work")
 
 
 def todo(stage):

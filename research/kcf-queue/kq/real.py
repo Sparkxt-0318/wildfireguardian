@@ -2,8 +2,10 @@
 demand. Reads only; no input file is changed."""
 from __future__ import annotations
 
+import csv
 import json
 import math
+import os
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -50,7 +52,9 @@ class Reg:
         self.cx = x0 + (idx % W + 0.5) * res
         self.cy = y0 + (idx // W + 0.5) * res
         _, self.ways = cards.load_edge_data(rid)
-        self.hh = cards.load_households(rid)
+        _hd = os.environ.get("KQ_HOUSEHOLDS")  # kcf-buildings: alternative household table (same columns + vehicles)
+        self.hh = ({x["place_id"]: x for x in csv.DictReader(open(Path(_hd) / ("%s.csv" % rid), encoding="utf-8"))}
+                   if _hd else cards.load_households(rid))
         self.cls = [(self.ways.get(rd.source_way[j]) or {}).get("class") or "unmatched" for j in range(self.E)]
         self.sources = rd.source_way
 

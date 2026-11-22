@@ -66,8 +66,12 @@ def _sha(b: bytes) -> str:
 
 def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, not_reached_value=None, as_of=None,
         settings_path=None, out=None, workers=None, assume_uncovered=False, overwrite=False, cache=None, log=print,
-        heat=None, heat_threshold=None, fragility=False) -> dict:
+        heat=None, heat_threshold=None, fragility=False, reopen=None, reopen_arrival=None, reopen_confirmed=None,
+        burnout_min=None) -> dict:
     t0 = time.perf_counter()
+    if fragility and (reopen not in (None, "off") or settings_mod.load(settings_path)["reopen"]["mode"]) and reopen != "off":
+        raise Refusal(reason("FRAGILITY_WITH_REOPEN", "--fragility 는 연소 후 재개통을 반영하지 않습니다. --reopen 없이 실행하십시오.",
+                             "--fragility assumes permanent closures; run it without --reopen."))
     if fragility:  # the fragility columns are computed from the raster closures only; heat closures are not included
         heat_on = bool(heat) if heat is not None else bool(settings_mod.load(settings_path)["heat"]["enabled"])
         if heat_on:
@@ -77,18 +81,29 @@ def run(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, 
     c = compute(region_name=region_name, issue_time=issue_time, raster=raster, packet=packet, horizon_min=horizon_min,
                 not_reached_value=not_reached_value, as_of=as_of, settings_path=settings_path, out=out, workers=workers,
                 assume_uncovered=assume_uncovered, overwrite=overwrite, cache=cache, log=log, heat=heat,
-                heat_threshold=heat_threshold)
+                heat_threshold=heat_threshold, reopen=reopen, reopen_arrival=reopen_arrival, reopen_confirmed=reopen_confirmed,
+                burnout_min=burnout_min)
     if fragility:  # optional columns and pages (research/kcf-robust); off by default, nothing else changes
         from . import fragility as frag_mod
         t_f = time.perf_counter()
         c["fragility"] = frag_mod.compute(c, raster, HERE.parent, log=log)
+        from . import cards as cards_mod, demand  # households, residents, 65+ and buildings at risk beside each fragility row (research/kcf-buildings)
+        _hh = cards_mod.load_households(c["rid"])
+        for _r in c["rows"]:
+            _id, _h = _r["origin"]["id"], _hh.get(_r["origin"]["id"])
+            if _r["refusal"] or _id not in c["fragility"] or _h is None:
+                continue
+            _dm = demand.demo(_h)
+            c["fragility"][_id]["people"] = {"demo": _dm, "risk": demand.at_risk(c["region"].id, c["region"].road, c["close_s"], c["H"], _id,
+                                                                                _r["origin"]["node"], _dm["households"])}
         c["fragility_s"] = round(time.perf_counter() - t_f, 1)
     return _write_outputs(c, t0)
 
 
 def compute(*, region_name, issue_time, raster=None, packet=None, horizon_min=None, not_reached_value=None, as_of=None,
             settings_path=None, out=None, workers=None, assume_uncovered=False, overwrite=False, cache=None, log=print,
-            default_out_fn=None, shift_s: int = 0, heat=None, heat_threshold=None) -> dict:
+            default_out_fn=None, shift_s: int = 0, heat=None, heat_threshold=None, reopen=None, reopen_arrival=None,
+            reopen_confirmed=None, burnout_min=None) -> dict:
     """Inputs, refusal checks and the deadline field; no file written. ``shift_s`` > 0 moves every closure that many
     seconds earlier (floored at 0): the latest departures then keep that margin before fire arrival everywhere on the
     route and at the shelter (used by the village cards' trigger line; 0 for the sheets)."""
@@ -97,6 +112,19 @@ def compute(*, region_name, issue_time, raster=None, packet=None, horizon_min=No
         cfg["heat"]["enabled"] = 1 if heat else 0
     if heat_threshold is not None:
         cfg["heat"]["threshold_kw_m2"] = float(heat_threshold)
+    if reopen is not None:
+        from .reopen import MODES
+        if reopen not in MODES:
+            raise Refusal(reason("REOPEN_INVALID", "--reopen 은 off, confirmed, responders 중 하나입니다.",
+                                 "--reopen must be off, confirmed or responders."))
+        cfg["reopen"]["mode"] = MODES[reopen]
+    if burnout_min is not None:
+        if not burnout_min > 0:
+            raise Refusal(reason("REOPEN_INVALID", "--burnout-min 은 0보다 커야 합니다.", "--burnout-min must be positive."))
+        cfg["reopen"]["burnout_min"] = float(burnout_min)
+    if cfg["reopen"]["mode"] and cfg["heat"]["enabled"]:
+        raise Refusal(reason("REOPEN_WITH_HEAT", "연소 후 재개통과 복사열 도로 폐쇄는 함께 쓸 수 없습니다.",
+                             "reopening and the radiant-heat closure cannot be combined (heat closures carry no burn-out)."))
     rid = regiondata.resolve_region(region_name)
     issue = parse_time(issue_time, "발표 시각", "the issue time", "ISSUE_TIME_INVALID")
     as_of_dt = parse_time(as_of, "기준 시각", "the as-of time", "AS_OF_INVALID")
@@ -152,8 +180,15 @@ def compute(*, region_name, issue_time, raster=None, packet=None, horizon_min=No
     if H - dwell < 0:
         raise Refusal(reason("HORIZON_TOO_SHORT", "예측 범위가 대피소 체류 시간보다 짧습니다.", "the horizon is shorter than the shelter stay."))
     close_s = {k: max(0, v - shift_s) for k, v in fire.arrival_s.items()} if shift_s else dict(fire.arrival_s)
+    from . import reopen as reopen_mod
+    open_s, reopen_info = reopen_mod.build(region, fire, close_s, cfg, arrival_raster=reopen_arrival, confirmed=reopen_confirmed,
+                                           horizon_min=horizon_min, not_reached_value=not_reached_value)
+    if reopen_info:
+        log("%s: reopening on (%s, burn-out %g min): %d cells reopen within the horizon, %d burned over at issue" % (
+            rid, reopen_info["mode"], reopen_info["burnout_min"], reopen_info["cells_reopening_within_horizon"],
+            reopen_info["cells_burned_over_at_issue"]))
     t_in = time.perf_counter()
-    inst = engine.build_instance(region.road, close_s, H)
+    inst = engine.build_instance(region.road, close_s, H, open_s)
     nodeb, heat_info, hc = None, None, None
     if cfg["heat"]["enabled"]:
         from . import heat as heat_mod
@@ -170,16 +205,17 @@ def compute(*, region_name, issue_time, raster=None, packet=None, horizon_min=No
             continue
         for s in region.cands.get(o["id"], []):
             jobs_by[s["node"]].add(o["node"])
-    jobs = [(sn, engine.accept(region.road, close_s, sn, H, dwell, nodeb),
-             [(on, engine.origin_closure(region.road, close_s, on, H, nodeb)) for on in sorted(ons)]) for sn, ons in sorted(jobs_by.items())]
+    jobs = [(sn, engine.accept(region.road, close_s, sn, H, dwell, nodeb, open_s),
+             [(on, engine.origin_closure(region.road, close_s, on, H, nodeb, open_s)) for on in sorted(ons)]) for sn, ons in sorted(jobs_by.items())]
     nw = engine.default_workers(workers if workers is not None else cfg["run"]["workers"])
     log("%s: %d villages and facilities, %d shelter passes, %d workers" % (rid, len(region.origins), len(jobs), nw))
     results = engine.run_passes(region.road, inst, jobs, nw)
-    rows = engine.assemble(region, fire, cfg, inst, results, close_s, nodeb)
+    rows = engine.assemble(region, fire, cfg, inst, results, close_s, nodeb, open_s)
     t_field = time.perf_counter()
     return {"cfg": cfg, "rid": rid, "out": out, "region": region, "fire": fire, "now": now, "as_of_given": as_of_given,
             "H": H, "dwell": dwell, "close_s": close_s, "inst": inst, "rows": rows, "nw": nw, "fonts": fonts, "t_in": t_in,
-            "t_field": t_field, "assume_uncovered": assume_uncovered, "log": log, "jobs": len(jobs), "heat": heat_info, "hc": hc}
+            "t_field": t_field, "assume_uncovered": assume_uncovered, "log": log, "jobs": len(jobs), "heat": heat_info, "hc": hc,
+            "open_s": open_s, "reopen": reopen_info}
 
 
 def _write_outputs(c: dict, t0: float) -> dict:
@@ -198,7 +234,8 @@ def _write_outputs(c: dict, t0: float) -> dict:
            "fire_label": fire_label, "road_date": region.meta["graph"]["snapshot_utc"][:10],
            "places_date": region.meta["places"]["snapshot_utc"][:10],
            "run_label": "wfg-roadlayer %s · %s · %s%s" % (__version__, rid, fire.issue_utc.strftime("%Y%m%dT%H%MZ"),
-                                                         (" · heat %g kW/m²" % c["heat"]["threshold_kw_m2"]) if c.get("heat") else ""),
+                                                         ((" · heat %g kW/m²" % c["heat"]["threshold_kw_m2"]) if c.get("heat") else "") +
+                                                         ((" · reopen %s %g min" % (c["reopen"]["mode"], c["reopen"]["burnout_min"])) if c.get("reopen") else "")),
            "assumed_uncovered": len(fire.uncovered) if assume_uncovered else 0}
     if c.get("fragility") is not None:
         ctx["fragility"] = c["fragility"]
@@ -235,7 +272,7 @@ def _write_outputs(c: dict, t0: float) -> dict:
                 files[frel] = _sha((tmp / frel).read_bytes())
                 sheets.append({"file": frel, "villages": len(grp), "font_pt": ffs, "kind": "fragility"})
     cdir = tmp / "certificates"
-    raw = certs.instance_bytes(region.road, inst, close_s, H, dwell, c.get("hc"))
+    raw = certs.instance_bytes(region.road, inst, close_s, H, dwell, c.get("hc"), c.get("open_s"))
     inst_sha = certs.write_instance(cdir, raw)
     (cdir / "README.md").write_text(certs.README, encoding="utf-8")
     ncert = 0
@@ -275,8 +312,11 @@ def _write_outputs(c: dict, t0: float) -> dict:
         "settings": {k: v for k, v in cfg.items() if not k.startswith("_")}, "settings_files": cfg["_sources"],
         "model": {"field": "research/harness-2026-11/F-3.1/deadline_field/core.py (vendored, sha256 %s)" % _sha((HERE / "vendor/deadline_field/core.py").read_bytes()),
                   "checker": "research/kcf-theorem/checker.py (vendored, sha256 %s)" % _sha((HERE / "vendor/kcf_theorem/checker.py").read_bytes()),
-                  "instance": "research/kcf-replay/replay.py rules; closures permanent", "instance_sha256_uncompressed": inst_sha},
+                  "instance": "research/kcf-replay/replay.py rules; " + ("closures permanent" if not c.get("reopen") else
+                                                                                      "closure windows [b, r) (research/kcf-reopen)"),
+                  "instance_sha256_uncompressed": inst_sha},
         "heat": c.get("heat"),
+        "reopen": c.get("reopen"),
         "counts": dict(sorted(counts.items())), "villages": len(rows), "certificates": ncert, "sheets": sheets,
         "files_sha256": dict(sorted(files.items())),
         **({"fragility": {"method": "research/kcf-robust; wfg_roadlayer/fragility.py", "reach_step_km": 0.125, "reach_max_km": 15.0,

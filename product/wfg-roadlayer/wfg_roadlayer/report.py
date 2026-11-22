@@ -208,6 +208,13 @@ FRAGILITY_COLUMNS = [  # only with run --fragility (research/kcf-robust); append
     ("frag_reach_road", "추가 확산에 먼저 끊기는 도로", "road that fails first under extra reach"),
     ("frag_timing_min", "지금 출발: 견디는 도로 차단 시각 오차 (분)", "leaving now: tolerated closure-timing error (min)"),
     ("frag_timing_road", "시각 오차에 먼저 끊기는 도로", "road that fails first under timing error"),
+    ("pop_households", "세대 (읍·면·동 측정값에서 나눈 추정)", "households (estimated from the measured 읍·면·동 total)"),
+    ("pop_residents", "주민 (추정)", "residents (estimated)"),
+    ("pop_65plus", "65세 이상 주민 (추정)", "residents aged 65+ (estimated)"),
+    ("bldg_mapped_osm", "지도에 오른 건물 (OSM 2025-03-21, 하한)", "buildings mapped in OSM 2025-03-21 (lower bound)"),
+    ("bldg_at_risk_osm", "위험 건물: 예측 범위 안 불이 닿는 칸의 지도 건물", "buildings at risk: mapped buildings in cells the fire reaches within the horizon"),
+    ("pop_hh_at_risk", "불이 닿는 칸의 세대 (추정)", "households in cells the fire reaches within the horizon (estimated)"),
+    ("pop_status", "구분", "status of the figures above"),
 ]
 
 
@@ -219,6 +226,13 @@ def fragility_fields(row, lang, frag):
     f = (frag or {}).get(row["origin"]["id"])
     if f is None:
         return v
+    pe = f.get("people")
+    if pe:
+        dm, rk = pe["demo"], pe["risk"]
+        n = lambda x: "" if x is None else "%d" % round(x)  # noqa: E731
+        v.update(pop_households=n(dm["households"]), pop_residents=n(dm["residents"]), pop_65plus=n(dm["residents65"]),
+                 bldg_mapped_osm=str(rk["mapped"]), bldg_at_risk_osm=str(rk["at_risk"]), pop_hh_at_risk="%d" % round(rk["households_at_risk"]),
+                 pop_status=("%s; %s; %s; buildings: MAPPED (OSM), lower bound" % (dm["households_status"], dm["residents_status"], dm["residents65_status"])))
     if f.get("reach_note"):
         v["frag_reach_km"] = ("계산 안 함: " if ko else "not computed: ") + f["reach_note"]
     elif f["reach_km"] is None:

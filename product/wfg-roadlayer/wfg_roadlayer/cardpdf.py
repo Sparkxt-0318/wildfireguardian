@@ -27,7 +27,9 @@ T = {
         "leave": "출발 마감 (도로 기준)", "leave_q": "출발 마감 (대기행렬 모델 KQ-1)", "q_v": "%s  [낙관 %s – 비관 %s]  · 차량 %d대", "q_none": "모델에서 전 차량 대피 불가 (출발 분산·대기가 여유 시간보다 김)", "q_na": "이 시각은 계산 안 함", "q_h": " (예측 범위 제한)",
         "leave_cl": "출발 마감 (정체 반영)", "leave_m": "여유 %d분 지키는 출발 마감",
         "trigger": "트리거 시각 (여유 %d분 + 정체)", "shelter": "대피소", "exits": "독립 출구", "danger": "위험 도로",
-        "forest": "출구 도로 숲 비율", "order": "출발 순서", "nocar": "차 없는 주민 (추정)",
+        "forest": "출구 도로 숲 비율", "order": "출발 순서", "nocar": "차 없는 주민 (추정)", "people": "세대·주민·건물",
+        "people_v": "세대 %s (%s) · 주민 %s (%s) · 65세 이상 %s (%s) · 위험 건물 %d채 / 지도에 오른 %d채 (OSM 2025-03-21, 하한) · 불이 닿는 칸의 세대 %s (추정)", "people_fac": "시설 주민 %s명 (%s) · 지도에 오른 건물 %d채",
+        "st_est": "추정", "st_meas": "측정", "st_ass": "가정", "st_na": "자료 없음",
         "none_dl": "마감 없음 (예측 %g시간 안 차단 없음)", "cut_now": "이미 끊김 — 모델상 안전 경로 없음",
         "late_by": "%s (이미 %d분 늦음)", "clear": "차량 %d대 ÷ 가장 좁은 길 %d대/시 (%s) = %d분",
         "clear_fac": "자가 차량 0대 (시설: 전원 승합차)", "trig_line": "%s — 지도 굵은 점선을 불이 넘기 전에 출발",
@@ -39,7 +41,7 @@ T = {
         "nocar_unreach": "%d명 · 도로가 이미 끊겨 승합차 계획 없음", "nocar_zero": "0명",
         "nocar_left": " · %d명은 예측 범위 안 배정 못 함", "nocar_none": "%d명 · 승합차 %d대(%d인승)로 예측 %g시간 안 배정 못 함",
         "legend": ["마을", "대피소(번호=출구)", "출구 경로 1·2·3", "위험 도로 (375 m 칸)", "현재 불", "트리거 시각까지 탈 곳", "트리거선"],
-        "notes": "모델 출력. 도로: OSM 2025-03-21, 40 km/h, 혼잡·연기 제외. 화재: %s. 세대·차량은 공공 통계를 마을 수로 나눈 추정(ASSUMED); "
+        "notes": "모델 출력. 도로: OSM 2025-03-21, 40 km/h, 혼잡·연기 제외. 화재: %s. 세대·주민·65세 이상은 읍·면·동 주민등록 통계(MOIS 2025-02, 측정)를 법정리 수로 균등 분할한 마을 값(추정); 차량은 도 평균 세대당 차량×세대(추정); 건물은 OSM에 올라 있는 것만(하한, 건물 간 불 번짐 없음); "
                  "용량은 도로용량편람 2013 2차로 1,700대/시/방향, 마을길 800(ASSUMED). 출구 = 어느 대피소로든 도로 조각을 공유하지 않는 경로 수(회전 제한 무시). "
                  "트리거선 = 입력 화재 도달 예측의 그 시각 등시선. 설정: 여유 %d분, 차 없는 세대 %.0f%%, 세대당 차량 %.2f.",
         "foot": "%s · %s · 쪽 1/1",
@@ -51,6 +53,9 @@ T = {
         "q_na": "not computed for this hour", "q_h": " (horizon-limited)", "leave_m": "Leave by keeping %d min margin",
         "trigger": "Trigger time (%d min margin + clearance)", "shelter": "Shelter", "exits": "Independent exits",
         "danger": "Dangerous road", "forest": "Forest along exits", "order": "Departure order", "nocar": "Residents without a car (est.)",
+        "people": "Households, residents, buildings",
+        "people_v": "households %s (%s) · residents %s (%s) · aged 65+ %s (%s) · buildings at risk %d of %d mapped (OSM 2025-03-21, lower bound) · households in reached cells %s (est.)",
+        "people_fac": "facility residents %s (%s) · mapped buildings %d", "st_est": "estimated", "st_meas": "measured", "st_ass": "assumed", "st_na": "n/a",
         "none_dl": "no deadline (no cut within %g h)", "cut_now": "already cut — no safe route in the model",
         "late_by": "%s (already %d min late)", "clear": "%d vehicles ÷ narrowest road %d veh/h (%s) = %d min",
         "clear_fac": "0 own vehicles (facility: all by van)", "trig_line": "%s — leave before fire crosses the thick dashed line",
@@ -63,13 +68,29 @@ T = {
         "nocar_left": " · %d not reached within the horizon", "nocar_none": "%d · %d vans (%d seats) cannot reach them within %g h",
         "legend": ["village", "shelter (no. = exit)", "exit routes 1·2·3", "dangerous road (375 m cell)", "fire now",
                    "burns by trigger time", "trigger line"],
-        "notes": "Model output. Roads: OSM 2025-03-21, 40 km/h, no congestion or smoke. Fire: %s. Households and vehicles are public "
-                 "totals split equally over villages (ASSUMED); capacity: KHCM 2013 two-lane 1,700 veh/h/direction, village roads 800 "
+        "notes": "Model output. Roads: OSM 2025-03-21, 40 km/h, no congestion or smoke. Fire: %s. Households, residents and 65+ are 읍·면·동 register "
+                 "counts (MOIS 2025-02, measured) split equally over the 법정리 (village figure estimated); vehicles = households x province rate (estimated); buildings: only those mapped in OSM (lower bound; no fire spread between buildings); capacity: KHCM 2013 two-lane 1,700 veh/h/direction, village roads 800 "
                  "(ASSUMED). Exits = routes to any shelter sharing no road piece (turn restrictions ignored). Trigger line = isochrone "
                  "of the input fire-arrival forecast at that time. Settings: margin %d min, no-car households %.0f%%, %.2f vehicles/household.",
         "foot": "%s · %s · page 1/1",
     },
 }
+
+
+def _stat(st, lang):
+    t = T[lang]
+    st = (st or "").upper()
+    if st.startswith("ESTIMATED"):
+        return t["st_est"]
+    if st.startswith("MEASURED"):
+        return t["st_meas"]
+    if st.startswith("ASSUMED"):
+        return t["st_ass"]
+    return t["st_na"]
+
+
+def _n(x):
+    return "—" if x is None else "%d" % round(x)
 
 
 def _hm(issue, s, lang):
@@ -126,7 +147,7 @@ def draw_card(cv: canvas.Canvas, rec, lang, ctx):
                                 t["horizon"] % Hh_h)
     cv.drawString(x0, Hh - 21 * mm, sub)
     # ---------------------------------------------------------------- map
-    shrink = 15 * mm if rec.get("queue") is not None else 0   # one more fact line (queue model) needs room
+    shrink = (15 * mm if rec.get("queue") is not None else 0) + 8 * mm   # one more fact line (queue model) needs room
     mx0, my0, mw, mh = x0, 96 * mm + shrink, x1 - x0, 88 * mm - shrink
     _map(cv, rec, ctx, (mx0, my0, mw, mh), lang)
     # legend
@@ -187,6 +208,13 @@ def draw_card(cv: canvas.Canvas, rec, lang, ctx):
         lines.append((t["danger"], dv, rec["danger_all"] or rec["exits"] == 1))
     fv = ", ".join("%d: %.0f%%" % (i + 1, 100 * p["forest_share"]) for i, p in enumerate(rec["paths"]))
     lines.append((t["forest"], t["forest_v"] % fv, False))
+    dm, rk = rec["demo"], rec["risk"]
+    if rec["hh"]["kind"] == "village":
+        pv = t["people_v"] % (_n(dm["households"]), _stat(dm["households_status"], lang), _n(dm["residents"]), _stat(dm["residents_status"], lang),
+                              _n(dm["residents65"]), _stat(dm["residents65_status"], lang), rk["at_risk"], rk["mapped"], _n(rk["households_at_risk"]))
+    else:
+        pv = t["people_fac"] % (_n(dm["residents"]), _stat(dm["residents_status"], lang), rk["mapped"])
+    lines.append((t["people"], pv, False))
     if rec.get("dep_group"):
         ov = t["order_v"] % (rec["dep_group"].lstrip("G") if lang == "ko" else rec["dep_group"], rec["dep_pos"], rec["dep_size"],
                              _hm(issue, max(rec["dep_start"], 0), lang), (t["order_late"] % -(-rec["dep_late"] // 60)) if rec["dep_late"] else "")
@@ -230,7 +258,7 @@ def draw_card(cv: canvas.Canvas, rec, lang, ctx):
     note = t["notes"] % (ctx["fire_label"], M, 100 * tc["no_car_share"], tc["vehicles_per_household"])
     cv.setFont("Nanum", 5.6)
     yy = max(y - 1.0 * mm, 22 * mm)
-    for ln in _wrap(note, "Nanum", 5.6, x1 - x0)[:5]:
+    for ln in _wrap(note, "Nanum", 5.6, x1 - x0)[:6]:
         cv.drawString(x0, yy, ln)
         yy -= 2.5 * mm
     cv.setFillColor(black)

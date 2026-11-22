@@ -26,3 +26,12 @@ What was used instead:
 The environment rasters are indicators, not measured fuel: land cover is a 2019 100 m classification, canopy height a
 2019 GEDI-Landsat model, wind an ~9 km forecast-model field resampled to 375 m. METHOD.md section 9 states what this
 does to the answers.
+
+## A7 rerun (2026-11-20)
+
+The folder "wildfire 3 (1)" was tried again and still could not be reached (no computer attached; the Drive connector in
+the session has no file-read tool; a Drive file link supplied later could not be opened either). Used: the 15 packets and
+road graphs from the public release (`tools/fetch_routing_inputs.py`, hash verified), the 13 replay rasters rebuilt with
+`build_example_raster.py` (03:00 UTC byte-identical to the committed one), and fuel group, wind and RH per road cell from
+`data/panels/road_cells_panel_{A,B}.csv.gz`. Air temperature is recovered per cell from the recorded d*. The environment
+rasters themselves were not available. No key was read.

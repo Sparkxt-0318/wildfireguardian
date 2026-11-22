@@ -196,9 +196,9 @@ Files: `research/kcf-validate/RESULTS.md` (table rows 1, 1a–1d), `numbers.json
 
 ## 14. Radiant heat by published methods (kcf-radiation), replaces the kcf-heat law
 
-Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/panels/exploratory_front_only.json`,
+Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/panels/exploratory_front_only.json`, `data/panels_a7/summary_{old,new}.json`, `data/panels_a7/A7_leave_by_changes.csv`,
 `data/fires/fires_summary.json`, `data/c1_butler_cohen.json`, `data/c2_fds.json`, `data/c3_flames.json`,
-`data/c4_sensitivity.json`. Hash `3f5b915` (protocol frozen at `aac1b28`). Model output; no measured flux at a road.
+`data/c4_sensitivity.json`. Hash `3f5b915` (protocol frozen at `aac1b28`); rows marked A7 from the rerun of 2026-11-20 (PROTOCOL A7). Model output; no measured flux at a road.
 
 | item | value | n | source | does not show |
 |---|---|---|---|---|
@@ -209,9 +209,10 @@ Files: `research/kcf-radiation/RESULTS.md`, `data/panels/summary.json`, `data/pa
 | Butler-Cohen "4 x flame height" | reproduced at **3.5 H** (20 m front); long front **8.3 L** (Rossi: 8 L) | H = 1-10 m | `c1_butler_cohen.json` | that 4 H is safe for a long front: it is not |
 | Against FDS (C064 grass fire) | **19-115x above** FDS radiometers; 1.2-1.7x a resolved propane burner | 9 distance bins; 3 gauges | `c2_fds.json` | which is right: model-to-model only |
 | Crown flame length vs ICFME observations | within a factor **1.7** on all 11 plots (observed fronts 25-40 m) | 11 plots | `c3_flames.json` | flux; surface-fire flames run high (safe side) |
-| Replay leave-by times moved, 4.7 kW/m2 | **337 of 1,134** (median 3.7 min, max 28 min), 12 lose the window; old law 350 (7 lost) | 1,134 place-hours | `summary.json` (`A.variants.baseline_4.7`) | physics: most of the shift is the 375 m cell rule, as for the old law |
-| Finals packets, lost leave-now windows, 4.7 kW/m2 | **22 of 425**; old law 0; with known-fire cells silent (exploratory) **0** | 425 place-inputs | `summary.json`, `exploratory_front_only.json` | a real effect: all 22 come from the capped spread rate inside the known fire |
-| Road layer heat option | `--heat`, **off by default**; certificates still verify with it on | 2 worked examples | `product/wfg-roadlayer/README.md` | a validated default: it would ship the two artefacts above |
+| Replay leave-by times moved, 4.7 kW/m2 (unchanged by A7) | **337 of 1,134** (median 3.7 min, max 28 min), 12 lose the window; old law 350 (7 lost) | 1,134 place-hours | `summary.json` (`A.variants.baseline_4.7`) | physics: most of the shift is the 375 m cell rule, as for the old law |
+| Finals packets, lost leave-now windows, 4.7 kW/m2, before and after A7 (2026-11-20) | **22 of 425 → 2 of 425** (7 kW/m2: 22 → 1; 2.5: 25 → 2); times changed 24 → 4; old law 0 | 425 place-inputs | `panels_a7/summary_{old,new}.json` | that the artefact is gone: 12 of the 20 recovered windows come from 6 packets with no real-gradient cell, where the known fire gets no flame at all; 2 windows still lost |
+| Effect of A7 on the replay | **3 of 1,134** leave-by times at 7 kW/m2 (12 → 9 lost); **none** at 4.7 and 2.5 | 1,134 place-hours | `panels_a7/summary_{old,new}.json` | an improvement on the replay: 41 % of the known-fire cells take donor rates that are themselves at the 150 m/min cap |
+| Road layer heat option | `--heat`, **off by default**; certificates still verify with it on; uses the A7 rule | 2 worked examples | `product/wfg-roadlayer/README.md` | a validated default: the 375 m cell rule still sets most of the timing change |
 
 ## 15. Robust routing (kcf-robust): does the margin field improve an outcome? Twin primary, 25 Mar 2025 secondary
 
@@ -230,7 +231,17 @@ Files: `research/kcf-robust/RESULTS.md`, `PROTOCOL.md`, `out/twin_scores.json`, 
 | Fragility table: village-hours with no safe departure now / tolerating < 1 km extra reach | **1,128 / 2,262**; **76** below 1 km | 174 places x 13 hours | `out/fragility_174.csv` | a forecast of failure; the reach column is "if the fire goes this much further than the input" |
 | Product `--fragility` vs independent research pass | **2,262 / 2,262** reach and timing values equal; binding road 512 / 549 | 2,262 | `out/fragility_check.json` | why the binding road differs in 37 reach cases (not examined; the reach values themselves agree) |
 
-## 16. Four routing methods on one machine (kcf-bench), six recorded planner caches, 5 repeats
+## 16. Real household and building numbers for the 174 places (kcf-buildings), 25 Mar 2025, queue model rerun
+
+Files: `research/kcf-buildings/RESULTS.md`, `per_place_real.csv`, `compare_mid.json`, `SOURCES.md`. **Register counts (2025-02) at the 읍·면·동 level, estimates per village; model output, not what happened to people.**
+
+1. Households, residents and residents 65+ come from the interior ministry's **2025-02** 읍·면·동 counts; all 174 places are matched; no 리 register exists, so each village is its 읍·면·동 split equally over its 법정리 (**ESTIMATED**) (`SOURCES.md`).
+2. Vehicles in the 137 queue places: **29,399 assumed → 29,094 real (−1.0 %)**; median village 192 → 148; 8 villages up and 34 down by more than 20 % (range 0.62–3.18×) (`compare_mid.json`).
+3. Place-hours that cannot clear (MIDDLE, CONTESTED): **55 → 60 of 1,119**; 5 in, 0 out, at 의성읍 도동리·상리리·원당리 and 봉양면 분토리 (`compare_mid.json`).
+4. Leave-by times that change: **16 of 1,119 (1.4 %) at 6 of 137 villages**, up to 25.3 min earlier; none of the 90 영덕 places changes (`compare_mid.json`).
+5. The building register needs a key that is not in the folder; OSM holds only **231 buildings for the 174 places** (132 have none), so buildings at risk are lower bounds and vehicles are a province ratio, not a district count (`per_place_real.csv`).
+
+## 17. Four routing methods on one machine (kcf-bench), six recorded planner caches, 5 repeats
 
 Files: `research/kcf-bench/BENCH.md` (the table, ratios with ranges, accuracy, limits), `BENCH_PLAN.md` (committed before any timing), `results_hostB/summary.json`, `results_hostB/accuracy/`. Hash: BENCH.md and the summary `7f9ea3d`. Machine: Intel Xeon 2.10 GHz, 4 vCPU, Linux 6.18, Python 3.13.18, one pinned core, nothing else of the study running during a timed task (two short git operations are logged). The four methods: the old one-departure-at-a-time method (OLD), the deadline field (FIELD), the margin field at one margin (MARGIN-1) and at ten margins (MARGIN-10).
 
@@ -243,6 +254,7 @@ Files: `research/kcf-bench/BENCH.md` (the table, ratios with ranges, accuracy, l
 | Conditions | OLD is scaled from a fixed random sample (sampling interval in BENCH.md), not run on every case. One machine, one pinned core on a shared virtual host; the container restarted twice during collection and one OLD block straddled a restart. Everything is logged | 240 timed tasks, 0 failed |
 
 **Does not show:** a speed-up for a single departure (not measured), other machines, or a total that is comparable with section 1's Mac rows: that study used different job sets (up to 500 per file) and found 25–222×; the two are separate datasets and are not combined. A compiled version of either method was not timed. All results are model-relative.
+
 
 ## Ten likely judge questions
 
@@ -269,3 +281,29 @@ Files: `research/kcf-bench/BENCH.md` (the table, ratios with ranges, accuracy, l
 8. Adding the spot layer to the fixed margin held **1 of 12 hours** on 25 March 09–20 KST, the same as the margin alone (`derived/tests.json`).
 9. The layer explained **0 of 258** held-out misses that kcf-adaptive4 left unexplained; even removing every observed spot cell would explain only 13 (5%) (`tests.json`).
 10. On 25 March the fire's hot area grew by up to **12.7 km in one hour**, with every new patch within 2 km of cells lit that hour: at satellite scale the run was a fast front, not detached jumps (`kcf-spot/RESULTS.md`, point 4).
+
+## Camp Fire road states, burnovers and movements (research/kcf-camp)
+
+1. NIST's Camp Fire workbook: **2,264 unique reports** (575 cross-sheet copies removed); a blind second reader agreed with the first on 83.7% of 652 road rows (**kappa 0.72**); **202 road-closed, 24 passable** (`kcf-camp/RESULTS.md`, Data).
+2. Scored at the reports, not against one rebuilt field: each road report is held out with every fire report within **500 m and 60 min** (812 of 1,596 removed) (`kcf-camp/PROTOCOL.md`).
+3. The closure rule on reports alone closed the road by the reported time at **37 of 195** road-closed reports (**19%**, 95% CI 14–25%); 97 never closed (`kcf-camp/numbers.json`).
+4. With the frozen spread margin R(h): **170 of 195 (87%, 82–91%)**, a median **119 min early** (95% CI 92–157) (`numbers.json`).
+5. The same margin had **22 of 23 roads closed that crews were seen driving** (96%, 79–99%); 19 of those reports describe driving through fire, 3 an open road (`kcf-camp/RESULTS.md`, Test 1).
+6. By 12:00 the margin had **36%** of the study area's 2,121 road cells (Paradise, Concow, Magalia) closed, against 8% with no margin (post hoc context, `out/context_closed_share_posthoc.json`).
+7. Burnovers (NIST TN 2252 Table 30, all **23 placed**): **16 of 23 (70%, 49–84%)** closed or inside the 30-min margin 30 min before they began with the margin; **9 of 23** with none (`numbers.json`).
+8. The margin left 7 open 30 min ahead: the first burnovers in Concow and east Paradise (07:50–08:30), when there were too few earlier reports to grow from, plus Edgewood Ln and Clark Rd at Airport Rd (`kcf-camp/RESULTS.md`, Test 2).
+9. Neither documented movement is feasible in the deadline field under any variant: the Fire Station 82 cell had fire from 11:02 (convoy left ~12:00), the Firland Dr cell from 09:01 (engines left 13:58) (`out/test3_movements.json`).
+10. What it means: closures that never reopen cannot represent "burned over, now passable"; one fire, firefighter reports, not residents; the CAL FIRE AVL CSV (281 apparatus) would test hundreds of real trips (`kcf-camp/RESULTS.md`, limits).
+
+## Reopening after burn-out (research/kcf-reopen)
+
+1. Burn-out time frozen before scoring: **τ = 240 min** (low 105, high 465), the 80th percentile of how long 75 Camp Fire road cells were still reported blocked after fire was first seen there; literature flaming times are 37 s–24 min at a point, and kcf-radiation A7 uses none (`kcf-reopen/out/tau.json`).
+2. Fire crews were back in a burned cell a median **81 min** after the first fire report there (131 cells), and **125 min** after the last blocked report (37 cells) (`tau.json`).
+3. With the window, passable reports the no-margin rule had closed fell from **2 to 0 of 23**, and vehicle observations in closed cells from **210 to 132 of 429** (`out/camp_tests12.json`).
+4. The guard failed: **16 of 195** blocked-road reports fall in a cell the rule had already reopened (no margin: hits 37 → 21; spread margin: 170 → 154); still 4 at τ = 465 min (`camp_tests12.json`).
+5. Neither documented movement becomes feasible at τ = 240: the roads would reopen only at **15:39** for the 12:00 convoy and **17:21** for the 13:58 engines (post hoc, `out/camp_test41_route_cells_posthoc.json`).
+6. With the margin no burnover warning is lost; without it the two **9 November burnovers** (Coutolenc Rd, Concow Fire Station 37) are lost: those cells burned again more than 7.75 h after the first reports (`out/t43_burnovers.csv`).
+7. Korea, 13 expressway closures with 15-minute traffic: the model would reopen sections between **69 h before and 40 h after** traffic came back; 중앙선 의성~예천 stayed empty until 28 March (`out/korea_reopen_sections.csv`).
+8. Routing stays exact with reopening: **6,000** random instances, 0 disagreements with brute force, 16,273 witnesses valid; all 174 product certificates of the worked example verify with reopening on, and a one-second tampered claim fails (`results/routing_property.json`).
+9. The margin field now differs from plain slack: below it for **40 of 6,268** twin and **422 of 5,062** replay pairs, by up to 7.3 h (never with permanent closures); kcf-robust's verdict on the twin is unchanged (`out/robust_window.json`).
+10. 25 March 2025 replay: for responders **162 of 174 places** gain a later window (1,063 place-issues get a departure where there was none); for residents **0**. In the product it is `--reopen`, off by default (`robust_window.json`, `product/wfg-roadlayer/INTERFACE.md`).

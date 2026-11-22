@@ -1,4 +1,6 @@
-"""Build data/households/<region>.csv: households, vehicles and residents assumed without a car, for every origin.
+"""SUPERSEDED by research/kcf-buildings (build_demand.py, build_product_inputs.py): the committed data/households/*.csv now
+holds MOIS 2025-02 읍·면·동 counts split over the 법정리. This tool builds the earlier (assumed) tables, kept in
+data/households_assumed/. Original text: build data/households/<region>.csv: households, vehicles and residents assumed without a car, for every origin.
 
 Run once by a maintainer; the CSV is committed. Standard library only. Every value carries its status (CITED,
 DERIVED, ASSUMED); the rules and sources are in data/traffic_sources.json:
@@ -67,7 +69,7 @@ def main():
         towns = list(csv.DictReader(open(PRODUCT / "data/towns" / ("%s.csv" % rid), encoding="utf-8")))
         feats = {f["properties"]["id"]: f["properties"] for f in
                  json.loads((PRODUCT.parents[1] / ("planner/public/data/regions/%s/places.geojson" % rid)).read_text())["features"]}
-        out = PRODUCT / "data/households" / ("%s.csv" % rid)
+        out = PRODUCT / "data/households_assumed" / ("%s.csv" % rid)
         out.parent.mkdir(parents=True, exist_ok=True)
         with open(out, "w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh, lineterminator="\n")

@@ -1,0 +1,86 @@
+{
+ "a origin FS82": {
+  "cell": 4147,
+  "n_fire_reports_in_cell": 13,
+  "first": [
+   [
+    "W0971",
+    "11:02",
+    "structures on fire"
+   ],
+   [
+    "W0972",
+    "11:02",
+    "structures on fire"
+   ],
+   [
+    "W0996",
+    "11:10",
+    "multiple small spot fires in needles/leaf litter"
+   ]
+  ]
+ },
+ "a dest Ace": {
+  "cell": 4235,
+  "n_fire_reports_in_cell": 33,
+  "first": [
+   [
+    "W1098",
+    "11:39",
+    "fire coming up to Pearson Rd and Clark Rd"
+   ],
+   [
+    "W1126",
+    "11:45",
+    "area of ground fire in heavy brush; blowing brands; flames up to 4.6 m"
+   ],
+   [
+    "W1127",
+    "11:45",
+    "spot fires on north side of Pearson Rd at Brookview Way"
+   ]
+  ]
+ },
+ "b origin Firland": {
+  "cell": 5055,
+  "n_fire_reports_in_cell": 13,
+  "first": [
+   [
+    "W0572",
+    "09:01",
+    "fire"
+   ],
+   [
+    "W0686",
+    "09:30",
+    "fire to SW of Skyway at Quail Way"
+   ],
+   [
+    "W1229",
+    "12:22",
+    "crowning fire activity all to the west side"
+   ]
+  ]
+ },
+ "b dest Skyway/Coutolenc": {
+  "cell": 5879,
+  "n_fire_reports_in_cell": 4,
+  "first": [
+   [
+    "W0032",
+    "11-09 00:53",
+    "fire coming up from canyon, strong wind; softball size embers; embers "
+   ],
+   [
+    "W0035",
+    "11-09 01:00",
+    "structure burning"
+   ],
+   [
+    "W0037",
+    "11-09 01:00",
+    "fire spreads west and north of Skyway"
+   ]
+  ]
+ }
+}

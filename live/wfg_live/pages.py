@@ -8,7 +8,7 @@ import shutil
 from datetime import timedelta
 from pathlib import Path
 
-from . import common as C, road
+from . import cause as cause_mod, common as C, road
 
 E = html.escape
 
@@ -27,6 +27,8 @@ table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{border-bottom:1
 .big{font-size:1.25rem;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 html[lang=ko] .en{display:none}html[lang=en] .ko{display:none}
 .vk{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:2px 10px;margin-top:6px}
+.hist{border-style:dashed}.hb{display:grid;grid-template-columns:minmax(110px,30%) 1fr 4.5em;gap:6px;align-items:center;font-size:.9rem;margin:2px 0}
+.hb i{display:block;height:.7rem;background:var(--mut);opacity:.55;border-radius:2px}.hb span:last-child{text-align:right}
 input[type=search]{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);font-size:1rem}
 """
 
@@ -226,6 +228,42 @@ def index_html(rec):
     return page("산불 현황 (실시간 모델 출력)", "Fire status (live model output)", body, rec)
 
 
+def cause_html(rec, F) -> str:
+    """Reported cause (feed only, never guessed) and, apart and labelled as history, the ten-year shares by cause."""
+    c = F.get("cause")
+    if not c:      # a record written before amendment 2 has no cause block
+        return ""
+    ko, en = cause_mod.LABELS[c["status"]]
+    shown = L(E(c["text"]), E(c["text"])) if c["text"] else L("미보고", "not reported")
+    rep = E(C.kst(C.parse_iso(c["first_reported_utc"]))) + " KST" if c.get("first_reported_utc") else "—"
+    pts = ("%d" % c["ignition_points"]) if c.get("ignition_points") else L("미보고", "not reported")
+    h = '<h2>%s</h2><div class="box"><div class="vk">' % L("보고된 발생 원인", "Reported cause")
+    rows = [(L("원인", "Cause"), "<b>%s</b>" % shown), (L("상태", "Status"), L(ko, en)),
+            (L("최초 신고", "First reported"), rep), (L("발화점 수", "Ignition points"), pts)]
+    h += "".join('<div class="k mut small">%s</div><div>%s</div>' % kv for kv in rows) + "</div>"
+    if c.get("changes"):
+        h += "<p class=small>%s</p>" % L("원인 표시가 바뀐 기록: ", "Cause changed since first listed: ") + "; ".join(
+            E("%s KST: %s (%s) → %s (%s)" % (C.kst(C.parse_iso(x["utc"])), x["from"]["text"] or "미보고", x["from"]["status"],
+                                              x["to"]["text"] or "미보고", x["to"]["status"])) for x in c["changes"])
+    h += '<p class="small mut">%s</p></div>' % L(
+        "산림청이 알린 내용만 그대로 보여 줍니다. 원인을 추정하거나 예측하지 않으며, 알리지 않으면 \"미보고\"입니다. 원인은 마지막 도로 차단 시각 계산에 쓰이지 않습니다. 발화점이 여럿이거나 재발화가 우려되면 진화 대응이 달라지므로 보여 줍니다.",
+        "Shown exactly as the Forest Service lists it. This service does not guess or predict a cause; when the feed is silent it says \"not reported\". Cause is not used in the last-road-out calculation. It is shown because several ignition points or a likely re-ignition change how crews respond.")
+    H = F.get("cause_history")
+    if H and H["n_fires"]:
+        bars = "".join('<div class="hb"><span>%s</span><span><i style="width:%.1f%%"></i></span><span>%.0f%% (%d)</span></div>' % (
+            E(k), 100.0 * v / H["n_fires"], 100.0 * v / H["n_fires"], v) for k, v in sorted(H["by_cause"].items(), key=lambda kv: (-kv[1], kv[0])))
+        pn = {"gyeongbuk": ("경상북도", "Gyeongbuk"), "gangwon": ("강원도", "Gangwon")}[H["province"]]
+        h += '<h2>%s</h2><div class="box hist"><p class="notice">%s</p><p><b>%s</b></p>%s<p class="small mut">%s</p></div>' % (
+            L("배경: 과거 통계 (이 산불에 대한 설명이 아님)", "Background: history (not a statement about this fire)"),
+            L("아래는 과거 산불의 원인 비율입니다. 지금 이 산불의 원인에 대해 아무것도 말해 주지 않습니다.",
+              "These are shares of past fires by recorded cause. They say nothing about the cause of this fire."),
+            L("%s, %d월 산불 %d건의 원인 (%d–%d년)" % (pn[0], H["month"], H["n_fires"], H["years"][0], H["years"][1]),
+              "%s, fires in month %d: %d fires by recorded cause (%d–%d)" % (pn[1], H["month"], H["n_fires"], H["years"][0], H["years"][1])),
+            bars, L("출처: %s · 조회일 %s. 괄호는 건수. 원인은 산림청이 사후에 기록한 분류이며 '원인 미상'과 '기타'도 포함합니다." % (E(H["source"]), E(H["retrieved"])),
+                   "Source: %s, retrieved %s. Counts in brackets. Causes are the Forest Service's after-the-fact classes; unknown and other are included." % (E(H["source"]), E(H["retrieved"]))))
+    return h
+
+
 def fire_html(rec, F, site: Path):
     R = rec["withheld_reasons"]
     body = '<div class="box"><p><b>%s</b> · %s %s KST · %s %.4f N, %.4f E</p>' % (
@@ -234,6 +272,7 @@ def fire_html(rec, F, site: Path):
     if F["withheld"]:
         body += '<div class="notice">%s%s</div>' % (L("이 산불의 시간 숫자를 내지 않습니다:", "No times are shown for this fire:"), reason_list(rec, F["withheld"]))
     body += "</div>"
+    body += cause_html(rec, F)
     if "area" in F:
         a, m, fl = F["area"], F["margin"], F["flags"]
         srcs = ", ".join("%s %d" % (k, v) for k, v in sorted(a["n_by_src"].items()))

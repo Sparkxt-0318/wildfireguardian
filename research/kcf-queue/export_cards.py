@@ -1,11 +1,12 @@
-"""Writes product/wfg-roadlayer/data/queue_leaveby.csv for the two card cases from results/work (PROTOCOL 6)."""
-import csv, glob, gzip, json
+"""Writes product/wfg-roadlayer/data/queue_leaveby.csv for the two card cases from results/work (PROTOCOL 6); KQ_RESULTS_WORK=results_real/work for the real-demand arm of research/kcf-buildings."""
+import csv, glob, gzip, json, os
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent.parent / "product/wfg-roadlayer/data/queue_leaveby.csv"
 CASES = {("uiseong_andong_2025", 3), ("yeongdeok_2025", 9)}
 rows = {}
-for fn in glob.glob(str(HERE / "results/work/*.json.gz")):
+SRC = os.environ.get("KQ_RESULTS_WORK", "results/work")  # kcf-buildings: results_real/work for the real-demand arm
+for fn in glob.glob(str(HERE / SRC / "*.json.gz")):
     if "oat" in fn: continue
     for r in json.load(gzip.open(fn, "rt"))["rows"]:
         if (r["region"], r["issue_utc"]) not in CASES: continue

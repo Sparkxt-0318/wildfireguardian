@@ -54,6 +54,14 @@ def _run_args(sp, fragility=False):
     sp.add_argument("--heat", action="store_true", default=None,
                     help="복사열 도로 폐쇄 켜기 / radiant-heat road closure on (research/kcf-radiation; settings [heat])")
     sp.add_argument("--heat-threshold", type=float, help="heat closure threshold, kW/m2 (7, 4.7 or 2.5; default settings)")
+    sp.add_argument("--reopen", choices=("off", "confirmed", "responders"),
+                    help="연소 후 재개통 / reopening of burned-over roads (research/kcf-reopen; settings [reopen]). Default off "
+                         "(residents). 'responders': every burned-over cell reopens at arrival + burn-out. 'confirmed': only "
+                         "cells confirmed by a report or a vehicle-unit REOPENED event (--reopen-confirmed)")
+    sp.add_argument("--reopen-arrival", help="central fire-arrival GeoTIFF for reopening (minutes from the issue time; negative = "
+                                             "arrived before it), when --raster is already moved earlier by a margin")
+    sp.add_argument("--reopen-confirmed", help="JSON of reopening confirmations: {\"events\": [{\"event\": \"REOPENED\", \"lat\", \"lon\", \"utc\"}]}")
+    sp.add_argument("--burnout-min", type=float, help="minutes a cell stays closed after fire arrival (default settings, 240)")
 
 
 def _refused(ref: Refusal, out, overwrite):
@@ -116,12 +124,16 @@ def main(argv=None) -> int:
             pipeline.run(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet, horizon_min=a.horizon_min,
                          not_reached_value=a.not_reached_value, as_of=a.as_of, settings_path=a.settings, out=a.out,
                          workers=a.workers, assume_uncovered=a.assume_uncovered_not_reached, overwrite=a.overwrite, cache=a.cache,
-                         heat=a.heat, heat_threshold=a.heat_threshold, fragility=a.fragility)
+                         heat=a.heat, heat_threshold=a.heat_threshold, fragility=a.fragility, reopen=a.reopen,
+                         reopen_arrival=a.reopen_arrival, reopen_confirmed=a.reopen_confirmed, burnout_min=a.burnout_min)
         except Refusal as ref:
             return _refused(ref, a.out, a.overwrite)
         return 0
     if a.cmd == "cards":
         from . import cardrun
+        if (a.reopen or "off") != "off":
+            return _refused(Refusal(pipeline.reason("REOPEN_NOT_FOR_CARDS", "마을 카드는 주민용이라 재개통을 쓰지 않습니다.",
+                                                    "village cards are for residents and do not use reopening.")), a.out, a.overwrite)
         try:
             cardrun.run_cards(region_name=a.region, issue_time=a.issue_time, raster=a.raster, packet=a.packet,
                               horizon_min=a.horizon_min, not_reached_value=a.not_reached_value, as_of=a.as_of,
