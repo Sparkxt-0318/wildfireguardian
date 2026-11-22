@@ -1037,7 +1037,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T01:07:52Z",
+   "fetched_utc": "2026-11-22T01:37:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T01:07:52Z",
+   "fetched_utc": "2026-11-22T01:37:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T01:07:52Z",
+   "fetched_utc": "2026-11-22T01:37:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T01:07:52Z",
+   "fetched_utc": "2026-11-22T01:37:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1093,20 +1093,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261121/18/atmos/gfs.t18z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 699,
+   "bytes": 1257,
    "error": null,
-   "fetched_utc": "2026-11-22T01:07:51Z",
+   "fetched_utc": "2026-11-22T01:37:58Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "3f2c311893b78f8986c58dacc2e600042afb7ebab6c5cd8ae6c915dae6bbe5d9",
+   "sha256": "3a7082014be06082633ce761c306b80446c0ce7d432b0eca2064f1c1284dc904",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-22T01:00:00Z",
- "issue_kst": "2026-11-22 10:07",
- "issue_utc": "2026-11-22T01:07:00Z",
+ "issue_kst": "2026-11-22 10:37",
+ "issue_utc": "2026-11-22T01:37:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1131,6 +1131,29 @@
    "status": "진화완료",
    "status_code": "03",
    "step": "초기 대응"
+  },
+  {
+   "address": "경기도 양평군 용문면 연수리",
+   "cause": {
+    "changes": [],
+    "first_reported_utc": "2026-11-22T01:14:07Z",
+    "first_seen_utc": "2026-11-22T01:37:00Z",
+    "ignition_points": null,
+    "source_fields": [],
+    "status": "not_reported",
+    "status_word": null,
+    "text": null
+   },
+   "contained_pct": null,
+   "id": "515104",
+   "in_scope": false,
+   "lat": 37.51534296560335,
+   "lgdng_cd": "4183040025",
+   "lon": 127.5378718111858,
+   "report_utc": "2026-11-22T01:14:07Z",
+   "status": "진화중",
+   "status_code": "02",
+   "step": "초기 대응"
   }
  ],
  "notice": {
@@ -1141,12 +1164,12 @@
  "regions": {},
  "run": {
   "commit": "f57a82c6eda4ed7cd84f955417877e7f2d749a24",
-  "compute_finished_utc": "2026-11-22T01:07:53Z",
+  "compute_finished_utc": "2026-11-22T01:38:00Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-22T01:07:52Z",
+  "fetch_finished_utc": "2026-11-22T01:37:59Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44969909715"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44972281764"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
