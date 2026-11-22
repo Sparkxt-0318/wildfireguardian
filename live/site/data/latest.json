@@ -1049,7 +1049,7 @@
       "y": 1803552.0
      }
     ],
-    "evidence_age_min": 44.9,
+    "evidence_age_min": 74.8,
     "latest_member_utc": "2026-11-21T23:23:09Z",
     "n_by_src": {
      "KFS report": 1
@@ -1154,28 +1154,28 @@
  "gfs_ok": true,
  "inputs": {
   "ahi": {
-   "bytes": 6898,
-   "bytes_downloaded": 20524980,
+   "bytes": 8622,
+   "bytes_downloaded": 20761499,
    "error": null,
-   "fetched_utc": "2026-11-22T00:08:07Z",
+   "fetched_utc": "2026-11-22T00:38:03Z",
    "file": "ahi_pixels.json",
    "http_status": 200,
    "ok": true,
-   "scans_expected": 44,
-   "scans_missing": 4,
-   "scans_read": 40,
-   "sha256": "a8552ac8868c0f7ff270ebb35da1dfa0c2d542e513cc0708aae08476de1bb726",
+   "scans_expected": 56,
+   "scans_missing": 6,
+   "scans_read": 50,
+   "sha256": "5786fbd366012d39fe13e3eaba16f5aa3f7560b1599fb9957a63241ee1535281",
    "source": "ahi",
    "url": "https://noaa-himawari9.s3.amazonaws.com/AHI-L1b-Japan",
    "window_utc": [
     "2026-11-21T22:23:09Z",
-    "2026-11-22T00:08:00Z"
+    "2026-11-22T00:38:00Z"
    ]
   },
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T00:08:07Z",
+   "fetched_utc": "2026-11-22T00:38:03Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1186,7 +1186,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T00:08:07Z",
+   "fetched_utc": "2026-11-22T00:38:03Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1197,7 +1197,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T00:08:07Z",
+   "fetched_utc": "2026-11-22T00:38:03Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1208,7 +1208,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T00:08:07Z",
+   "fetched_utc": "2026-11-22T00:38:03Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1231,20 +1231,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261121/18/atmos/gfs.t18z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 604,
+   "bytes": 657,
    "error": null,
-   "fetched_utc": "2026-11-22T00:08:06Z",
+   "fetched_utc": "2026-11-22T00:38:02Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "62ff1583d530037ebe1c946134a45f44943b563c805a471c343fb17e99f64667",
+   "sha256": "52136f0a4434bd3b2df4d260946479fa79f82be0a775df133c8a2cd8d2ab3891",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-22T00:00:00Z",
- "issue_kst": "2026-11-22 09:08",
- "issue_utc": "2026-11-22T00:08:00Z",
+ "issue_kst": "2026-11-22 09:38",
+ "issue_utc": "2026-11-22T00:38:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1259,7 +1259,7 @@
     "status_word": null,
     "text": null
    },
-   "contained_pct": null,
+   "contained_pct": 60,
    "id": "514964",
    "in_scope": true,
    "lat": 36.21795293274328,
@@ -1279,12 +1279,12 @@
  "regions": {},
  "run": {
   "commit": "f57a82c6eda4ed7cd84f955417877e7f2d749a24",
-  "compute_finished_utc": "2026-11-22T00:08:25Z",
+  "compute_finished_utc": "2026-11-22T00:38:23Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-22T00:08:24Z",
+  "fetch_finished_utc": "2026-11-22T00:38:22Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44965042332"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44967485960"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
