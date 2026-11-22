@@ -1,5 +1,5 @@
 {
- "ahi_ok": true,
+ "ahi_ok": null,
  "alerts": {
   "channels": [],
   "messages": [],
@@ -1030,148 +1030,14 @@
   "firms_all": 0,
   "firms_kept": 0
  },
- "fires": [
-  {
-   "address": "강원특별자치도 춘천시 동내면 거두리",
-   "area": {
-    "centroid": {
-     "lat": 37.8578,
-     "lon": 127.7534,
-     "x": 1022290.3,
-     "y": 1984253.2
-    },
-    "discs": [
-     {
-      "r_m": 375.0,
-      "src": "KFS report",
-      "t_utc": "2026-11-22T04:37:12Z",
-      "x": 1022290.3,
-      "y": 1984253.2
-     }
-    ],
-    "evidence_age_min": 29.8,
-    "latest_member_utc": "2026-11-22T04:37:12Z",
-    "n_by_src": {
-     "KFS report": 1
-    },
-    "n_candidates": 0,
-    "n_ignored_far": 0,
-    "n_ignored_persistent": 0,
-    "n_members": 1
-   },
-   "cause": {
-    "changes": [],
-    "first_reported_utc": "2026-11-22T04:37:12Z",
-    "first_seen_utc": "2026-11-22T05:07:00Z",
-    "ignition_points": null,
-    "source_fields": [],
-    "status": "not_reported",
-    "status_word": null,
-    "text": null
-   },
-   "cause_history": {
-    "by_cause": {
-     "건축물 실화": 3,
-     "군사훈련": 1,
-     "기타": 7,
-     "방화": 1,
-     "쓰레기 태우기": 5,
-     "원인 미상": 4,
-     "입산자 실화": 10
-    },
-    "month": 11,
-    "n_fires": 31,
-    "province": "gangwon",
-    "retrieved": "2026-11-21",
-    "source": "산림청 국가산불정보시스템 산불통계 (selectStatallList.do)",
-    "source_page": "https://fd.forest.go.kr/ffas/pubConn/movePage/sub3.do",
-    "years": [
-     2016,
-     2025
-    ]
-   },
-   "flags": {
-    "gfs_complete": true,
-    "gfs_cycle_utc": "2026-11-22T00:00:00Z",
-    "gust": {
-     "level_g_k2_ms": 3.8,
-     "max_gust_ms": 4.22,
-     "reason": null,
-     "state": false,
-     "threshold_ms": 20.0
-    },
-    "issue_hour_utc": "2026-11-22T05:00:00Z",
-    "oor": {
-     "lowest_predictor": "w850_ms",
-     "p": {
-      "gust_ms": 0.748062984244782,
-      "hdw": 0.972814192663361,
-      "rhmin_pct": 0.8352067513601983,
-      "w850_ms": 0.05594388967769442
-     },
-     "partial": true,
-     "score": 0.05594388967769442,
-     "state": false,
-     "tau": 0.010728508563521567
-    },
-    "predictor_note": null,
-    "predictors": {
-     "gust_ms": 4.2221,
-     "hdw": 13.9931,
-     "prior3_km": null,
-     "rhmin_pct": 30.5,
-     "w850_ms": 10.6151
-    }
-   },
-   "id": "515284",
-   "margin": {
-    "arm": "MEASURED",
-    "class": "all",
-    "prior3_km": null,
-    "r5_km": 3.8,
-    "r8_km": 5.0
-   },
-   "point": {
-    "lat": 37.85780093888598,
-    "lon": 127.75339529090212
-   },
-   "publish_numbers": false,
-   "report_utc": "2026-11-22T04:37:12Z",
-   "villages_affected": 0,
-   "withheld": [
-    "FIRMS_MISSING"
-   ],
-   "zone": {
-    "regions_reached": []
-   }
-  }
- ],
+ "fires": [],
  "firms_ok": false,
  "gfs_ok": true,
  "inputs": {
-  "ahi": {
-   "bytes": 6518,
-   "bytes_downloaded": 80508428,
-   "error": null,
-   "fetched_utc": "2026-11-22T05:07:56Z",
-   "file": "ahi_pixels.json",
-   "http_status": 200,
-   "ok": true,
-   "scans_expected": 40,
-   "scans_missing": 2,
-   "scans_read": 38,
-   "sha256": "50f9a6bb3817063c6a155450d66e02d795d2981e03e5d33650ad74518039aed7",
-   "source": "ahi",
-   "url": "https://noaa-himawari9.s3.amazonaws.com/AHI-L1b-Japan",
-   "window_utc": [
-    "2026-11-22T03:37:12Z",
-    "2026-11-22T05:07:00Z"
-   ]
-  },
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T05:07:56Z",
+   "fetched_utc": "2026-11-22T05:37:50Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1182,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T05:07:56Z",
+   "fetched_utc": "2026-11-22T05:37:50Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1193,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T05:07:56Z",
+   "fetched_utc": "2026-11-22T05:37:50Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1204,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-22T05:07:56Z",
+   "fetched_utc": "2026-11-22T05:37:50Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1227,20 +1093,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261122/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 1941,
+   "bytes": 2650,
    "error": null,
-   "fetched_utc": "2026-11-22T05:07:55Z",
+   "fetched_utc": "2026-11-22T05:37:49Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "fdcdb2068381cea4bd9db6ff46ded6e28bc41d32763b97359f8a112e9ab642df",
+   "sha256": "0bdad7f78f260e4f3b56e91d16946d4baafbfa0d5963ef67dde86b7ee4fe828c",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-22T05:00:00Z",
- "issue_kst": "2026-11-22 14:07",
- "issue_utc": "2026-11-22T05:07:00Z",
+ "issue_kst": "2026-11-22 14:37",
+ "issue_utc": "2026-11-22T05:37:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1301,13 +1167,36 @@
     "status_word": null,
     "text": null
    },
-   "contained_pct": null,
+   "contained_pct": 100,
    "id": "515284",
-   "in_scope": true,
+   "in_scope": false,
    "lat": 37.85780093888598,
    "lgdng_cd": "5111039021",
    "lon": 127.75339529090212,
    "report_utc": "2026-11-22T04:37:12Z",
+   "status": "진화완료",
+   "status_code": "03",
+   "step": "초기 대응"
+  },
+  {
+   "address": "경기도 포천시 화현면 지현리",
+   "cause": {
+    "changes": [],
+    "first_reported_utc": "2026-11-22T05:06:48Z",
+    "first_seen_utc": "2026-11-22T05:37:00Z",
+    "ignition_points": null,
+    "source_fields": [],
+    "status": "not_reported",
+    "status_word": null,
+    "text": null
+   },
+   "contained_pct": 95,
+   "id": "515304",
+   "in_scope": false,
+   "lat": 37.918443848419706,
+   "lgdng_cd": "4165041023",
+   "lon": 127.26200855651969,
+   "report_utc": "2026-11-22T05:06:48Z",
    "status": "진화중",
    "status_code": "02",
    "step": "초기 대응"
@@ -1321,12 +1210,12 @@
  "regions": {},
  "run": {
   "commit": "f57a82c6eda4ed7cd84f955417877e7f2d749a24",
-  "compute_finished_utc": "2026-11-22T05:08:20Z",
+  "compute_finished_utc": "2026-11-22T05:37:50Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-22T05:08:19Z",
+  "fetch_finished_utc": "2026-11-22T05:37:50Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44987982870"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/44990173655"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
