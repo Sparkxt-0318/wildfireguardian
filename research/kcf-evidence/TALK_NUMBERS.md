@@ -230,6 +230,20 @@ Files: `research/kcf-robust/RESULTS.md`, `PROTOCOL.md`, `out/twin_scores.json`, 
 | Fragility table: village-hours with no safe departure now / tolerating < 1 km extra reach | **1,128 / 2,262**; **76** below 1 km | 174 places x 13 hours | `out/fragility_174.csv` | a forecast of failure; the reach column is "if the fire goes this much further than the input" |
 | Product `--fragility` vs independent research pass | **2,262 / 2,262** reach and timing values equal; binding road 512 / 549 | 2,262 | `out/fragility_check.json` | why the binding road differs in 37 reach cases (not examined; the reach values themselves agree) |
 
+## 16. Four routing methods on one machine (kcf-bench), six recorded planner caches, 5 repeats
+
+Files: `research/kcf-bench/BENCH.md` (the table, ratios with ranges, accuracy, limits), `BENCH_PLAN.md` (committed before any timing), `results_hostB/summary.json`, `results_hostB/accuracy/`. Hash: BENCH.md and the summary `7f9ea3d`. Machine: Intel Xeon 2.10 GHz, 4 vCPU, Linux 6.18, Python 3.13.18, one pinned core, nothing else of the study running during a timed task (two short git operations are logged). The four methods: the old one-departure-at-a-time method (OLD), the deadline field (FIELD), the margin field at one margin (MARGIN-1) and at ten margins (MARGIN-10).
+
+| item | value | n |
+|---|---|---|
+| Time against the old method | OLD over all 9,722 cases, scaled from 200 timed requests per cache: **43.6 h** cold (41.3–45.5) and **37.8 h** warm (35.1–39.9). The deadline field answers them all in **20 min** (18–22). Ratio **129×** cold [114–151], **111×** warm [98–134]. Every new method is faster than OLD on every cache, cold and warm | 72 of 72 comparisons; 12,000 timed OLD requests |
+| Margins, with the slow case | Ten margins (0–600 s) take **15.4 min** against **15.9 min** for the field at one margin without routes: **1.0× [0.9–1.2], about the same**. **Slower:** the margin field at one margin with routes takes **26.3 min** against 20.3 for the field, ratio **0.69–0.95**, clearly below 1 on the three Yeongdeok caches and on UA 03-23 warm | 6 caches, 5 repeats |
+| Accuracy | **0 disagreements.** The field and the margin field at margin 0 match all **11,283** requests OLD decided, and each other on all 9,722 cases. 76,392 answers at the nine non-zero margins of the ten and 8,488 at 60 s equal the existing field on the widened instance. OLD left **717 of 12,000** requests unresolved (507 at its 30 s limit, 210 with the origin already in flame, where the field says no journey) | 9,722 cases; 12,000 requests |
+| Memory, with the higher case | Peak resident memory: field 195–924 MB per whole-cache process; OLD 302–1,278 MB (median) per request. **Higher:** field 535 and margin field at one margin 562 MB against OLD's 302 MB on UA 03-24, and 670 against 652 on YD 03-26. The decision-only field and ten-margin field are lower everywhere (189–423 MB) | 6 caches |
+| Conditions | OLD is scaled from a fixed random sample (sampling interval in BENCH.md), not run on every case. One machine, one pinned core on a shared virtual host; the container restarted twice during collection and one OLD block straddled a restart. Everything is logged | 240 timed tasks, 0 failed |
+
+**Does not show:** a speed-up for a single departure (not measured), other machines, or a total that is comparable with section 1's Mac rows: that study used different job sets (up to 500 per file) and found 25–222×; the two are separate datasets and are not combined. A compiled version of either method was not timed. All results are model-relative.
+
 ## Ten likely judge questions
 
 1. **Is the deadline field just faster, or is it right?** It reproduced all 7,771 recorded routes and 1,468 no-routes with zero disagreements, and it decided all 297 unresolved cases (row 1). Speed is not claimed: no clean summed timing is committed, and the host differs from the one that recorded the checks (row 1).
