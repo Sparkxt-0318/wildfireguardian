@@ -1,0 +1,91 @@
+{
+ "cache": "yeongdeok_2025/20250326T080000Z",
+ "n_cases": 1641,
+ "disagreements": {
+  "old_unstable": [
+   {
+    "case": "rc_47bfd005cc224af6bb2e",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2089"
+    ]
+   },
+   {
+    "case": "rc_510d9bca6c4542529858",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2972"
+    ]
+   },
+   {
+    "case": "rc_1581f859431f49a09324",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2486"
+    ]
+   },
+   {
+    "case": "rc_a63c5eacc10b4c268421",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "3086"
+    ]
+   }
+  ]
+ },
+ "counts": {
+  "old_cases": 200,
+  "old_requests": 2000,
+  "old_unresolved_cases": 5,
+  "old_unresolved_AT_ISSUE_FAILURE": 5,
+  "old_unstable_cases": 4,
+  "old_decided_cases": 191,
+  "origin_sets_b_vs_c0": 271,
+  "cases_b_vs_c0": 1641,
+  "recorded_decided": 1591,
+  "recorded_vs_b_MISMATCH": 0,
+  "recorded_vs_c0_MISMATCH": 0,
+  "a_vs_bc_cases": 191,
+  "a_vs_b_MISMATCH": 0,
+  "a_vs_c0_MISMATCH": 0,
+  "margin_origin_sets": 2090,
+  "margin1_cases": 1269,
+  "margin10_cases": 11421
+ },
+ "answers_by_margin_all_cases": [
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1522
+ ],
+ "margins": [
+  0,
+  67,
+  133,
+  200,
+  267,
+  333,
+  400,
+  467,
+  533,
+  600
+ ]
+}

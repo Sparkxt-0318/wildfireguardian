@@ -1,0 +1,278 @@
+{
+ "cache": "yeongdeok_2025/20250325T190000Z",
+ "n_cases": 1810,
+ "disagreements": {
+  "old_unstable": [
+   {
+    "case": "rc_d055418f4a0d4fa5a029",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2360"
+    ]
+   },
+   {
+    "case": "rc_b014f1c118e5469e8b99",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_cad8616f4041481897fd",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "3182"
+    ]
+   },
+   {
+    "case": "rc_82550231bfc7430bad40",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "3031"
+    ]
+   },
+   {
+    "case": "rc_faf25cc1bafa428b8da4",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "1759"
+    ]
+   },
+   {
+    "case": "rc_afbaa5d98a4e4e50a0d1",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_0dd40f3644164c2f9ae4",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2069"
+    ]
+   },
+   {
+    "case": "rc_32b3c2f0fcd24e8e8f42",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "917"
+    ]
+   },
+   {
+    "case": "rc_af77993694ff4008bd65",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_939078f26be4443bac31",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "711"
+    ]
+   },
+   {
+    "case": "rc_ec4e01509a014dc99a92",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2247"
+    ]
+   },
+   {
+    "case": "rc_0f78292decaa4da8b3be",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_407036939dcf467baf0e",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_2eb433dd24344f9795e2",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "3101"
+    ]
+   },
+   {
+    "case": "rc_5a79a883298b47d9956f",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_27bf3a16bf194279918d",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_5a1003209a8c42d694f9",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_b00e6e81776a4c06ad7a",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_987b96a6297f4dc8a854",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2142"
+    ]
+   },
+   {
+    "case": "rc_d43678fd707a4c7386e7",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_3174cea2142f479cb5ce",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_a56a1157d024499dbcee",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "489"
+    ]
+   },
+   {
+    "case": "rc_be521d297b0d4672ae3a",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2980"
+    ]
+   },
+   {
+    "case": "rc_13d45c190e24488faa91",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_f53ec6c6bf0a4a7889b4",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "1732"
+    ]
+   }
+  ]
+ },
+ "counts": {
+  "old_cases": 200,
+  "old_requests": 2000,
+  "old_unstable_cases": 37,
+  "old_unresolved_cases": 21,
+  "old_unresolved_TIMEOUT": 18,
+  "old_unresolved_AT_ISSUE_FAILURE": 3,
+  "old_decided_cases": 142,
+  "origin_sets_b_vs_c0": 272,
+  "cases_b_vs_c0": 1810,
+  "recorded_decided": 1561,
+  "recorded_vs_b_MISMATCH": 0,
+  "recorded_vs_c0_MISMATCH": 0,
+  "a_vs_bc_cases": 142,
+  "a_vs_b_MISMATCH": 0,
+  "a_vs_c0_MISMATCH": 0,
+  "margin_origin_sets": 2120,
+  "margin1_cases": 1427,
+  "margin10_cases": 12843
+ },
+ "answers_by_margin_all_cases": [
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1522,
+  1519,
+  1519,
+  1519,
+  1519
+ ],
+ "margins": [
+  0,
+  67,
+  133,
+  200,
+  267,
+  333,
+  400,
+  467,
+  533,
+  600
+ ]
+}

@@ -1,0 +1,131 @@
+{
+ "cache": "yeongdeok_2025/20250325T230000Z",
+ "n_cases": 1673,
+ "disagreements": {
+  "old_unstable": [
+   {
+    "case": "rc_f952c8898f5a44c9912d",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "3086"
+    ]
+   },
+   {
+    "case": "rc_0d3e67c5097644d99ea5",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_932ea5fa669c431b96c9",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_e4a56d1c5c2049869ded",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "1217"
+    ]
+   },
+   {
+    "case": "rc_5d83f60e2e1a4d569fc4",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "3121"
+    ]
+   },
+   {
+    "case": "rc_ed8d3ec2d8954eb4a3b6",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_5e7f193466804b47aa32",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_214d3bd40add45cbb63c",
+    "verdicts": [
+     "model_no_route",
+     "unresolved"
+    ],
+    "arrivals": []
+   },
+   {
+    "case": "rc_bf8a31175a68461aad57",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2689"
+    ]
+   }
+  ]
+ },
+ "counts": {
+  "old_cases": 200,
+  "old_requests": 2000,
+  "old_unstable_cases": 9,
+  "old_unresolved_cases": 2,
+  "old_unresolved_TIMEOUT": 2,
+  "old_decided_cases": 189,
+  "origin_sets_b_vs_c0": 271,
+  "cases_b_vs_c0": 1673,
+  "recorded_decided": 1624,
+  "recorded_vs_b_MISMATCH": 0,
+  "recorded_vs_c0_MISMATCH": 0,
+  "a_vs_bc_cases": 189,
+  "a_vs_b_MISMATCH": 0,
+  "a_vs_c0_MISMATCH": 0,
+  "margin_origin_sets": 2160,
+  "margin1_cases": 1337,
+  "margin10_cases": 12033
+ },
+ "answers_by_margin_all_cases": [
+  1512,
+  1512,
+  1512,
+  1512,
+  1512,
+  1512,
+  1512,
+  1512,
+  1512,
+  1512
+ ],
+ "margins": [
+  0,
+  67,
+  133,
+  200,
+  267,
+  333,
+  400,
+  467,
+  533,
+  600
+ ]
+}

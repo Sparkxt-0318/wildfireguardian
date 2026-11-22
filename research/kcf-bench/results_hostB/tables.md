@@ -1,32 +1,44 @@
-| cache | method | cold s, median (range) | warm s, median (range) | OLD ÷ method, cold [range] | OLD ÷ method, warm [range] | peak MB | agreement |
-|---|---|---|---|---|---|---|---|
-| UA 0323 01Z | OLD (scaled) | 13461 (13461–13461) | 11408 (11408–11408) |  |  | 303 median, 412 max per request (one worker) | — |
-| UA 0323 01Z | FIELD | 25.30 (25.30–25.30) | 24.12 (24.12–24.12) | 532 [532–532] faster | 473 [473–473] faster | 195 (baseline 129) | n/a |
-| UA 0323 01Z | FIELD-D | 23.59 (23.59–23.59) | 22.20 (22.20–22.20) | 571 [571–571] faster | 514 [514–514] faster | 193 (baseline 129) | n/a |
-| UA 0323 01Z | MARGIN-1 | 31.25 (31.25–31.25) | 32.38 (32.38–32.38) | 431 [431–431] faster | 352 [352–352] faster | 220 (baseline 129) | n/a |
-| UA 0323 01Z | MARGIN-10 | 20.24 (20.24–20.24) | 19.08 (19.08–19.08) | 665 [665–665] faster | 598 [598–598] faster | 189 (baseline 129) | n/a |
-| UA 0324 09Z | OLD (scaled) | 13431 (13431–13431) | 11589 (11589–11589) |  |  | 302 median, 421 max per request (one worker) | — |
-| UA 0324 09Z | FIELD | 166 (166–166) | 169 (169–169) | 80.67 [80.67–80.67] faster | 68.74 [68.74–68.74] faster | 536 (baseline 133) | n/a |
-| UA 0324 09Z | FIELD-D | 23.73 (23.73–23.73) | 23.15 (23.15–23.15) | 566 [566–566] faster | 501 [501–501] faster | 195 (baseline 133) | n/a |
-| UA 0324 09Z | MARGIN-1 | 174 (174–174) | 176 (176–176) | 77.33 [77.33–77.33] faster | 65.71 [65.71–65.71] faster | 562 (baseline 133) | n/a |
-| UA 0324 09Z | MARGIN-10 | 19.53 (19.53–19.53) | 19.24 (19.24–19.24) | 688 [688–688] faster | 602 [602–602] faster | 196 (baseline 133) | n/a |
-| UA 0325 17Z | OLD (scaled) | 21236 (21236–21236) | 19634 (19634–19634) |  |  | 876 median, 877 max per request (one worker) | — |
-| UA 0325 17Z | FIELD | 102 (102–102) | 97.76 (97.76–97.76) | 208 [208–208] faster | 201 [201–201] faster | 678 (baseline 132) | n/a |
-| UA 0325 17Z | FIELD-D | 18.13 (18.13–18.13) | 17.72 (17.72–17.72) | 1171 [1171–1171] faster | 1108 [1108–1108] faster | 191 (baseline 132) | n/a |
-| UA 0325 17Z | MARGIN-1 | 108 (108–108) | 110 (110–110) | 197 [197–197] faster | 179 [179–179] faster | 704 (baseline 132) | n/a |
-| UA 0325 17Z | MARGIN-10 | 16.75 (16.75–16.75) | 15.56 (15.56–15.56) | 1268 [1268–1268] faster | 1262 [1262–1262] faster | 189 (baseline 132) | n/a |
-| YD 0325 19Z | OLD (scaled) | 44041 (44041–44041) | 37037 (37037–37037) |  |  | 1277 median, 1305 max per request (one worker) | — |
-| YD 0325 19Z | FIELD | 279 (279–279) | 290 (290–290) | 158 [158–158] faster | 128 [128–128] faster | 923 (baseline 254) | n/a |
-| YD 0325 19Z | FIELD-D | 260 (260–260) | 253 (253–253) | 170 [170–170] faster | 146 [146–146] faster | 418 (baseline 254) | n/a |
-| YD 0325 19Z | MARGIN-1 | 406 (406–406) | 435 (435–435) | 109 [109–109] faster | 85.10 [85.10–85.10] faster | 978 (baseline 254) | n/a |
-| YD 0325 19Z | MARGIN-10 | 277 (277–277) | 272 (272–272) | 159 [159–159] faster | 136 [136–136] faster | 409 (baseline 254) | n/a |
-| YD 0325 23Z | OLD (scaled) | 30812 (30812–30812) | 26337 (26337–26337) |  |  | 653 median, 1320 max per request (one worker) | — |
-| YD 0325 23Z | FIELD | 282 (282–282) | 271 (271–271) | 109 [109–109] faster | 97.24 [97.24–97.24] faster | 420 (baseline 250) | n/a |
-| YD 0325 23Z | FIELD-D | 282 (282–282) | 269 (269–269) | 109 [109–109] faster | 97.77 [97.77–97.77] faster | 417 (baseline 250) | n/a |
-| YD 0325 23Z | MARGIN-1 | 370 (370–370) | 395 (395–395) | 83.23 [83.23–83.23] faster | 66.68 [66.68–66.68] faster | 484 (baseline 250) | n/a |
-| YD 0325 23Z | MARGIN-10 | 264 (264–264) | 276 (276–276) | 117 [117–117] faster | 95.38 [95.38–95.38] faster | 407 (baseline 250) | n/a |
-| YD 0326 08Z | OLD (scaled) | 29390 (29390–29390) | 23106 (23106–23106) |  |  | 653 median, 1316 max per request (one worker) | — |
-| YD 0326 08Z | FIELD | 341 (341–341) | 330 (330–330) | 86.11 [86.11–86.11] faster | 69.97 [69.97–69.97] faster | 607 (baseline 249) | n/a |
-| YD 0326 08Z | FIELD-D | 328 (328–328) | 328 (328–328) | 89.65 [89.65–89.65] faster | 70.48 [70.48–70.48] faster | 424 (baseline 249) | n/a |
-| YD 0326 08Z | MARGIN-1 | 440 (440–440) | 444 (444–444) | 66.74 [66.74–66.74] faster | 52.02 [52.02–52.02] faster | 673 (baseline 249) | n/a |
-| YD 0326 08Z | MARGIN-10 | 306 (306–306) | 329 (329–329) | 96.15 [96.15–96.15] faster | 70.20 [70.20–70.20] faster | 412 (baseline 249) | n/a |
+| cache | method | cold s, median (range) | warm s, median (range) | OLD ÷ method, cold [range] | OLD ÷ method, warm [range] | FIELD ÷ MARGIN, cold [range] | FIELD ÷ MARGIN, warm [range] | peak MB | agreement |
+|---|---|---|---|---|---|---|---|---|---|
+| UA 0323 01Z | OLD (scaled) | 13461 (13066–15099); sampling 95% CI 13153–14413 | 11831 (11179–12209); sampling 95% CI 11086–12334 |  |  |  |  | 303 median, 413 max per request (one worker) | OLD unresolved (30 s budget) per 200: 0.0 cold, 0.0 warm |
+| UA 0323 01Z | FIELD | 25.84 (21.87–30.35) | 25.40 (21.65–28.41) | 521 [430–690] faster | 466 [394–564] faster |  |  | 195 (baseline 129) | 200/200 vs OLD; 1523/1523 vs recorded |
+| UA 0323 01Z | FIELD-D | 23.73 (20.68–27.60) | 22.20 (20.07–25.62) | 567 [473–730] faster | 533 [436–608] faster |  |  | 193 (baseline 129) | 200/200 vs OLD; 1523/1523 vs recorded |
+| UA 0323 01Z | MARGIN-1 | 32.16 (28.21–35.56) | 32.41 (28.80–37.06) | 419 [367–535] faster | 365 [302–424] faster | 0.80 [0.62–1.08] not distinguished (vs FIELD) | 0.78 [0.58–0.99] slower (vs FIELD) | 220 (baseline 129) | 1470/1470 at m=60 vs widened FIELD |
+| UA 0323 01Z | MARGIN-10 | 20.24 (18.73–23.33) | 19.26 (17.98–24.17) | 665 [560–806] faster | 614 [462–679] faster | 1.17 [0.89–1.47] not distinguished (vs FIELD-D) | 1.15 [0.83–1.42] not distinguished (vs FIELD-D) | 190 (baseline 129) | 200/200 vs OLD at 0; 1523/1523 vs FIELD at 0; 13230/13230 at m>0 vs widened FIELD |
+| UA 0323 01Z | FIELD, sample specs only (OLD ÷ = on the same 200 requests, not scaled) | 19.53 (17.96–23.55) | 19.57 (17.49–23.28) | 90.50 [72.86–110] faster | 79.38 [63.06–91.68] faster |  |  | 195 (baseline 129) | timing row only |
+| UA 0323 01Z | FIELD + route check, sample (OLD ÷ = on the same 200 requests, not scaled) | 69.36 (66.79–81.20) | 68.49 (63.86–76.97) | 25.48 [21.13–29.69] faster | 22.69 [19.07–25.11] faster |  |  | 197 (baseline 129) | 770 witness checks over all repeats, 0 failed |
+| UA 0324 09Z | OLD (scaled) | 14185 (13420–14644); sampling 95% CI 13327–14666 | 12072 (11589–12784); sampling 95% CI 11481–12799 |  |  |  |  | 302 median, 421 max per request (one worker) | OLD unresolved (30 s budget) per 200: 2.0 cold, 2.0 warm |
+| UA 0324 09Z | FIELD | 174 (166–185) | 176 (169–178) | 81.51 [72.43–87.96] faster | 68.69 [65.06–75.83] faster |  |  | 535 (baseline 133) | 198/198 vs OLD; 1512/1512 vs recorded |
+| UA 0324 09Z | FIELD-D | 24.30 (21.99–24.44) | 23.46 (22.18–25.32) | 584 [549–666] faster | 515 [458–576] faster |  |  | 195 (baseline 133) | 198/198 vs OLD; 1512/1512 vs recorded |
+| UA 0324 09Z | MARGIN-1 | 184 (174–187) | 186 (176–191) | 77.11 [71.96–84.32] faster | 64.96 [60.72–72.49] faster | 0.95 [0.89–1.07] not distinguished (vs FIELD) | 0.95 [0.88–1.01] not distinguished (vs FIELD) | 562 (baseline 133) | 1476/1476 at m=60 vs widened FIELD |
+| UA 0324 09Z | MARGIN-10 | 20.32 (18.38–20.89) | 20.24 (19.24–21.77) | 698 [642–797] faster | 596 [532–664] faster | 1.20 [1.05–1.33] faster (vs FIELD-D) | 1.16 [1.02–1.32] faster (vs FIELD-D) | 196 (baseline 133) | 198/198 vs OLD at 0; 1518/1518 vs FIELD at 0; 13284/13284 at m>0 vs widened FIELD |
+| UA 0324 09Z | FIELD, sample specs only (OLD ÷ = on the same 200 requests, not scaled) | 37.53 (35.27–38.93) | 36.54 (35.56–38.04) | 49.80 [45.41–54.71] faster | 43.53 [40.13–47.36] faster |  |  | 536 (baseline 133) | timing row only |
+| UA 0324 09Z | FIELD + route check, sample (OLD ÷ = on the same 200 requests, not scaled) | 93.29 (89.31–97.82) | 93.29 (91.05–95.05) | 20.03 [18.07–21.60] faster | 17.05 [16.06–18.50] faster |  |  | 533 (baseline 133) | 795 witness checks over all repeats, 0 failed |
+| UA 0325 17Z | OLD (scaled) | 24465 (21236–25485); sampling 95% CI 22465–25050 | 22468 (19634–23624); sampling 95% CI 20500–23136 |  |  |  |  | 876 median, 877 max per request (one worker) | OLD unresolved (30 s budget) per 200: 19.0 cold, 17.8 warm |
+| UA 0325 17Z | FIELD | 106 (93.64–113) | 102 (92.93–110) | 231 [188–272] faster | 220 [178–254] faster |  |  | 678 (baseline 132) | 177/177 vs OLD; 1428/1428 vs recorded |
+| UA 0325 17Z | FIELD-D | 18.13 (15.71–23.27) | 17.72 (15.94–20.03) | 1349 [913–1622] faster | 1268 [980–1482] faster |  |  | 191 (baseline 132) | 177/177 vs OLD; 1428/1428 vs recorded |
+| UA 0325 17Z | MARGIN-1 | 113 (96.67–122) | 112 (95.74–121) | 216 [175–264] faster | 200 [163–247] faster | 0.93 [0.77–1.17] not distinguished (vs FIELD) | 0.91 [0.77–1.15] not distinguished (vs FIELD) | 702 (baseline 132) | 1509/1509 at m=60 vs widened FIELD |
+| UA 0325 17Z | MARGIN-10 | 17.76 (14.27–18.11) | 16.37 (13.84–18.54) | 1378 [1173–1785] faster | 1373 [1059–1707] faster | 1.02 [0.87–1.63] not distinguished (vs FIELD-D) | 1.08 [0.86–1.45] not distinguished (vs FIELD-D) | 189 (baseline 132) | 177/177 vs OLD at 0; 1557/1557 vs FIELD at 0; 13581/13581 at m>0 vs widened FIELD |
+| UA 0325 17Z | FIELD, sample specs only (OLD ÷ = on the same 200 requests, not scaled) | 17.41 (14.17–20.29) | 15.80 (13.08–19.76) | 181 [134–231] faster | 183 [128–232] faster |  |  | 292 (baseline 132) | timing row only |
+| UA 0325 17Z | FIELD + route check, sample (OLD ÷ = on the same 200 requests, not scaled) | 57.70 (53.54–61.18) | 60.04 (50.87–61.54) | 54.47 [44.59–61.15] faster | 48.07 [40.98–59.65] faster |  |  | 292 (baseline 132) | 665 witness checks over all repeats, 0 failed |
+| YD 0325 19Z | OLD (scaled) | 44651 (44041–46514); sampling 95% CI 43983–45821 | 40293 (37037–41391); sampling 95% CI 38699–40988 |  |  |  |  | 1278 median, 1337 max per request (one worker) | OLD unresolved (30 s budget) per 200: 45.2 cold, 30.8 warm |
+| YD 0325 19Z | FIELD | 282 (221–306) | 289 (205–320) | 158 [144–210] faster | 139 [116–202] faster |  |  | 924 (baseline 254) | 142/142 vs OLD; 1561/1561 vs recorded |
+| YD 0325 19Z | FIELD-D | 260 (193–279) | 262 (191–282) | 172 [158–241] faster | 154 [131–216] faster |  |  | 417 (baseline 254) | 142/142 vs OLD; 1561/1561 vs recorded |
+| YD 0325 19Z | MARGIN-1 | 406 (399–416) | 417 (411–438) | 110 [106–117] faster | 96.57 [84.60–101] faster | 0.70 [0.53–0.77] slower (vs FIELD) | 0.69 [0.47–0.78] slower (vs FIELD) | 981 (baseline 254) | 1427/1427 at m=60 vs widened FIELD |
+| YD 0325 19Z | MARGIN-10 | 272 (262–280) | 273 (251–284) | 164 [157–178] faster | 148 [131–165] faster | 0.95 [0.69–1.07] not distinguished (vs FIELD-D) | 0.96 [0.67–1.12] not distinguished (vs FIELD-D) | 410 (baseline 254) | 142/142 vs OLD at 0; 1810/1810 vs FIELD at 0; 12843/12843 at m>0 vs widened FIELD |
+| YD 0325 19Z | FIELD, sample specs only (OLD ÷ = on the same 200 requests, not scaled) | 177 (129–206) | 185 (129–211) | 27.93 [23.63–39.77] faster | 24.13 [19.38–35.46] faster |  |  | 420 (baseline 254) | timing row only |
+| YD 0325 19Z | FIELD + route check, sample (OLD ÷ = on the same 200 requests, not scaled) | 273 (212–305) | 284 (213–287) | 18.06 [15.95–24.28] faster | 15.69 [14.26–21.50] faster |  |  | 424 (baseline 254) | 855 witness checks over all repeats, 0 failed |
+| YD 0325 23Z | OLD (scaled) | 31246 (30228–32366); sampling 95% CI 30519–32116 | 26337 (25209–27427); sampling 95% CI 25461–27236 |  |  |  |  | 653 median, 1348 max per request (one worker) | OLD unresolved (30 s budget) per 200: 8.0 cold, 5.6 warm |
+| YD 0325 23Z | FIELD | 294 (281–318) | 297 (271–309) | 106 [94.94–115] faster | 88.78 [81.52–101] faster |  |  | 419 (baseline 250) | 189/189 vs OLD; 1624/1624 vs recorded |
+| YD 0325 23Z | FIELD-D | 298 (282–307) | 294 (269–309) | 105 [98.59–115] faster | 89.44 [81.47–102] faster |  |  | 418 (baseline 250) | 189/189 vs OLD; 1624/1624 vs recorded |
+| YD 0325 23Z | MARGIN-1 | 402 (370–418) | 424 (395–432) | 77.73 [72.35–87.43] faster | 62.06 [58.41–69.44] faster | 0.73 [0.67–0.86] slower (vs FIELD) | 0.70 [0.63–0.78] slower (vs FIELD) | 484 (baseline 250) | 1337/1337 at m=60 vs widened FIELD |
+| YD 0325 23Z | MARGIN-10 | 286 (252–294) | 291 (253–304) | 109 [103–129] faster | 90.56 [83.02–109] faster | 1.04 [0.96–1.22] not distinguished (vs FIELD-D) | 1.01 [0.89–1.22] not distinguished (vs FIELD-D) | 407 (baseline 250) | 189/189 vs OLD at 0; 1673/1673 vs FIELD at 0; 12033/12033 at m>0 vs widened FIELD |
+| YD 0325 23Z | FIELD, sample specs only (OLD ÷ = on the same 200 requests, not scaled) | 220 (202–224) | 222 (205–236) | 17.02 [16.14–19.20] faster | 14.20 [12.79–15.99] faster |  |  | 421 (baseline 250) | timing row only |
+| YD 0325 23Z | FIELD + route check, sample (OLD ÷ = on the same 200 requests, not scaled) | 298 (277–326) | 302 (280–317) | 12.52 [11.10–13.96] faster | 10.44 [9.50–11.72] faster |  |  | 423 (baseline 250) | 895 witness checks over all repeats, 0 failed |
+| YD 0326 08Z | OLD (scaled) | 28861 (26642–29808); sampling 95% CI 27764–29190 | 23106 (21793–26138); sampling 95% CI 22747–24256 |  |  |  |  | 652 median, 1499 max per request (one worker) | OLD unresolved (30 s budget) per 200: 7.2 cold, 5.8 warm |
+| YD 0326 08Z | FIELD | 335 (304–346) | 340 (316–351) | 86.17 [77.11–98.18] faster | 68.03 [62.17–82.83] faster |  |  | 606 (baseline 249) | 191/191 vs OLD; 1591/1591 vs recorded |
+| YD 0326 08Z | FIELD-D | 328 (285–350) | 328 (286–343) | 88.04 [76.09–104] faster | 70.48 [63.51–91.31] faster |  |  | 423 (baseline 249) | 191/191 vs OLD; 1591/1591 vs recorded |
+| YD 0326 08Z | MARGIN-1 | 443 (435–464) | 455 (444–470) | 65.13 [57.39–68.46] faster | 50.78 [46.33–58.85] faster | 0.76 [0.65–0.79] slower (vs FIELD) | 0.75 [0.67–0.79] slower (vs FIELD) | 670 (baseline 249) | 1269/1269 at m=60 vs widened FIELD |
+| YD 0326 08Z | MARGIN-10 | 306 (292–315) | 302 (298–329) | 94.26 [84.49–102] faster | 76.43 [66.21–87.81] faster | 1.07 [0.90–1.20] not distinguished (vs FIELD-D) | 1.08 [0.87–1.15] not distinguished (vs FIELD-D) | 412 (baseline 249) | 191/191 vs OLD at 0; 1641/1641 vs FIELD at 0; 11421/11421 at m>0 vs widened FIELD |
+| YD 0326 08Z | FIELD, sample specs only (OLD ÷ = on the same 200 requests, not scaled) | 242 (221–251) | 240 (215–252) | 14.54 [12.96–16.43] faster | 11.75 [10.54–14.83] faster |  |  | 603 (baseline 249) | timing row only |
+| YD 0326 08Z | FIELD + route check, sample (OLD ÷ = on the same 200 requests, not scaled) | 302 (297–328) | 316 (302–325) | 11.66 [9.89–12.21] faster | 8.90 [8.18–10.54] faster |  |  | 608 (baseline 249) | 920 witness checks over all repeats, 0 failed |
