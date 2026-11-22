@@ -1,0 +1,4 @@
+2026-11-13T11:54:43Z attempt=1 reason=initial_GO commit=cacfd9ae
+2026-11-13T13:54:56Z attempt=1 killed by 2h background task limit; cached=328/490
+2026-11-13T13:56:27Z attempt=2 reason=attempt1_killed_by_2h_task_limit; orchestrator ruling 13:56Z (one tracked task, identical command) commit=cacfd9ae cached_at_start=328
+2026-11-13T14:56:16Z attempt=2 exit=0
