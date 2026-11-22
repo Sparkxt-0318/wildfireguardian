@@ -1,0 +1,7 @@
+grid outline inside extract lon/lat box: True
+uiseong_andong_2025: step-1 edges 43801, widened in-window edges 43801, missing 0, extra 0, field/segment diffs 0, node xy diffs 0, nodes absent 0 -> PASS [] [] []
+   waitable in window: step-1 565, widened 478 (boundary effect, reported only)
+yeongdeok_2025: step-1 edges 111814, widened in-window edges 111814, missing 0, extra 0, field/segment diffs 0, node xy diffs 0, nodes absent 0 -> PASS [] [] []
+   waitable in window: step-1 1524, widened 1454 (boundary effect, reported only)
+widened graph: nodes 185747 (outside both windows 106315), edges 367094, forbidden 347783, waitable 4494, distinct ways 14386
+STEP 2: PASS

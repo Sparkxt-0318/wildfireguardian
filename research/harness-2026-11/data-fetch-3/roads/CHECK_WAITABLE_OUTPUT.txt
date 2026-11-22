@@ -1,0 +1,5 @@
+hongseong_2023 waitable 39 deadend 39 exact True w-d 0 d-w 0
+miryang_2022 waitable 78 deadend 78 exact True w-d 0 d-w 0
+uiseong_andong_2025 waitable 554 deadend 554 exact True w-d 0 d-w 0
+uljin_2022 waitable 337 deadend 337 exact True w-d 0 d-w 0
+yeongdeok_2025 waitable 1527 deadend 1527 exact True w-d 0 d-w 0

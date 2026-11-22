@@ -1,0 +1,4908 @@
+{
+ "shapefile_sha256": "a14f391ae0e2f75a1d218aed91ad03eb35bfc311a4909021f9fe1f6310fdf09b",
+ "created_utc": "2026-11-12T13:25:08.791322+00:00",
+ "script_sha256": "063acb240dd9f6b07727c728ae7e3010f9cfe3fa1438ad15b10222facf4b585c",
+ "events": {
+  "WA-NES-001858_BoulderMountain": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 65,
+   "geojson_sha256": "7dea22935fc53afd31a07e4825032b0fb5b5f6201e958f33104620f1b8984082",
+   "states_sha256": "328c024185b29dd63ef46a81b03a522658c81fc9f40d90162d2575ee3bdf0fb0",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MHF-000681_WhiteRiver": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 515,
+   "geojson_sha256": "bca166a5507ca19445510822947bed6f9632fb0e771fd48fdba006971fe40eed",
+   "states_sha256": "cf98ebce0c1020fce665315213ba04f4356ef0f6a1e91ee29d964e80420d9fd8",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-COA-200106_Whitmore": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 1686,
+   "geojson_sha256": "e7748d20145a316fed6ab070eecbce35335d4257ece330594756b14689f26ba9",
+   "states_sha256": "79e15f228bfa088b644474c0d2e18835fa0cdae3161ff99b23f1883a248fffd7",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-002616_Hidden": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 175,
+   "geojson_sha256": "f429722d863371f37cfb07cf346f3112565ffa5f721f7a7204f54dfb0d4b2c17",
+   "states_sha256": "cdf4c69b31947d2a4561538ca52c4f79336b3ec08d5948aa5539ccdf55328766",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-MCS-000404_TooKush2": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 36,
+   "geojson_sha256": "4a8f31a8a40d5635985822264ae1a154d46b70c820d41e887a579947c22f8010",
+   "states_sha256": "c4de549fc5c89e3fb1061bb7097d047db22557861985576bedfe5146fd322b26",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000277_CowCanyon": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 172,
+   "geojson_sha256": "6f7df28fdaab3d7bace380c063e3d1a247e8ee91a4f54f14529090b5fa3b8097",
+   "states_sha256": "fa90109389c9cf58980e42e4acb65fba0d9ccd6e3363e0f3efa8c92885efc30a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-YNP-000058_Rodgers": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 81,
+   "geojson_sha256": "06a1dd7a7cfd6df33648a3e7e96ef4accabcd671e54360d2c2341c35929c3100",
+   "states_sha256": "c25d1fd55844b6b5a794e46c921b10aa60a829bb4b4f480ffaf4709f5b59818b",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000424_BlackBurn": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 11,
+   "geojson_sha256": "e538c54c24acb9cbb25c9ac706bc70c4a34789fd04b96d8f4076e498a23ec3a8",
+   "states_sha256": "f582859e262d6f9165c9d06f5ab0f48c8f4714a63885a7ef5007accb15cb2970",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000130_LittleMoney2": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "3b0daa1e66bcc899d79399f2eab9cf271321b1b672ae04cfd0ba6535710bb519",
+   "states_sha256": "78ff02dd47636e42e3f516415fd528df4cf29162b5a525769063cc665968856a",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-953S-024122_CourtRock": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 583,
+   "geojson_sha256": "4442d37cd98186733dd0a59f8665114848b1c3df06222c432c2e9dd596ca7356",
+   "states_sha256": "a7fa5a75b7682dc2ede2ad4344130942f06b8ad54b0451156b857667887711a4",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LMU-003917_Gold": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 665,
+   "geojson_sha256": "2746510cb25f60ceec8d39a1e672eff2b27baa493f1f47e8828182f21baf3507",
+   "states_sha256": "f6d468c4ad6ff5e38de1afd7c3b8c06ad4af6ed9338a51d2f86d85ff0e56f3e1",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-000982_Salt": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 360,
+   "geojson_sha256": "a9601f14dca2284e2b996055a6894fc20a08b5630ba81eff2ca5804fe4a482c7",
+   "states_sha256": "5b35714d6f5e9ae673e4160a0754c682ea18d26111f743ea192861583316f713",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OWF-000407_Chikamin": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 20,
+   "geojson_sha256": "0b9f786d688cb38d1cc1ec324ab880868d39d1abb9508ae759323497ba4b0155",
+   "states_sha256": "c5558173da0ae5b663994fd113b8194e1f53c93f9888d933b68862044898d53a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-CND-002796_French": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 18,
+   "growth_intervals_le_48h": 14,
+   "final_mapped_cells": 775,
+   "geojson_sha256": "89ff62324837c2be1a27b6c52548982114aa0061208971a4737c5ee10dd981e8",
+   "states_sha256": "b0f602fe7d47ebdd5de9a46989d82ccb376561277ddb03b21414be12af77fa9c",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-BUD-002079_NealsHill": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 96,
+   "geojson_sha256": "7fcdc8b964191a7b42263edefd20528ab9e3f1df458802e5b3c47fa9950cfe1e",
+   "states_sha256": "d3d009d2a39c36bb7ae130039379178aea0472303402fdf7b6b3659f4187795c",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-CIF-000279_OjodeLosCasos": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "48e280a4c96a794e0e5345cc69ab41dd08a4af100d2801a81c5e96f2f86cb508",
+   "states_sha256": "47e348fde29719efc6c632ac83d632edaa77b91cf3550d4ff596b3ea276b64e2",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-FIF-240112_LittleTwist": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 156,
+   "geojson_sha256": "c28e087cd52dd16533fc3d2ffd02c39bffeb69611a263e7fc9dbdc4b69d37626",
+   "states_sha256": "ed731c97a4456d968cff2c10beccea2db0dda9cc53ac75cfa76c725302aa62cf",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BRF-022252_BlodgettLake": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 66,
+   "geojson_sha256": "916f9b9fed68eef753674b4b75336eb44439e1cd8035d64e69ee6acfd42c7e22",
+   "states_sha256": "ed938442e66a8a57fa9e0d94ec05c5985c71b0130f33fc14e55acf20145f7dd8",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SQF-002089_Wishon": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 9,
+   "geojson_sha256": "713256ec8984c4316f18c162870c0c581046f4b46978b61cd46da442e5314bce",
+   "states_sha256": "7953dd511e98542686674afaeac292dccd9686eb32fe00fd9e93fe63006220db",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ORC-121612_BlueRidge": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 419,
+   "geojson_sha256": "1e98c1103af986c3b601180588095884d5512a0cb7f2650e1635164ddd0df02b",
+   "states_sha256": "71602f953d85e30534686ce805f225d9927e36b93d0a44933ae6f5e4c8812715",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040123_Baldy": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 38,
+   "geojson_sha256": "46544d0b8dd3810298031b09a473b5c9a91b0ae59a7aaf2219230d74a7130caf",
+   "states_sha256": "7da07bd9ea0901df5fadcf93b87505713a5c8d2460043ea96917e8f702396e1c",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-GMF-000176_Lowline": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 55,
+   "geojson_sha256": "8fd0bc9deddbbb9df836e84528083839696b401d91c1e1a39baa47cbab576b6d",
+   "states_sha256": "4ece1bea1c9da3910e2567ce48b856754d4fc8220b51a503f8b66efad388f7de",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000180_BenchLake": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 78,
+   "geojson_sha256": "759bcfe63e1bd54eccf138261dc5759b39674f0140b4e504c4c5b3c5d9ead8d8",
+   "states_sha256": "cc8d18185e8460a2113f4cf9ea485361f54208e559e08e7f911a1dc28537d237",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA_SLU_009866_Pond": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 63,
+   "geojson_sha256": "e435878dfa521705c3ede6e0a6fddf5e3bbebf99389a97602156f3d294eed4af",
+   "states_sha256": "de9a57a117c82b90c330944f815ceee655f9d88e1d44ea4f7c4693398e043d45",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-LAD-220351_VanMeter": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 71,
+   "geojson_sha256": "95ce648619a20959a81ac56be5e73df553679223a44c44195548e8ec3d0dc74e",
+   "states_sha256": "5e2febdeba83651d73ea240ea682e816956723577286e88a342f7754128c6caf",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LNF-000889_Brewster": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 2,
+   "geojson_sha256": "5261aa285763cf6fbb1e903c8bf03e1f9433bd56b54ef9c3844d9c1357d8bff6",
+   "states_sha256": "79342aceaeee64879ac08ed5820002017b04ad008c4ed417581d1174e2fba246",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-MRF-000408_EastTroublesome": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 5592,
+   "geojson_sha256": "3491e9222cb05086898b14f6498fc515c48d7e2723c326bcb9e87bd0c7c3e298",
+   "states_sha256": "ca303587ba85ab41a35223837618eba3c04aba8ae2ef33b52f11d6592541c659",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LNF-2815_Graham": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 5,
+   "geojson_sha256": "be2b57ceabc9d4242517f7bf33915133eef6e9c9df00c0e80bbee6224671045d",
+   "states_sha256": "6e6e9e6d598fe31fe2910697c392aaa22bc5ca830f192ade1658a49cca27c922",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000159_Tunnel": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 555,
+   "geojson_sha256": "93f39027c6d7522cc87c4c06665d74e6a64bd77389f3494f8dfb0ee0df666670",
+   "states_sha256": "cf877ec90e9761bfc747158ac8d8969392fee6f875a7f995660b683a42c00f39",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PNF-000863_Rafael": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 2275,
+   "geojson_sha256": "37705fd70c1b9431f9d6b9aa290d83aee9e412d81e81f827f7dad67ce8d9ed45",
+   "states_sha256": "7b048d1eda18dae6eaa0a3464f776202521d89ffc66565fd9bbcfb248f980a5e",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-BLX-001036_Calwood": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 292,
+   "geojson_sha256": "604097dae506cfdeed62d53c395a35112623591c3e72c33fa96ec3edc3be0ced",
+   "states_sha256": "6caa3638dbe98ebbb8685e3ab0550aeb53bdc2e9604c133f9db52c78d1fe36ce",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-CMS-000280_BillyCreek": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 93,
+   "geojson_sha256": "fa651ca65337e4992455b5476a1849332f64fbe8649f76dc08370422f5763330",
+   "states_sha256": "f3bd19c4dc4537ff4329973956d324fdfb0f579c7bd25eddb8cb7d9419f96f4d",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MNP-010701_York": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 2847,
+   "geojson_sha256": "732cc41c03ddc6a6ef5d3dc6b18d097d2248aa029da5c1d4b26a7e85f42678b0",
+   "states_sha256": "3e4f781ce65b46d7ca9838fb95b6f0c76a79c05e89406269cdebde8b09171546",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000523_Pipeline": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 766,
+   "geojson_sha256": "4d7e5bd4464cb562b1fb157ce9f3a05bc984cb10d4a79e995d5c37226b4a6beb",
+   "states_sha256": "4d0bb373215d2b65613fe7d34d036a9d68522337131db0f30eb91468be4f70fc",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-001073_Sheep": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 21,
+   "geojson_sha256": "3b4aedf8e05d3e5a46367e94649a57aecf341e634f238bb2fbeb6d579b25443f",
+   "states_sha256": "49a93bd660765d0f7f6aaa3e2c3edd124ce2e338b2c5ed80b00d676573fb13e5",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SKU-007568_Mill": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 109,
+   "geojson_sha256": "4419beb3a12a25162568e1e27def0855a62d5818aae1e03e08aa68eab6af57b4",
+   "states_sha256": "565fcaab96be458deaa5b9cbb6e671746509ba3d388a7ea50ecd7e4226c46ea0",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000662_Wyrick": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 222,
+   "geojson_sha256": "348234e2769b00797adecf68bbab41f3d6b11de9385333fd163cb18b3f03e788",
+   "states_sha256": "d6c4012830ce7ca6d1b61842e66dfb76836f3b549e1315a6f5fadba15849a224",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PDS-000614_LelandComplex": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 50,
+   "geojson_sha256": "b233e2dfbf6fe6f1ab401b50e4b074b40876d8e3f5735802a93be9e34bcef942",
+   "states_sha256": "8d682854f0323be87c10c22c841e2326b7bf307b5e03466152a21a76ff51a0d0",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006386_SandLake": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "fa864ef137c090cc9657c41ffd3982aee4a365c0d7ad1a32d44eaca830507a37",
+   "states_sha256": "4b3e017382c69020035825e6d77c8de0d172b117759d1596f26155cdaafe3046",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-GFX-230097_SpringCreek": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 100,
+   "geojson_sha256": "362b58e599a02617d9e6c305bffbc23b52150158a5c4a27248cabe1259620f84",
+   "states_sha256": "f121090f51c3cd99a0cea9405cb00157e4c6fbcd4500f72037eceeb440f8e722",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-CMS-000470_ShovelCreek": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 3194,
+   "geojson_sha256": "990474ec1dfbe85e3347e3b54138b07a769e1c0f3f6fec6311e0e31d9f41ace0",
+   "states_sha256": "7de961516e928c8c734ef9679262892e09305476620ff02d4e2c077d5a8fd668",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000212_BlackMountain": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 31,
+   "geojson_sha256": "0b63e62b4196a4fde0307435b1159fe543365d402a0043d8742f5bd478e7ae54",
+   "states_sha256": "4599aaa709d2d52b319617190a8bebefa298c1da5022a6b5322223cadd13833f",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-CPD-000347_DeerSprings": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 354,
+   "geojson_sha256": "537f5cffef6bebd022c60485f37350f50605536d940ceae95b621c921cd795f7",
+   "states_sha256": "c41a0086ee20f47b50c7f326b16487e106e099836121cb725b7a98155f6ebc9f",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-SCS-200223_Canal": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 2253,
+   "geojson_sha256": "c9d9b40cac3420df905dedce7114f698f06d1c58009b85828dea71b77cd14fac",
+   "states_sha256": "840856012e4e060134087d29360930916ff5f41ebfbc6d31777facdec3cf3a04",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LNU-015947_Glass": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 1908,
+   "geojson_sha256": "4e9a76f154f6020d92c772d4277dc6946c70d3e8e34a91a77789406dca63e53c",
+   "states_sha256": "b2b1d9a7d8c3f3892cd213dc3f53fc23b11926a2f07b03528c7446a4697b55ef",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-SWS-000431_TurkeyFarmRoad": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 349,
+   "geojson_sha256": "85c3e724c0b2a0c9ea48117b39bef4600718a18030ee9422a562887270f70874",
+   "states_sha256": "db02430f2f16a6b400930a0f3b2f6fbc5fbce954706d10f58133b27bed74f7fe",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000226_Good": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 12,
+   "final_mapped_cells": 488,
+   "geojson_sha256": "1e089371cb40b51abe6e1f4598245722866aa951f7cf0600f6cc37a7e18d49b8",
+   "states_sha256": "5728c04302b012fa3cb59d8781874022a53c6539825bb8f169eeb196e042f631",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-WFS-000594_PearlHill": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 6751,
+   "geojson_sha256": "f8bd1508ed80f8509b306da46e069854c23a8bddedef47182b68342e3c1ea247",
+   "states_sha256": "17e0b7dacf354d194b725b44c9422343e76cbfb087c210e76eeaaa3e65411a5f",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000360_RedApple": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 355,
+   "geojson_sha256": "7a36c13dd6e919398d6d1487e38f4f01fb27ce1def49754209e4101b5788218b",
+   "states_sha256": "fafb67833db3bd00eb90ac74f0503efb2f719ec262ad9893c6a3955485d858d8",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LNU-013725_Ridge": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 85,
+   "geojson_sha256": "e25e16e0d6fc63ce1418ac56400d1dc4c9afb4ebd6bb7293af0126df09078b23",
+   "states_sha256": "c37c4b992fc3a508e4142fca40f1e69cb26b0c089b027bd84cfb3cf166ae5997",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-DEF-000845_FlatTop": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 1049,
+   "geojson_sha256": "aaf55d33ab48fa60a3ad0d57d93a207356300de2e3929f755612bb0af2e6d841",
+   "states_sha256": "70cd3a16a7597278081a3f1eacee57ca2d5560a907cd067f887ac3eda677282e",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-CGF-21048_RobertsonDraw": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 857,
+   "geojson_sha256": "370681c062b703abf8db39007a515f11e38291463d10cbed426f146a34f27c48",
+   "states_sha256": "4a8e41f308a87a7dbc5fc3ee73bca58a9ae4237eec8d6b2dd179a2ee4e79d7ca",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-SND-501554_VirginMountain": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 49,
+   "geojson_sha256": "357cd1420a6b0069cd5775349e05e3d6d30a94bf93339726c6dc6edcdbae4c18",
+   "states_sha256": "9457140e13c81f0edb3b025cab8d19b2acbbc6d29d5c3df704ffaf01dd2ec31b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LNF-004290_Stump": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 21,
+   "geojson_sha256": "1b36f9f248f23bbfd2f6a812fe24f5b8cb0b88d1f29c3b666a457f91a69cd0d6",
+   "states_sha256": "ee6e15c8a03af59e985697195d663425e0a9fff668e4c255987c554c5a06c45d",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OWF-000639_ColdCreek": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 16,
+   "geojson_sha256": "c6fdb9cc308c7351674e95de2b62896f78f86a4b39846801fb3c271442b8e847",
+   "states_sha256": "14c8305c674803f5577379cd44e769bdb914093698880935dcb5ac863411dadb",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LAC-020523_Post": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 455,
+   "geojson_sha256": "99d587c868f3b61ad071fbb5f491f3a24aa4253f5d6c7c9fc352f1a45046e4fd",
+   "states_sha256": "571188b4203bed986b27d3231f80c85464a1ce5be1cbee9fe6a9e6d802c1b6c4",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-001376_Hobo": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 14,
+   "geojson_sha256": "172dde5b184e3aee70b63ddf58d2218716579537d3efa8d618a72396752fbc2c",
+   "states_sha256": "887e6f931723c13682eb1eebd9f7fd88823b426abc051cd845c345518e84f06a",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-SUF-230424_ThreeButtesFire": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 5,
+   "geojson_sha256": "532f462b8f77117085d43f1fcbef6befd2315055ed905f7f3d16b675b23cca80",
+   "states_sha256": "e767818319555212c046e29ea8f1e7a3d496f6799abf5257b74988ee1208ae24",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-000973_Deep": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 119,
+   "geojson_sha256": "b93920ede651fbd64a30aaec429d43395c5d85639fa71367a58e2c67583e6afe",
+   "states_sha256": "259380a56c0763ba8bbc3105488e7e8cc24f89cb5dd1c7fb4d40c1be3925b13d",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LPF-001493_Willow": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 82,
+   "geojson_sha256": "333a03d6f8f19c630568970dbbc10142b231cceda55db4592efba4c1b6a88fca",
+   "states_sha256": "38b6b69a7fee9d5a5875cee71c02736c14bfce5eaad29bd86ece33c05f898090",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-GPF-001297_CowlitzComplex": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "81084415469d27bf1facad223a1d32385d14ebb9db97f28641f48a0a8794f5e1",
+   "states_sha256": "8963dd4135a04a16cf31a6de3614f77ce6e13aa33bb0bc800949319080cceec2",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PPA-000327_SycamoreCanyon": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 53,
+   "geojson_sha256": "0e63daa8cb845a10a29fa197a0b33c3f833016be32a035f3094a3ec23aadcaf8",
+   "states_sha256": "089b2011d7d6fb18f61497fb9aabc3f9b3985c027c23f7f9ceeaef946c0011c2",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-002574_Rockhouse": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 569,
+   "geojson_sha256": "0dc6d2df37007e3ded266b6a5152f17225d74a50ee5a158838304ab4b973e850",
+   "states_sha256": "10a0f5f44c1473f4d6619d6fe82ad4f88914834c25e5412986ce3f5657c0f0fb",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-PRD-000289_Darlene": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 113,
+   "geojson_sha256": "9ec4bb1ef8c0caf31949ee9e51920faf6055b44337cd90941707f1943f25f1b3",
+   "states_sha256": "529dc6d2c4cace82f96be0533fe1cb90707d3be087c1e79388663e81999f4986",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-AEU-022341_Crozier": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 58,
+   "geojson_sha256": "e68e0f384e4f89ce6f930c21724aefadf52647550734c6d0ba44c59312c58579",
+   "states_sha256": "47a57fe37a052d11a23632bf936dbe8063addf1d0af63c24af10d51a4a6950a1",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MAF-002549_PoisonCreek": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 30,
+   "geojson_sha256": "87a709dbeffe523407d7784a5d4f97fae2360baf2c0c33e9cade52bad3ae0ff9",
+   "states_sha256": "edf6c144a4da03833ecbad983048fdae656f1726081e3595f5e0314cbbe700bc",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001594_West": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 432,
+   "geojson_sha256": "3c7541df4c9cfdc7ee2dd7995639a9f1a4c2375ccf8ef34c14746f545fcecc63",
+   "states_sha256": "4229987d6013b82b9b4431895261cc60625845dd7dc67f1e8ad85f7ff8ce1356",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-CAF-000200_Midnight": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 141,
+   "geojson_sha256": "3ea7e09c371d73e25054ae89d985dbecad1bb4985344659f7bac9bda21e46957",
+   "states_sha256": "899faa986e7762837f2332982cf3de3b629fada355c42e68af1f05d549d7af00",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000662_WestChev": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 34,
+   "geojson_sha256": "ad757245a52aed72e782f31b9dc34b6596bf9254e2a087eb16632d9f8ab61162",
+   "states_sha256": "dcb28b691cd6ad889387e6da7c0900af06d5167de470efc755a6a66bf432eb80",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-LCD-000234_UVAS": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 33,
+   "geojson_sha256": "7d378c0a5b6c7db260668f4522e6b61d70be6267e426818565d8095906981e1f",
+   "states_sha256": "8f6a61ad5556a0380cb369a17680476f80240c758e0ea6c2db478a958c75529a",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-EKD-010089_Goshute": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 56,
+   "geojson_sha256": "5bbd72773e56c94488fd68473928567017e4f0fa1fb1d3c300c27445f51288e4",
+   "states_sha256": "4c64ccf4b7cf579dacb1a6330a10349012d767522fc3190f1a9777d4f99808c6",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-NWS-000748_WhitetailCreek": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 10,
+   "geojson_sha256": "3dc7e64e47c0e8a8694a4e57f087ff66b6558efe16a8f94f1a5089df2cec189a",
+   "states_sha256": "e1e8bdd6e57858b8d357b9dd15a055bbde35c3fdd3fe2d7ef4ba22fd50816bd5",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000642_Snake": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 2,
+   "geojson_sha256": "5308b66f3363d39a5863fadddfbde7c37ecec49b94da7676d4f47273dd5f229c",
+   "states_sha256": "fbf3871e9659610c37252eb67f3353578a358ead7f53e07c6406a46dd17899cf",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-KNF-000369_Bravo": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 27,
+   "geojson_sha256": "1849d982a15ef8e1709c5f301500f850eebc47a2f4b6ede5c5127ae48955063b",
+   "states_sha256": "b4b413c61059cda463cab03fe0be16cebacdd388a396af996ff6de9ff78844a3",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000628_Sponge": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 19,
+   "geojson_sha256": "57a8e55f8d7847c5a0e552c146f716489f54ec6fe7f08b97449de6630695c4b3",
+   "states_sha256": "2863e2a10fec1edd47c0e44567cb233195046affc354c8e97792ba18254f31f0",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000098_MiddleRidge": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 368,
+   "geojson_sha256": "e9b547fd2fb7f52ecd0da6497e3d10b9d1ae6e32e7c36f866fb1aa9fca7e92fe",
+   "states_sha256": "af6db0b568f1959b83eb1446d9ea563043aae17a8245730e6cd8151075dfd413",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-SHR-240269_WarnerPeak": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 1899,
+   "geojson_sha256": "ff8581c738c0926fcdd1fe292d268211848715cb9f15db20647ee9075975cfb2",
+   "states_sha256": "0469373fbdc4950777d9952e0cda6f1042debcbea0276e3b890d9411df3536a8",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-000570_Woodhead": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 2784,
+   "geojson_sha256": "7dc97af4ecec7cb1b9f49658a564e24c95951b8cb264c254f57a727d6be6f514",
+   "states_sha256": "26f11b6314340582108e1a7927df9bc000a5c644debdaad5eba7581dea686914",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-POS-000617_Pioneer": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 10,
+   "geojson_sha256": "42f7779aed289c225175ffa1334132b5321a0986055d4e11559383e83da796d7",
+   "states_sha256": "107031a767a11e9f92428792b157346bba734cebc5abe75122601e261c6acb5e",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-N5S-000114_NogalCanyon": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 13,
+   "geojson_sha256": "1d759c13c48a2d7362e67e821d393e190dc4330fc82d0540b7f7f31bb6362357",
+   "states_sha256": "65b1a95a63914fdbc5f024990ac7def4139c9b6bfd5b70ea08bcdc1205eb24ce",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-NAA-000156_WoodSprings2": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 371,
+   "geojson_sha256": "a252efc288f038a3a38634de539bb06fbeb268ea05bf6f72a6253a790d2fa8ab",
+   "states_sha256": "ac6f304e9463d5dcbea558b7bad413e79e670a4fd39f03e98130477207291a6a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-STF-002313_Peak": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 10,
+   "geojson_sha256": "12991b2d60cdd6692ec2b44aa86aece1e15fc37498e5fd86c1b8378b168c4bde",
+   "states_sha256": "6d317a24ac09746ddba00216862c18bd1df0cbf5a119b3f69ea3ecf5bb0441fb",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJD-000416_EastCanyon": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 84,
+   "geojson_sha256": "e9c1d9a81faae8b2b1e617a13820db3a50c503c276dfbf63f1bf727f31f90a19",
+   "states_sha256": "ff03af3fd0afd245678396897b60a88544bdb8117d85deff70ba52fe351397bc",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000533_Bernard": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 41,
+   "geojson_sha256": "918de5b412083cd6a8e49396bbf93d5cd6041f3d10039524b2e6cf0cba55b3da",
+   "states_sha256": "4253c39f5e76d6b71810b15764cfe520bb528f7ef5d610fb2f2eee64720d2a7b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-FKU-019190_Boone": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 517,
+   "geojson_sha256": "885186e7a2d4b09bc66b39907fa1e5097fe640c09487c3274c2309b2cc882ea5",
+   "states_sha256": "3335e5a21c6ebef5272a88c75dd3dc85ae3396a7068a71ea39883fcf8721b985",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LNF-000883_DeepLookoutMtn": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 11,
+   "geojson_sha256": "d1e65742c43136c0cebd936961f22e85e4ee20e2afa09f8016a77144ba502f33",
+   "states_sha256": "5b395b6be4c7cd8c14d5fa98e22bfd85d632e23d56171986190f9d60db260f37",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BDF-009908_Vista": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 86,
+   "geojson_sha256": "74fccc75661c16732c8b86f572f3256d64db3a4bf11e2fd27c7becbe2ad8c774",
+   "states_sha256": "023969196bdf574149549b6d55adadaf3db85e763646db1264d440d9b5fb198d",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-020209_CougarCreek": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 703,
+   "geojson_sha256": "338c7536c8b15683b3943333429f17c19d3d30e2e61052dc27a4b7f1cb271981",
+   "states_sha256": "3bee80d0f19a78581f7ee45b661fa48af05669a3e973674c2ee24a05b54531c1",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-HLF-005149_CrownMountain": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 46,
+   "geojson_sha256": "c061486948673f5c92ebdec6a801d0d439cbc8376f587eba1119a438eb1a7634",
+   "states_sha256": "729e14c0d697f7256c89e609831e4fde7496dfd64d03907e2639fc64495e33a2",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-00472_Shissler": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 321,
+   "geojson_sha256": "b88dbc5d154e19c6756cf96b1ea58e1bddd88a965219c5bdbd234df53526ab35",
+   "states_sha256": "631b8e44e1de5e339a5a88a2f32e29ca64fa68fccb939d87e4d73618fc04f654",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WSA-000026_S503": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 202,
+   "geojson_sha256": "474ed7def5b915ff4ce611302419550e358b90efb39e76b0665833a637f78dcc",
+   "states_sha256": "bbd670ed764dec2084f87bb98a4b991232d5d23d0832f229f5772230f7b2e749",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000552_Beaver": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 20,
+   "geojson_sha256": "c0e367317660e4a0bcd7739a9e1ea920dfba52b78b48c97c386d5bcd8491af27",
+   "states_sha256": "5ac46be18d888e54fe1e8ef2768858301849cd4d88401d845084704e9a4a340f",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000263_VantageHighway": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 976,
+   "geojson_sha256": "596b147f6ec279d23fa4535897f34b7b8f430d54c62d32ca609aef5f4578f130",
+   "states_sha256": "8051e973699a39f03893475498bdcb51186f8803316a5bf91cc1bd97c35d0799",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-246437_RatioMountain": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 27,
+   "geojson_sha256": "41e529565b7b76e38dbc5384caee7bdc84523480b7d20ef67f7d4f892e555a34",
+   "states_sha256": "404a5520e993c07d8747871c2a1a0fe5c0b00b9436acc99e097fdb82caaddad1",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000423_Noonday": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 25,
+   "geojson_sha256": "4f28cb65bab89606a3cca3d87a215dafe2d215e9e7805e8fc92e8b157bbd231c",
+   "states_sha256": "a117a4ae6529b0f48ecf69af7b618881fb6d9a4674c4fee587ad7d7a83078795",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LG02-000351_HarrisMountain": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 918,
+   "geojson_sha256": "61aa5bc5686d96741ff85e40a7705973b2a23d8d8fdc7721ee71b06f733c49d0",
+   "states_sha256": "7ba24fbba4fb215d02427765689dd3719b041a5d1814122d324b32865b159734",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000565_EvansCanyon": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 2204,
+   "geojson_sha256": "614e054f29be97a584e260f60794d345fee85ab9820d317aab66d6dc1cf3ae13",
+   "states_sha256": "06c49865f16eec133cdad57fd7a3c07c13893809f9938f80242cc32d5063239e",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006341_Haystack": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 12,
+   "final_mapped_cells": 702,
+   "geojson_sha256": "72f60aec3ada531e38dff90e611c90b095bdb9475ba676fbbc0ed23149a5be2c",
+   "states_sha256": "a8c4d96120fee27b48a5745ea622ad21ca8a7f6d71f2b6e7ec115429d315f0ed",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-PNF-001064_Beckwourth": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 3025,
+   "geojson_sha256": "61e239f7dcd5582dba5bfccf9c7fc52342461007ef5aa4a7d4fc346ae6b42d31",
+   "states_sha256": "6808b4129690325b6ced3b2f3fe068a3276958347217387949ab1a635a8a5542",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001130_Black": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 329,
+   "geojson_sha256": "f282633b22f789d93ab05b92c69aac366bdb4b9e6c5ec3c436af039634b99c38",
+   "states_sha256": "0938b20c32d3987ec3f0bcea7d05c69cd2bc760aa878f186f40a368da91fae18",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-RRU-102458_RiversideSupport_Rabbit": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 258,
+   "geojson_sha256": "adbbac7e566e17a39ebb74f3cd9915ad8c4a0ad9bf181d04ac35dbf629ef96e5",
+   "states_sha256": "bdf16a6294b703642b10e7d8e02f7f6f73938d586ff4a11f50dce3410860b490",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-NEU-023725_Bridge": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 10,
+   "geojson_sha256": "29a0f4902f3528822ea4dd31e86f0b669c01f0bc4b91b8d8196fe061fe624aad",
+   "states_sha256": "43f81fd84d9a34e666a806837e0822775d46359d1ac8f5cedeee3be2c7f68fcb",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SCF-021154_Haynes": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "f9f6e40fbdee4f60d45572e1418de6058ae771e5cc6dc134873f9cc8aaa9be36",
+   "states_sha256": "612d145333f3345d6776cde2d512306bef7c99be9e142fe35aa520e9f242bbe1",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-HLF-000154_DeepCreekCanyon": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 135,
+   "geojson_sha256": "f2bf7b8e886b55ac6c58bb24c6068702770098bf79e080628b521b33c0da5b4e",
+   "states_sha256": "ca7230435d28ee46b69e21c6f89ce75ae67afe100f4da5d352570df2fe62b2e6",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-KNF-000391_ThreeLakes": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 190,
+   "geojson_sha256": "dbbc471185c325ba9970b6606a52beeeea5cf5bfb0beab17d6779a9d1c75863e",
+   "states_sha256": "bd93ef586e94b7c1bf26a4c7f8c74798efe4c0ece5316db623c47d1b9fc8e558",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ANF-003063_Dam": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "7d918e2471aadb2c7bd6f5631742ad9b47db386a89b233733f5c962906ed07f9",
+   "states_sha256": "19cb2a3372be0f0c913feffbcfc95589668c78876c2517a790a97f2ff58ee36b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-KNF-005169_Tennant": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 309,
+   "geojson_sha256": "a984f43c86d298a31ad5503e7a43faf775b7c17bc24a6af3783919b478f6f0f0",
+   "states_sha256": "3d9a6773ace97963238317b25240cdaba2905044a790ded7aec6210210539292",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000351_Badger": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 2597,
+   "geojson_sha256": "71fe231a694bb6b7ce69738f01e7bd0becec49c32133f6be45550c3b0c60275e",
+   "states_sha256": "57161bda326d32e243ae978ecb97ab11c07a2d40720025caa9df67b180a6686f",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OWF-000563_BlueLake": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 27,
+   "geojson_sha256": "49a44af5390fd93c6fd23823efb75c0793d0fce07f7d0e5fa00bea751a4e665c",
+   "states_sha256": "106f4c82a4ba1ce498adff146bbe839be9a53e5e8accd02d73ec60dfc9c5d058",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-KNF-000262_EastFork": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 154,
+   "geojson_sha256": "2663e251de24ad2a17bf68b1d58bb752e7631697cfd1c56020d4c55b6a11713c",
+   "states_sha256": "865e32fa6a92f3f77f6d860d92b3d92b4c3f4f1a157d0373a5b6fc1843716e78",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SNF-001402_Bullfrog": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 28,
+   "geojson_sha256": "ebbf313401c57b6d1d3b3248549f1cbde48d8b2b8c94a3df6febe2a79ae0a3d2",
+   "states_sha256": "e2ac6ea7b22ca97671941c5dfd7d9f692ec0b6c7ef7e12a85872a6d20ad33734",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ANF-003289_Ranch2": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 121,
+   "geojson_sha256": "6ac3c64e3b7feb07d22cb23618465673ad56b4f0116e1a11371bda571d190cb7",
+   "states_sha256": "cf3131c993bebb6b85b5fe01ed65e7f5cf6654a400fc0cd5abaa0dd8a628e28f",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006388_Placer": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "4d21916ff29306698052f0f5be21347771e663457e9949a46117e89d8b4ac9b3",
+   "states_sha256": "09fa31e29aee427d3ad5a62e8a581a1bf05e1ad8f1a5c34727471cde2fa1c238",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NES-001974_Gray": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 292,
+   "geojson_sha256": "57dd83f57fecfd0e61b225516f0251dbb022ba829f0c8ba193621fb7f86efeae",
+   "states_sha256": "52579a6dd6b04f3852c880182aa516468f0aad6601154630c345666d481bcd58",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-VLD-000127_Bear": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 348,
+   "geojson_sha256": "abda5f672957adb643964d966724c57c30b4b623d68d853ebcdffdac7b5f336b",
+   "states_sha256": "0406a040b77876611b73142feff78b7487b7160bbf0813ca910250acc7b6c5fd",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-HTF-500917_Cottonwood": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 86,
+   "geojson_sha256": "9ef5de695c05bea5abd087438c284a9b1e3e6b9bb9e3059419f5d0e25dc10fcf",
+   "states_sha256": "23eb80710be92679ef1e7f7b68905484729d32e2a41588ceaa2d4b6d73588232",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-200404_242": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 433,
+   "geojson_sha256": "fc185b2eca0aae09a281dd384484eb24ecf06644e8901af82ece9e1b99d43152",
+   "states_sha256": "e8d943177239a1db0b5d6fd5aa6a663bfeaeef5bccc46ee1f3cb140e6720e0d0",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WIF-230329_Salmon": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "03368fc4246e31f3cdca0702cc49ea93af1d34b988b5e17412942c6bda100ea3",
+   "states_sha256": "5607bee6a01bb3f0370a71197c6f6cf78fe7d3307003e71f804d21ee4406e27a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-FKU-010219_Mineral": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 863,
+   "geojson_sha256": "d8d82fa41e9f4cdf503570e4803835e4caba7ab5384835c06adb4744be7cd2a2",
+   "states_sha256": "b0df6a44cb36c7c48f8d116b0b821b23bd601ee4cb07b02e41887cb31c662304",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-9853S-024259_TwoCabin": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 9,
+   "geojson_sha256": "128f17d9f2e239c4f82c37c3a8136a1c5aa6fe8b3107224d0730401d3fb17503",
+   "states_sha256": "3cd9eac88891d088c22646b5d44d11ad9913338c663dc339d9b75265b9c2d1f7",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-N5S-000115_McBride": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 177,
+   "geojson_sha256": "6cab2eb6ff04021fdd0fff04e5a6e4ce6b09ae59ce6f61ad499fd0b197b5a5b7",
+   "states_sha256": "d0943934e7c194753b5fca443eb96c0dc1c162acc8f8dc7f77ceb6466343ad5e",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000487_Warm": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "8363942464ba946e742cb933aef51fbcc4372753a68894ecf0c7a42684354c66",
+   "states_sha256": "f8ba3cd6d97a81a8eda2b1195e93472268e4dc641aa705fc03e2d78b865ef5fa",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-NWS-001080_Range": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 100,
+   "geojson_sha256": "ae3c728d90b9f8f9fc398b6df2cee0e98e8bd4c6e945a9c42d3be7254a2f98d9",
+   "states_sha256": "231bb9351feef56f3473665124df28ec1ccbde50fa7c34fbb2dfa88a32b5f17a",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-001403_BlueRiver": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 933,
+   "geojson_sha256": "995f1a2270b36d0c6115c5a3d38ca8bbe731077ab723bf9ecccbfd7f89db79d2",
+   "states_sha256": "d107170a71bccd45308603015c21ed8cdb2d2eb8f11765ecc731a1473ee730f2",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT_BDF_006227_Goose": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 216,
+   "geojson_sha256": "88b074b2447113ae9ccd75b8047f778753782ae9437acc6465b5c5b512373888",
+   "states_sha256": "a621f990782d937e0afa3d6996c107545df44e1f18eb63733f581a515e3c0210",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-A4S-000950_Central": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 130,
+   "geojson_sha256": "ae73b27c6e9bfe71194a4148aa33432cc8f7c1dd0fcc0d524f7151f25064a73f",
+   "states_sha256": "04a6a133665c856cfa36ab6a2eb92a9f58b2c823df9d4ab22d12fda8796d9848",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-SWS-240711_McElwain": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "76efac74deb79fd3c4361ce2df925db6a10d71ecad500ea39340f8d1834200e3",
+   "states_sha256": "a0aef77eefeba3fcb1b58a9d8eed18553af97306082e790b4f5fe2e055f56a5d",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PNF-000991_Grapevine": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 31,
+   "geojson_sha256": "739eeea20c74dc4d9072ddcf1a5393dc8c3f2cd14a200d9f1de1bb8a4106bf63",
+   "states_sha256": "04dcdad5aa2330ca87b29b128805f688690f9b6ea0d81b843cb44b66ba578321",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SCF-023084_Hayden": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 713,
+   "geojson_sha256": "12f606153b94460f25ff1875984c35ea4611ab336c77f11bd60cee496f667579",
+   "states_sha256": "975f3e4822e5dcd3aa11f019915ddea622421f99ead2a88e3539f99a596d9dd0",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WIF-200430_HolidayFarm": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 4989,
+   "geojson_sha256": "114ef7d09419ff3608ab6609d19f6f3c1eed46611e8b1e31327f0a7cf1e7f775",
+   "states_sha256": "3b64c4145472bab09e8ca0a0ecc1cb1a6ae57b87aa3e4e862b1f24dc5b197016",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000447_Prior": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 229,
+   "geojson_sha256": "d427b44090fecddd3bf2211b4ba4adc0baf44541250d2460b511d9810632b33d",
+   "states_sha256": "e16162bca43f569d136daff77b0a44ab6c23fa2def51dd0462ecdba734a4eb10",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-00505_MocusPoint": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "39929eb2649cd2d422eeb14c310cd66b716e982256aec0368a337196c5117c90",
+   "states_sha256": "7293ce3fecf2b53062ab322698d22e72080afb9bfdc7de41433afc96add4c929",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000428_Pasture": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 250,
+   "geojson_sha256": "fa2a7451ce3271161880131c73e2d5edb32d2f8f92d5dd1316f23ec21b184290",
+   "states_sha256": "efa97b99a198c353f1f552116cad490bf4957b73c905d9b7cdd6100069596b83",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000385_EneasPeak": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 42,
+   "geojson_sha256": "5ec85e090602d97292fed28e240192e73db2c0651acda56bc041f59139deec1d",
+   "states_sha256": "423c54e20c491a26d7f6713e5b28394c8416e88db4cc332686136001c11cbfc9",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-002036_Valley": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 866,
+   "geojson_sha256": "c1dbe1a848abcb233908c32f5d377d1e38779e22056ff394b9cd0922a21583e5",
+   "states_sha256": "8f883e6bb9bd194246724e4d48e5b62861ca5298d2b2c3e4428ad49c1eb240df",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000264_Foote": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 130,
+   "geojson_sha256": "2e6b8368566a454cb3f96a8641312fd395e97af7da55643fd4b0c8e3d2275561",
+   "states_sha256": "ee5110f8fc1f637ab1c13bb6cb04e4f43d1596d32d43f697884e15345d85788e",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-POS-000512_Hunter2": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 22,
+   "geojson_sha256": "616eec05aba3444649f9ff2127804acd86bdb4ff35df5846249c949485a00521",
+   "states_sha256": "fbdeb1cd506481ee6f7f92615ba61a54a74fa8346cae08ff7a9466f79e07bd03",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PDS-000892_Bedrock": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 337,
+   "geojson_sha256": "4d410b178d752ecf3105c38dde025f62b742bf27906262ded60cff4da6fd47c2",
+   "states_sha256": "e4b1dc50634473a12e442ae71e5c1a2720ad4de6bad405b424e9523848e2217f",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-TLX-000722_HighPark": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 45,
+   "geojson_sha256": "ad5aceed6a81a78d7de409b3cebf639777861ffb93d0f136538af9783e373c49",
+   "states_sha256": "5e5ebddace2aa7c99ec73b185b921344087f47bdbeec3d61ee43fc8c14836b96",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-COA-200136_IncheliumComplex_North": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 205,
+   "geojson_sha256": "772d2d53a78830aac0c871a7ff5cffea374ebb38fad10c56f93505ea0ffe8159",
+   "states_sha256": "a1cdfaf4ae9eb7f669135a257eee0c5e79b18e93cc5d2e1453bbd6bee1faaf19",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-001187_Knob": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 70,
+   "geojson_sha256": "20679f24a85653befa9521bd3daf592fe9fe22da9a3bbd8b94bdd219126db911",
+   "states_sha256": "c7db6be47ee415890dd69e959f7cca5b05e7c5203eac373cbc96e5f0485f6dac",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OWF-000456_Nason": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 38,
+   "geojson_sha256": "740110f098cc077172a5f0688613e408f1ae879f9731c08acacd9d6948cd873b",
+   "states_sha256": "8f46c83b5a47ab1c5f72db93512e4bc3ba4cfb3134530b2cada12413aef0ff09",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NES-001795_WestAnderson": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "872b2790e99d8dd7c1dc495b57e80f1cdd2dababe0043ccfde55e877861057a1",
+   "states_sha256": "7af112543e4c6dbbfbce68d7c38ec836656ce0a81c621ea6b4c1c8d4573ef685",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001581_Bush": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 5599,
+   "geojson_sha256": "cf64eabd95b8ac326ffac41e5aae7c9c29cd2f4c9057126aab398320fcaf1b3f",
+   "states_sha256": "a247a067a44c427b79d520d6ee93bf31d9a1a0213db62fde91d134f572f650d5",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-LNF-000227_Blue2": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 17,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 211,
+   "geojson_sha256": "258f5705a83903d31a2501c06c5c89d422887838f98d0f7227cb20b2a711ccd1",
+   "states_sha256": "fac7f5d1032b484a17c7c648f09da734bc2ccee2737458f02622ab0bafa1616b",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001306_Sawtooth": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 731,
+   "geojson_sha256": "89d07963cbb62fba8bb94bafd579aec75dda409f9f9af4bdbc9beaa0e97e4961",
+   "states_sha256": "21f46ff342a132eef0e13ee997de00b8817e33b38ff2b03a8123def5c84540d8",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-HTF-030419_Tamarack": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 1968,
+   "geojson_sha256": "2c2362b25da5c8fb9d4ca73b5ecbe7ce018071ba7d5c84be8130ab502c6985d5",
+   "states_sha256": "d860819b9ef1a7e4ca8e0f34b4f25b645157e6e659473fbc2e8a29c43062267f",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-CTS-000714_Sunnyside_IronGate": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "37be68fc28a1bba478693753360a36dce1bed0b2c95b47bcac0fd6518aa1d66c",
+   "states_sha256": "4e4ce422cd0391681e9854b7419267623fdc48bcb233cafffec5ad67f35c9efd",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-210452_CougarPeak": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 2646,
+   "geojson_sha256": "377743fed2d18e288275d8d15ed73c029ce45a1bf21071d124fbd4cc2baa7572",
+   "states_sha256": "4bd21925752a04112b8232720d299bcf5f4389dc338293b5839090de17e8b417",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SCU-004686_Crews": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 164,
+   "geojson_sha256": "da0f321c37295691af7085844980c70ac21e6bfbf2a29c6234141ee7f4b03a10",
+   "states_sha256": "0b94b66a22ee33bf8177935be2bf864466fb6f65f8aea496c1b669616e9131a2",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000412_AceButte": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 50,
+   "geojson_sha256": "0a570094f33a14aeb5ff25a1a430d3b6d325ac440e1d192f4b73c963d3764ccb",
+   "states_sha256": "85b2c99284c902f036ca77f95803114ea8468989cab036fcec47e1cc48d834b6",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-711S-026621_SObenchain": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 946,
+   "geojson_sha256": "7d082a4e027943d166a48d72374f1a58a10e768f536591e722e727869fe2fecd",
+   "states_sha256": "b2e09b6fd7014be9cc3833ca98da24e2f5892b51c3a1b5059e5cb8f0a00dc3ea",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000109_Redhorn": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "b2fd120353f89652794aea3f87d4405c0b9fdd5a4bdc0e786dd6f6df0b95695a",
+   "states_sha256": "c08ce219fb5326cc218f256b89d57c5940f04c2bcbeb41e5efe625a292a5eeb1",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BDF-012520_Line": {
+   "records": 40,
+   "distinct_times": 40,
+   "intervals_le_48h": 35,
+   "growth_intervals_le_48h": 14,
+   "final_mapped_cells": 1275,
+   "geojson_sha256": "5cb28064f4a6e7f8b40a87a247ad8d6c4fadd3bb28146fb7316a7300bb32ddcd",
+   "states_sha256": "7d43803d7b6587ca2acb01c4c66f5e4a3404c19edb533a0a0d2c8639bf53ca3a",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NES-002246_FordCorkscrew": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 457,
+   "geojson_sha256": "61b3ab4e4380d52f84644e3e1d49ad2fc440936cc0d3581f42f61e2bbb38f2eb",
+   "states_sha256": "7a97a006de6542584d32e4fe2a793cefbdd81e02506212be297c81b1a504ee32",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-FTA-000867_Lofer": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 24,
+   "geojson_sha256": "b2dccca178ce67ec0015802a5acf6cce40008febaf2f5a15b1c884cd804cb171",
+   "states_sha256": "57b6a55025415604ea907e45410faf5c6ba6d006673e25850b5ee541d6793d27",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BEU-004081_Carmel": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 201,
+   "geojson_sha256": "ee820e78e8836d6e602542489f0e35dae5731d3d03dd4dfb757216635b90bead",
+   "states_sha256": "951f3817a0eeeafc1c4e70f166c25b2f46c6c33b717a0fb286199b868ff6db6f",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000335_Corral": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "b44d72de476a274346d6662155c87f694bcdce9fb86d31537229361bf1e0b8c5",
+   "states_sha256": "e17bf4ce55f1f98897f1ddabab55dd2fe9b9683468e05965a597ad6adc79c120",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-022161_FuseLake": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 0,
+   "geojson_sha256": "47a38ae862986db2d60fb003dfc26435646fe119b2a01163a6dbe080bf7cbfc4",
+   "states_sha256": "94ebb28c9b646b6ddf90d025f5328d567250bd58b3653cebe1105531ef77b64b",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-SCS-220216_HalfwayHill": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 354,
+   "geojson_sha256": "2ee783163315cba0f857181e262d01448adb33a26332c756ba9c7ed0cda1a74e",
+   "states_sha256": "e6e9e954ac1a26d1fe4c9987c4ed8d8635d7910480ac5a0ff5bb0044fadb2919",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-HIA-000046_MP21": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "24770948a2d7cf9fecd7b09456f4e4b12b37deff8c030310ead080804aecd756",
+   "states_sha256": "c88163946596e770570a3ed5130055402caeb3c7b3786aae1ce86b5dcd2ebb96",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-SWS-001022_AndersonHill": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 22,
+   "geojson_sha256": "223cea9a5ecf77b04714bd6bbd19268264a483a419ff0a25d88b2bda88107085",
+   "states_sha256": "115f354e4b0d72e7a0be314c220dda36d4359f22f4bf723e20b66812cc5f0392",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SCF-240169_Birch": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 662,
+   "geojson_sha256": "4e28a0910122304cf9a57c25bd2743ddab93572f07ee89b0a5c4fd9f780fd611",
+   "states_sha256": "2fcf8b7906a31fd059a4fd43b08d9b7a7dedb4211d45491921d16d9120d728eb",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-HTF-500736_Mahogany": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 81,
+   "geojson_sha256": "b2236cad7b05e4d56f7f201df53de2db99e07281bb6935715075207d3f48e140",
+   "states_sha256": "e0200eb1d2b4580234f49aeb594b375db0641ffc64eeee5a278fb59f34c029ea",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-246327_Grouse": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 174,
+   "geojson_sha256": "b5b1fc5e1a6b17c1c6598d2934bfc319693527b899d07d7ccfb15444f8b709fa",
+   "states_sha256": "e9a1fc30751d123c7159bac17b922dc524997fe8903f0566933d1c79d71e051c",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-CND-002374_Peak": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 63,
+   "geojson_sha256": "cd483d7e4f9292b2efe63b2682b8fbebee29176fab62b50477720a06f7febfd8",
+   "states_sha256": "e2507ceaf4e2f611e39400d9c18e26f6e32c27eba8c46a7474048d169e9b9029",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FNF-000651_Lemonade": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 20,
+   "geojson_sha256": "22cd9ecae6b5e48a34b759434d3c8d05fad60694d2aca6528441fb74bc77d9db",
+   "states_sha256": "99bfcbb99a02ae938c05cbbd525e99a68952294095296dd98aeabec8d44e4251",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-246666_Meridian": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 83,
+   "geojson_sha256": "fb9bf4496435520b4c90feb37a9eba29ba2ded58c3da841f275f0a422e7728aa",
+   "states_sha256": "5827f7b6ca5f555a901095be53ac669fa6bc2fe14d36532108f146cdc92868fe",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-001004_ThreeNine": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 88,
+   "geojson_sha256": "ac41db3972bbabac81f48f9d6fbc58e7d532ccf05681404032bc8bfe7770b8ff",
+   "states_sha256": "c6fea8220801ceabba43f8cb8766e53d4c976d8a7ef15c1c1db6e6523ea47546",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-MRF-000514_BlackMountain": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 11,
+   "geojson_sha256": "0b11d8fe9b1b5f69e271e8b38ad89c800b4b753d6d4b6130c52ac3f4730167b7",
+   "states_sha256": "af64b9bf1161fed16b0d7f30600786395e44e034864b419b212cb6fa6f654c4d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WIF-240427_Bingham": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "339c6e3f6a8ec390b930f0a1cb7922ad971a2375cae5f09259cb006e8ad3bdef",
+   "states_sha256": "57242c7a2183ee6e22117547ca5f74d543e7027b4e0e82f8313c44262005aec5",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LNU-013407_LNULightningComplex_Meyers": {
+   "records": 23,
+   "distinct_times": 23,
+   "intervals_le_48h": 22,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 74,
+   "geojson_sha256": "4ed0dede4aae41458b868afbacca2c2933e83703b5f01eb698a20a8c91bba6f9",
+   "states_sha256": "14685bc6a53eb2680ad309ea83bc026bb9ff2d82c2f3e04d0c90c03096a85d8e",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-PRD-000404_RVLoneRock": {
+   "records": 22,
+   "distinct_times": 22,
+   "intervals_le_48h": 18,
+   "growth_intervals_le_48h": 11,
+   "final_mapped_cells": 3956,
+   "geojson_sha256": "1c59e5abe5f0f5cb3057a50642174ead8504f5d8e6e53fd7e051bf77b0ee67b5",
+   "states_sha256": "9cb02f9360093ffd0dac119055f04d189bb60de4224f5ffb1c087a792c5f1aec",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASD-000097_Basin": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 1139,
+   "geojson_sha256": "40bbd8db90b12c5d4040454db3807f01a4017145fa1a25eccbcefffc1941aa6f",
+   "states_sha256": "fa2d4362100441494e93956a27d8951f9ca16130f29d0e375e0856902b76cb89",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-002510_Griffin": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 1773,
+   "geojson_sha256": "b3a89262aa9896e74e2bb18dcb545bdac4408bd30176e57ae744b7e688fb67e5",
+   "states_sha256": "742bfd659882db9683404e82ea84324c734739ca9efaa071eabbf753a3195854",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-000348_ChrisMountain": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 16,
+   "geojson_sha256": "a692432a869a78a09eafcc6b4351f05f2cc33665fea3031b9c84195bee4557d5",
+   "states_sha256": "4363370d2fc37030782296d6b31ae54345be39f2719b3e6fc9ec024611f430c0",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UMF-000658_LickCreek": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 15,
+   "final_mapped_cells": 2313,
+   "geojson_sha256": "9bd60b39559f4b3994ae94b2184e4e523a9126ddf42c74e9d07c8d2a61986218",
+   "states_sha256": "1cf79c87f3dddea5720b656ca190c1cb4c726c2e5adc6b3d8bc04ddcd0b0721f",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-DIF-000270_Mammoth": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "ec1631cb3b72fa5a50f4cc804622fce223d3a089a259923e73865ca15c22ae2e",
+   "states_sha256": "b693d6b4645a61002d7893b104847bb9542e067a54de53d0681cdb38159f9dd9",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UMF-000745_ElbowCreek": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 12,
+   "final_mapped_cells": 661,
+   "geojson_sha256": "b31342a2e46f23db5b64e4ed6215ff8bfa9a634af0ff681605bd591452cc2558",
+   "states_sha256": "9a3b6da8f8eb88dd024c46b58ceecdb0d6d5465179351655eb8db707109fca5a",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MAF-002523_Telephone": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 1605,
+   "geojson_sha256": "f6a3ac8e6f5bd7070f5b19ab4f6c2f9ef0d391633bd01f2b3f5747ef13697a79",
+   "states_sha256": "cc8b69342a446a8fefda5379d109916fedaeebe13c002f9a9a40037dbb82d0ca",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BID-210154_CrookedCreek": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 120,
+   "geojson_sha256": "023bb82ee83bcba07ec3661da02ec64e559efa0567e4a6c3e688b44774450841",
+   "states_sha256": "cd4cd1380bf00daed1cb0245f5a71942842f007d03b183d8ca49043a9e0f5020",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-PCS-0220_NakiaCreek": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 56,
+   "geojson_sha256": "c30d3abe5e815221e35a71ac77378b08552ce3123aba7209892da5f80239fd9d",
+   "states_sha256": "6d1551690c0e609100e90d9963d5884edfd09f3a2bcc5865143c67720411b43d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WIF-220189_BigSwamp": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "e7fb54d8966d289392cd1c4186e5d71083cd661e381d4c98d0bf16343c1119c8",
+   "states_sha256": "2afe372747e2e2c4dcb8fc478320501e8b4e8e5fd992b356475968c21ed93439",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-SNF-000532_Medio": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 110,
+   "geojson_sha256": "779c5b5be61c124f087a7529ff6009540480babbbbd3a767099162d19a7fa6e0",
+   "states_sha256": "049a2c495382ee3d4a2561b926b6ab4ab578198ac75b377f407e4d04927460ac",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-GPF-000813_WilliamsMine": {
+   "records": 31,
+   "distinct_times": 31,
+   "intervals_le_48h": 27,
+   "growth_intervals_le_48h": 17,
+   "final_mapped_cells": 382,
+   "geojson_sha256": "7cda66d737c2702f681ee6e8364ca48ce729b7272c28e40cba42efc3c419b1f5",
+   "states_sha256": "08c1cdaeffc1c0e4fbf37cbb82a7150399375d0a7a27fc49514334e2d1e8f39c",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WIF-240210_Pyramid": {
+   "records": 44,
+   "distinct_times": 44,
+   "intervals_le_48h": 37,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 40,
+   "geojson_sha256": "4f009f92fd9bab44e857a1fb30632b92384599e79f9b4ae7929bc99115a02f13",
+   "states_sha256": "9b9a03b51603a09a5f7d2e7427e56457a40704ace67d039f7e4799a0ba5b0c5a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MDF-000486_Allen": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 26,
+   "geojson_sha256": "d9c943ebcca34a99a4a7b9edf3a93807c09f85ea1f04d880dceec4243ee40a41",
+   "states_sha256": "d7fa95bf7577e4bc1eec6f62ae0c293fa7938f6397763ee6fedd5b7097c1ebc0",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-00083_Bringham": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 16,
+   "final_mapped_cells": 673,
+   "geojson_sha256": "64adaa88fe8b5b5b2af4e1533a197085cf428611176180a1cf2f2d45d1994035",
+   "states_sha256": "2e493bd5cbd55f390fc15bbc6396349705853ef18ced455edb573434df2d658d",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-000705_Spring": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 116,
+   "geojson_sha256": "872aa74d13d5907bea79bb0b303092f9a57245235177fb37f90530ee0de61d25",
+   "states_sha256": "d51d4174fd6aa6dfe2d6dc6819eab707cbc9fad6275d311b8a4750e694f6f833",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-CZU-005205_CZULightning": {
+   "records": 25,
+   "distinct_times": 25,
+   "intervals_le_48h": 19,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 2520,
+   "geojson_sha256": "51b89762b7bd1f8e9050fd8fb624471a2ba611e996c9e26c4430bd28a503b074",
+   "states_sha256": "43403a0af7304310fc97798aadbb9a94dd2368ea1269dcbe401a79feff4fb74f",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-MLF-000115_BennionCreek": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 245,
+   "geojson_sha256": "45d78301b39cbc920613eeae7178644e179a3ddd8397177aa5bef35c2513b326",
+   "states_sha256": "303b9cbfd54af10cca2ff366cf60e9bba1f6eebfbe929400df917f4f64424acd",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000234_Consalus": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 15,
+   "geojson_sha256": "c854de792b56540fc14fc6e717e5e3a2e0d6d603b68f6f4852952dde04d003df",
+   "states_sha256": "92e9b955fe7617198269c269a86ddb1b3fad421b41e2275fc5777056a0647259",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-RRU-096640_Apple": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 980,
+   "geojson_sha256": "41cd6471ffdc21e5555d78698d7c1f4a085ddeccd517c9d2029c744bd4c76504",
+   "states_sha256": "c424f172211a5156aa484b4a793db5a6c6ed082baa2f1ce97f64c613d937a1b4",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000157_Boulder2700": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 70,
+   "geojson_sha256": "5a95d487ee339cf39fcd16acc8079340056046f82acb42130a7100b8d219715e",
+   "states_sha256": "c6936f34fbe50ea89eb69ee797cb2e18a2af126485238490dfc88e0270255bab",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-001183_MillCreek2": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "35c91a99adc9bb6941d5923cdebcce1d74ab66422aced70d4393877444ad23b9",
+   "states_sha256": "4fa707353bfbb0b0513297c38ad8163785ccbded542a62761b95b542e74d2fe7",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-INF-001299_InyoCreek": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "27b168e3e4fd9b3a89a4302f28159e7003512dccf726813ecfb178debf99fa74",
+   "states_sha256": "cb4d9063b915af712aedd4faffec6319722d9035c68020cb9a6ca6204d51aa1c",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SPA-002124_Sherwood": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 35,
+   "geojson_sha256": "53f5de3e36f56ce8439f633e1553ea34f71a3961c2ecc173dcd3cf2b60d2b7fe",
+   "states_sha256": "dd4d8347563e1a1ec32d8e1991fed35b75d29288072becbd6ff6d60a2c868ae4",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000454_Buckskin2": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "2c261c2b6130d2c45d0b0107d7d060561ff5cc7d9557d3b3121db0c91726850f",
+   "states_sha256": "23f72ac2500a340b3c138dce71c9c8e69025fba20f0b69acb49b02c5e314c8c2",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SQF-002758_Walkers": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 248,
+   "geojson_sha256": "ede563f36d81976f822a93aff9a2bbc1d6915a67a46e3ada9c7cd10048534f2a",
+   "states_sha256": "0f6a8a0a365a41169eea11ad994d538287bd4175427dbb34f799c7827cdf1edf",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-YNP-000050_Pika": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 25,
+   "geojson_sha256": "0723a7316fee44a2d7d288c8af3c8eb55044c623b366c859ea26485c00fd7b02",
+   "states_sha256": "2a5ae09fadef7f809548e9181cdc8e70299fc3dc6ca08ce0eec848caf81652eb",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-BHF-000399_Elk": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 2830,
+   "geojson_sha256": "83661bb419d3475c59645396bf3eddbe63f9309982a2ab6cf137fdbc91347ac1",
+   "states_sha256": "019b15280316dfd9378e894deb51910a66d2356b124052ea1651f5a44bd49a26",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ORC-019703_Emerald": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "1e8def2446202d9179c5eeaba8fd280c91c0892187f97c3c725a1c36235a4230",
+   "states_sha256": "e243f01dc507a48689cc5e4c74d9481ed6d809fa5a27d3c330bafc97b119ca59",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000653_KootenaiRiverComplex_Katka": {
+   "records": 32,
+   "distinct_times": 32,
+   "intervals_le_48h": 25,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "10c45cb5528351fc7732679f5fa2d74d0c4985e93fdecdf67acd16a54d560a81",
+   "states_sha256": "ab1142a400878ae135b04f74974c846734b84cdbc988c2b024e6fd90c99e411c",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UPF-000436_ArchieCreek": {
+   "records": 23,
+   "distinct_times": 23,
+   "intervals_le_48h": 19,
+   "growth_intervals_le_48h": 11,
+   "final_mapped_cells": 3811,
+   "geojson_sha256": "b01dc8182cf62c11e3a97f9c8f01b83fc152dc569ac1cc22f9ea45dab81287b6",
+   "states_sha256": "9897503c738d4b598e43173f2b5c40d7df05153f2f0ef3f4d013fbc48b916344",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-553S-553018_EchoMountainComplex": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 73,
+   "geojson_sha256": "c1cb3deb8eeaccda3a95fb37c8e6f69f41b4c48bbbe265697958f4a523d22eab",
+   "states_sha256": "5b42b55f34b94be858de4b9bb97502ea8f6512bd1a1a35e289c97951e472ce4d",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-CCD-030406_Numbers": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 532,
+   "geojson_sha256": "2f018a76290fd8e4264c435d27484d328f8954c15abdc6a8afe2b40ccc85b6cc",
+   "states_sha256": "81728f7922a4fe70a7e2e7c064cd86a4a7399e10fc5a99e93c8db2b51cebf33d",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040155_HeathCanyon": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 13,
+   "geojson_sha256": "a58e194f23920365732fd7c56828cca4a8a160bc585445ba27bf4416d028bbdd",
+   "states_sha256": "ce4a5dd476d5ec459acf8d95d30859b234fbda62798f80e87efd7efbbdd54451",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BTU-012090_Thompson": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 104,
+   "geojson_sha256": "182e8f37a016b52d7ed09b519085a73a29bc6fc8e4b85ca65c7186a192c623dc",
+   "states_sha256": "15fccf9ec276210841f2a208d260ff1ba950b17327bcca69226f5e1f59527e5e",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-000678_QuartzRidge": {
+   "records": 27,
+   "distinct_times": 27,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 84,
+   "geojson_sha256": "4048d1244edcb6d0f012358c8b32c4b92ac27c42bc1458388036e56f6ec27c42",
+   "states_sha256": "763f543bab7337e27587ac6905e92c434058b62d2e37887309dead7f76c8c2f0",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-VAD-240129_CowValley": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 3847,
+   "geojson_sha256": "9ff8c674c5c0b73e295741de152a3a5ef5730da319d88d6fc87eecd28b3f716b",
+   "states_sha256": "49db2ca69eec3e313b442ac87f1309bc3f7199b1d2e33b26c730aabd9321bd86",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000613_Horton": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 348,
+   "geojson_sha256": "4006658146d55cdba1adef2bfd962c9c78c820bd9992af4a0acb1e7f1af4e3fc",
+   "states_sha256": "aaa7d309025d7d408a02952958e1c721fd2e2acc18db31e662d02fcb0f27c135",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LPF-003161_Coleman": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 14,
+   "geojson_sha256": "10b6f40e20afe10a6a653cd549697d85e59357e06ed7292b316f58c1c8d31474",
+   "states_sha256": "4e2544591cb263ce45466de3187e025ff75b7fbe851e19c73a05b95b4f31261d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-711S-00037_SaltCreek": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 122,
+   "geojson_sha256": "5deef5291e59323c6f003397ab6f8eb9fd54dda5af442ee961f908c0c094d4e1",
+   "states_sha256": "c181a06cca59dd5ed0762e7bd1c7c88b8b4ba0deea1ffd9f7cba0d2144cdb0ff",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-000495_Porphyry": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 420,
+   "geojson_sha256": "b5eb5ecf3140c857939bd26a6716fc8354ec27ca99b2182909749e43b5a47157",
+   "states_sha256": "c1a41498ef15783367941e37280df7cd6043d0bcd028a08cc340d033eb48f3e7",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MVU-018864_Border32": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 126,
+   "geojson_sha256": "0e92732e1087e81c08e3da77f3ecf91471b38099b971f6b16749e0c0dd8eb761",
+   "states_sha256": "9f5e9417aa37d6c21b80bf966093e34f469d3147fd9f30abd384b3693ad3666c",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-200196_BenYoung": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 37,
+   "geojson_sha256": "c0e2e2537cea746506a52e7561d94ea4c940dc38802ad4fcb8dd5599880b1376",
+   "states_sha256": "9d6357d27e2a58a37449ebfa7cec6ddb0ea0d9533d712eed22e72ec00278803b",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-CRD-000996_PinePeak": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 47,
+   "geojson_sha256": "10d39956f279cdb5356fbbfca4dd45e67f9ead194de9ca0923d7839bc97266d4",
+   "states_sha256": "ac54be49e26afef323b52ed51c7086afa0723e815756051ea534b192e41c9738",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ORC-060975_Coastal": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "129887844c21033af3e8ae2294d8c0d9a37a8260e3b5269c4c1e5e980cd3c123",
+   "states_sha256": "948abf1ea6306f529b5aafe9fd1657e99a02572a4f8adb149f961c9cc757694f",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-OCF-000772_WileyFlat": {
+   "records": 25,
+   "distinct_times": 25,
+   "intervals_le_48h": 22,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 866,
+   "geojson_sha256": "10e71e98ac58502f055bf1d668d08487117d5c81b6456654a01912b3e3d5969d",
+   "states_sha256": "41eda642e167680250e26e17695a968a795993dfa002cc0618451c012131e1e5",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-DIF-000133_LeftFork": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 126,
+   "geojson_sha256": "c3f0e60fb33ee104e72753b32f9a0902a50f18101372bbfa49cfac2d7acfa561",
+   "states_sha256": "a4efb98b889f6cf7e2b32975d2d178cddb056600c495caad3440fb9487902899",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MAF-002502_Falls": {
+   "records": 31,
+   "distinct_times": 31,
+   "intervals_le_48h": 26,
+   "growth_intervals_le_48h": 25,
+   "final_mapped_cells": 4722,
+   "geojson_sha256": "69771037d7abfd18618e50a4182fbf6345a108fd98ffd94b9f90a6a1bd66f6b8",
+   "states_sha256": "70641e04e51871b34875d7107f4afe3d018f5506c5b43156d0580ab1242e3fe9",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000536_Haywire": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 162,
+   "geojson_sha256": "001b141d1e29d8ad2689f3c9f25ed73ddc5a437ef8fe27724eef35e4f30a8304",
+   "states_sha256": "96543328d37dca69441ec21f8809f1e874d51552dd2c1d7991c217b987a75a1b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-TNF-00137_Mosquito": {
+   "records": 46,
+   "distinct_times": 46,
+   "intervals_le_48h": 39,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 2225,
+   "geojson_sha256": "27978fa73edaab56339aedddbadc8cda656ac322aab633dcdde73f4a2f98404c",
+   "states_sha256": "699b8462cabfbaec6c698cacbc0425697f9b83cbee7f3909cd184fb006330b5b",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MHF-001199_CampCreek": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 60,
+   "geojson_sha256": "b3716656d82b4996b29c6291d1572ddad43bb7f2a0922358a3335d9beae316c6",
+   "states_sha256": "46403550f461338e6031e3634ee03a769a825ad0cd457591dbf1e0cd15c6d213",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-CCD-000429_VeyoWest": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 77,
+   "geojson_sha256": "4a45171356e547d05874ca8a8a98d427934fe1d9cb0bd7925466141c5464154e",
+   "states_sha256": "f8683bce286d3067a4a1bff3000c5a181eb726d3a62b0b9cbcab82bcbc4a0b18",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-CNF-000552_Beehive": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 311,
+   "geojson_sha256": "4348380b5e3d4afc10241ce3a5c37dd669dc302b26b600076468c3b6aec11c91",
+   "states_sha256": "b02e09c54d0ccab4d5066a3f5f4f7809615c17ca4574da14b95f8148e6e72ff5",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000488_Golden": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "5dae2a838ec89e29e0161bf06f11ed6b9cdd7383042c50254536d483b63769a9",
+   "states_sha256": "1799fc0029f380e7b0dd05a39e34f56739056d7409bac616a1a1ac9398e1ca17",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-981S-240314_Copperfield": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 115,
+   "geojson_sha256": "1469466d7b08e97c06de68a5cdae3e71dc918d85cfb4c1175d50cc16b9e16cb8",
+   "states_sha256": "8aa22f66c4817465a5bca9990281e40ae9460aea6ee5de6e9e6c9691cf5eef13",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000357_Dark": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 11,
+   "final_mapped_cells": 90,
+   "geojson_sha256": "a9fc3036e96a972e55ad3c75767222a813314daf58c68dc173e80c5a2d33068f",
+   "states_sha256": "82aec7428feefae3bb02fb98b14f5d06dad8694d9fcad976d8bea34373a02396",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000212_DiamondWatch": {
+   "records": 39,
+   "distinct_times": 39,
+   "intervals_le_48h": 30,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 39,
+   "geojson_sha256": "bb86147baa72a23a27ddaf8ad05d569ada9ceb5fa30357fee1394eb510f76f4e",
+   "states_sha256": "c3b0e15de7020d5aac67ae167a8ea0254123d66ef0d16a21cee90e01ae626217",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-COA-021087_SummitTrail": {
+   "records": 47,
+   "distinct_times": 47,
+   "intervals_le_48h": 38,
+   "growth_intervals_le_48h": 35,
+   "final_mapped_cells": 1464,
+   "geojson_sha256": "d62f7101387f822d529c932503ec6cca8b5db41d63ed986834a7d85d21a751a4",
+   "states_sha256": "556bb8740037a43265816b04a3ca67e470fd6b355e54a0600846ffa06ce6c9bd",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OLP-000412_Hurricane": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 133,
+   "geojson_sha256": "de1d5bc9c75e92263834e94717346c6546f93fa175404bc5ffe5bd38a1073d54",
+   "states_sha256": "89442d0353a8ad1a4dbf82ebe2b02a2106ff4cfd7d7e6224147904bc33a31f2b",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-954S-000022_MosierCreek": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 30,
+   "geojson_sha256": "d58e2f5f70a2a7319ca17e617ff5b738f6d1243718010af227a7b4eba0b9a460",
+   "states_sha256": "b3eaa13ba0ae9fb54ccaa5435ca1f26f2fa101400b2a2dc44500d2091dcee69c",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-001214_Ice": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "94a712a74b6060156c2966d3a21355314ff6d59d17352f44d5b94ac9d5878e2c",
+   "states_sha256": "25717591674c7c7ef9d88dc80e346b1e07f4784bb7070eb38e2eceb85322dba7",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000331_Frog": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 92,
+   "geojson_sha256": "bb0d5ac975de41cf42bf69b1dbba69ebec2a4be318a4e8be69f912edb407ea37",
+   "states_sha256": "80322f48fc11892e97af423e8e34fa1ccdb8595ed21ccc03ca430f89ef3ba0e5",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-210422_PattonMeadow": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 257,
+   "geojson_sha256": "49da4e9b9e716a906e3c2411dbd2dcba5bee4586a41d73ea30c4a114003c248e",
+   "states_sha256": "b3a0867232a474049aecaa2f59e9322e90a87f75f307d42cfc9525e300d618cd",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NCP-000262_Sourdough": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 191,
+   "geojson_sha256": "0f054d46bb3783a544da2a682d97ec0c8c2555f4f695044bc460e0fcbbc33a79",
+   "states_sha256": "8787aa78c4c020bad62f2fca8966068b46ea50f152e5d71820d0eaad12dd5d6c",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SWS-000558_Pumpkin": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "717d7366bba95c17ac833a8df4f3b9fd4e7d465d6cbff04817d2c023adb87ca1",
+   "states_sha256": "5585839d72b05d5a52072debf223435b8a70cce42fd0ca53ba0b36c594e32f75",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-MEA-000385_Salt": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 234,
+   "geojson_sha256": "00b54ab7ffa758ed76ecbba89f0ab4756ef948b2bbd81b492ed876a9571d008c",
+   "states_sha256": "54202456df777ec4a0eca4111b7994b0c48892f65585e69c93530047453c58e7",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-MLF-000131_PackCreek": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 261,
+   "geojson_sha256": "bedd90886eb473f538670f1270fc9ac0561d17e2cee9b2fc7afddc43d30dc67c",
+   "states_sha256": "c45b3900df4e6fc4c1f8f4ccc08d1f8971f166421536ff9932ad04f16a73120a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MVU-013233_Border13": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 14,
+   "geojson_sha256": "8616e4fb1cb1c3d2a479d7fdf20ad6f3aed5d7dba03a4e88998533776de9ab56",
+   "states_sha256": "2d5086af1033ac327c68d7eee547388bc9b38f11a9bd11bed4f04f965c8e6ca7",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000207_MormonBend": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "735342eab0ceb3190a8e0ad8547a79ecdd0907c31ddde762100e7e29eb7ac6e4",
+   "states_sha256": "4aa7627e04be455c0605e806914da54c47550e2b1154dd0e2bf6c296557f39da",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-CNF-002833_Valley": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 525,
+   "geojson_sha256": "a0b4bd90e34ec8a0703668947850c790b632195b1140517700e1dc46ec77612f",
+   "states_sha256": "5896d8dfd184bddefba4e5785ce597c9e1fdf39ec132c32c1b076784b3deb1b9",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-781S-000115_7k": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 11,
+   "geojson_sha256": "110b48540b792abe67222b75f33c97b390f4bf49b479adfcac24cb0c59a69c55",
+   "states_sha256": "949fcc1f494f7e33cf59ebcf2c966dd358d34938b16c056613ff6718808c489e",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-GPF-001208_Siouxon": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 72,
+   "geojson_sha256": "dab8f6e6adbb8f14bdbba93cb7e93f84ad7bf2baece39a4ff2a251074bcfcd9f",
+   "states_sha256": "fc3c145099a4613ea82dcc4aa4e925abd52964b015f02667d8c2b0d7e9c23379",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LG29-000236_Deadman": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 1373,
+   "geojson_sha256": "b3b70966e6ae813bf282db41176cf137bd8e8716bcb50225ebe7ee0340a2d714",
+   "states_sha256": "d223e0360aa2d93f89794e7f07b896a463ae4306f50c82888f27f69c554d818f",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-000570_BearCreek": {
+   "records": 36,
+   "distinct_times": 36,
+   "intervals_le_48h": 19,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 32,
+   "geojson_sha256": "82663486994308f8867e607dcf022ed1db2210b7081e60f6a09fe21d9b8b502f",
+   "states_sha256": "322473faf6fe25425da94d8de020404349a5b27564da3935d5c3ef91fc90e24a",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-KNF-000167_BurntPeak": {
+   "records": 44,
+   "distinct_times": 44,
+   "intervals_le_48h": 38,
+   "growth_intervals_le_48h": 24,
+   "final_mapped_cells": 121,
+   "geojson_sha256": "53c6c52185509bca6b0bbbe350a3367fb7beb035ff724901a8b0f418f876bbfb",
+   "states_sha256": "0f484e9389a5f73b0c3dd54b7d9878545822a2a719c3bd352be9b664a8c3f24e",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-NWS-00274L_GravelPit": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 9,
+   "geojson_sha256": "c7e5082b77ccb6261802004f1120f45c6298b6ecdb76be1d7482fbcf9516bac4",
+   "states_sha256": "ad7a2f7226ef3310deef3385c61df1fc4cc9ece9e4e5ae63815de8e4de11230c",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006210_BowlesCreek": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 209,
+   "geojson_sha256": "2b6f5399a8405548b0ebd128303f357a3d024bfbcd45315e72e12e69c324ebde",
+   "states_sha256": "aa89de2faed1ce8e1148ebfa9727570ecd89942f86d96f3bb8281ad20eb7a548",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006132_Clover": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 32,
+   "geojson_sha256": "b9e2b8236fb1542d787dd7aadd002b246ee015cf0194eadf16efa797e2d2e884",
+   "states_sha256": "e0725983db6a437f49febaff4000ce48a1b4a0b814079822bbb4108695cd585e",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UPF-000345_Chilcoot": {
+   "records": 24,
+   "distinct_times": 24,
+   "intervals_le_48h": 21,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 58,
+   "geojson_sha256": "a5d5a84fbe907770570073994d00bb0d343290acd5c0aa243f95b2013044340e",
+   "states_sha256": "6d095a5ac6a7bc744c9ea62f0259b071c1cd4acacbc72d8092fc77f7c02675ff",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-PSF-000779_OakRidge": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 37,
+   "geojson_sha256": "ece4021e7386e316b5376792f6f3cc8c982f0fd176c5af23d2d1980126d2cc75",
+   "states_sha256": "deee7cd8e73856e5dda88028701b800b2f3fe14da58d5f2f47fd6660b4b4c298",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LG29-000428_RichardSpring": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 5064,
+   "geojson_sha256": "b0e5932fa223392389c5512fdee22f9bd4cb29f4de1d17780766eb9a760425eb",
+   "states_sha256": "f0bc0b21464f1b70c1e608472a14903b065ef2418ebafecbbcf367f1475c531e",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-TNF-000855_Royal": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "f9c3ee5cf2435a58d74faf4d1bfa8fa6e40ac7974cb4e3f9a4bf58a806f9b18e",
+   "states_sha256": "daf2994e5e7af4d188de3acc13783cee4044c03435d6ec4f8dc02a9d57bb3db6",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000106_Elmo": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 606,
+   "geojson_sha256": "71fa9943ca9cfd5fb86a68099f0a99bc09b2ad65a9d4fa790d1e39ddcae14ca7",
+   "states_sha256": "bb010ef8c5c80811a16608aa7400be67b10edf211a469c300659ecf34c9f08ac",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-KNF-007035_Slater": {
+   "records": 39,
+   "distinct_times": 39,
+   "intervals_le_48h": 30,
+   "growth_intervals_le_48h": 12,
+   "final_mapped_cells": 4544,
+   "geojson_sha256": "047b535b75ca86a77bd24fdaa08cf314a546225c0b3243ddd93e67085ea88389",
+   "states_sha256": "47e675fd4b0ae8f10653cb2c532cd26e297ce46754205a0073e562acc181a628",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-N6S-000234_CerroBandera": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 27,
+   "geojson_sha256": "29f2690920505df4c8de1bf6db2acdb074af81b91b1f7134afe3e0f985af3f51",
+   "states_sha256": "37e9830087ebc901b0fa9095c38b531b01e95c0245be9464378bd8f5ab7ac6a9",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WWF-000400_DoubleCreek": {
+   "records": 35,
+   "distinct_times": 34,
+   "intervals_le_48h": 28,
+   "growth_intervals_le_48h": 20,
+   "final_mapped_cells": 4947,
+   "geojson_sha256": "3bffa4bf0274d4aed2d6b94fd43f8db9b98b7160cf4747c6bc28a887be4bf2a1",
+   "states_sha256": "b00259281643033ea0462d9ee475893e3f5c85c5a3d52fc9253a06833155da18",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-CCD-000315_Flatt": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 413,
+   "geojson_sha256": "4b0e320c8329326cee826103a3f2947ed0abcc1083814466d53e78181323d780",
+   "states_sha256": "a1938603ef6c7846e0e73e1931e6f70136e9eff2da728919240fbb1ec53b8b3b",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-KNF-000201_SouthYaak": {
+   "records": 34,
+   "distinct_times": 34,
+   "intervals_le_48h": 27,
+   "growth_intervals_le_48h": 19,
+   "final_mapped_cells": 363,
+   "geojson_sha256": "55c67a78a77801eb47d0354f01a136b3e1d0e3af62e651f3fce0c3d8cbbbe8da",
+   "states_sha256": "2ed5ddd40568ea656beec538db2ede8d5a9d0c49c4fe8a123f407398de17838f",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHU-010480_Fawn": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 247,
+   "geojson_sha256": "876ef6482eb7191a8e44def59f2cc0b3a6612b78c8df7be612d9c5039c1c89fd",
+   "states_sha256": "d433afd03b7a490ad59a2a26bcac1b1db6eaedf7d7fe789fe9c462f65270de0f",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ANF-001704_Sheep": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 24,
+   "geojson_sha256": "9d9b3e3bb7b46737fe5de80193c93701b24670614555b3a91e9d5e7d1a1d9a0c",
+   "states_sha256": "e3656dc54ed1e4290488966d663b7418735bbb7da718166600fe4340bf4243f8",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001046_Diamond": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 147,
+   "geojson_sha256": "a9a14ba1daa1e84a20e0ec2d7ec089d66d7053c669364b603bb7cbda6baab029",
+   "states_sha256": "776b8ebce72d8a6312b3ff9d41f92d0cd5cfe97447537d8fd721785c9ff95c47",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-005791_Logan": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 447,
+   "geojson_sha256": "f884fb9e7be8eacb522cab80be399d5b7ffeeeaeea426287ecc57d99431cc16b",
+   "states_sha256": "b5b6e581f52ef17bcd72ce36dcaae29d52794ece2e72cd56e402def443d023a4",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-KNP-000088_CoffeePot": {
+   "records": 31,
+   "distinct_times": 31,
+   "intervals_le_48h": 27,
+   "growth_intervals_le_48h": 24,
+   "final_mapped_cells": 427,
+   "geojson_sha256": "feac05bf8db775c4447602e3d1b0ec7039b75d1a2f660f005e4fbb3863239622",
+   "states_sha256": "0772a6fa4eae30239e07d119b804b29362b18e3751a1984f24cde4ebc81ea83a",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000382_Davis": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 179,
+   "geojson_sha256": "dbe4d54a10e5af374d2dab0e5cae7e6ba6b8442d96155c6ad92687d752ff34f9",
+   "states_sha256": "c6b1bf500451538ebe94e22840d84669f957dd317d9b516dbf0a654901107b16",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-HLF-005079_Balsinger": {
+   "records": 31,
+   "distinct_times": 31,
+   "intervals_le_48h": 25,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 252,
+   "geojson_sha256": "ac91443bafd24f3cfefec17d92999833ca6fdc22384df00da954015d792a4a27",
+   "states_sha256": "63755e7b0ab76abd7d6e2eb810429df7e6c70cb30bb2a84bbfb12a2321c34d24",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-HTF-030684_Slink": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 19,
+   "growth_intervals_le_48h": 16,
+   "final_mapped_cells": 797,
+   "geojson_sha256": "fef10b9bb1e98fbd3538205360c05d801ea4b3e903d4046703f683d1f78db832",
+   "states_sha256": "3ff0c2395fe7e2fe4be0c5e9bf61fcbf28fd903e5f510160247c49af8b196d4b",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-FTA-000555_CottonwoodRidge": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "c1aa72266dc370cb42d913e57884232b0b0a8fadec4a2dd9a5aa4335694b61aa",
+   "states_sha256": "d2d1f29fdd02535c70213bd96037512e7f2c2dcf1d6bc23a0af4ccf0b7431a38",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-953S-000766_Shoefly": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 767,
+   "geojson_sha256": "64ef180a2f653d402578006ce995da6885c6a66991d0a7c4cfcba9dd12905e13",
+   "states_sha256": "6ff8f4ed24777055b87aa5225d87f37e16d48cccaa9dabc1214337ff0d6aee01",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-000422_RushCreek": {
+   "records": 26,
+   "distinct_times": 26,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 274,
+   "geojson_sha256": "125993151ccf75586473b1e6621ff26f627c89589aeead103449d31b1ef3a1c3",
+   "states_sha256": "01988e8a3c4c493229f2b524b95f49082f742ae03ea0f6fbb318c02eddaca4e0",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHF-000000_TinSoldierComplex": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 228,
+   "geojson_sha256": "84faf6ef13265f6aa8e3394a2a4cb489427a8eaf323b116225afef998eec36ab",
+   "states_sha256": "50d415fa670585fb4e97bf7f938fb9144eca5ee46b21fd46b8393b58f4c357e9",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-952S-020279_SteetMountain_SteetEast": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 18,
+   "geojson_sha256": "f92866f05f8d71b8015ff07475b8588ed199f0ad5e24764968f0258b08d8c19f",
+   "states_sha256": "321e56d1513c301df5bdfadaa3cbe31a16c20262a3e65bf5957e2ebc400a77b5",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-ORC-000008_NorthCascade_Unger": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "77ef93646074ea590e95eb37c1666e502ade2a4e93fa136e2528d70a8a1e0559",
+   "states_sha256": "5463a68634281a8961123d06e7584a78583617307ad119044c8ba7e6011c239d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-955S-001022_Grandview": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 177,
+   "geojson_sha256": "54ded1f09eb535bc1db0b599877c3c9d5a54d7feb55748eb986d719e0ee610d4",
+   "states_sha256": "ec21edfb4b6daa15a0adff158e0828b235320a173f90c595f8ca0598e4114e26",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-SOS-210281_Peterson": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 126,
+   "geojson_sha256": "1d43d0d693f24c17cbd8094528aabf1f409ddf58fec72b6bc475aca29a8d18aa",
+   "states_sha256": "3e0b052b6ad69af443f620b182f9dee326f789331d3f46c5cbba259a96ff7577",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-GPF-000864_BigHollow": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 733,
+   "geojson_sha256": "60cb4c7ca48637a4b5a3d513d9f1474be5ccad913ace6aa4b654abd025ab1ed0",
+   "states_sha256": "06c145368f3ca4757ec1e7ce445745d0eb74975a13d77eb473ed185911cad652",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-UPD-000186_LittleMesa": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 115,
+   "geojson_sha256": "edc74bec4c3a25830fc7303b99558f89188d25ff7bdb42ac3a6f0edc14ae5594",
+   "states_sha256": "4e9a3315e2a633237fb757e393b1ca6a4ed20e93d1431cbe9b69884f9690f53e",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MHF-000583_Boulder": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "b94a33c9cc0b5a34226d4595edb5ec70bb6cfde16b42e1f5a5005176158594a4",
+   "states_sha256": "b1e393f3ef9b4ef5593995f070ebc496b52cfc164b32bbbec8b374103769e9bd",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-TCU-007675_Aero": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 156,
+   "geojson_sha256": "3240d87da937dce12e08e03c5222224ff8d5c6bced98def704320ae36911d5a3",
+   "states_sha256": "48b1d01dfa89286f1665a1618e36ec5d3c607a6438dfa30ea1342490bd085b6a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LNU-011083_Sites": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 560,
+   "geojson_sha256": "647259ba00d7c02255f519b1c7e66da93c66e633b004739833957db69be7375e",
+   "states_sha256": "751bfc984b7af5617592ce93aa6a1594ebc263e588f9f43b594523af7ba1d115",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-UWF-000303_MorganCanyon": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 16,
+   "geojson_sha256": "3859ce03933c733baa463d857b1e6515e2424fd85ffbd2a7e625ea31f2731aa1",
+   "states_sha256": "8fe8836d6bae11d7d390cd673ad09829c9ed9eebfbb92873252640c81aa619ea",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-RNP-012009_Woodward": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 141,
+   "geojson_sha256": "edcb864b091490fcb9c18ae666d7fa932c4a219b1c074c103245db8edcdde3d8",
+   "states_sha256": "e26cafb698bded54b8a915eabb5d44de65b05a5491aa1e3464594ae7459a41db",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-N4S-000034_CooksPeak": {
+   "records": 24,
+   "distinct_times": 24,
+   "intervals_le_48h": 22,
+   "growth_intervals_le_48h": 14,
+   "final_mapped_cells": 1719,
+   "geojson_sha256": "e184e8fae70137c3ea841e148be449cb2bc28d92ee9d98410367f67731134ad1",
+   "states_sha256": "300b3626eba47f3e71076fd34d944f6584b8d567bf9473662b6350c3d4aae8e6",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UPF-000441_Thielsen": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 295,
+   "geojson_sha256": "5e3939e15c5f4a3ce6e9267062f358ccc072cecbe5ff88780be9d142ab6db9b9",
+   "states_sha256": "338d33135bf4fd3c09e61c379bbd4eb5554851bc4f20e4d11c50c9b78a4a86f6",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-YNP-000066_Aspen": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "4d7e5214e5b65a5e0c5c57db55df2f342a4dc0ea2102191caecf0be5b966c071",
+   "states_sha256": "cd1513b7fb7d2f37b4b997809c946c6ff3b7218a2dab753557d1513c51595184",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-PRD-000604_ElkLane": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 171,
+   "geojson_sha256": "03dcbdab46c28db73f9ef649b8cb4931f73212d99d707ae89cf76dde2c75b6a1",
+   "states_sha256": "51c698c80a8b513d9bdf003d93988a47d8c10a2ba90152782897b5d538ce1293",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000226_Cub": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 624,
+   "geojson_sha256": "11017747abe7fe2e23198b7e43fb44becb18b7d9a62bc3e5c2d61f34b7aa45f2",
+   "states_sha256": "f9b1c565585aaa11687dcd9697fe8bcf6b7a5a3666d67e7ec8d3818e6f12853e",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-COF-002348_BulldogMtn": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 192,
+   "geojson_sha256": "a1e677f712a6a672281d262f68c56abd3e7cf2f4452f2ce26c9ac4418f448da5",
+   "states_sha256": "b51e5ab7717211929bde62f2021bc87d71d5f04421961681c505fe440d4a3274",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-000949_Lava": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 14,
+   "final_mapped_cells": 770,
+   "geojson_sha256": "26e7d1532012d6edf9557ebb29ddefc746dcda95dd093f973f0c2e19e81e8ec0",
+   "states_sha256": "21bafcdff05646f4971fff746f9b871d4a3947c88625379538b46836f6f4878c",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-000433_Vinegar": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 89,
+   "geojson_sha256": "784680fbab410adad87b218ab765d0ca1c93af235be995c42ac763593bcb0a4b",
+   "states_sha256": "36f12d0e32b7d2541fb9946953bf2f2ea66ad3a38038967065708b9812cf8006",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-KNF-000176_Sutton": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "9545b898fd0a1dbfa2c6dc61ceeb16957b7d74e99e7ebffa5470a94b0125dd99",
+   "states_sha256": "e42bf3e9ba2da5c00456ac103a3666b320881d76e61e58b307f61f9a9f7539a9",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-732S-000362_Milepost98": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "73d8262d5edf0c6a0592a5d0963653d3fe1bf1b3ebf281bce4c57f93ef702629",
+   "states_sha256": "71facf85f41dd208a79846f16bf8b64b003af0253c16ec2e33491a9428e1ee83",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000653_KootenaiRiverComplex_Russell": {
+   "records": 33,
+   "distinct_times": 33,
+   "intervals_le_48h": 26,
+   "growth_intervals_le_48h": 22,
+   "final_mapped_cells": 716,
+   "geojson_sha256": "3556a767ac3a0c71280df041f2465d020e631a0d4bd9274065b43ae5726c89d7",
+   "states_sha256": "57ce183cda3cf0595b295037ea9718bf05b4afbe81f0cd2aaa9a3dda065a57a0",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000272_Wilbur": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 290,
+   "geojson_sha256": "942a75946f680097d98e2c1225313b68cbf0c63a060a2f9427a9214b88456189",
+   "states_sha256": "94aee51cb4865ee0e3a25591af0b6306570c32f4bb5349b3edb2461d514bcb47",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-LNF-000130_ThreeRivers": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 222,
+   "geojson_sha256": "8011936bace1ddcb692f425f41dc79cfd1dff26c53bd7081262b1e7ab6d3c7cc",
+   "states_sha256": "7559d3522269f79f85d51d1a7fb0bba4dd19b7e08345686505b3429a3dbd4cac",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LNF-240427_MillerPeak": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 82,
+   "geojson_sha256": "e20a9e1b9dd3cf4007d0f5f5ab57e0305827e4d2f74068fbeb4edcf8c6691ead",
+   "states_sha256": "852c1365eff26ec850610f5f8df5b0794e6cac94fbd6ebbf05fa4d55a2dec7ee",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-FIF-200493_Cowboy": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 16,
+   "geojson_sha256": "ca20b9a8050a3d89c87c2fb5b2e64c2359af3ce312a27abfb9bdb71268dcda82",
+   "states_sha256": "850b3447d1d75cf63a9a96d5ec77144dcfbe2e04dbaf202db5bbd811ff6b1d0e",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-CAF-000631_Luna": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 294,
+   "geojson_sha256": "2069abcd963d7b156600e35154196b78a2baeee24278c2ad889437a6682a2d25",
+   "states_sha256": "f9024fc18142bbb16595810d2160bfce5d07bb980f892df6af19079cd53f7ccc",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-CRD-001644_Ridge": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 90,
+   "geojson_sha256": "b4766fa2b60bdf8185e0465f6a6d4f6ba40a9a620e978c6eea6b11931ce75c98",
+   "states_sha256": "ca1a8ef34f23558ecb0781e09c46ef3cdd8afb64e172e8becae94ff0ecc1cb20",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LNF-200730_RiverRoadEast": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 500,
+   "geojson_sha256": "2f5c7ce569ee2fc0dcd568e4364f16dc5ad36485cac8b42d4641e09ddbbf0443",
+   "states_sha256": "18b3cbdedec47d2f4b49a0d011271947c6b0b603558c868ee81348b4fc521769",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-781S-000037_SweetCreekMP2": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 8,
+   "geojson_sha256": "6ed825044e5e096e617d0113e9e24ca00b79f24b3618295b6721b5c4f2e135a9",
+   "states_sha256": "dada0eda1b450bd0bae0ebaf95dceb4a2811cba078dcb3050da6b5939c551eeb",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-NOD-004137_S4": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 54,
+   "geojson_sha256": "0009c8b36dea76a2318fe5da2073d2163b9de59c048ba5c812b674d315b68602",
+   "states_sha256": "ecf12a83740addb2bbc88e2b276c4ba59932b2fbe9277fe52f36f64e4caa012d",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SCF-021130_MudLick": {
+   "records": 35,
+   "distinct_times": 35,
+   "intervals_le_48h": 20,
+   "growth_intervals_le_48h": 16,
+   "final_mapped_cells": 605,
+   "geojson_sha256": "177b5229f2c5ca742fb67429e69bbfd88c6f6a44ef153193ea8dc6fcf7d4e581",
+   "states_sha256": "4f06169b0f88b75c87ee4265ea18e024d3e673c66592adfcb9760f14666be613",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-005464_Limepoint": {
+   "records": 34,
+   "distinct_times": 34,
+   "intervals_le_48h": 27,
+   "growth_intervals_le_48h": 21,
+   "final_mapped_cells": 973,
+   "geojson_sha256": "3e3cdcdfbc503cade692ee117b13519a2bbc64a0fcb16dba5d463cf987ba643d",
+   "states_sha256": "d9ed189f8ef91331309f21f812d21bf52b400629ec5d83051cc4e571a2e6cf6d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-DEF-000851_Firestone": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 278,
+   "geojson_sha256": "5478b01dd0c14750bf7418ec1ce358744e265049ceeebea9adcfb558b4d479d3",
+   "states_sha256": "cca364ad5447b9c202f6566762ac99f7a7c65e79fd773f25886c3441cbbbd30c",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-MRF-200752_Mullen": {
+   "records": 25,
+   "distinct_times": 25,
+   "intervals_le_48h": 18,
+   "growth_intervals_le_48h": 17,
+   "final_mapped_cells": 5134,
+   "geojson_sha256": "5de0ab3cdff5f5366ea178701406ddf063a93edcec90ffc03e3520a6316b415f",
+   "states_sha256": "87afd233ec2f3100995cd2b7a1d576c39bb359dff7048649e4ce0dd09bef6e06",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-GFX-000348_GrizzlyCreek": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 940,
+   "geojson_sha256": "b05c6a3568b896362b7427335894e2dfc425200f599a5440064bff986cc9fdcc",
+   "states_sha256": "185cbbfdddbb7ba520adb3a9d4aa08f0e26459683cb657ef143c98817ef7a79a",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000452_TrestleCreek": {
+   "records": 30,
+   "distinct_times": 30,
+   "intervals_le_48h": 21,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 186,
+   "geojson_sha256": "df8563651179da7786b830e6da95a60d4662c7fe12acdcc05caac9f54b6ca25b",
+   "states_sha256": "de976e5882e801dcdf2c3ac8588b8af3885d6378f005d9a409a6eef9291ae52c",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-000996_Shoe": {
+   "records": 23,
+   "distinct_times": 23,
+   "intervals_le_48h": 20,
+   "growth_intervals_le_48h": 12,
+   "final_mapped_cells": 143,
+   "geojson_sha256": "83ad9fed15f44530eef97feac3b5954784bc220226054550984a61f5d331a125",
+   "states_sha256": "ef8b145f3a36b82a336e503588366d5481f88b9f93cc47e14fa8e7b77b780c89",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-TNF-001600_Loyalton": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 1360,
+   "geojson_sha256": "06a9afdb1ce8506b956735bed4f153fca4dc57111d1661b77d9971a26378114e",
+   "states_sha256": "9954a2dfda5fb6b4678d04f2794dcc1041d891361c0f2efd186aeb77f8b8c519",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SWS-000920_Flat": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 112,
+   "geojson_sha256": "baf82d131da97a08a74183a84e725c6936b5860676da5593f0fb37222a459901",
+   "states_sha256": "4db6e56825757dac2515f5e72fa963e8667f67bf38ce5c5cc1e20bb1cfb8bb9f",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-ARF-001048_Lefthand": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "949e841597a8a7705db916becaebdf547ed5b7b2aa746e8c6a20f587a9540b6b",
+   "states_sha256": "a6bbbc72af4dd2e2c27fb1cbaa4289879454f86b06998594d4349ff5bcf4d73c",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-002339_CassadoreSprings": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 629,
+   "geojson_sha256": "57b2559512d6c97000325515b6a6a9d47d8c708944c367b939c5e080a7946bca",
+   "states_sha256": "82ce4d0adf73d62c9a88bafe27f32c4a766f2775c3a9fc916fb83997753ae8ad",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-005658_Lemhi": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 24,
+   "geojson_sha256": "5f7d09627488f7be938c4256ef50f3f209820216498fc4cd95423af4c8a2468e",
+   "states_sha256": "12321107f26b747c848334570cc6b5b95017220e730e33fd64f08aedc3179fbb",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-RSF-000209_Flat": {
+   "records": 57,
+   "distinct_times": 57,
+   "intervals_le_48h": 44,
+   "growth_intervals_le_48h": 18,
+   "final_mapped_cells": 986,
+   "geojson_sha256": "b19ca0c4914c94e4fd391699bdbffdbfca7190f5154df3325cba3f27ac2dbe5e",
+   "states_sha256": "613c4039fd75fdf38043fc5cde8772937cf26700bc6d675c7c98a9584cb3f52b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ORC-136890_Bond": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 199,
+   "geojson_sha256": "efb25af80276a2aad6ea23f1d1ec114eeac95267788941b0ce455343e1b2ca6a",
+   "states_sha256": "8044ebfd099f67d35bf6707fac3a48fdc9d527ab57863b44cc7a6f622c21f0b2",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-FTA-000574_Spoon": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 133,
+   "geojson_sha256": "b4b4c635838dd8f7d06f5a52af4eda0ca2265ae7ea3437a57dfc03456001b1e3",
+   "states_sha256": "6663c010a1259c5706d0751f97aedf7854111e8285062d8ed727d1f8bb22b0f5",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-005567_Farrow": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 109,
+   "geojson_sha256": "51312c64711eb5c6e6299a7b0989a799c7f5c3aacc2a2ed9c49bb5f3889f3cb1",
+   "states_sha256": "fba14b969b9c652789061ed6d24caa4cef17991aa9aef297f8e6df49b1170f0f",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-CNF-000427_Pinnacle": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 12,
+   "final_mapped_cells": 1005,
+   "geojson_sha256": "08ee4969637cc51e41166f607b8f57b0d29cd828c6995c67b3ebe5b1916c2c01",
+   "states_sha256": "b086c11194bd878dc521778d0f7594530b847784522b98bbe1c9b62f974b67c4",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ORC-121364_Silverado": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 403,
+   "geojson_sha256": "64b1a61c27b825404142171e7b44a9bd04587a4a1796dcae22b928f53da662ef",
+   "states_sha256": "0c6942b9f0a7f1f3a41c2e08a98adbb45bfefd1533f84b0972a1d6fee240a468",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000321_LittleBear": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 36,
+   "geojson_sha256": "9573b923f8a6d379e2f48ccc35997ef70785c1e3909d34c5c91fd22ada296ddd",
+   "states_sha256": "5579606f516d1e8f02f113ff48b5f439afcc5cb00e21c464b7d49651984807ff",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UMF-000830_TigerCreek_West": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 12,
+   "geojson_sha256": "c15e29432df2d38f59a25b2b4a78a31b6443f4fa8caff0ec9d3edafc761b0087",
+   "states_sha256": "4891350a235f5b1a661157ba8ffc73fcdb70296e166c274894e827d271a0b91a",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001830_Polles": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 18,
+   "geojson_sha256": "9eccfddbdf859cd5aece91154860a16983114180b0f9faa91ff17c2cd731fd45",
+   "states_sha256": "ecb783ac4e9d728164919531a6e6b7feade2418433cbfdc54caa4e91a43a7649",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-VAD-000153_IndianCreek": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 1457,
+   "geojson_sha256": "bc5593e797355e780d38665e8b05f96bc4e7da1f64b0ffc455ed35c1f81d987d",
+   "states_sha256": "27eab0a78a026423d289b7724e25b1565b3bdf015c5695c2bcfe0401b8f87893",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-MRF-220267_Sugarloaf": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 25,
+   "geojson_sha256": "1625ac6d4bb6438ecd10e2b6f0f08d8ec548fb5fd3415649225bb250fec3a704",
+   "states_sha256": "ce8515e76b50a61513e92627a2247951bab02a2141347175f8e358dbab19b962",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000740_East": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 97,
+   "geojson_sha256": "d5d50aabd2c000f2906abc7838b63327d04cf0be9509e47d9c4140fb2c89353e",
+   "states_sha256": "53ae2be33bd9da3e963133b2f1f51f19da3b0aed451cb43182c24c75886e6ebd",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MMU-014714_River": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 284,
+   "geojson_sha256": "5982519dbfd547ddf0cdebe6ed4a7694ec2cfe9faccc8e76fb1103ebf8aa4f4e",
+   "states_sha256": "ea4419554ecc9b490c759b9661d04bfc7c5a733eed13419015ef087c5436f1c3",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000318_Ridge": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 121,
+   "geojson_sha256": "38e379e8fa4d3eaa670ca7b40a75dd41175c4ffa4fd47d9c1be8344dcafcbf13",
+   "states_sha256": "cf7d8f94c729037979b8f82c12f9d1ef9d5d01cbddef9fe19d5a03739b223091",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-CND-002309_Stagecoach": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 225,
+   "geojson_sha256": "95346fbbb81ffee70a182d32b45e734298157f492e1cb93d2c629a57c88eefe5",
+   "states_sha256": "9acf1757c866dd79655d8663ecb77a6831f1c6a3cc304ad2c88be7a8ae5e6b40",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-NWS-000342_JacobCity": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 123,
+   "geojson_sha256": "931dac4163d0a084f30444619e9e449bd87ca6463517564c7e7cfe504fe85214",
+   "states_sha256": "2ea5fb94e2c78b4c275832d0aaeb51ca5f7e1c3c3b8052d59d94b3b2417ffe0c",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000227_Turkey": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 244,
+   "geojson_sha256": "bd5586f828824e83a07f8d05f6c967140e756cdde3789471e840e570e30e046e",
+   "states_sha256": "916f52aa4d8fa4b4135b22724feea992a7e68c6061ebfc1228e6be217a03ec01",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ANF-003687_Bobcat": {
+   "records": 31,
+   "distinct_times": 31,
+   "intervals_le_48h": 30,
+   "growth_intervals_le_48h": 27,
+   "final_mapped_cells": 3357,
+   "geojson_sha256": "5f179d7ed31366861d9073c124ba5e6cbee77c7ed34ee1bf8452f8c0556f476f",
+   "states_sha256": "4474daa965d1215cdafbc82ca1da68c16202786affd8c9b7fadc3a5fc90c7adf",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-RTF-000363_MiddleFork": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 617,
+   "geojson_sha256": "fac38f6dff02db3b600a72258e63c04b13baa9052e33291cf962b7c928a32f72",
+   "states_sha256": "da098646fd2c0f807dc1d5807c25ea7971fb83bbd9391f700e45dd3f25219021",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006610_BearCreek": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 11,
+   "final_mapped_cells": 344,
+   "geojson_sha256": "6cb86ec705adeb7edbf312da8fd78f10f6b4a4f978f87f2d886c937942b76910",
+   "states_sha256": "b2c553bf04efa3fdd9c75a4ae7ee6fca055091da090e32ce514e01eb91039d76",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UPF-240402_DevilsKnob": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 122,
+   "geojson_sha256": "91c635ecc39863b21540d3f46917c0446a2f7bc011badcf855ff38165fe43866",
+   "states_sha256": "db94fa641ffa60150a578f47528a65f306ecb62bd4300b3429babe78f635c968",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000353_Trap": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 65,
+   "geojson_sha256": "8624921b178c85a921cd0e1c12355bbdb4dc1b827bbc0692c3187e6603d93f21",
+   "states_sha256": "805b3790995ab17202175256446ea0a107e013836a4cc780b637dd0b5eb67286",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-731-S0314_TyeeComplex": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 188,
+   "geojson_sha256": "d4844fd4c8cd25439dccff2fcdac27b5b7bb312185e7585d9b809291eaa60f69",
+   "states_sha256": "f92cbba91671deeb0d844c3f4a655e1a73ffa7d227f42e52d6b8493aae7d3c31",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BTU-013761_Park": {
+   "records": 62,
+   "distinct_times": 62,
+   "intervals_le_48h": 60,
+   "growth_intervals_le_48h": 26,
+   "final_mapped_cells": 12406,
+   "geojson_sha256": "08a3729f86b9416d8906c3f8b1c9d75435d6d274791d05b44a799ef8e0b8d0f5",
+   "states_sha256": "d254880482f50fd802d5f1d212a534e3b02884def22070afb357d27f756ea920",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MDF-000896_Barnes": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 166,
+   "geojson_sha256": "5bc9ddbd6901f5d0b0d7fa488a7361aa3ac85fdd14c05664adae017dbd4ad142",
+   "states_sha256": "acbbd9e22c8cef47e96d89fb891f1b09b6013cff0f407823954a6e8d736b33e8",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-GNP-000462_Quartz": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 54,
+   "geojson_sha256": "7afe1b07438d36b969ab6f5e32d8839458a9b206273d197457bcc65e16abe1c1",
+   "states_sha256": "853fb7e91844daac498c6d78a72eb416b319d0bb9d8c2ec13f79e2df0161ea2e",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-A1S-001211_Monument": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 50,
+   "geojson_sha256": "554d0bf2965ea44f3507383eb101cd88dfc5fa8550ee51f87016397cdf496793",
+   "states_sha256": "48877328815b9cc6b9add29652f6ac75c8f9fdf709e47ef9d2fad22ea52c3753",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-981S-230203_Golden": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 60,
+   "geojson_sha256": "fbb079546c79cb5c54a49e3c464b86255a4b5a5cb1f7d2e20ba9285c013ebad2",
+   "states_sha256": "8ab47d19cd900f4e0532cff28b9dfb558bbc49c8383e104e09afa37f3308155b",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FNF-000518_Ridge": {
+   "records": 28,
+   "distinct_times": 28,
+   "intervals_le_48h": 24,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 107,
+   "geojson_sha256": "a8f00ffac21db15b93863fd750b2a20b1c751c7d6d2694d38c16c5d45d5a1dc4",
+   "states_sha256": "f78a0b7a9206e155bb989cf7ce827a60f663bcfe0c313e4c7a780a932cea3ae7",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-HLF-005079_Ellis": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 35,
+   "geojson_sha256": "6f667c20d995ff8cd0e98a88c7d33bd15006c6973e3dbadbf09ba2b6b145f855",
+   "states_sha256": "1bd830e774ebbde21ea55a43bed3606bba5ec38ae61d3db7aee9e66087cbf034",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-HTF-010139_Wildcat": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 612,
+   "geojson_sha256": "1b85c32ced60f4dfe38631ecb7e8203d7da9ea42ce4e6cf07f4ede740d52d2c0",
+   "states_sha256": "6b8d3b75535ca6adf3d066f020d4d883f604b42fea3ac308f9c4fa05417d6304",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-PNF-001299_Sheep": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 853,
+   "geojson_sha256": "908c9c6bb6c6dc09ada3059ff9292550320db252567f64188b8d397bd7f3f01f",
+   "states_sha256": "420f48582e59f892f7266ef93a4ef192ceba75cc2d07b3c907b972d767830599",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-A3S-001033_Walnut": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 309,
+   "geojson_sha256": "50c1c983606859d666f710322ede47177256ef8eaf5a39a0dcb423cb47c40a14",
+   "states_sha256": "7cbca008af96c249ebbcee762665b02be76f565a9bb5dd33c16219c6e2604172",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ANF-243334_Bridge": {
+   "records": 23,
+   "distinct_times": 23,
+   "intervals_le_48h": 18,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 1646,
+   "geojson_sha256": "b45219b860d37a3bc1cd70be9276b3960bff9d30535c44fb37457ca0eafa23f7",
+   "states_sha256": "df169843cf1dbacbeff6a8c9331f57698afe17b96b7f058fcf619472ee62c88b",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000276_Johnson": {
+   "records": 24,
+   "distinct_times": 24,
+   "intervals_le_48h": 18,
+   "growth_intervals_le_48h": 18,
+   "final_mapped_cells": 2569,
+   "geojson_sha256": "0a3ea90cac0cd2dcc98504356e2e7df3579daf3104b2c3b3620f7dfb0f772a37",
+   "states_sha256": "8686247d8f91b27fbe253a1d334adf49f39dbea5cad015bddee6d664f15cf73b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-PSF-001717_SaintCharles": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "c72553800183b4679cbb7f7c2fe2db38332b71d8d23cdc9cd0a78859f8813675",
+   "states_sha256": "d8eabc68b4f345751d230cd02c1d5c18b891e48d657311e3e8838b00074d796d",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000714_Buck": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 568,
+   "geojson_sha256": "bf78b939d3545ee160c0a8fd8740b23495a070c04c6f1211d7aad506dedfb161",
+   "states_sha256": "db5bc8e65668ae7c220a139aa8165be38dc67654d987da995f5c51ae5458ac9a",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-IPF-000447_RidgeCreek": {
+   "records": 17,
+   "distinct_times": 17,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 130,
+   "geojson_sha256": "7095b46dc20dea80c1cb4550a8d9497ed521ebf8acbda976c3ddc3d282898a1d",
+   "states_sha256": "eb43c3535a9f7d65aca288fca4b0d654605b06a8b3f27585571acd0a92462617",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-SWS-200549_Colt": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 206,
+   "geojson_sha256": "f04e42c1b45c39815a420051803e28078b03d8afe99e9b2900fc833af3121eac",
+   "states_sha256": "57e767bf72b84dd2b35faf99995980ccf9f0b247ea0e7b11d94393d212db5319",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-KNP-000122_KNPComplex": {
+   "records": 42,
+   "distinct_times": 42,
+   "intervals_le_48h": 37,
+   "growth_intervals_le_48h": 34,
+   "final_mapped_cells": 2535,
+   "geojson_sha256": "2d043d95ceb50ea38f47a2d4d1e23f371bf7b0d320e1e340692679aaa07f1304",
+   "states_sha256": "1bd423fa3dcc3099c7f3b960e7a121ecd83c0995371941a9e4cb1e45738f2274",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-YNP-002006_LoneStar": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 118,
+   "geojson_sha256": "d5262ca038f1e21f44ae2830faa51e6a881437d4f9698a4ede2d42c0cdd6699a",
+   "states_sha256": "83ae3857180a7c8ec8e7a91c96e8a38e364fb9cd9ab70db5746083ba6510d988",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-TNF-001251_Bear": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 94,
+   "geojson_sha256": "7a2933fe8016ffda44bf773c1344ae90d9c13f165425448de48bc2914eae5615",
+   "states_sha256": "b0be813cb7aac295f2568a6740bbed5b1ae39e51a47f804b0a784e7619ceff27",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-001184_TrailSprings": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 41,
+   "geojson_sha256": "8524f2a8af8b6e0255f1ccdd685291f6c736c011275f118744e3a77d87364b71",
+   "states_sha256": "4424c1d1e587099271889a72ac9d26f2e30d56018e7a7975dba5de7cd1169a7f",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-CNF-000552_Corral": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "c42c85e0e4f3b3ed441b7ddae2fe5f572e9175c70cd41f84e7538a1a773f105d",
+   "states_sha256": "24d4b1eb62d05494af2f1e5479210b8c8f5fc383f2ad3912af6a3eb1aaa41bd7",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000515_Anchor": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 54,
+   "geojson_sha256": "2f493c120a7704285f0a90cdcba3dd940d1b259404958183c468c55401a9ac17",
+   "states_sha256": "6c2e4e56337bbe39e836d601b106df79549daaf5f2cc36fedaea55c55904f6c3",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-STF-000353_JakesGulch": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 18,
+   "geojson_sha256": "32b3cea4c7dc22718ee4c883eaf7d1e3e9b19437601c1eca179cd5b5cc230b85",
+   "states_sha256": "d32e452216bd971d5d553b9246a274d82eb36a5cec1cd38490ee337e6e0d8cde",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000627_Moore": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 48,
+   "geojson_sha256": "baaa8f4a09f3c96cfa0cac13ab6fcc06f20c7c02d13af6816d6788049bcb9ebd",
+   "states_sha256": "8fc71857d70138f40a7573e126d0d0864bb94b13aca2ed8668ef2f3d9ca8ab74",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-VAD-240166_BadlandComplex_Coyote": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 642,
+   "geojson_sha256": "87fbea9d96fcdd9d92bd0e7571350625179f631a04489466bfbfc819eed7a2e1",
+   "states_sha256": "74cf581f303de8ac83775198032dd94aaba80f861117d7a456991a74a718d5d2",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LG23-200899_Bobcat": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 853,
+   "geojson_sha256": "112926374e9c101e639a7a3b4a60a60fff54e42e05e5098ed5e09e27e5417b84",
+   "states_sha256": "4896039c41b4e988c423e7840627dd3587c08e32b909434146a84d80b9a4b23a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ENF-032344_Point": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "16cb4cf5b0f8ca4daf29220284110f78ef24e8d0b0ca83a48e907e136f4cf057",
+   "states_sha256": "6ec1f5a8e3b685479e97d112b261ce13a9397bad385383f0630687c53842ee47",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-SJF-000203_Plumtaw": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 22,
+   "geojson_sha256": "0f455fb9fde2d3356cd1c269c6ff9cd01b7c3cd7ff0d9101ea061ecc9d4e4503",
+   "states_sha256": "fc9297da12e0a187bfe323b5674cb1089fe0bae27dceddf3791f1467551f1a38",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-HLF-000367_HorseGulch": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 432,
+   "geojson_sha256": "64c8e9df35b9216df587db6ffddc1dbf70841e87ffef4d423d47d59a256ea8ce",
+   "states_sha256": "a071664b896c9e1fc10743f40b2bf46aa73d353ff669b1aa37d7adbff9010799",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UMF-000392_BenHarrison": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "68cdb009a6018e41fb64894696e2e88f3589b787540843700e1361b73c4d363e",
+   "states_sha256": "21637a35c42dc920400eb557044055d1df77bf39490d0b75407ccd866b7f60c0",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-PAF-002673_ElkHorn": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 754,
+   "geojson_sha256": "29a28dceed950b62d8c9dde586320b812fc8b45c2938bdd943d30c64cbc71a63",
+   "states_sha256": "12b72dcd5213add4bd52ec1e8b9e65edc8aa55edf11916afdf3432d231673590",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-RRU-160976_Highland": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 73,
+   "geojson_sha256": "f29f6e505e49a9d9347d89ad0538d8360a5557124c3b3bbd1d2241320caa6b75",
+   "states_sha256": "73e8138d3499866e3604ea5e9cc5f0a4ea321bbf8923125b83a71985ab1bb2fc",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-UWF-000615_UpperProvo": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 17,
+   "geojson_sha256": "35400063314a3d57503dde3986190cb9f19b40f18dc68fa6eeda2d54298c5564",
+   "states_sha256": "0b2c8c2ca8974dcae811080534c496a72d6a83554ffcecf783d288960d4a4840",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-GPF-001028_Kalama": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 13,
+   "geojson_sha256": "2f0dae353faeea31e4001c0f44d312a48e15f1b539a69bc277726f9dcf9b8eff",
+   "states_sha256": "19e19675ce7f5197b6048bfcc8ee2c26bc80fd5905f26e2c37ed87c7bcc5ae89",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000699_Bulltrout": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 9,
+   "geojson_sha256": "95f6098601fd4b4df8ae4f588acab9e07c3fbf83c6fd18af6699c949b4585db5",
+   "states_sha256": "f8f15cfe4981c2e8f9e32a28708065688a83bf867d235200101703e759b4919b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-RRU-129712_Fairview": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 814,
+   "geojson_sha256": "9579d8fa6fdea9793de00310d6a08251ac0e36fa810c659392298461d3a7850b",
+   "states_sha256": "61588f6b45a4826d6ae4dd100d1a370754760665e17161887630dbac6b703947",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-001115_Watch": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 63,
+   "geojson_sha256": "4429d436790aaa1ecd76ae963ba13b9288f2a3d0c25e74b93d27c1cff864afeb",
+   "states_sha256": "d275d0a793078c05b9a652fa11f44ffa69447033ff393b14a1d292ec6eabcd9c",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-711S-00102_Worthington": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 22,
+   "geojson_sha256": "a9871eadaa8a099a33af8ab631a1029e0557c9efd2d676f4ed9686d3b66d388a",
+   "states_sha256": "232a075a5e8681042c2586128c30c952722608ad5e2899bd16a7ec24391ed145",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-SNF-000091_Indios": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 14,
+   "final_mapped_cells": 331,
+   "geojson_sha256": "16a7aaeded5b5b40b4db4e25f5748594358762552bce2018aec6fc1a885ce8ec",
+   "states_sha256": "25f37e304ffa188c06197e7d4338fc377cf8bbccc7a4d9bcb0caead4f0f9b6d2",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-00508_Marion": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 8,
+   "geojson_sha256": "f6ff74e608c8c0f8d765f68f048bf69606d1125e634193e3e0ef370de256005d",
+   "states_sha256": "a752ab36ed7f47b2bfa9d60e6cc752a94a814c4f3af4a52cdfc8fb4c64f9355b",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WWF-000431_TownGulch": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 539,
+   "geojson_sha256": "dda6dcd198c39e95444c47b5ecdcce1c429151269aba486284aec8699fed49f6",
+   "states_sha256": "38e4a26ed76b3179b16ad6279910734670c0a1c2d987d8dc15abdc923bff2c73",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-240332_BuckCreek": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 174,
+   "geojson_sha256": "7bc227f527cf31cea6ef76e3e219e634163f1b0982fae94233e37542e417d867",
+   "states_sha256": "e3c39ae13434f821e30f6b7ff05b1a3a6ebe10e26f5d2ba162f13a2841b2fc73",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OWF-000454_WindyPass": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 3,
+   "geojson_sha256": "baf2f13b35954f9537adb8f9a662dce34be7d1c3aa55980768898f18e6df59dd",
+   "states_sha256": "0adc92a2e3746c744269f6c2e5b8a360777eba0676ad875e7e3e5d2d0283e6d9",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SIS-000452_Copeland": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 2,
+   "geojson_sha256": "4433dccd2cb7ed5905301c80455da5ede3b6c055a76c941abe80981cb86ba0b4",
+   "states_sha256": "1e8b8944b34bc70973c38d643ddf61b7370e05cfc0f5a9755fcf25a5f3e52bac",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000416_Pius": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 60,
+   "geojson_sha256": "370e79de58606ba947bcd948f31524372729326b892099dc10931047043402aa",
+   "states_sha256": "451ebb550f1486a764d6fe9f42d24c81d33882d670512bbdc4638c57b6ea1336",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PHD-000455_Tussock": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 159,
+   "geojson_sha256": "4d22b9944e579d4927dc05122e2fa280308d8dc9fcb946925ac57b809f744ca7",
+   "states_sha256": "0967b02025e0718f35a38f604046de5e3adcbefd379b1c5756a9867b4e9695b5",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-EIS-000311_Chimney": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 193,
+   "geojson_sha256": "4c9b0384281c8241bda6fc770e45ddcff53f92bf54e396e8d5803e127de0daa7",
+   "states_sha256": "842228331ce77e0be7db5a522336a1488e64985cdb651a23aa1cb3099ff72ce8",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UPF-000357_Dinner": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 9,
+   "geojson_sha256": "070d83c832f3c075b3ebeb981c364d566b5a1fc496ca64968c3e38098ee96b14",
+   "states_sha256": "ff0fdcdb8f7ddf60c98feb16bed7d4e98336f6131db43a037fa0b97a8ba16f44",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-OVD-030860_MountainView": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 583,
+   "geojson_sha256": "05da98ef2ec1650692a68123ff51dc29e0f92353c728d994bc110fb27408a1ed",
+   "states_sha256": "b950323a5dff3c1dfd4a90e115c12f90747daff0abfcb3f193cf54b32465877d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-MAF-022199_CrocketsKnob": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 131,
+   "geojson_sha256": "5e1e78d0fc7ec0049706bb0eeb3a36f155928b57c860b1adeaf46acb610bfc47",
+   "states_sha256": "80534ddba8bc3d0f64423f8aeec969c072994548ac979d356d608335bb8ea965",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000819_MooseCreek_Halfway": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 44,
+   "geojson_sha256": "56d30c83e34b5d40d94b6a6177c9da4cf41b58b8de4fcbc6353b4eb792d628b8",
+   "states_sha256": "52b4e9b4e0b29d00f3abe4ac42ed978f6cbedf0935593785ffc6a6896ab80589",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-DTX-000082_CurrantCreek": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "8875e0364d999406e6643361df774a3e02bb7acb8e0de5aad1a5f19c2accfe9f",
+   "states_sha256": "89dc267a92a1af4f0840ac52ae86a5d5dc2e30bf700a9d516bfcfabb83b2c9d6",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NES-001779_WestHallett": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "6f709a07679affeacf87bacdfc4979af6c1c87fc72912a2058d988c39045871d",
+   "states_sha256": "efde52ae3d6fc05c6769bfde3a9f459448a8b0686ea17158fea1e329803d45f9",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-AEU-017769_Electra": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 130,
+   "geojson_sha256": "3a21b1f5274eafbb3ad25cd2949f88cbf3f270b3ad3e04933159e4606add0ce7",
+   "states_sha256": "fc8e4bdbdbc403818055737b3d855c09a59f339db35e3a556089631ad1c20838",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-LNF-000951_DryCabin": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 109,
+   "geojson_sha256": "0538d0fc1cdbbe146cdd604ddea147771d4df9831871be9c3789e6fc5ca5c977",
+   "states_sha256": "ad4620bc8ad5a62bd9b5fe9a0914ab5980db9236cdc1131a0063575611a3b20a",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-LNF-000552_BlueFront": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 9,
+   "geojson_sha256": "8d04d3262003b3becb30a1009109b77b8e2219454f53eb63e405b26dd048fb52",
+   "states_sha256": "1d59efcc08768c84f48b29141812d353b56ad9ca84df27313355ac249582457e",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-CRA-210153_BuffaloPasture": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "f966b140972476b7f22e5ec2b6bc62163b737670f83b739f0b2a0b75615dd549",
+   "states_sha256": "2656b68f698395b701f7f7f4341ee2bab3fa1525b024c807c67c92b35863d8ac",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-002036_BlueRiver2": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 815,
+   "geojson_sha256": "3f87b7c3d461a8b50ff1525d2d40b6098c43567bb61d13f00afbc7f4bb3eb7f3",
+   "states_sha256": "998cec58a7e539849a9e8daafdf58b670aaaa8743dd22ef2d65943ceaa15f568",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006645_StateCreek": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 66,
+   "geojson_sha256": "be5940d6f743963f88f04e5cfd2654ab16641bf0ac4b51194753c2a4485dc626",
+   "states_sha256": "1bc9880a7d8159113b9f1af7f5a118105a3d993024379bd291c6cafb1a248b8f",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000642_Backbone": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 1176,
+   "geojson_sha256": "d339e72c2e1192b575bb2c5782672669b669683c4a3884ef42235f467c2ace29",
+   "states_sha256": "6996ad0545cd23de8df48e4e19ea229195234cbda4026f122f43ec6d20dcaa1f",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SCF-022250_Owl": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 20,
+   "geojson_sha256": "4ff83be425b25bd5e2e073e8a37e73afd7140297400e9cc146d5566bb1d9437d",
+   "states_sha256": "0f5649a30641d94c40d11356a2db4ff9f5be2faaabdf7e4e6d5e41fa611451ad",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-BTF-002201_Sandy": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "0a0ff4a3adf0d5fbbdb5548a583637fc39ab018bac79f1f45ba0f9921c4b3f50",
+   "states_sha256": "2a621e72e9026cc98f6131625b74f697f6ee2effd161e3826d1aa42eed39a5e0",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000321b_WestFork": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 22,
+   "geojson_sha256": "4f48bb48349ffa2eb6dfa257a176ee126e03781e54e1cbf5df64ff77b8e08749",
+   "states_sha256": "776087b4a95b62d78d22c97d6b093113a6ba038f915d4996f8e755a5a4cbde2e",
+   "survey_states_equals_builder_masks": true
+  },
+  "WY-HPD-240536_LaBonte": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 102,
+   "geojson_sha256": "d6f4e44691881df170d585bd842ca24d6bb87da05759f836c2c3fc4b09d5108f",
+   "states_sha256": "d90e03f6b553b365d180fa5e31b3202eab6d7faa74eac94437fa85a3381b4c5a",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-954S-000017_FirMountain": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 11,
+   "geojson_sha256": "0a6b3968d601a245f813359222a3cf5cc524bbd1ff3866055223aea2a40204f5",
+   "states_sha256": "0af2219998ebf9c79ca0c28f2cff64224ee14be589aa4f07fd45cd984044c663",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-SNF-000190_Rincon": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 13,
+   "geojson_sha256": "ad7c6922aed2edbf85ce45821fe36dc33cb2baea688dd239b42a1f2792104242",
+   "states_sha256": "fbc5147ca1c0f062576464ca10d27b958b2f9b37dfd7d29b4d98f2cdaeefd766",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-INF-001695_Dexter": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 85,
+   "geojson_sha256": "b6db5564b79699794d2d9c5b317614f6d06f28c0d721c8997a20b9ec336084c7",
+   "states_sha256": "d0b5e1e091eeba7e19c18fa593bee90b29b623b5d2f4a1d3e59d5dd08f2c9b58",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-MEA-000382_SouthFork": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 502,
+   "geojson_sha256": "7f1b1e607f10a935edde870bf7215239fa1a5de1b0420fbc66731ac2f61bae53",
+   "states_sha256": "495292917833743b9d489d6fcbcdef9e6dfc7c9e1bad0a2db4875c1e2a82e11b",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000094_BigKnife": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 208,
+   "geojson_sha256": "3fa16e4430b76eb9a4455894ed064c4adea0d55504306f0b324b5addb3446420",
+   "states_sha256": "a61db97f07e3392d6320d772b243bcf7d944c3fff7be7ee8dca39491b562ab4f",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-EKD-010185_Lost": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 206,
+   "geojson_sha256": "b7df611e2a5dcab65c05545c062bee75885b2f1d27877359999dd8cfcf73e111",
+   "states_sha256": "34b1ebbd13aee6098d0185c50616f4cffe5c92ce1034c3600d7d0fcd8616b3a6",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006305_Goat": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "479d8bff486d4b1bc2df5b39620b797db3340013b01f8bcbb8c75ca3632f8b3e",
+   "states_sha256": "60b2296ac106abc44fcbc17a04d23d952941fc6cfb8de05607c42b87ec6d96fa",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000581_SnowCreek": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 28,
+   "geojson_sha256": "75f7315b06446e0171dfff612b785aeeb14953f68b9d229e53636aa1f493b7f2",
+   "states_sha256": "87ea95f0889f6cfe8533a3f8f655a4e819780d84d39448c6367be28e563a4eae",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-SCF-021157_Iron": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "e52f5b31a2e5fe51bcc08d2e83c58a0d66a321e6fdd2ab4dc7c6d1570fe65744",
+   "states_sha256": "72c5249782c3e57c953145e9aca3e5ce30e38ecd17dbee870fb7ade7af10e902",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-VAD-240141_Durkee": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 8490,
+   "geojson_sha256": "1be751e5c5b9b806f7a63fae8dc6412d09dc1d98ec30636c1261eb6a163b90d4",
+   "states_sha256": "2778a97e39a9271fe69400176a2081e3bf36f0ce1dc4ce6307b962f8e40906bc",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040076_MeadowValley": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 1704,
+   "geojson_sha256": "3db281d181bf034e8bf44974842575a627080f4e183968bacb5ffe9a88cac1c4",
+   "states_sha256": "11b76656c87592c0c2fa1fe7700dc9cc8cfc1fa7c2f3ace35a2c44ed5b0eb82a",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FNF-000496_DorisPoint": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 45,
+   "geojson_sha256": "b49c6f37fe9f348d9903c8a1f6ae3f78181d4e523b2ca5c83ebf361870a0ed40",
+   "states_sha256": "d4384feebd8b1a40db7da3b8150b05f4582173f0576ea94154a69a90ac5d9d9a",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-001110_Buckhorn": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 31,
+   "geojson_sha256": "7f139ad61f4f32727e09ca20f2400817b817975f4d76c151e68c9e39b79edf39",
+   "states_sha256": "a47ea52dba964a4cf715e119a5499f456e46520f9aeb0c6224d5957caf4ce741",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-711S-000382_UpperApplegate3900": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 32,
+   "geojson_sha256": "799577b02dc4788b098798ad0d968a4d70bcb8a0910c1d564b4347d893d24ec3",
+   "states_sha256": "52981993d0f53af050f44525d077e7be47de1a9056332c65ed2aa6c04695f19c",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SPD-001947_Palmer_Anglin": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 52,
+   "geojson_sha256": "8cbc0e26dbb29ea5d081cae072349a4419952d9ed30197b9a5819667edb5ef3f",
+   "states_sha256": "0547c865af75d113a4f68e25e89a169c2dd1ad9ebd1d6395553d2e2d0049a6f8",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000100_Niarada": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 602,
+   "geojson_sha256": "d2089403f6bfa4e9561f3dec33edc9b016dc6377245047acf18833535e7e4d64",
+   "states_sha256": "ae2f07b70738b2aada4b638432a25d1c979b16f8d82c501961529fce647a0a78",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-A5S-230970_Pilot": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 1001,
+   "geojson_sha256": "5d5744e7ce575affe07e1ab7b9c93925bde993051f1047867f3b99a950a91427",
+   "states_sha256": "e2e778217927bfb2140dbf247a5098ae74591f51c43db5bf0b33da771fafe75a",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-TMFX_031010_Davis": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 173,
+   "geojson_sha256": "4c8f148363b1e005e596b6c8af20fd6339eec4a7396f895b225105253897d1a6",
+   "states_sha256": "45ce5a228afa3e7169cf6d0c731b0866509ea25940874a55db66837053a29846",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-MRX-000086_Bucktail": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 110,
+   "geojson_sha256": "d7c639d88aa177c369ebee981e956355df276e18f87b03940ae0a8a0082c1aa7",
+   "states_sha256": "a008457011fe69c6fe3581aa0efb980962341012a8ccbed0bb48aba73e8dc7fc",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PPA-000453_Contreras": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 842,
+   "geojson_sha256": "99428b82ee61e439bcce73b3912168ef1355d9c92c7470d2c86b9837b00b4866",
+   "states_sha256": "3851fa815f23732ece4ebfb17066db6604bae932a4b13e6c2fa951ed278f8973",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-SNF-000150_WolfDraw": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 23,
+   "geojson_sha256": "8e38882706493b0318dd2fadb7e006931ebac1fe421e837614fe2e1e95839f84",
+   "states_sha256": "b46a72bc3e85e3d8b3ebe81dfc2ba8c40ac4224d1884b50efa7d783d5f7ac08f",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-COF-000176_Wolf": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 281,
+   "geojson_sha256": "cc6aaa5f10aec3dc81320a14848b8ad6c2fa75ec412a6e72d27e862c4b04dcf2",
+   "states_sha256": "c69392cd81f7b3d4a253f75224e427a31fc1518caec645b19577793119b8a608",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BDF-012958_Radford": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 32,
+   "geojson_sha256": "3491dfaecabb20097f342491de3b4faff6deb6cf34dce7235c2ae28df7ae74ee",
+   "states_sha256": "a6342869c30a28a02d1fd2ccb1a0c253ed2fc70fde36e655ded0f595dba67eb5",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000336_TunnelFive": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 20,
+   "geojson_sha256": "c165e11c5faac33f41b0ca3784b012dfa3653be1ce55d4b34ae32f94eb20cef2",
+   "states_sha256": "2e8146b905a6f0fa98428ef30a9338b9db11374b2a3badef4de5b1d1a8d2a1df",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040026_WilsonCreek": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 46,
+   "geojson_sha256": "09aa3bcfec2f9389f4710d12e2ef9e98091365cfea907eaf67661d41953fb380",
+   "states_sha256": "d9c9e8be3252d581c877f4a0e25b432f7fe35f55d9df12d83f9f5ecb07aeffde",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TNF-001699_Middle": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 80,
+   "geojson_sha256": "7b82870bb562e78c587d429f655937a4bed3558f1228e798b58d58d7a2d79299",
+   "states_sha256": "5326fbdb2204f0c1a56acb1478c0a371b1b21e0faa7668b07ad5fb274d80aca0",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OWF-000374_AirplaneLake": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 194,
+   "geojson_sha256": "a14c2b7516935f7142aefe05cc347864c40d1750262cbf387d9dcb308b85d227",
+   "states_sha256": "5608980a9f21b20838134fbef8b7d7b1195c722a30b80204411f901e95fbbf72",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SQF-001362_Borel": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 1721,
+   "geojson_sha256": "77c10b40d7d6182f761f1d6b3b7f7ba2fc39d39dce75cb5c58b39c8e9d0acfdf",
+   "states_sha256": "17b658e34ad9802b63b8cc5ddd76b928c23c81419390181f2995419d7e132580",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-KNF-007241_Fox": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 65,
+   "geojson_sha256": "adf02eb14b4570b2ca005a83b3c39a98167187842136afcee22aed22011d5fd2",
+   "states_sha256": "deb48b8febaa9f2eb3c8c433abef7f08af89120a2ce167d53190f2fbaa3c384b",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-HTF-040163_BroomCanyon": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 243,
+   "geojson_sha256": "898b71d5227bc4b44c820d5eac90c2d324fadc2457a46cd538fe954d16597d6e",
+   "states_sha256": "345afda0d718a9461f3546573681285a13c9fb9f630c4cb946151981c92aae0c",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-000370_Midnight": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 6,
+   "geojson_sha256": "117a7c5431d3faf9bc327d8f5365cf3ef4da4b5c60e8606db290074b151c844e",
+   "states_sha256": "13f7243fbde199bdae9a97c80df258e771b02754a1c966aa8a822e7b38b5c48e",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000447_Campbell": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 41,
+   "geojson_sha256": "6cfc7cbd90a3a199d1e2cd9c0a4d5ac1e5fd1c111b875b4087ea11cfac1d976d",
+   "states_sha256": "fad4536c00abb24d37e73e1ec38a1f7bfba2d360c4dbf013d675328f011af0b5",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LMU-003874_Hog": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 281,
+   "geojson_sha256": "f66dc4c45d4131945744adcba63a9b75784b1a13e65d1de7005c39098a5b48d7",
+   "states_sha256": "41b9cde3e5741fb670e92580286ffdd59676bc37a71859a23a416348cd0f68d3",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LPF-002759_Alisal": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 507,
+   "geojson_sha256": "d5989b0c796da3088d5ce484bc06e68122fa62f1570f01db9176d87829e249f6",
+   "states_sha256": "2c5078ccbed309d52c7354f0e918b45089d61f041f608b38eacd5c76e2e744b2",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-COA-240089_Swawilla": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 1546,
+   "geojson_sha256": "4bc5e80541c4cfe03a324dd12fbf92e437ef25e031fd37434b562adf41cbfd31",
+   "states_sha256": "82eded56eddc64014e992abd819f5731c6edd014455f9b5a0f3bd4f3e76f82a8",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-FTA-000336_McDonaldTank": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 103,
+   "geojson_sha256": "0582cd5cf1a319a260015c65f8b7171408a0295e4cbd67a4cf57d7555ee0e6ec",
+   "states_sha256": "f82b528e217b3ab4dea8185394f61ecfee06c8515ec35cd8ec244a326a7add77",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-OLS-000079_Road2620": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 14,
+   "geojson_sha256": "2fe8e5bf5bf893c16d2493dcd40186c402bcab93effd3d94e6dc93aac2b60904",
+   "states_sha256": "f012751a9e36a5cf24ef7c7250b97dd68a64769195fa9bd855e8c02188f7c870",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-954S-000514_LarchCreek": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 542,
+   "geojson_sha256": "351a34a2b364ed4112ec3a446e17256d0c42e6375913af181187c3e8aa2a6938",
+   "states_sha256": "58233d0e33c28439babeefccc22b8c08d925255c4d01ae31a0acb62cd3694c87",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-002639_Alder": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 19,
+   "geojson_sha256": "2052bf81b26d752fafbcaa6658460790f202937e52c282cb499d5998a1acc4e4",
+   "states_sha256": "06c66fb62eba3b445d7b13439cf6347003ed0a2d4d1095e3b31b553afeafb829",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BEU-004024_River": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 1557,
+   "geojson_sha256": "3dbed769ece3e017c3d92799f94943e5ee9d87733d299b630a7545fe608adfda",
+   "states_sha256": "9a8baa7c7ee4acb5042261b89fbbef960bac66530e67e9480cd00692fa72a800",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040122_Comet": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 23,
+   "geojson_sha256": "ee37fbcb4233aa9814b5ab98385cb415a20f5dbbcb7f4df03ae633161f7c5f71",
+   "states_sha256": "9fb2364470b17f93145855b85b73d2800495535fbb2ac3ebe4a4ae2e91b55532",
+   "survey_states_equals_builder_masks": true
+  },
+  "UT-FIF-240206_SilverKing": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 518,
+   "geojson_sha256": "0100ff4028e2b2b8005635f1accb275e2e70682480216f25b1c4f393f8430764",
+   "states_sha256": "6b0d9ab513a06b275b0404327182fcab16db80845db07ab2295e38ba7bcbaf56",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-MSF-000334_SuiattleRiver": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 191,
+   "geojson_sha256": "963fcfa622d8f239f73b7707e06f7da0c251065b98cfa251a943f906b6f01891",
+   "states_sha256": "cdbae824d778d1358297b48c59c20093aa2676442a5c8c62c40886d28f13a222",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000141_Sullivan": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 1,
+   "geojson_sha256": "a8feb6ada8ce5f7773db345c3ff661c2585459a8711d6767066dac2d23d6fd2a",
+   "states_sha256": "783ea6b764bd87d1907e0ad4829e00440e8a6452c7816b6b046834457fc7b992",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000130_Garceau": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 196,
+   "geojson_sha256": "393ecccc2164b8e935a49e37bc896aaafe8ef672c4e31901022bc6cff5f3f11a",
+   "states_sha256": "3854590d35cdda58a525f3048f18a9447f2a1e94905755ec54b586777bd80e06",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-006286_TrailRidge": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 428,
+   "geojson_sha256": "80f6db7c66d14fd4cb96b39f9f7e679ed8cd902099ed47f1decc813c256fdc45",
+   "states_sha256": "390371cc64ab1db443601e9ee7cd767d4e6862146f45479ed4346334c45fcf6f",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-0732S-00174_SkylineRidgeComplex": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 170,
+   "geojson_sha256": "01268290ca39a995a5c1d43beb962e630ba0561653d986413bb782c4e42c8f0b",
+   "states_sha256": "ebba10a1bd43f93dda49030a5eb9b0e7cd3684a58b44f97c0cedc7d6776b6997",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LPF-001542_Lake": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 7,
+   "final_mapped_cells": 1130,
+   "geojson_sha256": "4042bce4d202ebf1228c2dc53d10cd13bed5800e65fbf435d4890d184322ae00",
+   "states_sha256": "bf4a111077ceabc3c75ac2f9052962daf2f1529430e812f06aee5cc8f13ead21",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WIF-210362_Knoll": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 16,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 16,
+   "geojson_sha256": "3a70228da8ab72476fe9930bf6066a6d045ef853ba72b77070b45ba7bf22cf37",
+   "states_sha256": "9f064b94216b151884a9f93b6a05c75e8c0bd8bd017b4924e9c5a69dc3fce754",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-953S-024272_FossilComplex_Canyon": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 7,
+   "geojson_sha256": "70e8223edcda1597f495ea6a5ea2790d46c3f9f34672b7b54efe45825c70ea21",
+   "states_sha256": "885a117b2402eddd23309d52dec1b5cace8d5e2fcea9155d9a7aca0dfbd3e9a3",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040078_BigSummit": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 250,
+   "geojson_sha256": "96c729ca6105bfdfeca52e251ed483109ef59c3162b9994fddaf2fc2ddf720a3",
+   "states_sha256": "a30cf517b290399f9dfce912a06b70b05be3a162cfb3d8945db742a2b7b53853",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-SCA-001418_DryLake": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 128,
+   "geojson_sha256": "12c77d9ca875402d86899e1e4e9a49175b0642c16f042d920e0580acc3041d41",
+   "states_sha256": "968fb34c76e5cd661fd86f1743c132d3c6ce87453a5daf61fede2db2d7bb88dd",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-HLF-000182_MoorsMountain": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 2,
+   "geojson_sha256": "f5db419f6a6d22599f394738a727da604d9268991f50129c798047625cf389cb",
+   "states_sha256": "2d1f3445bac8d36742b019a55e09009f6cd794a148facc08b4d9f04331eed3b1",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-MDF-000486_Caldwell": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 2368,
+   "geojson_sha256": "c4bbad561e17ff2d028f6cb91d5f0db64026faf556b4fbb48f0c6fb332753774",
+   "states_sha256": "f103cdd610452d41bdf76e329a846e9fc78d6f8116ef38f42e1cd0a033316713",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PNF-001008_Tiger": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 10,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 470,
+   "geojson_sha256": "cbf436cf5dd23160a43562d5c30540e6705a7b44bb4bff42b976d7661c2f91ff",
+   "states_sha256": "34c890f009800c2ea666c8ecfd6a74636fdd50398fcd68ce174f17c2df8dd6b7",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-PNF-002178_Horse": {
+   "records": 10,
+   "distinct_times": 10,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 285,
+   "geojson_sha256": "af4b24e11f9d48517f300d230aacb4d603d6b97fa6a1ba2a964723d3a27c1bb4",
+   "states_sha256": "9eef83149123d4dc7eea27678ea64261942b5ae9856b95b449fdc6bedebc2326",
+   "survey_states_equals_builder_masks": true
+  },
+  "CO-ARF-000683_AlexanderMountain": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 273,
+   "geojson_sha256": "121eff8e533fcd5dacd9ff712341f039bcfca2ef8805177bafdf53d89ef41a58",
+   "states_sha256": "692e46331b2cf5c5ef5b26d59bfa18213cf968fb9ebab7bceb2303d443381ba1",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHU-009978_Zogg": {
+   "records": 12,
+   "distinct_times": 12,
+   "intervals_le_48h": 11,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 1642,
+   "geojson_sha256": "066517ea9d5ea47c7b61659462bb7a883e9526ce4d020bcfe9fa76dfe5739210",
+   "states_sha256": "15ed0b7e081c7baef58eb3a3672bc5f2811752f9c7c19237821e52fdcc5e7e4f",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-230307_Morgan": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 66,
+   "geojson_sha256": "56b3c70ac95e77761c3724877c3ec947da135166d2476b5b7f69430759fbd06f",
+   "states_sha256": "3c342bc817457b80e6515350fc38e40c846a4fb0e9f4942c9879f9400dec742c",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-NCF-00563_WarmSprings": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 4,
+   "geojson_sha256": "6c98eec8d5318a27ba2d208080badd8c778124fc17b086fa608c51dcfb3d4dd9",
+   "states_sha256": "f008aaf939d8db5414ec92c73686585e81359a79f80eb6b370dae99c6364536a",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-CNF-000401_Foster": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 218,
+   "geojson_sha256": "dc327d4581736ab748f357e201b3e7e0aa8a3ff35239a705bd5ae79ed518b684",
+   "states_sha256": "7148191a69a577b8fb7f9881f681a9298d62abab1b088ff0d78bd8019a4de452",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-952S-000063_Laurel": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 40,
+   "geojson_sha256": "a86eb9c6ae050cf89785e2086c956778093b4f6086f0982978d38fda52f29ef9",
+   "states_sha256": "f883360293dc33272398012c702e203d22d5c5379d2dd5302b7f7d42e9749231",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WWF-000338_CliffMountain": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 33,
+   "geojson_sha256": "92b2b3e209b4407304043b644054b299d1bce9c4bfa89816de33a519c249272d",
+   "states_sha256": "25467cbcc7d5ef6ae6a363bd9e933a0b45838ce00c039f3f9993d7c9cd8dc7e7",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-COA-0200084_Chuweah": {
+   "records": 19,
+   "distinct_times": 19,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 1098,
+   "geojson_sha256": "75b050b2a37020523ca87850aae161309833f1b13e0692f9ac92ba2aa81f3537",
+   "states_sha256": "4976562e8373e940732ace81c90ca682d9c9a7a3b170d390287ed29653519b67",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000070_MagpieRock": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 103,
+   "geojson_sha256": "536189fbb3f44e3b654a5de78d1588860266f34fbf601729f0135073eebd3669",
+   "states_sha256": "08cbe5caa207f4146be7279b2dce4b0c3cc39db47d1612916bf88d6dfc445dd4",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-UMF-000479_SlickEar": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 16,
+   "geojson_sha256": "2bc2b0696722f72eeca0062bc8f5ecf34c32b808553a864c72917eb3ab92434a",
+   "states_sha256": "a5e06db767e6bea429490ad611468ca526fa572b36e9c736394b57cbd15b0af5",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-WWF-000413_JonesCreek": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 126,
+   "geojson_sha256": "e83fd2e54e1030b4e58266f4f2392e7e087ba8229bb3509911286b76e6e6a05c",
+   "states_sha256": "79f623dba1951db7567a0879d67c2f426eb30f24c23642a3848f65d516c9e89d",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-FWF-210422_WillowValley": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 23,
+   "geojson_sha256": "f996f90c9f8706b2ce038cc806dbbcf8f464b5c3c1811dba682af9081eab76dd",
+   "states_sha256": "525c9cdcaa71097dd9a54991b2c273dbbf9be1d4b351f3daf31f486168506f9c",
+   "survey_states_equals_builder_masks": true
+  },
+  "OR-BUD-002263_BigMeadow": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 4,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 78,
+   "geojson_sha256": "84649f88f0c79ad9b3a83aba233684deda3415f39c373b3aac9a49f5c30eb0a7",
+   "states_sha256": "0a10fe47e12ee2adb1b3d3ced2267bea329177cbc61828e4d833f1972819fcbd",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040082_StewartCanyon": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 376,
+   "geojson_sha256": "4779a0247dfc72608793bf2e10fb38ec008e0910c0fcdbdcaa3a63f78d73aed9",
+   "states_sha256": "2b19d4e925b90dd6411cdc2c4f5298c1a82c02947fb65bd1e96ab436e6dc6345",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SKU-007586_Mountain": {
+   "records": 14,
+   "distinct_times": 14,
+   "intervals_le_48h": 12,
+   "growth_intervals_le_48h": 8,
+   "final_mapped_cells": 392,
+   "geojson_sha256": "1e35860be66e95b0c1f7d1d571061bfc439de01a90c5bbbdcf4be4b1e8f04e0e",
+   "states_sha256": "0eb33f98b38b9fbe9b033bf5e8ff438829fcb3ee490cab90f9fdaf47142fecd8",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NES-01491_WilliamsLake": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 53,
+   "geojson_sha256": "3515eace62baa6f25d05eef4f35aebac0c06ed892f94f0f2552b0514a3605c65",
+   "states_sha256": "ae343c22f85ef8e71a259c913620e67581c41db621b4aa15533886bfeace83b0",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-CAF-000136_Comanche": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 56,
+   "geojson_sha256": "f5cbafb53c00b02b36141d638bee1388f7383f798711b3a8978b035659f550ad",
+   "states_sha256": "9785e7f6ffcb0a509b85aa826ee6b04a7c9562ef38417e19fab9c6f3196f92f3",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000477_Retreat": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 1316,
+   "geojson_sha256": "f3cd1bfbf15d4e052c5b29ede1f347580c88a6b81cd0637068d8c9818a08360d",
+   "states_sha256": "a2c512a3219d72a20105f8e0d3a4e52f8eaebd83e4099616ebc65320f2d1d6d2",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-TCA-000773_C3": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 37,
+   "geojson_sha256": "6d683151a89fd8ce20d1b710aae8cf21be509363682ea66511d94387162c0a89",
+   "states_sha256": "c11fb708ea08fe86b18175c9ef051a6781665ba6e8acf71babff8cf49030c638",
+   "survey_states_equals_builder_masks": true
+  },
+  "ID-BOF-000777_Grouse": {
+   "records": 13,
+   "distinct_times": 13,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 1,
+   "final_mapped_cells": 116,
+   "geojson_sha256": "71cef770fb56f99b2c846d4591d4713fb875fed95c569dc50b1df99149c5dc21",
+   "states_sha256": "3a7f616c613b390fb2865c2370f7af29c63947d5f5c636d44d676d706dc20b0e",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-SES-000464_NewellRoad": {
+   "records": 7,
+   "distinct_times": 7,
+   "intervals_le_48h": 6,
+   "growth_intervals_le_48h": 5,
+   "final_mapped_cells": 1813,
+   "geojson_sha256": "139cf3f8426f5dde33410eefc6a27387cf664bfdf0e96b314e1e6d30ce7103a5",
+   "states_sha256": "ee97a91d6afe3250292c9651766d1d347e3fc231df95b627477e1e60a153cf9c",
+   "survey_states_equals_builder_masks": true
+  },
+  "NV-ELD-040152_DodgeSprings": {
+   "records": 4,
+   "distinct_times": 4,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 161,
+   "geojson_sha256": "d1bf3cd7432a9ce30ccc5fc94ee8d5b0c31bca8a299725b85827c20720412554",
+   "states_sha256": "d56219609bcaa937d2f0f7de686f89a7426af6740cf422a9adb5cbea71324f98",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-CNF-002791_Chaparral": {
+   "records": 3,
+   "distinct_times": 3,
+   "intervals_le_48h": 1,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 39,
+   "geojson_sha256": "f0c43c23e5f77715fb005145198c8a0f7c139141d70295f4959826e7cc7e3f5c",
+   "states_sha256": "c7c5eb5299df55b4d731ead446235d6a6f5b138bdf55f77c52ac547a0177e96b",
+   "survey_states_equals_builder_masks": true
+  },
+  "AZ-ASF-000624_Bear": {
+   "records": 8,
+   "distinct_times": 8,
+   "intervals_le_48h": 5,
+   "growth_intervals_le_48h": 4,
+   "final_mapped_cells": 690,
+   "geojson_sha256": "aa86336afb903e1653c16c2ee66725e7fe3715be9e9efcb2f6c1ee4b7115229f",
+   "states_sha256": "8ee780a2da8c72cb77e6bbad67a8dc3e29ee4d08cf0664757dfadf4d28b07fcd",
+   "survey_states_equals_builder_masks": true
+  },
+  "WA-NES-240099_BridgeCreek": {
+   "records": 5,
+   "distinct_times": 5,
+   "intervals_le_48h": 2,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 114,
+   "geojson_sha256": "e5e7b8289f3867c0a334171c8593f2f26d66ac66b7a24844a54f756bd6e36ed5",
+   "states_sha256": "fffa5b91994fb99947e5f164ce207de9ae72cbd4c9030ea0beecc3ca41869f08",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-FHA-000101_MillPocket": {
+   "records": 6,
+   "distinct_times": 6,
+   "intervals_le_48h": 3,
+   "growth_intervals_le_48h": 0,
+   "final_mapped_cells": 54,
+   "geojson_sha256": "1f617c44faebf4cd71792baec16be981cadf7733d0092d1e2c8fb2dfe4ab45b3",
+   "states_sha256": "aca5d088124833b399dd9f90088dce7e847f311a3749567c11bbc21ef55a34fa",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-LAC-434928_Franklin": {
+   "records": 9,
+   "distinct_times": 9,
+   "intervals_le_48h": 8,
+   "growth_intervals_le_48h": 2,
+   "final_mapped_cells": 120,
+   "geojson_sha256": "1b3a12dc9cf154013802a5306833dafbf2afc5757d8fe24c8e31b0c1575bc6d0",
+   "states_sha256": "3b369cf1c05855290568dbab8f38837310a68e2935429efa846fa83da9726390",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-EMP-000234_Encerrita": {
+   "records": 11,
+   "distinct_times": 11,
+   "intervals_le_48h": 7,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 73,
+   "geojson_sha256": "143b977ff3684e20ae46e78fd8784bf3725c3956c42ac1e8b8c22c85722f3d26",
+   "states_sha256": "60a06134c21d9fccad6f4a496301e909ed88fc4306530188d02264030600d422",
+   "survey_states_equals_builder_masks": true
+  },
+  "MT-BDF-6306_BlackMountain": {
+   "records": 18,
+   "distinct_times": 18,
+   "intervals_le_48h": 15,
+   "growth_intervals_le_48h": 3,
+   "final_mapped_cells": 32,
+   "geojson_sha256": "072006e566e3807e5ba689e80c21e6a2f6130bb9bd82b5c7ea7cc0942e5e67c4",
+   "states_sha256": "1dc130f57112b0b1a6381eeae841456972d8d089cd4d315df8d1e6cd738c3ee7",
+   "survey_states_equals_builder_masks": true
+  },
+  "NM-GNF-000360_Divide": {
+   "records": 16,
+   "distinct_times": 16,
+   "intervals_le_48h": 13,
+   "growth_intervals_le_48h": 13,
+   "final_mapped_cells": 762,
+   "geojson_sha256": "a3ccf614569a560a007d3db798cb67c032a92f4e2b3b668de999b197ff524fbd",
+   "states_sha256": "ef96a7314468eab9fc121cf871d6fc9b03449df30b421f4863dd30424ca9426b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-ANF-003273_Lake": {
+   "records": 15,
+   "distinct_times": 15,
+   "intervals_le_48h": 14,
+   "growth_intervals_le_48h": 10,
+   "final_mapped_cells": 886,
+   "geojson_sha256": "9e391d6cbb87a8df54f0c7006414edeeaa29b2887f9785bcaa02cdbc3387ebdd",
+   "states_sha256": "b9ea3e1471f5c149d08d703396e8de26875dbe940023ac9f658e27024770d7f8",
+   "survey_states_equals_builder_masks": true
+  }
+ },
+ "note": "written by research/harness-2026-11/data-fetch/build_nirops_event.py in the prepare_perimeters.py format"
+}

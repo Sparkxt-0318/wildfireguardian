@@ -1,0 +1,68 @@
+{
+ "ID-BOF-000683_Wapiti_Wapiti": {
+  "all_finite": true,
+  "bands": 2070,
+  "bands_csv_sha256": "7a69c59306eb87d2f97fdb35355973a605195ca5921510a412ee4736018114c6",
+  "complete_hours": 2070,
+  "complete_json_sha256": "5b2cb32d20906e434f02e083155f82433f97ae468dc6ecc0c85425a906c62771",
+  "first_band_utc": "2024-08-01T00:00:00Z",
+  "last_band_utc": "2024-10-26T05:00:00Z",
+  "nodes": 30,
+  "non_hourly_steps": 0
+ },
+ "ID-BOF-000904_Goat": {
+  "all_finite": true,
+  "bands": 1784,
+  "bands_csv_sha256": "0451a677aa0eee4247026b9107765e8e2bcb4e9078304d19313ebac62a85d7d0",
+  "complete_hours": 1784,
+  "complete_json_sha256": "e47984c53982e3f4e0bfc162de4d66c2bbf852d38ee842b889b4d2eb749d63f8",
+  "first_band_utc": "2024-08-10T00:00:00Z",
+  "last_band_utc": "2024-10-23T07:00:00Z",
+  "nodes": 16,
+  "non_hourly_steps": 0
+ },
+ "ID-BOF-001080_Lava": {
+  "all_finite": true,
+  "bands": 2021,
+  "bands_csv_sha256": "a878736767d33ed63f4ecf8646436b25bf6f24d8a70686adc859df1e27c72e5e",
+  "complete_hours": 2021,
+  "complete_json_sha256": "4ec9b74c71405a85a0b76334681bd7013187b15bbac7cadd17977248c018ef46",
+  "first_band_utc": "2024-08-01T00:00:00Z",
+  "last_band_utc": "2024-10-24T04:00:00Z",
+  "nodes": 19,
+  "non_hourly_steps": 0
+ },
+ "ID-SCF-240202_RedRock": {
+  "all_finite": true,
+  "bands": 1396,
+  "bands_csv_sha256": "d2d41fdb75337ca8987d1587d6919300e2173db1ce928db68d1b98753d027b3f",
+  "complete_hours": 1396,
+  "complete_json_sha256": "8d6359b3a496078ca51a2175a3fa9455addf8b2c74af906867c4c44b9c776a8a",
+  "first_band_utc": "2024-08-29T00:00:00Z",
+  "last_band_utc": "2024-10-26T03:00:00Z",
+  "nodes": 21,
+  "non_hourly_steps": 0
+ },
+ "WA-SES-000173_Pioneer": {
+  "all_finite": true,
+  "bands": 1830,
+  "bands_csv_sha256": "f627e84cbe0e1e72254dc140ac981d41de734d38713c42da0409a9eb5e399743",
+  "complete_hours": 1830,
+  "complete_json_sha256": "ec75847789f6feb8a842a41c9c43381ee72ff7d0869754bb3bd4d2ab2e434c9e",
+  "first_band_utc": "2024-06-12T03:00:00Z",
+  "last_band_utc": "2024-08-27T08:00:00Z",
+  "nodes": 16,
+  "non_hourly_steps": 0
+ },
+ "WY-BTF-002416_FishCreek": {
+  "all_finite": true,
+  "bands": 1639,
+  "bands_csv_sha256": "f093df314fa0a25560587ec5387cbe08801227e19353f7e145d719279cd2402b",
+  "complete_hours": 1639,
+  "complete_json_sha256": "9f7ab90e355079fe661e9ac08064ddc9678f14b1f503c32819d7304cb9e47c1f",
+  "first_band_utc": "2024-08-21T00:00:00Z",
+  "last_band_utc": "2024-10-28T06:00:00Z",
+  "nodes": 20,
+  "non_hourly_steps": 0
+ }
+}
