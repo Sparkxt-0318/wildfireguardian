@@ -69,7 +69,8 @@ def main():
                         "peak_cold_mb": rng([j["peak_cold_kb"] / 1024 for j in js]),
                         "peak_warm_mb": rng([j["peak_warm_kb"] / 1024 for j in js]),
                         "baseline_mb": rng([j["rss_baseline_kb"] / 1024 for j in js]), "n_cases": js[0]["n_cases"],
-                        "n_specs": js[0]["n_specs"], "warm_equals_cold": all(j.get("warm_equals_cold") for j in js)}
+                        "n_specs": js[0]["n_specs"], "warm_equals_cold": all(j.get("warm_equals_cold") for j in js),
+                        "checks": sum(j["stats"].get("checks", 0) for j in js), "check_fail": sum(j["stats"].get("check_fail", 0) for j in js)}
         o = {}
         for mode in ("cold", "warm"):
             rs = old.get((cache, mode), [])
@@ -132,16 +133,32 @@ def main():
                 cold = o.get("cold", {}).get("scaled")
                 warm = o.get("warm", {}).get("scaled")
                 mem = "%s median, %s max per request (one worker)" % (fmt(o["cold"]["rss_mb"]["median"], 0), fmt(o["cold"]["rss_mb"]["max"], 0)) if "cold" in o else ""
-                rows.append((short(cache), NAMES[m], cell(cold) if cold else "", cell(warm) if warm else "", "", "", mem, "—"))
+                un = o["cold"]["unresolved"] if "cold" in o else 0
+                bc = ("; sampling 95%% CI %s–%s" % (fmt(o["cold"]["boot95"][0]), fmt(o["cold"]["boot95"][1]))) if "cold" in o else ""
+                bw = ("; sampling 95%% CI %s–%s" % (fmt(o["warm"]["boot95"][0]), fmt(o["warm"]["boot95"][1]))) if "warm" in o else ""
+                rows.append((short(cache), NAMES[m], (cell(cold) + bc) if cold else "", (cell(warm) + bw) if warm else "", "", "", "", "", mem,
+                             "OLD unresolved (30 s budget) per 200: %s cold, %s warm" % (fmt(un, 1), fmt(o["warm"]["unresolved"], 1) if "warm" in o else "n/a")))
                 continue
             if m not in f:
                 continue
             rc = c["ratios"].get("old/%s/cold" % m)
             rw = c["ratios"].get("old/%s/warm" % m)
             mem = "%s (baseline %s)" % (fmt(f[m]["peak_warm_mb"]["median"], 0), fmt(f[m]["baseline_mb"]["median"], 0))
-            rows.append((short(cache), NAMES[m], cell(f[m]["cold"]), cell(f[m]["warm"]), rcell(rc) if rc else "", rcell(rw) if rw else "", mem, agree(m)))
-    hdr = ("| cache | method | cold s, median (range) | warm s, median (range) | OLD ÷ method, cold [range] | OLD ÷ method, warm [range] | peak MB | agreement |\n"
-           "|---|---|---|---|---|---|---|---|\n")
+            fm = {"margin1": "field", "margin10": "field_dec"}.get(m)
+            fc = c["ratios"].get("%s/%s/cold" % (fm, m)) if fm else None
+            fw = c["ratios"].get("%s/%s/warm" % (fm, m)) if fm else None
+            rows.append((short(cache), NAMES[m], cell(f[m]["cold"]), cell(f[m]["warm"]), rcell(rc) if rc else "", rcell(rw) if rw else "",
+                         (rcell(fc) + " (vs %s)" % NAMES[fm]) if fc else "", (rcell(fw) + " (vs %s)" % NAMES[fm]) if fw else "", mem, agree(m)))
+        for m in ("field_sample", "field_check"):
+            if m in f and o:
+                rc = ratio(o["cold"]["sum_wall_s_per_repeat"], f[m]["cold"]) if "cold" in o else None
+                rw = ratio(o["warm"]["sum_wall_s_per_repeat"], f[m]["warm"]) if "warm" in o else None
+                c["ratios"]["old_sample/%s/cold" % m], c["ratios"]["old_sample/%s/warm" % m] = rc, rw
+                mem = "%s (baseline %s)" % (fmt(f[m]["peak_warm_mb"]["median"], 0), fmt(f[m]["baseline_mb"]["median"], 0))
+                rows.append((short(cache), NAMES[m] + " (OLD ÷ = on the same 200 requests, not scaled)", cell(f[m]["cold"]), cell(f[m]["warm"]),
+                             rcell(rc) if rc else "", rcell(rw) if rw else "", "", "", mem, "timing row only" if m == "field_sample" else "%d witness checks over all repeats, %d failed" % (f[m]["checks"], f[m]["check_fail"])))
+    hdr = ("| cache | method | cold s, median (range) | warm s, median (range) | OLD ÷ method, cold [range] | OLD ÷ method, warm [range] | FIELD ÷ MARGIN, cold [range] | FIELD ÷ MARGIN, warm [range] | peak MB | agreement |\n"
+           "|---|---|---|---|---|---|---|---|---|---|\n")
     tbl = hdr + "\n".join("| " + " | ".join(r) + " |" for r in rows) + "\n"
     (res / "tables.md").write_text(tbl)
     (res / "summary.json").write_text(json.dumps(S, indent=1, default=str))

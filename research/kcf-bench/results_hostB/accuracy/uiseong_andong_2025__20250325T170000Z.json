@@ -1,0 +1,122 @@
+{
+ "cache": "uiseong_andong_2025/20250325T170000Z",
+ "n_cases": 1557,
+ "disagreements": {
+  "old_unstable": [
+   {
+    "case": "rc_777b853bcfdc4c46a5cf",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "1409"
+    ]
+   },
+   {
+    "case": "rc_44e42b0c149744a4a107",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2072"
+    ]
+   },
+   {
+    "case": "rc_435caf1ad4e34abf80cd",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "1313"
+    ]
+   },
+   {
+    "case": "rc_d25d1dceb7dc4d128ec7",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2263"
+    ]
+   },
+   {
+    "case": "rc_9ea306c423154ebbabdd",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "999"
+    ]
+   },
+   {
+    "case": "rc_3400ac18290249d1840a",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2072"
+    ]
+   },
+   {
+    "case": "rc_a9e06e0d3f8440bc831f",
+    "verdicts": [
+     "checked_route",
+     "unresolved"
+    ],
+    "arrivals": [
+     "2697"
+    ]
+   }
+  ]
+ },
+ "counts": {
+  "old_cases": 200,
+  "old_requests": 2000,
+  "old_unresolved_cases": 16,
+  "old_unresolved_AT_ISSUE_FAILURE": 11,
+  "old_unresolved_TIMEOUT": 5,
+  "old_unstable_cases": 7,
+  "old_decided_cases": 177,
+  "origin_sets_b_vs_c0": 253,
+  "cases_b_vs_c0": 1557,
+  "recorded_decided": 1428,
+  "recorded_vs_b_MISMATCH": 0,
+  "recorded_vs_c0_MISMATCH": 0,
+  "a_vs_bc_cases": 177,
+  "a_vs_b_MISMATCH": 0,
+  "a_vs_c0_MISMATCH": 0,
+  "margin_origin_sets": 2450,
+  "margin1_cases": 1509,
+  "margin10_cases": 13581
+ },
+ "answers_by_margin_all_cases": [
+  1068,
+  1068,
+  1068,
+  1068,
+  1068,
+  1068,
+  1068,
+  1068,
+  1068,
+  1068
+ ],
+ "margins": [
+  0,
+  67,
+  133,
+  200,
+  267,
+  333,
+  400,
+  467,
+  533,
+  600
+ ]
+}

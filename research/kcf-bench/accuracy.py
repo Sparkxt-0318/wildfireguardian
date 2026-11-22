@@ -48,7 +48,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only")
     ap.add_argument("--max-specs", type=int)
+    ap.add_argument("--results", default=str(HERE / "results"), help="results folder of one machine class")
     a = ap.parse_args()
+    global RES
+    RES = Path(a.results)
     (RES / "accuracy").mkdir(exist_ok=True)
     for cache in CACHES:
         if a.only and a.only not in cache:

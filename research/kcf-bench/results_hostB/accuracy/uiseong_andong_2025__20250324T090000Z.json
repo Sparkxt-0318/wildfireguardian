@@ -1,0 +1,47 @@
+{
+ "cache": "uiseong_andong_2025/20250324T090000Z",
+ "n_cases": 1518,
+ "disagreements": {},
+ "counts": {
+  "old_cases": 200,
+  "old_requests": 2000,
+  "old_unresolved_cases": 2,
+  "old_unresolved_AT_ISSUE_FAILURE": 2,
+  "old_decided_cases": 198,
+  "origin_sets_b_vs_c0": 253,
+  "cases_b_vs_c0": 1518,
+  "recorded_decided": 1512,
+  "recorded_vs_b_MISMATCH": 0,
+  "recorded_vs_c0_MISMATCH": 0,
+  "a_vs_bc_cases": 198,
+  "a_vs_b_MISMATCH": 0,
+  "a_vs_c0_MISMATCH": 0,
+  "margin_origin_sets": 2460,
+  "margin1_cases": 1476,
+  "margin10_cases": 13284
+ },
+ "answers_by_margin_all_cases": [
+  1158,
+  1155,
+  1155,
+  1155,
+  1153,
+  1150,
+  1150,
+  1150,
+  1147,
+  1147
+ ],
+ "margins": [
+  0,
+  67,
+  133,
+  200,
+  267,
+  333,
+  400,
+  467,
+  533,
+  600
+ ]
+}
