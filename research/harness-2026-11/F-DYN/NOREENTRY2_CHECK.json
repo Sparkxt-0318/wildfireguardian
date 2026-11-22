@@ -1,0 +1,403 @@
+{
+ "rule": "NOREENTRY2_RULE.md",
+ "manifest_sha256": "7c178267b424ddd2c42d4972c20d3a0d8f1c572ebf53e8e55108f10d2df2d416",
+ "numpy": "2.5.3",
+ "rows": [
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:kriged_mean",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_reopening_equals_v35": true,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    2197
+   ],
+   "3_b0_plan_meta": [
+    2197
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "research/harness-2026-11/F-DYN/_data/synthetic_exports",
+   "3_c0_cells": 2294,
+   "3_c0_outside_burnset_or_present": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7010840682739119,
+      "integral_kJ_m2_cells": 2416599.5549944756
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.7019419459734549,
+      "integral_kJ_m2_cells": 5555514.8403344415
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7025707019418492,
+      "integral_kJ_m2_cells": 33342115.98360768
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:firms_early",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    2527
+   ],
+   "3_b0_plan_meta": [
+    2527
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "research/harness-2026-11/F-DYN/_data/synthetic_exports",
+   "3_c0_cells": 2624,
+   "3_c0_outside_burnset_or_present": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7006561365762222,
+      "integral_kJ_m2_cells": 3719474.8602506937
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.701791821517696,
+      "integral_kJ_m2_cells": 9611811.689885804
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7025767978233706,
+      "integral_kJ_m2_cells": 41572667.710735194
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:envelope",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    2215
+   ],
+   "3_b0_plan_meta": [
+    2215
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "research/harness-2026-11/F-DYN/_data/synthetic_exports",
+   "3_c0_cells": 2624,
+   "3_c0_outside_burnset_or_present": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7009922917612879,
+      "integral_kJ_m2_cells": 8663479.12215105
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.701950866369709,
+      "integral_kJ_m2_cells": 13558375.341200657
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7025767978233706,
+      "integral_kJ_m2_cells": 41572667.710735194
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:envelope_burnset",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    0
+   ],
+   "3_b0_plan_meta": [
+    0
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "research/harness-2026-11/F-DYN/_data/synthetic_exports",
+   "3_c0_cells": 16176,
+   "3_c0_outside_burnset_or_present": 0,
+   "3_burnset_nr2_flame_equals_nr1": true,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "uiseong_andong_2025:20250324T090000Z:5:kriged_mean",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    1032
+   ],
+   "3_b0_plan_meta": [
+    1032
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "data/routing/latest_inputs_try02/exports/KFS_01",
+   "3_c0_cells": 1050,
+   "3_c0_outside_burnset_or_present": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.6909280063881851,
+      "integral_kJ_m2_cells": 366271.166741478
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.6946716902878943,
+      "integral_kJ_m2_cells": 964430.6217291809
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7023099272816501,
+      "integral_kJ_m2_cells": 14015084.684947014
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "uiseong_andong_2025:20250324T090000Z:5:firms_early",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    1186
+   ],
+   "3_b0_plan_meta": [
+    1186
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "data/routing/latest_inputs_try02/exports/KFS_01",
+   "3_c0_cells": 1204,
+   "3_c0_outside_burnset_or_present": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.6908464801372409,
+      "integral_kJ_m2_cells": 246806.37247950383
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.6930784857690001,
+      "integral_kJ_m2_cells": 685948.2064851507
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7023259101769725,
+      "integral_kJ_m2_cells": 15684431.638148066
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "uiseong_andong_2025:20250324T090000Z:5:envelope",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    1087
+   ],
+   "3_b0_plan_meta": [
+    1087
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "data/routing/latest_inputs_try02/exports/KFS_01",
+   "3_c0_cells": 1204,
+   "3_c0_outside_burnset_or_present": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.6980134592218988,
+      "integral_kJ_m2_cells": 1482811.1048924713
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.6980534770263169,
+      "integral_kJ_m2_cells": 1938098.3926198557
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7023259101769725,
+      "integral_kJ_m2_cells": 15684431.638148066
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  },
+  {
+   "entry": "uiseong_andong_2025:20250324T090000Z:5:envelope_burnset",
+   "build_rc[reopening]": 0,
+   "build_rc[no_reentry/1]": 0,
+   "build_rc[no_reentry/2]": 0,
+   "1_nr1_rebuild_rc": 0,
+   "1_nr1_rebuild_byte_identical": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "transform": "no_reentry/2",
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/2",
+    "no_reentry_flux": "burning intensity held to the horizon, including cells burned out before the start; raises dose and peak vs reopening and vs no_reentry/1; contact set equals Richard's closed-from-0 field",
+    "writer_identity_transform": "no_reentry/2",
+    "ids_differ": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "3_b0_independent": [
+    0
+   ],
+   "3_b0_plan_meta": [
+    0
+   ],
+   "3_b0_counts_equal": true,
+   "3_export": "data/routing/latest_inputs_try02/exports/KFS_01",
+   "3_c0_cells": 16176,
+   "3_c0_outside_burnset_or_present": 0,
+   "3_burnset_nr2_flame_equals_nr1": true,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ],
+    "no_reentry/1": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ],
+    "no_reentry/2": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "ok": true
+  }
+ ],
+ "all_ok": true
+}

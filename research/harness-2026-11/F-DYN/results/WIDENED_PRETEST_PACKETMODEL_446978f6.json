@@ -1,0 +1,24 @@
+{
+ "rule": "WIDENED_GRAPH_RULE.md \u00a78(iii)4",
+ "packetmodel_head": "446978f628640acdbaf73e18755e8d7fa3b83ea6",
+ "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+ "plain": {
+  "npz_sha256": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198",
+  "support_false": 0,
+  "result": "LOADED"
+ },
+ "masked": {
+  "npz_sha256": "39140349cada70644152a761b4564786da3d929202b70b2561f1f70880ce59bd",
+  "support_false": 5068,
+  "result": "LOADED"
+ },
+ "B_identical": true,
+ "W_point_blocks_identical": true,
+ "A_destination_blocks_identical": true,
+ "destinations_compared": 30,
+ "masked_attrs": {
+  "support_masked": true,
+  "support_false_cells": 1267
+ },
+ "pass": true
+}

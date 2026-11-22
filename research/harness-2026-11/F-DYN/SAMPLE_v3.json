@@ -1,0 +1,236 @@
+[
+ {
+  "region": "uiseong_andong_2025",
+  "start": "20250325T140000Z",
+  "start_kind": "synthetic",
+  "horizon_h": 5,
+  "variant": "kriged_mean",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   6247
+  ],
+  "present_fire_cells": 158,
+  "max_flux_kW_m2": 0.702435056770289,
+  "scenario_ids": [
+   "ffb1:20250325T140000Z:52a09700765a6e73:0"
+  ],
+  "hazard_sha256": "37a01bcb0195868986deceae08b7cb2a54c398441e03fe8ea54b267b1759ff9e",
+  "hazard_mb": 62.9,
+  "status": "OK"
+ },
+ {
+  "region": "uiseong_andong_2025",
+  "start": "20250325T140000Z",
+  "start_kind": "synthetic",
+  "horizon_h": 5,
+  "variant": "firms_early",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   5949
+  ],
+  "present_fire_cells": 158,
+  "max_flux_kW_m2": 0.7023312470517203,
+  "scenario_ids": [
+   "ffb1:20250325T140000Z:018e287c0edf5c57:0"
+  ],
+  "hazard_sha256": "8a1e18ee6a4b7d03a2f95faec2d9b9b5c033c478d15913c3c6b06d435b2ab38f",
+  "hazard_mb": 62.9,
+  "status": "OK"
+ },
+ {
+  "region": "uiseong_andong_2025",
+  "start": "20250325T140000Z",
+  "start_kind": "synthetic",
+  "horizon_h": 5,
+  "variant": "envelope",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   6425
+  ],
+  "present_fire_cells": 158,
+  "max_flux_kW_m2": 0.7023898828750909,
+  "scenario_ids": [
+   "ffb1:20250325T140000Z:fc6d4111299ffbbb:0"
+  ],
+  "hazard_sha256": "9e09414b6988386b302ae304b805082fec1d1034cba3b68eee5b680be0d412b8",
+  "hazard_mb": 62.6,
+  "status": "OK"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "start": "20250325T110000Z",
+  "start_kind": "synthetic",
+  "horizon_h": 5,
+  "variant": "kriged_mean",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   920
+  ],
+  "present_fire_cells": 97,
+  "max_flux_kW_m2": 0.7010840682739119,
+  "scenario_ids": [
+   "ffb1:20250325T110000Z:3550152d4869539a:0"
+  ],
+  "hazard_sha256": "784aeedfc533eb2eb93178c181fca894592713c49aa692f8a8848aa7e96e1a49",
+  "hazard_mb": 63.6,
+  "status": "OK"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "start": "20250325T110000Z",
+  "start_kind": "synthetic",
+  "horizon_h": 5,
+  "variant": "firms_early",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   1343
+  ],
+  "present_fire_cells": 97,
+  "max_flux_kW_m2": 0.7006561365762222,
+  "scenario_ids": [
+   "ffb1:20250325T110000Z:4affe8f25bcf6d0f:0"
+  ],
+  "hazard_sha256": "a04e955925ce43825ee0ee00ede28c7a3c92f8ef4b049f5019e6d312e72176d0",
+  "hazard_mb": 63.5,
+  "status": "OK"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "start": "20250325T110000Z",
+  "start_kind": "synthetic",
+  "horizon_h": 5,
+  "variant": "envelope",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   1655
+  ],
+  "present_fire_cells": 97,
+  "max_flux_kW_m2": 0.7009922917612879,
+  "scenario_ids": [
+   "ffb1:20250325T110000Z:d30014e15dac0e0a:0"
+  ],
+  "hazard_sha256": "0bd1c33df8fdb2ea08e4f1f8f2ab948a13218521fc5ec4ca745da47a520a4f1f",
+  "hazard_mb": 63.2,
+  "status": "OK"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "start": "20250325T230000Z",
+  "start_kind": "recorded",
+  "horizon_h": 5,
+  "variant": "kriged_mean",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   465
+  ],
+  "present_fire_cells": 160,
+  "max_flux_kW_m2": 0.6993160542441313,
+  "scenario_ids": [
+   "ffb1:20250325T230000Z:0eeb38da250199a7:0"
+  ],
+  "hazard_sha256": "68cb9353fa5214edd043e8eed023c80ce3edfac048ee8a8373fccc4ecc3e65ac",
+  "hazard_mb": 63.6,
+  "status": "OK"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "start": "20250325T230000Z",
+  "start_kind": "recorded",
+  "horizon_h": 5,
+  "variant": "firms_early",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   353
+  ],
+  "present_fire_cells": 160,
+  "max_flux_kW_m2": 0.6991690815459759,
+  "scenario_ids": [
+   "ffb1:20250325T230000Z:a3954ab9d481b668:0"
+  ],
+  "hazard_sha256": "d42088fd91e474781c74d1f47ad1f9172abaf110c58a515038b24b8ccc0e2a23",
+  "hazard_mb": 63.6,
+  "status": "OK"
+ },
+ {
+  "region": "yeongdeok_2025",
+  "start": "20250325T230000Z",
+  "start_kind": "recorded",
+  "horizon_h": 5,
+  "variant": "envelope",
+  "omitted": {
+   "window": null,
+   "outside_sources_possible": false
+  },
+  "omitted_dose_zero_by_construction": true,
+  "valid_until_ok": true,
+  "synthetic_marker_ok": true,
+  "envelope_law_ok": true,
+  "ignitions": [
+   353
+  ],
+  "present_fire_cells": 160,
+  "max_flux_kW_m2": 0.6993161035520964,
+  "scenario_ids": [
+   "ffb1:20250325T230000Z:d66f137ae0f9d4ef:0"
+  ],
+  "hazard_sha256": "de7bb4037f501b58cf09db767cfaa748dcaf26ebe549f43b0886d482c3820625",
+  "hazard_mb": 63.6,
+  "status": "OK"
+ }
+]

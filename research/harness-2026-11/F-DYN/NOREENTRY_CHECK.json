@@ -1,0 +1,158 @@
+{
+ "rule": "NOREENTRY_RULE.md",
+ "manifest_sha256": "b9b1e8533766f37923b6b4a653bf72f03b41ce76c04f9354239054256cd2ed23",
+ "numpy": "2.5.3",
+ "rows": [
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:envelope",
+   "reopening_build_rc": 0,
+   "no_reentry_build_rc": 0,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/1",
+    "transform": "no_reentry/1",
+    "no_reentry_flux": "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears",
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "scenario_ids_differ_from_reopening": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7009922917612879,
+      "integral_kJ_m2_cells": 8663479.12215105
+     }
+    ],
+    "no_reentry": [
+     {
+      "max_kW_m2": 0.701950866369709,
+      "integral_kJ_m2_cells": 13558375.341200657
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "6_richard_never": {
+    "members": 1,
+    "cell_set_diff": 0,
+    "birth_diff": 0,
+    "nr_end_before_H": 0,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:envelope_burnset",
+   "reopening_build_rc": 0,
+   "no_reentry_build_rc": 0,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/1",
+    "transform": "no_reentry/1",
+    "no_reentry_flux": "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears",
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "scenario_ids_differ_from_reopening": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ],
+    "no_reentry": [
+     {
+      "max_kW_m2": 0.7028234410718623,
+      "integral_kJ_m2_cells": 204547863.18930176
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "6_richard_never": {
+    "members": 1,
+    "cell_set_diff": 0,
+    "birth_diff": 0,
+    "nr_end_before_H": 0,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:firms_early",
+   "reopening_build_rc": 0,
+   "no_reentry_build_rc": 0,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/1",
+    "transform": "no_reentry/1",
+    "no_reentry_flux": "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears",
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "scenario_ids_differ_from_reopening": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7006561365762222,
+      "integral_kJ_m2_cells": 3719474.8602506937
+     }
+    ],
+    "no_reentry": [
+     {
+      "max_kW_m2": 0.701791821517696,
+      "integral_kJ_m2_cells": 9611811.689885804
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "6_richard_never": {
+    "members": 1,
+    "cell_set_diff": 0,
+    "birth_diff": 0,
+    "nr_end_before_H": 0,
+    "ok": true
+   },
+   "ok": true
+  },
+  {
+   "entry": "yeongdeok_2025:20250325T110000Z:5:kriged_mean",
+   "reopening_build_rc": 0,
+   "no_reentry_build_rc": 0,
+   "1_reopening_hazard_sha256": "6940f2939318126437b6109853033ab0b1534dd288f3775c6c0352ed44646f2f",
+   "1_equals_v35": true,
+   "2_self_check_consistent": true,
+   "2_identity": {
+    "source_law_version": "wfg.fdyn.no-reentry-scalar/1",
+    "transform": "no_reentry/1",
+    "no_reentry_flux": "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears",
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "scenario_ids_differ_from_reopening": true
+   },
+   "3_own_derivation_mismatches": 0,
+   "4_flux": {
+    "reopening": [
+     {
+      "max_kW_m2": 0.7010840682739119,
+      "integral_kJ_m2_cells": 2416599.5549944756
+     }
+    ],
+    "no_reentry": [
+     {
+      "max_kW_m2": 0.7019419459734549,
+      "integral_kJ_m2_cells": 5555514.8403344415
+     }
+    ]
+   },
+   "5_array_path_consistent": true,
+   "6_richard_never": {
+    "members": 1,
+    "cell_set_diff": 0,
+    "birth_diff": 0,
+    "nr_end_before_H": 0,
+    "ok": true
+   },
+   "ok": true
+  }
+ ],
+ "all_ok": true
+}

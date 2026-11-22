@@ -1,0 +1,18 @@
+{
+ "spent_weighted": 74,
+ "calls": [
+  {
+   "batch": 0,
+   "locations": 50,
+   "weighted": 50,
+   "utc": "2026-11-13T12:49:26Z"
+  },
+  {
+   "batch": 1,
+   "locations": 24,
+   "weighted": 24,
+   "utc": "2026-11-13T12:49:29Z"
+  }
+ ],
+ "locations": 74
+}

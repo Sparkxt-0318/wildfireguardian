@@ -1,0 +1,668 @@
+# Routing on the widened road graph (rule; DRAFT, plan only; written before any build or run)
+
+**Status.**
+- **The assessor read de025de1 (13 Nov) and passed the design; the build may start after the assessor's changes,** which are
+  applied in this revision: class wording, arm names, agency visibility, P6, the window-exit report and §6.
+- Draft. The rule and the pass criteria are committed before any build or run.
+- The assessor reads the rule before anything is built. The independent verifier verifies the result.
+- **No verified one-hour result changes.** None of the re-run candidates is in the one-hour panel.
+
+**Order (the orchestrator's message of 2026-11-13 02:29 UTC).**
+1. This rule.
+2. The assessor's reading.
+3. Builds and runs.
+
+This comes after the routing author's `/2` headline rerun, which has finished: 48/48, 54bcb96e. AIR-EXTRACT §2 keeps its place in the queue.
+
+## 1. The graph
+
+**Source.** The widened road graph `kfs01_grid5km.json`, sha256 `2232df00…`, from `daniel/data-fetch-3` @ 6b37ebed
+(`roads/step1/`, `STEP2_RESULT.md`).
+- **Input:** built from the owner-supplied OSM snapshot of 2025-01-01 (pbf sha256 `9b67fc95…`).
+- **Extent:** the KFS_01 export grid plus 14 cells (5,250 m) on every side. That is 265 × 107 cells of 375 m, EPSG:5179,
+  x0 1,080,000, y0 1,810,500.
+- **Cell index:** `row*265 + col`, with row 0 at the south edge. Export cell (r, c) maps to (r + 14, c + 14).
+- **Size:** 185,747 nodes, 367,094 edges.
+- **Label on every output:** **"roads as of 2025-01-01 (before the March 2025 fires)"**.
+- **Mismatch with the owner graphs.** Step 1 against the owner graphs fails strictly, because the owner graphs are 79 days
+  newer (`STEP1_RESULT.md`). Every output states this.
+
+**Use.**
+- The graph is not committed (132.7 MB). Each user rebuilds it from the pbf with the committed scripts (pyosmium 4.3.2,
+  pyproj 3.8.0) and must match all 5 MANIFEST sha256 values before use. A mismatch stops the run.
+- **The pbf's Drive id is private.** It lives in an environment variable only, and never in any committed file, log or
+  script.
+- **Start condition:** this rule is used only after the reviewers and the independent verifier have given their verdict
+  on the graph itself (step 1 and step 2).
+
+## 2. The padding contract: no fire data outside the export grid is not "safe"
+
+**The gap.** The fire inputs (export, arrival rasters, burn set) exist only on the export grid. The 9,632 padding
+cells (265 × 107 − 237 × 79) have **no fire information at all**.
+
+**The danger.** The routing author's reader treats a cell with no phases as OPEN. Padding would therefore read as safe
+unless it is marked.
+
+### 2.1 Packets on the widened grid
+
+The checker refuses a packet whose grid differs from the graph's ("HAZARD grid differs from the graph grid"), so the
+packets are rebuilt on the 265 × 107 grid:
+
+- **Padded export** (`fdyn/pad_export.py`, new). It is written before any build and adds no fire. The export arrays are
+  copied into the centre. Padding cells get:
+  - `probability_valid = false` (the writer's policy_assigned_zero: no new-burn source);
+  - `source_burned_area_valid = false` (burned state unknown);
+  - `heat__initial_burning_valid = false`;
+  - the export's own fill values elsewhere.
+
+  Present fire and known-burned cells are those of the export, so none lie in padding. The record keeps the original
+  export sha256, plus `fdyn_padding = {cells: 14, rule: WIDENED_GRAPH_RULE.md}`.
+- **Padded arrival rasters.** These are NaN in padding (no arrival, never ignites). C0 and B0 (NOREENTRY2_RULE.md) are
+  therefore unchanged: both are computed on export cells only.
+- **The build.** It uses the same `fdyn/build.py --no-reentry2` with the padded export and rasters on the widened
+  grid, and gets its own output directory (`packets_v38_widened/`).
+- **Radiation.** Flux is computed on the widened grid. The fire is the same, so the flux on export cells is unchanged
+  (checked as P2).
+- **Support mask.** Through the verified F-9.3 wrapper path (`--support-mask`, `supplied/1`), support = false on every
+  padding cell. The provenance is `{"rule": "WIDENED_GRAPH_RULE.md §2", "reason": "export-grid padding, no fire data",
+  "padding_cells": 9632}`. The F-3.2 certifier, the kit checker and the replay `Packet` refuse such packets by design.
+  That is why the results here are router-only and labelled.
+
+**If the frozen writer refuses a padded export** (an invalid probability or burned state over a large area), the build
+stops. The refusal is reported, and this rule returns to the orchestrator. Nothing is worked around.
+
+### 2.2 Two hazard arms over the padding
+
+Every run is made twice, using the routing author's `PacketModel(extra_blocks=…)`:
+
+| Arm | Padding cells | Reads as |
+|---|---|---|
+| **padding closed** | closed on [0, H), under both the closed and the router rules | "fire may be anywhere outside the export grid" |
+| **padding open** | open | "no fire outside the export grid" |
+
+**What "padding closed" is conservative about.** It is conservative about the padding **only**. Inside the export
+grid, cells with no fire information still read as open, exactly as in the headline. It is not a worst case inside
+the export grid (assessor, 13 Nov).
+
+**Label on both arms:** **"no fire data outside the export grid; not shown safe"**.
+
+### 2.3 Result classes (fixed before any run)
+
+For each (place, start, horizon, variant):
+
+| Padding closed | Padding open | Class |
+|---|---|---|
+| route found | (any) | **route found by the router on the widened graph, to the listed destinations; not independently checked** (pre-fire roads; padding assumed burning) |
+| no route | route found | **undetermined: depends on fire outside the export grid** (never "has a road escape") |
+| no route | no route | **no route found by the router on the widened graph to the listed destinations; not independently checked**. If the reachable set again touches the widened boundary, it is "undetermined: map window too small (widened)". |
+
+**Why the classes are worded this way** (assessor):
+- **"Checked" is not used.** Every checker refuses the padded packets (§2.1, P5), so these routes are found by the
+  router and checked by nothing. In this project "checked" means an independent checker accepted the route.
+- **"To the listed destinations".** The destination set is unchanged and lies inside the old area. A "no route" here
+  means no route to those places. It does **not** mean that no road leads away from the fire, and it is not the same
+  as "no road escape".
+
+**What agencies see** (assessor):
+- Only the three classes, and facts from the **padding-closed** arm.
+- The padding-open arm stays internal. Its only outward trace is the class "undetermined: depends on fire outside the
+  export grid".
+- **No route geometry, time or count from the padding-open arm goes to an agency.** A line drawn through cells where
+  we have no fire data would be read as a way out.
+
+- **Refusal claims** come from ROUTER on the padding-closed arm only.
+- **The NO_CHECKED_ROUTE set and the AIR-EXTRACT §1 counts** take only the padding-closed class. An "undetermined" place
+  stays out of every count of no-escape places.
+
+## 3. Waiting: two arms, so that the road effect and the waiting effect are separated
+
+On the widened graph, waitable (exactly 1 distinct neighbour; ROAD_RULE addendum 1) changes **inside** the old
+windows. Edge dead ends now connect outward (`STEP2_WAITABLE_DELTA.json` @ ccc1de58):
+- UA: 565 → 479 (478 unchanged, 87 removed, 1 added);
+- YD: 1,524 → 1,456 (1,454 unchanged, 70 removed, 2 added).
+
+The two arms:
+- **(a) Old waiting set.** Nodes present in the step-1 graph keep their step-1 waitable value. Every node absent from
+  step 1 follows the widened dead-end rule: the 3 in-window additions and all out-of-window nodes. (a) changes only
+  what the old graph could not express.
+- **(b) Widened dead-end rule.** The dead-end rule is applied to the whole widened graph.
+
+**Reporting.**
+- The **road effect** is (a) against the old graph.
+- The **waiting effect** is (b) against (a).
+- **(b) is the headline.** It is the documented rule applied to the graph actually used.
+- **Waiting wording.** The final (S)/(R) wording applies (F-3.1 WAITING_SENSITIVITY_RULE.md @ 1b792c77). The
+  "waiting allowed everywhere" sensitivity row is reported as always.
+
+## 4. What is re-run
+
+**The candidates.** The `possibly_road_limited` set from the routing author's `/2` headline (54bcb96e): no CERT route
+at the departure, with the reachable set touching a graph-window boundary node. That is **34 (region, start, place)**,
+each at h5 and h8:
+- UA 23T01Z: 17;
+- UA 24T09Z: 10;
+- UA 25T17Z: 6;
+- YD 25T19Z: 1.
+
+The per-place list (boundary-node and reachable counts) is committed with the run as its input, before any run.
+
+**For each candidate:**
+- the timing variants: kriged_mean, firms_early, envelope, plus envelope_burnset as its own row;
+- × the 2 hazard arms (§2.2);
+- × the 2 waiting arms (§3);
+- on the same 30-min departure grid;
+- with the **same destination set** as the headline (INSTANCE). Adding destinations outside the export grid would be a
+  separate decision.
+
+**"possibly_road_limited" is a reachability heuristic.** It is not proof that the window caused the no-route. The
+re-run is what tests it.
+
+**Not re-run: "origin point closed at departure".** 1,074 of the 1,322 place rows that lose their route from `/1` to
+`/2` are in this class: the place's point is on or touches ground that burned out before the start (B0). A wider
+graph does not change them, so they are not re-run.
+
+**Execution.**
+- One place at a time.
+- A memory sizing check comes first. YD all-waitable already peaks at about 12 GB on the old graph, and the widened
+  graph has 185,747 nodes.
+- UA candidates first, YD last.
+
+## 5. Pass criteria (fixed before any build or run)
+
+- **P1, graph.** All 5 MANIFEST sha256 values match after the rebuild. Inside both old windows the step-2 comparison
+  passes (0 missing, extra or differing).
+- **P2, packet.** For every widened packet against its v3.7 `/2` packet, on every export cell (mapped by the +14
+  offset):
+  - flame per member and bin is equal;
+  - flux is equal within the A1 rule (relative ≤ 1e-9 or absolute ≤ 1e-12 kW/m²);
+  - breakpoints are equal;
+  - the identity is new (scenario ids differ).
+
+  On padding cells: flame is false in every bin, and support is false.
+- **P3, support.** Support = false on exactly the 9,632 padding cells, and true on every export cell (or as in the
+  v3.7 packet).
+- **P4, extension monotonicity.** Arm (a) × the padding-closed arm. Every (place, start, horizon, variant, departure)
+  that had a checked route on the old graph under `/2` still has one on the widened graph.
+  - Why it must hold: the old graph is a subgraph inside the windows, the hazard on export cells is equal, and the
+    padding is closed.
+  - Any violation is a FAIL and stops the work.
+- **P6, arm geometry** (assessor):
+  - no route in the padding-closed arm touches a padding cell;
+  - every route that exists only in the padding-open arm does touch one.
+
+  This follows from the construction, so it is asserted. A violation means the arms are not what the table says, and
+  it is a FAIL.
+- **P5, refusals.** Every packet with padding is refused by full_check, the kit checker and the F-3.2 certifier. This
+  confirms that no certificate is issued on it.
+
+**Reported, not asserted:**
+- **Per padding-closed route result: does the route leave the old window at all?** If it does not, the old graph
+  should already have found it. That is a discrepancy to explain, not a gain (assessor).
+- the class counts per region, start and horizon;
+- the road effect and the waiting effect;
+- which of the 34 candidates change class.
+
+**Later, not now: a checker mode** (assessor). It would accept a route when every cell the route touches has support
+true. Padding-closed routes lie wholly on export cells, so they could then be independently checked. That is a change
+to a verified checker, and it needs its own plan-first step.
+
+## 6. What this rule does not do
+
+- **It certifies nothing.** No route on the widened graph is independently checked, and no certificate is issued.
+  Nothing here may feed a resident channel, or the early-action list's times, without a separate decision.
+- **It does not show that a road escape exists or does not.** The destinations are unchanged.
+- **It does not test today's roads.** The map is pre-fire, 79 days older than the owner graphs, with no closures or
+  damage.
+- **It is not a worst case inside the export grid** (§2.2).
+- **It does not re-evaluate the 1,074 rows whose start point is on ground burned before the start.** They keep their
+  separate "not evaluated" state (the assessor's verdict on the `/2` headline).
+- **Results.** It changes no verified one-hour result and no `/2` headline number. Results on the widened graph are
+  reported alongside, labelled.
+- **Fire data.** It adds no fire data outside the export grid.
+- **Destinations.** It adds no destinations.
+- **The owner graphs.** It does not replace the owner graphs for anything else.
+
+## 7. Amendment 1: P4 precisely, and padding at the export-grid border (13 Nov; before any build)
+
+The routing author found four ways P4 could fail (his message of 04:28 UTC). Each is settled here, before any build.
+
+**(a) Ids: P4 compares like with like.**
+- The INSTANCE entry and destination ids are owner-graph OSM node ids, and the owner graphs are 79 days newer than the
+  snapshot.
+- P4 therefore compares **Daniel's step-1 graph** (same snapshot, clipped to the old window) against **the widened
+  graph**. It does not compare against the owner graph.
+- **Precondition:** Daniel's inside-window equality (0 missing / extra / differing; STEP2_RESULT.md).
+- **Before any run:** every INSTANCE entry and destination id is checked for presence in step-1. Missing ids are
+  listed, and their rows are excluded from P4 and reported.
+
+**(b) Edges clipped at the boundary.** Step 1 drops edges that cross the window boundary, and the widened graph has
+them whole, with different geometry and ticks.
+- P4 is asserted only for old routes that use edges **identical in both graphs**.
+- Any old route that uses an edge differing between the graphs is listed, not asserted.
+
+**(c) Padding at the export-grid border. Measured: both old windows reach it.**
+- UA window: cols 23–95, rows 0–64. Its row 0 is the export grid's south edge.
+- YD window: cols 166–236, rows 0–66. That is the export grid's south **and** east edges.
+
+**Ruling.** The padding-closed arm uses **the same closure as fire, under both the closed and the router rules.**
+- **Why.** "Padding closed" stands for possible fire, and fire closes an edge that touches its cell boundary. A
+  router-rule-only padding would be weaker than fire exactly where we have no data.
+- **Consequence.** An old edge, node or destination point lying on the export-grid border touches a padding cell, so
+  it is blocked from 0 in that arm.
+- **P4 is therefore asserted only for old routes that touch no padding cell**, counting boundary contact under the
+  closed rule.
+- **Old routes lost only through such contact** are listed in their own row: **"lost only by touching the edge of the
+  fire-data grid (padding assumed burning); not a fire result; the result on the old graph is unchanged"**. The row
+  is internal, like everything else that depends on what padding is assumed to be. That row is not a P4 failure, and not a fire result.
+
+**(d) Waiting.** Arm (a) uses the **old** waiting set (§3). Otherwise P4 could fail through lost stops.
+- **Implementation:** a `waitable_override: {node_id: bool}` in the routing author's PacketModel. It is applied to the
+  raw nodes before the RoadGraph is built, so the field and full_check see the same graph.
+- **Tests and failure handling:**
+  - a unit test (override == graph flags gives identical fields), committed before any run;
+  - unknown ids in the override are an error list, never silently ignored.
+- **Source:** `daniel/data-fetch-3` @ ccc1de58, `research/harness-2026-11/data-fetch-3/roads/STEP2_WAITABLE_DELTA.json`.
+
+**Restated P4.** For every (place, start, horizon, variant, departure) under `/2`, take each old route (step-1 graph,
+old waiting set) that:
+- uses only edges identical in both graphs;
+- touches no padding cell;
+- has its entry and destination ids present in step-1.
+
+Each such route must still have a route on the widened graph under arm (a) × padding closed. Every violation is a
+FAIL.
+
+**Candidate input.** Fixed: `results/NR2_ROAD_LIMITED_CANDIDATES.json` @ 50535521 (routing author's branch). It has 176
+rows over 34 places:
+- 160 are "depends on the no-re-entry rule";
+- 16 had no route on `/1` either;
+- none is "not evaluated".
+
+**§7 additions (13 Nov, from the routing author's id check; before any build):**
+- **What "identical edge" means in P4:** the same edge id, u, v, **ticks and segments**. Nodes moved by 0.34–23 m
+  between snapshots change the ticks, so id/u/v alone is not enough.
+- **Ids are not shared with the owner graphs.** STEP1_COMPARE.txt @ 122f42a3:
+  - UA has 237 owner-only and 205 rebuild-only nodes.
+  - 1,582 common UA edges differ.
+- **Any comparison with owner-graph results goes through an explicit id mapping.** Ids are never assumed equal.
+- **Places that cannot be located.** An INSTANCE id absent from the rebuilt step-1 node set makes its place **"not
+  located on the 2025-01-01 graph"**. Such places are not re-run, and they are listed.
+  - **Known before the rebuild:** UA osm:12616948834, created after the snapshot. It is the entry node of place
+    osm:node/415160468 at all 3 UA starts.
+  - The full membership test runs on the rebuilt step-1 graph, before any routing run.
+
+**The assessor's reading of §7 (13 Nov): border ruling accepted.** Her three additions are part of the rule:
+- **P4 coverage, reported per region:** how many old routes P4 covers, and how many it excludes for touching padding.
+  If most of the YD south/east-edge routes are excluded, P4 tests little there, and the report says so.
+- **P4-open, asserted.** Under (a) × padding open, every old route that uses only identical edges (and whose ids are
+  located) must still exist, with **no padding exclusions**: open padding adds no closure. This is the one complete
+  check of the graph extension. Any violation is a FAIL.
+- **The row label** for border-touch losses carries "not a fire result; the result on the old graph is unchanged",
+  and the row stays internal.
+
+**Reported with the widened-graph results; this changes nothing in the headline.** The count of `/2` headline routes
+that touch the export-grid border, per region and start. These results rest on "nothing is burning just outside the
+grid", and the reader should see how many there are.
+
+**§7(d) implementation fixed (13 Nov).** The routing author's `waitable_override` is at `claude/f31-deadline-field` @
+903b1668, committed before any run.
+- It is applied to raw nodes before RoadGraph.
+- It refuses unknown ids, non-bool values, and use together with waitable_all. Test: `tests/test_waitable_override.py`;
+  the suite passes 15/15.
+
+**How the arm (a) dict is built.** Input: `STEP2_WAITABLE_DELTA.json` @ ccc1de58.
+- **Contents:** for every node present in both the step-1 graph and the widened graph, `{id: step-1 waitable}`.
+- **Nodes absent from step 1** (the 3 in-window additions and all out-of-window nodes) are not in the dict, so they
+  keep the widened graph's own dead-end flag. That matches §3(a).
+- **Step-1-waitable nodes absent from the widened graph** cannot be set. They are listed, with their count reported,
+  before any run. They are expected to be 0, given the step-2 inside-window equality.
+- The dict and its sha256 are committed with the run input.
+
+## 8. Amendment 2: the independent verifier's read (verification ledger row 78) and one further gap (13 Nov; before any routing run)
+
+The independent verifier read the rule @ af24680e before any build and found it sound with four clarifications. They
+are settled here. Item (v) is a further gap found by the author while writing them. Nothing here was decided after a
+result: no padded packet has been built and no route has been computed.
+
+**Graph inputs reproduced (not a run).** The pbf was fetched by env var only, into its own directory: 233,753,476
+bytes, sha256 9b67fc95…, header replication timestamp 2025-01-01T21:21:00Z. With the data-fetch author's committed
+scripts (`roads/step1/` @ 6b37ebed; extract_area.py 0d57e2f1…, build_graph.py fcc1573e…; Python 3.13.18, pyosmium
+4.3.2, pyproj 3.8.0, `python -I`), the outputs are byte-identical to MANIFEST.json:
+- area_grid5km.json 7865f495…;
+- ua_step1.json e92cd0a8…;
+- yd_step1.json 39226a07…;
+- kfs01_grid5km.json 2232df00….
+
+The widened build peaked at 0.75 GB RSS.
+
+**(i) Padding in the padded export means "not burned".** This is a stated condition, not an assumption.
+- The bridge's unknown-age policy ("known burned, age unknown → active [0, T)") applies only to *known* burned cells:
+  `known_burned = source_burned_area_valid & (source_burned_area == 1)` and `unknown_age = known_burned &
+  ~heat__initial_burning_valid` (`integration/src/wfg_latest/bridge.py` lines 173 and 179, frozen).
+- `source_burned_area_valid = false` on padding therefore gives neither known-burned nor unknown-age. Padding gets no
+  present fire and no enclosure.
+- **Why P2 checks "flame false on padding in every bin":** it is the check that catches a violation of this condition.
+  A violation is a FAIL and stops the build.
+- **Flux on padding is nonzero.** Fire at the grid edge radiates into it. Routes that exist only in the padding-open
+  arm therefore carry a dose that nothing checks. That is one more reason the padding-open arm stays internal (§2.2).
+
+**(ii) P2, added fields.** These must also equal the v3.7 `/2` packet:
+- `valid_until` and the horizon H;
+- the present-fire enclosure fields (`present_fire_unknown_age_enclosed`, `unknown_age_cells_enclosed`, `R_max_s`).
+
+Flux on export cells is held to A1 (relative 1e-9 or absolute 1e-12 kW/m²). The independent verifier's argument for why
+it can hold (rfft2 over the full linear shape with zero padding, no wrap-around, and sources on export cells only in
+both builds) is recorded here as the reason. A failure is still a FAIL.
+
+**(iii) P4 restated: the same field on both graphs, feasible-set containment, and a fixed power floor.**
+
+*1. The same field on both graphs.*
+- Both sides use the routing author's deadline-field solver on `PacketModel.instance("cert", …)`, the CERT rule (router
+  OR closed footprint).
+- Neither side uses full_check.
+- "Checked route on the old graph" is dropped from P4. Since CERT-feasible ⊂ ROUTER-feasible, a CERT loss could
+  otherwise hide behind a ROUTER survival.
+
+*2. Containment of feasible sets, not grid points.* For each (place entry node, destination, dwell), let F(G, arm) be
+the exact CERT-feasible departure set on [0, H) (interval sets, integer seconds). Write G1 for the step-1 graph, with
+the v3.7 `/2` packet and the old waiting set.
+
+**The eligible old graph G1′** is G1 restricted so that it is, by construction, a sub-instance of the widened instance:
+- **(a)** keep only edges identical in both graphs: id, u, v, direction, ticks and segments (§7);
+- **(b)** drop every edge, wait node and destination point that touches a padding cell under the closed rule (§7(c));
+- **(c)** use as forbidden turns the union of G1's and the widened graph's on the edges that remain (item (v));
+- **(d)** keep G1's waitable flags.
+
+**P4 (asserted).** F(G1′) ⊆ F(widened, waiting arm (a), padding closed), exactly, for every triple, place, start,
+horizon and variant run. Any departure second in the difference is a FAIL and stops the work.
+
+**P4-open (asserted).** G1″ is G1′ without step (b). F(G1″) ⊆ F(widened, waiting arm (a), padding open), exactly.
+
+**Reported per region, start and triple:**
+- F(G1) \ F(G1′): departures lost to the old graph only through exclusions (a), (b) or (c);
+- the row "lost only by touching the edge of the fire-data grid (padding assumed burning); not a fire result; the
+  result on the old graph is unchanged" (§7) is the part due to (b) alone. It stays internal.
+
+*3. Power: a control set, and a minimum fixed now.*
+- **The control set.** The 34 candidates have no CERT route at their departures by construction, so on their own they
+  test containment weakly. P4 and P4-open are therefore also run on a control set: **every INSTANCE place at UA
+  25T17Z and at YD 25T19Z, h5, kriged_mean, no_reentry/2**. Only waiting arm (a) is used, under both padding arms. The
+  control set is internal and changes no headline number.
+- **Coverage per region.** Measured in departure-seconds summed over triples: |F(G1′)| / |F(G1)| (and |F(G1″)| /
+  |F(G1)| for P4-open), together with the number of triples where F(G1′) is non-empty.
+- **The fixed minimum.** P4 in a region counts as a test of the extension only if both hold:
+  - coverage ≥ 0.50;
+  - at least 50 triples with F(G1′) non-empty.
+- **Below the minimum,** that region's P4 result is reported as "held, but below the fixed coverage minimum: tests
+  little". It is never reported as a plain PASS. The same minimum applies to P4-open.
+
+*4. Mechanics.*
+- **Router-only runner.** The runs use a router-only runner, `fdyn/widened_run.py` (new). It calls PacketModel and the
+  deadline-field solver only, and never full_check or headline.py's witness check. It is committed and tested before
+  any run.
+- **P5 is a separate step.** It runs full_check, the kit checker and the F-3.2 certifier on each padded packet and
+  asserts refusal.
+- **Pre-build test: does PacketModel accept a support-masked packet?** Before any padded packet is built, a test checks
+  that PacketModel, at the routing author's committed head, loads a support-masked packet written by the F-9.3 wrapper.
+  - **Why.** Verification ledger row 42 found PacketModel @ d731b3a refusing one.
+  - **Pass condition.** The packet loads, and its Instance B/W/A arrays are identical to those of the unmasked packet
+    it wraps. Support does not enter the contact rules.
+  - **If it refuses,** the work stops and returns to the orchestrator. The author does not patch around it, because
+    PacketModel belongs to the routing author.
+
+**(iv) Memory.** The routing author's border-touch runner hit OOM on YD at about 14 GB (969a2ca2) and now keeps one
+field in memory at a time.
+- The runner here does the same.
+- The sizing check (§4) is measured on the widened graph with one UA candidate first.
+- If YD does not fit in this 15 GB container, YD is reported **blocked, with the measured peak**. It is not truncated.
+
+**(v) Turn restrictions differ between the graphs.**
+- A node that is a dead end in step 1 because its outward edge was clipped at the window edge allows a U-turn there
+  (ROAD_RULE addendum 1). The same node in the widened graph is not a dead end, so that U-turn is forbidden.
+- Restriction relations skipped in step 1 as outside the window can also apply in the widened graph.
+- An old route could therefore use a turn the widened graph forbids. That would break P4 without any fire or padding
+  effect.
+- (iii)2(c) removes this by construction. The number of turn pairs added to G1′ this way is reported per region.
+
+**Unchanged.** §2.3's classes, §2.2's agency visibility, P1–P3, P5 and P6 stand as written. Every result stays router-only
+and labelled.
+
+**§8 read by the independent verifier (verification ledger row 78a, 13 Nov): settled.**
+- **P4.** Given G1′ as stated, F(G1′) ⊆ F(widened) is a theorem given P2. P4 therefore catches implementation faults
+  only.
+- **(v)** is closed by the forbidden-turn union.
+
+**Reporting addition from that read (13 Nov; before any routing run).** The headline ran on the owner graphs, which
+are 79 days newer than the snapshot. A class change against the headline could therefore come from the map date
+rather than from the widening. Two effects are reported separately, so that neither is credited to the other:
+- **The widening effect:** widened, waiting arm (a), against G1, the same snapshot.
+- **The snapshot effect:** G1 against the owner-graph `/2` headline, through the §7 explicit id mapping.
+
+§2.3's class changes and §3's road effect are both stated against G1. The comparison with the headline is shown as the
+sum of the two effects, never as one effect.
+
+**Input checks done before any routing run (13 Nov):** `fdyn/widened_inputs.py` → `results/WIDENED_INPUTS.json`.
+- **Membership.** The only unlocated id is UA osm:12616948834. Its place, osm:node/415160468, is "not located on the
+  2025-01-01 graph" at all 3 UA starts.
+- **Arm (a) dict.** `results/WIDENED_ARM_A_WAITABLE.json`: 79,428 entries, sha256 34d0b7d4…. Its in-window delta
+  equals STEP2_WAITABLE_DELTA.json, and 0 step-1-waitable nodes are absent from the widened graph.
+- **Edges.** Every step-1 edge is identical in the widened graph: UA 43,801 and YD 111,814, with 0 differing and 0
+  absent.
+- **§8(v) is real.** The widened graph forbids 58 (UA) and 64 (YD) turn pairs on identical edges that step 1 allows.
+
+**§8(iii)4 pre-build test (13 Nov): FAIL. The work stops here.** The test (`fdyn/widened_pretest_packetmodel.py` →
+`results/WIDENED_PRETEST_PACKETMODEL.json`) ran PacketModel at the routing author's head 969a2ca2 on an F-9.3 masked
+pair: UA 25T17Z, `c651_unknown/1`, 5,068 support-false entries.
+- **The unmasked twin loads.**
+- **The masked packet is refused:** `PacketError: npz contract violated (current/support/events)`. This is the replay
+  `Packet`'s all-true-support contract, the same refusal as in row 42.
+
+No padded packet has been built and no route has been computed. As §8 states, the question has returned to the
+orchestrator.
+
+**Orchestrator decision on the pre-test failure (13 Nov, 08:27Z): option A.**
+- **The change.** The routing author adds a support-aware read path to PacketModel, written plan-first.
+- **Its tests:**
+  - full_check, the kit checker and F-3.2 still refuse masked packets;
+  - unmasked packets route byte-identically.
+- **The gate.** The independent verifier checks the change before any padded packet is built.
+- **Until then, nothing padded is built.**
+- **The pre-test re-runs on the new head** (`fdyn/widened_pretest_packetmodel.py`, same pair). Its pass condition
+  (§8(iii)4) is unchanged.
+- **The §8(v) difference stays recorded as found:** 58 turn pairs (UA) and 64 (YD).
+
+**Pre-test pair, corrected to the rule the build uses (13 Nov, 08:4xZ).** The pass condition is unchanged.
+- **The flaw.** The masked packet in the first pre-test was declared `c651_unknown/1`. The padded build uses
+  `supplied/1` (§2.1), and the routing author's planned read path (F-3.1 SUPPORT_READ_RULE.md) admits `supplied/1`
+  only. The c651 packet therefore cannot test the path the build needs.
+- **The new pair.** The pre-test pair is now A (unmasked) / D (`supplied/1`). D carries the same mask: C's support[0],
+  support_mask_sha256 a0353243…, 1,267 cells.
+  - D's npz is byte-identical to C's (39140349…). Only the declared rule differs.
+- **D at 969a2ca2: refused** in the same way. The record is `results/WIDENED_PRETEST_PACKETMODEL_supplied1.json`.
+- **The first record stands as it was.**
+
+**§8(iii)4 pre-build test on the routing author's support-aware read path (13 Nov): PASS.**
+- **Code under test:** `claude/f31-deadline-field` @ 53ccd5ae, using the A/D pair.
+- **Loading:** D (`supplied/1`) loads, with `support_masked` true and 1,267 support-false cells.
+- **Comparison with the unmasked twin:**
+  - edge blocks B are identical under both rules;
+  - wait-point blocks W are identical at every waitable node;
+  - destination dwell blocks A are identical at the 30 INSTANCE destinations on this graph.
+- **Record:** `results/WIDENED_PRETEST_PACKETMODEL_53ccd5ae.json`.
+- **The script was extended before this run** to compare W and A as well as B, which is what the §8 pass condition
+  states. The two earlier FAIL records compared B only; they failed at load, so the comparison never ran.
+- **Gate still closed.** Padded packets are built only after the independent verifier's verdict on 53ccd5ae.
+
+**PacketModel pinned to 446978f6 (13 Nov, ~09:25Z).** The routing author's support-read amendment 2 (446978f6;
+verification ledger row 79a) binds the mask to the packet by hash and fixes a threading defect at 53ccd5ae: concurrent
+loads in one process errored and left the reader patched.
+- **Every padded run is pinned to 446978f6.**
+- **Exposure at 53ccd5ae:** none of the work here loaded packets concurrently in one process. Packet builds never
+  load PacketModel; the batch threads only dispatch subprocesses. All three PacketModel results produced on 53ccd5ae
+  were nevertheless re-run on 446978f6:
+  - **pre-build test (A/D): PASS** — `results/WIDENED_PRETEST_PACKETMODEL_446978f6.json`;
+  - **P5 on the test packet: PASS** — full_check REFUSED_SUPPORT_MASKED; kit and F-3.2 refuse; the twin loads;
+  - **UA sizing run:** the feasible sets are identical to the 53ccd5ae run; peak 1.8 GB, 180 s.
+- **UA packet pairs (24 = 3 starts × h5/h8 × 4 variants): P2 and P3 PASS on all 24.** The maximum flux difference is
+  1.9e-15 kW/m² absolute. Results: `results/WIDENED_PAIRS_UA.json`.
+
+## 9. Results: Uiseong (13 Nov; router-only, not independently checked)
+
+> **roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; no fire data
+> outside the export grid; not shown safe.** Internal. Agencies see only the §2.3 classes, from the padding-closed arm.
+
+**Run.**
+- PacketModel 446978f6 and the deadline-field solver.
+- 25 runs, all rc 0: 24 candidate combos (3 starts × h5/h8 × 4 variants) plus the control set (UA 25T17Z, h5,
+  kriged_mean, all located places, waiting (a)).
+- Peak memory 1.96 GB per run.
+- A container restart at about 10:25Z killed the batch. The 10 finished outputs were intact (written only at the
+  end), and the rest re-ran from the same inputs.
+
+**Asserted, all PASS:**
+- **P1:** the graph shas match (§8).
+- **P2 and P3:** 24/24 (`results/WIDENED_PAIRS_UA.json`).
+- **P5:** 24/24. full_check, the kit checker and F-3.2 refuse every padded packet; every unpadded twin loads
+  (`results/WIDENED_P5_UA.json`).
+- **P4 and P4-open:** 0 departure seconds lost in any triple of any run.
+- **P6:** 0 closed ⊄ open; 0 padding-closed witnesses touch padding.
+
+**Coverage floor (§8(iii)3), control set.** |F(G1′)| / |F(G1)| = 1.0 (601,657 departure-seconds), with 83 non-empty
+triples (minimum 50). The floor is met, so **P4 is reported as PASS.** G1′ = G1 because no G1 geometry touches the
+export-grid border (§8).
+
+**Classes** (§2.3; waiting (b), the headline; per place, start, horizon and variant): see
+`results/WIDENED_RESULTS_UA.json`. kriged_mean, h5 (h8 is identical in every row):
+
+| Start | Candidate places | Route found (padding closed) | Undetermined: depends on fire outside the export grid | No route found |
+|---|---|---|---|---|
+| UA 23T01Z | 17 | 1 | 0 | 16 |
+| UA 24T09Z | 10 | 1 | 1 | 8 |
+| UA 25T17Z | 6 | 2 | 0 | 4 |
+
+firms_early and envelope differ only at 23T01Z: 0 found / 1 undetermined / 16 none. envelope_burnset has no route
+anywhere.
+
+**Effects** (summed over the 264 candidate place-rows, padding closed):
+- **Widening effect, widened (a) against G1** (78a): 12 rows gain a route. Each such route leaves the old window, since
+  every in-window widened edge is a G1 edge. 244 rows stay at no route, and 8 rows already had a route on G1.
+- **Snapshot effect, G1 against the owner-graph `/2` headline:** those 8 rows had **no** CERT route on the owner
+  graphs (the candidate list's definition) but have one on G1. That is the map-date difference (2025-01-01 against
+  2025-03-21), not the widening. Per-row detail is in `per_place`.
+- **Waiting effect, (b) against (a):** none. The 20 rows with a route under (a) have one under (b), and the 244 without
+  have none.
+
+**Reading.** On the 2025-01-01 map, a wider road window gives a router route to the listed destinations for 12 of
+the 264 Uiseong candidate place-rows. Of the rows with no route, 4 more depend on what is assumed outside the export
+grid. The rest still have no route found. None of this is independently checked, and nothing here changes a
+headline number or a class an agency sees, except through the labelled classes above.
+
+**Correction to §9 "Reading" (13 Nov, ~11:20Z, same author; the table and effects above stand).** "4 more depend on
+what is assumed outside the export grid" is wrong. The count over the 264 rows is **6**: UA 23T01Z firms_early and
+envelope at h5 and h8 (4), plus UA 24T09Z kriged_mean at h5 and h8 (2). The full split of the 264 rows is:
+- 20 with a route found (12 from the widening, 8 already on G1);
+- 6 undetermined;
+- 238 with no route found.
+
+**Independent verifier's read of §9 (verification ledger row 82, PASS WITH NOTES; 13 Nov).** The packet side was
+reproduced on the verifier's own build. The routing side was recounted, not re-run (the graphs are local to the
+author's container). The notes, settled here:
+- **(3) Departure set for the class.** §4 fixes the 30-min departure grid; §9 used any feasible departure in [0, H].
+  **The class follows §4: a route is "found" when the feasible set contains at least one 30-min grid departure**
+  (INSTANCE `depart_offsets_s`). Measured on all 264 Uiseong rows, the two definitions give the same class in every
+  row (0 differ), and every one of the 20 found routes has a feasible grid departure. The §9 numbers stand. The
+  exact sets stay in the run outputs.
+- **A1, absolute bound only.** Some pairs pass A1 only on the absolute bound: max relative 3.1e-9 > 1e-9, at max
+  absolute ≤ 1.9e-15 kW/m². A1 is "relative ≤ 1e-9 OR absolute ≤ 1e-12", so they pass, and that is how they pass.
+- **Padding flux is nonzero** (verifier's build: max 0.0037 kW/m²), as §8(i) anticipates. The padding-open arm stays
+  internal.
+
+**Graph build commands (13 Nov; added at the independent verifier's request, so the build can be reproduced from the
+text).** These are the data-fetch author's committed scripts, `research/harness-2026-11/data-fetch-3/roads/step1/` @
+6b37ebed:
+- extract_area.py sha256 0d57e2f1…;
+- build_graph.py sha256 fcc1573e…;
+- Python 3.13.18, pyosmium 4.3.2, pyproj 3.8.0;
+- every command run as `python -I`, from a scripts directory separate from the data.
+
+The pbf is fetched with its Drive id in an env var only. Its id is never written down.
+
+```
+L="roads as of 2025-01-01 (before the March 2025 fires)"   # ASCII hyphens; plain space before "(before"
+python -I extract_area.py <dl>/south-korea-250101.osm.pbf area_grid5km.json                       # 7865f495…
+python -I build_graph.py area_grid5km.json kfs01_grid5km.json --grid 1080000 1810500 375 265 107 \
+    --region kfs01_exportgrid_plus5250m --label "$L"                                               # 2232df00…
+python -I build_graph.py area_grid5km.json ua_step1.json --grid 1093875 1815750 375 73 65 \
+    --region uiseong_andong_2025 --label "$L"                                                      # e92cd0a8…
+python -I build_graph.py area_grid5km.json yd_step1.json --grid 1147500 1815750 375 71 67 \
+    --region yeongdeok_2025 --label "$L"                                                           # 39226a07…
+```
+
+`--grid` takes x0 y0 cell W H. `--region` and `--label` go into the graph bytes.
+
+## 10. Results: Yeongdeok (13 Nov; router-only, not independently checked)
+
+> **roads as of 2025-01-01 (before the March 2025 fires); router-only, not independently checked; no fire data
+> outside the export grid; not shown safe.** Internal. Agencies see only the §2.3 classes, from the padding-closed arm.
+
+**Sizing (§4/§8(iv)).** One candidate place, all 6 arms: peak 1.9 GB, 239 s. YD fits in the 15 GB container and is
+**not** blocked. The widened graph is shared by both regions, and arm (b) is the dead-end rule, not waiting allowed
+everywhere.
+
+**Run.**
+- PacketModel 446978f6.
+- 9 runs, all rc 0: 8 candidate combos (25T19Z × h5/h8 × 4 variants) plus the control set (25T19Z, h5, kriged_mean,
+  all 90 located places, waiting (a); 3,501 s).
+- Peak memory 1.96 GB.
+
+**Asserted, all PASS:**
+- **P1:** §8.
+- **P2 and P3:** 8/8; max flux absolute difference 1.8e-15 (`results/WIDENED_PAIRS_YD.json`).
+- **P5:** 8/8; every twin loads (`results/WIDENED_P5_YD.json`).
+- **P4 and P4-open:** 0 lost departure seconds.
+- **P6:** 0.
+
+**Coverage floor, control set.** Ratio 1.0 (2,479,535 departure-seconds), 150 non-empty triples. **P4 is reported as
+PASS.**
+
+**Classes** (`results/WIDENED_RESULTS_YD.json`; 30-min grid, §4). The one YD candidate place has entry
+osm:12031458606 (YD 25T19Z, from the candidate list). Under every variant and both horizons, it has **no route found
+by the router on the widened graph to the listed destinations; not independently checked** (8 of 8 rows).
+- It has no route on G1 either. The snapshot effect is 0.
+- The widening effect is 0, the waiting effect is 0, and the padding arm makes no difference (0 undetermined).
+
+**Reading.** For the one Yeongdeok candidate, the wider road window does not produce a route to the listed
+destinations, even with padding open. Its no-route therefore does not come from the window edge or from the
+assumption about fire outside the grid. It remains "no route found", router-only.
+
+**Both regions together** (§9 and §10): 272 candidate place-rows.
+
+| Class | Rows |
+|---|---|
+| Route found | 20 (all UA: 12 from the widening, 8 from the map date) |
+| Undetermined: depends on fire outside the export grid | 6 (all UA) |
+| No route found | 246 |
+
+P1–P6 pass everywhere, and the coverage floor is met in both regions.
+
+**Uiseong routing re-run by the independent verifier (verification ledger row 82a, PASS; 13 Nov).**
+- **Rebuilt independently:** all four graphs, byte-identical from the pbf; the arm (a) dict equal on all 23,126 UA
+  nodes; the G1 report equal (43,801 identical edges, 0 touching padding, 58 turn pairs).
+- **Re-run:** 8/8 runs on the verifier's own packets. 94/94 sampled rows match: all 6 undetermined, 4 found and 84
+  none. The 30-min-grid class equals [0, H] on every row. P4, P4-open and P6 are 0.
+- **Control:** identical (601,657 s; 83 non-empty triples).
+- **Yeongdeok (§10):** the verifier's re-run is in progress.
+
+**Yeongdeok verified (verification ledger row 83, PASS; 13 Nov).** The independent verifier ran a full independent
+re-run of all 9 YD runs from their own inputs:
+- yd_step1 rebuilt with the recorded command (39226a07);
+- their own G1/G1′;
+- their own packets, at PacketModel 446978f6.
+
+What matched:
+- All 9 runs rc 0, and 8/8 rows "no route found", with 0 mismatches.
+- Every feasible set of osm:12031458606 is empty in all six arms. P4, P4-open and P6 are 0.
+- The control is identical: 90 places, 270 triples, 150 non-empty, 2,479,535 s, ratio 1.0.
+
+**Both regions** (20 found / 6 undetermined / 246 none of 272) are now independently verified (rows 82, 82a and 83).
+The YD widened classes on the early-action list drop "verification pending" at its next rebuild.

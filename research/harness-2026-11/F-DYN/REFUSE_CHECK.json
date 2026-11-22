@@ -1,0 +1,77 @@
+{
+ "rule": "PACKET_CONSISTENCY_RULE.md B/C",
+ "rows": [
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34_test/yeongdeok_2025/20250325T110000Z_h5_envelope",
+   "kind": "hazard_only",
+   "reader": "ContactModel.from_packet (also frontend.build_instance, F-3.2 run_panel)",
+   "outcome": "REFUSED",
+   "detail": "ValueError: Unknown or negative first-new ignition is unsupported",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34_test/yeongdeok_2025/20250325T110000Z_h5_envelope",
+   "kind": "hazard_only",
+   "reader": "explain_deadlines.Packet (replay consistency)",
+   "outcome": "REFUSED",
+   "detail": "PacketError: npz contract violated (current/support/events)",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34_test/yeongdeok_2025/20250325T110000Z_h5_envelope",
+   "kind": "hazard_only",
+   "reader": "F-3.2 p1_check.from_raw",
+   "outcome": "ACCEPTED",
+   "detail": "97",
+   "as_required": false
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34_test/yeongdeok_2025/20250325T110000Z_h5_envelope_burnset",
+   "kind": "consistent",
+   "reader": "ContactModel.from_packet (also frontend.build_instance, F-3.2 run_panel)",
+   "outcome": "ACCEPTED",
+   "detail": "16176",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34_test/yeongdeok_2025/20250325T110000Z_h5_envelope_burnset",
+   "kind": "consistent",
+   "reader": "explain_deadlines.Packet (replay consistency)",
+   "outcome": "ACCEPTED",
+   "detail": "{'cells_checked': 16176, 'status': 'HAZARD_FLAME_EQUALS_NPZ_PHASES'}",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34_test/yeongdeok_2025/20250325T110000Z_h5_envelope_burnset",
+   "kind": "consistent",
+   "reader": "F-3.2 p1_check.from_raw",
+   "outcome": "ACCEPTED",
+   "detail": "16176",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T110000Z_h5_firms_early_central_q300",
+   "kind": "consistent",
+   "reader": "ContactModel.from_packet (also frontend.build_instance, F-3.2 run_panel)",
+   "outcome": "ACCEPTED",
+   "detail": "1440",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T110000Z_h5_firms_early_central_q300",
+   "kind": "consistent",
+   "reader": "explain_deadlines.Packet (replay consistency)",
+   "outcome": "ACCEPTED",
+   "detail": "{'cells_checked': 1440, 'status': 'HAZARD_FLAME_EQUALS_NPZ_PHASES'}",
+   "as_required": true
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T110000Z_h5_firms_early_central_q300",
+   "kind": "consistent",
+   "reader": "F-3.2 p1_check.from_raw",
+   "outcome": "ACCEPTED",
+   "detail": "1440",
+   "as_required": true
+  }
+ ]
+}

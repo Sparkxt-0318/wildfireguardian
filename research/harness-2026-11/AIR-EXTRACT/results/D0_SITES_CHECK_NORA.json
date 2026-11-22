@@ -1,0 +1,18 @@
+{
+ "csv_sha256": "55f666251b5e803ad2fd92eaaf1a8518200045038dc03838b0d76f73b6137931",
+ "geo_sha256": "3427c103c465f8f6fb5b9542fafcf71883d37c187912f7c430d54a756bffb8e7",
+ "register": {
+  "rows": 627,
+  "usable": 538,
+  "blank": 24,
+  "invalid": 65,
+  "invalid_wellformed_outside_korea": 10,
+  "distinct_usable_points": 500
+ },
+ "rows_checked": 185,
+ "usable_sites_within_100km_of_a_row": 126,
+ "sites_outside_stated_sigungu": 11,
+ "d0_reports_outside": 11,
+ "mismatches": 0,
+ "mismatch_detail": []
+}
