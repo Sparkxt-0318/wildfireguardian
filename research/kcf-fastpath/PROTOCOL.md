@@ -176,4 +176,8 @@ with zero differences and every mutant detected.
 
 ## Amendments
 
-(none yet)
+**A1, 23 Nov 2026, before any timing.** The E1–E3/E5 run on UA 03-24 (`eq_real.py UA0324`) was stopped after 5 of
+31 specs (0 differences so far) because it ran far longer than the other caches, and re-run as six parallel processes
+over disjoint spec subsets (`eq_real.py UA0324 OUT 0,1,...,5`, ..., `30`), merged by `merge_eq.py` into
+`results/eq_UA0324.json`. `merge_eq.py` checks that every variant covered all 31 specs. The tests are the same; only
+the run was split. Reason: time.
