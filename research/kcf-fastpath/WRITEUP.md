@@ -9,7 +9,7 @@ Protocol: `PROTOCOL.md` (frozen at `c1213cb3`, before any fast solver was timed;
 * **The answers do not change.** Every equality test passed with **zero differences** for each change alone and for
   both together. That covers Feas(o) of all 1,574 origin sets on the six caches, second by second; every state set
   and the fixed-point certificate; the verdict, arrival and full leg sequence of all 9,722 jobs; 6,000 random
-  instances, 4,000 of them also against brute force; and the pruning guard. Seven deliberately wrong solvers were
+  instances, 4,000 of them also against brute force; and the pruning guard. Six deliberately wrong solvers were
   each caught. The timed runs agree as well: all four solvers give the same SHA-256 of the per-job answers on all
   18 job sets.
 * **Change 1 (scalar fast path) is the win.** The field time drops by **1.8× to 2.6×** (medians) on all six caches
@@ -310,7 +310,7 @@ Let o be a source of the forward search (o ∈ σ) and t ≥ 0.
 
 The proofs are about the model; the tests check the code. E1–E3 and E5 compare every origin set, every state set,
 every job's answer and witness route on all six recorded caches with the unchanged `core.backward`; E4 does the same
-on 6,000 random instances and against brute force on 4,000 of them; `mutants.py` shows that each of seven ways of
+on 6,000 random instances and against brute force on 4,000 of them; `mutants.py` shows that each of six ways of
 getting the rules wrong (hypotheses assumed, either bound off by one second, a bound that is not a lower bound, the
 origin guard removed) is caught. The windowed fixed-point certificate (`fastfield.check_fixed_point`) is checked on
 every fast field: by the uniqueness in Lemma W it certifies the stored sets independently of how they were computed.
