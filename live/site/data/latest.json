@@ -1119,7 +1119,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-23T06:08:11Z",
+   "fetched_utc": "2026-11-23T06:38:05Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1130,7 +1130,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-23T06:08:11Z",
+   "fetched_utc": "2026-11-23T06:38:05Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1141,7 +1141,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-23T06:08:11Z",
+   "fetched_utc": "2026-11-23T06:38:05Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1152,7 +1152,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-23T06:08:11Z",
+   "fetched_utc": "2026-11-23T06:38:05Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1175,22 +1175,46 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261123/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 23,
+   "bytes": 615,
    "error": null,
-   "fetched_utc": "2026-11-23T06:08:10Z",
+   "fetched_utc": "2026-11-23T06:38:04Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "3d0dc27c3fc3b66d9dc7417a4a30b7ac70892b60dc1f48f208b8f3fa1e0a21ec",
+   "sha256": "ed5716cc4f944b05711066448948d2284575e48b6680427f79198018c542c4f1",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-23T06:00:00Z",
- "issue_kst": "2026-11-23 15:08",
- "issue_utc": "2026-11-23T06:08:00Z",
+ "issue_kst": "2026-11-23 15:38",
+ "issue_utc": "2026-11-23T06:38:00Z",
  "kfs_ok": true,
- "listed": [],
+ "listed": [
+  {
+   "address": "전남광주통합특별시 광양시 옥룡면 용곡리",
+   "cause": {
+    "changes": [],
+    "first_reported_utc": "2026-11-23T06:02:48Z",
+    "first_seen_utc": "2026-11-23T06:38:00Z",
+    "ignition_points": null,
+    "source_fields": [],
+    "status": "not_reported",
+    "status_word": null,
+    "text": null
+   },
+   "contained_pct": null,
+   "id": "515724",
+   "in_scope": false,
+   "lat": 35.01515341100051,
+   "lgdng_cd": "1219032026",
+   "lon": 127.63067412312995,
+   "report_utc": "2026-11-23T06:02:48Z",
+   "status": "진화중",
+   "status_code": "02",
+   "step": "초기 대응"
+  }
+ ],
  "notice": {
   "en": "Model output, advisory, not an official order; follow instructions from authorities. No official use is claimed.",
   "ko": "모델 출력 · 참고용 · 공식 명령 아님. 당국의 안내에 따르십시오. 공식 사용을 주장하지 않습니다."
@@ -1199,12 +1223,12 @@
  "regions": {},
  "run": {
   "commit": "5ff9aa90af07e741437bfff0cc55c95d410e549d",
-  "compute_finished_utc": "2026-11-23T06:08:12Z",
+  "compute_finished_utc": "2026-11-23T06:38:06Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-23T06:08:11Z",
+  "fetch_finished_utc": "2026-11-23T06:38:05Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45121982305"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45125302741"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
