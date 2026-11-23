@@ -1,0 +1,21 @@
+{
+ "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+ "machine": "arm64",
+ "python": "3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:29:07) [Clang 19.1.7 ]",
+ "python_executable": "/Users/jp/miniforge3/bin/python3",
+ "cpu_count": 15,
+ "cpu_model": "Apple M5 Pro",
+ "cores_perf_eff": [
+  "5",
+  "10"
+ ],
+ "mem_bytes": "25769803776",
+ "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+ "libs": {
+  "numpy": "2.5.0",
+  "pyproj": "3.7.2",
+  "scipy": "1.18.0",
+  "shapely": "2.1.2"
+ },
+ "git_head": "24e2c0c8ac9c2025d1cfbf0b2b88b4403bf76741"
+}

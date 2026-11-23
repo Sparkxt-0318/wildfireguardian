@@ -1,0 +1,26 @@
+{
+ "cmd": [
+  "/Users/jp/miniforge3/bin/python3",
+  "research/kcf-fastpath/run_fast.py",
+  "prune",
+  "YD0325T19",
+  "research/kcf-fastpath/runs/full/YD0325T19.prune.r4.json"
+ ],
+ "exit_code": 0,
+ "wall_s": 120.9807488330116,
+ "cpu_user_s": 120.067264,
+ "cpu_sys_s": 0.7837529999999999,
+ "cpu_s": 120.851017,
+ "peak_rss_mib": 1177.125,
+ "loadavg_before": [
+  3.57421875,
+  3.19384765625,
+  3.28076171875
+ ],
+ "loadavg_after": [
+  3.85205078125,
+  3.34716796875,
+  3.32177734375
+ ],
+ "finished_at_unix": 1795435211.3009799
+}

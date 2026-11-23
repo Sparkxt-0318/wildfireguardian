@@ -4,7 +4,147 @@ Protocol: `PROTOCOL.md` (frozen at `c1213cb3`, before any fast solver was timed;
 `fastfield.py` (the solver), `run_fast.py` (benchmark runner), `eq_real.py`, `test_fastfield.py`, `mutants.py`
 (equality tests), `bench.sh`, `summarize.py`. `deadline_field/core.py` is unchanged and is the baseline.
 
-<!-- RESULTS -->
+## 0. Headline
+
+* **The answers do not change.** Every equality test passed with **zero differences** for each change alone and for
+  both together. That covers Feas(o) of all 1,574 origin sets on the six caches, second by second; every state set
+  and the fixed-point certificate; the verdict, arrival and full leg sequence of all 9,722 jobs; 6,000 random
+  instances, 4,000 of them also against brute force; and the pruning guard. Seven deliberately wrong solvers were
+  each caught. The timed runs agree as well: all four solvers give the same SHA-256 of the per-job answers on all
+  18 job sets.
+* **Change 1 (scalar fast path) is the win.** The field time drops by **1.8× to 2.6×** (medians) on all six caches
+  (`full` job sets), "faster" by the protocol's range rule everywhere. The whole run is 1.2× to 1.6× faster on the
+  four caches where the field dominates. On UA 03-24 and UA 03-25 the witness routes dominate the run, so the whole
+  run is "not distinguished".
+* **Change 2 (pruning) alone is not worth it on these caches.** It is faster only on UA 03-23 and UA 03-24
+  (1.4×). On the other four it is "not distinguished", and its median is slightly slower on two Yeongdeok caches.
+  Its forward bound removes only 7% (Uiseong) to 15% (Yeongdeok) of the states, and its solver allocates more.
+  **Both changes together** are as fast as the scalar path alone (1.8× to 2.8×), not faster.
+* **Memory is lighter overall, not on every field.** Summed over each cache's specs, the scalar solver's peak
+  allocation is **46% to 58% of the baseline's** on all six caches (both changes: 54% to 67%). Its finished field
+  keeps 1.7 to 4.4 MiB, against 13.5 to 32.4 MiB, on the caches where every state is scalar. But on the three caches that have some interval states (UA 03-24,
+  UA 03-25, YD 03-26), the **largest single spec** allocates 11% to 31% more than the baseline. The whole-process peak
+  RSS is "not distinguished" on every cache: the field is a small part of the process (graph, packet model, witnesses).
+* **Fast-path share.** With the hypotheses checked per state on their usable windows, the scalar share is 100%
+  (UA 03-23, YD 03-25 19Z and 23Z), 99.4% (YD 03-26), 96.9% (UA 03-25) and **93.9% (UA 03-24)**. With the plain
+  THEOREM.md hypotheses it would be 4.9% on UA 03-24: the 88 reopening edges reach almost every state. The window
+  that changes this is sound (§A.2).
+* **Verdict under PROTOCOL.md §5** ("lighter" read strictly: lower both summed over the specs and on the largest spec).
+  * Change 1 **partly passes**: correctness gate passed, field faster on all six caches, lighter on three (UA 03-23,
+    YD 03-25 19Z, YD 03-25 23Z), not lighter on UA 03-24, UA 03-25 and YD 03-26 (largest spec heavier).
+  * Change 2 **partly passes**: gate passed, faster on two caches, heavier on all six.
+  * Both together **partly pass**: as for change 1.
+
+## B. Results
+
+Machine: Apple M5 Pro (5 performance and 10 efficiency cores), 24 GB, macOS 27.0.1, Python 3.13.13 (conda-forge),
+numpy 2.5.0 (`runs/HOST.json`). Code: `fastfield.py` as frozen with the protocol (`runs/COMMITS.txt`). The 360 timed
+runs ran from 23 Nov 2026 08:43 to 14:10 UTC, one at a time, inside the Claude Code command sandbox (macOS
+Seatbelt), which applies to all four solvers alike. The 1-minute load average before a run was 1.8 to 18.9 (median
+5.0). This is the user's working Mac, not an idle machine. No run failed, none was dropped or re-run. Full tables for
+all 18 job sets: `results/tables.md`; numbers: `results/RESULTS.json`; raw files: `runs/`.
+
+### B.1 Equality (untimed)
+
+| cache | specs | E1 origin sets | E2 states compared (per variant) | E3 jobs (routes) | E5 guard checks | differences |
+|---|---|---|---|---|---|---|
+| UA 03-23 | 32 | 254 | 1,402,432 | 1,523 (1,188) | 96 | 0 |
+| UA 03-24 | 31 | 253 | 1,358,606 | 1,518 (1,158) | 93 | 0 |
+| UA 03-25 | 31 | 253 | 1,358,606 | 1,557 (1,068) | 93 | 0 |
+| YD 03-25 19Z | 153 | 272 | 17,124,372 | 1,810 (1,522) | 459 | 0 |
+| YD 03-25 23Z | 152 | 271 | 17,012,448 | 1,673 (1,512) | 456 | 0 |
+| YD 03-26 | 152 | 271 | 17,012,448 | 1,641 (1,522) | 456 | 0 |
+| **all** | 551 | **1,574** | | **9,722 (7,970)** | 1,653 | **0** |
+
+Each row holds for all five variants: `scalar`, `prune`, `both`, and `scalar` and `both` with the plain hypotheses
+(`results/eq_*.json`). E4 (`results/random.json`): 6,000 instances, 627,252 state sets, 275,388 origin sets,
+1,688,910 witnesses (166,851 also checked by `checker.check_route`), 15,961 brute-force origin sets, 36,000
+fixed-point certificates, 78,858 guard checks: **0 differences**. Mutants (`results/mutants.json`, 300 instances
+per family) all caught: hypotheses M1/M2 assumed 1,908; M3 assumed 1,718; pruning bound +1 s 1,871; bound not a
+lower bound 838; no origin guard 14,958; destination window 1 s too narrow 222; unmutated 0.
+
+### B.2 Field time, `full` job sets (5 repeats; ratio = baseline ÷ solver, median [min÷max, max÷min])
+
+| cache | baseline s | scalar s | ratio | prune s | ratio | both s | ratio |
+|---|---|---|---|---|---|---|---|
+| UA 03-23 | 6.84 | 2.61 | **2.62** [2.27–3.27] faster | 4.84 | 1.41 [1.21–1.77] faster | 2.41 | **2.84** [2.68–3.49] faster |
+| UA 03-24 | 7.16 | 2.87 | **2.50** [1.79–2.67] faster | 5.18 | 1.38 [1.27–1.49] faster | 2.68 | **2.67** [2.31–2.83] faster |
+| UA 03-25 | 4.86 | 2.46 | **1.97** [1.75–2.39] faster | 4.79 | 1.01 [0.80–1.21] not distinguished | 2.52 | **1.93** [1.53–2.27] faster |
+| YD 03-25 19Z | 52.10 | 29.31 | **1.78** [1.63–2.17] faster | 60.58 | 0.86 [0.74–1.02] not distinguished | 29.69 | **1.76** [1.53–2.07] faster |
+| YD 03-25 23Z | 61.56 | 29.58 | **2.08** [1.82–2.51] faster | 66.71 | 0.92 [0.86–1.23] not distinguished | 30.56 | **2.01** [1.82–2.45] faster |
+| YD 03-26 | 72.79 | 32.43 | **2.24** [2.08–2.87] faster | 63.97 | 1.14 [0.94–1.46] not distinguished | 32.44 | **2.24** [1.99–2.88] faster |
+
+The `pass1` and `repeat` job sets give the same picture (scalar and both faster on all 12, prune faster on 3 of 12;
+`results/tables.md`).
+
+### B.3 Whole run, `full` job sets (wall; the run also loads the graph and packet, builds instances, reads off every job and extracts witnesses)
+
+| cache | baseline s | scalar ratio | prune ratio | both ratio |
+|---|---|---|---|---|
+| UA 03-23 | 11.8 | 1.57 [1.28–1.94] faster | 1.20 [1.01–1.48] faster | 1.54 [1.44–1.93] faster |
+| UA 03-24 | 67.8 | 1.07 [0.65–1.18] not distinguished | 1.04 [0.90–1.15] not distinguished | 1.06 [0.94–1.18] not distinguished |
+| UA 03-25 | 40.5 | 0.99 [0.84–1.25] not distinguished | 0.99 [0.71–1.22] not distinguished | 1.02 [0.86–1.23] not distinguished |
+| YD 03-25 19Z | 121.9 | 1.23 [1.06–1.55] faster | 1.00 [0.86–1.20] not distinguished | 1.23 [1.02–1.47] faster |
+| YD 03-25 23Z | 128.4 | 1.40 [1.19–1.75] faster | 0.97 [0.90–1.33] not distinguished | 1.35 [1.18–1.70] faster |
+| YD 03-26 | 142.5 | 1.44 [1.32–1.85] faster | 1.13 [0.94–1.45] not distinguished | 1.44 [1.27–1.86] faster |
+
+On UA 03-24 and UA 03-25 the witness routes take most of the run (about 55 s and 30 s of 68 s and 41 s), and they
+are untouched by either change. The two changes speed up building the field, not extracting routes from it.
+
+### B.4 Memory (untimed probe, `tracemalloc` around each solver call, `full` job sets)
+
+| cache | baseline peak, sum over specs / largest spec, MiB | scalar | prune | both | field kept, largest spec: baseline / scalar |
+|---|---|---|---|---|---|
+| UA 03-23 | 541 / 17.5 | **248 / 7.8** | 579 / 21.7 | 294 / 9.5 | 13.5 / 1.7 |
+| UA 03-24 | 510 / 17.5 | 264 / *19.5* | 558 / 21.3 | 305 / *19.4* | 13.5 / 11.2 |
+| UA 03-25 | 440 / 15.7 | 253 / *20.6* | 544 / 19.4 | 295 / *19.7* | 11.7 / 12.4 |
+| YD 03-25 19Z | 5,543 / 41.4 | **3,025 / 19.8** | 6,602 / 51.0 | 3,737 / 33.0 | 31.2 / 4.4 |
+| YD 03-25 23Z | 5,788 / 42.6 | **3,008 / 19.8** | 6,648 / 52.2 | 3,717 / 33.0 | 32.4 / 4.4 |
+| YD 03-26 | 6,350 / 45.5 | 3,046 / *55.6* | 6,835 / 53.2 | 3,746 / *50.7* | 35.2 / 34.4 |
+
+Italics: the largest single spec is heavier than the baseline's. Every one of these is a cache with some interval
+states (§B.5). When a field mixes the two kinds, the solver holds the per-state arrays of the scalar phase (latest
+times, windows, kinds, hypothesis flags, the destination bound) **and** the interval lists of the dirty states, so a
+spec dominated by interval states costs more than the baseline. When every state is scalar, the field shrinks to a
+few integers per state. Peak RSS of the whole process: "not distinguished" on every cache (`results/tables.md`).
+
+### B.5 Fast-path share per cache (share of (spec, state) pairs, all specs; from `results/eq_*.json`)
+
+| cache | scalar, windowed (benchmarked) | scalar, plain THEOREM.md M1–M3 | both: scalar / interval / pruned away |
+|---|---|---|---|
+| UA 03-23 | 100% | 100% | 93.0% / 0% / 7.0% |
+| UA 03-24 | 93.9% | **4.9%** | 87.0% / 6.0% / 7.0% |
+| UA 03-25 | 96.9% | 96.9% | 90.0% / 3.0% / 7.0% |
+| YD 03-25 19Z | 100% | 100% | 85.4% / 0% / 14.6% |
+| YD 03-25 23Z | 100% | 100% | 85.3% / 0% / 14.7% |
+| YD 03-26 | 99.4% | 99.4% | 84.7% / 0.5% / 14.8% |
+
+No state was "R-clean only" (no late-opening shelter reached a clean state). The interval states on UA 03-25 and
+YD 03-26 come from the late-opening shelter windows (M3), and on UA 03-24 from the reopening roads that can still
+be used before H.
+
+### B.6 What this means
+
+* For a deadline field, keep change 1. It is exact by construction (Theorem B) and by test (zero differences on
+  every set, answer and route). It halves the field time, and it needs no assumption from the data: where the data
+  break the hypotheses, those states fall back to intervals.
+* Change 2 is exact (§A.3), but on these caches the forward bound removes too little to pay for the forward search
+  and the clipping. It may pay off when the origins are few and far from most of the graph, which is not the case
+  for any recorded spec.
+* Memory: one integer per scalar state is lighter only when nearly every state is scalar. A mixed field should not
+  allocate the scalar arrays for interval states. That is a possible follow-up, **not** measured here.
+
+### B.7 Not as planned, and limits
+
+* E1–E3/E5 on UA 03-24 were split over six processes (PROTOCOL Amendment A1). The timing was not affected (it
+  ran afterwards, alone).
+* macOS cannot pin a process to one core. Each run was one single-threaded process, run strictly one after another.
+  The machine was in use (load above).
+* The runs went through the command sandbox of the session. All four solvers ran under it alike.
+* The repeat-1 per-job answers (about 150 MB) were kept outside the repository; their SHA-256 digests are in the
+  committed run files.
+* Not claimed: other machines, other data, a compiled version, physical safety of any route.
+
 
 ## A. Proofs
 
