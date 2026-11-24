@@ -23,7 +23,7 @@ from pptx.util import Emu, Inches, Pt
 import style as S
 from style import BUILD, FIGDIR
 
-ORDER = ["F01_title_map", "F02_road_cut", "F03_comparison_grid", "F05_data_foundation", "F06_safety_distance",
+ORDER = ["F01_title_map", "F02_road_cut", "F03_comparison_grid", "F04_overview", "F05_data_foundation", "F06_safety_distance",
          "F12_forecast_example", "F07_forward_backward", "F16_safety_zones", "F15_exposure",
          "F08_backward_step_checker", "F09_speed", "F09b_speed_fastpath", "F10_camp_fire", "F11a_village_card",
          "F13_kernels", "F14_reliability", "F17_heat_terrain"]
@@ -96,6 +96,18 @@ def add_text(shapes, text, left, top, width, height, size, color, align="l", bol
     return tb
 
 
+def scaled(t, k, dy):
+    """A text item of a canvas larger than the slide, scaled by k and moved down by dy inches."""
+    if k == 1 and dy == 0:
+        return t
+    t = dict(t)
+    for f in ("cx", "w", "h"):
+        t[f] = t[f] * k
+    t["cy"] = t["cy"] * k + dy
+    t["size_pt"] = t["size_pt"] * k
+    return t
+
+
 def text_item(shapes, t):
     """Place one measured matplotlib text as a native text box."""
     ha = {"left": "l", "center": "c", "right": "r"}.get(t["ha"], "l")
@@ -112,14 +124,14 @@ def text_item(shapes, t):
                     rotation=rot, name=t["name"], wrap=False)
 
 
-def caption_item(shapes, t, default=(0.45, 6.0, 12.45)):
+def caption_item(shapes, t, default=(0.45, 6.0, 12.45), size=S.PT_TEXT):
     cx, cy, w, h = t.get("cx"), t.get("cy"), t.get("w"), t.get("h")
     if cx is None:
         left, top, width, height = default[0], default[1], default[2], 1.3
     else:
         left, top, width, height = cx - w / 2, cy - h / 2, w * 1.02, h
     text = t["text"].replace("\n", " ")
-    return add_text(shapes, text, left, top, width, height, S.PT_TEXT, S.INK, "l", wrap=True, name="Caption",
+    return add_text(shapes, text, left, top, width, height, size, S.INK, "l", wrap=True, name="Caption",
                     anchor=MSO_ANCHOR.TOP)
 
 
@@ -337,16 +349,20 @@ def build():
             for t in L["texts"]:
                 caption_item(slide.shapes, t, default=(0.45, 6.05, 12.45))
         else:
-            bg = BUILD / f"{name}_pptxbg.png" if L.get("charts") else FIGDIR / f"{name}_notext.png"
-            pic = slide.shapes.add_picture(str(bg), 0, 0, width=prs.slide_width, height=prs.slide_height)
+            bg = (BUILD / f"{name}_pptxbg.png" if (L.get("charts") or L.get("pptx_background"))
+                  else FIGDIR / f"{name}_notext.png")
+            cw, ch = L.get("canvas_in", [S.W_IN, S.H_IN])
+            k = min(S.W_IN / cw, S.H_IN / ch)          # a wider canvas is scaled to the slide width
+            dy = (S.H_IN - ch * k) / 2
+            pic = slide.shapes.add_picture(str(bg), 0, Inches(dy), width=Inches(cw * k), height=Inches(ch * k))
             pic.name = "graphic (text-free)"
             for spec in L.get("charts", []):
                 add_chart(slide, spec)
             for t in L["texts"]:
                 if t.get("caption"):
-                    caption_item(slide.shapes, t)
+                    caption_item(slide.shapes, scaled(t, k, dy), size=S.PT_TEXT * k)
                 else:
-                    text_item(slide.shapes, t)
+                    text_item(slide.shapes, scaled(t, k, dy))
         built.append(name)
     # palette slide
     slide = prs.slides.add_slide(layout_blank)

@@ -91,3 +91,39 @@ Limits:
 - 32 cells of panel (a) lie under the source's legend box and are unknown (hatched light grey).
 
 The figure keeps the source's non-linear scales and uses cividis. The caption says the figure was rebuilt from screenshots with colour-bar values read by eye, and carries the three required caveats.
+
+**D27. F04 case and hour.** The brief asks for Uiseong–Andong at the F02 issue hour. F02 uses 18:00 KST on 25 March 2025 (`ISSUE = "03-25 18:00"`; its village, Samui-ri, lies in the Yeongdeok planner region). F04 keeps 18:00 KST and the Uiseong–Andong planner region. At that hour 82 of its 84 places are already inside the known fire area. Only two have a last safe departure: 분토리 (18:05) and 원당리 Wondang-ri (18:15). F04 follows Wondang-ri, which has the later departure and the longer route (71 road edges to a school shelter).
+
+**D28. F04 map extent.** The Uiseong–Andong planner box lies wholly inside the known fire area at 18:00 KST, so a widened outline would not show there. The maps in (a), (b) and (d) therefore show the extent of the committed reach raster `fire_arrival_20250325T0900Z_MEASURED_8h.tif`: both planner regions of the Uiseong fire, 214 × 67 cells of 375 m.
+
+**D29. F04 (b) model run.** The finals checkpoint M548 (`mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt`) was loaded with PyTorch through the forecast workspace's own `wildfire.api.load_model`. Its SHA-256, c651f672…, equals the matched observed evaluation's `protocol.json`. The workspace's `.venv` is an incomplete copy: its compiled libraries are missing. A separate `.venv-model` was therefore built with the workspace's pinned versions (Python 3.12, torch 2.5.1, numpy 1.26.4, pandas 2.2.3, scipy 1.13.1, rasterio 1.4.3, pyproj 3.7.0). It is not committed.
+
+The run is `src/F04_forecast.py`, which writes `build/F04_forecast.npz`:
+- It uses KFS_01 at 2025-03-25 09:00 UTC with the API defaults (boundary "zero"; missing burned states unburned).
+- The current burned state is the dataset's retrospective reconstruction (Zenodo 21788344), not the satellite detections in (a).
+- KFS_01 is one of M548's held-out test events.
+
+The kernel cell is the unburned cell with the largest next-hour probability inside the Uiseong–Andong box. Each branch kernel is multiplied by its global mixing coefficient, so the four panels add up to the kernel that enters the rate. The script checks two things. First, the rate rebuilt from the four kernels and that cell's burned neighbours equals the model's rate (0.04758 h⁻¹). Second, 1 − exp(−rate) equals the model's probability. Nothing was written inside the workspace (`PYTHONDONTWRITEBYTECODE=1`; no file there is newer than the run).
+
+**D30. F04 (c) exposure on another fire.** The Korean events have no fuel model or canopy rasters (`documents/korean_observation_availability_20261012.md`). A heat or active-fire map for Uiseong would therefore need fuel values chosen for this figure, so none was made. Panel (c) instead shows the workspace's saved M548 output for Fish Creek: `demonstration/heat_spatial_maps/20261013_fishcreek/spatial_matrices.npz`, made with the same checkpoint (summary.json SHA-256 c651f672…), cutoff 23 Aug 2024 00:00 UTC. It shows the mean active-burning fraction and the mean radiant heat over the next hour, both on log scales. The panel and the caption both name the fire. The missing Korean fuel layers are listed in NEEDS.md.
+
+**D31. F04 (d)–(f) come from the replay, not from (b).** In research/kcf-replay, roads are blocked when the detected fire area (FIRMS and AHI discs before the issue hour) widened by the MEASURED reach curve reaches their cells. At 18:00 KST the prior-3 h spread class is "running", with R(8 h) = 10 km. The M548 map is not an input. The caption says so.
+
+The calibration gate (`research/kcf-abstain`) withheld the margin at 18:00 KST: the prior-3 h spread was 22.3 km, beyond every calibration hour. The figure marks the "no → withhold" exit as "taken at 18:00 KST". The caption says the gate withheld this hour, and that (e)–(f) show the replay computed regardless.
+
+**D32. F04 (e) computation.** `src/F04_routing.py` runs research/kcf-replay's own `Region`, `measured_arms.curve`/`closure_s` and `deadline_field.core.backward` on the frozen road graph. It reads the graph from the main checkout's `data/routing` (not committed), and its SHA-256 equals the one recorded in `scene.js`. It writes `build/F04_routing.json`, and checks:
+- the closure seconds of all 1,656 road cells stored in `scene.js`, all equal;
+- the village's latest departure (921 s after 18:00, 18:15:21) against the stored witness route;
+- each of the three shelter fields with `core.check_fixed_point` (PASS, 43,826 edge states);
+- the witness route with `analyze.recheck`: accepted at 18:15:21, rejected one second later.
+
+The node colours are the latest departure of every road node, the maximum over the village's three candidate shelters. "Road A/B/C" are the first three OSM ways along the route with different blocked times. A road's blocked time is the closure second of the binding route cell on that way; its tick is the second the car leaves that cell when departing at 18:15:21. Road A is passed 1 s before it is blocked, which is what sets 18:15.
+
+**D33. F04 canvas and checks.** Six stages at the house 16 pt size do not fit on a 13.33 in slide canvas, so F04 is drawn on a 17 × 8.8 in canvas. At 1,700 px wide, 16 pt text is 22 px tall. The PNG is 300 dpi, cropped to the drawn content, on a transparent background, as asked; the SVG and PDF are cropped and transparent too. In the pptx the full-canvas text-free picture and every text box are scaled to the slide width, so text boxes are 12.5 pt there.
+
+Besides the shared collision check, the script checks:
+- that no arrow crosses a map, kernel, colour bar or chart;
+- colour vision: every meaningful palette pair keeps ΔE ≥ 10 under simulated protan, deutan and tritan vision. In greyscale, teal "open" and brick "blocked" are close (ΔE 9.1); they also differ by fill (solid against hatched);
+- text height at 1,700 px.
+
+The results are in `check/F04_overview_checks.json`. Labels follow the wording rule: a road is "blocked", a village's way out is "cut off" (that word does not appear in F04), and no label has more than six words.

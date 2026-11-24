@@ -24,7 +24,7 @@ import numpy as np
 from matplotlib.collections import Collection, PathCollection
 from matplotlib.image import AxesImage
 from matplotlib.lines import Line2D
-from matplotlib.patches import Patch
+from matplotlib.patches import FancyArrowPatch, Patch
 from matplotlib.spines import Spine
 from matplotlib.text import Text
 from matplotlib.transforms import Bbox
@@ -126,6 +126,12 @@ def _hits(mark, bb, fig, renderer):
     if isinstance(mark, Spine):
         dpath = mark.get_transform().transform_path(mark.get_path())
         return dpath.intersects_bbox(bb, filled=False)
+    if isinstance(mark, FancyArrowPatch):
+        # an arrow path has several sub-paths (shaft, head); test each piece on its own
+        from matplotlib.path import Path as MPath
+        dpath = mark.get_transform().transform_path(mark.get_path())
+        return any(MPath(poly).intersects_bbox(bb, filled=False) or MPath(poly).contains_point(bb.p0)
+                   for poly in dpath.to_polygons(closed_only=False) if len(poly) > 1)
     if isinstance(mark, Patch):
         dpath = mark.get_transform().transform_path(mark.get_path())
         if container:
@@ -247,7 +253,7 @@ def text_manifest(fig, native_axes=()):
         else:
             w, h = bb.width / DPI, bb.height / DPI
         cx = (bb.x0 + bb.x1) / 2 / DPI
-        cy = H_IN - (bb.y0 + bb.y1) / 2 / DPI
+        cy = fig.get_size_inches()[1] - (bb.y0 + bb.y1) / 2 / DPI
         fp = t.get_fontproperties()
         items.append({
             "text": t.get_text(),
@@ -267,7 +273,8 @@ def text_manifest(fig, native_axes=()):
 
 def _ax_box_in(ax):
     p = ax.get_position()
-    return [p.x0 * W_IN, (1 - p.y1) * H_IN, p.width * W_IN, p.height * H_IN]
+    w, h = ax.figure.get_size_inches()
+    return [p.x0 * w, (1 - p.y1) * h, p.width * w, p.height * h]
 
 
 def wrap_to_width(fig, text, x_in, width_in, size):
@@ -293,44 +300,59 @@ def add_caption(fig, text, x_in=0.45, width_in=12.45, top_in=None):
     from style import CAPTION_TOP, PT_TEXT
     fig.canvas.draw()
     wrapped = wrap_to_width(fig, text, x_in, width_in, PT_TEXT)
-    t = fig.text(x_in / W_IN, 1 - (top_in or CAPTION_TOP) / H_IN, wrapped, fontsize=PT_TEXT, va="top", ha="left",
+    fw, fh = fig.get_size_inches()
+    t = fig.text(x_in / fw, 1 - (top_in or CAPTION_TOP) / fh, wrapped, fontsize=PT_TEXT, va="top", ha="left",
                  linespacing=1.2)
     t.set_gid("caption")
     return t
 
 
-def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, charts=(), caption=None):
+def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, charts=(), caption=None,
+         png_dpi=None, tight=False, transparent=False):
     """Export complete (with caption), without caption, text-free, and the PowerPoint manifest.
-    charts: [(ax, spec)] axes to rebuild as native PowerPoint charts; spec is a dict with the chart data."""
+    charts: [(ax, spec)] axes to rebuild as native PowerPoint charts; spec is a dict with the chart data.
+    png_dpi / tight / transparent change only the delivered files (PNG resolution, cropped to the drawn content,
+    transparent background). The PowerPoint background build/{name}_pptxbg.png then keeps the full canvas so the
+    text boxes stay in place."""
     if caption is not None and not isinstance(caption, Text):
         raise TypeError("pass the Text returned by add_caption")
     probs = check_collisions(fig, allow_pairs)
     (CHECK / f"{name}_overlap.json").write_text(json.dumps(probs, indent=1, ensure_ascii=False))
     native_axes = [a for a, _ in charts]
-    manifest = {"name": name, "kind": kind, "canvas_in": [W_IN, H_IN],
+    manifest = {"name": name, "kind": kind, "canvas_in": [float(x) for x in fig.get_size_inches()],
                 "texts": text_manifest(fig, native_axes),
                 "charts": [dict(spec, box_in=_ax_box_in(a)) for a, spec in charts]}
     if extra:
         manifest.update(extra)
     base = FIGDIR / name
-    fig.savefig(f"{base}.svg")
-    fig.savefig(f"{base}.pdf")
-    fig.savefig(f"{base}.png", dpi=DPI)
+    kw = {"bbox_inches": "tight", "pad_inches": 0.04} if tight else {}
+    if transparent:
+        kw["transparent"] = True
+    pdpi = png_dpi or DPI
+    fig.savefig(f"{base}.svg", **kw)
+    fig.savefig(f"{base}.pdf", **kw)
+    fig.savefig(f"{base}.png", dpi=pdpi, **kw)
     if caption is not None:
         caption.set_visible(False)
-        fig.savefig(f"{base}_nocaption.svg")
-        fig.savefig(f"{base}_nocaption.pdf")
-        fig.savefig(f"{base}_nocaption.png", dpi=DPI)
+        fig.savefig(f"{base}_nocaption.svg", **kw)
+        fig.savefig(f"{base}_nocaption.pdf", **kw)
+        fig.savefig(f"{base}_nocaption.png", dpi=pdpi, **kw)
         caption.set_visible(True)
-    # greyscale check image
-    Image.open(f"{base}.png").convert("L").save(CHECK / f"{name}_grey.png")
+    # greyscale check image (flattened on white)
+    im = Image.open(f"{base}.png").convert("RGBA")
+    flat = Image.new("RGBA", im.size, "white")
+    flat.alpha_composite(im)
+    flat.convert("L").save(CHECK / f"{name}_grey.png")
     # text-free version: hide every text, keep everything else in place
     hidden = []
     for t in _texts(fig):
         t.set_visible(False)
         hidden.append(t)
-    fig.savefig(f"{base}_notext.png", dpi=DPI)
-    fig.savefig(f"{base}_notext.svg")
+    fig.savefig(f"{base}_notext.png", dpi=pdpi, **kw)
+    fig.savefig(f"{base}_notext.svg", **kw)
+    if tight and not native_axes:
+        fig.savefig(BUILD / f"{name}_pptxbg.png", dpi=DPI)
+        manifest["pptx_background"] = f"build/{name}_pptxbg.png"
     if native_axes:
         # background picture for PowerPoint: text-free and without the axes that become native charts
         for a in native_axes:

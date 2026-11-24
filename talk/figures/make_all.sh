@@ -19,7 +19,16 @@ if [ ! -f "$WGD/COMMITS.txt" ]; then
   done
 fi
 git fetch -q origin "research/kcf-fastpath:refs/remotes/origin/research/kcf-fastpath" || true
-for s in F01_title_map F02_road_cut F03_comparison_grid F05_data_foundation F06_safety_distance F07_forward_backward \
+# F04 inputs: the deadline field (needs the frozen road graph, tools/fetch_routing_inputs.py) and the M548 run (needs the
+# forecast workspace and a Python 3.12 venv with its pinned packages, DECISIONS.md D29). Both write committed files in
+# build/, so they are skipped when their input is not on the machine.
+if [ -f "${WFG_ROUTING:-/Users/jp/wildfireguardian-forecast/data/routing}/graphs/uiseong_andong_2025/graph.json" ]; then
+  "$PY" talk/figures/src/F04_routing.py
+fi
+if [ -x .venv-model/bin/python ] && [ -d "${WILDFIRE:-/Users/jp/Desktop/wildfire}" ]; then
+  PYTHONDONTWRITEBYTECODE=1 .venv-model/bin/python talk/figures/src/F04_forecast.py
+fi
+for s in F01_title_map F02_road_cut F03_comparison_grid F04_overview F05_data_foundation F06_safety_distance F07_forward_backward \
          F08_backward_step_checker F09_speed F09b_speed_fastpath F10_camp_fire F11a_village_card F12_forecast_example \
          F13_kernels F14_reliability F15_exposure F16_safety_zones; do
   "$PY" "talk/figures/src/$s.py"
