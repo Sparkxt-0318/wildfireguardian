@@ -127,3 +127,14 @@ Besides the shared collision check, the script checks:
 - text height at 1,700 px.
 
 The results are in `check/F04_overview_checks.json`. Labels follow the wording rule: a road is "blocked", a village's way out is "cut off" (that word does not appear in F04), and no label has more than six words.
+
+**D34. F15 has no health-threshold contour.** No PM2.5, CO or visibility health threshold is stated in any committed file on any branch of this repository (searched for PM2.5, carbon monoxide, IDLH, AQI, NAAQS, guideline and threshold), nor in the data folder `/Users/jp/Desktop/wildfire`, whose exposure code (`demonstration/flame_danger/physical_exposure/`) is missing (NEEDS.md). The session notes in `Oral Presentation Figure/Heat Physics/` say the maintained output reports raw concentrations and that the older thresholded "criterion-union" profile is a comparison option, but they print no threshold value. A threshold typed from memory would break the rule that no number is typed in, so no contour is drawn. The caption keeps "concentrations are not danger probabilities".
+
+**D35. F15 rework (slide 10).** The three maps now span the slide width (3.75 in each), with plain-language names: "Chance you cannot see 10 m", "Fine smoke (PM2.5)", "Carbon monoxide".
+- The colour bars are linear. Panel (a) runs from 0 to the next whole percent above the decoded maximum (5.3 %, so 0–6 %). The source bar ran to 100 %, which left the whole map dark. PM2.5 runs to 4,000 µg/m³, the source's top tick; values above it were already clipped there, so that tick reads "4,000+". CO runs to 17.5 mg/m³. The decoded values and their limits are unchanged (D26).
+- The bare km axes are replaced by a north arrow and a 2 km scale bar in panel (a). The caption says the three maps show the same area.
+- The legend names the white outline "burned area" and the hatched strip "not readable in source".
+- The direct labels are placed by script. "Over the fire" points at each panel's highest cell, all three of which are burned cells. "Smoke spreads north" points at the centroid of the unburned cells in the top 5 % of PM2.5; the direction word is the compass sector of its bearing from the burned-cell centroid. Both inputs are in SOURCES.md.
+- Each label sits on a white box drawn as its own patch (tag `box`), so the text-free picture keeps the box and the pptx text box lands on it. Its leader line starts at the box edge and has a white halo so that it shows on both dark and light cells. Both pass the collision check without exceptions.
+
+*10-second test.* A viewer can now read, without help: what each map shows (its title); that the worst visibility, smoke and CO are over the burned area; that smoke spreads north of it; the size of the area (2 km bar) and which way is north; that the worst visibility chance is about 5 %; and from the caption, that this is one modelled hour, not calibrated, and not a danger probability.

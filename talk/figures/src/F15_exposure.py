@@ -15,7 +15,6 @@ The saved arrays are not on this machine (NEEDS.md), so the values are rebuilt f
 """
 from pathlib import Path
 
-import matplotlib.colors as mc
 import numpy as np
 from PIL import Image
 
@@ -96,8 +95,7 @@ def decode(im, x0, y0, nx, ny, cell, cb, covered=None):
     return out
 
 
-def main():
-    L = Ledger("F15", "Fish Creek exposure maps (rebuilt from screenshots)")
+def read(L):
     im = load(IMG1)
     lum = im.mean(axis=2)
     # panel frames (top-left inner corner) found from the frame spines; offsets between panels are fixed by layout
@@ -163,43 +161,109 @@ def main():
     L.note("HAND_ENTERED values (read by eye): " + "; ".join(f"{k} = {v}" for k, v in HAND_ENTERED.items()))
     L.note("Values between colour-bar ticks are interpolated linearly in bar position; the source bars are non-linear "
            "between ticks too, so a value between two ticks may differ from the source value.")
-    L.save()
+    return fields, burned, cbs, nx, ny
 
-    # ---------------- figure
+
+def main():
+    L = Ledger("F15", "Fish Creek exposure maps (rebuilt from screenshots)")
+    fields, burned, cbs, nx, ny = read(L)
+    # ---------------- figure: three maps across the slide, plain names, linear colour bars
+    from matplotlib.collections import LineCollection
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+    import matplotlib.patheffects as pe
+
     W, H = S.W_IN, S.H_IN
     fig = S.new_figure()
-    pw = 1.72
+    gap = 0.62
+    pw = (W - 0.45 - 0.43 - 2 * gap) / 3
     ph = pw * ny / nx
-    top = 0.95
-    specs = [("vis", "(a)", "visibility ≤ 10 m", "probability (%)", HAND_ENTERED["vis_ticks_pct"], [0, 10, 100]),
-             ("pm", "(b)", "PM2.5", "µg m⁻³", HAND_ENTERED["pm_ticks_ug_m3"], [0, 1000, 4000]),
-             ("co", "(c)", "CO", "mg m⁻³", HAND_ENTERED["co_ticks_mg_m3"], [0, 5, 17.5])]
-    ext = (0, nx * 0.375, 0, ny * 0.375)
+    top = 0.85
+    cell = 0.375
+    ext = (0, nx * cell, 0, ny * cell)
     cmap = S.plt.get_cmap(S.CONTINUOUS_CMAP)
-    for n, (k, letter, title, unit, ticks, show) in enumerate(specs):
-        x = 1.0 + n * (pw + 0.47)
+
+    def km(i, j):
+        """cell (row, col) centre -> map km (x east, y north)."""
+        return (j + 0.5) * cell, (ny - i - 0.5) * cell
+
+    # value ranges: visibility to the next whole percent above its maximum; PM2.5 and CO to the source's top tick
+    vmax_vis = float(np.ceil(np.nanmax(fields["vis"])))
+    L.add("Colour range (a): 0 to the next whole percent above the decoded maximum", vmax_vis, unit="%",
+          file=IMG1, repo=HP, field="ceil(max of panel (a) cells)")
+    specs = [
+        ("vis", "a", "Chance you cannot see 10 m", "chance in the hour (%)", vmax_vis,
+         list(np.arange(0, vmax_vis + 0.1, 2))),
+        ("pm", "b", "Fine smoke (PM2.5)", "hourly mean (µg/m³)", HAND_ENTERED["pm_ticks_ug_m3"][0],
+         [0, 1000, 2000, 3000, 4000]),
+        ("co", "c", "Carbon monoxide", "hourly mean (mg/m³)", HAND_ENTERED["co_ticks_mg_m3"][0], [0, 5, 10, 15]),
+    ]
+    # where values are high (read from the decoded fields, not placed by hand)
+    def argmax_cell(f):
+        return np.unravel_index(np.nanargmax(f), f.shape)
+
+    hi = {k: argmax_cell(fields[k]) for k in fields}
+    for k in fields:
+        L.add(f"{k}: cell with the highest value (row, col) and whether it is burned", [int(hi[k][0]), int(hi[k][1]),
+              bool(burned[hi[k]])], file=IMG1, repo=HP, field="argmax of the decoded panel", shown="label anchor")
+    vis_max_pct = float(np.nanmax(fields["vis"]))
+    L.add("Highest chance of visibility ≤ 10 m", vis_max_pct, unit="%", shown=f"{vis_max_pct:.0f}%", file=IMG1,
+          repo=HP, field="max of panel (a) cells (colour matched to the source bar, ticks HAND_ENTERED)")
+    # smoke outside the burned area: centroid of the top 5 % of unburned cells, direction from the burned centroid
+    out_pm = np.where(burned, np.nan, fields["pm"])
+    thr = np.nanpercentile(out_pm, 95)
+    ri, cj = np.where(out_pm >= thr)
+    bi, bj = np.where(burned)
+    sx, sy = km(ri.mean(), cj.mean())
+    bx, by = km(bi.mean(), bj.mean())
+    ang = (np.degrees(np.arctan2(sx - bx, sy - by)) + 360) % 360
+    compass = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"][
+        int(((ang + 22.5) % 360) // 45)]
+    L.add("Direction of the densest smoke outside the burned area", round(float(ang), 1), unit="degrees from north",
+          shown=compass, file=IMG1, repo=HP,
+          field="bearing from the burned-cell centroid to the centroid of unburned cells with PM2.5 >= their 95th "
+                f"percentile ({thr:.0f} µg/m³)")
+
+    def label(ax, text, xy, xytext):
+        """Direct label: text on its own white box (a patch, so the text-free picture keeps it) and a leader line
+        from the box edge to the marked cell."""
+        from matplotlib.patches import Rectangle
+        t = ax.text(*xytext, text, ha="center", va="center", fontsize=S.PT_TEXT, zorder=7)
+        fig.canvas.draw()
+        bb = t.get_window_extent(fig.canvas.get_renderer())
+        padx, pady = 10 * S.DPI / 72, 6 * S.DPI / 72
+        inv = ax.transData.inverted()
+        (x0, y0), (x1, y1) = inv.transform([(bb.x0 - padx, bb.y0 - pady), (bb.x1 + padx, bb.y1 + pady)])
+        box = Rectangle((x0, y0), x1 - x0, y1 - y0, facecolor=S.WHITE, edgecolor=S.INK, linewidth=0.6, zorder=6)
+        box.set_gid("box:label")
+        ax.add_patch(box)
+        cx, cy = xytext
+        ey = y1 if xy[1] > y1 else y0                       # leave the box through its top or bottom edge
+        ex = cx + (xy[0] - cx) * (ey - cy) / (xy[1] - cy)
+        ln, = ax.plot([ex, xy[0]], [ey, xy[1]], color=S.INK, lw=1.2, zorder=5, solid_capstyle="butt",
+                      path_effects=[pe.Stroke(linewidth=3.4, foreground=S.WHITE), pe.Normal()])
+        ln.set_gid("leader")
+        return t
+
+    axes = []
+    for n, (k, letter, title, unit, vmax, ticks) in enumerate(specs):
+        x = 0.45 + n * (pw + gap)
         ax = fig.add_axes([x / W, 1 - (top + ph) / H, pw / W, ph / H])
-        # the source's non-linear scale: tick value -> its fractional position on the source bar
-        rows, cols, tpos, tval = cbs[k]
-        frac = (tpos.max() - tpos) / (tpos.max() - tpos.min())
-        o = np.argsort(tval)
-        fwd = lambda v, tv=tval[o], fr=frac[o]: np.interp(v, tv, fr)  # noqa: E731
-        inv = lambda u, tv=tval[o], fr=frac[o]: np.interp(u, fr, tv)  # noqa: E731
-        norm = mc.FuncNorm((fwd, inv), vmin=tval.min(), vmax=tval.max())
-        im_ = ax.imshow(fields[k], cmap=cmap, norm=norm, extent=ext, origin="upper", interpolation="nearest")
+        axes.append(ax)
+        im_ = ax.imshow(np.clip(fields[k], 0, vmax), cmap=cmap, vmin=0, vmax=vmax, extent=ext, origin="upper",
+                        interpolation="nearest")
         im_.set_gid("bg:field")
         unk = np.isnan(fields[k])
         if unk.any():
-            ax.contourf(np.arange(nx) * 0.375 + 0.1875, (ny - np.arange(ny)) * 0.375 - 0.1875, unk.astype(float),
+            ax.contourf(np.arange(nx) * cell + cell / 2, (ny - np.arange(ny)) * cell - cell / 2, unk.astype(float),
                         levels=[0.5, 1.5], colors=[S.LIGHT], hatches=["////"]).set_gid("bg:unknown")
-        # burned perimeter: cell edges between burned and unburned cells
         segs = []
         for i in range(ny):
             for j in range(nx):
                 if not burned[i, j]:
                     continue
-                x0k, x1k = j * 0.375, (j + 1) * 0.375
-                y1k, y0k = (ny - i) * 0.375, (ny - i - 1) * 0.375
+                x0k, x1k = j * cell, (j + 1) * cell
+                y1k, y0k = (ny - i) * cell, (ny - i - 1) * cell
                 if i == 0 or not burned[i - 1, j]:
                     segs.append([(x0k, y1k), (x1k, y1k)])
                 if i == ny - 1 or not burned[i + 1, j]:
@@ -208,32 +272,59 @@ def main():
                     segs.append([(x0k, y0k), (x0k, y1k)])
                 if j == nx - 1 or not burned[i, j + 1]:
                     segs.append([(x1k, y0k), (x1k, y1k)])
-        from matplotlib.collections import LineCollection
-        lc = LineCollection(segs, colors=S.WHITE, linewidths=0.8)
+        lc = LineCollection(segs, colors=S.WHITE, linewidths=1.2)
         lc.set_gid("bg:perimeter")
         ax.add_collection(lc)
-        ax.set_xticks([0, 5, 10])
-        ax.set_yticks([0, 5, 10])
-        ax.set_xlabel("km")
-        if n == 0:
-            ax.set_ylabel("km")
-            ax.set_yticklabels(["", "5", "10"])
-        else:
-            ax.set_yticklabels([])
-        S.panel_letter(fig, x, top - 0.3, letter[1])
-        fig.text((x + 0.38) / W, 1 - (top - 0.3) / H, title, va="center")
-        cax = fig.add_axes([x / W, 1 - (top + ph + 1.05) / H, pw / W, 0.12 / H])
-        cb = fig.colorbar(im_, cax=cax, orientation="horizontal", ticks=show)
-        cb.ax.set_xticklabels([f"{v:g}" for v in show])
+        ax.set_xlim(0, nx * cell)
+        ax.set_ylim(0, ny * cell)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        S.panel_letter(fig, x, top - 0.32, letter)
+        fig.text((x + 0.42) / W, 1 - (top - 0.32) / H, title, va="center")
+        cax = fig.add_axes([x / W, 1 - (top + ph + 0.42) / H, pw / W, 0.13 / H])
+        cb = fig.colorbar(im_, cax=cax, orientation="horizontal", ticks=ticks)
+        labels = [f"{v:,.0f}" for v in ticks]
+        if k == "pm":
+            labels[-1] = labels[-1] + "+"          # cells above the source's top tick are clipped there
+        cb.ax.set_xticklabels(labels)
         cb.outline.set_linewidth(0.6)
-        fig.text((x + pw / 2) / W, 1 - (top + ph + 1.7) / H, unit, ha="center", va="center")
+        fig.text((x + pw / 2) / W, 1 - (top + ph + 1.1) / H, unit, ha="center", va="center")
+
+    W_km, H_km = nx * cell, ny * cell
+    # direct labels at the highest values
+    a0, a1, a2 = axes
+    label(a0, f"highest, {vis_max_pct:.0f}%, over the fire", km(*hi["vis"]), (W_km * 0.5, H_km * 0.11))
+    label(a1, "thickest smoke over the fire", km(*hi["pm"]), (W_km * 0.5, H_km * 0.11))
+    label(a1, f"smoke spreads {compass}", (sx, sy), (W_km * 0.36, H_km * 0.88))
+    label(a2, "most CO over the fire", km(*hi["co"]), (W_km * 0.5, H_km * 0.11))
+    # orientation on panel (a): north arrow and a 2 km scale bar
+    nxk, nyk = W_km - 0.9, H_km - 0.7
+    arr = a0.annotate("", xy=(nxk, nyk), xytext=(nxk, nyk - 1.9),
+                      arrowprops=dict(arrowstyle="-|>,head_length=0.55,head_width=0.3", color=S.WHITE, lw=1.6))
+    a0.text(nxk - 0.35, nyk - 0.95, "N", color=S.WHITE, ha="right", va="center")
+    sbx0, sby = 0.6, H_km - 1.7
+    a0.plot([sbx0, sbx0 + 2.0], [sby, sby], color=S.WHITE, lw=3, solid_capstyle="butt")
+    a0.text(sbx0 + 1.0, sby + 0.3, "2 km", color=S.WHITE, ha="center", va="bottom")
+    # legend for the outline and the unreadable cells
+    handles = [Line2D([], [], color=S.WHITE, lw=2.2, label="burned area (white outline)",
+                      path_effects=[pe.Stroke(linewidth=7, foreground=cmap(0.0)), pe.Normal()]),
+               Patch(facecolor=S.LIGHT, edgecolor=S.INK, hatch="////", linewidth=0.6, label="not readable in source")]
+    leg = fig.legend(handles=handles, loc="center", ncol=2, bbox_to_anchor=(0.5, 1 - (top + ph + 1.55) / H),
+                     handlelength=1.6, handleheight=1.0, columnspacing=2.0, frameon=True)
+    leg.get_frame().set_linewidth(0.6)
+    leg.get_frame().set_gid("box:legend")
+    for hnd in leg.legend_handles:
+        hnd.set_gid("bg:legend handle")
+    L.note("No health threshold drawn: no committed file and no file in the data folder states a PM2.5 or CO health "
+           "threshold (DECISIONS.md D34).")
+    L.save()
     cap = add_caption(fig, (
-        "Figure 15. Modelled exposure for one fire-hour, Fish Creek, 23 August 2024, 00:00–01:00 UTC, on the 375 m "
-        "grid: (a) probability that visibility falls to 10 m or less during the hour, (b) hourly mean PM2.5, (c) hourly "
-        "mean CO; white outline: reconstructed burned perimeter; hatched: covered by the source's legend. Non-linear colour scales as in the source. Rebuilt "
-        "from the session screenshots (saved arrays not available); colour-bar values read by eye. One fire-hour; not "
-        "calibrated against measurements; concentrations are not danger probabilities."),
-        x_in=0.45, width_in=12.45, top_in=5.75)
+        "Figure 15. Modelled smoke and visibility for one hour of the Fish Creek fire, 23 August 2024, 00:00–01:00 UTC "
+        "(375 m cells; same area in all three maps). The worst values sit over the burning area; smoke reaches "
+        f"furthest to the {compass}. Rebuilt from session screenshots (saved arrays not available); colour-bar values "
+        "read by eye. Caveats: one fire-hour; not calibrated against measurements; concentrations are not danger "
+        "probabilities."),
+        x_in=0.45, width_in=12.45, top_in=top + ph + 1.95)
     save(fig, "F15_exposure", caption=cap)
 
 

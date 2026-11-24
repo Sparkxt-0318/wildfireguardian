@@ -103,10 +103,107 @@
    "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
    "ref": "file on disk (read only)",
    "commit": "sha256:3beeeb65ab849138"
+  },
+  {
+   "label": "Colour range (a): 0 to the next whole percent above the decoded maximum",
+   "value": 6.0,
+   "unit": "%",
+   "shown": null,
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "ceil(max of panel (a) cells)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "vis: cell with the highest value (row, col) and whether it is burned",
+   "value": [
+    13,
+    13,
+    true
+   ],
+   "unit": "",
+   "shown": "label anchor",
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "argmax of the decoded panel",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "pm: cell with the highest value (row, col) and whether it is burned",
+   "value": [
+    16,
+    9,
+    true
+   ],
+   "unit": "",
+   "shown": "label anchor",
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "argmax of the decoded panel",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "co: cell with the highest value (row, col) and whether it is burned",
+   "value": [
+    16,
+    9,
+    true
+   ],
+   "unit": "",
+   "shown": "label anchor",
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "argmax of the decoded panel",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "Highest chance of visibility ≤ 10 m",
+   "value": 5.316901408450704,
+   "unit": "%",
+   "shown": "5%",
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "max of panel (a) cells (colour matched to the source bar, ticks HAND_ENTERED)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "Direction of the densest smoke outside the burned area",
+   "value": 9.4,
+   "unit": "degrees from north",
+   "shown": "north",
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "bearing from the burned-cell centroid to the centroid of unburned cells with PM2.5 >= their 95th percentile (754 µg/m³)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
   }
  ],
  "notes": [
   "HAND_ENTERED values (read by eye): x_tick_labels_km = [-1136, -1134, -1132, -1130, -1128, -1126, -1124, -1122]; y_tick_labels_km = [2390, 2388, 2386, 2384, 2382, 2380, 2378]; vis_ticks_pct = [100, 50, 25, 10, 5, 1, 0]; pm_ticks_ug_m3 = [4000, 3500, 3000, 2500, 2000, 1500, 1000, 500, 0]; co_ticks_mg_m3 = [17.5, 15.0, 12.5, 10.0, 7.5, 5.0, 2.5, 0.0]; footprint_cells_in_title = 191",
-  "Values between colour-bar ticks are interpolated linearly in bar position; the source bars are non-linear between ticks too, so a value between two ticks may differ from the source value."
+  "Values between colour-bar ticks are interpolated linearly in bar position; the source bars are non-linear between ticks too, so a value between two ticks may differ from the source value.",
+  "No health threshold drawn: no committed file and no file in the data folder states a PM2.5 or CO health threshold (DECISIONS.md D34)."
  ]
 }
