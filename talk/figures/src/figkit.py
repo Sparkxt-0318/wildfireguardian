@@ -216,12 +216,24 @@ def _hex(c):
     return to_hex(c, keep_alpha=False)
 
 
-def text_manifest(fig):
-    """Every visible text with its box in inches from the top-left corner, for PowerPoint."""
+def _axis_texts(ax):
+    out = set(ax.get_xticklabels()) | set(ax.get_yticklabels())
+    out |= {ax.xaxis.label, ax.yaxis.label}
+    return out
+
+
+def text_manifest(fig, native_axes=()):
+    """Every visible text with its box in inches from the top-left corner, for PowerPoint.
+    Tick and axis labels of axes that become native PowerPoint charts are left out (the chart draws its own)."""
     fig.canvas.draw()
     r = fig.canvas.get_renderer()
+    skip = set()
+    for ax in native_axes:
+        skip |= _axis_texts(ax)
     items = []
     for t in _texts(fig):
+        if t in skip:
+            continue
         rot = t.get_rotation()
         # unrotated box size: measure with rotation removed
         bb = t.get_window_extent(r)
@@ -250,12 +262,20 @@ def text_manifest(fig):
     return items
 
 
-def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True):
-    """Export complete, text-free and manifest. kind: picture | scene | chart."""
+def _ax_box_in(ax):
+    p = ax.get_position()
+    return [p.x0 * W_IN, (1 - p.y1) * H_IN, p.width * W_IN, p.height * H_IN]
+
+
+def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, charts=()):
+    """Export complete, text-free and manifest. kind: picture | scene.
+    charts: [(ax, spec)] axes to rebuild as native PowerPoint charts; spec is a dict with the chart data."""
     probs = check_collisions(fig, allow_pairs)
     (CHECK / f"{name}_overlap.json").write_text(json.dumps(probs, indent=1, ensure_ascii=False))
+    native_axes = [a for a, _ in charts]
     manifest = {"name": name, "kind": kind, "canvas_in": [W_IN, H_IN],
-                "texts": text_manifest(fig)}
+                "texts": text_manifest(fig, native_axes),
+                "charts": [dict(spec, box_in=_ax_box_in(a)) for a, spec in charts]}
     if extra:
         manifest.update(extra)
     base = FIGDIR / name
@@ -271,6 +291,13 @@ def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True):
         hidden.append(t)
     fig.savefig(f"{base}_notext.png", dpi=DPI)
     fig.savefig(f"{base}_notext.svg")
+    if native_axes:
+        # background picture for PowerPoint: text-free and without the axes that become native charts
+        for a in native_axes:
+            a.set_visible(False)
+        fig.savefig(BUILD / f"{name}_pptxbg.png", dpi=DPI)
+        for a in native_axes:
+            a.set_visible(True)
     for t in hidden:
         t.set_visible(True)
     (BUILD / f"{name}_layout.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False))
