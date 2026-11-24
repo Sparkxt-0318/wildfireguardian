@@ -37,12 +37,13 @@ FISH = "demonstration/heat_spatial_maps/20261013_fishcreek/spatial_matrices.npz"
 WIND = "data/environment/regions/KFS_01/weather/ecmwf_ifs_native_nodes.npz"
 TIF = "product/wfg-roadlayer/examples/fire_arrival_20250325T0900Z_MEASURED_8h.tif"
 T_ISO = "2025-03-25T09:00:00+00:00"
-W_FIG, H_FIG = 17.0, 8.8
+DY = 0.55              # group row above the stage heads
+W_FIG, H_FIG = 17.0, 8.8 + DY
 STAGES = {  # x0, width (inches)
     "a": (0.20, 1.95), "b": (2.60, 2.45), "c": (5.50, 1.90), "d": (7.85, 2.40), "e": (10.70, 3.75), "f": (14.90, 1.95),
 }
-TOP = 0.70             # first picture row
-BOTTOM = 6.75          # graphic ends here; caption below
+TOP = 0.70 + DY        # first picture row
+BOTTOM = 6.75 + DY     # graphic ends here; caption below
 RNG = np.random.default_rng(0)
 PICTURES = []          # display boxes that arrows may not cross
 ARROWS = []
@@ -192,7 +193,7 @@ def read(L):
     rf = "talk/figures/build/F04_routing.json"
     L.add("Calibrated reach class and R(8 h)", [rt["measured_class"], rt["R8_m"] / 1000], unit="km", file=rf,
           field="measured_class, R8_m (research/kcf-replay measured_arms.curve at 09:00 UTC)",
-          shown=f"+{rt['R8_m'] / 1000:.0f} km in 8 h",
+          shown=f"margin: {rt['R8_m'] / 1000:.0f} km in 8 h",
           expected="MEASURED_RULE.md: running class R(8 h) = 10.0 km")
     pl = L.json("planner/public/data/regions/uiseong_andong_2025/places.geojson")["features"]
     D["name_en"] = [f["properties"]["name_en"] for f in pl if f["properties"]["id"] == rt["place_id"]][0]
@@ -227,16 +228,18 @@ def read(L):
     ps = rt["per_shelter"][rt["route_shelter"]]
     L.add("Certificate check of the attaining shelter's field", ps["fixed_point"], file=rf,
           field="per_shelter[route_shelter].fixed_point, states_checked", n=f"{ps['states_checked']} edge states",
-          shown="accept", note="deadline_field.core.check_fixed_point; witness route also rechecked by "
+          shown="route accepted" if ps["fixed_point"] == "PASS" else "route rejected",
+          note="deadline_field.core.check_fixed_point; witness route also rechecked by "
                                "research/kcf-replay/analyze.py::recheck (accepted at the last safe departure, "
                                "rejected one second later: witness_recheck).")
     # abstain gate
     ab = L.json("research/kcf-abstain/numbers.json")["march25"]["hours_10_20_kst"]
     h18 = [h for h in ab if h["kst_hour"] == 18.0][0]
     D["abstain"] = h18
+    D["checked"] = ps["fixed_point"] == "PASS"
     L.add("Calibration gate at 18:00 KST", h18["abstain"], file="research/kcf-abstain/numbers.json",
           field="march25.hours_10_20_kst[kst_hour == 18].abstain (min_predictor, prior3_km)",
-          shown="withhold", note=f"trigger {h18['min_predictor']} = {h18['prior3_km']:.1f} km")
+          shown="withheld; 'gate withheld this hour'" if h18["abstain"] else "passed", note=f"trigger {h18['min_predictor']} = {h18['prior3_km']:.1f} km")
     # forecast (M548)
     fp = S.FIGDIR / "build/F04_forecast.npz"
     D["fc"] = np.load(fp) if fp.exists() else None
@@ -282,7 +285,7 @@ def stage_a(fig, D):
     axs = []
     h0 = map_height(D["strip"], w)
     step = (BOTTOM - 0.6 - y - h0) / 2
-    for t in ["Fire detections", "Forecast wind", "Roads and places"]:
+    for t in ["Satellite fire detections", "Wind forecast", "Roads and villages"]:
         ax, h = strip_map(fig, D, x0, y, w, t)
         axs.append(ax)
         y += step
@@ -309,7 +312,7 @@ def stage_b(fig, D):
     x0, w = STAGES["b"]
     fc = D["fc"]
     y = TOP + 0.62
-    label(fig, x0, y - 0.22, "Learned kernels, one cell")
+    label(fig, x0, y - 0.22, "Learned spread kernels")
     kw = 0.5
     gap = (w - 4 * kw) / 3
     if fc is not None:
@@ -340,7 +343,7 @@ def stage_b(fig, D):
     fig.text(fx(x0), fy(ye + 0.55), r"$p_i=1-\exp(-\mathrm{rate}_i)$", va="center")
     fig.text(fx(x0), fy(ye + 0.98), r"$B$: burned neighbour, 0 or 1", va="center")
     ym = ye + 1.75
-    ax, mh = strip_map(fig, D, x0, ym, w, "Burn probability, next hour")
+    ax, mh = strip_map(fig, D, x0, ym, w, "Chance of burning, next hour")
     if fc is not None:
         prob = fc["probability"].astype(float)
         valid = fc["valid"].astype(bool)
@@ -377,7 +380,7 @@ def stage_b(fig, D):
         r_ = Rectangle((0, 0), 1, 1, facecolor=S.LIGHT, edgecolor=S.INK, linewidth=0.6)
         r_.set_gid("bg:key")
         kax.add_patch(r_)
-        label(fig, x0 + 0.42, yk, "burned (reconstruction)")
+        label(fig, x0 + 0.42, yk, "already burned")
 
 
 def stage_c(fig, D):
@@ -385,11 +388,11 @@ def stage_c(fig, D):
     fz = D["fish"]
     r0, r1 = int(fz["crop_row_start"]), int(fz["crop_row_stop_exclusive"])
     c0, c1 = int(fz["crop_column_start"]), int(fz["crop_column_stop_exclusive"])
-    label(fig, x0, TOP + 0.4, "Fish Creek, US, 2024")
+    label(fig, x0, TOP + 0.4, "Fish Creek fire, US")
     mw = 1.6
     mh = mw * (r1 - r0) / (c1 - c0)
     xm = x0 + (w - mw) / 2
-    specs = [("Active-fire fraction", fz["mean_active_burning_probability"][r0:r1, c0:c1], mc.LogNorm(1e-3, 1),
+    specs = [("Share of hour burning", fz["mean_active_burning_probability"][r0:r1, c0:c1], mc.LogNorm(1e-3, 1),
               [1e-3, 1e-2, 1e-1, 1], ["10$^{-3}$", "", "", "1"]),
              ("Radiant heat, W m$^{-2}$", fz["mean_heat_flux_w_m2"][r0:r1, c0:c1], mc.LogNorm(1, 1e4),
               [1, 1e2, 1e4], ["1", "100", "10$^4$"])]
@@ -415,7 +418,7 @@ def stage_c(fig, D):
 def stage_d(fig, D):
     x0, w = STAGES["d"]
     y = TOP + 0.62
-    ax, mh = strip_map(fig, D, x0, y, w, "Known fire, widened")
+    ax, mh = strip_map(fig, D, x0, y, w, "Known fire plus margin")
     arr, tp, ps = D["arr"], D["tp"], D["ps"]
     reach = PolyCollection(raster_cells(arr, tp, ps, np.isfinite(arr) & (arr > 0) & (arr <= 480)),
                            facecolors=S.WHITE, edgecolors=S.FIRE, linewidths=0, hatch="//////", zorder=1)
@@ -427,7 +430,7 @@ def stage_d(fig, D):
     ax.add_collection(known)
     yk = y + mh + 0.4
     for i, (kind, txt) in enumerate([("known", "known fire, 18:00"),
-                                      ("reach", f"+{D['rt']['R8_m'] / 1000:.0f} km in 8 h")]):
+                                      ("reach", f"margin: {D['rt']['R8_m'] / 1000:.0f} km in 8 h")]):
         kax = axes_in(fig, x0, yk + i * 0.42 - 0.13, 0.3, 0.26, picture=False)
         kax.set_xlim(0, 1)
         kax.set_ylim(0, 1)
@@ -444,7 +447,7 @@ def stage_d(fig, D):
                   edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
     dia.set_gid("box:gate")
     fig.add_artist(dia)
-    fig.text(fx(gcx), fy(gcy), "Inside\ncalibration\nrange?", ha="center", va="center", linespacing=1.05)
+    fig.text(fx(gcx), fy(gcy), "Like the\nfires we\ntested on?", ha="center", va="center", linespacing=1.05)
     D["gate_yes"] = (gcx + gw / 2, gcy)
     label(fig, gcx + gw / 2 + 0.04, gcy - 0.26, "yes")
     wy = gcy + gh / 2 + 0.42
@@ -460,8 +463,8 @@ def stage_d(fig, D):
                      facecolor=S.LIGHT, edgecolor="none", zorder=-0.5)
     back.set_gid("bg:label backing")
     fig.add_artist(back)
-    fig.text(fx(gcx), fy(wy + bh / 2), "withhold", ha="center", va="center")
-    label(fig, gcx, wy + bh + 0.2, "taken at 18:00 KST", ha="center")
+    fig.text(fx(gcx), fy(wy + bh / 2), "withheld", ha="center", va="center")
+    label(fig, gcx, wy + bh + 0.2, "18:00 KST took this exit", ha="center")
 
 
 def stage_e(fig, D):
@@ -469,7 +472,7 @@ def stage_e(fig, D):
     rt = D["rt"]
     roads = D["roads3"]
     y = TOP + 0.62
-    label(fig, x0, y - 0.22, "When each road is blocked")
+    label(fig, x0, y - 0.22, "Three roads on the route")
     lw_ = 1.05
     ax = axes_in(fig, x0 + lw_, y + 0.05, w - lw_ - 0.1, 1.2)
     tmax = 75 * 60
@@ -507,7 +510,7 @@ def stage_e(fig, D):
             fig.canvas.draw()
             xk += 0.4 + t.get_window_extent().width / S.DPI + 0.35
     ym = yk + 1.05
-    label(fig, x0, ym - 0.22, "Backward pass from shelters")
+    label(fig, x0, ym - 0.22, "Leave-by time on every road")
     lonlat = np.array(rt["node_lonlat"])
     ld = np.array(rt["node_ld_s"], dtype=float)
     route = np.array(rt["route_lonlat"])
@@ -562,7 +565,7 @@ def stage_f(fig, D):
     x0, w = STAGES["f"]
     rt = D["rt"]
     y = TOP + 0.62
-    label(fig, x0, y - 0.22, "Village card")
+    label(fig, x0, y - 0.22, "Card for one village")
     ch = 2.15
     card = Rectangle((fx(x0), fy(y + ch)), w / W_FIG, ch / H_FIG, transform=fig.transFigure, facecolor=S.WHITE,
                      edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
@@ -580,18 +583,20 @@ def stage_f(fig, D):
     tax.plot([route[-1, 0]], [route[-1, 1]], marker="s", ms=6, mfc=S.SAFE, mec=S.INK, mew=0.8)[0].set_gid("bg:s")
     tax.set_aspect(1 / k, adjustable="datalim")
     yc = y + ch + 0.15
-    ya = yc + 0.95
+    ya = yc + 0.75
     arrow(fig, (x0 + 0.45, yc), (x0 + 0.45, ya), "certificate")
-    label(fig, x0 + 0.58, yc + 0.45, "certificate")
+    label(fig, x0 + 0.58, yc + 0.35, "certificate")
     cb_h = 0.95
     chk = Rectangle((fx(x0), fy(ya + cb_h)), w / W_FIG, cb_h / H_FIG, transform=fig.transFigure,
                     facecolor=S.WHITE, edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
     chk.set_gid("box:checker")
     fig.add_artist(chk)
-    fig.text(fx(x0 + w / 2), fy(ya + cb_h / 2), "Separate\nchecker", ha="center", va="center", linespacing=1.1)
-    yo = ya + cb_h + 0.65
+    fig.text(fx(x0 + w / 2), fy(ya + cb_h / 2), "Independent\nchecker", ha="center", va="center", linespacing=1.1)
+    yo = ya + cb_h + 0.5
     arrow(fig, (x0 + 0.45, ya + cb_h), (x0 + 0.45, yo), "verdict")
-    label(fig, x0, yo + 0.3, "accept / reject")
+    label(fig, x0, yo + 0.3, "route accepted" if D["checked"] else "route rejected")
+    if D["abstain"]["abstain"]:
+        fig.text(fx(x0), fy(yo + 0.72), "but the gate\nwithheld this hour", va="top", linespacing=1.1)
 
 
 # ====================================================================== checks
@@ -649,10 +654,19 @@ def main():
     L = Ledger("F04", "Method overview: one case, Uiseong–Andong, 25 March 2025, 18:00 KST")
     D = read(L)
     fig = S.plt.figure(figsize=(W_FIG, H_FIG), dpi=S.DPI)
-    heads = {"a": "(a) Inputs", "b": "(b) Spread forecast", "c": "(c) Exposure", "d": "(d) Safety distance",
-             "e": "(e) Routing", "f": "(f) Output"}
+    heads = {"a": "(a) Inputs at 18:00", "b": "(b) Where fire may spread", "c": "(c) Heat near the fire",
+             "d": "(d) Margin and gate", "e": "(e) When roads are blocked", "f": "(f) Leave-by card"}
     for k_, t in heads.items():
-        label(fig, STAGES[k_][0], 0.3, t)
+        label(fig, STAGES[k_][0], 0.3 + DY, t)
+    def bracket(x0, x1, text):
+        y = 0.5
+        ln = S.plt.Line2D([fx(x0), fx(x0), fx(x1), fx(x1)], [fy(y + 0.09), fy(y), fy(y), fy(y + 0.09)],
+                          transform=fig.transFigure, color=S.INK, lw=S.LW_THIN)
+        ln.set_gid("bracket")
+        fig.add_artist(ln)
+        label(fig, x0, y - 0.25, text)
+    bracket(STAGES["b"][0], STAGES["c"][0] + STAGES["c"][1], "Forecast model, not used for roads")
+    bracket(STAGES["d"][0], STAGES["f"][0] + STAGES["f"][1], "Road plan from the detected fire")
     stage_a(fig, D)
     stage_b(fig, D)
     stage_c(fig, D)
@@ -660,23 +674,23 @@ def main():
     stage_d(fig, D)
     stage_f(fig, D)
     # stage-to-stage arrows, in the gaps only
-    ya = 3.0
-    for s0, s1 in (("a", "b"), ("b", "c"), ("c", "d")):
+    ya = 3.0 + DY
+    for s0, s1 in (("a", "b"), ("b", "c")):
         xa = STAGES[s0][0] + STAGES[s0][1] + 0.08
         xb = STAGES[s1][0] - 0.08
         arrow(fig, (xa, ya), (xb, ya), f"{s0}->{s1}")
     gx, gy = D["gate_yes"]
     arrow(fig, (gx, gy), (STAGES["e"][0] - 0.08, gy), "gate yes -> e")
-    arrow(fig, (STAGES["e"][0] + STAGES["e"][1] + 0.08, 2.1), (STAGES["f"][0] - 0.08, 2.1), "e->f")
+    arrow(fig, (STAGES["e"][0] + STAGES["e"][1] + 0.08, 2.1 + DY), (STAGES["f"][0] - 0.08, 2.1 + DY), "e->f")
     rt = D["rt"]
     meta = D.get("fc_meta")
     cap = add_caption(fig, (
-        f"Figure 4. One case through the method, Uiseong–Andong at 18:00 KST on 25 March 2025: the inputs (a); the "
-        f"M548 forecast, its four learned kernels at one cell and the next-hour burn probability (b); exposure, shown on "
-        f"Fish Creek because no Korean fuel maps exist (c); the known fire widened by the calibrated 8 h reach, which "
-        f"the gate withheld at this hour (d); and the backward pass that gives {D['name_en']} a last safe departure of "
-        f"{kst(rt['ld_at_origin_s'])} and a route that a separate checker accepted (e–f), where the road blockages "
-        f"come from the detected fire and the reach, not from (b)."),
+        f"Figure 4. One case through the method: Uiseong–Andong at 18:00 KST on 25 March 2025. Inputs (a); the "
+        f"forecast model's learned spread kernels and next-hour chance of burning (b); heat, shown on the US Fish Creek "
+        f"fire because no Korean fuel maps exist (c). The road plan uses the detected fire, not (b)–(c): the known fire "
+        f"plus a calibrated {rt['R8_m'] / 1000:.0f} km margin (d) sets when each road is blocked, and a backward pass "
+        f"gives {D['name_en']} a leave-by time of {kst(rt['ld_at_origin_s'])} and a route that an independent checker "
+        f"accepted (e–f). At this hour the gate withheld the answer: the fire was unlike every calibration fire."),
         x_in=0.2, width_in=16.6, top_in=BOTTOM + 0.6)
     probs = check_arrows(fig)
     cvd = cvd_check()
