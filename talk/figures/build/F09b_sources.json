@@ -3,7 +3,7 @@
  "title": "Speed with the scalar fast path (separate panel, other machine)",
  "rows": [
   {
-   "label": "Uiseong–Andong, 23 Mar 01 UTC: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 23 Mar 01:00: earlier method, cold, scaled",
    "value": 13460.674137386404,
    "unit": "s",
    "shown": null,
@@ -17,7 +17,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01 UTC: deadline field, cold",
+   "label": "Uiseong–Andong, 23 Mar 01:00: deadline field, cold",
    "value": 25.837532734993147,
    "unit": "s",
    "shown": null,
@@ -31,7 +31,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01 UTC: ratio",
+   "label": "Uiseong–Andong, 23 Mar 01:00: ratio",
    "value": 520.9736655371856,
    "unit": "",
    "shown": "521×",
@@ -45,7 +45,41 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09 UTC: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 23 Mar 01:00: earlier method range over repeats",
+   "value": [
+    13066.103989665098,
+    15099.452594630471
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250323T010000Z'].old.cold.scaled.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 23 Mar 01:00: deadline field range over repeats",
+   "value": [
+    21.874623370000336,
+    30.35316179099027
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250323T010000Z'].field.field.cold.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 24 Mar 09:00: earlier method, cold, scaled",
    "value": 14184.733388787428,
    "unit": "s",
    "shown": null,
@@ -59,7 +93,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09 UTC: deadline field, cold",
+   "label": "Uiseong–Andong, 24 Mar 09:00: deadline field, cold",
    "value": 174.03230634400097,
    "unit": "s",
    "shown": null,
@@ -73,7 +107,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09 UTC: ratio",
+   "label": "Uiseong–Andong, 24 Mar 09:00: ratio",
    "value": 81.50632308893944,
    "unit": "",
    "shown": "82×",
@@ -87,7 +121,41 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17 UTC: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 24 Mar 09:00: earlier method range over repeats",
+   "value": [
+    13420.088996302446,
+    14644.411410884777
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250324T090000Z'].old.cold.scaled.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 24 Mar 09:00: deadline field range over repeats",
+   "value": [
+    166.49230839799975,
+    185.28671386600035
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250324T090000Z'].field.field.cold.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 25 Mar 17:00: earlier method, cold, scaled",
    "value": 24465.10289200233,
    "unit": "s",
    "shown": null,
@@ -101,7 +169,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17 UTC: deadline field, cold",
+   "label": "Uiseong–Andong, 25 Mar 17:00: deadline field, cold",
    "value": 105.91041006299929,
    "unit": "s",
    "shown": null,
@@ -115,7 +183,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17 UTC: ratio",
+   "label": "Uiseong–Andong, 25 Mar 17:00: ratio",
    "value": 230.99809430866725,
    "unit": "",
    "shown": "231×",
@@ -129,7 +197,41 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19 UTC: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 25 Mar 17:00: earlier method range over repeats",
+   "value": [
+    21236.1373871058,
+    25485.447746881404
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250325T170000Z'].old.cold.scaled.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 25 Mar 17:00: deadline field range over repeats",
+   "value": [
+    93.64289880900469,
+    112.79128699199646
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250325T170000Z'].field.field.cold.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 25 Mar 19:00: earlier method, cold, scaled",
    "value": 44650.84919926957,
    "unit": "s",
    "shown": null,
@@ -143,7 +245,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19 UTC: deadline field, cold",
+   "label": "Yeongdeok, 25 Mar 19:00: deadline field, cold",
    "value": 282.34100154099724,
    "unit": "s",
    "shown": null,
@@ -157,7 +259,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19 UTC: ratio",
+   "label": "Yeongdeok, 25 Mar 19:00: ratio",
    "value": 158.14511160464966,
    "unit": "",
    "shown": "158×",
@@ -171,7 +273,41 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23 UTC: earlier method, cold, scaled",
+   "label": "Yeongdeok, 25 Mar 19:00: earlier method range over repeats",
+   "value": [
+    44041.05350612517,
+    46514.25123368116
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250325T190000Z'].old.cold.scaled.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 25 Mar 19:00: deadline field range over repeats",
+   "value": [
+    221.05089038499864,
+    306.0041241040017
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250325T190000Z'].field.field.cold.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 25 Mar 23:00: earlier method, cold, scaled",
    "value": 31245.51910699116,
    "unit": "s",
    "shown": null,
@@ -185,7 +321,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23 UTC: deadline field, cold",
+   "label": "Yeongdeok, 25 Mar 23:00: deadline field, cold",
    "value": 294.3908435190024,
    "unit": "s",
    "shown": null,
@@ -199,7 +335,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23 UTC: ratio",
+   "label": "Yeongdeok, 25 Mar 23:00: ratio",
    "value": 106.13617846770536,
    "unit": "",
    "shown": "106×",
@@ -213,7 +349,41 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08 UTC: earlier method, cold, scaled",
+   "label": "Yeongdeok, 25 Mar 23:00: earlier method range over repeats",
+   "value": [
+    30227.589119336022,
+    32366.378884559894
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250325T230000Z'].old.cold.scaled.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 25 Mar 23:00: deadline field range over repeats",
+   "value": [
+    281.26720447400294,
+    318.3922431500014
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250325T230000Z'].field.field.cold.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 08:00: earlier method, cold, scaled",
    "value": 28861.162236538705,
    "unit": "s",
    "shown": null,
@@ -227,7 +397,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08 UTC: deadline field, cold",
+   "label": "Yeongdeok, 26 Mar 08:00: deadline field, cold",
    "value": 334.9146858669992,
    "unit": "s",
    "shown": null,
@@ -241,13 +411,47 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08 UTC: ratio",
+   "label": "Yeongdeok, 26 Mar 08:00: ratio",
    "value": 86.17466911558486,
    "unit": "",
    "shown": "86×",
    "n": "5 repeats",
    "file": "research/kcf-bench/results_hostB/summary.json",
    "field": "caches['yeongdeok_2025/20250326T080000Z'].ratios['old/field/cold'].median",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 08:00: earlier method range over repeats",
+   "value": [
+    26641.854475306533,
+    29808.02588607585
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250326T080000Z'].old.cold.scaled.min/max",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 08:00: deadline field range over repeats",
+   "value": [
+    303.5985631750009,
+    345.507648290004
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": "5 repeats",
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250326T080000Z'].field.field.cold.min/max",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -325,13 +529,36 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01 UTC: field time, deadline field (baseline solver)",
-   "value": 6.8422133730200585,
+   "label": "All six: whiskers (sums of per-cache minima and maxima over repeats)",
+   "value": [
+    148632.82747384108,
+    163917.96775671357,
+    1087.9264886110072,
+    1298.3351781929941
+   ],
+   "unit": "s",
+   "shown": "whisker",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "sum of old.cold.scaled.min / max and field.field.cold.min / max",
+   "expected": null,
+   "note": "equal to BENCH.md's 41.3–45.5 h and 18–22 min",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "UA 23 Mar 01:00: field time, deadline field (baseline solver), median and range",
+   "value": [
+    6.8422133730200585,
+    6.664439417974791,
+    8.318883414991433
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/UA0323/baseline'][*].field",
+   "field": "runs['full/UA0323/baseline'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -339,13 +566,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01 UTC: field time, scalar fast path",
-   "value": 2.610841250017984,
+   "label": "UA 23 Mar 01:00: field time, scalar fast path, median and range",
+   "value": [
+    2.610841250017984,
+    2.5413644149375614,
+    2.932108080916805
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/UA0323/scalar'][*].field",
+   "field": "runs['full/UA0323/scalar'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -353,7 +584,7 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01 UTC: ratio field time",
+   "label": "UA 23 Mar 01:00: ratio of field times",
    "value": 2.620692994249623,
    "unit": "",
    "shown": "2.6×",
@@ -367,13 +598,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09 UTC: field time, deadline field (baseline solver)",
-   "value": 7.162183747917879,
+   "label": "UA 24 Mar 09:00: field time, deadline field (baseline solver), median and range",
+   "value": [
+    7.162183747917879,
+    6.741676539182663,
+    7.4206757489882875
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/UA0324/baseline'][*].field",
+   "field": "runs['full/UA0324/baseline'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -381,13 +616,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09 UTC: field time, scalar fast path",
-   "value": 2.8696052479790524,
+   "label": "UA 24 Mar 09:00: field time, scalar fast path, median and range",
+   "value": [
+    2.8696052479790524,
+    2.7797725010022987,
+    3.7710230450029485
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/UA0324/scalar'][*].field",
+   "field": "runs['full/UA0324/scalar'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -395,7 +634,7 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09 UTC: ratio field time",
+   "label": "UA 24 Mar 09:00: ratio of field times",
    "value": 2.4958777005868376,
    "unit": "",
    "shown": "2.5×",
@@ -409,13 +648,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17 UTC: field time, deadline field (baseline solver)",
-   "value": 4.855104668909917,
+   "label": "UA 25 Mar 17:00: field time, deadline field (baseline solver), median and range",
+   "value": [
+    4.855104668909917,
+    4.653107416874263,
+    5.675540207012091
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/UA0325/baseline'][*].field",
+   "field": "runs['full/UA0325/baseline'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -423,13 +666,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17 UTC: field time, scalar fast path",
-   "value": 2.459014792984817,
+   "label": "UA 25 Mar 17:00: field time, scalar fast path, median and range",
+   "value": [
+    2.459014792984817,
+    2.3729532900324557,
+    2.6570111629844178
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/UA0325/scalar'][*].field",
+   "field": "runs['full/UA0325/scalar'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -437,7 +684,7 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17 UTC: ratio field time",
+   "label": "UA 25 Mar 17:00: ratio of field times",
    "value": 1.9744105170740605,
    "unit": "",
    "shown": "2.0×",
@@ -451,13 +698,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19 UTC: field time, deadline field (baseline solver)",
-   "value": 52.09815837009228,
+   "label": "YD 25 Mar 19:00: field time, deadline field (baseline solver), median and range",
+   "value": [
+    52.09815837009228,
+    51.586209738918114,
+    61.37988217279781
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/YD0325T19/baseline'][*].field",
+   "field": "runs['full/YD0325T19/baseline'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -465,13 +716,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19 UTC: field time, scalar fast path",
-   "value": 29.31259441722068,
+   "label": "YD 25 Mar 19:00: field time, scalar fast path, median and range",
+   "value": [
+    29.31259441722068,
+    28.261125785153126,
+    31.70707900385605
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/YD0325T19/scalar'][*].field",
+   "field": "runs['full/YD0325T19/scalar'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -479,7 +734,7 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19 UTC: ratio field time",
+   "label": "YD 25 Mar 19:00: ratio of field times",
    "value": 1.7773301683417502,
    "unit": "",
    "shown": "1.8×",
@@ -493,13 +748,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23 UTC: field time, deadline field (baseline solver)",
-   "value": 61.55877750116633,
+   "label": "YD 25 Mar 23:00: field time, deadline field (baseline solver), median and range",
+   "value": [
+    61.55877750116633,
+    59.84289420902496,
+    73.23758575093234
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/YD0325T23/baseline'][*].field",
+   "field": "runs['full/YD0325T23/baseline'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -507,13 +766,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23 UTC: field time, scalar fast path",
-   "value": 29.583692208922002,
+   "label": "YD 25 Mar 23:00: field time, scalar fast path, median and range",
+   "value": [
+    29.583692208922002,
+    29.1359896659269,
+    32.88410904092598
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/YD0325T23/scalar'][*].field",
+   "field": "runs['full/YD0325T23/scalar'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -521,7 +784,7 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23 UTC: ratio field time",
+   "label": "YD 25 Mar 23:00: ratio of field times",
    "value": 2.080834841926902,
    "unit": "",
    "shown": "2.1×",
@@ -535,13 +798,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08 UTC: field time, deadline field (baseline solver)",
-   "value": 72.78645833983319,
+   "label": "YD 26 Mar 08:00: field time, deadline field (baseline solver), median and range",
+   "value": [
+    72.78645833983319,
+    68.82788562576752,
+    90.00941937230527
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/YD0326/baseline'][*].field",
+   "field": "runs['full/YD0326/baseline'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -549,13 +816,17 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08 UTC: field time, scalar fast path",
-   "value": 32.43298942199908,
+   "label": "YD 26 Mar 08:00: field time, scalar fast path, median and range",
+   "value": [
+    32.43298942199908,
+    31.345212708751205,
+    33.08371646303567
+   ],
    "unit": "s",
    "shown": null,
    "n": "5 runs",
    "file": "research/kcf-fastpath/results/RESULTS.json",
-   "field": "median of runs['full/YD0326/scalar'][*].field",
+   "field": "runs['full/YD0326/scalar'][*].field",
    "expected": null,
    "note": "",
    "repo": "wildfireguardian",
@@ -563,7 +834,7 @@
    "commit": "1e7d02e5"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08 UTC: ratio field time",
+   "label": "YD 26 Mar 08:00: ratio of field times",
    "value": 2.244210590420093,
    "unit": "",
    "shown": "2.2×",
@@ -578,6 +849,6 @@
   }
  ],
  "notes": [
-  "Panel b machine: {'platform': 'macOS-27.0.1-arm64-arm-64bit-Mach-O', 'machine': 'arm64', 'python': '3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:29:07) [Clang 19.1.7 ]', 'python_executable': '/Users/jp/miniforge3/bin/python3', 'cpu_count': 15, 'cpu_model': 'Apple M5 Pro', 'cores_perf_eff': ['5', '10'], 'mem_bytes': '25769803776', 'os': 'ProductName:\\t\\tmacOS\\nProductVersion:\\t\\t27.0.1\\nBuildVersion:\\t\\t26A434', 'libs': {'numpy': '2.5.0', 'pyproj': '3.7.2', 'scipy': '1.18.0', 'shapely': '2.1.2'}, 'git_head': '24e2c0c8ac9c2025d1cfbf0b2b88b4403bf76741'} (runs/HOST.json on origin/research/kcf-fastpath); panel a machine: Intel Xeon 2.10 GHz (kcf-bench BENCH.md §1). Different machines, so the panels do not share an axis (DECISIONS.md)."
+  "Panel b machine: Apple M5 Pro, macOS-27.0.1-arm64-arm-64bit-Mach-O (runs/HOST.json on origin/research/kcf-fastpath); panel a machine: Intel Xeon 2.10 GHz (kcf-bench BENCH.md §1). Different machines, so the panels do not share an axis."
  ]
 }
