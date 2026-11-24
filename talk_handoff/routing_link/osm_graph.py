@@ -13,6 +13,7 @@ continues outside the grid (the map edge). Destinations are always the map-edge 
 """
 from __future__ import annotations
 
+import gzip
 import json
 import math
 from pathlib import Path
@@ -94,7 +95,8 @@ def build(osm_json, grid_json, snapshot_utc):
     from pyproj import Transformer
 
     grid = Grid.from_json(grid_json)
-    osm = json.loads(Path(osm_json).read_text())
+    p = Path(osm_json)
+    osm = json.loads(gzip.decompress(p.read_bytes()) if p.suffix == ".gz" else p.read_text())
     tr = Transformer.from_crs("EPSG:4326", "EPSG:%d" % grid.epsg, always_xy=True)
     lonlat = {e["id"]: (e["lon"], e["lat"]) for e in osm["elements"] if e["type"] == "node" and "lon" in e}
     xy = {}

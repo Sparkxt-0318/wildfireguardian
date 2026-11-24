@@ -70,7 +70,10 @@ def run(graph: dict, origins: list, exits: list, raster, grid: Grid, workers: in
                if o["node"] is not None and any(c["node"] == e["node"] for c in cands[o["id"]])]
         if lst:
             jobs.append((e["node"], acc, lst))
-    results = engine.run_passes(road, inst, jobs, workers)
+    try:
+        results = engine.run_passes(road, inst, jobs, workers)
+    except (PermissionError, OSError):  # no process pool allowed here (e.g. a sandbox): same passes, one process
+        results = engine.run_passes(road, inst, jobs, 1)
     rows = engine.assemble(region, fire, cfg, inst, results, close_s)
     out = []
     for row in rows:

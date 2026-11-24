@@ -102,7 +102,7 @@ def main():
             comb_ch = B.blocked_cell_hours(comb, Hh) & computed
             summary.setdefault("added_cell_hours", {})[tag] = {
                 "exposure_blocked_not_fire": int((comb_ch & ~fire_ch).sum()), "n_cell_hours": n_cell_hours,
-                "cells_blocked_earlier_than_fire": int(np.sum(np.nan_to_num(exp, nan=np.inf) < np.nan_to_num(fire_cut, nan=np.inf))),
+                "cells_blocked_earlier_than_fire": int(np.sum(np.where(np.isnan(exp), np.inf, exp) < np.where(np.isnan(fire_cut), np.inf, fire_cut))),
                 "n_cells": n_cells}
     pf = out / "rasters" / "fire_arrival_only.tif"
     write_raster(pf, fire_cut, grid, Hh, "fire arrival as the road layer reads it, cut to the exposure horizon")

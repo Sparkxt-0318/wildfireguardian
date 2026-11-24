@@ -1,0 +1,10 @@
+{
+ "file": "data/fishcreek_osm_20240823.json.gz",
+ "sha256": "13e6b8fc2fe548d0984979c9b6d4a208f81d1038be7268c00ae46ee8a11b3fb1",
+ "query": "Overpass QL, [date:\"2024-08-23T00:00:00Z\"], bbox = Fish Creek grid bounds_wgs84; way[highway], node[place], nwr[amenity~shelter|fire_station|school|townhall|community_centre], nwr[tourism~camp_site|alpine_hut]",
+ "endpoint": "https://overpass.private.coffee/api/interpreter (overpass-api.de was at capacity)",
+ "fetched_utc": "2026-11-24",
+ "server_timestamp_osm_base": "2026-07-24T11:04:51Z",
+ "note": "whether the mirror applied the [date:] historical filter is not verified; treat as OSM as of 2024-08-23 if honoured, else as of 2026-07-24",
+ "license": "ODbL, OpenStreetMap contributors"
+}

@@ -19,8 +19,8 @@ def make(graph, grid, fire_min, combined_min, stem, horizon_label=None):
     from matplotlib.patches import Patch
     from matplotlib.lines import Line2D
 
-    f = np.isfinite(np.nan_to_num(fire_min, nan=np.inf))
-    c = np.isfinite(np.nan_to_num(combined_min, nan=np.inf))
+    f = np.isfinite(np.asarray(fire_min, float))          # NaN and +inf: not blocked inside the horizon
+    c = np.isfinite(np.asarray(combined_min, float))
     cls = np.where(f, 1, np.where(c, 2, 0)).astype(float)
     cls[cls == 0] = np.nan
     x0, res, ytop = grid.x0, grid.res, grid.ytop
@@ -50,7 +50,7 @@ def make(graph, grid, fire_min, combined_min, stem, horizon_label=None):
     h = [Patch(facecolor=BLUE_TINT, edgecolor="none", label="Blocked by fire arrival"),
          Patch(facecolor=RED, edgecolor="none", label="Blocked by exposure only (residents, visibility p ≥ 0.5*)"),
          Line2D([0], [0], color=INK, lw=0.8, label="Road (OpenStreetMap)")]
-    leg = ax.legend(handles=h, loc="lower left", fontsize=7, frameon=True, framealpha=0.85, edgecolor=GREY)
+    leg = ax.legend(handles=h, loc="upper left", bbox_to_anchor=(0.0, -0.07), ncol=1, fontsize=7, frameon=False)
     for t in leg.get_texts():
         t.set_color(INK)
     note = "*assumption: 10 m building-egress visibility; 0.5 level our choice"
