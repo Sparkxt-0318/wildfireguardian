@@ -18,7 +18,8 @@
  "bulletin": {
   "date_kst": "2026-11-25",
   "hours": {
-   "00": []
+   "00": [],
+   "01": []
   },
   "single_exit_by_cell": {}
  },
