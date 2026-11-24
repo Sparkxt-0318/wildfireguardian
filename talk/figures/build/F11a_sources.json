@@ -1,0 +1,23 @@
+{
+ "code": "F11a",
+ "title": "Village card (exported as printed)",
+ "rows": [
+  {
+   "label": "Card exported",
+   "value": "page 86 (삼의리)",
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "product/wfg-roadlayer/examples/cards/yeongdeok_20250325_1800KST/cards_ko_yeongdeok_2025.pdf",
+   "field": "page 86, rendered at 300 dpi",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "6e649474"
+  }
+ ],
+ "notes": [
+  "Cropped to 1749 x 2481 px at 300 dpi."
+ ]
+}

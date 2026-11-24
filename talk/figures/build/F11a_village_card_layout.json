@@ -1,0 +1,16 @@
+{
+ "name": "F11a_village_card",
+ "kind": "image",
+ "image": "F11a_village_card.png",
+ "size_px": [
+  1749,
+  2481
+ ],
+ "texts": [
+  {
+   "text": "Figure 11. A village card as printed by the road layer, for 삼의리 Samui-ri (영덕 Yeongdeok region), forecast issued 25 March 2025, 18:00 KST. Model output, for reference only. Source: product/wfg-roadlayer/examples/cards/yeongdeok_20250325_1800KST/cards_ko_yeongdeok_2025.pdf, page 86.",
+   "caption": true,
+   "name": "Caption"
+  }
+ ]
+}
