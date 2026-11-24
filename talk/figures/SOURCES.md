@@ -294,16 +294,20 @@ Not built (see README.md).
 
 - Panel b machine: Apple M5 Pro, macOS-27.0.1-arm64-arm-64bit-Mach-O (runs/HOST.json on origin/research/kcf-fastpath); panel a machine: Intel Xeon 2.10 GHz (kcf-bench BENCH.md §1). Different machines, so the panels do not share an axis.
 
-## F10: Camp Fire: closures caught before the report, and the cost
+## F10: Camp Fire: blocked roads flagged before the crew report, and the cost
 
 | shown | value | n | file | field | repo / ref / commit | expected | note |
 |---|---|---|---|---|---|---|---|
-| **Held-out road-closed reports placed on the map** | 195 |  | `research/kcf-camp/out/test1_road_state.csv` | rows with class == ROAD_CLOSED and match != not_placed; lat, lon | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 195 |  |
-| **Reports where the method had the road closed by the report time** (170 of 195) | 170 | 195 reports | `research/kcf-camp/out/tests12.json` | test1.strict.MR.hits / closed_scored | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 170 of 195 | cross-checked against state_MR_strict == HIT in test1_road_state.csv |
-| **Median minutes early, caught reports** (153 min) | 153.45 min | 170 reports | `research/kcf-camp/out/test1_road_state.csv` | median of -err_MR_strict over rows with state_MR_strict == HIT | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 119 min | DIFFERENT FROM EXPECTED. 119 min (numbers.json tests12.test1.strict.MR.time_error_min_closed_rows.median = -118.8) is the median over all 195 closed reports, caught and missed. The figure plots the caught reports only, as asked, so it marks their median. |
-| **Passable roads the method had closed** (22 of 23) | 22 | 23 reports | `research/kcf-camp/out/tests12.json` | test1.strict.MR.false_closures / passable_scored | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 22 of 23 |  |
+| **Held-out crew reports of a blocked road (class ROAD_CLOSED) placed on the map** | 195 |  | `research/kcf-camp/out/test1_road_state.csv` | rows with class == ROAD_CLOSED and match != not_placed; lat, lon | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 195 |  |
+| **Reports where the model had the road blocked by the report time (15 min tolerance)** (170 of 195) | 170 | 195 reports | `research/kcf-camp/out/tests12.json` | test1.strict.MR.hits / closed_scored | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 170 of 195 | cross-checked against state_MR_strict == HIT in test1_road_state.csv |
+| **Median minutes early, reports flagged in time** (153 min) | 153.45 min | 170 reports | `research/kcf-camp/out/test1_road_state.csv` | median of -err_MR_strict over rows with state_MR_strict == HIT | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 119 min | DIFFERENT FROM EXPECTED. 119 min (numbers.json tests12.test1.strict.MR.time_error_min_closed_rows.median = -118.8) is the median over all 195 blocked-road reports, flagged in time or not. The figure plots the reports flagged in time only, so it marks their median. |
+| **Roads crews found passable that the model had blocked** (22 of 23) | 22 | 23 reports | `research/kcf-camp/out/tests12.json` | test1.strict.MR.false_closures / passable_scored | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` | 22 of 23 |  |
+| **Paradise town label position (lon, lat)** ('Paradise') | -121.62, 39.76 |  | `research/kcf-validate/paradise/geocode.py` | PARADISE = Point(...) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `f4c80374` |  | the geocoder's town reference point; no town outline or road graph is committed |
+| **Median hours early, reports flagged in time (rounded down for 'at least')** (≥ 2.5 h) | 2.5575 h | 170 reports | `research/kcf-camp/out/test1_road_state.csv` | median of -err_MR_strict / 60 over rows with state_MR_strict == HIT | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` |  |  |
+| **95% interval, reports flagged blocked in time** (error bar) | 0.818, 0.912 |  | `research/kcf-camp/out/tests12.json` | test1.strict.MR.hit_ci95 | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` |  |  |
+| **95% interval, passable roads also flagged blocked** (error bar) | 0.79, 0.992 |  | `research/kcf-camp/out/tests12.json` | test1.strict.MR.false_closure_ci95 | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2aa78d1c` |  |  |
 
-- No road lines drawn: the Paradise road graph is not committed (DECISIONS.md D12).
+- No road lines and no fire area drawn: the Paradise road graph and any fire-area raster are not committed (DECISIONS.md D12, D37).
 
 ## F11a: Village card (exported as printed)
 

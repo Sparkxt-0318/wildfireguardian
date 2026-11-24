@@ -1,9 +1,9 @@
 {
  "code": "F10",
- "title": "Camp Fire: closures caught before the report, and the cost",
+ "title": "Camp Fire: blocked roads flagged before the crew report, and the cost",
  "rows": [
   {
-   "label": "Held-out road-closed reports placed on the map",
+   "label": "Held-out crew reports of a blocked road (class ROAD_CLOSED) placed on the map",
    "value": 195,
    "unit": "",
    "shown": null,
@@ -17,7 +17,7 @@
    "commit": "2aa78d1c"
   },
   {
-   "label": "Reports where the method had the road closed by the report time",
+   "label": "Reports where the model had the road blocked by the report time (15 min tolerance)",
    "value": "170",
    "unit": "",
    "shown": "170 of 195",
@@ -31,7 +31,7 @@
    "commit": "2aa78d1c"
   },
   {
-   "label": "Median minutes early, caught reports",
+   "label": "Median minutes early, reports flagged in time",
    "value": 153.45,
    "unit": "min",
    "shown": "153 min",
@@ -39,13 +39,13 @@
    "file": "research/kcf-camp/out/test1_road_state.csv",
    "field": "median of -err_MR_strict over rows with state_MR_strict == HIT",
    "expected": "119 min",
-   "note": "DIFFERENT FROM EXPECTED. 119 min (numbers.json tests12.test1.strict.MR.time_error_min_closed_rows.median = -118.8) is the median over all 195 closed reports, caught and missed. The figure plots the caught reports only, as asked, so it marks their median.",
+   "note": "DIFFERENT FROM EXPECTED. 119 min (numbers.json tests12.test1.strict.MR.time_error_min_closed_rows.median = -118.8) is the median over all 195 blocked-road reports, flagged in time or not. The figure plots the reports flagged in time only, so it marks their median.",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "2aa78d1c"
   },
   {
-   "label": "Passable roads the method had closed",
+   "label": "Roads crews found passable that the model had blocked",
    "value": "22",
    "unit": "",
    "shown": "22 of 23",
@@ -57,9 +57,74 @@
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "2aa78d1c"
+  },
+  {
+   "label": "Paradise town label position (lon, lat)",
+   "value": [
+    -121.62,
+    39.76
+   ],
+   "unit": "",
+   "shown": "'Paradise'",
+   "n": null,
+   "file": "research/kcf-validate/paradise/geocode.py",
+   "field": "PARADISE = Point(...)",
+   "expected": null,
+   "note": "the geocoder's town reference point; no town outline or road graph is committed",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "f4c80374"
+  },
+  {
+   "label": "Median hours early, reports flagged in time (rounded down for 'at least')",
+   "value": 2.5574999999999997,
+   "unit": "h",
+   "shown": "≥ 2.5 h",
+   "n": "170 reports",
+   "file": "research/kcf-camp/out/test1_road_state.csv",
+   "field": "median of -err_MR_strict / 60 over rows with state_MR_strict == HIT",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "95% interval, reports flagged blocked in time",
+   "value": [
+    0.818,
+    0.912
+   ],
+   "unit": "",
+   "shown": "error bar",
+   "n": null,
+   "file": "research/kcf-camp/out/tests12.json",
+   "field": "test1.strict.MR.hit_ci95",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "95% interval, passable roads also flagged blocked",
+   "value": [
+    0.79,
+    0.992
+   ],
+   "unit": "",
+   "shown": "error bar",
+   "n": null,
+   "file": "research/kcf-camp/out/tests12.json",
+   "field": "test1.strict.MR.false_closure_ci95",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
   }
  ],
  "notes": [
-  "No road lines drawn: the Paradise road graph is not committed (DECISIONS.md D12)."
+  "No road lines and no fire area drawn: the Paradise road graph and any fire-area raster are not committed (DECISIONS.md D12, D37)."
  ]
 }

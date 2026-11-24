@@ -23,7 +23,7 @@ FIGS = [
     ("F08", "F08_backward_step_checker", "8 (full)", "One backward step on a time axis; solver, certificate and independent checker", "done (native shapes in pptx)"),
     ("F09", "F09_speed", "9 (full width)", "Search per village (earlier) against one backward pass (ours): six forecast hours in KST with place and check counts, total (129×), line at the hourly update (D36)", "done"),
     ("F09b", "F09b_speed_fastpath", "9 (variant, full)", "F09 plus the scalar fast path as its own panel (other machine); rows and names as F09 (D36)", "done"),
-    ("F10", "F10_camp_fire", "10 (full)", "Camp Fire: 170 of 195 road-closed reports caught, minutes early, cost 22 of 23", "done with a note: no road lines (D12); median of caught = 153 min (D13)"),
+    ("F10", "F10_camp_fire", "10 (full)", "Camp Fire: 170 of 195 blocked-road reports flagged before the crew report (map with Paradise), hours earlier (half ≥ 2.5 h), hits and false alarms (22 of 23 passable roads also flagged)", "done with a note: no road lines or fire area, none committed (D12, D37)"),
     ("F11a", "F11a_village_card", "11", "One real village card (삼의리 Samui-ri), exported at 300 dpi as printed", "done"),
     ("F13", "F13_kernels", "backup", "Four mean effective kernels and their embedded sum (h⁻¹)", "done with a note: rebuilt from the preprint's vector PDF, calibrated to its table (D24)"),
     ("F14", "F14_reliability", "backup", "Reliability of the reported model, low-probability region enlarged", "done"),
