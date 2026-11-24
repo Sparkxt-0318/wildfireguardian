@@ -141,7 +141,7 @@ def read(L):
     L.add("Places in the region / inside the known fire area at 18:00 KST",
           [len(D["places"]), sum(s == "INSIDE_KNOWN_FIRE_AREA" for s in states)],
           file="planner/public/kcf-scene/data/scene.js",
-          field=f"places (region uiseong_andong_2025); hourly.MEASURED[place][{k}].state", shown="(caption)")
+          field=f"places (region uiseong_andong_2025); hourly.MEASURED[place][{k}].state", shown="(SOURCES only)")
     L.add("Shelters in the region", len(D["shelters"]), file="planner/public/kcf-scene/data/scene.js",
           field="shelters (region uiseong_andong_2025)", shown="(not printed)")
     # detections
@@ -152,7 +152,7 @@ def read(L):
     n_ahi = sum(d["src"] == "AHI" for d in sel)
     L.add("Satellite detections before 18:00 KST (FIRMS, AHI)", [len(sel) - n_ahi, n_ahi],
           file="research/kcf-replay/fire_discs.json", field="discs with t_utc < 2025-03-25T09:00Z, by src",
-          n=f"{len(sel)} detections", shown="(caption)",
+          n=f"{len(sel)} detections", shown="(SOURCES only)",
           expected=f"scene.js discCounts[{k}] = {sc['discCounts'][k]}")
     assert len(sel) == sc["discCounts"][k]["total"]
     # basemap
@@ -203,7 +203,7 @@ def read(L):
           expected="per_place.csv / scene.js hourly lsd 03-25 18:15",
           note="Computed with research/kcf-replay/replay.py's Region and deadline_field.core.backward (F04_routing.py).")
     L.add("Arrival at the shelter", rt["route_arr_s"], unit="s after 18:00 KST", file=rf, field="route_arr_s",
-          shown="(caption)")
+          shown="(SOURCES only)")
     route_km = sum(haversine_km(a, b) for a, b in zip(rt["route_lonlat"][:-1], rt["route_lonlat"][1:]))
     D["route_km"] = route_km
     L.add("Route length", route_km, unit="km", file=rf, field="sum of great-circle lengths of route_lonlat",
@@ -251,10 +251,10 @@ def read(L):
               field="max(probability) over valid cells of the Uiseong-Andong region", shown="colour bar top")
         L.add("Kernel cell: rate and probability", [meta["cell_rate_per_h"], meta["cell_probability"]], file=ff,
               field="meta_json.cell_rate_per_h, cell_probability (rate rebuilt from the four kernels: "
-                    f"{meta['rate_rebuilt_from_kernels']:.6g})", unit="h⁻¹, –", shown="(caption)")
+                    f"{meta['rate_rebuilt_from_kernels']:.6g})", unit="h⁻¹, –", shown="(SOURCES only)")
         L.add("KFS_01 held out from M548 training", meta["kfs01_is_checkpoint_test_event"], file=ff,
               field="meta_json.kfs01_is_checkpoint_test_event (protocol.json checkpoint_test_events)",
-              shown="(caption)")
+              shown="(SOURCES only)")
     # Fish Creek exposure (forecast workspace, read only)
     fz = np.load(WS / FISH)
     D["fish"] = fz
@@ -455,8 +455,12 @@ def stage_d(fig, D):
                     facecolor=S.LIGHT, edgecolor=S.INK, hatch="///", linewidth=S.LW_THIN, zorder=-1)
     box.set_gid("box:withhold")
     fig.add_artist(box)
-    fig.text(fx(gcx), fy(wy + bh / 2), "withhold", ha="center", va="center",
-             bbox=dict(boxstyle="square,pad=0.1", facecolor=S.LIGHT, edgecolor="none"))
+    # plain backing under the word, drawn as part of the picture so the PowerPoint text box sits on it too
+    back = Rectangle((fx(gcx - 0.48), fy(wy + bh / 2 + 0.13)), 0.96 / W_FIG, 0.26 / H_FIG, transform=fig.transFigure,
+                     facecolor=S.LIGHT, edgecolor="none", zorder=-0.5)
+    back.set_gid("bg:label backing")
+    fig.add_artist(back)
+    fig.text(fx(gcx), fy(wy + bh / 2), "withhold", ha="center", va="center")
     label(fig, gcx, wy + bh + 0.2, "taken at 18:00 KST", ha="center")
 
 

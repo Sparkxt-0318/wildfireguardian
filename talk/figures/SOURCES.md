@@ -35,6 +35,35 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 
 - Cell values from the talk brief (prompt 60), not from a committed file: no market-research summary is committed. Korea 1,1,0,0; Technosylva 1,0,0,0; Genasys 0,1,0,0; Watch Duty 1,1,0,0; WildfireGuardian 0,0,1,1.
 
+## F04: Method overview: one case, Uiseong–Andong, 25 March 2025, 18:00 KST
+
+| shown | value | n | file | field | repo / ref / commit | expected | note |
+|---|---|---|---|---|---|---|---|
+| **Issue hour** (18:00 KST) | 18:00 |  | `planner/public/kcf-scene/data/scene.js` | issue_kst[6] (issue_utc 2025-03-25T09:00:00Z) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `f14830a3` |  | The F02 issue hour (F02_road_cut.py ISSUE = '03-25 18:00'). |
+| **Places in the region / inside the known fire area at 18:00 KST** ((SOURCES only)) | 84, 82 |  | `planner/public/kcf-scene/data/scene.js` | places (region uiseong_andong_2025); hourly.MEASURED[place][6].state | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `f14830a3` |  |  |
+| **Shelters in the region** ((not printed)) | 33 |  | `planner/public/kcf-scene/data/scene.js` | shelters (region uiseong_andong_2025) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `f14830a3` |  |  |
+| **Satellite detections before 18:00 KST (FIRMS, AHI)** ((SOURCES only)) | 1761, 242 | 2003 detections | `research/kcf-replay/fire_discs.json` | discs with t_utc < 2025-03-25T09:00Z, by src | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `420ec724` | scene.js discCounts[6] = {'AHI': 242, 'FIRMS': 1761, 'total': 2003} |  |
+| **ECMWF IFS 10 m wind at 09:00 UTC, nodes in the map (min, max speed)** (arrows) | 7.56, 9.55 m/s | 19 nodes | `data/environment/regions/KFS_01/weather/ecmwf_ifs_native_nodes.npz` | wind_eastward_10m, wind_northward_10m at time_utc index 801 (2025-03-25T09:00:00Z) | /Users/jp/Desktop/wildfire / file on disk (read only) / `sha256:a7493cbc42db40ac` |  |  |
+| **Calibrated reach class and R(8 h)** (+10 km in 8 h) | running, 10 km |  | `talk/figures/build/F04_routing.json` | measured_class, R8_m (research/kcf-replay measured_arms.curve at 09:00 UTC) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` | MEASURED_RULE.md: running class R(8 h) = 10.0 km |  |
+| **Last safe departure of the village** (leave by 18:15) | 921 s after 18:00 KST | 1 place | `talk/figures/build/F04_routing.json` | ld_at_origin_s (max over the 3 shelters of the backward pass); equals route_ld_s from scene.js | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` | per_place.csv / scene.js hourly lsd 03-25 18:15 | Computed with research/kcf-replay/replay.py's Region and deadline_field.core.backward (F04_routing.py). |
+| **Arrival at the shelter** ((SOURCES only)) | 1322 s after 18:00 KST |  | `talk/figures/build/F04_routing.json` | route_arr_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Route length** (4.1 km) | 4.10731 km |  | `talk/figures/build/F04_routing.json` | sum of great-circle lengths of route_lonlat | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Road A (OSM way 672449436): blocked / car leaves it** (blocked 18:15) | 927, 926 s after 18:00 KST |  | `talk/figures/build/F04_routing.json` | route_way_timing[way].block_s, exit_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Road B (OSM way 672449437): blocked / car leaves it** (blocked 18:28) | 1687, 969 s after 18:00 KST |  | `talk/figures/build/F04_routing.json` | route_way_timing[way].block_s, exit_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Road C (OSM way 1072481239): blocked / car leaves it** (blocked 19:04) | 3843, 1119 s after 18:00 KST |  | `talk/figures/build/F04_routing.json` | route_way_timing[way].block_s, exit_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Backward pass: road nodes with a safe departure** (coloured roads) | 1415 | 23158 nodes | `talk/figures/build/F04_routing.json` | node_ld_s >= 0 | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Certificate check of the attaining shelter's field** (accept) | PASS | 43826 edge states | `talk/figures/build/F04_routing.json` | per_shelter[route_shelter].fixed_point, states_checked | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  | deadline_field.core.check_fixed_point; witness route also rechecked by research/kcf-replay/analyze.py::recheck (accepted at the last safe departure, rejected one second later: witness_recheck). |
+| **Calibration gate at 18:00 KST** (withhold) | True |  | `research/kcf-abstain/numbers.json` | march25.hours_10_20_kst[kst_hour == 18].abstain (min_predictor, prior3_km) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `6457eba9` |  | trigger prior3_km = 22.3 km |
+| **M548 checkpoint SHA-256** ((SOURCES only)) | c651f6724fe6b036 |  | `talk/figures/build/F04_forecast.npz` | meta_json.checkpoint_sha256 | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` | runs/20261013_observed_merged/protocol.json checkpoint_sha256 (checked in F04_forecast.py) |  |
+| **Largest next-hour burn probability in the region** (colour bar top) | 0.0464693 |  | `talk/figures/build/F04_forecast.npz` | max(probability) over valid cells of the Uiseong-Andong region | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Kernel cell: rate and probability** ((SOURCES only)) | 0.0475837, 0.0464693 h⁻¹, – |  | `talk/figures/build/F04_forecast.npz` | meta_json.cell_rate_per_h, cell_probability (rate rebuilt from the four kernels: 0.0475837) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **KFS_01 held out from M548 training** ((SOURCES only)) | True |  | `talk/figures/build/F04_forecast.npz` | meta_json.kfs01_is_checkpoint_test_event (protocol.json checkpoint_test_events) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `83e28457` |  |  |
+| **Fish Creek: peak mean active-burning fraction / radiant heat** (colour bars) | 0.930709, 1594.23 –, W/m² |  | `demonstration/heat_spatial_maps/20261013_fishcreek/spatial_matrices.npz` | mean_active_burning_probability, mean_heat_flux_w_m2 (full grid max) | /Users/jp/Desktop/wildfire / file on disk (read only) / `sha256:338a4ef8cef34e43` |  | Saved M548 output (summary.json checkpoint_sha256 c651f672…, the same checkpoint), cutoff 2024-08-23 00:00 UTC, interval 00:00–01:00 UTC. |
+
+- Roads: planner/public/kcf-scene/data/basemap.js (© OpenStreetMap contributors (ODbL)).
+
+- Maps in (a), (b) and (d) show the extent of the committed reach raster (both planner regions of the Uiseong fire, 214 x 67 cells of 375 m); the Uiseong–Andong planner box alone lies wholly inside the known fire area at 18:00 KST.
+
 ## F05: Data foundation (wildfireguardiandata v0.1)
 
 | shown | value | n | file | field | repo / ref / commit | expected | note |

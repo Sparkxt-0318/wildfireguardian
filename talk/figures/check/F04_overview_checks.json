@@ -1,0 +1,190 @@
+{
+ "arrows_crossing_pictures": [],
+ "cvd_min_deltaE": {
+  "normal": 42.0,
+  "protan": 29.2,
+  "deutan": 34.6,
+  "tritan": 46.8,
+  "grey": 9.1
+ },
+ "cvd_pairs": [
+  {
+   "pair": "SAFE/FIRE",
+   "vision": "normal",
+   "deltaE": 79.0
+  },
+  {
+   "pair": "SAFE/FIRE",
+   "vision": "protan",
+   "deltaE": 29.2
+  },
+  {
+   "pair": "SAFE/FIRE",
+   "vision": "deutan",
+   "deltaE": 42.8
+  },
+  {
+   "pair": "SAFE/FIRE",
+   "vision": "tritan",
+   "deltaE": 98.2
+  },
+  {
+   "pair": "SAFE/FIRE",
+   "vision": "grey",
+   "deltaE": 9.1
+  },
+  {
+   "pair": "SAFE/LIGHT",
+   "vision": "normal",
+   "deltaE": 42.0
+  },
+  {
+   "pair": "SAFE/LIGHT",
+   "vision": "protan",
+   "deltaE": 30.0
+  },
+  {
+   "pair": "SAFE/LIGHT",
+   "vision": "deutan",
+   "deltaE": 34.6
+  },
+  {
+   "pair": "SAFE/LIGHT",
+   "vision": "tritan",
+   "deltaE": 46.8
+  },
+  {
+   "pair": "SAFE/LIGHT",
+   "vision": "grey",
+   "deltaE": 32.2
+  },
+  {
+   "pair": "FIRE/LIGHT",
+   "vision": "normal",
+   "deltaE": 67.5
+  },
+  {
+   "pair": "FIRE/LIGHT",
+   "vision": "protan",
+   "deltaE": 52.5
+  },
+  {
+   "pair": "FIRE/LIGHT",
+   "vision": "deutan",
+   "deltaE": 51.7
+  },
+  {
+   "pair": "FIRE/LIGHT",
+   "vision": "tritan",
+   "deltaE": 76.4
+  },
+  {
+   "pair": "FIRE/LIGHT",
+   "vision": "grey",
+   "deltaE": 41.4
+  },
+  {
+   "pair": "SAFE/WHITE",
+   "vision": "normal",
+   "deltaE": 52.9
+  },
+  {
+   "pair": "SAFE/WHITE",
+   "vision": "protan",
+   "deltaE": 43.3
+  },
+  {
+   "pair": "SAFE/WHITE",
+   "vision": "deutan",
+   "deltaE": 47.7
+  },
+  {
+   "pair": "SAFE/WHITE",
+   "vision": "tritan",
+   "deltaE": 56.7
+  },
+  {
+   "pair": "SAFE/WHITE",
+   "vision": "grey",
+   "deltaE": 45.5
+  },
+  {
+   "pair": "FIRE/WHITE",
+   "vision": "normal",
+   "deltaE": 76.4
+  },
+  {
+   "pair": "FIRE/WHITE",
+   "vision": "protan",
+   "deltaE": 64.8
+  },
+  {
+   "pair": "FIRE/WHITE",
+   "vision": "deutan",
+   "deltaE": 62.1
+  },
+  {
+   "pair": "FIRE/WHITE",
+   "vision": "tritan",
+   "deltaE": 84.3
+  },
+  {
+   "pair": "FIRE/WHITE",
+   "vision": "grey",
+   "deltaE": 54.7
+  },
+  {
+   "pair": "INK/SAFE",
+   "vision": "normal",
+   "deltaE": 52.6
+  },
+  {
+   "pair": "INK/SAFE",
+   "vision": "protan",
+   "deltaE": 47.5
+  },
+  {
+   "pair": "INK/SAFE",
+   "vision": "deutan",
+   "deltaE": 44.3
+  },
+  {
+   "pair": "INK/SAFE",
+   "vision": "tritan",
+   "deltaE": 56.8
+  },
+  {
+   "pair": "INK/SAFE",
+   "vision": "grey",
+   "deltaE": 45.2
+  },
+  {
+   "pair": "INK/FIRE",
+   "vision": "normal",
+   "deltaE": 64.3
+  },
+  {
+   "pair": "INK/FIRE",
+   "vision": "protan",
+   "deltaE": 37.3
+  },
+  {
+   "pair": "INK/FIRE",
+   "vision": "deutan",
+   "deltaE": 52.8
+  },
+  {
+   "pair": "INK/FIRE",
+   "vision": "tritan",
+   "deltaE": 73.5
+  },
+  {
+   "pair": "INK/FIRE",
+   "vision": "grey",
+   "deltaE": 36.0
+  }
+ ],
+ "smallest_text_pt": 16,
+ "smallest_text_px_at_1700px_wide": 22.2,
+ "rule": "arrows: none may cross a map, kernel, colour bar or chart; colour: every meaningful pair keeps deltaE >= 10 under protan/deutan/tritan simulation; in greyscale open (solid teal) and blocked (white with red hatching) differ by fill and hatching, not by grey level; text: at least 18 px tall when the figure is 1,700 px wide"
+}

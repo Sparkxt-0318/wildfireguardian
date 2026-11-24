@@ -43,19 +43,69 @@ MATH = [(r"\leq", "≤"), (r"\geq", "≥"), (r"^{\prime\prime}", "″"), (r"\pri
         (r"^{-1}", "⁻¹"), (r"^*", "*"), ("{", ""), ("}", ""), (r"\,", " ")]
 
 
+GREEK = {r"\delta": "δ", r"\lambda": "λ", r"\sum": "Σ", r"\times": "×", r"\leq": "≤", r"\geq": "≥",
+         r"\prime\prime": "″", r"\exp": "exp", r"\,": " "}
+
+
+def _math_runs(p, base=0, out=None):
+    """mathtext -> runs (text, italic, baseline): letters italic, \\mathrm{} and functions upright,
+    _x / _{..} subscript, ^x / ^{..} superscript."""
+    out = [] if out is None else out
+    i = 0
+    while i < len(p):
+        c = p[i]
+        if c in "_^":
+            j = i + 1
+            if j < len(p) and p[j] == "{":
+                k, depth = j, 0
+                while True:
+                    depth += {"{": 1, "}": -1}.get(p[k], 0)
+                    if depth == 0:
+                        break
+                    k += 1
+                arg, i = p[j + 1:k], k + 1
+            elif p[j] == "\\":
+                m = re.match(r"\\[A-Za-z]+", p[j:])
+                arg, i = m.group(0), j + len(m.group(0))
+            else:
+                arg, i = p[j], j + 1
+            _math_runs(arg, -25000 if c == "_" else 30000, out)
+            continue
+        if p.startswith(r"\mathrm{", i):
+            k = p.index("}", i)
+            out.append((p[i + 8:k], False, base))
+            i = k + 1
+            continue
+        if c == "\\":
+            m = re.match(r"\\[A-Za-z]+|\\.", p[i:])
+            tok = m.group(0)
+            if tok + r"\prime" == r"\prime\prime" or p.startswith(r"\prime\prime", i):
+                tok = r"\prime\prime"
+            rep = GREEK.get(tok, tok.lstrip("\\"))
+            out.append((rep, rep in ("δ", "λ"), base))
+            i += len(tok)
+            continue
+        if c in "{}":
+            i += 1
+            continue
+        m = re.match(r"[A-Za-z]+|[^A-Za-z_^\\{}]+", p[i:])
+        tok = m.group(0)
+        out.append((tok.replace("-", "−"), tok.isalpha(), base))
+        i += len(tok)
+    return out
+
+
 def runs_of(text):
-    """Split matplotlib mathtext into (text, italic) runs: letters inside $...$ are italic."""
+    """Split matplotlib mathtext into (text, italic, baseline) runs."""
     out = []
     parts = text.split("$")
     for i, p in enumerate(parts):
         if i % 2 == 0:
             if p:
-                out.append((p, False))
+                out.append((p, False, 0))
         else:
-            for a, b in MATH:
-                p = p.replace(a, b)
-            for tok in re.findall(r"[A-Za-z]+|[^A-Za-z]+", p):
-                out.append((tok, tok.isalpha()))
+            p = p.replace("^*", "*")
+            out += _math_runs(p)
     return out
 
 
@@ -85,10 +135,12 @@ def add_text(shapes, text, left, top, width, height, size, color, align="l", bol
     for k, line in enumerate(text.split("\n")):
         p = tf.paragraphs[0] if k == 0 else tf.add_paragraph()
         p.alignment = al
-        for chunk, it in runs_of(line):
+        for chunk, it, baseline in runs_of(line):
             r = p.add_run()
             r.text = chunk
             set_font(r, size, color, bold, italic or it)
+            if baseline:
+                r.font._element.set("baseline", str(baseline))
     if rotation:
         tb.rotation = rotation
     if name:
