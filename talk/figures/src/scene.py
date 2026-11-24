@@ -54,7 +54,7 @@ class Scene:
         ax.set_ylim(H_IN, 0)
         ax.set_axis_off()
         texts = []
-        for it in self.items:
+        for z, it in enumerate(self.items):
             gid = {"box": "box", "bg": "bg", "mark": None}.get(it.get("role"), None)
             gid = f"{gid}:{it['name']}" if gid else it.get("name")
             if it["t"] == "rect":
@@ -68,11 +68,13 @@ class Scene:
                                      facecolor=it["fill"] or "none", edgecolor=it["edge"] or "none",
                                      linewidth=it["lw"] if it["edge"] else 0, hatch=it["hatch"])
                 p.set_gid(gid)
+                p.set_zorder(z)
                 ax.add_patch(p)
             elif it["t"] == "circle":
                 p = mp.Circle((it["cx"], it["cy"]), it["r"], facecolor=it["fill"] or "none",
                               edgecolor=it["edge"] or "none", linewidth=it["lw"] if it["edge"] else 0)
                 p.set_gid(gid)
+                p.set_zorder(z)
                 ax.add_patch(p)
             elif it["t"] == "line":
                 xs = [p[0] for p in it["pts"]]
@@ -91,11 +93,13 @@ class Scene:
                     head = mp.Polygon([(x1, y1), (bx - uy * hw, by + ux * hw), (bx + uy * hw, by - ux * hw)],
                                       closed=True, facecolor=it["color"], edgecolor="none")
                     head.set_gid(gid)
+                    head.set_zorder(z + 0.5)
                     ax.add_patch(head)
                 ln = Line2D(xs, ys, color=it["color"], linewidth=it["lw"],
                             linestyle=(0, it["dash"]) if it["dash"] else "-",
                             solid_capstyle="butt", solid_joinstyle="round")
                 ln.set_gid(gid)
+                ln.set_zorder(z)
                 ax.add_line(ln)
             elif it["t"] == "text":
                 t = ax.text(it["x"], it["y"], it["s"], fontsize=it["size"], color=it["color"],
@@ -103,6 +107,7 @@ class Scene:
                             fontstyle="italic" if it["italic"] else "normal",
                             ha=it["ha"], va=it["va"], linespacing=1.15)
                 t.set_gid(it["name"])
+                t.set_zorder(10000)
                 texts.append((t, it))
         return ax
 

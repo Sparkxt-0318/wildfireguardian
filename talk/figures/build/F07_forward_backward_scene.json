@@ -1,0 +1,3572 @@
+{
+ "name": "F07_forward_backward",
+ "items": [
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.663914600693042,
+     2.075095312840995
+    ],
+    [
+     2.0429493344488403,
+     2.057933414060606
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 0)-(0, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.663914600693042,
+     2.075095312840995
+    ],
+    [
+     0.9287178142963171,
+     3.0323366669757297
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 0)-(1, 0)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.0429493344488403,
+     2.057933414060606
+    ],
+    [
+     2.017709345678838,
+     2.8080446494593954
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 1)-(1, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.499932993668908,
+     2.001702744604772
+    ],
+    [
+     4.510492107639444,
+     1.8599035445413676
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 2)-(0, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.499932993668908,
+     2.001702744604772
+    ],
+    [
+     3.196953547216071,
+     3.064516432426762
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 2)-(1, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.510492107639444,
+     1.8599035445413676
+    ],
+    [
+     5.628298400060741,
+     1.9899642802509703
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 3)-(0, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     5.628298400060741,
+     1.9899642802509703
+    ],
+    [
+     5.919385683847417,
+     2.7955693651753055
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 4)-(1, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.9287178142963171,
+     3.0323366669757297
+    ],
+    [
+     2.017709345678838,
+     2.8080446494593954
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 0)-(1, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.017709345678838,
+     2.8080446494593954
+    ],
+    [
+     3.196953547216071,
+     3.064516432426762
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 1)-(1, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.017709345678838,
+     2.8080446494593954
+    ],
+    [
+     1.9515490244660079,
+     3.9047409354477534
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 1)-(2, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.196953547216071,
+     3.064516432426762
+    ],
+    [
+     4.3841188472922985,
+     2.9254456843925754
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 2)-(1, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.3841188472922985,
+     2.9254456843925754
+    ],
+    [
+     5.919385683847417,
+     2.7955693651753055
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 3)-(1, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.3841188472922985,
+     2.9254456843925754
+    ],
+    [
+     4.5202828054319175,
+     3.9661245971670187
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 3)-(2, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     5.919385683847417,
+     2.7955693651753055
+    ],
+    [
+     5.804230615396214,
+     3.880196869362474
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 4)-(2, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.8941610845502426,
+     4.026839368125748
+    ],
+    [
+     1.9515490244660079,
+     3.9047409354477534
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 0)-(2, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.8941610845502426,
+     4.026839368125748
+    ],
+    [
+     0.7203697204587916,
+     4.837192830283685
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 0)-(3, 0)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.9515490244660079,
+     3.9047409354477534
+    ],
+    [
+     3.469689182250252,
+     3.778483511510812
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 1)-(2, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.9515490244660079,
+     3.9047409354477534
+    ],
+    [
+     2.013951355577918,
+     4.833129951074883
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 1)-(3, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.469689182250252,
+     3.778483511510812
+    ],
+    [
+     4.5202828054319175,
+     3.9661245971670187
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 2)-(2, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.469689182250252,
+     3.778483511510812
+    ],
+    [
+     3.2310990574348364,
+     4.942727070270015
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 2)-(3, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.5202828054319175,
+     3.9661245971670187
+    ],
+    [
+     5.804230615396214,
+     3.880196869362474
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 3)-(2, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     5.804230615396214,
+     3.880196869362474
+    ],
+    [
+     5.761897046097224,
+     4.7719189106925315
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 4)-(3, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.7203697204587916,
+     4.837192830283685
+    ],
+    [
+     0.8292886159743791,
+     5.745305423247096
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 0)-(4, 0)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.013951355577918,
+     4.833129951074883
+    ],
+    [
+     3.2310990574348364,
+     4.942727070270015
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 1)-(3, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.013951355577918,
+     4.833129951074883
+    ],
+    [
+     2.13912984405287,
+     5.750586729228362
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 1)-(4, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.2310990574348364,
+     4.942727070270015
+    ],
+    [
+     4.627989984863368,
+     4.783454381872649
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 2)-(3, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.627989984863368,
+     4.783454381872649
+    ],
+    [
+     5.761897046097224,
+     4.7719189106925315
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 3)-(3, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.627989984863368,
+     4.783454381872649
+    ],
+    [
+     4.471786011346796,
+     5.913552673825959
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 3)-(4, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     5.761897046097224,
+     4.7719189106925315
+    ],
+    [
+     5.5896543511538175,
+     5.863300137365632
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 4)-(4, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.8292886159743791,
+     5.745305423247096
+    ],
+    [
+     2.13912984405287,
+     5.750586729228362
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (4, 0)-(4, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.13912984405287,
+     5.750586729228362
+    ],
+    [
+     3.2720336358899167,
+     5.856674533242748
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (4, 1)-(4, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.471786011346796,
+     5.913552673825959
+    ],
+    [
+     5.5896543511538175,
+     5.863300137365632
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (4, 3)-(4, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.663914600693042,
+     2.075095312840995
+    ],
+    [
+     2.017709345678838,
+     2.8080446494593954
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (0, 0)-(1, 1)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.469689182250252,
+     3.778483511510812
+    ],
+    [
+     4.627989984863368,
+     4.783454381872649
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 2)-(3, 3)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.3841188472922985,
+     2.9254456843925754
+    ],
+    [
+     5.804230615396214,
+     3.880196869362474
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (1, 3)-(2, 4)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.013951355577918,
+     4.833129951074883
+    ],
+    [
+     0.8292886159743791,
+     5.745305423247096
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (3, 1)-(4, 0)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.9515490244660079,
+     3.9047409354477534
+    ],
+    [
+     3.2310990574348364,
+     4.942727070270015
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Before road (2, 1)-(3, 2)",
+   "group": "Before roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "circle",
+   "cx": 0.663914600693042,
+   "cy": 2.075095312840995,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (0, 0)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 2.0429493344488403,
+   "cy": 2.057933414060606,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (0, 1)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 3.499932993668908,
+   "cy": 2.001702744604772,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (0, 2)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 4.510492107639444,
+   "cy": 1.8599035445413676,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (0, 3)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 0.9287178142963171,
+   "cy": 3.0323366669757297,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (1, 0)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 2.017709345678838,
+   "cy": 2.8080446494593954,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (1, 1)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 3.196953547216071,
+   "cy": 3.064516432426762,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (1, 2)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 4.3841188472922985,
+   "cy": 2.9254456843925754,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (1, 3)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 5.919385683847417,
+   "cy": 2.7955693651753055,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (1, 4)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 0.8941610845502426,
+   "cy": 4.026839368125748,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (2, 0)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 3.469689182250252,
+   "cy": 3.778483511510812,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (2, 2)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 4.5202828054319175,
+   "cy": 3.9661245971670187,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (2, 3)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 5.804230615396214,
+   "cy": 3.880196869362474,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (2, 4)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 0.7203697204587916,
+   "cy": 4.837192830283685,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (3, 0)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 2.013951355577918,
+   "cy": 4.833129951074883,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (3, 1)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 3.2310990574348364,
+   "cy": 4.942727070270015,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (3, 2)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 4.627989984863368,
+   "cy": 4.783454381872649,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (3, 3)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 5.761897046097224,
+   "cy": 4.7719189106925315,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (3, 4)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 0.8292886159743791,
+   "cy": 5.745305423247096,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (4, 0)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 2.13912984405287,
+   "cy": 5.750586729228362,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (4, 1)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 3.2720336358899167,
+   "cy": 5.856674533242748,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (4, 2)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 4.471786011346796,
+   "cy": 5.913552673825959,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before junction (4, 3)",
+   "group": "Before roads",
+   "role": "mark"
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.9635925154055165,
+     3.705103878952748
+    ],
+    [
+     2.0116876002090835,
+     2.907863177706898
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 1)->(1, 1)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.7528692092392033,
+     3.9276828408054776
+    ],
+    [
+     0.9935009921636448,
+     4.015368415446886
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 1)->(2, 0)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.1508609358793924,
+     3.888164989962107
+    ],
+    [
+     3.3700332265435597,
+     3.786771484253635
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 1)->(2, 2)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.9649619021608964,
+     4.10429066536975
+    ],
+    [
+     2.0072449167304733,
+     4.7333550861138844
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 1)->(3, 1)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.106869698277813,
+     4.030738904822846
+    ],
+    [
+     3.153438720528934,
+     4.879728085582469
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 1)->(3, 2)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.9121826855931214,
+     2.750912136726682
+    ],
+    [
+     0.7518534840978057,
+     2.1227057401182563
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (1, 1)->(0, 0)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.0217448611412725,
+     2.6881125244263067
+    ],
+    [
+     2.0395864048968115,
+     2.15787685158818
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (1, 1)->(0, 1)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.900176374146385,
+     2.832252098782933
+    ],
+    [
+     1.0266619572400277,
+     3.0121637925394484
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (1, 1)->(1, 0)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.1349681485981327,
+     2.8335470638143927
+    ],
+    [
+     3.0992378781166585,
+     3.0432644204642645
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (1, 1)->(1, 2)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.868997632898287,
+     4.144171378681094
+    ],
+    [
+     0.7413392635020878,
+     4.739416154820898
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 0)->(3, 0)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.587819808619025,
+     3.799582210848007
+    ],
+    [
+     4.421840616791274,
+     3.948542347719356
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 2)->(2, 3)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.5603288627437704,
+     3.8571247749800173
+    ],
+    [
+     4.552456917785436,
+     4.7179199956483115
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 2)->(3, 3)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     1.918871257892156,
+     4.90634043546111
+    ],
+    [
+     0.9085220307125139,
+     5.684296686258573
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (3, 1)->(4, 0)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.030173941098137,
+     4.952028343490589
+    ],
+    [
+     2.1256110227860203,
+     5.651504735548608
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (3, 1)->(4, 1)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.229851652193226,
+     2.9491140291202793
+    ],
+    [
+     3.4725179061879454,
+     2.097871414026841
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (1, 2)->(0, 2)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     3.3161385456448897,
+     3.0505544787840093
+    ],
+    [
+     4.284798015268283,
+     2.937080645761536
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (1, 2)->(1, 3)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.640014970463486,
+     3.958111566725721
+    ],
+    [
+     5.704453811203241,
+     3.8868743947302224
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (2, 3)->(2, 4)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.747983775696961,
+     4.782233660207464
+    ],
+    [
+     5.661902220402563,
+     4.772936178746852
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (3, 3)->(3, 4)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     4.611559605358322,
+     4.902324237720632
+    ],
+    [
+     4.485477994267668,
+     5.814494460619307
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (3, 3)->(4, 3)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     2.2586071454818377,
+     5.761774867735349
+    ],
+    [
+     3.172469218032443,
+     5.847351084486925
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (4, 1)->(4, 2)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     5.743190084217548,
+     4.890451815732576
+    ],
+    [
+     5.605243486053548,
+     5.764522716498928
+    ]
+   ],
+   "color": "#8C8C8C",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Before search (3, 4)->(4, 4)",
+   "group": "Before forward search",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "rect",
+   "x": 5.498298400060741,
+   "y": 1.8599642802509702,
+   "w": 0.26,
+   "h": 0.26,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "Before shelter 1",
+   "group": "Before shelter 1",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 5.459654351153818,
+   "y": 5.7333001373656325,
+   "w": 0.26,
+   "h": 0.26,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "Before shelter 2",
+   "group": "Before shelter 2",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "circle",
+   "cx": 1.9515490244660079,
+   "cy": 3.9047409354477534,
+   "r": 0.15,
+   "fill": "#1A1A1A",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Before village",
+   "group": "Before village",
+   "role": "mark"
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.163914600693041,
+     2.075095312840995
+    ],
+    [
+     8.54294933444884,
+     2.057933414060606
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 0)-(0, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.163914600693041,
+     2.075095312840995
+    ],
+    [
+     7.428717814296316,
+     3.0323366669757297
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 0)-(1, 0)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.54294933444884,
+     2.057933414060606
+    ],
+    [
+     8.517709345678838,
+     2.8080446494593954
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 1)-(1, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.999932993668907,
+     2.001702744604772
+    ],
+    [
+     11.010492107639443,
+     1.8599035445413676
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 2)-(0, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.999932993668907,
+     2.001702744604772
+    ],
+    [
+     9.69695354721607,
+     3.064516432426762
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 2)-(1, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.010492107639443,
+     1.8599035445413676
+    ],
+    [
+     12.128298400060741,
+     1.9899642802509703
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 3)-(0, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.128298400060741,
+     1.9899642802509703
+    ],
+    [
+     12.419385683847416,
+     2.7955693651753055
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 4)-(1, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.428717814296316,
+     3.0323366669757297
+    ],
+    [
+     8.517709345678838,
+     2.8080446494593954
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 0)-(1, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.517709345678838,
+     2.8080446494593954
+    ],
+    [
+     9.69695354721607,
+     3.064516432426762
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 1)-(1, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.517709345678838,
+     2.8080446494593954
+    ],
+    [
+     8.451549024466008,
+     3.9047409354477534
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 1)-(2, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.69695354721607,
+     3.064516432426762
+    ],
+    [
+     10.8841188472923,
+     2.9254456843925754
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 2)-(1, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     10.8841188472923,
+     2.9254456843925754
+    ],
+    [
+     12.419385683847416,
+     2.7955693651753055
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 3)-(1, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     10.8841188472923,
+     2.9254456843925754
+    ],
+    [
+     11.020282805431918,
+     3.9661245971670187
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 3)-(2, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.419385683847416,
+     2.7955693651753055
+    ],
+    [
+     12.304230615396214,
+     3.880196869362474
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 4)-(2, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.394161084550242,
+     4.026839368125748
+    ],
+    [
+     8.451549024466008,
+     3.9047409354477534
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 0)-(2, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.394161084550242,
+     4.026839368125748
+    ],
+    [
+     7.220369720458791,
+     4.837192830283685
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 0)-(3, 0)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.451549024466008,
+     3.9047409354477534
+    ],
+    [
+     9.969689182250251,
+     3.778483511510812
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 1)-(2, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.451549024466008,
+     3.9047409354477534
+    ],
+    [
+     8.513951355577918,
+     4.833129951074883
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 1)-(3, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.969689182250251,
+     3.778483511510812
+    ],
+    [
+     11.020282805431918,
+     3.9661245971670187
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 2)-(2, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.969689182250251,
+     3.778483511510812
+    ],
+    [
+     9.731099057434836,
+     4.942727070270015
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 2)-(3, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.020282805431918,
+     3.9661245971670187
+    ],
+    [
+     12.304230615396214,
+     3.880196869362474
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 3)-(2, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.304230615396214,
+     3.880196869362474
+    ],
+    [
+     12.261897046097225,
+     4.7719189106925315
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 4)-(3, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.220369720458791,
+     4.837192830283685
+    ],
+    [
+     7.329288615974379,
+     5.745305423247096
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 0)-(4, 0)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.513951355577918,
+     4.833129951074883
+    ],
+    [
+     9.731099057434836,
+     4.942727070270015
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 1)-(3, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.513951355577918,
+     4.833129951074883
+    ],
+    [
+     8.639129844052869,
+     5.750586729228362
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 1)-(4, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.731099057434836,
+     4.942727070270015
+    ],
+    [
+     11.127989984863369,
+     4.783454381872649
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 2)-(3, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.127989984863369,
+     4.783454381872649
+    ],
+    [
+     12.261897046097225,
+     4.7719189106925315
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 3)-(3, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.127989984863369,
+     4.783454381872649
+    ],
+    [
+     10.971786011346795,
+     5.913552673825959
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 3)-(4, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.261897046097225,
+     4.7719189106925315
+    ],
+    [
+     12.089654351153818,
+     5.863300137365632
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 4)-(4, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.329288615974379,
+     5.745305423247096
+    ],
+    [
+     8.639129844052869,
+     5.750586729228362
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (4, 0)-(4, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.639129844052869,
+     5.750586729228362
+    ],
+    [
+     9.772033635889915,
+     5.856674533242748
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (4, 1)-(4, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     10.971786011346795,
+     5.913552673825959
+    ],
+    [
+     12.089654351153818,
+     5.863300137365632
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (4, 3)-(4, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.163914600693041,
+     2.075095312840995
+    ],
+    [
+     8.517709345678838,
+     2.8080446494593954
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (0, 0)-(1, 1)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.969689182250251,
+     3.778483511510812
+    ],
+    [
+     11.127989984863369,
+     4.783454381872649
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 2)-(3, 3)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     10.8841188472923,
+     2.9254456843925754
+    ],
+    [
+     12.304230615396214,
+     3.880196869362474
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (1, 3)-(2, 4)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.513951355577918,
+     4.833129951074883
+    ],
+    [
+     7.329288615974379,
+     5.745305423247096
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (3, 1)-(4, 0)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.451549024466008,
+     3.9047409354477534
+    ],
+    [
+     9.731099057434836,
+     4.942727070270015
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 3.0,
+   "arrow": false,
+   "dash": null,
+   "name": "Now road (2, 1)-(3, 2)",
+   "group": "Now roads",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "circle",
+   "cx": 7.163914600693041,
+   "cy": 2.075095312840995,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (0, 0)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 8.54294933444884,
+   "cy": 2.057933414060606,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (0, 1)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.999932993668907,
+   "cy": 2.001702744604772,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (0, 2)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 11.010492107639443,
+   "cy": 1.8599035445413676,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (0, 3)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.428717814296316,
+   "cy": 3.0323366669757297,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (1, 0)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 8.517709345678838,
+   "cy": 2.8080446494593954,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (1, 1)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.69695354721607,
+   "cy": 3.064516432426762,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (1, 2)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 10.8841188472923,
+   "cy": 2.9254456843925754,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (1, 3)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.419385683847416,
+   "cy": 2.7955693651753055,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (1, 4)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.394161084550242,
+   "cy": 4.026839368125748,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (2, 0)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.969689182250251,
+   "cy": 3.778483511510812,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (2, 2)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 11.020282805431918,
+   "cy": 3.9661245971670187,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (2, 3)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.304230615396214,
+   "cy": 3.880196869362474,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (2, 4)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.220369720458791,
+   "cy": 4.837192830283685,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (3, 0)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 8.513951355577918,
+   "cy": 4.833129951074883,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (3, 1)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.731099057434836,
+   "cy": 4.942727070270015,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (3, 2)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 11.127989984863369,
+   "cy": 4.783454381872649,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (3, 3)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.261897046097225,
+   "cy": 4.7719189106925315,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (3, 4)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.329288615974379,
+   "cy": 5.745305423247096,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (4, 0)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 8.639129844052869,
+   "cy": 5.750586729228362,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (4, 1)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.772033635889915,
+   "cy": 5.856674533242748,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (4, 2)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 10.971786011346795,
+   "cy": 5.913552673825959,
+   "r": 0.05,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now junction (4, 3)",
+   "group": "Now roads",
+   "role": "mark"
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.009102533335813,
+     1.9760954174391434
+    ],
+    [
+     11.109821996576883,
+     1.87146093021789
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (0, 4)->(0, 3)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.169077340664609,
+     2.1028229440886492
+    ],
+    [
+     12.385403233344192,
+     2.701520478643906
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (0, 4)->(1, 4)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.108361313033495,
+     5.744767232325588
+    ],
+    [
+     12.246307911197494,
+     4.870696331559236
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (4, 4)->(3, 4)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.969775418852597,
+     5.868689162353434
+    ],
+    [
+     11.071685121597813,
+     5.909061819669458
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (4, 4)->(4, 3)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     10.891656285668759,
+     1.8765782984091672
+    ],
+    [
+     10.098962845311144,
+     1.9878071163816058
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (0, 3)->(0, 2)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.299812774524874,
+     2.805684668242594
+    ],
+    [
+     10.983762938394419,
+     2.917016265169835
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 4)->(1, 3)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.406716469685646,
+     2.914898703615285
+    ],
+    [
+     12.314788293864355,
+     3.7807557539958245
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 4)->(2, 4)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     12.141903255263632,
+     4.773139632357716
+    ],
+    [
+     11.22798481055803,
+     4.782437113818329
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (3, 4)->(3, 3)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.967034888691751,
+     2.117105147911255
+    ],
+    [
+     9.724368634697033,
+     2.9683477630046933
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (0, 2)->(1, 2)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     10.899687128611044,
+     3.0444315180736505
+    ],
+    [
+     11.007309237666298,
+     3.866969735766123
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 3)->(2, 3)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.03735030436985,
+     4.704813118403444
+    ],
+    [
+     10.045222249328184,
+     3.8440178977351493
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (3, 3)->(2, 2)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     11.008762486472298,
+     4.797048631664646
+    ],
+    [
+     9.830455306094061,
+     4.931398528776684
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (3, 3)->(3, 2)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.579694744296775,
+     3.039014018071765
+    ],
+    [
+     8.615425014778252,
+     2.829296661421893
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 2)->(1, 1)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.85010203540222,
+     3.7884290788021997
+    ],
+    [
+     8.5512049801727,
+     3.8964529627049305
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (2, 2)->(2, 1)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     9.611582596751367,
+     4.931965303421733
+    ],
+    [
+     8.613548406147476,
+     4.842098090115118
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (3, 2)->(3, 1)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.412182685593121,
+     2.750912136726682
+    ],
+    [
+     7.251853484097805,
+     2.122705740118256
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 1)->(0, 0)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.521744861141272,
+     2.6881125244263067
+    ],
+    [
+     8.539586404896811,
+     2.15787685158818
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 1)->(0, 1)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.400176374146385,
+     2.8322520987829325
+    ],
+    [
+     7.5266619572400275,
+     3.0121637925394484
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (1, 1)->(1, 0)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.332341135329925,
+     3.918506078662388
+    ],
+    [
+     7.493500992163645,
+     4.015368415446886
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (2, 1)->(2, 0)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.418871257892157,
+     4.90634043546111
+    ],
+    [
+     7.408522030712514,
+     5.684296686258573
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (3, 1)->(4, 0)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.530173941098138,
+     4.952028343490589
+    ],
+    [
+     8.62561102278602,
+     5.651504735548608
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (3, 1)->(4, 1)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.368997632898286,
+     4.144171378681094
+    ],
+    [
+     7.241339263502088,
+     4.739416154820898
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (2, 0)->(3, 0)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     8.758607145481838,
+     5.761774867735349
+    ],
+    [
+     9.672469218032441,
+     5.847351084486925
+    ]
+   ],
+   "color": "#2F5D8A",
+   "lw": 2.2,
+   "arrow": true,
+   "dash": null,
+   "name": "Now backward (4, 1)->(4, 2)",
+   "group": "Now backward pass",
+   "role": "mark",
+   "head": 0.13
+  },
+  {
+   "t": "rect",
+   "x": 11.99829840006074,
+   "y": 1.8599642802509702,
+   "w": 0.26,
+   "h": 0.26,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "Now shelter 1",
+   "group": "Now shelter 1",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 11.959654351153818,
+   "y": 5.7333001373656325,
+   "w": 0.26,
+   "h": 0.26,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "Now shelter 2",
+   "group": "Now shelter 2",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "circle",
+   "cx": 8.451549024466008,
+   "cy": 3.9047409354477534,
+   "r": 0.07,
+   "fill": "#8C8C8C",
+   "edge": null,
+   "lw": 1.0,
+   "name": "Now village",
+   "group": "Now village",
+   "role": "mark"
+  },
+  {
+   "t": "text",
+   "x": 0.45,
+   "y": 0.55,
+   "s": "Before",
+   "size": 28,
+   "color": "#1A1A1A",
+   "bold": true,
+   "ha": "left",
+   "va": "center",
+   "name": "Before header",
+   "group": "Before labels",
+   "italic": false,
+   "box": [
+    0.4499999999999999,
+    0.28345555555555624,
+    1.2290816853841147,
+    0.5330888888888882
+   ]
+  },
+  {
+   "t": "text",
+   "x": 0.45,
+   "y": 1.17,
+   "s": "Forward from one village",
+   "size": 18,
+   "color": "#8C8C8C",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "Before subheader",
+   "group": "Before labels",
+   "italic": false,
+   "box": [
+    0.4499999999999999,
+    1.0025312499999997,
+    2.7582860758463545,
+    0.3349375000000006
+   ]
+  },
+  {
+   "t": "text",
+   "x": 6.95,
+   "y": 0.55,
+   "s": "Now",
+   "size": 28,
+   "color": "#2F5D8A",
+   "bold": true,
+   "ha": "left",
+   "va": "center",
+   "name": "Now header",
+   "group": "Now labels",
+   "italic": false,
+   "box": [
+    6.949999999999998,
+    0.28345555555555624,
+    0.8402567708333326,
+    0.5330888888888882
+   ]
+  },
+  {
+   "t": "text",
+   "x": 6.95,
+   "y": 1.17,
+   "s": "Backward from the shelters, over every road at once",
+   "size": 18,
+   "color": "#8C8C8C",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "Now subheader",
+   "group": "Now labels",
+   "italic": false,
+   "box": [
+    6.949999999999998,
+    1.0025312499999997,
+    5.850927941894531,
+    0.3349375000000006
+   ]
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     6.67,
+     0.45
+    ],
+    [
+     6.67,
+     7.1
+    ]
+   ],
+   "color": "#D9D9D9",
+   "lw": 1.0,
+   "arrow": false,
+   "dash": null,
+   "name": "divider",
+   "group": "divider",
+   "role": "bg",
+   "head": 0.12
+  },
+  {
+   "t": "text",
+   "x": 5.848298400060741,
+   "y": 1.6899642802509702,
+   "s": "shelter",
+   "size": 18,
+   "color": "#3B8F8A",
+   "bold": true,
+   "ha": "left",
+   "va": "center",
+   "name": "Before shelter label 1",
+   "group": "Before labels",
+   "italic": false,
+   "box": [
+    5.848298400060739,
+    1.5186142802509703,
+    0.8194239583333334,
+    0.3426999999999999
+   ]
+  },
+  {
+   "t": "text",
+   "x": 5.809654351153817,
+   "y": 6.163300137365632,
+   "s": "shelter",
+   "size": 18,
+   "color": "#3B8F8A",
+   "bold": true,
+   "ha": "left",
+   "va": "center",
+   "name": "Before shelter label 2",
+   "group": "Before labels",
+   "italic": false,
+   "box": [
+    5.809654351153816,
+    5.991950137365632,
+    0.8194239583333334,
+    0.3426999999999999
+   ]
+  },
+  {
+   "t": "text",
+   "x": 12.348298400060742,
+   "y": 1.6899642802509702,
+   "s": "shelter",
+   "size": 18,
+   "color": "#3B8F8A",
+   "bold": true,
+   "ha": "left",
+   "va": "center",
+   "name": "Now shelter label 1",
+   "group": "Now labels",
+   "italic": false,
+   "box": [
+    12.348298400060738,
+    1.5186142802509703,
+    0.8194239583333334,
+    0.3426999999999999
+   ]
+  },
+  {
+   "t": "text",
+   "x": 12.309654351153819,
+   "y": 6.163300137365632,
+   "s": "shelter",
+   "size": 18,
+   "color": "#3B8F8A",
+   "bold": true,
+   "ha": "left",
+   "va": "center",
+   "name": "Now shelter label 2",
+   "group": "Now labels",
+   "italic": false,
+   "box": [
+    12.309654351153815,
+    5.991950137365632,
+    0.8194239583333334,
+    0.3426999999999999
+   ]
+  },
+  {
+   "t": "text",
+   "x": 1.3315490244660078,
+   "y": 3.5047409354477534,
+   "s": "village",
+   "size": 18,
+   "color": "#1A1A1A",
+   "bold": true,
+   "ha": "center",
+   "va": "center",
+   "name": "Before village label",
+   "group": "Before labels",
+   "italic": false,
+   "box": [
+    0.949614128632674,
+    3.3333909354477536,
+    0.7638697916666667,
+    0.3426999999999999
+   ]
+  },
+  {
+   "t": "rect",
+   "x": 0.45,
+   "y": 6.55,
+   "w": 5.85,
+   "h": 0.62,
+   "fill": "#FFFFFF",
+   "edge": "#8C8C8C",
+   "lw": 1.0,
+   "hatch": null,
+   "name": "counter box",
+   "group": "counter",
+   "role": "box",
+   "radius": 0.0
+  },
+  {
+   "t": "text",
+   "x": 0.7,
+   "y": 6.86,
+   "s": "one search per village and per departure time",
+   "size": 18,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "counter text",
+   "group": "counter",
+   "italic": false,
+   "box": [
+    0.6999999999999998,
+    6.69253125,
+    5.084616805013021,
+    0.3349375
+   ]
+  },
+  {
+   "t": "rect",
+   "x": 10.055212550654176,
+   "y": 1.6808031445730698,
+   "w": 0.9,
+   "h": 0.12,
+   "fill": "#FFFFFF",
+   "edge": "#8C8C8C",
+   "lw": 0.8,
+   "hatch": null,
+   "name": "time bar 1 track",
+   "group": "time bar 1",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 10.055212550654176,
+   "y": 1.6808031445730698,
+   "w": 0.558,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar 1 safe window 1",
+   "group": "time bar 1",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 8.760619103358131,
+   "y": 3.5916122234792827,
+   "w": 0.9,
+   "h": 0.12,
+   "fill": "#FFFFFF",
+   "edge": "#8C8C8C",
+   "lw": 0.8,
+   "hatch": null,
+   "name": "time bar 2 track",
+   "group": "time bar 2",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 8.760619103358131,
+   "y": 3.5916122234792827,
+   "w": 0.27,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar 2 safe window 1",
+   "group": "time bar 2",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 9.25561910335813,
+   "y": 3.5916122234792827,
+   "w": 0.26999999999999996,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar 2 safe window 2",
+   "group": "time bar 2",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 8.755581739971394,
+   "y": 5.9336306312355545,
+   "w": 0.9,
+   "h": 0.12,
+   "fill": "#FFFFFF",
+   "edge": "#8C8C8C",
+   "lw": 0.8,
+   "hatch": null,
+   "name": "time bar 3 track",
+   "group": "time bar 3",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 8.755581739971394,
+   "y": 5.9336306312355545,
+   "w": 0.405,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar 3 safe window 1",
+   "group": "time bar 3",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 11.244943515480298,
+   "y": 4.52768664628259,
+   "w": 0.9,
+   "h": 0.12,
+   "fill": "#FFFFFF",
+   "edge": "#8C8C8C",
+   "lw": 0.8,
+   "hatch": null,
+   "name": "time bar 4 track",
+   "group": "time bar 4",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 11.244943515480298,
+   "y": 4.52768664628259,
+   "w": 0.7020000000000001,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar 4 safe window 1",
+   "group": "time bar 4",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 7.15,
+   "y": 6.609999999999999,
+   "w": 0.9,
+   "h": 0.12,
+   "fill": "#FFFFFF",
+   "edge": "#8C8C8C",
+   "lw": 0.8,
+   "hatch": null,
+   "name": "time bar key track",
+   "group": "time bar key",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 7.15,
+   "y": 6.609999999999999,
+   "w": 0.27,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar key safe window 1",
+   "group": "time bar key",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "rect",
+   "x": 7.6450000000000005,
+   "y": 6.609999999999999,
+   "w": 0.26999999999999996,
+   "h": 0.12,
+   "fill": "#3B8F8A",
+   "edge": null,
+   "lw": 1.0,
+   "hatch": null,
+   "name": "time bar key safe window 2",
+   "group": "time bar key",
+   "role": "mark",
+   "radius": 0.0
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     7.15,
+     7.159999999999999
+    ],
+    [
+     8.05,
+     7.159999999999999
+    ]
+   ],
+   "color": "#1A1A1A",
+   "lw": 1.0,
+   "arrow": true,
+   "dash": null,
+   "name": "time bar key axis",
+   "group": "time bar key",
+   "role": "mark",
+   "head": 0.08
+  },
+  {
+   "t": "text",
+   "x": 8.3,
+   "y": 6.67,
+   "s": "when this road still leads to a shelter",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "time bar key text",
+   "group": "time bar key",
+   "italic": false,
+   "box": [
+    8.299999999999999,
+    6.521138888888888,
+    3.6104783121744797,
+    0.29772222222222233
+   ]
+  },
+  {
+   "t": "text",
+   "x": 8.3,
+   "y": 7.159999999999999,
+   "s": "departure time",
+   "size": 16,
+   "color": "#8C8C8C",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "time bar key time",
+   "group": "time bar key",
+   "italic": false,
+   "box": [
+    8.299999999999999,
+    7.011138888888889,
+    1.4438658121744794,
+    0.2977222222222222
+   ]
+  }
+ ]
+}
