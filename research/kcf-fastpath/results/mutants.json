@@ -1,0 +1,54 @@
+{
+ "none": {
+  "failures": 0,
+  "first": []
+ },
+ "assume_M1_M2": {
+  "failures": 1908,
+  "first": [
+   "('general', 106, 'both', 'fixed_point', 'fixed point violated at state 2: R=[(1, 1)] rhs=[(1, 3)]')",
+   "('general', 106, 'both', 'state', 2, [(1, 1)], [(1, 3)], [(1, 1)], [(1, 3)])",
+   "('general', 106, 'both', 'feas', 0, [(0, 0), (2, 4)], [(0, 4)])"
+  ]
+ },
+ "assume_M3": {
+  "failures": 1718,
+  "first": [
+   "('general', 1, 'both', 'fixed_point', 'G != R u A at state 2')",
+   "('general', 1, 'both', 'state', 2, [], [], [(3, 9)], [(7, 9)])",
+   "('general', 1, 'both', 'feas', 2, [(0, 1)], [])"
+  ]
+ },
+ "prune_bound_plus_1": {
+  "failures": 1871,
+  "first": [
+   "('general', 4, 'prune', 'state', 8, [(3, 3)], [(2, 3)], [(3, 3)], [(2, 3)])",
+   "('general', 4, 'both', 'state', 8, [(3, 3)], [(2, 3)], [(3, 3)], [(2, 3)])",
+   "('general', 4, 'both_plain', 'state', 8, [(3, 3)], [(2, 3)], [(3, 3)], [(2, 3)])"
+  ]
+ },
+ "prune_bound_not_lower": {
+  "failures": 838,
+  "first": [
+   "('general', 49, 'prune', 'state', 3, [(2, 5), (7, 17)], [(1, 5), (7, 17)], [(2, 5), (7, 17)], [(1, 5), (7, 17)])",
+   "('general', 49, 'both', 'state', 3, [(2, 5), (7, 17)], [(1, 5), (7, 17)], [(2, 5), (7, 17)], [(1, 5), (7, 17)])",
+   "('general', 49, 'both_plain', 'state', 3, [(2, 5), (7, 17)], [(1, 5), (7, 17)], [(2, 5), (7, 17)], [(1, 5), (7, 17)])"
+  ]
+ },
+ "prune_no_origin_guard": {
+  "failures": 14958,
+  "first": [
+   "('general', 0, 'prune', 'guard_missing', 0)",
+   "('general', 0, 'prune', 'guard_missing', 1)",
+   "('general', 0, 'prune', 'guard_missing', 2)"
+  ]
+ },
+ "window_dest_bound_plus_1": {
+  "failures": 222,
+  "first": [
+   "('closure', 18, 'scalar', 'fixed_point', 'fixed point violated at state 7: R=[(0, 3)] rhs=[(0, 4)]')",
+   "('closure', 18, 'scalar', 'state', 6, [(0, 1)], [(0, 2)], [(0, 1)], [(0, 2)])",
+   "('closure', 18, 'scalar', 'state', 7, [(0, 3)], [(0, 4)], [(0, 3)], [(0, 4)])"
+  ]
+ }
+}

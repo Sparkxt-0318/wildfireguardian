@@ -1,0 +1,126 @@
+{
+ "cache": "UA0323",
+ "edges": 43826,
+ "specs": 32,
+ "tally": {
+  "scalar": {
+   "specs": 32,
+   "E1_origin_sets": 254,
+   "E1_seconds_compared": 914654,
+   "E2_states": 1402432,
+   "E2_fixed_point_fields": 32,
+   "E3_jobs": 1523,
+   "E3_routes": 1188
+  },
+  "prune": {
+   "specs": 32,
+   "E1_origin_sets": 254,
+   "E1_seconds_compared": 914654,
+   "E2_states": 1402432,
+   "E2_fixed_point_fields": 32,
+   "E3_jobs": 1523,
+   "E3_routes": 1188,
+   "E5_guard_checks": 96
+  },
+  "both": {
+   "specs": 32,
+   "E1_origin_sets": 254,
+   "E1_seconds_compared": 914654,
+   "E2_states": 1402432,
+   "E2_fixed_point_fields": 32,
+   "E3_jobs": 1523,
+   "E3_routes": 1188,
+   "E5_guard_checks": 96
+  },
+  "scalar_plain": {
+   "specs": 32,
+   "E1_origin_sets": 254,
+   "E1_seconds_compared": 914654,
+   "E2_states": 1402432,
+   "E2_fixed_point_fields": 32,
+   "E3_jobs": 1523,
+   "E3_routes": 1188
+  },
+  "both_plain": {
+   "specs": 32,
+   "E1_origin_sets": 254,
+   "E1_seconds_compared": 914654,
+   "E2_states": 1402432,
+   "E2_fixed_point_fields": 32,
+   "E3_jobs": 1523,
+   "E3_routes": 1188,
+   "E5_guard_checks": 96
+  }
+ },
+ "state_kinds_summed_over_specs": {
+  "scalar": {
+   "states": 1402432,
+   "void": 0,
+   "g_clean": 1402432,
+   "r_clean_only": 0,
+   "interval": 0
+  },
+  "prune": {
+   "states": 1402432,
+   "void": 98711,
+   "g_clean": 0,
+   "r_clean_only": 0,
+   "interval": 1303721
+  },
+  "both": {
+   "states": 1402432,
+   "void": 98711,
+   "g_clean": 1303721,
+   "r_clean_only": 0,
+   "interval": 0
+  },
+  "scalar_plain": {
+   "states": 1402432,
+   "void": 0,
+   "g_clean": 1402432,
+   "r_clean_only": 0,
+   "interval": 0
+  },
+  "both_plain": {
+   "states": 1402432,
+   "void": 98711,
+   "g_clean": 1303721,
+   "r_clean_only": 0,
+   "interval": 0
+  }
+ },
+ "state_kind_shares": {
+  "scalar": {
+   "void": 0.0,
+   "g_clean": 1.0,
+   "r_clean_only": 0.0,
+   "interval": 0.0
+  },
+  "prune": {
+   "void": 0.0703855873225939,
+   "g_clean": 0.0,
+   "r_clean_only": 0.0,
+   "interval": 0.9296144126774061
+  },
+  "both": {
+   "void": 0.0703855873225939,
+   "g_clean": 0.9296144126774061,
+   "r_clean_only": 0.0,
+   "interval": 0.0
+  },
+  "scalar_plain": {
+   "void": 0.0,
+   "g_clean": 1.0,
+   "r_clean_only": 0.0,
+   "interval": 0.0
+  },
+  "both_plain": {
+   "void": 0.0703855873225939,
+   "g_clean": 0.9296144126774061,
+   "r_clean_only": 0.0,
+   "interval": 0.0
+  }
+ },
+ "failures": 0,
+ "failure_list": []
+}

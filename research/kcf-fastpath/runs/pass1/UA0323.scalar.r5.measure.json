@@ -1,0 +1,27 @@
+{
+ "cmd": [
+  "/Users/jp/miniforge3/bin/python3",
+  "research/kcf-fastpath/run_fast.py",
+  "scalar",
+  "UA0323",
+  "research/kcf-fastpath/runs/pass1/UA0323.scalar.r5.json",
+  "research/kcf-bench-mac/runs/jobs/UA0323.pass1.json"
+ ],
+ "exit_code": 0,
+ "wall_s": 7.271341833024053,
+ "cpu_user_s": 7.140216,
+ "cpu_sys_s": 0.099049,
+ "cpu_s": 7.239265,
+ "peak_rss_mib": 396.1875,
+ "loadavg_before": [
+  7.2705078125,
+  5.52392578125,
+  5.17919921875
+ ],
+ "loadavg_after": [
+  7.08837890625,
+  5.51513671875,
+  5.177734375
+ ],
+ "finished_at_unix": 1795441203.370593
+}

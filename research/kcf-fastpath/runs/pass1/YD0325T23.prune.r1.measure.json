@@ -1,0 +1,27 @@
+{
+ "cmd": [
+  "/Users/jp/miniforge3/bin/python3",
+  "research/kcf-fastpath/run_fast.py",
+  "prune",
+  "YD0325T23",
+  "/tmp/claude-501/kcf-fastpath-answers/pass1.YD0325T23.prune.r1.json",
+  "research/kcf-bench-mac/runs/jobs/YD0325T23.pass1.json"
+ ],
+ "exit_code": 0,
+ "wall_s": 135.443849666015,
+ "cpu_user_s": 131.512594,
+ "cpu_sys_s": 1.897059,
+ "cpu_s": 133.40965300000002,
+ "peak_rss_mib": 557.640625,
+ "loadavg_before": [
+  7.5595703125,
+  7.15576171875,
+  7.04931640625
+ ],
+ "loadavg_after": [
+  17.12548828125,
+  9.927734375,
+  8.09375
+ ],
+ "finished_at_unix": 1795426394.481022
+}
