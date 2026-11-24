@@ -104,7 +104,8 @@ def layout_rows(rows):
     return out, heads, y + 0.34
 
 
-def draw(rows, tot, dis, ncases, fig=None, ax_rect=None, footnote=True, foot_y=7.02, xmax=2.5e6):
+def draw(rows, tot, dis, ncases, fig=None, ax_rect=None, footnote=True, foot_y=7.02, xmax=2.5e6,
+         head_x=4.62, xr_in=12.95, ticks=None, new_label="deadline field (ours)"):
     """Pairs: blue (ours) on top, grey (earlier) below; ratio column at the right."""
     fig = fig or S.new_figure()
     W, H = S.W_IN, S.H_IN
@@ -130,15 +131,16 @@ def draw(rows, tot, dis, ncases, fig=None, ax_rect=None, footnote=True, foot_y=7
     ax.spines["left"].set_visible(False)
     for name, yh in heads:
         disp = ax.transData.transform((10, yh))
-        fig.text(4.62 / W, fig.transFigure.inverted().transform(disp)[1], name, ha="left", va="center",
+        fig.text(head_x / W, fig.transFigure.inverted().transform(disp)[1], name, ha="left", va="center",
                  fontsize=S.PT_MIN, fontweight="bold")
-    ax.set_xticks(TICKS)
-    ax.set_xticklabels(TICK_LABELS)
+    tk = ticks or list(zip(TICKS, TICK_LABELS))
+    ax.set_xticks([a for a, _ in tk])
+    ax.set_xticklabels([b for _, b in tk])
     ax.minorticks_off()
     ax.set_xlabel("Time to answer every case (log scale)")
     # direct series labels on the first pair
     r0 = rows[0]
-    ax.annotate("deadline field (ours)", (r0["new"], ys[0] - off - 0.06), xytext=(10, 0),
+    ax.annotate(new_label, (r0["new"], ys[0] - off - 0.06), xytext=(10, 0),
                 textcoords="offset points", color=S.OURS, va="center",
             fontsize=S.PT_MIN, fontweight="bold")
     ax.annotate("earlier method", (r0["old"], ys[0] + off), xytext=(10, 0), textcoords="offset points",
@@ -151,7 +153,7 @@ def draw(rows, tot, dis, ncases, fig=None, ax_rect=None, footnote=True, foot_y=7
                 color=S.INK, va="center",
             fontsize=S.PT_MIN)
     # ratio column at the end of each pair
-    xr = 12.95 / W
+    xr = xr_in / W
     fig.text(xr, 1 - (t + ys[0] - 0.42) / H, "times faster", ha="right", va="center", fontsize=S.PT_MIN,
              color=S.MID)
     for i, y in enumerate(ys):
@@ -163,17 +165,17 @@ def draw(rows, tot, dis, ncases, fig=None, ax_rect=None, footnote=True, foot_y=7
                  fontsize=S.PT_KEY_BIG if is_tot else S.PT_LABEL,
                  fontweight="bold", color=S.OURS if is_tot else S.INK)
     if footnote:
-        fig.text(4.62 / W, 1 - foot_y / H,
+        fig.text(head_x / W, 1 - foot_y / H,
                  f"Earlier method estimated from 200 timed requests per cache.\n"
                  f"{dis} disagreements between the two methods in {ncases:,} cases.",
                  fontsize=S.PT_MIN, color=S.MID, ha="left", va="center", linespacing=1.25)
-    return fig, ax
+    return fig, ax, ys
 
 
 def main():
     L = Ledger("F09", "Speed: earlier method against the deadline field")
     rows, tot, dis, ncases = read_data(L)
-    fig, ax = draw(rows, tot, dis, ncases)
+    fig, ax, _ = draw(rows, tot, dis, ncases)
     L.note("Machine: Intel Xeon 2.10 GHz, 4 vCPU, Linux 6.18, Python 3.13.18, one pinned core (BENCH.md §1). "
            "Cold runs shown. Totals are sums of per-cache medians; their ratio equals the 129× in BENCH.md.")
     L.save()
