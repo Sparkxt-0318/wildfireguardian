@@ -12,7 +12,7 @@ from collections import deque
 import numpy as np
 
 import style as S
-from figkit import save
+from figkit import add_caption, save
 from prov import Ledger
 from scene import Scene
 
@@ -80,12 +80,12 @@ def panel(sc, pos, edges, adj, ox, oy, sx, sy, tag, mode):
         for v, u in parent.items():
             if depth[v] <= 3 or (u, v) in path:
                 a = 0.2 if u == VILLAGE else 0.12
-                sc.line(_shorten(P(u), P(v), a=a), color=S.MID, lw=2.2, arrow=True, head=0.13,
+                sc.line(_shorten(P(u), P(v), a=a), color=S.MID, lw=1.5, arrow=True, head=0.10,
                         name=f"{tag} search {u}->{v}", group=f"{tag} forward search", role="mark")
     else:
         depth, parent = bfs(adj, SHELTERS)
         for v, u in parent.items():
-            sc.line(_shorten(P(u), P(v)), color=S.OURS, lw=2.2, arrow=True, head=0.13,
+            sc.line(_shorten(P(u), P(v)), color=S.OURS, lw=1.5, arrow=True, head=0.10,
                     name=f"{tag} backward {u}->{v}", group=f"{tag} backward pass", role="mark")
     for i, s in enumerate(SHELTERS):
         x, y = P(s)
@@ -109,7 +109,7 @@ def _shorten(p, q, a=0.12, b=0.10):
 def time_bar(sc, x, y, segs, name):
     """A track of 0.9 in with teal segments where the road still leads to a shelter."""
     w, h = 0.9, 0.12
-    sc.rect(x, y, w, h, fill=S.WHITE, edge=S.MID, lw=0.8, name=f"{name} track", group=name, role="mark")
+    sc.rect(x, y, w, h, fill=S.WHITE, edge=S.INK, lw=0.75, name=f"{name} track", group=name, role="mark")
     for i, (a, b) in enumerate(segs):
         sc.rect(x + a * w, y, (b - a) * w, h, fill=S.SAFE, name=f"{name} safe window {i + 1}", group=name, role="mark")
 
@@ -117,33 +117,30 @@ def time_bar(sc, x, y, segs, name):
 def build():
     pos, edges, adj = network()
     sc = Scene("F07_forward_backward")
-    sx, sy = 1.22, 0.95
-    oyL = 1.99
+    sx, sy = 1.22, 0.78
+    oyL = 1.25
     PL = panel(sc, pos, edges, adj, 0.85, oyL, sx, sy, "Before", "forward")
     PR = panel(sc, pos, edges, adj, 7.35, oyL, sx, sy, "Now", "backward")
     # headers
-    sc.text(0.45, 0.55, "Before", size=28, bold=True, name="Before header", group="Before labels")
-    sc.text(0.45, 1.17, "Forward from one village", size=S.PT_BODY, color=S.MID, name="Before subheader",
-            group="Before labels")
-    sc.text(6.95, 0.55, "Now", size=28, bold=True, color=S.OURS, name="Now header", group="Now labels")
-    sc.text(6.95, 1.17, "Backward from the shelters, over every road at once", size=S.PT_BODY, color=S.MID,
-            name="Now subheader", group="Now labels")
+    sc.text(0.45, 0.55, "(a) Before: forward from one village", name="Before header", group="Before labels")
+    sc.text(6.95, 0.55, "(b) Now: backward from the shelters, over every road", name="Now header",
+            group="Now labels")
     # divider
-    sc.line([(6.67, 0.45), (6.67, 7.1)], color=S.LIGHT, lw=1.0, name="divider", group="divider", role="bg")
+    sc.line([(6.67, 0.35), (6.67, 5.6)], color=S.LIGHT, lw=1.0, name="divider", group="divider", role="bg")
     # labels for village and shelters
     for P, tag in ((PL, "Before"), (PR, "Now")):
         x, y = P(SHELTERS[0])
-        sc.text(x + 0.22, y - 0.30, "shelter", color=S.SAFE, bold=True, name=f"{tag} shelter label 1",
+        sc.text(x + 0.22, y - 0.30, "shelter", name=f"{tag} shelter label 1",
                 group=f"{tag} labels")
         x, y = P(SHELTERS[1])
-        sc.text(x + 0.22, y + 0.30, "shelter", color=S.SAFE, bold=True, name=f"{tag} shelter label 2",
+        sc.text(x + 0.22, y + 0.30, "shelter", name=f"{tag} shelter label 2",
                 group=f"{tag} labels")
     x, y = PL(VILLAGE)
-    sc.text(x - 0.62, y - 0.40, "village", bold=True, ha="center", name="Before village label", group="Before labels")
+    sc.text(x - 0.62, y - 0.40, "village", ha="center", name="Before village label", group="Before labels")
     # counter, bottom left
-    sc.rect(0.45, 6.55, 5.85, 0.62, fill=S.WHITE, edge=S.MID, lw=1.0, name="counter box", group="counter", role="box")
-    sc.text(0.70, 6.86, "one search per village and per departure time", size=S.PT_BODY, name="counter text",
-            group="counter")
+    sc.rect(0.45, 5.05, 5.85, 0.55, fill=S.WHITE, edge=S.INK, lw=0.75, name="counter box", group="counter",
+            role="box")
+    sc.text(0.65, 5.325, "one search per village and per departure time", name="counter text", group="counter")
     # time bars on four roads in the right panel, placed in the faces next to the road
     bars = [
         (((0, 2), (0, 3)), [(0.0, 0.62)], -1),
@@ -156,7 +153,7 @@ def build():
         mx, my = (x0 + x1) / 2, (y0 + y1) / 2
         time_bar(sc, mx - 0.45, my + (0.13 if side > 0 else -0.25), segs, f"time bar {i + 1}")
     # key for the time bars, bottom right
-    kx, ky = 7.15, 6.56
+    kx, ky = 7.15, 4.95
     time_bar(sc, kx, ky + 0.05, [(0.0, 0.30), (0.55, 0.85)], "time bar key")
     sc.line([(kx, ky + 0.60), (kx + 0.9, ky + 0.60)], color=S.INK, lw=1.0, arrow=True, head=0.08,
             name="time bar key axis", group="time bar key", role="mark")
@@ -174,8 +171,15 @@ def main():
     sc = build()
     fig = S.new_figure()
     sc.draw(fig)
+    cap = add_caption(fig, (
+        "Figure 7. The same road network, searched two ways. (a) The earlier method searches forward from one village "
+        "(black) for one departure time (grey arrows) and repeats this for every village and every departure time. "
+        "(b) The deadline field works backward from the shelters (squares) once, over every road (blue arrows); beside "
+        "four roads, a bar shows the departure times from which that road still leads to a shelter (teal), with a gap "
+        "where fire closes the way. Schematic on a synthetic network of 25 junctions; the bars carry no data."),
+        x_in=0.45, width_in=12.45, top_in=5.82)
     sc.save_spec(fig)
-    save(fig, "F07_forward_backward", kind="scene")
+    save(fig, "F07_forward_backward", kind="scene", caption=cap)
 
 
 if __name__ == "__main__":

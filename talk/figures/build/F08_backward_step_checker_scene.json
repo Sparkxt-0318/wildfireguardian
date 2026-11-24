@@ -6,7 +6,7 @@
    "x": 0.5,
    "y": 1.37,
    "s": "safe arrival times\nover a road",
-   "size": 18,
+   "size": 16,
    "color": "#1A1A1A",
    "bold": false,
    "ha": "left",
@@ -16,9 +16,9 @@
    "italic": false,
    "box": [
     0.4999999999999999,
-    1.0350625000000004,
-    1.8888416666666668,
-    0.6698749999999997
+    1.0722777777777779,
+    1.6666250000000002,
+    0.5954444444444449
    ]
   },
   {
@@ -28,8 +28,8 @@
    "w": 3.25,
    "h": 0.24,
    "fill": "#FFFFFF",
-   "edge": "#D9D9D9",
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 1: safe arrival times over a road track",
    "group": "row 1: safe arrival times over a road",
@@ -43,8 +43,8 @@
    "w": 0.9099999999999993,
    "h": 0.24,
    "fill": "#3B8F8A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 1: safe arrival times over a road interval 1",
    "group": "row 1: safe arrival times over a road",
@@ -58,8 +58,8 @@
    "w": 0.48749999999999893,
    "h": 0.24,
    "fill": "#3B8F8A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 1: safe arrival times over a road interval 2",
    "group": "row 1: safe arrival times over a road",
@@ -71,7 +71,7 @@
    "x": 0.5,
    "y": 2.27,
    "s": "shifted back by\nthe travel time",
-   "size": 18,
+   "size": 16,
    "color": "#1A1A1A",
    "bold": false,
    "ha": "left",
@@ -81,9 +81,9 @@
    "italic": false,
    "box": [
     0.4999999999999999,
-    1.9350625,
-    1.7187070312500001,
-    0.6698749999999997
+    1.9722777777777774,
+    1.5207953125000002,
+    0.5954444444444449
    ]
   },
   {
@@ -93,8 +93,8 @@
    "w": 3.25,
    "h": 0.24,
    "fill": "#FFFFFF",
-   "edge": "#D9D9D9",
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 2: shifted back by the travel time track",
    "group": "row 2: shifted back by the travel time",
@@ -108,8 +108,8 @@
    "w": 0.9099999999999997,
    "h": 0.24,
    "fill": "#3B8F8A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 2: shifted back by the travel time interval 1",
    "group": "row 2: shifted back by the travel time",
@@ -123,8 +123,8 @@
    "w": 0.4874999999999998,
    "h": 0.24,
    "fill": "#3B8F8A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 2: shifted back by the travel time interval 2",
    "group": "row 2: shifted back by the travel time",
@@ -136,7 +136,7 @@
    "x": 0.5,
    "y": 3.17,
    "s": "closed:\nfire on the road",
-   "size": 18,
+   "size": 16,
    "color": "#1A1A1A",
    "bold": false,
    "ha": "left",
@@ -146,9 +146,9 @@
    "italic": false,
    "box": [
     0.4999999999999999,
-    2.8350625000000003,
-    1.6923405029296876,
-    0.6698749999999997
+    2.8722777777777777,
+    1.5023495930989585,
+    0.5954444444444449
    ]
   },
   {
@@ -158,8 +158,8 @@
    "w": 3.25,
    "h": 0.24,
    "fill": "#FFFFFF",
-   "edge": "#D9D9D9",
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 3: closed: fire on the road track",
    "group": "row 3: closed: fire on the road",
@@ -173,8 +173,8 @@
    "w": 0.8449999999999998,
    "h": 0.24,
    "fill": "#B5483A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 3: closed: fire on the road interval 1",
    "group": "row 3: closed: fire on the road",
@@ -186,9 +186,9 @@
    "x": 0.5,
    "y": 4.07,
    "s": "safe start times",
-   "size": 18,
+   "size": 16,
    "color": "#1A1A1A",
-   "bold": true,
+   "bold": false,
    "ha": "left",
    "va": "center",
    "name": "row 4: safe start times label",
@@ -196,9 +196,9 @@
    "italic": false,
    "box": [
     0.4999999999999999,
-    3.89865,
-    1.847176041666667,
-    0.3426999999999999
+    3.9211388888888887,
+    1.5173231770833335,
+    0.29772222222222244
    ]
   },
   {
@@ -208,8 +208,8 @@
    "w": 3.25,
    "h": 0.24,
    "fill": "#FFFFFF",
-   "edge": "#D9D9D9",
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 4: safe start times track",
    "group": "row 4: safe start times",
@@ -223,8 +223,8 @@
    "w": 0.52,
    "h": 0.24,
    "fill": "#3B8F8A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 4: safe start times interval 1",
    "group": "row 4: safe start times",
@@ -238,8 +238,8 @@
    "w": 0.35749999999999993,
    "h": 0.24,
    "fill": "#3B8F8A",
-   "edge": null,
-   "lw": 1.0,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "row 4: safe start times interval 2",
    "group": "row 4: safe start times",
@@ -310,7 +310,7 @@
    "name": "closure edge 0.36",
    "group": "closure guides",
    "role": "mark",
-   "head": 0.12
+   "head": 0.1
   },
   {
    "t": "line",
@@ -334,7 +334,7 @@
    "name": "closure edge 0.62",
    "group": "closure guides",
    "role": "mark",
-   "head": 0.12
+   "head": 0.1
   },
   {
    "t": "line",
@@ -362,7 +362,7 @@
    "x": 5.6,
    "y": 4.95,
    "s": "time",
-   "size": 18,
+   "size": 16,
    "color": "#8C8C8C",
    "bold": false,
    "ha": "left",
@@ -372,9 +372,9 @@
    "italic": false,
    "box": [
     5.599999999999999,
-    4.78253125,
-    0.4826268229166667,
-    0.33493749999999983
+    4.801138888888889,
+    0.42707265625,
+    0.29772222222222244
    ]
   },
   {
@@ -384,32 +384,32 @@
    "w": 1.25,
    "h": 1.05,
    "fill": "#F3DAD6",
-   "edge": null,
-   "lw": 1.4,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "Solver box",
    "group": "Solver",
    "role": "box",
-   "radius": 0.06
+   "radius": 0.0
   },
   {
    "t": "text",
    "x": 7.575,
    "y": 2.5749999999999997,
    "s": "Solver",
-   "size": 20,
+   "size": 16,
    "color": "#1A1A1A",
-   "bold": true,
+   "bold": false,
    "ha": "center",
    "va": "center",
    "name": "Solver label",
    "group": "Solver",
    "italic": false,
    "box": [
-    7.156607682291665,
-    2.38461111111111,
-    0.8367846354166667,
-    0.38077777777777816
+    7.2642438802083324,
+    2.4261388888888886,
+    0.6215122395833333,
+    0.29772222222222244
    ]
   },
   {
@@ -419,32 +419,32 @@
    "w": 1.75,
    "h": 1.05,
    "fill": "#DDE7F2",
-   "edge": null,
-   "lw": 1.4,
+   "edge": "#1A1A1A",
+   "lw": 0.75,
    "hatch": null,
    "name": "Answer + certificate box",
    "group": "Answer + certificate",
    "role": "box",
-   "radius": 0.06
+   "radius": 0.0
   },
   {
    "t": "text",
    "x": 9.575,
    "y": 2.5749999999999997,
    "s": "Answer +\ncertificate",
-   "size": 20,
+   "size": 16,
    "color": "#1A1A1A",
-   "bold": true,
+   "bold": false,
    "ha": "center",
    "va": "center",
    "name": "Answer + certificate label",
    "group": "Answer + certificate",
    "italic": false,
    "box": [
-    8.903141796874998,
-    2.194222222222222,
-    1.3437164062500002,
-    0.7615555555555548
+    9.092373177083331,
+    2.277277777777777,
+    0.9652536458333334,
+    0.5954444444444449
    ]
   },
   {
@@ -455,31 +455,31 @@
    "h": 1.05,
    "fill": "#FFFFFF",
    "edge": "#1A1A1A",
-   "lw": 1.4,
+   "lw": 0.75,
    "hatch": null,
    "name": "Independent checker box",
    "group": "Independent checker",
    "role": "box",
-   "radius": 0.06
+   "radius": 0.0
   },
   {
    "t": "text",
    "x": 11.924999999999999,
    "y": 2.5749999999999997,
    "s": "Independent\nchecker",
-   "size": 20,
+   "size": 16,
    "color": "#1A1A1A",
-   "bold": true,
+   "bold": false,
    "ha": "center",
    "va": "center",
    "name": "Independent checker label",
    "group": "Independent checker",
    "italic": false,
    "box": [
-    11.095159635416662,
-    2.194222222222222,
-    1.6596807291666669,
-    0.7615555555555548
+    11.298279557291663,
+    2.277277777777777,
+    1.2534408854166668,
+    0.5954444444444449
    ]
   },
   {
@@ -495,13 +495,13 @@
     ]
    ],
    "color": "#1A1A1A",
-   "lw": 1.6,
+   "lw": 1.0,
    "arrow": true,
    "dash": null,
    "name": "solver to answer",
    "group": "arrows",
    "role": "mark",
-   "head": 0.14
+   "head": 0.1
   },
   {
    "t": "line",
@@ -516,13 +516,13 @@
     ]
    ],
    "color": "#1A1A1A",
-   "lw": 1.6,
+   "lw": 1.0,
    "arrow": true,
    "dash": null,
    "name": "certificate to checker",
    "group": "arrows",
    "role": "mark",
-   "head": 0.14
+   "head": 0.1
   },
   {
    "t": "line",
@@ -537,13 +537,13 @@
     ]
    ],
    "color": "#3B8F8A",
-   "lw": 1.6,
+   "lw": 1.0,
    "arrow": true,
    "dash": null,
    "name": "checker output arrow",
    "group": "checker result",
    "role": "mark",
-   "head": 0.14
+   "head": 0.1
   },
   {
    "t": "line",
@@ -562,20 +562,20 @@
     ]
    ],
    "color": "#3B8F8A",
-   "lw": 4,
+   "lw": 2.5,
    "arrow": false,
    "dash": null,
    "name": "tick mark",
    "group": "checker result",
    "role": "mark",
-   "head": 0.12
+   "head": 0.1
   },
   {
    "t": "text",
    "x": 12.9,
    "y": 4.72,
    "s": "shares no code with the solver",
-   "size": 18,
+   "size": 16,
    "color": "#1A1A1A",
    "bold": false,
    "ha": "right",
@@ -584,211 +584,10 @@
    "group": "checker result",
    "italic": false,
    "box": [
-    9.48444954020182,
-    4.5525312499999995,
-    3.4155504597981774,
-    0.33493749999999983
-   ]
-  },
-  {
-   "t": "line",
-   "pts": [
-    [
-     0.5,
-     5.45
-    ],
-    [
-     12.9,
-     5.45
-    ]
-   ],
-   "color": "#D9D9D9",
-   "lw": 1.0,
-   "arrow": false,
-   "dash": null,
-   "name": "separator",
-   "group": "numbers",
-   "role": "bg",
-   "head": 0.12
-  },
-  {
-   "t": "text",
-   "x": 0.5,
-   "y": 5.84,
-   "s": "0",
-   "size": 40,
-   "color": "#2F5D8A",
-   "bold": true,
-   "ha": "left",
-   "va": "center",
-   "name": "number 1 value",
-   "group": "number 1",
-   "italic": false,
-   "box": [
-    0.4999999999999999,
-    5.459222222222222,
-    0.3090200520833334,
-    0.7615555555555555
-   ]
-  },
-  {
-   "t": "text",
-   "x": 0.5,
-   "y": 6.56,
-   "s": "disagreements with brute force",
-   "size": 18,
-   "color": "#1A1A1A",
-   "bold": true,
-   "ha": "left",
-   "va": "center",
-   "name": "number 1 label",
-   "group": "number 1",
-   "italic": false,
-   "box": [
-    0.4999999999999999,
-    6.38865,
-    3.7235397216796877,
-    0.3427
-   ]
-  },
-  {
-   "t": "text",
-   "x": 0.5,
-   "y": 7.0,
-   "s": "in 12,000 random networks",
-   "size": 16,
-   "color": "#8C8C8C",
-   "bold": false,
-   "ha": "left",
-   "va": "center",
-   "name": "number 1 detail",
-   "group": "number 1",
-   "italic": false,
-   "box": [
-    0.4999999999999999,
-    6.8511388888888884,
-    2.7256263020833336,
-    0.2977222222222222
-   ]
-  },
-  {
-   "t": "text",
-   "x": 4.75,
-   "y": 5.84,
-   "s": "5 of 5",
-   "size": 40,
-   "color": "#2F5D8A",
-   "bold": true,
-   "ha": "left",
-   "va": "center",
-   "name": "number 2 value",
-   "group": "number 2",
-   "italic": false,
-   "box": [
-    4.749999999999999,
-    5.459222222222222,
-    1.4478804687500002,
-    0.7615555555555555
-   ]
-  },
-  {
-   "t": "text",
-   "x": 4.75,
-   "y": 6.56,
-   "s": "planted bugs caught",
-   "size": 18,
-   "color": "#1A1A1A",
-   "bold": true,
-   "ha": "left",
-   "va": "center",
-   "name": "number 2 label",
-   "group": "number 2",
-   "italic": false,
-   "box": [
-    4.749999999999999,
-    6.38865,
-    2.4443833333333336,
-    0.3427
-   ]
-  },
-  {
-   "t": "text",
-   "x": 4.75,
-   "y": 7.0,
-   "s": "3,000 random networks per family",
-   "size": 16,
-   "color": "#8C8C8C",
-   "bold": false,
-   "ha": "left",
-   "va": "center",
-   "name": "number 2 detail",
-   "group": "number 2",
-   "italic": false,
-   "box": [
-    4.749999999999999,
-    6.8511388888888884,
-    3.3957484375000004,
-    0.2977222222222222
-   ]
-  },
-  {
-   "t": "text",
-   "x": 9.0,
-   "y": 5.84,
-   "s": "174",
-   "size": 40,
-   "color": "#2F5D8A",
-   "bold": true,
-   "ha": "left",
-   "va": "center",
-   "name": "number 3 value",
-   "group": "number 3",
-   "italic": false,
-   "box": [
-    8.999999999999998,
-    5.459222222222222,
-    0.92706015625,
-    0.7615555555555555
-   ]
-  },
-  {
-   "t": "text",
-   "x": 9.0,
-   "y": 6.56,
-   "s": "village certificates pass",
-   "size": 18,
-   "color": "#1A1A1A",
-   "bold": true,
-   "ha": "left",
-   "va": "center",
-   "name": "number 3 label",
-   "group": "number 3",
-   "italic": false,
-   "box": [
-    8.999999999999998,
-    6.38865,
-    2.805485416666667,
-    0.3427
-   ]
-  },
-  {
-   "t": "text",
-   "x": 9.0,
-   "y": 7.0,
-   "s": "the independent checker",
-   "size": 16,
-   "color": "#8C8C8C",
-   "bold": false,
-   "ha": "left",
-   "va": "center",
-   "name": "number 3 detail",
-   "group": "number 3",
-   "italic": false,
-   "box": [
-    8.999999999999998,
-    6.8511388888888884,
-    2.4652161458333337,
-    0.2977222222222222
+    9.869368302408851,
+    4.571138888888889,
+    3.0306316975911463,
+    0.29772222222222244
    ]
   }
  ]

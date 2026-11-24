@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-24T15:48:18.143400</dc:date>
+    <dc:date>2026-11-24T16:03:33.201367</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -32,12 +32,12 @@ z
    <g id="top rule">
     <path d="M 43.2 54 
 L 918 54 
-" clip-path="url(#p863cafe051)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.4"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.4"/>
    </g>
    <g id="header rule">
     <path d="M 43.2 122.4 
 L 918 122.4 
-" clip-path="url(#p863cafe051)" style="fill: none; stroke: #1a1a1a; stroke-width: 0.75"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: none; stroke: #1a1a1a; stroke-width: 0.75"/>
    </g>
    <g id="row 1: Korea's spread prediction system where the fire is yes">
     <path d="M 399.6 142.56 
@@ -50,7 +50,7 @@ C 391.226229 156.783268 390.24 154.402301 390.24 151.92
 C 390.24 149.437699 391.226229 147.056732 392.981481 145.301481 
 C 394.736732 143.546229 397.117699 142.56 399.6 142.56 
 z
-" clip-path="url(#p863cafe051)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 1: Korea's spread prediction system who to alert yes">
     <path d="M 554.4 142.56 
@@ -63,7 +63,7 @@ C 546.026229 156.783268 545.04 154.402301 545.04 151.92
 C 545.04 149.437699 546.026229 147.056732 547.781481 145.301481 
 C 549.536732 143.546229 551.917699 142.56 554.4 142.56 
 z
-" clip-path="url(#p863cafe051)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 1: Korea's spread prediction system when each village's last road closes no">
     <path d="M 709.2 142.56 
@@ -76,7 +76,7 @@ C 700.826229 156.783268 699.84 154.402301 699.84 151.92
 C 699.84 149.437699 700.826229 147.056732 702.581481 145.301481 
 C 704.336732 143.546229 706.717699 142.56 709.2 142.56 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 1: Korea's spread prediction system answer can be checked no">
     <path d="M 864 142.56 
@@ -89,7 +89,7 @@ C 855.626229 156.783268 854.64 154.402301 854.64 151.92
 C 854.64 149.437699 855.626229 147.056732 857.381481 145.301481 
 C 859.136732 143.546229 861.517699 142.56 864 142.56 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: Technosylva where the fire is yes">
     <path d="M 399.6 201.6 
@@ -102,7 +102,7 @@ C 391.226229 215.823268 390.24 213.442301 390.24 210.96
 C 390.24 208.477699 391.226229 206.096732 392.981481 204.341481 
 C 394.736732 202.586229 397.117699 201.6 399.6 201.6 
 z
-" clip-path="url(#p863cafe051)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: Technosylva who to alert no">
     <path d="M 554.4 201.6 
@@ -115,7 +115,7 @@ C 546.026229 215.823268 545.04 213.442301 545.04 210.96
 C 545.04 208.477699 546.026229 206.096732 547.781481 204.341481 
 C 549.536732 202.586229 551.917699 201.6 554.4 201.6 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: Technosylva when each village's last road closes no">
     <path d="M 709.2 201.6 
@@ -128,7 +128,7 @@ C 700.826229 215.823268 699.84 213.442301 699.84 210.96
 C 699.84 208.477699 700.826229 206.096732 702.581481 204.341481 
 C 704.336732 202.586229 706.717699 201.6 709.2 201.6 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: Technosylva answer can be checked no">
     <path d="M 864 201.6 
@@ -141,7 +141,7 @@ C 855.626229 215.823268 854.64 213.442301 854.64 210.96
 C 854.64 208.477699 855.626229 206.096732 857.381481 204.341481 
 C 859.136732 202.586229 861.517699 201.6 864 201.6 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 3: Genasys Protect where the fire is no">
     <path d="M 399.6 260.64 
@@ -154,7 +154,7 @@ C 391.226229 274.863268 390.24 272.482301 390.24 270
 C 390.24 267.517699 391.226229 265.136732 392.981481 263.381481 
 C 394.736732 261.626229 397.117699 260.64 399.6 260.64 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 3: Genasys Protect who to alert yes">
     <path d="M 554.4 260.64 
@@ -167,7 +167,7 @@ C 546.026229 274.863268 545.04 272.482301 545.04 270
 C 545.04 267.517699 546.026229 265.136732 547.781481 263.381481 
 C 549.536732 261.626229 551.917699 260.64 554.4 260.64 
 z
-" clip-path="url(#p863cafe051)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 3: Genasys Protect when each village's last road closes no">
     <path d="M 709.2 260.64 
@@ -180,7 +180,7 @@ C 700.826229 274.863268 699.84 272.482301 699.84 270
 C 699.84 267.517699 700.826229 265.136732 702.581481 263.381481 
 C 704.336732 261.626229 706.717699 260.64 709.2 260.64 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 3: Genasys Protect answer can be checked no">
     <path d="M 864 260.64 
@@ -193,7 +193,7 @@ C 855.626229 274.863268 854.64 272.482301 854.64 270
 C 854.64 267.517699 855.626229 265.136732 857.381481 263.381481 
 C 859.136732 261.626229 861.517699 260.64 864 260.64 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: Watch Duty where the fire is yes">
     <path d="M 399.6 319.68 
@@ -206,7 +206,7 @@ C 391.226229 333.903268 390.24 331.522301 390.24 329.04
 C 390.24 326.557699 391.226229 324.176732 392.981481 322.421481 
 C 394.736732 320.666229 397.117699 319.68 399.6 319.68 
 z
-" clip-path="url(#p863cafe051)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: Watch Duty who to alert yes">
     <path d="M 554.4 319.68 
@@ -219,7 +219,7 @@ C 546.026229 333.903268 545.04 331.522301 545.04 329.04
 C 545.04 326.557699 546.026229 324.176732 547.781481 322.421481 
 C 549.536732 320.666229 551.917699 319.68 554.4 319.68 
 z
-" clip-path="url(#p863cafe051)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: Watch Duty when each village's last road closes no">
     <path d="M 709.2 319.68 
@@ -232,7 +232,7 @@ C 700.826229 333.903268 699.84 331.522301 699.84 329.04
 C 699.84 326.557699 700.826229 324.176732 702.581481 322.421481 
 C 704.336732 320.666229 706.717699 319.68 709.2 319.68 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: Watch Duty answer can be checked no">
     <path d="M 864 319.68 
@@ -245,7 +245,7 @@ C 855.626229 333.903268 854.64 331.522301 854.64 329.04
 C 854.64 326.557699 855.626229 324.176732 857.381481 322.421481 
 C 859.136732 320.666229 861.517699 319.68 864 319.68 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 5: WildfireGuardian (ours) where the fire is no">
     <path d="M 399.6 378.72 
@@ -258,7 +258,7 @@ C 391.226229 392.943268 390.24 390.562301 390.24 388.08
 C 390.24 385.597699 391.226229 383.216732 392.981481 381.461481 
 C 394.736732 379.706229 397.117699 378.72 399.6 378.72 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 5: WildfireGuardian (ours) who to alert no">
     <path d="M 554.4 378.72 
@@ -271,7 +271,7 @@ C 546.026229 392.943268 545.04 390.562301 545.04 388.08
 C 545.04 385.597699 546.026229 383.216732 547.781481 381.461481 
 C 549.536732 379.706229 551.917699 378.72 554.4 378.72 
 z
-" clip-path="url(#p863cafe051)" style="fill: #ffffff; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #ffffff; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 5: WildfireGuardian (ours) when each village's last road closes yes">
     <path d="M 709.2 378.72 
@@ -284,7 +284,7 @@ C 700.826229 392.943268 699.84 390.562301 699.84 388.08
 C 699.84 385.597699 700.826229 383.216732 702.581481 381.461481 
 C 704.336732 379.706229 706.717699 378.72 709.2 378.72 
 z
-" clip-path="url(#p863cafe051)" style="fill: #2f5d8a; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #2f5d8a; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="row 5: WildfireGuardian (ours) answer can be checked yes">
     <path d="M 864 378.72 
@@ -297,12 +297,12 @@ C 855.626229 392.943268 854.64 390.562301 854.64 388.08
 C 854.64 385.597699 855.626229 383.216732 857.381481 381.461481 
 C 859.136732 379.706229 861.517699 378.72 864 378.72 
 z
-" clip-path="url(#p863cafe051)" style="fill: #2f5d8a; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: #2f5d8a; stroke: #2f5d8a; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="bottom rule">
     <path d="M 43.2 417.6 
 L 918 417.6 
-" clip-path="url(#p863cafe051)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.4"/>
+" clip-path="url(#pcd5a9ecdfa)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.4"/>
    </g>
    <g id="column 1 header">
     <text style="font-size: 16px; font-family: 'Helvetica Neue', 'NanumGothic'; fill: #1a1a1a" transform="translate(364.48875 83.107)">where the</text>
@@ -346,7 +346,7 @@ L 918 417.6
   </g>
  </g>
  <defs>
-  <clipPath id="p863cafe051">
+  <clipPath id="pcd5a9ecdfa">
    <rect x="0" y="0" width="959.976" height="540"/>
   </clipPath>
  </defs>

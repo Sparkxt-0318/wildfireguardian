@@ -8,7 +8,7 @@ golden MANIFEST files.
 import re
 
 import style as S
-from figkit import save
+from figkit import add_caption, save
 from prov import Ledger
 from scene import Scene
 
@@ -65,10 +65,10 @@ def build(n, mis, caught, nmut, k, cpf):
     ]
     for i, (lab, segs, col, y) in enumerate(rows):
         g = f"row {i + 1}: {lab}".replace("\n", " ")
-        sc.text(lx, y + th / 2, lab, size=S.PT_BODY, bold=(i == 3), name=f"{g} label", group=g)
-        sc.rect(x0, y, x1 - x0, th, fill=S.WHITE, edge=S.LIGHT, lw=1.0, name=f"{g} track", group=g)
+        sc.text(lx, y + th / 2, lab, name=f"{g} label", group=g)
+        sc.rect(x0, y, x1 - x0, th, fill=S.WHITE, edge=S.INK, lw=0.75, name=f"{g} track", group=g)
         for j, (a, b) in enumerate(segs):
-            sc.rect(X(a), y, X(b) - X(a), th, fill=col, name=f"{g} interval {j + 1}", group=g)
+            sc.rect(X(a), y, X(b) - X(a), th, fill=col, edge=S.INK, lw=0.75, name=f"{g} interval {j + 1}", group=g)
     # shift arrows from row 1 to row 2 (travel time)
     for (a, _), (c, _) in zip(rows[0][1], rows[1][1]):
         sc.line([(X(a), 1.25 + th + 0.06), (X(c) + 0.02, 2.15 - 0.06)], color=S.INK, lw=1.2, arrow=True, head=0.10,
@@ -87,35 +87,21 @@ def build(n, mis, caught, nmut, k, cpf):
              ("Independent\nchecker", 10.95, 1.95, S.WHITE)]
     for lab, bx, bw, tint in boxes:
         g = lab.replace("\n", " ")
-        sc.rect(bx, by, bw, bh, fill=tint, edge=S.INK if tint == S.WHITE else None, lw=1.4, name=f"{g} box",
-                group=g, role="box", radius=0.06)
-        sc.text(bx + bw / 2, by + bh / 2, lab, size=S.PT_LABEL, bold=True, ha="center", name=f"{g} label", group=g)
+        sc.rect(bx, by, bw, bh, fill=tint, edge=S.INK, lw=0.75, name=f"{g} box", group=g, role="box")
+        sc.text(bx + bw / 2, by + bh / 2, lab, ha="center", name=f"{g} label", group=g)
     # arrows
-    sc.line([(6.95 + 1.25 + 0.06, by + bh / 2), (8.70 - 0.06, by + bh / 2)], color=S.INK, lw=1.6, arrow=True,
-            head=0.14, name="solver to answer", group="arrows")
-    sc.line([(8.70 + 1.75 + 0.06, by + bh / 2), (10.95 - 0.06, by + bh / 2)], color=S.INK, lw=1.6, arrow=True,
-            head=0.14, name="certificate to checker", group="arrows")
+    sc.line([(6.95 + 1.25 + 0.06, by + bh / 2), (8.70 - 0.06, by + bh / 2)], color=S.INK, lw=1.0, arrow=True,
+            head=0.10, name="solver to answer", group="arrows")
+    sc.line([(8.70 + 1.75 + 0.06, by + bh / 2), (10.95 - 0.06, by + bh / 2)], color=S.INK, lw=1.0, arrow=True,
+            head=0.10, name="certificate to checker", group="arrows")
     # tick leaving the checker, below it
     cx = 10.95 + 1.95 / 2
-    sc.line([(cx, by + bh + 0.06), (cx, by + bh + 0.55)], color=S.SAFE, lw=1.6, arrow=True, head=0.14,
+    sc.line([(cx, by + bh + 0.06), (cx, by + bh + 0.55)], color=S.SAFE, lw=1.0, arrow=True, head=0.10,
             name="checker output arrow", group="checker result")
-    sc.tick(cx, by + bh + 0.92, 0.42, color=S.SAFE, lw=4, name="tick mark", group="checker result")
-    sc.text(12.90, by + bh + 1.62, "shares no code with the solver", size=S.PT_BODY, ha="right", color=S.INK,
+    sc.tick(cx, by + bh + 0.92, 0.42, color=S.SAFE, lw=2.5, name="tick mark", group="checker result")
+    sc.text(12.90, by + bh + 1.62, "shares no code with the solver", ha="right", color=S.INK,
             name="checker note", group="checker result")
 
-    # ---------------- bottom: three numbers
-    nums = [
-        (f"{mis}", "disagreements with brute force", f"in {n:,} random networks"),
-        (f"{caught} of {nmut}", "planted bugs caught", f"{cpf:,} random networks per family"),
-        (f"{k}", "village certificates pass", "the independent checker"),
-    ]
-    sc.line([(0.50, 5.45), (12.9, 5.45)], color=S.LIGHT, lw=1.0, name="separator", group="numbers", role="bg")
-    for i, (big, l1, l2) in enumerate(nums):
-        xx = 0.50 + i * 4.25
-        g = f"number {i + 1}"
-        sc.text(xx, 5.84, big, size=S.PT_KEY_BIG, bold=True, color=S.OURS, name=f"{g} value", group=g)
-        sc.text(xx, 6.56, l1, size=S.PT_BODY, bold=True, name=f"{g} label", group=g)
-        sc.text(xx, 7.00, l2, size=S.PT_MIN, color=S.MID, name=f"{g} detail", group=g)
     return sc
 
 
@@ -127,8 +113,19 @@ def main():
     sc = build(*vals)
     fig = S.new_figure()
     sc.draw(fig)
+    n, mis, caught, nmut, k, cpf = vals
+    S.panel_letter(fig, 0.45, 0.6, "a")
+    S.panel_letter(fig, 6.95, 0.6, "b")
+    cap = add_caption(fig, (
+        "Figure 8. (a) One backward step: the times at which a traveller can safely arrive over a road are shifted back "
+        "by the travel time, and the times when fire is on the road are removed, leaving the safe start times (two "
+        "windows with a gap). (b) The solver returns an answer with a certificate, which an independent checker that "
+        f"shares no code with the solver accepts or rejects. Tests: {mis} disagreements with brute force on {n:,} "
+        f"random networks; {caught} of {nmut} planted bugs caught ({cpf:,} networks per family); all {k} village "
+        "certificates of the worked examples pass the checker. Source: research/kcf-theorem, product/wfg-roadlayer."),
+        x_in=0.45, width_in=12.45, top_in=5.8)
     sc.save_spec(fig)
-    save(fig, "F08_backward_step_checker", kind="scene")
+    save(fig, "F08_backward_step_checker", kind="scene", caption=cap)
 
 
 if __name__ == "__main__":

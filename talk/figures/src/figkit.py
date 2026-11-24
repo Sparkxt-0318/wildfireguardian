@@ -65,6 +65,8 @@ def _marks(fig):
         if g.startswith("bg") or g == "nocheck":
             continue
         ax = a.axes
+        if isinstance(a, Spine) and ax is not None and not ax.axison:
+            continue
         if isinstance(a, Patch) and not isinstance(a, Spine):
             if any(a is axx.patch for axx in fig.axes):
                 continue

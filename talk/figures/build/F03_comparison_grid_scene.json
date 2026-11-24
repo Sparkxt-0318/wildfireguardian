@@ -20,7 +20,7 @@
    "name": "top rule",
    "group": "rules",
    "role": "mark",
-   "head": 0.12
+   "head": 0.1
   },
   {
    "t": "text",
@@ -141,7 +141,7 @@
    "name": "header rule",
    "group": "rules",
    "role": "mark",
-   "head": 0.12
+   "head": 0.1
   },
   {
    "t": "text",
@@ -502,7 +502,7 @@
    "name": "bottom rule",
    "group": "rules",
    "role": "mark",
-   "head": 0.12
+   "head": 0.1
   }
  ]
 }

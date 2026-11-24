@@ -31,8 +31,8 @@ class Scene:
         self.items.append(dict(t="circle", cx=cx, cy=cy, r=r, fill=fill, edge=edge, lw=lw,
                                name=name, group=group, role=role))
 
-    def line(self, pts, *, color=S.INK, lw=1.5, arrow=False, dash=None, name, group=None,
-             role="mark", head=0.12):
+    def line(self, pts, *, color=S.INK, lw=1.0, arrow=False, dash=None, name, group=None,
+             role="mark", head=0.10):
         """Polyline through pts [(x, y), ...]; arrow=True puts a head at the last point."""
         self.items.append(dict(t="line", pts=[list(p) for p in pts], color=color, lw=lw,
                                arrow=arrow, dash=dash, name=name, group=group, role=role, head=head))
