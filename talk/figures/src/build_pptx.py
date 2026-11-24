@@ -1,7 +1,7 @@
 """Build talk/figures/kcf_talk_figures.pptx: one figure per slide, everything editable.
 
 * Schematics (scene manifests: F03, F07, F08) are native shapes, grouped by logical part and named.
-* Native charts (F02 histogram, F05 panel a bar) are PowerPoint charts with their data in the embedded sheet.
+* Native charts (F02 histogram) are PowerPoint charts with their data in the embedded sheet.
 * Every other figure: the text-free PNG as the picture, with every label, number and caption as a native text box
   at the position measured in the complete figure.
 * Last slide: the palette.

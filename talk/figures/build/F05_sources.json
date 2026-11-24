@@ -52,6 +52,20 @@
    "commit": "4effd5ff"
   },
   {
+   "label": "Verified share of the records with no standard label (%)",
+   "value": 2.1,
+   "unit": "",
+   "shown": "2.1%",
+   "n": null,
+   "file": "results/HEADLINE_NUMBERS.md",
+   "field": "computed: verified / no standard label, table row S3",
+   "expected": "2.09 % (item 1 sentence)",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "4effd5ff"
+  },
+  {
    "label": "Fires whose first label moved earlier",
    "value": 45,
    "unit": "",
@@ -124,6 +138,27 @@
    "repo": "Sparkxt-0318/wildfireguardiandata",
    "ref": "main",
    "commit": "0e72b257"
+  },
+  {
+   "label": "Trailing spaces drawn per value (before, after)",
+   "value": [
+    22,
+    0,
+    8,
+    0,
+    8,
+    0
+   ],
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "release/records-v0.1/patches_us.jsonl.gz",
+   "field": "len(old) - len(old.rstrip()) and the same for new, record fod:1389433",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "8f3e7859"
   }
  ],
  "notes": []

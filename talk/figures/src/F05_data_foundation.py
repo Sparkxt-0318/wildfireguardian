@@ -1,12 +1,13 @@
-"""F05 data foundation (wildfireguardiandata v0.1), three panels.
+"""F05 data foundation (wildfireguardiandata v0.1), three panels, each headed by its result.
 
-(a) the 207,508 US 2018–2020 agency records that no standard satellite product labelled, split by tier
-    (verified / probable / record-only), with a zoomed view of the small tiers; whisker = Clopper-Pearson 95% interval
-    of the verified share. Source: results/HEADLINE_NUMBERS.md (table, slice S3).
-(b) lead of the earlier onset over the first standard detection, for the 45 of 240 fires whose first label moved
-    earlier. Source: release/live-v0.1/onset_labels.csv (lead_vs_T0_min); median and CI from HEADLINE_NUMBERS.md.
-(c) one real record before and after its reversible patches. Source: release/records-v0.1/patches_us.jsonl.gz;
-    run size from run_summary_us.json; run time from results/RECORDS_RESULTS.md (R2).
+(a) the 207,508 US 2018–2020 agency records that no standard satellite product labelled, one bar per tier
+    (verified / probable / record-only) on one linear axis, counts at the bar ends, the verified share with its
+    Clopper-Pearson 95% interval. Source: results/HEADLINE_NUMBERS.md (table, slice S3).
+(b) how much earlier the first label is than the first standard detection, for the 45 of 240 fires whose first
+    label moved earlier; axis in minutes and hours; median and bootstrap interval from HEADLINE_NUMBERS.md.
+(c) one real record before and after its reversible patches, trailing spaces drawn as small squares.
+    Source: release/records-v0.1/patches_us.jsonl.gz; run size from run_summary_us.json; run time from
+    results/RECORDS_RESULTS.md (R2).
 
 The data repository is read only and is not cloned into this one. Its files are read from $WGD_DIR (default
 talk/figures/.cache/wgd), filled by `make_all.sh` with `gh api` (see README.md).
@@ -22,7 +23,9 @@ from pathlib import Path
 import numpy as np
 
 import style as S
-from figkit import add_caption, boxed_legend, grid, save
+from matplotlib.patches import Rectangle
+
+from figkit import add_caption, grid, save
 from prov import Ledger
 
 WGD = Path(os.environ.get("WGD_DIR", S.FIGDIR / ".cache" / "wgd"))
@@ -53,6 +56,9 @@ def read(L):
           "record-only", expected="4,343 / 20,913 / 182,252", **kw)
     L.add("Verified share, Clopper-Pearson 95% interval (%)", [float(lo), float(hi)], field="table row S3, verified "
           "(lo-hi %)", **kw)
+    L.add("Verified share of the records with no standard label (%)", round(100 * ver / nostd, 1),
+          shown=f"{100 * ver / nostd:.1f}%", field="computed: verified / no standard label, table row S3",
+          expected="2.09 % (item 1 sentence)", **kw)
     assert ver + prob + ronly == nostd
     # (b) onset leads
     rows = list(csv.DictReader(open(WGD / "onset_labels.csv")))
@@ -92,12 +98,12 @@ def read(L):
                 years=years, med=med, clo=clo, chi=chi, patches=patches, n_rec=n_rec, mins=mins)
 
 
-def show(v):
+def trailing(v):
+    """Value without its trailing spaces, and how many there were."""
     if isinstance(v, dict) and v.get("__missing__"):
-        return "(missing)"
+        return "missing", 0
     s = str(v)
-    k = len(s) - len(s.rstrip())
-    return s.rstrip() + (f" ␣×{k}" if k else "")
+    return s.rstrip(), len(s) - len(s.rstrip())
 
 
 def main():
@@ -105,94 +111,104 @@ def main():
     d = read(L)
     W, H = S.W_IN, S.H_IN
     fig = S.new_figure()
-    # ---------------- (a) tiers
-    la, ta, wa, ha = 1.6, 0.85, 2.3, 0.55
+    head_y = 0.42
+
+    def heading(x, letter, text):
+        S.panel_letter(fig, x, head_y, letter)
+        fig.text((x + 0.42) / W, 1 - head_y / H, text, fontsize=S.PT_TEXT, va="center")
+
+    # ---------------- (a) tiers, one linear axis
+    la, ta, wa, ha = 1.75, 1.0, 2.35, 2.3
     ax = fig.add_axes([la / W, 1 - (ta + ha) / H, wa / W, ha / H])
-    segs = [("verified", d["ver"], S.OURS, None), ("probable", d["prob"], S.LIGHT, "///"),
-            ("record-only", d["ronly"], S.WHITE, None)]
-    x = 0
-    for name, n, col, hatch in segs:
-        ax.barh(0, n, left=x, height=0.8, facecolor=col, edgecolor=S.INK, linewidth=0.6, hatch=hatch, label=name)
-        x += n
-    ax.set_xlim(0, d["nostd"])
-    ax.set_ylim(-0.6, 0.6)
-    ax.set_yticks([])
+    grid(ax, axis="x")
+    tiers = [("verified", d["ver"], S.OURS, None), ("probable", d["prob"], S.LIGHT, "///"),
+             ("record-only", d["ronly"], S.WHITE, None)]
+    for i, (name, n, col, hatch) in enumerate(tiers):
+        ax.barh(i, n, height=0.6, facecolor=col, edgecolor=S.INK, linewidth=0.6, hatch=hatch)
+        ax.annotate(f"{n:,}", (n, i), xytext=(8, 0), textcoords="offset points", va="center")
+    ax.set_yticks(range(3))
+    ax.set_yticklabels([t[0] for t in tiers])
+    ax.set_ylim(2.6, -0.6)
+    ax.set_xlim(0, 330000)
     ax.set_xticks([0, 100000, 200000])
     ax.set_xticklabels(["0", "100k", "200k"])
-    ax.set_xlabel("Records")
-    # zoom: the two small tiers, with the verified interval
-    tz, hz = 2.65, 1.55
-    az = fig.add_axes([la / W, 1 - (tz + hz) / H, wa / W, hz / H])
-    grid(az, axis="x")
-    vals = [("verified", d["ver"], S.OURS, None), ("probable", d["prob"], S.LIGHT, "///")]
-    for i, (name, n, col, hatch) in enumerate(vals):
-        az.barh(i, n, height=0.55, facecolor=col, edgecolor=S.INK, linewidth=0.6, hatch=hatch)
-        az.annotate(f"{n:,}", (n, i), xytext=(10 if i else 22, 0), textcoords="offset points", va="center")
-    lo, hi = d["lo"] / 100 * d["nostd"], d["hi"] / 100 * d["nostd"]
-    az.errorbar(d["ver"], 0, xerr=[[d["ver"] - lo], [hi - d["ver"]]], fmt="none", ecolor=S.INK, elinewidth=1.0,
-                capsize=3)
-    az.set_yticks([0, 1])
-    az.set_yticklabels(["verified", "probable"])
-    az.set_ylim(1.6, -0.6)
-    az.set_xlim(0, 40000)
-    az.set_xticks([0, 20000, 40000])
-    az.set_xticklabels(["0", "20k", "40k"])
-    az.set_xlabel("Records (zoom)")
-    S.panel_letter(fig, 0.45, 0.42, "a")
-    fig.text(0.85 / W, 1 - 0.42 / H, "United States data, 2018 to 2020", fontsize=S.PT_TEXT, va="center")
-    # ---------------- (b) leads
-    lb, tb, wb, hb = 5.85, 0.85, 1.3, 3.35
+    grid(ax, axis="x")
+    ax.set_xlabel("US fire records, 2018–2020", labelpad=S.LABEL_PAD)
+    heading(0.45, "a", "Records with no satellite label")
+    share = 100 * d["ver"] / d["nostd"]
+    fig.text(0.45 / W, 1 - 4.45 / H, f"verified: {share:.1f}% ({d['lo']}–{d['hi']}%)\nnot yet checked for false labels",
+             va="top", linespacing=1.3)
+    # ---------------- (b) how much earlier
+    lb, tb, wb, hb = 6.3, 1.0, 1.65, 3.55
     axb = fig.add_axes([lb / W, 1 - (tb + hb) / H, wb / W, hb / H])
     axb.set_yscale("log")
     grid(axb, axis="y")
     rng = np.random.RandomState(4)
     xs = rng.uniform(-0.25, 0.25, len(d["leads"]))
     axb.scatter(xs, d["leads"], s=28, marker="o", facecolors=S.WHITE, edgecolors=S.OURS, linewidths=1.0)
-    axb.errorbar([0.55], [d["med"]], yerr=[[d["med"] - d["clo"]], [d["chi"] - d["med"]]], fmt="s", ms=7,
+    axb.errorbar([0.6], [d["med"]], yerr=[[d["med"] - d["clo"]], [d["chi"] - d["med"]]], fmt="s", ms=7,
                  color=S.INK, ecolor=S.INK, elinewidth=1.0, capsize=4)
-    axb.set_xlim(-0.5, 0.9)
+    axb.text(0.85, d["med"], f"median\n{d['med']} min", va="center", ha="left", linespacing=1.2)
+    axb.set_xlim(-0.45, 2.3)
     axb.set_xticks([])
     axb.set_ylim(0.5, 1000)
-    axb.set_yticks([1, 10, 100, 1000])
-    axb.set_yticklabels(["1", "10", "100", "1,000"])
-    axb.set_ylabel("Lead over first standard\ndetection (min)")
-    S.panel_letter(fig, 4.3, 0.42, "b")
-    fig.text(4.75 / W, 1 - 0.42 / H, f"{len(d['leads'])} of {d['nfires']} fires", fontsize=S.PT_TEXT, va="center")
-    # ---------------- (c) record before and after
-    lc = 7.45
-    S.panel_letter(fig, lc - 0.25, 0.42, "c")
-    fig.text((lc + 0.15) / W, 1 - 0.42 / H, f"record {d['patches'][0]['record_id']}", fontsize=S.PT_TEXT, va="center")
-    cols = [lc, lc + 2.45]
-    y0 = 0.85
-    for k, (title, key) in enumerate((("before", "old"), ("after", "new"))):
-        yt = y0 + k * 2.15
-        fig.add_artist(S.plt.Line2D([lc / W, 12.95 / W], [1 - yt / H] * 2, color=S.INK, lw=1.2))
-        fig.text(cols[0] / W, 1 - (yt + 0.25) / H, "field", va="center")
-        fig.text(cols[1] / W, 1 - (yt + 0.25) / H, title, va="center")
-        fig.add_artist(S.plt.Line2D([lc / W, 12.95 / W], [1 - (yt + 0.5) / H] * 2, color=S.INK, lw=0.7))
-        for i, p in enumerate(d["patches"]):
-            yy = yt + 0.5 + 0.38 * (i + 0.55)
-            fig.text(cols[0] / W, 1 - yy / H, p["field"], va="center")
-            t = fig.text(cols[1] / W, 1 - yy / H, show(p[key]), va="center")
-            if key == "new":
-                t.set_bbox(dict(boxstyle="square,pad=0.15", facecolor="none", edgecolor=S.INK, linewidth=0.8))
-        yb = yt + 0.5 + 0.38 * len(d["patches"]) + 0.12
-        fig.add_artist(S.plt.Line2D([lc / W, 12.95 / W], [1 - yb / H] * 2, color=S.INK, lw=1.2))
-    fig.text(lc / W, 1 - 4.85 / H, "reversible patch: every change is stored\nwith its old value and its rule",
+    axb.set_yticks([1, 10, 60, 600])
+    axb.set_yticklabels(["1 min", "10 min", "1 h", "10 h"])
+    axb.minorticks_off()
+    axb.set_ylabel("Earlier than first\nsatellite detection", labelpad=S.LABEL_PAD)
+    heading(4.95, "b", f"Earlier for {len(d['leads'])} of {d['nfires']} fires")
+    # ---------------- (c) one record before and after
+    lc, xr = 8.45, 12.95
+    heading(lc, "c", "One record, cleaned reversibly")
+    xv = lc + 0.9
+    sq, pitch = 0.065, 0.08
+    fig.canvas.draw()
+    rend = fig.canvas.get_renderer()
+    y = 1.05
+    fig.add_artist(S.plt.Line2D([lc / W, xr / W], [1 - y / H] * 2, color=S.INK, lw=1.2))
+    dy = 0.385
+    n_sp = []
+    for i, p in enumerate(d["patches"]):
+        y += 0.28
+        fig.text(lc / W, 1 - y / H, p["field"], va="center", color=S.MID)
+        for key, word in (("old", "before"), ("new", "after")):
+            y += dy
+            val, k = trailing(p[key])
+            fig.text(lc / W, 1 - y / H, word, va="center")
+            t = fig.text(xv / W, 1 - y / H, val, va="center", color=S.OURS if key == "new" else S.INK)
+            n_sp.append(k)
+            if k:
+                x_end = t.get_window_extent(rend).x1 / S.DPI + 0.12
+                for j in range(k):
+                    r = Rectangle(((x_end + j * pitch) / W, 1 - (y + sq / 2) / H), sq / W, sq / H,
+                                  transform=fig.transFigure, facecolor=S.FIRE, edgecolor="none")
+                    r.set_gid("bg:space")
+                    fig.add_artist(r)
+        y += 0.22
+        if i < len(d["patches"]) - 1:
+            fig.add_artist(S.plt.Line2D([lc / W, xr / W], [1 - y / H] * 2, color=S.INK, lw=0.5))
+    fig.add_artist(S.plt.Line2D([lc / W, xr / W], [1 - y / H] * 2, color=S.INK, lw=1.2))
+    yk = 0.82
+    r = Rectangle((lc / W, 1 - (yk + sq / 2) / H), sq / W, sq / H, transform=fig.transFigure, facecolor=S.FIRE,
+                  edgecolor="none")
+    r.set_gid("bg:legend handle")
+    fig.add_artist(r)
+    fig.text((lc + 0.2) / W, 1 - yk / H, "one hidden trailing space", va="center")
+    fig.text(lc / W, 1 - (y + 0.22) / H, f"Whole US file: {d['n_rec'] / 1e6:.2f} million\nrecords in {d['mins']} min",
              va="top", linespacing=1.2)
     cap = add_caption(fig, (
-        f"Figure 5. United States data. (a) Of {d['nostd']:,} agency fire records (2018 to 2020) that no standard "
-        f"satellite product labelled, {d['ver']:,} are verified (blue; whisker: 95% interval, {d['lo']}–{d['hi']}%), "
-        f"{d['prob']:,} probable (hatched) and {d['ronly']:,} record-only (white). (b) For {len(d['leads'])} of {d['nfires']} fires "
-        f"({d['years'][0]}–{d['years'][-1]}) the first label moved earlier; median lead {d['med']} min (bootstrap 95%: "
-        f"{d['clo']}–{d['chi']} min; square with whiskers), each circle one fire. (c) One record's patches (␣×k = k trailing spaces); boxed cells changed. The national "
-        f"run cleaned {d['n_rec'] / 1e6:.2f} million records in {d['mins']} minutes. Source: wildfireguardiandata "
-        "results/HEADLINE_NUMBERS.md and release v0.1."), x_in=0.45, width_in=12.45, top_in=5.78)
+        f"Figure 5. (a) Of {d['nostd']:,} US fire records (2018–2020) that no standard satellite product "
+        f"labelled, {d['ver']:,} are verified ({share:.1f}%, 95% interval {d['lo']}–{d['hi']}%); how many verified "
+        f"labels are false has not been measured. (b) For {len(d['leads'])} of {d['nfires']} fires "
+        f"({d['years'][0]}–{d['years'][-1]}) the first label is earlier than the first standard satellite detection "
+        f"(median {d['med']} min, bootstrap 95%: {d['clo']}–{d['chi']} min); this onset "
+        f"is not shown to be the ignition. (c) Each patch keeps the old value and its rule. Source: wildfireguardiandata v0.1."),
+        x_in=0.45, width_in=12.45, top_in=5.95)
+    L.add("Trailing spaces drawn per value (before, after)", n_sp, file="release/records-v0.1/patches_us.jsonl.gz",
+          field=f"len(old) - len(old.rstrip()) and the same for new, record {RECORD}", repo_name=REPO,
+          commit=commits()["release/records-v0.1/patches_us.jsonl.gz"])
     L.save()
-    spec = {"type": "bar_stacked", "categories": ["records"],
-            "series": [{"name": n, "values": [v], "color": c} for n, v, c, _ in segs],
-            "x_title": "Records", "x_max": d["nostd"]}
-    save(fig, "F05_data_foundation", caption=cap, charts=[(ax, spec)])
+    save(fig, "F05_data_foundation", caption=cap)
 
 
 if __name__ == "__main__":
