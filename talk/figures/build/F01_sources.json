@@ -17,15 +17,15 @@
    "commit": "e912bfcf"
   },
   {
-   "label": "Forecast fire cells (arrival within 8 h, 375 m)",
-   "value": -6818,
+   "label": "Forecast fire cells drawn (arrival within 8 h, 375 m)",
+   "value": 3760,
    "unit": "",
    "shown": "(not printed)",
    "n": null,
    "file": "product/wfg-roadlayer/examples/fire_arrival_20250325T0300Z_MEASURED_8h.tif",
-   "field": "cells with finite arrival minutes (0 = burning at the issue hour)",
+   "field": "cells with finite arrival minutes <= 480 (0 = burning at the issue hour)",
    "expected": null,
-   "note": "",
+   "note": "max finite arrival 480 min",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "b8f6c261"

@@ -49,8 +49,10 @@ def read(L):
     arr = tif.asarray()
     tp = tif.tags["ModelTiepointTag"].value
     ps = tif.tags["ModelPixelScaleTag"].value
-    L.add("Forecast fire cells (arrival within 8 h, 375 m)", int(np.isfinite(arr).sum() - (arr == np.inf).sum()),
-          file=TIF, field="cells with finite arrival minutes (0 = burning at the issue hour)", shown="(not printed)")
+    fin = np.isfinite(arr)
+    L.add("Forecast fire cells drawn (arrival within 8 h, 375 m)", int((fin & (arr <= 480)).sum()),
+          file=TIF, field="cells with finite arrival minutes <= 480 (0 = burning at the issue hour)",
+          shown="(not printed)", note=f"max finite arrival {float(np.nanmax(np.where(fin, arr, np.nan))):.0f} min")
     bm = load_js(git_show(BASEMAP))
     L.note(f"Roads and water: {BASEMAP} ({bm['attribution']}).")
     return p, arr, tp, ps, bm
@@ -113,7 +115,7 @@ def main():
     # forecast fire: cells with arrival within 8 h, drawn as 375 m squares in lon/lat
     tr = Transformer.from_crs(5179, 4326, always_xy=True)
     x0, y0 = tp[3], tp[4]
-    rr, cc = np.where(np.isfinite(arr))
+    rr, cc = np.where(np.isfinite(arr) & (arr <= 480))
     cells = []
     for r, c in zip(rr, cc):
         xs = x0 + np.array([c, c + 1, c + 1, c]) * ps[0]

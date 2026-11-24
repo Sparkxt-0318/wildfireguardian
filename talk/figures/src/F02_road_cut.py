@@ -115,9 +115,9 @@ def main():
         "Model output on reconstructed fire inputs (MEASURED, 8 h). Source: research/kcf-roadcut."),
         x_in=0.45, width_in=12.45, top_in=5.82)
     L.save()
-    spec = {"type": "column", "categories": [f"{a}–{a + 10}" for a in edges[:-1]],
+    spec = {"type": "column", "categories": [f"{a}" for a in edges[:-1]],
             "series": [{"name": "Place-hours", "values": [int(c) for c in counts], "color": S.MID}],
-            "x_title": "Minutes from road cut to fire at the village", "y_title": "Place-hours",
+            "x_title": "Minutes from road cut to fire at the village (bin start)", "y_title": "Place-hours",
             "y_max": ymax, "y_major": ymax // 2, "gap_width": 10}
     save(fig, "F02_road_cut", charts=[(axh, spec)], caption=cap)
 

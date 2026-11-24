@@ -41,7 +41,7 @@ CONTINUOUS_CMAP = "cividis"               # continuous quantities on maps
 PALETTE = [
     ("ink", INK, "text, axes"),
     ("mid grey", MID, "earlier method, baselines, roads"),
-    ("light grey", LIGHT, "context; hatched = withheld or unknown"),
+    ("light grey", LIGHT, "context; hatched: withheld"),
     ("deep blue", OURS, "our method"),
     ("brick red", FIRE, "fire and closed"),
     ("teal", SAFE, "safe and open"),
