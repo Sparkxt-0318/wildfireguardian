@@ -53,46 +53,59 @@ PALETTE = [
 ]
 
 # ---------------------------------------------------------------- type
+# Research-paper style (24 Nov 13:35 revision): one size for labels and tick labels, one slightly larger size for
+# axis titles, nothing larger. No bold or coloured callout text.
 FONT_LATIN = "Helvetica Neue"   # Inter is not installed on this machine (DECISIONS.md D2)
 FONT_KOREAN = "NanumGothic"     # fallback for Hangul glyphs
 FONT_FAMILY = [FONT_LATIN, FONT_KOREAN]
-PT_MIN = 16           # no text smaller than this at canvas size
-PT_BODY = 18
-PT_LABEL = 20
-PT_KEY = 32           # key numbers 28 to 40 pt
-PT_KEY_BIG = 40
+PT_TEXT = 16          # labels, tick labels, legend, captions (at least 14 pt)
+PT_TITLE = 18         # axis titles
+PT_MIN = PT_TEXT      # kept for older scripts
+PT_BODY = PT_TEXT
+PT_LABEL = PT_TITLE
+GRID = "#E3E3E3"
 
-LW_AXIS = 1.0
-LW_DATA = 2.0
-LW_THIN = 0.8
-TICK_PAD = 9          # pt between tick and its label
-LABEL_PAD = 10
+LW_AXIS = 0.8
+LW_DATA = 1.5
+LW_THIN = 0.75        # schematic outlines
+TICK_PAD = 6
+LABEL_PAD = 12
+
+# canvas regions (inches from the top-left corner)
+CAPTION_TOP = 6.45    # captions start here; the graphic ends above it
+CAPTION_BOTTOM = 7.38
 
 
 def apply():
     plt.rcParams.update({
         "font.family": FONT_FAMILY,
-        "font.size": PT_BODY,
+        "font.size": PT_TEXT,
+        "mathtext.fontset": "stix",
         "text.color": INK,
         "axes.edgecolor": INK,
         "axes.labelcolor": INK,
         "axes.linewidth": LW_AXIS,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
+        "axes.spines.top": True,
+        "axes.spines.right": True,
         "axes.grid": False,
-        "axes.labelsize": PT_LABEL,
+        "grid.color": GRID,
+        "grid.linewidth": 0.6,
+        "axes.axisbelow": True,
+        "axes.labelsize": PT_TITLE,
         "axes.labelpad": LABEL_PAD,
-        "axes.titlesize": PT_LABEL,
+        "axes.titlesize": PT_TITLE,
         "xtick.color": INK,
         "ytick.color": INK,
-        "xtick.labelsize": PT_BODY,
-        "ytick.labelsize": PT_BODY,
+        "xtick.labelsize": PT_TEXT,
+        "ytick.labelsize": PT_TEXT,
+        "xtick.direction": "out",
+        "ytick.direction": "out",
         "xtick.major.width": LW_AXIS,
         "ytick.major.width": LW_AXIS,
-        "xtick.major.size": 5,
-        "ytick.major.size": 5,
-        "xtick.minor.size": 3,
-        "ytick.minor.size": 3,
+        "xtick.major.size": 4,
+        "ytick.major.size": 4,
+        "xtick.minor.size": 2.5,
+        "ytick.minor.size": 2.5,
         "xtick.major.pad": TICK_PAD,
         "ytick.major.pad": TICK_PAD,
         "lines.linewidth": LW_DATA,
@@ -102,13 +115,25 @@ def apply():
         "pdf.fonttype": 42,
         "ps.fonttype": 42,
         "svg.fonttype": "none",
-        "hatch.color": MID,
-        "hatch.linewidth": 1.0,
-        "legend.frameon": False,
+        "hatch.color": INK,
+        "hatch.linewidth": 0.6,
+        "legend.frameon": True,
+        "legend.fancybox": False,
+        "legend.edgecolor": INK,
+        "legend.framealpha": 1.0,
+        "legend.fontsize": PT_TEXT,
+        "legend.borderpad": 0.5,
+        "patch.linewidth": LW_THIN,
+        "errorbar.capsize": 3,
     })
 
 
 apply()
+
+
+def panel_letter(fig, x_in, y_in, letter):
+    """(a), (b), ... at the top left of a panel."""
+    return fig.text(x_in / W_IN, 1 - y_in / H_IN, f"({letter})", fontsize=PT_TEXT, va="center", ha="left")
 
 
 def new_figure():

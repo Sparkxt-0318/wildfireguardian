@@ -8,19 +8,19 @@ import re
 import numpy as np
 
 import style as S
-from figkit import save
+from figkit import add_caption, boxed_legend, grid, save
 from prov import Ledger
 
 BENCH = "research/kcf-bench"
 SUMMARY = f"{BENCH}/results_hostB/summary.json"
 
 CACHES = [
-    ("uiseong_andong_2025/20250323T010000Z", "Uiseong–Andong", "23 Mar 01 UTC"),
-    ("uiseong_andong_2025/20250324T090000Z", "Uiseong–Andong", "24 Mar 09 UTC"),
-    ("uiseong_andong_2025/20250325T170000Z", "Uiseong–Andong", "25 Mar 17 UTC"),
-    ("yeongdeok_2025/20250325T190000Z", "Yeongdeok", "25 Mar 19 UTC"),
-    ("yeongdeok_2025/20250325T230000Z", "Yeongdeok", "25 Mar 23 UTC"),
-    ("yeongdeok_2025/20250326T080000Z", "Yeongdeok", "26 Mar 08 UTC"),
+    ("uiseong_andong_2025/20250323T010000Z", "Uiseong–Andong", "23 Mar 01:00"),
+    ("uiseong_andong_2025/20250324T090000Z", "Uiseong–Andong", "24 Mar 09:00"),
+    ("uiseong_andong_2025/20250325T170000Z", "Uiseong–Andong", "25 Mar 17:00"),
+    ("yeongdeok_2025/20250325T190000Z", "Yeongdeok", "25 Mar 19:00"),
+    ("yeongdeok_2025/20250325T230000Z", "Yeongdeok", "25 Mar 23:00"),
+    ("yeongdeok_2025/20250326T080000Z", "Yeongdeok", "26 Mar 08:00"),
 ]
 
 X0 = 8.0
@@ -52,7 +52,14 @@ def read_data(L):
               file=SUMMARY, field=f"caches['{key}'].field.field.cold.median")
         L.add(f"{lab}: ratio", ratio, shown=f"{ratio:.0f}×", n="5 repeats",
               file=SUMMARY, field=f"caches['{key}'].ratios['old/field/cold'].median")
-        rows.append(dict(key=key, place=place, when=when, old=old, new=new, ratio=ratio, n=n))
+        oc, fc = c["old"]["cold"]["scaled"], c["field"]["field"]["cold"]
+        L.add(f"{lab}: earlier method range over repeats", [oc["min"], oc["max"]], unit="s", n="5 repeats",
+              file=SUMMARY, field=f"caches['{key}'].old.cold.scaled.min/max", shown="whisker")
+        L.add(f"{lab}: deadline field range over repeats", [fc["min"], fc["max"]], unit="s", n="5 repeats",
+              file=SUMMARY, field=f"caches['{key}'].field.field.cold.min/max", shown="whisker")
+        rows.append(dict(key=key, place=place, short="UA" if place.startswith("Uiseong") else "YD", when=when,
+                         old=old, new=new, ratio=ratio, n=n, old_lo=oc["min"], old_hi=oc["max"],
+                         new_lo=fc["min"], new_hi=fc["max"]))
     # total = sum of per-cache medians (the same total BENCH.md states)
     t_old = sum(r["old"] for r in rows)
     t_new = sum(r["new"] for r in rows)
@@ -84,102 +91,74 @@ def read_data(L):
           expected="0 on 9,722")
     L.add("Timed requests per cache (earlier method)", 200, shown="200",
           file=f"{BENCH}/BENCH.md", field="§2 Methods: 'a fixed random sample of 200 requests per cache'")
-    return rows, dict(old=t_old, new=t_new, n=t_n), dis, ncases
+    tot = dict(old=t_old, new=t_new, n=t_n, ratio=t_old / t_new,
+               old_lo=sum(r["old_lo"] for r in rows), old_hi=sum(r["old_hi"] for r in rows),
+               new_lo=sum(r["new_lo"] for r in rows), new_hi=sum(r["new_hi"] for r in rows))
+    L.add("All six: whiskers (sums of per-cache minima and maxima over repeats)",
+          [tot["old_lo"], tot["old_hi"], tot["new_lo"], tot["new_hi"]], unit="s", file=SUMMARY,
+          field="sum of old.cold.scaled.min / max and field.field.cold.min / max", shown="whisker",
+          note="equal to BENCH.md's 41.3–45.5 h and 18–22 min")
+    return rows, tot, dis, ncases
 
 
-def layout_rows(rows):
-    """Row centres in inches from the top of the axes; group headers before each place."""
-    y, out, heads, last = 0.22, [], [], None
-    for r in rows:
-        if r["place"] != last:
-            if last is not None:
-                y += 0.12
-            heads.append((r["place"], y))
-            y += 0.36
-            last = r["place"]
-        out.append(y)
-        y += 0.51
-    y += 0.18
-    out.append(y)          # total row
-    return out, heads, y + 0.34
-
-
-def draw(rows, tot, dis, ncases, fig=None, ax_rect=None, footnote=True, foot_y=7.02, xmax=2.5e6,
-         head_x=4.62, xr_in=12.95, ticks=None, new_label="deadline field (ours)"):
-    """Pairs: blue (ours) on top, grey (earlier) below; ratio column at the right."""
+def draw(rows, tot, fig=None, rect=(6.85, 0.85, 6.05, 3.85), xlim=(8, 6e5), ticks=None, legend_loc="lower right"):
+    """Framed log axis, gridlines, boxed legend, whiskers = range over the five repeats."""
     fig = fig or S.new_figure()
     W, H = S.W_IN, S.H_IN
-    ys, heads, ybot = layout_rows(rows)
-    l, t, w = (ax_rect or (6.55, 0.95, 5.0))[:3]
-    h = ybot
+    l, t, w, h = rect
     ax = fig.add_axes([l / W, 1 - (t + h) / H, w / W, h / H])
     ax.set_xscale("log")
-    ax.set_xlim(X0, xmax)
-    bh, gap = 0.15, 0.12
-    off = bh / 2 + gap / 2
-    allrows = rows + [dict(old=tot["old"], new=tot["new"], ratio=tot["old"] / tot["new"])]
-    for y0, r in zip(ys, allrows):
-        # bars start at the axis origin (8 s) and end exactly at the value
-        ax.barh(y0 - off, r["new"] - X0, height=bh, color=S.OURS, left=X0)
-        ax.barh(y0 + off, r["old"] - X0, height=bh, color=S.MID, left=X0)
-    ax.set_ylim(ybot, 0)
+    ax.set_xlim(*xlim)
+    grid(ax, axis="x")
+    allrows = rows + [tot]
+    n = len(allrows)
+    ys = [i + (0.5 if i == n - 1 else 0) for i in range(n)]
+    bh = 0.34
+    for k, (y0, r) in enumerate(zip(ys, allrows)):
+        lab_old = "earlier method" if k == 0 else None
+        lab_new = "deadline field" if k == 0 else None
+        ax.barh(y0 - bh / 2, r["old"] - X0, left=X0, height=bh, facecolor=S.LIGHT, edgecolor=S.INK,
+                hatch="///", linewidth=0.6, label=lab_old)
+        ax.barh(y0 + bh / 2, r["new"] - X0, left=X0, height=bh, facecolor=S.OURS, edgecolor=S.INK,
+                linewidth=0.6, label=lab_new)
+        ax.errorbar(r["old"], y0 - bh / 2, xerr=[[r["old"] - r["old_lo"]], [r["old_hi"] - r["old"]]], fmt="none",
+                    ecolor=S.INK, elinewidth=1.0, capsize=3)
+        ax.errorbar(r["new"], y0 + bh / 2, xerr=[[r["new"] - r["new_lo"]], [r["new_hi"] - r["new"]]], fmt="none",
+                    ecolor=S.INK, elinewidth=1.0, capsize=3)
+        if k < n - 1:
+            ax.annotate(f"{r['ratio']:.0f}×", (r["old_hi"], y0 - bh / 2), xytext=(8, 0), textcoords="offset points",
+                        va="center", ha="left", fontsize=S.PT_TEXT)
+    ax.set_ylim(ys[-1] + 0.75, -0.7)
     ax.set_yticks(ys)
-    labels = [r["when"] for r in rows] + ["All six caches"]
-    ax.set_yticklabels(labels, fontsize=S.PT_MIN)
-    ax.get_yticklabels()[-1].set_fontweight("bold")
+    ax.set_yticklabels([f"{r['short']} {r['when']}" for r in rows] + ["all six"])
     ax.tick_params(axis="y", length=0)
-    ax.spines["left"].set_visible(False)
-    for name, yh in heads:
-        disp = ax.transData.transform((10, yh))
-        fig.text(head_x / W, fig.transFigure.inverted().transform(disp)[1], name, ha="left", va="center",
-                 fontsize=S.PT_MIN, fontweight="bold")
     tk = ticks or list(zip(TICKS, TICK_LABELS))
     ax.set_xticks([a for a, _ in tk])
     ax.set_xticklabels([b for _, b in tk])
     ax.minorticks_off()
     ax.set_xlabel("Time to answer every case (log scale)")
-    # direct series labels on the first pair
-    r0 = rows[0]
-    ax.annotate(new_label, (r0["new"], ys[0] - off - 0.06), xytext=(10, 0),
-                textcoords="offset points", color=S.OURS, va="center",
-            fontsize=S.PT_MIN, fontweight="bold")
-    ax.annotate("earlier method", (r0["old"], ys[0] + off), xytext=(10, 0), textcoords="offset points",
-                color=S.MID, va="center", fontsize=S.PT_MIN)
-    # totals at the bar ends
-    ax.annotate(fmt_dur(tot["new"]), (tot["new"], ys[-1] - off - 0.06), xytext=(10, 0),
-                textcoords="offset points", color=S.OURS, va="center",
-            fontsize=S.PT_MIN, fontweight="bold")
-    ax.annotate(fmt_dur(tot["old"]), (tot["old"], ys[-1] + off), xytext=(10, 0), textcoords="offset points",
-                color=S.INK, va="center",
-            fontsize=S.PT_MIN)
-    # ratio column at the end of each pair
-    xr = xr_in / W
-    fig.text(xr, 1 - (t + ys[0] - 0.42) / H, "times faster", ha="right", va="center", fontsize=S.PT_MIN,
-             color=S.MID)
-    for i, y in enumerate(ys):
-        disp = ax.transData.transform((10, y))
-        yf = fig.transFigure.inverted().transform(disp)[1]
-        is_tot = i == len(ys) - 1
-        ratio = allrows[i]["ratio"]
-        fig.text(xr, yf, f"{ratio:.0f}×", ha="right", va="center",
-                 fontsize=S.PT_KEY_BIG if is_tot else S.PT_LABEL,
-                 fontweight="bold", color=S.OURS if is_tot else S.INK)
-    if footnote:
-        fig.text(head_x / W, 1 - foot_y / H,
-                 f"Earlier method estimated from 200 timed requests per cache.\n"
-                 f"{dis} disagreements between the two methods in {ncases:,} cases.",
-                 fontsize=S.PT_MIN, color=S.MID, ha="left", va="center", linespacing=1.25)
-    return fig, ax, ys
+    boxed_legend(ax, loc=legend_loc, bbox_to_anchor=(1.0, 1.03), ncol=2, borderaxespad=0.0, columnspacing=1.5,
+                 handleheight=0.9)
+    return fig, ax
+
+
+def caption_text(tot, dis, ncases, num="9"):
+    return (f"Figure {num}. Time to answer all {ncases:,} recorded cases of six planner caches (UA, Uiseong–Andong; "
+            "YD, Yeongdeok; UTC) on one server core. Bars: median of 5 cold repeats; whiskers: range. In total, "
+            f"{fmt_dur(tot['old'])} for the earlier method (hatched; scaled from 200 timed requests per cache) against "
+            f"{fmt_dur(tot['new'])} for the deadline field ({tot['ratio']:.0f}×), with {dis} disagreements. "
+            "Source: research/kcf-bench/results_hostB.")
 
 
 def main():
     L = Ledger("F09", "Speed: earlier method against the deadline field")
     rows, tot, dis, ncases = read_data(L)
-    fig, ax, _ = draw(rows, tot, dis, ncases)
+    fig, ax = draw(rows, tot)
     L.note("Machine: Intel Xeon 2.10 GHz, 4 vCPU, Linux 6.18, Python 3.13.18, one pinned core (BENCH.md §1). "
            "Cold runs shown. Totals are sums of per-cache medians; their ratio equals the 129× in BENCH.md.")
     L.save()
-    save(fig, "F09_speed")
+    cap = add_caption(fig, caption_text(tot, dis, ncases), x_in=4.55, width_in=8.35, top_in=5.80)
+    save(fig, "F09_speed", caption=cap)
 
 
 if __name__ == "__main__":

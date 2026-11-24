@@ -257,7 +257,8 @@ def text_manifest(fig, native_axes=()):
             "color": _hex(t.get_color()),
             "ha": t.get_horizontalalignment(),
             "multialign": t.get_multialignment() if hasattr(t, "get_multialignment") else None,
-            "name": (_gid(t) or t.get_text()[:40]).replace("\n", " "),
+            "name": ("Caption" if _gid(t) == "caption" else (_gid(t) or t.get_text()[:40])).replace("\n", " "),
+            "caption": _gid(t) == "caption",
         })
     return items
 
@@ -267,9 +268,40 @@ def _ax_box_in(ax):
     return [p.x0 * W_IN, (1 - p.y1) * H_IN, p.width * W_IN, p.height * H_IN]
 
 
-def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, charts=()):
-    """Export complete, text-free and manifest. kind: picture | scene.
+def wrap_to_width(fig, text, x_in, width_in, size):
+    """Greedy word wrap measured with the renderer."""
+    r = fig.canvas.get_renderer()
+    words, lines, cur = text.split(), [], ""
+    probe = fig.text(0, 0, "", fontsize=size)
+    for w_ in words:
+        trial = (cur + " " + w_).strip()
+        probe.set_text(trial)
+        if probe.get_window_extent(r).width / DPI > width_in and cur:
+            lines.append(cur)
+            cur = w_
+        else:
+            cur = trial
+    lines.append(cur)
+    probe.remove()
+    return "\n".join(lines)
+
+
+def add_caption(fig, text, x_in=0.45, width_in=12.45, top_in=None):
+    """Numbered caption beneath the figure, as its own text item (gid 'caption')."""
+    from style import CAPTION_TOP, PT_TEXT
+    fig.canvas.draw()
+    wrapped = wrap_to_width(fig, text, x_in, width_in, PT_TEXT)
+    t = fig.text(x_in / W_IN, 1 - (top_in or CAPTION_TOP) / H_IN, wrapped, fontsize=PT_TEXT, va="top", ha="left",
+                 linespacing=1.2)
+    t.set_gid("caption")
+    return t
+
+
+def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, charts=(), caption=None):
+    """Export complete (with caption), without caption, text-free, and the PowerPoint manifest.
     charts: [(ax, spec)] axes to rebuild as native PowerPoint charts; spec is a dict with the chart data."""
+    if caption is not None and not isinstance(caption, Text):
+        raise TypeError("pass the Text returned by add_caption")
     probs = check_collisions(fig, allow_pairs)
     (CHECK / f"{name}_overlap.json").write_text(json.dumps(probs, indent=1, ensure_ascii=False))
     native_axes = [a for a, _ in charts]
@@ -282,6 +314,12 @@ def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, 
     fig.savefig(f"{base}.svg")
     fig.savefig(f"{base}.pdf")
     fig.savefig(f"{base}.png", dpi=DPI)
+    if caption is not None:
+        caption.set_visible(False)
+        fig.savefig(f"{base}_nocaption.svg")
+        fig.savefig(f"{base}_nocaption.pdf")
+        fig.savefig(f"{base}_nocaption.png", dpi=DPI)
+        caption.set_visible(True)
     # greyscale check image
     Image.open(f"{base}.png").convert("L").save(CHECK / f"{name}_grey.png")
     # text-free version: hide every text, keep everything else in place
@@ -308,3 +346,19 @@ def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, 
     if probs and strict:
         raise SystemExit(f"{name}: text collides (see check/{name}_overlap.json)")
     return probs
+
+
+def grid(ax, axis="both", which="major"):
+    """Light grey gridlines, tagged as context so text may sit on them."""
+    ax.grid(True, axis=axis, which=which)
+    for ln in ax.get_xgridlines() + ax.get_ygridlines():
+        ln.set_gid("bg:grid")
+
+
+def boxed_legend(ax, *args, **kw):
+    """Legend in a thin square-cornered box (frame tagged as a container)."""
+    kw.setdefault("frameon", True)
+    leg = ax.legend(*args, **kw)
+    leg.get_frame().set_linewidth(0.6)
+    leg.get_frame().set_gid("box:legend")
+    return leg
