@@ -98,6 +98,20 @@
    "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
    "ref": "file on disk (read only)",
    "commit": "sha256:7b1ea6e80a79dd94"
+  },
+  {
+   "label": "Hours from cutoff to endpoint",
+   "value": 36,
+   "unit": "",
+   "shown": "36 h",
+   "n": null,
+   "file": "runs/20261013_observed_stored_validation/cases/859cddc0f28778a02134/reference.npz",
+   "field": "time_utc[1] - time_utc[0], rounded",
+   "expected": null,
+   "note": "2024-08-21 07:18 to 2024-08-22 19:00 UTC",
+   "repo": "/Users/jp/Desktop/wildfire",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:511c53d10a91cda4"
   }
  ],
  "notes": [

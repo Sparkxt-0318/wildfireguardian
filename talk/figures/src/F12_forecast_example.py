@@ -1,7 +1,9 @@
-"""F12 forecast example: Wapiti 2024, three map panels and a three-rule score table.
+"""F12 forecast example: Wapiti 2024, forecast map against the mapped burns, and scores of three rules.
 
-Slide 6 (full width). (a) initial mapped extent at the cutoff, (b) predicted new-burn probability (1,024 trajectories),
-(c) later mapped extent. Regenerated from the archived arrays in the forecast workspace (read only), whose SHA-256
+Slide 7 (full width). (a) forecast chance that each unburned cell burns by the endpoint (1,024 trajectories), with the
+extent burned at the cutoff; (b) what was mapped as burned by the endpoint, new burns in red; (c) average precision
+(0 to 1 axis) and Brier score of our forecast, FARSITE and "no new burn" over all 25 intervals. The maps carry the
+selection warning as their own line. Regenerated from the archived arrays in the forecast workspace (read only), whose SHA-256
 match figure/revision/wapiti_spatial_provenance.json. Scores from figure/revision/wapiti_scores_table.tex; cohort
 counts from template.tex.
 """
@@ -15,7 +17,9 @@ import matplotlib.colors as mc
 import numpy as np
 
 import style as S
-from figkit import add_caption, save
+from matplotlib.patches import Patch
+
+from figkit import add_caption, grid, save
 from prov import Ledger
 
 PRE = "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint"
@@ -69,88 +73,93 @@ def main():
     b1 = ref["burned_area"][1, 0] > 0.5
     valid = ref["pixel_valid"][0]
     prob = np.array(pred["probability"][0, 0], dtype=float)
+    hours = round((t[1] - t[0]).total_seconds() / 3600)
+    L.add("Hours from cutoff to endpoint", hours, file=f"{CASE}/reference.npz", repo=WS,
+          field="time_utc[1] - time_utc[0], rounded", shown=f"{hours} h",
+          note=f"{t[0]:%Y-%m-%d %H:%M} to {t[1]:%Y-%m-%d %H:%M} UTC")
     # display window: initial extent plus 6 km padding (provenance), north up
     pad = int(round(prov["display_padding_km"] * 1000 / 375))
     rr, cc = np.where(b0)
     r0, r1 = max(rr.min() - pad, 0), min(rr.max() + pad + 1, b0.shape[0])
     c0, c1 = max(cc.min() - pad, 0), min(cc.max() + pad + 1, b0.shape[1])
     win = (slice(r0, r1), slice(c0, c1))
-    side = 2.7
-    top = 0.6
-    xs = [0.45, 0.45 + side + 0.25, 0.45 + 2 * (side + 0.25)]
-    burned_rgb = np.array(mc.to_rgb(S.INK))
-    grey = np.array(mc.to_rgb(S.MID))
+    side, top, head_y = 3.5, 0.85, 0.42
+    xs = [0.45, 0.45 + side + 0.3]
+    ink = np.array(mc.to_rgb(S.INK))
+    fire = np.array(mc.to_rgb(S.FIRE))
     cmap = mc.LinearSegmentedColormap.from_list("blue1", [S.WHITE, S.OURS])
-    labels = [f"initial mapped extent\n{t[0]:%d %b %Y, %H:%M} UTC",
-              f"new-burn probability\n({prov['n_samples']:,} trajectories)",
-              f"later mapped extent\n{t[1]:%d %b %Y, %H:%M} UTC"]
+    heads = ["Forecast: chance a cell burns", f"Mapped burns, {hours} h later"]
     for k, x in enumerate(xs):
         ax = fig.add_axes([x / W, 1 - (top + side) / H, side / W, side / H])
-        img = np.ones(b0[win].shape + (3,))
-        if k == 1:
+        if k == 0:
             p = np.where(valid & ~b0, prob, np.nan)[win]
             img = cmap(np.nan_to_num(p))[..., :3]
-            img[b0[win]] = grey
         else:
-            bb = (b0 if k == 0 else b1)[win]
-            img[bb] = burned_rgb if k == 0 else grey
-            if k == 2:
-                img[b0[win]] = burned_rgb
+            img = np.ones(b0[win].shape + (3,))
+            img[(b1 & ~b0)[win]] = fire
+        img[b0[win]] = ink
         im = ax.imshow(img, interpolation="nearest")
         im.set_gid("bg:map")
         ax.set_xticks([])
         ax.set_yticks([])
         for sp in ax.spines.values():
             sp.set_linewidth(0.8)
-        S.panel_letter(fig, x, top - 0.25, "abc"[k])
-        # panel label beneath, as separate text
-        fig.text(x / W, 1 - (top + side + 0.15) / H, labels[k], fontsize=S.PT_TEXT, va="top", ha="left",
-                 linespacing=1.2)
+        S.panel_letter(fig, x, head_y, "ab"[k])
+        fig.text((x + 0.42) / W, 1 - head_y / H, heads[k], va="center")
         if k == 0:
             n5 = 5000 / 375
             h_, w_ = img.shape[:2]
             ax.plot([w_ - 2 - n5, w_ - 2], [h_ - 3, h_ - 3], color=S.INK, lw=3, solid_capstyle="butt")
-            ax.text(w_ - 2 - n5 / 2, h_ - 4.5, "5 km", ha="center", va="bottom", fontsize=S.PT_TEXT)
+            ax.text(w_ - 2 - n5 / 2, h_ - 4.5, "5 km", ha="center", va="bottom")
             ax.annotate("", xy=(3, 2), xytext=(3, 9), arrowprops=dict(arrowstyle="-|>", color=S.INK, lw=1.2))
-            ax.text(5, 6.5, "N", fontsize=S.PT_TEXT, va="center", ha="left")
-    # probability colour bar under panel b
-    cax = fig.add_axes([xs[1] / W, 1 - (top + side + 1.12) / H, side / W, 0.15 / H])
+            ax.text(5, 6.5, "N", va="center", ha="left")
+    yb = top + side
+    # colour bar under (a)
+    cax = fig.add_axes([(xs[0] + 0.1) / W, 1 - (yb + 0.38) / H, (side - 0.2) / W, 0.15 / H])
     sm = S.plt.cm.ScalarMappable(norm=mc.Normalize(0, 1), cmap=cmap)
     cb = fig.colorbar(sm, cax=cax, orientation="horizontal", ticks=[0, 0.5, 1])
     cb.ax.set_xticklabels(["0", "0.5", "1"])
     cb.outline.set_linewidth(0.6)
     cb.ax.tick_params(labelsize=S.PT_TEXT)
-    fig.text(xs[2] / W, 1 - (top + side + 0.95) / H, "black: burned at cutoff\ngrey in (c): burned by endpoint"
-             "\ngrey in (b): burned at cutoff", fontsize=S.PT_TEXT, va="top", linespacing=1.2, color=S.INK)
-    # three-rule table at the right
-    tx = 9.95
-    ty = 1.15
-    colx = [tx, tx + 1.55, tx + 2.45]
-    fig.add_artist(S.plt.Line2D([tx / W, 12.95 / W], [1 - ty / H] * 2, color=S.INK, lw=1.2))
-    fig.text(colx[0] / W, 1 - (ty + 0.27) / H, "forecast", fontsize=S.PT_TEXT, va="center")
-    fig.text((colx[1] + 0.55) / W, 1 - (ty + 0.27) / H, "Brier ↓", fontsize=S.PT_TEXT, va="center", ha="right")
-    fig.text((colx[2] + 0.5) / W, 1 - (ty + 0.27) / H, "AP ↑", fontsize=S.PT_TEXT, va="center", ha="right")
-    fig.add_artist(S.plt.Line2D([tx / W, 12.95 / W], [1 - (ty + 0.54) / H] * 2, color=S.INK, lw=0.7))
-    for i, (lab, b, ap) in enumerate(rows):
-        yy = ty + 0.54 + 0.42 * (i + 0.6)
-        col = S.OURS if lab == "ours" else S.INK
-        fig.text(colx[0] / W, 1 - yy / H, lab, fontsize=S.PT_TEXT, va="center", color=col)
-        fig.text((colx[1] + 0.55) / W, 1 - yy / H, f"{b:.4f}", fontsize=S.PT_TEXT, va="center", ha="right", color=col)
-        fig.text((colx[2] + 0.5) / W, 1 - yy / H, f"{ap:.3f}", fontsize=S.PT_TEXT, va="center", ha="right", color=col)
-    yb = ty + 0.54 + 0.42 * 3 + 0.1
-    fig.add_artist(S.plt.Line2D([tx / W, 12.95 / W], [1 - yb / H] * 2, color=S.INK, lw=1.2))
-    fig.text(tx / W, 1 - (yb + 0.25) / H, f"{nint} intervals, {nent} cells,\n{nburn} new burns, one fire",
-             fontsize=S.PT_TEXT, va="top", linespacing=1.2)
-    fig.text(12.95 / W, 1 - (top - 0.25) / H, "selected example; Wapiti 2024", fontsize=S.PT_TEXT, va="center",
-             ha="right", color=S.MID)
+    # legend under (b)
+    fig.legend([Patch(facecolor=S.INK), Patch(facecolor=S.FIRE)],
+               [f"burned at {t[0]:%d %b %H:%M} UTC", f"new burn by {t[1]:%d %b %H:%M} UTC"],
+               loc="upper left", bbox_to_anchor=(xs[1] / W, 1 - (yb + 0.12) / H), frameon=False,
+               handlelength=1.0, handleheight=0.9, borderaxespad=0, borderpad=0, labelspacing=0.8)
+    fig.text(xs[0] / W, 1 - (yb + 1.25) / H, "Most favourable interval, chosen after results", va="center")
+    # (c) scores over all intervals, absolute scales
+    xc = 8.75
+    S.panel_letter(fig, xc, head_y, "c")
+    fig.text((xc + 0.42) / W, 1 - head_y / H, f"Scores over all {nint} intervals", va="center")
+    names = {"ours": "our forecast", "FARSITE": "FARSITE", "no new burn": "no new burn"}
+    cols = {"ours": S.OURS, "FARSITE": S.MID, "no new burn": S.LIGHT}
+    xax, wax = 10.45, 1.85
+    for j, (idx, label, xmax, ticks, fmt) in enumerate((
+            (2, "Average precision (1 = perfect)", 1.0, [0, 0.5, 1], "{:.3f}"),
+            (1, "Brier score (0 = perfect)", 0.045, [0, 0.02, 0.04], "{:.4f}"))):
+        ya, ha_ = 1.0 + j * 2.35, 1.2
+        a = fig.add_axes([xax / W, 1 - (ya + ha_) / H, wax / W, ha_ / H])
+        for i, r in enumerate(rows):
+            a.barh(i, r[idx], height=0.6, facecolor=cols[r[0]], edgecolor=S.INK, linewidth=0.6)
+            a.annotate(fmt.format(r[idx]), (r[idx], i), xytext=(6, 0), textcoords="offset points", va="center",
+                       color=S.OURS if r[0] == "ours" else S.INK)
+        a.set_ylim(len(rows) - 0.4, -0.6)
+        a.set_xlim(0, xmax)
+        a.set_xticks(ticks)
+        a.set_xticklabels([f"{v:g}" for v in ticks])
+        grid(a, axis="x")
+        a.set_yticks(range(len(rows)))
+        a.set_yticklabels([names[r[0]] for r in rows])
+        for tl, r in zip(a.get_yticklabels(), rows):
+            tl.set_color(S.OURS if r[0] == "ours" else S.INK)
+        a.set_xlabel(label, labelpad=S.LABEL_PAD)
     cap = add_caption(fig, (
-        f"Figure 12. One selected Wapiti (2024) interval: (a) mapped extent at the cutoff, (b) predicted probability "
-        f"that an unburned 375\u00a0m cell burns by the endpoint (mean of {prov['n_samples']:,} recursive trajectories), "
-        "(c) mapped extent at the endpoint. The interval was chosen after inspecting results, as the most favourable "
-        f"Wapiti interval, so it is an illustration, not a validation. Table: scores over all {nint} Wapiti intervals "
-        f"({nent} entries, {nburn} new burns; lower Brier and higher average precision, AP, are better). "
-        "Source: preprint Figure fig:spatialprediction and Table wapiti_scores_table, regenerated from the archived arrays."),
-        x_in=0.45, width_in=12.45, top_in=5.82)
+        f"Figure 12. One Wapiti (2024) interval, picked after inspecting results as the most favourable, so it is an "
+        f"illustration, not a validation. (a) Forecast chance that an unburned 375\u00a0m cell burns by the endpoint "
+        f"({prov['n_samples']:,} trajectories); black: burned at the cutoff. (b) Mapped burns at the endpoint. "
+        f"(c) Scores over all {nint} Wapiti intervals ({nent} cells, {nburn} new burns) on their full scales. "
+        "Source: preprint, regenerated from the archived arrays."),
+        x_in=0.45, width_in=12.45, top_in=5.95)
     L.save()
     save(fig, "F12_forecast_example", caption=cap)
 

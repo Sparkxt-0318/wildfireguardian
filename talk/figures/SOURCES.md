@@ -71,11 +71,13 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 | **Records with no standard satellite label (US 2018–2020, S3)** | 207508 |  | `results/HEADLINE_NUMBERS.md` | table row S3, column 'no standard label' | Sparkxt-0318/wildfireguardiandata / main / `4effd5ff` | 207,508 |  |
 | **Verified / probable / record-only** | 4343, 20913, 182252 |  | `results/HEADLINE_NUMBERS.md` | table row S3, columns verified, probable, record-only | Sparkxt-0318/wildfireguardiandata / main / `4effd5ff` | 4,343 / 20,913 / 182,252 |  |
 | **Verified share, Clopper-Pearson 95% interval (%)** | 2.03, 2.16 |  | `results/HEADLINE_NUMBERS.md` | table row S3, verified (lo-hi %) | Sparkxt-0318/wildfireguardiandata / main / `4effd5ff` |  |  |
+| **Verified share of the records with no standard label (%)** (2.1%) | 2.1 |  | `results/HEADLINE_NUMBERS.md` | computed: verified / no standard label, table row S3 | Sparkxt-0318/wildfireguardiandata / main / `4effd5ff` | 2.09 % (item 1 sentence) |  |
 | **Fires whose first label moved earlier** (45 of 240) | 45 | 240 fires (2023–2025) | `release/live-v0.1/onset_labels.csv` | rows with lead_vs_T0_min present | Sparkxt-0318/wildfireguardiandata / main / `a30d02d6` | 45 of 240 |  |
 | **Median lead and bootstrap 95% interval (min)** | 42, 22, 84 | 45 fires | `results/HEADLINE_NUMBERS.md` | item 3 sentence | Sparkxt-0318/wildfireguardiandata / main / `4effd5ff` | 42 min | recomputed median of lead_vs_T0_min = 41.7 min |
 | **Patches of the example record** | 3 |  | `release/records-v0.1/patches_us.jsonl.gz` | lines with record_id == fod:1389433: field, old, new, rule | Sparkxt-0318/wildfireguardiandata / main / `8f3e7859` |  |  |
 | **Records in the national run** (2.66 million) | 2661383 |  | `release/records-v0.1/run_summary_us.json` | location.n_checked | Sparkxt-0318/wildfireguardiandata / main / `8f3e7859` | 2.66 million |  |
 | **National run wall time** (7.9 minutes) | 7.9 min |  | `results/RECORDS_RESULTS.md` | R2 wall time row: 476 s (7.9 min) | Sparkxt-0318/wildfireguardiandata / main / `0e72b257` | 7.9 minutes |  |
+| **Trailing spaces drawn per value (before, after)** | 22, 0, 8, 0, 8, 0 |  | `release/records-v0.1/patches_us.jsonl.gz` | len(old) - len(old.rstrip()) and the same for new, record fod:1389433 | Sparkxt-0318/wildfireguardiandata / main / `8f3e7859` |  |  |
 
 ## F06: Safety distance and 25 March 2025
 
@@ -102,6 +104,7 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 | **FARSITE: Brier, average precision** | 0.023804, 0.0631 | 25 intervals, 275,961 entries | `figure/revision/wapiti_scores_table.tex` | row 'FARSITE', columns Brier, AP | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:df1422c508d18b4c` |  |  |
 | **no new burn: Brier, average precision** | 0.00915, 0.0091 | 25 intervals, 275,961 entries | `figure/revision/wapiti_scores_table.tex` | row 'No-new-burn', columns Brier, AP | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:df1422c508d18b4c` |  |  |
 | **Cohort: intervals, entries, new burns** | 25, 275,961, 2,525 |  | `template.tex` | sentence 'Evaluation uses 25 available Wapiti survey intervals ...' | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:7b1ea6e80a79dd94` | 25 intervals, 275,961 cells, 2,525 new burns |  |
+| **Hours from cutoff to endpoint** (36 h) | 36 |  | `runs/20261013_observed_stored_validation/cases/859cddc0f28778a02134/reference.npz` | time_utc[1] - time_utc[0], rounded | /Users/jp/Desktop/wildfire / file on disk (read only) / `sha256:511c53d10a91cda4` |  | 2024-08-21 07:18 to 2024-08-22 19:00 UTC |
 
 - Selection (provenance json): After inspecting saved results, select the largest Brier skill versus no-new-burn persistence among Wapiti intervals with at least 100 newly mapped burned cells; break ties by cutoff and endpoint. Deliberately favorable illustration, not representative validation.
 
