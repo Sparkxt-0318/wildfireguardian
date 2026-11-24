@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="959.976pt" height="540pt" viewBox="0 0 959.976 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-24T15:13:01.134047</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 959.976 540 
+L 959.976 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="row 1: safe arrival times over a road track">
+    <path d="M 219.6 90 
+L 453.6 90 
+L 453.6 107.28 
+L 219.6 107.28 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #ffffff; stroke: #d9d9d9; stroke-linejoin: miter"/>
+   </g>
+   <g id="row 1: safe arrival times over a road interval 1">
+    <path d="M 317.88 90 
+L 383.4 90 
+L 383.4 107.28 
+L 317.88 107.28 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="row 1: safe arrival times over a road interval 2">
+    <path d="M 406.8 90 
+L 441.9 90 
+L 441.9 107.28 
+L 406.8 107.28 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="row 2: shifted back by the travel time track">
+    <path d="M 219.6 154.8 
+L 453.6 154.8 
+L 453.6 172.08 
+L 219.6 172.08 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #ffffff; stroke: #d9d9d9; stroke-linejoin: miter"/>
+   </g>
+   <g id="row 2: shifted back by the travel time interval 1">
+    <path d="M 266.4 154.8 
+L 331.92 154.8 
+L 331.92 172.08 
+L 266.4 172.08 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="row 2: shifted back by the travel time interval 2">
+    <path d="M 355.32 154.8 
+L 390.42 154.8 
+L 390.42 172.08 
+L 355.32 172.08 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="row 3: closed: fire on the road track">
+    <path d="M 219.6 219.6 
+L 453.6 219.6 
+L 453.6 236.88 
+L 219.6 236.88 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #ffffff; stroke: #d9d9d9; stroke-linejoin: miter"/>
+   </g>
+   <g id="row 3: closed: fire on the road interval 1">
+    <path d="M 303.84 219.6 
+L 364.68 219.6 
+L 364.68 236.88 
+L 303.84 236.88 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #b5483a"/>
+   </g>
+   <g id="row 4: safe start times track">
+    <path d="M 219.6 284.4 
+L 453.6 284.4 
+L 453.6 301.68 
+L 219.6 301.68 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #ffffff; stroke: #d9d9d9; stroke-linejoin: miter"/>
+   </g>
+   <g id="row 4: safe start times interval 1">
+    <path d="M 266.4 284.4 
+L 303.84 284.4 
+L 303.84 301.68 
+L 266.4 301.68 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="row 4: safe start times interval 2">
+    <path d="M 364.68 284.4 
+L 390.42 284.4 
+L 390.42 301.68 
+L 364.68 301.68 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="shift arrow 0.42">
+    <path d="M 317.88 111.6 
+L 272.956984 146.504214 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
+   </g>
+   <g id="shift arrow 0.42">
+    <path d="M 267.84 150.48 
+L 271.095891 142.935414 
+L 275.955185 149.189506 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #1a1a1a"/>
+   </g>
+   <g id="shift arrow 0.8">
+    <path d="M 406.8 111.6 
+L 361.876984 146.504214 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
+   </g>
+   <g id="shift arrow 0.8">
+    <path d="M 356.76 150.48 
+L 360.015891 142.935414 
+L 364.875185 149.189506 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #1a1a1a"/>
+   </g>
+   <g id="closure edge 0.36">
+    <path d="M 303.84 239.76 
+L 303.84 281.52 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke-dasharray: 3.6,2.4; stroke-dashoffset: 0; stroke: #b5483a; stroke-width: 1.2"/>
+   </g>
+   <g id="closure edge 0.62">
+    <path d="M 364.68 239.76 
+L 364.68 281.52 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke-dasharray: 3.6,2.4; stroke-dashoffset: 0; stroke: #b5483a; stroke-width: 1.2"/>
+   </g>
+   <g id="time axis">
+    <path d="M 219.6 332.64 
+L 445.824 332.64 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
+   </g>
+   <g id="time axis">
+    <path d="M 453.6 332.64 
+L 444.96 337.392 
+L 444.96 327.888 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #1a1a1a"/>
+   </g>
+   <g id="box:Solver box">
+    <path d="M 504.72 147.6 
+L 586.08 147.6 
+Q 590.4 147.6 590.4 151.92 
+L 590.4 218.88 
+Q 590.4 223.2 586.08 223.2 
+L 504.72 223.2 
+Q 500.4 223.2 500.4 218.88 
+L 500.4 151.92 
+Q 500.4 147.6 504.72 147.6 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #f3dad6"/>
+   </g>
+   <g id="box:Answer + certificate box">
+    <path d="M 630.72 147.6 
+L 748.08 147.6 
+Q 752.4 147.6 752.4 151.92 
+L 752.4 218.88 
+Q 752.4 223.2 748.08 223.2 
+L 630.72 223.2 
+Q 626.4 223.2 626.4 218.88 
+L 626.4 151.92 
+Q 626.4 147.6 630.72 147.6 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #dde7f2"/>
+   </g>
+   <g id="box:Independent checker box">
+    <path d="M 792.72 147.6 
+L 924.48 147.6 
+Q 928.8 147.6 928.8 151.92 
+L 928.8 218.88 
+Q 928.8 223.2 924.48 223.2 
+L 792.72 223.2 
+Q 788.4 223.2 788.4 218.88 
+L 788.4 151.92 
+Q 788.4 147.6 792.72 147.6 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="solver to answer">
+    <path d="M 594.72 185.4 
+L 613.008 185.4 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.6"/>
+   </g>
+   <g id="solver to answer">
+    <path d="M 622.08 185.4 
+L 612 190.944 
+L 612 179.856 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #1a1a1a"/>
+   </g>
+   <g id="certificate to checker">
+    <path d="M 756.72 185.4 
+L 775.008 185.4 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.6"/>
+   </g>
+   <g id="certificate to checker">
+    <path d="M 784.08 185.4 
+L 774 190.944 
+L 774 179.856 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #1a1a1a"/>
+   </g>
+   <g id="checker output arrow">
+    <path d="M 858.6 227.52 
+L 858.6 253.728 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #3b8f8a; stroke-width: 1.6"/>
+   </g>
+   <g id="checker output arrow">
+    <path d="M 858.6 262.8 
+L 853.056 252.72 
+L 864.144 252.72 
+z
+" clip-path="url(#pe76d54c9f1)" style="fill: #3b8f8a"/>
+   </g>
+   <g id="tick mark">
+    <path d="M 843.48 289.44 
+L 854.064 300.024 
+L 873.72 275.832 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #3b8f8a; stroke-width: 4"/>
+   </g>
+   <g id="bg:separator">
+    <path d="M 36 392.4 
+L 928.8 392.4 
+" clip-path="url(#pe76d54c9f1)" style="fill: none; stroke: #d9d9d9"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe76d54c9f1">
+   <rect x="0" y="0" width="959.976" height="540"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,107 @@
+{
+ "code": "F08",
+ "title": "One backward step and the checker",
+ "rows": [
+  {
+   "label": "Random networks compared with brute force",
+   "value": 12000,
+   "unit": "",
+   "shown": "12,000",
+   "n": null,
+   "file": "research/kcf-theorem/results/property_tests.json",
+   "field": "counts['closure:cases'] + counts['general:cases']",
+   "expected": "12,000",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7cb28098"
+  },
+  {
+   "label": "Disagreements with brute force",
+   "value": 0,
+   "unit": "",
+   "shown": "0",
+   "n": "12000 networks",
+   "file": "research/kcf-theorem/results/property_tests.json",
+   "field": "mismatches",
+   "expected": "0",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7cb28098"
+  },
+  {
+   "label": "Planted bugs caught",
+   "value": 5,
+   "unit": "",
+   "shown": "5 of 5",
+   "n": "5 planted bugs, 3000 cases per family",
+   "file": "research/kcf-theorem/results/mutation_tests.json",
+   "field": "mutants (keys other than 'None', 'cases_per_family') with counts['*:cases_caught'] > 0",
+   "expected": "5 of 5",
+   "note": "unchanged control ('None') caught 0 cases; mutants: shift_off_by_one, ignore_turns, block_at_arrival, wait_through_fire, scalar_deadline",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "39e18863"
+  },
+  {
+   "label": "Certificates in uiseong_andong_20250325_1200KST",
+   "value": 84,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "product/wfg-roadlayer/golden/uiseong_andong_20250325_1200KST/MANIFEST.json",
+   "field": "certificates",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "b63a8822"
+  },
+  {
+   "label": "Certificates in yeongdeok_20250325_1800KST",
+   "value": 90,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "product/wfg-roadlayer/golden/yeongdeok_20250325_1800KST/MANIFEST.json",
+   "field": "certificates",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "b63a8822"
+  },
+  {
+   "label": "Village certificates passing the independent checker",
+   "value": 174,
+   "unit": "",
+   "shown": "174",
+   "n": "84 + 90 golden manifests",
+   "file": "product/wfg-roadlayer/README.md",
+   "field": "sentence 'All 174 certificates pass `verify_certificate.py`'",
+   "expected": "174",
+   "note": "The count of passes is stated in README prose; tests/test_certificates.py asserts all 84 Uiseong-Andong pass and samples every 15th Yeongdeok certificate. The manifests give 84 + 90 = 174 certificates.",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "6e649474"
+  },
+  {
+   "label": "Random networks per family in the planted-bug test",
+   "value": 3000,
+   "unit": "",
+   "shown": "3,000",
+   "n": null,
+   "file": "research/kcf-theorem/results/mutation_tests.json",
+   "field": "cases_per_family",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "39e18863"
+  }
+ ],
+ "notes": [
+  "The left-hand time diagram is a schematic; its intervals carry no numbers."
+ ]
+}
