@@ -13,10 +13,11 @@ import numpy as np
 import pandas as pd
 
 import style as S
-from figkit import save
+from figkit import add_caption, boxed_legend, grid, save
 from prov import Ledger, git_show
 
 M = "research/kcf-margin"
+CI = None
 
 
 def read(L):
@@ -53,6 +54,8 @@ def read(L):
           note="'outside all calibration data' = beyond all 20,065 calibration hours of the abstain scoring set "
                "(kcf-abstain RESULTS.md); over all 24 hours of the day 22 were withheld (march25.hours[*].abstain)")
     run_hours = {int(h["kst_hour"]) for h in run}
+    global CI
+    CI = row['lofo_ci95']
     return df, gk, R, miss, cal_max, kmax, n_with, len(run), run_hours
 
 
@@ -61,55 +64,45 @@ def main():
     df, gk, R, miss, cal_max, kmax, n_with, n_run, run_hours = read(L)
     fig = S.new_figure()
     W, H = S.W_IN, S.H_IN
-    l, t, w, h = 5.55, 1.15, 7.05, 5.05
+    l, t, w, h = 6.0, 0.5, 6.9, 4.2
     ax = fig.add_axes([l / W, 1 - (t + h) / H, w / W, h / H])
-    # California strips, ordered by each fire's largest reach
+    grid(ax, axis="y")
     order = df.groupby("fire")["reach_km"].max().sort_values().index.tolist()
     rng = np.random.RandomState(3)
     for i, f in enumerate(order):
         v = df.loc[df["fire"] == f, "reach_km"].to_numpy()
         x = i + rng.uniform(-0.28, 0.28, len(v))
-        ax.scatter(x, v, s=7, color=S.MID, alpha=0.45, linewidths=0, rasterized=True)
+        sc = ax.scatter(x, v, s=6, color=S.MID, alpha=0.5, linewidths=0, rasterized=True,
+                        label="California hour (28 fires)" if i == 0 else None)
     nf = len(order)
-    kx = nf + 2.2                              # Korean column
+    kx = nf + 2.2
     ax.set_xlim(-1.0, kx + 1.3)
-    ymax = 54.5
-    ax.set_ylim(-1.5, ymax)
-    # hatched band for the withheld answers
-    ax.fill_between([kx - 0.9, kx + 0.9], -1.5, 43.0, facecolor=S.WHITE, edgecolor=S.LIGHT, hatch="///",
-               linewidth=0, gid="bg:withheld band")
-    run_mask = gk["kst_hour"].astype(int).isin(run_hours)
+    ax.set_ylim(-1.5, 45)
+    band = ax.fill_between([kx - 0.9, kx + 0.9], -1.5, 45, facecolor=S.WHITE, edgecolor=S.MID, hatch="///",
+                           linewidth=0, label="answer withheld")
+    band.set_gid("bg:withheld band")
+    run_mask = gk["kst_hour"].astype(int).isin(run_hours).to_numpy()
     jit = np.linspace(-0.35, 0.35, len(gk))
-    ax.scatter(kx + jit[~run_mask.to_numpy()], gk.loc[~run_mask, "reach_km"], s=60, facecolors=S.WHITE,
-               edgecolors=S.FIRE, linewidths=1.6, zorder=4)
-    ax.scatter(kx + jit[run_mask.to_numpy()], gk.loc[run_mask, "reach_km"], s=70, color=S.FIRE, zorder=5,
-               linewidths=0)
-    # safety distance
-    ax.plot([-1.0, nf + 0.4], [R, R], color=S.OURS, lw=3, zorder=6, solid_capstyle="butt")
-    ax.text(-0.6, 12.8, f"safety distance {R:.2f} km", color=S.OURS, fontsize=S.PT_BODY, fontweight="bold",
-            va="center", ha="left")
-    ax.plot([0.4, 0.4], [R + 0.9, 9.6], color=S.OURS, lw=1.2)
-    ax.text(0.4, 28.5, f"{miss * 100:.1f}%", color=S.OURS, fontsize=S.PT_KEY, fontweight="bold", va="center")
-    ax.text(5.9, 28.5, "of held-out hours ran past it\n(leave one fire out)", color=S.INK,
-            fontsize=S.PT_MIN, va="center", linespacing=1.15)
-    ax.text(nf - 0.5, 21.0, f"largest in calibration: {cal_max:.1f} km", ha="right", va="center",
-            fontsize=S.PT_MIN, color=S.MID)
-    ax.annotate(f"{kmax:.1f} km", (kx + jit[int(np.argmax(gk['reach_km'].to_numpy()))], kmax), xytext=(-16, 0),
-                textcoords="offset points", ha="right", va="center", fontsize=S.PT_LABEL, color=S.FIRE,
-                fontweight="bold")
-    ax.text(kx + 0.9, 51.6, "answer withheld: outside all calibration data", ha="right", va="center",
-            fontsize=S.PT_MIN, color=S.INK)
-    ax.text(kx + 0.9, 47.2, f"{n_with} of {n_run} run hours (10–20 KST, filled)", ha="right", va="center",
-            fontsize=S.PT_MIN, color=S.MID)
+    ax.scatter(kx + jit[~run_mask], gk.loc[~run_mask, "reach_km"], s=40, marker="o", facecolors=S.WHITE,
+               edgecolors=S.FIRE, linewidths=1.2, zorder=4, label="Gyeongbuk, other hours")
+    ax.scatter(kx + jit[run_mask], gk.loc[run_mask, "reach_km"], s=48, marker="^", color=S.FIRE, zorder=5,
+               linewidths=0, label="Gyeongbuk, run hours 10–20 KST")
+    ax.plot([-1.0, kx + 1.3], [R, R], color=S.OURS, lw=2, zorder=6, label=f"safety distance {R:.2f} km")
     ax.set_xticks([(nf - 1) / 2, kx])
-    ax.set_xticklabels([f"{nf} California fires, every issue hour\n({len(df):,} hours, one column per fire)",
-                        "Gyeongbuk\n25 Mar 2025"], fontsize=S.PT_MIN, linespacing=1.15)
+    ax.set_xticklabels(["28 California fires\n(one column per fire)", "Gyeongbuk\n25 Mar 2025"], linespacing=1.15)
     ax.tick_params(axis="x", length=0)
-    ax.spines["bottom"].set_visible(False)
     ax.set_yticks([0, 10, 20, 30, 40])
-    ax.set_ylabel("How far the fire ran in 5 hours (km)")
+    ax.set_ylabel("Distance run in 5 hours (km)")
+    boxed_legend(ax, loc="upper left", fontsize=S.PT_TEXT, labelspacing=0.6, markerscale=1.6)
+    cap = add_caption(fig, (
+        f"Figure 6. How far each fire ran in the 5 hours after every issue hour: {len(df):,} hours of {nf} California "
+        f"calibration fires (grey) and the 25 March 2025 Gyeongbuk fire (red; complete hours). The frozen safety "
+        f"distance of {R:.2f} km (blue) was passed in {miss * 100:.1f}% of held-out hours (leave one fire out; 95% "
+        f"interval {CI[0] * 100:.1f}–{CI[1] * 100:.0f}%). The largest calibration value is {cal_max:.1f} km; Gyeongbuk reached {kmax:.1f} km, "
+        f"and the answer was withheld in {n_with} of {n_run} run hours as outside all calibration data (hatched). "
+        "Source: research/kcf-margin, research/kcf-abstain."), x_in=0.45, width_in=12.45, top_in=5.8)
     L.save()
-    save(fig, "F06_safety_distance")
+    save(fig, "F06_safety_distance", caption=cap)
 
 
 if __name__ == "__main__":
