@@ -71,3 +71,23 @@ Headline numbers moved from the plots into the captions. Each figure is exported
 Checked against the same table, the rebuilt maxima are within 0.5%, the means within about 1%, and the minima within 1.4%, except the combined kernel's minimum, which is 3.4% high (SOURCES.md). As in the preprint, each panel has its own colour bar starting at 0, so the 3×3 branch looks nearly uniform.
 
 **D25. F15 not built.** The saved exposure arrays are not on this machine (NEEDS.md). Rebuilding the maps from the two screenshots would require reading the colour-bar tick values by eye. Those bars are non-linear (PM2.5 0–4,000 µg/m³, CO 0–17.5 mg/m³, visibility probability 0–100%), and their tick labels exist only as pixels, with no text tool available to read them. Typing calibration values in by hand would break the rule that no number is typed in by hand. F15 is therefore not built. Once the `physical_exposure` folder is copied into the workspace, it can be built from `report.json` the same way F12 was built from its arrays.
+
+**D26. F15 built from the screenshots (replaces D25), at your request of 24 Nov.** The saved arrays are still not on this machine, so F15 is rebuilt from screenshot `001` (exposure panels) and screenshot `002` (burned footprint) in `Oral Presentation Figure/Heat Physics`.
+
+The script reads by itself:
+- the panel frames, the tick-mark positions and the 375 m cell grid (56 px/km, so 21 px per cell; 39 × 33 cells);
+- each cell's colour, taken as the median of its centre window after leaving out the white perimeter-line pixels;
+- the colour bars;
+- the burned footprint from screenshot 002's own frame.
+
+Only the numbers printed as text in the screenshots are typed in by hand (`HAND_ENTERED` in `src/F15_exposure.py`, listed in SOURCES.md), because no text-reading tool is installed:
+- the km tick labels;
+- the colour-bar tick values: visibility 0, 1, 5, 10, 25, 50, 100 %; PM2.5 0 to 4,000 µg/m³ in steps of 500; CO 0 to 17.5 mg/m³ in steps of 2.5;
+- the 191 in the footprint title, used as a check. The script counts exactly 191 burned cells once the footprint panel's own legend swatch is left out.
+
+Limits:
+- Between two colour-bar ticks, values are interpolated linearly in bar position, while the source bars are non-linear there.
+- PM2.5 above the top 4,000 tick is clipped to 4,000.
+- 32 cells of panel (a) lie under the source's legend box and are unknown (hatched light grey).
+
+The figure keeps the source's non-linear scales and uses cividis. The caption says the figure was rebuilt from screenshots with colour-bar values read by eye, and carries the three required caveats.

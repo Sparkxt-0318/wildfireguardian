@@ -1,0 +1,112 @@
+{
+ "code": "F15",
+ "title": "Fish Creek exposure maps (rebuilt from screenshots)",
+ "rows": [
+  {
+   "label": "Grid read from screenshot 001: cells, px per km, origin (km)",
+   "value": [
+    39,
+    33,
+    56.0,
+    -1136.259,
+    2390.259
+   ],
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "tick-mark pixel positions (script) + tick labels (HAND_ENTERED)",
+   "expected": null,
+   "note": "375 m cells; 39 x 33 expected from the frame width (820 px) and height (694 px)",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "Panel (a) cells covered by the source legend (unknown, hatched)",
+   "value": 32,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "cells whose centre lies in the legend box at px (122-444, 847-873)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "vis: decoded maximum, median of positive cells, unknown cells",
+   "value": [
+    5.316901408450704,
+    1.358490566037736,
+    32
+   ],
+   "unit": "%",
+   "shown": null,
+   "n": "1287 cells",
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "panel cells matched to its colour bar; ticks HAND_ENTERED [100, 50, 25, 10, 5, 1, 0]",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "pm: decoded maximum, median of positive cells, unknown cells",
+   "value": [
+    4000.0,
+    346.8253968253968,
+    0
+   ],
+   "unit": "µg/m³",
+   "shown": null,
+   "n": "1287 cells",
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "panel cells matched to its colour bar; ticks HAND_ENTERED [4000, 3500, 3000, 2500, 2000, 1500, 1000, 500, 0]",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "co: decoded maximum, median of positive cells, unknown cells",
+   "value": [
+    17.5,
+    1.6453313253012047,
+    0
+   ],
+   "unit": "mg/m³",
+   "shown": null,
+   "n": "1287 cells",
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 001.png",
+   "field": "panel cells matched to its colour bar; ticks HAND_ENTERED [17.5, 15.0, 12.5, 10.0, 7.5, 5.0, 2.5, 0.0]",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:9c154b764805dd59"
+  },
+  {
+   "label": "Burned footprint cells read from screenshot 002",
+   "value": 191,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "KakaoTalk_Photo_2026-11-24-07-54-45 002.png",
+   "field": "cells whose colour matches the 'previously burned' colour (71, 85, 105)",
+   "expected": "191 (panel title, read by eye)",
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:3beeeb65ab849138"
+  }
+ ],
+ "notes": [
+  "HAND_ENTERED values (read by eye): x_tick_labels_km = [-1136, -1134, -1132, -1130, -1128, -1126, -1124, -1122]; y_tick_labels_km = [2390, 2388, 2386, 2384, 2382, 2380, 2378]; vis_ticks_pct = [100, 50, 25, 10, 5, 1, 0]; pm_ticks_ug_m3 = [4000, 3500, 3000, 2500, 2000, 1500, 1000, 500, 0]; co_ticks_mg_m3 = [17.5, 15.0, 12.5, 10.0, 7.5, 5.0, 2.5, 0.0]; footprint_cells_in_title = 191",
+  "Values between colour-bar ticks are interpolated linearly in bar position; the source bars are non-linear between ticks too, so a value between two ticks may differ from the source value."
+ ]
+}

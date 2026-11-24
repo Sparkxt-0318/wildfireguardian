@@ -80,9 +80,20 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 
 - Schematic on a synthetic 25-junction network; no number is shown. The time bars are illustrative shapes.
 
-## F15
+## F15: Fish Creek exposure maps (rebuilt from screenshots)
 
-Not built (see README.md).
+| shown | value | n | file | field | repo / ref / commit | expected | note |
+|---|---|---|---|---|---|---|---|
+| **Grid read from screenshot 001: cells, px per km, origin (km)** | 39, 33, 56, -1136.26, 2390.26 |  | `KakaoTalk_Photo_2026-11-24-07-54-45 001.png` | tick-mark pixel positions (script) + tick labels (HAND_ENTERED) | /Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics / file on disk (read only) / `sha256:9c154b764805dd59` |  | 375 m cells; 39 x 33 expected from the frame width (820 px) and height (694 px) |
+| **Panel (a) cells covered by the source legend (unknown, hatched)** | 32 |  | `KakaoTalk_Photo_2026-11-24-07-54-45 001.png` | cells whose centre lies in the legend box at px (122-444, 847-873) | /Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics / file on disk (read only) / `sha256:9c154b764805dd59` |  |  |
+| **vis: decoded maximum, median of positive cells, unknown cells** | 5.3169, 1.35849, 32 % | 1287 cells | `KakaoTalk_Photo_2026-11-24-07-54-45 001.png` | panel cells matched to its colour bar; ticks HAND_ENTERED [100, 50, 25, 10, 5, 1, 0] | /Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics / file on disk (read only) / `sha256:9c154b764805dd59` |  |  |
+| **pm: decoded maximum, median of positive cells, unknown cells** | 4000, 346.825, 0 µg/m³ | 1287 cells | `KakaoTalk_Photo_2026-11-24-07-54-45 001.png` | panel cells matched to its colour bar; ticks HAND_ENTERED [4000, 3500, 3000, 2500, 2000, 1500, 1000, 500, 0] | /Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics / file on disk (read only) / `sha256:9c154b764805dd59` |  |  |
+| **co: decoded maximum, median of positive cells, unknown cells** | 17.5, 1.64533, 0 mg/m³ | 1287 cells | `KakaoTalk_Photo_2026-11-24-07-54-45 001.png` | panel cells matched to its colour bar; ticks HAND_ENTERED [17.5, 15.0, 12.5, 10.0, 7.5, 5.0, 2.5, 0.0] | /Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics / file on disk (read only) / `sha256:9c154b764805dd59` |  |  |
+| **Burned footprint cells read from screenshot 002** | 191 |  | `KakaoTalk_Photo_2026-11-24-07-54-45 002.png` | cells whose colour matches the 'previously burned' colour (71, 85, 105) | /Users/jp/Desktop/Korea Code Fair/Oral Presentation Figure/Heat Physics / file on disk (read only) / `sha256:3beeeb65ab849138` | 191 (panel title, read by eye) |  |
+
+- HAND_ENTERED values (read by eye): x_tick_labels_km = [-1136, -1134, -1132, -1130, -1128, -1126, -1124, -1122]; y_tick_labels_km = [2390, 2388, 2386, 2384, 2382, 2380, 2378]; vis_ticks_pct = [100, 50, 25, 10, 5, 1, 0]; pm_ticks_ug_m3 = [4000, 3500, 3000, 2500, 2000, 1500, 1000, 500, 0]; co_ticks_mg_m3 = [17.5, 15.0, 12.5, 10.0, 7.5, 5.0, 2.5, 0.0]; footprint_cells_in_title = 191
+
+- Values between colour-bar ticks are interpolated linearly in bar position; the source bars are non-linear between ticks too, so a value between two ticks may differ from the source value.
 
 ## F16: Safety zones
 

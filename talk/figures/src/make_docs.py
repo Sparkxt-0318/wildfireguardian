@@ -16,7 +16,7 @@ FIGS = [
     ("F06", "F06_safety_distance", "6 (right two thirds)", "5-hour reach of 28 California fires, safety distance 3.75 km, Gyeongbuk hours withheld", "done"),
     ("F12", "F12_forecast_example", "6 (full width)", "Wapiti 2024 forecast example (three panels) and scores over 25 intervals", "done"),
     ("F07", "F07_forward_backward", "7 (full)", "Forward search from one village against one backward pass from the shelters (schematic)", "done (native shapes in pptx)"),
-    ("F15", "F15_exposure", "7 (left half)", "Fish Creek exposure maps", "not done: saved arrays not on this machine; screenshots would need hand-typed calibration (D25, NEEDS.md)"),
+    ("F15", "F15_exposure", "7 (left half)", "Fish Creek exposure maps: visibility ≤ 10 m, PM2.5, CO, burned perimeter", "done with a note: rebuilt from screenshots, colour-bar ticks typed in by eye (D26); redo from the arrays when they arrive"),
     ("F16", "F16_safety_zones", "7 (right half)", "d = 4H geometry and the distribution of d* (13,125 cells below 375 m)", "done with a note: largest d* 323 m in the file, 320 m expected (D22)"),
     ("F17", "F17_heat_terrain", "backup", "Heat on terrain (3D)", "not done: terrain and thermal arrays not on this machine (NEEDS.md)"),
     ("F08", "F08_backward_step_checker", "8 (full)", "One backward step on a time axis; solver, certificate and independent checker", "done (native shapes in pptx)"),
