@@ -42,3 +42,15 @@ On the linear axis the 3.75 km line still sits clearly above zero. The printed s
 **D15. F01 issue hour and extent.** Only two issue hours have a committed forecast raster: 12:00 and 18:00 KST (`product/wfg-roadlayer/examples/fire_arrival_*.tif`). The map uses 12:00 KST because it is the more varied of the two. At 12:00 all four departure states occur (124 places with no road cut within 8 h, 24 inside the fire, 16 with a latest safe departure, 10 with no safe departure). At 18:00 only three occur. At 12:00 the fire affects only Uiseong–Andong, and the two regions are about 50 km apart, so the map shows the Uiseong–Andong region box from `scene.js`. Roads and water come from the committed OSM basemap (`planner/public/kcf-scene/data/basemap.js`).
 
 **D16. F01 colour and numbers.** The prompt names two colour scales for "time left": "bluish green to orange" in the F01 description, and "time left: the cividis colormap" in the style rules. The style rule names this exact quantity, so F01 uses cividis, reversed so that less time is yellow and more time is dark. Places with no road cut within 8 h get the "more" end of the scale. The key uses the words "less" and "more" instead of numbers. The only number on the map is the "5 km" of the scale bar, which a map needs. The forecast fire is drawn as a pale tint of the fire colour, so the roads and village dots stay readable on top of it.
+
+**D17. Paper style (revision of 24 Nov).** All figures were redrawn in the research-paper style:
+- framed axes, light grey gridlines, and one text size (16 pt) for labels, tick labels, legends and captions, with 18 pt for axis titles;
+- boxed legends, and whiskers or error bars wherever the source has an interval;
+- (a)/(b) panel letters, and a numbered caption under every figure;
+- schematics with square-cornered boxes and thin 0.75 pt outlines.
+
+Headline numbers moved from the plots into the captions. Each figure is exported with its caption (`Fxx_name.*`), without it (`Fxx_name_nocaption.*`), and text-free (`Fxx_name_notext.*`). Figures finished before the style change were redrawn too, so that the set stays consistent.
+
+**D18. F03 cell values.** No market-research summary is committed. A search of every local and remote ref for "technosylva", "genasys" and "watch duty" found only passing mentions in `research/harness-2026-11/research-scout/`, none of which compares the products. The cells are therefore the values given in the brief: Korea yes, yes, no, no; Technosylva yes, no, no, no; Genasys no, yes, no, no; Watch Duty yes, yes, no, no; WildfireGuardian no, no, yes, yes.
+
+**D19. F14 intervals.** The preprint applies no interval to the reliability bins; its caption says so. The figure adds Wilson 95% intervals, computed from each bin's entry and new-burn counts in `wapiti_calibration_table.tex`, and the caption says they were computed for this figure. A label for the lowest bin could not be placed in the enlarged panel without crossing the diagonal or an error bar, so its three values (93.91% of entries, 0.0131% predicted, 0.3642% observed) are in the caption.

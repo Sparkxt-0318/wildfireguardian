@@ -48,17 +48,19 @@ class Ledger:
         return git_show(path, ref, repo).decode()
 
     def src_id(self, path, ref=None, repo=REPO):
-        """How a file is identified in SOURCES.md: repo, ref, commit hash."""
+        """How a file is identified in SOURCES.md: repo, ref, commit hash (or SHA-256 outside this repository)."""
         repo = Path(repo)
-        if (repo / ".git").exists() or repo == REPO:
+        if repo == REPO:
             try:
                 h = last_commit(path, ref, repo)
             except subprocess.CalledProcessError:
                 h = "not in git"
-        else:
-            h = "sha256:" + sha256_file(repo / path)[:12]
-        rname = "wildfireguardian" if repo == REPO else str(repo)
-        return {"repo": rname, "ref": ref or "talk/figures (= origin/Main 5ff9aa90)", "commit": h}
+            return {"repo": "wildfireguardian", "ref": ref or "talk/figures (= origin/Main 5ff9aa90)", "commit": h}
+        h = "sha256:" + sha256_file(repo / path)[:16]
+        return {"repo": str(repo), "ref": "file on disk (read only)", "commit": h}
+
+    def local_text(self, path, repo):
+        return (Path(repo) / path).read_text()
 
     # -------- recording
     def add(self, label, value, *, file, field, n=None, ref=None, repo=REPO,

@@ -1,0 +1,508 @@
+{
+ "name": "F03_comparison_grid",
+ "items": [
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.6,
+     0.75
+    ],
+    [
+     12.75,
+     0.75
+    ]
+   ],
+   "color": "#1A1A1A",
+   "lw": 1.4,
+   "arrow": false,
+   "dash": null,
+   "name": "top rule",
+   "group": "rules",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "text",
+   "x": 5.55,
+   "y": 1.225,
+   "s": "where the\nfire is",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "center",
+   "va": "center",
+   "name": "column 1 header",
+   "group": "header",
+   "italic": false,
+   "box": [
+    5.062436234537759,
+    0.9272777777777774,
+    0.9751275309244792,
+    0.5954444444444449
+   ]
+  },
+  {
+   "t": "text",
+   "x": 7.699999999999999,
+   "y": 1.225,
+   "s": "who to\nalert",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "center",
+   "va": "center",
+   "name": "column 2 header",
+   "group": "header",
+   "italic": false,
+   "box": [
+    7.357994661458331,
+    0.9272777777777774,
+    0.6840106770833334,
+    0.5954444444444449
+   ]
+  },
+  {
+   "t": "text",
+   "x": 9.85,
+   "y": 1.225,
+   "s": "when each village's\nlast road closes",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "center",
+   "va": "center",
+   "name": "column 3 header",
+   "group": "header",
+   "italic": false,
+   "box": [
+    8.881274218749997,
+    0.9272777777777774,
+    1.9374515625000002,
+    0.5954444444444449
+   ]
+  },
+  {
+   "t": "text",
+   "x": 12.0,
+   "y": 1.225,
+   "s": "answer can\nbe checked",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "center",
+   "va": "center",
+   "name": "column 4 header",
+   "group": "header",
+   "italic": false,
+   "box": [
+    11.421889453124997,
+    0.9272777777777774,
+    1.1562210937500002,
+    0.5954444444444449
+   ]
+  },
+  {
+   "t": "text",
+   "x": 0.6,
+   "y": 1.225,
+   "s": "system",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "row header",
+   "group": "header",
+   "italic": false,
+   "box": [
+    0.5999999999999999,
+    1.076138888888888,
+    0.7117877604166668,
+    0.29772222222222244
+   ]
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.6,
+     1.7
+    ],
+    [
+     12.75,
+     1.7
+    ]
+   ],
+   "color": "#1A1A1A",
+   "lw": 0.75,
+   "arrow": false,
+   "dash": null,
+   "name": "header rule",
+   "group": "rules",
+   "role": "mark",
+   "head": 0.12
+  },
+  {
+   "t": "text",
+   "x": 0.6,
+   "y": 2.11,
+   "s": "Korea's spread prediction system\n(5-hour and 8-hour zones)",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "row 1: Korea's spread prediction system label",
+   "group": "row 1: Korea's spread prediction system",
+   "italic": false,
+   "box": [
+    0.5999999999999999,
+    1.8122777777777772,
+    3.3246781656901043,
+    0.5954444444444449
+   ]
+  },
+  {
+   "t": "circle",
+   "cx": 5.55,
+   "cy": 2.11,
+   "r": 0.13,
+   "fill": "#1A1A1A",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 1: Korea's spread prediction system where the fire is yes",
+   "group": "row 1: Korea's spread prediction system",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.699999999999999,
+   "cy": 2.11,
+   "r": 0.13,
+   "fill": "#1A1A1A",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 1: Korea's spread prediction system who to alert yes",
+   "group": "row 1: Korea's spread prediction system",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.85,
+   "cy": 2.11,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 1: Korea's spread prediction system when each village's last road closes no",
+   "group": "row 1: Korea's spread prediction system",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.0,
+   "cy": 2.11,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 1: Korea's spread prediction system answer can be checked no",
+   "group": "row 1: Korea's spread prediction system",
+   "role": "mark"
+  },
+  {
+   "t": "text",
+   "x": 0.6,
+   "y": 2.9299999999999997,
+   "s": "Technosylva",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "row 2: Technosylva label",
+   "group": "row 2: Technosylva",
+   "italic": false,
+   "box": [
+    0.5999999999999999,
+    2.781138888888888,
+    1.2183397664388023,
+    0.29772222222222244
+   ]
+  },
+  {
+   "t": "circle",
+   "cx": 5.55,
+   "cy": 2.9299999999999997,
+   "r": 0.13,
+   "fill": "#1A1A1A",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 2: Technosylva where the fire is yes",
+   "group": "row 2: Technosylva",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.699999999999999,
+   "cy": 2.9299999999999997,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 2: Technosylva who to alert no",
+   "group": "row 2: Technosylva",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.85,
+   "cy": 2.9299999999999997,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 2: Technosylva when each village's last road closes no",
+   "group": "row 2: Technosylva",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.0,
+   "cy": 2.9299999999999997,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 2: Technosylva answer can be checked no",
+   "group": "row 2: Technosylva",
+   "role": "mark"
+  },
+  {
+   "t": "text",
+   "x": 0.6,
+   "y": 3.75,
+   "s": "Genasys Protect",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "row 3: Genasys Protect label",
+   "group": "row 3: Genasys Protect",
+   "italic": false,
+   "box": [
+    0.5999999999999999,
+    3.601138888888889,
+    1.6417775309244793,
+    0.29772222222222244
+   ]
+  },
+  {
+   "t": "circle",
+   "cx": 5.55,
+   "cy": 3.75,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 3: Genasys Protect where the fire is no",
+   "group": "row 3: Genasys Protect",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.699999999999999,
+   "cy": 3.75,
+   "r": 0.13,
+   "fill": "#1A1A1A",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 3: Genasys Protect who to alert yes",
+   "group": "row 3: Genasys Protect",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.85,
+   "cy": 3.75,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 3: Genasys Protect when each village's last road closes no",
+   "group": "row 3: Genasys Protect",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.0,
+   "cy": 3.75,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 3: Genasys Protect answer can be checked no",
+   "group": "row 3: Genasys Protect",
+   "role": "mark"
+  },
+  {
+   "t": "text",
+   "x": 0.6,
+   "y": 4.569999999999999,
+   "s": "Watch Duty",
+   "size": 16,
+   "color": "#1A1A1A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "row 4: Watch Duty label",
+   "group": "row 4: Watch Duty",
+   "italic": false,
+   "box": [
+    0.5999999999999999,
+    4.421138888888888,
+    1.1514469075520835,
+    0.29772222222222244
+   ]
+  },
+  {
+   "t": "circle",
+   "cx": 5.55,
+   "cy": 4.569999999999999,
+   "r": 0.13,
+   "fill": "#1A1A1A",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 4: Watch Duty where the fire is yes",
+   "group": "row 4: Watch Duty",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.699999999999999,
+   "cy": 4.569999999999999,
+   "r": 0.13,
+   "fill": "#1A1A1A",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 4: Watch Duty who to alert yes",
+   "group": "row 4: Watch Duty",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.85,
+   "cy": 4.569999999999999,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 4: Watch Duty when each village's last road closes no",
+   "group": "row 4: Watch Duty",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.0,
+   "cy": 4.569999999999999,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#1A1A1A",
+   "lw": 1.2,
+   "name": "row 4: Watch Duty answer can be checked no",
+   "group": "row 4: Watch Duty",
+   "role": "mark"
+  },
+  {
+   "t": "text",
+   "x": 0.6,
+   "y": 5.39,
+   "s": "WildfireGuardian (ours)",
+   "size": 16,
+   "color": "#2F5D8A",
+   "bold": false,
+   "ha": "left",
+   "va": "center",
+   "name": "row 5: WildfireGuardian (ours) label",
+   "group": "row 5: WildfireGuardian (ours)",
+   "italic": false,
+   "box": [
+    0.5999999999999999,
+    5.241138888888889,
+    2.2592751139322917,
+    0.29772222222222244
+   ]
+  },
+  {
+   "t": "circle",
+   "cx": 5.55,
+   "cy": 5.39,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#2F5D8A",
+   "lw": 1.2,
+   "name": "row 5: WildfireGuardian (ours) where the fire is no",
+   "group": "row 5: WildfireGuardian (ours)",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 7.699999999999999,
+   "cy": 5.39,
+   "r": 0.13,
+   "fill": "#FFFFFF",
+   "edge": "#2F5D8A",
+   "lw": 1.2,
+   "name": "row 5: WildfireGuardian (ours) who to alert no",
+   "group": "row 5: WildfireGuardian (ours)",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 9.85,
+   "cy": 5.39,
+   "r": 0.13,
+   "fill": "#2F5D8A",
+   "edge": "#2F5D8A",
+   "lw": 1.2,
+   "name": "row 5: WildfireGuardian (ours) when each village's last road closes yes",
+   "group": "row 5: WildfireGuardian (ours)",
+   "role": "mark"
+  },
+  {
+   "t": "circle",
+   "cx": 12.0,
+   "cy": 5.39,
+   "r": 0.13,
+   "fill": "#2F5D8A",
+   "edge": "#2F5D8A",
+   "lw": 1.2,
+   "name": "row 5: WildfireGuardian (ours) answer can be checked yes",
+   "group": "row 5: WildfireGuardian (ours)",
+   "role": "mark"
+  },
+  {
+   "t": "line",
+   "pts": [
+    [
+     0.6,
+     5.8
+    ],
+    [
+     12.75,
+     5.8
+    ]
+   ],
+   "color": "#1A1A1A",
+   "lw": 1.4,
+   "arrow": false,
+   "dash": null,
+   "name": "bottom rule",
+   "group": "rules",
+   "role": "mark",
+   "head": 0.12
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+{
+ "code": "F14",
+ "title": "Reliability, reported model",
+ "rows": [
+  {
+   "label": "Bin [0.0, 0.01): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.000131,
+    0.0036420000000000003,
+    259164,
+    944
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "259,164 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Bin [0.01, 0.02): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.014767999999999998,
+    0.046986999999999994,
+    2639,
+    124
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "2,639 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Bin [0.02, 0.05): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.033198,
+    0.04852,
+    4019,
+    195
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "4,019 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Bin [0.05, 0.1): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.072769,
+    0.069485,
+    3454,
+    240
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "3,454 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Bin [0.1, 0.2): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.14433400000000002,
+    0.116893,
+    4132,
+    483
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "4,132 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Bin [0.2, 0.5): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.270414,
+    0.201687,
+    2489,
+    502
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "2,489 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Bin [0.5, 1.0): mean prediction, observed frequency, entries, new burns",
+   "value": [
+    0.550262,
+    0.578125,
+    64,
+    37
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "64 entries",
+   "file": "figure/revision/wapiti_calibration_table.tex",
+   "field": "row of the tabular (Mean q %, Observed %)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:80d44aa10fc8e63f"
+  },
+  {
+   "label": "Lowest bin: share of entries / mean prediction / observed frequency (%)",
+   "value": [
+    93.91,
+    0.0131,
+    0.3642
+   ],
+   "unit": "",
+   "shown": "93.91%, 0.0131%, 0.3642%",
+   "n": "275,961 entries",
+   "file": "template.tex",
+   "field": "sentence 'The lowest mixed bin contains ...'",
+   "expected": "93.91%, 0.0131%, 0.3642%",
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:7b1ea6e80a79dd94"
+  }
+ ],
+ "notes": [
+  "Error bars are Wilson 95% intervals computed here from the table's entries and new burns; the preprint applies no interval (its caption says so)."
+ ]
+}
