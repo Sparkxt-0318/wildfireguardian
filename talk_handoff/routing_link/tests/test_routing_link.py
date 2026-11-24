@@ -153,3 +153,55 @@ def test_route_last_departure_moves_with_block(tmp_path):
     assert L is not None and L < 3600 and rows1[0]["cut_s"] == L + 1
     rows2, _, _ = R.run(graph, origins, exits, _raster(tmp_path, g, [np.inf, 30.0, np.inf]), g)
     assert rows2[0]["last_safe_departure_s"] == L - 1800  # blocked 30 min earlier -> last departure 30 min earlier
+
+
+def test_run_all_end_to_end(tmp_path, monkeypatch):
+    """Six synthetic hours on a 4 x 2 grid; a road through both rows; exposure blocks one cell before fire."""
+    pyproj = pytest.importorskip("pyproj")
+    pytest.importorskip("matplotlib")
+    import run_all
+    x0, ytop, res = -1141125.0, 2393250.0, 375.0
+    grid = {"transform": [res, 0.0, x0, 0.0, -res, ytop], "width": 4, "height": 2, "epsg": 5070}
+    (tmp_path / "grid.json").write_text(json.dumps(grid))
+    inv = pyproj.Transformer.from_crs("EPSG:5070", "EPSG:4326", always_xy=True)
+    pts = [(x0 + 20, ytop - 190), (x0 + 100, ytop - 190), (x0 + 1400, ytop - 190), (x0 + 1700, ytop - 190),
+           (x0 + 100, ytop - 600)]
+    els = []
+    for k, (x, y) in enumerate(pts, start=1):
+        lon, lat = inv.transform(x, y)
+        els.append({"type": "node", "id": k, "lon": lon, "lat": lat})
+    els.append({"type": "way", "id": 10, "nodes": [1, 2, 3, 4], "tags": {"highway": "primary"}})
+    els.append({"type": "way", "id": 11, "nodes": [2, 5], "tags": {"highway": "track"}})
+    lon, lat = inv.transform(x0 + 120, ytop - 560)
+    els.append({"type": "node", "id": 99, "lon": lon, "lat": lat, "tags": {"place": "hamlet", "name": "Test"}})
+    (tmp_path / "osm.json").write_text(json.dumps({"elements": els}))
+    hd = tmp_path / "hours"
+    hd.mkdir()
+    for h in range(6):
+        p = np.zeros((2, 4))
+        if h >= 2:
+            p[0, 2] = 0.6  # visibility event in the middle of the road from hour 2
+        np.savez(hd / ("hour_%02d.npz" % h), bin_edges_s=EDGES, p_vis=p, pm25_ug_m3=np.ones((2, 4)),
+                 q_rad_kw_m2=np.zeros((K, 2, 4)), thermal_resolved=np.ones((2, 4), bool), co_mg_m3=np.zeros((K, 2, 4)))
+    sys.path.insert(0, str(HERE.parents[1] / "product" / "wfg-roadlayer"))
+    from wfg_roadlayer import geotiff
+    fire = np.full((2, 4), np.inf)
+    fire[0, 2] = 300.0  # fire reaches that cell at 5 h
+    a = (res, 0.0, x0, 0.0, -res, ytop)
+    geotiff.write(tmp_path / "fire.tif", fire, a, 5070, nodata=float("nan"), dtype="float32",
+                  metadata={"WFG_HORIZON_MIN": 480, "WFG_UNITS": "minutes", "WFG_ISSUE_TIME": "2024-08-23T00:00:00Z"})
+    monkeypatch.setenv("MPLCONFIGDIR", str(tmp_path / "mpl"))
+    monkeypatch.setattr(sys, "argv", ["run_all", "--hours", str(hd), "--fire", str(tmp_path / "fire.tif"), "--grid",
+                                      str(tmp_path / "grid.json"), "--osm", str(tmp_path / "osm.json"), "--out",
+                                      str(tmp_path / "out"), "--workers", "1"])
+    assert run_all.main() == 0
+    s = json.loads((tmp_path / "out" / "summary.json").read_text())
+    assert s["n_hours"] == 6 and s["n_cell_hours"] == 48
+    assert s["criterion_cell_hours"]["vis_p50"] == 4 and s["criterion_cell_hours"]["vis_p90"] == 0
+    assert s["fire_blocked_cell_hours"] == 1  # blocked from 300 min: hour 5 only
+    assert s["added_cell_hours"]["residents_vis50"]["exposure_blocked_not_fire"] == 3
+    assert s["routing"]["n_origins"] == 1 and s["routing"]["n_exits"] == 1
+    o = s["origins"]["residents_vis50"]
+    assert o["n_origins_routed"] == 1 and o["n_changed"] == 1 and o["earlier_by_min_largest"] > 0
+    assert s["origins"]["residents_vis90"]["n_changed"] == 0
+    assert (tmp_path / "out" / "fig_blocked_cells.png").is_file()
