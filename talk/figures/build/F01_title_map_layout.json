@@ -8,8 +8,8 @@
  "texts": [
   {
    "text": "5 km",
-   "cx": 6.893074048028304,
-   "cy": 2.8429303872821654,
+   "cx": 7.963360039610802,
+   "cy": 2.0838658405992136,
    "w": 0.4930432291666667,
    "h": 0.2588888888888889,
    "rotation": 0.0,
@@ -19,27 +19,29 @@
    "color": "#1a1a1a",
    "ha": "center",
    "multialign": null,
-   "name": "5 km"
+   "name": "5 km",
+   "caption": false
   },
   {
    "text": "N",
-   "cx": 7.154329862268425,
-   "cy": 1.7521429417917673,
-   "w": 0.18402317708333335,
-   "h": 0.298,
+   "cx": 8.178828752386519,
+   "cy": 1.1681190356128912,
+   "w": 0.15971822916666667,
+   "h": 0.2588888888888889,
    "rotation": 0.0,
-   "size_pt": 18.0,
-   "bold": true,
+   "size_pt": 16.0,
+   "bold": false,
    "italic": false,
    "color": "#1a1a1a",
    "ha": "center",
    "multialign": null,
-   "name": "N"
+   "name": "N",
+   "caption": false
   },
   {
    "text": "time left before the\nlast road out closes",
    "cx": 7.720190588378905,
-   "cy": 6.17,
+   "cy": 4.87,
    "w": 1.9403811767578127,
    "h": 0.5695555555555556,
    "rotation": 0.0,
@@ -49,14 +51,15 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "time left before the last road out close"
+   "name": "time left before the last road out close",
+   "caption": false
   },
   {
    "text": "less",
    "cx": 6.944439583333333,
-   "cy": 7.12,
+   "cy": 5.82,
    "w": 0.3888791666666667,
-   "h": 0.2588888888888889,
+   "h": 0.25888888888888867,
    "rotation": 0.0,
    "size_pt": 16.0,
    "bold": false,
@@ -64,14 +67,15 @@
    "color": "#8c8c8c",
    "ha": "left",
    "multialign": null,
-   "name": "less"
+   "name": "less",
+   "caption": false
   },
   {
    "text": "more",
    "cx": 8.49680537516276,
-   "cy": 7.12,
+   "cy": 5.82,
    "w": 0.5063892496744792,
-   "h": 0.2588888888888889,
+   "h": 0.25888888888888867,
    "rotation": 0.0,
    "size_pt": 16.0,
    "bold": false,
@@ -79,12 +83,13 @@
    "color": "#8c8c8c",
    "ha": "right",
    "multialign": null,
-   "name": "more"
+   "name": "more",
+   "caption": false
   },
   {
    "text": "forecast fire",
    "cx": 10.48104016113281,
-   "cy": 6.069999999999999,
+   "cy": 4.77,
    "w": 1.162080322265625,
    "h": 0.2588888888888889,
    "rotation": 0.0,
@@ -94,12 +99,13 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "forecast fire"
+   "name": "forecast fire",
+   "caption": false
   },
   {
    "text": "no safe route",
    "cx": 10.550754130045572,
-   "cy": 6.52,
+   "cy": 5.22,
    "w": 1.3015082600911458,
    "h": 0.2588888888888889,
    "rotation": 0.0,
@@ -109,12 +115,13 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "no safe route"
+   "name": "no safe route",
+   "caption": false
   },
   {
    "text": "already inside the fire",
    "cx": 10.949778442382812,
-   "cy": 6.97,
+   "cy": 5.67,
    "w": 2.099556884765625,
    "h": 0.2588888888888889,
    "rotation": 0.0,
@@ -124,7 +131,24 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "already inside the fire"
+   "name": "already inside the fire",
+   "caption": false
+  },
+  {
+   "text": "Figure 1. The Uiseong–Andong replay area at the 12:00 KST forecast of 25 March 2025: roads (grey), the forecast fire for the\nnext 8 hours (red tint), and villages coloured by the time left before their last road out closes; hatched squares: no safe route;\nsmall dots: already inside the fire. Model output on reconstructed inputs, not what happened. Source: research/kcf-replay,\nproduct/wfg-roadlayer.",
+   "cx": 6.616621004231771,
+   "cy": 6.741333333333333,
+   "w": 12.333242008463543,
+   "h": 1.2426666666666666,
+   "rotation": 0.0,
+   "size_pt": 16.0,
+   "bold": false,
+   "italic": false,
+   "color": "#1a1a1a",
+   "ha": "left",
+   "multialign": null,
+   "name": "Caption",
+   "caption": true
   }
  ],
  "charts": []

@@ -19,7 +19,7 @@ from matplotlib.collections import LineCollection, PolyCollection
 from pyproj import Transformer
 
 import style as S
-from figkit import save
+from figkit import add_caption, save
 from prov import Ledger, git_show
 
 ISSUE = "03-25 12:00"
@@ -72,9 +72,9 @@ def main():
     bb = REGION_BBOX
     lon0, lon1, lat0, lat1 = bb[0], bb[2], bb[1], bb[3]
     kx = math.cos(math.radians((lat0 + lat1) / 2))
-    mh = 4.85
+    mh = 4.0
     mw = mh * ((lon1 - lon0) * kx) / (lat1 - lat0)
-    top = 0.95
+    top = 0.5
     mx = 13.0 - mw
     ax = fig.add_axes([mx / W, 1 - (top + mh) / H, mw / W, mh / H])
     ax.set_xlim(lon0, lon1)
@@ -83,7 +83,7 @@ def main():
     ax.set_xticks([])
     ax.set_yticks([])
     for sp in ax.spines.values():
-        sp.set_visible(False)
+        sp.set_linewidth(0.8)
     # water and roads
     polys, wlines = [], []
     for f in bm["water"]["features"]:
@@ -157,7 +157,7 @@ def main():
     ax.annotate("", xy=(lon0 - 0.025, lat1), xytext=(lon0 - 0.025, lat1 - 0.02),
                 arrowprops=dict(arrowstyle="-|>,head_length=0.7,head_width=0.35", color=S.INK, lw=2),
                 annotation_clip=False)
-    ax.text(lon0 - 0.025, lat1 - 0.03, "N", ha="center", va="top", fontsize=S.PT_BODY, fontweight="bold")
+    ax.text(lon0 - 0.025, lat1 - 0.03, "N", ha="center", va="top", fontsize=S.PT_BODY)
     # key below the map, one row
     ky = top + mh + 0.42
     kx0 = 6.75
@@ -189,8 +189,14 @@ def main():
             k = kax.scatter([0.5], [0.5], s=18, color=S.INK)
             k.set_gid("bg:key")
         fig.text((kx2 + 0.45) / W, 1 - yy / H, lab, fontsize=S.PT_MIN, va="center")
+    cap = add_caption(fig, (
+        "Figure 1. The Uiseong–Andong replay area at the 12:00 KST forecast of 25 March 2025: roads (grey), the "
+        "forecast fire for the next 8 hours (red tint), and villages coloured by the time left before their last road "
+        "out closes; hatched squares: no safe route; small dots: already inside the fire. Model output on "
+        "reconstructed inputs, not what happened. Source: research/kcf-replay, product/wfg-roadlayer."),
+        x_in=0.45, width_in=12.45, top_in=6.12)
     L.save()
-    save(fig, "F01_title_map")
+    save(fig, "F01_title_map", caption=cap)
 
 
 if __name__ == "__main__":
