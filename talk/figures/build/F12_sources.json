@@ -1,0 +1,106 @@
+{
+ "code": "F12",
+ "title": "Forecast example: Wapiti 2024",
+ "rows": [
+  {
+   "label": "Wapiti case arrays (initial and later extent, probability)",
+   "value": "859cddc0f28778a02134",
+   "unit": "",
+   "shown": null,
+   "n": "grid [111, 105], 1024 trajectories",
+   "file": "runs/20261013_observed_stored_validation/cases/859cddc0f28778a02134/m548_prediction.npz",
+   "field": "reference.burned_area[0|1, 0], m548_prediction.probability[0, 0]; SHA-256 equal to wapiti_spatial_provenance.json source_sha256",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/wildfire",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:e522e2e281956fed"
+  },
+  {
+   "label": "Trajectories",
+   "value": 1024,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "figure/revision/wapiti_spatial_provenance.json",
+   "field": "n_samples",
+   "expected": "1,024",
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:67b98169ca0a2e51"
+  },
+  {
+   "label": "ours: Brier, average precision",
+   "value": [
+    0.008402,
+    0.1461
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "25 intervals, 275,961 entries",
+   "file": "figure/revision/wapiti_scores_table.tex",
+   "field": "row 'Our model', columns Brier, AP",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:df1422c508d18b4c"
+  },
+  {
+   "label": "FARSITE: Brier, average precision",
+   "value": [
+    0.023804,
+    0.0631
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "25 intervals, 275,961 entries",
+   "file": "figure/revision/wapiti_scores_table.tex",
+   "field": "row 'FARSITE', columns Brier, AP",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:df1422c508d18b4c"
+  },
+  {
+   "label": "no new burn: Brier, average precision",
+   "value": [
+    0.00915,
+    0.0091
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "25 intervals, 275,961 entries",
+   "file": "figure/revision/wapiti_scores_table.tex",
+   "field": "row 'No-new-burn', columns Brier, AP",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:df1422c508d18b4c"
+  },
+  {
+   "label": "Cohort: intervals, entries, new burns",
+   "value": [
+    "25",
+    "275,961",
+    "2,525"
+   ],
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "template.tex",
+   "field": "sentence 'Evaluation uses 25 available Wapiti survey intervals ...'",
+   "expected": "25 intervals, 275,961 cells, 2,525 new burns",
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:7b1ea6e80a79dd94"
+  }
+ ],
+ "notes": [
+  "Selection (provenance json): After inspecting saved results, select the largest Brier skill versus no-new-burn persistence among Wapiti intervals with at least 100 newly mapped burned cells; break ties by cutoff and endpoint. Deliberately favorable illustration, not representative validation."
+ ]
+}
