@@ -25,7 +25,7 @@ inputs in `NEEDS.md`.
 | F06 | 6 (right two thirds) | `F06_safety_distance.{svg,pdf,png}`, `F06_safety_distance_nocaption.*`, `F06_safety_distance_notext.{png,svg}` | 5-hour reach of 28 California fires, safety distance 3.75 km, Gyeongbuk hours withheld | done |
 | F12 | 6 (full width) | `F12_forecast_example.{svg,pdf,png}`, `F12_forecast_example_nocaption.*`, `F12_forecast_example_notext.{png,svg}` | Wapiti 2024 forecast example (three panels) and scores over 25 intervals | done |
 | F07 | 7 (full) | `F07_forward_backward.{svg,pdf,png}`, `F07_forward_backward_nocaption.*`, `F07_forward_backward_notext.{png,svg}` | Forward search from one village against one backward pass from the shelters (schematic) | done (native shapes in pptx) |
-| F15 | 7 (left half) | none | Fish Creek exposure maps | not done: saved arrays not on this machine (NEEDS.md, D23) |
+| F15 | 7 (left half) | none | Fish Creek exposure maps | not done: saved arrays not on this machine; screenshots would need hand-typed calibration (D25, NEEDS.md) |
 | F16 | 7 (right half) | `F16_safety_zones.{svg,pdf,png}`, `F16_safety_zones_nocaption.*`, `F16_safety_zones_notext.{png,svg}` | d = 4H geometry and the distribution of d* (13,125 cells below 375 m) | done with a note: largest d* 323 m in the file, 320 m expected (D22) |
 | F17 | backup | none | Heat on terrain (3D) | not done: terrain and thermal arrays not on this machine (NEEDS.md) |
 | F08 | 8 (full) | `F08_backward_step_checker.{svg,pdf,png}`, `F08_backward_step_checker_nocaption.*`, `F08_backward_step_checker_notext.{png,svg}` | One backward step on a time axis; solver, certificate and independent checker | done (native shapes in pptx) |
@@ -33,7 +33,7 @@ inputs in `NEEDS.md`.
 | F09b | 9 (variant, full) | `F09b_speed_fastpath.{svg,pdf,png}`, `F09b_speed_fastpath_nocaption.*`, `F09b_speed_fastpath_notext.{png,svg}` | F09 plus the scalar fast path as its own panel (other machine) | done |
 | F10 | 10 (full) | `F10_camp_fire.{svg,pdf,png}`, `F10_camp_fire_nocaption.*`, `F10_camp_fire_notext.{png,svg}` | Camp Fire: 170 of 195 road-closed reports caught, minutes early, cost 22 of 23 | done with a note: no road lines (D12); median of caught = 153 min (D13) |
 | F11a | 11 | `F11a_village_card.png` | One real village card (삼의리 Samui-ri), exported at 300 dpi as printed | done |
-| F13 | backup | none | Learned kernels | not done: no saved kernel matrices; rebuild from the vector PDF not finished (D24) |
+| F13 | backup | `F13_kernels.{svg,pdf,png}`, `F13_kernels_nocaption.*`, `F13_kernels_notext.{png,svg}` | Four mean effective kernels and their embedded sum (h⁻¹) | done with a note: rebuilt from the preprint's vector PDF, calibrated to its table (D24) |
 | F14 | backup | `F14_reliability.{svg,pdf,png}`, `F14_reliability_nocaption.*`, `F14_reliability_notext.{png,svg}` | Reliability of the reported model, low-probability region enlarged | done |
 
 ## Rebuild

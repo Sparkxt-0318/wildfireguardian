@@ -1,0 +1,167 @@
+{
+ "code": "F13",
+ "title": "Learned kernels (rebuilt from the vector PDF)",
+ "rows": [
+  {
+   "label": "3×3: sum used to scale the colour bar",
+   "value": 0.00279,
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": null,
+   "file": "figure/revision/named/kernel_matrix_summary_table.tex",
+   "field": "row 'mixed & $3\\times3$', column Sum",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:b3e2aca5feeacb11"
+  },
+  {
+   "label": "3×3: rebuilt min / max / mean against the table",
+   "value": [
+    0.0003208695652173913,
+    0.0003697826086956522,
+    0.00034875
+   ],
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": "8 cells",
+   "file": "figure/revision/named/kernel_matrix_overview.pdf",
+   "field": "decoded cell colours x vmax",
+   "expected": "table: 0.00032 / 0.000371 / 0.000349",
+   "note": "rebuilt vmax 0.00037; max differs from the table by -0.3%, min by +0.3%",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:1a4ffaf3d81e219a"
+  },
+  {
+   "label": "5×5: sum used to scale the colour bar",
+   "value": 0.00907,
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": null,
+   "file": "figure/revision/named/kernel_matrix_summary_table.tex",
+   "field": "row 'mixed & $5\\times5$', column Sum",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:b3e2aca5feeacb11"
+  },
+  {
+   "label": "5×5: rebuilt min / max / mean against the table",
+   "value": [
+    0.00020811301369863013,
+    0.0005870650684931507,
+    0.00037791666666666675
+   ],
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": "24 cells",
+   "file": "figure/revision/named/kernel_matrix_overview.pdf",
+   "field": "decoded cell colours x vmax",
+   "expected": "table: 0.000209 / 0.000589 / 0.000378",
+   "note": "rebuilt vmax 0.000587; max differs from the table by -0.3%, min by -0.4%",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:1a4ffaf3d81e219a"
+  },
+  {
+   "label": "7×7: sum used to scale the colour bar",
+   "value": 0.0108,
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": null,
+   "file": "figure/revision/named/kernel_matrix_summary_table.tex",
+   "field": "row 'mixed & $7\\times7$', column Sum",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:b3e2aca5feeacb11"
+  },
+  {
+   "label": "7×7: rebuilt min / max / mean against the table",
+   "value": [
+    0.00012912040990606318,
+    0.00043578138343296327,
+    0.00022500000000000002
+   ],
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": "48 cells",
+   "file": "figure/revision/named/kernel_matrix_overview.pdf",
+   "field": "decoded cell colours x vmax",
+   "expected": "table: 0.000131 / 0.000437 / 0.000225",
+   "note": "rebuilt vmax 0.000436; max differs from the table by -0.3%, min by -1.4%",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:1a4ffaf3d81e219a"
+  },
+  {
+   "label": "9×9: sum used to scale the colour bar",
+   "value": 0.0194,
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": null,
+   "file": "figure/revision/named/kernel_matrix_summary_table.tex",
+   "field": "row 'mixed & $9\\times9$', column Sum",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:b3e2aca5feeacb11"
+  },
+  {
+   "label": "9×9: rebuilt min / max / mean against the table",
+   "value": [
+    0.0001173781512605042,
+    0.00041082352941176475,
+    0.00024249999999999996
+   ],
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": "80 cells",
+   "file": "figure/revision/named/kernel_matrix_overview.pdf",
+   "field": "decoded cell colours x vmax",
+   "expected": "table: 0.000118 / 0.000413 / 0.000243",
+   "note": "rebuilt vmax 0.000411; max differs from the table by -0.5%, min by -0.5%",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:1a4ffaf3d81e219a"
+  },
+  {
+   "label": "Combined: sum used to scale the colour bar",
+   "value": 0.0428,
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": null,
+   "file": "figure/revision/named/kernel_matrix_summary_table.tex",
+   "field": "row 'mixed & Combined', column Sum",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:b3e2aca5feeacb11"
+  },
+  {
+   "label": "Combined: rebuilt min / max / mean against the table",
+   "value": [
+    0.00026583850931677014,
+    0.0016747826086956521,
+    0.000535
+   ],
+   "unit": "h⁻¹",
+   "shown": null,
+   "n": "80 cells",
+   "file": "figure/revision/named/kernel_matrix_overview.pdf",
+   "field": "decoded cell colours x vmax",
+   "expected": "table: 0.000257 / 0.00168 / 0.000534",
+   "note": "rebuilt vmax 0.00167; max differs from the table by -0.3%, min by +3.4%",
+   "repo": "/Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:1a4ffaf3d81e219a"
+  }
+ ],
+ "notes": []
+}

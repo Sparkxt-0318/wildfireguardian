@@ -21,7 +21,7 @@ fi
 git fetch -q origin "research/kcf-fastpath:refs/remotes/origin/research/kcf-fastpath" || true
 for s in F01_title_map F02_road_cut F03_comparison_grid F05_data_foundation F06_safety_distance F07_forward_backward \
          F08_backward_step_checker F09_speed F09b_speed_fastpath F10_camp_fire F11a_village_card F12_forecast_example \
-         F14_reliability F16_safety_zones; do
+         F13_kernels F14_reliability F16_safety_zones; do
   "$PY" "talk/figures/src/$s.py"
 done
 "$PY" talk/figures/src/build_pptx.py

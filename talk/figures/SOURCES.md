@@ -239,9 +239,20 @@ Not built (see README.md).
 
 - Cropped to 1749 x 2481 px at 300 dpi.
 
-## F13
+## F13: Learned kernels (rebuilt from the vector PDF)
 
-Not built (see README.md).
+| shown | value | n | file | field | repo / ref / commit | expected | note |
+|---|---|---|---|---|---|---|---|
+| **3×3: sum used to scale the colour bar** | 0.00279 h⁻¹ |  | `figure/revision/named/kernel_matrix_summary_table.tex` | row 'mixed & $3\times3$', column Sum | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:b3e2aca5feeacb11` |  |  |
+| **3×3: rebuilt min / max / mean against the table** | 0.00032087, 0.000369783, 0.00034875 h⁻¹ | 8 cells | `figure/revision/named/kernel_matrix_overview.pdf` | decoded cell colours x vmax | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:1a4ffaf3d81e219a` | table: 0.00032 / 0.000371 / 0.000349 | rebuilt vmax 0.00037; max differs from the table by -0.3%, min by +0.3% |
+| **5×5: sum used to scale the colour bar** | 0.00907 h⁻¹ |  | `figure/revision/named/kernel_matrix_summary_table.tex` | row 'mixed & $5\times5$', column Sum | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:b3e2aca5feeacb11` |  |  |
+| **5×5: rebuilt min / max / mean against the table** | 0.000208113, 0.000587065, 0.000377917 h⁻¹ | 24 cells | `figure/revision/named/kernel_matrix_overview.pdf` | decoded cell colours x vmax | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:1a4ffaf3d81e219a` | table: 0.000209 / 0.000589 / 0.000378 | rebuilt vmax 0.000587; max differs from the table by -0.3%, min by -0.4% |
+| **7×7: sum used to scale the colour bar** | 0.0108 h⁻¹ |  | `figure/revision/named/kernel_matrix_summary_table.tex` | row 'mixed & $7\times7$', column Sum | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:b3e2aca5feeacb11` |  |  |
+| **7×7: rebuilt min / max / mean against the table** | 0.00012912, 0.000435781, 0.000225 h⁻¹ | 48 cells | `figure/revision/named/kernel_matrix_overview.pdf` | decoded cell colours x vmax | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:1a4ffaf3d81e219a` | table: 0.000131 / 0.000437 / 0.000225 | rebuilt vmax 0.000436; max differs from the table by -0.3%, min by -1.4% |
+| **9×9: sum used to scale the colour bar** | 0.0194 h⁻¹ |  | `figure/revision/named/kernel_matrix_summary_table.tex` | row 'mixed & $9\times9$', column Sum | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:b3e2aca5feeacb11` |  |  |
+| **9×9: rebuilt min / max / mean against the table** | 0.000117378, 0.000410824, 0.0002425 h⁻¹ | 80 cells | `figure/revision/named/kernel_matrix_overview.pdf` | decoded cell colours x vmax | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:1a4ffaf3d81e219a` | table: 0.000118 / 0.000413 / 0.000243 | rebuilt vmax 0.000411; max differs from the table by -0.5%, min by -0.5% |
+| **Combined: sum used to scale the colour bar** | 0.0428 h⁻¹ |  | `figure/revision/named/kernel_matrix_summary_table.tex` | row 'mixed & Combined', column Sum | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:b3e2aca5feeacb11` |  |  |
+| **Combined: rebuilt min / max / mean against the table** | 0.000265839, 0.00167478, 0.000535 h⁻¹ | 80 cells | `figure/revision/named/kernel_matrix_overview.pdf` | decoded cell colours x vmax | /Users/jp/Desktop/Korea Code Fair/Forecast Research Paper Preprint / file on disk (read only) / `sha256:1a4ffaf3d81e219a` | table: 0.000257 / 0.00168 / 0.000534 | rebuilt vmax 0.00167; max differs from the table by -0.3%, min by +3.4% |
 
 ## F14: Reliability, reported model
 
