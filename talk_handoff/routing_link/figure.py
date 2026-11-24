@@ -11,7 +11,7 @@ INK, GREY, BLUE, RED = "#1A1A1A", "#6B6B6B", "#2F5D8A", "#8A362F"
 BLUE_TINT = "#C5D3E3"  # light tint of 2F5D8A (about 27 % strength on white)
 
 
-def make(graph, grid, fire_min, combined_min, stem, horizon_label=None):
+def make(graph, grid, fire_min, combined_min, stem, horizon_label=None, fire_label="Blocked by fire arrival"):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -47,8 +47,11 @@ def make(graph, grid, fire_min, combined_min, stem, horizon_label=None):
     ax.tick_params(colors=GREY, labelsize=7)
     ax.set_xlabel("x (km, EPSG:5070)", color=GREY, fontsize=8)
     ax.set_ylabel("y (km, EPSG:5070)", color=GREY, fontsize=8)
-    h = [Patch(facecolor=BLUE_TINT, edgecolor="none", label="Blocked by fire arrival"),
-         Patch(facecolor=RED, edgecolor="none", label="Blocked by exposure only (residents, visibility p ≥ 0.5*)"),
+    n_fire, n_add = int(np.sum(cls == 1)), int(np.sum(cls == 2))
+    add_txt = ("%d cells" % n_add) if n_add else "none"
+    h = [Patch(facecolor=BLUE_TINT, edgecolor="none", label="%s: %d cells" % (fire_label, n_fire)),
+         Patch(facecolor=RED, edgecolor="none",
+               label="Added by exposure (residents, visibility p ≥ 0.5*): %s" % add_txt),
          Line2D([0], [0], color=INK, lw=0.8, label="Road (OpenStreetMap)")]
     leg = ax.legend(handles=h, loc="upper left", bbox_to_anchor=(0.0, -0.07), ncol=1, fontsize=7, frameon=False)
     for t in leg.get_texts():

@@ -1,0 +1,96 @@
+{
+ "hours": 6,
+ "samples": 1024,
+ "seed": 20261122,
+ "ignition_timing": "uniform_within_step",
+ "weather": "cutoff weather held for later hours (no environmental_forecast)",
+ "hour_0": {
+  "radiant_integral_max_abs_diff_j_m2": 0.0,
+  "co_mean_max_abs_diff_mg_m3": 0.0,
+  "max_binwise_radiant_kw_m2": 0.011046711494898965,
+  "max_binwise_co_ppm": 18.583372431080555,
+  "max_visibility_probability": 0.0546875,
+  "radiant_unresolved_cells": 0,
+  "co_unresolved_cells": 0
+ },
+ "hour_1": {
+  "radiant_integral_max_abs_diff_j_m2": 0.0,
+  "co_mean_max_abs_diff_mg_m3": 0.0,
+  "max_binwise_radiant_kw_m2": 0.01039016185946348,
+  "max_binwise_co_ppm": 19.899571581896875,
+  "max_visibility_probability": 0.0537109375,
+  "radiant_unresolved_cells": 0,
+  "co_unresolved_cells": 0
+ },
+ "hour_2": {
+  "radiant_integral_max_abs_diff_j_m2": 0.0,
+  "co_mean_max_abs_diff_mg_m3": 0.0,
+  "max_binwise_radiant_kw_m2": 0.012114585856342295,
+  "max_binwise_co_ppm": 25.853576752037156,
+  "max_visibility_probability": 0.078125,
+  "radiant_unresolved_cells": 0,
+  "co_unresolved_cells": 0
+ },
+ "hour_3": {
+  "radiant_integral_max_abs_diff_j_m2": 0.0,
+  "co_mean_max_abs_diff_mg_m3": 0.0,
+  "max_binwise_radiant_kw_m2": 0.012339216666230318,
+  "max_binwise_co_ppm": 28.853324009399664,
+  "max_visibility_probability": 0.09375,
+  "radiant_unresolved_cells": 0,
+  "co_unresolved_cells": 0
+ },
+ "hour_4": {
+  "radiant_integral_max_abs_diff_j_m2": 0.0,
+  "co_mean_max_abs_diff_mg_m3": 0.0,
+  "max_binwise_radiant_kw_m2": 0.013216305680768758,
+  "max_binwise_co_ppm": 29.678319807484964,
+  "max_visibility_probability": 0.1083984375,
+  "radiant_unresolved_cells": 0,
+  "co_unresolved_cells": 0
+ },
+ "hour_5": {
+  "radiant_integral_max_abs_diff_j_m2": 0.0,
+  "co_mean_max_abs_diff_mg_m3": 0.0,
+  "max_binwise_radiant_kw_m2": 0.013299616060386803,
+  "max_binwise_co_ppm": 29.645260439181506,
+  "max_visibility_probability": 0.103515625,
+  "radiant_unresolved_cells": 0,
+  "co_unresolved_cells": 0
+ },
+ "visibility_lower_bound_cell_hours": 0,
+ "hour0_vs_saved_example": {
+  "pm25_hour_mean_ug_m3": {
+   "saved_max": 4179.722279106538,
+   "this_max": 4184.3552786804075,
+   "max_abs_diff": 535.8107667473645,
+   "corr": 0.998150393574488
+  },
+  "co_hour_mean_mg_m3": {
+   "saved_max": 18.430645456541804,
+   "this_max": 18.45107484540535,
+   "max_abs_diff": 2.3626779875772987,
+   "corr": 0.9981503935550545
+  },
+  "thermal_known_contribution_j_m2": {
+   "saved_max": 37467.699359497165,
+   "this_max": 37381.13102096612,
+   "max_abs_diff": 1184.046053462378,
+   "corr": 0.999877635412606
+  },
+  "visibility_danger_probability": {
+   "saved_max": 0.0537109375,
+   "this_max": 0.0546875,
+   "max_abs_diff": 0.017578125,
+   "corr": 0.9587020761746905
+  }
+ },
+ "fire_arrival": {
+  "valid_cells": 7519,
+  "n_cells": 7519,
+  "burned_at_cutoff": 191,
+  "reached_earliest_member": 324,
+  "reached_half_of_paths": 0
+ },
+ "elapsed_s": 152.41591479201452
+}

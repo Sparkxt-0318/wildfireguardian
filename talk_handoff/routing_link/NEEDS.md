@@ -1,9 +1,10 @@
-# NEEDS (checked 24 Nov 2026)
+# NEEDS (checked 25 Nov 2026)
 
 | item | status | what unblocks it |
 |---|---|---|
-| `/Users/jp/wildfireguardian-keys/keys.env` | The folder does not exist on this machine. No key has been needed so far (OpenStreetMap through Overpass needs none). | Nothing yet. |
-| Exposure pipeline: `wildfire/exposure_calculations.py` and the next-hour / later-hour orchestrators that use it | **Not on this machine.** `/Users/jp/Desktop/wildfire/wildfire/` has `heat.py`, `heat_transfer.py`, `heat_timing.py`, `heat_duration.py` but no `exposure_calculations.py` and no CO, PM2.5 or visibility code. The repository's `forecast/` copy and all 40+ branches were searched: none has it. The data repository's last local commit is 11 Oct 2026; the session summary that describes the pipeline is dated 23 Nov 2026. | Copy (or pull, in that repository's own account) the version of `/Users/jp/Desktop/wildfire` that contains `wildfire/exposure_calculations.py`. |
-| Saved example `demonstration/flame_danger/physical_exposure/` (`report.json`, `activity_explanation.json`, the arrays it names) | **Not on this machine** (same search). Already listed in `talk/figures/NEEDS.md` for F15 and F17. | Same copy as above. |
-| Road layer on Fish Creek | Decided: a script in this folder (`route.py`) runs the road layer's own engine unchanged on a Fish Creek graph (`osm_graph.py`); `product/` is not changed. | Done (tested on synthetic inputs). |
-| The export from the pipeline | Per consecutive forecast hour h, `hour_HH.npz` with: `bin_edges_s`, `p_vis` (eq. 4), `pm25_ug_m3`, binwise `q_rad_kw_m2` (or accumulated `thermal_j_m2`), `thermal_resolved`, binwise `co_mg_m3` (or hourly `co_mean_mg_m3`); and one fire-arrival raster (minutes from 2024-08-23T00:00Z) on the same grid, from the same run. Whether the saved run keeps binwise flux and CO is not known from the session summary (its maintained outputs are hourly mean CO and accumulated energy). | Write the short export once the pipeline is here. |
+| `/Users/jp/wildfireguardian-keys/keys.env` | The folder does not exist on this machine. No key was needed (OpenStreetMap through Overpass and PyPI need none). | Nothing. |
+| Exposure pipeline and saved example | **Resolved 24 Nov 2026**: supplied by the user as `/Users/jp/Desktop/wildfire4.zip` (PROTOCOL.md Amendment 1). Unpacked read-only into a scratch folder; the saved example reruns bit for bit. | Done. |
+| The workspace's own Python environment (`.venv` inside the zip) | Cannot be loaded on this machine: macOS refuses its unsigned libraries after download. The pinned versions from `pyproject.toml` were installed fresh from PyPI instead. | Nothing; for the user's information. |
+| `/Users/jp/Desktop/wildfire` (local copy) | Older than the zip (last local commit 11 Oct 2026; no exposure code). Only its Fish Creek `grid.json` is read. | Nothing. |
+| Road layer on Fish Creek | A script in this folder (`route.py`) runs the road layer's own engine unchanged; `product/` is not changed. | Done. |
+| Export from the pipeline | `export_fishcreek.py`; binwise radiant and CO read from the pipeline's own weighted bins (Amendment 1 item 3). | Done; output in `export_6h/`. |

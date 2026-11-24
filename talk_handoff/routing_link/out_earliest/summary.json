@@ -1,0 +1,114 @@
+{
+ "n_hours": 6,
+ "hours_rule": "consecutive hours supported by the saved forecast",
+ "notes": [],
+ "n_cells": 7519,
+ "n_cell_hours": 45114,
+ "criterion_cell_hours": {
+  "radiant_residents": 0,
+  "radiant_responders": 0,
+  "co_10min": 0,
+  "co_30min": 0,
+  "co_60min": 0,
+  "vis_p10": 2,
+  "vis_p50": 0,
+  "vis_p90": 0,
+  "radiant_unresolved_not_blocked": 0
+ },
+ "fire_blocked_cell_hours": 2822,
+ "pm25_reported_not_used": {
+  "max_ug_m3": 7548.49725615758,
+  "cell_hours_above_0": 12477,
+  "n_cell_hours": 45114
+ },
+ "added_cell_hours": {
+  "residents_vis10": {
+   "exposure_blocked_not_fire": 0,
+   "n_cell_hours": 45114,
+   "cells_blocked_earlier_than_fire": 0,
+   "n_cells": 7519
+  },
+  "residents_vis50": {
+   "exposure_blocked_not_fire": 0,
+   "n_cell_hours": 45114,
+   "cells_blocked_earlier_than_fire": 0,
+   "n_cells": 7519
+  },
+  "residents_vis90": {
+   "exposure_blocked_not_fire": 0,
+   "n_cell_hours": 45114,
+   "cells_blocked_earlier_than_fire": 0,
+   "n_cells": 7519
+  },
+  "responders_vis10": {
+   "exposure_blocked_not_fire": 0,
+   "n_cell_hours": 45114,
+   "cells_blocked_earlier_than_fire": 0,
+   "n_cells": 7519
+  },
+  "responders_vis50": {
+   "exposure_blocked_not_fire": 0,
+   "n_cell_hours": 45114,
+   "cells_blocked_earlier_than_fire": 0,
+   "n_cells": 7519
+  },
+  "responders_vis90": {
+   "exposure_blocked_not_fire": 0,
+   "n_cell_hours": 45114,
+   "cells_blocked_earlier_than_fire": 0,
+   "n_cells": 7519
+  }
+ },
+ "routing": {
+  "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+  "exit_rule": "graph nodes whose OSM way continues outside the grid (map edge)",
+  "n_origins": 360,
+  "n_exits": 59,
+  "n_nodes": 12670,
+  "n_edges": 25436
+ },
+ "origins": {
+  "residents_vis10": {
+   "n_origins_routed": 350,
+   "n_changed": 0,
+   "earlier_by_min_median": 0.0,
+   "earlier_by_min_largest": 0.0,
+   "refused": 10
+  },
+  "residents_vis50": {
+   "n_origins_routed": 350,
+   "n_changed": 0,
+   "earlier_by_min_median": 0.0,
+   "earlier_by_min_largest": 0.0,
+   "refused": 10
+  },
+  "residents_vis90": {
+   "n_origins_routed": 350,
+   "n_changed": 0,
+   "earlier_by_min_median": 0.0,
+   "earlier_by_min_largest": 0.0,
+   "refused": 10
+  },
+  "responders_vis10": {
+   "n_origins_routed": 350,
+   "n_changed": 0,
+   "earlier_by_min_median": 0.0,
+   "earlier_by_min_largest": 0.0,
+   "refused": 10
+  },
+  "responders_vis50": {
+   "n_origins_routed": 350,
+   "n_changed": 0,
+   "earlier_by_min_median": 0.0,
+   "earlier_by_min_largest": 0.0,
+   "refused": 10
+  },
+  "responders_vis90": {
+   "n_origins_routed": 350,
+   "n_changed": 0,
+   "earlier_by_min_median": 0.0,
+   "earlier_by_min_largest": 0.0,
+   "refused": 10
+  }
+ }
+}

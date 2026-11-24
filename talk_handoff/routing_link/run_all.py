@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--snapshot", default=ISSUE)
     ap.add_argument("--out", default=str(HERE / "out"))
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--fire-label", default="Blocked by fire arrival")
     a = ap.parse_args()
     out = Path(a.out)
     (out / "rasters").mkdir(parents=True, exist_ok=True)
@@ -136,7 +137,8 @@ def main():
             "refused": sum(1 for r in rows if r["refusal"])}
     (out / "summary.json").write_text(json.dumps(summary, indent=1))
     import figure
-    figure.make(graph, grid, fire_cut, raster["residents_vis50"][1], out / "fig_blocked_cells")
+    figure.make(graph, grid, fire_cut, raster["residents_vis50"][1], out / "fig_blocked_cells",
+                horizon_label="6 h from 2024-08-23T00:00Z", fire_label=a.fire_label)
     print(json.dumps(summary, indent=1))
     return 0
 

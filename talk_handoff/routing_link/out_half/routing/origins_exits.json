@@ -1,0 +1,5015 @@
+{
+ "origins": [
+  {
+   "id": "junction:osm:156962757",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.970952,
+    43.5025794
+   ],
+   "entry_node_id": "osm:156962757",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:156962759",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9718835,
+    43.504005
+   ],
+   "entry_node_id": "osm:156962759",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:156962803",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9740806,
+    43.5169083
+   ],
+   "entry_node_id": "osm:156962803",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:156967833",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.974383,
+    43.7193906
+   ],
+   "entry_node_id": "osm:156967833",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:156967896",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9708152,
+    43.707054
+   ],
+   "entry_node_id": "osm:156967896",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:156967902",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9724563,
+    43.7088595
+   ],
+   "entry_node_id": "osm:156967902",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:156994348",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9785286,
+    43.5520126
+   ],
+   "entry_node_id": "osm:156994348",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157017313",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0498187,
+    43.7049311
+   ],
+   "entry_node_id": "osm:157017313",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157036002",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9780196,
+    43.5019725
+   ],
+   "entry_node_id": "osm:157036002",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157036277",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9611387,
+    43.6139686
+   ],
+   "entry_node_id": "osm:157036277",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157036305",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9519902,
+    43.6115081
+   ],
+   "entry_node_id": "osm:157036305",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157039246",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9385343,
+    43.5629299
+   ],
+   "entry_node_id": "osm:157039246",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157039253",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9344937,
+    43.5648115
+   ],
+   "entry_node_id": "osm:157039253",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157039319",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.92011,
+    43.5811659
+   ],
+   "entry_node_id": "osm:157039319",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157039529",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9303,
+    43.558853
+   ],
+   "entry_node_id": "osm:157039529",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157039546",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.939546,
+    43.562466
+   ],
+   "entry_node_id": "osm:157039546",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157052084",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.006163,
+    43.6307316
+   ],
+   "entry_node_id": "osm:157052084",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157061953",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9598456,
+    43.5970276
+   ],
+   "entry_node_id": "osm:157061953",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157073716",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0049756,
+    43.7477678
+   ],
+   "entry_node_id": "osm:157073716",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157087836",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.907989,
+    43.524282
+   ],
+   "entry_node_id": "osm:157087836",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157088122",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9920342,
+    43.515087
+   ],
+   "entry_node_id": "osm:157088122",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157110242",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.940394,
+    43.6846335
+   ],
+   "entry_node_id": "osm:157110242",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157133341",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9671909,
+    43.4994669
+   ],
+   "entry_node_id": "osm:157133341",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157133545",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8842061,
+    43.486637
+   ],
+   "entry_node_id": "osm:157133545",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157150196",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9283682,
+    43.6723578
+   ],
+   "entry_node_id": "osm:157150196",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157150345",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9824091,
+    43.7137293
+   ],
+   "entry_node_id": "osm:157150345",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157170344",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8865266,
+    43.4692337
+   ],
+   "entry_node_id": "osm:157170344",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157170548",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9269638,
+    43.6177919
+   ],
+   "entry_node_id": "osm:157170548",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157198362",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9907379,
+    43.7497354
+   ],
+   "entry_node_id": "osm:157198362",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157209427",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9205631,
+    43.6303592
+   ],
+   "entry_node_id": "osm:157209427",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157227986",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0022248,
+    43.4663287
+   ],
+   "entry_node_id": "osm:157227986",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157233732",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.995565,
+    43.522515
+   ],
+   "entry_node_id": "osm:157233732",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157233743",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.993328,
+    43.524358
+   ],
+   "entry_node_id": "osm:157233743",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157233897",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.996367,
+    43.528189
+   ],
+   "entry_node_id": "osm:157233897",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157233911",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.991632,
+    43.529382
+   ],
+   "entry_node_id": "osm:157233911",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157242373",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9525639,
+    43.599751
+   ],
+   "entry_node_id": "osm:157242373",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157245067",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9654067,
+    43.7060819
+   ],
+   "entry_node_id": "osm:157245067",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157245084",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9348717,
+    43.6715923
+   ],
+   "entry_node_id": "osm:157245084",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157249653",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.963525,
+    43.694599
+   ],
+   "entry_node_id": "osm:157249653",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157272011",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9861123,
+    43.7171812
+   ],
+   "entry_node_id": "osm:157272011",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157275017",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9747495,
+    43.718823
+   ],
+   "entry_node_id": "osm:157275017",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157275019",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9748544,
+    43.7179127
+   ],
+   "entry_node_id": "osm:157275019",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157281509",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0051513,
+    43.7448151
+   ],
+   "entry_node_id": "osm:157281509",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157281515",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0049133,
+    43.7488704
+   ],
+   "entry_node_id": "osm:157281515",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157281617",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9790235,
+    43.7257114
+   ],
+   "entry_node_id": "osm:157281617",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157281716",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9516844,
+    43.6745887
+   ],
+   "entry_node_id": "osm:157281716",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157282333",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9597786,
+    43.6855284
+   ],
+   "entry_node_id": "osm:157282333",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157283677",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.01208,
+    43.7182332
+   ],
+   "entry_node_id": "osm:157283677",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157283726",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0410942,
+    43.7088739
+   ],
+   "entry_node_id": "osm:157283726",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157283895",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9527919,
+    43.6786426
+   ],
+   "entry_node_id": "osm:157283895",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157283903",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9554019,
+    43.6806528
+   ],
+   "entry_node_id": "osm:157283903",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157283915",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9584957,
+    43.6826977
+   ],
+   "entry_node_id": "osm:157283915",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157283916",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9592099,
+    43.6847073
+   ],
+   "entry_node_id": "osm:157283916",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157292713",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9356327,
+    43.640045
+   ],
+   "entry_node_id": "osm:157292713",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157300421",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9162448,
+    43.6416583
+   ],
+   "entry_node_id": "osm:157300421",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157300697",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9201342,
+    43.6397892
+   ],
+   "entry_node_id": "osm:157300697",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157310361",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.955891,
+    43.6836041
+   ],
+   "entry_node_id": "osm:157310361",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157319613",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9370259,
+    43.6525266
+   ],
+   "entry_node_id": "osm:157319613",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157324202",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8870709,
+    43.4862404
+   ],
+   "entry_node_id": "osm:157324202",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157329603",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9728044,
+    43.7203455
+   ],
+   "entry_node_id": "osm:157329603",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157332153",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9414681,
+    43.6455543
+   ],
+   "entry_node_id": "osm:157332153",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157341702",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9322243,
+    43.4700403
+   ],
+   "entry_node_id": "osm:157341702",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:157341716",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9365847,
+    43.4687891
+   ],
+   "entry_node_id": "osm:157341716",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158000449",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.958465,
+    43.4599334
+   ],
+   "entry_node_id": "osm:158000449",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158000517",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9854447,
+    43.4551503
+   ],
+   "entry_node_id": "osm:158000517",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158000534",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9979376,
+    43.4627121
+   ],
+   "entry_node_id": "osm:158000534",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158034916",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.956455,
+    43.4599305
+   ],
+   "entry_node_id": "osm:158034916",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158070337",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0532066,
+    43.4628858
+   ],
+   "entry_node_id": "osm:158070337",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158155081",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2172453,
+    43.5449439
+   ],
+   "entry_node_id": "osm:158155081",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158155086",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2250416,
+    43.5427983
+   ],
+   "entry_node_id": "osm:158155086",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158155099",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2241607,
+    43.5450232
+   ],
+   "entry_node_id": "osm:158155099",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158160589",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1118544,
+    43.7718964
+   ],
+   "entry_node_id": "osm:158160589",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158165998",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2219106,
+    43.5567083
+   ],
+   "entry_node_id": "osm:158165998",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158166000",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2228883,
+    43.5549005
+   ],
+   "entry_node_id": "osm:158166000",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158166010",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2225961,
+    43.5528488
+   ],
+   "entry_node_id": "osm:158166010",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158170747",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2264237,
+    43.5374558
+   ],
+   "entry_node_id": "osm:158170747",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158188399",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0611693,
+    43.748597
+   ],
+   "entry_node_id": "osm:158188399",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158188415",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0679982,
+    43.7521019
+   ],
+   "entry_node_id": "osm:158188415",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158188484",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0990582,
+    43.7688587
+   ],
+   "entry_node_id": "osm:158188484",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158194952",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2206074,
+    43.55732
+   ],
+   "entry_node_id": "osm:158194952",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158197591",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2422206,
+    43.5968975
+   ],
+   "entry_node_id": "osm:158197591",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158199752",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2211195,
+    43.4865485
+   ],
+   "entry_node_id": "osm:158199752",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158210336",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1015443,
+    43.7677788
+   ],
+   "entry_node_id": "osm:158210336",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158210372",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1253914,
+    43.7557745
+   ],
+   "entry_node_id": "osm:158210372",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158210457",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1035634,
+    43.750277
+   ],
+   "entry_node_id": "osm:158210457",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:158222737",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2304103,
+    43.5374213
+   ],
+   "entry_node_id": "osm:158222737",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1045718199",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.953605,
+    43.4968214
+   ],
+   "entry_node_id": "osm:1045718199",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1045718894",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8901086,
+    43.4840013
+   ],
+   "entry_node_id": "osm:1045718894",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1049814569",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1082562,
+    43.7484422
+   ],
+   "entry_node_id": "osm:1049814569",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1049815875",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0053581,
+    43.7504058
+   ],
+   "entry_node_id": "osm:1049815875",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391085426",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9855052,
+    43.7462431
+   ],
+   "entry_node_id": "osm:1391085426",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391085619",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9965972,
+    43.7508334
+   ],
+   "entry_node_id": "osm:1391085619",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391085620",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0054112,
+    43.7508142
+   ],
+   "entry_node_id": "osm:1391085620",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391174600",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9738246,
+    43.7128235
+   ],
+   "entry_node_id": "osm:1391174600",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391175272",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.99656,
+    43.7542835
+   ],
+   "entry_node_id": "osm:1391175272",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391175443",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9899432,
+    43.7644947
+   ],
+   "entry_node_id": "osm:1391175443",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391175452",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9880845,
+    43.7646301
+   ],
+   "entry_node_id": "osm:1391175452",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391175583",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9916028,
+    43.7670084
+   ],
+   "entry_node_id": "osm:1391175583",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:1391213780",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9798261,
+    43.7185404
+   ],
+   "entry_node_id": "osm:1391213780",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:2568833654",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.971953,
+    43.705845
+   ],
+   "entry_node_id": "osm:2568833654",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:2568833657",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9722307,
+    43.7062849
+   ],
+   "entry_node_id": "osm:2568833657",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:2568833660",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9710944,
+    43.7064753
+   ],
+   "entry_node_id": "osm:2568833660",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:2818695068",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9552661,
+    43.6654883
+   ],
+   "entry_node_id": "osm:2818695068",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3368430903",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9198736,
+    43.6387843
+   ],
+   "entry_node_id": "osm:3368430903",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3421165404",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9636145,
+    43.7035516
+   ],
+   "entry_node_id": "osm:3421165404",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3421167850",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9488028,
+    43.6720225
+   ],
+   "entry_node_id": "osm:3421167850",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3422950826",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9373156,
+    43.6528799
+   ],
+   "entry_node_id": "osm:3422950826",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3422950837",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9365545,
+    43.6557171
+   ],
+   "entry_node_id": "osm:3422950837",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438342532",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9969415,
+    43.4690998
+   ],
+   "entry_node_id": "osm:3438342532",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438348427",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0356579,
+    43.4650655
+   ],
+   "entry_node_id": "osm:3438348427",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438348455",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0419018,
+    43.4667609
+   ],
+   "entry_node_id": "osm:3438348455",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438473184",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.088355,
+    43.4688446
+   ],
+   "entry_node_id": "osm:3438473184",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438473296",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0933081,
+    43.4714858
+   ],
+   "entry_node_id": "osm:3438473296",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438473305",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0952048,
+    43.4745313
+   ],
+   "entry_node_id": "osm:3438473305",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438479401",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9776872,
+    43.5519786
+   ],
+   "entry_node_id": "osm:3438479401",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438479404",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9777772,
+    43.5523638
+   ],
+   "entry_node_id": "osm:3438479404",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438479427",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9759927,
+    43.557032
+   ],
+   "entry_node_id": "osm:3438479427",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438479446",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9762738,
+    43.5587125
+   ],
+   "entry_node_id": "osm:3438479446",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438479874",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.978964,
+    43.5558721
+   ],
+   "entry_node_id": "osm:3438479874",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438479893",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9765863,
+    43.5561337
+   ],
+   "entry_node_id": "osm:3438479893",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438481692",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.982939,
+    43.5905081
+   ],
+   "entry_node_id": "osm:3438481692",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438493342",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9395919,
+    43.5257897
+   ],
+   "entry_node_id": "osm:3438493342",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438503373",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9234083,
+    43.5841614
+   ],
+   "entry_node_id": "osm:3438503373",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438503384",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9284754,
+    43.5806998
+   ],
+   "entry_node_id": "osm:3438503384",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438505587",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9997554,
+    43.6168209
+   ],
+   "entry_node_id": "osm:3438505587",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438506095",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.002231,
+    43.6396066
+   ],
+   "entry_node_id": "osm:3438506095",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438510594",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9855504,
+    43.6791091
+   ],
+   "entry_node_id": "osm:3438510594",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438510597",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9857392,
+    43.6804005
+   ],
+   "entry_node_id": "osm:3438510597",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438510649",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9357473,
+    43.6483778
+   ],
+   "entry_node_id": "osm:3438510649",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438510653",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.936231,
+    43.6484478
+   ],
+   "entry_node_id": "osm:3438510653",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438719000",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2381901,
+    43.5591622
+   ],
+   "entry_node_id": "osm:3438719000",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3438719005",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2327626,
+    43.5557476
+   ],
+   "entry_node_id": "osm:3438719005",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3520874275",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9715918,
+    43.7051361
+   ],
+   "entry_node_id": "osm:3520874275",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3520875346",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0039553,
+    43.7508221
+   ],
+   "entry_node_id": "osm:3520875346",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3520875348",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0044426,
+    43.7488199
+   ],
+   "entry_node_id": "osm:3520875348",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3520875387",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0043099,
+    43.7506703
+   ],
+   "entry_node_id": "osm:3520875387",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3554819077",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9135513,
+    43.6206602
+   ],
+   "entry_node_id": "osm:3554819077",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3555809500",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9473342,
+    43.5952565
+   ],
+   "entry_node_id": "osm:3555809500",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3606423847",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9245013,
+    43.4732133
+   ],
+   "entry_node_id": "osm:3606423847",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3712862383",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9848833,
+    43.746063
+   ],
+   "entry_node_id": "osm:3712862383",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850025886",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8792675,
+    43.4653373
+   ],
+   "entry_node_id": "osm:3850025886",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850025905",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8795607,
+    43.4650905
+   ],
+   "entry_node_id": "osm:3850025905",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850025908",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8790505,
+    43.46495
+   ],
+   "entry_node_id": "osm:3850025908",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850026057",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.8797328,
+    43.4520717
+   ],
+   "entry_node_id": "osm:3850026057",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850050641",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9210957,
+    43.4722413
+   ],
+   "entry_node_id": "osm:3850050641",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850071056",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9217827,
+    43.6320039
+   ],
+   "entry_node_id": "osm:3850071056",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850071063",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9217452,
+    43.6325854
+   ],
+   "entry_node_id": "osm:3850071063",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850171482",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.951681,
+    43.4542462
+   ],
+   "entry_node_id": "osm:3850171482",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850184158",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9862317,
+    43.4483049
+   ],
+   "entry_node_id": "osm:3850184158",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850184173",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9864553,
+    43.4548929
+   ],
+   "entry_node_id": "osm:3850184173",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850268412",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.974211,
+    43.4595348
+   ],
+   "entry_node_id": "osm:3850268412",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:3850300164",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0964686,
+    43.4492722
+   ],
+   "entry_node_id": "osm:3850300164",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4427254498",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9845751,
+    43.6675113
+   ],
+   "entry_node_id": "osm:4427254498",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4427254543",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9749539,
+    43.6694096
+   ],
+   "entry_node_id": "osm:4427254543",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4427254578",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9964389,
+    43.6698297
+   ],
+   "entry_node_id": "osm:4427254578",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4550120974",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0895,
+    43.4771457
+   ],
+   "entry_node_id": "osm:4550120974",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4550120981",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0949318,
+    43.4750919
+   ],
+   "entry_node_id": "osm:4550120981",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4991485805",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9269575,
+    43.6473647
+   ],
+   "entry_node_id": "osm:4991485805",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4991485811",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9239058,
+    43.6457313
+   ],
+   "entry_node_id": "osm:4991485811",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4991485812",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9237744,
+    43.6457676
+   ],
+   "entry_node_id": "osm:4991485812",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4991485813",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.925686,
+    43.6465916
+   ],
+   "entry_node_id": "osm:4991485813",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:4991485814",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9255798,
+    43.6467129
+   ],
+   "entry_node_id": "osm:4991485814",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:7283756365",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0682449,
+    43.7532334
+   ],
+   "entry_node_id": "osm:7283756365",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8064344132",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0052674,
+    43.7514195
+   ],
+   "entry_node_id": "osm:8064344132",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8321481302",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.112657,
+    43.7736911
+   ],
+   "entry_node_id": "osm:8321481302",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8321499318",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1086444,
+    43.7733095
+   ],
+   "entry_node_id": "osm:8321499318",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8321499363",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1189938,
+    43.7754345
+   ],
+   "entry_node_id": "osm:8321499363",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8321899602",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0059639,
+    43.7473366
+   ],
+   "entry_node_id": "osm:8321899602",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8342506874",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9941918,
+    43.7290992
+   ],
+   "entry_node_id": "osm:8342506874",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8342506906",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.992679,
+    43.7231351
+   ],
+   "entry_node_id": "osm:8342506906",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8342511123",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9931191,
+    43.7207949
+   ],
+   "entry_node_id": "osm:8342511123",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8358651109",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1018074,
+    43.7668016
+   ],
+   "entry_node_id": "osm:8358651109",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8358666953",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9939014,
+    43.7656144
+   ],
+   "entry_node_id": "osm:8358666953",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8358681513",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.129622,
+    43.7616201
+   ],
+   "entry_node_id": "osm:8358681513",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8358685895",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9966061,
+    43.7617492
+   ],
+   "entry_node_id": "osm:8358685895",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367334667",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0037998,
+    43.7425755
+   ],
+   "entry_node_id": "osm:8367334667",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367334689",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0045314,
+    43.7433459
+   ],
+   "entry_node_id": "osm:8367334689",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367364922",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0031115,
+    43.7381786
+   ],
+   "entry_node_id": "osm:8367364922",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367364960",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9953926,
+    43.7315701
+   ],
+   "entry_node_id": "osm:8367364960",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367415834",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9948899,
+    43.7297751
+   ],
+   "entry_node_id": "osm:8367415834",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367696107",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0388892,
+    43.7122205
+   ],
+   "entry_node_id": "osm:8367696107",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367696141",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0407712,
+    43.7077906
+   ],
+   "entry_node_id": "osm:8367696141",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8367717332",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0358829,
+    43.7039443
+   ],
+   "entry_node_id": "osm:8367717332",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8710689749",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.994206,
+    43.7496843
+   ],
+   "entry_node_id": "osm:8710689749",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8710701858",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9810366,
+    43.7238975
+   ],
+   "entry_node_id": "osm:8710701858",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8710701878",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9737026,
+    43.7222429
+   ],
+   "entry_node_id": "osm:8710701878",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8710735509",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9858141,
+    43.7448221
+   ],
+   "entry_node_id": "osm:8710735509",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8710757647",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9664599,
+    43.7109303
+   ],
+   "entry_node_id": "osm:8710757647",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8710792429",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9684657,
+    43.7138213
+   ],
+   "entry_node_id": "osm:8710792429",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8711694127",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9204914,
+    43.6469062
+   ],
+   "entry_node_id": "osm:8711694127",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8711694150",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9245,
+    43.6488509
+   ],
+   "entry_node_id": "osm:8711694150",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8711694171",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9237164,
+    43.6457374
+   ],
+   "entry_node_id": "osm:8711694171",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8711952808",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9195922,
+    43.6422751
+   ],
+   "entry_node_id": "osm:8711952808",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8711952816",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9193957,
+    43.6423707
+   ],
+   "entry_node_id": "osm:8711952816",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8711957317",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9199429,
+    43.6426342
+   ],
+   "entry_node_id": "osm:8711957317",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713077455",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9395503,
+    43.4574817
+   ],
+   "entry_node_id": "osm:8713077455",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713077505",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9432777,
+    43.4601925
+   ],
+   "entry_node_id": "osm:8713077505",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713094816",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9868348,
+    43.4555713
+   ],
+   "entry_node_id": "osm:8713094816",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101039",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.968051,
+    43.4906696
+   ],
+   "entry_node_id": "osm:8713101039",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101051",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9672973,
+    43.4918916
+   ],
+   "entry_node_id": "osm:8713101051",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101052",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.967113,
+    43.4919527
+   ],
+   "entry_node_id": "osm:8713101052",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101053",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9605987,
+    43.482732
+   ],
+   "entry_node_id": "osm:8713101053",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101080",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9633581,
+    43.4793012
+   ],
+   "entry_node_id": "osm:8713101080",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101095",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9732518,
+    43.4838838
+   ],
+   "entry_node_id": "osm:8713101095",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101223",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9514687,
+    43.4719185
+   ],
+   "entry_node_id": "osm:8713101223",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101224",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9592614,
+    43.4733038
+   ],
+   "entry_node_id": "osm:8713101224",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101253",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.953534,
+    43.4737237
+   ],
+   "entry_node_id": "osm:8713101253",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101254",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.953382,
+    43.4701387
+   ],
+   "entry_node_id": "osm:8713101254",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8713101308",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9379602,
+    43.4579392
+   ],
+   "entry_node_id": "osm:8713101308",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714758120",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0306291,
+    43.463071
+   ],
+   "entry_node_id": "osm:8714758120",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714763017",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0373532,
+    43.4663442
+   ],
+   "entry_node_id": "osm:8714763017",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714763020",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.037626,
+    43.466234
+   ],
+   "entry_node_id": "osm:8714763020",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714763021",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0311271,
+    43.4696856
+   ],
+   "entry_node_id": "osm:8714763021",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714763042",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0373946,
+    43.4660517
+   ],
+   "entry_node_id": "osm:8714763042",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714763112",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0393018,
+    43.4724073
+   ],
+   "entry_node_id": "osm:8714763112",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8714808358",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0635493,
+    43.4527155
+   ],
+   "entry_node_id": "osm:8714808358",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8811637498",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9839377,
+    43.6587171
+   ],
+   "entry_node_id": "osm:8811637498",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8811649983",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9632579,
+    43.639775
+   ],
+   "entry_node_id": "osm:8811649983",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8811755697",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9830928,
+    43.690457
+   ],
+   "entry_node_id": "osm:8811755697",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8811755736",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9832058,
+    43.6875534
+   ],
+   "entry_node_id": "osm:8811755736",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8811755790",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9869916,
+    43.6893012
+   ],
+   "entry_node_id": "osm:8811755790",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8811846691",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9224079,
+    43.6771819
+   ],
+   "entry_node_id": "osm:8811846691",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818295961",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9694214,
+    43.7088402
+   ],
+   "entry_node_id": "osm:8818295961",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818326909",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9813179,
+    43.672456
+   ],
+   "entry_node_id": "osm:8818326909",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818338799",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9449648,
+    43.6823545
+   ],
+   "entry_node_id": "osm:8818338799",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818373483",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9307226,
+    43.6762393
+   ],
+   "entry_node_id": "osm:8818373483",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818387702",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.928129,
+    43.6617636
+   ],
+   "entry_node_id": "osm:8818387702",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818401516",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9366791,
+    43.6725217
+   ],
+   "entry_node_id": "osm:8818401516",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8818410352",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.930474,
+    43.6757038
+   ],
+   "entry_node_id": "osm:8818410352",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8825880325",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9587749,
+    43.5438854
+   ],
+   "entry_node_id": "osm:8825880325",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8825974329",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9218326,
+    43.5822836
+   ],
+   "entry_node_id": "osm:8825974329",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8825974394",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9139966,
+    43.6019987
+   ],
+   "entry_node_id": "osm:8825974394",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828106063",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9551293,
+    43.6405797
+   ],
+   "entry_node_id": "osm:8828106063",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828106069",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9541123,
+    43.6402543
+   ],
+   "entry_node_id": "osm:8828106069",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828106070",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.955546,
+    43.639446
+   ],
+   "entry_node_id": "osm:8828106070",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828106083",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9549786,
+    43.6423789
+   ],
+   "entry_node_id": "osm:8828106083",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828124492",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9215253,
+    43.6339818
+   ],
+   "entry_node_id": "osm:8828124492",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828130342",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9369308,
+    43.6391789
+   ],
+   "entry_node_id": "osm:8828130342",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828137548",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9515021,
+    43.6406504
+   ],
+   "entry_node_id": "osm:8828137548",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828174580",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9843705,
+    43.6306805
+   ],
+   "entry_node_id": "osm:8828174580",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8828204256",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9540992,
+    43.6105343
+   ],
+   "entry_node_id": "osm:8828204256",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833518177",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.936511,
+    43.6486
+   ],
+   "entry_node_id": "osm:8833518177",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833587346",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9469944,
+    43.6703852
+   ],
+   "entry_node_id": "osm:8833587346",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833587352",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9458048,
+    43.6705718
+   ],
+   "entry_node_id": "osm:8833587352",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833587368",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9484044,
+    43.6720289
+   ],
+   "entry_node_id": "osm:8833587368",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833590473",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9462855,
+    43.6699628
+   ],
+   "entry_node_id": "osm:8833590473",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833590479",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9465092,
+    43.6698253
+   ],
+   "entry_node_id": "osm:8833590479",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833590485",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9458638,
+    43.6702323
+   ],
+   "entry_node_id": "osm:8833590485",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833625341",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9417499,
+    43.6639222
+   ],
+   "entry_node_id": "osm:8833625341",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833625352",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9425057,
+    43.6644568
+   ],
+   "entry_node_id": "osm:8833625352",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833625367",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9422214,
+    43.6636239
+   ],
+   "entry_node_id": "osm:8833625367",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833625412",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9367344,
+    43.655695
+   ],
+   "entry_node_id": "osm:8833625412",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833627078",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.924823,
+    43.6680232
+   ],
+   "entry_node_id": "osm:8833627078",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833646752",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.928137,
+    43.6510917
+   ],
+   "entry_node_id": "osm:8833646752",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833646762",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9295833,
+    43.6517212
+   ],
+   "entry_node_id": "osm:8833646762",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833646763",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9309989,
+    43.6534817
+   ],
+   "entry_node_id": "osm:8833646763",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833646765",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9302802,
+    43.6528372
+   ],
+   "entry_node_id": "osm:8833646765",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833650776",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9217381,
+    43.6518613
+   ],
+   "entry_node_id": "osm:8833650776",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833682523",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9303016,
+    43.6665911
+   ],
+   "entry_node_id": "osm:8833682523",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833682539",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9342861,
+    43.6665164
+   ],
+   "entry_node_id": "osm:8833682539",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8833682545",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9361263,
+    43.669715
+   ],
+   "entry_node_id": "osm:8833682545",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8842721191",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9693841,
+    43.6199104
+   ],
+   "entry_node_id": "osm:8842721191",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8842729506",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9086174,
+    43.6072233
+   ],
+   "entry_node_id": "osm:8842729506",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8842850822",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9561294,
+    43.5977327
+   ],
+   "entry_node_id": "osm:8842850822",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8846779436",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9529026,
+    43.5404086
+   ],
+   "entry_node_id": "osm:8846779436",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8959932997",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2418446,
+    43.5867388
+   ],
+   "entry_node_id": "osm:8959932997",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8959933003",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2349752,
+    43.5863162
+   ],
+   "entry_node_id": "osm:8959933003",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8959996897",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2393457,
+    43.586919
+   ],
+   "entry_node_id": "osm:8959996897",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8959996909",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2446994,
+    43.5868374
+   ],
+   "entry_node_id": "osm:8959996909",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960011025",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2381843,
+    43.5874902
+   ],
+   "entry_node_id": "osm:8960011025",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960011034",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2423222,
+    43.5874439
+   ],
+   "entry_node_id": "osm:8960011034",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960011035",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2426877,
+    43.587972
+   ],
+   "entry_node_id": "osm:8960011035",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960011049",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2447557,
+    43.5868388
+   ],
+   "entry_node_id": "osm:8960011049",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960045955",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2419975,
+    43.5867437
+   ],
+   "entry_node_id": "osm:8960045955",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960871245",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.215772,
+    43.5793838
+   ],
+   "entry_node_id": "osm:8960871245",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960871247",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2157902,
+    43.5798906
+   ],
+   "entry_node_id": "osm:8960871247",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960874565",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2165622,
+    43.5682221
+   ],
+   "entry_node_id": "osm:8960874565",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960884094",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1954956,
+    43.5695012
+   ],
+   "entry_node_id": "osm:8960884094",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960886417",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2139184,
+    43.5719751
+   ],
+   "entry_node_id": "osm:8960886417",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960886418",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2137997,
+    43.5719615
+   ],
+   "entry_node_id": "osm:8960886418",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960886420",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2136448,
+    43.5717905
+   ],
+   "entry_node_id": "osm:8960886420",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960886425",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2140979,
+    43.5712723
+   ],
+   "entry_node_id": "osm:8960886425",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960887889",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2066241,
+    43.5691563
+   ],
+   "entry_node_id": "osm:8960887889",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960900542",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1953627,
+    43.5695401
+   ],
+   "entry_node_id": "osm:8960900542",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8960900543",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1955238,
+    43.5695984
+   ],
+   "entry_node_id": "osm:8960900543",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8963963686",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2223003,
+    43.5438608
+   ],
+   "entry_node_id": "osm:8963963686",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8963978048",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2128803,
+    43.5387007
+   ],
+   "entry_node_id": "osm:8963978048",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8964008074",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2315808,
+    43.5556823
+   ],
+   "entry_node_id": "osm:8964008074",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8964008076",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2284747,
+    43.5554005
+   ],
+   "entry_node_id": "osm:8964008076",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8964008079",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2263397,
+    43.5557212
+   ],
+   "entry_node_id": "osm:8964008079",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8964026948",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2277835,
+    43.5640911
+   ],
+   "entry_node_id": "osm:8964026948",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8964026981",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2344855,
+    43.560736
+   ],
+   "entry_node_id": "osm:8964026981",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8964026988",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2373472,
+    43.559324
+   ],
+   "entry_node_id": "osm:8964026988",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8967836986",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.211381,
+    43.5329782
+   ],
+   "entry_node_id": "osm:8967836986",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969079601",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1326153,
+    43.4636154
+   ],
+   "entry_node_id": "osm:8969079601",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969111509",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1307314,
+    43.4547229
+   ],
+   "entry_node_id": "osm:8969111509",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969134084",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1335515,
+    43.4584103
+   ],
+   "entry_node_id": "osm:8969134084",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969135038",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1383525,
+    43.461801
+   ],
+   "entry_node_id": "osm:8969135038",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969135042",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1355845,
+    43.4612228
+   ],
+   "entry_node_id": "osm:8969135042",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969135052",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1315944,
+    43.4591723
+   ],
+   "entry_node_id": "osm:8969135052",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969135075",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1284823,
+    43.4571927
+   ],
+   "entry_node_id": "osm:8969135075",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969143659",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1204219,
+    43.4384676
+   ],
+   "entry_node_id": "osm:8969143659",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969145202",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1186758,
+    43.4303164
+   ],
+   "entry_node_id": "osm:8969145202",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969151022",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1257044,
+    43.4540721
+   ],
+   "entry_node_id": "osm:8969151022",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969151117",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1050851,
+    43.4489992
+   ],
+   "entry_node_id": "osm:8969151117",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969176037",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1045606,
+    43.429473
+   ],
+   "entry_node_id": "osm:8969176037",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969176038",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1047695,
+    43.4296717
+   ],
+   "entry_node_id": "osm:8969176038",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969176040",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1048785,
+    43.4293911
+   ],
+   "entry_node_id": "osm:8969176040",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969176043",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1055943,
+    43.4286381
+   ],
+   "entry_node_id": "osm:8969176043",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969176044",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1032805,
+    43.4283701
+   ],
+   "entry_node_id": "osm:8969176044",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969178844",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1205936,
+    43.432718
+   ],
+   "entry_node_id": "osm:8969178844",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969178867",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.115422,
+    43.4385545
+   ],
+   "entry_node_id": "osm:8969178867",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969179083",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1165676,
+    43.4329109
+   ],
+   "entry_node_id": "osm:8969179083",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969179096",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1138572,
+    43.4372779
+   ],
+   "entry_node_id": "osm:8969179096",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969179097",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1203291,
+    43.4384316
+   ],
+   "entry_node_id": "osm:8969179097",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969184219",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1192108,
+    43.4309948
+   ],
+   "entry_node_id": "osm:8969184219",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969188728",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1185978,
+    43.4318873
+   ],
+   "entry_node_id": "osm:8969188728",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969188730",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1197117,
+    43.4317702
+   ],
+   "entry_node_id": "osm:8969188730",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969188733",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1217048,
+    43.4319433
+   ],
+   "entry_node_id": "osm:8969188733",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969216847",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0953287,
+    43.4419144
+   ],
+   "entry_node_id": "osm:8969216847",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969216851",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0966819,
+    43.4424201
+   ],
+   "entry_node_id": "osm:8969216851",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969216878",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0950943,
+    43.4434494
+   ],
+   "entry_node_id": "osm:8969216878",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969216916",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.1021427,
+    43.4301566
+   ],
+   "entry_node_id": "osm:8969216916",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8969249027",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0995866,
+    43.4281625
+   ],
+   "entry_node_id": "osm:8969249027",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8975201465",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2274392,
+    43.6025267
+   ],
+   "entry_node_id": "osm:8975201465",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:8975224624",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2289151,
+    43.6037689
+   ],
+   "entry_node_id": "osm:8975224624",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567397079",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0069323,
+    43.7470876
+   ],
+   "entry_node_id": "osm:9567397079",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434920",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0059091,
+    43.7467727
+   ],
+   "entry_node_id": "osm:9567434920",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434931",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0065045,
+    43.7455423
+   ],
+   "entry_node_id": "osm:9567434931",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434932",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0066064,
+    43.7458087
+   ],
+   "entry_node_id": "osm:9567434932",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434933",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0062671,
+    43.7458426
+   ],
+   "entry_node_id": "osm:9567434933",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434946",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.007399,
+    43.747229
+   ],
+   "entry_node_id": "osm:9567434946",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434947",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0075519,
+    43.7469597
+   ],
+   "entry_node_id": "osm:9567434947",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434951",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0081943,
+    43.7471031
+   ],
+   "entry_node_id": "osm:9567434951",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434952",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0076579,
+    43.746297
+   ],
+   "entry_node_id": "osm:9567434952",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434960",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0076284,
+    43.7466904
+   ],
+   "entry_node_id": "osm:9567434960",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434962",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0077558,
+    43.74661
+   ],
+   "entry_node_id": "osm:9567434962",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434977",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0080937,
+    43.7472707
+   ],
+   "entry_node_id": "osm:9567434977",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567434984",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0078335,
+    43.7472998
+   ],
+   "entry_node_id": "osm:9567434984",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:9567435006",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0082251,
+    43.748194
+   ],
+   "entry_node_id": "osm:9567435006",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10570138355",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0681321,
+    43.7548508
+   ],
+   "entry_node_id": "osm:10570138355",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10570138364",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0682256,
+    43.7534785
+   ],
+   "entry_node_id": "osm:10570138364",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577550732",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0361287,
+    43.715177
+   ],
+   "entry_node_id": "osm:10577550732",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577550851",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9589507,
+    43.6826061
+   ],
+   "entry_node_id": "osm:10577550851",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551070",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9515807,
+    43.674717
+   ],
+   "entry_node_id": "osm:10577551070",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551084",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9504076,
+    43.6731745
+   ],
+   "entry_node_id": "osm:10577551084",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551091",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.950262,
+    43.6715174
+   ],
+   "entry_node_id": "osm:10577551091",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551104",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9473118,
+    43.6707627
+   ],
+   "entry_node_id": "osm:10577551104",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551180",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9926649,
+    43.7293581
+   ],
+   "entry_node_id": "osm:10577551180",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551185",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9919071,
+    43.7251281
+   ],
+   "entry_node_id": "osm:10577551185",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551194",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9898197,
+    43.7269594
+   ],
+   "entry_node_id": "osm:10577551194",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10577551465",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -109.9921285,
+    43.7205541
+   ],
+   "entry_node_id": "osm:10577551465",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10600272421",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2180559,
+    43.4808207
+   ],
+   "entry_node_id": "osm:10600272421",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10613715232",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0955336,
+    43.4749767
+   ],
+   "entry_node_id": "osm:10613715232",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10613715847",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0130357,
+    43.4731292
+   ],
+   "entry_node_id": "osm:10613715847",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10613715916",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0228118,
+    43.4926395
+   ],
+   "entry_node_id": "osm:10613715916",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10613715932",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0182498,
+    43.4918284
+   ],
+   "entry_node_id": "osm:10613715932",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10657264448",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.2287621,
+    43.5554231
+   ],
+   "entry_node_id": "osm:10657264448",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10672674982",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0629169,
+    43.7498415
+   ],
+   "entry_node_id": "osm:10672674982",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  },
+  {
+   "id": "junction:osm:10672675023",
+   "name": "",
+   "category": "junction",
+   "lonlat": [
+    -110.0498078,
+    43.7048823
+   ],
+   "entry_node_id": "osm:10672675023",
+   "entry_distance_m": 0.0,
+   "checkable": true
+  }
+ ],
+ "exits": [
+  {
+   "id": "exit:osm:157150210",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9184733,
+    43.6647721
+   ],
+   "entry_node_id": "osm:157150210",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:157300247",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9001591,
+    43.5761169
+   ],
+   "entry_node_id": "osm:157300247",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:157341194",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.8797463,
+    43.4769504
+   ],
+   "entry_node_id": "osm:157341194",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158160598",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1127433,
+    43.7764464
+   ],
+   "entry_node_id": "osm:158160598",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158163089",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.239475,
+    43.563278
+   ],
+   "entry_node_id": "osm:158163089",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158164756",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2229726,
+    43.7641233
+   ],
+   "entry_node_id": "osm:158164756",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158167808",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.0694973,
+    43.4313711
+   ],
+   "entry_node_id": "osm:158167808",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158194934",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2385232,
+    43.5567715
+   ],
+   "entry_node_id": "osm:158194934",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158197550",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2482349,
+    43.5974829
+   ],
+   "entry_node_id": "osm:158197550",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158197691",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2483511,
+    43.5998542
+   ],
+   "entry_node_id": "osm:158197691",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158206744",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2380443,
+    43.7628521
+   ],
+   "entry_node_id": "osm:158206744",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158206875",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2664173,
+    43.7596562
+   ],
+   "entry_node_id": "osm:158206875",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158210352",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1387083,
+    43.7734379
+   ],
+   "entry_node_id": "osm:158210352",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:158231595",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.224786,
+    43.4882574
+   ],
+   "entry_node_id": "osm:158231595",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:1391086450",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1190355,
+    43.7754546
+   ],
+   "entry_node_id": "osm:1391086450",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3422950857",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9165434,
+    43.6516917
+   ],
+   "entry_node_id": "osm:3422950857",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3438493214",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.8964341,
+    43.5558659
+   ],
+   "entry_node_id": "osm:3438493214",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3438503938",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9091183,
+    43.6208032
+   ],
+   "entry_node_id": "osm:3438503938",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3438503941",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9093061,
+    43.6220497
+   ],
+   "entry_node_id": "osm:3438503941",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3438718995",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2409909,
+    43.5623736
+   ],
+   "entry_node_id": "osm:3438718995",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3554819078",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.907907,
+    43.6147758
+   ],
+   "entry_node_id": "osm:3554819078",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850026058",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.8792155,
+    43.4515708
+   ],
+   "entry_node_id": "osm:3850026058",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850050557",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.8800292,
+    43.4784634
+   ],
+   "entry_node_id": "osm:3850050557",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850095871",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9112959,
+    43.6315919
+   ],
+   "entry_node_id": "osm:3850095871",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850171519",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9416604,
+    43.445635
+   ],
+   "entry_node_id": "osm:3850171519",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850184038",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9871387,
+    43.4400135
+   ],
+   "entry_node_id": "osm:3850184038",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850287026",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.0969886,
+    43.4282891
+   ],
+   "entry_node_id": "osm:3850287026",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850287031",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1000431,
+    43.4278991
+   ],
+   "entry_node_id": "osm:3850287031",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:3850287036",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1025518,
+    43.4279375
+   ],
+   "entry_node_id": "osm:3850287036",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:4943779922",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9132669,
+    43.640334
+   ],
+   "entry_node_id": "osm:4943779922",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8321477688",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1064745,
+    43.7769796
+   ],
+   "entry_node_id": "osm:8321477688",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8358594250",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1448837,
+    43.772988
+   ],
+   "entry_node_id": "osm:8358594250",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8711682900",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9144564,
+    43.6464297
+   ],
+   "entry_node_id": "osm:8711682900",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8711954020",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9138878,
+    43.6438618
+   ],
+   "entry_node_id": "osm:8711954020",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8712956863",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.8822391,
+    43.4874043
+   ],
+   "entry_node_id": "osm:8712956863",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8811846681",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9207449,
+    43.6772265
+   ],
+   "entry_node_id": "osm:8811846681",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8811846727",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9193421,
+    43.6701474
+   ],
+   "entry_node_id": "osm:8811846727",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8825974381",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9070461,
+    43.6067874
+   ],
+   "entry_node_id": "osm:8825974381",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8833626392",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9166384,
+    43.6573917
+   ],
+   "entry_node_id": "osm:8833626392",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8833648846",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.9167618,
+    43.657741
+   ],
+   "entry_node_id": "osm:8833648846",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8842729500",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -109.906446,
+    43.607752
+   ],
+   "entry_node_id": "osm:8842729500",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8959996912",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2462417,
+    43.586952
+   ],
+   "entry_node_id": "osm:8959996912",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8960795099",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2427065,
+    43.5710948
+   ],
+   "entry_node_id": "osm:8960795099",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8963992574",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.238533,
+    43.5515691
+   ],
+   "entry_node_id": "osm:8963992574",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8963992591",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2393698,
+    43.5538162
+   ],
+   "entry_node_id": "osm:8963992591",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8963992600",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2396944,
+    43.5561041
+   ],
+   "entry_node_id": "osm:8963992600",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8964003706",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2404213,
+    43.5587787
+   ],
+   "entry_node_id": "osm:8964003706",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8964335415",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.235494,
+    43.5367058
+   ],
+   "entry_node_id": "osm:8964335415",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8964350836",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2356386,
+    43.5366706
+   ],
+   "entry_node_id": "osm:8964350836",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8967875126",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2297005,
+    43.5088202
+   ],
+   "entry_node_id": "osm:8967875126",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8969145186",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.119856,
+    43.4259394
+   ],
+   "entry_node_id": "osm:8969145186",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8969176062",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1072952,
+    43.4270965
+   ],
+   "entry_node_id": "osm:8969176062",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8969176089",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1113346,
+    43.4269192
+   ],
+   "entry_node_id": "osm:8969176089",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:8969235135",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.1016277,
+    43.4278055
+   ],
+   "entry_node_id": "osm:8969235135",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:9005248501",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2780527,
+    43.7395691
+   ],
+   "entry_node_id": "osm:9005248501",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:9866300522",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2509356,
+    43.6101039
+   ],
+   "entry_node_id": "osm:9866300522",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:9866300540",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2506781,
+    43.6085444
+   ],
+   "entry_node_id": "osm:9866300540",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:9866300543",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2507451,
+    43.6083463
+   ],
+   "entry_node_id": "osm:9866300543",
+   "checkable": true
+  },
+  {
+   "id": "exit:osm:10657264706",
+   "name": "map edge",
+   "category": "map_edge_exit",
+   "lonlat": [
+    -110.2481066,
+    43.5958398
+   ],
+   "entry_node_id": "osm:10657264706",
+   "checkable": true
+  }
+ ],
+ "meta": {
+  "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+  "exit_rule": "graph nodes whose OSM way continues outside the grid (map edge)",
+  "n_places_in_osm": 0,
+  "osm_tagged_features": [
+   {
+    "osm": "node/2568833623",
+    "tags": {
+     "name": "Brooks Lake Creek Falls Campground",
+     "tourism": "camp_site"
+    }
+   },
+   {
+    "osm": "node/8075931996",
+    "tags": {
+     "name": "Jules Bowl",
+     "place": "locality"
+    }
+   },
+   {
+    "osm": "node/10677836052",
+    "tags": {
+     "tourism": "camp_site"
+    }
+   },
+   {
+    "osm": "node/11210953125",
+    "tags": {
+     "tourism": "camp_site"
+    }
+   },
+   {
+    "osm": "node/11210975076",
+    "tags": {
+     "tourism": "camp_site"
+    }
+   }
+  ],
+  "snapshot_utc": "2024-08-23T00:00:00Z"
+ }
+}

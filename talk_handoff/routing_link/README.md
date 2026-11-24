@@ -1,8 +1,8 @@
 # routing_link: exposure fields as road-blocking times (Fish Creek)
 
-**Status (24 Nov 2026): protocol frozen, code written and tested on synthetic inputs, no result yet.** The exposure
-pipeline and its saved example are not on this machine (NEEDS.md), so there is no RESULTS.md and no figure from real
-data. Nothing in this folder is a Fish Creek number.
+**Status (25 Nov 2026): done. Results in `RESULTS.md`, figure `fig_blocked_cells.{png,svg,pdf}`.** At the protocol's
+settings exposure blocks no cell and no road on Fish Creek in hours 0–5 and changes no last safe departure (0 of 350
+origins, residents and responders). The pipeline came from the user's `wildfire4.zip` (PROTOCOL.md Amendment 1).
 
 | file | what |
 |---|---|
@@ -14,6 +14,9 @@ data. Nothing in this folder is a Fish Creek number.
 | `route.py` | the road layer's own raster rules, instance, backward passes and per-origin assembly (`product/wfg-roadlayer`, unchanged) on that graph |
 | `run_all.py` | end to end: rasters, the two road-layer runs per audience and visibility level, the counts, the figure |
 | `figure.py` | the one figure (five colours, transparent, no title) |
+| `export_fishcreek.py` | runs the pipeline for hours 0–5 with the saved example's settings and exports what `run_all.py` reads |
+| `RESULTS.md`, `fig_blocked_cells.*` | the results and the figure |
+| `export_6h/`, `out_earliest/`, `out_half/` | exported exposure and fire arrival; run outputs |
 | `tests/` | 13 synthetic tests (`python3 -m pytest -q tests`) |
 
 ## Fish Creek road network (built, 24 Nov 2026)
@@ -32,14 +35,14 @@ data. Nothing in this folder is a Fish Creek number.
   road in that check. The forecast arrival may differ; the run_all result is what counts.
 * Figure layout checked on the real roads with a dummy block (not committed).
 
-## When the pipeline is here
+## Reproduce
 
-1. From the saved run, write one `hour_HH.npz` per consecutive forecast hour with the keys in `blocking.HourFields`
-   (binwise radiant flux and CO if the run keeps them; otherwise accumulated thermal energy and hourly mean CO, and
-   the outputs then say which checks are lower bounds or not computable), and the fire-arrival raster in the road
-   layer's format on the same grid.
-2. `python3 run_all.py --hours EXPORT_DIR --fire fire_arrival.tif --grid /Users/jp/Desktop/wildfire/data/environment/regions/WY-BTF-002416_FishCreek/grid.json --osm data/fishcreek_osm_20240823.json.gz`
-3. Write RESULTS.md from `out/summary.json`, every number with its n.
+1. In the pipeline workspace (Python 3.12 with its pinned `pyproject.toml` versions), from the workspace root:
+   `PYTHONPATH=. python /path/to/export_fishcreek.py --out EXPORT_DIR` (about 2.5 min; writes `hour_00..05.npz`,
+   `fire_arrival_earliest.tif`, `fire_arrival_half.tif`, `checks.json`). The committed copy is `export_6h/`.
+2. For each fire version V in `earliest`, `half`:
+   `python3 run_all.py --hours export_6h --fire export_6h/fire_arrival_V.tif --grid /Users/jp/Desktop/wildfire/data/environment/regions/WY-BTF-002416_FishCreek/grid.json --osm data/fishcreek_osm_20240823.json.gz --out out_V --workers 1`
+   (about 2.5 min each).
 
 ## Limits (to be repeated in RESULTS.md)
 
