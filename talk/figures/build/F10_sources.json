@@ -1,0 +1,65 @@
+{
+ "code": "F10",
+ "title": "Camp Fire: closures caught before the report, and the cost",
+ "rows": [
+  {
+   "label": "Held-out road-closed reports placed on the map",
+   "value": 195,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "research/kcf-camp/out/test1_road_state.csv",
+   "field": "rows with class == ROAD_CLOSED and match != not_placed; lat, lon",
+   "expected": "195",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Reports where the method had the road closed by the report time",
+   "value": "170",
+   "unit": "",
+   "shown": "170 of 195",
+   "n": "195 reports",
+   "file": "research/kcf-camp/out/tests12.json",
+   "field": "test1.strict.MR.hits / closed_scored",
+   "expected": "170 of 195",
+   "note": "cross-checked against state_MR_strict == HIT in test1_road_state.csv",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Median minutes early, caught reports",
+   "value": 153.45,
+   "unit": "min",
+   "shown": "153 min",
+   "n": "170 reports",
+   "file": "research/kcf-camp/out/test1_road_state.csv",
+   "field": "median of -err_MR_strict over rows with state_MR_strict == HIT",
+   "expected": "119 min",
+   "note": "DIFFERENT FROM EXPECTED. 119 min (numbers.json tests12.test1.strict.MR.time_error_min_closed_rows.median = -118.8) is the median over all 195 closed reports, caught and missed. The figure plots the caught reports only, as asked, so it marks their median.",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Passable roads the method had closed",
+   "value": "22",
+   "unit": "",
+   "shown": "22 of 23",
+   "n": "23 reports",
+   "file": "research/kcf-camp/out/tests12.json",
+   "field": "test1.strict.MR.false_closures / passable_scored",
+   "expected": "22 of 23",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  }
+ ],
+ "notes": [
+  "No road lines drawn: the Paradise road graph is not committed (DECISIONS.md D12)."
+ ]
+}
