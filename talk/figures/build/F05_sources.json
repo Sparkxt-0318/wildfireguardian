@@ -1,0 +1,130 @@
+{
+ "code": "F05",
+ "title": "Data foundation (wildfireguardiandata v0.1)",
+ "rows": [
+  {
+   "label": "Records with no standard satellite label (US 2018–2020, S3)",
+   "value": 207508,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "results/HEADLINE_NUMBERS.md",
+   "field": "table row S3, column 'no standard label'",
+   "expected": "207,508",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "4effd5ff"
+  },
+  {
+   "label": "Verified / probable / record-only",
+   "value": [
+    4343,
+    20913,
+    182252
+   ],
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "results/HEADLINE_NUMBERS.md",
+   "field": "table row S3, columns verified, probable, record-only",
+   "expected": "4,343 / 20,913 / 182,252",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "4effd5ff"
+  },
+  {
+   "label": "Verified share, Clopper-Pearson 95% interval (%)",
+   "value": [
+    2.03,
+    2.16
+   ],
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "results/HEADLINE_NUMBERS.md",
+   "field": "table row S3, verified (lo-hi %)",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "4effd5ff"
+  },
+  {
+   "label": "Fires whose first label moved earlier",
+   "value": 45,
+   "unit": "",
+   "shown": "45 of 240",
+   "n": "240 fires (2023–2025)",
+   "file": "release/live-v0.1/onset_labels.csv",
+   "field": "rows with lead_vs_T0_min present",
+   "expected": "45 of 240",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "a30d02d6"
+  },
+  {
+   "label": "Median lead and bootstrap 95% interval (min)",
+   "value": [
+    42,
+    22,
+    84
+   ],
+   "unit": "",
+   "shown": null,
+   "n": "45 fires",
+   "file": "results/HEADLINE_NUMBERS.md",
+   "field": "item 3 sentence",
+   "expected": "42 min",
+   "note": "recomputed median of lead_vs_T0_min = 41.7 min",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "4effd5ff"
+  },
+  {
+   "label": "Patches of the example record",
+   "value": 3,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "release/records-v0.1/patches_us.jsonl.gz",
+   "field": "lines with record_id == fod:1389433: field, old, new, rule",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "8f3e7859"
+  },
+  {
+   "label": "Records in the national run",
+   "value": 2661383,
+   "unit": "",
+   "shown": "2.66 million",
+   "n": null,
+   "file": "release/records-v0.1/run_summary_us.json",
+   "field": "location.n_checked",
+   "expected": "2.66 million",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "8f3e7859"
+  },
+  {
+   "label": "National run wall time",
+   "value": 7.9,
+   "unit": "min",
+   "shown": "7.9 minutes",
+   "n": null,
+   "file": "results/RECORDS_RESULTS.md",
+   "field": "R2 wall time row: 476 s (7.9 min)",
+   "expected": "7.9 minutes",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "main",
+   "commit": "0e72b257"
+  }
+ ],
+ "notes": []
+}

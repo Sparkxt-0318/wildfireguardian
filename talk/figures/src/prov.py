@@ -64,9 +64,13 @@ class Ledger:
 
     # -------- recording
     def add(self, label, value, *, file, field, n=None, ref=None, repo=REPO,
-            expected=None, unit="", shown=None, note=""):
-        """Record one number shown on the figure. `shown` is the text as printed."""
-        sid = self.src_id(file, ref, repo)
+            expected=None, unit="", shown=None, note="", commit=None, repo_name=None):
+        """Record one number shown on the figure. `shown` is the text as printed.
+        commit/repo_name override the identification (for files fetched from another repository)."""
+        if commit:
+            sid = {"repo": repo_name, "ref": ref or "main", "commit": commit}
+        else:
+            sid = self.src_id(file, ref, repo)
         row = dict(label=label, value=value, unit=unit, shown=shown, n=n, file=file,
                    field=field, expected=expected, note=note, **sid)
         self.rows.append(row)
