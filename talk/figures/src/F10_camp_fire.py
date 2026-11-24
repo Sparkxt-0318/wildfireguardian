@@ -17,10 +17,11 @@ import numpy as np
 import pandas as pd
 
 import style as S
-from figkit import save
+from figkit import add_caption, boxed_legend, grid, save
 from prov import Ledger, git_show
 
 C = "research/kcf-camp"
+T = None
 
 
 def read(L):
@@ -50,6 +51,8 @@ def read(L):
                "reports only, as asked, so it marks their median.")
     L.add("Passable roads the method had closed", fc, shown=f"{fc} of {len(passable)}", file=f"{C}/out/tests12.json",
           field="test1.strict.MR.false_closures / passable_scored", n=f"{len(passable)} reports", expected="22 of 23")
+    global T
+    T = t
     return closed, caught, early, med, hits, fc, len(passable)
 
 
@@ -66,69 +69,65 @@ def main():
     lat0, lon0 = closed["lat"].mean(), closed["lon"].mean()
     x, y = project(closed["lat"].to_numpy(), closed["lon"].to_numpy(), lat0, lon0)
     hit = (closed["state_MR_strict"] == "HIT").to_numpy()
-    # ---------------- map
-    mx0, mx1 = x.min() - 0.8, x.max() + 0.8
-    my0, my1 = y.min() - 0.8, y.max() + 0.8
-    mh = 5.15
-    mw = mh * (mx1 - mx0) / (my1 - my0)
-    mw = min(mw, 6.3)
-    axm = fig.add_axes([0.45 / W, 1 - (0.95 + mh) / H, mw / W, mh / H])
+    # ---------------- (a) map
+    mx0, mx1 = x.min() - 0.6, x.max() + 0.6
+    my0, my1 = y.min() - 0.6, y.max() + 1.8
+    mh = 4.15
+    mw = min(mh * (mx1 - mx0) / (my1 - my0), 6.6)
+    axm = fig.add_axes([0.45 / W, 1 - (1.1 + mh) / H, mw / W, mh / H])
     axm.set_xlim(mx0, mx1)
     axm.set_ylim(my0, my1)
     axm.set_aspect("equal", adjustable="box")
     axm.set_xticks([])
     axm.set_yticks([])
-    for sp in axm.spines.values():
-        sp.set_visible(False)
     gpath = os.environ.get("PARADISE_GRAPH")
     if gpath and os.path.exists(gpath):
         L.note(f"Roads drawn from {gpath}")
     else:
         L.note("No road lines drawn: the Paradise road graph is not committed (DECISIONS.md D12).")
-    axm.scatter(x[~hit], y[~hit], s=70, facecolors=S.WHITE, edgecolors=S.FIRE, linewidths=1.8, zorder=3)
-    axm.scatter(x[hit], y[hit], s=55, color=S.OURS, linewidths=0, zorder=4)
-    # scale bar and north arrow, bottom left
+    axm.scatter(x[hit], y[hit], s=40, marker="o", color=S.OURS, linewidths=0, zorder=4,
+                label=f"closed by the report time ({hits})")
+    axm.scatter(x[~hit], y[~hit], s=55, marker="s", facecolors=S.WHITE, edgecolors=S.FIRE, linewidths=1.3, zorder=3,
+                label=f"not yet closed ({len(closed) - hits})")
     sb = 2.0
-    bx, by = mx1 - sb - 0.4, my0 + 0.25
-    axm.plot([bx, bx + sb], [by, by], color=S.INK, lw=3, solid_capstyle="butt")
-    axm.text(bx + sb / 2, by + 0.35, "2 km", ha="center", va="bottom", fontsize=S.PT_MIN)
-    axm.annotate("", xy=(mx1 - 0.35, my1 - 0.15), xytext=(mx1 - 0.35, my1 - 1.45),
-                 arrowprops=dict(arrowstyle="-|>,head_length=0.8,head_width=0.4", color=S.INK, lw=2))
-    axm.text(mx1 - 0.75, my1 - 0.75, "N", ha="right", va="center", fontsize=S.PT_BODY, fontweight="bold")
-    # map key, beneath the map
-    ky = 1 - (0.95 + mh + 0.35) / H
-    fig.text(0.45 / W, ky, "●", color=S.OURS, fontsize=S.PT_BODY, va="center")
-    fig.text(0.72 / W, ky, f"road closed by the report time: {hits}", fontsize=S.PT_MIN, va="center")
-    fig.text(4.75 / W, ky, "○", color=S.FIRE, fontsize=S.PT_BODY, va="center", fontweight="bold")
-    fig.text(5.15 / W, ky, f"not yet: {len(closed) - hits}", fontsize=S.PT_MIN, va="center")
-    fig.text(0.45 / W, 1 - 0.55 / H, f"Paradise, California, 8 Nov 2018: {len(closed)} road-closed reports",
-             fontsize=S.PT_BODY, fontweight="bold", va="center")
-    # ---------------- strip of minutes early
-    l, t, w, h = 8.6, 1.15, 3.6, 4.95
+    bx, by = mx1 - sb - 0.9, my0 + 0.6
+    axm.plot([bx, bx + sb], [by, by], color=S.INK, lw=2.5, solid_capstyle="butt")
+    axm.text(bx + sb / 2, by + 0.3, "2 km", ha="center", va="bottom")
+    axm.annotate("", xy=(mx1 - 0.7, my1 - 0.5), xytext=(mx1 - 0.7, my1 - 1.7),
+                 arrowprops=dict(arrowstyle="-|>,head_length=0.5,head_width=0.25", color=S.INK, lw=1.2))
+    axm.text(mx1 - 1.0, my1 - 1.1, "N", ha="right", va="center")
+    boxed_legend(axm, loc="lower left", bbox_to_anchor=(0.0, 1.03), borderaxespad=0.0, ncol=2, handletextpad=0.6,
+                 columnspacing=1.2)
+    S.panel_letter(fig, 0.45, 0.3, "a")
+    # ---------------- (b) minutes early
+    l, t, w, h = 9.0, 0.55, 3.6, 4.7
     ax = fig.add_axes([l / W, 1 - (t + h) / H, w / W, h / H])
+    grid(ax, axis="y")
     rng = np.random.RandomState(5)
-    xs = rng.uniform(-0.32, 0.32, len(early))
-    ax.scatter(xs, early, s=40, color=S.OURS, alpha=0.75, linewidths=0)
-    ax.plot([-0.48, 0.48], [med, med], color=S.INK, lw=2.5)
-    ax.annotate(f"median {med:.0f} min", (0.48, med), xytext=(10, 0), textcoords="offset points",
-                va="center", fontsize=S.PT_LABEL, fontweight="bold")
-    ax.axhline(0, color=S.MID, lw=1.0, ls=(0, (3, 2)))
-    ax.set_xlim(-0.6, 1.9)
+    xs = rng.uniform(-0.3, 0.3, len(early))
+    ax.scatter(xs, early, s=22, marker="o", facecolors=S.WHITE, edgecolors=S.OURS, linewidths=0.9)
+    ax.plot([-0.45, 0.45], [med, med], color=S.INK, lw=2)
+    ax.annotate(f"median {med:.0f} min", (0.45, med), xytext=(8, 0), textcoords="offset points", va="center")
+    ax.axhline(0, color=S.INK, lw=0.8, ls=(0, (3, 2)))
+    ax.set_xlim(-0.55, 1.75)
     top = float(np.ceil(early.max() / 60) * 60)
-    ax.set_ylim(-60, top + 20)
+    ax.set_ylim(-60, top + 30)
     ax.set_yticks(np.arange(0, top + 1, 240))
     ax.set_xticks([])
-    ax.spines["bottom"].set_visible(False)
-    ax.set_ylabel("Minutes the road was closed\nbefore the report")
-    ax.annotate("report time", (0.62, 0), xytext=(0, -12), textcoords="offset points", va="top",
-                fontsize=S.PT_MIN, color=S.MID)
-    fig.text(l / W, 1 - 0.55 / H, f"{hits} of {len(closed)} caught (n = {len(caught)} shown)", fontsize=S.PT_BODY,
-             fontweight="bold", va="center")
-    # ---------------- cost line
-    fig.text(0.45 / W, 1 - 7.05 / H, f"Cost: {fc} of {npass} roads that crews reported passable were closed too",
-             color=S.COST, fontsize=S.PT_LABEL, fontweight="bold", va="center")
+    ax.set_ylabel("Minutes closed before the report")
+    S.panel_letter(fig, 7.55, 0.3, "b")
+    hc = T["hit_ci95"]
+    fcc = T["false_closure_ci95"]
+    cap = add_caption(fig, (
+        f"Figure 10. Camp Fire, Paradise, California, 8 November 2018. (a) The {len(closed)} held-out road-closed "
+        f"reports from fire crews: the frozen spread margin had the road closed by the report time (within 15 min) "
+        f"for {hits} of {len(closed)} ({hits / len(closed):.0%}, 95% interval {hc[0]:.0%}–{hc[1]:.0%}); road lines "
+        f"are not drawn (graph not committed). (b) How early, for the {len(caught)} caught reports; dashed line: "
+        f"report time. Cost: {fc} of {npass} roads that crews reported passable were also closed (95% interval "
+        f"{fcc[0]:.0%}–{fcc[1]:.0%}). One fire; firefighter reports, not residents. Source: research/kcf-camp."),
+        x_in=0.45, width_in=12.45, top_in=5.85)
     L.save()
-    save(fig, "F10_camp_fire")
+    save(fig, "F10_camp_fire", caption=cap)
 
 
 if __name__ == "__main__":

@@ -361,4 +361,8 @@ def boxed_legend(ax, *args, **kw):
     leg = ax.legend(*args, **kw)
     leg.get_frame().set_linewidth(0.6)
     leg.get_frame().set_gid("box:legend")
+    # legend handles sit beside their own labels by construction; they are not data marks
+    for hnd in leg.legend_handles:
+        if hnd is not None:
+            hnd.set_gid("bg:legend handle")
     return leg
