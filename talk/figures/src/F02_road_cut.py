@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 import style as S
-from figkit import save
+from figkit import add_caption, grid, save
 from prov import Ledger, git_show
 
 RC = "research/kcf-roadcut"
@@ -62,63 +62,64 @@ def main():
     gaps, med, ca, cfg, row, name_en = read(L)
     W, H = S.W_IN, S.H_IN
     fig = S.new_figure()
-    # ---------------- top: one village
-    l, w = 5.25, 6.8
-    axt = fig.add_axes([l / W, 1 - 3.05 / H, w / W, 1.75 / H])
+    # ---------------- (a) one village
+    l, w = 5.6, 7.3
+    axt = fig.add_axes([l / W, 1 - 2.25 / H, w / W, 1.3 / H])
     t0 = t(ISSUE + ":00")
     hrs = lambda s: (t(s) - t0).total_seconds() / 3600  # noqa: E731
     w0, w1 = [hrs(x) for x in row.windows_kst.split("..")]
     tr, tv = hrs(row.T_road_kst), hrs(row.T_village_kst)
     axt.set_xlim(0, 6.0)
-    axt.set_ylim(0, 1)
-    yb = 0.66
-    axt.barh(yb, w1 - w0, left=w0, height=0.2, color=S.SAFE)
-    axt.barh(yb, tv - tr, left=tr, height=0.2, facecolor=S.WHITE, edgecolor=S.COST, hatch="////", linewidth=1.5)
-    axt.plot([tr, tr], [0.46, 0.86], color=S.FIRE, lw=3)
-    axt.plot([tv, tv], [0.46, 0.86], color=S.FIRE, lw=3, ls=(0, (2, 1.2)))
+    axt.set_ylim(0, 1.25)
+    grid(axt, axis="x")
+    yb = 0.70
+    axt.barh(yb, w1 - w0, left=w0, height=0.22, facecolor=S.SAFE, edgecolor=S.INK, linewidth=0.6)
+    axt.barh(yb, tv - tr, left=tr, height=0.22, facecolor=S.WHITE, edgecolor=S.INK, hatch="////", linewidth=0.6)
+    axt.plot([tr, tr], [0.48, 0.92], color=S.FIRE, lw=2)
+    axt.plot([tv, tv], [0.48, 0.92], color=S.FIRE, lw=2, ls=(0, (2, 1.2)))
     axt.set_yticks([])
-    axt.spines["left"].set_visible(False)
     axt.set_xticks(range(0, 7))
     axt.set_xticklabels([f"{18 + h:02d}:00" if 18 + h < 24 else "24:00" for h in range(0, 7)])
     axt.set_xlabel("25 March 2025, KST")
-    fig.text(l / W, 1 - 0.62 / H, f"삼의리 {name_en} (영양군 Yeongyang), forecast issued 18:00", fontsize=S.PT_BODY,
-             fontweight="bold", va="center")
-    axt.text(w0, 0.88, "can still leave", ha="left", va="bottom", fontsize=S.PT_MIN, color=S.SAFE,
-             fontweight="bold")
-    axt.text((tr + tv) / 2, 0.86, f"{float(row.gap_min):.1f} min", ha="center", va="bottom", fontsize=S.PT_KEY,
-             fontweight="bold", color=S.INK)
-    axt.text(tr - 0.08, 0.27, f"last road out cut\n{row.T_road_kst[6:11]}", ha="right", va="center",
-             fontsize=S.PT_MIN, color=S.FIRE, linespacing=1.1)
-    axt.text(tv - 0.08, 0.27, f"fire reaches the village\n{row.T_village_kst[6:11]}", ha="right", va="center",
-             fontsize=S.PT_MIN, color=S.FIRE, linespacing=1.1)
-    # ---------------- bottom: histogram
-    lb, tb, wb, hb = 5.25, 4.25, 4.3, 1.95
+    axt.text(w0 + 0.05, 1.07, "departure window", ha="left", va="center")
+    axt.text(tr - 0.06, 0.28, f"last road out cut {row.T_road_kst[6:11]}", ha="right", va="center")
+    axt.text(tv - 0.06, 0.28, f"fire reaches the village {row.T_village_kst[6:11]}", ha="right", va="center")
+    axt.text((tr + tv) / 2, 1.07, f"gap {float(row.gap_min):.1f} min", ha="center", va="center")
+    S.panel_letter(fig, 4.55, 0.65, "a")
+    fig.text(l / W, 1 - 0.65 / H, f"삼의리 {name_en} (영양군 Yeongyang), forecast issued 18:00 KST", va="center")
+    # ---------------- (b) histogram
+    lb, tb, wb, hb = 5.6, 3.3, 7.3, 1.55
     axh = fig.add_axes([lb / W, 1 - (tb + hb) / H, wb / W, hb / H])
+    grid(axh, axis="y")
     edges = np.arange(0, 170, 10)
     counts, _ = np.histogram(gaps, bins=edges)
-    axh.bar(edges[:-1] + 5, counts, width=9.0, color=S.MID)
+    axh.bar(edges[:-1] + 5, counts, width=10.0, facecolor=S.LIGHT, edgecolor=S.INK, linewidth=0.6)
+    axh.axvline(med, color=S.INK, lw=1.2, ls=(0, (4, 2)))
+    axh.annotate(f"median {med:.1f} min", (med, counts.max() * 1.12), xytext=(8, 0), textcoords="offset points",
+                 va="center")
     axh.set_xlim(0, 160)
     axh.set_xticks([0, 40, 80, 120, 160])
     axh.set_xlabel("Minutes from road cut to fire at the village")
     axh.set_ylabel("Place-hours")
-    ymax = int(np.ceil(counts.max() / 10) * 10)
+    ymax = int(np.ceil(counts.max() * 1.3 / 10) * 10)
     axh.set_ylim(0, ymax)
     axh.set_yticks([0, ymax // 2, ymax])
-    axh.annotate(f"median {med:.1f} min", (med, counts.max() * 0.93), xytext=(16, 0), textcoords="offset points",
-                 va="center", fontsize=S.PT_MIN, color=S.INK)
-    axh.plot([med, med], [0, counts.max() * 0.86], color=S.INK, lw=1.6)
-    fig.text((lb + wb + 0.45) / W, 1 - 4.45 / H, f"{ca['places']} of {cfg['places']}", fontsize=S.PT_KEY_BIG,
-             fontweight="bold", color=S.FIRE, va="center")
-    fig.text((lb + wb + 0.45) / W, 1 - 5.40 / H, "places where the last road\nout was cut before the fire\n"
-             "reached the village", fontsize=S.PT_MIN, va="center", linespacing=1.15)
-    fig.text((lb + wb + 0.45) / W, 1 - 6.35 / H, f"histogram: n = {len(gaps)} place-hours\nwhere a road ends the window",
-             fontsize=S.PT_MIN, color=S.MID, va="center", linespacing=1.15)
+    axh.set_yticklabels(["", str(ymax // 2), str(ymax)])
+    S.panel_letter(fig, 4.55, 3.05, "b")
+    cap = add_caption(fig, (
+        f"Figure 2. The last road out is cut before the fire reaches the village. (a) One village on 25 March 2025: "
+        f"its departure window (teal) ends when a road cell closes, {float(row.gap_min):.1f} min before the fire "
+        f"reaches the village (hatched). (b) That gap over all {len(gaps)} place-hours where a road cell ends the "
+        f"window (median {med:.1f} min, maximum {gaps.max():.1f} min). Counting also place-hours with no window at "
+        f"all, the road was cut first at {ca['places']} of {cfg['places']} places ({ca['place_hours']} place-hours). "
+        "Model output on reconstructed fire inputs (MEASURED, 8 h). Source: research/kcf-roadcut."),
+        x_in=0.45, width_in=12.45, top_in=5.82)
     L.save()
     spec = {"type": "column", "categories": [f"{a}–{a + 10}" for a in edges[:-1]],
             "series": [{"name": "Place-hours", "values": [int(c) for c in counts], "color": S.MID}],
             "x_title": "Minutes from road cut to fire at the village", "y_title": "Place-hours",
             "y_max": ymax, "y_major": ymax // 2, "gap_width": 10}
-    save(fig, "F02_road_cut", charts=[(axh, spec)])
+    save(fig, "F02_road_cut", charts=[(axh, spec)], caption=cap)
 
 
 if __name__ == "__main__":
