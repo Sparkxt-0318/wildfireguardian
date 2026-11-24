@@ -1,0 +1,8 @@
+# NEEDS (checked 24 Nov 2026)
+
+| item | status | what unblocks it |
+|---|---|---|
+| `/Users/jp/wildfireguardian-keys/keys.env` | The folder does not exist on this machine. No key has been needed so far (OpenStreetMap through Overpass needs none). | Nothing yet. |
+| Exposure pipeline: `wildfire/exposure_calculations.py` and the next-hour / later-hour orchestrators that use it | **Not on this machine.** `/Users/jp/Desktop/wildfire/wildfire/` has `heat.py`, `heat_transfer.py`, `heat_timing.py`, `heat_duration.py` but no `exposure_calculations.py` and no CO, PM2.5 or visibility code. The repository's `forecast/` copy and all 40+ branches were searched: none has it. The data repository's last local commit is 11 Oct 2026; the session summary that describes the pipeline is dated 23 Nov 2026. | Copy (or pull, in that repository's own account) the version of `/Users/jp/Desktop/wildfire` that contains `wildfire/exposure_calculations.py`. |
+| Saved example `demonstration/flame_danger/physical_exposure/` (`report.json`, `activity_explanation.json`, the arrays it names) | **Not on this machine** (same search). Already listed in `talk/figures/NEEDS.md` for F15 and F17. | Same copy as above. |
+| Road layer on Fish Creek | `product/wfg-roadlayer` accepts only its two Korean regions (`data/regions.json`) and a 375 m EPSG:5179 road lattice (`fireinput.py`, `heat.py`). Fish Creek (Wyoming) needs a region entry: an OSM road graph in the road layer's graph format, places/shelters, and a lattice in a US projected CRS. | A decision: extend the road layer to accept a non-Korean region and CRS (a code change in `product/`), or run its engine directly on a Fish Creek graph from a script in this folder. |
