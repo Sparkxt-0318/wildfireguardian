@@ -3,7 +3,35 @@
  "title": "Speed: earlier method against the deadline field",
  "rows": [
   {
-   "label": "Uiseong–Andong, 23 Mar 01:00: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: places checked",
+   "value": 84,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "field": "distinct requests[*].origins[*].id (SHA-256 equal to cases file cache_sha256)",
+   "expected": null,
+   "note": "1-2 further case origins per cache are synthetic research checks (research_checks) and are not counted as places; their cases are in the case count",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: route checks timed",
+   "value": 1523,
+   "unit": "",
+   "shown": "1,523 checks",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250323T010000Z'].n_cases",
+   "expected": null,
+   "note": "equal to n_cases in research/kcf-bench/cases/uiseong_andong_2025__20250323T010000Z.json",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: earlier method, cold, scaled",
    "value": 13460.674137386404,
    "unit": "s",
    "shown": null,
@@ -17,7 +45,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01:00: deadline field, cold",
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: deadline field, cold",
    "value": 25.837532734993147,
    "unit": "s",
    "shown": null,
@@ -31,7 +59,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01:00: ratio",
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: ratio",
    "value": 520.9736655371856,
    "unit": "",
    "shown": "521×",
@@ -45,7 +73,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01:00: earlier method range over repeats",
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: earlier method range over repeats",
    "value": [
     13066.103989665098,
     15099.452594630471
@@ -62,7 +90,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 23 Mar 01:00: deadline field range over repeats",
+   "label": "Uiseong–Andong, 23 Mar 10:00 KST: deadline field range over repeats",
    "value": [
     21.874623370000336,
     30.35316179099027
@@ -79,7 +107,35 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09:00: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: places checked",
+   "value": 84,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "field": "distinct requests[*].origins[*].id (SHA-256 equal to cases file cache_sha256)",
+   "expected": null,
+   "note": "1-2 further case origins per cache are synthetic research checks (research_checks) and are not counted as places; their cases are in the case count",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: route checks timed",
+   "value": 1518,
+   "unit": "",
+   "shown": "1,518 checks",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250324T090000Z'].n_cases",
+   "expected": null,
+   "note": "equal to n_cases in research/kcf-bench/cases/uiseong_andong_2025__20250324T090000Z.json",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: earlier method, cold, scaled",
    "value": 14184.733388787428,
    "unit": "s",
    "shown": null,
@@ -93,7 +149,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09:00: deadline field, cold",
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: deadline field, cold",
    "value": 174.03230634400097,
    "unit": "s",
    "shown": null,
@@ -107,7 +163,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09:00: ratio",
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: ratio",
    "value": 81.50632308893944,
    "unit": "",
    "shown": "82×",
@@ -121,7 +177,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09:00: earlier method range over repeats",
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: earlier method range over repeats",
    "value": [
     13420.088996302446,
     14644.411410884777
@@ -138,7 +194,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 24 Mar 09:00: deadline field range over repeats",
+   "label": "Uiseong–Andong, 24 Mar 18:00 KST: deadline field range over repeats",
    "value": [
     166.49230839799975,
     185.28671386600035
@@ -155,7 +211,35 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17:00: earlier method, cold, scaled",
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: places checked",
+   "value": 84,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "field": "distinct requests[*].origins[*].id (SHA-256 equal to cases file cache_sha256)",
+   "expected": null,
+   "note": "1-2 further case origins per cache are synthetic research checks (research_checks) and are not counted as places; their cases are in the case count",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: route checks timed",
+   "value": 1557,
+   "unit": "",
+   "shown": "1,557 checks",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['uiseong_andong_2025/20250325T170000Z'].n_cases",
+   "expected": null,
+   "note": "equal to n_cases in research/kcf-bench/cases/uiseong_andong_2025__20250325T170000Z.json",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: earlier method, cold, scaled",
    "value": 24465.10289200233,
    "unit": "s",
    "shown": null,
@@ -169,7 +253,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17:00: deadline field, cold",
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: deadline field, cold",
    "value": 105.91041006299929,
    "unit": "s",
    "shown": null,
@@ -183,7 +267,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17:00: ratio",
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: ratio",
    "value": 230.99809430866725,
    "unit": "",
    "shown": "231×",
@@ -197,7 +281,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17:00: earlier method range over repeats",
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: earlier method range over repeats",
    "value": [
     21236.1373871058,
     25485.447746881404
@@ -214,7 +298,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Uiseong–Andong, 25 Mar 17:00: deadline field range over repeats",
+   "label": "Uiseong–Andong, 26 Mar 02:00 KST: deadline field range over repeats",
    "value": [
     93.64289880900469,
     112.79128699199646
@@ -231,7 +315,35 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19:00: earlier method, cold, scaled",
+   "label": "Yeongdeok, 26 Mar 04:00 KST: places checked",
+   "value": 90,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "field": "distinct requests[*].origins[*].id (SHA-256 equal to cases file cache_sha256)",
+   "expected": null,
+   "note": "1-2 further case origins per cache are synthetic research checks (research_checks) and are not counted as places; their cases are in the case count",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 04:00 KST: route checks timed",
+   "value": 1810,
+   "unit": "",
+   "shown": "1,810 checks",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250325T190000Z'].n_cases",
+   "expected": null,
+   "note": "equal to n_cases in research/kcf-bench/cases/yeongdeok_2025__20250325T190000Z.json",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 04:00 KST: earlier method, cold, scaled",
    "value": 44650.84919926957,
    "unit": "s",
    "shown": null,
@@ -245,7 +357,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19:00: deadline field, cold",
+   "label": "Yeongdeok, 26 Mar 04:00 KST: deadline field, cold",
    "value": 282.34100154099724,
    "unit": "s",
    "shown": null,
@@ -259,7 +371,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19:00: ratio",
+   "label": "Yeongdeok, 26 Mar 04:00 KST: ratio",
    "value": 158.14511160464966,
    "unit": "",
    "shown": "158×",
@@ -273,7 +385,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19:00: earlier method range over repeats",
+   "label": "Yeongdeok, 26 Mar 04:00 KST: earlier method range over repeats",
    "value": [
     44041.05350612517,
     46514.25123368116
@@ -290,7 +402,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 19:00: deadline field range over repeats",
+   "label": "Yeongdeok, 26 Mar 04:00 KST: deadline field range over repeats",
    "value": [
     221.05089038499864,
     306.0041241040017
@@ -307,7 +419,35 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23:00: earlier method, cold, scaled",
+   "label": "Yeongdeok, 26 Mar 08:00 KST: places checked",
+   "value": 90,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "field": "distinct requests[*].origins[*].id (SHA-256 equal to cases file cache_sha256)",
+   "expected": null,
+   "note": "1-2 further case origins per cache are synthetic research checks (research_checks) and are not counted as places; their cases are in the case count",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 08:00 KST: route checks timed",
+   "value": 1673,
+   "unit": "",
+   "shown": "1,673 checks",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250325T230000Z'].n_cases",
+   "expected": null,
+   "note": "equal to n_cases in research/kcf-bench/cases/yeongdeok_2025__20250325T230000Z.json",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 08:00 KST: earlier method, cold, scaled",
    "value": 31245.51910699116,
    "unit": "s",
    "shown": null,
@@ -321,7 +461,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23:00: deadline field, cold",
+   "label": "Yeongdeok, 26 Mar 08:00 KST: deadline field, cold",
    "value": 294.3908435190024,
    "unit": "s",
    "shown": null,
@@ -335,7 +475,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23:00: ratio",
+   "label": "Yeongdeok, 26 Mar 08:00 KST: ratio",
    "value": 106.13617846770536,
    "unit": "",
    "shown": "106×",
@@ -349,7 +489,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23:00: earlier method range over repeats",
+   "label": "Yeongdeok, 26 Mar 08:00 KST: earlier method range over repeats",
    "value": [
     30227.589119336022,
     32366.378884559894
@@ -366,7 +506,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 25 Mar 23:00: deadline field range over repeats",
+   "label": "Yeongdeok, 26 Mar 08:00 KST: deadline field range over repeats",
    "value": [
     281.26720447400294,
     318.3922431500014
@@ -383,7 +523,35 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08:00: earlier method, cold, scaled",
+   "label": "Yeongdeok, 26 Mar 17:00 KST: places checked",
+   "value": 90,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "field": "distinct requests[*].origins[*].id (SHA-256 equal to cases file cache_sha256)",
+   "expected": null,
+   "note": "1-2 further case origins per cache are synthetic research checks (research_checks) and are not counted as places; their cases are in the case count",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 17:00 KST: route checks timed",
+   "value": 1641,
+   "unit": "",
+   "shown": "1,641 checks",
+   "n": null,
+   "file": "research/kcf-bench/results_hostB/summary.json",
+   "field": "caches['yeongdeok_2025/20250326T080000Z'].n_cases",
+   "expected": null,
+   "note": "equal to n_cases in research/kcf-bench/cases/yeongdeok_2025__20250326T080000Z.json",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Yeongdeok, 26 Mar 17:00 KST: earlier method, cold, scaled",
    "value": 28861.162236538705,
    "unit": "s",
    "shown": null,
@@ -397,7 +565,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08:00: deadline field, cold",
+   "label": "Yeongdeok, 26 Mar 17:00 KST: deadline field, cold",
    "value": 334.9146858669992,
    "unit": "s",
    "shown": null,
@@ -411,7 +579,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08:00: ratio",
+   "label": "Yeongdeok, 26 Mar 17:00 KST: ratio",
    "value": 86.17466911558486,
    "unit": "",
    "shown": "86×",
@@ -425,7 +593,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08:00: earlier method range over repeats",
+   "label": "Yeongdeok, 26 Mar 17:00 KST: earlier method range over repeats",
    "value": [
     26641.854475306533,
     29808.02588607585
@@ -442,7 +610,7 @@
    "commit": "7f9ea3dd"
   },
   {
-   "label": "Yeongdeok, 26 Mar 08:00: deadline field range over repeats",
+   "label": "Yeongdeok, 26 Mar 17:00 KST: deadline field range over repeats",
    "value": [
     303.5985631750009,
     345.507648290004
@@ -546,6 +714,20 @@
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "7f9ea3dd"
+  },
+  {
+   "label": "Forecast update interval (spacing of the replay's issue hours)",
+   "value": 60,
+   "unit": "min",
+   "shown": "hourly",
+   "n": "26 issue-hour rows, 2 regions",
+   "file": "product/wfg-roadlayer/examples/SCAN.md",
+   "field": "difference between consecutive 'issue KST' rows of the table, per region",
+   "expected": null,
+   "note": "cross-check: research/kcf-abstain/PROTOCOL.md asks its question 'at an hourly issue time'",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "fe8329b7"
   }
  ],
  "notes": [
