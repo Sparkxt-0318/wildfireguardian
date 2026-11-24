@@ -25,7 +25,38 @@
    "file": "research/kcf-margin/numbers.json",
    "field": "table[...].lofo_miss",
    "expected": "6.2%",
-   "note": "95% interval 0.6–22%",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "0ead8913"
+  },
+  {
+   "label": "95% interval of the held-out share",
+   "value": [
+    0.005858235346891344,
+    0.22131175077022266
+   ],
+   "unit": "",
+   "shown": "0.6–22%",
+   "n": null,
+   "file": "research/kcf-margin/numbers.json",
+   "field": "table[...].lofo_ci95",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "0ead8913"
+  },
+  {
+   "label": "California fires plotted",
+   "value": 28,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "research/kcf-margin/derived/gofer_reach.csv.gz",
+   "field": "distinct fire, rows with h == 5",
+   "expected": "28",
+   "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "0ead8913"
@@ -34,7 +65,7 @@
    "label": "California issue hours plotted (5 h reach, km)",
    "value": 20161,
    "unit": "",
-   "shown": null,
+   "shown": "20,161",
    "n": "28 fires",
    "file": "research/kcf-margin/derived/gofer_reach.csv.gz",
    "field": "rows with h == 5, column reach_km",
@@ -81,10 +112,27 @@
    "file": "research/kcf-margin/derived/gyeongbuk_reach.csv",
    "field": "max reach_km (h == 5)",
    "expected": "up to 40.1 km",
-   "note": "",
+   "note": "issued 16:00 KST",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "0ead8913"
+  },
+  {
+   "label": "Gyeongbuk plotted hours: answer withheld / given",
+   "value": [
+    21,
+    2
+   ],
+   "unit": "",
+   "shown": "withheld (21), given (2)",
+   "n": null,
+   "file": "research/kcf-abstain/numbers.json",
+   "field": "march25.hours[kst_hour].abstain, joined on kst_hour with the plotted hours",
+   "expected": null,
+   "note": "reach5_km in this file equals reach_km in gyeongbuk_reach.csv for every plotted hour (checked)",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "6457eba9"
   },
   {
    "label": "Run hours (10–20 KST) with the answer withheld",
