@@ -134,11 +134,15 @@ def contact_sheet():
 
 
 def zip_all():
+    """The pptx, every figure file (complete, no caption, text-free; PNG, SVG, PDF), the contact sheet and the docs."""
     with zipfile.ZipFile(FIGDIR / "kcf_talk_figures.zip", "w", zipfile.ZIP_DEFLATED) as z:
         z.write(FIGDIR / "kcf_talk_figures.pptx", "kcf_talk_figures.pptx")
         for ext in ("png", "svg", "pdf"):
             for p in sorted(FIGDIR.glob(f"F*.{ext}")):
-                z.write(p, p.name)
+                z.write(p, f"figures/{p.name}")
+        for name in ("contact_sheet.png", "README.md", "SOURCES.md", "DECISIONS.md", "NEEDS.md"):
+            if (FIGDIR / name).exists():
+                z.write(FIGDIR / name, name)
 
 
 if __name__ == "__main__":
