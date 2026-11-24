@@ -146,4 +146,43 @@ case, because Korea has no fuel maps.
 
 ## Amendments
 
-(none)
+### Amendment 1 (24 Nov 2026, before any result)
+
+Written after the pipeline arrived and before it was run for this task. Nothing below changes a threshold, an
+audience, a criterion or a model setting; it fixes choices the protocol left open.
+
+1. **Where the pipeline came from.** The user supplied `/Users/jp/Desktop/wildfire4.zip` (sha256
+   `cfaa4dace7032404a8c1ed7bba866319a4ebe0d7257df0b623ed89585bd35a57`), a copy of the forecast and physics workspace
+   with the 23 Nov 2026 code. Only the code, the Fish Creek data, the checkpoint and the saved example were unpacked,
+   into a scratch folder outside both repositories; nothing in the zip or in `/Users/jp/Desktop/wildfire` is written.
+   File hashes: `exposure_calculations.py` 4c5c861c…, `monte_carlo_hazards.py` dca25f75…, `physical_exposure.py`
+   f7a55209…, `physical_exposure_example.py` 05708182…, saved `mapping.npz` c0a73a39…, checkpoint c651f672… (equal to
+   the `checkpoint_sha256` in the saved `report.json`). The workspace's own Python environment inside the zip cannot be
+   loaded here (macOS refuses its unsigned libraries after download), so the pinned versions from its
+   `pyproject.toml` (Python 3.12, numpy 1.26.4, torch 2.5.1, pyrothermel 0.1.4, …) are installed fresh.
+2. **Six hours.** The saved example covers one hour, [0, 1] h after the cutoff. Hours h = 0 … 5 use the pipeline's
+   own later-hour path (README "Later hours"; `predict_cumulative(..., retain_trajectories=True)` with hours 1 … 6,
+   then `calculate_hazards(hours_later=h)`), with the example's settings: 1024 samples, seed 20261122, 60 s time bins,
+   Scott–Burgan L2, Gaussian arrival uncertainty, `boundary="zero"`, `missing_burned_area="unburned"`,
+   `activity_mode="probability_map"`, the example's physical factory (same fuel load, flame height, parameters, front
+   direction, `unresolved_heat_policy="bounds"`). The later-hour path asks for an explicit within-hour ignition
+   timing; `uniform_within_step` is used because the one-hour path's own model is "uniform conditional first ignition
+   in the forecast interval". The timing seed is the example's seed. The later-hour weather is the cutoff weather held
+   constant (the pipeline's behaviour without an `environmental_forecast`); this is a limit, stated in RESULTS.md.
+   Check reported: hour 0 from this path against the saved one-hour example.
+3. **Binwise radiant flux and CO.** The saved outputs are hourly totals. The 60 s bin fields are read from the same
+   probability-weighted superposition the pipeline integrates (`fields_from_activity` on the identical weights and
+   bins, inside `weighted_exposure_integrals`); nothing is recomputed differently. Check reported: their time
+   integrals equal the pipeline's hourly radiant energy and mean CO.
+4. **Radiant criterion uses radiant flux only** (the threshold is an incident radiant flux), not radiant plus
+   convective energy. Unresolved = the pipeline's unresolved radiant inputs; the known part is a lower bound (§3a).
+   Binwise CO is "not computable" where the pipeline marks CO inputs unresolved.
+5. **Visibility.** The probability is the pipeline's `visibility_danger_probability`. Where the pipeline leaves it
+   undefined (unknown PM inputs), its `visibility_probability_lower` is used as a lower bound, and the number of such
+   cell-hours is reported.
+6. **Fire arrival from the forecast.** The forecast is an ensemble of 1024 retained paths; INTERFACE.md says the
+   exporter reduces an ensemble to one arrival, e.g. the earliest member. Main run: **earliest member**, a cell's
+   arrival is the start of the first hour in which any retained path burns it (60(k − 1) min for first-burn step k);
+   cells burned at the cutoff are 0 (burning or burnt at issue); cells no path reaches within 6 h are not reached.
+   Sensitivity, reported beside it: the start of the first hour by which at least half the paths have burned the cell.
+   Both are cut to the 6 h exposure horizon.
