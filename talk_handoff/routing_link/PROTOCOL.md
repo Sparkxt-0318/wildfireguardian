@@ -285,3 +285,18 @@ flame fronts; thresholds, path, minute and roads are unchanged.
    changes and by how many minutes.
 4. The figure shows the 5 m zone (left) and both routing comparisons (right); its caption says the zone uses the
    pipeline's flame fronts at receivers finer than the grid the pipeline runs on.
+
+### Amendment 5 (25 Nov 2026, AFTER the Amendment 4 zone was seen)
+
+**Written after seeing the Amendment 4 zone.** It covered only the middle stretch of each 380 m flame front. The
+reason, checked on the eight fronts burning at the chosen minute: the pipeline puts each front's base on the cell's
+terrain plane, so the base rises or falls by up to 64 m across the front, while Amendment 4 put every 5 m receiver at
+one height per 375 m cell (the cell's ground + 1.7 m). Away from the middle the receivers therefore sat metres above
+or below a flame 2–3.6 m tall. This is an artefact of the 5 m extension, not of the pipeline (its receivers are at cell
+centres, where the two heights agree). Amendment 4 results are kept and reported.
+
+1. **Receivers on the terrain plane.** Same as Amendment 4, except that a 5 m receiver's height is the containing
+   cell's ground + the pipeline's own terrain gradient of that cell × the horizontal offset from the cell centre +
+   1.7 m: the same plane the pipeline uses for the flame base.
+2. Same zone, road-piece, distance and routing outputs as Amendment 4, reported beside them. The figure's left panel
+   shows this zone; both distances are given.
