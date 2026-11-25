@@ -11,7 +11,9 @@ INK, GREY, BLUE, RED = "#1A1A1A", "#6B6B6B", "#2F5D8A", "#8A362F"
 BLUE_TINT = "#C5D3E3"  # light tint of 2F5D8A (about 27 % strength on white)
 
 
-def make(graph, grid, fire_min, combined_min, stem, horizon_label=None, fire_label="Blocked by fire arrival"):
+def make(graph, grid, fire_min, combined_min, stem, horizon_label=None, fire_label="Blocked by fire arrival",
+         exposure_label="Added by exposure (residents, visibility p ≥ 0.5*)",
+         note="*assumption: 10 m building-egress visibility; 0.5 level our choice"):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -51,12 +53,11 @@ def make(graph, grid, fire_min, combined_min, stem, horizon_label=None, fire_lab
     add_txt = ("%d cells" % n_add) if n_add else "none"
     h = [Patch(facecolor=BLUE_TINT, edgecolor="none", label="%s: %d cells" % (fire_label, n_fire)),
          Patch(facecolor=RED, edgecolor="none",
-               label="Added by exposure (residents, visibility p ≥ 0.5*): %s" % add_txt),
+               label="%s: %s" % (exposure_label, add_txt)),
          Line2D([0], [0], color=INK, lw=0.8, label="Road (OpenStreetMap)")]
     leg = ax.legend(handles=h, loc="upper left", bbox_to_anchor=(0.0, -0.07), ncol=1, fontsize=7, frameon=False)
     for t in leg.get_texts():
         t.set_color(INK)
-    note = "*assumption: 10 m building-egress visibility; 0.5 level our choice"
     if horizon_label:
         note = horizon_label + "  ·  " + note
     fig.text(0.01, 0.005, note, color=GREY, fontsize=6)

@@ -1,0 +1,30 @@
+{
+ "sources": 515,
+ "heat_release_mw": {
+  "median": 454.4352088987268,
+  "max": 2057.4744832666297
+ },
+ "front_width_m": {
+  "median": 378.8122706333316,
+  "min": 375.00008782992364,
+  "max": 527.8111570609527
+ },
+ "radiative_fraction": 0.3,
+ "atmospheric_transmissivity": 1.0,
+ "receiver_height_m": 1.7,
+ "own_cell_flux_kw_m2_max": 0.0,
+ "own_cell_flux_nonzero": 0,
+ "neighbour_375m_flux_kw_m2": {
+  "median": 0.012618499755859375,
+  "max": 0.21553152465820313
+ },
+ "kernel_max_kw_m2": 0.21553152465820313,
+ "flame_height_m": {
+  "median": 3.0106108487931387,
+  "max": 3.6974458095905227
+ },
+ "emissive_power_kw_m2": {
+  "median": 58.55475966502587,
+  "max": 331.98412036137614
+ }
+}

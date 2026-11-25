@@ -1,6 +1,11 @@
 # routing_link: exposure fields as road-blocking times (Fish Creek)
 
-**Status (25 Nov 2026): done. Results in `RESULTS.md`, figure `fig_blocked_cells.{png,svg,pdf}`.** At the protocol's
+**Status (25 Nov 2026): v2 done (per-path heat and CO, PROTOCOL.md Amendments 2–5): `RESULTS_v2.md`,
+`RESULTS_all_v2.pdf`, figures `fig_blocked_cells_v2.*` and `fig_safety_zone.*`.** At the main v2 setting (share of
+paths ≥ 0.5, half-of-paths fire) exposure still blocks no road and changes no origin; radiant heat never reaches
+2.5 kW/m² on the 375 m grid in any path. v1 below, unchanged.
+
+**v1 (25 Nov 2026): done. Results in `RESULTS.md`, figure `fig_blocked_cells.{png,svg,pdf}`.** At the protocol's
 settings exposure blocks no cell and no road on Fish Creek in hours 0–5 and changes no last safe departure (0 of 350
 origins, residents and responders). The pipeline came from the user's `wildfire4.zip` (PROTOCOL.md Amendment 1).
 
@@ -18,7 +23,15 @@ origins, residents and responders). The pipeline came from the user's `wildfire4
 | `RESULTS.md`, `fig_blocked_cells.*` | the results and the figure |
 | `RESULTS_all.pdf`, `build_report.py` | every result, check, threshold source and limit in one PDF, with the figure; built from the committed outputs (`python3 build_report.py`) |
 | `export_6h/`, `out_earliest/`, `out_half/` | exported exposure and fire arrival; run outputs |
-| `tests/` | 13 synthetic tests (`python3 -m pytest -q tests`) |
+| `tests/` | 21 synthetic tests (`python3 -m pytest -q tests`): 13 v1, 8 for the per-path rule |
+| `perpath_export.py` | v2: per-path 60 s radiant and CO for all 1,024 paths, shares per criterion, minute and cell; checks |
+| `perpath_rule.py` | v2: share-of-paths blocking rule (levels 0.5 main, 0.1, 0.9, any path) |
+| `run_v2.py` | v2: blocking rasters, road-layer runs (both audiences, four levels, both fire readings), v1 beside v2, figure |
+| `safety_zone_export.py`, `safety_zone_fine.py`, `safety_zone.py` | the safety-zone figure (Amendments 3–5): one path, one minute, zone at 375 m and 5 m, routing |
+| `diag_co_check.py`, `diag_radiant.py` | v2 diagnostics: CO mean check; flame-front geometry and power |
+| `build_report_v2.py` | builds `RESULTS_all_v2.pdf` from the committed v2 outputs |
+| `RESULTS_v2.md`, `RESULTS_all_v2.pdf`, `fig_blocked_cells_v2.*`, `fig_safety_zone.*` | v2 results and figures |
+| `export_v2/`, `out_v2/` | v2 per-path counts, peaks, distances, checks, safety-zone data; v2 run outputs |
 
 ## Fish Creek road network (built, 24 Nov 2026)
 
@@ -50,3 +63,15 @@ origins, residents and responders). The pipeline came from the user's `wildfire4
 One fire; uncalibrated exposure; thresholds made for buildings or workplaces, not for people in vehicles; no Korean
 case, because Korea has no fuel maps. The visibility criterion is an assumption (10 m building-egress reference, 0.5
 level our choice).
+
+## Reproduce v2 (Amendments 2–5)
+
+1. In the pipeline workspace (same environment as v1), from its root, with `PYTHONPATH=.`:
+   `python perpath_export.py --out export_v2 --v1 export_6h` (about 6 min),
+   `python diag_co_check.py --v1 export_6h --out export_v2`, `python diag_radiant.py`,
+   `python safety_zone_export.py --out export_v2`, then
+   `python safety_zone_fine.py --grid GRID_JSON --osm data/fishcreek_osm_20240823.json.gz --out export_v2` with and
+   without `--terrain-plane` (paths relative to this folder).
+2. Here: `python3 run_v2.py --v2 export_v2 --v1 export_6h --grid GRID_JSON --osm data/fishcreek_osm_20240823.json.gz --out out_v2`
+   (about 7 min), `python3 safety_zone.py --grid GRID_JSON --osm data/fishcreek_osm_20240823.json.gz`,
+   `python3 build_report_v2.py`.
