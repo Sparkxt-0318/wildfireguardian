@@ -96,14 +96,14 @@
     "lat0": 35.75,
     "level_g_k2_ms": 11.4,
     "lon0": 127.25,
-    "max_gust_ms": 11.51,
+    "max_gust_ms": 11.5,
     "state": false
    },
    {
     "lat0": 35.75,
     "level_g_k2_ms": 11.4,
     "lon0": 127.5,
-    "max_gust_ms": 11.51,
+    "max_gust_ms": 11.5,
     "state": false
    },
    {
@@ -117,7 +117,7 @@
     "lat0": 35.75,
     "level_g_k2_ms": 3.31,
     "lon0": 128.0,
-    "max_gust_ms": 3.81,
+    "max_gust_ms": 3.71,
     "state": false
    },
    {
@@ -143,7 +143,7 @@
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 2.0,
+    "level_g_k2_ms": 2.72,
     "lon0": 129.0,
     "max_gust_ms": 3.2,
     "state": false
@@ -180,21 +180,21 @@
     "lat0": 36.0,
     "level_g_k2_ms": 11.5,
     "lon0": 127.5,
-    "max_gust_ms": 12.21,
+    "max_gust_ms": 11.71,
     "state": false
    },
    {
     "lat0": 36.0,
     "level_g_k2_ms": 11.21,
     "lon0": 127.75,
-    "max_gust_ms": 12.21,
+    "max_gust_ms": 11.71,
     "state": false
    },
    {
     "lat0": 36.0,
     "level_g_k2_ms": 10.81,
     "lon0": 128.0,
-    "max_gust_ms": 11.21,
+    "max_gust_ms": 10.91,
     "state": false
    },
    {
@@ -257,21 +257,21 @@
     "lat0": 36.25,
     "level_g_k2_ms": 11.9,
     "lon0": 127.5,
-    "max_gust_ms": 12.21,
+    "max_gust_ms": 12.01,
     "state": false
    },
    {
     "lat0": 36.25,
     "level_g_k2_ms": 11.21,
     "lon0": 127.75,
-    "max_gust_ms": 12.21,
+    "max_gust_ms": 11.71,
     "state": false
    },
    {
     "lat0": 36.25,
     "level_g_k2_ms": 10.81,
     "lon0": 128.0,
-    "max_gust_ms": 11.21,
+    "max_gust_ms": 10.91,
     "state": false
    },
    {
@@ -299,7 +299,7 @@
     "lat0": 36.25,
     "level_g_k2_ms": 13.11,
     "lon0": 129.0,
-    "max_gust_ms": 13.21,
+    "max_gust_ms": 13.22,
     "state": false
    },
    {
@@ -472,7 +472,7 @@
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 11.71,
+    "level_g_k2_ms": 11.7,
     "lon0": 127.0,
     "max_gust_ms": 11.91,
     "state": false
@@ -500,14 +500,14 @@
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 12.81,
+    "level_g_k2_ms": 12.82,
     "lon0": 128.0,
     "max_gust_ms": 13.6,
     "state": false
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 12.81,
+    "level_g_k2_ms": 12.82,
     "lon0": 128.25,
     "max_gust_ms": 13.7,
     "state": false
@@ -558,7 +558,7 @@
     "lat0": 37.25,
     "level_g_k2_ms": 9.6,
     "lon0": 127.25,
-    "max_gust_ms": 10.71,
+    "max_gust_ms": 10.4,
     "state": false
    },
    {
@@ -640,7 +640,7 @@
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 3.11,
+    "level_g_k2_ms": 2.5,
     "lon0": 127.5,
     "max_gust_ms": 4.21,
     "state": false
@@ -724,28 +724,28 @@
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 13.01,
+    "level_g_k2_ms": 12.5,
     "lon0": 127.75,
     "max_gust_ms": 13.21,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 15.41,
+    "level_g_k2_ms": 15.3,
     "lon0": 128.0,
     "max_gust_ms": 15.51,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 18.01,
+    "level_g_k2_ms": 18.0,
     "lon0": 128.25,
     "max_gust_ms": 18.31,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 18.01,
+    "level_g_k2_ms": 18.0,
     "lon0": 128.5,
     "max_gust_ms": 18.31,
     "state": false
@@ -815,14 +815,14 @@
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 18.01,
+    "level_g_k2_ms": 18.0,
     "lon0": 128.25,
     "max_gust_ms": 18.31,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 18.01,
+    "level_g_k2_ms": 18.0,
     "lon0": 128.5,
     "max_gust_ms": 18.31,
     "state": false
@@ -983,9 +983,9 @@
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 18.51,
+    "level_g_k2_ms": 18.5,
     "lon0": 128.75,
-    "max_gust_ms": 18.61,
+    "max_gust_ms": 18.51,
     "state": false
    },
    {
@@ -1011,7 +1011,7 @@
    }
   ],
   "gfs_cycle_utc": "2026-11-25T06:00:00Z",
-  "issue_hour_utc": "2026-11-25T13:00:00Z",
+  "issue_hour_utc": "2026-11-25T14:00:00Z",
   "n_cells": 143,
   "n_on": 0
  },
@@ -1037,7 +1037,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T13:37:58Z",
+   "fetched_utc": "2026-11-25T14:08:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T13:37:58Z",
+   "fetched_utc": "2026-11-25T14:08:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T13:37:58Z",
+   "fetched_utc": "2026-11-25T14:08:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T13:37:58Z",
+   "fetched_utc": "2026-11-25T14:08:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1095,7 +1095,7 @@
   "kfs": {
    "bytes": 635,
    "error": null,
-   "fetched_utc": "2026-11-25T13:37:57Z",
+   "fetched_utc": "2026-11-25T14:08:01Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
@@ -1104,9 +1104,9 @@
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
- "issue_hour_utc": "2026-11-25T13:00:00Z",
- "issue_kst": "2026-11-25 22:37",
- "issue_utc": "2026-11-25T13:37:00Z",
+ "issue_hour_utc": "2026-11-25T14:00:00Z",
+ "issue_kst": "2026-11-25 23:08",
+ "issue_utc": "2026-11-25T14:08:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1141,12 +1141,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-25T13:37:59Z",
+  "compute_finished_utc": "2026-11-25T14:08:03Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-25T13:37:58Z",
+  "fetch_finished_utc": "2026-11-25T14:08:02Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45625411748"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45630547842"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
