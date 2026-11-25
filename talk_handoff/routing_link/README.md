@@ -16,6 +16,7 @@ origins, residents and responders). The pipeline came from the user's `wildfire4
 | `figure.py` | the one figure (five colours, transparent, no title) |
 | `export_fishcreek.py` | runs the pipeline for hours 0–5 with the saved example's settings and exports what `run_all.py` reads |
 | `RESULTS.md`, `fig_blocked_cells.*` | the results and the figure |
+| `RESULTS_all.pdf`, `build_report.py` | every result, check, threshold source and limit in one PDF, with the figure; built from the committed outputs (`python3 build_report.py`) |
 | `export_6h/`, `out_earliest/`, `out_half/` | exported exposure and fire arrival; run outputs |
 | `tests/` | 13 synthetic tests (`python3 -m pytest -q tests`) |
 
