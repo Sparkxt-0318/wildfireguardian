@@ -10,9 +10,9 @@
   "cells": [
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 8.81,
+    "level_g_k2_ms": 9.61,
     "lon0": 127.0,
-    "max_gust_ms": 9.61,
+    "max_gust_ms": 9.63,
     "state": false
    },
    {
@@ -31,268 +31,268 @@
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 7.71,
+    "level_g_k2_ms": 8.53,
     "lon0": 127.75,
     "max_gust_ms": 8.61,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 4.21,
+    "level_g_k2_ms": 5.61,
     "lon0": 128.0,
-    "max_gust_ms": 5.61,
+    "max_gust_ms": 7.53,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 3.11,
+    "level_g_k2_ms": 4.53,
     "lon0": 128.25,
     "max_gust_ms": 4.81,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 5.31,
+    "level_g_k2_ms": 8.41,
     "lon0": 128.5,
-    "max_gust_ms": 8.41,
+    "max_gust_ms": 9.23,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 10.61,
+    "level_g_k2_ms": 11.91,
     "lon0": 128.75,
-    "max_gust_ms": 11.91,
+    "max_gust_ms": 12.03,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 10.61,
+    "level_g_k2_ms": 11.91,
     "lon0": 129.0,
-    "max_gust_ms": 11.91,
+    "max_gust_ms": 12.03,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 11.7,
+    "level_g_k2_ms": 11.51,
     "lon0": 129.25,
-    "max_gust_ms": 12.9,
+    "max_gust_ms": 12.53,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 14.2,
+    "level_g_k2_ms": 13.41,
     "lon0": 129.5,
-    "max_gust_ms": 14.3,
+    "max_gust_ms": 14.23,
     "state": false
    },
    {
     "lat0": 35.75,
     "level_g_k2_ms": 9.71,
     "lon0": 127.0,
-    "max_gust_ms": 9.9,
+    "max_gust_ms": 10.73,
     "state": false
    },
    {
     "lat0": 35.75,
     "level_g_k2_ms": 9.71,
     "lon0": 127.25,
-    "max_gust_ms": 11.0,
+    "max_gust_ms": 9.83,
     "state": false
    },
    {
     "lat0": 35.75,
     "level_g_k2_ms": 9.61,
     "lon0": 127.5,
-    "max_gust_ms": 11.0,
+    "max_gust_ms": 9.71,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 8.31,
+    "level_g_k2_ms": 8.61,
     "lon0": 127.75,
-    "max_gust_ms": 9.5,
+    "max_gust_ms": 8.83,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 4.21,
+    "level_g_k2_ms": 5.61,
     "lon0": 128.0,
-    "max_gust_ms": 5.61,
+    "max_gust_ms": 7.53,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 3.11,
+    "level_g_k2_ms": 4.53,
     "lon0": 128.25,
     "max_gust_ms": 4.81,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 5.31,
+    "level_g_k2_ms": 8.41,
     "lon0": 128.5,
-    "max_gust_ms": 8.41,
+    "max_gust_ms": 9.23,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 10.61,
+    "level_g_k2_ms": 11.91,
     "lon0": 128.75,
-    "max_gust_ms": 11.91,
+    "max_gust_ms": 12.03,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 10.61,
+    "level_g_k2_ms": 11.91,
     "lon0": 129.0,
-    "max_gust_ms": 11.91,
+    "max_gust_ms": 12.03,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 9.21,
+    "level_g_k2_ms": 10.51,
     "lon0": 129.25,
-    "max_gust_ms": 10.51,
+    "max_gust_ms": 11.83,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 11.71,
+    "level_g_k2_ms": 12.71,
     "lon0": 129.5,
-    "max_gust_ms": 12.71,
+    "max_gust_ms": 13.73,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 9.9,
+    "level_g_k2_ms": 10.31,
     "lon0": 127.0,
-    "max_gust_ms": 10.31,
+    "max_gust_ms": 10.83,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 10.2,
+    "level_g_k2_ms": 10.31,
     "lon0": 127.25,
-    "max_gust_ms": 11.0,
+    "max_gust_ms": 10.83,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 10.2,
-    "lon0": 127.5,
-    "max_gust_ms": 11.0,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 9.11,
-    "lon0": 127.75,
-    "max_gust_ms": 9.6,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 9.0,
-    "lon0": 128.0,
-    "max_gust_ms": 9.6,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 3.51,
-    "lon0": 128.25,
-    "max_gust_ms": 3.81,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 4.41,
-    "lon0": 128.5,
-    "max_gust_ms": 6.21,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 5.81,
-    "lon0": 128.75,
-    "max_gust_ms": 8.51,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 8.11,
-    "lon0": 129.0,
-    "max_gust_ms": 10.41,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 10.0,
-    "lon0": 129.25,
-    "max_gust_ms": 11.2,
-    "state": false
-   },
-   {
-    "lat0": 36.0,
-    "level_g_k2_ms": 10.0,
-    "lon0": 129.5,
-    "max_gust_ms": 11.51,
-    "state": false
-   },
-   {
-    "lat0": 36.25,
-    "level_g_k2_ms": 9.71,
-    "lon0": 127.0,
-    "max_gust_ms": 10.81,
-    "state": false
-   },
-   {
-    "lat0": 36.25,
-    "level_g_k2_ms": 9.71,
-    "lon0": 127.25,
-    "max_gust_ms": 10.81,
-    "state": false
-   },
-   {
-    "lat0": 36.25,
-    "level_g_k2_ms": 9.11,
+    "level_g_k2_ms": 9.41,
     "lon0": 127.5,
     "max_gust_ms": 10.2,
     "state": false
    },
    {
-    "lat0": 36.25,
+    "lat0": 36.0,
     "level_g_k2_ms": 9.11,
     "lon0": 127.75,
-    "max_gust_ms": 9.6,
+    "max_gust_ms": 9.11,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 6.91,
+    "lon0": 128.0,
+    "max_gust_ms": 9.0,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 3.81,
+    "lon0": 128.25,
+    "max_gust_ms": 4.23,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 6.21,
+    "lon0": 128.5,
+    "max_gust_ms": 6.53,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 8.51,
+    "lon0": 128.75,
+    "max_gust_ms": 9.13,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 10.41,
+    "lon0": 129.0,
+    "max_gust_ms": 11.03,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 10.41,
+    "lon0": 129.25,
+    "max_gust_ms": 11.83,
+    "state": false
+   },
+   {
+    "lat0": 36.0,
+    "level_g_k2_ms": 11.51,
+    "lon0": 129.5,
+    "max_gust_ms": 12.73,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 9.0,
+    "level_g_k2_ms": 10.81,
+    "lon0": 127.0,
+    "max_gust_ms": 10.93,
+    "state": false
+   },
+   {
+    "lat0": 36.25,
+    "level_g_k2_ms": 10.81,
+    "lon0": 127.25,
+    "max_gust_ms": 10.93,
+    "state": false
+   },
+   {
+    "lat0": 36.25,
+    "level_g_k2_ms": 10.11,
+    "lon0": 127.5,
+    "max_gust_ms": 10.43,
+    "state": false
+   },
+   {
+    "lat0": 36.25,
+    "level_g_k2_ms": 9.11,
+    "lon0": 127.75,
+    "max_gust_ms": 9.53,
+    "state": false
+   },
+   {
+    "lat0": 36.25,
+    "level_g_k2_ms": 8.11,
     "lon0": 128.0,
-    "max_gust_ms": 9.6,
+    "max_gust_ms": 9.0,
     "state": false
    },
    {
     "lat0": 36.25,
     "level_g_k2_ms": 3.51,
     "lon0": 128.25,
-    "max_gust_ms": 3.51,
+    "max_gust_ms": 4.13,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 4.41,
+    "level_g_k2_ms": 6.21,
     "lon0": 128.5,
-    "max_gust_ms": 6.21,
+    "max_gust_ms": 6.53,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 6.81,
+    "level_g_k2_ms": 8.11,
     "lon0": 128.75,
-    "max_gust_ms": 8.11,
+    "max_gust_ms": 9.13,
     "state": false
    },
    {
@@ -304,72 +304,72 @@
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 15.1,
+    "level_g_k2_ms": 15.0,
     "lon0": 129.25,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 15.1,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 15.1,
+    "level_g_k2_ms": 13.9,
     "lon0": 129.5,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 15.1,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 9.91,
+    "level_g_k2_ms": 10.81,
     "lon0": 127.0,
-    "max_gust_ms": 10.81,
+    "max_gust_ms": 10.93,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 9.91,
+    "level_g_k2_ms": 10.81,
     "lon0": 127.25,
-    "max_gust_ms": 10.81,
+    "max_gust_ms": 11.03,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 9.61,
+    "level_g_k2_ms": 10.61,
     "lon0": 127.5,
-    "max_gust_ms": 10.61,
-    "state": false
-   },
-   {
-    "lat0": 36.5,
-    "level_g_k2_ms": 9.11,
-    "lon0": 127.75,
-    "max_gust_ms": 9.31,
-    "state": false
-   },
-   {
-    "lat0": 36.5,
-    "level_g_k2_ms": 7.81,
-    "lon0": 128.0,
-    "max_gust_ms": 8.51,
-    "state": false
-   },
-   {
-    "lat0": 36.5,
-    "level_g_k2_ms": 3.31,
-    "lon0": 128.25,
-    "max_gust_ms": 4.71,
-    "state": false
-   },
-   {
-    "lat0": 36.5,
-    "level_g_k2_ms": 3.71,
-    "lon0": 128.5,
-    "max_gust_ms": 5.51,
+    "max_gust_ms": 11.03,
     "state": false
    },
    {
     "lat0": 36.5,
     "level_g_k2_ms": 9.31,
+    "lon0": 127.75,
+    "max_gust_ms": 9.93,
+    "state": false
+   },
+   {
+    "lat0": 36.5,
+    "level_g_k2_ms": 8.11,
+    "lon0": 128.0,
+    "max_gust_ms": 8.83,
+    "state": false
+   },
+   {
+    "lat0": 36.5,
+    "level_g_k2_ms": 4.71,
+    "lon0": 128.25,
+    "max_gust_ms": 5.83,
+    "state": false
+   },
+   {
+    "lat0": 36.5,
+    "level_g_k2_ms": 5.51,
+    "lon0": 128.5,
+    "max_gust_ms": 5.83,
+    "state": false
+   },
+   {
+    "lat0": 36.5,
+    "level_g_k2_ms": 10.31,
     "lon0": 128.75,
-    "max_gust_ms": 10.31,
+    "max_gust_ms": 10.93,
     "state": false
    },
    {
@@ -388,9 +388,9 @@
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 15.1,
+    "level_g_k2_ms": 14.2,
     "lon0": 129.5,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 15.1,
     "state": false
    },
    {
@@ -404,49 +404,49 @@
     "lat0": 36.75,
     "level_g_k2_ms": 10.61,
     "lon0": 127.25,
-    "max_gust_ms": 10.71,
+    "max_gust_ms": 11.03,
     "state": false
    },
    {
     "lat0": 36.75,
     "level_g_k2_ms": 10.61,
     "lon0": 127.5,
-    "max_gust_ms": 10.71,
+    "max_gust_ms": 11.03,
     "state": false
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 9.21,
+    "level_g_k2_ms": 10.01,
     "lon0": 127.75,
-    "max_gust_ms": 10.01,
+    "max_gust_ms": 10.33,
     "state": false
    },
    {
     "lat0": 36.75,
     "level_g_k2_ms": 8.51,
     "lon0": 128.0,
-    "max_gust_ms": 8.61,
+    "max_gust_ms": 9.23,
     "state": false
    },
    {
     "lat0": 36.75,
     "level_g_k2_ms": 7.41,
     "lon0": 128.25,
-    "max_gust_ms": 7.61,
+    "max_gust_ms": 8.43,
     "state": false
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 3.81,
+    "level_g_k2_ms": 4.61,
     "lon0": 128.5,
-    "max_gust_ms": 4.61,
+    "max_gust_ms": 5.83,
     "state": false
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 9.31,
+    "level_g_k2_ms": 10.41,
     "lon0": 128.75,
-    "max_gust_ms": 10.41,
+    "max_gust_ms": 10.93,
     "state": false
    },
    {
@@ -465,9 +465,9 @@
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 14.8,
+    "level_g_k2_ms": 14.2,
     "lon0": 129.5,
-    "max_gust_ms": 14.9,
+    "max_gust_ms": 14.8,
     "state": false
    },
    {
@@ -493,9 +493,9 @@
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 10.0,
+    "level_g_k2_ms": 10.01,
     "lon0": 127.75,
-    "max_gust_ms": 10.01,
+    "max_gust_ms": 10.33,
     "state": false
    },
    {
@@ -507,23 +507,23 @@
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 8.51,
+    "level_g_k2_ms": 8.81,
     "lon0": 128.25,
-    "max_gust_ms": 8.81,
+    "max_gust_ms": 9.93,
     "state": false
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 12.8,
+    "level_g_k2_ms": 12.4,
     "lon0": 128.5,
-    "max_gust_ms": 12.9,
+    "max_gust_ms": 12.8,
     "state": false
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 13.5,
+    "level_g_k2_ms": 13.0,
     "lon0": 128.75,
-    "max_gust_ms": 14.2,
+    "max_gust_ms": 13.5,
     "state": false
    },
    {
@@ -542,28 +542,28 @@
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 12.8,
+    "level_g_k2_ms": 12.7,
     "lon0": 129.5,
     "max_gust_ms": 13.0,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 9.5,
+    "level_g_k2_ms": 9.31,
     "lon0": 127.0,
     "max_gust_ms": 9.8,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 9.51,
+    "level_g_k2_ms": 9.53,
     "lon0": 127.25,
     "max_gust_ms": 9.91,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 9.41,
+    "level_g_k2_ms": 9.63,
     "lon0": 127.5,
     "max_gust_ms": 9.91,
     "state": false
@@ -586,28 +586,28 @@
     "lat0": 37.25,
     "level_g_k2_ms": 12.4,
     "lon0": 128.25,
-    "max_gust_ms": 12.7,
+    "max_gust_ms": 12.5,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 14.0,
+    "level_g_k2_ms": 13.8,
     "lon0": 128.5,
-    "max_gust_ms": 14.5,
+    "max_gust_ms": 14.0,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 14.0,
+    "level_g_k2_ms": 13.8,
     "lon0": 128.75,
-    "max_gust_ms": 14.5,
+    "max_gust_ms": 14.0,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 13.5,
+    "level_g_k2_ms": 13.2,
     "lon0": 129.0,
-    "max_gust_ms": 14.2,
+    "max_gust_ms": 13.5,
     "state": false
    },
    {
@@ -626,7 +626,7 @@
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 9.5,
+    "level_g_k2_ms": 9.01,
     "lon0": 127.0,
     "max_gust_ms": 9.8,
     "state": false
@@ -635,56 +635,56 @@
     "lat0": 37.5,
     "level_g_k2_ms": 9.01,
     "lon0": 127.25,
-    "max_gust_ms": 9.31,
+    "max_gust_ms": 9.53,
     "state": false
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 8.81,
+    "level_g_k2_ms": 9.11,
     "lon0": 127.5,
-    "max_gust_ms": 9.11,
+    "max_gust_ms": 9.63,
     "state": false
    },
    {
     "lat0": 37.5,
     "level_g_k2_ms": 9.51,
     "lon0": 127.75,
-    "max_gust_ms": 9.51,
+    "max_gust_ms": 9.73,
     "state": false
    },
    {
     "lat0": 37.5,
     "level_g_k2_ms": 12.7,
     "lon0": 128.0,
-    "max_gust_ms": 12.9,
+    "max_gust_ms": 12.8,
     "state": false
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 14.8,
+    "level_g_k2_ms": 14.3,
     "lon0": 128.25,
-    "max_gust_ms": 15.3,
+    "max_gust_ms": 14.8,
     "state": false
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 14.8,
+    "level_g_k2_ms": 14.3,
     "lon0": 128.5,
-    "max_gust_ms": 15.3,
+    "max_gust_ms": 14.8,
     "state": false
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 14.4,
+    "level_g_k2_ms": 13.8,
     "lon0": 128.75,
-    "max_gust_ms": 15.2,
+    "max_gust_ms": 14.4,
     "state": false
    },
    {
     "lat0": 37.5,
     "level_g_k2_ms": 14.3,
     "lon0": 129.0,
-    "max_gust_ms": 14.6,
+    "max_gust_ms": 14.5,
     "state": false
    },
    {
@@ -703,16 +703,16 @@
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 8.81,
+    "level_g_k2_ms": 9.01,
     "lon0": 127.0,
-    "max_gust_ms": 9.01,
+    "max_gust_ms": 10.03,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 8.81,
+    "level_g_k2_ms": 9.01,
     "lon0": 127.25,
-    "max_gust_ms": 9.01,
+    "max_gust_ms": 10.03,
     "state": false
    },
    {
@@ -733,42 +733,42 @@
     "lat0": 37.75,
     "level_g_k2_ms": 13.1,
     "lon0": 128.0,
-    "max_gust_ms": 13.4,
+    "max_gust_ms": 13.1,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 14.8,
+    "level_g_k2_ms": 14.3,
     "lon0": 128.25,
-    "max_gust_ms": 15.3,
+    "max_gust_ms": 14.8,
+    "state": false
+   },
+   {
+    "lat0": 37.75,
+    "level_g_k2_ms": 14.3,
+    "lon0": 128.5,
+    "max_gust_ms": 14.8,
     "state": false
    },
    {
     "lat0": 37.75,
     "level_g_k2_ms": 14.8,
-    "lon0": 128.5,
-    "max_gust_ms": 15.3,
-    "state": false
-   },
-   {
-    "lat0": 37.75,
-    "level_g_k2_ms": 15.4,
     "lon0": 128.75,
-    "max_gust_ms": 15.6,
+    "max_gust_ms": 15.4,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 15.4,
+    "level_g_k2_ms": 14.8,
     "lon0": 129.0,
-    "max_gust_ms": 15.6,
+    "max_gust_ms": 15.4,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 15.3,
+    "level_g_k2_ms": 15.1,
     "lon0": 129.25,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 15.3,
     "state": false
    },
    {
@@ -780,72 +780,72 @@
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 8.81,
+    "level_g_k2_ms": 10.03,
     "lon0": 127.0,
     "max_gust_ms": 11.21,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 12.6,
+    "level_g_k2_ms": 11.7,
     "lon0": 127.25,
-    "max_gust_ms": 13.1,
+    "max_gust_ms": 12.6,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 12.6,
+    "level_g_k2_ms": 11.7,
     "lon0": 127.5,
-    "max_gust_ms": 13.1,
+    "max_gust_ms": 12.6,
     "state": false
    },
    {
     "lat0": 38.0,
     "level_g_k2_ms": 10.11,
     "lon0": 127.75,
-    "max_gust_ms": 12.0,
+    "max_gust_ms": 10.41,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 14.4,
+    "level_g_k2_ms": 14.2,
     "lon0": 128.0,
-    "max_gust_ms": 14.8,
+    "max_gust_ms": 14.4,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 14.4,
+    "level_g_k2_ms": 14.2,
     "lon0": 128.25,
-    "max_gust_ms": 14.9,
+    "max_gust_ms": 14.4,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 14.4,
+    "level_g_k2_ms": 14.0,
     "lon0": 128.5,
-    "max_gust_ms": 14.9,
+    "max_gust_ms": 14.4,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 15.4,
+    "level_g_k2_ms": 14.8,
     "lon0": 128.75,
-    "max_gust_ms": 15.6,
+    "max_gust_ms": 15.4,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 15.4,
+    "level_g_k2_ms": 14.8,
     "lon0": 129.0,
-    "max_gust_ms": 15.6,
+    "max_gust_ms": 15.4,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 15.3,
+    "level_g_k2_ms": 15.0,
     "lon0": 129.25,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 15.3,
     "state": false
    },
    {
@@ -866,152 +866,152 @@
     "lat0": 38.25,
     "level_g_k2_ms": 14.5,
     "lon0": 127.25,
-    "max_gust_ms": 14.7,
+    "max_gust_ms": 14.5,
     "state": false
    },
    {
     "lat0": 38.25,
     "level_g_k2_ms": 14.5,
     "lon0": 127.5,
-    "max_gust_ms": 14.7,
+    "max_gust_ms": 14.5,
     "state": false
    },
    {
     "lat0": 38.25,
-    "level_g_k2_ms": 14.3,
+    "level_g_k2_ms": 13.8,
     "lon0": 127.75,
-    "max_gust_ms": 14.8,
+    "max_gust_ms": 14.3,
     "state": false
    },
    {
     "lat0": 38.25,
-    "level_g_k2_ms": 14.4,
+    "level_g_k2_ms": 14.2,
     "lon0": 128.0,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 14.4,
     "state": false
    },
    {
     "lat0": 38.25,
-    "level_g_k2_ms": 14.4,
+    "level_g_k2_ms": 14.2,
     "lon0": 128.25,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 14.4,
+    "state": false
+   },
+   {
+    "lat0": 38.25,
+    "level_g_k2_ms": 12.6,
+    "lon0": 128.5,
+    "max_gust_ms": 14.1,
+    "state": false
+   },
+   {
+    "lat0": 38.25,
+    "level_g_k2_ms": 15.1,
+    "lon0": 128.75,
+    "max_gust_ms": 15.4,
+    "state": false
+   },
+   {
+    "lat0": 38.25,
+    "level_g_k2_ms": 15.7,
+    "lon0": 129.0,
+    "max_gust_ms": 16.3,
+    "state": false
+   },
+   {
+    "lat0": 38.25,
+    "level_g_k2_ms": 15.7,
+    "lon0": 129.25,
+    "max_gust_ms": 16.3,
     "state": false
    },
    {
     "lat0": 38.25,
     "level_g_k2_ms": 14.1,
-    "lon0": 128.5,
-    "max_gust_ms": 14.9,
-    "state": false
-   },
-   {
-    "lat0": 38.25,
-    "level_g_k2_ms": 15.4,
-    "lon0": 128.75,
-    "max_gust_ms": 16.4,
-    "state": false
-   },
-   {
-    "lat0": 38.25,
-    "level_g_k2_ms": 16.3,
-    "lon0": 129.0,
-    "max_gust_ms": 17.4,
-    "state": false
-   },
-   {
-    "lat0": 38.25,
-    "level_g_k2_ms": 16.3,
-    "lon0": 129.25,
-    "max_gust_ms": 17.4,
-    "state": false
-   },
-   {
-    "lat0": 38.25,
-    "level_g_k2_ms": 15.2,
     "lon0": 129.5,
-    "max_gust_ms": 16.1,
+    "max_gust_ms": 15.2,
     "state": false
    },
    {
     "lat0": 38.5,
     "level_g_k2_ms": 12.6,
     "lon0": 127.0,
-    "max_gust_ms": 12.9,
+    "max_gust_ms": 12.8,
     "state": false
    },
    {
     "lat0": 38.5,
     "level_g_k2_ms": 14.5,
     "lon0": 127.25,
-    "max_gust_ms": 14.9,
+    "max_gust_ms": 14.5,
     "state": false
    },
    {
     "lat0": 38.5,
     "level_g_k2_ms": 14.8,
     "lon0": 127.5,
-    "max_gust_ms": 15.7,
+    "max_gust_ms": 14.8,
     "state": false
    },
    {
     "lat0": 38.5,
     "level_g_k2_ms": 14.8,
     "lon0": 127.75,
-    "max_gust_ms": 15.7,
+    "max_gust_ms": 14.8,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 14.3,
+    "level_g_k2_ms": 13.8,
     "lon0": 128.0,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 14.3,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 14.3,
+    "level_g_k2_ms": 13.7,
     "lon0": 128.25,
-    "max_gust_ms": 15.5,
+    "max_gust_ms": 14.3,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 14.1,
+    "level_g_k2_ms": 12.6,
     "lon0": 128.5,
-    "max_gust_ms": 14.9,
+    "max_gust_ms": 14.1,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 15.4,
+    "level_g_k2_ms": 15.1,
     "lon0": 128.75,
-    "max_gust_ms": 16.4,
+    "max_gust_ms": 15.4,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 16.3,
+    "level_g_k2_ms": 15.7,
     "lon0": 129.0,
-    "max_gust_ms": 17.4,
+    "max_gust_ms": 16.3,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 16.3,
+    "level_g_k2_ms": 15.7,
     "lon0": 129.25,
-    "max_gust_ms": 17.4,
+    "max_gust_ms": 16.3,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 15.2,
+    "level_g_k2_ms": 14.81,
     "lon0": 129.5,
-    "max_gust_ms": 16.1,
+    "max_gust_ms": 15.2,
     "state": false
    }
   ],
   "gfs_cycle_utc": "2026-11-25T12:00:00Z",
-  "issue_hour_utc": "2026-11-25T19:00:00Z",
+  "issue_hour_utc": "2026-11-25T20:00:00Z",
   "n_cells": 143,
   "n_on": 0
  },
@@ -1037,7 +1037,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T19:38:00Z",
+   "fetched_utc": "2026-11-25T20:07:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T19:38:00Z",
+   "fetched_utc": "2026-11-25T20:07:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T19:38:00Z",
+   "fetched_utc": "2026-11-25T20:07:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T19:38:00Z",
+   "fetched_utc": "2026-11-25T20:07:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1093,20 +1093,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261125/12/atmos/gfs.t12z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 581,
+   "bytes": 676,
    "error": null,
-   "fetched_utc": "2026-11-25T19:37:59Z",
+   "fetched_utc": "2026-11-25T20:07:57Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "9871cd6f88220255a434d724530e4c7a6f87f2111d5ff5c4b94c5e426052d50f",
+   "sha256": "15b8739428087ecc897ac1b028269e8738fbfecb36b65cef23d53f05ab524ab7",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
- "issue_hour_utc": "2026-11-25T19:00:00Z",
- "issue_kst": "2026-11-26 04:37",
- "issue_utc": "2026-11-25T19:37:00Z",
+ "issue_hour_utc": "2026-11-25T20:00:00Z",
+ "issue_kst": "2026-11-26 05:07",
+ "issue_utc": "2026-11-25T20:07:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1121,15 +1121,15 @@
     "status_word": null,
     "text": null
    },
-   "contained_pct": null,
+   "contained_pct": 100,
    "id": "516624",
    "in_scope": false,
    "lat": 37.54234000012222,
    "lgdng_cd": "4183040028",
    "lon": 127.63662000000019,
    "report_utc": "2026-11-25T18:48:47Z",
-   "status": "진화중",
-   "status_code": "02",
+   "status": "진화완료",
+   "status_code": "03",
    "step": "초기 대응"
   }
  ],
@@ -1141,12 +1141,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-25T19:38:01Z",
+  "compute_finished_utc": "2026-11-25T20:07:59Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-25T19:38:00Z",
+  "fetch_finished_utc": "2026-11-25T20:07:58Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45686958787"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45691809054"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
