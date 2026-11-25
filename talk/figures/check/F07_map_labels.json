@@ -1,0 +1,16 @@
+{
+ "figure": "F07_map",
+ "korean_font": "Apple SD Gothic Neo",
+ "latin_font": "Helvetica Neue",
+ "texts_with_hangul": [
+  "원당리,\nleaves 18:00",
+  "의성중학교,\nreached 18:06",
+  "분토리: leave by 18:05",
+  "원당리: leave by 18:15",
+  "Figure 7 (map). 의성·안동, 18:00 KST, 25 March 2025. (a) Leaving 원당리 at 18:00, a forward search settles 661 road pieces\nbefore reaching a shelter at 18:06:27: one village, one departure time. (b) One backward pass from every shelter gives every\nroad its leave-by time, including both villages outside the fire area (분토리 18:05, 원당리 18:15)."
+ ],
+ "marks_checked": 47,
+ "glyph_problems": [],
+ "mark_problems": [],
+ "file_problems": []
+}

@@ -263,25 +263,25 @@
    "caption": false
   },
   {
-   "text": "Wondang-ri",
-   "cx": 11.562485713441605,
-   "cy": 5.3246825396825415,
-   "w": 1.1574688924153647,
-   "h": 0.2588888888888889,
+   "text": "원당리",
+   "cx": 11.123256763788827,
+   "cy": 5.565238095238096,
+   "w": 0.57290234375,
+   "h": 0.2588888888888881,
    "rotation": 0.0,
    "size_pt": 16.0,
    "bold": false,
    "italic": false,
    "color": "#1a1a1a",
-   "ha": "center",
+   "ha": "right",
    "multialign": null,
-   "name": "Wondang-ri",
+   "name": "원당리",
    "caption": false
   },
   {
    "text": "school shelter",
-   "cx": 12.72563582181333,
-   "cy": 5.907271812823361,
+   "cx": 13.584993504104999,
+   "cy": 5.328938479490028,
    "w": 1.38538203125,
    "h": 0.2588888888888889,
    "rotation": 0.0,
@@ -289,7 +289,7 @@
    "bold": false,
    "italic": false,
    "color": "#1a1a1a",
-   "ha": "right",
+   "ha": "center",
    "multialign": null,
    "name": "school shelter",
    "caption": false
@@ -1015,10 +1015,10 @@
    "caption": false
   },
   {
-   "text": "Wondang-ri",
-   "cx": 15.598734446207684,
+   "text": "원당리",
+   "cx": 15.306451171875002,
    "cy": 2.1399999999999997,
-   "w": 1.1574688924153647,
+   "w": 0.57290234375,
    "h": 0.2588888888888881,
    "rotation": 0.0,
    "size_pt": 16.0,
@@ -1027,7 +1027,7 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "Wondang-ri",
+   "name": "원당리",
    "caption": false
   },
   {
@@ -1127,10 +1127,10 @@
    "caption": false
   },
   {
-   "text": "Figure 4. One case through the method: Uiseong–Andong at 18:00 KST on 25 March 2025. Inputs (a); the forecast model's learned spread kernels and next-hour\nchance of burning (b); heat, shown on the US Fish Creek fire because no Korean fuel maps exist (c). The road plan uses the detected fire, not (b)–(c): the known fire\nplus a calibrated 10 km margin (d) sets when each road is blocked, and a backward pass gives Wondang-ri a leave-by time of 18:15 and a route that an independent\nchecker accepted (e–f). At this hour the gate withheld the answer: the fire was unlike every calibration fire.",
-   "cx": 8.361417053222658,
+   "text": "Figure 4. One case through the method: 의성·안동 at 18:00 KST on 25 March 2025. Inputs (a); the forecast model's learned spread kernels and next-hour chance of\nburning (b); heat, shown on the US Fish Creek fire because no Korean fuel maps exist (c). The road plan uses the detected fire, not (b)–(c): the known fire plus a\ncalibrated 10 km margin (d) sets when each road is blocked, and a backward pass gives 원당리 a leave-by time of 18:15 and a route that an independent checker\naccepted (e–f). At this hour the gate withheld the answer: the fire was unlike every calibration fire.",
+   "cx": 8.256276452636719,
    "cy": 8.871333333333332,
-   "w": 16.322834106445313,
+   "w": 16.11255290527344,
    "h": 1.2426666666666666,
    "rotation": 0.0,
    "size_pt": 16.0,

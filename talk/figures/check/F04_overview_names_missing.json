@@ -1,0 +1,10 @@
+{
+ "osm:way/1266349297": {
+  "category": "school",
+  "role": "destination",
+  "name_en": null,
+  "osm_tags": {
+   "building": "school"
+  }
+ }
+}

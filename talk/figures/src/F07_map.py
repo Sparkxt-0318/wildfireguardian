@@ -14,6 +14,8 @@ import os
 import numpy as np
 from matplotlib.collections import LineCollection
 
+import labelcheck
+import placenames as PN
 import realmap as M
 import style as S
 from basemap import tiles_used
@@ -34,9 +36,10 @@ def in_view(lonlat):
 
 
 def main():
-    L = Ledger("F07m", "Forward against backward on the real map: Wondang-ri, 18:00 KST")
+    L = Ledger("F07m", "Forward against backward on the real map: 원당리 (Wondang-ri), 18:00 KST")
     d = M.load()
     fw, bw = d["forward"], d["backward"]
+    shelter_id = PN.by_entry_node(fw["shelter_node"])
     L.add("Forward search from Wondang-ri leaving 18:00: road edges settled / looked at",
           [fw["edges_settled"], fw["edges_looked_at"]], file=M.DATA, field="forward.edges_settled, edges_looked_at",
           shown=f"{fw['edges_settled']} road pieces searched",
@@ -56,7 +59,7 @@ def main():
     dep = [v for v in vill if v["ld_one_pass_s"] >= 0]
     for v in dep:
         L.add(f"Leave-by time of {v['name_en']} from the one pass", v["ld_one_pass_s"], unit="s after 18:00 KST",
-              file=M.DATA, field="villages[].ld_one_pass_s", shown=f"leave by {M.kst(v['ld_one_pass_s'])}",
+              file=M.DATA, field="villages[].ld_one_pass_s", shown=f"{PN.ko(v['id'])}: leave by {M.kst(v['ld_one_pass_s'])}",
               expected=f"stored replay (scene.js hourly lsd, 3 nearest shelters): {v['lsd_stored']} (checked)")
     L.add("Villages in view: with a leave-by time / inside the fire area",
           [len(dep), sum(v["state"] == "INSIDE_KNOWN_FIRE_AREA" for v in vill)], file=M.DATA,
@@ -65,6 +68,7 @@ def main():
           file=M.DATA, field="cells[].block_s == 0 (375 m cells, MEASURED arm)", shown="red area")
     L.add("Road edges blocked at 18:00 (whole region)", len(d["blocked_at_issue_pairs"]), file=M.DATA,
           field="blocked_at_issue_pairs (edges whose blocked starts begin at 0 s)", shown="red roads")
+    PN.ledger_rows(L, [fw["origin"], shelter_id] + [v["id"] for v in dep if v["id"] != fw["origin"]])
     L.add("Basemap tiles", tiles_used(Z, BBOX), file="talk/figures/build/osm_tiles/TILES.json",
           field=f"OpenStreetMap standard tiles, zoom {Z}", shown=M.ATTRIBUTION)
 
@@ -96,8 +100,8 @@ def main():
     wd = [v for v in vill if v["id"] == fw["origin"]][0]
     sm = M.point(ax, fw["route_lonlat"][-1], "shelter")[0]
     om = M.point(ax, wd["entry_lonlat"], "village")[0]
-    M.tag(ax, om, "Wondang-ri,\nleaves 18:00", dx=-8, dy=10, ha="right", va="bottom")
-    M.tag(ax, sm, f"shelter reached {M.kst(fw['arrival_s'])}", dx=-8, dy=12, ha="right", va="bottom")
+    M.tag(ax, om, f"{PN.ko(fw['origin'])},\nleaves 18:00", dx=-8, dy=10, ha="right", va="bottom")
+    M.tag(ax, sm, f"{PN.ko(shelter_id)},\nreached {M.kst(fw['arrival_s'])}", dx=-8, dy=12, ha="right", va="bottom")
     M.scale_bar(ax)
     # (b) backward pass
     ax = axs[1]
@@ -119,7 +123,7 @@ def main():
         if v["ld_one_pass_s"] >= 0:
             m = M.point(ax, v["entry_lonlat"], "village")[0]
             low = v["entry_lonlat"][1] < 36.34
-            M.tag(ax, m, f"{v['name_en']}: leave by {M.kst(v['ld_one_pass_s'])}", dx=8, dy=-16 if low else 14,
+            M.tag(ax, m, f"{PN.ko(v['id'])}: leave by {M.kst(v['ld_one_pass_s'])}", dx=8, dy=-16 if low else 14,
                   ha="left", va="top" if low else "bottom")
         else:
             M.point(ax, v["entry_lonlat"], "inside")
@@ -148,15 +152,20 @@ def main():
 
     v_dep = sorted(dep, key=lambda v: v["ld_one_pass_s"])
     cap = add_caption(fig, (
-        "Figure 7 (map). Uiseong–Andong, 18:00 KST, 25 March 2025. (a) Leaving Wondang-ri at 18:00, a forward "
-        f"search settles {fw['edges_settled']} road pieces before reaching a shelter at {M.kst(fw['arrival_s'], True)}: "
+        f"Figure 7 (map). {PN.region_ko()}, 18:00 KST, 25 March 2025. (a) Leaving {PN.ko(fw['origin'])} at 18:00, a "
+        f"forward search settles {fw['edges_settled']} road pieces before reaching a shelter at "
+        f"{M.kst(fw['arrival_s'], True)}: "
         "one village, one departure time. (b) One backward pass from every shelter gives every road its leave-by "
-        f"time, including both villages outside the fire area ({v_dep[0]['name_en']} "
-        f"{M.kst(v_dep[0]['ld_one_pass_s'])}, {v_dep[1]['name_en']} {M.kst(v_dep[1]['ld_one_pass_s'])})."
+        f"time, including both villages outside the fire area ({PN.ko(v_dep[0]['id'])} "
+        f"{M.kst(v_dep[0]['ld_one_pass_s'])}, {PN.ko(v_dep[1]['id'])} {M.kst(v_dep[1]['ld_one_pass_s'])})."
         ), x_in=0.35, width_in=12.6, top_in=ky + 1.12)
     L.save()
     M.back_labels(fig)
-    save(fig, "F07_map", caption=cap, transparent=True, strict=not os.environ.get("DRAFT"))
+    strict = not os.environ.get("DRAFT")
+    labelcheck.run(fig, "F07_map", strict)
+    save(fig, "F07_map", caption=cap, transparent=True, strict=strict)
+    labelcheck.verify_files("F07_map")
+    PN.record_missing("F07_map")
 
 
 if __name__ == "__main__":

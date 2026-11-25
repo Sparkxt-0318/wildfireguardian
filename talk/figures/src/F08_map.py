@@ -16,6 +16,8 @@ import os
 import numpy as np
 from matplotlib.patches import Polygon
 
+import labelcheck
+import placenames as PN
 import realmap as M
 import style as S
 from basemap import tiles_used, to_m
@@ -29,8 +31,10 @@ X0, MW, TOP = 0.35, 6.7, 0.6
 
 
 def main():
-    L = Ledger("F08m", "One backward step on a real road: Wondang-ri, 18:00 KST")
+    L = Ledger("F08m", "One backward step on a real road: 원당리 (Wondang-ri), 18:00 KST")
     d = M.load()
+    vid = d["forward"]["origin"]          # F07_map_data.PLACE: the stored route and the forward search share it
+    vname = PN.ko(vid)
     s = d["f08_step"]
     far, drive, block = s["latest_arrival_far_end_s"], s["drive_s"], s["fire_cell"]["block_s"]
     clear = drive * s["fire_cell"]["end_fraction"]
@@ -54,6 +58,7 @@ def main():
           field="min(far - drive, ceil(block - clear) - 1)", shown=M.kst(leave, True),
           expected=f"field leave-by at the near end {s['tail_node_ld_s']} s; stored route ld {d['route_ld_s']} s "
                    "(checked equal)")
+    PN.ledger_rows(L, [vid], region=False)
     L.add("Basemap tiles", tiles_used(Z, BBOX), file="talk/figures/build/osm_tiles/TILES.json",
           field=f"OpenStreetMap standard tiles, zoom {Z}", shown=M.ATTRIBUTION)
 
@@ -77,10 +82,10 @@ def main():
     fm = to_m(np.array(s["lonlat"][1]))
     ax.scatter([fm[0]], [fm[1]], s=90, marker="o", facecolor=S.PAPER, edgecolor=S.BLUE, linewidths=2.2,
                zorder=8).set_gid("bg:far end")
-    M.tag(ax, rm[0], f"Leave by {M.kst(leave, True)}", dx=-10, dy=12, ha="right", va="bottom")
-    M.tag(ax, fm, f"Safe arrival here\nby {M.kst(far, True)}", dx=12, dy=-6, ha="left", va="top")
+    M.tag(ax, rm[0], f"{vname}: leave by {M.kst(leave, True)}", dx=0, dy=12, ha="center", va="bottom")
+    M.tag(ax, fm, f"Safe arrival here\nby {M.kst(far, True)}", dx=10, dy=8, ha="left", va="bottom")
     mid = rm.mean(0)
-    M.tag(ax, mid, f"Drive {drive} s, {s['length_m']:.0f} m", dx=14, dy=12, ha="left", va="bottom")
+    M.tag(ax, mid, f"Drive {drive} s, {s['length_m']:.0f} m", dx=-6, dy=-14, ha="right", va="top")
     cm = to_m(np.array(cell["lonlat"]))
     M.tag(ax, (cm[:, 0].min(), cm[:, 1].min()), f"Fire reaches road {M.kst(block, True)}", dx=4, dy=8, ha="left",
           va="bottom")
@@ -109,14 +114,18 @@ def main():
     M.key_patch(fig, X0, ky + 0.42, "fire reaches cell later", W, H, S.PAPER, S.RED, hatch="////")
     M.key_line(fig, X0 + 3.4, ky + 0.42, S.INK, 1.6, "rest of the route", W, H)
     cap = add_caption(fig, (
-        f"Figure 8 (map). One backward step on the first road of Wondang-ri's route ({s['length_m']:.0f} m), 18:00 KST, "
+        f"Figure 8 (map). One backward step on the first road of the route from {vname} ({s['length_m']:.0f} m), 18:00 KST, "
         f"25 March 2025. Arriving at the far end by {M.kst(far, True)} still reaches a shelter; the drive takes "
         f"{drive} s; fire reaches the start of the road at {M.kst(block, True)}. The leave-by time is the earlier "
         f"limit, {M.kst(leave, True)}, set by the fire; it equals the village's leave-by time from the field."),
         x_in=X0, width_in=12.6, top_in=ky + 0.92)
     L.save()
     M.back_labels(fig)
-    save(fig, "F08_map", caption=cap, transparent=True, strict=not os.environ.get("DRAFT"))
+    strict = not os.environ.get("DRAFT")
+    labelcheck.run(fig, "F08_map", strict)
+    save(fig, "F08_map", caption=cap, transparent=True, strict=strict)
+    labelcheck.verify_files("F08_map")
+    PN.record_missing("F08_map")
 
 
 if __name__ == "__main__":

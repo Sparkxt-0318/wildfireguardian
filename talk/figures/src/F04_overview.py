@@ -28,6 +28,8 @@ from matplotlib.collections import LineCollection, PolyCollection
 from matplotlib.patches import FancyArrowPatch, Polygon, Rectangle
 from pyproj import Transformer
 
+import labelcheck
+import placenames as PN
 import style as S
 from figkit import add_caption, grid, save
 from prov import Ledger, git_show, sha256_file
@@ -199,6 +201,13 @@ def read(L):
     pl = L.json("planner/public/data/regions/uiseong_andong_2025/places.geojson")["features"]
     D["name_en"] = [f["properties"]["name_en"] for f in pl if f["properties"]["id"] == rt["place_id"]][0]
     D["shelter_cat"] = rt["shelter_category"]
+    # place names in Hangul from places.geojson `name` (placenames.py); the route's shelter is an OSM school building
+    # with no name tag, so it keeps its category label and is listed in NEEDS.md
+    D["name_ko"] = PN.ko(rt["place_id"])
+    sh_name = PN.ko(rt["route_shelter"])
+    D["shelter_label"] = f"{sh_name}" if sh_name else f"{D['shelter_cat']} shelter"
+    D["region_ko"] = PN.region_ko()
+    PN.ledger_rows(L, [rt["place_id"]])
     L.add("Last safe departure of the village", rt["ld_at_origin_s"], unit="s after 18:00 KST", file=rf,
           field="ld_at_origin_s (max over the 3 shelters of the backward pass); equals route_ld_s from scene.js",
           shown=f"leave by {kst(rt['ld_at_origin_s'])}", n="1 place",
@@ -607,10 +616,10 @@ def stage_e(fig, D):
     ax.plot([o[0]], [o[1]], marker="o", ms=10, mfc=S.INK, mec=S.PAPER, mew=1.4, zorder=5)[0].set_gid("bg:village")
     ax.plot([sh[0]], [sh[1]], marker="s", ms=10, mfc=S.PAPER, mec=S.INK, mew=1.4, zorder=5)[0].set_gid("bg:shelter")
     bbox = dict(boxstyle="square,pad=0.15", facecolor=S.PAPER, edgecolor="none", alpha=0.9)
-    ax.annotate(D["name_en"], xy=o, xytext=(0, 8), textcoords="offset points", ha="center", va="bottom",
+    ax.annotate(D["name_ko"], xy=o, xytext=(-11, 0), textcoords="offset points", ha="right", va="center",
                 fontsize=S.PT_TEXT, bbox=bbox, zorder=6)
-    ax.annotate(f"{D['shelter_cat']} shelter", xy=sh, xytext=(-12, -12), textcoords="offset points", ha="right",
-                va="top", fontsize=S.PT_TEXT, bbox=bbox, zorder=6)
+    ax.annotate(D["shelter_label"], xy=sh, xytext=(0, 11), textcoords="offset points", ha="center",
+                va="bottom", fontsize=S.PT_TEXT, bbox=bbox, zorder=6)
     D["e_map_mid"] = ym + mh / 2
     yl = ym + mh + 0.3
     label(fig, x0, yl, "Leave by:")
@@ -637,9 +646,9 @@ def stage_f(fig, D):
                      edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
     card.set_gid("box:card")
     fig.add_artist(card)
-    label(fig, x0 + 0.12, y + 0.27, D["name_en"])
+    label(fig, x0 + 0.12, y + 0.27, D["name_ko"])
     label(fig, x0 + 0.12, y + 0.65, f"Leave by {kst(rt['ld_at_origin_s'])}")
-    label(fig, x0 + 0.12, y + 1.03, f"To {D['shelter_cat']} shelter")
+    label(fig, x0 + 0.12, y + 1.03, f"To {D['shelter_label']}")
     route = np.array(rt["route_lonlat"])
     tax = axes_in(fig, x0 + 0.15, y + 1.3, w - 0.3, 0.7, picture=False)
     tax.axis("off")
@@ -757,11 +766,11 @@ def main():
     rt = D["rt"]
     meta = D.get("fc_meta")
     cap = add_caption(fig, (
-        f"Figure 4. One case through the method: Uiseong–Andong at 18:00 KST on 25 March 2025. Inputs (a); the "
+        f"Figure 4. One case through the method: {D['region_ko']} at 18:00 KST on 25 March 2025. Inputs (a); the "
         f"forecast model's learned spread kernels and next-hour chance of burning (b); heat, shown on the US Fish Creek "
         f"fire because no Korean fuel maps exist (c). The road plan uses the detected fire, not (b)–(c): the known fire "
         f"plus a calibrated {rt['R8_m'] / 1000:.0f} km margin (d) sets when each road is blocked, and a backward pass "
-        f"gives {D['name_en']} a leave-by time of {kst(rt['ld_at_origin_s'])} and a route that an independent checker "
+        f"gives {D['name_ko']} a leave-by time of {kst(rt['ld_at_origin_s'])} and a route that an independent checker "
         f"accepted (e–f). At this hour the gate withheld the answer: the fire was unlike every calibration fire."),
         x_in=0.2, width_in=16.6, top_in=BOTTOM + 0.6)
     probs = check_arrows(fig)
@@ -784,7 +793,10 @@ def main():
     L.save()
     from realmap import back_labels
     back_labels(fig)
+    labelcheck.run(fig, "F04_overview")
     save(fig, "F04_overview", caption=cap, png_dpi=300, tight=True, transparent=True)
+    labelcheck.verify_files("F04_overview")
+    PN.record_missing("F04_overview")
 
 
 if __name__ == "__main__":

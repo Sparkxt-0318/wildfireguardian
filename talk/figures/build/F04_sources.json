@@ -99,6 +99,34 @@
    "commit": "2c24e68a"
   },
   {
+   "label": "Place name (village)",
+   "value": "원당리",
+   "unit": "",
+   "shown": "원당리",
+   "n": null,
+   "file": "planner/public/data/regions/uiseong_andong_2025/places.geojson",
+   "field": "features[id=osm:node/415160430].properties.name",
+   "expected": null,
+   "note": "romanised name_en: Wondang-ri",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "e356a607"
+  },
+  {
+   "label": "Case label (region name)",
+   "value": "의성·안동",
+   "unit": "",
+   "shown": "의성·안동",
+   "n": null,
+   "file": "planner/public/data/regions/index.json",
+   "field": "[region_id=uiseong_andong_2025].name.ko",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
    "label": "Last safe departure of the village",
    "value": 921,
    "unit": "s after 18:00 KST",

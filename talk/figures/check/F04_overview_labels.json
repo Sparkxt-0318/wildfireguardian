@@ -1,0 +1,14 @@
+{
+ "figure": "F04_overview",
+ "korean_font": "Apple SD Gothic Neo",
+ "latin_font": "Helvetica Neue",
+ "texts_with_hangul": [
+  "원당리",
+  "원당리",
+  "Figure 4. One case through the method: 의성·안동 at 18:00 KST on 25 March 2025. Inputs (a); the forecast model's learned spread kernels and next-hour chance of\nburning (b); heat, shown on the US Fish Creek fire because no Korean fuel maps exist (c). The road plan uses the detected fire, not (b)–(c): the known fire plus a\ncalibrated 10 km margin (d) sets when each road is blocked, and a backward pass gives 원당리 a leave-by time of 18:15 and a route that an independent checker\naccepted (e–f). At this hour the gate withheld the answer: the fire was unlike every calibration fire."
+ ],
+ "marks_checked": 2127,
+ "glyph_problems": [],
+ "mark_problems": [],
+ "file_problems": []
+}

@@ -7,7 +7,7 @@
  ],
  "texts": [
   {
-   "text": "Wondang-ri,\nleaves 18:00",
+   "text": "원당리,\nleaves 18:00",
    "cx": 1.415348958330869,
    "cy": 2.5625178956699157,
    "w": 1.24996875,
@@ -19,15 +19,15 @@
    "color": "#1a1a1a",
    "ha": "right",
    "multialign": null,
-   "name": "Wondang-ri, leaves 18:00",
+   "name": "원당리, leaves 18:00",
    "caption": false
   },
   {
-   "text": "shelter reached 18:06",
-   "cx": 3.482946182455577,
-   "cy": 2.826028611433845,
-   "w": 2.1487093017578127,
-   "h": 0.2588888888888889,
+   "text": "의성중학교,\nreached 18:06",
+   "cx": 3.8457843334972437,
+   "cy": 2.6903619447671785,
+   "w": 1.4230329996744793,
+   "h": 0.5302222222222223,
    "rotation": 0.0,
    "size_pt": 16.0,
    "bold": false,
@@ -35,7 +35,7 @@
    "color": "#1a1a1a",
    "ha": "right",
    "multialign": null,
-   "name": "shelter reached 18:06",
+   "name": "의성중학교, reached 18:06",
    "caption": false
   },
   {
@@ -55,10 +55,10 @@
    "caption": false
   },
   {
-   "text": "Bunto-ri: leave by 18:05",
-   "cx": 9.304679713541528,
+   "text": "분토리: leave by 18:05",
+   "cx": 9.18662710937486,
    "cy": 4.0948001334629724,
-   "w": 2.378412760416667,
+   "w": 2.1423075520833335,
    "h": 0.2588888888888889,
    "rotation": 0.0,
    "size_pt": 16.0,
@@ -67,14 +67,14 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "Bunto-ri: leave by 18:05",
+   "name": "분토리: leave by 18:05",
    "caption": false
   },
   {
-   "text": "Wondang-ri: leave by 18:15",
-   "cx": 10.055992605927688,
+   "text": "원당리: leave by 18:15",
+   "cx": 9.763709331595004,
    "cy": 2.6426290067806226,
-   "w": 2.7268741007486983,
+   "w": 2.1423075520833335,
    "h": 0.2588888888888889,
    "rotation": 0.0,
    "size_pt": 16.0,
@@ -83,7 +83,7 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "Wondang-ri: leave by 18:15",
+   "name": "원당리: leave by 18:15",
    "caption": false
   },
   {
@@ -327,10 +327,10 @@
    "caption": false
   },
   {
-   "text": "Figure 7 (map). Uiseong–Andong, 18:00 KST, 25 March 2025. (a) Leaving Wondang-ri at 18:00, a forward search settles 661\nroad pieces before reaching a shelter at 18:06:27: one village, one departure time. (b) One backward pass from every shelter\ngives every road its leave-by time, including both villages outside the fire area (Bunto-ri 18:05, Wondang-ri 18:15).",
-   "cx": 6.497524259440104,
+   "text": "Figure 7 (map). 의성·안동, 18:00 KST, 25 March 2025. (a) Leaving 원당리 at 18:00, a forward search settles 661 road pieces\nbefore reaching a shelter at 18:06:27: one village, one departure time. (b) One backward pass from every shelter gives every\nroad its leave-by time, including both villages outside the fire area (분토리 18:05, 원당리 18:15).",
+   "cx": 6.475226639811198,
    "cy": 6.721626712537072,
-   "w": 12.29504851888021,
+   "w": 12.250453279622397,
    "h": 0.932,
    "rotation": 0.0,
    "size_pt": 16.0,

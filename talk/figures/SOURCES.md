@@ -45,6 +45,8 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 | **Satellite detections before 18:00 KST (FIRMS, AHI)** ((SOURCES only)) | 1761, 242 | 2003 detections | `research/kcf-replay/fire_discs.json` | discs with t_utc < 2025-03-25T09:00Z, by src | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `420ec724` | scene.js discCounts[6] = {'AHI': 242, 'FIRMS': 1761, 'total': 2003} |  |
 | **ECMWF IFS 10 m wind at 09:00 UTC, nodes in the map (min, max speed)** (arrows) | 7.56, 9.55 m/s | 19 nodes | `data/environment/regions/KFS_01/weather/ecmwf_ifs_native_nodes.npz` | wind_eastward_10m, wind_northward_10m at time_utc index 801 (2025-03-25T09:00:00Z) | /Users/jp/Desktop/wildfire / file on disk (read only) / `sha256:a7493cbc42db40ac` |  |  |
 | **Calibrated reach class and R(8 h)** (margin: 10 km in 8 h) | running, 10 km |  | `talk/figures/build/F04_routing.json` | measured_class, R8_m (research/kcf-replay measured_arms.curve at 09:00 UTC) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | MEASURED_RULE.md: running class R(8 h) = 10.0 km |  |
+| **Place name (village)** (원당리) | 원당리 |  | `planner/public/data/regions/uiseong_andong_2025/places.geojson` | features[id=osm:node/415160430].properties.name | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `e356a607` |  | romanised name_en: Wondang-ri |
+| **Case label (region name)** (의성·안동) | 의성·안동 |  | `planner/public/data/regions/index.json` | [region_id=uiseong_andong_2025].name.ko | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `5fa19a27` |  |  |
 | **Last safe departure of the village** (leave by 18:15) | 921 s after 18:00 KST | 1 place | `talk/figures/build/F04_routing.json` | ld_at_origin_s (max over the 3 shelters of the backward pass); equals route_ld_s from scene.js | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | per_place.csv / scene.js hourly lsd 03-25 18:15 | Computed with research/kcf-replay/replay.py's Region and deadline_field.core.backward (F04_routing.py). |
 | **Arrival at the shelter** ((SOURCES only)) | 1322 s after 18:00 KST |  | `talk/figures/build/F04_routing.json` | route_arr_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 | **Route length** (4.1 km) | 4.10731 km |  | `talk/figures/build/F04_routing.json` | sum of great-circle lengths of route_lonlat | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
@@ -116,7 +118,7 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 
 - Schematic on a synthetic 25-junction network; no number is shown. The time bars are illustrative shapes.
 
-## F07m: Forward against backward on the real map: Wondang-ri, 18:00 KST
+## F07m: Forward against backward on the real map: 원당리 (Wondang-ri), 18:00 KST
 
 | shown | value | n | file | field | repo / ref / commit | expected | note |
 |---|---|---|---|---|---|---|---|
@@ -124,11 +126,15 @@ Machines: F09 and panel (a) of F09b were timed on kcf-bench host B (Intel Xeon 2
 | **Forward search: arrival at the first shelter** (shelter reached 18:06) | 387 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | forward.arrival_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | leaving at 18:00:00 lies in Wondang-ri's departure set of the field (checked) |  |
 | **Backward: passes / shelter nodes accepting** (one pass from every shelter) | 1, 30 |  | `talk/figures/build/F07_map.json` | backward.passes, shelter_nodes | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  | deadline_field.core.backward with every shelter used by any village of the region accepting at once; fixed-point check PASS on 43,826 edge states. |
 | **Backward: road junctions with a safe departure / all junctions** (coloured roads (SOURCES only for counts)) | 1417, 23158 |  | `talk/figures/build/F07_map.json` | backward.nodes_with_departure, nodes | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
-| **Leave-by time of Bunto-ri from the one pass** (leave by 18:05) | 341 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | villages[].ld_one_pass_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | stored replay (scene.js hourly lsd, 3 nearest shelters): 03-25 18:05 (checked) |  |
-| **Leave-by time of Wondang-ri from the one pass** (leave by 18:15) | 921 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | villages[].ld_one_pass_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | stored replay (scene.js hourly lsd, 3 nearest shelters): 03-25 18:15 (checked) |  |
+| **Leave-by time of Bunto-ri from the one pass** (분토리: leave by 18:05) | 341 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | villages[].ld_one_pass_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | stored replay (scene.js hourly lsd, 3 nearest shelters): 03-25 18:05 (checked) |  |
+| **Leave-by time of Wondang-ri from the one pass** (원당리: leave by 18:15) | 921 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | villages[].ld_one_pass_s | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | stored replay (scene.js hourly lsd, 3 nearest shelters): 03-25 18:15 (checked) |  |
 | **Villages in view: with a leave-by time / inside the fire area** (village markers) | 2, 4 |  | `talk/figures/build/F07_map.json` | villages[] with entry inside the map, by state | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 | **Router cells inside the known fire area at 18:00 (drawn)** (red area) | 651 |  | `talk/figures/build/F07_map.json` | cells[].block_s == 0 (375 m cells, MEASURED arm) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 | **Road edges blocked at 18:00 (whole region)** (red roads) | 22263 |  | `talk/figures/build/F07_map.json` | blocked_at_issue_pairs (edges whose blocked starts begin at 0 s) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
+| **Place name (village)** (원당리) | 원당리 |  | `planner/public/data/regions/uiseong_andong_2025/places.geojson` | features[id=osm:node/415160430].properties.name | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `e356a607` |  | romanised name_en: Wondang-ri |
+| **Place name (school)** (의성중학교) | 의성중학교 |  | `planner/public/data/regions/uiseong_andong_2025/places.geojson` | features[id=osm:way/854170626].properties.name | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `e356a607` |  | romanised name_en: Uiseong Middle School |
+| **Place name (village)** (분토리) | 분토리 |  | `planner/public/data/regions/uiseong_andong_2025/places.geojson` | features[id=osm:node/415160415].properties.name | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `e356a607` |  | romanised name_en: Bunto-ri |
+| **Case label (region name)** (의성·안동) | 의성·안동 |  | `planner/public/data/regions/index.json` | [region_id=uiseong_andong_2025].name.ko | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `5fa19a27` |  |  |
 | **Basemap tiles** (Basemap © OpenStreetMap contributors) | 35 |  | `talk/figures/build/osm_tiles/TILES.json` | OpenStreetMap standard tiles, zoom 15 | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 
 ## F15: Fish Creek exposure maps (rebuilt from screenshots)
@@ -186,7 +192,7 @@ Not built (see README.md).
 
 - The left-hand time diagram is a schematic; its intervals carry no numbers.
 
-## F08m: One backward step on a real road: Wondang-ri, 18:00 KST
+## F08m: One backward step on a real road: 원당리 (Wondang-ri), 18:00 KST
 
 | shown | value | n | file | field | repo / ref / commit | expected | note |
 |---|---|---|---|---|---|---|---|
@@ -196,6 +202,7 @@ Not built (see README.md).
 | **Fire blocks the road's first cell** (18:15:27) | 927 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | f08_step.fire_cell.block_s (router cell 175, MEASURED arm) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 | **Car clears that cell after** (5 s) | 5.008 s |  | `talk/figures/build/F07_map.json` | drive_s * fire_cell.end_fraction | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 | **Leave by (earlier of the two limits)** (18:15:21) | 921 s after 18:00 KST |  | `talk/figures/build/F07_map.json` | min(far - drive, ceil(block - clear) - 1) | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` | field leave-by at the near end 921 s; stored route ld 921 s (checked equal) |  |
+| **Place name (village)** (원당리) | 원당리 |  | `planner/public/data/regions/uiseong_andong_2025/places.geojson` | features[id=osm:node/415160430].properties.name | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `e356a607` |  | romanised name_en: Wondang-ri |
 | **Basemap tiles** (Basemap © OpenStreetMap contributors) | 24 |  | `talk/figures/build/osm_tiles/TILES.json` | OpenStreetMap standard tiles, zoom 17 | wildfireguardian / talk/figures (= origin/Main 5ff9aa90) / `2c24e68a` |  |  |
 
 ## F09: Speed: earlier method against the deadline field

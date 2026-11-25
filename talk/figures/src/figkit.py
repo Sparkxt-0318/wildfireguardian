@@ -329,6 +329,10 @@ def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, 
     if transparent:
         kw["transparent"] = True
     pdpi = png_dpi or DPI
+    import warnings
+    _w = warnings.catch_warnings(record=True)
+    caught = _w.__enter__()
+    warnings.simplefilter("always")
     fig.savefig(f"{base}.svg", **kw)
     fig.savefig(f"{base}.pdf", **kw)
     fig.savefig(f"{base}.png", dpi=pdpi, **kw)
@@ -363,6 +367,12 @@ def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, 
             a.set_visible(True)
     for t in hidden:
         t.set_visible(True)
+    _w.__exit__(None, None, None)
+    missing = sorted({str(w.message) for w in caught if "missing from" in str(w.message)})
+    for m in missing:
+        probs.append({"type": "missing glyph", "message": m})
+    if missing:
+        (CHECK / f"{name}_overlap.json").write_text(json.dumps(probs, indent=1, ensure_ascii=False))
     (BUILD / f"{name}_layout.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False))
     status = "PASS" if not probs else f"FAIL ({len(probs)} problems)"
     print(f"{name}: collision check {status}")

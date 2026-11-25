@@ -1,6 +1,6 @@
 {
  "code": "F07m",
- "title": "Forward against backward on the real map: Wondang-ri, 18:00 KST",
+ "title": "Forward against backward on the real map: 원당리 (Wondang-ri), 18:00 KST",
  "rows": [
   {
    "label": "Forward search from Wondang-ri leaving 18:00: road edges settled / looked at",
@@ -71,7 +71,7 @@
    "label": "Leave-by time of Bunto-ri from the one pass",
    "value": 341,
    "unit": "s after 18:00 KST",
-   "shown": "leave by 18:05",
+   "shown": "분토리: leave by 18:05",
    "n": null,
    "file": "talk/figures/build/F07_map.json",
    "field": "villages[].ld_one_pass_s",
@@ -85,7 +85,7 @@
    "label": "Leave-by time of Wondang-ri from the one pass",
    "value": 921,
    "unit": "s after 18:00 KST",
-   "shown": "leave by 18:15",
+   "shown": "원당리: leave by 18:15",
    "n": null,
    "file": "talk/figures/build/F07_map.json",
    "field": "villages[].ld_one_pass_s",
@@ -139,6 +139,62 @@
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "2c24e68a"
+  },
+  {
+   "label": "Place name (village)",
+   "value": "원당리",
+   "unit": "",
+   "shown": "원당리",
+   "n": null,
+   "file": "planner/public/data/regions/uiseong_andong_2025/places.geojson",
+   "field": "features[id=osm:node/415160430].properties.name",
+   "expected": null,
+   "note": "romanised name_en: Wondang-ri",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "e356a607"
+  },
+  {
+   "label": "Place name (school)",
+   "value": "의성중학교",
+   "unit": "",
+   "shown": "의성중학교",
+   "n": null,
+   "file": "planner/public/data/regions/uiseong_andong_2025/places.geojson",
+   "field": "features[id=osm:way/854170626].properties.name",
+   "expected": null,
+   "note": "romanised name_en: Uiseong Middle School",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "e356a607"
+  },
+  {
+   "label": "Place name (village)",
+   "value": "분토리",
+   "unit": "",
+   "shown": "분토리",
+   "n": null,
+   "file": "planner/public/data/regions/uiseong_andong_2025/places.geojson",
+   "field": "features[id=osm:node/415160415].properties.name",
+   "expected": null,
+   "note": "romanised name_en: Bunto-ri",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "e356a607"
+  },
+  {
+   "label": "Case label (region name)",
+   "value": "의성·안동",
+   "unit": "",
+   "shown": "의성·안동",
+   "n": null,
+   "file": "planner/public/data/regions/index.json",
+   "field": "[region_id=uiseong_andong_2025].name.ko",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
   },
   {
    "label": "Basemap tiles",

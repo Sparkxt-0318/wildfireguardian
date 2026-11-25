@@ -56,7 +56,7 @@ PALETTE = [
 # Research-paper style (24 Nov 13:35 revision): one size for labels and tick labels, one slightly larger size for
 # axis titles, nothing larger. No bold or coloured callout text.
 FONT_LATIN = "Helvetica Neue"   # Inter is not installed on this machine (DECISIONS.md D2)
-FONT_KOREAN = "NanumGothic"     # fallback for Hangul glyphs
+FONT_KOREAN = "Apple SD Gothic Neo"   # Hangul glyphs, Regular (400) like the Latin face (DECISIONS.md D46)
 FONT_FAMILY = [FONT_LATIN, FONT_KOREAN]
 PT_TEXT = 16          # labels, tick labels, legend, captions (at least 14 pt)
 PT_TITLE = 18         # axis titles

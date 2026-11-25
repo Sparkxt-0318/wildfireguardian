@@ -55,5 +55,7 @@ fonts with `tools/fonts.conf.template`; without it LibreOffice's headless mode f
 Research-paper style (revision of 24 Nov): framed axes with light gridlines, one text size (16 pt) and 18 pt axis
 titles, boxed legends, whiskers wherever the source has an interval, (a)/(b) panel letters, numbered captions carrying
 the headline numbers and caveats, square-cornered schematic boxes with 0.75 pt outlines. Palette and fonts in
-`src/style.py` (Helvetica Neue; Inter is not installed; NanumGothic for Korean). Each script fails if any text comes
+`src/style.py` (Helvetica Neue; Inter is not installed; Apple SD Gothic Neo for Korean, D46). Each script fails if any text comes
 within 4 pt of another text, a data mark, an axis or the canvas edge (`src/figkit.py`).
+F04, F07 map and F08 map also run `src/labelcheck.py`: Korean place names are in Hangul from the planner data
+(`src/placenames.py`), every character has a glyph, and no label touches a village, shelter or route mark.

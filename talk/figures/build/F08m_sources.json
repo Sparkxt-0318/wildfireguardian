@@ -1,6 +1,6 @@
 {
  "code": "F08m",
- "title": "One backward step on a real road: Wondang-ri, 18:00 KST",
+ "title": "One backward step on a real road: 원당리 (Wondang-ri), 18:00 KST",
  "rows": [
   {
    "label": "Road: OSM way, edge, length",
@@ -89,6 +89,20 @@
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
    "commit": "2c24e68a"
+  },
+  {
+   "label": "Place name (village)",
+   "value": "원당리",
+   "unit": "",
+   "shown": "원당리",
+   "n": null,
+   "file": "planner/public/data/regions/uiseong_andong_2025/places.geojson",
+   "field": "features[id=osm:node/415160430].properties.name",
+   "expected": null,
+   "note": "romanised name_en: Wondang-ri",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "e356a607"
   },
   {
    "label": "Basemap tiles",
