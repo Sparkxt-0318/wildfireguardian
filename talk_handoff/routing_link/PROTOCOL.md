@@ -259,3 +259,29 @@ in the Amendment 2 results. Thresholds unchanged (2.5 kW/m² residents, 7.0 kW/m
    minutes.
 4. One figure: the zone map (left) and the routing change (right), v1 style (five colours, transparent, no title,
    "blocked", never "closes"). It shows one possible fire, not the forecast.
+
+### Amendment 4 (25 Nov 2026, AFTER the Amendment 3 zone was seen to be empty)
+
+**Written after seeing that the Amendment 3 zone is empty**, and after a diagnostic (`diag_radiant.py`) showed why:
+the pipeline draws each burning cell's flame as one line front through the cell centre (median width 379 m, flame
+height about 3 m, median emissive power 59 kW/m²), receivers sit only at cell centres, and a cell's own receiver gets
+0 by design ("direct contact is covered by the footprint event"). The nearest receiver that counts is 375 m away, where
+the largest flux is 0.22 kW/m². On the 375 m grid neither 2.5 nor 7.0 kW/m² can be reached anywhere. The Amendment 3
+result (empty zone, no routing change) is kept and reported. This amendment adds a finer evaluation of the **same**
+flame fronts; thresholds, path, minute and roads are unchanged.
+
+1. **Receivers at 5 m.** For the Amendment 3 path and minute, the pipeline's own flame-front objects (built inside its
+   physical model, recorded unchanged: position, width, height, emissive power, terrain) are evaluated at receivers
+   1.7 m above the ground of the containing cell, on a 5 m raster around the burning cells and at points every 5 m
+   along every road piece within 1 km of a burning cell. Flux = transmissivity × power × view factor, summed over the
+   burning fronts with the Amendment 2 weights, exactly as the pipeline's kernel does, only at more receivers. Receivers
+   on or behind a front's line (undefined in the pipeline) are left out, as the pipeline leaves them out.
+2. **Zone and road pieces.** Zone ≥ 2.5 and ≥ 7.0 kW/m² at that minute; a road piece is inside if any of its 5 m
+   points is. Reported: largest distance from a front line at which each threshold is reached, road pieces and road
+   length inside each zone.
+3. **Routing in the same path.** A road cell is blocked from the first minute any 5 m point on a road piece inside
+   that cell reaches the audience's threshold; combined with the path's own fire arrival by the earlier time, exactly
+   as in Amendment 3 item 3. Reported beside Amendment 3: road cells blocked, origins whose last safe departure
+   changes and by how many minutes.
+4. The figure shows the 5 m zone (left) and both routing comparisons (right); its caption says the zone uses the
+   pipeline's flame fronts at receivers finer than the grid the pipeline runs on.
