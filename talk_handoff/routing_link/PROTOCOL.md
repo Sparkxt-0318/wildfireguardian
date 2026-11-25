@@ -239,3 +239,23 @@ The probability levels below were fixed before any per-path result was computed 
    path, and largest share), road cells blocked (n = 1,293), origins whose last safe departure changes and by how
    many minutes (n = 350 routed), for residents and responders, at each level and fire reading. One figure in the
    v1 style (main setting).
+
+### Amendment 3 (25 Nov 2026, safety-zone figure; written before the figure's data were computed)
+
+Asked for by the user after Amendment 2. It adds one figure and one routing comparison; it changes nothing in v1 or
+in the Amendment 2 results. Thresholds unchanged (2.5 kW/m² residents, 7.0 kW/m² responders).
+
+1. **One path, one minute, chosen by a fixed rule, not by looking.** Path: among the 1,024 retained paths, the one
+   whose number of burned cells at the end of hour 6 is closest to the median (lowest index on a tie). Minute: the
+   minute in hours 0–5 in which that path has the most cells burning (earliest on a tie).
+2. **Zone.** That path's own 60 s radiant flux (Amendment 2 item 1, weight 1 for a cell burning through the minute),
+   at that minute: zone ≥ 2.5 kW/m² and zone ≥ 7.0 kW/m², cellwise on the 375 m grid. These are the peak values in
+   that path at that place and time, not averages over paths. A road piece is inside a zone if any cell it crosses is
+   in the zone.
+3. **Routing.** In the same path, over the full six hours: fire arrival alone = that path's own ignition minute of
+   each cell (0 for cells burning or burnt at the cutoff, as in v1); fire plus safety zone = the earlier of that and
+   the first minute the path's radiant flux at the cell reaches the audience's threshold. Reported for residents and
+   responders: road cells blocked, origins whose last safe departure changes (n = routed origins) and by how many
+   minutes.
+4. One figure: the zone map (left) and the routing change (right), v1 style (five colours, transparent, no title,
+   "blocked", never "closes"). It shows one possible fire, not the forecast.
