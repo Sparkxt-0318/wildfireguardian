@@ -5,6 +5,10 @@
 paths ≥ 0.5, half-of-paths fire) exposure still blocks no road and changes no origin; radiant heat never reaches
 2.5 kW/m² on the 375 m grid in any path. v1 below, unchanged.
 
+**v3 (25 Nov 2026): protocol written, not run.** `PROTOCOL_v3.md`: moving flame front instead of whole-cell fire
+arrival, crown fire from the canopy layers, radiant and thermal-dose heat, CO, acrolein and HCN at AEGL-2; smoke
+visibility reported only. Part B (a second fire) waits for the user's approval.
+
 **v1 (25 Nov 2026): done. Results in `RESULTS.md`, figure `fig_blocked_cells.{png,svg,pdf}`.** At the protocol's
 settings exposure blocks no cell and no road on Fish Creek in hours 0–5 and changes no last safe departure (0 of 350
 origins, residents and responders). The pipeline came from the user's `wildfire4.zip` (PROTOCOL.md Amendment 1).
