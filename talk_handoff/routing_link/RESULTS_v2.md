@@ -2,7 +2,8 @@
 
 Protocol: `PROTOCOL.md` with **Amendment 2** (per-path heat and CO), written **after the v1 results were seen** and
 committed before any per-path result (aecd25a0), and Amendments 3–5 for the safety-zone figure (a9915da8, c916df02,
-074f7e63; 4 and 5 were written after the previous zone was seen, see below). Same case as v1: WY-BTF-002416_FishCreek,
+074f7e63; 4 and 5 were written after the previous zone was seen, see below), and Amendment 6 for the safety zone on
+the paths where CO blocks roads (6c3f1434, section 8). Same case as v1: WY-BTF-002416_FishCreek,
 cutoff 2024-08-23T00:00Z, hours 0–5, 375 m grid of 103 × 73 = 7,519 cells, **45,114 cell-hours**, the same 1,024
 retained paths, the same OpenStreetMap roads (1,293 road cells, 350 routed origins), thresholds and sources. v1
 (`RESULTS.md`, `RESULTS_all.pdf`, `out_earliest/`, `out_half/`, `export_6h/`) is unchanged.
@@ -142,6 +143,40 @@ Amendments 4 and 5 were written **after** the previous zone was seen. The 375 m 
 the flame base follows the slope (it rises or falls by up to 64 m across a front); that led to Amendment 5. No
 threshold, path or minute was changed.
 
+## 8. Safety zone on the paths where CO blocks roads (Amendment 6)
+
+Amendment 6 (6c3f1434) was written before this was computed. It selects every retained path in which a CO criterion
+holds at some road cell at some minute: **273 of the 1,024 paths**. Together they cover the same 13 road cells as the
+"any path" level above, which is a check. In each path: the 5 m safety zone (terrain-plane receivers, the pipeline's
+own flame fronts, all 360 minutes, every road piece within 1 km of a front burning in that path), then routing four
+ways against that path's own fire arrival.
+
+| in the 273 paths | residents (2.5 kW/m²) | responders (7.0 kW/m²) |
+|---|---|---|
+| paths with a road point inside the zone at some minute | **153** | **88** |
+| road pieces inside the zone (summed over paths; largest in one path) | 397 (5) | 100 (3) |
+| road cells reached by the zone (summed; largest in one path) | 159 (2) | 88 (1) |
+| of these, reached before that path's own fire arrives | **0** | **0** |
+| distance from those road points to the burning front line | 0.2–17.8 m (median of path medians 6.5 m) | 0.2–5.9 m (2.7 m) |
+| road cells the zone adds to fire arrival | 0 | 0 |
+| origins whose last safe departure changes, zone against fire alone (n = 350 per path) | **0 in every path** | **0 in every path** |
+| what the zone adds to CO: origins changed, fire + CO + zone against fire + CO | 0 in every path | 0 in every path |
+
+CO in the same paths: up to 3 road cells per path, **none before that path's own fire arrives** there, so CO changes no
+origin in any path either. Fire arrival alone blocks 1–3 road cells per path (median 1), and cuts origins within 6 h in
+1 path (path 368, 2 origins). At the pipeline's own 375 m receivers the largest radiant flux in these paths is
+0.25 kW/m²; at 5 m the largest flux on a road point is 26 kW/m².
+
+So in every path where CO reaches a road, the safety zone also reaches a road in more than half of them (153 of 273),
+but only on road pieces running through a cell that is already burning in that path, within 18 m of its flame. It
+never reaches a road ahead of the fire, so the routing does not change. In the ensemble the "any path" CO block moved
+2 origins (section 3), because there the half-of-paths fire reading does not block those cells; inside each path the
+fire itself does.
+
+Road-layer runs: the fire-alone run was made for each of the 273 paths. Every other run (plus CO, plus zone, plus both;
+1,365 in all) gave the same blocking time on every road cell as fire alone, so its road-layer answer is the same by
+construction and was reused, as Amendment 6 item 3 allows (`out_v2/co_paths/summary.json`, flag `reused`).
+
 ## Why the result changes, and why it does not
 
 * **Heat: the grid, not the averaging.** v1's zero came from probability weighting (source weights ≤ 0.14). Per path
@@ -182,6 +217,8 @@ threshold, path or minute was changed.
 * No populated place or shelter in the OpenStreetMap extract: origins are 360 road junctions, exits the 59 map-edge
   points; whether the Overpass mirror applied the 2024-08-23 date filter is not verified.
 * The safety-zone figure shows one possible fire, chosen by a rule, at one minute; it is not the forecast.
+* Section 8 conditions on paths where CO reaches a road: 273 of 1,024 possible fires, not a forecast probability of
+  the zone reaching a road.
 
 ## Files
 
@@ -192,4 +229,5 @@ threshold, path or minute was changed.
 | `fig_safety_zone.{png,svg,pdf}` | the safety zone in one path at one minute, and the routing change beside it |
 | `export_v2/` | `counts.npz` (paths meeting each criterion per minute and cell), `peaks.npz`, `distances.npz`, `checks_v2.json`, `diag_co_check.json`, `diag_radiant.json`, safety-zone path and 5 m data |
 | `out_v2/` | `summary_v2.json`, every v2 blocking raster, road-layer results per run; `out_v2/safety_zone/` the same for the figure |
-| `perpath_export.py`, `perpath_rule.py`, `run_v2.py`, `safety_zone_export.py`, `safety_zone_fine.py`, `safety_zone.py`, `build_report_v2.py`, `diag_co_check.py`, `diag_radiant.py` | reproduce (README) |
+| `export_v2/co_paths/`, `out_v2/co_paths/` | section 8: per-path fire arrival, CO and 5 m zone for the 273 paths; routing summary |
+| `co_paths_zone_export.py`, `co_paths_zone.py`, `perpath_export.py`, `perpath_rule.py`, `run_v2.py`, `safety_zone_export.py`, `safety_zone_fine.py`, `safety_zone.py`, `build_report_v2.py`, `diag_co_check.py`, `diag_radiant.py` | reproduce (README) |

@@ -1,0 +1,2922 @@
+{
+ "2": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.12245019537210465,
+  "road_points": 208,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "31": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.12993825343251228,
+  "road_points": 561,
+  "largest_road_flux_kw_m2": 3.972797155380249,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 17,
+   "road_pieces_in_zone": 3,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 7.615295083675865,
+    "median": 11.349279412387897,
+    "max": 15.795385785611778
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "64": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.14585934094153344,
+  "road_points": 443,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "116": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.11024874782562256,
+  "road_points": 208,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "144": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.1437001536488533,
+  "road_points": 692,
+  "largest_road_flux_kw_m2": 0.3007100224494934,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "177": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.13027079594135285,
+  "road_points": 483,
+  "largest_road_flux_kw_m2": 13.8450288772583,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 7,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.9071629073289752,
+    "median": 4.513539286372773,
+    "max": 9.934241480562175
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 2,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.9071629073289752,
+    "median": 1.355175548425437,
+    "max": 1.8031881895218989
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "209": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.1850904779434204,
+  "road_points": 960,
+  "largest_road_flux_kw_m2": 0.36556166410446167,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "243": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.13551473042205908,
+  "road_points": 820,
+  "largest_road_flux_kw_m2": 0.2810576856136322,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "281": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.14456648799031974,
+  "road_points": 986,
+  "largest_road_flux_kw_m2": 13.8450288772583,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 7,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.9071629073289752,
+    "median": 4.513539286372773,
+    "max": 9.934241480562175
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 2,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.9071629073289752,
+    "median": 1.355175548425437,
+    "max": 1.8031881895218989
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "312": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.09661852097511292,
+  "road_points": 244,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "365": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.12217756652832032,
+  "road_points": 728,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "415": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.09128182220458984,
+  "road_points": 208,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "466": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.1316644744873047,
+  "road_points": 588,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "499": {
+  "fire_only": {
+   "road_cells_blocked": 2,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.18912949830293654,
+  "road_points": 1055,
+  "largest_road_flux_kw_m2": 3.972797155380249,
+  "co_road_cells": 2,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 2,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 17,
+   "road_pieces_in_zone": 3,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 7.615295083675865,
+    "median": 11.349279412387897,
+    "max": 15.795385785611778
+   },
+   "plus_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "519": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.1321999490261078,
+  "road_points": 425,
+  "largest_road_flux_kw_m2": 0.704152524471283,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "558": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.1893160801420454,
+  "road_points": 1246,
+  "largest_road_flux_kw_m2": 0.1094934344291687,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "598": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.14570275461673737,
+  "road_points": 399,
+  "largest_road_flux_kw_m2": 0.39546123147010803,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "649": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.12703772214427592,
+  "road_points": 628,
+  "largest_road_flux_kw_m2": 3.972797155380249,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 17,
+   "road_pieces_in_zone": 3,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 7.615295083675865,
+    "median": 11.349279412387897,
+    "max": 15.795385785611778
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "685": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.10747298407554627,
+  "road_points": 888,
+  "largest_road_flux_kw_m2": 0.7216477990150452,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "720": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.08733568572998048,
+  "road_points": 270,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "757": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.148009033203125,
+  "road_points": 613,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "786": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.10831884574890137,
+  "road_points": 561,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "804": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.09434760284423828,
+  "road_points": 902,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "834": {
+  "fire_only": {
+   "road_cells_blocked": 2,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.12822714093327522,
+  "road_points": 1085,
+  "largest_road_flux_kw_m2": 0.704152524471283,
+  "co_road_cells": 2,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 2,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 2,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "889": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.08177764162421226,
+  "road_points": 697,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "927": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.09111503151140642,
+  "road_points": 234,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "952": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.10285797023773194,
+  "road_points": 622,
+  "largest_road_flux_kw_m2": 0.6919086575508118,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 0,
+   "road_pieces_in_zone": 0,
+   "road_cells_in_zone": 0,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": null,
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ },
+ "1011": {
+  "fire_only": {
+   "road_cells_blocked": 1,
+   "origins_with_cut": 0
+  },
+  "max_radiant_375m_kw_m2": 0.1391181573867798,
+  "road_points": 530,
+  "largest_road_flux_kw_m2": 25.392610549926758,
+  "co_road_cells": 1,
+  "co_road_cells_before_fire": 0,
+  "plus_co": {
+   "road_cells_blocked": 1,
+   "reused": true,
+   "origins": {
+    "n_origins_routed": 350,
+    "n_changed": 0,
+    "earlier_by_min": [],
+    "earlier_by_min_median": 0.0,
+    "earlier_by_min_largest": 0.0,
+    "refused": 10
+   }
+  },
+  "residents": {
+   "road_points_in_zone": 10,
+   "road_pieces_in_zone": 2,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 6.483344057792383,
+    "max": 15.633121102657233
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  },
+  "responders": {
+   "road_points_in_zone": 3,
+   "road_pieces_in_zone": 1,
+   "road_cells_in_zone": 1,
+   "road_cells_in_zone_before_fire": 0,
+   "distance_to_front_m": {
+    "min": 0.5400439187553823,
+    "median": 2.694589085802839,
+    "max": 5.929222089901564
+   },
+   "plus_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   },
+   "plus_co_and_zone": {
+    "road_cells_blocked": 1,
+    "reused": true,
+    "origins_vs_fire": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    },
+    "origins_vs_co": {
+     "n_origins_routed": 350,
+     "n_changed": 0,
+     "earlier_by_min": [],
+     "earlier_by_min_median": 0.0,
+     "earlier_by_min_largest": 0.0,
+     "refused": 10
+    }
+   }
+  }
+ }
+}

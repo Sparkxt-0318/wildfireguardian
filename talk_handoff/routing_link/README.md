@@ -30,6 +30,7 @@ origins, residents and responders). The pipeline came from the user's `wildfire4
 | `safety_zone_export.py`, `safety_zone_fine.py`, `safety_zone.py` | the safety-zone figure (Amendments 3–5): one path, one minute, zone at 375 m and 5 m, routing |
 | `diag_co_check.py`, `diag_radiant.py` | v2 diagnostics: CO mean check; flame-front geometry and power |
 | `build_report_v2.py` | builds `RESULTS_all_v2.pdf` from the committed v2 outputs |
+| `co_paths_zone_export.py`, `co_paths_zone.py` | Amendment 6: safety zone and four-way routing on the 273 paths where CO blocks a road cell (section 8 of RESULTS_v2.md) |
 | `RESULTS_v2.md`, `RESULTS_all_v2.pdf`, `fig_blocked_cells_v2.*`, `fig_safety_zone.*` | v2 results and figures |
 | `export_v2/`, `out_v2/` | v2 per-path counts, peaks, distances, checks, safety-zone data; v2 run outputs |
 
@@ -75,3 +76,5 @@ level our choice).
 2. Here: `python3 run_v2.py --v2 export_v2 --v1 export_6h --grid GRID_JSON --osm data/fishcreek_osm_20240823.json.gz --out out_v2`
    (about 7 min), `python3 safety_zone.py --grid GRID_JSON --osm data/fishcreek_osm_20240823.json.gz`,
    `python3 build_report_v2.py`.
+3. Amendment 6: in the workspace, `python co_paths_zone_export.py --grid GRID_JSON --osm data/fishcreek_osm_20240823.json.gz --out export_v2`;
+   here, `python3 co_paths_zone.py --grid GRID_JSON --osm ... --shard i/10` for i = 0 … 9 (in parallel), then `--merge`.

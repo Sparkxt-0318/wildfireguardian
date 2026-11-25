@@ -262,6 +262,38 @@ def main():
                         "them; they reproduce its 375 m kernel to %.0e W/m². Largest flux on any road point near this "
                         "path in 6 h: %.2f kW/m²." % (Z["plane"]["kernel_reproduction_max_abs_w_m2"],
                                                      Z["plane"]["largest_road_flux_6h_kw_m2"]), SMALL)]
+    # 8 safety zone on the CO-road paths
+    Q = json.loads((HERE / "out_v2" / "co_paths" / "summary.json").read_text())
+    PP = list(Q["paths"].values())
+    import numpy as _np
+
+    def tot(aud, key):
+        return sum(r[aud][key] for r in PP)
+
+    def dist(aud):
+        d = [r[aud]["distance_to_front_m"] for r in PP if r[aud]["distance_to_front_m"]]
+        return "%.1f–%.1f m (median of path medians %.1f m)" % (min(x["min"] for x in d), max(x["max"] for x in d),
+                                                               float(_np.median([x["median"] for x in d])))
+    rows = [["in the %d paths" % len(PP), "residents (2.5 kW/m²)", "responders (7.0 kW/m²)"],
+            ["paths with a road point inside the zone"] + [n(sum(1 for r in PP if r[a_]["road_points_in_zone"])) for a_ in ("residents", "responders")],
+            ["road pieces inside the zone (sum; largest in one path)"] + ["%s (%d)" % (n(tot(a_, "road_pieces_in_zone")), max(r[a_]["road_pieces_in_zone"] for r in PP)) for a_ in ("residents", "responders")],
+            ["road cells reached by the zone (sum; largest in one path)"] + ["%s (%d)" % (n(tot(a_, "road_cells_in_zone")), max(r[a_]["road_cells_in_zone"] for r in PP)) for a_ in ("residents", "responders")],
+            ["of these, reached before the path's own fire"] + [n(tot(a_, "road_cells_in_zone_before_fire")) for a_ in ("residents", "responders")],
+            ["distance from those road points to the front line"] + [dist(a_) for a_ in ("residents", "responders")],
+            ["paths where the zone changes an origin (vs fire alone)"] + [n(sum(1 for r in PP if r[a_]["plus_zone"]["origins"]["n_changed"])) for a_ in ("residents", "responders")],
+            ["paths where the zone adds to CO (fire + CO + zone vs fire + CO)"] + [n(sum(1 for r in PP if r[a_]["plus_co_and_zone"]["origins_vs_co"]["n_changed"])) for a_ in ("residents", "responders")]]
+    story += [KeepTogether([Paragraph("8. Safety zone on the paths where CO blocks roads (Amendment 6)", H2),
+              Paragraph("Every path in which a CO criterion holds at some road cell: %s of %s paths, covering %d road cells "
+                        "(the same as 'any path' above). In each: the 5 m zone (terrain-plane receivers) over 360 minutes, "
+                        "and routing against that path's own fire arrival (n = 350 routed origins per path). CO in these "
+                        "paths reaches %d road cells before the path's fire: CO changes an origin in %d paths. Fire alone "
+                        "cuts origins in %d path(s)." % (
+                            n(len(PP)), n(Q["n_paths"]), Q["totals"]["co_road_cells_union"], sum(r["co_road_cells_before_fire"] for r in PP),
+                            Q["totals"]["paths_where_co_changes_an_origin"], sum(1 for r in PP if r["fire_only"]["origins_with_cut"])), P),
+              table(rows, [70, 52, 50]),
+              Paragraph("The zone reaches road pieces only in cells already burning in that path, within 18 m of the flame, "
+                        "never ahead of the fire. Every run beyond fire alone gave the same blocking time on every road cell "
+                        "as fire alone, so its road-layer answer is the same by construction (reused).", SMALL)])]
     story += [Paragraph("Why the result changes", H2)] + md_to_paras(md_section(md, "Why"))
     story += [Paragraph("Limits", H2)] + md_to_paras(md_section(md, "Limits"))
     story += [Paragraph("Files (talk_handoff/routing_link/)", H2), table([
@@ -272,7 +304,8 @@ def main():
         ["fig_safety_zone.{png,svg,pdf}", "the safety zone in one path, and its routing change"],
         ["export_v2/", "per-path counts per criterion, minute and cell; peak summaries; distances; checks_v2.json"],
         ["out_v2/", "summary_v2.json, all v2 blocking rasters, road-layer results per run"],
-        ["perpath_export.py, perpath_rule.py, run_v2.py, build_report_v2.py", "reproduce v2 (README)"],
+        ["export_v2/co_paths/, out_v2/co_paths/", "section 8: per-path data for the CO-road paths; routing summary"],
+        ["perpath_export.py, perpath_rule.py, run_v2.py, co_paths_zone*.py, build_report_v2.py", "reproduce v2 (README)"],
         ["RESULTS.md, RESULTS_all.pdf, out_earliest/, out_half/, export_6h/", "v1, unchanged"],
     ], [70, 102])]
 
