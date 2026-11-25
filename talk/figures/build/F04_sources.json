@@ -96,7 +96,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Last safe departure of the village",
@@ -110,7 +110,7 @@
    "note": "Computed with research/kcf-replay/replay.py's Region and deadline_field.core.backward (F04_routing.py).",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Arrival at the shelter",
@@ -124,7 +124,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Route length",
@@ -138,7 +138,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Road A (OSM way 672449436): blocked / car leaves it",
@@ -155,7 +155,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Road B (OSM way 672449437): blocked / car leaves it",
@@ -172,7 +172,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Road C (OSM way 1072481239): blocked / car leaves it",
@@ -189,7 +189,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Backward pass: road nodes with a safe departure",
@@ -203,7 +203,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Certificate check of the attaining shelter's field",
@@ -217,7 +217,7 @@
    "note": "deadline_field.core.check_fixed_point; witness route also rechecked by research/kcf-replay/analyze.py::recheck (accepted at the last safe departure, rejected one second later: witness_recheck).",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "83e28457"
+   "commit": "2c24e68a"
   },
   {
    "label": "Calibration gate at 18:00 KST",

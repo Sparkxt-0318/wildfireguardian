@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-25T08:35:31.019807</dc:date>
+    <dc:date>2026-11-25T08:54:50.421128</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -36,7 +36,7 @@ L 453.6 90
 L 453.6 107.28 
 L 219.6 107.28 
 z
-" clip-path="url(#p41844578e8)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 1: safe arrival times over a road interval 1">
     <path d="M 317.88 90 
@@ -44,7 +44,7 @@ L 383.4 90
 L 383.4 107.28 
 L 317.88 107.28 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 1: safe arrival times over a road interval 2">
     <path d="M 406.8 90 
@@ -52,7 +52,7 @@ L 441.9 90
 L 441.9 107.28 
 L 406.8 107.28 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: shifted back by the travel time track">
     <path d="M 219.6 154.8 
@@ -60,7 +60,7 @@ L 453.6 154.8
 L 453.6 172.08 
 L 219.6 172.08 
 z
-" clip-path="url(#p41844578e8)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: shifted back by the travel time interval 1">
     <path d="M 266.4 154.8 
@@ -68,7 +68,7 @@ L 331.92 154.8
 L 331.92 172.08 
 L 266.4 172.08 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 2: shifted back by the travel time interval 2">
     <path d="M 355.32 154.8 
@@ -76,7 +76,7 @@ L 390.42 154.8
 L 390.42 172.08 
 L 355.32 172.08 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 3: blocked: fire on the road track">
     <path d="M 219.6 219.6 
@@ -84,7 +84,7 @@ L 453.6 219.6
 L 453.6 236.88 
 L 219.6 236.88 
 z
-" clip-path="url(#p41844578e8)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 3: blocked: fire on the road interval 1">
     <path d="M 303.84 219.6 
@@ -92,7 +92,7 @@ L 364.68 219.6
 L 364.68 236.88 
 L 303.84 236.88 
 z
-" clip-path="url(#p41844578e8)" style="fill: #8a362f; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #8a362f; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: safe start times track">
     <path d="M 219.6 284.4 
@@ -100,7 +100,7 @@ L 453.6 284.4
 L 453.6 301.68 
 L 219.6 301.68 
 z
-" clip-path="url(#p41844578e8)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: safe start times interval 1">
     <path d="M 266.4 284.4 
@@ -108,7 +108,7 @@ L 303.84 284.4
 L 303.84 301.68 
 L 266.4 301.68 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="row 4: safe start times interval 2">
     <path d="M 364.68 284.4 
@@ -116,53 +116,53 @@ L 390.42 284.4
 L 390.42 301.68 
 L 364.68 301.68 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="shift arrow 0.42">
     <path d="M 317.88 111.6 
 L 272.956984 146.504214 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
    </g>
    <g id="shift arrow 0.42">
     <path d="M 267.84 150.48 
 L 271.095891 142.935414 
 L 275.955185 149.189506 
 z
-" clip-path="url(#p41844578e8)" style="fill: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #1a1a1a"/>
    </g>
    <g id="shift arrow 0.8">
     <path d="M 406.8 111.6 
 L 361.876984 146.504214 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
    </g>
    <g id="shift arrow 0.8">
     <path d="M 356.76 150.48 
 L 360.015891 142.935414 
 L 364.875185 149.189506 
 z
-" clip-path="url(#p41844578e8)" style="fill: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #1a1a1a"/>
    </g>
    <g id="closure edge 0.36">
     <path d="M 303.84 239.76 
 L 303.84 281.52 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke-dasharray: 3.6,2.4; stroke-dashoffset: 0; stroke: #8a362f; stroke-width: 1.2"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke-dasharray: 3.6,2.4; stroke-dashoffset: 0; stroke: #8a362f; stroke-width: 1.2"/>
    </g>
    <g id="closure edge 0.62">
     <path d="M 364.68 239.76 
 L 364.68 281.52 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke-dasharray: 3.6,2.4; stroke-dashoffset: 0; stroke: #8a362f; stroke-width: 1.2"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke-dasharray: 3.6,2.4; stroke-dashoffset: 0; stroke: #8a362f; stroke-width: 1.2"/>
    </g>
    <g id="time axis">
     <path d="M 219.6 332.64 
 L 445.824 332.64 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #1a1a1a; stroke-width: 1.2"/>
    </g>
    <g id="time axis">
     <path d="M 453.6 332.64 
 L 444.96 337.392 
 L 444.96 327.888 
 z
-" clip-path="url(#p41844578e8)" style="fill: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #1a1a1a"/>
    </g>
    <g id="box:Solver box">
     <path d="M 500.4 147.6 
@@ -170,7 +170,7 @@ L 590.4 147.6
 L 590.4 223.2 
 L 500.4 223.2 
 z
-" clip-path="url(#p41844578e8)" style="fill: #e9dad3; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #e9dad3; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="box:Answer + certificate box">
     <path d="M 626.4 147.6 
@@ -178,7 +178,7 @@ L 752.4 147.6
 L 752.4 223.2 
 L 626.4 223.2 
 z
-" clip-path="url(#p41844578e8)" style="fill: #dce0e1; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #dce0e1; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="box:Independent checker box">
     <path d="M 788.4 147.6 
@@ -186,49 +186,49 @@ L 928.8 147.6
 L 928.8 223.2 
 L 788.4 223.2 
 z
-" clip-path="url(#p41844578e8)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="solver to answer">
     <path d="M 594.72 185.4 
 L 615.6 185.4 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #1a1a1a"/>
    </g>
    <g id="solver to answer">
     <path d="M 622.08 185.4 
 L 614.88 189.36 
 L 614.88 181.44 
 z
-" clip-path="url(#p41844578e8)" style="fill: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #1a1a1a"/>
    </g>
    <g id="certificate to checker">
     <path d="M 756.72 185.4 
 L 777.6 185.4 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #1a1a1a"/>
    </g>
    <g id="certificate to checker">
     <path d="M 784.08 185.4 
 L 776.88 189.36 
 L 776.88 181.44 
 z
-" clip-path="url(#p41844578e8)" style="fill: #1a1a1a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #1a1a1a"/>
    </g>
    <g id="checker output arrow">
     <path d="M 858.6 227.52 
 L 858.6 256.32 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #2f5d8a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #2f5d8a"/>
    </g>
    <g id="checker output arrow">
     <path d="M 858.6 262.8 
 L 854.64 255.6 
 L 862.56 255.6 
 z
-" clip-path="url(#p41844578e8)" style="fill: #2f5d8a"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: #2f5d8a"/>
    </g>
    <g id="tick mark">
     <path d="M 843.48 289.44 
 L 854.064 300.024 
 L 873.72 275.832 
-" clip-path="url(#p41844578e8)" style="fill: none; stroke: #2f5d8a; stroke-width: 2.5"/>
+" clip-path="url(#p94c7c77d6d)" style="fill: none; stroke: #2f5d8a; stroke-width: 2.5"/>
    </g>
    <g id="row 1: safe arrival times over a road label">
     <text style="font-size: 16px; font-family: 'Helvetica Neue', 'NanumGothic'; fill: #1a1a1a" transform="translate(36 93.61075)">safe arrival times</text>
@@ -271,7 +271,7 @@ L 873.72 275.832
   </g>
  </g>
  <defs>
-  <clipPath id="p41844578e8">
+  <clipPath id="p94c7c77d6d">
    <rect x="0" y="0" width="959.976" height="540"/>
   </clipPath>
  </defs>

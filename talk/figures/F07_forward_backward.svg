@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-25T08:35:29.533034</dc:date>
+    <dc:date>2026-11-25T08:54:33.771124</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -33,187 +33,187 @@ z
    <g id="Before road (0, 0)-(0, 1)">
     <path d="M 47.801851 95.030477 
 L 147.092352 94.015937 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 0)-(1, 0)">
     <path d="M 47.801851 95.030477 
 L 66.867683 151.618555 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 1)-(1, 1)">
     <path d="M 147.092352 94.015937 
 L 145.275073 138.359355 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 2)-(0, 3)">
     <path d="M 251.995176 90.691817 
 L 324.755432 82.309245 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 2)-(1, 2)">
     <path d="M 251.995176 90.691817 
 L 230.180655 153.520887 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 3)-(0, 4)">
     <path d="M 324.755432 82.309245 
 L 405.237485 89.997888 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 4)-(1, 4)">
     <path d="M 405.237485 89.997888 
 L 426.195769 137.621869 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 0)-(1, 1)">
     <path d="M 66.867683 151.618555 
 L 145.275073 138.359355 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 1)-(1, 2)">
     <path d="M 145.275073 138.359355 
 L 230.180655 153.520887 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 1)-(2, 1)">
     <path d="M 145.275073 138.359355 
 L 140.51153 203.191422 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 2)-(1, 3)">
     <path d="M 230.180655 153.520887 
 L 315.656557 145.29961 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 3)-(1, 4)">
     <path d="M 315.656557 145.29961 
 L 426.195769 137.621869 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 3)-(2, 3)">
     <path d="M 315.656557 145.29961 
 L 325.460362 206.820166 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 4)-(2, 4)">
     <path d="M 426.195769 137.621869 
 L 417.904604 201.74048 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 0)-(2, 1)">
     <path d="M 64.379598 210.409367 
 L 140.51153 203.191422 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 0)-(3, 0)">
     <path d="M 64.379598 210.409367 
 L 51.86662 258.314052 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 1)-(2, 2)">
     <path d="M 140.51153 203.191422 
 L 249.817621 195.727615 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 1)-(3, 1)">
     <path d="M 140.51153 203.191422 
 L 145.004498 258.073872 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 2)-(2, 3)">
     <path d="M 249.817621 195.727615 
 L 325.460362 206.820166 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 2)-(3, 2)">
     <path d="M 249.817621 195.727615 
 L 232.639132 264.552792 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 3)-(2, 4)">
     <path d="M 325.460362 206.820166 
 L 417.904604 201.74048 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 4)-(3, 4)">
     <path d="M 417.904604 201.74048 
 L 414.856587 254.455333 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 0)-(4, 0)">
     <path d="M 51.86662 258.314052 
 L 59.70878 311.997845 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 1)-(3, 2)">
     <path d="M 145.004498 258.073872 
 L 232.639132 264.552792 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 1)-(4, 1)">
     <path d="M 145.004498 258.073872 
 L 154.017349 312.310053 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 2)-(3, 3)">
     <path d="M 232.639132 264.552792 
 L 333.215279 255.137261 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 3)-(3, 4)">
     <path d="M 333.215279 255.137261 
 L 414.856587 254.455333 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 3)-(4, 3)">
     <path d="M 333.215279 255.137261 
 L 321.968593 321.943914 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 4)-(4, 4)">
     <path d="M 414.856587 254.455333 
 L 402.455113 318.973195 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (4, 0)-(4, 1)">
     <path d="M 59.70878 311.997845 
 L 154.017349 312.310053 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (4, 1)-(4, 2)">
     <path d="M 154.017349 312.310053 
 L 235.586422 318.581518 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (4, 3)-(4, 4)">
     <path d="M 321.968593 321.943914 
 L 402.455113 318.973195 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (0, 0)-(1, 1)">
     <path d="M 47.801851 95.030477 
 L 145.275073 138.359355 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 2)-(3, 3)">
     <path d="M 249.817621 195.727615 
 L 333.215279 255.137261 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (1, 3)-(2, 4)">
     <path d="M 315.656557 145.29961 
 L 417.904604 201.74048 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (3, 1)-(4, 0)">
     <path d="M 145.004498 258.073872 
 L 59.70878 311.997845 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before road (2, 1)-(3, 2)">
     <path d="M 140.51153 203.191422 
 L 232.639132 264.552792 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Before junction (0, 0)">
     <path d="M 47.801851 91.430477 
@@ -226,7 +226,7 @@ C 44.58117 96.900964 44.201851 95.985208 44.201851 95.030477
 C 44.201851 94.075745 44.58117 93.159989 45.256267 92.484892 
 C 45.931364 91.809795 46.84712 91.430477 47.801851 91.430477 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (0, 1)">
     <path d="M 147.092352 90.415937 
@@ -239,7 +239,7 @@ C 143.871671 95.886425 143.492352 94.970669 143.492352 94.015937
 C 143.492352 93.061206 143.871671 92.14545 144.546768 91.470353 
 C 145.221865 90.795256 146.137621 90.415937 147.092352 90.415937 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (0, 2)">
     <path d="M 251.995176 87.091817 
@@ -252,7 +252,7 @@ C 248.774494 92.562305 248.395176 91.646548 248.395176 90.691817
 C 248.395176 89.737086 248.774494 88.821329 249.449591 88.146233 
 C 250.124688 87.471136 251.040444 87.091817 251.995176 87.091817 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (0, 3)">
     <path d="M 324.755432 78.709245 
@@ -265,7 +265,7 @@ C 321.53475 84.179733 321.155432 83.263976 321.155432 82.309245
 C 321.155432 81.354514 321.53475 80.438758 322.209847 79.763661 
 C 322.884944 79.088564 323.800701 78.709245 324.755432 78.709245 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (1, 0)">
     <path d="M 66.867683 148.018555 
@@ -278,7 +278,7 @@ C 63.647001 153.489043 63.267683 152.573286 63.267683 151.618555
 C 63.267683 150.663824 63.647001 149.748067 64.322098 149.072971 
 C 64.997195 148.397874 65.912951 148.018555 66.867683 148.018555 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (1, 1)">
     <path d="M 145.275073 134.759355 
@@ -291,7 +291,7 @@ C 142.054392 140.229843 141.675073 139.314086 141.675073 138.359355
 C 141.675073 137.404624 142.054392 136.488868 142.729488 135.813771 
 C 143.404585 135.138674 144.320342 134.759355 145.275073 134.759355 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (1, 2)">
     <path d="M 230.180655 149.920887 
@@ -304,7 +304,7 @@ C 226.959974 155.391375 226.580655 154.475618 226.580655 153.520887
 C 226.580655 152.566156 226.959974 151.6504 227.635071 150.975303 
 C 228.310168 150.300206 229.225924 149.920887 230.180655 149.920887 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (1, 3)">
     <path d="M 315.656557 141.69961 
@@ -317,7 +317,7 @@ C 312.435876 147.170098 312.056557 146.254341 312.056557 145.29961
 C 312.056557 144.344879 312.435876 143.429123 313.110973 142.754026 
 C 313.786069 142.078929 314.701826 141.69961 315.656557 141.69961 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (1, 4)">
     <path d="M 426.195769 134.021869 
@@ -330,7 +330,7 @@ C 422.975088 139.492357 422.595769 138.5766 422.595769 137.621869
 C 422.595769 136.667138 422.975088 135.751381 423.650185 135.076285 
 C 424.325282 134.401188 425.241038 134.021869 426.195769 134.021869 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (2, 0)">
     <path d="M 64.379598 206.809367 
@@ -343,7 +343,7 @@ C 61.158917 212.279855 60.779598 211.364098 60.779598 210.409367
 C 60.779598 209.454636 61.158917 208.53888 61.834014 207.863783 
 C 62.509111 207.188686 63.424867 206.809367 64.379598 206.809367 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (2, 2)">
     <path d="M 249.817621 192.127615 
@@ -356,7 +356,7 @@ C 246.59694 197.598102 246.217621 196.682346 246.217621 195.727615
 C 246.217621 194.772884 246.59694 193.857127 247.272037 193.18203 
 C 247.947134 192.506933 248.86289 192.127615 249.817621 192.127615 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (2, 3)">
     <path d="M 325.460362 203.220166 
@@ -369,7 +369,7 @@ C 322.239681 208.690653 321.860362 207.774897 321.860362 206.820166
 C 321.860362 205.865434 322.239681 204.949678 322.914778 204.274581 
 C 323.589874 203.599484 324.505631 203.220166 325.460362 203.220166 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (2, 4)">
     <path d="M 417.904604 198.14048 
@@ -382,7 +382,7 @@ C 414.683923 203.610968 414.304604 202.695211 414.304604 201.74048
 C 414.304604 200.785749 414.683923 199.869993 415.35902 199.194896 
 C 416.034117 198.519799 416.949873 198.14048 417.904604 198.14048 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (3, 0)">
     <path d="M 51.86662 254.714052 
@@ -395,7 +395,7 @@ C 48.645939 260.184539 48.26662 259.268783 48.26662 258.314052
 C 48.26662 257.359321 48.645939 256.443564 49.321035 255.768468 
 C 49.996132 255.093371 50.911889 254.714052 51.86662 254.714052 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (3, 1)">
     <path d="M 145.004498 254.473872 
@@ -408,7 +408,7 @@ C 141.783816 259.944359 141.404498 259.028603 141.404498 258.073872
 C 141.404498 257.11914 141.783816 256.203384 142.458913 255.528287 
 C 143.13401 254.85319 144.049766 254.473872 145.004498 254.473872 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (3, 2)">
     <path d="M 232.639132 260.952792 
@@ -421,7 +421,7 @@ C 229.418451 266.423279 229.039132 265.507523 229.039132 264.552792
 C 229.039132 263.598061 229.418451 262.682304 230.093548 262.007207 
 C 230.768645 261.332111 231.684401 260.952792 232.639132 260.952792 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (3, 3)">
     <path d="M 333.215279 251.537261 
@@ -434,7 +434,7 @@ C 329.994598 257.007749 329.615279 256.091992 329.615279 255.137261
 C 329.615279 254.18253 329.994598 253.266774 330.669694 252.591677 
 C 331.344791 251.91658 332.260548 251.537261 333.215279 251.537261 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (3, 4)">
     <path d="M 414.856587 250.855333 
@@ -447,7 +447,7 @@ C 411.635906 256.32582 411.256587 255.410064 411.256587 254.455333
 C 411.256587 253.500601 411.635906 252.584845 412.311003 251.909748 
 C 412.9861 251.234651 413.901856 250.855333 414.856587 250.855333 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (4, 0)">
     <path d="M 59.70878 308.397845 
@@ -460,7 +460,7 @@ C 56.488099 313.868332 56.10878 312.952576 56.10878 311.997845
 C 56.10878 311.043114 56.488099 310.127357 57.163196 309.45226 
 C 57.838293 308.777164 58.754049 308.397845 59.70878 308.397845 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (4, 1)">
     <path d="M 154.017349 308.710053 
@@ -473,7 +473,7 @@ C 150.796667 314.180541 150.417349 313.264785 150.417349 312.310053
 C 150.417349 311.355322 150.796667 310.439566 151.471764 309.764469 
 C 152.146861 309.089372 153.062618 308.710053 154.017349 308.710053 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (4, 2)">
     <path d="M 235.586422 314.981518 
@@ -486,7 +486,7 @@ C 232.36574 320.452005 231.986422 319.536249 231.986422 318.581518
 C 231.986422 317.626787 232.36574 316.71103 233.040837 316.035933 
 C 233.715934 315.360836 234.631691 314.981518 235.586422 314.981518 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before junction (4, 3)">
     <path d="M 321.968593 318.343914 
@@ -499,259 +499,259 @@ C 318.747912 323.814401 318.368593 322.898645 318.368593 321.943914
 C 318.368593 320.989183 318.747912 320.073426 319.423008 319.398329 
 C 320.098105 318.723233 321.013862 318.343914 321.968593 318.343914 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 1)-&gt;(1, 1)">
     <path d="M 141.566727 188.830135 
 L 144.272636 152.002578 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 1)-&gt;(1, 1)">
     <path d="M 144.747474 145.539999 
 L 148.16923 153.010821 
 L 140.270522 152.430463 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 1)-&gt;(2, 0)">
     <path d="M 126.175815 204.550568 
 L 77.998527 209.118179 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 1)-&gt;(2, 0)">
     <path d="M 71.547456 209.729794 
 L 78.341548 205.1079 
 L 79.089078 212.992543 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 1)-&gt;(2, 2)">
     <path d="M 154.878076 202.210423 
 L 236.169403 196.659563 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 1)-&gt;(2, 2)">
     <path d="M 242.634348 196.218114 
 L 235.72085 200.659414 
 L 235.181301 192.757813 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 1)-&gt;(3, 1)">
     <path d="M 141.686459 217.543409 
 L 143.888314 244.439484 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 1)-&gt;(3, 1)">
     <path d="M 144.417033 250.897878 
 L 139.882771 244.04499 
 L 147.776364 243.398779 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 1)-&gt;(3, 2)">
     <path d="M 152.496477 211.173968 
 L 221.253432 256.969373 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 1)-&gt;(3, 2)">
     <path d="M 226.646658 260.561519 
 L 218.458985 259.866107 
 L 222.849385 253.274386 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (1, 1)-&gt;(0, 0)">
     <path d="M 137.379965 134.849815 
 L 60.302439 100.587248 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (1, 1)-&gt;(0, 0)">
     <path d="M 54.381108 97.955093 
 L 62.568904 97.261119 
 L 59.351825 104.498301 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (1, 1)-&gt;(0, 1)">
     <path d="M 145.62886 129.726602 
 L 146.532189 107.684464 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (1, 1)-&gt;(0, 1)">
     <path d="M 146.79753 101.209899 
 L 150.459386 108.566012 
 L 142.546028 108.241708 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (1, 1)-&gt;(1, 0)">
     <path d="M 136.756024 139.799982 
 L 80.356177 149.337563 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (1, 1)-&gt;(1, 0)">
     <path d="M 73.96689 150.418033 
 L 80.40581 145.312947 
 L 81.726385 153.122075 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (1, 1)-&gt;(1, 2)">
     <path d="M 153.78053 139.878169 
 L 216.713681 151.116099 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (1, 1)-&gt;(1, 2)">
     <path d="M 223.092774 152.255209 
 L 215.30877 154.887866 
 L 216.701016 147.091196 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 0)-&gt;(3, 0)">
     <path d="M 62.196042 218.768894 
 L 55.323917 245.078135 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 0)-&gt;(3, 0)">
     <path d="M 53.68625 251.34778 
 L 51.674431 243.380711 
 L 59.33733 245.382304 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 2)-&gt;(2, 3)">
     <path d="M 258.366194 196.981211 
 L 311.925122 204.835304 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 2)-&gt;(2, 3)">
     <path d="M 318.336551 205.775502 
 L 310.638176 208.648934 
 L 311.787306 200.812742 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 2)-&gt;(3, 3)">
     <path d="M 256.854662 200.740563 
 L 322.073297 247.200093 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 2)-&gt;(3, 3)">
     <path d="M 327.351078 250.959804 
 L 319.189275 250.007658 
 L 323.784478 243.557037 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (3, 1)-&gt;(4, 0)">
     <path d="M 137.701523 262.690814 
 L 71.271824 304.687686 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (3, 1)-&gt;(4, 0)">
     <path d="M 65.794593 308.150393 
 L 69.764307 300.955744 
 L 73.996504 307.650137 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (3, 1)-&gt;(4, 1)">
     <path d="M 146.420851 266.59699 
 L 151.774789 298.815116 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (3, 1)-&gt;(4, 1)">
     <path d="M 152.837054 305.207455 
 L 147.750331 298.754018 
 L 155.563189 297.455695 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (1, 2)-&gt;(0, 2)">
     <path d="M 233.014545 145.358861 
 L 247.508183 103.615025 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (1, 2)-&gt;(0, 2)">
     <path d="M 249.6336 97.493505 
 L 251.012954 105.59406 
 L 243.531097 102.996327 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (1, 2)-&gt;(1, 3)">
     <path d="M 238.780966 152.693689 
 L 302.039399 146.609341 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (1, 2)-&gt;(1, 3)">
     <path d="M 308.489631 145.988942 
 L 301.701839 150.620083 
 L 300.943573 142.736465 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (2, 3)-&gt;(2, 4)">
     <path d="M 334.087348 206.346125 
 L 404.24521 202.491045 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (2, 3)-&gt;(2, 4)">
     <path d="M 410.715449 202.135514 
 L 403.743563 206.484584 
 L 403.309026 198.576514 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (3, 3)-&gt;(3, 4)">
     <path d="M 341.854978 255.065096 
 L 401.177065 254.569594 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (3, 3)-&gt;(3, 4)">
     <path d="M 407.656838 254.51547 
 L 400.490165 258.53547 
 L 400.424014 250.615746 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (3, 3)-&gt;(4, 3)">
     <path d="M 331.780946 263.657372 
 L 324.239621 308.453738 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (3, 3)-&gt;(4, 3)">
     <path d="M 323.163871 314.843822 
 L 320.454098 307.086326 
 L 328.264199 308.401132 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (4, 1)-&gt;(4, 2)">
     <path d="M 162.631924 312.972388 
 L 221.946677 317.532822 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (4, 1)-&gt;(4, 2)">
     <path d="M 228.407609 318.029572 
 L 220.925226 321.425974 
 L 221.532366 313.52928 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before search (3, 4)-&gt;(4, 4)">
     <path d="M 413.225682 262.94001 
 L 405.03738 305.539123 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #6b6b6b; stroke-width: 1.5"/>
    </g>
    <g id="Before search (3, 4)-&gt;(4, 4)">
     <path d="M 403.814201 311.902631 
 L 401.284478 304.084569 
 L 409.062099 305.579565 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Before shelter 1">
     <path d="M 395.877485 80.637888 
@@ -759,7 +759,7 @@ L 414.597485 80.637888
 L 414.597485 99.357888 
 L 395.877485 99.357888 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Before shelter 2">
     <path d="M 393.095113 309.613195 
@@ -767,7 +767,7 @@ L 411.815113 309.613195
 L 411.815113 328.333195 
 L 393.095113 328.333195 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Before village">
     <path d="M 140.51153 192.391422 
@@ -780,192 +780,192 @@ C 130.849486 208.802885 129.71153 206.055616 129.71153 203.191422
 C 129.71153 200.327229 130.849486 197.579959 132.874777 195.554669 
 C 134.900067 193.529378 137.647336 192.391422 140.51153 192.391422 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #1a1a1a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #1a1a1a"/>
    </g>
    <g id="Now road (0, 0)-(0, 1)">
     <path d="M 515.801851 95.030477 
 L 615.092352 94.015937 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 0)-(1, 0)">
     <path d="M 515.801851 95.030477 
 L 534.867683 151.618555 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 1)-(1, 1)">
     <path d="M 615.092352 94.015937 
 L 613.275073 138.359355 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 2)-(0, 3)">
     <path d="M 719.995176 90.691817 
 L 792.755432 82.309245 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 2)-(1, 2)">
     <path d="M 719.995176 90.691817 
 L 698.180655 153.520887 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 3)-(0, 4)">
     <path d="M 792.755432 82.309245 
 L 873.237485 89.997888 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 4)-(1, 4)">
     <path d="M 873.237485 89.997888 
 L 894.195769 137.621869 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 0)-(1, 1)">
     <path d="M 534.867683 151.618555 
 L 613.275073 138.359355 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 1)-(1, 2)">
     <path d="M 613.275073 138.359355 
 L 698.180655 153.520887 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 1)-(2, 1)">
     <path d="M 613.275073 138.359355 
 L 608.51153 203.191422 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 2)-(1, 3)">
     <path d="M 698.180655 153.520887 
 L 783.656557 145.29961 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 3)-(1, 4)">
     <path d="M 783.656557 145.29961 
 L 894.195769 137.621869 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 3)-(2, 3)">
     <path d="M 783.656557 145.29961 
 L 793.460362 206.820166 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 4)-(2, 4)">
     <path d="M 894.195769 137.621869 
 L 885.904604 201.74048 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 0)-(2, 1)">
     <path d="M 532.379598 210.409367 
 L 608.51153 203.191422 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 0)-(3, 0)">
     <path d="M 532.379598 210.409367 
 L 519.86662 258.314052 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 1)-(2, 2)">
     <path d="M 608.51153 203.191422 
 L 717.817621 195.727615 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 1)-(3, 1)">
     <path d="M 608.51153 203.191422 
 L 613.004498 258.073872 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 2)-(2, 3)">
     <path d="M 717.817621 195.727615 
 L 793.460362 206.820166 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 2)-(3, 2)">
     <path d="M 717.817621 195.727615 
 L 700.639132 264.552792 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 3)-(2, 4)">
     <path d="M 793.460362 206.820166 
 L 885.904604 201.74048 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 4)-(3, 4)">
     <path d="M 885.904604 201.74048 
 L 882.856587 254.455333 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 0)-(4, 0)">
     <path d="M 519.86662 258.314052 
 L 527.70878 311.997845 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 1)-(3, 2)">
     <path d="M 613.004498 258.073872 
 L 700.639132 264.552792 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 1)-(4, 1)">
     <path d="M 613.004498 258.073872 
 L 622.017349 312.310053 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 2)-(3, 3)">
     <path d="M 700.639132 264.552792 
 L 801.215279 255.137261 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 3)-(3, 4)">
     <path d="M 801.215279 255.137261 
 L 882.856587 254.455333 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 3)-(4, 3)">
     <path d="M 801.215279 255.137261 
 L 789.968593 321.943914 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 4)-(4, 4)">
     <path d="M 882.856587 254.455333 
 L 870.455113 318.973195 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (4, 0)-(4, 1)">
     <path d="M 527.70878 311.997845 
 L 622.017349 312.310053 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (4, 1)-(4, 2)">
     <path d="M 622.017349 312.310053 
 L 703.586422 318.581518 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (4, 3)-(4, 4)">
     <path d="M 789.968593 321.943914 
 L 870.455113 318.973195 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (0, 0)-(1, 1)">
     <path d="M 515.801851 95.030477 
 L 613.275073 138.359355 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 2)-(3, 3)">
     <path d="M 717.817621 195.727615 
 L 801.215279 255.137261 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (1, 3)-(2, 4)">
     <path d="M 783.656557 145.29961 
 L 885.904604 201.74048 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (3, 1)-(4, 0)">
     <path d="M 613.004498 258.073872 
 L 527.70878 311.997845 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now road (2, 1)-(3, 2)">
     <path d="M 608.51153 203.191422 
 L 700.639132 264.552792 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8; stroke-width: 3"/>
    </g>
    <g id="Now junction (0, 0)">
     <path d="M 515.801851 91.430477 
@@ -978,7 +978,7 @@ C 512.58117 96.900964 512.201851 95.985208 512.201851 95.030477
 C 512.201851 94.075745 512.58117 93.159989 513.256267 92.484892 
 C 513.931364 91.809795 514.84712 91.430477 515.801851 91.430477 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (0, 1)">
     <path d="M 615.092352 90.415937 
@@ -991,7 +991,7 @@ C 611.871671 95.886425 611.492352 94.970669 611.492352 94.015937
 C 611.492352 93.061206 611.871671 92.14545 612.546768 91.470353 
 C 613.221865 90.795256 614.137621 90.415937 615.092352 90.415937 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (0, 2)">
     <path d="M 719.995176 87.091817 
@@ -1004,7 +1004,7 @@ C 716.774494 92.562305 716.395176 91.646548 716.395176 90.691817
 C 716.395176 89.737086 716.774494 88.821329 717.449591 88.146233 
 C 718.124688 87.471136 719.040444 87.091817 719.995176 87.091817 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (0, 3)">
     <path d="M 792.755432 78.709245 
@@ -1017,7 +1017,7 @@ C 789.53475 84.179733 789.155432 83.263976 789.155432 82.309245
 C 789.155432 81.354514 789.53475 80.438758 790.209847 79.763661 
 C 790.884944 79.088564 791.800701 78.709245 792.755432 78.709245 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (1, 0)">
     <path d="M 534.867683 148.018555 
@@ -1030,7 +1030,7 @@ C 531.647001 153.489043 531.267683 152.573286 531.267683 151.618555
 C 531.267683 150.663824 531.647001 149.748067 532.322098 149.072971 
 C 532.997195 148.397874 533.912951 148.018555 534.867683 148.018555 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (1, 1)">
     <path d="M 613.275073 134.759355 
@@ -1043,7 +1043,7 @@ C 610.054392 140.229843 609.675073 139.314086 609.675073 138.359355
 C 609.675073 137.404624 610.054392 136.488868 610.729488 135.813771 
 C 611.404585 135.138674 612.320342 134.759355 613.275073 134.759355 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (1, 2)">
     <path d="M 698.180655 149.920887 
@@ -1056,7 +1056,7 @@ C 694.959974 155.391375 694.580655 154.475618 694.580655 153.520887
 C 694.580655 152.566156 694.959974 151.6504 695.635071 150.975303 
 C 696.310168 150.300206 697.225924 149.920887 698.180655 149.920887 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (1, 3)">
     <path d="M 783.656557 141.69961 
@@ -1069,7 +1069,7 @@ C 780.435876 147.170098 780.056557 146.254341 780.056557 145.29961
 C 780.056557 144.344879 780.435876 143.429123 781.110973 142.754026 
 C 781.786069 142.078929 782.701826 141.69961 783.656557 141.69961 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (1, 4)">
     <path d="M 894.195769 134.021869 
@@ -1082,7 +1082,7 @@ C 890.975088 139.492357 890.595769 138.5766 890.595769 137.621869
 C 890.595769 136.667138 890.975088 135.751381 891.650185 135.076285 
 C 892.325282 134.401188 893.241038 134.021869 894.195769 134.021869 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (2, 0)">
     <path d="M 532.379598 206.809367 
@@ -1095,7 +1095,7 @@ C 529.158917 212.279855 528.779598 211.364098 528.779598 210.409367
 C 528.779598 209.454636 529.158917 208.53888 529.834014 207.863783 
 C 530.509111 207.188686 531.424867 206.809367 532.379598 206.809367 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (2, 2)">
     <path d="M 717.817621 192.127615 
@@ -1108,7 +1108,7 @@ C 714.59694 197.598102 714.217621 196.682346 714.217621 195.727615
 C 714.217621 194.772884 714.59694 193.857127 715.272037 193.18203 
 C 715.947134 192.506933 716.86289 192.127615 717.817621 192.127615 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (2, 3)">
     <path d="M 793.460362 203.220166 
@@ -1121,7 +1121,7 @@ C 790.239681 208.690653 789.860362 207.774897 789.860362 206.820166
 C 789.860362 205.865434 790.239681 204.949678 790.914778 204.274581 
 C 791.589874 203.599484 792.505631 203.220166 793.460362 203.220166 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (2, 4)">
     <path d="M 885.904604 198.14048 
@@ -1134,7 +1134,7 @@ C 882.683923 203.610968 882.304604 202.695211 882.304604 201.74048
 C 882.304604 200.785749 882.683923 199.869993 883.35902 199.194896 
 C 884.034117 198.519799 884.949873 198.14048 885.904604 198.14048 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (3, 0)">
     <path d="M 519.86662 254.714052 
@@ -1147,7 +1147,7 @@ C 516.645939 260.184539 516.26662 259.268783 516.26662 258.314052
 C 516.26662 257.359321 516.645939 256.443564 517.321035 255.768468 
 C 517.996132 255.093371 518.911889 254.714052 519.86662 254.714052 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (3, 1)">
     <path d="M 613.004498 254.473872 
@@ -1160,7 +1160,7 @@ C 609.783816 259.944359 609.404498 259.028603 609.404498 258.073872
 C 609.404498 257.11914 609.783816 256.203384 610.458913 255.528287 
 C 611.13401 254.85319 612.049766 254.473872 613.004498 254.473872 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (3, 2)">
     <path d="M 700.639132 260.952792 
@@ -1173,7 +1173,7 @@ C 697.418451 266.423279 697.039132 265.507523 697.039132 264.552792
 C 697.039132 263.598061 697.418451 262.682304 698.093548 262.007207 
 C 698.768645 261.332111 699.684401 260.952792 700.639132 260.952792 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (3, 3)">
     <path d="M 801.215279 251.537261 
@@ -1186,7 +1186,7 @@ C 797.994598 257.007749 797.615279 256.091992 797.615279 255.137261
 C 797.615279 254.18253 797.994598 253.266774 798.669694 252.591677 
 C 799.344791 251.91658 800.260548 251.537261 801.215279 251.537261 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (3, 4)">
     <path d="M 882.856587 250.855333 
@@ -1199,7 +1199,7 @@ C 879.635906 256.32582 879.256587 255.410064 879.256587 254.455333
 C 879.256587 253.500601 879.635906 252.584845 880.311003 251.909748 
 C 880.9861 251.234651 881.901856 250.855333 882.856587 250.855333 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (4, 0)">
     <path d="M 527.70878 308.397845 
@@ -1212,7 +1212,7 @@ C 524.488099 313.868332 524.10878 312.952576 524.10878 311.997845
 C 524.10878 311.043114 524.488099 310.127357 525.163196 309.45226 
 C 525.838293 308.777164 526.754049 308.397845 527.70878 308.397845 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (4, 1)">
     <path d="M 622.017349 308.710053 
@@ -1225,7 +1225,7 @@ C 618.796667 314.180541 618.417349 313.264785 618.417349 312.310053
 C 618.417349 311.355322 618.796667 310.439566 619.471764 309.764469 
 C 620.146861 309.089372 621.062618 308.710053 622.017349 308.710053 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (4, 2)">
     <path d="M 703.586422 314.981518 
@@ -1238,7 +1238,7 @@ C 700.36574 320.452005 699.986422 319.536249 699.986422 318.581518
 C 699.986422 317.626787 700.36574 316.71103 701.040837 316.035933 
 C 701.715934 315.360836 702.631691 314.981518 703.586422 314.981518 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now junction (4, 3)">
     <path d="M 789.968593 318.343914 
@@ -1251,283 +1251,283 @@ C 786.747912 323.814401 786.368593 322.898645 786.368593 321.943914
 C 786.368593 320.989183 786.747912 320.073426 787.423008 319.398329 
 C 788.098105 318.723233 789.013862 318.343914 789.968593 318.343914 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="Now backward (0, 4)-&gt;(0, 3)">
     <path d="M 864.636643 89.176229 
 L 806.373431 83.610205 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (0, 4)-&gt;(0, 3)">
     <path d="M 799.9228 82.993961 
 L 807.466761 79.736625 
 L 806.713574 87.620729 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (0, 4)-&gt;(1, 4)">
     <path d="M 876.717666 97.905982 
 L 888.685483 125.100721 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (0, 4)-&gt;(1, 4)">
     <path d="M 891.295618 131.031791 
 L 884.770925 126.036796 
 L 892.02001 122.84663 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (4, 4)-&gt;(3, 4)">
     <path d="M 872.086018 310.488518 
 L 880.274321 267.889405 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (4, 4)-&gt;(3, 4)">
     <path d="M 881.4975 261.525897 
 L 884.027223 269.34396 
 L 876.249602 267.848963 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (4, 4)-&gt;(4, 3)">
     <path d="M 861.820992 319.291877 
 L 803.639284 321.439335 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (4, 4)-&gt;(4, 3)">
     <path d="M 797.163693 321.678346 
 L 804.212732 317.455473 
 L 804.504856 325.370084 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (0, 3)-&gt;(0, 2)">
     <path d="M 784.172206 83.298103 
 L 733.585283 89.126126 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (0, 3)-&gt;(0, 2)">
     <path d="M 727.147864 89.867769 
 L 733.847325 85.109743 
 L 734.753778 92.9777 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 4)-&gt;(1, 3)">
     <path d="M 885.576535 138.220537 
 L 797.303678 144.35172 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 4)-&gt;(1, 3)">
     <path d="M 790.839252 144.80072 
 L 797.747558 140.351348 
 L 798.296337 148.252313 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 4)-&gt;(2, 4)">
     <path d="M 893.087758 146.190528 
 L 887.658956 188.173437 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 4)-&gt;(2, 4)">
     <path d="M 886.827947 194.599931 
 L 883.823988 186.951544 
 L 891.678592 187.967221 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (3, 4)-&gt;(3, 3)">
     <path d="M 874.216889 254.527498 
 L 814.894802 255.023 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (3, 4)-&gt;(3, 3)">
     <path d="M 808.415028 255.077124 
 L 815.581701 251.057124 
 L 815.647852 258.976848 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (0, 2)-&gt;(1, 2)">
     <path d="M 717.161285 98.853843 
 L 702.667648 140.59768 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (0, 2)-&gt;(1, 2)">
     <path d="M 700.54223 146.719199 
 L 699.162877 138.618644 
 L 706.644734 141.216377 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 3)-&gt;(2, 3)">
     <path d="M 785.016255 153.83195 
 L 791.307506 193.310628 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 3)-&gt;(2, 3)">
     <path d="M 792.32728 199.709883 
 L 787.283542 193.222795 
 L 795.104854 191.976404 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (3, 3)-&gt;(2, 2)">
     <path d="M 794.178238 250.124313 
 L 728.959603 203.664783 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (3, 3)-&gt;(2, 2)">
     <path d="M 723.681822 199.905072 
 L 731.843625 200.857218 
 L 727.248422 207.307839 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (3, 3)-&gt;(3, 2)">
     <path d="M 792.612892 255.942582 
 L 714.259578 263.277701 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (3, 3)-&gt;(3, 2)">
     <path d="M 707.807788 263.881691 
 L 714.607338 259.26783 
 L 715.345549 267.153352 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 2)-&gt;(1, 1)">
     <path d="M 689.675198 152.002073 
 L 626.742047 140.764144 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 2)-&gt;(1, 1)">
     <path d="M 620.362954 139.625033 
 L 628.146958 136.992377 
 L 626.754712 144.789046 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (2, 2)-&gt;(2, 1)">
     <path d="M 709.197694 196.316214 
 L 622.159748 202.259473 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (2, 2)-&gt;(2, 1)">
     <path d="M 615.694803 202.700923 
 L 622.608301 198.259623 
 L 623.14785 206.161223 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (3, 2)-&gt;(3, 1)">
     <path d="M 692.022648 263.915766 
 L 626.647264 259.082496 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (3, 2)-&gt;(3, 1)">
     <path d="M 620.184901 258.604726 
 L 627.657275 255.186359 
 L 627.073334 263.084803 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 1)-&gt;(0, 0)">
     <path d="M 605.379965 134.849815 
 L 528.302439 100.587248 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 1)-&gt;(0, 0)">
     <path d="M 522.381108 97.955093 
 L 530.568904 97.261119 
 L 527.351825 104.498301 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 1)-&gt;(0, 1)">
     <path d="M 613.62886 129.726602 
 L 614.532189 107.684464 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 1)-&gt;(0, 1)">
     <path d="M 614.79753 101.209899 
 L 618.459386 108.566012 
 L 610.546028 108.241708 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (1, 1)-&gt;(1, 0)">
     <path d="M 604.756024 139.799982 
 L 548.356177 149.337563 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (1, 1)-&gt;(1, 0)">
     <path d="M 541.96689 150.418033 
 L 548.40581 145.312947 
 L 549.726385 153.122075 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (2, 1)-&gt;(2, 0)">
     <path d="M 599.910101 204.00691 
 L 545.998527 209.118179 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (2, 1)-&gt;(2, 0)">
     <path d="M 539.547456 209.729794 
 L 546.341548 205.1079 
 L 547.089078 212.992543 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (3, 1)-&gt;(4, 0)">
     <path d="M 605.701523 262.690814 
 L 539.271824 304.687686 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (3, 1)-&gt;(4, 0)">
     <path d="M 533.794593 308.150393 
 L 537.764307 300.955744 
 L 541.996504 307.650137 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (3, 1)-&gt;(4, 1)">
     <path d="M 614.420851 266.59699 
 L 619.774789 298.815116 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (3, 1)-&gt;(4, 1)">
     <path d="M 620.837054 305.207455 
 L 615.750331 298.754018 
 L 623.563189 297.455695 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (2, 0)-&gt;(3, 0)">
     <path d="M 530.196042 218.768894 
 L 523.323917 245.078135 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (2, 0)-&gt;(3, 0)">
     <path d="M 521.68625 251.34778 
 L 519.674431 243.380711 
 L 527.33733 245.382304 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now backward (4, 1)-&gt;(4, 2)">
     <path d="M 630.631924 312.972388 
 L 689.946677 317.532822 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #2f5d8a; stroke-width: 1.5"/>
    </g>
    <g id="Now backward (4, 1)-&gt;(4, 2)">
     <path d="M 696.407609 318.029572 
 L 688.925226 321.425974 
 L 689.532366 313.52928 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now shelter 1">
     <path d="M 863.877485 80.637888 
@@ -1535,7 +1535,7 @@ L 882.597485 80.637888
 L 882.597485 99.357888 
 L 863.877485 99.357888 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now shelter 2">
     <path d="M 861.095113 309.613195 
@@ -1543,7 +1543,7 @@ L 879.815113 309.613195
 L 879.815113 328.333195 
 L 861.095113 328.333195 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="Now village">
     <path d="M 608.51153 198.151422 
@@ -1556,12 +1556,12 @@ C 604.002576 205.810105 603.47153 204.528046 603.47153 203.191422
 C 603.47153 201.854798 604.002576 200.572739 604.947712 199.627604 
 C 605.892847 198.682468 607.174906 198.151422 608.51153 198.151422 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #6b6b6b"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #6b6b6b"/>
    </g>
    <g id="bg:divider">
     <path d="M 480.24 25.2 
 L 480.24 403.2 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #cfcdc8"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #cfcdc8"/>
    </g>
    <g id="box:counter box">
     <path d="M 32.4 363.6 
@@ -1569,7 +1569,7 @@ L 453.6 363.6
 L 453.6 403.2 
 L 32.4 403.2 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="time bar 1 track">
     <path d="M 723.975304 68.500531 
@@ -1577,7 +1577,7 @@ L 788.775304 68.500531
 L 788.775304 77.140531 
 L 723.975304 77.140531 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="time bar 1 safe window 1">
     <path d="M 723.975304 68.500531 
@@ -1585,7 +1585,7 @@ L 764.151304 68.500531
 L 764.151304 77.140531 
 L 723.975304 77.140531 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar 2 track">
     <path d="M 630.764575 181.459518 
@@ -1593,7 +1593,7 @@ L 695.564575 181.459518
 L 695.564575 190.099518 
 L 630.764575 190.099518 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="time bar 2 safe window 1">
     <path d="M 630.764575 181.459518 
@@ -1601,7 +1601,7 @@ L 650.204575 181.459518
 L 650.204575 190.099518 
 L 630.764575 190.099518 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar 2 safe window 2">
     <path d="M 666.404575 181.459518 
@@ -1609,7 +1609,7 @@ L 685.844575 181.459518
 L 685.844575 190.099518 
 L 666.404575 190.099518 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar 3 track">
     <path d="M 630.401885 324.805786 
@@ -1617,7 +1617,7 @@ L 695.201885 324.805786
 L 695.201885 333.445786 
 L 630.401885 333.445786 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="time bar 3 safe window 1">
     <path d="M 630.401885 324.805786 
@@ -1625,7 +1625,7 @@ L 659.561885 324.805786
 L 659.561885 333.445786 
 L 630.401885 333.445786 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar 4 track">
     <path d="M 809.635933 236.796297 
@@ -1633,7 +1633,7 @@ L 874.435933 236.796297
 L 874.435933 245.436297 
 L 809.635933 245.436297 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="time bar 4 safe window 1">
     <path d="M 809.635933 236.796297 
@@ -1641,7 +1641,7 @@ L 860.179933 236.796297
 L 860.179933 245.436297 
 L 809.635933 245.436297 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar key track">
     <path d="M 514.8 360 
@@ -1649,7 +1649,7 @@ L 579.6 360
 L 579.6 368.64 
 L 514.8 368.64 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #faf7f0; stroke: #1a1a1a; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="time bar key safe window 1">
     <path d="M 514.8 360 
@@ -1657,7 +1657,7 @@ L 534.24 360
 L 534.24 368.64 
 L 514.8 368.64 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar key safe window 2">
     <path d="M 550.44 360 
@@ -1665,19 +1665,19 @@ L 569.88 360
 L 569.88 368.64 
 L 550.44 368.64 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #2f5d8a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #2f5d8a"/>
    </g>
    <g id="time bar key axis">
     <path d="M 514.8 399.6 
 L 574.416 399.6 
-" clip-path="url(#p18a7819a19)" style="fill: none; stroke: #1a1a1a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: none; stroke: #1a1a1a"/>
    </g>
    <g id="time bar key axis">
     <path d="M 579.6 399.6 
 L 573.84 402.768 
 L 573.84 396.432 
 z
-" clip-path="url(#p18a7819a19)" style="fill: #1a1a1a"/>
+" clip-path="url(#pf8de5bc5f3)" style="fill: #1a1a1a"/>
    </g>
    <g id="Before header">
     <text style="font-size: 16px; font-family: 'Helvetica Neue', 'NanumGothic'; text-anchor: start; fill: #1a1a1a" x="32.4" y="43.775" transform="rotate(-0 32.4 43.775)">(a) Before: forward from one village</text>
@@ -1719,7 +1719,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p18a7819a19">
+  <clipPath id="pf8de5bc5f3">
    <rect x="0" y="0" width="959.976" height="540"/>
   </clipPath>
  </defs>

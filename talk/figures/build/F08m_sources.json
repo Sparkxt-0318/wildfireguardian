@@ -18,7 +18,7 @@
    "note": "The first edge of Wondang-ri's stored route (scene.js routes.MEASURED, 18:00 KST); the first route edge whose fire blocking, not its arrival limit, sets the time.",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Safe arrival at the far end (latest)",
@@ -32,7 +32,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Drive time",
@@ -46,7 +46,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Fire blocks the road's first cell",
@@ -60,7 +60,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Car clears that cell after",
@@ -74,7 +74,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Leave by (earlier of the two limits)",
@@ -88,7 +88,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Basemap tiles",
@@ -102,7 +102,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   }
  ],
  "notes": []

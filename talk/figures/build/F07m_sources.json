@@ -17,7 +17,7 @@
    "note": "Time-dependent search in order of arrival, turn restrictions and blocked edge starts of the replay instance, no waiting; stops at the first accepted arrival at a shelter (F07_map_data.py). It is the repository's illustration of one forward search, not the earlier method's code.",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Forward search: arrival at the first shelter",
@@ -31,7 +31,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Backward: passes / shelter nodes accepting",
@@ -48,7 +48,7 @@
    "note": "deadline_field.core.backward with every shelter used by any village of the region accepting at once; fixed-point check PASS on 43,826 edge states.",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Backward: road junctions with a safe departure / all junctions",
@@ -65,7 +65,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Leave-by time of Bunto-ri from the one pass",
@@ -79,7 +79,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Leave-by time of Wondang-ri from the one pass",
@@ -93,7 +93,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Villages in view: with a leave-by time / inside the fire area",
@@ -110,7 +110,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Router cells inside the known fire area at 18:00 (drawn)",
@@ -124,7 +124,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Road edges blocked at 18:00 (whole region)",
@@ -138,7 +138,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   },
   {
    "label": "Basemap tiles",
@@ -152,7 +152,7 @@
    "note": "",
    "repo": "wildfireguardian",
    "ref": "talk/figures (= origin/Main 5ff9aa90)",
-   "commit": "uncommitted"
+   "commit": "2c24e68a"
   }
  ],
  "notes": []
