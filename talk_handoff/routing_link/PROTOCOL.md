@@ -300,3 +300,22 @@ centres, where the two heights agree). Amendment 4 results are kept and reported
    1.7 m: the same plane the pipeline uses for the flame base.
 2. Same zone, road-piece, distance and routing outputs as Amendment 4, reported beside them. The figure's left panel
    shows this zone; both distances are given.
+
+### Amendment 6 (25 Nov 2026, safety zone on the paths where CO blocks roads; written before computing it)
+
+Asked for by the user after v2 showed that CO blocks road cells only in single paths. Thresholds, receivers and roads
+unchanged.
+
+1. **Paths.** Every retained path in which some CO criterion (10, 30 or 60 min AEGL-2, per path as in Amendment 2)
+   holds at some road cell at some minute of hours 0–5. Their number is reported.
+2. **Safety zone in each path.** As Amendment 5: the pipeline's own flame fronts burning in that path, receivers every
+   5 m along every road piece within 1 km of a front that burns in that path, 1.7 m above the cell's terrain plane,
+   all 360 minutes. A road cell is blocked by the zone from the first minute a 5 m point on a road piece in it reaches
+   2.5 kW/m² (residents) or 7.0 kW/m² (responders). For each such point, the distance to the nearest front line
+   burning in that minute is reported. The largest 375 m radiant flux in the path is reported too.
+3. **Routing in each path.** (i) the path's own fire arrival alone (Amendment 3 item 3); (ii) plus the safety zone;
+   (iii) plus CO in that path (each cell blocked from the first minute any CO window holds there in that path);
+   (iv) plus CO and the safety zone. Reported per path and in total: road cells blocked, road pieces inside the zone,
+   origins whose last safe departure changes against (i) and by how many minutes, and what the zone adds to CO
+   ((iv) against (iii)). Where two runs give the same closures on every road cell, the road layer's answer is the same
+   by construction and is reused, and that is said.
