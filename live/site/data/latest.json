@@ -1037,7 +1037,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T05:08:29Z",
+   "fetched_utc": "2026-11-25T05:37:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T05:08:29Z",
+   "fetched_utc": "2026-11-25T05:37:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T05:08:29Z",
+   "fetched_utc": "2026-11-25T05:37:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-25T05:08:29Z",
+   "fetched_utc": "2026-11-25T05:37:58Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1093,22 +1093,46 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261125/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 23,
+   "bytes": 591,
    "error": null,
-   "fetched_utc": "2026-11-25T05:08:29Z",
+   "fetched_utc": "2026-11-25T05:37:57Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "3d0dc27c3fc3b66d9dc7417a4a30b7ac70892b60dc1f48f208b8f3fa1e0a21ec",
+   "sha256": "4098b8ab6fb62bf23a25eaddfdd2c01ef29a0f8008c6589fb6c265c6966bb75c",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-25T05:00:00Z",
- "issue_kst": "2026-11-25 14:08",
- "issue_utc": "2026-11-25T05:08:00Z",
+ "issue_kst": "2026-11-25 14:37",
+ "issue_utc": "2026-11-25T05:37:00Z",
  "kfs_ok": true,
- "listed": [],
+ "listed": [
+  {
+   "address": "인천광역시 강화군 길상면 길직리",
+   "cause": {
+    "changes": [],
+    "first_reported_utc": "2026-11-25T05:11:21Z",
+    "first_seen_utc": "2026-11-25T05:37:00Z",
+    "ignition_points": null,
+    "source_fields": [],
+    "status": "not_reported",
+    "status_word": null,
+    "text": null
+   },
+   "contained_pct": null,
+   "id": "516444",
+   "in_scope": false,
+   "lat": 37.65461672481683,
+   "lgdng_cd": "2871033026",
+   "lon": 126.48413213786938,
+   "report_utc": "2026-11-25T05:11:21Z",
+   "status": "진화중",
+   "status_code": "02",
+   "step": "초기 대응"
+  }
+ ],
  "notice": {
   "en": "Model output, advisory, not an official order; follow instructions from authorities. No official use is claimed.",
   "ko": "모델 출력 · 참고용 · 공식 명령 아님. 당국의 안내에 따르십시오. 공식 사용을 주장하지 않습니다."
@@ -1117,12 +1141,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-25T05:08:46Z",
+  "compute_finished_utc": "2026-11-25T05:37:59Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-25T05:08:44Z",
+  "fetch_finished_utc": "2026-11-25T05:37:58Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45551323079"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45554812695"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
