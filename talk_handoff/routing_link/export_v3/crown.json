@@ -1,0 +1,28 @@
+{
+ "source_cells": 515,
+ "canopy_cells_among_sources": 499,
+ "initiation_possible": 493,
+ "active_crown_sustained": 0,
+ "passive_crown": 493,
+ "crown_flame_length_m": {
+  "min": 0.5669071217878316,
+  "median": 4.279733470023712,
+  "max": 9.664854164501454
+ },
+ "crown_fireline_intensity_kw_m": {
+  "min": 98.38874350375785,
+  "max": 6925.808880362189
+ },
+ "surface_intensity_kw_m": {
+  "median": 1434.5961067122175,
+  "max": 6026.712893374319
+ },
+ "critical_intensity_kw_m": {
+  "median": 76.04091176767183
+ },
+ "thomas_check_38800_kw_m_m": 30.486164382177947,
+ "front_rate_m_s_crown_cells": {
+  "min": 0.005352046242652298,
+  "max": 0.3259296318174536
+ }
+}

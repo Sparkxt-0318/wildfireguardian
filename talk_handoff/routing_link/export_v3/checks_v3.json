@@ -1,0 +1,54 @@
+{
+ "protocol": "PROTOCOL_v3.md Part A",
+ "traverse_floor_60s_cells": 0,
+ "spread_rate_vs_pipeline_resolved_max_rel_diff": 1.1375225545455118e-12,
+ "surface_spread_rate_m_s": {
+  "min": 0.005352046242652298,
+  "median": 0.04350394364736213,
+  "max": 0.3259296318174536
+ },
+ "road_points": 5570,
+ "kernel_reproduction_max_abs_w_m2": 4.279256184958058e-07,
+ "rebuilt_centre_front_vs_pipeline": {
+  "fronts": 50,
+  "endpoint_sum_max_m": 9.313225746154785e-10,
+  "base_elevation_max_abs_m": 8.913048077374697e-11
+ },
+ "regression_to_v2": {
+  "paths_compared": 273,
+  "wholecell_equal": 273,
+  "co_v2_rule_equal": 273
+ },
+ "fed_law_matches_pipeline_metadata": true,
+ "fed_rate_examples_per_min": [
+  0.00012132056596047565,
+  0.003315109354627863,
+  1.3982806112286859,
+  9.778611262897366,
+  72.72034452556156
+ ],
+ "gas_scaling": {
+  "acrolein": 0.003008849557522124,
+  "hcn": 0.005663716814159292
+ },
+ "gas_limits_mg_m3": {
+  "co": [
+   480.0,
+   170.0,
+   95.0
+  ],
+  "acrolein": [
+   1.0088507157464213,
+   0.4127116564417178,
+   0.22928425357873214
+  ],
+  "hcn": [
+   18.793865030674848,
+   11.055214723926381,
+   7.849202453987731
+  ]
+ },
+ "n_paths": 1024,
+ "n_road_cells": 1293,
+ "elapsed_s": 419.32522091595456
+}
