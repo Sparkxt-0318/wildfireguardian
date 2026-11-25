@@ -186,3 +186,56 @@ audience, a criterion or a model setting; it fixes choices the protocol left ope
    cells burned at the cutoff are 0 (burning or burnt at issue); cells no path reaches within 6 h are not reached.
    Sensitivity, reported beside it: the start of the first hour by which at least half the paths have burned the cell.
    Both are cut to the 6 h exposure horizon.
+
+### Amendment 2 (25 Nov 2026, AFTER the first results were seen)
+
+**This amendment is made after the first results (RESULTS.md, commit 0dad5b82) were seen.** Those results showed
+that radiant heat and CO were compared with their thresholds as probability-weighted expected fields: each source
+cell's contribution was multiplied by its probability of burning, and no source weight exceeded 0.14. A limit made for
+a person beside a real flame was therefore tested against a diluted average, while visibility was already evaluated
+in each sampled path. This amendment makes heat and CO consistent with visibility. It was asked for by the user after
+reading those results. It changes no threshold, no source, no audience, no fire reading, no road and no case. Every
+v1 file and result is kept unchanged; the new results go to `RESULTS_v2.md`, `RESULTS_all_v2.pdf` and new folders.
+The probability levels below were fixed before any per-path result was computed and are not tuned afterwards.
+
+1. **Per-path exposure.** For each of the 1,024 retained paths of the v1 forecast (same spread run, seed 20261122,
+   same initial activity, same physical factory, same 60 s bins, hours 0–5), the 60 s radiant flux and CO fields are
+   computed from the cells burning in that path only, through the pipeline's own `fields_from_activity` (same
+   kernels: same burn duration, flame and plume models). A source cell's weight in a bin is the fraction of that
+   60 s bin during which it burns in that path: 1 in every minute it burns throughout, 0 when it does not burn, and a
+   fraction only in its ignition and extinction minutes. This is the binary path's own time mean, the same
+   quantity the pipeline's probability map averages, so the mean over paths estimates the v1 fields. Each path's
+   ignition time inside its hour, whether a cell burning at the cutoff is still flaming, and its remaining lifetime
+   are the pipeline's own draws for that path (the same `timing_seed` streams that produced v1 visibility), not new
+   draws.
+2. **Criteria per path.** Per path, cell and minute: radiant flux ≥ 2.5 kW/m² (residents) or ≥ 7.0 kW/m²
+   (responders) in that minute; CO trailing means over 10, 30 and 60 min ending at the end of that minute ≥ 420,
+   150, 83 ppm (only windows that start at or after the cutoff; 1 ppm = 1.145 mg/m³). Visibility is unchanged: the
+   pipeline's per-path event "visibility ≤ 10 m at some time in the hour", so its share is the v1 probability and it
+   holds for every minute of that hour. For each criterion, cell and minute the **share of the 1,024 paths** in which
+   it holds is recorded.
+3. **Blocking rule.** A criterion blocks a cell from the first minute its share reaches the level: **0.5 (main)**;
+   sensitivity 0.1, 0.9 and **"any path"** (share > 0). Each criterion is tested separately; a cell is blocked by
+   exposure from the earliest minute any criterion blocks it (radiant at the audience's threshold, any CO window,
+   visibility), and in the road layer from the earlier of that minute and fire arrival. Radiant and CO block from the
+   start of the minute; visibility, defined per hour, from the start of its hour (as in v1).
+4. **Pairing with fire arrival.** Main: share 0.5 with the half-of-paths fire reading. Paired sensitivity: "any path"
+   with the earliest-path fire reading. All four levels are also run with both fire readings and reported as a grid.
+5. **Number of paths.** All 1,024 (a timing probe on random weights, before any criterion was evaluated, gave about
+   1 s per 32 paths per hour). If that fails, a random subset of 128 paths with a recorded seed is used and said so
+   in NEEDS.md. Sampling error is reported either way: Wilson 95 % interval of the share at each blocked cell.
+6. **Checks, reported before the results.** (a) One path as a probability-1 weight map through the pipeline's own
+   `weighted_exposure_integrals` gives the same 60 s fields and hourly integrals as the per-path computation for that
+   path. (b) The mean over paths of the per-path weights and of the 60 s radiant and CO fields reproduces the v1
+   active-fire probabilities and v1 fields within sampling error (difference against 3 standard errors of the path
+   mean; largest relative difference of hourly totals). (c) The retained paths are identical to v1 (both fire-arrival
+   rasters rebuilt and compared). (d) The synthetic tests still pass, with new tests for the per-path rule.
+7. **Distance to the flame.** For the main setting, for each road cell blocked by radiant heat or CO, the distance
+   from that cell's centre to the nearest cell burning in the same path and minute (0 if the cell itself burns),
+   over the paths in which the criterion holds at the cell's first blocked minute: median, smallest and largest. So
+   that the question is answered even if no road cell is blocked, the same distances are reported for all cells
+   blocked by radiant heat or CO at each level.
+8. **Reported, v1 beside v2:** cell-hours blocked per criterion (n = 45,114), largest value reached (largest in any
+   path, and largest share), road cells blocked (n = 1,293), origins whose last safe departure changes and by how
+   many minutes (n = 350 routed), for residents and responders, at each level and fire reading. One figure in the
+   v1 style (main setting).
