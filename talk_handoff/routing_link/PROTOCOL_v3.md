@@ -173,3 +173,52 @@ weather for hours 1–5 held at the cutoff; no Korean case.
 ## 12. Amendments
 
 Any change after a v3 result is seen is written here first, dated, saying what was seen and why.
+
+### Amendment 1 (25 Nov 2026): how Part B is run. Written after the Part A results and before any Part B result
+
+**What was seen.** After the user approved Part B, three things turned out to be missing that section 9 assumed:
+
+* the pipeline workspace from the zip holds rasters for Fish Creek only; the other 27 US fires have only metadata
+  there;
+* Fish Creek's fire-specific inputs (whole-cell fuel, point residence, cell burning duration, flame height) come from
+  an archived run (`demonstration/heat_spatial_maps/20261013_fishcreek`) whose generator script is not in the
+  workspace;
+* the road length rule needs OpenStreetMap for each candidate.
+
+Nothing here changes a threshold, a level, a criterion or the selection rule.
+
+1. **Data.** Part B reads the other fires from the user's data folder, `/Users/jp/Desktop/wildfire/data/environment`.
+   It is read only: nothing is written there. Its `events.json` equals the workspace's. Check before use: Fish Creek
+   at the Part A cutoff, loaded from both folders, gives identical arrays.
+2. **Candidates and the first runnable cutoff.** The candidates are the 27 US fires other than Fish Creek; Korean fires
+   stay out. A fire's first runnable cutoff is, in time order, the first hourly snapshot that meets three conditions:
+   * at least one cell is burned and valid;
+   * the saved model's cumulative forecast for hours 1–6 runs (1,024 paths, seed 20261122, as in Part A);
+   * `EnvironmentalCellDuration.from_sample` runs.
+
+   A fire with no such snapshot is reported and dropped.
+3. **Footprint and road length.** The earliest-path 6 h footprint is the set of cells burned at the cutoff or reached
+   by any path within 6 h, on valid coverage. This is `export_fishcreek.py`'s definition. It is buffered by 2 km
+   (Euclidean, from cell polygons). Road length is the length of the road layer's graph edges (`osm_graph.build`,
+   unchanged) inside the buffered footprint, each undirected segment counted once. OpenStreetMap is fetched with
+   Fish Creek's Overpass query, `[date:]` set to the fire's cutoff:
+   * for the selection, over the bounding box of the buffered footprint;
+   * for the chosen fire, over its full grid, as for Fish Creek.
+
+   The choice, the runner-up, and every candidate's road length are reported.
+4. **Fire-specific inputs**, built with the pipeline's own constructors, following the recipe written in the archive's
+   README and `summary.json`:
+   * fuel: `EcologicalFuelMaps.from_fccs_rasters`, with scenario fuel = coverage × mapped + (1 − coverage) × 10 kg/m²,
+     and 10 kg/m² where the loading is unreadable;
+   * residence: `FlameResidenceTime.from_fbfm40_raster` with the 2,000 ft⁻¹ fallback SAV;
+   * cell duration: `CellBurningDuration.from_front_crossing` at 0.09472 m/s, direction 0;
+   * flame height: `FlameHeightEstimate.from_combustion`;
+   * physical parameters: `HeatSmokeParameters.from_fuel_models` with the values in `fishcreek_reference.json`;
+   * live moisture L2 and Gaussian arrival uncertainty, also as in that file.
+
+   Check before use: the same recipe applied to Fish Creek is compared with the archived arrays, and the largest
+   differences are reported. If it does not reproduce them exactly, Part B still uses the recipe, and the difference
+   is stated with every Part B result.
+5. **Size.** If the chosen fire's full grid makes the per-path export or the routing infeasible within a day on this
+   machine, both use the grid window around the buffered footprint plus 10 km on every side. Routing exits are where
+   roads leave that window. This is stated as a deviation if used.
