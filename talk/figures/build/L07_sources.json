@@ -1,0 +1,21 @@
+{
+ "code": "L07",
+ "title": "Legible F07 map",
+ "rows": [
+  {
+   "label": "Forward search: road pieces settled",
+   "value": 661,
+   "unit": "",
+   "shown": "661 road pieces searched",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "forward.edges_settled",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  }
+ ],
+ "notes": []
+}

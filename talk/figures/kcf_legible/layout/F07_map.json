@@ -1,0 +1,337 @@
+{
+ "name": "F07_map",
+ "slot_px": [
+  1700,
+  640
+ ],
+ "canvas_in": [
+  17.0,
+  6.4
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [],
+ "texts": [
+  {
+   "text": "원당리\nleaves 18:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    120.1,
+    185.0,
+    180.0,
+    76.2
+   ]
+  },
+  {
+   "text": "의성중학교\nreached 18:06",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    359.4,
+    200.6,
+    204.9,
+    76.2
+   ]
+  },
+  {
+   "text": "1 km",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    160.1,
+    411.3,
+    71.0,
+    37.2
+   ]
+  },
+  {
+   "text": "분토리: leave by 18:05",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    816.3,
+    298.9,
+    308.5,
+    37.2
+   ]
+  },
+  {
+   "text": "원당리: leave by 18:15",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    874.0,
+    221.2,
+    308.5,
+    37.2
+   ]
+  },
+  {
+   "text": "Basemap © OpenStreetMap contributors",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    705.9,
+    414.4,
+    587.9,
+    37.2
+   ]
+  },
+  {
+   "text": "Forward: one village, one start time",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    30.0,
+    11.4,
+    501.9,
+    37.2
+   ]
+  },
+  {
+   "text": "Backward: one pass, every village",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    680.0,
+    11.4,
+    483.9,
+    37.2
+   ]
+  },
+  {
+   "text": "fire area, 18:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    95.0,
+    479.0,
+    212.3,
+    37.2
+   ]
+  },
+  {
+   "text": "blocked road",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    450.0,
+    479.0,
+    187.4,
+    37.2
+   ]
+  },
+  {
+   "text": "661 road pieces searched",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    95.0,
+    534.0,
+    369.3,
+    37.2
+   ]
+  },
+  {
+   "text": "route found",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    745.0,
+    534.0,
+    165.4,
+    37.2
+   ]
+  },
+  {
+   "text": "Leave by",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1330.0,
+    63.4,
+    129.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:00–18:15",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    115.4,
+    178.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:15–18:30",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    167.4,
+    178.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:30–19:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    219.4,
+    178.0,
+    37.2
+   ]
+  },
+  {
+   "text": "after 19:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    271.4,
+    154.0,
+    37.2
+   ]
+  },
+  {
+   "text": "shelter",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    348.4,
+    95.5,
+    37.2
+   ]
+  },
+  {
+   "text": "village",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    400.4,
+    89.5,
+    37.2
+   ]
+  },
+  {
+   "text": "in fire area",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1395.0,
+    452.4,
+    147.3,
+    37.2
+   ]
+  }
+ ]
+}

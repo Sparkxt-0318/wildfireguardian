@@ -1,0 +1,193 @@
+{
+ "name": "F08_map",
+ "slot_px": [
+  760,
+  600
+ ],
+ "canvas_in": [
+  7.6,
+  6.0
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [],
+ "texts": [
+  {
+   "text": "원당리: leave by 18:15:21",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    102.8,
+    110.7,
+    353.5,
+    37.2
+   ]
+  },
+  {
+   "text": "Safe arrival\nby 18:22:42",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    472.9,
+    165.4,
+    170.0,
+    76.2
+   ]
+  },
+  {
+   "text": "Drive 29 s, 315 m",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    117.8,
+    235.0,
+    251.5,
+    37.2
+   ]
+  },
+  {
+   "text": "Fire reaches road 18:15:27",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    144.1,
+    295.2,
+    381.8,
+    37.2
+   ]
+  },
+  {
+   "text": "0.2 km",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    603.4,
+    32.5,
+    98.0,
+    37.2
+   ]
+  },
+  {
+   "text": "Basemap © OpenStreetMap contributors",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    130.2,
+    377.8,
+    587.9,
+    37.2
+   ]
+  },
+  {
+   "text": "fire area, 18:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    95.0,
+    438.6,
+    212.3,
+    37.2
+   ]
+  },
+  {
+   "text": "road blocked",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    470.0,
+    438.6,
+    187.4,
+    37.2
+   ]
+  },
+  {
+   "text": "fire reaches cell later",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    95.0,
+    488.6,
+    291.8,
+    37.2
+   ]
+  },
+  {
+   "text": "rest of the route",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    470.0,
+    488.6,
+    226.3,
+    37.2
+   ]
+  },
+  {
+   "text": "Leave by = earlier of 18:22:13 and 18:15:21",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    35.0,
+    540.6,
+    622.0,
+    37.2
+   ]
+  }
+ ]
+}

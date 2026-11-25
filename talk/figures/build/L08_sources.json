@@ -1,0 +1,21 @@
+{
+ "code": "L08",
+ "title": "Legible F08 map: one backward step on a real road",
+ "rows": [
+  {
+   "label": "Leave by (earlier of the two limits)",
+   "value": 921,
+   "unit": "s after 18:00 KST",
+   "shown": "18:15:21",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "min(far - drive, ceil(block - clear) - 1)",
+   "expected": "equals tail_node_ld_s 921 and route_ld_s 921 (checked)",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  }
+ ],
+ "notes": []
+}

@@ -1,0 +1,275 @@
+{
+ "name": "F14_reliability",
+ "slot_px": [
+  760,
+  600
+ ],
+ "canvas_in": [
+  7.6,
+  6.0
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [
+  "others read from the vector PDF; mixed check error 0.00000"
+ ],
+ "texts": [
+  {
+   "text": "perfect",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    568.0,
+    155.2,
+    100.0,
+    37.2
+   ]
+  },
+  {
+   "text": "Predicted probability",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    295.1,
+    549.7,
+    294.8,
+    37.2
+   ]
+  },
+  {
+   "text": "0",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    203.0,
+    506.7,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.2",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    285.5,
+    506.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.4",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    378.5,
+    506.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.6",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    471.5,
+    506.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.8",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    564.5,
+    506.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "1",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    668.0,
+    506.7,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Observed frequency",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    98.9,
+    112.8,
+    37.2,
+    289.4
+   ]
+  },
+  {
+   "text": "0.2",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    158.3,
+    385.1,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.4",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    158.3,
+    292.1,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.6",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    158.3,
+    199.1,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.8",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    158.3,
+    106.1,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "1",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    179.3,
+    13.1,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "our model",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    305.8,
+    53.8,
+    145.0,
+    37.2
+   ]
+  },
+  {
+   "text": "other models",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    305.8,
+    113.3,
+    188.0,
+    37.2
+   ]
+  }
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "code": "L10",
+ "title": "Legible Camp Fire figure",
+ "rows": [
+  {
+   "label": "Held-out crew reports of a blocked road (class ROAD_CLOSED) placed on the map",
+   "value": 195,
+   "unit": "",
+   "shown": null,
+   "n": null,
+   "file": "research/kcf-camp/out/test1_road_state.csv",
+   "field": "rows with class == ROAD_CLOSED and match != not_placed; lat, lon",
+   "expected": "195",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Reports where the model had the road blocked by the report time (15 min tolerance)",
+   "value": "170",
+   "unit": "",
+   "shown": "170 of 195",
+   "n": "195 reports",
+   "file": "research/kcf-camp/out/tests12.json",
+   "field": "test1.strict.MR.hits / closed_scored",
+   "expected": "170 of 195",
+   "note": "cross-checked against state_MR_strict == HIT in test1_road_state.csv",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Median minutes early, reports flagged in time",
+   "value": 153.45,
+   "unit": "min",
+   "shown": "153 min",
+   "n": "170 reports",
+   "file": "research/kcf-camp/out/test1_road_state.csv",
+   "field": "median of -err_MR_strict over rows with state_MR_strict == HIT",
+   "expected": "119 min",
+   "note": "DIFFERENT FROM EXPECTED. 119 min (numbers.json tests12.test1.strict.MR.time_error_min_closed_rows.median = -118.8) is the median over all 195 blocked-road reports, flagged in time or not. The figure plots the reports flagged in time only, so it marks their median.",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Roads crews found passable that the model had blocked",
+   "value": "22",
+   "unit": "",
+   "shown": "22 of 23",
+   "n": "23 reports",
+   "file": "research/kcf-camp/out/tests12.json",
+   "field": "test1.strict.MR.false_closures / passable_scored",
+   "expected": "22 of 23",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2aa78d1c"
+  },
+  {
+   "label": "Paradise town label position (lon, lat)",
+   "value": [
+    -121.62,
+    39.76
+   ],
+   "unit": "",
+   "shown": "'Paradise'",
+   "n": null,
+   "file": "research/kcf-validate/paradise/geocode.py",
+   "field": "PARADISE = Point(...)",
+   "expected": null,
+   "note": "the geocoder's town reference point; no town outline or road graph is committed",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "f4c80374"
+  }
+ ],
+ "notes": []
+}

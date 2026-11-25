@@ -1,0 +1,359 @@
+{
+ "code": "L04",
+ "title": "Legible F04 (two halves)",
+ "rows": [
+  {
+   "label": "Issue hour",
+   "value": "18:00",
+   "unit": "",
+   "shown": "18:00 KST",
+   "n": null,
+   "file": "planner/public/kcf-scene/data/scene.js",
+   "field": "issue_kst[6] (issue_utc 2025-03-25T09:00:00Z)",
+   "expected": null,
+   "note": "The F02 issue hour (F02_road_cut.py ISSUE = '03-25 18:00').",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "f14830a3"
+  },
+  {
+   "label": "Places in the region / inside the known fire area at 18:00 KST",
+   "value": [
+    84,
+    82
+   ],
+   "unit": "",
+   "shown": "(SOURCES only)",
+   "n": null,
+   "file": "planner/public/kcf-scene/data/scene.js",
+   "field": "places (region uiseong_andong_2025); hourly.MEASURED[place][6].state",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "f14830a3"
+  },
+  {
+   "label": "Shelters in the region",
+   "value": 33,
+   "unit": "",
+   "shown": "(not printed)",
+   "n": null,
+   "file": "planner/public/kcf-scene/data/scene.js",
+   "field": "shelters (region uiseong_andong_2025)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "f14830a3"
+  },
+  {
+   "label": "Satellite detections before 18:00 KST (FIRMS, AHI)",
+   "value": [
+    1761,
+    242
+   ],
+   "unit": "",
+   "shown": "(SOURCES only)",
+   "n": "2003 detections",
+   "file": "research/kcf-replay/fire_discs.json",
+   "field": "discs with t_utc < 2025-03-25T09:00Z, by src",
+   "expected": "scene.js discCounts[6] = {'AHI': 242, 'FIRMS': 1761, 'total': 2003}",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "420ec724"
+  },
+  {
+   "label": "ECMWF IFS 10 m wind at 09:00 UTC, nodes in the map (min, max speed)",
+   "value": [
+    7.559999942779541,
+    9.550000190734863
+   ],
+   "unit": "m/s",
+   "shown": "arrows",
+   "n": "19 nodes",
+   "file": "data/environment/regions/KFS_01/weather/ecmwf_ifs_native_nodes.npz",
+   "field": "wind_eastward_10m, wind_northward_10m at time_utc index 801 (2025-03-25T09:00:00Z)",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/wildfire",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:a7493cbc42db40ac"
+  },
+  {
+   "label": "Calibrated reach class and R(8 h)",
+   "value": [
+    "running",
+    10.0
+   ],
+   "unit": "km",
+   "shown": "margin: 10 km in 8 h",
+   "n": null,
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "measured_class, R8_m (research/kcf-replay measured_arms.curve at 09:00 UTC)",
+   "expected": "MEASURED_RULE.md: running class R(8 h) = 10.0 km",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Place name (village)",
+   "value": "원당리",
+   "unit": "",
+   "shown": "원당리",
+   "n": null,
+   "file": "planner/public/data/regions/uiseong_andong_2025/places.geojson",
+   "field": "features[id=osm:node/415160430].properties.name",
+   "expected": null,
+   "note": "romanised name_en: Wondang-ri",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "e356a607"
+  },
+  {
+   "label": "Case label (region name)",
+   "value": "의성·안동",
+   "unit": "",
+   "shown": "의성·안동",
+   "n": null,
+   "file": "planner/public/data/regions/index.json",
+   "field": "[region_id=uiseong_andong_2025].name.ko",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "5fa19a27"
+  },
+  {
+   "label": "Last safe departure of the village",
+   "value": 921,
+   "unit": "s after 18:00 KST",
+   "shown": "leave by 18:15",
+   "n": "1 place",
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "ld_at_origin_s (max over the 3 shelters of the backward pass); equals route_ld_s from scene.js",
+   "expected": "per_place.csv / scene.js hourly lsd 03-25 18:15",
+   "note": "Computed with research/kcf-replay/replay.py's Region and deadline_field.core.backward (F04_routing.py).",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Arrival at the shelter",
+   "value": 1322,
+   "unit": "s after 18:00 KST",
+   "shown": "(SOURCES only)",
+   "n": null,
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "route_arr_s",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Route length",
+   "value": 4.107306546186153,
+   "unit": "km",
+   "shown": "4.1 km",
+   "n": null,
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "sum of great-circle lengths of route_lonlat",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Road A (OSM way 672449436): blocked / car leaves it",
+   "value": [
+    927,
+    926.0
+   ],
+   "unit": "s after 18:00 KST",
+   "shown": "blocked 18:15",
+   "n": null,
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "route_way_timing[way].block_s, exit_s",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Road B (OSM way 672449437): blocked / car leaves it",
+   "value": [
+    1687,
+    969.0
+   ],
+   "unit": "s after 18:00 KST",
+   "shown": "blocked 18:28",
+   "n": null,
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "route_way_timing[way].block_s, exit_s",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Road C (OSM way 1072481239): blocked / car leaves it",
+   "value": [
+    3843,
+    1119.0
+   ],
+   "unit": "s after 18:00 KST",
+   "shown": "blocked 19:04",
+   "n": null,
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "route_way_timing[way].block_s, exit_s",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Backward pass: road nodes with a safe departure",
+   "value": 1415,
+   "unit": "",
+   "shown": "coloured roads",
+   "n": "23158 nodes",
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "node_ld_s >= 0",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Certificate check of the attaining shelter's field",
+   "value": "PASS",
+   "unit": "",
+   "shown": "route accepted",
+   "n": "43826 edge states",
+   "file": "talk/figures/build/F04_routing.json",
+   "field": "per_shelter[route_shelter].fixed_point, states_checked",
+   "expected": null,
+   "note": "deadline_field.core.check_fixed_point; witness route also rechecked by research/kcf-replay/analyze.py::recheck (accepted at the last safe departure, rejected one second later: witness_recheck).",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "2c24e68a"
+  },
+  {
+   "label": "Calibration gate at 18:00 KST",
+   "value": true,
+   "unit": "",
+   "shown": "withheld; 'gate withheld this hour'",
+   "n": null,
+   "file": "research/kcf-abstain/numbers.json",
+   "field": "march25.hours_10_20_kst[kst_hour == 18].abstain (min_predictor, prior3_km)",
+   "expected": null,
+   "note": "trigger prior3_km = 22.3 km",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "6457eba9"
+  },
+  {
+   "label": "M548 checkpoint SHA-256",
+   "value": "c651f6724fe6b036",
+   "unit": "",
+   "shown": "(SOURCES only)",
+   "n": null,
+   "file": "talk/figures/build/F04_forecast.npz",
+   "field": "meta_json.checkpoint_sha256",
+   "expected": "runs/20261013_observed_merged/protocol.json checkpoint_sha256 (checked in F04_forecast.py)",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "83e28457"
+  },
+  {
+   "label": "Largest next-hour burn probability in the region",
+   "value": 0.04646933823823929,
+   "unit": "",
+   "shown": "colour bar top",
+   "n": null,
+   "file": "talk/figures/build/F04_forecast.npz",
+   "field": "max(probability) over valid cells of the Uiseong-Andong region",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "83e28457"
+  },
+  {
+   "label": "Kernel cell: rate and probability",
+   "value": [
+    0.047583699226379395,
+    0.04646933823823929
+   ],
+   "unit": "h⁻¹, –",
+   "shown": "(SOURCES only)",
+   "n": null,
+   "file": "talk/figures/build/F04_forecast.npz",
+   "field": "meta_json.cell_rate_per_h, cell_probability (rate rebuilt from the four kernels: 0.0475837)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "83e28457"
+  },
+  {
+   "label": "KFS_01 held out from M548 training",
+   "value": true,
+   "unit": "",
+   "shown": "(SOURCES only)",
+   "n": null,
+   "file": "talk/figures/build/F04_forecast.npz",
+   "field": "meta_json.kfs01_is_checkpoint_test_event (protocol.json checkpoint_test_events)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "83e28457"
+  },
+  {
+   "label": "Fish Creek: forecast cutoff (burned area outlined in (c))",
+   "value": "2024-08-23T00:00:00Z",
+   "unit": "",
+   "shown": "burned by 00:00 UTC",
+   "n": null,
+   "file": "demonstration/heat_spatial_maps/20261013_fishcreek/summary.json",
+   "field": "cutoff_utc",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/wildfire",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:f4e32dc866805222"
+  },
+  {
+   "label": "Fish Creek: peak mean active-burning fraction / radiant heat",
+   "value": [
+    0.9307088313290401,
+    1594.2326476581566
+   ],
+   "unit": "–, W/m²",
+   "shown": "colour bars",
+   "n": null,
+   "file": "demonstration/heat_spatial_maps/20261013_fishcreek/spatial_matrices.npz",
+   "field": "mean_active_burning_probability, mean_heat_flux_w_m2 (full grid max)",
+   "expected": null,
+   "note": "Saved M548 output (summary.json checkpoint_sha256 c651f672…, the same checkpoint), cutoff 2024-08-23 00:00 UTC, interval 00:00–01:00 UTC.",
+   "repo": "/Users/jp/Desktop/wildfire",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:338a4ef8cef34e43"
+  }
+ ],
+ "notes": [
+  "Roads: planner/public/kcf-scene/data/basemap.js (© OpenStreetMap contributors (ODbL)).",
+  "Maps in (a), (b) and (d) show the extent of the committed reach raster (both planner regions of the Uiseong fire, 214 x 67 cells of 375 m); the Uiseong–Andong planner box alone lies wholly inside the known fire area at 18:00 KST."
+ ]
+}

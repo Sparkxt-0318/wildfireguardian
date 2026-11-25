@@ -1,0 +1,545 @@
+{
+ "name": "F04b_overview_roads",
+ "slot_px": [
+  1700,
+  620
+ ],
+ "canvas_in": [
+  17.0,
+  6.2
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [],
+ "texts": [
+  {
+   "text": "18:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    638.5,
+    283.7,
+    63.0,
+    29.1
+   ]
+  },
+  {
+   "text": "18:30",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    758.5,
+    283.7,
+    63.0,
+    29.1
+   ]
+  },
+  {
+   "text": "19:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    878.5,
+    283.7,
+    63.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Road A",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    578.7,
+    137.3,
+    83.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Road B",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    577.7,
+    182.6,
+    84.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Road C",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    576.7,
+    227.9,
+    85.0,
+    29.1
+   ]
+  },
+  {
+   "text": "원당리",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    555.0,
+    362.3,
+    82.5,
+    37.2
+   ]
+  },
+  {
+   "text": "shelter",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    815.7,
+    368.3,
+    95.5,
+    37.2
+   ]
+  },
+  {
+   "text": "Road plan from the detected fire",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    623.8,
+    6.4,
+    462.3,
+    37.2
+   ]
+  },
+  {
+   "text": "(d) Margin and gate",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    30.0,
+    74.4,
+    277.6,
+    37.2
+   ]
+  },
+  {
+   "text": "(e) When roads are blocked",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    525.0,
+    74.4,
+    390.8,
+    37.2
+   ]
+  },
+  {
+   "text": "(f) Leave-by card",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1265.0,
+    74.4,
+    239.9,
+    37.2
+   ]
+  },
+  {
+   "text": "known fire, 18:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    90.0,
+    268.5,
+    246.4,
+    37.2
+   ]
+  },
+  {
+   "text": "margin: 10 km in 8 h",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    90.0,
+    318.5,
+    292.6,
+    37.2
+   ]
+  },
+  {
+   "text": "Within the calibration\nrange?",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    79.7,
+    383.4,
+    300.5,
+    74.4
+   ]
+  },
+  {
+   "text": "yes",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    444.0,
+    360.0,
+    49.0,
+    37.2
+   ]
+  },
+  {
+   "text": "no",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    142.0,
+    480.5,
+    36.5,
+    37.2
+   ]
+  },
+  {
+   "text": "withheld",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    60.0,
+    539.5,
+    120.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:00 KST\ntook this exit",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    220.0,
+    520.9,
+    183.0,
+    74.4
+   ]
+  },
+  {
+   "text": "open",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1055.0,
+    123.4,
+    72.5,
+    37.2
+   ]
+  },
+  {
+   "text": "blocked",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1055.0,
+    176.4,
+    114.0,
+    37.2
+   ]
+  },
+  {
+   "text": "car leaves\nthe road",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1055.0,
+    224.8,
+    143.5,
+    74.4
+   ]
+  },
+  {
+   "text": "Leave by",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    965.0,
+    325.4,
+    129.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:00–18:15",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1025.0,
+    375.4,
+    178.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:15–18:30",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1025.0,
+    425.4,
+    178.0,
+    37.2
+   ]
+  },
+  {
+   "text": "18:30–19:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1025.0,
+    475.4,
+    178.0,
+    37.2
+   ]
+  },
+  {
+   "text": "after 19:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1025.0,
+    525.4,
+    154.0,
+    37.2
+   ]
+  },
+  {
+   "text": "원당리",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1283.0,
+    133.4,
+    82.5,
+    37.2
+   ]
+  },
+  {
+   "text": "Leave by 18:15",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1283.0,
+    184.4,
+    219.0,
+    37.2
+   ]
+  },
+  {
+   "text": "To school shelter",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1283.0,
+    235.4,
+    242.0,
+    37.2
+   ]
+  },
+  {
+   "text": "certificate",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1335.0,
+    292.4,
+    139.0,
+    37.2
+   ]
+  },
+  {
+   "text": "Independent\nchecker",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1382.2,
+    348.8,
+    180.5,
+    74.4
+   ]
+  },
+  {
+   "text": "route accepted,\nbut the gate withheld\nthis hour",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1265.0,
+    482.0,
+    301.5,
+    111.6
+   ]
+  }
+ ]
+}

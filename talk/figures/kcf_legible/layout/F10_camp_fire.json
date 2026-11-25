@@ -1,0 +1,449 @@
+{
+ "name": "F10_camp_fire",
+ "slot_px": [
+  1212,
+  560
+ ],
+ "canvas_in": [
+  12.12,
+  5.6
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [],
+ "texts": [
+  {
+   "text": "Paradise",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    65.9,
+    142.1,
+    124.0,
+    37.2
+   ]
+  },
+  {
+   "text": "5 km",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    248.2,
+    330.9,
+    71.0,
+    37.2
+   ]
+  },
+  {
+   "text": "N",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    362.9,
+    83.9,
+    23.0,
+    37.2
+   ]
+  },
+  {
+   "text": "half\n≥ 2.5 h",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    617.9,
+    275.9,
+    100.0,
+    81.9
+   ]
+  },
+  {
+   "text": "crew report",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    567.8,
+    412.3,
+    161.8,
+    37.2
+   ]
+  },
+  {
+   "text": "Hours earlier",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    434.2,
+    179.0,
+    37.2,
+    181.0
+   ]
+  },
+  {
+   "text": "0",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    499.3,
+    388.4,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "4",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    499.3,
+    335.0,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "8",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    499.3,
+    281.6,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "12",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    485.3,
+    228.2,
+    28.0,
+    29.1
+   ]
+  },
+  {
+   "text": "16",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    485.3,
+    174.9,
+    28.0,
+    29.1
+   ]
+  },
+  {
+   "text": "20",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    485.3,
+    121.5,
+    28.0,
+    29.1
+   ]
+  },
+  {
+   "text": "24",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    485.3,
+    68.1,
+    28.0,
+    29.1
+   ]
+  },
+  {
+   "text": "170 of 195",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    963.7,
+    151.4,
+    154.0,
+    37.2
+   ]
+  },
+  {
+   "text": "22 of 23",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    963.7,
+    276.4,
+    118.0,
+    37.2
+   ]
+  },
+  {
+   "text": "% flagged",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    998.8,
+    429.7,
+    147.5,
+    37.2
+   ]
+  },
+  {
+   "text": "0",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    948.0,
+    386.7,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "50",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1049.8,
+    386.7,
+    28.0,
+    29.1
+   ]
+  },
+  {
+   "text": "100",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1151.6,
+    386.7,
+    42.0,
+    29.1
+   ]
+  },
+  {
+   "text": "What crews saw",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    794.6,
+    115.8,
+    37.2,
+    233.4
+   ]
+  },
+  {
+   "text": "blocked",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    856.7,
+    158.1,
+    90.0,
+    29.1
+   ]
+  },
+  {
+   "text": "passable",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    845.7,
+    283.1,
+    101.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Blocked-road reports",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    30.0,
+    11.4,
+    303.8,
+    37.2
+   ]
+  },
+  {
+   "text": "How much earlier",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    470.0,
+    11.4,
+    250.0,
+    37.2
+   ]
+  },
+  {
+   "text": "Hits and false alarms",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    830.0,
+    11.4,
+    298.5,
+    37.2
+   ]
+  },
+  {
+   "text": "flagged in time (170)",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    106.7,
+    399.0,
+    291.0,
+    37.2
+   ]
+  },
+  {
+   "text": "not in time (25)",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    106.7,
+    453.8,
+    213.0,
+    37.2
+   ]
+  }
+ ]
+}

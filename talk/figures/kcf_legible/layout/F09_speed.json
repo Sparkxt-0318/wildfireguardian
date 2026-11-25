@@ -1,0 +1,387 @@
+{
+ "name": "F09_speed",
+ "slot_px": [
+  1100,
+  560
+ ],
+ "canvas_in": [
+  11.0,
+  5.6
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [
+  "0 disagreements in 9,722 checks (not printed)"
+ ],
+ "texts": [
+  {
+   "text": "521×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    748.6,
+    79.3,
+    73.0,
+    37.2
+   ]
+  },
+  {
+   "text": "82×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    747.1,
+    130.0,
+    55.0,
+    37.2
+   ]
+  },
+  {
+   "text": "231×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    773.6,
+    180.7,
+    73.0,
+    37.2
+   ]
+  },
+  {
+   "text": "158×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    802.4,
+    244.1,
+    73.0,
+    37.2
+   ]
+  },
+  {
+   "text": "106×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    785.1,
+    294.8,
+    73.0,
+    37.2
+   ]
+  },
+  {
+   "text": "86×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    781.1,
+    345.6,
+    55.0,
+    37.2
+   ]
+  },
+  {
+   "text": "129×",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    862.7,
+    409.0,
+    73.0,
+    37.2
+   ]
+  },
+  {
+   "text": "Time to check every village's routes",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    417.8,
+    516.3,
+    509.4,
+    37.2
+   ]
+  },
+  {
+   "text": "1 min",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    440.5,
+    474.7,
+    62.0,
+    29.1
+   ]
+  },
+  {
+   "text": "10 min",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    543.7,
+    474.7,
+    76.0,
+    29.1
+   ]
+  },
+  {
+   "text": "1 h",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    650.0,
+    474.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "10 h",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    753.2,
+    474.7,
+    49.0,
+    29.1
+   ]
+  },
+  {
+   "text": "100 h",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    856.4,
+    474.7,
+    63.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Uiseong–Andong, 23 Mar 10:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    10.7,
+    86.0,
+    356.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Uiseong–Andong, 24 Mar 18:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    10.7,
+    136.7,
+    356.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Uiseong–Andong, 26 Mar 02:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    10.7,
+    187.4,
+    356.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Yeongdeok, 26 Mar 04:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    77.9,
+    250.8,
+    288.7,
+    29.1
+   ]
+  },
+  {
+   "text": "Yeongdeok, 26 Mar 08:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    77.9,
+    301.6,
+    288.7,
+    29.1
+   ]
+  },
+  {
+   "text": "Yeongdeok, 26 Mar 17:00",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    77.9,
+    352.3,
+    288.7,
+    29.1
+   ]
+  },
+  {
+   "text": "all six hours",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    233.7,
+    415.7,
+    133.0,
+    29.1
+   ]
+  },
+  {
+   "text": "search per village",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    110.9,
+    14.4,
+    248.9,
+    37.2
+   ]
+  },
+  {
+   "text": "one backward pass",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    468.4,
+    14.4,
+    278.9,
+    37.2
+   ]
+  },
+  {
+   "text": "hourly update",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    856.0,
+    14.4,
+    197.0,
+    37.2
+   ]
+  }
+ ]
+}

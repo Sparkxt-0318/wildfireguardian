@@ -42,3 +42,9 @@ for s in F01_title_map F02_road_cut F03_comparison_grid F04_overview F05_data_fo
 done
 "$PY" talk/figures/src/build_pptx.py
 "$PY" talk/figures/src/make_docs.py
+# legible slide versions (kcf_legible/): layout and text size only, then the size check and contact sheet
+for s in L04_overview L07_map L08_map L12_forecast_maps L14_reliability L09_speed L10_camp_fire; do
+  "$PY" "talk/figures/src/$s.py"
+done
+(cd talk/figures/src && "$PY" legible_check.py && "$PY" legible_sheet.py)
+

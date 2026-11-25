@@ -1,0 +1,161 @@
+{
+ "name": "F12_forecast_maps",
+ "slot_px": [
+  900,
+  520
+ ],
+ "canvas_in": [
+  9.0,
+  5.2
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [],
+ "texts": [
+  {
+   "text": "5 km",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    317.4,
+    342.0,
+    71.0,
+    37.2
+   ]
+  },
+  {
+   "text": "N",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    80.9,
+    82.6,
+    23.0,
+    37.2
+   ]
+  },
+  {
+   "text": "0",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    53.0,
+    460.7,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.5",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    205.0,
+    460.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "1",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    378.0,
+    460.7,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "Chance a cell burns",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    50.0,
+    11.4,
+    284.1,
+    37.2
+   ]
+  },
+  {
+   "text": "Mapped burns, 36 h later",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    495.0,
+    11.4,
+    361.6,
+    37.2
+   ]
+  },
+  {
+   "text": "burned at cutoff",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    552.5,
+    413.0,
+    229.1,
+    37.2
+   ]
+  },
+  {
+   "text": "new burn",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    552.5,
+    461.4,
+    134.1,
+    37.2
+   ]
+  }
+ ]
+}

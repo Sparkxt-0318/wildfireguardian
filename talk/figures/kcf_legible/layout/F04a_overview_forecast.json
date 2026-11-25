@@ -1,0 +1,465 @@
+{
+ "name": "F04a_overview_forecast",
+ "slot_px": [
+  1700,
+  620
+ ],
+ "canvas_in": [
+  17.0,
+  6.2
+ ],
+ "dpi": 200,
+ "px_per_in_in_slot": 100,
+ "collisions": [],
+ "notes": [],
+ "texts": [
+  {
+   "text": "0",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    540.0,
+    332.7,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "2.5",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    877.0,
+    332.7,
+    35.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    540.0,
+    571.8,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "0.046",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    807.0,
+    571.8,
+    63.0,
+    29.1
+   ]
+  },
+  {
+   "text": "10$^{-5}$",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1129.8,
+    563.5,
+    50.5,
+    29.1
+   ]
+  },
+  {
+   "text": "10$^{-3}$",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1224.3,
+    563.5,
+    50.5,
+    29.1
+   ]
+  },
+  {
+   "text": "10$^{-1}$",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1318.9,
+    563.5,
+    50.5,
+    29.1
+   ]
+  },
+  {
+   "text": "10$^{-3}$",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1409.8,
+    563.5,
+    50.5,
+    29.1
+   ]
+  },
+  {
+   "text": "1",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1541.7,
+    563.5,
+    14.0,
+    29.1
+   ]
+  },
+  {
+   "text": "10$^{3}$",
+   "size_pt": 18.0,
+   "tick": true,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1643.1,
+    563.5,
+    38.5,
+    29.1
+   ]
+  },
+  {
+   "text": "Forecast model",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    994.0,
+    13.4,
+    221.9,
+    37.2
+   ]
+  },
+  {
+   "text": "(a) Inputs at 18:00",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    30.0,
+    79.4,
+    258.5,
+    37.2
+   ]
+  },
+  {
+   "text": "(b) Where fire may spread",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    540.0,
+    79.4,
+    365.3,
+    37.2
+   ]
+  },
+  {
+   "text": "(c) Heat near the fire",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1155.0,
+    79.4,
+    287.9,
+    37.2
+   ]
+  },
+  {
+   "text": "Fire detections, wind",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    30.0,
+    131.4,
+    296.9,
+    37.2
+   ]
+  },
+  {
+   "text": "Roads and villages",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    30.0,
+    338.5,
+    270.0,
+    37.2
+   ]
+  },
+  {
+   "text": "Learned spread kernels",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    540.0,
+    131.4,
+    335.6,
+    37.2
+   ]
+  },
+  {
+   "text": "3×3",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    545.5,
+    252.4,
+    55.0,
+    37.2
+   ]
+  },
+  {
+   "text": "5×5",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    647.5,
+    252.4,
+    55.0,
+    37.2
+   ]
+  },
+  {
+   "text": "7×7",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    749.5,
+    252.4,
+    55.0,
+    37.2
+   ]
+  },
+  {
+   "text": "9×9",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    851.5,
+    252.4,
+    55.0,
+    37.2
+   ]
+  },
+  {
+   "text": "10$^{-3}$ h$^{-1}$",
+   "size_pt": 24.0,
+   "tick": false,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    932.0,
+    290.1,
+    124.5,
+    38.8
+   ]
+  },
+  {
+   "text": "Burn chance, next hour",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    540.0,
+    382.4,
+    335.6,
+    37.2
+   ]
+  },
+  {
+   "text": "already\nburned",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    895.0,
+    475.8,
+    102.9,
+    74.4
+   ]
+  },
+  {
+   "text": "Fish Creek fire, US",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1155.0,
+    131.4,
+    265.8,
+    37.2
+   ]
+  },
+  {
+   "text": "burned by 00:00 UTC",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1215.0,
+    181.4,
+    309.6,
+    37.2
+   ]
+  },
+  {
+   "text": "Share of hour\nburning",
+   "size_pt": 23.0,
+   "tick": false,
+   "math": false,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1155.0,
+    237.6,
+    193.4,
+    74.4
+   ]
+  },
+  {
+   "text": "Radiant heat,\nW m$^{-2}$",
+   "size_pt": 24.0,
+   "tick": false,
+   "math": true,
+   "family": [
+    "Helvetica Neue",
+    "Apple SD Gothic Neo"
+   ],
+   "box_slot_px": [
+    1435.0,
+    234.3,
+    199.5,
+    77.7
+   ]
+  }
+ ]
+}
