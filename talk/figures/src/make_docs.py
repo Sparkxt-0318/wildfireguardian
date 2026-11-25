@@ -14,6 +14,8 @@ FIGS = [
     ("F03", "F03_comparison_grid", "3 (full)", "Three-rule comparison table: Korea, Technosylva, Genasys, Watch Duty, WildfireGuardian", "done with a note: cells from the brief (D18)"),
     ("F04", "F04_overview", "4 (full)", "Method overview, one case left to right (Uiseong–Andong, 18:00 KST): inputs, forecast model and kernels, heat zoomed to the fire on log scales with the burned outline, margin and gate (Within the calibration range?), leave-by times in four classes on main roads, village card and checker", "done with notes: (c) shows Fish Creek, no Korean fuel maps (D30); (d)–(f) come from the replay, not from (b) (D31, D39); five-colour palette and F04 revision (D42, D43); 17 in canvas, PNG 300 dpi transparent (D33)"),
     ("F05", "F05_data_foundation", "5 (full)", "Data foundation, each panel headed by its result: records with no satellite label by tier on one axis (207,508; verified 2.1%, false-label rate not measured), first label earlier for 45 of 240 fires (median 42 min), one record cleaned reversibly with hidden spaces drawn", "done with a note: panel (b) shows the leads, not one fire's signal (D20); reworked (D40)"),
+    ("F18", "F18_caught", "5 (after F05)", "One real fire no standard satellite label covered (FPA FOD 400646572, Idaho, April 2020): the standard label layer empty, Sentinel-2 before, Sentinel-2 after with caught v0.1's verified scar outline, box and tag; the standard products and the scar test read from the code at caught-v0.1", "done (D47)"),
+    ("F18b", "F18b_caught_grid", "5 (backup to F18)", "Six more verified fires with no standard label, drawn with seed 0 from the 12 other eligible released scar pairs, after image with the same overlay", "done (D47)"),
     ("F06", "F06_safety_distance", "6 (full)", "5-hour spread of 28 California fires with the 3.75 km safety distance and its held-out miss rate; Gyeongbuk 25 March 2025 by issue hour, each hour marked withheld or given", "done (D38)"),
     ("F12", "F12_forecast_example", "7 (full width)", "Wapiti 2024: forecast chance of burning beside the mapped burns 36 h later, marked as the most favourable interval chosen after results; average precision and Brier score of three rules over all 25 intervals on full scales", "done (D41)"),
     ("F07", "F07_forward_backward", "7 (full)", "Forward search from one village against one backward pass from the shelters (schematic)", "done (native shapes in pptx; five colours, D42)"),
@@ -63,7 +65,50 @@ def sources_md():
         for n in d.get("notes", []):
             out.append(f"\n- {n}")
         out.append("")
+        if code == "F18b":
+            out += caught_chips()
     (FIGDIR / "SOURCES.md").write_text("\n".join(out))
+
+
+def _js(v):
+    """Released list fields are JSON text."""
+    return json.loads(v) if isinstance(v, str) and v.strip() else (v or [])
+
+
+def caught_chips():
+    """Per chip of F18 and F18b: record, image IDs and dates (build/caught/fires.json, from release caught-v0.1)."""
+    d = json.loads((BUILD / "caught" / "fires.json").read_text())
+    rel = d["release"]
+    out = ["## F18 and F18b chips", "",
+           f"Release `{rel['repo']}` tag `{rel['tag']}` (commit `{rel['commit']}`); files checked against the release's "
+           "SHA-256 sums: " + ", ".join(f"`{k}` `{v[:12]}…`" for k, v in rel["sha256"].items()) + ". Chips are the "
+           "release's `scar_pairs/<rid>/pre.png`, `post.png` and `mask.png`, unchanged; image IDs from each "
+           "`meta.json` `inputs` on the before and after dates.",
+           "", f"Selection: {d['selection']['eligible']} of the {d['selection']['pairs_in_release']} released scar pairs "
+           "are verified, have no standard label in the record window and use the label's own looks. Main fire: "
+           f"{d['selection']['main_rule']}. Grid: {d['selection']['grid_rule']} (seed {d['selection']['seed']}).", "",
+           "| figure | chip | record (rid / FPA FOD_ID, state) | discovery date (t0 + 1 day) | record window t0–t1 | "
+           "Sentinel-2 image ID | image date | scar area (scar_area_ha) | evidence pairs | standard witnesses |",
+           "|---|---|---|---|---|---|---|---|---|---|"]
+    from datetime import date, timedelta
+    for fig, rids in (("F18", [d["main"]]), ("F18b", d["grid"])):
+        for rid in rids:
+            f = d["fires"][rid]
+            meta = json.loads((BUILD / "caught" / rid / "meta.json").read_text())
+            disc = (date.fromisoformat(f["t0"][:10]) + timedelta(days=d["standard"]["record_window"]["pre_days"])).isoformat()
+            scenes = {}
+            for role in ("pre", "post"):
+                ids = {i[0] for i in meta["inputs"] if i[0].split("_")[2][:8] == meta[f"{role}_date"].replace("-", "")}
+                scenes[role] = ", ".join(sorted(ids))
+            chips = ([("standard labels", "none (empty layer)", f"{f['t0'][:10]} to {f['t1'][:10]}"),
+                      ("before", scenes["pre"], meta["pre_date"])] if fig == "F18" else [])
+            chips.append(("after + overlay", scenes["post"], meta["post_date"]))
+            for name, sid, dt in chips:
+                out.append(f"| {fig} | {name} | {rid} / {f['FOD_ID']}, {f['STATE']} | {disc} | {f['t0'][:10]} to "
+                           f"{f['t1'][:10]} | `{sid}` | {dt} | {f['scar_area_ha']:.2f} ha | "
+                           f"{'; '.join('+'.join(p) for p in _js(f['pairs']))} | {', '.join(_js(f['std_witnesses'])) or 'none'} |")
+    out.append("")
+    return out
 
 
 def readme():

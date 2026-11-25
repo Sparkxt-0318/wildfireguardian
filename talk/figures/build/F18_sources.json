@@ -1,0 +1,136 @@
+{
+ "code": "F18",
+ "title": "A fire no standard satellite label covered: FPA FOD 400646572",
+ "rows": [
+  {
+   "label": "main: record",
+   "value": 400646572,
+   "unit": "",
+   "shown": "FPA FOD 400646572",
+   "n": null,
+   "file": "caught_labels_v0.1_2020.parquet",
+   "field": "rid=FOD400646572: FOD_ID, STATE ID",
+   "expected": null,
+   "note": "release asset sha256 0450cba84194242af27556f59bd9147f36b884b0ceb863311bd5d83ed6ad84b1",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "main: tier / standard label",
+   "value": [
+    "verified",
+    false,
+    ""
+   ],
+   "unit": "",
+   "shown": "verified; no standard label",
+   "n": null,
+   "file": "caught_labels_v0.1_2020.parquet",
+   "field": "tier, std_label, std_witnesses",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "main: discovery date",
+   "value": "2020-04-18",
+   "unit": "",
+   "shown": "2020-04-18",
+   "n": null,
+   "file": "caught_labels_v0.1_2020.parquet",
+   "field": "t0 + config window.pre_days (protocol 4)",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "main: scar area",
+   "value": 19.64,
+   "unit": "ha",
+   "shown": "19.6 ha",
+   "n": null,
+   "file": "caught_labels_v0.1_2020.parquet",
+   "field": "scar_area_ha",
+   "expected": "mask.png 491 px x 400 m2 = 19.64 ha",
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "main: Sentinel-2 pre scene",
+   "value": "S2A_MSIL2A_20200408T182921_R027_T12TUP_20200925T123615",
+   "unit": "",
+   "shown": "2020-04-08",
+   "n": null,
+   "file": "scar_pairs.zip:FOD400646572/meta.json",
+   "field": "inputs[] on pre_date; label scar_pre 2020-04-08",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "main: Sentinel-2 post scene",
+   "value": "S2A_MSIL2A_20200428T182921_R027_T12TUP_20200922T110119",
+   "unit": "",
+   "shown": "2020-04-28",
+   "n": null,
+   "file": "scar_pairs.zip:FOD400646572/meta.json",
+   "field": "inputs[] on post_date; label scar_post 2020-04-28",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "Standard-label products and scar test",
+   "value": {
+    "t_abs": 0.1,
+    "k_sigma": 3.0,
+    "dnir": -0.01,
+    "dvis": 0.02,
+    "dswir1_max": 0.02,
+    "n_min": 8,
+    "pre_days": 60,
+    "post_days": 45,
+    "min_clear": 0.8
+   },
+   "unit": "",
+   "shown": "line under the chips",
+   "n": null,
+   "file": "firewitness/caught/scar.py",
+   "field": "PARAMS, S2.bands, scar_search; config/us.json firms.products, mcd64a1, window",
+   "expected": null,
+   "note": "",
+   "repo": "Sparkxt-0318/wildfireguardiandata",
+   "ref": "caught-v0.1",
+   "commit": "407614ea30eefc789fc44f8ac37a8b12241e9f16"
+  },
+  {
+   "label": "Selection",
+   "value": [
+    13,
+    40
+   ],
+   "unit": "",
+   "shown": "(SOURCES only)",
+   "n": null,
+   "file": "talk/figures/build/caught/fires.json",
+   "field": "selection",
+   "expected": null,
+   "note": "largest scar_area_ha among eligible",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  }
+ ],
+ "notes": []
+}

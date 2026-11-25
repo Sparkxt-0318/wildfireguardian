@@ -23,7 +23,7 @@ from pptx.util import Emu, Inches, Pt
 import style as S
 from style import BUILD, FIGDIR
 
-ORDER = ["F01_title_map", "F02_road_cut", "F03_comparison_grid", "F04_overview", "F05_data_foundation", "F06_safety_distance",
+ORDER = ["F01_title_map", "F02_road_cut", "F03_comparison_grid", "F04_overview", "F05_data_foundation", "F18_caught", "F18b_caught_grid", "F06_safety_distance",
          "F12_forecast_example", "F07_forward_backward", "F07_map", "F16_safety_zones", "F15_exposure",
          "F08_backward_step_checker", "F08_map", "F09_speed", "F09b_speed_fastpath", "F10_camp_fire", "F11a_village_card",
          "F13_kernels", "F14_reliability", "F17_heat_terrain"]

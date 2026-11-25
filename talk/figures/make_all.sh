@@ -31,9 +31,13 @@ fi
 if [ -x .venv-model/bin/python ] && [ -d "${WILDFIRE:-/Users/jp/Desktop/wildfire}" ]; then
   PYTHONDONTWRITEBYTECODE=1 .venv-model/bin/python talk/figures/src/F04_forecast.py
 fi
+if [ -d "${CAUGHT_REL:-}" ]; then
+  # caught-v0.1 release files (wildfireguardiandata, read only) -> talk/figures/build/caught/ (committed)
+  "${PY_ARROW:-python3}" talk/figures/src/F18_caught_data.py
+fi
 for s in F01_title_map F02_road_cut F03_comparison_grid F04_overview F05_data_foundation F06_safety_distance F07_forward_backward F07_map \
          F08_backward_step_checker F08_map F09_speed F09b_speed_fastpath F10_camp_fire F11a_village_card F12_forecast_example \
-         F13_kernels F14_reliability F15_exposure F16_safety_zones; do
+         F13_kernels F14_reliability F15_exposure F16_safety_zones F18_caught; do
   "$PY" "talk/figures/src/$s.py"
 done
 "$PY" talk/figures/src/build_pptx.py
