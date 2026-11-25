@@ -139,3 +139,29 @@ def panel_letter(fig, x_in, y_in, letter):
 def new_figure():
     """A 13.333 x 7.5 in white canvas."""
     return plt.figure(figsize=(W_IN, H_IN), dpi=DPI)
+
+
+# ---------------------------------------------------------------- five-colour palette (25 Nov revision)
+# Used by F04, F07, F08 and their real-map versions (DECISIONS.md D42). Five colours only; lighter shades are mixes of
+# one colour with paper, never a sixth hue.
+PAPER = "#FAF7F0"      # paper: fills behind labels, light map areas
+GREY = "#6B6B6B"       # grey: context, earlier method, roads
+BLUE = "#2F5D8A"       # blue: our method, open, leave-by times
+RED = "#8A362F"        # deep red: fire and blocked
+FIVE = [("paper", PAPER, "fills, light areas"), ("ink", INK, "text, axes, routes"),
+        ("grey", GREY, "context, earlier method"), ("blue", BLUE, "our method, open roads, leave-by"),
+        ("deep red", RED, "fire, blocked roads")]
+
+
+def tint(color, f):
+    """color mixed with paper: f = 1 gives the colour, f = 0 gives paper."""
+    import matplotlib.colors as _mc
+    a = _mc.to_rgb(color)
+    p = _mc.to_rgb(PAPER)
+    return _mc.to_hex(tuple(p[i] + (a[i] - p[i]) * f for i in range(3)))
+
+
+def ramp(color, name=None):
+    """Sequential colour map from paper to one palette colour."""
+    import matplotlib.colors as _mc
+    return _mc.LinearSegmentedColormap.from_list(name or f"paper-{color}", [PAPER, color])

@@ -1,0 +1,109 @@
+{
+ "code": "F08m",
+ "title": "One backward step on a real road: Wondang-ri, 18:00 KST",
+ "rows": [
+  {
+   "label": "Road: OSM way, edge, length",
+   "value": [
+    672449436,
+    "w672449436:s2:r",
+    314.9
+   ],
+   "unit": "m",
+   "shown": "315 m",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "f08_step.way, edge, length_m",
+   "expected": null,
+   "note": "The first edge of Wondang-ri's stored route (scene.js routes.MEASURED, 18:00 KST); the first route edge whose fire blocking, not its arrival limit, sets the time.",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Safe arrival at the far end (latest)",
+   "value": 1362,
+   "unit": "s after 18:00 KST",
+   "shown": "by 18:22:42",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "f08_step.latest_arrival_far_end_s (max of the field's G for this edge)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Drive time",
+   "value": 29,
+   "unit": "s",
+   "shown": "29 s",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "f08_step.drive_s (travel_ticks)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Fire blocks the road's first cell",
+   "value": 927,
+   "unit": "s after 18:00 KST",
+   "shown": "18:15:27",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "f08_step.fire_cell.block_s (router cell 175, MEASURED arm)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Car clears that cell after",
+   "value": 5.008,
+   "unit": "s",
+   "shown": "5 s",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "drive_s * fire_cell.end_fraction",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Leave by (earlier of the two limits)",
+   "value": 921,
+   "unit": "s after 18:00 KST",
+   "shown": "18:15:21",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "min(far - drive, ceil(block - clear) - 1)",
+   "expected": "field leave-by at the near end 921 s; stored route ld 921 s (checked equal)",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Basemap tiles",
+   "value": 24,
+   "unit": "",
+   "shown": "Basemap © OpenStreetMap contributors",
+   "n": null,
+   "file": "talk/figures/build/osm_tiles/TILES.json",
+   "field": "OpenStreetMap standard tiles, zoom 17",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  }
+ ],
+ "notes": []
+}

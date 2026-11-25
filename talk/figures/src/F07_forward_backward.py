@@ -2,7 +2,7 @@
 
 Slide 7, full slide. Left "Before": grey arrows search forward from one village (one search per village and per
 departure time). Right "Now": blue arrows flow backward from the two shelters over the whole network, and four
-roads carry a small time bar showing when that road can still lead to safety (teal), with a gap on one.
+roads carry a small time bar showing when that road can still lead to safety (blue), with a gap on one.
 
 The network is a clean synthetic one of 25 junctions (DECISIONS.md D7): the real Uiseong–Andong graph has 23,158
 nodes and is unreadable at this scale. The time bars are illustrative shapes and carry no numbers.
@@ -64,11 +64,11 @@ def bfs(adj, sources):
 def panel(sc, pos, edges, adj, ox, oy, sx, sy, tag, mode):
     P = lambda n: (ox + pos[n][0] * sx, oy + pos[n][1] * sy)  # noqa: E731
     for a, b in edges:
-        sc.line([P(a), P(b)], color=S.LIGHT, lw=3.0, name=f"{tag} road {a}-{b}", group=f"{tag} roads", role="mark")
+        sc.line([P(a), P(b)], color=S.tint(S.GREY, 0.3), lw=3.0, name=f"{tag} road {a}-{b}", group=f"{tag} roads", role="mark")
     for n in pos:
         if n != VILLAGE and n not in SHELTERS:
             x, y = P(n)
-            sc.circle(x, y, 0.05, fill=S.MID, name=f"{tag} junction {n}", group=f"{tag} roads", role="mark")
+            sc.circle(x, y, 0.05, fill=S.GREY, name=f"{tag} junction {n}", group=f"{tag} roads", role="mark")
     if mode == "forward":
         depth, parent = bfs(adj, [VILLAGE])
         # the search fans out three steps, and one branch continues until it meets a shelter
@@ -80,22 +80,22 @@ def panel(sc, pos, edges, adj, ox, oy, sx, sy, tag, mode):
         for v, u in parent.items():
             if depth[v] <= 3 or (u, v) in path:
                 a = 0.2 if u == VILLAGE else 0.12
-                sc.line(_shorten(P(u), P(v), a=a), color=S.MID, lw=1.5, arrow=True, head=0.10,
+                sc.line(_shorten(P(u), P(v), a=a), color=S.GREY, lw=1.5, arrow=True, head=0.10,
                         name=f"{tag} search {u}->{v}", group=f"{tag} forward search", role="mark")
     else:
         depth, parent = bfs(adj, SHELTERS)
         for v, u in parent.items():
-            sc.line(_shorten(P(u), P(v)), color=S.OURS, lw=1.5, arrow=True, head=0.10,
+            sc.line(_shorten(P(u), P(v)), color=S.BLUE, lw=1.5, arrow=True, head=0.10,
                     name=f"{tag} backward {u}->{v}", group=f"{tag} backward pass", role="mark")
     for i, s in enumerate(SHELTERS):
         x, y = P(s)
-        sc.rect(x - 0.13, y - 0.13, 0.26, 0.26, fill=S.SAFE, name=f"{tag} shelter {i + 1}",
+        sc.rect(x - 0.13, y - 0.13, 0.26, 0.26, fill=S.BLUE, name=f"{tag} shelter {i + 1}",
                 group=f"{tag} shelter {i + 1}", role="mark")
     x, y = P(VILLAGE)
     if mode == "forward":
         sc.circle(x, y, 0.15, fill=S.INK, name=f"{tag} village", group=f"{tag} village", role="mark")
     else:
-        sc.circle(x, y, 0.07, fill=S.MID, name=f"{tag} village", group=f"{tag} village", role="mark")
+        sc.circle(x, y, 0.07, fill=S.GREY, name=f"{tag} village", group=f"{tag} village", role="mark")
     return P
 
 
@@ -107,11 +107,11 @@ def _shorten(p, q, a=0.12, b=0.10):
 
 
 def time_bar(sc, x, y, segs, name):
-    """A track of 0.9 in with teal segments where the road still leads to a shelter."""
+    """A track of 0.9 in with blue segments where the road still leads to a shelter."""
     w, h = 0.9, 0.12
-    sc.rect(x, y, w, h, fill=S.WHITE, edge=S.INK, lw=0.75, name=f"{name} track", group=name, role="mark")
+    sc.rect(x, y, w, h, fill=S.PAPER, edge=S.INK, lw=0.75, name=f"{name} track", group=name, role="mark")
     for i, (a, b) in enumerate(segs):
-        sc.rect(x + a * w, y, (b - a) * w, h, fill=S.SAFE, name=f"{name} safe window {i + 1}", group=name, role="mark")
+        sc.rect(x + a * w, y, (b - a) * w, h, fill=S.BLUE, name=f"{name} safe window {i + 1}", group=name, role="mark")
 
 
 def build():
@@ -126,7 +126,7 @@ def build():
     sc.text(6.95, 0.55, "(b) Now: backward from the shelters, over every road", name="Now header",
             group="Now labels")
     # divider
-    sc.line([(6.67, 0.35), (6.67, 5.6)], color=S.LIGHT, lw=1.0, name="divider", group="divider", role="bg")
+    sc.line([(6.67, 0.35), (6.67, 5.6)], color=S.tint(S.GREY, 0.3), lw=1.0, name="divider", group="divider", role="bg")
     # labels for village and shelters
     for P, tag in ((PL, "Before"), (PR, "Now")):
         x, y = P(SHELTERS[0])
@@ -138,7 +138,7 @@ def build():
     x, y = PL(VILLAGE)
     sc.text(x - 0.62, y - 0.40, "village", ha="center", name="Before village label", group="Before labels")
     # counter, bottom left
-    sc.rect(0.45, 5.05, 5.85, 0.55, fill=S.WHITE, edge=S.INK, lw=0.75, name="counter box", group="counter",
+    sc.rect(0.45, 5.05, 5.85, 0.55, fill=S.PAPER, edge=S.INK, lw=0.75, name="counter box", group="counter",
             role="box")
     sc.text(0.65, 5.325, "one search per village and per departure time", name="counter text", group="counter")
     # time bars on four roads in the right panel, placed in the faces next to the road
@@ -159,7 +159,7 @@ def build():
             name="time bar key axis", group="time bar key", role="mark")
     sc.text(kx + 1.15, ky + 0.11, "when this road still leads to a shelter",
             size=S.PT_MIN, name="time bar key text", group="time bar key")
-    sc.text(kx + 1.15, ky + 0.60, "departure time", size=S.PT_MIN, color=S.MID, name="time bar key time",
+    sc.text(kx + 1.15, ky + 0.60, "departure time", size=S.PT_MIN, color=S.GREY, name="time bar key time",
             group="time bar key")
     return sc
 
@@ -175,11 +175,11 @@ def main():
         "Figure 7. The same road network, searched two ways. (a) The earlier method searches forward from one village "
         "(black) for one departure time (grey arrows) and repeats this for every village and every departure time. "
         "(b) The deadline field works backward from the shelters (squares) once, over every road (blue arrows); beside "
-        "four roads, a bar shows the departure times from which that road still leads to a shelter (teal), with a gap "
-        "where fire closes the way. Schematic on a synthetic network of 25 junctions; the bars carry no data."),
+        "four roads, a bar shows the departure times from which that road still leads to a shelter (blue), with a gap "
+        "where fire blocks the way. Schematic on a synthetic network of 25 junctions; the bars carry no data."),
         x_in=0.45, width_in=12.45, top_in=5.82)
     sc.save_spec(fig)
-    save(fig, "F07_forward_backward", kind="scene", caption=cap)
+    save(fig, "F07_forward_backward", kind="scene", caption=cap, transparent=True)
 
 
 if __name__ == "__main__":

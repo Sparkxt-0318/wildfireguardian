@@ -24,8 +24,8 @@ import style as S
 from style import BUILD, FIGDIR
 
 ORDER = ["F01_title_map", "F02_road_cut", "F03_comparison_grid", "F04_overview", "F05_data_foundation", "F06_safety_distance",
-         "F12_forecast_example", "F07_forward_backward", "F16_safety_zones", "F15_exposure",
-         "F08_backward_step_checker", "F09_speed", "F09b_speed_fastpath", "F10_camp_fire", "F11a_village_card",
+         "F12_forecast_example", "F07_forward_backward", "F07_map", "F16_safety_zones", "F15_exposure",
+         "F08_backward_step_checker", "F08_map", "F09_speed", "F09b_speed_fastpath", "F10_camp_fire", "F11a_village_card",
          "F13_kernels", "F14_reliability", "F17_heat_terrain"]
 
 LATIN = S.FONT_LATIN
@@ -430,6 +430,20 @@ def build():
         sq.shadow.inherit = False
         sq.name = f"swatch {nm}"
         add_text(slide.shapes, f"{hx}  {nm}: {meaning}", x + 0.8, y + 0.05, 5.55, 0.5, S.PT_TEXT, S.INK,
+                 name=f"label {nm}")
+    # five-colour palette of F04, F07, F08 and the map versions (DECISIONS.md D42)
+    slide = prs.slides.add_slide(layout_blank)
+    add_text(slide.shapes, "Five-colour palette (F04, F07, F08 and their maps)", 0.45, 0.35, 10, 0.4, S.PT_TITLE,
+             S.INK, name="five palette title")
+    for i, (nm, hx, meaning) in enumerate(S.FIVE):
+        x, y = 0.3, 1.1 + i * 0.95
+        sq = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(0.6), Inches(0.6))
+        sq.fill.solid()
+        sq.fill.fore_color.rgb = rgb(hx)
+        style_line(sq.line, S.INK, 0.75)
+        sq.shadow.inherit = False
+        sq.name = f"swatch {nm}"
+        add_text(slide.shapes, f"{hx}  {nm}: {meaning}", x + 0.8, y + 0.05, 8.0, 0.5, S.PT_TEXT, S.INK,
                  name=f"label {nm}")
     out = FIGDIR / "kcf_talk_figures.pptx"
     prs.save(out)

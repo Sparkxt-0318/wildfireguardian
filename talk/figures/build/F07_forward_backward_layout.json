@@ -160,14 +160,14 @@
    "size_pt": 16.0,
    "bold": false,
    "italic": false,
-   "color": "#8c8c8c",
+   "color": "#6b6b6b",
    "ha": "left",
    "multialign": null,
    "name": "time bar key time",
    "caption": false
   },
   {
-   "text": "Figure 7. The same road network, searched two ways. (a) The earlier method searches forward from one village (black) for\none departure time (grey arrows) and repeats this for every village and every departure time. (b) The deadline field works\nbackward from the shelters (squares) once, over every road (blue arrows); beside four roads, a bar shows the departure times\nfrom which that road still leads to a shelter (teal), with a gap where fire closes the way. Schematic on a synthetic network of\n25 junctions; the bars carry no data.",
+   "text": "Figure 7. The same road network, searched two ways. (a) The earlier method searches forward from one village (black) for\none departure time (grey arrows) and repeats this for every village and every departure time. (b) The deadline field works\nbackward from the shelters (squares) once, over every road (blue arrows); beside four roads, a bar shows the departure times\nfrom which that road still leads to a shelter (blue), with a gap where fire blocks the way. Schematic on a synthetic network of\n25 junctions; the bars carry no data.",
    "cx": 6.65107109781901,
    "cy": 6.596666666666667,
    "w": 12.402142195638023,

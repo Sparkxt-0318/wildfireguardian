@@ -1,0 +1,159 @@
+{
+ "code": "F07m",
+ "title": "Forward against backward on the real map: Wondang-ri, 18:00 KST",
+ "rows": [
+  {
+   "label": "Forward search from Wondang-ri leaving 18:00: road edges settled / looked at",
+   "value": [
+    661,
+    680
+   ],
+   "unit": "",
+   "shown": "661 road pieces searched",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "forward.edges_settled, edges_looked_at",
+   "expected": null,
+   "note": "Time-dependent search in order of arrival, turn restrictions and blocked edge starts of the replay instance, no waiting; stops at the first accepted arrival at a shelter (F07_map_data.py). It is the repository's illustration of one forward search, not the earlier method's code.",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Forward search: arrival at the first shelter",
+   "value": 387,
+   "unit": "s after 18:00 KST",
+   "shown": "shelter reached 18:06",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "forward.arrival_s",
+   "expected": "leaving at 18:00:00 lies in Wondang-ri's departure set of the field (checked)",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Backward: passes / shelter nodes accepting",
+   "value": [
+    1,
+    30
+   ],
+   "unit": "",
+   "shown": "one pass from every shelter",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "backward.passes, shelter_nodes",
+   "expected": null,
+   "note": "deadline_field.core.backward with every shelter used by any village of the region accepting at once; fixed-point check PASS on 43,826 edge states.",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Backward: road junctions with a safe departure / all junctions",
+   "value": [
+    1417,
+    23158
+   ],
+   "unit": "",
+   "shown": "coloured roads (SOURCES only for counts)",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "backward.nodes_with_departure, nodes",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Leave-by time of Bunto-ri from the one pass",
+   "value": 341,
+   "unit": "s after 18:00 KST",
+   "shown": "leave by 18:05",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "villages[].ld_one_pass_s",
+   "expected": "stored replay (scene.js hourly lsd, 3 nearest shelters): 03-25 18:05 (checked)",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Leave-by time of Wondang-ri from the one pass",
+   "value": 921,
+   "unit": "s after 18:00 KST",
+   "shown": "leave by 18:15",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "villages[].ld_one_pass_s",
+   "expected": "stored replay (scene.js hourly lsd, 3 nearest shelters): 03-25 18:15 (checked)",
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Villages in view: with a leave-by time / inside the fire area",
+   "value": [
+    2,
+    4
+   ],
+   "unit": "",
+   "shown": "village markers",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "villages[] with entry inside the map, by state",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Router cells inside the known fire area at 18:00 (drawn)",
+   "value": 651,
+   "unit": "",
+   "shown": "red area",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "cells[].block_s == 0 (375 m cells, MEASURED arm)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Road edges blocked at 18:00 (whole region)",
+   "value": 22263,
+   "unit": "",
+   "shown": "red roads",
+   "n": null,
+   "file": "talk/figures/build/F07_map.json",
+   "field": "blocked_at_issue_pairs (edges whose blocked starts begin at 0 s)",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  },
+  {
+   "label": "Basemap tiles",
+   "value": 35,
+   "unit": "",
+   "shown": "Basemap © OpenStreetMap contributors",
+   "n": null,
+   "file": "talk/figures/build/osm_tiles/TILES.json",
+   "field": "OpenStreetMap standard tiles, zoom 15",
+   "expected": null,
+   "note": "",
+   "repo": "wildfireguardian",
+   "ref": "talk/figures (= origin/Main 5ff9aa90)",
+   "commit": "uncommitted"
+  }
+ ],
+ "notes": []
+}

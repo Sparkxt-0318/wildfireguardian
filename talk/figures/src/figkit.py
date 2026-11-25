@@ -2,7 +2,7 @@
 
 save(fig, "F09_speed", kind="picture") writes
   talk/figures/F09_speed.{svg,pdf,png}            complete
-  talk/figures/F09_speed_notext.{png,svg}         same graphic, every word and number removed
+  talk/figures/F09_speed_notext.{png,svg,pdf}         same graphic, every word and number removed
   talk/figures/build/F09_speed_text.json          every text item with its box, for build_pptx.py
   talk/figures/check/F09_speed_grey.png           greyscale version for the greyscale check
   talk/figures/check/F09_speed_overlap.json       result of the collision check
@@ -350,6 +350,7 @@ def save(fig, name, *, kind="picture", extra=None, allow_pairs=(), strict=True, 
         hidden.append(t)
     fig.savefig(f"{base}_notext.png", dpi=pdpi, **kw)
     fig.savefig(f"{base}_notext.svg", **kw)
+    fig.savefig(f"{base}_notext.pdf", **kw)
     if tight and not native_axes:
         fig.savefig(BUILD / f"{name}_pptxbg.png", dpi=DPI)
         manifest["pptx_background"] = f"build/{name}_pptxbg.png"

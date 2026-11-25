@@ -293,6 +293,20 @@
    "commit": "83e28457"
   },
   {
+   "label": "Fish Creek: forecast cutoff (burned area outlined in (c))",
+   "value": "2024-08-23T00:00:00Z",
+   "unit": "",
+   "shown": "burned by 00:00 UTC",
+   "n": null,
+   "file": "demonstration/heat_spatial_maps/20261013_fishcreek/summary.json",
+   "field": "cutoff_utc",
+   "expected": null,
+   "note": "",
+   "repo": "/Users/jp/Desktop/wildfire",
+   "ref": "file on disk (read only)",
+   "commit": "sha256:f4e32dc866805222"
+  },
+  {
    "label": "Fish Creek: peak mean active-burning fraction / radiant heat",
    "value": [
     0.9307088313290401,

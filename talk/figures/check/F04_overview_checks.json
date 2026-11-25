@@ -1,190 +1,390 @@
 {
  "arrows_crossing_pictures": [],
  "cvd_min_deltaE": {
-  "normal": 42.0,
-  "protan": 29.2,
-  "deutan": 34.6,
-  "tritan": 46.8,
-  "grey": 9.1
+  "normal": 13.5,
+  "protan": 11.5,
+  "deutan": 13.9,
+  "tritan": 13.0,
+  "grey": 3.8
  },
  "cvd_pairs": [
   {
-   "pair": "SAFE/FIRE",
+   "pair": "blue/red",
    "vision": "normal",
-   "deltaE": 79.0
+   "deltaE": 63.7
   },
   {
-   "pair": "SAFE/FIRE",
+   "pair": "blue/red",
    "vision": "protan",
-   "deltaE": 29.2
+   "deltaE": 44.6
   },
   {
-   "pair": "SAFE/FIRE",
+   "pair": "blue/red",
    "vision": "deutan",
-   "deltaE": 42.8
+   "deltaE": 58.0
   },
   {
-   "pair": "SAFE/FIRE",
+   "pair": "blue/red",
    "vision": "tritan",
-   "deltaE": 98.2
+   "deltaE": 76.8
   },
   {
-   "pair": "SAFE/FIRE",
+   "pair": "blue/red",
    "vision": "grey",
-   "deltaE": 9.1
+   "deltaE": 3.8
   },
   {
-   "pair": "SAFE/LIGHT",
+   "pair": "blue/light grey",
    "vision": "normal",
-   "deltaE": 42.0
+   "deltaE": 52.7
   },
   {
-   "pair": "SAFE/LIGHT",
+   "pair": "blue/light grey",
    "vision": "protan",
-   "deltaE": 30.0
+   "deltaE": 49.8
   },
   {
-   "pair": "SAFE/LIGHT",
+   "pair": "blue/light grey",
    "vision": "deutan",
-   "deltaE": 34.6
+   "deltaE": 55.3
   },
   {
-   "pair": "SAFE/LIGHT",
+   "pair": "blue/light grey",
    "vision": "tritan",
-   "deltaE": 46.8
+   "deltaE": 48.5
   },
   {
-   "pair": "SAFE/LIGHT",
+   "pair": "blue/light grey",
    "vision": "grey",
-   "deltaE": 32.2
+   "deltaE": 41.6
   },
   {
-   "pair": "FIRE/LIGHT",
+   "pair": "red/light grey",
    "vision": "normal",
+   "deltaE": 61.0
+  },
+  {
+   "pair": "red/light grey",
+   "vision": "protan",
+   "deltaE": 51.8
+  },
+  {
+   "pair": "red/light grey",
+   "vision": "deutan",
+   "deltaE": 48.7
+  },
+  {
+   "pair": "red/light grey",
+   "vision": "tritan",
    "deltaE": 67.5
   },
   {
-   "pair": "FIRE/LIGHT",
-   "vision": "protan",
-   "deltaE": 52.5
-  },
-  {
-   "pair": "FIRE/LIGHT",
-   "vision": "deutan",
-   "deltaE": 51.7
-  },
-  {
-   "pair": "FIRE/LIGHT",
-   "vision": "tritan",
-   "deltaE": 76.4
-  },
-  {
-   "pair": "FIRE/LIGHT",
+   "pair": "red/light grey",
    "vision": "grey",
-   "deltaE": 41.4
+   "deltaE": 45.4
   },
   {
-   "pair": "SAFE/WHITE",
+   "pair": "blue/paper",
    "vision": "normal",
-   "deltaE": 52.9
+   "deltaE": 67.7
   },
   {
-   "pair": "SAFE/WHITE",
-   "vision": "protan",
-   "deltaE": 43.3
-  },
-  {
-   "pair": "SAFE/WHITE",
-   "vision": "deutan",
-   "deltaE": 47.7
-  },
-  {
-   "pair": "SAFE/WHITE",
-   "vision": "tritan",
-   "deltaE": 56.7
-  },
-  {
-   "pair": "SAFE/WHITE",
-   "vision": "grey",
-   "deltaE": 45.5
-  },
-  {
-   "pair": "FIRE/WHITE",
-   "vision": "normal",
-   "deltaE": 76.4
-  },
-  {
-   "pair": "FIRE/WHITE",
+   "pair": "blue/paper",
    "vision": "protan",
    "deltaE": 64.8
   },
   {
-   "pair": "FIRE/WHITE",
+   "pair": "blue/paper",
    "vision": "deutan",
-   "deltaE": 62.1
+   "deltaE": 70.2
   },
   {
-   "pair": "FIRE/WHITE",
+   "pair": "blue/paper",
    "vision": "tritan",
-   "deltaE": 84.3
+   "deltaE": 64.0
   },
   {
-   "pair": "FIRE/WHITE",
+   "pair": "blue/paper",
    "vision": "grey",
+   "deltaE": 59.0
+  },
+  {
+   "pair": "red/paper",
+   "vision": "normal",
+   "deltaE": 74.6
+  },
+  {
+   "pair": "red/paper",
+   "vision": "protan",
+   "deltaE": 68.5
+  },
+  {
+   "pair": "red/paper",
+   "vision": "deutan",
+   "deltaE": 64.2
+  },
+  {
+   "pair": "red/paper",
+   "vision": "tritan",
+   "deltaE": 79.9
+  },
+  {
+   "pair": "red/paper",
+   "vision": "grey",
+   "deltaE": 62.8
+  },
+  {
+   "pair": "ink/blue",
+   "vision": "normal",
+   "deltaE": 41.5
+  },
+  {
+   "pair": "ink/blue",
+   "vision": "protan",
+   "deltaE": 41.8
+  },
+  {
+   "pair": "ink/blue",
+   "vision": "deutan",
+   "deltaE": 42.2
+  },
+  {
+   "pair": "ink/blue",
+   "vision": "tritan",
+   "deltaE": 39.3
+  },
+  {
+   "pair": "ink/blue",
+   "vision": "grey",
+   "deltaE": 29.1
+  },
+  {
+   "pair": "ink/red",
+   "vision": "normal",
+   "deltaE": 49.0
+  },
+  {
+   "pair": "ink/red",
+   "vision": "protan",
+   "deltaE": 25.6
+  },
+  {
+   "pair": "ink/red",
+   "vision": "deutan",
+   "deltaE": 38.3
+  },
+  {
+   "pair": "ink/red",
+   "vision": "tritan",
+   "deltaE": 57.3
+  },
+  {
+   "pair": "ink/red",
+   "vision": "grey",
+   "deltaE": 25.2
+  },
+  {
+   "pair": "fire area/paper",
+   "vision": "normal",
+   "deltaE": 22.3
+  },
+  {
+   "pair": "fire area/paper",
+   "vision": "protan",
+   "deltaE": 21.0
+  },
+  {
+   "pair": "fire area/paper",
+   "vision": "deutan",
+   "deltaE": 19.8
+  },
+  {
+   "pair": "fire area/paper",
+   "vision": "tritan",
+   "deltaE": 23.9
+  },
+  {
+   "pair": "fire area/paper",
+   "vision": "grey",
+   "deltaE": 19.9
+  },
+  {
+   "pair": "leave by 18:00\u201318:15/leave by 18:15\u201318:30",
+   "vision": "normal",
+   "deltaE": 19.8
+  },
+  {
+   "pair": "leave by 18:00\u201318:15/leave by 18:15\u201318:30",
+   "vision": "protan",
+   "deltaE": 18.8
+  },
+  {
+   "pair": "leave by 18:00\u201318:15/leave by 18:15\u201318:30",
+   "vision": "deutan",
+   "deltaE": 20.4
+  },
+  {
+   "pair": "leave by 18:00\u201318:15/leave by 18:15\u201318:30",
+   "vision": "tritan",
+   "deltaE": 17.0
+  },
+  {
+   "pair": "leave by 18:00\u201318:15/leave by 18:15\u201318:30",
+   "vision": "grey",
+   "deltaE": 17.1
+  },
+  {
+   "pair": "leave by 18:15\u201318:30/leave by 18:30\u201319:00",
+   "vision": "normal",
+   "deltaE": 16.7
+  },
+  {
+   "pair": "leave by 18:15\u201318:30/leave by 18:30\u201319:00",
+   "vision": "protan",
+   "deltaE": 15.9
+  },
+  {
+   "pair": "leave by 18:15\u201318:30/leave by 18:30\u201319:00",
+   "vision": "deutan",
+   "deltaE": 17.3
+  },
+  {
+   "pair": "leave by 18:15\u201318:30/leave by 18:30\u201319:00",
+   "vision": "tritan",
+   "deltaE": 16.4
+  },
+  {
+   "pair": "leave by 18:15\u201318:30/leave by 18:30\u201319:00",
+   "vision": "grey",
+   "deltaE": 14.3
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/leave by after 19:00",
+   "vision": "normal",
+   "deltaE": 13.5
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/leave by after 19:00",
+   "vision": "protan",
+   "deltaE": 12.9
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/leave by after 19:00",
+   "vision": "deutan",
+   "deltaE": 13.9
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/leave by after 19:00",
+   "vision": "tritan",
+   "deltaE": 13.0
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/leave by after 19:00",
+   "vision": "grey",
+   "deltaE": 11.6
+  },
+  {
+   "pair": "leave by 18:00\u201318:15/fire area",
+   "vision": "normal",
    "deltaE": 54.7
   },
   {
-   "pair": "INK/SAFE",
-   "vision": "normal",
-   "deltaE": 52.6
-  },
-  {
-   "pair": "INK/SAFE",
+   "pair": "leave by 18:00\u201318:15/fire area",
    "vision": "protan",
-   "deltaE": 47.5
+   "deltaE": 49.0
   },
   {
-   "pair": "INK/SAFE",
+   "pair": "leave by 18:00\u201318:15/fire area",
    "vision": "deutan",
-   "deltaE": 44.3
+   "deltaE": 57.7
   },
   {
-   "pair": "INK/SAFE",
+   "pair": "leave by 18:00\u201318:15/fire area",
    "vision": "tritan",
-   "deltaE": 56.8
+   "deltaE": 55.5
   },
   {
-   "pair": "INK/SAFE",
+   "pair": "leave by 18:00\u201318:15/fire area",
    "vision": "grey",
-   "deltaE": 45.2
+   "deltaE": 39.1
   },
   {
-   "pair": "INK/FIRE",
+   "pair": "leave by 18:15\u201318:30/fire area",
    "vision": "normal",
-   "deltaE": 64.3
-  },
-  {
-   "pair": "INK/FIRE",
-   "vision": "protan",
    "deltaE": 37.3
   },
   {
-   "pair": "INK/FIRE",
+   "pair": "leave by 18:15\u201318:30/fire area",
+   "vision": "protan",
+   "deltaE": 31.1
+  },
+  {
+   "pair": "leave by 18:15\u201318:30/fire area",
    "vision": "deutan",
-   "deltaE": 52.8
+   "deltaE": 38.1
   },
   {
-   "pair": "INK/FIRE",
+   "pair": "leave by 18:15\u201318:30/fire area",
    "vision": "tritan",
-   "deltaE": 73.5
+   "deltaE": 41.7
   },
   {
-   "pair": "INK/FIRE",
+   "pair": "leave by 18:15\u201318:30/fire area",
    "vision": "grey",
-   "deltaE": 36.0
+   "deltaE": 22.0
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/fire area",
+   "vision": "normal",
+   "deltaE": 23.8
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/fire area",
+   "vision": "protan",
+   "deltaE": 17.3
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/fire area",
+   "vision": "deutan",
+   "deltaE": 22.6
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/fire area",
+   "vision": "tritan",
+   "deltaE": 28.5
+  },
+  {
+   "pair": "leave by 18:30\u201319:00/fire area",
+   "vision": "grey",
+   "deltaE": 7.6
+  },
+  {
+   "pair": "leave by after 19:00/fire area",
+   "vision": "normal",
+   "deltaE": 17.3
+  },
+  {
+   "pair": "leave by after 19:00/fire area",
+   "vision": "protan",
+   "deltaE": 11.5
+  },
+  {
+   "pair": "leave by after 19:00/fire area",
+   "vision": "deutan",
+   "deltaE": 13.9
+  },
+  {
+   "pair": "leave by after 19:00/fire area",
+   "vision": "tritan",
+   "deltaE": 21.9
+  },
+  {
+   "pair": "leave by after 19:00/fire area",
+   "vision": "grey",
+   "deltaE": 4.0
   }
  ],
  "smallest_text_pt": 16,
  "smallest_text_px_at_1700px_wide": 22.2,
- "rule": "arrows: none may cross a map, kernel, colour bar or chart; colour: every meaningful pair keeps deltaE >= 10 under protan/deutan/tritan simulation; in greyscale open (solid teal) and blocked (white with red hatching) differ by fill and hatching, not by grey level; text: at least 18 px tall when the figure is 1,700 px wide"
+ "rule": "arrows: none may cross a map, kernel, colour bar or chart; colour: every meaningful pair keeps deltaE >= 10 under protan/deutan/tritan simulation; in greyscale open (solid blue) and blocked (paper with red hatching) differ by fill and hatching, not by grey level; text: at least 18 px tall when the figure is 1,700 px wide"
 }

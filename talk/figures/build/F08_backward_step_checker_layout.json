@@ -39,7 +39,7 @@
    "caption": false
   },
   {
-   "text": "closed:\nfire on the road",
+   "text": "blocked:\nfire on the road",
    "cx": 1.2511747965494793,
    "cy": 3.17,
    "w": 1.5023495930989585,
@@ -51,7 +51,7 @@
    "color": "#1a1a1a",
    "ha": "left",
    "multialign": null,
-   "name": "row 3: closed: fire on the road label",
+   "name": "row 3: blocked: fire on the road label",
    "caption": false
   },
   {
@@ -80,7 +80,7 @@
    "size_pt": 16.0,
    "bold": false,
    "italic": false,
-   "color": "#8c8c8c",
+   "color": "#6b6b6b",
    "ha": "left",
    "multialign": null,
    "name": "time axis label",

@@ -119,13 +119,14 @@ def main():
     xy = np.array([R.g.xy(n) for n in R.node_ids], dtype=float)
     lon, lat = tr.transform(xy[:, 0], xy[:, 1])
     # graph edges as node-index pairs (one per undirected way segment) for drawing
-    seen, pairs = set(), []
+    seen, pairs, pair_way = set(), [], []
     for j in range(E):
         u, v = inst.tail[j], inst.head[j]
         key = (min(u, v), max(u, v))
         if key not in seen:
             seen.add(key)
             pairs.append(key)
+            pair_way.append(R.g.source_way[j])
     # road blocked seconds per OSM way (earliest closed cell of the way, seconds after 18:00 KST)
     raw = json.loads(gpath.read_text())
     way_cells = {}
@@ -191,6 +192,7 @@ def main():
         "node_lonlat": np.round(np.column_stack([lon, lat]), 6).tolist(),
         "node_ld_s": node_ld.tolist(),
         "edge_pairs": pairs,
+        "edge_pair_way": pair_way,
         "checks": {"scene_road_cells_equal": len(cells), "origin_ld_equals_scene_route_ld": True},
         "made_by": "talk/figures/src/F04_routing.py",
         "made_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

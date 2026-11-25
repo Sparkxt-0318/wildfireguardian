@@ -58,15 +58,15 @@ def build(n, mis, caught, nmut, k, cpf):
     X = lambda f: x0 + f * (x1 - x0)  # noqa: E731
     th = 0.24
     rows = [
-        ("safe arrival times\nover a road", [(0.42, 0.70), (0.80, 0.95)], S.SAFE, 1.25),
-        ("shifted back by\nthe travel time", [(0.20, 0.48), (0.58, 0.73)], S.SAFE, 2.15),
-        ("closed:\nfire on the road", [(0.36, 0.62)], S.FIRE, 3.05),
-        ("safe start times", [(0.20, 0.36), (0.62, 0.73)], S.SAFE, 3.95),
+        ("safe arrival times\nover a road", [(0.42, 0.70), (0.80, 0.95)], S.BLUE, 1.25),
+        ("shifted back by\nthe travel time", [(0.20, 0.48), (0.58, 0.73)], S.BLUE, 2.15),
+        ("blocked:\nfire on the road", [(0.36, 0.62)], S.RED, 3.05),
+        ("safe start times", [(0.20, 0.36), (0.62, 0.73)], S.BLUE, 3.95),
     ]
     for i, (lab, segs, col, y) in enumerate(rows):
         g = f"row {i + 1}: {lab}".replace("\n", " ")
         sc.text(lx, y + th / 2, lab, name=f"{g} label", group=g)
-        sc.rect(x0, y, x1 - x0, th, fill=S.WHITE, edge=S.INK, lw=0.75, name=f"{g} track", group=g)
+        sc.rect(x0, y, x1 - x0, th, fill=S.PAPER, edge=S.INK, lw=0.75, name=f"{g} track", group=g)
         for j, (a, b) in enumerate(segs):
             sc.rect(X(a), y, X(b) - X(a), th, fill=col, edge=S.INK, lw=0.75, name=f"{g} interval {j + 1}", group=g)
     # shift arrows from row 1 to row 2 (travel time)
@@ -75,16 +75,16 @@ def build(n, mis, caught, nmut, k, cpf):
                 name=f"shift arrow {a}", group="travel-time shift")
     # dashed guides at the closure edges, row 3 down to row 4
     for f in rows[2][1][0]:
-        sc.line([(X(f), 3.05 + th + 0.04), (X(f), 3.95 - 0.04)], color=S.FIRE, lw=1.2, dash=(3, 2),
+        sc.line([(X(f), 3.05 + th + 0.04), (X(f), 3.95 - 0.04)], color=S.RED, lw=1.2, dash=(3, 2),
                 name=f"closure edge {f}", group="closure guides")
     # time axis
     sc.line([(x0, 4.62), (x1, 4.62)], color=S.INK, lw=1.2, arrow=True, head=0.12, name="time axis", group="time axis")
-    sc.text(x1 - 0.70, 4.95, "time", color=S.MID, name="time axis label", group="time axis")
+    sc.text(x1 - 0.70, 4.95, "time", color=S.GREY, name="time axis label", group="time axis")
 
     # ---------------- right: solver, answer + certificate, independent checker
     by, bh = 2.05, 1.05
-    boxes = [("Solver", 6.95, 1.25, S.TINT_ROUTING), ("Answer +\ncertificate", 8.70, 1.75, S.TINT_OUTPUT),
-             ("Independent\nchecker", 10.95, 1.95, S.WHITE)]
+    boxes = [("Solver", 6.95, 1.25, S.tint(S.RED, 0.15)), ("Answer +\ncertificate", 8.70, 1.75, S.tint(S.BLUE, 0.15)),
+             ("Independent\nchecker", 10.95, 1.95, S.PAPER)]
     for lab, bx, bw, tint in boxes:
         g = lab.replace("\n", " ")
         sc.rect(bx, by, bw, bh, fill=tint, edge=S.INK, lw=0.75, name=f"{g} box", group=g, role="box")
@@ -96,9 +96,9 @@ def build(n, mis, caught, nmut, k, cpf):
             head=0.10, name="certificate to checker", group="arrows")
     # tick leaving the checker, below it
     cx = 10.95 + 1.95 / 2
-    sc.line([(cx, by + bh + 0.06), (cx, by + bh + 0.55)], color=S.SAFE, lw=1.0, arrow=True, head=0.10,
+    sc.line([(cx, by + bh + 0.06), (cx, by + bh + 0.55)], color=S.BLUE, lw=1.0, arrow=True, head=0.10,
             name="checker output arrow", group="checker result")
-    sc.tick(cx, by + bh + 0.92, 0.42, color=S.SAFE, lw=2.5, name="tick mark", group="checker result")
+    sc.tick(cx, by + bh + 0.92, 0.42, color=S.BLUE, lw=2.5, name="tick mark", group="checker result")
     sc.text(12.90, by + bh + 1.62, "shares no code with the solver", ha="right", color=S.INK,
             name="checker note", group="checker result")
 
@@ -125,7 +125,7 @@ def main():
         "certificates of the worked examples pass the checker. Source: research/kcf-theorem, product/wfg-roadlayer."),
         x_in=0.45, width_in=12.45, top_in=5.8)
     sc.save_spec(fig)
-    save(fig, "F08_backward_step_checker", kind="scene", caption=cap)
+    save(fig, "F08_backward_step_checker", kind="scene", caption=cap, transparent=True)
 
 
 if __name__ == "__main__":

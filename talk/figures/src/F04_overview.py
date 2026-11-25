@@ -38,13 +38,14 @@ WIND = "data/environment/regions/KFS_01/weather/ecmwf_ifs_native_nodes.npz"
 TIF = "product/wfg-roadlayer/examples/fire_arrival_20250325T0900Z_MEASURED_8h.tif"
 T_ISO = "2025-03-25T09:00:00+00:00"
 DY = 0.55              # group row above the stage heads
-W_FIG, H_FIG = 17.0, 8.8 + DY
+W_FIG, H_FIG = 17.0, 9.15 + DY
 STAGES = {  # x0, width (inches)
     "a": (0.20, 1.95), "b": (2.60, 2.45), "c": (5.50, 1.90), "d": (7.85, 2.40), "e": (10.70, 3.75), "f": (14.90, 1.95),
 }
 TOP = 0.70 + DY        # first picture row
-BOTTOM = 6.75 + DY     # graphic ends here; caption below
+BOTTOM = 7.1 + DY      # graphic ends here; caption below
 RNG = np.random.default_rng(0)
+LIGHTG = S.tint(S.GREY, 0.35)   # "already burned", withheld box
 PICTURES = []          # display boxes that arrows may not cross
 ARROWS = []
 
@@ -261,6 +262,11 @@ def read(L):
     # Fish Creek exposure (forecast workspace, read only)
     fz = np.load(WS / FISH)
     D["fish"] = fz
+    summ = json.loads((WS / FISH).with_name("summary.json").read_text())
+    D["fish_cutoff"] = summ["cutoff_utc"]
+    L.add("Fish Creek: forecast cutoff (burned area outlined in (c))", summ["cutoff_utc"], repo=WS,
+          file=str(Path(FISH).with_name("summary.json")), field="cutoff_utc",
+          shown=f"burned by {summ['cutoff_utc'][11:16]} UTC")
     L.add("Fish Creek: peak mean active-burning fraction / radiant heat",
           [float(fz["mean_active_burning_probability"].max()), float(fz["mean_heat_flux_w_m2"].max())], repo=WS,
           file=FISH, field="mean_active_burning_probability, mean_heat_flux_w_m2 (full grid max)", unit="–, W/m²",
@@ -291,20 +297,20 @@ def stage_a(fig, D):
         y += step
     lon, lat = Transformer.from_crs(5179, 4326, always_xy=True).transform(
         np.array([d["x"] for d in D["discs"]]), np.array([d["y"] for d in D["discs"]]))
-    sc = axs[0].scatter(lon, lat, s=3, color=S.FIRE, linewidths=0)
+    sc = axs[0].scatter(lon, lat, s=3, color=S.RED, linewidths=0)
     sc.set_gid("bg:detections")
     lo, la, u, v = D["wind"]
     q = axs[1].quiver(lo, la, u, v, color=S.INK, scale=50, scale_units="inches", width=0.006, headwidth=4,
                       headlength=4.5, headaxislength=4)
     q.set_gid("bg:wind")
-    lc = LineCollection(D["roads"], colors=S.MID, linewidths=0.3)
+    lc = LineCollection(D["roads"], colors=S.GREY, linewidths=0.3)
     lc.set_gid("bg:roads")
     axs[2].add_collection(lc)
     p = axs[2].scatter([q_["lon"] for q_ in D["places"]], [q_["lat"] for q_ in D["places"]], s=5, color=S.INK,
                        linewidths=0, zorder=3)
     p.set_gid("bg:villages")
     s = axs[2].scatter([q_["lon"] for q_ in D["shelters"]], [q_["lat"] for q_ in D["shelters"]], s=10, marker="s",
-                       facecolor=S.SAFE, edgecolor=S.INK, linewidths=0.3, zorder=4)
+                       facecolor=S.PAPER, edgecolor=S.INK, linewidths=0.5, zorder=4)
     s.set_gid("bg:shelters")
 
 
@@ -323,7 +329,7 @@ def stage_b(fig, D):
             ax = axes_in(fig, x0 + i * (kw + gap), y + 0.42, kw, kw)
             k = fc[f"kernel_{s}"].copy()
             k[s // 2, s // 2] = np.nan
-            im = ax.imshow(k, cmap=S.CONTINUOUS_CMAP, norm=norm, interpolation="nearest")
+            im = ax.imshow(k, cmap=S.ramp(S.BLUE), norm=norm, interpolation="nearest")
             im.set_gid("bg:kernel")
             ax.set_xticks([])
             ax.set_yticks([])
@@ -343,7 +349,7 @@ def stage_b(fig, D):
     fig.text(fx(x0), fy(ye + 0.55), r"$p_i=1-\exp(-\mathrm{rate}_i)$", va="center")
     fig.text(fx(x0), fy(ye + 0.98), r"$B$: burned neighbour, 0 or 1", va="center")
     ym = ye + 1.75
-    ax, mh = strip_map(fig, D, x0, ym, w, "Chance of burning, next hour")
+    ax, mh = strip_map(fig, D, x0, ym, w, "Burn chance, next hour")
     if fc is not None:
         prob = fc["probability"].astype(float)
         valid = fc["valid"].astype(bool)
@@ -355,15 +361,16 @@ def stage_b(fig, D):
         LO, LA = tx.transform(tr[2] + cols * tr[0], tr[5] + rows * tr[4])
         pmax = float(D["fc_meta"]["max_probability_region"])
         show = np.ma.masked_where(~valid | (burned == 1) | (prob <= 0), prob)
-        pm = ax.pcolormesh(LO, LA, show, cmap=S.CONTINUOUS_CMAP, norm=mc.Normalize(0, pmax), shading="flat",
+        pm = ax.pcolormesh(LO, LA, show, cmap=S.ramp(S.RED), norm=mc.Normalize(0, pmax), shading="flat",
                            rasterized=True)
         pm.set_gid("bg:probability")
+        ax.set_facecolor(S.PAPER)
         bu = np.ma.masked_where(burned != 1, np.ones_like(prob))
-        pb = ax.pcolormesh(LO, LA, bu, cmap=mc.ListedColormap([S.LIGHT]), shading="flat", rasterized=True)
+        pb = ax.pcolormesh(LO, LA, bu, cmap=mc.ListedColormap([LIGHTG]), shading="flat", rasterized=True)
         pb.set_gid("bg:burned")
         r, c = fc["cell"]
         cx, cy = tx.transform(tr[2] + (c + 0.5) * tr[0], tr[5] + (r + 0.5) * tr[4])
-        mk = ax.plot([cx], [cy], marker="s", ms=6, mfc="none", mec=S.FIRE, mew=1.4)[0]
+        mk = ax.plot([cx], [cy], marker="s", ms=6, mfc="none", mec=S.INK, mew=1.4)[0]
         mk.set_gid("bg:kernel cell")
         cax = axes_in(fig, x0, ym + mh + 0.12, w, 0.1)
         cb = fig.colorbar(pm, cax=cax, orientation="horizontal")
@@ -377,31 +384,59 @@ def stage_b(fig, D):
         kax.set_xlim(0, 1)
         kax.set_ylim(0, 1)
         kax.axis("off")
-        r_ = Rectangle((0, 0), 1, 1, facecolor=S.LIGHT, edgecolor=S.INK, linewidth=0.6)
+        r_ = Rectangle((0, 0), 1, 1, facecolor=LIGHTG, edgecolor=S.INK, linewidth=0.6)
         r_.set_gid("bg:key")
         kax.add_patch(r_)
         label(fig, x0 + 0.42, yk, "already burned")
 
 
 def stage_c(fig, D):
+    """Zoomed to the fire: the window is every cell of the workspace's crop whose value is on either colour scale, plus
+    one cell. Each scale runs from the 25th percentile of the nonzero values in the crop, rounded down to a power of ten, to the largest value (log
+    scale: the values span several powers of ten); cells below it are left blank. Ink line: the burned area at the
+    cutoff (current_burned_state)."""
     x0, w = STAGES["c"]
     fz = D["fish"]
-    r0, r1 = int(fz["crop_row_start"]), int(fz["crop_row_stop_exclusive"])
-    c0, c1 = int(fz["crop_column_start"]), int(fz["crop_column_stop_exclusive"])
     label(fig, x0, TOP + 0.4, "Fish Creek fire, US")
+    # the workspace's own crop of the fire (crop_* in the same file), then zoomed further below
+    q0, q1 = int(fz["crop_row_start"]), int(fz["crop_row_stop_exclusive"])
+    p0, p1 = int(fz["crop_column_start"]), int(fz["crop_column_stop_exclusive"])
+    act = fz["mean_active_burning_probability"][q0:q1, p0:p1].astype(float)
+    heat = fz["mean_heat_flux_w_m2"][q0:q1, p0:p1].astype(float)
+    burned = fz["current_burned_state"][q0:q1, p0:p1].astype(float)
+    specs = []
+    for title, arr, unit in (("Share of hour burning", act, None),
+                             ("Radiant heat, W m$^{-2}$", heat, None)):
+        pos = arr[arr > 0]
+        vmin = 10.0 ** math.floor(math.log10(np.percentile(pos, 25)))
+        specs.append((title, arr, mc.LogNorm(vmin, float(arr.max())), unit))
+    on = np.zeros(act.shape, bool)
+    for _, arr, norm, _ in specs:
+        on |= arr >= norm.vmin
+    rr, cc = np.where(on | (burned > 0.5))
+    r0, r1 = max(rr.min() - 1, 0), min(rr.max() + 2, act.shape[0])
+    c0, c1 = max(cc.min() - 1, 0), min(cc.max() + 2, act.shape[1])
+    D["c_window"] = (int(r0), int(r1), int(c0), int(c1))
+    D["c_scales"] = [(t, n.vmin, n.vmax) for t, _, n, _ in specs]
     mw = 1.6
-    mh = mw * (r1 - r0) / (c1 - c0)
     xm = x0 + (w - mw) / 2
-    specs = [("Share of hour burning", fz["mean_active_burning_probability"][r0:r1, c0:c1], mc.LogNorm(1e-3, 1),
-              [1e-3, 1e-2, 1e-1, 1], ["10$^{-3}$", "", "", "1"]),
-             ("Radiant heat, W m$^{-2}$", fz["mean_heat_flux_w_m2"][r0:r1, c0:c1], mc.LogNorm(1, 1e4),
-              [1, 1e2, 1e4], ["1", "100", "10$^4$"])]
-    y = TOP + 1.25
-    for title, arr, norm, ticks, tl in specs:
+    mh = mw * (r1 - r0) / (c1 - c0)
+    kax = axes_in(fig, x0, TOP + 0.95 - 0.13, 0.3, 0.26, picture=False)
+    kax.set_xlim(0, 1)
+    kax.set_ylim(0, 1)
+    kax.axis("off")
+    kax.plot([0, 1], [0.5, 0.5], color=S.INK, lw=1.3)[0].set_gid("bg:key")
+    label(fig, x0 + 0.42, TOP + 0.95, f"burned by\n{D['fish_cutoff'][11:16]} UTC", linespacing=1.05)
+    y = TOP + 1.95
+    for title, arr, norm, unit in specs:
         label(fig, x0, y - 0.22, title)
         ax = axes_in(fig, xm, y, mw, mh)
-        im = ax.imshow(np.clip(arr, norm.vmin, None), cmap=S.CONTINUOUS_CMAP, norm=norm, interpolation="nearest")
+        sub = np.ma.masked_less(arr[r0:r1, c0:c1], norm.vmin)
+        im = ax.imshow(sub, cmap=S.ramp(S.RED), norm=norm, interpolation="nearest")
         im.set_gid("bg:exposure")
+        ax.set_facecolor(S.PAPER)
+        cs = ax.contour(burned[r0:r1, c0:c1], levels=[0.5], colors=S.INK, linewidths=1.3)
+        cs.set_gid("bg:fire outline")
         ax.set_xticks([])
         ax.set_yticks([])
         for sp in ax.spines.values():
@@ -409,10 +444,14 @@ def stage_c(fig, D):
         cax = axes_in(fig, xm, y + mh + 0.1, mw, 0.1)
         cb = fig.colorbar(im, cax=cax, orientation="horizontal")
         cb.ax.minorticks_off()
+        lo, hi = math.ceil(math.log10(norm.vmin)), math.floor(math.log10(norm.vmax))
+        step = max(1, math.ceil((hi - lo) / 2))
+        ticks = [10.0 ** k for k in range(lo, hi + 1, step)]
         cb.set_ticks(ticks)
-        cb.ax.set_xticklabels(tl)
+        cb.ax.set_xticklabels(["1" if k == 0 else ("10" if k == 1 else f"10$^{{{k}}}$")
+                              for k in range(lo, hi + 1, step)])
         cb.outline.set_linewidth(0.6)
-        y += mh + 1.15
+        y += mh + 1.3
 
 
 def stage_d(fig, D):
@@ -421,11 +460,11 @@ def stage_d(fig, D):
     ax, mh = strip_map(fig, D, x0, y, w, "Known fire plus margin")
     arr, tp, ps = D["arr"], D["tp"], D["ps"]
     reach = PolyCollection(raster_cells(arr, tp, ps, np.isfinite(arr) & (arr > 0) & (arr <= 480)),
-                           facecolors=S.WHITE, edgecolors=S.FIRE, linewidths=0, hatch="//////", zorder=1)
+                           facecolors=S.PAPER, edgecolors=S.RED, linewidths=0, hatch="//////", zorder=1)
     reach.set_gid("bg:reach")
     ax.add_collection(reach)
-    known = PolyCollection(raster_cells(arr, tp, ps, np.isfinite(arr) & (arr == 0)), facecolors=S.FIRE,
-                           edgecolors=S.FIRE, linewidths=0.4, zorder=2)
+    known = PolyCollection(raster_cells(arr, tp, ps, np.isfinite(arr) & (arr == 0)), facecolors=S.RED,
+                           edgecolors=S.RED, linewidths=0.4, zorder=2)
     known.set_gid("bg:known fire")
     ax.add_collection(known)
     yk = y + mh + 0.4
@@ -435,7 +474,7 @@ def stage_d(fig, D):
         kax.set_xlim(0, 1)
         kax.set_ylim(0, 1)
         kax.axis("off")
-        r = Rectangle((0, 0), 1, 1, facecolor=S.FIRE if kind == "known" else S.WHITE, edgecolor=S.FIRE,
+        r = Rectangle((0, 0), 1, 1, facecolor=S.RED if kind == "known" else S.PAPER, edgecolor=S.RED,
                       hatch=None if kind == "known" else "////", linewidth=0.6)
         r.set_gid("bg:key")
         kax.add_patch(r)
@@ -443,11 +482,11 @@ def stage_d(fig, D):
     gcx, gw, gh = x0 + w / 2, 2.4, 1.9
     gcy = max(yk + 0.42 + 0.45 + gh / 2, D["e_map_mid"])
     pts = [(gcx, gcy - gh / 2), (gcx + gw / 2, gcy), (gcx, gcy + gh / 2), (gcx - gw / 2, gcy)]
-    dia = Polygon([(fx(px), fy(py)) for px, py in pts], closed=True, transform=fig.transFigure, facecolor=S.WHITE,
+    dia = Polygon([(fx(px), fy(py)) for px, py in pts], closed=True, transform=fig.transFigure, facecolor=S.PAPER,
                   edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
     dia.set_gid("box:gate")
     fig.add_artist(dia)
-    fig.text(fx(gcx), fy(gcy), "Like the\nfires we\ntested on?", ha="center", va="center", linespacing=1.05)
+    fig.text(fx(gcx), fy(gcy), "Within the\ncalibration\nrange?", ha="center", va="center", linespacing=1.05)
     D["gate_yes"] = (gcx + gw / 2, gcy)
     label(fig, gcx + gw / 2 + 0.04, gcy - 0.26, "yes")
     wy = gcy + gh / 2 + 0.42
@@ -455,16 +494,21 @@ def stage_d(fig, D):
     label(fig, gcx + 0.2, gcy + gh / 2 + 0.16, "no")
     bw, bh = 1.3, 0.4
     box = Rectangle((fx(gcx - bw / 2), fy(wy + bh)), bw / W_FIG, bh / H_FIG, transform=fig.transFigure,
-                    facecolor=S.LIGHT, edgecolor=S.INK, hatch="///", linewidth=S.LW_THIN, zorder=-1)
+                    facecolor=LIGHTG, edgecolor=S.INK, hatch="///", linewidth=S.LW_THIN, zorder=-1)
     box.set_gid("box:withhold")
     fig.add_artist(box)
     # plain backing under the word, drawn as part of the picture so the PowerPoint text box sits on it too
     back = Rectangle((fx(gcx - 0.48), fy(wy + bh / 2 + 0.13)), 0.96 / W_FIG, 0.26 / H_FIG, transform=fig.transFigure,
-                     facecolor=S.LIGHT, edgecolor="none", zorder=-0.5)
+                     facecolor=LIGHTG, edgecolor="none", zorder=-0.5)
     back.set_gid("bg:label backing")
     fig.add_artist(back)
     fig.text(fx(gcx), fy(wy + bh / 2), "withheld", ha="center", va="center")
     label(fig, gcx, wy + bh + 0.2, "18:00 KST took this exit", ha="center")
+
+
+LEAVE_CLASSES = [(0, 900, 1.0, "18:00–18:15"), (900, 1800, 0.72, "18:15–18:30"), (1800, 3600, 0.48, "18:30–19:00"),
+                 (3600, 8 * 3600 + 1, 0.28, "after 19:00")]
+MIN_WAY_M = 400        # leave-by map: roads (OSM ways) shorter than this inside the map are not drawn
 
 
 def stage_e(fig, D):
@@ -478,8 +522,8 @@ def stage_e(fig, D):
     tmax = 75 * 60
     for i, r in enumerate(roads):
         yy = 2 - i
-        ax.barh(yy, r["block_s"], left=0, height=0.5, color=S.SAFE, edgecolor=S.INK, linewidth=0.6)
-        ax.barh(yy, tmax - r["block_s"], left=r["block_s"], height=0.5, facecolor=S.WHITE, edgecolor=S.FIRE,
+        ax.barh(yy, r["block_s"], left=0, height=0.5, color=S.BLUE, edgecolor=S.INK, linewidth=0.6)
+        ax.barh(yy, tmax - r["block_s"], left=r["block_s"], height=0.5, facecolor=S.PAPER, edgecolor=S.RED,
                 hatch="////", linewidth=0.6)
         ax.plot([r["exit_s"], r["exit_s"]], [yy - 0.4, yy + 0.4], color=S.INK, lw=2.2, solid_capstyle="butt")
     ax.set_xlim(0, tmax)
@@ -489,76 +533,98 @@ def stage_e(fig, D):
     ax.set_xticks([0, 1800, 3600])
     ax.set_xticklabels(["18:00", "18:30", "19:00"])
     ax.tick_params(axis="y", length=0)
-    yk = y + 2.05
-    rows = [[("open", "open"), ("blocked", "blocked")], [("car", "car leaves road")]]
-    for j, items in enumerate(rows):
-        xk = x0 + lw_
-        for kind, txt in items:
-            kax = axes_in(fig, xk, yk + j * 0.42 - 0.13, 0.3, 0.26, picture=False)
-            kax.set_xlim(0, 1)
-            kax.set_ylim(0, 1)
-            kax.axis("off")
-            if kind == "car":
-                kax.plot([0.5, 0.5], [0.0, 1.0], color=S.INK, lw=2.2, solid_capstyle="butt")[0].set_gid("bg:key")
-            else:
-                r_ = Rectangle((0, 0.1), 1, 0.8, facecolor=S.SAFE if kind == "open" else S.WHITE,
-                               edgecolor=S.INK if kind == "open" else S.FIRE, hatch=None if kind == "open" else "////",
-                               linewidth=0.6)
-                r_.set_gid("bg:key")
-                kax.add_patch(r_)
-            t = label(fig, xk + 0.4, yk + j * 0.42, txt)
-            fig.canvas.draw()
-            xk += 0.4 + t.get_window_extent().width / S.DPI + 0.35
-    ym = yk + 1.05
-    label(fig, x0, ym - 0.22, "Leave-by time on every road")
+    yk = y + 2.0
+    xk = x0 + lw_
+    for kind, txt in [("open", "open"), ("blocked", "blocked"), ("car", "car leaves the road")]:
+        if kind == "car":
+            xk, yk = x0 + lw_, yk + 0.4
+        kax = axes_in(fig, xk, yk - 0.13, 0.3, 0.26, picture=False)
+        kax.set_xlim(0, 1)
+        kax.set_ylim(0, 1)
+        kax.axis("off")
+        if kind == "car":
+            kax.plot([0.5, 0.5], [0.0, 1.0], color=S.INK, lw=2.2, solid_capstyle="butt")[0].set_gid("bg:key")
+        else:
+            r_ = Rectangle((0, 0.1), 1, 0.8, facecolor=S.BLUE if kind == "open" else S.PAPER,
+                           edgecolor=S.INK if kind == "open" else S.RED, hatch=None if kind == "open" else "////",
+                           linewidth=0.6)
+            r_.set_gid("bg:key")
+            kax.add_patch(r_)
+        t = label(fig, xk + 0.38, yk, txt)
+        fig.canvas.draw()
+        xk += 0.38 + t.get_window_extent().width / S.DPI + 0.22
+    # ---------------------------------------------------------------- leave-by map
+    ym = yk + 0.85
+    label(fig, x0, ym - 0.22, "Leave-by time on main roads")
     lonlat = np.array(rt["node_lonlat"])
     ld = np.array(rt["node_ld_s"], dtype=float)
     route = np.array(rt["route_lonlat"])
-    sh = np.array(rt["shelters_lonlat"])
-    pts = np.vstack([route, sh, lonlat[ld >= 0]])
+    sh = np.array(rt["route_shelter_lonlat"])
+    o = rt["origin_lonlat"]
+    pts = np.vstack([route, [o]])
     lon0, lat0 = pts.min(0)
     lon1, lat1 = pts.max(0)
-    padx, pady = (lon1 - lon0) * 0.05, (lat1 - lat0) * 0.08
-    bb = [lon0 - padx, lat0 - pady, lon1 + padx, lat1 + pady]
-    mw = w - 1.15
+    # route with room above and below for labels; longitude widened to keep equal scale at a 1.7 in tall map
+    mw, mh = w, 1.7
+    pady = (lat1 - lat0) * 0.55
+    la0, la1 = lat0 - pady, lat1 + pady
+    k_ = math.cos(math.radians((la0 + la1) / 2))
+    half_lon = (la1 - la0) * mw / mh / k_ / 2
+    cx_ = (lon0 + lon1) / 2
+    half_lon = max(half_lon, (lon1 - lon0) * 0.56)
+    bb = [cx_ - half_lon, la0, cx_ + half_lon, la1]
     mh = map_height(bb, mw)
-    if mh > BOTTOM - ym:
-        mh = BOTTOM - ym
-        k = math.cos(math.radians((bb[1] + bb[3]) / 2))
-        mw = mh * (bb[2] - bb[0]) * k / (bb[3] - bb[1])
     ax = axes_in(fig, x0, ym, mw, mh)
     map_axes(ax, bb)
     arr, tp, ps = D["arr"], D["tp"], D["ps"]
-    known = PolyCollection(raster_cells(arr, tp, ps, np.isfinite(arr) & (arr == 0)), facecolors=S.LIGHT,
-                           edgecolors=S.LIGHT, linewidths=0.5, zorder=0)
+    known = PolyCollection(raster_cells(arr, tp, ps, np.isfinite(arr) & (arr == 0)), facecolors=S.tint(S.RED, 0.32),
+                           edgecolors=S.tint(S.RED, 0.32), linewidths=0.5, zorder=0)
     known.set_gid("bg:known fire")
     ax.add_collection(known)
     pairs = np.array(rt["edge_pairs"])
+    ways = np.array(rt["edge_pair_way"])
     a, b = ld[pairs[:, 0]], ld[pairs[:, 1]]
-    ok = (a >= 0) & (b >= 0)
     segs = np.stack([lonlat[pairs[:, 0]], lonlat[pairs[:, 1]]], axis=1)
-    grey = LineCollection(segs[~ok], colors=S.MID, linewidths=0.35, zorder=1)
-    grey.set_gid("bg:roads without departure")
-    ax.add_collection(grey)
-    col = LineCollection(segs[ok], array=np.minimum(a[ok], b[ok]), cmap=S.CONTINUOUS_CMAP, norm=mc.Normalize(0, 3600),
-                         linewidths=1.6, zorder=2)
-    col.set_gid("bg:deadline field")
-    ax.add_collection(col)
-    ax.plot(route[:, 0], route[:, 1], color=S.WHITE, lw=4.4, solid_capstyle="round", zorder=3)[0].set_gid("bg:h")
-    ax.plot(route[:, 0], route[:, 1], color=S.INK, lw=2.0, solid_capstyle="round", zorder=4)[0].set_gid("bg:route")
-    o = rt["origin_lonlat"]
-    ax.plot([o[0]], [o[1]], marker="o", ms=9, mfc=S.WHITE, mec=S.INK, mew=1.4, zorder=5)[0].set_gid("bg:village")
-    s = ax.scatter(sh[:, 0], sh[:, 1], s=60, marker="s", facecolor=S.SAFE, edgecolor=S.INK, linewidths=0.8, zorder=5)
-    s.set_gid("bg:shelters")
-    cx_ = x0 + mw + 0.2
-    label(fig, cx_ - 0.05, ym + mh + 0.12, "leave by")
-    cax = axes_in(fig, cx_, ym + 0.1, 0.12, mh - 0.45)
-    D["e_map_mid"] = ym + 0.55
-    cb = fig.colorbar(col, cax=cax, orientation="vertical")
-    cb.set_ticks([0, 1800, 3600])
-    cb.ax.set_yticklabels(["18:00", "18:30", "19:00"])
-    cb.ax.invert_yaxis()
-    cb.outline.set_linewidth(0.6)
+    inside = np.all((segs[..., 0] >= bb[0]) & (segs[..., 0] <= bb[2]) & (segs[..., 1] >= bb[1]) &
+                    (segs[..., 1] <= bb[3]), axis=1)
+    k = math.cos(math.radians((bb[1] + bb[3]) / 2))
+    seg_m = np.hypot((segs[:, 1, 0] - segs[:, 0, 0]) * k, segs[:, 1, 1] - segs[:, 0, 1]) * 111_320
+    way_m = {}
+    for wy, m_, i_ in zip(ways, seg_m, inside):
+        if i_:
+            way_m[wy] = way_m.get(wy, 0.0) + m_
+    keep = np.array([way_m.get(wy, 0.0) >= MIN_WAY_M for wy in ways]) & inside
+    ok = (a >= 0) & (b >= 0) & keep
+    lo = np.minimum(a, b)
+    D["e_map_roads"] = (int(len(set(ways[keep]))), int(len(set(ways[inside]))))
+    for c0, c1, f, txt in LEAVE_CLASSES[::-1]:
+        sel = ok & (lo >= c0) & (lo < c1)
+        col = LineCollection(segs[sel], colors=S.tint(S.BLUE, f), linewidths=3.0, zorder=2, capstyle="round")
+        col.set_gid(f"bg:leave by {txt}")
+        ax.add_collection(col)
+    ax.plot(route[:, 0], route[:, 1], color=S.PAPER, lw=5.4, solid_capstyle="round", zorder=3)[0].set_gid("bg:h")
+    ax.plot(route[:, 0], route[:, 1], color=S.INK, lw=2.4, solid_capstyle="round", zorder=4)[0].set_gid("bg:route")
+    ax.plot([o[0]], [o[1]], marker="o", ms=10, mfc=S.INK, mec=S.PAPER, mew=1.4, zorder=5)[0].set_gid("bg:village")
+    ax.plot([sh[0]], [sh[1]], marker="s", ms=10, mfc=S.PAPER, mec=S.INK, mew=1.4, zorder=5)[0].set_gid("bg:shelter")
+    bbox = dict(boxstyle="square,pad=0.15", facecolor=S.PAPER, edgecolor="none", alpha=0.9)
+    ax.annotate(D["name_en"], xy=o, xytext=(0, 8), textcoords="offset points", ha="center", va="bottom",
+                fontsize=S.PT_TEXT, bbox=bbox, zorder=6)
+    ax.annotate(f"{D['shelter_cat']} shelter", xy=sh, xytext=(-12, -12), textcoords="offset points", ha="right",
+                va="top", fontsize=S.PT_TEXT, bbox=bbox, zorder=6)
+    D["e_map_mid"] = ym + mh / 2
+    yl = ym + mh + 0.3
+    label(fig, x0, yl, "Leave by:")
+    yl += 0.4
+    for i, (c0, c1, f, txt) in enumerate(LEAVE_CLASSES):
+        col_, row = i % 2, i // 2
+        xx = x0 + col_ * 1.85
+        kax = axes_in(fig, xx, yl + row * 0.4 - 0.13, 0.32, 0.26, picture=False)
+        kax.set_xlim(0, 1)
+        kax.set_ylim(0, 1)
+        kax.axis("off")
+        kax.plot([0, 1], [0.5, 0.5], color=S.tint(S.BLUE, f), lw=3.0, solid_capstyle="butt")[0].set_gid("bg:key")
+        label(fig, xx + 0.4, yl + row * 0.4, txt)
+    D["e_bottom"] = yl + 0.4
 
 
 def stage_f(fig, D):
@@ -567,7 +633,7 @@ def stage_f(fig, D):
     y = TOP + 0.62
     label(fig, x0, y - 0.22, "Card for one village")
     ch = 2.15
-    card = Rectangle((fx(x0), fy(y + ch)), w / W_FIG, ch / H_FIG, transform=fig.transFigure, facecolor=S.WHITE,
+    card = Rectangle((fx(x0), fy(y + ch)), w / W_FIG, ch / H_FIG, transform=fig.transFigure, facecolor=S.PAPER,
                      edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
     card.set_gid("box:card")
     fig.add_artist(card)
@@ -579,8 +645,8 @@ def stage_f(fig, D):
     tax.axis("off")
     k = math.cos(math.radians(route[:, 1].mean()))
     tax.plot(route[:, 0], route[:, 1], color=S.INK, lw=1.6)[0].set_gid("bg:route thumbnail")
-    tax.plot([route[0, 0]], [route[0, 1]], marker="o", ms=6, mfc=S.WHITE, mec=S.INK, mew=1.0)[0].set_gid("bg:o")
-    tax.plot([route[-1, 0]], [route[-1, 1]], marker="s", ms=6, mfc=S.SAFE, mec=S.INK, mew=0.8)[0].set_gid("bg:s")
+    tax.plot([route[0, 0]], [route[0, 1]], marker="o", ms=6, mfc=S.INK, mec=S.INK, mew=1.0)[0].set_gid("bg:o")
+    tax.plot([route[-1, 0]], [route[-1, 1]], marker="s", ms=6, mfc=S.PAPER, mec=S.INK, mew=0.8)[0].set_gid("bg:s")
     tax.set_aspect(1 / k, adjustable="datalim")
     yc = y + ch + 0.15
     ya = yc + 0.75
@@ -588,7 +654,7 @@ def stage_f(fig, D):
     label(fig, x0 + 0.58, yc + 0.35, "certificate")
     cb_h = 0.95
     chk = Rectangle((fx(x0), fy(ya + cb_h)), w / W_FIG, cb_h / H_FIG, transform=fig.transFigure,
-                    facecolor=S.WHITE, edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
+                    facecolor=S.PAPER, edgecolor=S.INK, linewidth=S.LW_THIN, zorder=-1)
     chk.set_gid("box:checker")
     fig.add_artist(chk)
     fig.text(fx(x0 + w / 2), fy(ya + cb_h / 2), "Independent\nchecker", ha="center", va="center", linespacing=1.1)
@@ -633,12 +699,18 @@ def cvd_check():
         f = np.where(n > 216 / 24389, np.cbrt(n), (24389 / 27 * n + 16) / 116)
         return np.array([116 * f[1] - 16, 500 * (f[0] - f[1]), 200 * (f[1] - f[2])])
 
-    pairs = [("SAFE", "FIRE"), ("SAFE", "LIGHT"), ("FIRE", "LIGHT"), ("SAFE", "WHITE"), ("FIRE", "WHITE"),
-             ("INK", "SAFE"), ("INK", "FIRE")]
+    C = {"blue": S.BLUE, "red": S.RED, "light grey": LIGHTG, "paper": S.PAPER, "ink": S.INK,
+         "fire area": S.tint(S.RED, 0.32)}
+    for lo_, hi_, f, txt in LEAVE_CLASSES:
+        C[f"leave by {txt}"] = S.tint(S.BLUE, f)
+    pairs = [("blue", "red"), ("blue", "light grey"), ("red", "light grey"), ("blue", "paper"), ("red", "paper"),
+             ("ink", "blue"), ("ink", "red"), ("fire area", "paper")]
+    names = [f"leave by {t}" for *_, t in LEAVE_CLASSES]
+    pairs += list(zip(names[:-1], names[1:])) + [(n, "fire area") for n in names]
     out = []
     for a, b in pairs:
         for kind in ("normal", "protan", "deutan", "tritan", "grey"):
-            ca, cb = lin(getattr(S, a)), lin(getattr(S, b))
+            ca, cb = lin(C[a]), lin(C[b])
             if kind in M:
                 ca, cb = np.clip(np.array(M[kind]) @ ca, 0, 1), np.clip(np.array(M[kind]) @ cb, 0, 1)
             if kind == "grey":
@@ -664,8 +736,8 @@ def main():
                           transform=fig.transFigure, color=S.INK, lw=S.LW_THIN)
         ln.set_gid("bracket")
         fig.add_artist(ln)
-        label(fig, x0, y - 0.25, text)
-    bracket(STAGES["b"][0], STAGES["c"][0] + STAGES["c"][1], "Forecast model, not used for roads")
+        label(fig, (x0 + x1) / 2, y - 0.25, text, ha="center")
+    bracket(STAGES["b"][0], STAGES["c"][0] + STAGES["c"][1], "Forecast model")
     bracket(STAGES["d"][0], STAGES["f"][0] + STAGES["f"][1], "Road plan from the detected fire")
     stage_a(fig, D)
     stage_b(fig, D)
@@ -701,8 +773,8 @@ def main():
     checks = {"arrows_crossing_pictures": probs, "cvd_min_deltaE": worst, "cvd_pairs": cvd,
               "smallest_text_pt": S.PT_TEXT, "smallest_text_px_at_1700px_wide": round(readable_px, 1),
               "rule": "arrows: none may cross a map, kernel, colour bar or chart; colour: every meaningful pair "
-                      "keeps deltaE >= 10 under protan/deutan/tritan simulation; in greyscale open (solid teal) and "
-                      "blocked (white with red hatching) differ by fill and hatching, not by grey level; text: at least 18 px tall when the figure is 1,700 px wide"}
+                      "keeps deltaE >= 10 under protan/deutan/tritan simulation; in greyscale open (solid blue) and "
+                      "blocked (paper with red hatching) differ by fill and hatching, not by grey level; text: at least 18 px tall when the figure is 1,700 px wide"}
     (S.CHECK / "F04_overview_checks.json").write_text(json.dumps(checks, indent=1))
     print("arrow check", "PASS" if not probs else probs)
     print("cvd min deltaE", worst, "text px at 1700", round(readable_px, 1))
@@ -710,6 +782,8 @@ def main():
     assert min(v for k_, v in worst.items() if k_ != "grey") >= 10, worst
     assert readable_px >= 18
     L.save()
+    from realmap import back_labels
+    back_labels(fig)
     save(fig, "F04_overview", caption=cap, png_dpi=300, tight=True, transparent=True)
 
 
