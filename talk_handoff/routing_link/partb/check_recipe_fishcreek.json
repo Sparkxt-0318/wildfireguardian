@@ -1,0 +1,51 @@
+{
+ "whole_cell_scenario_fuel_kg_m2": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ },
+ "reference_mapped_fuel_kg_m2": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ },
+ "reference_fuel_coverage_fraction": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ },
+ "residence_duration_s": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ },
+ "cell_burning_duration_s": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ },
+ "flame_height_m_vs_pipeline_verification": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ },
+ "fuel_vs_pipeline_verification": {
+  "n": 7519,
+  "finite_pattern_equal": true,
+  "max_abs_diff": 0.0,
+  "max_rel_diff": 0.0,
+  "exactly_equal": true
+ }
+}

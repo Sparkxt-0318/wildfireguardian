@@ -1,0 +1,1 @@
+{"trajectories_equal": true, "forecast_s": [111.8, 114.0], "duration_fields_equal": {"ground_spread_rate_m_s": true, "horizontal_spread_rate_m_s": true, "spread_direction_deg_ccw_from_x": true, "midflame_wind_m_s": true, "point_residence_s": true, "projected_width_m": true, "cell_duration_s": true, "fine_dead_moisture_percent": true}}

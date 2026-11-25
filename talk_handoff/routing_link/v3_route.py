@@ -37,8 +37,9 @@ def need(level, n):
 class Runner:
     def __init__(self, a):
         self.grid = G.Grid.from_json(a.grid)
-        self.graph, self.origins, self.exits, _ = G.build(a.osm, a.grid, "2024-08-23T00:00:00Z")
-        z = np.load(HERE / "export_v3" / "per_path.npz")
+        self.export = Path(getattr(a, "export", None) or HERE / "export_v3")
+        self.graph, self.origins, self.exits, _ = G.build(a.osm, a.grid, getattr(a, "snapshot", None) or "2024-08-23T00:00:00Z")
+        z = np.load(self.export / "per_path.npz")
         self.crit = [str(c) for c in z["criteria"]]
         self.fm = z["first_min"]
         self.lead = z["lead"]
@@ -124,7 +125,7 @@ def path_record(run, pth):
 
 
 def ensemble(run, out):
-    z = np.load(HERE / "export_v3" / "counts.npz")
+    z = np.load(run.export / "counts.npz")
     crit = [str(c) for c in z["criteria"]]
     counts, n = z["counts"], int(z["n_paths"])
     first = {}
@@ -171,6 +172,8 @@ def main():
     ap.add_argument("--osm", required=True)
     ap.add_argument("--out", default=str(HERE / "out_v3"))
     ap.add_argument("--shard", default="0/1")
+    ap.add_argument("--export", help="per-path export folder (default export_v3, Part A)")
+    ap.add_argument("--snapshot", help="OSM snapshot date of the fire's cutoff (default 2024-08-23T00:00:00Z, Part A)")
     ap.add_argument("--merge", action="store_true")
     a = ap.parse_args()
     out = Path(a.out)
@@ -189,7 +192,7 @@ def main():
     for f in sorted(out.glob("shard_*.json")):
         P.update(json.loads(f.read_text()))
     assert sorted(int(x) for x in P) == list(range(n)), "shards incomplete"
-    S = {"protocol": "PROTOCOL_v3.md Part A", "n_paths": n, "paths": P, "ensemble": ensemble(run, out)}
+    S = {"protocol": "PROTOCOL_v3.md Part A" if a.export is None else "PROTOCOL_v3.md Part B (Amendment 1)", "export": str(run.export), "n_paths": n, "paths": P, "ensemble": ensemble(run, out)}
     T = {}
     for aud in ("residents", "responders", "residents_surface_only", "responders_surface_only"):
         recs = [P[str(i)][aud] for i in range(n)]

@@ -27,19 +27,46 @@ CRIT = ("contact", "wholecell", "h1_res", "h1_resp", "fed10", "fed30", "co", "ac
         "h1_res_s", "h1_resp_s", "fed10_s", "co_s", "acrolein_s", "hcn_s")
 
 
-def setup():
-    """The v1 inputs (export_fishcreek.py), also returning the duration estimate and its Rothermel inputs."""
+def partb_reference(event, cutoff, region_dir):
+    """PROTOCOL_v3 Amendment 1 item 4: the Fish Creek reference structure, rebuilt for another fire by the archive's
+    recipe (partb_inputs.py, checked to reproduce the Fish Creek arrays exactly) and Fish Creek's parameter values."""
+    import json as _json
+    from types import SimpleNamespace
+    import rasterio
+    from wildfire import AffineGrid, HeatSmokeParameters
+    from demonstration.flame_danger import reference_inputs as RI
+    import partb_inputs as PI
+    sel_fc = _json.loads((RI.BASE / "fishcreek_reference.json").read_text())
+    with rasterio.open(Path(region_dir) / "fuel" / "landfire_2016_fbfm40_375m.tif") as ds:
+        codes = ds.read(1).astype(float)
+        grid = AffineGrid(tuple(float(v) for v in tuple(ds.transform)[:6]))
+        epsg = ds.crs.to_epsg()
+    b = PI.build(region_dir, grid, codes.shape, epsg)
+    parameters = HeatSmokeParameters.from_fuel_models(codes, grid=grid, values=sel_fc["physical_parameters"]["values"],
+                                                      provenance={"selection": "Fish Creek values reused for Part B (PROTOCOL_v3 Amendment 1 item 4)"})
+    selection = {"event": event, "cutoff_utc": cutoff, "live_moisture_reference": sel_fc["live_moisture_reference"],
+                 "initial_arrival_uncertainty": sel_fc["initial_arrival_uncertainty"]}
+    return SimpleNamespace(parameters=parameters, fuel_load_kg_m2=b["fuel_kg_m2"], flame_height_m=b["flame_height_m"],
+                           archive={"residence_duration_s": np.asarray(b["residence"].duration_s, float),
+                                    "cell_burning_duration_s": np.asarray(b["cell"].duration_s, float)},
+                           cell_duration_provenance=b["cell"].provenance_dict(), selection=selection)
+
+
+def setup(event=None, cutoff=None, data_root=None, region_dir=None):
+    """The v1 inputs (export_fishcreek.py), also returning the duration estimate and its Rothermel inputs.
+    With event/cutoff/data_root/region_dir (Part B), the same construction for another fire (Amendment 1)."""
     from wildfire import (CellBurningDuration, FlameResidenceTime, EnvironmentalCellDuration, LiveFuelMoisture,
                           HeatSmokeHazards, load_data, load_model)
     from wildfire.environmental_duration import DURATION_SOURCE_CHANNELS
     from wildfire.schema import TRAINING_SOURCE_CHANNELS, HAZARD_SOURCE_CHANNELS
     from demonstration.flame_danger.reference_inputs import load_reference_inputs
 
-    reference = load_reference_inputs()
+    reference = load_reference_inputs() if event is None else partb_reference(event, cutoff, region_dir)
     parameters, archive, previous = reference.parameters, reference.archive, reference.selection
     model = load_model(device="cpu")
     channels = tuple(dict.fromkeys(TRAINING_SOURCE_CHANNELS + HAZARD_SOURCE_CHANNELS + DURATION_SOURCE_CHANNELS))
-    with load_data(events=[previous["event"]], channels=channels, sequence_length=1, patch_size=None,
+    root_kw = {} if data_root is None else {"data_root": data_root}
+    with load_data(**root_kw, events=[previous["event"]], channels=channels, sequence_length=1, patch_size=None,
                    time_range=(previous["cutoff_utc"], previous["cutoff_utc"]), daily_policy="completed_day") as ds:
         sample = ds[0]
     for key in ("future_labels", "newly_burned_area", "future_burned_area", "next_burned_area"):
@@ -60,7 +87,8 @@ def setup():
     environment = est.environment
     residence, cell_duration = est.resolve(
         fallback_residence_time=FlameResidenceTime(archive["residence_duration_s"],
-            {"source": "previously user-selected archived Fish Creek point-duration fallback for this example only"}),
+            {"source": "previously user-selected archived Fish Creek point-duration fallback for this example only" if event is None
+                                else "Part B: FBFM40 point residence by the archive's recipe (Amendment 1 item 4)"}),
         fallback_cell_burning_duration=CellBurningDuration(archive["cell_burning_duration_s"],
                                                            reference.cell_duration_provenance))
     front = np.where(est.resolved, (est.fields["spread_direction_deg_ccw_from_x"] + 90.) % 360.,
@@ -125,6 +153,9 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--v2-co-paths", default=str(HERE / "export_v2" / "co_paths"))
     ap.add_argument("--limit-paths", type=int, default=0, help="smoke test only")
+    ap.add_argument("--event", help="Part B: another fire (Amendment 1); default Fish Creek as in Part A")
+    ap.add_argument("--cutoff", help="Part B: the fire's first runnable cutoff, e.g. 2021-07-14T00:00:00Z")
+    ap.add_argument("--data-root", help="Part B: data folder holding the fire (read only)")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -136,7 +167,8 @@ def main():
     from wildfire.crown_fire import surface_fireline_intensity_kw_m, critical_crown_intensity_kw_m
     import osm_graph as G
 
-    S = setup()
+    snapshot = a.cutoff or "2024-08-23T00:00:00Z"
+    S = setup() if a.event is None else setup(a.event, a.cutoff, a.data_root, Path(a.fuel).parent)
     fronts, real = [], PH.SolidFlameFront
 
     def recorder(*args, **kw):
@@ -174,7 +206,8 @@ def main():
     surf_front_of = {int(s): surf_fronts[i] for i, s in enumerate(which)}
     grid = G.Grid.from_json(a.grid)
     rows, cols = np.divmod(src, nx)
-    checks = {"protocol": "PROTOCOL_v3.md Part A"}
+    checks = {"protocol": "PROTOCOL_v3.md Part A" if a.event is None else "PROTOCOL_v3.md Part B (Amendment 1)",
+              "event": a.event or "WY-BTF-002416_FishCreek", "cutoff_utc": snapshot}
 
     # ---------- section 3: spread direction and rate per source cell ----------
     est = S["est"]
@@ -194,7 +227,7 @@ def main():
     checks["surface_spread_rate_m_s"] = {"min": float(r_surf.min()), "median": float(np.median(r_surf)), "max": float(r_surf.max())}
 
     # ---------- section 4: crown fire ----------
-    canopy = CanopyStructure.from_unit_rasters(a.fuel, grid=support.activity.grid, shape=shape, epsg=5070)
+    canopy = CanopyStructure.from_unit_rasters(a.fuel, grid=support.activity.grid, shape=shape, epsg=G.Grid.from_json(a.grid).epsg)
     cbd = np.asarray(canopy.bulk_density_kg_m3, float)
     cbh = np.asarray(canopy.base_height_m, float)
     chh = np.asarray(canopy.height_m, float)
@@ -273,7 +306,7 @@ def main():
         crown_E = np.zeros(len(src))
 
     # ---------- road points (5 m, terrain-plane receivers, Amendment 5) ----------
-    graph, _, _, _ = G.build(a.osm, a.grid, "2024-08-23T00:00:00Z")
+    graph, _, _, _ = G.build(a.osm, a.grid, snapshot)
     xy = {nd["id"]: (nd["x"], nd["y"]) for nd in graph["nodes"]}
     road_mask = np.zeros(shape, bool)
     pieces, seen = [], set()
