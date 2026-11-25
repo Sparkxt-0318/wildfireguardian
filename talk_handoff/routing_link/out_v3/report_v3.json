@@ -1,0 +1,502 @@
+{
+ "n_paths": 1024,
+ "n_road_cells": 1293,
+ "per_criterion": {
+  "contact": {
+   "paths_with_any_road_cell": 245,
+   "road_cells_per_path": {
+    "n": 245,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 1.0,
+    "max": 3.0
+   },
+   "road_cells_total": 270,
+   "paths_with_a_road_cell_before_contact": 0,
+   "road_cells_before_contact_total": 0,
+   "road_cells_before_contact_and_never_contacted": 0
+  },
+  "wholecell": {
+   "paths_with_any_road_cell": 281,
+   "road_cells_per_path": {
+    "n": 281,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 1.0,
+    "max": 3.0
+   },
+   "road_cells_total": 319,
+   "paths_with_a_road_cell_before_contact": 272,
+   "road_cells_before_contact_total": 308,
+   "road_cells_before_contact_and_never_contacted": 49
+  },
+  "h1_res": {
+   "paths_with_any_road_cell": 253,
+   "road_cells_per_path": {
+    "n": 253,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 2.0,
+    "p75": 2.0,
+    "max": 4.0
+   },
+   "road_cells_total": 426,
+   "paths_with_a_road_cell_before_contact": 241,
+   "road_cells_before_contact_total": 328,
+   "road_cells_before_contact_and_never_contacted": 156
+  },
+  "h1_resp": {
+   "paths_with_any_road_cell": 245,
+   "road_cells_per_path": {
+    "n": 245,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 2.0,
+    "max": 3.0
+   },
+   "road_cells_total": 324,
+   "paths_with_a_road_cell_before_contact": 115,
+   "road_cells_before_contact_total": 124,
+   "road_cells_before_contact_and_never_contacted": 56
+  },
+  "fed10": {
+   "paths_with_any_road_cell": 266,
+   "road_cells_per_path": {
+    "n": 266,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 2.0,
+    "p75": 2.0,
+    "max": 4.0
+   },
+   "road_cells_total": 443,
+   "paths_with_a_road_cell_before_contact": 254,
+   "road_cells_before_contact_total": 345,
+   "road_cells_before_contact_and_never_contacted": 173
+  },
+  "fed30": {
+   "paths_with_any_road_cell": 276,
+   "road_cells_per_path": {
+    "n": 276,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 2.0,
+    "p75": 2.0,
+    "max": 4.0
+   },
+   "road_cells_total": 460,
+   "paths_with_a_road_cell_before_contact": 264,
+   "road_cells_before_contact_total": 361,
+   "road_cells_before_contact_and_never_contacted": 190
+  },
+  "co": {
+   "paths_with_any_road_cell": 273,
+   "road_cells_per_path": {
+    "n": 273,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 1.0,
+    "max": 3.0
+   },
+   "road_cells_total": 308,
+   "paths_with_a_road_cell_before_contact": 194,
+   "road_cells_before_contact_total": 210,
+   "road_cells_before_contact_and_never_contacted": 41
+  },
+  "acrolein": {
+   "paths_with_any_road_cell": 294,
+   "road_cells_per_path": {
+    "n": 294,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 1.0,
+    "max": 3.0
+   },
+   "road_cells_total": 334,
+   "paths_with_a_road_cell_before_contact": 218,
+   "road_cells_before_contact_total": 235,
+   "road_cells_before_contact_and_never_contacted": 64
+  },
+  "hcn": {
+   "paths_with_any_road_cell": 0,
+   "road_cells_per_path": null,
+   "road_cells_total": 0,
+   "paths_with_a_road_cell_before_contact": 0,
+   "road_cells_before_contact_total": 0,
+   "road_cells_before_contact_and_never_contacted": 0
+  },
+  "h1_res_s": {
+   "paths_with_any_road_cell": 250,
+   "road_cells_per_path": {
+    "n": 250,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 2.0,
+    "p75": 2.0,
+    "max": 4.0
+   },
+   "road_cells_total": 400,
+   "paths_with_a_road_cell_before_contact": 221,
+   "road_cells_before_contact_total": 302,
+   "road_cells_before_contact_and_never_contacted": 130
+  },
+  "h1_resp_s": {
+   "paths_with_any_road_cell": 244,
+   "road_cells_per_path": {
+    "n": 244,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 2.0,
+    "max": 3.0
+   },
+   "road_cells_total": 323,
+   "paths_with_a_road_cell_before_contact": 105,
+   "road_cells_before_contact_total": 113,
+   "road_cells_before_contact_and_never_contacted": 56
+  },
+  "fed10_s": {
+   "paths_with_any_road_cell": 264,
+   "road_cells_per_path": {
+    "n": 264,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 2.0,
+    "p75": 2.0,
+    "max": 4.0
+   },
+   "road_cells_total": 418,
+   "paths_with_a_road_cell_before_contact": 236,
+   "road_cells_before_contact_total": 320,
+   "road_cells_before_contact_and_never_contacted": 148
+  },
+  "co_s": {
+   "paths_with_any_road_cell": 273,
+   "road_cells_per_path": {
+    "n": 273,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 1.0,
+    "max": 3.0
+   },
+   "road_cells_total": 307,
+   "paths_with_a_road_cell_before_contact": 194,
+   "road_cells_before_contact_total": 210,
+   "road_cells_before_contact_and_never_contacted": 41
+  },
+  "acrolein_s": {
+   "paths_with_any_road_cell": 273,
+   "road_cells_per_path": {
+    "n": 273,
+    "min": 1.0,
+    "p25": 1.0,
+    "median": 1.0,
+    "p75": 1.0,
+    "max": 3.0
+   },
+   "road_cells_total": 308,
+   "paths_with_a_road_cell_before_contact": 194,
+   "road_cells_before_contact_total": 210,
+   "road_cells_before_contact_and_never_contacted": 41
+  },
+  "hcn_s": {
+   "paths_with_any_road_cell": 0,
+   "road_cells_per_path": null,
+   "road_cells_total": 0,
+   "paths_with_a_road_cell_before_contact": 0,
+   "road_cells_before_contact_total": 0,
+   "road_cells_before_contact_and_never_contacted": 0
+  }
+ },
+ "attribution": {
+  "residents": {
+   "path_cells_flame": 98,
+   "path_cells_heat": 308,
+   "path_cells_gas": 75,
+   "paths_with_heat_cause": 234,
+   "paths_with_gas_cause": 73,
+   "paths_with_heat_or_gas_cause": 284,
+   "distinct_road_cells_heat": 7,
+   "distinct_road_cells_gas": 8,
+   "heat_minutes_before_contact": {
+    "n": 142,
+    "min": 4.0,
+    "p25": 21.0,
+    "median": 22.0,
+    "p75": 38.0,
+    "max": 239.0
+   },
+   "gas_minutes_before_contact": {
+    "n": 30,
+    "min": 32.0,
+    "p25": 46.0,
+    "median": 181.0,
+    "p75": 181.0,
+    "max": 242.0
+   },
+   "heat_cells_never_contacted": 166,
+   "gas_cells_never_contacted": 45,
+   "heat_lead_distance_m": {
+    "n": 292,
+    "min": 1.3957760334014893,
+    "p25": 5.566189169883728,
+    "median": 9.204453468322754,
+    "p75": 17.220356941223145,
+    "max": 40.886104583740234
+   },
+   "heat_lead_minutes_at_point": {
+    "n": 140,
+    "min": 1.0,
+    "p25": 2.0,
+    "median": 3.0,
+    "p75": 3.0,
+    "max": 272.0
+   },
+   "heat_lead_point_never_contacted": 152
+  },
+  "residents_surface_only": {
+   "path_cells_flame": 98,
+   "path_cells_heat": 179,
+   "path_cells_gas": 159,
+   "paths_with_heat_cause": 159,
+   "paths_with_gas_cause": 147,
+   "paths_with_heat_or_gas_cause": 247,
+   "distinct_road_cells_heat": 8,
+   "distinct_road_cells_gas": 8,
+   "heat_minutes_before_contact": {
+    "n": 51,
+    "min": 4.0,
+    "p25": 7.0,
+    "median": 20.0,
+    "p75": 37.0,
+    "max": 239.0
+   },
+   "gas_minutes_before_contact": {
+    "n": 121,
+    "min": 20.0,
+    "p25": 21.0,
+    "median": 37.0,
+    "p75": 37.0,
+    "max": 235.0
+   },
+   "heat_cells_never_contacted": 128,
+   "gas_cells_never_contacted": 38
+  },
+  "responders": {
+   "path_cells_flame": 98,
+   "path_cells_heat": 308,
+   "path_cells_gas": 75,
+   "paths_with_heat_cause": 234,
+   "paths_with_gas_cause": 73,
+   "paths_with_heat_or_gas_cause": 284,
+   "distinct_road_cells_heat": 7,
+   "distinct_road_cells_gas": 8,
+   "heat_minutes_before_contact": {
+    "n": 142,
+    "min": 4.0,
+    "p25": 21.0,
+    "median": 22.0,
+    "p75": 38.0,
+    "max": 239.0
+   },
+   "gas_minutes_before_contact": {
+    "n": 30,
+    "min": 32.0,
+    "p25": 46.0,
+    "median": 181.0,
+    "p75": 181.0,
+    "max": 242.0
+   },
+   "heat_cells_never_contacted": 166,
+   "gas_cells_never_contacted": 45,
+   "heat_lead_distance_m": {
+    "n": 195,
+    "min": 0.047486916184425354,
+    "p25": 0.9669136703014374,
+    "median": 2.527907371520996,
+    "p75": 5.546539783477783,
+    "max": 16.611324310302734
+   },
+   "heat_lead_minutes_at_point": {
+    "n": 142,
+    "min": 0.0,
+    "p25": 0.0,
+    "median": 0.0,
+    "p75": 1.0,
+    "max": 92.0
+   },
+   "heat_lead_point_never_contacted": 53
+  },
+  "responders_surface_only": {
+   "path_cells_flame": 98,
+   "path_cells_heat": 179,
+   "path_cells_gas": 159,
+   "paths_with_heat_cause": 159,
+   "paths_with_gas_cause": 147,
+   "paths_with_heat_or_gas_cause": 247,
+   "distinct_road_cells_heat": 8,
+   "distinct_road_cells_gas": 8,
+   "heat_minutes_before_contact": {
+    "n": 51,
+    "min": 4.0,
+    "p25": 7.0,
+    "median": 20.0,
+    "p75": 37.0,
+    "max": 239.0
+   },
+   "gas_minutes_before_contact": {
+    "n": 121,
+    "min": 20.0,
+    "p25": 21.0,
+    "median": 37.0,
+    "p75": 37.0,
+    "max": 235.0
+   },
+   "heat_cells_never_contacted": 128,
+   "gas_cells_never_contacted": 38
+  }
+ },
+ "contact_vs_wholecell": {
+  "paths_contact": 245,
+  "paths_wholecell": 281,
+  "path_cells_contact": 270,
+  "path_cells_wholecell": 319,
+  "wholecell_earlier_minutes": {
+   "n": 270,
+   "min": 0.0,
+   "p25": 4.0,
+   "median": 26.0,
+   "p75": 43.0,
+   "max": 256.0
+  },
+  "wholecell_only_path_cells": 49
+ },
+ "per_path_origins": {
+  "residents": {
+   "paths_where_an_origin_changes": 0,
+   "contact_paths_with_a_cut_origin": 1
+  },
+  "responders": {
+   "paths_where_an_origin_changes": 0,
+   "contact_paths_with_a_cut_origin": 1
+  },
+  "residents_surface_only": {
+   "paths_where_an_origin_changes": 0,
+   "contact_paths_with_a_cut_origin": 1
+  },
+  "responders_surface_only": {
+   "paths_where_an_origin_changes": 0,
+   "contact_paths_with_a_cut_origin": 1
+  }
+ },
+ "reused_runs": {
+  "residents": 740,
+  "responders": 1024
+ },
+ "any_share_vs_median_fire": {
+  "residents": {
+   "heat_and_gas": {
+    "n_origins_routed": 350,
+    "n_changed": 2,
+    "earlier_by_min": [
+     90.9,
+     91.9
+    ],
+    "earlier_by_min_median": 91.4,
+    "earlier_by_min_largest": 91.9,
+    "refused": 10
+   },
+   "heat_alone": {
+    "n_origins_routed": 350,
+    "n_changed": 2,
+    "earlier_by_min": [
+     90.9,
+     91.9
+    ],
+    "earlier_by_min_median": 91.4,
+    "earlier_by_min_largest": 91.9,
+    "refused": 10
+   },
+   "gas_alone": {
+    "n_origins_routed": 350,
+    "n_changed": 2,
+    "earlier_by_min": [
+     82.9,
+     83.9
+    ],
+    "earlier_by_min_median": 83.4,
+    "earlier_by_min_largest": 83.9,
+    "refused": 10
+   },
+   "changed_origins": [
+    "junction:osm:1049814569",
+    "junction:osm:158210457"
+   ],
+   "same_origins_cut_by_flame_contact_any_path": [
+    "junction:osm:1049814569",
+    "junction:osm:158210457"
+   ]
+  },
+  "responders": {
+   "heat_and_gas": {
+    "n_origins_routed": 350,
+    "n_changed": 2,
+    "earlier_by_min": [
+     90.9,
+     91.9
+    ],
+    "earlier_by_min_median": 91.4,
+    "earlier_by_min_largest": 91.9,
+    "refused": 10
+   },
+   "heat_alone": {
+    "n_origins_routed": 350,
+    "n_changed": 2,
+    "earlier_by_min": [
+     90.9,
+     91.9
+    ],
+    "earlier_by_min_median": 91.4,
+    "earlier_by_min_largest": 91.9,
+    "refused": 10
+   },
+   "gas_alone": {
+    "n_origins_routed": 350,
+    "n_changed": 2,
+    "earlier_by_min": [
+     82.9,
+     83.9
+    ],
+    "earlier_by_min_median": 83.4,
+    "earlier_by_min_largest": 83.9,
+    "refused": 10
+   },
+   "changed_origins": [
+    "junction:osm:1049814569",
+    "junction:osm:158210457"
+   ],
+   "same_origins_cut_by_flame_contact_any_path": [
+    "junction:osm:1049814569",
+    "junction:osm:158210457"
+   ]
+  }
+ },
+ "contact_any_vs_median_fire": {
+  "n_origins_routed": 350,
+  "n_changed": 2,
+  "earlier_by_min": [
+   90.9,
+   91.9
+  ],
+  "earlier_by_min_median": 91.4,
+  "earlier_by_min_largest": 91.9,
+  "refused": 10
+ },
+ "road_layer_runs_here": 5
+}

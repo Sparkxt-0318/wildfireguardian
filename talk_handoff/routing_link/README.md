@@ -5,9 +5,13 @@
 paths ≥ 0.5, half-of-paths fire) exposure still blocks no road and changes no origin; radiant heat never reaches
 2.5 kW/m² on the 375 m grid in any path. v1 below, unchanged.
 
-**v3 (25 Nov 2026): protocol written, not run.** `PROTOCOL_v3.md`: moving flame front instead of whole-cell fire
-arrival, crown fire from the canopy layers, radiant and thermal-dose heat, CO, acrolein and HCN at AEGL-2; smoke
-visibility reported only. Part B (a second fire) waits for the user's approval.
+**v3 Part A (25 Nov 2026): done. Results in `RESULTS_v3.md`, all results in one file `RESULTS_all_v3.pdf`, figure
+`fig_v3_heat_gas.{png,svg,pdf}`.** `PROTOCOL_v3.md`: moving flame front instead of whole-cell fire arrival, crown fire
+from the canopy layers, radiant and thermal-dose heat, CO, acrolein and HCN at AEGL-2; smoke visibility reported only.
+Heat blocks a road cell before the flame in 234 of 1,024 paths, gas in 73. But no origin's last safe departure changes
+in any path, nor at the main setting, where nothing is blocked. Reproduce: `v3_export.py` (pipeline environment),
+`v3_route.py --shard i/12` then `--merge`, `v3_report.py`, `build_report_v3.py`. Part B (a second fire) waits for
+the user's approval.
 
 **v1 (25 Nov 2026): done. Results in `RESULTS.md`, figure `fig_blocked_cells.{png,svg,pdf}`.** At the protocol's
 settings exposure blocks no cell and no road on Fish Creek in hours 0–5 and changes no last safe departure (0 of 350

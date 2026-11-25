@@ -9,3 +9,4 @@
 | Road layer on Fish Creek | A script in this folder (`route.py`) runs the road layer's own engine unchanged; `product/` is not changed. | Done. |
 | Export from the pipeline | `export_fishcreek.py`; binwise radiant and CO read from the pipeline's own weighted bins (Amendment 1 item 3). | Done; output in `export_6h/`. |
 | Per-path heat and CO for all 1,024 paths (Amendment 2) | **Not needed**: about 1 s per 32 paths per hour, the full run took 5.6 min, so no 128-path subset was used. | Nothing. |
+| v3 Part A routing (1,024 paths x up to 8 road-layer runs) | Run in full in 12 processes (about 2.5 h); no subset. | Nothing. |
