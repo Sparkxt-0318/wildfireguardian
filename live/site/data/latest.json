@@ -1037,7 +1037,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-26T09:07:55Z",
+   "fetched_utc": "2026-11-26T09:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-26T09:07:55Z",
+   "fetched_utc": "2026-11-26T09:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-26T09:07:55Z",
+   "fetched_utc": "2026-11-26T09:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-26T09:07:55Z",
+   "fetched_utc": "2026-11-26T09:38:02Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1093,20 +1093,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261126/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 2559,
+   "bytes": 2603,
    "error": null,
-   "fetched_utc": "2026-11-26T09:07:54Z",
+   "fetched_utc": "2026-11-26T09:38:01Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "dfee81ec74073e32b54b17e8164ef336c6c8479aa15b868b6f3bf6b6ec123d03",
+   "sha256": "4e23847e684248a1bc574eb59d7d36f48f09eb975b6fb8aec6b786846b711fe8",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-26T09:00:00Z",
- "issue_kst": "2026-11-26 18:07",
- "issue_utc": "2026-11-26T09:07:00Z",
+ "issue_kst": "2026-11-26 18:38",
+ "issue_utc": "2026-11-26T09:38:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1170,9 +1170,9 @@
    "contained_pct": 100,
    "id": "516924",
    "in_scope": false,
-   "lat": 36.88846672361978,
+   "lat": 36.88737049542591,
    "lgdng_cd": "4482535024",
-   "lon": 126.20960333991862,
+   "lon": 126.21046969341444,
    "report_utc": "2026-11-26T08:04:58Z",
    "status": "진화완료",
    "status_code": "03",
@@ -1197,8 +1197,8 @@
    "lgdng_cd": "4372040033",
    "lon": 127.74203000000112,
    "report_utc": "2026-11-26T08:45:26Z",
-   "status": "진화중",
-   "status_code": "02",
+   "status": "산불외종료",
+   "status_code": "05",
    "step": "초기 대응"
   }
  ],
@@ -1210,12 +1210,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-26T09:07:56Z",
+  "compute_finished_utc": "2026-11-26T09:38:03Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-26T09:07:55Z",
+  "fetch_finished_utc": "2026-11-26T09:38:02Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45788983622"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45793624821"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
