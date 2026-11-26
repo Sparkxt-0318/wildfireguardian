@@ -1,0 +1,27 @@
+{
+ "event": "CA-KNF-006385_RiverComplex_RiverComplex",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 15,
+   "time_utc": 1627916400,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1899,
+ "first_burned_index": 15,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 15,
+ "cutoff_utc": "2021-08-02T15:00:00Z",
+ "shape": [
+  90,
+  138
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 92,
+ "footprint_cells": 93,
+ "valid_cells": 12420,
+ "elapsed_s": 296.0
+}

@@ -1,0 +1,27 @@
+{
+ "event": "ID-BOF-001080_Lava",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 7,
+   "time_utc": 1722495600,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2021,
+ "first_burned_index": 7,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 7,
+ "cutoff_utc": "2024-08-01T07:00:00Z",
+ "shape": [
+  85,
+  77
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 72,
+ "footprint_cells": 73,
+ "valid_cells": 6545,
+ "elapsed_s": 161.3
+}

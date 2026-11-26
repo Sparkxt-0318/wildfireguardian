@@ -1,0 +1,27 @@
+{
+ "event": "CA-PNF-001308_PNFNorthComplex",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 1,
+   "time_utc": 1597640400,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1873,
+ "first_burned_index": 1,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 1,
+ "cutoff_utc": "2020-08-17T05:00:00Z",
+ "shape": [
+  128,
+  195
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 64,
+ "footprint_cells": 65,
+ "valid_cells": 24960,
+ "elapsed_s": 853.8
+}

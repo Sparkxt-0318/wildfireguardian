@@ -1,0 +1,27 @@
+{
+ "event": "WA-OWF-000453_SchneiderSprings",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 28,
+   "time_utc": 1628136000,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1516,
+ "first_burned_index": 28,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 28,
+ "cutoff_utc": "2021-08-05T04:00:00Z",
+ "shape": [
+  91,
+  89
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 75,
+ "footprint_cells": 76,
+ "valid_cells": 8099,
+ "elapsed_s": 204.3
+}

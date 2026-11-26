@@ -1,0 +1,27 @@
+{
+ "event": "OR-WIF-220180_CedarCreek",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 24,
+   "time_utc": 1659657600,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2063,
+ "first_burned_index": 24,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 24,
+ "cutoff_utc": "2022-08-05T00:00:00Z",
+ "shape": [
+  95,
+  112
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 77,
+ "footprint_cells": 78,
+ "valid_cells": 10640,
+ "elapsed_s": 247.3
+}

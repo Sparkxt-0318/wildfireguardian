@@ -1,0 +1,27 @@
+{
+ "event": "CA-MNF-000753_AugustComplex",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 22,
+   "time_utc": 1597788000,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1924,
+ "first_burned_index": 22,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 22,
+ "cutoff_utc": "2020-08-18T22:00:00Z",
+ "shape": [
+  355,
+  210
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 122,
+ "footprint_cells": 123,
+ "valid_cells": 74550,
+ "elapsed_s": 2386.2
+}

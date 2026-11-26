@@ -1,0 +1,27 @@
+{
+ "event": "MT-BDF-006269_AlderCreek",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 36,
+   "time_utc": 1626004800,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2139,
+ "first_burned_index": 36,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 36,
+ "cutoff_utc": "2021-07-11T12:00:00Z",
+ "shape": [
+  52,
+  73
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 71,
+ "footprint_cells": 72,
+ "valid_cells": 3796,
+ "elapsed_s": 100.5
+}

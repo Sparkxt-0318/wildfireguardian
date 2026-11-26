@@ -1,0 +1,27 @@
+{
+ "event": "CA-BTU-009205_Dixie",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 19,
+   "time_utc": 1626289200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2211,
+ "first_burned_index": 19,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 19,
+ "cutoff_utc": "2021-07-14T19:00:00Z",
+ "shape": [
+  318,
+  309
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 48,
+ "footprint_cells": 49,
+ "valid_cells": 98262,
+ "elapsed_s": 3053.9
+}

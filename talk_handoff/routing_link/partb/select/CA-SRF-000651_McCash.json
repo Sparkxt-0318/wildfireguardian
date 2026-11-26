@@ -1,0 +1,27 @@
+{
+ "event": "CA-SRF-000651_McCash",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 1,
+   "time_utc": 1627822800,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1913,
+ "first_burned_index": 1,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 1,
+ "cutoff_utc": "2021-08-01T13:00:00Z",
+ "shape": [
+  93,
+  85
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 85,
+ "footprint_cells": 86,
+ "valid_cells": 7905,
+ "elapsed_s": 194.9
+}

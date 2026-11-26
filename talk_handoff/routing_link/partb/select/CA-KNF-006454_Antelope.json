@@ -1,0 +1,27 @@
+{
+ "event": "CA-KNF-006454_Antelope",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 9,
+   "time_utc": 1627981200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1136,
+ "first_burned_index": 9,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 9,
+ "cutoff_utc": "2021-08-03T09:00:00Z",
+ "shape": [
+  129,
+  134
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 63,
+ "footprint_cells": 64,
+ "valid_cells": 17286,
+ "elapsed_s": 498.2
+}

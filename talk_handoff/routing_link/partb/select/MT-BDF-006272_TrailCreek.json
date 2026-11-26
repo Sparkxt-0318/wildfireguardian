@@ -1,0 +1,27 @@
+{
+ "event": "MT-BDF-006272_TrailCreek",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 7,
+   "time_utc": 1625900400,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2164,
+ "first_burned_index": 7,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 7,
+ "cutoff_utc": "2021-07-10T07:00:00Z",
+ "shape": [
+  63,
+  77
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 88,
+ "footprint_cells": 89,
+ "valid_cells": 4851,
+ "elapsed_s": 120.6
+}

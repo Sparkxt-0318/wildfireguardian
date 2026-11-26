@@ -1,0 +1,27 @@
+{
+ "event": "OR-UPF-000265_Jack",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 10,
+   "time_utc": 1625565600,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2092,
+ "first_burned_index": 10,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 10,
+ "cutoff_utc": "2021-07-06T10:00:00Z",
+ "shape": [
+  89,
+  54
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 74,
+ "footprint_cells": 75,
+ "valid_cells": 4806,
+ "elapsed_s": 118.6
+}

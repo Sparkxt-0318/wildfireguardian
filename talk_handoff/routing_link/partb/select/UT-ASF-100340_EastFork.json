@@ -1,0 +1,27 @@
+{
+ "event": "UT-ASF-100340_EastFork",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 53,
+   "time_utc": 1598245200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1851,
+ "first_burned_index": 53,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 53,
+ "cutoff_utc": "2020-08-24T05:00:00Z",
+ "shape": [
+  103,
+  95
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 86,
+ "footprint_cells": 87,
+ "valid_cells": 9785,
+ "elapsed_s": 239.0
+}

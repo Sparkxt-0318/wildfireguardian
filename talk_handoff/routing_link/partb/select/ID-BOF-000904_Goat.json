@@ -1,0 +1,27 @@
+{
+ "event": "ID-BOF-000904_Goat",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 35,
+   "time_utc": 1723374000,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1784,
+ "first_burned_index": 35,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 35,
+ "cutoff_utc": "2024-08-11T11:00:00Z",
+ "shape": [
+  68,
+  73
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 84,
+ "footprint_cells": 85,
+ "valid_cells": 4964,
+ "elapsed_s": 127.3
+}

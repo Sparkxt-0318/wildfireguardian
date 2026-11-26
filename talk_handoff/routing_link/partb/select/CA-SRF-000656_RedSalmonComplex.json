@@ -1,0 +1,27 @@
+{
+ "event": "CA-SRF-000656_RedSalmonComplex",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 4,
+   "time_utc": 1595908800,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2811,
+ "first_burned_index": 4,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 4,
+ "cutoff_utc": "2020-07-28T04:00:00Z",
+ "shape": [
+  95,
+  118
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 75,
+ "footprint_cells": 76,
+ "valid_cells": 11210,
+ "elapsed_s": 261.9
+}

@@ -1,0 +1,27 @@
+{
+ "event": "OR-UMF-000659_GreenRidge",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 38,
+   "time_utc": 1625925600,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2116,
+ "first_burned_index": 38,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 38,
+ "cutoff_utc": "2021-07-10T14:00:00Z",
+ "shape": [
+  50,
+  72
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 66,
+ "footprint_cells": 67,
+ "valid_cells": 3600,
+ "elapsed_s": 55.4
+}

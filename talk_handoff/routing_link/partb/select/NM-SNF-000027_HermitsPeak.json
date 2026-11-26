@@ -1,0 +1,27 @@
+{
+ "event": "NM-SNF-000027_HermitsPeak",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 1,
+   "time_utc": 1649329200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2346,
+ "first_burned_index": 1,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 1,
+ "cutoff_utc": "2022-04-07T11:00:00Z",
+ "shape": [
+  200,
+  107
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 31,
+ "footprint_cells": 32,
+ "valid_cells": 21400,
+ "elapsed_s": 704.6
+}

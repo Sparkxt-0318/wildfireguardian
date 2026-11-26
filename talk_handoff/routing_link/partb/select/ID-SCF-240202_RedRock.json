@@ -1,0 +1,27 @@
+{
+ "event": "ID-SCF-240202_RedRock",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 34,
+   "time_utc": 1725012000,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1396,
+ "first_burned_index": 34,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 34,
+ "cutoff_utc": "2024-08-30T10:00:00Z",
+ "shape": [
+  62,
+  126
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 65,
+ "footprint_cells": 66,
+ "valid_cells": 7812,
+ "elapsed_s": 190.0
+}

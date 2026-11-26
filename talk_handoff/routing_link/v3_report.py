@@ -59,7 +59,7 @@ def causes(fm, crit, heat_names, gas_names):
     return flame, h, g, contact, heat, gas
 
 
-def figure(run, n_heat, n_gas, n_contact, bars, stem, n_paths):
+def figure(run, n_heat, n_gas, n_contact, bars, stem, n_paths, label="Fish Creek, cutoff 2024-08-23", n_routed=350):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -118,8 +118,8 @@ def figure(run, n_heat, n_gas, n_contact, bars, stem, n_paths):
     bx.set_yticks(y)
     bx.set_yticklabels(labels, fontsize=7, color=INK)
     bx.set_xlim(0, max(3, max(vals) + 3.2))
-    bx.set_xlabel("origins whose last safe departure changes (of 350 routed)", color=GREY, fontsize=8)
-    fig.text(0.01, 0.006, "Fish Creek, cutoff 2024-08-23, 6 h horizon, %d paths  ·  residents: 2.5 kW/m², FED 0.3 in 10 min, "
+    bx.set_xlabel("origins whose last safe departure changes (of %d routed)" % n_routed, color=GREY, fontsize=8)
+    fig.text(0.01, 0.006, label + ", 6 h horizon, %d paths  ·  residents: 2.5 kW/m², FED 0.3 in 10 min, "
              "AEGL-2 CO/acrolein/HCN  ·  marker size: number of paths" % n_paths, color=GREY, fontsize=6)
     fig.tight_layout()
     for ext_ in ("png", "svg", "pdf"):
@@ -131,12 +131,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grid", required=True)
     ap.add_argument("--osm", required=True)
+    ap.add_argument("--export", help="per-path export folder (default export_v3, Part A)")
+    ap.add_argument("--out-dir", help="routing output folder (default out_v3, Part A)")
+    ap.add_argument("--snapshot", help="OSM snapshot date (default 2024-08-23T00:00:00Z, Part A)")
+    ap.add_argument("--fig", help="figure stem (default fig_v3_heat_gas)")
+    ap.add_argument("--label", default="Fish Creek, cutoff 2024-08-23")
     a = ap.parse_args()
-    a.out = str(HERE / "out_v3")
+    od = Path(a.out_dir) if a.out_dir else HERE / "out_v3"
+    a.out = str(od)
     run = RT.Runner(a)
     crit, fm = run.crit, run.fm
     n = fm.shape[0]
-    S = json.loads((HERE / "out_v3" / "summary_v3.json").read_text())
+    S = json.loads((od / "summary_v3.json").read_text())
     R = {"n_paths": n, "n_road_cells": int(fm.shape[2]), "per_criterion": per_criterion(fm, crit)}
 
     # attribution per audience, full and surface only (counts of path x road cell)
@@ -180,7 +186,7 @@ def main():
     R["reused_runs"] = {k: sum(1 for r in P.values() if r[k]["reused"]) for k in ("residents", "responders")}
 
     # section 8 item 3 for the one pairing that changes origins: share 'any' against the median fire
-    z = np.load(HERE / "export_v3" / "counts.npz")
+    z = np.load(run.export / "counts.npz")
     counts = z["counts"]
     cr = [str(x) for x in z["criteria"]]
     first = lambda i, k: np.where((counts[i] >= k).any(axis=0), np.argmax(counts[i] >= k, axis=0).astype(float), np.inf)
@@ -206,20 +212,35 @@ def main():
     R["any_share_vs_median_fire"] = pair
     R["contact_any_vs_median_fire"] = origin_changes(L0, rowsA, H)
     R["road_layer_runs_here"] = run.runs
-    (HERE / "out_v3" / "report_v3.json").write_text(json.dumps(R, indent=1))
+    (od / "report_v3.json").write_text(json.dumps(R, indent=1))
 
     E = S["ensemble"]["runs"]
     pp = R["per_path_origins"]
-    bars = [("each path alone, residents", 0 if not pp["residents"]["paths_where_an_origin_changes"] else -1, "in 0 of 1,024 paths"),
-            ("each path alone, responders", 0 if not pp["responders"]["paths_where_an_origin_changes"] else -1, "in 0 of 1,024 paths"),
-            ("ensemble: share 0.5, fire 0.5 (main)", E["p50_firep50_residents"]["origins"]["n_changed"], "no road cell blocked"),
-            ("ensemble: share 0.1, fire 0.5", E["p10_firep50_residents"]["origins"]["n_changed"], ""),
-            ("ensemble: share 0.9, fire 0.5", E["p90_firep50_residents"]["origins"]["n_changed"], ""),
+    def per_path_bar(aud):
+        ch = [r[aud]["origins"]["n_changed"] for r in P.values()]
+        k = sum(1 for c in ch if c)
+        return ("each path alone, %s (largest)" % aud, max(ch), "changes in %d of %s paths" % (k, "{:,}".format(n)))
+
+    def main_note(key):
+        return "no road cell blocked" if E[key]["road_cells_blocked"] == 0 else ""
+
+    anyr = E["any_firep50_residents"]["origins"]
+    flame_any = R["contact_any_vs_median_fire"]
+    if anyr["n_changed"]:
+        same = anyr["earlier_by_min"] == flame_any["earlier_by_min"]
+        any_note = "%.0f min earlier (median);\n%s" % (anyr["earlier_by_min_median"],
+                   "flame alone (any path)\ngives the same" if same else
+                   "flame alone (any path):\n%d origins" % flame_any["n_changed"])
+    else:
+        any_note = ""
+    bars = [per_path_bar("residents"), per_path_bar("responders"),
+            ("ensemble: share 0.5, fire 0.5 (main)", E["p50_firep50_residents"]["origins"]["n_changed"], main_note("p50_firep50_residents")),
+            ("ensemble: share 0.1, fire 0.5", E["p10_firep50_residents"]["origins"]["n_changed"], main_note("p10_firep50_residents")),
+            ("ensemble: share 0.9, fire 0.5", E["p90_firep50_residents"]["origins"]["n_changed"], main_note("p90_firep50_residents")),
             ("ensemble: any path, fire any path", E["any_fireany_residents"]["origins"]["n_changed"], ""),
-            ("ensemble: any path, fire 0.5", E["any_firep50_residents"]["origins"]["n_changed"],
-             "%.0f min earlier;\nflame alone (any path)\ngives the same" % E["any_firep50_residents"]["origins"]["earlier_by_min_median"])]
+            ("ensemble: any path, fire 0.5", anyr["n_changed"], any_note)]
     assert all(b[1] >= 0 for b in bars)
-    figure(run, n_heat, n_gas, n_contact, bars, HERE / "fig_v3_heat_gas", n)
+    figure(run, n_heat, n_gas, n_contact, bars, Path(a.fig) if a.fig else HERE / "fig_v3_heat_gas", n, a.label, E["p50_firep50_residents"]["origins"]["n_origins_routed"])
     print(json.dumps({k: v for k, v in R.items() if k != "per_criterion"}, indent=1))
     print(json.dumps({c: {k: v for k, v in d.items() if k != "road_cells_per_path"} for c, d in R["per_criterion"].items()}, indent=1))
 

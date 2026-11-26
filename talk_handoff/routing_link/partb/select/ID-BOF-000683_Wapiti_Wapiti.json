@@ -1,0 +1,27 @@
+{
+ "event": "ID-BOF-000683_Wapiti_Wapiti",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 123,
+   "time_utc": 1722913200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2070,
+ "first_burned_index": 123,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 123,
+ "cutoff_utc": "2024-08-06T03:00:00Z",
+ "shape": [
+  111,
+  105
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 58,
+ "footprint_cells": 59,
+ "valid_cells": 11655,
+ "elapsed_s": 281.8
+}

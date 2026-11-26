@@ -1,0 +1,27 @@
+{
+ "event": "CA-SHF-001187_Monument",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 32,
+   "time_utc": 1627804800,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1850,
+ "first_burned_index": 32,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 32,
+ "cutoff_utc": "2021-08-01T08:00:00Z",
+ "shape": [
+  134,
+  108
+ ],
+ "burned_at_cutoff": 2,
+ "reached_by_any_path": 94,
+ "footprint_cells": 96,
+ "valid_cells": 14472,
+ "elapsed_s": 370.2
+}

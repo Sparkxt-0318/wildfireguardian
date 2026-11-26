@@ -1,0 +1,27 @@
+{
+ "event": "CA-SNF-001391_Creek",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 16,
+   "time_utc": 1599321600,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1688,
+ "first_burned_index": 16,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 16,
+ "cutoff_utc": "2020-09-05T16:00:00Z",
+ "shape": [
+  200,
+  151
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 72,
+ "footprint_cells": 73,
+ "valid_cells": 30200,
+ "elapsed_s": 976.5
+}

@@ -1,0 +1,27 @@
+{
+ "event": "WA-SES-000173_Pioneer",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 1,
+   "time_utc": 1718164800,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1830,
+ "first_burned_index": 1,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 1,
+ "cutoff_utc": "2024-06-12T04:00:00Z",
+ "shape": [
+  96,
+  55
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 43,
+ "footprint_cells": 44,
+ "valid_cells": 5280,
+ "elapsed_s": 126.8
+}

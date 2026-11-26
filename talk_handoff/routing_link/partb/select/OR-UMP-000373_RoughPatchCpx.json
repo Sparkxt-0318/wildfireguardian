@@ -1,0 +1,27 @@
+{
+ "event": "OR-UMP-000373_RoughPatchCpx",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 18,
+   "time_utc": 1627927200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1733,
+ "first_burned_index": 18,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 18,
+ "cutoff_utc": "2021-08-02T18:00:00Z",
+ "shape": [
+  72,
+  54
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 81,
+ "footprint_cells": 82,
+ "valid_cells": 3888,
+ "elapsed_s": 96.1
+}

@@ -1,0 +1,27 @@
+{
+ "event": "MT-LNF-000893_WestLolo",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 3,
+   "time_utc": 1625886000,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 1113,
+ "first_burned_index": 3,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 3,
+ "cutoff_utc": "2021-07-10T03:00:00Z",
+ "shape": [
+  67,
+  63
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 75,
+ "footprint_cells": 76,
+ "valid_cells": 4221,
+ "elapsed_s": 106.1
+}

@@ -1,0 +1,27 @@
+{
+ "event": "ID-SCF-022105_Moose",
+ "data_root": "/Users/jp/Desktop/wildfire/data/environment",
+ "rule": "PROTOCOL_v3 Amendment 1 item 2",
+ "tries": [
+  {
+   "index": 8,
+   "time_utc": 1658131200,
+   "ok": true
+  }
+ ],
+ "n_snapshots": 2426,
+ "first_burned_index": 8,
+ "first_burned_previous_has_none": true,
+ "status": "ok",
+ "cutoff_index": 8,
+ "cutoff_utc": "2022-07-18T08:00:00Z",
+ "shape": [
+  81,
+  113
+ ],
+ "burned_at_cutoff": 1,
+ "reached_by_any_path": 59,
+ "footprint_cells": 60,
+ "valid_cells": 9153,
+ "elapsed_s": 237.6
+}
