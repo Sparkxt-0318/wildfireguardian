@@ -1,0 +1,26 @@
+{
+ "transform": [
+  375.0,
+  0.0,
+  -2260875.0,
+  0.0,
+  -375.0,
+  2185500.0
+ ],
+ "width": 91,
+ "height": 85,
+ "epsg": 5070,
+ "offset_row": 219,
+ "offset_col": 90,
+ "full_grid": {
+  "width": 210,
+  "height": 355
+ },
+ "rule": "PROTOCOL_v3 Amendment 1 item 5: buffered footprint bounds + 10 km, snapped outward to cells, clipped to the grid",
+ "clipped_by_grid_edge": {
+  "west": false,
+  "east": false,
+  "north": false,
+  "south": false
+ }
+}

@@ -156,6 +156,8 @@ def main():
     ap.add_argument("--event", help="Part B: another fire (Amendment 1); default Fish Creek as in Part A")
     ap.add_argument("--cutoff", help="Part B: the fire's first runnable cutoff, e.g. 2021-07-14T00:00:00Z")
     ap.add_argument("--data-root", help="Part B: data folder holding the fire (read only)")
+    ap.add_argument("--window-grid", help="Part B, Amendment 1 item 5: road graph on this window of the grid (partb_window.py); "
+                                          "the pipeline still runs on the full grid")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -306,14 +308,21 @@ def main():
         crown_E = np.zeros(len(src))
 
     # ---------- road points (5 m, terrain-plane receivers, Amendment 5) ----------
-    graph, _, _, _ = G.build(a.osm, a.grid, snapshot)
+    if a.window_grid:
+        wjs = json.loads(Path(a.window_grid).read_text())
+        wgrid, (r0, c0) = G.Grid.from_json(a.window_grid), (int(wjs["offset_row"]), int(wjs["offset_col"]))
+        assert abs(wgrid.x0 - (grid.x0 + c0 * grid.res)) < 1e-6 and abs(wgrid.ytop - (grid.ytop - r0 * grid.res)) < 1e-6
+        checks["window"] = {k: wjs[k] for k in ("offset_row", "offset_col", "width", "height", "rule")}
+    else:
+        wgrid, (r0, c0) = grid, (0, 0)
+    graph, _, _, _ = G.build(a.osm, a.window_grid or a.grid, snapshot)
     xy = {nd["id"]: (nd["x"], nd["y"]) for nd in graph["nodes"]}
     road_mask = np.zeros(shape, bool)
     pieces, seen = [], set()
     for e in graph["edges"]:
         for s_ in e["segments"]:
-            r_, c_ = grid.router_to_raster(s_["cell"])
-            road_mask[r_, c_] = True
+            r_, c_ = wgrid.router_to_raster(s_["cell"])
+            road_mask[r_ + r0, c_ + c0] = True
         k = tuple(sorted((e["id"], e.get("reverse_edge") or e["id"])))
         if k not in seen:
             seen.add(k)
@@ -581,10 +590,11 @@ def main():
     checks["n_paths"] = Pn
     checks["n_road_cells"] = n_road
     checks["elapsed_s"] = time.monotonic() - t0
+    # road_row/road_col are in the routing grid (the window for Part B with --window-grid); *_full in the pipeline grid
     np.savez_compressed(out / "per_path.npz", criteria=np.array(CRIT), first_min=first_min, lead=lead,
-                        road_row=rc_r, road_col=rc_c)
+                        road_row=rc_r - r0, road_col=rc_c - c0, road_row_full=rc_r, road_col_full=rc_c)
     np.savez_compressed(out / "counts.npz", criteria=np.array(CRIT), counts=counts, n_paths=np.int64(Pn),
-                        road_row=rc_r, road_col=rc_c)
+                        road_row=rc_r - r0, road_col=rc_c - c0, road_row_full=rc_r, road_col_full=rc_c)
     (out / "checks_v3.json").write_text(json.dumps(checks, indent=1))
     print(json.dumps(checks, indent=1))
 

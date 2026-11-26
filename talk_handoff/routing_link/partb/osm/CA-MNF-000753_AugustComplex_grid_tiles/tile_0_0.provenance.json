@@ -1,0 +1,8 @@
+{
+ "query": "[out:json][timeout:600][date:\"2020-08-18T22:00:00Z\"];\n(\n  way[highway](39.25737740881231,-123.65517905278081,39.703185880209816,-123.21093909061268);\n  node[place](39.25737740881231,-123.65517905278081,39.703185880209816,-123.21093909061268);\n  nwr[amenity~\"^(shelter|fire_station|school|townhall|community_centre)$\"](39.25737740881231,-123.65517905278081,39.703185880209816,-123.21093909061268);\n  nwr[tourism~\"^(camp_site|alpine_hut)$\"](39.25737740881231,-123.65517905278081,39.703185880209816,-123.21093909061268);\n);\n(._;>;);\nout body;",
+ "endpoint": "https://overpass-api.de/api/interpreter",
+ "fetched_utc": "2026-11-26T05:53:29Z",
+ "server_timestamp_osm_base": "2026-11-26T05:32:46Z",
+ "sha256": "03c45bc0142f4cb026a39b9edfe1211c7114855519da3cea6dacf880e5edcf29",
+ "n_elements": 156859
+}

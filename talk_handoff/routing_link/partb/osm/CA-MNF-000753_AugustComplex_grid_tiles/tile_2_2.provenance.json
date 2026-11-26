@@ -1,0 +1,8 @@
+{
+ "query": "[out:json][timeout:600][date:\"2020-08-18T22:00:00Z\"];\n(\n  way[highway](40.148994351607314,-122.76669912844457,40.59480282300482,-122.32245916627645);\n  node[place](40.148994351607314,-122.76669912844457,40.59480282300482,-122.32245916627645);\n  nwr[amenity~\"^(shelter|fire_station|school|townhall|community_centre)$\"](40.148994351607314,-122.76669912844457,40.59480282300482,-122.32245916627645);\n  nwr[tourism~\"^(camp_site|alpine_hut)$\"](40.148994351607314,-122.76669912844457,40.59480282300482,-122.32245916627645);\n);\n(._;>;);\nout body;",
+ "endpoint": "https://overpass.private.coffee/api/interpreter",
+ "fetched_utc": "2026-11-26T12:14:41Z",
+ "server_timestamp_osm_base": "2026-07-24T11:04:51Z",
+ "sha256": "8e5658f5edda509607a340d1a30239df7200acc1fcfdb0894c9094516675fbac",
+ "n_elements": 186654
+}

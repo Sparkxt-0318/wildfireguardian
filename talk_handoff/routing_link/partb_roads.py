@@ -114,29 +114,47 @@ def fetch_full(ev, endpoints, tiles=3):
     for i in range(k):
         for j in range(k):
             tb = (w + (e - w) * j / k, s + (n - s) * i / k, w + (e - w) * (j + 1) / k, s + (n - s) * (i + 1) / k)
-            tf = tdir / ("tile_%d_%d.json.gz" % (i, j))
-            tp = tdir / ("tile_%d_%d.provenance.json" % (i, j))
-            if not tf.exists():
+            name = "tile_%d_%d" % (i, j)
+            parts = [(name, tb)]
+            if not (tdir / (name + ".json.gz")).exists():
                 print("tile", i, j, flush=True)
-                tp.write_text(json.dumps(fetch(tb, sel["cutoff_utc"], endpoints, tf), indent=1))
-                time.sleep(5)
-            q = json.loads(tp.read_text())
-            tiles_prov.append({"tile": [i, j], "bbox": tb, "endpoint": q["endpoint"], "sha256": q["sha256"],
-                               "n_elements": q["n_elements"], "server_timestamp_osm_base": q["server_timestamp_osm_base"]})
-            js = json.loads(gzip.decompress(tf.read_bytes()))
-            base = js
-            for el in js["elements"]:
-                merged[(el["type"], el["id"])] = el
+                try:
+                    (tdir / (name + ".provenance.json")).write_text(json.dumps(fetch(tb, sel["cutoff_utc"], endpoints, tdir / (name + ".json.gz")), indent=1))
+                    time.sleep(5)
+                except RuntimeError:
+                    # a tile the servers keep timing out on is fetched as 2 x 2 sub-tiles; the union is the same data
+                    x0, y0, x1, y1 = tb
+                    parts = [("%s_%d_%d" % (name, a2, b2), (x0 + (x1 - x0) * b2 / 2, y0 + (y1 - y0) * a2 / 2,
+                                                            x0 + (x1 - x0) * (b2 + 1) / 2, y0 + (y1 - y0) * (a2 + 1) / 2))
+                             for a2 in range(2) for b2 in range(2)]
+            if (tdir / ("%s_0_0.json.gz" % name)).exists() and not (tdir / (name + ".json.gz")).exists():
+                x0, y0, x1, y1 = tb
+                parts = [("%s_%d_%d" % (name, a2, b2), (x0 + (x1 - x0) * b2 / 2, y0 + (y1 - y0) * a2 / 2,
+                                                        x0 + (x1 - x0) * (b2 + 1) / 2, y0 + (y1 - y0) * (a2 + 1) / 2))
+                         for a2 in range(2) for b2 in range(2)]
+            for pname, pb in parts:
+                tf, tp = tdir / (pname + ".json.gz"), tdir / (pname + ".provenance.json")
+                if not tf.exists():
+                    print("sub-tile", pname, flush=True)
+                    tp.write_text(json.dumps(fetch(pb, sel["cutoff_utc"], endpoints, tf), indent=1))
+                    time.sleep(5)
+                q = json.loads(tp.read_text())
+                tiles_prov.append({"tile": pname, "bbox": pb, "endpoint": q["endpoint"], "sha256": q["sha256"],
+                                   "n_elements": q["n_elements"], "server_timestamp_osm_base": q["server_timestamp_osm_base"]})
+                js = json.loads(gzip.decompress(tf.read_bytes()))
+                base = js
+                for el in js["elements"]:
+                    merged[(el["type"], el["id"])] = el
     doc = {k2: v for k2, v in base.items() if k2 != "elements"}
     doc["elements"] = list(merged.values())
     out.write_bytes(gzip.compress(json.dumps(doc).encode()))
-    p = {"query": QUERY, "date": sel["cutoff_utc"], "bbox": "grid bounds_wgs84 %s in %dx%d tiles, merged by (type, id)" % (g["bounds_wgs84"], k, k),
+    p = {"query": QUERY, "date": sel["cutoff_utc"], "bbox": "grid bounds_wgs84 %s in %dx%d tiles (a tile the servers kept timing out on in 2x2 sub-tiles), merged by (type, id)" % (g["bounds_wgs84"], k, k),
          "tiles": tiles_prov, "n_elements": len(merged), "sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
          "endpoint": sorted({t["endpoint"] for t in tiles_prov}),
          "server_timestamp_osm_base": sorted({t["server_timestamp_osm_base"] for t in tiles_prov}),
          "event": ev, "license": "ODbL, OpenStreetMap contributors",
          "why_tiles": "the whole-grid query ran out of the server's 2 GB memory limit (remark: runtime error)",
-         "note": "whether the server applied the [date:] historical filter is not verified, as for Fish Creek"}
+         "note": "[date:] is applied by these servers: dated and undated queries differ (partb/osm_check/date_filter_check.json)"}
     (HERE / "partb" / "osm" / ("%s_grid.provenance.json" % ev)).write_text(json.dumps(p, indent=1))
     print(json.dumps({k: p[k] for k in ("endpoint", "n_elements", "server_timestamp_osm_base", "sha256")}))
 

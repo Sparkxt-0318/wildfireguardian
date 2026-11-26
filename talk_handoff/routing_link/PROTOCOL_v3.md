@@ -222,3 +222,39 @@ Nothing here changes a threshold, a level, a criterion or the selection rule.
 5. **Size.** If the chosen fire's full grid makes the per-path export or the routing infeasible within a day on this
    machine, both use the grid window around the buffered footprint plus 10 km on every side. Routing exits are where
    roads leave that window. This is stated as a deviation if used.
+
+### Amendment 2 (26 Nov 2026): Part B runs on the window of item 5. Written before any Part B exposure result
+
+**What was seen.** Only selection results (no exposure, blocking or routing result for any Part B fire):
+
+* The selection is complete (`partb/selection.json`). All 28 candidates have a runnable cutoff and a road length.
+  Amendment 1 item 2 says 27 candidates; the data hold 28 US fires other than Fish Creek, and all 28 were ranked.
+  **Choice: CA-MNF-000753 August Complex, 160.7 km** of road in the buffered footprint, cutoff 2020-08-18T22:00Z.
+  Runner-up: OR-UPF-000265 Jack, 102.1 km.
+* OSM servers: footprint queries were answered by overpass-api.de, overpass.private.coffee or overpass.kumi.systems.
+  The 10 mirror-served footprints that overpass-api.de answered again give the same road length to the metre
+  (`partb/osm_check/server_check.json`). Dated and undated queries differ (Hermits Peak 8.03 vs 8.16 km, Green Ridge
+  25.97 vs 22.46 km; `date_filter_check.json`), so the `[date:]` filter is applied. This also settles the open note
+  on Fish Creek's OSM file (same mirror).
+* August Complex's full grid (210 × 355 cells) in one Overpass query exceeds the server's 2 GB memory limit (the
+  response is empty with a "runtime error" remark; the fetch now rejects such responses). It was fetched as 3 × 3
+  tiles with the same query and merged by element id (`partb/osm/CA-MNF-000753_AugustComplex_grid.provenance.json`).
+* Size. The full-grid road graph has about 490,000 nodes and 980,000 directed edges (Fish Creek: 12,670 and 25,436).
+  One road-layer run takes 19.8 s on Fish Creek and 54 s on the item 5 window; Part A needed 1,770 runs and about
+  2.5 h of routing. The full grid is therefore not feasible within a day (`partb/window/full_grid_timing.json`
+  holds one measured full-grid run).
+
+**What is done.**
+
+1. Item 5 is used. Window: the bounding box of the 2 km buffered footprint plus 10 km on every side, snapped outward
+   to the grid's cells: 91 × 85 cells, rows 219–303 and columns 90–180 of the fire grid, not clipped by the grid
+   edge (`partb_window.py`, `partb/window/CA-MNF-000753_AugustComplex_grid.json`). The road graph, origins, exits
+   and road cells are built on the window; exits are where roads leave it. Window graph: 90,761 nodes, 181,870
+   directed edges, 14 origins (OSM populated places), 116 exits.
+2. The pipeline (forecast, flame fronts, heat, gas) runs on the full grid, unchanged; only road cells inside the
+   window are evaluated. Road cells map to the full grid by the window's row and column offset.
+3. The window graph built from the merged 9-tile OSM equals the one built from the first 8 tiles (same hash;
+   `partb/window/window_graph_check.json`); the last tile lies about 32 km north of the window.
+
+Nothing here changes a threshold, a level, a criterion, the selection rule or the choice. This is a deviation from
+"over its full grid, as for Fish Creek" and is stated with every Part B result.
