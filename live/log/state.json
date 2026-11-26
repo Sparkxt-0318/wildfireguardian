@@ -159,6 +159,17 @@
      "utc": "2026-11-25T19:37:00Z"
     }
    ]
+  },
+  "516864": {
+   "first_seen_utc": "2026-11-26T07:37:00Z",
+   "history": [
+    {
+     "ignition_points": null,
+     "status": "not_reported",
+     "text": null,
+     "utc": "2026-11-26T07:37:00Z"
+    }
+   ]
   }
  }
 }
