@@ -1,0 +1,9 @@
+{
+ "query": "[out:json][timeout:600][date:\"2020-07-28T04:00:00Z\"];\n(\n  way[highway](41.11753129722437,-123.4726702151703,41.22344691819319,-123.3332570226047);\n  node[place](41.11753129722437,-123.4726702151703,41.22344691819319,-123.3332570226047);\n  nwr[amenity~\"^(shelter|fire_station|school|townhall|community_centre)$\"](41.11753129722437,-123.4726702151703,41.22344691819319,-123.3332570226047);\n  nwr[tourism~\"^(camp_site|alpine_hut)$\"](41.11753129722437,-123.4726702151703,41.22344691819319,-123.3332570226047);\n);\n(._;>;);\nout body;",
+ "endpoint": "https://overpass.kumi.systems/api/interpreter",
+ "fetched_utc": "2026-11-26T03:47:29Z",
+ "server_timestamp_osm_base": "2026-07-15T15:22:01Z",
+ "sha256": "86d92c160e64070d10259ec831119faea2d2fa845677e418a2f5b43dec23341a",
+ "n_elements": 3706,
+ "note": "whether the server applied the [date:] historical filter is not verified, as for Fish Creek"
+}

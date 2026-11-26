@@ -1,0 +1,62 @@
+[
+ {
+  "event": "CA-KNF-006454_Antelope",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 33.413,
+  "overpass_api_de_km": 33.413
+ },
+ {
+  "event": "CA-MNF-000753_AugustComplex",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 160.663,
+  "overpass_api_de_km": 160.663
+ },
+ {
+  "event": "CA-PNF-001308_PNFNorthComplex",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 42.357,
+  "overpass_api_de_km": 42.357
+ },
+ {
+  "event": "CA-SRF-000656_RedSalmonComplex",
+  "mirror": "overpass.kumi.systems",
+  "mirror_km": 12.485,
+  "overpass_api_de_km": 12.485
+ },
+ {
+  "event": "ID-SCF-022105_Moose",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 12.784,
+  "overpass_api_de_km": 12.784
+ },
+ {
+  "event": "NM-SNF-000027_HermitsPeak",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 8.025,
+  "overpass_api_de_km": 8.025
+ },
+ {
+  "event": "OR-UMF-000659_GreenRidge",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 25.974,
+  "overpass_api_de_km": 25.974
+ },
+ {
+  "event": "OR-WIF-220180_CedarCreek",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 48.782,
+  "overpass_api_de_km": 48.782
+ },
+ {
+  "event": "WA-OWF-000453_SchneiderSprings",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 31.783,
+  "overpass_api_de_km": 31.783
+ },
+ {
+  "event": "WA-SES-000173_Pioneer",
+  "mirror": "overpass.private.coffee",
+  "mirror_km": 0.0,
+  "overpass_api_de_km": 0.0
+ }
+]

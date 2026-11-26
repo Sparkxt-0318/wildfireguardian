@@ -1,0 +1,16 @@
+{
+ "NM-SNF-000027_HermitsPeak": {
+  "cutoff": "2022-04-07T11:00:00Z",
+  "dated_elements": 1330,
+  "undated_elements": 1389,
+  "dated_km": 8.025,
+  "undated_km": 8.162
+ },
+ "OR-UMF-000659_GreenRidge": {
+  "cutoff": "2021-07-10T14:00:00Z",
+  "dated_elements": 5135,
+  "undated_elements": 5911,
+  "dated_km": 25.974,
+  "undated_km": 22.455
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "query": "[out:json][timeout:600][date:\"2021-08-01T08:00:00Z\"];\n(\n  way[highway](40.69491354026003,-123.39333981688492,40.80074763263613,-123.25482116865797);\n  node[place](40.69491354026003,-123.39333981688492,40.80074763263613,-123.25482116865797);\n  nwr[amenity~\"^(shelter|fire_station|school|townhall|community_centre)$\"](40.69491354026003,-123.39333981688492,40.80074763263613,-123.25482116865797);\n  nwr[tourism~\"^(camp_site|alpine_hut)$\"](40.69491354026003,-123.39333981688492,40.80074763263613,-123.25482116865797);\n);\n(._;>;);\nout body;",
+ "endpoint": "https://overpass-api.de/api/interpreter",
+ "fetched_utc": "2026-11-26T02:59:39Z",
+ "server_timestamp_osm_base": "2026-11-26T02:57:51Z",
+ "sha256": "5dc4aacd774624c3ecedc64428535f125101b6a8bdad6812c91502f7cbba6bec",
+ "n_elements": 4090,
+ "note": "whether the server applied the [date:] historical filter is not verified, as for Fish Creek"
+}

@@ -1,0 +1,853 @@
+{
+ "rule": "PROTOCOL_v3 section 9 and Amendment 1 items 2-3",
+ "buffer_m": 2000.0,
+ "n_candidates": 28,
+ "n_with_road_length": 28,
+ "candidates": [
+  {
+   "event": "CA-BTU-009205_Dixie",
+   "status": "ok",
+   "cutoff_utc": "2021-07-14T19:00:00Z",
+   "first_burned_index": 19,
+   "cutoff_index": 19,
+   "tries": 1,
+   "footprint_cells": 49,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 48,
+   "buffer_area_km2": 47.362908012022054,
+   "bbox_wgs84": [
+    -121.44334527099392,
+    39.83372258735554,
+    -121.33219874894256,
+    39.9154628009825
+   ],
+   "road_length_m": 37311.39870315274,
+   "segments_in_buffer": 655,
+   "graph_segments": 2866,
+   "graph_nodes": 2868,
+   "origins": 3,
+   "exits": 0,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "4c503d3115b2c4824a20613b98d0452f258be93224a3792b5d7c942adef2c47a"
+  },
+  {
+   "event": "CA-KNF-006385_RiverComplex_RiverComplex",
+   "status": "ok",
+   "cutoff_utc": "2021-08-02T15:00:00Z",
+   "first_burned_index": 15,
+   "cutoff_index": 15,
+   "tries": 1,
+   "footprint_cells": 93,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 92,
+   "buffer_area_km2": 68.02560589009707,
+   "bbox_wgs84": [
+    -123.0904473437703,
+    41.08956129361842,
+    -122.96005169030602,
+    41.193376338340755
+   ],
+   "road_length_m": 25927.897711778864,
+   "segments_in_buffer": 1865,
+   "graph_segments": 4852,
+   "graph_nodes": 4854,
+   "origins": 1,
+   "exits": 0,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "3ff23cf6b49bab855d03de03b694fb096d14b01883d6f1564a6701a6cd2cb187"
+  },
+  {
+   "event": "CA-KNF-006454_Antelope",
+   "status": "ok",
+   "cutoff_utc": "2021-08-03T09:00:00Z",
+   "first_burned_index": 9,
+   "cutoff_index": 9,
+   "tries": 1,
+   "footprint_cells": 64,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 63,
+   "buffer_area_km2": 51.94796935066675,
+   "bbox_wgs84": [
+    -121.977248697502,
+    41.47105281168231,
+    -121.86195039849041,
+    41.556390889644724
+   ],
+   "road_length_m": 33413.01396323562,
+   "segments_in_buffer": 983,
+   "graph_segments": 3716,
+   "graph_nodes": 3714,
+   "origins": 27,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "d0ae49e4b56d3e6a30da4ed5d774d304fad2d27d9a12ab0a51c862ca1522b374"
+  },
+  {
+   "event": "CA-MNF-000753_AugustComplex",
+   "status": "ok",
+   "cutoff_utc": "2020-08-18T22:00:00Z",
+   "first_burned_index": 22,
+   "cutoff_index": 22,
+   "tries": 1,
+   "footprint_cells": 123,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 122,
+   "buffer_area_km2": 100.07290720248103,
+   "bbox_wgs84": [
+    -122.85071274312791,
+    39.616296662006036,
+    -122.65225444063296,
+    39.753109051709565
+   ],
+   "road_length_m": 160663.0568589201,
+   "segments_in_buffer": 10952,
+   "graph_segments": 34248,
+   "graph_nodes": 34180,
+   "origins": 5,
+   "exits": 0,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "5ceb74c162b2832d078f1bd9c2fa34fa84111174c36fd8e2aca01daf9025a9ba"
+  },
+  {
+   "event": "CA-PNF-001308_PNFNorthComplex",
+   "status": "ok",
+   "cutoff_utc": "2020-08-17T05:00:00Z",
+   "first_burned_index": 1,
+   "cutoff_index": 1,
+   "tries": 1,
+   "footprint_cells": 65,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 64,
+   "buffer_area_km2": 51.84096922007702,
+   "bbox_wgs84": [
+    -120.97808941013882,
+    39.8051104291157,
+    -120.86810548686081,
+    39.89543642526646
+   ],
+   "road_length_m": 42357.22510083785,
+   "segments_in_buffer": 931,
+   "graph_segments": 2630,
+   "graph_nodes": 2619,
+   "origins": 47,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "5a04acd282fd9e59ac073526ab28ca0fd75333c732e4fa62e64030d858f3ac6b"
+  },
+  {
+   "event": "CA-SHF-001187_Monument",
+   "status": "ok",
+   "cutoff_utc": "2021-08-01T08:00:00Z",
+   "first_burned_index": 32,
+   "cutoff_index": 32,
+   "tries": 1,
+   "footprint_cells": 96,
+   "burned_at_cutoff": 2,
+   "reached_by_any_path": 94,
+   "buffer_area_km2": 68.40385700544692,
+   "bbox_wgs84": [
+    -123.39333981688492,
+    40.69491354026003,
+    -123.25482116865797,
+    40.80074763263613
+   ],
+   "road_length_m": 58495.81663412909,
+   "segments_in_buffer": 1204,
+   "graph_segments": 3959,
+   "graph_nodes": 3945,
+   "origins": 2,
+   "exits": 0,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "5dc4aacd774624c3ecedc64428535f125101b6a8bdad6812c91502f7cbba6bec"
+  },
+  {
+   "event": "CA-SNF-001391_Creek",
+   "status": "ok",
+   "cutoff_utc": "2020-09-05T16:00:00Z",
+   "first_burned_index": 16,
+   "cutoff_index": 16,
+   "tries": 1,
+   "footprint_cells": 73,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 72,
+   "buffer_area_km2": 63.41916125602145,
+   "bbox_wgs84": [
+    -119.34578944206021,
+    37.15854443650918,
+    -119.2233699626924,
+    37.254590129851714
+   ],
+   "road_length_m": 84212.48776927969,
+   "segments_in_buffer": 2364,
+   "graph_segments": 4995,
+   "graph_nodes": 4969,
+   "origins": 3,
+   "exits": 0,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "ab04626e184bb65c8109be6e86fa47f2f4b3641ecab8ae2c96868210cd0e62ab"
+  },
+  {
+   "event": "CA-SQF-002622_SQFComplex",
+   "status": "ok",
+   "cutoff_utc": "2020-08-23T08:00:00Z",
+   "first_burned_index": 32,
+   "cutoff_index": 32,
+   "tries": 1,
+   "footprint_cells": 73,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 72,
+   "buffer_area_km2": 61.20457859101693,
+   "bbox_wgs84": [
+    -118.50692179778011,
+    36.12158080529167,
+    -118.3959894101211,
+    36.21234828364639
+   ],
+   "road_length_m": 17796.116160777554,
+   "segments_in_buffer": 192,
+   "graph_segments": 313,
+   "graph_nodes": 313,
+   "origins": 8,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "6d3f39623799df5a1667e5825d3986df705253814976005979677ffde8683ea5"
+  },
+  {
+   "event": "CA-SRF-000651_McCash",
+   "status": "ok",
+   "cutoff_utc": "2021-08-01T13:00:00Z",
+   "first_burned_index": 1,
+   "cutoff_index": 1,
+   "tries": 1,
+   "footprint_cells": 86,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 85,
+   "buffer_area_km2": 65.1755830641841,
+   "bbox_wgs84": [
+    -123.46838405010998,
+    41.50641060801991,
+    -123.33688708145107,
+    41.61045927407247
+   ],
+   "road_length_m": 16785.17360704269,
+   "segments_in_buffer": 1385,
+   "graph_segments": 7378,
+   "graph_nodes": 7379,
+   "origins": 16,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "900b504072cefff3d9d5e913ac56c2fe773a12b9907ead75b66dd9aefc1f6f58"
+  },
+  {
+   "event": "CA-SRF-000656_RedSalmonComplex",
+   "status": "ok",
+   "cutoff_utc": "2020-07-28T04:00:00Z",
+   "first_burned_index": 4,
+   "cutoff_index": 4,
+   "tries": 1,
+   "footprint_cells": 76,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 75,
+   "buffer_area_km2": 68.75663117154366,
+   "bbox_wgs84": [
+    -123.4726702151703,
+    41.11753129722437,
+    -123.3332570226047,
+    41.22344691819319
+   ],
+   "road_length_m": 12485.229348234625,
+   "segments_in_buffer": 722,
+   "graph_segments": 2970,
+   "graph_nodes": 2972,
+   "origins": 7,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "86d92c160e64070d10259ec831119faea2d2fa845677e418a2f5b43dec23341a"
+  },
+  {
+   "event": "CO-ARF-000636_CameronPeak",
+   "status": "ok",
+   "cutoff_utc": "2020-08-14T03:00:00Z",
+   "first_burned_index": 3,
+   "cutoff_index": 3,
+   "tries": 1,
+   "footprint_cells": 51,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 50,
+   "buffer_area_km2": 45.53672919657408,
+   "bbox_wgs84": [
+    -105.87964122066552,
+    40.58276154261341,
+    -105.78312345854344,
+    40.65505379132692
+   ],
+   "road_length_m": 32513.470913627272,
+   "segments_in_buffer": 1600,
+   "graph_segments": 3212,
+   "graph_nodes": 3204,
+   "origins": 28,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "1d544194511e1edc73002218bd22f229031f1bc1c54acb0d879a98be67637942"
+  },
+  {
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "status": "ok",
+   "cutoff_utc": "2024-08-06T03:00:00Z",
+   "first_burned_index": 123,
+   "cutoff_index": 123,
+   "tries": 1,
+   "footprint_cells": 59,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 58,
+   "buffer_area_km2": 50.86768207580529,
+   "bbox_wgs84": [
+    -115.26087068804844,
+    44.10670284425495,
+    -115.14710046623843,
+    44.18546166111829
+   ],
+   "road_length_m": 31711.830780217188,
+   "segments_in_buffer": 1562,
+   "graph_segments": 2794,
+   "graph_nodes": 2779,
+   "origins": 1,
+   "exits": 0,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "8586856ec318cfce7829395f14ae4f1dcc17e87ec43fae919de8fbe871517779"
+  },
+  {
+   "event": "ID-BOF-000904_Goat",
+   "status": "ok",
+   "cutoff_utc": "2024-08-11T11:00:00Z",
+   "first_burned_index": 35,
+   "cutoff_index": 35,
+   "tries": 1,
+   "footprint_cells": 85,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 84,
+   "buffer_area_km2": 73.36112836706417,
+   "bbox_wgs84": [
+    -115.90419734933991,
+    44.36945167688265,
+    -115.75856879388114,
+    44.478442850731426
+   ],
+   "road_length_m": 48503.288632196076,
+   "segments_in_buffer": 1881,
+   "graph_segments": 10024,
+   "graph_nodes": 10019,
+   "origins": 60,
+   "exits": 4,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "371646a05dd09f9ab50ec882eaf534fbfd45e4a90f54130d8ebb2ced57ee74b2"
+  },
+  {
+   "event": "ID-BOF-001080_Lava",
+   "status": "ok",
+   "cutoff_utc": "2024-08-01T07:00:00Z",
+   "first_burned_index": 7,
+   "cutoff_index": 7,
+   "tries": 1,
+   "footprint_cells": 73,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 72,
+   "buffer_area_km2": 54.771249242029455,
+   "bbox_wgs84": [
+    -116.1710681116374,
+    44.34839535897053,
+    -116.05060703647591,
+    44.431710479937266
+   ],
+   "road_length_m": 87820.325846416,
+   "segments_in_buffer": 4402,
+   "graph_segments": 12351,
+   "graph_nodes": 12262,
+   "origins": 233,
+   "exits": 6,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "b624b84e17d028b09af29acc35ac68587db050b3ce864f8f0142b3eef15b11dc"
+  },
+  {
+   "event": "ID-SCF-022105_Moose",
+   "status": "ok",
+   "cutoff_utc": "2022-07-18T08:00:00Z",
+   "first_burned_index": 8,
+   "cutoff_index": 8,
+   "tries": 1,
+   "footprint_cells": 60,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 59,
+   "buffer_area_km2": 50.05669623095521,
+   "bbox_wgs84": [
+    -114.18015162517317,
+    45.338085062960154,
+    -114.0595056342414,
+    45.42038156002208
+   ],
+   "road_length_m": 12784.126611095799,
+   "segments_in_buffer": 297,
+   "graph_segments": 1286,
+   "graph_nodes": 1289,
+   "origins": 6,
+   "exits": 1,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "fc2e9e75320c84cc60dc6a2e4a9ebb3b6b3f7a756f8dadc56d3bcc8d715f80dc"
+  },
+  {
+   "event": "ID-SCF-240202_RedRock",
+   "status": "ok",
+   "cutoff_utc": "2024-08-30T10:00:00Z",
+   "first_burned_index": 34,
+   "cutoff_index": 34,
+   "tries": 1,
+   "footprint_cells": 66,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 65,
+   "buffer_area_km2": 54.301372760292814,
+   "bbox_wgs84": [
+    -114.66553400220579,
+    44.95854718028926,
+    -114.55265810292136,
+    45.04636816890794
+   ],
+   "road_length_m": 4874.006996132335,
+   "segments_in_buffer": 246,
+   "graph_segments": 871,
+   "graph_nodes": 872,
+   "origins": 1,
+   "exits": 1,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "c6a7413e32b74cb44440ce4e5df0e6fab383e1374fbe1f5be2e0e53175e18fd2"
+  },
+  {
+   "event": "MT-BDF-006269_AlderCreek",
+   "status": "ok",
+   "cutoff_utc": "2021-07-11T12:00:00Z",
+   "first_burned_index": 36,
+   "cutoff_index": 36,
+   "tries": 1,
+   "footprint_cells": 72,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 71,
+   "buffer_area_km2": 56.92548143544035,
+   "bbox_wgs84": [
+    -113.16364519804821,
+    45.74736006276324,
+    -113.03963812101526,
+    45.84240156198403
+   ],
+   "road_length_m": 2518.8083659336694,
+   "segments_in_buffer": 45,
+   "graph_segments": 1087,
+   "graph_nodes": 1090,
+   "origins": 8,
+   "exits": 1,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "3997c1f230e74f8a4712dba4f67d234063a4a5a0315a94458e451832a48517c0"
+  },
+  {
+   "event": "MT-BDF-006272_TrailCreek",
+   "status": "ok",
+   "cutoff_utc": "2021-07-10T07:00:00Z",
+   "first_burned_index": 7,
+   "cutoff_index": 7,
+   "tries": 1,
+   "footprint_cells": 89,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 88,
+   "buffer_area_km2": 74.02390639506574,
+   "bbox_wgs84": [
+    -113.92368772922102,
+    45.61723761340474,
+    -113.779346725502,
+    45.71853177680556
+   ],
+   "road_length_m": 24246.869879018654,
+   "segments_in_buffer": 327,
+   "graph_segments": 1347,
+   "graph_nodes": 1350,
+   "origins": 23,
+   "exits": 6,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "d5fc0f17221f27ed6500cf346971df1ffa7551ec3fcac894b3072e08602464b4"
+  },
+  {
+   "event": "MT-LNF-000893_WestLolo",
+   "status": "ok",
+   "cutoff_utc": "2021-07-10T03:00:00Z",
+   "first_burned_index": 3,
+   "cutoff_index": 3,
+   "tries": 1,
+   "footprint_cells": 76,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 75,
+   "buffer_area_km2": 56.362590586125236,
+   "bbox_wgs84": [
+    -115.37016162599416,
+    47.65417808341917,
+    -115.23449688229572,
+    47.739152661720865
+   ],
+   "road_length_m": 4128.637537972392,
+   "segments_in_buffer": 30,
+   "graph_segments": 336,
+   "graph_nodes": 339,
+   "origins": 1,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "b1fa6a6ac657fb05b0538d563c82b369e8e547aa85c07216ba4dcaef084d4198"
+  },
+  {
+   "event": "NM-SNF-000027_HermitsPeak",
+   "status": "ok",
+   "cutoff_utc": "2022-04-07T11:00:00Z",
+   "first_burned_index": 1,
+   "cutoff_index": 1,
+   "tries": 1,
+   "footprint_cells": 32,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 31,
+   "buffer_area_km2": 36.806705036352746,
+   "bbox_wgs84": [
+    -105.45663487459007,
+    35.70114361879355,
+    -105.37579165590185,
+    35.765879799087614
+   ],
+   "road_length_m": 8025.063084371775,
+   "segments_in_buffer": 152,
+   "graph_segments": 397,
+   "graph_nodes": 397,
+   "origins": 15,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "ec2db51c6301d247d75e76f41e7c24d240f12e546f5d678b6763ea832e11a257"
+  },
+  {
+   "event": "OR-UMF-000659_GreenRidge",
+   "status": "ok",
+   "cutoff_utc": "2021-07-10T14:00:00Z",
+   "first_burned_index": 38,
+   "cutoff_index": 38,
+   "tries": 1,
+   "footprint_cells": 67,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 66,
+   "buffer_area_km2": 58.12142473519817,
+   "bbox_wgs84": [
+    -117.78655963313143,
+    46.09420062503245,
+    -117.6511146562785,
+    46.183650241901894
+   ],
+   "road_length_m": 25973.999656632404,
+   "segments_in_buffer": 814,
+   "graph_segments": 1420,
+   "graph_nodes": 1420,
+   "origins": 10,
+   "exits": 2,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "66930ade120d64384625f657c15f2a69de5ff4184df5ef5dd9d3377253827818"
+  },
+  {
+   "event": "OR-UMP-000373_RoughPatchCpx",
+   "status": "ok",
+   "cutoff_utc": "2021-08-02T18:00:00Z",
+   "first_burned_index": 18,
+   "cutoff_index": 18,
+   "tries": 1,
+   "footprint_cells": 82,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 81,
+   "buffer_area_km2": 61.490193324496495,
+   "bbox_wgs84": [
+    -122.74840569054611,
+    43.470129833131175,
+    -122.61447984118344,
+    43.56210597738027
+   ],
+   "road_length_m": 34246.212366191314,
+   "segments_in_buffer": 836,
+   "graph_segments": 2612,
+   "graph_nodes": 2617,
+   "origins": 21,
+   "exits": 1,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "2f745039c309535cb3cb1197ac2bb76d7ee2ae835f9259a5d64d13122aa342ec"
+  },
+  {
+   "event": "OR-UPF-000265_Jack",
+   "status": "ok",
+   "cutoff_utc": "2021-07-06T10:00:00Z",
+   "first_burned_index": 10,
+   "cutoff_index": 10,
+   "tries": 1,
+   "footprint_cells": 75,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 74,
+   "buffer_area_km2": 60.0454106694149,
+   "bbox_wgs84": [
+    -122.75459641486052,
+    43.27357286164751,
+    -122.62293193757975,
+    43.37104613754638
+   ],
+   "road_length_m": 102101.01690000806,
+   "segments_in_buffer": 3349,
+   "graph_segments": 9027,
+   "graph_nodes": 9029,
+   "origins": 1,
+   "exits": 20,
+   "origin_rule": "populated places from OSM (place=city/farm/hamlet/isolated_dwelling/neighbourhood/town/village) snapped to the nearest graph node within 2 km",
+   "osm_sha256": "2a10e4a12a50a78a2bf6475f16e3767d6875e5cabe837f0073ae527d18a95c93"
+  },
+  {
+   "event": "OR-UPF-000450_DevilsKnob",
+   "status": "ok",
+   "cutoff_utc": "2021-08-04T10:00:00Z",
+   "first_burned_index": 10,
+   "cutoff_index": 10,
+   "tries": 1,
+   "footprint_cells": 74,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 73,
+   "buffer_area_km2": 59.251499153712025,
+   "bbox_wgs84": [
+    -122.86926990642729,
+    42.92416455783875,
+    -122.73946909745403,
+    43.01842101897002
+   ],
+   "road_length_m": 96596.96650406258,
+   "segments_in_buffer": 3570,
+   "graph_segments": 12246,
+   "graph_nodes": 12240,
+   "origins": 129,
+   "exits": 4,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "7b1d82730f062e8da8375f58c77ad83b9c0959f3c83c82c7fa06c2d9fe9544d4"
+  },
+  {
+   "event": "OR-WIF-220180_CedarCreek",
+   "status": "ok",
+   "cutoff_utc": "2022-08-05T00:00:00Z",
+   "first_burned_index": 24,
+   "cutoff_index": 24,
+   "tries": 1,
+   "footprint_cells": 78,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 77,
+   "buffer_area_km2": 58.91328001191622,
+   "bbox_wgs84": [
+    -122.23874739775538,
+    43.687124876837814,
+    -122.1034821379537,
+    43.78206795578976
+   ],
+   "road_length_m": 48782.31624553878,
+   "segments_in_buffer": 1397,
+   "graph_segments": 3132,
+   "graph_nodes": 3138,
+   "origins": 39,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "5fc4aee5c30fcf37fe8ae302282189f2818ade455b0e4933fe8c0e0c6517bf2e"
+  },
+  {
+   "event": "UT-ASF-100340_EastFork",
+   "status": "ok",
+   "cutoff_utc": "2020-08-24T05:00:00Z",
+   "first_burned_index": 53,
+   "cutoff_index": 53,
+   "tries": 1,
+   "footprint_cells": 87,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 86,
+   "buffer_area_km2": 65.50999147162804,
+   "bbox_wgs84": [
+    -110.76193358955753,
+    40.562648652326715,
+    -110.63298825428514,
+    40.6508680226716
+   ],
+   "road_length_m": 0.0,
+   "segments_in_buffer": 0,
+   "graph_segments": 95,
+   "graph_nodes": 96,
+   "origins": 0,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "ce4571860b62610a287873d1e9a56f71e5b732fb470f8f07aea74bd0c69e9734"
+  },
+  {
+   "event": "WA-OWF-000453_SchneiderSprings",
+   "status": "ok",
+   "cutoff_utc": "2021-08-05T04:00:00Z",
+   "first_burned_index": 28,
+   "cutoff_index": 28,
+   "tries": 1,
+   "footprint_cells": 76,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 75,
+   "buffer_area_km2": 52.24015447207377,
+   "bbox_wgs84": [
+    -121.22038480080057,
+    46.797432743413516,
+    -121.09281047392216,
+    46.880924150834275
+   ],
+   "road_length_m": 31783.41426661712,
+   "segments_in_buffer": 954,
+   "graph_segments": 3998,
+   "graph_nodes": 3995,
+   "origins": 34,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "ec2b245b5f66c85ab8577f3cddca19a8d327314a91a49cf9d3d92aad8662fc3b"
+  },
+  {
+   "event": "WA-SES-000173_Pioneer",
+   "status": "ok",
+   "cutoff_utc": "2024-06-12T04:00:00Z",
+   "first_burned_index": 1,
+   "cutoff_index": 1,
+   "tries": 1,
+   "footprint_cells": 44,
+   "burned_at_cutoff": 1,
+   "reached_by_any_path": 43,
+   "buffer_area_km2": 48.601056271066255,
+   "bbox_wgs84": [
+    -120.57573888723473,
+    48.14938507274702,
+    -120.45077968317293,
+    48.23203820466604
+   ],
+   "road_length_m": 0.0,
+   "segments_in_buffer": 0,
+   "graph_segments": 0,
+   "graph_nodes": 0,
+   "origins": 0,
+   "exits": 0,
+   "origin_rule": "NO populated place or shelter in the area: road junctions (graph nodes with 3 or more distinct neighbours) are the origins, and the map edge gives the exits",
+   "osm_sha256": "5cac6883b83451a4682ad3affaeea7895d6d30442ed82177ab928c968221a27d"
+  }
+ ],
+ "ranking": [
+  {
+   "event": "CA-MNF-000753_AugustComplex",
+   "road_length_km": 160.663
+  },
+  {
+   "event": "OR-UPF-000265_Jack",
+   "road_length_km": 102.101
+  },
+  {
+   "event": "OR-UPF-000450_DevilsKnob",
+   "road_length_km": 96.597
+  },
+  {
+   "event": "ID-BOF-001080_Lava",
+   "road_length_km": 87.82
+  },
+  {
+   "event": "CA-SNF-001391_Creek",
+   "road_length_km": 84.212
+  },
+  {
+   "event": "CA-SHF-001187_Monument",
+   "road_length_km": 58.496
+  },
+  {
+   "event": "OR-WIF-220180_CedarCreek",
+   "road_length_km": 48.782
+  },
+  {
+   "event": "ID-BOF-000904_Goat",
+   "road_length_km": 48.503
+  },
+  {
+   "event": "CA-PNF-001308_PNFNorthComplex",
+   "road_length_km": 42.357
+  },
+  {
+   "event": "CA-BTU-009205_Dixie",
+   "road_length_km": 37.311
+  },
+  {
+   "event": "OR-UMP-000373_RoughPatchCpx",
+   "road_length_km": 34.246
+  },
+  {
+   "event": "CA-KNF-006454_Antelope",
+   "road_length_km": 33.413
+  },
+  {
+   "event": "CO-ARF-000636_CameronPeak",
+   "road_length_km": 32.513
+  },
+  {
+   "event": "WA-OWF-000453_SchneiderSprings",
+   "road_length_km": 31.783
+  },
+  {
+   "event": "ID-BOF-000683_Wapiti_Wapiti",
+   "road_length_km": 31.712
+  },
+  {
+   "event": "OR-UMF-000659_GreenRidge",
+   "road_length_km": 25.974
+  },
+  {
+   "event": "CA-KNF-006385_RiverComplex_RiverComplex",
+   "road_length_km": 25.928
+  },
+  {
+   "event": "MT-BDF-006272_TrailCreek",
+   "road_length_km": 24.247
+  },
+  {
+   "event": "CA-SQF-002622_SQFComplex",
+   "road_length_km": 17.796
+  },
+  {
+   "event": "CA-SRF-000651_McCash",
+   "road_length_km": 16.785
+  },
+  {
+   "event": "ID-SCF-022105_Moose",
+   "road_length_km": 12.784
+  },
+  {
+   "event": "CA-SRF-000656_RedSalmonComplex",
+   "road_length_km": 12.485
+  },
+  {
+   "event": "NM-SNF-000027_HermitsPeak",
+   "road_length_km": 8.025
+  },
+  {
+   "event": "ID-SCF-240202_RedRock",
+   "road_length_km": 4.874
+  },
+  {
+   "event": "MT-LNF-000893_WestLolo",
+   "road_length_km": 4.129
+  },
+  {
+   "event": "MT-BDF-006269_AlderCreek",
+   "road_length_km": 2.519
+  },
+  {
+   "event": "UT-ASF-100340_EastFork",
+   "road_length_km": 0.0
+  },
+  {
+   "event": "WA-SES-000173_Pioneer",
+   "road_length_km": 0.0
+  }
+ ],
+ "choice": "CA-MNF-000753_AugustComplex",
+ "runner_up": "OR-UPF-000265_Jack",
+ "complete": true
+}

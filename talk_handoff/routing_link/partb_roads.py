@@ -49,25 +49,29 @@ def footprint_polygon(z):
     return unary_union(cells)
 
 
-def fetch(bbox_wgs84, date, endpoint, out):
+def fetch(bbox_wgs84, date, endpoints, out):
     w, s, e, n = bbox_wgs84
     q = QUERY.format(date=date, s=s, w=w, n=n, e=e)
     data = urllib.parse.urlencode({"data": q}).encode()
-    req = urllib.request.Request(endpoint, data=data, headers={"User-Agent": "routing-link-research/1.0"})
-    for attempt in range(6):
+    eps = [x for x in endpoints.split(",") if x]
+    for attempt in range(2 * len(eps)):
+        endpoint = eps[attempt % len(eps)]
+        req = urllib.request.Request(endpoint, data=data, headers={"User-Agent": "routing-link-research/1.0"})
         try:
-            with urllib.request.urlopen(req, timeout=900) as r:
+            with urllib.request.urlopen(req, timeout=360) as r:
                 raw = r.read()
             js = json.loads(raw)
             if "elements" not in js:
                 raise ValueError("no elements in response")
+            if "error" in js.get("remark", "").lower():
+                raise ValueError("server remark: %s" % js["remark"][:120])
             out.write_bytes(gzip.compress(raw))
             return {"query": q, "endpoint": endpoint, "fetched_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                     "server_timestamp_osm_base": js.get("osm3s", {}).get("timestamp_osm_base"),
                     "sha256": hashlib.sha256(out.read_bytes()).hexdigest(), "n_elements": len(js["elements"])}
         except Exception as ex:  # noqa: BLE001
-            wait = 30 * (attempt + 1)
-            print("  fetch failed (%s), retry in %d s" % (str(ex)[:120], wait), flush=True)
+            wait = 20 * (attempt + 1)
+            print("  fetch failed at %s (%s), retry in %d s" % (endpoint.split("/")[2], str(ex)[:100], wait), flush=True)
             time.sleep(wait)
     raise RuntimeError("Overpass fetch failed after retries")
 
@@ -97,11 +101,57 @@ def road_length(osm_path, grid_json, cutoff, poly):
             "origin_rule": meta["origin_rule"]}
 
 
+def fetch_full(ev, endpoints, tiles=3):
+    """Amendment 1 item 3: the chosen fire's OSM over its whole grid, as data/fishcreek_osm_20240823.json.gz was."""
+    sel = json.loads((HERE / "partb" / "select" / ("%s.json" % ev)).read_text())
+    g = json.loads((REGIONS / ev / "grid.json").read_text())
+    out = HERE / "partb" / "osm" / ("%s_grid.json.gz" % ev)
+    w, s, e, n = g["bounds_wgs84"]
+    k = tiles
+    tdir = HERE / "partb" / "osm" / ("%s_grid_tiles" % ev)
+    tdir.mkdir(exist_ok=True)
+    merged, tiles_prov, base = {}, [], None
+    for i in range(k):
+        for j in range(k):
+            tb = (w + (e - w) * j / k, s + (n - s) * i / k, w + (e - w) * (j + 1) / k, s + (n - s) * (i + 1) / k)
+            tf = tdir / ("tile_%d_%d.json.gz" % (i, j))
+            tp = tdir / ("tile_%d_%d.provenance.json" % (i, j))
+            if not tf.exists():
+                print("tile", i, j, flush=True)
+                tp.write_text(json.dumps(fetch(tb, sel["cutoff_utc"], endpoints, tf), indent=1))
+                time.sleep(5)
+            q = json.loads(tp.read_text())
+            tiles_prov.append({"tile": [i, j], "bbox": tb, "endpoint": q["endpoint"], "sha256": q["sha256"],
+                               "n_elements": q["n_elements"], "server_timestamp_osm_base": q["server_timestamp_osm_base"]})
+            js = json.loads(gzip.decompress(tf.read_bytes()))
+            base = js
+            for el in js["elements"]:
+                merged[(el["type"], el["id"])] = el
+    doc = {k2: v for k2, v in base.items() if k2 != "elements"}
+    doc["elements"] = list(merged.values())
+    out.write_bytes(gzip.compress(json.dumps(doc).encode()))
+    p = {"query": QUERY, "date": sel["cutoff_utc"], "bbox": "grid bounds_wgs84 %s in %dx%d tiles, merged by (type, id)" % (g["bounds_wgs84"], k, k),
+         "tiles": tiles_prov, "n_elements": len(merged), "sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
+         "endpoint": sorted({t["endpoint"] for t in tiles_prov}),
+         "server_timestamp_osm_base": sorted({t["server_timestamp_osm_base"] for t in tiles_prov}),
+         "event": ev, "license": "ODbL, OpenStreetMap contributors",
+         "why_tiles": "the whole-grid query ran out of the server's 2 GB memory limit (remark: runtime error)",
+         "note": "whether the server applied the [date:] historical filter is not verified, as for Fish Creek"}
+    (HERE / "partb" / "osm" / ("%s_grid.provenance.json" % ev)).write_text(json.dumps(p, indent=1))
+    print(json.dumps({k: p[k] for k in ("endpoint", "n_elements", "server_timestamp_osm_base", "sha256")}))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fetch", action="store_true")
-    ap.add_argument("--endpoint", default="https://overpass.private.coffee/api/interpreter")
+    ap.add_argument("--endpoint", default="https://overpass-api.de/api/interpreter,https://overpass.private.coffee/api/interpreter,"
+                    "https://overpass.kumi.systems/api/interpreter",
+                    help="comma-separated; tried in turn, the one that answered is in the provenance")
+    ap.add_argument("--full", metavar="EVENT", help="fetch OSM over the chosen fire's whole grid (bounds_wgs84) and stop")
+    ap.add_argument("--tiles", type=int, default=3, help="--full: k x k tiles (one whole-grid query exceeds 2 GB)")
     a = ap.parse_args()
+    if a.full:
+        return fetch_full(a.full, a.endpoint, a.tiles)
     from pyproj import Transformer
     sel, osm_dir = HERE / "partb" / "select", HERE / "partb" / "osm"
     osm_dir.mkdir(parents=True, exist_ok=True)
@@ -129,9 +179,13 @@ def main():
         prov = osm_dir / ("%s_footprint.provenance.json" % ev)
         if not out.exists() and a.fetch:
             print("fetching", ev, flush=True)
-            p = fetch(bbox, r["cutoff_utc"], a.endpoint, out)
-            p["note"] = ("whether the server applied the [date:] historical filter is not verified, as for Fish Creek")
-            prov.write_text(json.dumps(p, indent=1))
+            try:
+                p = fetch(bbox, r["cutoff_utc"], a.endpoint, out)
+                p["note"] = ("whether the server applied the [date:] historical filter is not verified, as for Fish Creek")
+                prov.write_text(json.dumps(p, indent=1))
+            except RuntimeError as ex:
+                row["osm_fetch_error"] = str(ex)
+                print("  giving up on", ev, "for this run", flush=True)
             time.sleep(10)
         if out.exists():
             row.update(road_length(out, REGIONS / ev / "grid.json", r["cutoff_utc"], poly))

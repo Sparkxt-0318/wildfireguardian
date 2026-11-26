@@ -1,0 +1,9 @@
+{
+ "query": "[out:json][timeout:600][date:\"2021-07-10T03:00:00Z\"];\n(\n  way[highway](47.65417808341917,-115.37016162599416,47.739152661720865,-115.23449688229572);\n  node[place](47.65417808341917,-115.37016162599416,47.739152661720865,-115.23449688229572);\n  nwr[amenity~\"^(shelter|fire_station|school|townhall|community_centre)$\"](47.65417808341917,-115.37016162599416,47.739152661720865,-115.23449688229572);\n  nwr[tourism~\"^(camp_site|alpine_hut)$\"](47.65417808341917,-115.37016162599416,47.739152661720865,-115.23449688229572);\n);\n(._;>;);\nout body;",
+ "endpoint": "https://overpass.private.coffee/api/interpreter",
+ "fetched_utc": "2026-11-26T04:32:38Z",
+ "server_timestamp_osm_base": "2026-05-31T22:37:44Z",
+ "sha256": "b1fa6a6ac657fb05b0538d563c82b369e8e547aa85c07216ba4dcaef084d4198",
+ "n_elements": 343,
+ "note": "whether the server applied the [date:] historical filter is not verified, as for Fish Creek"
+}
