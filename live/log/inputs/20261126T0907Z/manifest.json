@@ -1,0 +1,76 @@
+{
+ "fetch_finished_utc": "2026-11-26T09:07:55Z",
+ "issue_utc": "2026-11-26T09:07:00Z",
+ "schema": "wfg.live.inputs/1",
+ "sources": {
+  "firms:MODIS_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-26T09:07:55Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:MODIS_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/MODIS_NRT/124.5,33,131,39/5"
+  },
+  "firms:VIIRS_NOAA20_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-26T09:07:55Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:VIIRS_NOAA20_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA20_NRT/124.5,33,131,39/5"
+  },
+  "firms:VIIRS_NOAA21_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-26T09:07:55Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:VIIRS_NOAA21_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA21_NRT/124.5,33,131,39/5"
+  },
+  "firms:VIIRS_SNPP_NRT": {
+   "bytes": null,
+   "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
+   "fetched_utc": "2026-11-26T09:07:55Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
+   "source": "firms:VIIRS_SNPP_NRT",
+   "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_SNPP_NRT/124.5,33,131,39/5"
+  },
+  "gfs": {
+   "bytes": 145794,
+   "complete": true,
+   "cycle_utc": "2026-11-26T00:00:00Z",
+   "error": null,
+   "fetched_utc": "2026-11-26T05:07:53Z",
+   "file": "gfs_2026112600.npz",
+   "http_status": 200,
+   "missing": {},
+   "ok": true,
+   "sha256": "788fdb178cece6f1cb0a146161922485807f6f98acff8e0d5899270e361cc02c",
+   "source": "gfs",
+   "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261126/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
+  },
+  "kfs": {
+   "bytes": 2559,
+   "error": null,
+   "fetched_utc": "2026-11-26T09:07:54Z",
+   "file": "kfs.json",
+   "http_status": 200,
+   "ok": true,
+   "sha256": "dfee81ec74073e32b54b17e8164ef336c6c8479aa15b868b6f3bf6b6ec123d03",
+   "source": "kfs",
+   "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
+  }
+ }
+}
