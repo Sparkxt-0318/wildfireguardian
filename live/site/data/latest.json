@@ -1079,7 +1079,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T09:08:14Z",
+   "fetched_utc": "2026-11-27T09:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1090,7 +1090,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T09:08:14Z",
+   "fetched_utc": "2026-11-27T09:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1101,7 +1101,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T09:08:14Z",
+   "fetched_utc": "2026-11-27T09:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1112,7 +1112,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T09:08:14Z",
+   "fetched_utc": "2026-11-27T09:37:57Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1135,20 +1135,20 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261127/00/atmos/gfs.t00z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 1321,
+   "bytes": 1981,
    "error": null,
-   "fetched_utc": "2026-11-27T09:08:13Z",
+   "fetched_utc": "2026-11-27T09:37:56Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
-   "sha256": "0b54ed65b56692a43fdc20f95a8cad8cc7f1261cf2bab0be218e0536b67f216a",
+   "sha256": "c84495787a957de309132c42331dcbd7f173e3b32e9c0210360038d3480e45fd",
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-27T09:00:00Z",
- "issue_kst": "2026-11-27 18:08",
- "issue_utc": "2026-11-27T09:08:00Z",
+ "issue_kst": "2026-11-27 18:37",
+ "issue_utc": "2026-11-27T09:37:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1196,6 +1196,29 @@
    "status": "산불외종료",
    "status_code": "05",
    "step": "초기 대응"
+  },
+  {
+   "address": "경상북도 상주시 청리면 수상리",
+   "cause": {
+    "changes": [],
+    "first_reported_utc": "2026-11-27T09:03:07Z",
+    "first_seen_utc": "2026-11-27T09:37:00Z",
+    "ignition_points": null,
+    "source_fields": [],
+    "status": "not_reported",
+    "status_word": null,
+    "text": null
+   },
+   "contained_pct": 100,
+   "id": "517464",
+   "in_scope": false,
+   "lat": 36.34384013644788,
+   "lgdng_cd": "4725034028",
+   "lon": 128.12412072595643,
+   "report_utc": "2026-11-27T09:03:07Z",
+   "status": "진화완료",
+   "status_code": "03",
+   "step": "초기 대응"
   }
  ],
  "notice": {
@@ -1206,12 +1229,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-27T09:08:15Z",
+  "compute_finished_utc": "2026-11-27T09:37:58Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-27T09:08:14Z",
+  "fetch_finished_utc": "2026-11-27T09:37:57Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45971007143"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/45975188536"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
