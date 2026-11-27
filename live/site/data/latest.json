@@ -1037,7 +1037,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T18:07:58Z",
+   "fetched_utc": "2026-11-27T18:41:27Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1048,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T18:07:58Z",
+   "fetched_utc": "2026-11-27T18:41:27Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1059,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T18:07:58Z",
+   "fetched_utc": "2026-11-27T18:41:27Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1070,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-27T18:07:58Z",
+   "fetched_utc": "2026-11-27T18:41:27Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1093,46 +1093,22 @@
    "url": "https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.20261127/12/atmos/gfs.t12z.pgrb2.0p25.f006…f018"
   },
   "kfs": {
-   "bytes": 693,
-   "error": null,
-   "fetched_utc": "2026-11-27T18:07:57Z",
-   "file": "kfs.json",
-   "http_status": 200,
-   "ok": true,
-   "sha256": "213dc7dd4ab0120e01e3a0fff753a4f107087e1049c5436a0fdc4a987e435064",
+   "bytes": null,
+   "error": "URLError: <urlopen error timed out>",
+   "fetched_utc": "2026-11-27T18:38:07Z",
+   "file": null,
+   "http_status": 0,
+   "ok": false,
+   "sha256": null,
    "source": "kfs",
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
  "issue_hour_utc": "2026-11-27T18:00:00Z",
- "issue_kst": "2026-11-28 03:07",
- "issue_utc": "2026-11-27T18:07:00Z",
- "kfs_ok": true,
- "listed": [
-  {
-   "address": "세종특별자치시  전동면 노장리",
-   "cause": {
-    "changes": [],
-    "first_reported_utc": "2026-11-27T14:32:33Z",
-    "first_seen_utc": "2026-11-27T15:37:00Z",
-    "ignition_points": null,
-    "source_fields": [],
-    "status": "not_reported",
-    "status_word": null,
-    "text": null
-   },
-   "contained_pct": 100,
-   "id": "517524",
-   "in_scope": false,
-   "lat": 36.68159696970294,
-   "lgdng_cd": "3611038021",
-   "lon": 127.29083529804613,
-   "report_utc": "2026-11-27T14:32:33Z",
-   "status": "진화완료",
-   "status_code": "03",
-   "step": "초기 대응"
-  }
- ],
+ "issue_kst": "2026-11-28 03:38",
+ "issue_utc": "2026-11-27T18:38:00Z",
+ "kfs_ok": false,
+ "listed": [],
  "notice": {
   "en": "Model output, advisory, not an official order; follow instructions from authorities. No official use is claimed.",
   "ko": "모델 출력 · 참고용 · 공식 명령 아님. 당국의 안내에 따르십시오. 공식 사용을 주장하지 않습니다."
@@ -1141,12 +1117,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-27T18:07:59Z",
+  "compute_finished_utc": "2026-11-27T18:41:28Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-27T18:07:58Z",
+  "fetch_finished_utc": "2026-11-27T18:41:27Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/46047005462"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/46050804232"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
