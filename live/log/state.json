@@ -12,6 +12,10 @@
    "515284": {
     "cut_utc": {},
     "first_sent": false
+   },
+   "517384": {
+    "cut_utc": {},
+    "first_sent": false
    }
   }
  },
@@ -209,7 +213,8 @@
      128.75
     ]
    ],
-   "14": []
+   "14": [],
+   "15": []
   },
   "single_exit_by_cell": {
    "37.25,128.5": [],
@@ -383,6 +388,17 @@
      "status": "not_reported",
      "text": null,
      "utc": "2026-11-27T04:08:00Z"
+    }
+   ]
+  },
+  "517384": {
+   "first_seen_utc": "2026-11-27T06:08:00Z",
+   "history": [
+    {
+     "ignition_points": null,
+     "status": "not_reported",
+     "text": null,
+     "utc": "2026-11-27T06:08:00Z"
     }
    ]
   }
