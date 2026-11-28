@@ -45,9 +45,452 @@
    "12": [],
    "13": [],
    "14": [],
-   "15": []
+   "15": [],
+   "16": [
+    [
+     36.25,
+     129.25
+    ],
+    [
+     36.25,
+     129.5
+    ],
+    [
+     36.5,
+     129.25
+    ],
+    [
+     36.5,
+     129.5
+    ]
+   ]
   },
-  "single_exit_by_cell": {}
+  "single_exit_by_cell": {
+   "36.25,129.25": [
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4380616,
+     "lon": 129.3549685,
+     "name": "구미리",
+     "place_id": "osm:node/415160206",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3746792,
+     "lon": 129.398025,
+     "name": "금진리",
+     "place_id": "osm:node/415160155",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.4847956,
+     "lon": 129.3844577,
+     "name": "기암리",
+     "place_id": "osm:node/415160190",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4038878,
+     "lon": 129.3577822,
+     "name": "남산리",
+     "place_id": "osm:node/415160164",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "남정면",
+     "exits": "1",
+     "lat": 36.3467636,
+     "lon": 129.3590474,
+     "name": "남정리",
+     "place_id": "osm:node/415160150",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.451621,
+     "lon": 129.4286916,
+     "name": "노물리",
+     "place_id": "osm:node/415160193",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4350445,
+     "lon": 129.2865305,
+     "name": "눌곡리",
+     "place_id": "osm:node/415160189",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.4844348,
+     "lon": 129.3416153,
+     "name": "대곡리",
+     "place_id": "osm:node/415160197",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4063004,
+     "lon": 129.4221512,
+     "name": "대부리",
+     "place_id": "osm:node/415160159",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4932057,
+     "lon": 129.2772517,
+     "name": "도계리",
+     "place_id": "osm:node/415160183",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4523166,
+     "lon": 129.4141212,
+     "name": "매정리",
+     "place_id": "osm:node/415160192",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3463905,
+     "lon": 129.3813318,
+     "name": "삼사리",
+     "place_id": "osm:node/415160153",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4542633,
+     "lon": 129.3254776,
+     "name": "삼화리",
+     "place_id": "osm:node/415160187",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3964926,
+     "lon": 129.3360557,
+     "name": "상직리",
+     "place_id": "osm:node/415160163",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4664013,
+     "lon": 129.4324096,
+     "name": "석리",
+     "place_id": "osm:node/415160200",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.377187,
+     "lon": 129.3733684,
+     "name": "소월리",
+     "place_id": "osm:node/415160151",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.426782,
+     "lon": 129.301037,
+     "name": "신양리",
+     "place_id": "osm:node/415160167",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.437651,
+     "lon": 129.4277273,
+     "name": "오보리",
+     "place_id": "osm:node/415160194",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4337431,
+     "lon": 129.3200688,
+     "name": "오천리",
+     "place_id": "osm:node/415160184",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3731095,
+     "lon": 129.3640149,
+     "name": "오포리",
+     "place_id": "osm:node/415160148",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4783388,
+     "lon": 129.2988776,
+     "name": "옥류리",
+     "place_id": "osm:node/415160188",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3491915,
+     "lon": 129.2790598,
+     "name": "옥산리",
+     "place_id": "osm:node/415160173",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3984719,
+     "lon": 129.2520883,
+     "name": "용전리",
+     "place_id": "osm:node/415160175",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3904838,
+     "lon": 129.2872295,
+     "name": "용평리",
+     "place_id": "osm:node/415160176",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3593137,
+     "lon": 129.2710865,
+     "name": "주응리",
+     "place_id": "osm:node/415160172",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "남정면",
+     "exits": "1",
+     "lat": 36.3546235,
+     "lon": 129.3367802,
+     "name": "중화리",
+     "place_id": "osm:node/415160169",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4108901,
+     "lon": 129.3516054,
+     "name": "천전리",
+     "place_id": "osm:node/415160165",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.401282,
+     "lon": 129.4005447,
+     "name": "하저리",
+     "place_id": "osm:node/415160160",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4388892,
+     "lon": 129.3860493,
+     "name": "화수리",
+     "place_id": "osm:node/415160208",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4643359,
+     "lon": 129.3576792,
+     "name": "화천리",
+     "place_id": "osm:node/415160199",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    }
+   ],
+   "36.25,129.5": [],
+   "36.5,129.25": [
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5437342,
+     "lon": 129.4168982,
+     "name": "괴시리전통마을",
+     "place_id": "osm:node/11753630207",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5202527,
+     "lon": 129.281764,
+     "name": "대리",
+     "place_id": "osm:node/415158166",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5325918,
+     "lon": 129.3867781,
+     "name": "벌영리",
+     "place_id": "osm:node/415158183",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.5106094,
+     "lon": 129.3715171,
+     "name": "부곡리",
+     "place_id": "osm:node/415158182",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.5043268,
+     "lon": 129.4014571,
+     "name": "상원리",
+     "place_id": "osm:node/415160203",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5329136,
+     "lon": 129.4132184,
+     "name": "성내리",
+     "place_id": "osm:node/415158185",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "창수면",
+     "exits": "1",
+     "lat": 36.5492571,
+     "lon": 129.3239987,
+     "name": "신기리",
+     "place_id": "osm:node/415158168",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.5048554,
+     "lon": 129.4386335,
+     "name": "축산리",
+     "place_id": "osm:node/415158213",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    }
+   ],
+   "36.5,129.5": []
+  }
  },
  "cause": {
   "514564": {

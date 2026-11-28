@@ -17,65 +17,65 @@
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 13.72,
+    "level_g_k2_ms": 13.81,
     "lon0": 127.25,
     "max_gust_ms": 14.01,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 16.52,
+    "level_g_k2_ms": 16.81,
     "lon0": 127.5,
-    "max_gust_ms": 16.81,
+    "max_gust_ms": 16.82,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 16.52,
+    "level_g_k2_ms": 16.81,
     "lon0": 127.75,
-    "max_gust_ms": 16.81,
+    "max_gust_ms": 16.82,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 15.02,
+    "level_g_k2_ms": 16.01,
     "lon0": 128.0,
-    "max_gust_ms": 16.01,
+    "max_gust_ms": 16.12,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 14.12,
+    "level_g_k2_ms": 14.41,
     "lon0": 128.25,
-    "max_gust_ms": 14.41,
+    "max_gust_ms": 14.52,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 15.02,
+    "level_g_k2_ms": 15.61,
     "lon0": 128.5,
     "max_gust_ms": 15.81,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 16.32,
+    "level_g_k2_ms": 16.61,
     "lon0": 128.75,
     "max_gust_ms": 16.91,
     "state": false
    },
    {
     "lat0": 35.5,
-    "level_g_k2_ms": 16.72,
+    "level_g_k2_ms": 17.01,
     "lon0": 129.0,
-    "max_gust_ms": 17.01,
+    "max_gust_ms": 17.22,
     "state": false
    },
    {
     "lat0": 35.5,
     "level_g_k2_ms": 17.51,
     "lon0": 129.25,
-    "max_gust_ms": 17.62,
+    "max_gust_ms": 18.02,
     "state": false
    },
    {
@@ -101,65 +101,65 @@
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 16.52,
+    "level_g_k2_ms": 16.81,
     "lon0": 127.5,
-    "max_gust_ms": 16.81,
+    "max_gust_ms": 16.82,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 16.52,
+    "level_g_k2_ms": 16.81,
     "lon0": 127.75,
-    "max_gust_ms": 16.81,
+    "max_gust_ms": 16.82,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 15.52,
+    "level_g_k2_ms": 15.61,
     "lon0": 128.0,
-    "max_gust_ms": 15.62,
+    "max_gust_ms": 15.82,
     "state": false
    },
    {
     "lat0": 35.75,
     "level_g_k2_ms": 14.61,
     "lon0": 128.25,
-    "max_gust_ms": 14.62,
+    "max_gust_ms": 15.32,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 15.62,
+    "level_g_k2_ms": 15.91,
     "lon0": 128.5,
-    "max_gust_ms": 15.91,
+    "max_gust_ms": 16.32,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 15.92,
+    "level_g_k2_ms": 16.61,
     "lon0": 128.75,
     "max_gust_ms": 16.91,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 16.72,
+    "level_g_k2_ms": 17.01,
     "lon0": 129.0,
-    "max_gust_ms": 17.01,
+    "max_gust_ms": 17.62,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 17.12,
+    "level_g_k2_ms": 17.31,
     "lon0": 129.25,
-    "max_gust_ms": 17.31,
+    "max_gust_ms": 18.72,
     "state": false
    },
    {
     "lat0": 35.75,
-    "level_g_k2_ms": 17.72,
+    "level_g_k2_ms": 18.21,
     "lon0": 129.5,
-    "max_gust_ms": 18.21,
+    "max_gust_ms": 19.12,
     "state": false
    },
    {
@@ -171,7 +171,7 @@
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 13.31,
+    "level_g_k2_ms": 13.51,
     "lon0": 127.25,
     "max_gust_ms": 13.92,
     "state": false
@@ -185,91 +185,91 @@
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 15.52,
+    "level_g_k2_ms": 15.61,
     "lon0": 127.75,
-    "max_gust_ms": 15.62,
+    "max_gust_ms": 15.82,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 15.52,
+    "level_g_k2_ms": 15.61,
     "lon0": 128.0,
-    "max_gust_ms": 15.62,
+    "max_gust_ms": 15.82,
     "state": false
    },
    {
     "lat0": 36.0,
     "level_g_k2_ms": 14.61,
     "lon0": 128.25,
-    "max_gust_ms": 14.62,
+    "max_gust_ms": 15.32,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 15.62,
+    "level_g_k2_ms": 15.91,
     "lon0": 128.5,
-    "max_gust_ms": 15.91,
+    "max_gust_ms": 16.32,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 15.82,
+    "level_g_k2_ms": 16.51,
     "lon0": 128.75,
-    "max_gust_ms": 16.51,
+    "max_gust_ms": 17.32,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 17.52,
+    "level_g_k2_ms": 18.61,
     "lon0": 129.0,
-    "max_gust_ms": 18.61,
+    "max_gust_ms": 18.92,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 17.52,
+    "level_g_k2_ms": 19.21,
     "lon0": 129.25,
-    "max_gust_ms": 19.21,
+    "max_gust_ms": 21.32,
     "state": false
    },
    {
     "lat0": 36.0,
-    "level_g_k2_ms": 17.72,
+    "level_g_k2_ms": 19.21,
     "lon0": 129.5,
-    "max_gust_ms": 19.21,
-    "state": false
-   },
-   {
-    "lat0": 36.25,
-    "level_g_k2_ms": 13.01,
-    "lon0": 127.0,
-    "max_gust_ms": 13.31,
+    "max_gust_ms": 21.32,
     "state": false
    },
    {
     "lat0": 36.25,
     "level_g_k2_ms": 13.31,
+    "lon0": 127.0,
+    "max_gust_ms": 13.42,
+    "state": false
+   },
+   {
+    "lat0": 36.25,
+    "level_g_k2_ms": 13.51,
     "lon0": 127.25,
-    "max_gust_ms": 13.51,
+    "max_gust_ms": 13.62,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 13.62,
+    "level_g_k2_ms": 13.91,
     "lon0": 127.5,
-    "max_gust_ms": 13.92,
+    "max_gust_ms": 14.02,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 15.12,
+    "level_g_k2_ms": 15.22,
     "lon0": 127.75,
     "max_gust_ms": 15.41,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 15.12,
+    "level_g_k2_ms": 15.22,
     "lon0": 128.0,
     "max_gust_ms": 15.41,
     "state": false
@@ -278,84 +278,417 @@
     "lat0": 36.25,
     "level_g_k2_ms": 14.51,
     "lon0": 128.25,
-    "max_gust_ms": 14.72,
+    "max_gust_ms": 15.12,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 14.72,
+    "level_g_k2_ms": 15.11,
     "lon0": 128.5,
-    "max_gust_ms": 15.11,
+    "max_gust_ms": 15.32,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 15.82,
+    "level_g_k2_ms": 16.51,
     "lon0": 128.75,
-    "max_gust_ms": 16.51,
+    "max_gust_ms": 17.32,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 18.02,
+    "level_g_k2_ms": 18.61,
     "lon0": 129.0,
-    "max_gust_ms": 18.61,
+    "max_gust_ms": 18.92,
     "state": false
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 18.72,
+    "level_g_k2_ms": 20.51,
     "lon0": 129.25,
-    "max_gust_ms": 20.51,
-    "state": false
+    "max_gust_ms": 21.32,
+    "single_exit_places": [
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4380616,
+      "lon": 129.3549685,
+      "name": "구미리",
+      "place_id": "osm:node/415160206",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "강구면",
+      "exits": "1",
+      "lat": 36.3746792,
+      "lon": 129.398025,
+      "name": "금진리",
+      "place_id": "osm:node/415160155",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "축산면",
+      "exits": "1",
+      "lat": 36.4847956,
+      "lon": 129.3844577,
+      "name": "기암리",
+      "place_id": "osm:node/415160190",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4038878,
+      "lon": 129.3577822,
+      "name": "남산리",
+      "place_id": "osm:node/415160164",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "남정면",
+      "exits": "1",
+      "lat": 36.3467636,
+      "lon": 129.3590474,
+      "name": "남정리",
+      "place_id": "osm:node/415160150",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.451621,
+      "lon": 129.4286916,
+      "name": "노물리",
+      "place_id": "osm:node/415160193",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "지품면",
+      "exits": "1",
+      "lat": 36.4350445,
+      "lon": 129.2865305,
+      "name": "눌곡리",
+      "place_id": "osm:node/415160189",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "축산면",
+      "exits": "1",
+      "lat": 36.4844348,
+      "lon": 129.3416153,
+      "name": "대곡리",
+      "place_id": "osm:node/415160197",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4063004,
+      "lon": 129.4221512,
+      "name": "대부리",
+      "place_id": "osm:node/415160159",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "지품면",
+      "exits": "1",
+      "lat": 36.4932057,
+      "lon": 129.2772517,
+      "name": "도계리",
+      "place_id": "osm:node/415160183",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4523166,
+      "lon": 129.4141212,
+      "name": "매정리",
+      "place_id": "osm:node/415160192",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "강구면",
+      "exits": "1",
+      "lat": 36.3463905,
+      "lon": 129.3813318,
+      "name": "삼사리",
+      "place_id": "osm:node/415160153",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "지품면",
+      "exits": "1",
+      "lat": 36.4542633,
+      "lon": 129.3254776,
+      "name": "삼화리",
+      "place_id": "osm:node/415160187",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "강구면",
+      "exits": "1",
+      "lat": 36.3964926,
+      "lon": 129.3360557,
+      "name": "상직리",
+      "place_id": "osm:node/415160163",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4664013,
+      "lon": 129.4324096,
+      "name": "석리",
+      "place_id": "osm:node/415160200",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "강구면",
+      "exits": "1",
+      "lat": 36.377187,
+      "lon": 129.3733684,
+      "name": "소월리",
+      "place_id": "osm:node/415160151",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "지품면",
+      "exits": "1",
+      "lat": 36.426782,
+      "lon": 129.301037,
+      "name": "신양리",
+      "place_id": "osm:node/415160167",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.437651,
+      "lon": 129.4277273,
+      "name": "오보리",
+      "place_id": "osm:node/415160194",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "지품면",
+      "exits": "1",
+      "lat": 36.4337431,
+      "lon": 129.3200688,
+      "name": "오천리",
+      "place_id": "osm:node/415160184",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "강구면",
+      "exits": "1",
+      "lat": 36.3731095,
+      "lon": 129.3640149,
+      "name": "오포리",
+      "place_id": "osm:node/415160148",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "지품면",
+      "exits": "1",
+      "lat": 36.4783388,
+      "lon": 129.2988776,
+      "name": "옥류리",
+      "place_id": "osm:node/415160188",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "달산면",
+      "exits": "1",
+      "lat": 36.3491915,
+      "lon": 129.2790598,
+      "name": "옥산리",
+      "place_id": "osm:node/415160173",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "달산면",
+      "exits": "1",
+      "lat": 36.3984719,
+      "lon": 129.2520883,
+      "name": "용전리",
+      "place_id": "osm:node/415160175",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "달산면",
+      "exits": "1",
+      "lat": 36.3904838,
+      "lon": 129.2872295,
+      "name": "용평리",
+      "place_id": "osm:node/415160176",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "달산면",
+      "exits": "1",
+      "lat": 36.3593137,
+      "lon": 129.2710865,
+      "name": "주응리",
+      "place_id": "osm:node/415160172",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "남정면",
+      "exits": "1",
+      "lat": 36.3546235,
+      "lon": 129.3367802,
+      "name": "중화리",
+      "place_id": "osm:node/415160169",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4108901,
+      "lon": 129.3516054,
+      "name": "천전리",
+      "place_id": "osm:node/415160165",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "강구면",
+      "exits": "1",
+      "lat": 36.401282,
+      "lon": 129.4005447,
+      "name": "하저리",
+      "place_id": "osm:node/415160160",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4388892,
+      "lon": 129.3860493,
+      "name": "화수리",
+      "place_id": "osm:node/415160208",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영덕읍",
+      "exits": "1",
+      "lat": 36.4643359,
+      "lon": 129.3576792,
+      "name": "화천리",
+      "place_id": "osm:node/415160199",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     }
+    ],
+    "state": true
    },
    {
     "lat0": 36.25,
-    "level_g_k2_ms": 18.72,
+    "level_g_k2_ms": 20.51,
     "lon0": 129.5,
-    "max_gust_ms": 20.51,
-    "state": false
+    "max_gust_ms": 21.32,
+    "single_exit_places": [],
+    "state": true
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 13.61,
+    "level_g_k2_ms": 13.62,
     "lon0": 127.0,
     "max_gust_ms": 13.91,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 13.61,
+    "level_g_k2_ms": 13.62,
     "lon0": 127.25,
     "max_gust_ms": 13.91,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 13.62,
+    "level_g_k2_ms": 13.72,
     "lon0": 127.5,
     "max_gust_ms": 13.92,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 14.32,
+    "level_g_k2_ms": 15.22,
     "lon0": 127.75,
     "max_gust_ms": 15.41,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 14.42,
+    "level_g_k2_ms": 15.32,
     "lon0": 128.0,
     "max_gust_ms": 15.41,
     "state": false
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 14.72,
+    "level_g_k2_ms": 14.91,
     "lon0": 128.25,
-    "max_gust_ms": 14.91,
+    "max_gust_ms": 15.32,
     "state": false
    },
    {
@@ -381,17 +714,108 @@
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 18.72,
+    "level_g_k2_ms": 20.51,
     "lon0": 129.25,
-    "max_gust_ms": 20.51,
-    "state": false
+    "max_gust_ms": 21.12,
+    "single_exit_places": [
+     {
+      "eupmyeon": "영해면",
+      "exits": "1",
+      "lat": 36.5437342,
+      "lon": 129.4168982,
+      "name": "괴시리전통마을",
+      "place_id": "osm:node/11753630207",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영해면",
+      "exits": "1",
+      "lat": 36.5202527,
+      "lon": 129.281764,
+      "name": "대리",
+      "place_id": "osm:node/415158166",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영해면",
+      "exits": "1",
+      "lat": 36.5325918,
+      "lon": 129.3867781,
+      "name": "벌영리",
+      "place_id": "osm:node/415158183",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "축산면",
+      "exits": "1",
+      "lat": 36.5106094,
+      "lon": 129.3715171,
+      "name": "부곡리",
+      "place_id": "osm:node/415158182",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "축산면",
+      "exits": "1",
+      "lat": 36.5043268,
+      "lon": 129.4014571,
+      "name": "상원리",
+      "place_id": "osm:node/415160203",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "영해면",
+      "exits": "1",
+      "lat": 36.5329136,
+      "lon": 129.4132184,
+      "name": "성내리",
+      "place_id": "osm:node/415158185",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "창수면",
+      "exits": "1",
+      "lat": 36.5492571,
+      "lon": 129.3239987,
+      "name": "신기리",
+      "place_id": "osm:node/415158168",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     },
+     {
+      "eupmyeon": "축산면",
+      "exits": "1",
+      "lat": 36.5048554,
+      "lon": 129.4386335,
+      "name": "축산리",
+      "place_id": "osm:node/415158213",
+      "region": "yeongdeok_2025",
+      "sigungu": "영덕군",
+      "single_exit": true
+     }
+    ],
+    "state": true
    },
    {
     "lat0": 36.5,
-    "level_g_k2_ms": 18.72,
+    "level_g_k2_ms": 20.51,
     "lon0": 129.5,
-    "max_gust_ms": 20.51,
-    "state": false
+    "max_gust_ms": 21.12,
+    "single_exit_places": [],
+    "state": true
    },
    {
     "lat0": 36.75,
@@ -402,7 +826,7 @@
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 13.61,
+    "level_g_k2_ms": 13.62,
     "lon0": 127.25,
     "max_gust_ms": 13.91,
     "state": false
@@ -423,16 +847,16 @@
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 14.42,
+    "level_g_k2_ms": 14.91,
     "lon0": 128.0,
-    "max_gust_ms": 14.91,
+    "max_gust_ms": 15.32,
     "state": false
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 14.42,
+    "level_g_k2_ms": 14.91,
     "lon0": 128.25,
-    "max_gust_ms": 14.91,
+    "max_gust_ms": 15.32,
     "state": false
    },
    {
@@ -451,23 +875,23 @@
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 16.72,
+    "level_g_k2_ms": 17.21,
     "lon0": 129.0,
-    "max_gust_ms": 17.21,
+    "max_gust_ms": 17.32,
     "state": false
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 16.82,
+    "level_g_k2_ms": 17.21,
     "lon0": 129.25,
-    "max_gust_ms": 17.21,
+    "max_gust_ms": 17.52,
     "state": false
    },
    {
     "lat0": 36.75,
-    "level_g_k2_ms": 16.82,
+    "level_g_k2_ms": 16.91,
     "lon0": 129.5,
-    "max_gust_ms": 16.91,
+    "max_gust_ms": 17.52,
     "state": false
    },
    {
@@ -521,21 +945,21 @@
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 15.32,
+    "level_g_k2_ms": 15.42,
     "lon0": 128.75,
     "max_gust_ms": 15.71,
     "state": false
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 16.02,
+    "level_g_k2_ms": 16.12,
     "lon0": 129.0,
     "max_gust_ms": 16.91,
     "state": false
    },
    {
     "lat0": 37.0,
-    "level_g_k2_ms": 16.02,
+    "level_g_k2_ms": 16.12,
     "lon0": 129.25,
     "max_gust_ms": 16.91,
     "state": false
@@ -549,7 +973,7 @@
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 12.72,
+    "level_g_k2_ms": 13.02,
     "lon0": 127.0,
     "max_gust_ms": 13.21,
     "state": false
@@ -598,21 +1022,21 @@
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 15.32,
+    "level_g_k2_ms": 15.42,
     "lon0": 128.75,
     "max_gust_ms": 15.71,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 16.02,
+    "level_g_k2_ms": 16.12,
     "lon0": 129.0,
     "max_gust_ms": 16.91,
     "state": false
    },
    {
     "lat0": 37.25,
-    "level_g_k2_ms": 16.02,
+    "level_g_k2_ms": 16.12,
     "lon0": 129.25,
     "max_gust_ms": 16.91,
     "state": false
@@ -689,49 +1113,49 @@
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 14.1,
+    "level_g_k2_ms": 13.62,
     "lon0": 129.25,
     "max_gust_ms": 14.7,
     "state": false
    },
    {
     "lat0": 37.5,
-    "level_g_k2_ms": 14.3,
+    "level_g_k2_ms": 13.91,
     "lon0": 129.5,
-    "max_gust_ms": 14.5,
+    "max_gust_ms": 14.3,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 12.52,
+    "level_g_k2_ms": 12.62,
     "lon0": 127.0,
     "max_gust_ms": 12.71,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 12.12,
+    "level_g_k2_ms": 12.61,
     "lon0": 127.25,
-    "max_gust_ms": 12.61,
+    "max_gust_ms": 12.62,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 12.02,
+    "level_g_k2_ms": 12.31,
     "lon0": 127.5,
-    "max_gust_ms": 12.31,
+    "max_gust_ms": 12.52,
     "state": false
    },
    {
     "lat0": 37.75,
     "level_g_k2_ms": 11.11,
     "lon0": 127.75,
-    "max_gust_ms": 11.12,
+    "max_gust_ms": 11.22,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 11.0,
+    "level_g_k2_ms": 10.61,
     "lon0": 128.0,
     "max_gust_ms": 11.92,
     "state": false
@@ -759,28 +1183,28 @@
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 14.1,
+    "level_g_k2_ms": 13.81,
     "lon0": 129.0,
     "max_gust_ms": 14.7,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 14.1,
+    "level_g_k2_ms": 13.51,
     "lon0": 129.25,
     "max_gust_ms": 14.7,
     "state": false
    },
    {
     "lat0": 37.75,
-    "level_g_k2_ms": 12.7,
+    "level_g_k2_ms": 12.32,
     "lon0": 129.5,
-    "max_gust_ms": 13.9,
+    "max_gust_ms": 13.21,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 12.22,
+    "level_g_k2_ms": 12.61,
     "lon0": 127.0,
     "max_gust_ms": 12.81,
     "state": false
@@ -794,7 +1218,7 @@
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 11.52,
+    "level_g_k2_ms": 11.82,
     "lon0": 127.5,
     "max_gust_ms": 12.01,
     "state": false
@@ -831,28 +1255,28 @@
     "lat0": 38.0,
     "level_g_k2_ms": 13.1,
     "lon0": 128.75,
-    "max_gust_ms": 13.7,
+    "max_gust_ms": 13.32,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 12.5,
+    "level_g_k2_ms": 11.91,
     "lon0": 129.0,
-    "max_gust_ms": 13.7,
+    "max_gust_ms": 12.5,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 12.7,
+    "level_g_k2_ms": 11.71,
     "lon0": 129.25,
-    "max_gust_ms": 13.9,
+    "max_gust_ms": 12.7,
     "state": false
    },
    {
     "lat0": 38.0,
-    "level_g_k2_ms": 12.7,
+    "level_g_k2_ms": 11.61,
     "lon0": 129.5,
-    "max_gust_ms": 13.9,
+    "max_gust_ms": 12.7,
     "state": false
    },
    {
@@ -908,28 +1332,28 @@
     "lat0": 38.25,
     "level_g_k2_ms": 13.1,
     "lon0": 128.75,
-    "max_gust_ms": 13.7,
+    "max_gust_ms": 13.21,
     "state": false
    },
    {
     "lat0": 38.25,
-    "level_g_k2_ms": 12.5,
+    "level_g_k2_ms": 11.91,
     "lon0": 129.0,
-    "max_gust_ms": 13.7,
+    "max_gust_ms": 12.5,
     "state": false
    },
    {
     "lat0": 38.25,
-    "level_g_k2_ms": 11.82,
+    "level_g_k2_ms": 12.22,
     "lon0": 129.25,
-    "max_gust_ms": 13.3,
+    "max_gust_ms": 12.51,
     "state": false
    },
    {
     "lat0": 38.25,
-    "level_g_k2_ms": 14.1,
+    "level_g_k2_ms": 12.51,
     "lon0": 129.5,
-    "max_gust_ms": 14.5,
+    "max_gust_ms": 14.1,
     "state": false
    },
    {
@@ -976,50 +1400,494 @@
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 12.52,
+    "level_g_k2_ms": 12.81,
     "lon0": 128.5,
-    "max_gust_ms": 12.81,
+    "max_gust_ms": 13.42,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 12.32,
+    "level_g_k2_ms": 13.41,
     "lon0": 128.75,
-    "max_gust_ms": 13.41,
+    "max_gust_ms": 13.52,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 12.42,
+    "level_g_k2_ms": 13.41,
     "lon0": 129.0,
-    "max_gust_ms": 13.41,
+    "max_gust_ms": 13.52,
     "state": false
    },
    {
     "lat0": 38.5,
     "level_g_k2_ms": 12.42,
     "lon0": 129.25,
-    "max_gust_ms": 13.3,
+    "max_gust_ms": 12.51,
     "state": false
    },
    {
     "lat0": 38.5,
-    "level_g_k2_ms": 14.1,
+    "level_g_k2_ms": 12.22,
     "lon0": 129.5,
-    "max_gust_ms": 16.0,
+    "max_gust_ms": 14.1,
     "state": false
    }
   ],
   "gfs_cycle_utc": "2026-11-28T00:00:00Z",
-  "issue_hour_utc": "2026-11-28T06:00:00Z",
+  "issue_hour_utc": "2026-11-28T07:00:00Z",
   "n_cells": 143,
-  "n_on": 0
+  "n_on": 4
  },
  "bulletin_day": {
-  "cells_on_today": [],
+  "cells_on_today": [
+   [
+    36.25,
+    129.25
+   ],
+   [
+    36.25,
+    129.5
+   ],
+   [
+    36.5,
+    129.25
+   ],
+   [
+    36.5,
+    129.5
+   ]
+  ],
   "date_kst": "2026-11-28",
-  "hours": [],
-  "single_exit_by_cell": {}
+  "hours": [
+   "16"
+  ],
+  "single_exit_by_cell": {
+   "36.25,129.25": [
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4380616,
+     "lon": 129.3549685,
+     "name": "구미리",
+     "place_id": "osm:node/415160206",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3746792,
+     "lon": 129.398025,
+     "name": "금진리",
+     "place_id": "osm:node/415160155",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.4847956,
+     "lon": 129.3844577,
+     "name": "기암리",
+     "place_id": "osm:node/415160190",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4038878,
+     "lon": 129.3577822,
+     "name": "남산리",
+     "place_id": "osm:node/415160164",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "남정면",
+     "exits": "1",
+     "lat": 36.3467636,
+     "lon": 129.3590474,
+     "name": "남정리",
+     "place_id": "osm:node/415160150",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.451621,
+     "lon": 129.4286916,
+     "name": "노물리",
+     "place_id": "osm:node/415160193",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4350445,
+     "lon": 129.2865305,
+     "name": "눌곡리",
+     "place_id": "osm:node/415160189",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.4844348,
+     "lon": 129.3416153,
+     "name": "대곡리",
+     "place_id": "osm:node/415160197",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4063004,
+     "lon": 129.4221512,
+     "name": "대부리",
+     "place_id": "osm:node/415160159",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4932057,
+     "lon": 129.2772517,
+     "name": "도계리",
+     "place_id": "osm:node/415160183",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4523166,
+     "lon": 129.4141212,
+     "name": "매정리",
+     "place_id": "osm:node/415160192",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3463905,
+     "lon": 129.3813318,
+     "name": "삼사리",
+     "place_id": "osm:node/415160153",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4542633,
+     "lon": 129.3254776,
+     "name": "삼화리",
+     "place_id": "osm:node/415160187",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3964926,
+     "lon": 129.3360557,
+     "name": "상직리",
+     "place_id": "osm:node/415160163",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4664013,
+     "lon": 129.4324096,
+     "name": "석리",
+     "place_id": "osm:node/415160200",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.377187,
+     "lon": 129.3733684,
+     "name": "소월리",
+     "place_id": "osm:node/415160151",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.426782,
+     "lon": 129.301037,
+     "name": "신양리",
+     "place_id": "osm:node/415160167",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.437651,
+     "lon": 129.4277273,
+     "name": "오보리",
+     "place_id": "osm:node/415160194",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4337431,
+     "lon": 129.3200688,
+     "name": "오천리",
+     "place_id": "osm:node/415160184",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.3731095,
+     "lon": 129.3640149,
+     "name": "오포리",
+     "place_id": "osm:node/415160148",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "지품면",
+     "exits": "1",
+     "lat": 36.4783388,
+     "lon": 129.2988776,
+     "name": "옥류리",
+     "place_id": "osm:node/415160188",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3491915,
+     "lon": 129.2790598,
+     "name": "옥산리",
+     "place_id": "osm:node/415160173",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3984719,
+     "lon": 129.2520883,
+     "name": "용전리",
+     "place_id": "osm:node/415160175",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3904838,
+     "lon": 129.2872295,
+     "name": "용평리",
+     "place_id": "osm:node/415160176",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "달산면",
+     "exits": "1",
+     "lat": 36.3593137,
+     "lon": 129.2710865,
+     "name": "주응리",
+     "place_id": "osm:node/415160172",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "남정면",
+     "exits": "1",
+     "lat": 36.3546235,
+     "lon": 129.3367802,
+     "name": "중화리",
+     "place_id": "osm:node/415160169",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4108901,
+     "lon": 129.3516054,
+     "name": "천전리",
+     "place_id": "osm:node/415160165",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "강구면",
+     "exits": "1",
+     "lat": 36.401282,
+     "lon": 129.4005447,
+     "name": "하저리",
+     "place_id": "osm:node/415160160",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4388892,
+     "lon": 129.3860493,
+     "name": "화수리",
+     "place_id": "osm:node/415160208",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영덕읍",
+     "exits": "1",
+     "lat": 36.4643359,
+     "lon": 129.3576792,
+     "name": "화천리",
+     "place_id": "osm:node/415160199",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    }
+   ],
+   "36.25,129.5": [],
+   "36.5,129.25": [
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5437342,
+     "lon": 129.4168982,
+     "name": "괴시리전통마을",
+     "place_id": "osm:node/11753630207",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5202527,
+     "lon": 129.281764,
+     "name": "대리",
+     "place_id": "osm:node/415158166",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5325918,
+     "lon": 129.3867781,
+     "name": "벌영리",
+     "place_id": "osm:node/415158183",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.5106094,
+     "lon": 129.3715171,
+     "name": "부곡리",
+     "place_id": "osm:node/415158182",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.5043268,
+     "lon": 129.4014571,
+     "name": "상원리",
+     "place_id": "osm:node/415160203",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "영해면",
+     "exits": "1",
+     "lat": 36.5329136,
+     "lon": 129.4132184,
+     "name": "성내리",
+     "place_id": "osm:node/415158185",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "창수면",
+     "exits": "1",
+     "lat": 36.5492571,
+     "lon": 129.3239987,
+     "name": "신기리",
+     "place_id": "osm:node/415158168",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    },
+    {
+     "eupmyeon": "축산면",
+     "exits": "1",
+     "lat": 36.5048554,
+     "lon": 129.4386335,
+     "name": "축산리",
+     "place_id": "osm:node/415158213",
+     "region": "yeongdeok_2025",
+     "sigungu": "영덕군",
+     "single_exit": true
+    }
+   ],
+   "36.5,129.5": []
+  }
  },
  "cause_feed": {
   "note": "reported cause only; never inferred (PROTOCOL amendment 2)",
@@ -1037,7 +1905,7 @@
   "firms:MODIS_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-28T06:37:58Z",
+   "fetched_utc": "2026-11-28T07:07:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1048,7 +1916,7 @@
   "firms:VIIRS_NOAA20_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-28T06:37:58Z",
+   "fetched_utc": "2026-11-28T07:07:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1059,7 +1927,7 @@
   "firms:VIIRS_NOAA21_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-28T06:37:58Z",
+   "fetched_utc": "2026-11-28T07:07:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1070,7 +1938,7 @@
   "firms:VIIRS_SNPP_NRT": {
    "bytes": null,
    "error": "no FIRMS map key (secret FIRMS_MAP_KEY empty, no key file)",
-   "fetched_utc": "2026-11-28T06:37:58Z",
+   "fetched_utc": "2026-11-28T07:07:59Z",
    "file": null,
    "http_status": 0,
    "ok": false,
@@ -1095,7 +1963,7 @@
   "kfs": {
    "bytes": 2671,
    "error": null,
-   "fetched_utc": "2026-11-28T06:37:57Z",
+   "fetched_utc": "2026-11-28T07:07:59Z",
    "file": "kfs.json",
    "http_status": 200,
    "ok": true,
@@ -1104,9 +1972,9 @@
    "url": "https://fd.forest.go.kr/ffas/pubConn/selectPublicFireShowList.do"
   }
  },
- "issue_hour_utc": "2026-11-28T06:00:00Z",
- "issue_kst": "2026-11-28 15:37",
- "issue_utc": "2026-11-28T06:37:00Z",
+ "issue_hour_utc": "2026-11-28T07:00:00Z",
+ "issue_kst": "2026-11-28 16:07",
+ "issue_utc": "2026-11-28T07:07:00Z",
  "kfs_ok": true,
  "listed": [
   {
@@ -1210,12 +2078,12 @@
  "regions": {},
  "run": {
   "commit": "d311d5f77e14fac91d5437302d9c1a19e965c4a4",
-  "compute_finished_utc": "2026-11-28T06:37:59Z",
+  "compute_finished_utc": "2026-11-28T07:08:01Z",
   "event": "workflow_dispatch",
-  "fetch_finished_utc": "2026-11-28T06:37:58Z",
+  "fetch_finished_utc": "2026-11-28T07:07:59Z",
   "replay": false,
   "trigger": "relay",
-  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/46117431504"
+  "workflow_run": "https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/46119699381"
  },
  "schema": "wfg.live.record/1",
  "settings_sha256": "e7556c207f1f415fe51eee99cb1839c661b24c264c1f266a34e12b5f93161da1",
